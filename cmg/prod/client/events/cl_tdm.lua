@@ -484,7 +484,7 @@ local function updateChopperAI()
             pilotPed, vehicle,
             nextWaypoint.x, nextWaypoint.y, nextWaypoint.z,
             20.0,             -- speed
-            0,                -- unused "stop" flag
+            0,                -- unused "stop" stateFlag
             1543134283,       -- vehicle model hash driving style relates to (heli)
             262144,           -- driving style flags
             1.0, -1.0

@@ -32,651 +32,651 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable, numberValue, workValue7, textValue13, numberValue2, workValue11, eventRegistration, textValue19, textValue20, rageUiCall2, textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable = "cfg/cfg_vehicle_crush_trade"
+local cmgOperation, dataCollection, number, workingValue7, text13, number2, workingValue11, eventHandler, text19, text20, rageUiOperation2, text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection = "cfg/cfg_vehicle_crush_trade"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable)
-dataTable = {}
-numberValue = 0
-workValue7 = nil
-textValue13 = ""
-numberValue2 = 0
+cmgOperation = cmgOperation(dataCollection)
+dataCollection = {}
+number = 0
+workingValue7 = nil
+text13 = ""
+number2 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "050ddba34e"
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "050ddba34e"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "050ddba34e".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-eventRegistration = RegisterNetEvent
-textValue19 = "d265cf4800"
+eventHandler = RegisterNetEvent
+text19 = "d265cf4800"
 -- Beginner: this function handles network event "d265cf4800".
 
--- === HELPER FUNCTION (decompiler name: textValue20; parameters: arg1, arg2) ===
-function textValue20(arg1, arg2)
-  local dataTable3, textValue11
-  dataTable3 = arg1 or nil
-  if not arg1 then
-    dataTable3 = {}
+-- === HELPER FUNCTION (decompiler name: text20; parameters: localValue1, localValue2) ===
+function text20(localValue1, localValue2)
+  local dataCollection3, text11
+  dataCollection3 = localValue1 or nil
+  if not localValue1 then
+    dataCollection3 = {}
   end
-  dataTable = dataTable3
-  dataTable3 = tonumber
-  textValue11 = arg2
-  dataTable3 = dataTable3(textValue11)
-  if not dataTable3 then
-    dataTable3 = 0
+  dataCollection = dataCollection3
+  dataCollection3 = tonumber
+  text11 = localValue2
+  dataCollection3 = dataCollection3(text11)
+  if not dataCollection3 then
+    dataCollection3 = 0
   end
-  numberValue = dataTable3
+  number = dataCollection3
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d265cf4800".
-eventRegistration(textValue19, textValue20)
-eventRegistration = RMenu
-eventRegistration = eventRegistration.Add
-textValue19 = "vcrush"
-textValue20 = "main"
-rageUiCall2 = RageUI
-rageUiCall2 = rageUiCall2.CreateMenu
-textValue = ""
-textValue3 = "~b~Vehicle Lock trade-in"
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-rageUiCall5 = "cmg_garageui"
-textValue6 = "cmg_garageui"
-rageUiCall2, textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2 = rageUiCall2(textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6)
-eventRegistration(textValue19, textValue20, rageUiCall2, textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2)
-eventRegistration = RMenu
-eventRegistration = eventRegistration.Add
-textValue19 = "vcrush"
-textValue20 = "crush1"
-rageUiCall2 = RageUI
-rageUiCall2 = rageUiCall2.CreateSubMenu
-textValue = RMenu
-textValue3 = textValue
-textValue = textValue.Get
-rageUiCall3 = "vcrush"
-rageUiCall4 = "main"
+eventHandler(text19, text20)
+eventHandler = RMenu
+eventHandler = eventHandler.Add
+text19 = "vcrush"
+text20 = "main"
+rageUiOperation2 = RageUI
+rageUiOperation2 = rageUiOperation2.CreateMenu
+text = ""
+text3 = "~b~Vehicle Lock trade-in"
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+rageUiOperation5 = "cmg_garageui"
+text6 = "cmg_garageui"
+rageUiOperation2, text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2 = rageUiOperation2(text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6)
+eventHandler(text19, text20, rageUiOperation2, text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2)
+eventHandler = RMenu
+eventHandler = eventHandler.Add
+text19 = "vcrush"
+text20 = "crush1"
+rageUiOperation2 = RageUI
+rageUiOperation2 = rageUiOperation2.CreateSubMenu
+text = RMenu
+text3 = text
+text = text.Get
+rageUiOperation3 = "vcrush"
+rageUiOperation4 = "main"
 -- Beginner: result below is menu.
-textValue = textValue(textValue3, rageUiCall3, rageUiCall4)
-textValue3 = ""
-rageUiCall3 = "~o~Confirm (1/2)"
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuWidth
-rageUiCall4 = rageUiCall4()
-rageUiCall5 = CMG
-rageUiCall5 = rageUiCall5.getRageUIMenuHeight
-rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2 = rageUiCall5()
-rageUiCall2, textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2 = rageUiCall2(textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2)
-eventRegistration(textValue19, textValue20, rageUiCall2, textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2)
-eventRegistration = RMenu
-eventRegistration = eventRegistration.Add
-textValue19 = "vcrush"
-textValue20 = "crush2"
-rageUiCall2 = RageUI
-rageUiCall2 = rageUiCall2.CreateSubMenu
-textValue = RMenu
-textValue3 = textValue
-textValue = textValue.Get
-rageUiCall3 = "vcrush"
-rageUiCall4 = "crush1"
+text = text(text3, rageUiOperation3, rageUiOperation4)
+text3 = ""
+rageUiOperation3 = "~o~Confirm (1/2)"
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuWidth
+rageUiOperation4 = rageUiOperation4()
+rageUiOperation5 = CMG
+rageUiOperation5 = rageUiOperation5.getRageUIMenuHeight
+rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2 = rageUiOperation5()
+rageUiOperation2, text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2 = rageUiOperation2(text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2)
+eventHandler(text19, text20, rageUiOperation2, text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2)
+eventHandler = RMenu
+eventHandler = eventHandler.Add
+text19 = "vcrush"
+text20 = "crush2"
+rageUiOperation2 = RageUI
+rageUiOperation2 = rageUiOperation2.CreateSubMenu
+text = RMenu
+text3 = text
+text = text.Get
+rageUiOperation3 = "vcrush"
+rageUiOperation4 = "crush1"
 -- Beginner: result below is menu.
-textValue = textValue(textValue3, rageUiCall3, rageUiCall4)
-textValue3 = ""
-rageUiCall3 = "~r~Final confirm"
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuWidth
-rageUiCall4 = rageUiCall4()
-rageUiCall5 = CMG
-rageUiCall5 = rageUiCall5.getRageUIMenuHeight
-rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2 = rageUiCall5()
-rageUiCall2, textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2 = rageUiCall2(textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2)
-eventRegistration(textValue19, textValue20, rageUiCall2, textValue, textValue3, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2)
-eventRegistration = tonumber
-textValue19 = cmgCall.tokensPerLockslotItem
-eventRegistration = eventRegistration(textValue19)
-if not eventRegistration then
-  eventRegistration = 10
+text = text(text3, rageUiOperation3, rageUiOperation4)
+text3 = ""
+rageUiOperation3 = "~r~Final confirm"
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuWidth
+rageUiOperation4 = rageUiOperation4()
+rageUiOperation5 = CMG
+rageUiOperation5 = rageUiOperation5.getRageUIMenuHeight
+rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2 = rageUiOperation5()
+rageUiOperation2, text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2 = rageUiOperation2(text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2)
+eventHandler(text19, text20, rageUiOperation2, text, text3, rageUiOperation3, rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2)
+eventHandler = tonumber
+text19 = cmgOperation.tokensPerLockslotItem
+eventHandler = eventHandler(text19)
+if not eventHandler then
+  eventHandler = 10
 end
-textValue19 = tonumber
-textValue20 = cmgCall.cashRedeemTokenCost
-textValue19 = textValue19(textValue20)
-if not textValue19 then
-  textValue19 = 10
+text19 = tonumber
+text20 = cmgOperation.cashRedeemTokenCost
+text19 = text19(text20)
+if not text19 then
+  text19 = 10
 end
-textValue20 = tonumber
-rageUiCall2 = cmgCall.cashRedeemAmount
-textValue20 = textValue20(rageUiCall2)
-if not textValue20 then
-  textValue20 = 0
+text20 = tonumber
+rageUiOperation2 = cmgOperation.cashRedeemAmount
+text20 = text20(rageUiOperation2)
+if not text20 then
+  text20 = 0
 end
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
-function rageUiCall2()
-  local arg1, arg2, dataTable3, textValue11, flag2
-  arg1 = workValue11
-  arg1()
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  dataTable3 = arg2
-  arg2 = arg2.Get
-  textValue11 = "vcrush"
-  flag2 = "main"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: none) ===
+function rageUiOperation2()
+  local localValue1, localValue2, dataCollection3, text11, stateFlag2
+  localValue1 = workingValue11
+  localValue1()
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  dataCollection3 = localValue2
+  localValue2 = localValue2.Get
+  text11 = "vcrush"
+  stateFlag2 = "main"
   -- Beginner: result below is menu.
-  arg2 = arg2(dataTable3, textValue11, flag2)
-  dataTable3 = true
-  arg1(arg2, dataTable3)
+  localValue2 = localValue2(dataCollection3, text11, stateFlag2)
+  dataCollection3 = true
+  localValue1(localValue2, dataCollection3)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2
-  arg1 = RageUI
-  arg1 = arg1.IsAnyMenuOfTypeVisible
-  arg2 = "vcrush"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = RageUI
-    arg1 = arg1.CloseAll
-    arg1()
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2
+  localValue1 = RageUI
+  localValue1 = localValue1.IsAnyMenuOfTypeVisible
+  localValue2 = "vcrush"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.CloseAll
+    localValue1()
   end
 end
-textValue3 = cmgCall.areaCenter
-rageUiCall3 = tCMG
-rageUiCall3 = rageUiCall3.addPropMarker
-rageUiCall4 = "bzzz_marker_garage_green_anim"
-rageUiCall5 = textValue3.x
-textValue6 = textValue3.y
-workValue2 = textValue3.z
-workValue2 = workValue2 + 1
-textValue7 = 50.0
+text3 = cmgOperation.areaCenter
+rageUiOperation3 = tCMG
+rageUiOperation3 = rageUiOperation3.addPropMarker
+rageUiOperation4 = "bzzz_marker_garage_green_anim"
+rageUiOperation5 = text3.x
+text6 = text3.y
+workingValue2 = text3.z
+workingValue2 = workingValue2 + 1
+text7 = 50.0
 -- Beginner: Create a prop-style world marker.
-rageUiCall3(rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7)
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.createArea
-rageUiCall4 = "vehicle_crush_trade"
-rageUiCall5 = textValue3
-textValue6 = cmgCall.areaHalfExtent
-if not textValue6 then
-  textValue6 = 2.0
+rageUiOperation3(rageUiOperation4, rageUiOperation5, text6, workingValue2, text7)
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.createArea
+rageUiOperation4 = "vehicle_crush_trade"
+rageUiOperation5 = text3
+text6 = cmgOperation.areaHalfExtent
+if not text6 then
+  text6 = 2.0
 end
-workValue2 = cmgCall.areaHeight
-if not workValue2 then
-  workValue2 = 2.5
+workingValue2 = cmgOperation.areaHeight
+if not workingValue2 then
+  workingValue2 = 2.5
 end
-textValue7 = rageUiCall2
-workValue5 = textValue
+text7 = rageUiOperation2
+workingValue5 = text
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-function workValue6()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+function workingValue6()
+  local localValue1, localValue2
 end
-dataTable2 = {}
+dataCollection2 = {}
 -- Beginner: Create an interaction area around a world position.
-rageUiCall3(rageUiCall4, rageUiCall5, textValue6, workValue2, textValue7, workValue5, workValue6, dataTable2)
-rageUiCall3 = RageUI
-rageUiCall3 = rageUiCall3.CreateWhile
-rageUiCall4 = 1.0
-rageUiCall5 = RMenu
-textValue6 = rageUiCall5
-rageUiCall5 = rageUiCall5.Get
-workValue2 = "vcrush"
-textValue7 = "main"
+rageUiOperation3(rageUiOperation4, rageUiOperation5, text6, workingValue2, text7, workingValue5, workingValue6, dataCollection2)
+rageUiOperation3 = RageUI
+rageUiOperation3 = rageUiOperation3.CreateWhile
+rageUiOperation4 = 1.0
+rageUiOperation5 = RMenu
+text6 = rageUiOperation5
+rageUiOperation5 = rageUiOperation5.Get
+workingValue2 = "vcrush"
+text7 = "main"
 -- Beginner: result below is menu.
-rageUiCall5 = rageUiCall5(textValue6, workValue2, textValue7)
-textValue6 = nil
+rageUiOperation5 = rageUiOperation5(text6, workingValue2, text7)
+text6 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, arg2, dataTable3, textValue11, flag2, workValue10, workValue12
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  dataTable3 = arg2
-  arg2 = arg2.Get
-  textValue11 = "vcrush"
-  flag2 = "main"
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, localValue2, dataCollection3, text11, stateFlag2, workingValue10, workingValue12
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  dataCollection3 = localValue2
+  localValue2 = localValue2.Get
+  text11 = "vcrush"
+  stateFlag2 = "main"
   -- Beginner: result below is menu.
-  arg2 = arg2(dataTable3, textValue11, flag2)
-  dataTable3 = true
-  textValue11 = true
-  flag2 = true
+  localValue2 = localValue2(dataCollection3, text11, stateFlag2)
+  dataCollection3 = true
+  text11 = true
+  stateFlag2 = true
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local rageUiCall, textValue9, stringHelper3, textValue12, workValue9, textValue15, textValue16, numberValue3, workValue13, textValue21, stringHelper, textValue2, textValue4, textValue5, stringHelper2, flag, workValue, workValue3, workValue4, textValue8, textValue10
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "You can exchange "
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local rageUiOperation, text9, stringHelper3, text12, workingValue9, text15, text16, number3, workingValue13, text21, stringHelper, text2, text4, text5, stringHelper2, stateFlag, workingValue, workingValue3, workingValue4, text8, text10
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "You can exchange "
     stringHelper3 = tostring
-    textValue12 = eventRegistration
-    stringHelper3 = stringHelper3(textValue12)
-    textValue12 = " tokens for 1 lock slot"
-    textValue9 = textValue9 .. stringHelper3 .. textValue12
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "Lock slot tokens: "
+    text12 = eventHandler
+    stringHelper3 = stringHelper3(text12)
+    text12 = " tokens for 1 lock slot"
+    text9 = text9 .. stringHelper3 .. text12
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "Lock slot tokens: "
     stringHelper3 = tostring
-    textValue12 = numberValue
-    stringHelper3 = stringHelper3(textValue12)
-    textValue9 = textValue9 .. stringHelper3
-    rageUiCall(textValue9)
-    rageUiCall = dataTable
-    rageUiCall = rageUiCall[1]
-    if nil == rageUiCall then
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.Separator
-      textValue9 = "~r~No eligible vehicles"
-      rageUiCall(textValue9)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.Separator
-      textValue9 = "Locked vehicles only, non lore. up to 1:10"
-      rageUiCall(textValue9)
+    text12 = number
+    stringHelper3 = stringHelper3(text12)
+    text9 = text9 .. stringHelper3
+    rageUiOperation(text9)
+    rageUiOperation = dataCollection
+    rageUiOperation = rageUiOperation[1]
+    if nil == rageUiOperation then
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.Separator
+      text9 = "~r~No eligible vehicles"
+      rageUiOperation(text9)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.Separator
+      text9 = "Locked vehicles only, non lore. up to 1:10"
+      rageUiOperation(text9)
     else
-      rageUiCall = ipairs
-      textValue9 = dataTable
-      rageUiCall, textValue9, stringHelper3, textValue12 = rageUiCall(textValue9)
-      for workValue9, textValue15 in rageUiCall, textValue9, stringHelper3, textValue12 do
-        textValue16 = textValue15.displayName
-        if not textValue16 then
-          textValue16 = textValue15.vehicleId
-          if not textValue16 then
-            textValue16 = "?"
+      rageUiOperation = ipairs
+      text9 = dataCollection
+      rageUiOperation, text9, stringHelper3, text12 = rageUiOperation(text9)
+      for workingValue9, text15 in rageUiOperation, text9, stringHelper3, text12 do
+        text16 = text15.displayName
+        if not text16 then
+          text16 = text15.vehicleId
+          if not text16 then
+            text16 = "?"
           end
         end
-        numberValue3 = tonumber
-        workValue13 = textValue15.ratio
-        numberValue3 = numberValue3(workValue13)
-        if not numberValue3 then
-          numberValue3 = 0
+        number3 = tonumber
+        workingValue13 = text15.ratio
+        number3 = number3(workingValue13)
+        if not number3 then
+          number3 = 0
         end
-        workValue13 = textValue16
-        textValue21 = " ~y~1:"
+        workingValue13 = text16
+        text21 = " ~y~1:"
         stringHelper = tostring
-        textValue2 = numberValue3
-        stringHelper = stringHelper(textValue2)
-        textValue2 = "~s~"
-        workValue13 = workValue13 .. textValue21 .. stringHelper .. textValue2
-        textValue21 = tonumber
-        stringHelper = textValue15.tokens
-        textValue21 = textValue21(stringHelper)
-        if not textValue21 then
-          textValue21 = 0
+        text2 = number3
+        stringHelper = stringHelper(text2)
+        text2 = "~s~"
+        workingValue13 = workingValue13 .. text21 .. stringHelper .. text2
+        text21 = tonumber
+        stringHelper = text15.tokens
+        text21 = text21(stringHelper)
+        if not text21 then
+          text21 = 0
         end
         stringHelper = tostring
-        textValue2 = textValue21
-        stringHelper = stringHelper(textValue2)
-        textValue2 = " Token"
-        if 1 == textValue21 then
-          textValue4 = ""
-          if textValue4 then
-            goto flow_label_71
+        text2 = text21
+        stringHelper = stringHelper(text2)
+        text2 = " Token"
+        if 1 == text21 then
+          text4 = ""
+          if text4 then
+            goto continueAtStep71
           end
         end
-        textValue4 = "s"
-        ::flow_label_71::
-        stringHelper = stringHelper .. textValue2 .. textValue4
-        textValue2 = RageUI
-        textValue2 = textValue2.ButtonWithStyle
-        textValue4 = workValue13
-        textValue5 = "Plate: "
+        text4 = "s"
+        ::continueAtStep71::
+        stringHelper = stringHelper .. text2 .. text4
+        text2 = RageUI
+        text2 = text2.ButtonWithStyle
+        text4 = workingValue13
+        text5 = "Plate: "
         stringHelper2 = tostring
-        flag = textValue15.plate
-        if not flag then
-          flag = ""
+        stateFlag = text15.plate
+        if not stateFlag then
+          stateFlag = ""
         end
-        stringHelper2 = stringHelper2(flag)
-        textValue5 = textValue5 .. stringHelper2
+        stringHelper2 = stringHelper2(stateFlag)
+        text5 = text5 .. stringHelper2
         stringHelper2 = {}
         stringHelper2.RightLabel = stringHelper
-        flag = true
+        stateFlag = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg12, arg22, arg3) ===
-        function workValue(arg12, arg22, arg3)
-          local workValue8
-          if arg3 then
-            workValue8 = textValue15.uuid
-            workValue7 = workValue8
-            workValue8 = textValue15.displayName
-            if not workValue8 then
-              workValue8 = textValue15.vehicleId
+        -- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue12, localValue22, localValue3) ===
+        function workingValue(localValue12, localValue22, localValue3)
+          local workingValue8
+          if localValue3 then
+            workingValue8 = text15.uuid
+            workingValue7 = workingValue8
+            workingValue8 = text15.displayName
+            if not workingValue8 then
+              workingValue8 = text15.vehicleId
             end
-            textValue13 = workValue8
-            workValue8 = textValue15.tokens
-            numberValue2 = workValue8
+            text13 = workingValue8
+            workingValue8 = text15.tokens
+            number2 = workingValue8
           end
         end
-        workValue3 = RMenu
-        workValue4 = workValue3
-        workValue3 = workValue3.Get
-        textValue8 = "vcrush"
-        textValue10 = "crush1"
-        workValue3, workValue4, textValue8, textValue10 = workValue3(workValue4, textValue8, textValue10)
+        workingValue3 = RMenu
+        workingValue4 = workingValue3
+        workingValue3 = workingValue3.Get
+        text8 = "vcrush"
+        text10 = "crush1"
+        workingValue3, workingValue4, text8, text10 = workingValue3(workingValue4, text8, text10)
         -- Beginner: Draw a selectable RageUI menu button.
-        textValue2(textValue4, textValue5, stringHelper2, flag, workValue, workValue3, workValue4, textValue8, textValue10)
+        text2(text4, text5, stringHelper2, stateFlag, workingValue, workingValue3, workingValue4, text8, text10)
       end
     end
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.ButtonWithStyle
-    textValue9 = "~b~Exchange "
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.ButtonWithStyle
+    text9 = "~b~Exchange "
     stringHelper3 = tostring
-    textValue12 = eventRegistration
-    stringHelper3 = stringHelper3(textValue12)
-    textValue12 = " tokens for ~g~1x Lock Slot"
-    textValue9 = textValue9 .. stringHelper3 .. textValue12
+    text12 = eventHandler
+    stringHelper3 = stringHelper3(text12)
+    text12 = " tokens for ~g~1x Lock Slot"
+    text9 = text9 .. stringHelper3 .. text12
     stringHelper3 = ""
-    textValue12 = {}
-    textValue12.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue9 = numberValue
-    textValue15 = eventRegistration
-    workValue9 = workValue9 >= textValue15
+    text12 = {}
+    text12.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue9 = number
+    text15 = eventHandler
+    workingValue9 = workingValue9 >= text15
 
-    -- === HELPER FUNCTION (decompiler name: textValue15; parameters: arg12, arg22, arg3) ===
-    function textValue15(arg12, arg22, arg3)
-      local workValue8, textValue14
-      if arg3 then
-        workValue8 = numberValue
-        textValue14 = eventRegistration
-        if workValue8 >= textValue14 then
-          workValue8 = TriggerServerEvent
-          textValue14 = "95c13026d2"
+    -- === HELPER FUNCTION (decompiler name: text15; parameters: localValue12, localValue22, localValue3) ===
+    function text15(localValue12, localValue22, localValue3)
+      local workingValue8, text14
+      if localValue3 then
+        workingValue8 = number
+        text14 = eventHandler
+        if workingValue8 >= text14 then
+          workingValue8 = TriggerServerEvent
+          text14 = "95c13026d2"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "95c13026d2".
-          workValue8(textValue14)
+          workingValue8(text14)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall(textValue9, stringHelper3, textValue12, workValue9, textValue15)
-    rageUiCall = textValue20
-    if rageUiCall > 0 then
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.ButtonWithStyle
-      textValue9 = "~b~Exchange "
+    rageUiOperation(text9, stringHelper3, text12, workingValue9, text15)
+    rageUiOperation = text20
+    if rageUiOperation > 0 then
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.ButtonWithStyle
+      text9 = "~b~Exchange "
       stringHelper3 = tostring
-      textValue12 = textValue19
-      stringHelper3 = stringHelper3(textValue12)
-      textValue12 = " tokens for ~g~\194\163"
-      workValue9 = getMoneyStringFormatted
-      textValue15 = textValue20
-      workValue9 = workValue9(textValue15)
-      textValue15 = "~s~"
-      textValue9 = textValue9 .. stringHelper3 .. textValue12 .. workValue9 .. textValue15
+      text12 = text19
+      stringHelper3 = stringHelper3(text12)
+      text12 = " tokens for ~g~\194\163"
+      workingValue9 = getMoneyStringFormatted
+      text15 = text20
+      workingValue9 = workingValue9(text15)
+      text15 = "~s~"
+      text9 = text9 .. stringHelper3 .. text12 .. workingValue9 .. text15
       stringHelper3 = ""
-      textValue12 = {}
-      textValue12.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      workValue9 = numberValue
-      textValue15 = textValue19
-      workValue9 = workValue9 >= textValue15
+      text12 = {}
+      text12.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workingValue9 = number
+      text15 = text19
+      workingValue9 = workingValue9 >= text15
 
-      -- === HELPER FUNCTION (decompiler name: textValue15; parameters: arg12, arg22, arg3) ===
-      function textValue15(arg12, arg22, arg3)
-        local workValue8, textValue14
-        if arg3 then
-          workValue8 = numberValue
-          textValue14 = textValue19
-          if workValue8 >= textValue14 then
-            workValue8 = TriggerServerEvent
-            textValue14 = "b51eb93222"
+      -- === HELPER FUNCTION (decompiler name: text15; parameters: localValue12, localValue22, localValue3) ===
+      function text15(localValue12, localValue22, localValue3)
+        local workingValue8, text14
+        if localValue3 then
+          workingValue8 = number
+          text14 = text19
+          if workingValue8 >= text14 then
+            workingValue8 = TriggerServerEvent
+            text14 = "b51eb93222"
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b51eb93222".
-            workValue8(textValue14)
+            workingValue8(text14)
           end
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      rageUiCall(textValue9, stringHelper3, textValue12, workValue9, textValue15)
+      rageUiOperation(text9, stringHelper3, text12, workingValue9, text15)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-  function workValue12()
-    local rageUiCall, textValue9
+  -- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+  function workingValue12()
+    local rageUiOperation, text9
   end
-  arg1(arg2, dataTable3, textValue11, flag2, workValue10, workValue12)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  dataTable3 = arg2
-  arg2 = arg2.Get
-  textValue11 = "vcrush"
-  flag2 = "crush1"
+  localValue1(localValue2, dataCollection3, text11, stateFlag2, workingValue10, workingValue12)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  dataCollection3 = localValue2
+  localValue2 = localValue2.Get
+  text11 = "vcrush"
+  stateFlag2 = "crush1"
   -- Beginner: result below is menu.
-  arg2 = arg2(dataTable3, textValue11, flag2)
-  dataTable3 = true
-  textValue11 = false
-  flag2 = true
+  localValue2 = localValue2(dataCollection3, text11, stateFlag2)
+  dataCollection3 = true
+  text11 = false
+  stateFlag2 = true
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local rageUiCall, textValue9, stringHelper3, textValue12, workValue9, textValue15, textValue16, numberValue3, workValue13, textValue21
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = textValue13
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "~r~YOU LOSE:~s~ this vehicle forever."
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "~g~YOU GET:~s~ +"
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local rageUiOperation, text9, stringHelper3, text12, workingValue9, text15, text16, number3, workingValue13, text21
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = text13
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "~r~YOU LOSE:~s~ this vehicle forever."
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "~g~YOU GET:~s~ +"
     stringHelper3 = tostring
-    textValue12 = numberValue2
-    stringHelper3 = stringHelper3(textValue12)
-    textValue12 = " lock slot token(s)."
-    textValue9 = textValue9 .. stringHelper3 .. textValue12
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "Cannot be undone."
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.ButtonWithStyle
-    textValue9 = "~y~Continue to final warning"
+    text12 = number2
+    stringHelper3 = stringHelper3(text12)
+    text12 = " lock slot token(s)."
+    text9 = text9 .. stringHelper3 .. text12
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "Cannot be undone."
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.ButtonWithStyle
+    text9 = "~y~Continue to final warning"
     stringHelper3 = ""
-    textValue12 = {}
-    textValue12.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue9 = true
+    text12 = {}
+    text12.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue9 = true
 
-    -- === HELPER FUNCTION (decompiler name: textValue15; parameters: none) ===
-    function textValue15()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: text15; parameters: none) ===
+    function text15()
+      local localValue12, localValue22
     end
-    textValue16 = RMenu
-    numberValue3 = textValue16
-    textValue16 = textValue16.Get
-    workValue13 = "vcrush"
-    textValue21 = "crush2"
-    textValue16, numberValue3, workValue13, textValue21 = textValue16(numberValue3, workValue13, textValue21)
+    text16 = RMenu
+    number3 = text16
+    text16 = text16.Get
+    workingValue13 = "vcrush"
+    text21 = "crush2"
+    text16, number3, workingValue13, text21 = text16(number3, workingValue13, text21)
     -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall(textValue9, stringHelper3, textValue12, workValue9, textValue15, textValue16, numberValue3, workValue13, textValue21)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.ButtonWithStyle
-    textValue9 = "~g~Cancel"
+    rageUiOperation(text9, stringHelper3, text12, workingValue9, text15, text16, number3, workingValue13, text21)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.ButtonWithStyle
+    text9 = "~g~Cancel"
     stringHelper3 = ""
-    textValue12 = {}
-    textValue12.RightLabel = ""
-    workValue9 = true
+    text12 = {}
+    text12.RightLabel = ""
+    workingValue9 = true
 
-    -- === HELPER FUNCTION (decompiler name: textValue15; parameters: arg12, arg22, arg3) ===
-    function textValue15(arg12, arg22, arg3)
-      local workValue8, textValue14, flag3, textValue17, textValue18
-      if arg3 then
-        workValue8 = RageUI
-        workValue8 = workValue8.Visible
-        textValue14 = RMenu
-        flag3 = textValue14
-        textValue14 = textValue14.Get
-        textValue17 = "vcrush"
-        textValue18 = "main"
+    -- === HELPER FUNCTION (decompiler name: text15; parameters: localValue12, localValue22, localValue3) ===
+    function text15(localValue12, localValue22, localValue3)
+      local workingValue8, text14, stateFlag3, text17, text18
+      if localValue3 then
+        workingValue8 = RageUI
+        workingValue8 = workingValue8.Visible
+        text14 = RMenu
+        stateFlag3 = text14
+        text14 = text14.Get
+        text17 = "vcrush"
+        text18 = "main"
         -- Beginner: result below is menu.
-        textValue14 = textValue14(flag3, textValue17, textValue18)
-        flag3 = true
-        workValue8(textValue14, flag3)
+        text14 = text14(stateFlag3, text17, text18)
+        stateFlag3 = true
+        workingValue8(text14, stateFlag3)
       end
     end
-    textValue16 = RMenu
-    numberValue3 = textValue16
-    textValue16 = textValue16.Get
-    workValue13 = "vcrush"
-    textValue21 = "main"
-    textValue16, numberValue3, workValue13, textValue21 = textValue16(numberValue3, workValue13, textValue21)
+    text16 = RMenu
+    number3 = text16
+    text16 = text16.Get
+    workingValue13 = "vcrush"
+    text21 = "main"
+    text16, number3, workingValue13, text21 = text16(number3, workingValue13, text21)
     -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall(textValue9, stringHelper3, textValue12, workValue9, textValue15, textValue16, numberValue3, workValue13, textValue21)
+    rageUiOperation(text9, stringHelper3, text12, workingValue9, text15, text16, number3, workingValue13, text21)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-  function workValue12()
-    local rageUiCall, textValue9
+  -- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+  function workingValue12()
+    local rageUiOperation, text9
   end
-  arg1(arg2, dataTable3, textValue11, flag2, workValue10, workValue12)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  dataTable3 = arg2
-  arg2 = arg2.Get
-  textValue11 = "vcrush"
-  flag2 = "crush2"
+  localValue1(localValue2, dataCollection3, text11, stateFlag2, workingValue10, workingValue12)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  dataCollection3 = localValue2
+  localValue2 = localValue2.Get
+  text11 = "vcrush"
+  stateFlag2 = "crush2"
   -- Beginner: result below is menu.
-  arg2 = arg2(dataTable3, textValue11, flag2)
-  dataTable3 = true
-  textValue11 = false
-  flag2 = true
+  localValue2 = localValue2(dataCollection3, text11, stateFlag2)
+  dataCollection3 = true
+  text11 = false
+  stateFlag2 = true
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local rageUiCall, textValue9, stringHelper3, textValue12, workValue9, textValue15, textValue16, numberValue3, workValue13, textValue21
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "~r~FINAL"
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "This vehicle will be removed from your garage and scrapped."
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "You will not own it anymore."
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Separator
-    textValue9 = "You will receive ~g~"
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local rageUiOperation, text9, stringHelper3, text12, workingValue9, text15, text16, number3, workingValue13, text21
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "~r~FINAL"
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "This vehicle will be removed from your garage and scrapped."
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "You will not own it anymore."
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Separator
+    text9 = "You will receive ~g~"
     stringHelper3 = tostring
-    textValue12 = numberValue2
-    stringHelper3 = stringHelper3(textValue12)
-    textValue12 = "~s~ lock slot token(s)."
-    textValue9 = textValue9 .. stringHelper3 .. textValue12
-    rageUiCall(textValue9)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.ButtonWithStyle
-    textValue9 = "~r~YES - trade-in"
+    text12 = number2
+    stringHelper3 = stringHelper3(text12)
+    text12 = "~s~ lock slot token(s)."
+    text9 = text9 .. stringHelper3 .. text12
+    rageUiOperation(text9)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.ButtonWithStyle
+    text9 = "~r~YES - trade-in"
     stringHelper3 = ""
-    textValue12 = {}
-    textValue12.RightLabel = ""
-    workValue9 = workValue7
-    workValue9 = nil ~= workValue9
+    text12 = {}
+    text12.RightLabel = ""
+    workingValue9 = workingValue7
+    workingValue9 = nil ~= workingValue9
 
-    -- === HELPER FUNCTION (decompiler name: textValue15; parameters: arg12, arg22, arg3) ===
-    function textValue15(arg12, arg22, arg3)
-      local workValue8, textValue14, flag3, textValue17, textValue18
-      if arg3 then
-        workValue8 = workValue7
-        if workValue8 then
-          workValue8 = TriggerServerEvent
-          textValue14 = "b09374a264"
-          flag3 = workValue7
+    -- === HELPER FUNCTION (decompiler name: text15; parameters: localValue12, localValue22, localValue3) ===
+    function text15(localValue12, localValue22, localValue3)
+      local workingValue8, text14, stateFlag3, text17, text18
+      if localValue3 then
+        workingValue8 = workingValue7
+        if workingValue8 then
+          workingValue8 = TriggerServerEvent
+          text14 = "b09374a264"
+          stateFlag3 = workingValue7
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b09374a264".
-          workValue8(textValue14, flag3)
-          workValue8 = RageUI
-          workValue8 = workValue8.Visible
-          textValue14 = RMenu
-          flag3 = textValue14
-          textValue14 = textValue14.Get
-          textValue17 = "vcrush"
-          textValue18 = "main"
+          workingValue8(text14, stateFlag3)
+          workingValue8 = RageUI
+          workingValue8 = workingValue8.Visible
+          text14 = RMenu
+          stateFlag3 = text14
+          text14 = text14.Get
+          text17 = "vcrush"
+          text18 = "main"
           -- Beginner: result below is menu.
-          textValue14 = textValue14(flag3, textValue17, textValue18)
-          flag3 = true
-          workValue8(textValue14, flag3)
-          workValue8 = nil
-          workValue7 = workValue8
+          text14 = text14(stateFlag3, text17, text18)
+          stateFlag3 = true
+          workingValue8(text14, stateFlag3)
+          workingValue8 = nil
+          workingValue7 = workingValue8
         end
       end
     end
-    textValue16 = RMenu
-    numberValue3 = textValue16
-    textValue16 = textValue16.Get
-    workValue13 = "vcrush"
-    textValue21 = "main"
-    textValue16, numberValue3, workValue13, textValue21 = textValue16(numberValue3, workValue13, textValue21)
+    text16 = RMenu
+    number3 = text16
+    text16 = text16.Get
+    workingValue13 = "vcrush"
+    text21 = "main"
+    text16, number3, workingValue13, text21 = text16(number3, workingValue13, text21)
     -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall(textValue9, stringHelper3, textValue12, workValue9, textValue15, textValue16, numberValue3, workValue13, textValue21)
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.ButtonWithStyle
-    textValue9 = "~g~NO - go back"
+    rageUiOperation(text9, stringHelper3, text12, workingValue9, text15, text16, number3, workingValue13, text21)
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.ButtonWithStyle
+    text9 = "~g~NO - go back"
     stringHelper3 = ""
-    textValue12 = {}
-    textValue12.RightLabel = ""
-    workValue9 = true
+    text12 = {}
+    text12.RightLabel = ""
+    workingValue9 = true
 
-    -- === HELPER FUNCTION (decompiler name: textValue15; parameters: arg12, arg22, arg3) ===
-    function textValue15(arg12, arg22, arg3)
-      local workValue8, textValue14, flag3, textValue17, textValue18
-      if arg3 then
-        workValue8 = RageUI
-        workValue8 = workValue8.Visible
-        textValue14 = RMenu
-        flag3 = textValue14
-        textValue14 = textValue14.Get
-        textValue17 = "vcrush"
-        textValue18 = "crush1"
+    -- === HELPER FUNCTION (decompiler name: text15; parameters: localValue12, localValue22, localValue3) ===
+    function text15(localValue12, localValue22, localValue3)
+      local workingValue8, text14, stateFlag3, text17, text18
+      if localValue3 then
+        workingValue8 = RageUI
+        workingValue8 = workingValue8.Visible
+        text14 = RMenu
+        stateFlag3 = text14
+        text14 = text14.Get
+        text17 = "vcrush"
+        text18 = "crush1"
         -- Beginner: result below is menu.
-        textValue14 = textValue14(flag3, textValue17, textValue18)
-        flag3 = true
-        workValue8(textValue14, flag3)
+        text14 = text14(stateFlag3, text17, text18)
+        stateFlag3 = true
+        workingValue8(text14, stateFlag3)
       end
     end
-    textValue16 = RMenu
-    numberValue3 = textValue16
-    textValue16 = textValue16.Get
-    workValue13 = "vcrush"
-    textValue21 = "crush1"
-    textValue16, numberValue3, workValue13, textValue21 = textValue16(numberValue3, workValue13, textValue21)
+    text16 = RMenu
+    number3 = text16
+    text16 = text16.Get
+    workingValue13 = "vcrush"
+    text21 = "crush1"
+    text16, number3, workingValue13, text21 = text16(number3, workingValue13, text21)
     -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall(textValue9, stringHelper3, textValue12, workValue9, textValue15, textValue16, numberValue3, workValue13, textValue21)
+    rageUiOperation(text9, stringHelper3, text12, workingValue9, text15, text16, number3, workingValue13, text21)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-  function workValue12()
-    local rageUiCall, textValue9
+  -- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+  function workingValue12()
+    local rageUiOperation, text9
   end
-  arg1(arg2, dataTable3, textValue11, flag2, workValue10, workValue12)
+  localValue1(localValue2, dataCollection3, text11, stateFlag2, workingValue10, workingValue12)
 end
-rageUiCall3(rageUiCall4, rageUiCall5, textValue6, workValue2)
+rageUiOperation3(rageUiOperation4, rageUiOperation5, text6, workingValue2)

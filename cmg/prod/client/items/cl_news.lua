@@ -32,962 +32,962 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, textValue4, numberValue6, numberValue7, numberValue8, numberValue9, workValue6, numberValue11, numberValue12, workValue8, workValue, workValue2, eventRegistration, textValue, cmgCall2, workValue3, textValue3, threadCall, workValue4
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-textValue4 = "cfg/cfg_news"
+local cmgOperation, text4, number6, number7, number8, number9, workingValue6, number11, number12, workingValue8, workingValue, workingValue2, eventHandler, text, cmgOperation2, workingValue3, text3, backgroundThread, workingValue4
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+text4 = "cfg/cfg_news"
 -- Beginner: result below is config.
-cmgCall = cmgCall(textValue4)
-textValue4 = 70.0
-numberValue6 = 5.0
-numberValue7 = 10.0
-numberValue8 = 8.0
-numberValue9 = 8.0
-workValue6 = textValue4 + numberValue6
-workValue6 = workValue6 * 0.5
-numberValue11 = 1
-numberValue12 = 0.0
+cmgOperation = cmgOperation(text4)
+text4 = 70.0
+number6 = 5.0
+number7 = 10.0
+number8 = 8.0
+number9 = 8.0
+workingValue6 = text4 + number6
+workingValue6 = workingValue6 * 0.5
+number11 = 1
+number12 = 0.0
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local arg2, playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9, flag, flag2, numberValue, numberValue2, numberValue3, textValue2, numberValue4, flag3, flag4, flag5, flag6, flag7, numberValue5, flag8
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local localValue2, playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2, number, number2, number3, text2, number4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, number5, stateFlag8
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
+  localValue2 = localValue2()
   playerPed = GetOffsetFromEntityInWorldCoords
-  workValue5 = arg2
-  cmgCall3 = 0.0
-  textValue5 = 0.0
-  numberValue10 = -5.0
-  playerPed = playerPed(workValue5, cmgCall3, textValue5, numberValue10)
-  workValue5 = cmgCall.items
-  workValue5 = workValue5[arg1]
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.loadModel
-  textValue5 = workValue5.model
+  workingValue5 = localValue2
+  cmgOperation3 = 0.0
+  text5 = 0.0
+  number10 = -5.0
+  playerPed = playerPed(workingValue5, cmgOperation3, text5, number10)
+  workingValue5 = cmgOperation.items
+  workingValue5 = workingValue5[localValue1]
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.loadModel
+  text5 = workingValue5.model
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  cmgCall3(textValue5)
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.requestEntitySpawn
-  textValue5 = "news_item_object"
-  numberValue10 = arg1
-  cmgCall3(textValue5, numberValue10)
-  cmgCall3 = CreateObject
-  textValue5 = workValue5.model
-  numberValue10 = playerPed.x
-  workValue7 = playerPed.y
-  cmgCall4 = playerPed.z
-  flag9 = true
-  flag = true
-  flag2 = true
+  cmgOperation3(text5)
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.requestEntitySpawn
+  text5 = "news_item_object"
+  number10 = localValue1
+  cmgOperation3(text5, number10)
+  cmgOperation3 = CreateObject
+  text5 = workingValue5.model
+  number10 = playerPed.x
+  workingValue7 = playerPed.y
+  cmgOperation4 = playerPed.z
+  stateFlag9 = true
+  stateFlag = true
+  stateFlag2 = true
   -- Beginner: result below is objectEntity.
-  cmgCall3 = cmgCall3(textValue5, numberValue10, workValue7, cmgCall4, flag9, flag, flag2)
-  textValue5 = workValue5.boneId
-  numberValue10 = workValue5.position
-  workValue7 = workValue5.rotation
-  cmgCall4 = SetEntityCollision
-  flag9 = cmgCall3
-  flag = false
-  flag2 = true
-  cmgCall4(flag9, flag, flag2)
-  cmgCall4 = AttachEntityToEntity
-  flag9 = cmgCall3
-  flag = arg2
-  flag2 = GetPedBoneIndex
-  numberValue = arg2
-  numberValue2 = textValue5
-  flag2 = flag2(numberValue, numberValue2)
-  numberValue = numberValue10.x
-  numberValue2 = numberValue10.y
-  numberValue3 = numberValue10.z
-  textValue2 = workValue7.x
-  numberValue4 = workValue7.y
-  flag3 = workValue7.z
-  flag4 = true
-  flag5 = true
-  flag6 = false
-  flag7 = true
-  numberValue5 = 0
-  flag8 = true
+  cmgOperation3 = cmgOperation3(text5, number10, workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2)
+  text5 = workingValue5.boneId
+  number10 = workingValue5.position
+  workingValue7 = workingValue5.rotation
+  cmgOperation4 = SetEntityCollision
+  stateFlag9 = cmgOperation3
+  stateFlag = false
+  stateFlag2 = true
+  cmgOperation4(stateFlag9, stateFlag, stateFlag2)
+  cmgOperation4 = AttachEntityToEntity
+  stateFlag9 = cmgOperation3
+  stateFlag = localValue2
+  stateFlag2 = GetPedBoneIndex
+  number = localValue2
+  number2 = text5
+  stateFlag2 = stateFlag2(number, number2)
+  number = number10.x
+  number2 = number10.y
+  number3 = number10.z
+  text2 = workingValue7.x
+  number4 = workingValue7.y
+  stateFlag3 = workingValue7.z
+  stateFlag4 = true
+  stateFlag5 = true
+  stateFlag6 = false
+  stateFlag7 = true
+  number5 = 0
+  stateFlag8 = true
   -- Beginner: Attach one entity to another entity.
-  cmgCall4(flag9, flag, flag2, numberValue, numberValue2, numberValue3, textValue2, numberValue4, flag3, flag4, flag5, flag6, flag7, numberValue5, flag8)
-  cmgCall4 = CMG
-  cmgCall4 = cmgCall4.loadAnimDict
-  flag9 = workValue5.animations
-  flag9 = flag9.dict
+  cmgOperation4(stateFlag9, stateFlag, stateFlag2, number, number2, number3, text2, number4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, number5, stateFlag8)
+  cmgOperation4 = CMG
+  cmgOperation4 = cmgOperation4.loadAnimDict
+  stateFlag9 = workingValue5.animations
+  stateFlag9 = stateFlag9.dict
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall4(flag9)
-  cmgCall4 = TaskPlayAnim
-  flag9 = arg2
-  flag = workValue5.animations
-  flag = flag.dict
-  flag2 = workValue5.animations
-  flag2 = flag2.name
-  numberValue = 1.0
-  numberValue2 = -1
-  numberValue3 = -1
-  textValue2 = 50
-  numberValue4 = 0
-  flag3 = true
-  flag4 = true
-  flag5 = true
+  cmgOperation4(stateFlag9)
+  cmgOperation4 = TaskPlayAnim
+  stateFlag9 = localValue2
+  stateFlag = workingValue5.animations
+  stateFlag = stateFlag.dict
+  stateFlag2 = workingValue5.animations
+  stateFlag2 = stateFlag2.name
+  number = 1.0
+  number2 = -1
+  number3 = -1
+  text2 = 50
+  number4 = 0
+  stateFlag3 = true
+  stateFlag4 = true
+  stateFlag5 = true
   -- Beginner: Play an animation on a ped.
-  cmgCall4(flag9, flag, flag2, numberValue, numberValue2, numberValue3, textValue2, numberValue4, flag3, flag4, flag5)
-  cmgCall4 = RemoveAnimDict
-  flag9 = workValue5.animations
-  flag9 = flag9.dict
-  cmgCall4(flag9)
-  cmgCall4 = ""
-  if "camera" == arg1 then
-    cmgCall4 = [[
+  cmgOperation4(stateFlag9, stateFlag, stateFlag2, number, number2, number3, text2, number4, stateFlag3, stateFlag4, stateFlag5)
+  cmgOperation4 = RemoveAnimDict
+  stateFlag9 = workingValue5.animations
+  stateFlag9 = stateFlag9.dict
+  cmgOperation4(stateFlag9)
+  cmgOperation4 = ""
+  if "camera" == localValue1 then
+    cmgOperation4 = [[
 ~s~.
 
 Press ~r~[E]~s~ to enter recording mode~s~]]
   end
-  flag9 = CMG
-  flag9 = flag9.notifyPicture
-  flag = "bbcnotification"
-  flag2 = "notification"
-  numberValue = "You are now holding a ~r~"
-  numberValue2 = cmgCall.items
-  numberValue2 = numberValue2[arg1]
-  numberValue2 = numberValue2.formalName
-  numberValue3 = cmgCall4
-  textValue2 = "~s~."
-  numberValue = numberValue .. numberValue2 .. numberValue3 .. textValue2
-  numberValue2 = "BBC News"
-  numberValue3 = "Equipment"
-  textValue2 = nil
-  numberValue4 = nil
-  flag9(flag, flag2, numberValue, numberValue2, numberValue3, textValue2, numberValue4)
-  flag9 = cmgCall.items
-  flag9 = flag9[arg1]
-  flag9.holding = true
-  flag9 = Wait
-  flag = 1000
-  flag9(flag)
-  flag9 = cmgCall.items
-  flag9 = flag9[arg1]
-  flag = ObjToNet
-  flag2 = cmgCall3
-  flag = flag(flag2)
-  flag9.netId = flag
-  flag9 = SetNetworkIdExistsOnAllMachines
-  flag = cmgCall.items
-  flag = flag[arg1]
-  flag = flag.netId
-  flag2 = true
-  flag9(flag, flag2)
-  flag9 = NetworkUseHighPrecisionBlending
-  flag = cmgCall.items
-  flag = flag[arg1]
-  flag = flag.netId
-  flag2 = true
-  flag9(flag, flag2)
-  flag9 = SetNetworkIdCanMigrate
-  flag = cmgCall.items
-  flag = flag[arg1]
-  flag = flag.netId
-  flag2 = false
-  flag9(flag, flag2)
-  flag9 = SetModelAsNoLongerNeeded
-  flag = workValue5.model
-  flag9(flag)
+  stateFlag9 = CMG
+  stateFlag9 = stateFlag9.notifyPicture
+  stateFlag = "bbcnotification"
+  stateFlag2 = "notification"
+  number = "You are now holding a ~r~"
+  number2 = cmgOperation.items
+  number2 = number2[localValue1]
+  number2 = number2.formalName
+  number3 = cmgOperation4
+  text2 = "~s~."
+  number = number .. number2 .. number3 .. text2
+  number2 = "BBC News"
+  number3 = "Equipment"
+  text2 = nil
+  number4 = nil
+  stateFlag9(stateFlag, stateFlag2, number, number2, number3, text2, number4)
+  stateFlag9 = cmgOperation.items
+  stateFlag9 = stateFlag9[localValue1]
+  stateFlag9.holding = true
+  stateFlag9 = Wait
+  stateFlag = 1000
+  stateFlag9(stateFlag)
+  stateFlag9 = cmgOperation.items
+  stateFlag9 = stateFlag9[localValue1]
+  stateFlag = ObjToNet
+  stateFlag2 = cmgOperation3
+  stateFlag = stateFlag(stateFlag2)
+  stateFlag9.netId = stateFlag
+  stateFlag9 = SetNetworkIdExistsOnAllMachines
+  stateFlag = cmgOperation.items
+  stateFlag = stateFlag[localValue1]
+  stateFlag = stateFlag.netId
+  stateFlag2 = true
+  stateFlag9(stateFlag, stateFlag2)
+  stateFlag9 = NetworkUseHighPrecisionBlending
+  stateFlag = cmgOperation.items
+  stateFlag = stateFlag[localValue1]
+  stateFlag = stateFlag.netId
+  stateFlag2 = true
+  stateFlag9(stateFlag, stateFlag2)
+  stateFlag9 = SetNetworkIdCanMigrate
+  stateFlag = cmgOperation.items
+  stateFlag = stateFlag[localValue1]
+  stateFlag = stateFlag.netId
+  stateFlag2 = false
+  stateFlag9(stateFlag, stateFlag2)
+  stateFlag9 = SetModelAsNoLongerNeeded
+  stateFlag = workingValue5.model
+  stateFlag9(stateFlag)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4
-  arg2 = cmgCall.items
-  arg2 = arg2[arg1]
-  arg2 = arg2.holding
-  if arg2 then
-    arg2 = ClearPedSecondaryTask
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4
+  localValue2 = cmgOperation.items
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.holding
+  if localValue2 then
+    localValue2 = ClearPedSecondaryTask
     playerPed = PlayerPedId
-    playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4 = playerPed()
-    arg2(playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4)
-    arg2 = DetachEntity
+    playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4 = playerPed()
+    localValue2(playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4)
+    localValue2 = DetachEntity
     playerPed = CMG
     playerPed = playerPed.getObjectId
-    workValue5 = cmgCall.items
-    workValue5 = workValue5[arg1]
-    workValue5 = workValue5.netId
-    cmgCall3 = "removeNewsItem (1)"
-    playerPed = playerPed(workValue5, cmgCall3)
+    workingValue5 = cmgOperation.items
+    workingValue5 = workingValue5[localValue1]
+    workingValue5 = workingValue5.netId
+    cmgOperation3 = "removeNewsItem (1)"
+    playerPed = playerPed(workingValue5, cmgOperation3)
     if not playerPed then
       playerPed = 0
     end
-    workValue5 = true
-    cmgCall3 = true
-    arg2(playerPed, workValue5, cmgCall3)
-    arg2 = DeleteEntity
+    workingValue5 = true
+    cmgOperation3 = true
+    localValue2(playerPed, workingValue5, cmgOperation3)
+    localValue2 = DeleteEntity
     playerPed = CMG
     playerPed = playerPed.getObjectId
-    workValue5 = cmgCall.items
-    workValue5 = workValue5[arg1]
-    workValue5 = workValue5.netId
-    cmgCall3 = "removeNewsItem (2)"
-    playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4 = playerPed(workValue5, cmgCall3)
+    workingValue5 = cmgOperation.items
+    workingValue5 = workingValue5[localValue1]
+    workingValue5 = workingValue5.netId
+    cmgOperation3 = "removeNewsItem (2)"
+    playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4 = playerPed(workingValue5, cmgOperation3)
     -- Beginner: Delete a GTA entity.
-    arg2(playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4)
-    arg2 = cmgCall.items
-    arg2 = arg2[arg1]
-    arg2.netId = nil
-    arg2 = cmgCall.items
-    arg2 = arg2[arg1]
-    arg2.holding = false
-    arg2 = cmgCall.items
-    arg2 = arg2[arg1]
-    arg2.using = false
-    arg2 = CMG
-    arg2 = arg2.showAllDisplays
+    localValue2(playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4)
+    localValue2 = cmgOperation.items
+    localValue2 = localValue2[localValue1]
+    localValue2.netId = nil
+    localValue2 = cmgOperation.items
+    localValue2 = localValue2[localValue1]
+    localValue2.holding = false
+    localValue2 = cmgOperation.items
+    localValue2 = localValue2[localValue1]
+    localValue2.using = false
+    localValue2 = CMG
+    localValue2 = localValue2.showAllDisplays
     playerPed = "news"
-    arg2(playerPed)
-    arg2 = CMG
-    arg2 = arg2.notifyPicture
+    localValue2(playerPed)
+    localValue2 = CMG
+    localValue2 = localValue2.notifyPicture
     playerPed = "bbcnotification"
-    workValue5 = "notification"
-    cmgCall3 = "You have put away the ~r~"
-    textValue5 = cmgCall.items
-    textValue5 = textValue5[arg1]
-    textValue5 = textValue5.formalName
-    numberValue10 = "~s~."
-    cmgCall3 = cmgCall3 .. textValue5 .. numberValue10
-    textValue5 = "BBC News"
-    numberValue10 = "Equipment"
-    workValue7 = nil
-    cmgCall4 = nil
-    arg2(playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4)
+    workingValue5 = "notification"
+    cmgOperation3 = "You have put away the ~r~"
+    text5 = cmgOperation.items
+    text5 = text5[localValue1]
+    text5 = text5.formalName
+    number10 = "~s~."
+    cmgOperation3 = cmgOperation3 .. text5 .. number10
+    text5 = "BBC News"
+    number10 = "Equipment"
+    workingValue7 = nil
+    cmgOperation4 = nil
+    localValue2(playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, arg2, playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7
-  arg1 = pairs
-  arg2 = cmgCall.items
-  arg1, arg2, playerPed, workValue5 = arg1(arg2)
-  for cmgCall3, textValue5 in arg1, arg2, playerPed, workValue5 do
-    numberValue10 = workValue
-    workValue7 = cmgCall3
-    numberValue10(workValue7)
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, localValue2, playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7
+  localValue1 = pairs
+  localValue2 = cmgOperation.items
+  localValue1, localValue2, playerPed, workingValue5 = localValue1(localValue2)
+  for cmgOperation3, text5 in localValue1, localValue2, playerPed, workingValue5 do
+    number10 = workingValue
+    workingValue7 = cmgOperation3
+    number10(workingValue7)
   end
 end
-eventRegistration = RegisterNetEvent
-textValue = "f55afa9558"
+eventHandler = RegisterNetEvent
+text = "f55afa9558"
 -- Beginner: this function handles network event "f55afa9558".
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, playerPed
-  arg2 = cmgCall.items
-  arg2 = arg2[arg1]
-  arg2 = arg2.holding
-  if not arg2 then
-    arg2 = workValue2
-    arg2()
-    arg2 = workValue8
-    playerPed = arg1
-    arg2(playerPed)
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, playerPed
+  localValue2 = cmgOperation.items
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.holding
+  if not localValue2 then
+    localValue2 = workingValue2
+    localValue2()
+    localValue2 = workingValue8
+    playerPed = localValue1
+    localValue2(playerPed)
   else
-    arg2 = workValue
-    playerPed = arg1
-    arg2(playerPed)
+    localValue2 = workingValue
+    playerPed = localValue1
+    localValue2(playerPed)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f55afa9558".
-eventRegistration(textValue, cmgCall2)
+eventHandler(text, cmgOperation2)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, playerPed, workValue5, cmgCall3
-  arg1 = tostring
-  arg2 = GetClockHours
-  arg2, playerPed, workValue5, cmgCall3 = arg2()
-  arg1 = arg1(arg2, playerPed, workValue5, cmgCall3)
-  arg2 = tostring
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, playerPed, workingValue5, cmgOperation3
+  localValue1 = tostring
+  localValue2 = GetClockHours
+  localValue2, playerPed, workingValue5, cmgOperation3 = localValue2()
+  localValue1 = localValue1(localValue2, playerPed, workingValue5, cmgOperation3)
+  localValue2 = tostring
   playerPed = GetClockMinutes
-  playerPed, workValue5, cmgCall3 = playerPed()
-  arg2 = arg2(playerPed, workValue5, cmgCall3)
-  if arg1 < 10 then
+  playerPed, workingValue5, cmgOperation3 = playerPed()
+  localValue2 = localValue2(playerPed, workingValue5, cmgOperation3)
+  if localValue1 < 10 then
     playerPed = "0"
-    workValue5 = arg1
-    playerPed = playerPed .. workValue5
-    arg1 = playerPed
+    workingValue5 = localValue1
+    playerPed = playerPed .. workingValue5
+    localValue1 = playerPed
   end
-  if arg2 < 10 then
+  if localValue2 < 10 then
     playerPed = "0"
-    workValue5 = arg2
-    playerPed = playerPed .. workValue5
-    arg2 = playerPed
+    workingValue5 = localValue2
+    playerPed = playerPed .. workingValue5
+    localValue2 = playerPed
   end
-  playerPed = arg1
-  workValue5 = " "
-  cmgCall3 = arg2
-  playerPed = playerPed .. workValue5 .. cmgCall3
+  playerPed = localValue1
+  workingValue5 = " "
+  cmgOperation3 = localValue2
+  playerPed = playerPed .. workingValue5 .. cmgOperation3
   return playerPed
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9, flag, flag2, numberValue, numberValue2, numberValue3, textValue2, numberValue4, flag3, flag4
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2, number, number2, number3, text2, number4, stateFlag3, stateFlag4
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = pairs
-  playerPed = cmgCall.items
-  arg2, playerPed, workValue5, cmgCall3 = arg2(playerPed)
-  for textValue5, numberValue10 in arg2, playerPed, workValue5, cmgCall3 do
-    workValue7 = cmgCall.items
-    workValue7 = workValue7[textValue5]
-    workValue7 = workValue7.holding
-    if workValue7 then
-      workValue7 = IsEntityPlayingAnim
-      cmgCall4 = arg1
-      flag9 = cmgCall.items
-      flag9 = flag9[textValue5]
-      flag9 = flag9.animations
-      flag9 = flag9.dict
-      flag = cmgCall.items
-      flag = flag[textValue5]
-      flag = flag.animations
-      flag = flag.name
-      flag2 = 3
-      workValue7 = workValue7(cmgCall4, flag9, flag, flag2)
-      if not workValue7 then
-        workValue7 = CMG
-        workValue7 = workValue7.loadAnimDict
-        cmgCall4 = cmgCall.items
-        cmgCall4 = cmgCall4[textValue5]
-        cmgCall4 = cmgCall4.animations
-        cmgCall4 = cmgCall4.dict
+  localValue1 = localValue1()
+  localValue2 = pairs
+  playerPed = cmgOperation.items
+  localValue2, playerPed, workingValue5, cmgOperation3 = localValue2(playerPed)
+  for text5, number10 in localValue2, playerPed, workingValue5, cmgOperation3 do
+    workingValue7 = cmgOperation.items
+    workingValue7 = workingValue7[text5]
+    workingValue7 = workingValue7.holding
+    if workingValue7 then
+      workingValue7 = IsEntityPlayingAnim
+      cmgOperation4 = localValue1
+      stateFlag9 = cmgOperation.items
+      stateFlag9 = stateFlag9[text5]
+      stateFlag9 = stateFlag9.animations
+      stateFlag9 = stateFlag9.dict
+      stateFlag = cmgOperation.items
+      stateFlag = stateFlag[text5]
+      stateFlag = stateFlag.animations
+      stateFlag = stateFlag.name
+      stateFlag2 = 3
+      workingValue7 = workingValue7(cmgOperation4, stateFlag9, stateFlag, stateFlag2)
+      if not workingValue7 then
+        workingValue7 = CMG
+        workingValue7 = workingValue7.loadAnimDict
+        cmgOperation4 = cmgOperation.items
+        cmgOperation4 = cmgOperation4[text5]
+        cmgOperation4 = cmgOperation4.animations
+        cmgOperation4 = cmgOperation4.dict
         -- Beginner: Load a GTA animation dictionary before using it.
-        workValue7(cmgCall4)
-        workValue7 = TaskPlayAnim
-        cmgCall4 = arg1
-        flag9 = cmgCall.items
-        flag9 = flag9[textValue5]
-        flag9 = flag9.animations
-        flag9 = flag9.dict
-        flag = cmgCall.items
-        flag = flag[textValue5]
-        flag = flag.animations
-        flag = flag.name
-        flag2 = 1.0
-        numberValue = -1
-        numberValue2 = -1
-        numberValue3 = 50
-        textValue2 = 0
-        numberValue4 = false
-        flag3 = false
-        flag4 = false
+        workingValue7(cmgOperation4)
+        workingValue7 = TaskPlayAnim
+        cmgOperation4 = localValue1
+        stateFlag9 = cmgOperation.items
+        stateFlag9 = stateFlag9[text5]
+        stateFlag9 = stateFlag9.animations
+        stateFlag9 = stateFlag9.dict
+        stateFlag = cmgOperation.items
+        stateFlag = stateFlag[text5]
+        stateFlag = stateFlag.animations
+        stateFlag = stateFlag.name
+        stateFlag2 = 1.0
+        number = -1
+        number2 = -1
+        number3 = 50
+        text2 = 0
+        number4 = false
+        stateFlag3 = false
+        stateFlag4 = false
         -- Beginner: Play an animation on a ped.
-        workValue7(cmgCall4, flag9, flag, flag2, numberValue, numberValue2, numberValue3, textValue2, numberValue4, flag3, flag4)
-        workValue7 = RemoveAnimDict
-        cmgCall4 = cmgCall.items
-        cmgCall4 = cmgCall4[textValue5]
-        cmgCall4 = cmgCall4.animations
-        cmgCall4 = cmgCall4.dict
-        workValue7(cmgCall4)
+        workingValue7(cmgOperation4, stateFlag9, stateFlag, stateFlag2, number, number2, number3, text2, number4, stateFlag3, stateFlag4)
+        workingValue7 = RemoveAnimDict
+        cmgOperation4 = cmgOperation.items
+        cmgOperation4 = cmgOperation4[text5]
+        cmgOperation4 = cmgOperation4.animations
+        cmgOperation4 = cmgOperation4.dict
+        workingValue7(cmgOperation4)
       end
-      workValue7 = DisablePlayerFiring
-      cmgCall4 = PlayerId
+      workingValue7 = DisablePlayerFiring
+      cmgOperation4 = PlayerId
       -- Beginner: result below is localPlayerIndex.
-      cmgCall4 = cmgCall4()
-      flag9 = true
-      workValue7(cmgCall4, flag9)
-      workValue7 = DisableControlAction
-      cmgCall4 = 0
-      flag9 = 25
-      flag = true
-      workValue7(cmgCall4, flag9, flag)
-      workValue7 = DisableControlAction
-      cmgCall4 = 0
-      flag9 = 44
-      flag = true
-      workValue7(cmgCall4, flag9, flag)
-      workValue7 = DisableControlAction
-      cmgCall4 = 0
-      flag9 = 37
-      flag = true
-      workValue7(cmgCall4, flag9, flag)
-      workValue7 = SetCurrentPedWeapon
-      cmgCall4 = arg1
-      flag9 = GetHashKey
-      flag = "WEAPON_UNARMED"
+      cmgOperation4 = cmgOperation4()
+      stateFlag9 = true
+      workingValue7(cmgOperation4, stateFlag9)
+      workingValue7 = DisableControlAction
+      cmgOperation4 = 0
+      stateFlag9 = 25
+      stateFlag = true
+      workingValue7(cmgOperation4, stateFlag9, stateFlag)
+      workingValue7 = DisableControlAction
+      cmgOperation4 = 0
+      stateFlag9 = 44
+      stateFlag = true
+      workingValue7(cmgOperation4, stateFlag9, stateFlag)
+      workingValue7 = DisableControlAction
+      cmgOperation4 = 0
+      stateFlag9 = 37
+      stateFlag = true
+      workingValue7(cmgOperation4, stateFlag9, stateFlag)
+      workingValue7 = SetCurrentPedWeapon
+      cmgOperation4 = localValue1
+      stateFlag9 = GetHashKey
+      stateFlag = "WEAPON_UNARMED"
       -- Beginner: result below is hash.
-      flag9 = flag9(flag)
-      flag = true
-      workValue7(cmgCall4, flag9, flag)
+      stateFlag9 = stateFlag9(stateFlag)
+      stateFlag = true
+      workingValue7(cmgOperation4, stateFlag9, stateFlag)
     end
   end
-  arg2 = cmgCall.items
-  arg2 = arg2.camera
-  arg2 = arg2.using
-  if arg2 then
-    arg2 = HasStreamedTextureDictLoaded
+  localValue2 = cmgOperation.items
+  localValue2 = localValue2.camera
+  localValue2 = localValue2.using
+  if localValue2 then
+    localValue2 = HasStreamedTextureDictLoaded
     playerPed = "bbcnews"
-    arg2 = arg2(playerPed)
-    if not arg2 then
-      arg2 = RequestStreamedTextureDict
+    localValue2 = localValue2(playerPed)
+    if not localValue2 then
+      localValue2 = RequestStreamedTextureDict
       playerPed = "bbcnews"
-      workValue5 = true
-      arg2(playerPed, workValue5)
+      workingValue5 = true
+      localValue2(playerPed, workingValue5)
       while true do
-        arg2 = HasStreamedTextureDictLoaded
+        localValue2 = HasStreamedTextureDictLoaded
         playerPed = "bbcnews"
-        arg2 = arg2(playerPed)
-        if arg2 then
+        localValue2 = localValue2(playerPed)
+        if localValue2 then
           break
         end
-        arg2 = print
+        localValue2 = print
         playerPed = "stuck loading"
-        workValue5 = "bbcnews"
-        arg2(playerPed, workValue5)
-        arg2 = Wait
+        workingValue5 = "bbcnews"
+        localValue2(playerPed, workingValue5)
+        localValue2 = Wait
         playerPed = 0
-        arg2(playerPed)
+        localValue2(playerPed)
       end
     end
-    arg2 = DrawSprite
+    localValue2 = DrawSprite
     playerPed = "bbcnews"
-    workValue5 = cmgCall.textures
-    cmgCall3 = numberValue11
-    workValue5 = workValue5[cmgCall3]
-    workValue5 = workValue5.textureName
-    cmgCall3 = 0.5
-    textValue5 = 0.5
-    numberValue10 = 1.0
-    workValue7 = 1.0
-    cmgCall4 = 0.0
-    flag9 = 255
-    flag = 255
-    flag2 = 255
-    numberValue = 255
-    arg2(playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9, flag, flag2, numberValue)
-    arg2 = cmgCall.textures
-    playerPed = numberValue11
-    arg2 = arg2[playerPed]
-    arg2 = arg2.textureName
-    if "bbcnews" == arg2 then
-      arg2 = DrawAdvancedText
+    workingValue5 = cmgOperation.textures
+    cmgOperation3 = number11
+    workingValue5 = workingValue5[cmgOperation3]
+    workingValue5 = workingValue5.textureName
+    cmgOperation3 = 0.5
+    text5 = 0.5
+    number10 = 1.0
+    workingValue7 = 1.0
+    cmgOperation4 = 0.0
+    stateFlag9 = 255
+    stateFlag = 255
+    stateFlag2 = 255
+    number = 255
+    localValue2(playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2, number)
+    localValue2 = cmgOperation.textures
+    playerPed = number11
+    localValue2 = localValue2[playerPed]
+    localValue2 = localValue2.textureName
+    if "bbcnews" == localValue2 then
+      localValue2 = DrawAdvancedText
       playerPed = 0.3575
-      workValue5 = 0.936
-      cmgCall3 = 0.0
-      textValue5 = 0.0
-      numberValue10 = 0.75
-      workValue7 = eventRegistration
-      workValue7 = workValue7()
-      cmgCall4 = 255
-      flag9 = 255
-      flag = 255
-      flag2 = 255
-      numberValue = 2
-      numberValue2 = 0
-      arg2(playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9, flag, flag2, numberValue, numberValue2)
+      workingValue5 = 0.936
+      cmgOperation3 = 0.0
+      text5 = 0.0
+      number10 = 0.75
+      workingValue7 = eventHandler
+      workingValue7 = workingValue7()
+      cmgOperation4 = 255
+      stateFlag9 = 255
+      stateFlag = 255
+      stateFlag2 = 255
+      number = 2
+      number2 = 0
+      localValue2(playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2, number, number2)
     end
-    arg2 = cmgCall.textures
-    playerPed = numberValue11
-    arg2 = arg2[playerPed]
-    arg2 = arg2.textureName
-    if "skynews" == arg2 then
-      arg2 = DrawAdvancedText
+    localValue2 = cmgOperation.textures
+    playerPed = number11
+    localValue2 = localValue2[playerPed]
+    localValue2 = localValue2.textureName
+    if "skynews" == localValue2 then
+      localValue2 = DrawAdvancedText
       playerPed = 0.187
-      workValue5 = 0.935
-      cmgCall3 = 0.0
-      textValue5 = 0.0
-      numberValue10 = 0.6
-      workValue7 = eventRegistration
-      workValue7 = workValue7()
-      cmgCall4 = 255
-      flag9 = 255
-      flag = 255
-      flag2 = 255
-      numberValue = 2
-      numberValue2 = 0
-      arg2(playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9, flag, flag2, numberValue, numberValue2)
+      workingValue5 = 0.935
+      cmgOperation3 = 0.0
+      text5 = 0.0
+      number10 = 0.6
+      workingValue7 = eventHandler
+      workingValue7 = workingValue7()
+      cmgOperation4 = 255
+      stateFlag9 = 255
+      stateFlag = 255
+      stateFlag2 = 255
+      number = 2
+      number2 = 0
+      localValue2(playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2, number, number2)
     end
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-workValue3 = textValue
-textValue3 = "News"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+workingValue3 = text
+text3 = "News"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(workValue3, textValue3)
+cmgOperation2(workingValue3, text3)
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2
-  arg1 = HideHelpTextThisFrame
-  arg1()
-  arg1 = HideHudAndRadarThisFrame
-  arg1()
-  arg1 = HideHudComponentThisFrame
-  arg2 = 1
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 2
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 3
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 4
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 6
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 7
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 8
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 9
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 13
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 11
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 12
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 15
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 18
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 19
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2
+  localValue1 = HideHelpTextThisFrame
+  localValue1()
+  localValue1 = HideHudAndRadarThisFrame
+  localValue1()
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 1
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 2
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 3
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 4
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 6
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 7
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 8
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 9
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 13
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 11
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 12
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 15
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 18
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 19
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2) ===
-function workValue3(arg1, arg2)
-  local playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9, flag, flag2
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1, localValue2) ===
+function workingValue3(localValue1, localValue2)
+  local playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2
   playerPed = GetDisabledControlNormal
-  workValue5 = 0
-  cmgCall3 = 220
-  playerPed = playerPed(workValue5, cmgCall3)
-  workValue5 = GetDisabledControlNormal
-  cmgCall3 = 0
-  textValue5 = 221
-  workValue5 = workValue5(cmgCall3, textValue5)
-  cmgCall3 = GetCamRot
-  textValue5 = arg1
-  numberValue10 = 2
-  cmgCall3 = cmgCall3(textValue5, numberValue10)
-  if 0.0 ~= playerPed or 0.0 ~= workValue5 then
-    textValue5 = cmgCall3.z
-    numberValue10 = playerPed * -1.0
-    workValue7 = numberValue9
-    numberValue10 = numberValue10 * workValue7
-    workValue7 = arg2 + 0.1
-    numberValue10 = numberValue10 * workValue7
-    textValue5 = textValue5 + numberValue10
-    numberValue12 = textValue5
-    textValue5 = math
-    textValue5 = textValue5.max
-    numberValue10 = math
-    numberValue10 = numberValue10.min
-    workValue7 = 20.0
-    cmgCall4 = cmgCall3.x
-    flag9 = workValue5 * -1.0
-    flag = numberValue8
-    flag9 = flag9 * flag
-    flag = arg2 + 0.1
-    flag9 = flag9 * flag
-    cmgCall4 = cmgCall4 + flag9
-    numberValue10 = numberValue10(workValue7, cmgCall4)
-    workValue7 = -89.5
-    textValue5 = textValue5(numberValue10, workValue7)
-    numberValue10 = SetCamRot
-    workValue7 = arg1
-    cmgCall4 = textValue5
-    flag9 = 0.0
-    flag = numberValue12
-    flag2 = 2
-    numberValue10(workValue7, cmgCall4, flag9, flag, flag2)
+  workingValue5 = 0
+  cmgOperation3 = 220
+  playerPed = playerPed(workingValue5, cmgOperation3)
+  workingValue5 = GetDisabledControlNormal
+  cmgOperation3 = 0
+  text5 = 221
+  workingValue5 = workingValue5(cmgOperation3, text5)
+  cmgOperation3 = GetCamRot
+  text5 = localValue1
+  number10 = 2
+  cmgOperation3 = cmgOperation3(text5, number10)
+  if 0.0 ~= playerPed or 0.0 ~= workingValue5 then
+    text5 = cmgOperation3.z
+    number10 = playerPed * -1.0
+    workingValue7 = number9
+    number10 = number10 * workingValue7
+    workingValue7 = localValue2 + 0.1
+    number10 = number10 * workingValue7
+    text5 = text5 + number10
+    number12 = text5
+    text5 = math
+    text5 = text5.max
+    number10 = math
+    number10 = number10.min
+    workingValue7 = 20.0
+    cmgOperation4 = cmgOperation3.x
+    stateFlag9 = workingValue5 * -1.0
+    stateFlag = number8
+    stateFlag9 = stateFlag9 * stateFlag
+    stateFlag = localValue2 + 0.1
+    stateFlag9 = stateFlag9 * stateFlag
+    cmgOperation4 = cmgOperation4 + stateFlag9
+    number10 = number10(workingValue7, cmgOperation4)
+    workingValue7 = -89.5
+    text5 = text5(number10, workingValue7)
+    number10 = SetCamRot
+    workingValue7 = localValue1
+    cmgOperation4 = text5
+    stateFlag9 = 0.0
+    stateFlag = number12
+    stateFlag2 = 2
+    number10(workingValue7, cmgOperation4, stateFlag9, stateFlag, stateFlag2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, playerPed, workValue5, cmgCall3, textValue5
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, playerPed, workingValue5, cmgOperation3, text5
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
+  localValue2 = localValue2()
   playerPed = IsPedSittingInAnyVehicle
-  workValue5 = arg2
-  playerPed = playerPed(workValue5)
+  workingValue5 = localValue2
+  playerPed = playerPed(workingValue5)
   if not playerPed then
     playerPed = IsControlJustPressed
-    workValue5 = 0
-    cmgCall3 = 241
-    playerPed = playerPed(workValue5, cmgCall3)
+    workingValue5 = 0
+    cmgOperation3 = 241
+    playerPed = playerPed(workingValue5, cmgOperation3)
     if playerPed then
       playerPed = math
       playerPed = playerPed.max
-      workValue5 = workValue6
-      cmgCall3 = numberValue7
-      workValue5 = workValue5 - cmgCall3
-      cmgCall3 = numberValue6
-      playerPed = playerPed(workValue5, cmgCall3)
-      workValue6 = playerPed
+      workingValue5 = workingValue6
+      cmgOperation3 = number7
+      workingValue5 = workingValue5 - cmgOperation3
+      cmgOperation3 = number6
+      playerPed = playerPed(workingValue5, cmgOperation3)
+      workingValue6 = playerPed
     end
     playerPed = IsControlJustPressed
-    workValue5 = 0
-    cmgCall3 = 242
-    playerPed = playerPed(workValue5, cmgCall3)
+    workingValue5 = 0
+    cmgOperation3 = 242
+    playerPed = playerPed(workingValue5, cmgOperation3)
     if playerPed then
       playerPed = math
       playerPed = playerPed.min
-      workValue5 = workValue6
-      cmgCall3 = numberValue7
-      workValue5 = workValue5 + cmgCall3
-      cmgCall3 = textValue4
-      playerPed = playerPed(workValue5, cmgCall3)
-      workValue6 = playerPed
+      workingValue5 = workingValue6
+      cmgOperation3 = number7
+      workingValue5 = workingValue5 + cmgOperation3
+      cmgOperation3 = text4
+      playerPed = playerPed(workingValue5, cmgOperation3)
+      workingValue6 = playerPed
     end
     playerPed = GetCamFov
-    workValue5 = arg1
-    playerPed = playerPed(workValue5)
-    workValue5 = math
-    workValue5 = workValue5.abs
-    cmgCall3 = workValue6
-    cmgCall3 = cmgCall3 - playerPed
-    workValue5 = workValue5(cmgCall3)
-    cmgCall3 = 0.1
-    if workValue5 < cmgCall3 then
-      workValue6 = playerPed
+    workingValue5 = localValue1
+    playerPed = playerPed(workingValue5)
+    workingValue5 = math
+    workingValue5 = workingValue5.abs
+    cmgOperation3 = workingValue6
+    cmgOperation3 = cmgOperation3 - playerPed
+    workingValue5 = workingValue5(cmgOperation3)
+    cmgOperation3 = 0.1
+    if workingValue5 < cmgOperation3 then
+      workingValue6 = playerPed
     end
-    workValue5 = SetCamFov
-    cmgCall3 = arg1
-    textValue5 = workValue6
-    textValue5 = textValue5 - playerPed
-    textValue5 = textValue5 * 0.05
-    textValue5 = playerPed + textValue5
-    workValue5(cmgCall3, textValue5)
+    workingValue5 = SetCamFov
+    cmgOperation3 = localValue1
+    text5 = workingValue6
+    text5 = text5 - playerPed
+    text5 = text5 * 0.05
+    text5 = playerPed + text5
+    workingValue5(cmgOperation3, text5)
   else
     playerPed = IsControlJustPressed
-    workValue5 = 0
-    cmgCall3 = 17
-    playerPed = playerPed(workValue5, cmgCall3)
+    workingValue5 = 0
+    cmgOperation3 = 17
+    playerPed = playerPed(workingValue5, cmgOperation3)
     if playerPed then
       playerPed = math
       playerPed = playerPed.max
-      workValue5 = workValue6
-      cmgCall3 = numberValue7
-      workValue5 = workValue5 - cmgCall3
-      cmgCall3 = numberValue6
-      playerPed = playerPed(workValue5, cmgCall3)
-      workValue6 = playerPed
+      workingValue5 = workingValue6
+      cmgOperation3 = number7
+      workingValue5 = workingValue5 - cmgOperation3
+      cmgOperation3 = number6
+      playerPed = playerPed(workingValue5, cmgOperation3)
+      workingValue6 = playerPed
     end
     playerPed = IsControlJustPressed
-    workValue5 = 0
-    cmgCall3 = 16
-    playerPed = playerPed(workValue5, cmgCall3)
+    workingValue5 = 0
+    cmgOperation3 = 16
+    playerPed = playerPed(workingValue5, cmgOperation3)
     if playerPed then
       playerPed = math
       playerPed = playerPed.min
-      workValue5 = workValue6
-      cmgCall3 = numberValue7
-      workValue5 = workValue5 + cmgCall3
-      cmgCall3 = textValue4
-      playerPed = playerPed(workValue5, cmgCall3)
-      workValue6 = playerPed
+      workingValue5 = workingValue6
+      cmgOperation3 = number7
+      workingValue5 = workingValue5 + cmgOperation3
+      cmgOperation3 = text4
+      playerPed = playerPed(workingValue5, cmgOperation3)
+      workingValue6 = playerPed
     end
     playerPed = GetCamFov
-    workValue5 = arg1
-    playerPed = playerPed(workValue5)
-    workValue5 = math
-    workValue5 = workValue5.abs
-    cmgCall3 = workValue6
-    cmgCall3 = cmgCall3 - playerPed
-    workValue5 = workValue5(cmgCall3)
-    cmgCall3 = 0.1
-    if workValue5 < cmgCall3 then
-      workValue6 = playerPed
+    workingValue5 = localValue1
+    playerPed = playerPed(workingValue5)
+    workingValue5 = math
+    workingValue5 = workingValue5.abs
+    cmgOperation3 = workingValue6
+    cmgOperation3 = cmgOperation3 - playerPed
+    workingValue5 = workingValue5(cmgOperation3)
+    cmgOperation3 = 0.1
+    if workingValue5 < cmgOperation3 then
+      workingValue6 = playerPed
     end
-    workValue5 = SetCamFov
-    cmgCall3 = arg1
-    textValue5 = workValue6
-    textValue5 = textValue5 - playerPed
-    textValue5 = textValue5 * 0.05
-    textValue5 = playerPed + textValue5
-    workValue5(cmgCall3, textValue5)
+    workingValue5 = SetCamFov
+    cmgOperation3 = localValue1
+    text5 = workingValue6
+    text5 = text5 - playerPed
+    text5 = text5 * 0.05
+    text5 = playerPed + text5
+    workingValue5(cmgOperation3, text5)
   end
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9
   while true do
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
-    arg1 = cmgCall.items
-    arg1 = arg1.camera
-    arg1 = arg1.holding
-    if arg1 then
-      arg1 = IsControlJustReleased
-      arg2 = 1
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
+    localValue1 = cmgOperation.items
+    localValue1 = localValue1.camera
+    localValue1 = localValue1.holding
+    if localValue1 then
+      localValue1 = IsControlJustReleased
+      localValue2 = 1
       playerPed = 38
-      arg1 = arg1(arg2, playerPed)
-      if arg1 then
-        arg1 = cmgCall.items
-        arg1 = arg1.camera
-        arg1.using = true
-        arg1 = CMG
-        arg1 = arg1.hideAllDisplays
-        arg2 = "news"
-        arg1(arg2)
-        arg1 = CMG
-        arg1 = arg1.notifyPicture
-        arg2 = "bbcnotification"
+      localValue1 = localValue1(localValue2, playerPed)
+      if localValue1 then
+        localValue1 = cmgOperation.items
+        localValue1 = localValue1.camera
+        localValue1.using = true
+        localValue1 = CMG
+        localValue1 = localValue1.hideAllDisplays
+        localValue2 = "news"
+        localValue1(localValue2)
+        localValue1 = CMG
+        localValue1 = localValue1.notifyPicture
+        localValue2 = "bbcnotification"
         playerPed = "notification"
-        workValue5 = "Press ~r~LEFT ALT ~s~to change overlay or ~r~BACKSPACE ~s~to exit recording mode."
-        cmgCall3 = "BBC News"
-        textValue5 = "Now Recording"
-        numberValue10 = nil
-        workValue7 = nil
-        arg1(arg2, playerPed, workValue5, cmgCall3, textValue5, numberValue10, workValue7)
-        arg1 = SetTimecycleModifier
-        arg2 = "default"
-        arg1(arg2)
-        arg1 = SetTimecycleModifierStrength
-        arg2 = 0.3
-        arg1(arg2)
-        arg1 = PlayerPedId
+        workingValue5 = "Press ~r~LEFT ALT ~s~to change overlay or ~r~BACKSPACE ~s~to exit recording mode."
+        cmgOperation3 = "BBC News"
+        text5 = "Now Recording"
+        number10 = nil
+        workingValue7 = nil
+        localValue1(localValue2, playerPed, workingValue5, cmgOperation3, text5, number10, workingValue7)
+        localValue1 = SetTimecycleModifier
+        localValue2 = "default"
+        localValue1(localValue2)
+        localValue1 = SetTimecycleModifierStrength
+        localValue2 = 0.3
+        localValue1(localValue2)
+        localValue1 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        arg1 = arg1()
-        arg2 = GetVehiclePedIsIn
-        playerPed = arg1
-        workValue5 = false
+        localValue1 = localValue1()
+        localValue2 = GetVehiclePedIsIn
+        playerPed = localValue1
+        workingValue5 = false
         -- Beginner: result below is currentVehicle.
-        arg2 = arg2(playerPed, workValue5)
+        localValue2 = localValue2(playerPed, workingValue5)
         playerPed = CreateCam
-        workValue5 = "DEFAULT_SCRIPTED_FLY_CAMERA"
-        cmgCall3 = true
+        workingValue5 = "DEFAULT_SCRIPTED_FLY_CAMERA"
+        cmgOperation3 = true
         -- Beginner: result below is cameraHandle.
-        playerPed = playerPed(workValue5, cmgCall3)
-        workValue5 = AttachCamToEntity
-        cmgCall3 = playerPed
-        textValue5 = arg1
-        numberValue10 = 0.0
-        workValue7 = 0.5
-        cmgCall4 = 0.65
-        flag9 = true
-        workValue5(cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9)
-        workValue5 = SetCamRot
-        cmgCall3 = playerPed
-        textValue5 = 2.0
-        numberValue10 = 1.0
-        workValue7 = GetEntityHeading
-        cmgCall4 = arg1
+        playerPed = playerPed(workingValue5, cmgOperation3)
+        workingValue5 = AttachCamToEntity
+        cmgOperation3 = playerPed
+        text5 = localValue1
+        number10 = 0.0
+        workingValue7 = 0.5
+        cmgOperation4 = 0.65
+        stateFlag9 = true
+        workingValue5(cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9)
+        workingValue5 = SetCamRot
+        cmgOperation3 = playerPed
+        text5 = 2.0
+        number10 = 1.0
+        workingValue7 = GetEntityHeading
+        cmgOperation4 = localValue1
         -- Beginner: result below is heading.
-        workValue7 = workValue7(cmgCall4)
-        cmgCall4 = 2
-        workValue5(cmgCall3, textValue5, numberValue10, workValue7, cmgCall4)
-        workValue5 = SetCamFov
-        cmgCall3 = playerPed
-        textValue5 = workValue6
-        workValue5(cmgCall3, textValue5)
-        workValue5 = RenderScriptCams
-        cmgCall3 = true
-        textValue5 = false
-        numberValue10 = 0
-        workValue7 = true
-        cmgCall4 = false
-        workValue5(cmgCall3, textValue5, numberValue10, workValue7, cmgCall4)
-        workValue5 = EndScaleformMovieMethod
-        workValue5()
+        workingValue7 = workingValue7(cmgOperation4)
+        cmgOperation4 = 2
+        workingValue5(cmgOperation3, text5, number10, workingValue7, cmgOperation4)
+        workingValue5 = SetCamFov
+        cmgOperation3 = playerPed
+        text5 = workingValue6
+        workingValue5(cmgOperation3, text5)
+        workingValue5 = RenderScriptCams
+        cmgOperation3 = true
+        text5 = false
+        number10 = 0
+        workingValue7 = true
+        cmgOperation4 = false
+        workingValue5(cmgOperation3, text5, number10, workingValue7, cmgOperation4)
+        workingValue5 = EndScaleformMovieMethod
+        workingValue5()
         while true do
-          workValue5 = cmgCall.items
-          workValue5 = workValue5.camera
-          workValue5 = workValue5.using
-          if not workValue5 then
+          workingValue5 = cmgOperation.items
+          workingValue5 = workingValue5.camera
+          workingValue5 = workingValue5.using
+          if not workingValue5 then
             break
           end
-          workValue5 = IsEntityDead
-          cmgCall3 = arg1
-          workValue5 = workValue5(cmgCall3)
-          if workValue5 then
+          workingValue5 = IsEntityDead
+          cmgOperation3 = localValue1
+          workingValue5 = workingValue5(cmgOperation3)
+          if workingValue5 then
             break
           end
-          workValue5 = GetVehiclePedIsIn
-          cmgCall3 = arg1
-          textValue5 = false
+          workingValue5 = GetVehiclePedIsIn
+          cmgOperation3 = localValue1
+          text5 = false
           -- Beginner: result below is currentVehicle.
-          workValue5 = workValue5(cmgCall3, textValue5)
-          if workValue5 ~= arg2 then
+          workingValue5 = workingValue5(cmgOperation3, text5)
+          if workingValue5 ~= localValue2 then
             break
           end
-          workValue5 = IsControlJustReleased
-          cmgCall3 = 1
-          textValue5 = 19
-          workValue5 = workValue5(cmgCall3, textValue5)
-          if workValue5 then
-            workValue5 = PlaySoundFrontend
-            cmgCall3 = -1
-            textValue5 = "SELECT"
-            numberValue10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            workValue7 = false
-            workValue5(cmgCall3, textValue5, numberValue10, workValue7)
-            workValue5 = numberValue11
-            if workValue5 <= 7 then
-              workValue5 = numberValue11
-              workValue5 = workValue5 + 1
-              numberValue11 = workValue5
+          workingValue5 = IsControlJustReleased
+          cmgOperation3 = 1
+          text5 = 19
+          workingValue5 = workingValue5(cmgOperation3, text5)
+          if workingValue5 then
+            workingValue5 = PlaySoundFrontend
+            cmgOperation3 = -1
+            text5 = "SELECT"
+            number10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            workingValue7 = false
+            workingValue5(cmgOperation3, text5, number10, workingValue7)
+            workingValue5 = number11
+            if workingValue5 <= 7 then
+              workingValue5 = number11
+              workingValue5 = workingValue5 + 1
+              number11 = workingValue5
             else
-              workValue5 = 1
-              numberValue11 = workValue5
+              workingValue5 = 1
+              number11 = workingValue5
             end
           end
-          workValue5 = IsControlJustReleased
-          cmgCall3 = 1
-          textValue5 = 177
-          workValue5 = workValue5(cmgCall3, textValue5)
-          if workValue5 then
-            workValue5 = PlaySoundFrontend
-            cmgCall3 = -1
-            textValue5 = "SELECT"
-            numberValue10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            workValue7 = false
-            workValue5(cmgCall3, textValue5, numberValue10, workValue7)
-            workValue5 = cmgCall.items
-            workValue5 = workValue5.camera
-            workValue5.using = false
-            workValue5 = CMG
-            workValue5 = workValue5.showAllDisplays
-            cmgCall3 = "news"
-            workValue5(cmgCall3)
+          workingValue5 = IsControlJustReleased
+          cmgOperation3 = 1
+          text5 = 177
+          workingValue5 = workingValue5(cmgOperation3, text5)
+          if workingValue5 then
+            workingValue5 = PlaySoundFrontend
+            cmgOperation3 = -1
+            text5 = "SELECT"
+            number10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            workingValue7 = false
+            workingValue5(cmgOperation3, text5, number10, workingValue7)
+            workingValue5 = cmgOperation.items
+            workingValue5 = workingValue5.camera
+            workingValue5.using = false
+            workingValue5 = CMG
+            workingValue5 = workingValue5.showAllDisplays
+            cmgOperation3 = "news"
+            workingValue5(cmgOperation3)
           end
-          workValue5 = SetEntityRotation
-          cmgCall3 = arg1
-          textValue5 = 0
-          numberValue10 = 0
-          workValue7 = numberValue12
-          cmgCall4 = 2
-          flag9 = true
-          workValue5(cmgCall3, textValue5, numberValue10, workValue7, cmgCall4, flag9)
-          workValue5 = textValue4
-          cmgCall3 = numberValue6
-          workValue5 = workValue5 - cmgCall3
-          cmgCall3 = 1.0
-          workValue5 = cmgCall3 / workValue5
-          cmgCall3 = workValue6
-          textValue5 = numberValue6
-          cmgCall3 = cmgCall3 - textValue5
-          workValue5 = workValue5 * cmgCall3
-          cmgCall3 = workValue3
-          textValue5 = playerPed
-          numberValue10 = workValue5
-          cmgCall3(textValue5, numberValue10)
-          cmgCall3 = textValue3
-          textValue5 = playerPed
-          cmgCall3(textValue5)
-          cmgCall3 = cmgCall2
+          workingValue5 = SetEntityRotation
+          cmgOperation3 = localValue1
+          text5 = 0
+          number10 = 0
+          workingValue7 = number12
+          cmgOperation4 = 2
+          stateFlag9 = true
+          workingValue5(cmgOperation3, text5, number10, workingValue7, cmgOperation4, stateFlag9)
+          workingValue5 = text4
+          cmgOperation3 = number6
+          workingValue5 = workingValue5 - cmgOperation3
+          cmgOperation3 = 1.0
+          workingValue5 = cmgOperation3 / workingValue5
+          cmgOperation3 = workingValue6
+          text5 = number6
+          cmgOperation3 = cmgOperation3 - text5
+          workingValue5 = workingValue5 * cmgOperation3
+          cmgOperation3 = workingValue3
+          text5 = playerPed
+          number10 = workingValue5
+          cmgOperation3(text5, number10)
+          cmgOperation3 = text3
+          text5 = playerPed
+          cmgOperation3(text5)
+          cmgOperation3 = cmgOperation2
           -- Beginner: Run a helper every game frame while this script is active.
-          cmgCall3()
-          cmgCall3 = GetGameplayCamRelativeHeading
-          cmgCall3 = cmgCall3()
-          textValue5 = GetGameplayCamRelativePitch
-          textValue5 = textValue5()
-          if textValue5 < -70.0 then
-            textValue5 = -70.0
-          elseif textValue5 > 42.0 then
-            textValue5 = 42.0
+          cmgOperation3()
+          cmgOperation3 = GetGameplayCamRelativeHeading
+          cmgOperation3 = cmgOperation3()
+          text5 = GetGameplayCamRelativePitch
+          text5 = text5()
+          if text5 < -70.0 then
+            text5 = -70.0
+          elseif text5 > 42.0 then
+            text5 = 42.0
           end
-          numberValue10 = textValue5 + 70.0
-          textValue5 = numberValue10 / 112.0
-          numberValue10 = -180.0
-          if cmgCall3 < numberValue10 then
-            cmgCall3 = -180.0
+          number10 = text5 + 70.0
+          text5 = number10 / 112.0
+          number10 = -180.0
+          if cmgOperation3 < number10 then
+            cmgOperation3 = -180.0
           else
-            numberValue10 = 180.0
-            if cmgCall3 > numberValue10 then
-              cmgCall3 = 180.0
+            number10 = 180.0
+            if cmgOperation3 > number10 then
+              cmgOperation3 = 180.0
             end
           end
-          numberValue10 = cmgCall3 + 180.0
-          cmgCall3 = numberValue10 / 360.0
-          numberValue10 = SetTaskMoveNetworkSignalFloat
-          workValue7 = arg1
-          cmgCall4 = "Pitch"
-          flag9 = textValue5
-          numberValue10(workValue7, cmgCall4, flag9)
-          numberValue10 = SetTaskMoveNetworkSignalFloat
-          workValue7 = arg1
-          cmgCall4 = "Heading"
-          flag9 = cmgCall3 * -1.0
-          flag9 = flag9 + 1.0
-          numberValue10(workValue7, cmgCall4, flag9)
-          numberValue10 = Wait
-          workValue7 = 0
-          numberValue10(workValue7)
+          number10 = cmgOperation3 + 180.0
+          cmgOperation3 = number10 / 360.0
+          number10 = SetTaskMoveNetworkSignalFloat
+          workingValue7 = localValue1
+          cmgOperation4 = "Pitch"
+          stateFlag9 = text5
+          number10(workingValue7, cmgOperation4, stateFlag9)
+          number10 = SetTaskMoveNetworkSignalFloat
+          workingValue7 = localValue1
+          cmgOperation4 = "Heading"
+          stateFlag9 = cmgOperation3 * -1.0
+          stateFlag9 = stateFlag9 + 1.0
+          number10(workingValue7, cmgOperation4, stateFlag9)
+          number10 = Wait
+          workingValue7 = 0
+          number10(workingValue7)
         end
-        workValue5 = cmgCall.items
-        workValue5 = workValue5.camera
-        workValue5.using = false
-        workValue5 = CMG
-        workValue5 = workValue5.showAllDisplays
-        cmgCall3 = "news"
-        workValue5(cmgCall3)
-        workValue5 = ClearTimecycleModifier
-        workValue5()
-        workValue5 = textValue4
-        cmgCall3 = numberValue6
-        workValue5 = workValue5 + cmgCall3
-        workValue5 = workValue5 * 0.5
-        workValue6 = workValue5
-        workValue5 = RenderScriptCams
-        cmgCall3 = false
-        textValue5 = false
-        numberValue10 = 0
-        workValue7 = true
-        cmgCall4 = false
-        workValue5(cmgCall3, textValue5, numberValue10, workValue7, cmgCall4)
-        workValue5 = DestroyCam
-        cmgCall3 = playerPed
-        textValue5 = false
-        workValue5(cmgCall3, textValue5)
-        workValue5 = SetNightvision
-        cmgCall3 = false
-        workValue5(cmgCall3)
-        workValue5 = SetSeethrough
-        cmgCall3 = false
-        workValue5(cmgCall3)
+        workingValue5 = cmgOperation.items
+        workingValue5 = workingValue5.camera
+        workingValue5.using = false
+        workingValue5 = CMG
+        workingValue5 = workingValue5.showAllDisplays
+        cmgOperation3 = "news"
+        workingValue5(cmgOperation3)
+        workingValue5 = ClearTimecycleModifier
+        workingValue5()
+        workingValue5 = text4
+        cmgOperation3 = number6
+        workingValue5 = workingValue5 + cmgOperation3
+        workingValue5 = workingValue5 * 0.5
+        workingValue6 = workingValue5
+        workingValue5 = RenderScriptCams
+        cmgOperation3 = false
+        text5 = false
+        number10 = 0
+        workingValue7 = true
+        cmgOperation4 = false
+        workingValue5(cmgOperation3, text5, number10, workingValue7, cmgOperation4)
+        workingValue5 = DestroyCam
+        cmgOperation3 = playerPed
+        text5 = false
+        workingValue5(cmgOperation3, text5)
+        workingValue5 = SetNightvision
+        cmgOperation3 = false
+        workingValue5(cmgOperation3)
+        workingValue5 = SetSeethrough
+        cmgOperation3 = false
+        workingValue5(cmgOperation3)
       end
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(workValue4)
+backgroundThread(workingValue4)

@@ -915,7 +915,7 @@ local function greenzoneTick()
         zone ~= nil
 
     -- Kept separately because older framework code asks for this alternate
-    -- flag through tCMG.isInGreenzone(true). In normal zones it follows the
+    -- stateFlag through tCMG.isInGreenzone(true). In normal zones it follows the
     -- same value.
     inAlternateGreenzone =
         zone ~= nil

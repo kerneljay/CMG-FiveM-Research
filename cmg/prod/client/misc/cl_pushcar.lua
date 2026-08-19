@@ -32,207 +32,207 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, flag, dataTable2, workValue5, workValue6, cmgCall2, workValue7, textValue2
-dataTable = {}
-dataTable.DamageNeeded = 200.0
-dataTable.MaxWidth = 5.0
-dataTable.MaxHeight = 5.0
-dataTable.MaxLength = 5.0
-flag = false
-dataTable2 = {}
-dataTable2.ESC = 322
-dataTable2.F1 = 288
-dataTable2.F2 = 289
-dataTable2.F3 = 170
-dataTable2.F5 = 166
-dataTable2.F6 = 167
-dataTable2.F7 = 168
-dataTable2.F8 = 169
-dataTable2.F9 = 56
-dataTable2.F10 = 57
-dataTable2["~"] = 243
-dataTable2["1"] = 157
-dataTable2["2"] = 158
-dataTable2["3"] = 160
-dataTable2["4"] = 164
-dataTable2["5"] = 165
-dataTable2["6"] = 159
-dataTable2["7"] = 161
-dataTable2["8"] = 162
-dataTable2["9"] = 163
-dataTable2["-"] = 84
-dataTable2["="] = 83
-dataTable2.BACKSPACE = 177
-dataTable2.TAB = 37
-dataTable2.Q = 44
-dataTable2.W = 32
-dataTable2.E = 38
-dataTable2.R = 45
-dataTable2.T = 245
-dataTable2.Y = 246
-dataTable2.U = 303
-dataTable2.P = 199
-dataTable2["["] = 39
-dataTable2["]"] = 40
-dataTable2.ENTER = 18
-dataTable2.CAPS = 137
-dataTable2.A = 34
-dataTable2.S = 8
-dataTable2.D = 9
-dataTable2.F = 23
-dataTable2.G = 47
-dataTable2.H = 74
-dataTable2.K = 311
-dataTable2.L = 182
-dataTable2.LEFTSHIFT = 21
-dataTable2.Z = 20
-dataTable2.X = 73
-dataTable2.C = 26
-dataTable2.V = 0
-dataTable2.B = 29
-dataTable2.N = 249
-dataTable2.M = 244
-dataTable2[","] = 82
-dataTable2["."] = 81
-dataTable2.LEFTCTRL = 36
-dataTable2.LEFTALT = 19
-dataTable2.SPACE = 22
-dataTable2.RIGHTCTRL = 70
-dataTable2.HOME = 213
-dataTable2.PAGEUP = 10
-dataTable2.PAGEDOWN = 11
-dataTable2.DELETE = 178
-dataTable2.LEFT = 174
-dataTable2.RIGHT = 175
-dataTable2.TOP = 27
-dataTable2.DOWN = 173
-dataTable2.NENTER = 201
-dataTable2.N4 = 108
-dataTable2.N5 = 60
-dataTable2.N6 = 107
-dataTable2["N+"] = 96
-dataTable2["N-"] = 97
-dataTable2.N7 = 117
-dataTable2.N8 = 61
-dataTable2.N9 = 118
+local dataCollection, stateFlag, dataCollection2, workingValue5, workingValue6, cmgOperation2, workingValue7, text2
+dataCollection = {}
+dataCollection.DamageNeeded = 200.0
+dataCollection.MaxWidth = 5.0
+dataCollection.MaxHeight = 5.0
+dataCollection.MaxLength = 5.0
+stateFlag = false
+dataCollection2 = {}
+dataCollection2.ESC = 322
+dataCollection2.F1 = 288
+dataCollection2.F2 = 289
+dataCollection2.F3 = 170
+dataCollection2.F5 = 166
+dataCollection2.F6 = 167
+dataCollection2.F7 = 168
+dataCollection2.F8 = 169
+dataCollection2.F9 = 56
+dataCollection2.F10 = 57
+dataCollection2["~"] = 243
+dataCollection2["1"] = 157
+dataCollection2["2"] = 158
+dataCollection2["3"] = 160
+dataCollection2["4"] = 164
+dataCollection2["5"] = 165
+dataCollection2["6"] = 159
+dataCollection2["7"] = 161
+dataCollection2["8"] = 162
+dataCollection2["9"] = 163
+dataCollection2["-"] = 84
+dataCollection2["="] = 83
+dataCollection2.BACKSPACE = 177
+dataCollection2.TAB = 37
+dataCollection2.Q = 44
+dataCollection2.W = 32
+dataCollection2.E = 38
+dataCollection2.R = 45
+dataCollection2.T = 245
+dataCollection2.Y = 246
+dataCollection2.U = 303
+dataCollection2.P = 199
+dataCollection2["["] = 39
+dataCollection2["]"] = 40
+dataCollection2.ENTER = 18
+dataCollection2.CAPS = 137
+dataCollection2.A = 34
+dataCollection2.S = 8
+dataCollection2.D = 9
+dataCollection2.F = 23
+dataCollection2.G = 47
+dataCollection2.H = 74
+dataCollection2.K = 311
+dataCollection2.L = 182
+dataCollection2.LEFTSHIFT = 21
+dataCollection2.Z = 20
+dataCollection2.X = 73
+dataCollection2.C = 26
+dataCollection2.V = 0
+dataCollection2.B = 29
+dataCollection2.N = 249
+dataCollection2.M = 244
+dataCollection2[","] = 82
+dataCollection2["."] = 81
+dataCollection2.LEFTCTRL = 36
+dataCollection2.LEFTALT = 19
+dataCollection2.SPACE = 22
+dataCollection2.RIGHTCTRL = 70
+dataCollection2.HOME = 213
+dataCollection2.PAGEUP = 10
+dataCollection2.PAGEDOWN = 11
+dataCollection2.DELETE = 178
+dataCollection2.LEFT = 174
+dataCollection2.RIGHT = 175
+dataCollection2.TOP = 27
+dataCollection2.DOWN = 173
+dataCollection2.NENTER = 201
+dataCollection2.N4 = 108
+dataCollection2.N5 = 60
+dataCollection2.N6 = 107
+dataCollection2["N+"] = 96
+dataCollection2["N-"] = 97
+dataCollection2.N7 = 117
+dataCollection2.N8 = 61
+dataCollection2.N9 = 118
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local vehicle, coords, modelHash, vector3Builder, vector3Builder2, numberValue7, numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local vehicle, coords, modelHash, createVector3, createVector32, number7, number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3
   vehicle = GetEntityForwardVector
-  coords = arg1
+  coords = localValue1
   vehicle = vehicle(coords)
   vehicle = -vehicle
   coords = {}
   modelHash = "wheel_lr"
-  vector3Builder = "wheel_rr"
+  createVector3 = "wheel_rr"
   coords[1] = modelHash
-  coords[2] = vector3Builder
+  coords[2] = createVector3
   modelHash = ipairs
-  vector3Builder = coords
-  modelHash, vector3Builder, vector3Builder2, numberValue7 = modelHash(vector3Builder)
-  for numberValue8, coords2 in modelHash, vector3Builder, vector3Builder2, numberValue7 do
-    workValue8 = GetEntityBoneIndexByName
-    workValue = arg1
-    workValue2 = coords2
-    workValue8 = workValue8(workValue, workValue2)
-    workValue = GetWorldPositionOfEntityBone
-    workValue2 = arg1
-    workValue3 = workValue8
-    workValue = workValue(workValue2, workValue3)
-    workValue2 = vehicle * 4.0
-    workValue2 = workValue + workValue2
-    workValue3 = _ENV
-    textValue = "StartExpensiveSynchronousShapeTestLosProbe"
-    workValue3 = workValue3[textValue]
-    textValue = workValue.x
-    playerPed = workValue.y
-    playerPed2 = workValue.z
-    numberValue = workValue2.x
-    numberValue2 = workValue2.y
-    numberValue3 = workValue2.z
-    numberValue4 = -1
-    flag2 = arg1
-    flag3 = 1
-    workValue3 = workValue3(textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3)
-    textValue = GetShapeTestResult
-    playerPed = workValue3
-    textValue, playerPed = textValue(playerPed)
+  createVector3 = coords
+  modelHash, createVector3, createVector32, number7 = modelHash(createVector3)
+  for number8, coords2 in modelHash, createVector3, createVector32, number7 do
+    workingValue8 = GetEntityBoneIndexByName
+    workingValue = localValue1
+    workingValue2 = coords2
+    workingValue8 = workingValue8(workingValue, workingValue2)
+    workingValue = GetWorldPositionOfEntityBone
+    workingValue2 = localValue1
+    workingValue3 = workingValue8
+    workingValue = workingValue(workingValue2, workingValue3)
+    workingValue2 = vehicle * 4.0
+    workingValue2 = workingValue + workingValue2
+    workingValue3 = _ENV
+    text = "StartExpensiveSynchronousShapeTestLosProbe"
+    workingValue3 = workingValue3[text]
+    text = workingValue.x
+    playerPed = workingValue.y
+    playerPed2 = workingValue.z
+    number = workingValue2.x
+    number2 = workingValue2.y
+    number3 = workingValue2.z
+    number4 = -1
+    stateFlag2 = localValue1
+    stateFlag3 = 1
+    workingValue3 = workingValue3(text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3)
+    text = GetShapeTestResult
+    playerPed = workingValue3
+    text, playerPed = text(playerPed)
     if 1 == playerPed then
       playerPed2 = true
       return playerPed2
     end
   end
   modelHash = GetEntityModel
-  vector3Builder = arg1
+  createVector3 = localValue1
   -- Beginner: result below is modelHash.
-  modelHash = modelHash(vector3Builder)
+  modelHash = modelHash(createVector3)
   if 0 ~= modelHash then
-    vector3Builder = vector3
-    vector3Builder2 = 0.0
-    numberValue7 = 0.0
-    numberValue8 = 0.0
-    vector3Builder = vector3Builder(vector3Builder2, numberValue7, numberValue8)
-    vector3Builder2 = vector3
-    numberValue7 = 5.0
-    numberValue8 = 5.0
+    createVector3 = vector3
+    createVector32 = 0.0
+    number7 = 0.0
+    number8 = 0.0
+    createVector3 = createVector3(createVector32, number7, number8)
+    createVector32 = vector3
+    number7 = 5.0
+    number8 = 5.0
     coords2 = 5.0
-    vector3Builder2 = vector3Builder2(numberValue7, numberValue8, coords2)
-    numberValue7 = GetModelDimensions
-    numberValue8 = modelHash
-    coords2 = vector3Builder
-    workValue8 = vector3Builder2
-    numberValue7 = numberValue7(numberValue8, coords2, workValue8)
-    numberValue8 = GetOffsetFromEntityInWorldCoords
-    coords2 = arg1
-    workValue8 = 0.0
-    workValue = numberValue7.y
-    workValue = workValue - 0.3
-    workValue2 = numberValue7.z
-    workValue2 = workValue2 + 1.0
-    numberValue8 = numberValue8(coords2, workValue8, workValue, workValue2)
+    createVector32 = createVector32(number7, number8, coords2)
+    number7 = GetModelDimensions
+    number8 = modelHash
+    coords2 = createVector3
+    workingValue8 = createVector32
+    number7 = number7(number8, coords2, workingValue8)
+    number8 = GetOffsetFromEntityInWorldCoords
+    coords2 = localValue1
+    workingValue8 = 0.0
+    workingValue = number7.y
+    workingValue = workingValue - 0.3
+    workingValue2 = number7.z
+    workingValue2 = workingValue2 + 1.0
+    number8 = number8(coords2, workingValue8, workingValue, workingValue2)
     coords2 = GetEntityCoords
-    workValue8 = arg1
-    workValue = true
+    workingValue8 = localValue1
+    workingValue = true
     -- Beginner: result below is entityCoords.
-    coords2 = coords2(workValue8, workValue)
-    workValue8 = _ENV
-    workValue = "StartExpensiveSynchronousShapeTestLosProbe"
-    workValue8 = workValue8[workValue]
-    workValue = numberValue8.x
-    workValue2 = numberValue8.y
-    workValue3 = numberValue8.z
-    textValue = coords2.x
+    coords2 = coords2(workingValue8, workingValue)
+    workingValue8 = _ENV
+    workingValue = "StartExpensiveSynchronousShapeTestLosProbe"
+    workingValue8 = workingValue8[workingValue]
+    workingValue = number8.x
+    workingValue2 = number8.y
+    workingValue3 = number8.z
+    text = coords2.x
     playerPed = coords2.y
     playerPed2 = coords2.z
-    numberValue = -1
-    numberValue2 = arg1
-    numberValue3 = 1
-    workValue8 = workValue8(workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3)
-    workValue = GetShapeTestResult
-    workValue2 = workValue8
-    workValue, workValue2, workValue3, textValue, playerPed = workValue(workValue2)
-    if 0 ~= playerPed and playerPed ~= arg1 then
+    number = -1
+    number2 = localValue1
+    number3 = 1
+    workingValue8 = workingValue8(workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3)
+    workingValue = GetShapeTestResult
+    workingValue2 = workingValue8
+    workingValue, workingValue2, workingValue3, text, playerPed = workingValue(workingValue2)
+    if 0 ~= playerPed and playerPed ~= localValue1 then
       playerPed2 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
       playerPed2 = playerPed2()
@@ -242,22 +242,22 @@ function workValue5(arg1)
       end
     end
   end
-  vector3Builder = false
-  return vector3Builder
+  createVector3 = false
+  return createVector3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-function workValue6()
-  local arg1, vehicle, coords, modelHash, vector3Builder, vector3Builder2, numberValue7, numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6
-  arg1 = flag
-  if arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+function workingValue6()
+  local localValue1, vehicle, coords, modelHash, createVector3, createVector32, number7, number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6
+  localValue1 = stateFlag
+  if localValue1 then
     return
   end
-  arg1 = PlayerPedId
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
+  localValue1 = localValue1()
   vehicle = GetVehiclePedIsIn
-  coords = arg1
+  coords = localValue1
   modelHash = true
   -- Beginner: result below is currentVehicle.
   vehicle = vehicle(coords, modelHash)
@@ -267,355 +267,355 @@ function workValue6()
     -- Beginner: result below is entityCoords.
     coords = coords(modelHash)
     modelHash = GetEntityCoords
-    vector3Builder = vehicle
+    createVector3 = vehicle
     -- Beginner: result below is entityCoords.
-    modelHash = modelHash(vector3Builder)
-    vector3Builder = GetEntityCoords
-    vector3Builder2 = arg1
+    modelHash = modelHash(createVector3)
+    createVector3 = GetEntityCoords
+    createVector32 = localValue1
     -- Beginner: result below is entityCoords.
-    vector3Builder = vector3Builder(vector3Builder2)
-    vector3Builder2 = modelHash - vector3Builder
-    vector3Builder2 = #vector3Builder2
-    numberValue7 = IsVehicleSeatFree
-    numberValue8 = vehicle
+    createVector3 = createVector3(createVector32)
+    createVector32 = modelHash - createVector3
+    createVector32 = #createVector32
+    number7 = IsVehicleSeatFree
+    number8 = vehicle
     coords2 = -1
-    numberValue7 = numberValue7(numberValue8, coords2)
-    if numberValue7 then
-      numberValue7 = GetVehicleEngineHealth
-      numberValue8 = vehicle
-      numberValue7 = numberValue7(numberValue8)
-      numberValue8 = dataTable.DamageNeeded
-      if numberValue7 <= numberValue8 then
-        numberValue7 = IsEntityInWater
-        numberValue8 = vehicle
-        numberValue7 = numberValue7(numberValue8)
-        if not numberValue7 then
-          if vector3Builder2 < 10 then
-            numberValue7 = CMG
-            numberValue7 = numberValue7.DrawText3D
-            numberValue8 = coords
+    number7 = number7(number8, coords2)
+    if number7 then
+      number7 = GetVehicleEngineHealth
+      number8 = vehicle
+      number7 = number7(number8)
+      number8 = dataCollection.DamageNeeded
+      if number7 <= number8 then
+        number7 = IsEntityInWater
+        number8 = vehicle
+        number7 = number7(number8)
+        if not number7 then
+          if createVector32 < 10 then
+            number7 = CMG
+            number7 = number7.DrawText3D
+            number8 = coords
             coords2 = "Press [~g~SHIFT~w~] and [~g~E~w~] to push the vehicle"
-            workValue8 = 0.2
-            numberValue7(numberValue8, coords2, workValue8)
+            workingValue8 = 0.2
+            number7(number8, coords2, workingValue8)
           end
       end
     end
     else
-      numberValue7 = GetVehiclePedIsTryingToEnter
-      numberValue8 = CMG
-      numberValue8 = numberValue8.getPlayerPed
-      numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6 = numberValue8()
-      numberValue7 = numberValue7(numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
-      vehicle = numberValue7
+      number7 = GetVehiclePedIsTryingToEnter
+      number8 = CMG
+      number8 = number8.getPlayerPed
+      number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6 = number8()
+      number7 = number7(number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6)
+      vehicle = number7
     end
-    numberValue7 = IsControlPressed
-    numberValue8 = 0
-    coords2 = dataTable2.LEFTSHIFT
-    numberValue7 = numberValue7(numberValue8, coords2)
-    if numberValue7 then
-      numberValue7 = GetEntityHealth
-      numberValue8 = CMG
-      numberValue8 = numberValue8.getPlayerPed
-      numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6 = numberValue8()
+    number7 = IsControlPressed
+    number8 = 0
+    coords2 = dataCollection2.LEFTSHIFT
+    number7 = number7(number8, coords2)
+    if number7 then
+      number7 = GetEntityHealth
+      number8 = CMG
+      number8 = number8.getPlayerPed
+      number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6 = number8()
       -- Beginner: result below is health.
-      numberValue7 = numberValue7(numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
-      if numberValue7 > 102 then
-        numberValue7 = IsVehicleSeatFree
-        numberValue8 = vehicle
+      number7 = number7(number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6)
+      if number7 > 102 then
+        number7 = IsVehicleSeatFree
+        number8 = vehicle
         coords2 = -1
-        numberValue7 = numberValue7(numberValue8, coords2)
-        if numberValue7 then
-          numberValue7 = IsEntityAttachedToEntity
-          numberValue8 = arg1
+        number7 = number7(number8, coords2)
+        if number7 then
+          number7 = IsEntityAttachedToEntity
+          number8 = localValue1
           coords2 = vehicle
-          numberValue7 = numberValue7(numberValue8, coords2)
-          if not numberValue7 then
-            numberValue7 = IsControlJustPressed
-            numberValue8 = 0
-            coords2 = dataTable2.E
-            numberValue7 = numberValue7(numberValue8, coords2)
-            if numberValue7 then
-              numberValue7 = GetVehicleEngineHealth
-              numberValue8 = vehicle
-              numberValue7 = numberValue7(numberValue8)
-              numberValue8 = dataTable.DamageNeeded
-              if numberValue7 <= numberValue8 then
-                numberValue7 = tCMG
-                numberValue7 = numberValue7.canAnim
-                numberValue7 = numberValue7()
-                if numberValue7 then
-                  numberValue7 = tCMG
-                  numberValue7 = numberValue7.isTazed
-                  numberValue7 = numberValue7()
-                  if not numberValue7 then
-                    numberValue7 = GetEntityCoords
-                    numberValue8 = vehicle
+          number7 = number7(number8, coords2)
+          if not number7 then
+            number7 = IsControlJustPressed
+            number8 = 0
+            coords2 = dataCollection2.E
+            number7 = number7(number8, coords2)
+            if number7 then
+              number7 = GetVehicleEngineHealth
+              number8 = vehicle
+              number7 = number7(number8)
+              number8 = dataCollection.DamageNeeded
+              if number7 <= number8 then
+                number7 = tCMG
+                number7 = number7.canAnim
+                number7 = number7()
+                if number7 then
+                  number7 = tCMG
+                  number7 = number7.isTazed
+                  number7 = number7()
+                  if not number7 then
+                    number7 = GetEntityCoords
+                    number8 = vehicle
                     -- Beginner: result below is entityCoords.
-                    numberValue7 = numberValue7(numberValue8)
-                    modelHash = numberValue7
-                    numberValue7 = GetEntityCoords
-                    numberValue8 = CMG
-                    numberValue8 = numberValue8.getPlayerPed
-                    numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6 = numberValue8()
+                    number7 = number7(number8)
+                    modelHash = number7
+                    number7 = GetEntityCoords
+                    number8 = CMG
+                    number8 = number8.getPlayerPed
+                    number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6 = number8()
                     -- Beginner: result below is entityCoords.
-                    numberValue7 = numberValue7(numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
-                    vector3Builder = numberValue7
-                    numberValue7 = modelHash - vector3Builder
-                    vector3Builder2 = #numberValue7
-                    if vector3Builder2 < 10 then
-                      numberValue7 = workValue5
-                      numberValue8 = vehicle
-                      numberValue7 = numberValue7(numberValue8)
-                      if not numberValue7 then
-                        numberValue7 = false
-                        numberValue8 = GetEntityCoords
-                        coords2 = arg1
+                    number7 = number7(number8, coords2, workingValue8, workingValue, workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6)
+                    createVector3 = number7
+                    number7 = modelHash - createVector3
+                    createVector32 = #number7
+                    if createVector32 < 10 then
+                      number7 = workingValue5
+                      number8 = vehicle
+                      number7 = number7(number8)
+                      if not number7 then
+                        number7 = false
+                        number8 = GetEntityCoords
+                        coords2 = localValue1
                         -- Beginner: result below is entityCoords.
-                        numberValue8 = numberValue8(coords2)
-                        coords = numberValue8
-                        numberValue8 = GetEntityCoords
+                        number8 = number8(coords2)
+                        coords = number8
+                        number8 = GetEntityCoords
                         coords2 = vehicle
                         -- Beginner: result below is entityCoords.
-                        numberValue8 = numberValue8(coords2)
+                        number8 = number8(coords2)
                         coords2 = GetEntityForwardVector
-                        workValue8 = vehicle
-                        coords2 = coords2(workValue8)
-                        numberValue8 = numberValue8 + coords2
+                        workingValue8 = vehicle
+                        coords2 = coords2(workingValue8)
+                        number8 = number8 + coords2
                         coords2 = GetEntityCoords
-                        workValue8 = arg1
+                        workingValue8 = localValue1
                         -- Beginner: result below is entityCoords.
-                        coords2 = coords2(workValue8)
-                        numberValue8 = numberValue8 - coords2
-                        numberValue8 = #numberValue8
+                        coords2 = coords2(workingValue8)
+                        number8 = number8 - coords2
+                        number8 = #number8
                         coords2 = GetEntityCoords
-                        workValue8 = vehicle
+                        workingValue8 = vehicle
                         -- Beginner: result below is entityCoords.
-                        coords2 = coords2(workValue8)
-                        workValue8 = GetEntityForwardVector
-                        workValue = vehicle
-                        workValue8 = workValue8(workValue)
-                        workValue8 = workValue8 * -1
-                        coords2 = coords2 + workValue8
-                        workValue8 = GetEntityCoords
-                        workValue = arg1
+                        coords2 = coords2(workingValue8)
+                        workingValue8 = GetEntityForwardVector
+                        workingValue = vehicle
+                        workingValue8 = workingValue8(workingValue)
+                        workingValue8 = workingValue8 * -1
+                        coords2 = coords2 + workingValue8
+                        workingValue8 = GetEntityCoords
+                        workingValue = localValue1
                         -- Beginner: result below is entityCoords.
-                        workValue8 = workValue8(workValue)
-                        coords2 = coords2 - workValue8
+                        workingValue8 = workingValue8(workingValue)
+                        coords2 = coords2 - workingValue8
                         coords2 = #coords2
-                        if numberValue8 > coords2 then
-                          numberValue7 = false
+                        if number8 > coords2 then
+                          number7 = false
                         else
-                          numberValue7 = true
+                          number7 = true
                         end
-                        numberValue8 = vector3
+                        number8 = vector3
                         coords2 = 0.0
-                        workValue8 = 0.0
-                        workValue = 0.0
-                        numberValue8 = numberValue8(coords2, workValue8, workValue)
+                        workingValue8 = 0.0
+                        workingValue = 0.0
+                        number8 = number8(coords2, workingValue8, workingValue)
                         coords2 = vector3
-                        workValue8 = 5.0
-                        workValue = 5.0
-                        workValue2 = 5.0
-                        coords2 = coords2(workValue8, workValue, workValue2)
-                        workValue8 = GetModelDimensions
-                        workValue = GetEntityModel
-                        workValue2 = vehicle
+                        workingValue8 = 5.0
+                        workingValue = 5.0
+                        workingValue2 = 5.0
+                        coords2 = coords2(workingValue8, workingValue, workingValue2)
+                        workingValue8 = GetModelDimensions
+                        workingValue = GetEntityModel
+                        workingValue2 = vehicle
                         -- Beginner: result below is modelHash.
-                        workValue = workValue(workValue2)
-                        workValue2 = numberValue8
-                        workValue3 = coords2
-                        workValue8 = workValue8(workValue, workValue2, workValue3)
-                        if numberValue7 then
-                          workValue = AttachEntityToEntity
-                          workValue2 = CMG
-                          workValue2 = workValue2.getPlayerPed
+                        workingValue = workingValue(workingValue2)
+                        workingValue2 = number8
+                        workingValue3 = coords2
+                        workingValue8 = workingValue8(workingValue, workingValue2, workingValue3)
+                        if number7 then
+                          workingValue = AttachEntityToEntity
+                          workingValue2 = CMG
+                          workingValue2 = workingValue2.getPlayerPed
                           -- Beginner: result below is localPlayerPed.
-                          workValue2 = workValue2()
-                          workValue3 = vehicle
-                          textValue = GetPedBoneIndex
+                          workingValue2 = workingValue2()
+                          workingValue3 = vehicle
+                          text = GetPedBoneIndex
                           playerPed = PlayerPedId
                           -- Beginner: result below is localPlayerPed.
                           playerPed = playerPed()
                           playerPed2 = 6286
-                          textValue = textValue(playerPed, playerPed2)
+                          text = text(playerPed, playerPed2)
                           playerPed = 0.0
-                          playerPed2 = workValue8.y
+                          playerPed2 = workingValue8.y
                           playerPed2 = playerPed2 * -1
                           playerPed2 = playerPed2 + 0.1
-                          numberValue = workValue8.z
-                          numberValue = numberValue + 1.0
-                          numberValue2 = 0.0
-                          numberValue3 = 0.0
-                          numberValue4 = 180.0
-                          flag2 = true
-                          flag3 = false
-                          flag4 = false
-                          flag5 = true
-                          numberValue5 = 0
-                          flag6 = true
+                          number = workingValue8.z
+                          number = number + 1.0
+                          number2 = 0.0
+                          number3 = 0.0
+                          number4 = 180.0
+                          stateFlag2 = true
+                          stateFlag3 = false
+                          stateFlag4 = false
+                          stateFlag5 = true
+                          number5 = 0
+                          stateFlag6 = true
                           -- Beginner: Attach one entity to another entity.
-                          workValue(workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
+                          workingValue(workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6)
                         else
-                          workValue = AttachEntityToEntity
-                          workValue2 = CMG
-                          workValue2 = workValue2.getPlayerPed
+                          workingValue = AttachEntityToEntity
+                          workingValue2 = CMG
+                          workingValue2 = workingValue2.getPlayerPed
                           -- Beginner: result below is localPlayerPed.
-                          workValue2 = workValue2()
-                          workValue3 = vehicle
-                          textValue = -1
+                          workingValue2 = workingValue2()
+                          workingValue3 = vehicle
+                          text = -1
                           playerPed = 0.0
-                          playerPed2 = workValue8.y
+                          playerPed2 = workingValue8.y
                           playerPed2 = playerPed2 - 0.3
-                          numberValue = workValue8.z
-                          numberValue = numberValue + 1.0
-                          numberValue2 = 0.0
-                          numberValue3 = 0.0
-                          numberValue4 = 0.0
-                          flag2 = true
-                          flag3 = false
-                          flag4 = false
-                          flag5 = true
-                          numberValue5 = 0
-                          flag6 = true
-                          workValue(workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
+                          number = workingValue8.z
+                          number = number + 1.0
+                          number2 = 0.0
+                          number3 = 0.0
+                          number4 = 0.0
+                          stateFlag2 = true
+                          stateFlag3 = false
+                          stateFlag4 = false
+                          stateFlag5 = true
+                          number5 = 0
+                          stateFlag6 = true
+                          workingValue(workingValue2, workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number5, stateFlag6)
                         end
-                        workValue = "missfinale_c2ig_11"
-                        workValue2 = RequestAnimDict
-                        workValue3 = workValue
-                        workValue2(workValue3)
+                        workingValue = "missfinale_c2ig_11"
+                        workingValue2 = RequestAnimDict
+                        workingValue3 = workingValue
+                        workingValue2(workingValue3)
                         while true do
-                          workValue2 = HasAnimDictLoaded
-                          workValue3 = workValue
-                          workValue2 = workValue2(workValue3)
-                          if workValue2 then
+                          workingValue2 = HasAnimDictLoaded
+                          workingValue3 = workingValue
+                          workingValue2 = workingValue2(workingValue3)
+                          if workingValue2 then
                             break
                           end
-                          workValue2 = Citizen
-                          workValue2 = workValue2.Wait
-                          workValue3 = 100
-                          workValue2(workValue3)
+                          workingValue2 = Citizen
+                          workingValue2 = workingValue2.Wait
+                          workingValue3 = 100
+                          workingValue2(workingValue3)
                         end
-                        workValue2 = TaskPlayAnim
-                        workValue3 = arg1
-                        textValue = "missfinale_c2ig_11"
+                        workingValue2 = TaskPlayAnim
+                        workingValue3 = localValue1
+                        text = "missfinale_c2ig_11"
                         playerPed = "pushcar_offcliff_m"
                         playerPed2 = 2.0
-                        numberValue = -8.0
-                        numberValue2 = -1
-                        numberValue3 = 35
-                        numberValue4 = 0
-                        flag2 = false
-                        flag3 = false
-                        flag4 = false
+                        number = -8.0
+                        number2 = -1
+                        number3 = 35
+                        number4 = 0
+                        stateFlag2 = false
+                        stateFlag3 = false
+                        stateFlag4 = false
                         -- Beginner: Play an animation on a ped.
-                        workValue2(workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4)
-                        workValue2 = RemoveAnimDict
-                        workValue3 = workValue
-                        workValue2(workValue3)
-                        workValue2 = Citizen
-                        workValue2 = workValue2.Wait
-                        workValue3 = 200
-                        workValue2(workValue3)
-                        workValue2 = vehicle
-                        workValue3 = true
-                        flag = workValue3
-                        workValue3 = Citizen
-                        workValue3 = workValue3.CreateThread
+                        workingValue2(workingValue3, text, playerPed, playerPed2, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4)
+                        workingValue2 = RemoveAnimDict
+                        workingValue3 = workingValue
+                        workingValue2(workingValue3)
+                        workingValue2 = Citizen
+                        workingValue2 = workingValue2.Wait
+                        workingValue3 = 200
+                        workingValue2(workingValue3)
+                        workingValue2 = vehicle
+                        workingValue3 = true
+                        stateFlag = workingValue3
+                        workingValue3 = Citizen
+                        workingValue3 = workingValue3.CreateThread
 
-                        -- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-                        function textValue()
-                          local waitCall, cmgCall, workValue4, flag7, numberValue6
+                        -- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+                        function text()
+                          local waitCall, cmgOperation, workingValue4, stateFlag7, number6
                           while true do
                             waitCall = Citizen
                             waitCall = waitCall.Wait
-                            cmgCall = 5
-                            waitCall(cmgCall)
+                            cmgOperation = 5
+                            waitCall(cmgOperation)
                             waitCall = IsDisabledControlPressed
-                            cmgCall = 0
-                            workValue4 = dataTable2.A
-                            waitCall = waitCall(cmgCall, workValue4)
+                            cmgOperation = 0
+                            workingValue4 = dataCollection2.A
+                            waitCall = waitCall(cmgOperation, workingValue4)
                             if waitCall then
                               waitCall = TaskVehicleTempAction
-                              cmgCall = CMG
-                              cmgCall = cmgCall.getPlayerPed
+                              cmgOperation = CMG
+                              cmgOperation = cmgOperation.getPlayerPed
                               -- Beginner: result below is localPlayerPed.
-                              cmgCall = cmgCall()
-                              workValue4 = workValue2
-                              flag7 = 11
-                              numberValue6 = 1000
-                              waitCall(cmgCall, workValue4, flag7, numberValue6)
+                              cmgOperation = cmgOperation()
+                              workingValue4 = workingValue2
+                              stateFlag7 = 11
+                              number6 = 1000
+                              waitCall(cmgOperation, workingValue4, stateFlag7, number6)
                             end
                             waitCall = IsDisabledControlPressed
-                            cmgCall = 0
-                            workValue4 = dataTable2.D
-                            waitCall = waitCall(cmgCall, workValue4)
+                            cmgOperation = 0
+                            workingValue4 = dataCollection2.D
+                            waitCall = waitCall(cmgOperation, workingValue4)
                             if waitCall then
                               waitCall = TaskVehicleTempAction
-                              cmgCall = CMG
-                              cmgCall = cmgCall.getPlayerPed
+                              cmgOperation = CMG
+                              cmgOperation = cmgOperation.getPlayerPed
                               -- Beginner: result below is localPlayerPed.
-                              cmgCall = cmgCall()
-                              workValue4 = workValue2
-                              flag7 = 10
-                              numberValue6 = 1000
-                              waitCall(cmgCall, workValue4, flag7, numberValue6)
+                              cmgOperation = cmgOperation()
+                              workingValue4 = workingValue2
+                              stateFlag7 = 10
+                              number6 = 1000
+                              waitCall(cmgOperation, workingValue4, stateFlag7, number6)
                             end
-                            waitCall = numberValue7
+                            waitCall = number7
                             if waitCall then
                               waitCall = SetVehicleForwardSpeed
-                              cmgCall = workValue2
-                              workValue4 = -1.0
-                              waitCall(cmgCall, workValue4)
+                              cmgOperation = workingValue2
+                              workingValue4 = -1.0
+                              waitCall(cmgOperation, workingValue4)
                             else
                               waitCall = SetVehicleForwardSpeed
-                              cmgCall = workValue2
-                              workValue4 = 1.0
-                              waitCall(cmgCall, workValue4)
+                              cmgOperation = workingValue2
+                              workingValue4 = 1.0
+                              waitCall(cmgOperation, workingValue4)
                             end
                             waitCall = HasEntityCollidedWithAnything
-                            cmgCall = workValue2
-                            waitCall = waitCall(cmgCall)
+                            cmgOperation = workingValue2
+                            waitCall = waitCall(cmgOperation)
                             if waitCall then
                               waitCall = SetVehicleOnGroundProperly
-                              cmgCall = workValue2
-                              waitCall(cmgCall)
+                              cmgOperation = workingValue2
+                              waitCall(cmgOperation)
                             end
                             waitCall = IsDisabledControlPressed
-                            cmgCall = 0
-                            workValue4 = dataTable2.E
-                            waitCall = waitCall(cmgCall, workValue4)
+                            cmgOperation = 0
+                            workingValue4 = dataCollection2.E
+                            waitCall = waitCall(cmgOperation, workingValue4)
                             if waitCall then
                               waitCall = IsEntityInWater
-                              cmgCall = workValue2
-                              waitCall = waitCall(cmgCall)
+                              cmgOperation = workingValue2
+                              waitCall = waitCall(cmgOperation)
                               if not waitCall then
-                                goto flow_label_80
+                                goto continueAtStep80
                               end
                             end
                             waitCall = DetachEntity
-                            cmgCall = arg1
-                            workValue4 = false
-                            flag7 = false
-                            waitCall(cmgCall, workValue4, flag7)
+                            cmgOperation = localValue1
+                            workingValue4 = false
+                            stateFlag7 = false
+                            waitCall(cmgOperation, workingValue4, stateFlag7)
                             waitCall = StopAnimTask
-                            cmgCall = arg1
-                            workValue4 = "missfinale_c2ig_11"
-                            flag7 = "pushcar_offcliff_m"
-                            numberValue6 = 2.0
-                            waitCall(cmgCall, workValue4, flag7, numberValue6)
+                            cmgOperation = localValue1
+                            workingValue4 = "missfinale_c2ig_11"
+                            stateFlag7 = "pushcar_offcliff_m"
+                            number6 = 2.0
+                            waitCall(cmgOperation, workingValue4, stateFlag7, number6)
                             waitCall = FreezeEntityPosition
-                            cmgCall = arg1
-                            workValue4 = false
+                            cmgOperation = localValue1
+                            workingValue4 = false
                             -- Beginner: Freeze or unfreeze an entity in place.
-                            waitCall(cmgCall, workValue4)
+                            waitCall(cmgOperation, workingValue4)
                             do break end
-                            ::flow_label_80::
+                            ::continueAtStep80::
                           end
                           waitCall = false
-                          flag = waitCall
+                          stateFlag = waitCall
                         end
                         -- Beginner: Start a separate FiveM thread so this code can run independently.
-                        workValue3(textValue)
+                        workingValue3(text)
                       end
                     end
                   end
@@ -628,9 +628,9 @@ function workValue6()
     end
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-workValue7 = workValue6
-textValue2 = "Push Car"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+workingValue7 = workingValue6
+text2 = "Push Car"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(workValue7, textValue2)
+cmgOperation2(workingValue7, text2)

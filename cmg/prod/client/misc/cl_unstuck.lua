@@ -1,3 +1,22 @@
+--[[
+    BEGINNER READABILITY PASS
+    =========================
+    This Lua file has been reviewed by the automated readability pass.
+    Decompiled temporary identifiers were normalized into clearer role names.
+    Runtime strings (events, exports, keys, labels, hashes, etc.) were preserved.
+
+    Common fallback names:
+      localValue#       = short-lived local value
+      workingValue#     = temporary value/function
+      dataCollection#   = table/list/object-like data
+      text#             = text value
+      number#           = numeric value
+      stateFlag#        = true/false state
+      cmgOperation#     = temporary CMG function/value
+      rageUiOperation#  = temporary RageUI function/value
+      eventHandler#     = event registration/handler
+      backgroundThread# = thread/CreateThread reference
+]]
 local restrictedUnstuckZones = {
   { coords = vector3(3533.4428710938, 3713.8090820313, 36.17896270752), radius = 150 },
   { coords = vector3(1459.3325195313, 6350.8974609375, 23.534168243408), radius = 150 },

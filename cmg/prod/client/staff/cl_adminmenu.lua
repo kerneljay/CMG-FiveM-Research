@@ -32,9 +32,9 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like temporaryValue12, temporaryText4, temporaryTable7, flag3, temporaryCmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like temporaryValue12, temporaryText4, temporaryTable7, stateFlag3, temporaryCmgCall2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
@@ -44,9 +44,9 @@
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged

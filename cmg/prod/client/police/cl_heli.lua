@@ -32,1504 +32,1504 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local numberValue, numberValue6, numberValue25, numberValue33, numberValue35, numberValue37, numberValue39, numberValue41, numberValue42, numberValue44, flag, flag2, flag3, numberValue2, flag4, numberValue3, dataTable, cmgCall, numberValue4, numberValue5, numberValue7, numberValue8, numberValue9, numberValue11, numberValue13, numberValue15, numberValue17, numberValue19, numberValue21, numberValue23, numberValue26, numberValue27, numberValue28, numberValue29, numberValue30, numberValue31, threadCall, eventRegistration, cmgCall2, numberValue32, textValue2
-numberValue = 80.0
-numberValue6 = 10.0
-numberValue25 = 7.0
-numberValue33 = 7.0
-numberValue35 = 7.0
-numberValue37 = 51
-numberValue39 = 25
-numberValue41 = 154
-numberValue42 = 74
-numberValue44 = 22
-flag = false
-flag2 = false
-flag3 = false
-numberValue2 = 0
-flag4 = false
-numberValue3 = 0
-dataTable = {}
-cmgCall = 837858166
-numberValue4 = -1572900542
-numberValue5 = 1457987098
-numberValue7 = 1783593694
-numberValue8 = 903317905
-numberValue9 = 895755432
-numberValue11 = -1519555388
-numberValue13 = -1634501443
-numberValue15 = -1758441398
-numberValue17 = 353883353
-numberValue19 = -877280795
-numberValue21 = -16554230
-numberValue23 = 1790592407
-numberValue26 = 1729276197
-numberValue27 = 465590640
-numberValue28 = 263279933
-numberValue29 = -93312325
-numberValue30 = -1159615601
-numberValue31 = -1504773962
-threadCall = -1412094181
-eventRegistration = 1875232888
-cmgCall2 = 1418659670
-numberValue32 = 295054921
-dataTable[1] = cmgCall
-dataTable[2] = numberValue4
-dataTable[3] = numberValue5
-dataTable[4] = numberValue7
-dataTable[5] = numberValue8
-dataTable[6] = numberValue9
-dataTable[7] = numberValue11
-dataTable[8] = numberValue13
-dataTable[9] = numberValue15
-dataTable[10] = numberValue17
-dataTable[11] = numberValue19
-dataTable[12] = numberValue21
-dataTable[13] = numberValue23
-dataTable[14] = numberValue26
-dataTable[15] = numberValue27
-dataTable[16] = numberValue28
-dataTable[17] = numberValue29
-dataTable[18] = numberValue30
-dataTable[19] = numberValue31
-dataTable[20] = threadCall
-dataTable[21] = eventRegistration
-dataTable[22] = cmgCall2
-dataTable[23] = numberValue32
-cmgCall = CMG
+local number, number6, number25, number33, number35, number37, number39, number41, number42, number44, stateFlag, stateFlag2, stateFlag3, number2, stateFlag4, number3, dataCollection, cmgOperation, number4, number5, number7, number8, number9, number11, number13, number15, number17, number19, number21, number23, number26, number27, number28, number29, number30, number31, backgroundThread, eventHandler, cmgOperation2, number32, text2
+number = 80.0
+number6 = 10.0
+number25 = 7.0
+number33 = 7.0
+number35 = 7.0
+number37 = 51
+number39 = 25
+number41 = 154
+number42 = 74
+number44 = 22
+stateFlag = false
+stateFlag2 = false
+stateFlag3 = false
+number2 = 0
+stateFlag4 = false
+number3 = 0
+dataCollection = {}
+cmgOperation = 837858166
+number4 = -1572900542
+number5 = 1457987098
+number7 = 1783593694
+number8 = 903317905
+number9 = 895755432
+number11 = -1519555388
+number13 = -1634501443
+number15 = -1758441398
+number17 = 353883353
+number19 = -877280795
+number21 = -16554230
+number23 = 1790592407
+number26 = 1729276197
+number27 = 465590640
+number28 = 263279933
+number29 = -93312325
+number30 = -1159615601
+number31 = -1504773962
+backgroundThread = -1412094181
+eventHandler = 1875232888
+cmgOperation2 = 1418659670
+number32 = 295054921
+dataCollection[1] = cmgOperation
+dataCollection[2] = number4
+dataCollection[3] = number5
+dataCollection[4] = number7
+dataCollection[5] = number8
+dataCollection[6] = number9
+dataCollection[7] = number11
+dataCollection[8] = number13
+dataCollection[9] = number15
+dataCollection[10] = number17
+dataCollection[11] = number19
+dataCollection[12] = number21
+dataCollection[13] = number23
+dataCollection[14] = number26
+dataCollection[15] = number27
+dataCollection[16] = number28
+dataCollection[17] = number29
+dataCollection[18] = number30
+dataCollection[19] = number31
+dataCollection[20] = backgroundThread
+dataCollection[21] = eventHandler
+dataCollection[22] = cmgOperation2
+dataCollection[23] = number32
+cmgOperation = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-function numberValue4()
-  local arg1, arg2
-  arg1 = flag
-  return arg1
+-- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+function number4()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  return localValue1
 end
-cmgCall.isPlayerRappeling = numberValue4
-cmgCall = CMG
+cmgOperation.isPlayerRappeling = number4
+cmgOperation = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-function numberValue4()
-  local arg1, arg2
-  arg1 = flag2
-  return arg1
+-- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+function number4()
+  local localValue1, localValue2
+  localValue1 = stateFlag2
+  return localValue1
 end
-cmgCall.isPlayerInPoliceHeli = numberValue4
-cmgCall = numberValue + numberValue6
-cmgCall = cmgCall * 0.5
-numberValue4 = 0
+cmgOperation.isPlayerInPoliceHeli = number4
+cmgOperation = number + number6
+cmgOperation = cmgOperation * 0.5
+number4 = 0
 
--- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
-function numberValue5(arg1)
-  local arg2, textValue
-  arg2 = GetEntityHeightAboveGround
-  textValue = arg1
-  arg2 = arg2(textValue)
-  textValue = 1.5
-  arg2 = arg2 > textValue
-  return arg2
+-- === HELPER FUNCTION (decompiler name: number5; parameters: localValue1) ===
+function number5(localValue1)
+  local localValue2, text
+  localValue2 = GetEntityHeightAboveGround
+  text = localValue1
+  localValue2 = localValue2(text)
+  text = 1.5
+  localValue2 = localValue2 > text
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
-function numberValue7()
-  local arg1, arg2, textValue
-  arg1 = BeginScaleformMovieMethod
-  arg2 = numberValue2
-  textValue = "SET_CAMERA_TYPE"
-  arg1(arg2, textValue)
-  arg1 = numberValue4
-  if 0 == arg1 then
-    arg1 = SetNightvision
-    arg2 = true
-    arg1(arg2)
-    arg1 = 1
-    numberValue4 = arg1
-    arg1 = ScaleformMovieMethodAddParamInt
-    arg2 = 3
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: number7; parameters: none) ===
+function number7()
+  local localValue1, localValue2, text
+  localValue1 = BeginScaleformMovieMethod
+  localValue2 = number2
+  text = "SET_CAMERA_TYPE"
+  localValue1(localValue2, text)
+  localValue1 = number4
+  if 0 == localValue1 then
+    localValue1 = SetNightvision
+    localValue2 = true
+    localValue1(localValue2)
+    localValue1 = 1
+    number4 = localValue1
+    localValue1 = ScaleformMovieMethodAddParamInt
+    localValue2 = 3
+    localValue1(localValue2)
   else
-    arg1 = numberValue4
-    if 1 == arg1 then
-      arg1 = SetNightvision
-      arg2 = false
-      arg1(arg2)
-      arg1 = SetSeethrough
-      arg2 = true
-      arg1(arg2)
-      arg1 = 2
-      numberValue4 = arg1
-      arg1 = ScaleformMovieMethodAddParamInt
-      arg2 = 2
-      arg1(arg2)
+    localValue1 = number4
+    if 1 == localValue1 then
+      localValue1 = SetNightvision
+      localValue2 = false
+      localValue1(localValue2)
+      localValue1 = SetSeethrough
+      localValue2 = true
+      localValue1(localValue2)
+      localValue1 = 2
+      number4 = localValue1
+      localValue1 = ScaleformMovieMethodAddParamInt
+      localValue2 = 2
+      localValue1(localValue2)
     else
-      arg1 = SetSeethrough
-      arg2 = false
-      arg1(arg2)
-      arg1 = 0
-      numberValue4 = arg1
-      arg1 = ScaleformMovieMethodAddParamInt
-      arg2 = 1
-      arg1(arg2)
+      localValue1 = SetSeethrough
+      localValue2 = false
+      localValue1(localValue2)
+      localValue1 = 0
+      number4 = localValue1
+      localValue1 = ScaleformMovieMethodAddParamInt
+      localValue2 = 1
+      localValue1(localValue2)
     end
   end
-  arg1 = EndScaleformMovieMethod
-  arg1()
+  localValue1 = EndScaleformMovieMethod
+  localValue1()
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue8; parameters: none) ===
-function numberValue8()
-  local arg1, arg2
-  arg1 = HideHelpTextThisFrame
-  arg1()
-  arg1 = HideHudAndRadarThisFrame
-  arg1()
-  arg1 = HideHudComponentThisFrame
-  arg2 = 19
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 1
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 2
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 3
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 4
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 13
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 11
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 12
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 15
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 18
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: number8; parameters: none) ===
+function number8()
+  local localValue1, localValue2
+  localValue1 = HideHelpTextThisFrame
+  localValue1()
+  localValue1 = HideHudAndRadarThisFrame
+  localValue1()
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 19
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 1
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 2
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 3
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 4
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 13
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 11
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 12
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 15
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 18
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue9; parameters: arg1, arg2) ===
-function numberValue9(arg1, arg2)
-  local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle
-  textValue = GetDisabledControlNormal
-  numberValue34 = 0
-  numberValue36 = 220
-  textValue = textValue(numberValue34, numberValue36)
-  numberValue34 = GetDisabledControlNormal
-  numberValue36 = 0
-  numberValue38 = 221
-  numberValue34 = numberValue34(numberValue36, numberValue38)
-  numberValue36 = GetCamRot
-  numberValue38 = arg1
-  numberValue40 = 2
-  numberValue36 = numberValue36(numberValue38, numberValue40)
-  if 0.0 ~= textValue or 0.0 ~= numberValue34 then
-    numberValue38 = numberValue36.z
-    numberValue40 = textValue * -1.0
-    mathHelper = numberValue35
-    numberValue40 = numberValue40 * mathHelper
-    mathHelper = arg2 + 0.1
-    numberValue40 = numberValue40 * mathHelper
-    numberValue38 = numberValue38 + numberValue40
-    numberValue40 = math
-    numberValue40 = numberValue40.max
+-- === HELPER FUNCTION (decompiler name: number9; parameters: localValue1, localValue2) ===
+function number9(localValue1, localValue2)
+  local text, number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle
+  text = GetDisabledControlNormal
+  number34 = 0
+  number36 = 220
+  text = text(number34, number36)
+  number34 = GetDisabledControlNormal
+  number36 = 0
+  number38 = 221
+  number34 = number34(number36, number38)
+  number36 = GetCamRot
+  number38 = localValue1
+  number40 = 2
+  number36 = number36(number38, number40)
+  if 0.0 ~= text or 0.0 ~= number34 then
+    number38 = number36.z
+    number40 = text * -1.0
+    mathHelper = number35
+    number40 = number40 * mathHelper
+    mathHelper = localValue2 + 0.1
+    number40 = number40 * mathHelper
+    number38 = number38 + number40
+    number40 = math
+    number40 = number40.max
     mathHelper = math
     mathHelper = mathHelper.min
-    numberValue43 = 20.0
-    workValue3 = numberValue36.x
-    workValue = numberValue34 * -1.0
-    workValue2 = numberValue33
-    workValue = workValue * workValue2
-    workValue2 = arg2 + 0.1
-    workValue = workValue * workValue2
-    workValue3 = workValue3 + workValue
-    mathHelper = mathHelper(numberValue43, workValue3)
-    numberValue43 = -89.5
-    numberValue40 = numberValue40(mathHelper, numberValue43)
+    number43 = 20.0
+    workingValue3 = number36.x
+    workingValue = number34 * -1.0
+    workingValue2 = number33
+    workingValue = workingValue * workingValue2
+    workingValue2 = localValue2 + 0.1
+    workingValue = workingValue * workingValue2
+    workingValue3 = workingValue3 + workingValue
+    mathHelper = mathHelper(number43, workingValue3)
+    number43 = -89.5
+    number40 = number40(mathHelper, number43)
     mathHelper = SetCamRot
-    numberValue43 = arg1
-    workValue3 = numberValue40
-    workValue = 0.0
-    workValue2 = numberValue38
+    number43 = localValue1
+    workingValue3 = number40
+    workingValue = 0.0
+    workingValue2 = number38
     vehicle = 2
-    mathHelper(numberValue43, workValue3, workValue, workValue2, vehicle)
+    mathHelper(number43, workingValue3, workingValue, workingValue2, vehicle)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue11; parameters: arg1) ===
-function numberValue11(arg1)
-  local arg2, textValue, numberValue34, numberValue36
-  arg2 = IsControlJustPressed
-  textValue = 0
-  numberValue34 = 241
-  arg2 = arg2(textValue, numberValue34)
-  if arg2 then
-    arg2 = math
-    arg2 = arg2.max
-    textValue = cmgCall
-    numberValue34 = numberValue25
-    textValue = textValue - numberValue34
-    numberValue34 = numberValue6
-    arg2 = arg2(textValue, numberValue34)
-    cmgCall = arg2
+-- === HELPER FUNCTION (decompiler name: number11; parameters: localValue1) ===
+function number11(localValue1)
+  local localValue2, text, number34, number36
+  localValue2 = IsControlJustPressed
+  text = 0
+  number34 = 241
+  localValue2 = localValue2(text, number34)
+  if localValue2 then
+    localValue2 = math
+    localValue2 = localValue2.max
+    text = cmgOperation
+    number34 = number25
+    text = text - number34
+    number34 = number6
+    localValue2 = localValue2(text, number34)
+    cmgOperation = localValue2
   end
-  arg2 = IsControlJustPressed
-  textValue = 0
-  numberValue34 = 242
-  arg2 = arg2(textValue, numberValue34)
-  if arg2 then
-    arg2 = math
-    arg2 = arg2.min
-    textValue = cmgCall
-    numberValue34 = numberValue25
-    textValue = textValue + numberValue34
-    numberValue34 = numberValue
-    arg2 = arg2(textValue, numberValue34)
-    cmgCall = arg2
+  localValue2 = IsControlJustPressed
+  text = 0
+  number34 = 242
+  localValue2 = localValue2(text, number34)
+  if localValue2 then
+    localValue2 = math
+    localValue2 = localValue2.min
+    text = cmgOperation
+    number34 = number25
+    text = text + number34
+    number34 = number
+    localValue2 = localValue2(text, number34)
+    cmgOperation = localValue2
   end
-  arg2 = GetCamFov
-  textValue = arg1
-  arg2 = arg2(textValue)
-  textValue = math
-  textValue = textValue.abs
-  numberValue34 = cmgCall
-  numberValue34 = numberValue34 - arg2
-  textValue = textValue(numberValue34)
-  numberValue34 = 0.1
-  if textValue < numberValue34 then
-    cmgCall = arg2
+  localValue2 = GetCamFov
+  text = localValue1
+  localValue2 = localValue2(text)
+  text = math
+  text = text.abs
+  number34 = cmgOperation
+  number34 = number34 - localValue2
+  text = text(number34)
+  number34 = 0.1
+  if text < number34 then
+    cmgOperation = localValue2
   end
-  textValue = SetCamFov
-  numberValue34 = arg1
-  numberValue36 = cmgCall
-  numberValue36 = numberValue36 - arg2
-  numberValue36 = numberValue36 * 0.05
-  numberValue36 = arg2 + numberValue36
-  textValue(numberValue34, numberValue36)
+  text = SetCamFov
+  number34 = localValue1
+  number36 = cmgOperation
+  number36 = number36 - localValue2
+  number36 = number36 * 0.05
+  number36 = localValue2 + number36
+  text(number34, number36)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue13; parameters: arg1) ===
-function numberValue13(arg1)
-  local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43
-  arg2 = math
-  arg2 = arg2.rad
-  textValue = arg1.z
-  arg2 = arg2(textValue)
-  textValue = math
-  textValue = textValue.rad
-  numberValue34 = arg1.x
-  textValue = textValue(numberValue34)
-  numberValue34 = math
-  numberValue34 = numberValue34.abs
-  numberValue36 = math
-  numberValue36 = numberValue36.cos
-  numberValue38 = textValue
-  numberValue36, numberValue38, numberValue40, mathHelper, numberValue43 = numberValue36(numberValue38)
-  numberValue34 = numberValue34(numberValue36, numberValue38, numberValue40, mathHelper, numberValue43)
-  numberValue36 = vector3
-  numberValue38 = math
-  numberValue38 = numberValue38.sin
-  numberValue40 = arg2
-  numberValue38 = numberValue38(numberValue40)
-  numberValue38 = -numberValue38
-  numberValue38 = numberValue38 * numberValue34
-  numberValue40 = math
-  numberValue40 = numberValue40.cos
-  mathHelper = arg2
-  numberValue40 = numberValue40(mathHelper)
-  numberValue40 = numberValue40 * numberValue34
+-- === HELPER FUNCTION (decompiler name: number13; parameters: localValue1) ===
+function number13(localValue1)
+  local localValue2, text, number34, number36, number38, number40, mathHelper, number43
+  localValue2 = math
+  localValue2 = localValue2.rad
+  text = localValue1.z
+  localValue2 = localValue2(text)
+  text = math
+  text = text.rad
+  number34 = localValue1.x
+  text = text(number34)
+  number34 = math
+  number34 = number34.abs
+  number36 = math
+  number36 = number36.cos
+  number38 = text
+  number36, number38, number40, mathHelper, number43 = number36(number38)
+  number34 = number34(number36, number38, number40, mathHelper, number43)
+  number36 = vector3
+  number38 = math
+  number38 = number38.sin
+  number40 = localValue2
+  number38 = number38(number40)
+  number38 = -number38
+  number38 = number38 * number34
+  number40 = math
+  number40 = number40.cos
+  mathHelper = localValue2
+  number40 = number40(mathHelper)
+  number40 = number40 * number34
   mathHelper = math
   mathHelper = mathHelper.sin
-  numberValue43 = textValue
-  mathHelper, numberValue43 = mathHelper(numberValue43)
-  return numberValue36(numberValue38, numberValue40, mathHelper, numberValue43)
+  number43 = text
+  mathHelper, number43 = mathHelper(number43)
+  return number36(number38, number40, mathHelper, number43)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue15; parameters: arg1) ===
-function numberValue15(arg1)
-  local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5
-  arg2 = GetCamCoord
-  textValue = arg1
-  arg2 = arg2(textValue)
-  textValue = numberValue13
-  numberValue34 = GetCamRot
-  numberValue36 = arg1
-  numberValue38 = 2
-  numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5 = numberValue34(numberValue36, numberValue38)
-  textValue = textValue(numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5)
-  numberValue34 = textValue * 200.0
-  numberValue34 = arg2 + numberValue34
-  numberValue36 = _ENV
-  numberValue38 = "StartExpensiveSynchronousShapeTestLosProbe"
-  numberValue36 = numberValue36[numberValue38]
-  numberValue38 = arg2.x
-  numberValue40 = arg2.y
-  mathHelper = arg2.z
-  numberValue43 = numberValue34.x
-  workValue3 = numberValue34.y
-  workValue = numberValue34.z
-  workValue2 = 10
+-- === HELPER FUNCTION (decompiler name: number15; parameters: localValue1) ===
+function number15(localValue1)
+  local localValue2, text, number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5
+  localValue2 = GetCamCoord
+  text = localValue1
+  localValue2 = localValue2(text)
+  text = number13
+  number34 = GetCamRot
+  number36 = localValue1
+  number38 = 2
+  number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5 = number34(number36, number38)
+  text = text(number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5)
+  number34 = text * 200.0
+  number34 = localValue2 + number34
+  number36 = _ENV
+  number38 = "StartExpensiveSynchronousShapeTestLosProbe"
+  number36 = number36[number38]
+  number38 = localValue2.x
+  number40 = localValue2.y
+  mathHelper = localValue2.z
+  number43 = number34.x
+  workingValue3 = number34.y
+  workingValue = number34.z
+  workingValue2 = 10
   vehicle = GetVehiclePedIsIn
   playerPed = PlayerPedId
   -- Beginner: result below is localPlayerPed.
   playerPed = playerPed()
-  flag5 = false
+  stateFlag5 = false
   -- Beginner: result below is currentVehicle.
-  vehicle = vehicle(playerPed, flag5)
+  vehicle = vehicle(playerPed, stateFlag5)
   playerPed = 0
-  numberValue36 = numberValue36(numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed)
-  numberValue38 = GetShapeTestResult
-  numberValue40 = numberValue36
-  numberValue38, numberValue40, mathHelper, numberValue43, workValue3 = numberValue38(numberValue40)
-  if workValue3 > 0 then
-    workValue = IsEntityAVehicle
-    workValue2 = workValue3
-    workValue = workValue(workValue2)
-    if workValue then
-      return workValue3
+  number36 = number36(number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed)
+  number38 = GetShapeTestResult
+  number40 = number36
+  number38, number40, mathHelper, number43, workingValue3 = number38(number40)
+  if workingValue3 > 0 then
+    workingValue = IsEntityAVehicle
+    workingValue2 = workingValue3
+    workingValue = workingValue(workingValue2)
+    if workingValue then
+      return workingValue3
   end
   else
-    workValue = nil
-    return workValue
+    workingValue = nil
+    return workingValue
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue17; parameters: arg1) ===
-function numberValue17(arg1)
-  local arg2, textValue, numberValue34, numberValue36
-  arg1 = arg1 + 2000
-  arg2 = math
-  arg2 = arg2.floor
-  textValue = arg1 / 40
-  arg2 = arg2(textValue)
-  arg1 = arg2
-  arg2 = math
-  arg2 = arg2.max
-  textValue = math
-  textValue = textValue.min
-  numberValue34 = arg1
-  numberValue36 = 99
-  textValue = textValue(numberValue34, numberValue36)
-  numberValue34 = 0
-  return arg2(textValue, numberValue34)
+-- === HELPER FUNCTION (decompiler name: number17; parameters: localValue1) ===
+function number17(localValue1)
+  local localValue2, text, number34, number36
+  localValue1 = localValue1 + 2000
+  localValue2 = math
+  localValue2 = localValue2.floor
+  text = localValue1 / 40
+  localValue2 = localValue2(text)
+  localValue1 = localValue2
+  localValue2 = math
+  localValue2 = localValue2.max
+  text = math
+  text = text.min
+  number34 = localValue1
+  number36 = 99
+  text = text(number34, number36)
+  number34 = 0
+  return localValue2(text, number34)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue19; parameters: arg1, arg2) ===
-function numberValue19(arg1, arg2)
-  local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3
-  textValue = math
-  textValue = textValue.floor
-  numberValue34 = GetEntityHeading
-  numberValue36 = arg2
-  numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3 = numberValue34(numberValue36)
-  textValue = textValue(numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3)
-  numberValue34 = GetEntityCoords
-  numberValue36 = arg2
-  numberValue38 = true
+-- === HELPER FUNCTION (decompiler name: number19; parameters: localValue1, localValue2) ===
+function number19(localValue1, localValue2)
+  local text, number34, number36, number38, number40, mathHelper, number43, workingValue3
+  text = math
+  text = text.floor
+  number34 = GetEntityHeading
+  number36 = localValue2
+  number34, number36, number38, number40, mathHelper, number43, workingValue3 = number34(number36)
+  text = text(number34, number36, number38, number40, mathHelper, number43, workingValue3)
+  number34 = GetEntityCoords
+  number36 = localValue2
+  number38 = true
   -- Beginner: result below is entityCoords.
-  numberValue34 = numberValue34(numberValue36, numberValue38)
-  numberValue36 = math
-  numberValue36 = numberValue36.floor
-  numberValue38 = numberValue34.z
-  numberValue38 = numberValue38 * 3.28084
-  numberValue36 = numberValue36(numberValue38)
-  numberValue38 = GetEntityCoords
-  numberValue40 = arg1
+  number34 = number34(number36, number38)
+  number36 = math
+  number36 = number36.floor
+  number38 = number34.z
+  number38 = number38 * 3.28084
+  number36 = number36(number38)
+  number38 = GetEntityCoords
+  number40 = localValue1
   mathHelper = true
   -- Beginner: result below is entityCoords.
-  numberValue38 = numberValue38(numberValue40, mathHelper)
-  numberValue40 = math
-  numberValue40 = numberValue40.floor
-  mathHelper = numberValue34 - numberValue38
+  number38 = number38(number40, mathHelper)
+  number40 = math
+  number40 = number40.floor
+  mathHelper = number34 - number38
   mathHelper = #mathHelper
-  numberValue40 = numberValue40(mathHelper)
+  number40 = number40(mathHelper)
   mathHelper = BeginScaleformMovieMethod
-  numberValue43 = numberValue2
-  workValue3 = "SET_TARGET_INFORMATION"
-  mathHelper(numberValue43, workValue3)
+  number43 = number2
+  workingValue3 = "SET_TARGET_INFORMATION"
+  mathHelper(number43, workingValue3)
   mathHelper = ScaleformMovieMethodAddParamInt
-  numberValue43 = numberValue17
-  workValue3 = numberValue34.x
-  numberValue43, workValue3 = numberValue43(workValue3)
-  mathHelper(numberValue43, workValue3)
+  number43 = number17
+  workingValue3 = number34.x
+  number43, workingValue3 = number43(workingValue3)
+  mathHelper(number43, workingValue3)
   mathHelper = ScaleformMovieMethodAddParamInt
-  numberValue43 = numberValue17
-  workValue3 = numberValue34.y
-  numberValue43, workValue3 = numberValue43(workValue3)
-  mathHelper(numberValue43, workValue3)
+  number43 = number17
+  workingValue3 = number34.y
+  number43, workingValue3 = number43(workingValue3)
+  mathHelper(number43, workingValue3)
   mathHelper = ScaleformMovieMethodAddParamInt
-  numberValue43 = textValue
-  mathHelper(numberValue43)
+  number43 = text
+  mathHelper(number43)
   mathHelper = ScaleformMovieMethodAddParamInt
-  numberValue43 = numberValue36
-  mathHelper(numberValue43)
+  number43 = number36
+  mathHelper(number43)
   mathHelper = ScaleformMovieMethodAddParamInt
-  numberValue43 = numberValue40
-  mathHelper(numberValue43)
+  number43 = number40
+  mathHelper(number43)
   mathHelper = EndScaleformMovieMethod
   mathHelper()
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue21; parameters: arg1) ===
-function numberValue21(arg1)
-  local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle
-  arg2 = GetCamCoord
-  textValue = arg1
-  arg2 = arg2(textValue)
-  textValue = CMG
-  textValue = textValue.rotationToDirection
-  numberValue34 = GetCamRot
-  numberValue36 = arg1
-  numberValue38 = 2
-  numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle = numberValue34(numberValue36, numberValue38)
-  textValue = textValue(numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle)
-  textValue = textValue * 500.0
-  textValue = arg2 + textValue
-  numberValue34 = _ENV
-  numberValue36 = "StartExpensiveSynchronousShapeTestLosProbe"
-  numberValue34 = numberValue34[numberValue36]
-  numberValue36 = arg2.x
-  numberValue38 = arg2.y
-  numberValue40 = arg2.z
-  mathHelper = textValue.x
-  numberValue43 = textValue.y
-  workValue3 = textValue.z
-  workValue = -1
-  workValue2 = CMG
-  workValue2 = workValue2.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: number21; parameters: localValue1) ===
+function number21(localValue1)
+  local localValue2, text, number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle
+  localValue2 = GetCamCoord
+  text = localValue1
+  localValue2 = localValue2(text)
+  text = CMG
+  text = text.rotationToDirection
+  number34 = GetCamRot
+  number36 = localValue1
+  number38 = 2
+  number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle = number34(number36, number38)
+  text = text(number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle)
+  text = text * 500.0
+  text = localValue2 + text
+  number34 = _ENV
+  number36 = "StartExpensiveSynchronousShapeTestLosProbe"
+  number34 = number34[number36]
+  number36 = localValue2.x
+  number38 = localValue2.y
+  number40 = localValue2.z
+  mathHelper = text.x
+  number43 = text.y
+  workingValue3 = text.z
+  workingValue = -1
+  workingValue2 = CMG
+  workingValue2 = workingValue2.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  workValue2 = workValue2()
+  workingValue2 = workingValue2()
   vehicle = 4
-  numberValue34 = numberValue34(numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle)
-  numberValue36 = GetShapeTestResult
-  numberValue38 = numberValue34
-  numberValue36, numberValue38, numberValue40 = numberValue36(numberValue38)
-  if numberValue38 then
+  number34 = number34(number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle)
+  number36 = GetShapeTestResult
+  number38 = number34
+  number36, number38, number40 = number36(number38)
+  if number38 then
     mathHelper = BeginScaleformMovieMethod
-    numberValue43 = numberValue2
-    workValue3 = "SET_TARGET_INFORMATION"
-    mathHelper(numberValue43, workValue3)
+    number43 = number2
+    workingValue3 = "SET_TARGET_INFORMATION"
+    mathHelper(number43, workingValue3)
     mathHelper = ScaleformMovieMethodAddParamInt
-    numberValue43 = numberValue17
-    workValue3 = numberValue40.x
-    numberValue43, workValue3, workValue, workValue2, vehicle = numberValue43(workValue3)
-    mathHelper(numberValue43, workValue3, workValue, workValue2, vehicle)
+    number43 = number17
+    workingValue3 = number40.x
+    number43, workingValue3, workingValue, workingValue2, vehicle = number43(workingValue3)
+    mathHelper(number43, workingValue3, workingValue, workingValue2, vehicle)
     mathHelper = ScaleformMovieMethodAddParamInt
-    numberValue43 = numberValue17
-    workValue3 = numberValue40.y
-    numberValue43, workValue3, workValue, workValue2, vehicle = numberValue43(workValue3)
-    mathHelper(numberValue43, workValue3, workValue, workValue2, vehicle)
+    number43 = number17
+    workingValue3 = number40.y
+    number43, workingValue3, workingValue, workingValue2, vehicle = number43(workingValue3)
+    mathHelper(number43, workingValue3, workingValue, workingValue2, vehicle)
     mathHelper = ScaleformMovieMethodAddParamInt
-    numberValue43 = math
-    numberValue43 = numberValue43.floor
-    workValue3 = GetHeadingFromVector_2d
-    workValue = numberValue40.x
-    workValue2 = arg2.x
-    workValue = workValue - workValue2
-    workValue2 = numberValue40.y
-    vehicle = arg2.y
-    workValue2 = workValue2 - vehicle
-    workValue3, workValue, workValue2, vehicle = workValue3(workValue, workValue2)
-    numberValue43 = numberValue43(workValue3, workValue, workValue2, vehicle)
-    workValue3 = 360
-    numberValue43 = workValue3 - numberValue43
-    mathHelper(numberValue43)
+    number43 = math
+    number43 = number43.floor
+    workingValue3 = GetHeadingFromVector_2d
+    workingValue = number40.x
+    workingValue2 = localValue2.x
+    workingValue = workingValue - workingValue2
+    workingValue2 = number40.y
+    vehicle = localValue2.y
+    workingValue2 = workingValue2 - vehicle
+    workingValue3, workingValue, workingValue2, vehicle = workingValue3(workingValue, workingValue2)
+    number43 = number43(workingValue3, workingValue, workingValue2, vehicle)
+    workingValue3 = 360
+    number43 = workingValue3 - number43
+    mathHelper(number43)
     mathHelper = ScaleformMovieMethodAddParamInt
-    numberValue43 = math
-    numberValue43 = numberValue43.floor
-    workValue3 = numberValue40.z
-    workValue3 = workValue3 * 3.28084
-    numberValue43, workValue3, workValue, workValue2, vehicle = numberValue43(workValue3)
-    mathHelper(numberValue43, workValue3, workValue, workValue2, vehicle)
+    number43 = math
+    number43 = number43.floor
+    workingValue3 = number40.z
+    workingValue3 = workingValue3 * 3.28084
+    number43, workingValue3, workingValue, workingValue2, vehicle = number43(workingValue3)
+    mathHelper(number43, workingValue3, workingValue, workingValue2, vehicle)
     mathHelper = ScaleformMovieMethodAddParamInt
-    numberValue43 = math
-    numberValue43 = numberValue43.floor
-    workValue3 = arg2 - numberValue40
-    workValue3 = #workValue3
-    numberValue43, workValue3, workValue, workValue2, vehicle = numberValue43(workValue3)
-    mathHelper(numberValue43, workValue3, workValue, workValue2, vehicle)
+    number43 = math
+    number43 = number43.floor
+    workingValue3 = localValue2 - number40
+    workingValue3 = #workingValue3
+    number43, workingValue3, workingValue, workingValue2, vehicle = number43(workingValue3)
+    mathHelper(number43, workingValue3, workingValue, workingValue2, vehicle)
     mathHelper = EndScaleformMovieMethod
     mathHelper()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg1) ===
-function numberValue23(arg1)
-  local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40
-  arg2 = math
-  arg2 = arg2.floor
-  textValue = GetEntityHeading
-  numberValue34 = arg1
-  textValue, numberValue34, numberValue36, numberValue38, numberValue40 = textValue(numberValue34)
-  arg2 = arg2(textValue, numberValue34, numberValue36, numberValue38, numberValue40)
-  textValue = GetEntityCoords
-  numberValue34 = arg1
-  numberValue36 = true
+-- === HELPER FUNCTION (decompiler name: number23; parameters: localValue1) ===
+function number23(localValue1)
+  local localValue2, text, number34, number36, number38, number40
+  localValue2 = math
+  localValue2 = localValue2.floor
+  text = GetEntityHeading
+  number34 = localValue1
+  text, number34, number36, number38, number40 = text(number34)
+  localValue2 = localValue2(text, number34, number36, number38, number40)
+  text = GetEntityCoords
+  number34 = localValue1
+  number36 = true
   -- Beginner: result below is entityCoords.
-  textValue = textValue(numberValue34, numberValue36)
-  numberValue34 = math
-  numberValue34 = numberValue34.floor
-  numberValue36 = textValue.z
-  numberValue36 = numberValue36 * 3.28084
-  numberValue34 = numberValue34(numberValue36)
-  numberValue36 = BeginScaleformMovieMethod
-  numberValue38 = numberValue2
-  numberValue40 = "SET_AIRCRAFT_INFORMATION"
-  numberValue36(numberValue38, numberValue40)
-  numberValue36 = ScaleformMovieMethodAddParamInt
-  numberValue38 = numberValue17
-  numberValue40 = textValue.x
-  numberValue38, numberValue40 = numberValue38(numberValue40)
-  numberValue36(numberValue38, numberValue40)
-  numberValue36 = ScaleformMovieMethodAddParamInt
-  numberValue38 = numberValue17
-  numberValue40 = textValue.y
-  numberValue38, numberValue40 = numberValue38(numberValue40)
-  numberValue36(numberValue38, numberValue40)
-  numberValue36 = ScaleformMovieMethodAddParamInt
-  numberValue38 = arg2
-  numberValue36(numberValue38)
-  numberValue36 = ScaleformMovieMethodAddParamInt
-  numberValue38 = numberValue34
-  numberValue36(numberValue38)
-  numberValue36 = EndScaleformMovieMethod
-  numberValue36()
+  text = text(number34, number36)
+  number34 = math
+  number34 = number34.floor
+  number36 = text.z
+  number36 = number36 * 3.28084
+  number34 = number34(number36)
+  number36 = BeginScaleformMovieMethod
+  number38 = number2
+  number40 = "SET_AIRCRAFT_INFORMATION"
+  number36(number38, number40)
+  number36 = ScaleformMovieMethodAddParamInt
+  number38 = number17
+  number40 = text.x
+  number38, number40 = number38(number40)
+  number36(number38, number40)
+  number36 = ScaleformMovieMethodAddParamInt
+  number38 = number17
+  number40 = text.y
+  number38, number40 = number38(number40)
+  number36(number38, number40)
+  number36 = ScaleformMovieMethodAddParamInt
+  number38 = localValue2
+  number36(number38)
+  number36 = ScaleformMovieMethodAddParamInt
+  number38 = number34
+  number36(number38)
+  number36 = EndScaleformMovieMethod
+  number36()
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue26; parameters: arg1) ===
-function numberValue26(arg1)
-  local arg2, textValue, numberValue34, numberValue36
-  arg2 = GetCamRot
-  textValue = arg1
-  numberValue34 = 2
-  arg2 = arg2(textValue, numberValue34)
-  textValue = BeginScaleformMovieMethod
-  numberValue34 = numberValue2
-  numberValue36 = "SET_CAMERA_PITCH"
-  textValue(numberValue34, numberValue36)
-  textValue = ScaleformMovieMethodAddParamFloat
-  numberValue34 = arg2.x
-  textValue(numberValue34)
-  textValue = EndScaleformMovieMethod
-  textValue()
-  textValue = BeginScaleformMovieMethod
-  numberValue34 = numberValue2
-  numberValue36 = "SET_CAMERA_HEADING"
-  textValue(numberValue34, numberValue36)
-  textValue = ScaleformMovieMethodAddParamFloat
-  numberValue34 = arg2.z
-  textValue(numberValue34)
-  textValue = EndScaleformMovieMethod
-  textValue()
+-- === HELPER FUNCTION (decompiler name: number26; parameters: localValue1) ===
+function number26(localValue1)
+  local localValue2, text, number34, number36
+  localValue2 = GetCamRot
+  text = localValue1
+  number34 = 2
+  localValue2 = localValue2(text, number34)
+  text = BeginScaleformMovieMethod
+  number34 = number2
+  number36 = "SET_CAMERA_PITCH"
+  text(number34, number36)
+  text = ScaleformMovieMethodAddParamFloat
+  number34 = localValue2.x
+  text(number34)
+  text = EndScaleformMovieMethod
+  text()
+  text = BeginScaleformMovieMethod
+  number34 = number2
+  number36 = "SET_CAMERA_HEADING"
+  text(number34, number36)
+  text = ScaleformMovieMethodAddParamFloat
+  number34 = localValue2.z
+  text(number34)
+  text = EndScaleformMovieMethod
+  text()
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue27; parameters: arg1) ===
-function numberValue27(arg1)
-  local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue
-  arg2 = GetEntityModel
-  textValue = arg1
+-- === HELPER FUNCTION (decompiler name: number27; parameters: localValue1) ===
+function number27(localValue1)
+  local localValue2, text, number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue
+  localValue2 = GetEntityModel
+  text = localValue1
   -- Beginner: result below is modelHash.
-  arg2 = arg2(textValue)
-  textValue = GetLabelText
-  numberValue34 = GetDisplayNameFromVehicleModel
-  numberValue36 = arg2
-  numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue = numberValue34(numberValue36)
-  textValue = textValue(numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue)
-  numberValue34 = CMG
-  numberValue34 = numberValue34.getFlatLicensePlate
-  numberValue36 = GetVehicleNumberPlateText
-  numberValue38 = arg1
-  numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue = numberValue36(numberValue38)
-  numberValue34 = numberValue34(numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue)
-  numberValue36 = CMG
-  numberValue36 = numberValue36.DrawText
-  numberValue38 = 0.45
-  numberValue40 = 0.9
+  localValue2 = localValue2(text)
+  text = GetLabelText
+  number34 = GetDisplayNameFromVehicleModel
+  number36 = localValue2
+  number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue = number34(number36)
+  text = text(number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue)
+  number34 = CMG
+  number34 = number34.getFlatLicensePlate
+  number36 = GetVehicleNumberPlateText
+  number38 = localValue1
+  number36, number38, number40, mathHelper, number43, workingValue3, workingValue = number36(number38)
+  number34 = number34(number36, number38, number40, mathHelper, number43, workingValue3, workingValue)
+  number36 = CMG
+  number36 = number36.DrawText
+  number38 = 0.45
+  number40 = 0.9
   mathHelper = "Model: "
-  numberValue43 = textValue
-  workValue3 = [[
+  number43 = text
+  workingValue3 = [[
 
 Plate: ]]
-  workValue = numberValue34
-  mathHelper = mathHelper .. numberValue43 .. workValue3 .. workValue
-  numberValue43 = 0.55
-  numberValue36(numberValue38, numberValue40, mathHelper, numberValue43)
+  workingValue = number34
+  mathHelper = mathHelper .. number43 .. workingValue3 .. workingValue
+  number43 = 0.55
+  number36(number38, number40, mathHelper, number43)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue28; parameters: none) ===
-function numberValue28()
-  local arg1, arg2, textValue, numberValue34, numberValue36
-  arg1 = PlaySoundFrontend
-  arg2 = -1
-  textValue = "BEEP_GREEN"
-  numberValue34 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-  numberValue36 = true
-  arg1(arg2, textValue, numberValue34, numberValue36)
-  arg1 = Citizen
-  arg1 = arg1.Wait
-  arg2 = 2000
-  arg1(arg2)
-  arg1 = PlaySoundFrontend
-  arg2 = -1
-  textValue = "BEEP_GREEN"
-  numberValue34 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-  numberValue36 = true
-  arg1(arg2, textValue, numberValue34, numberValue36)
+-- === HELPER FUNCTION (decompiler name: number28; parameters: none) ===
+function number28()
+  local localValue1, localValue2, text, number34, number36
+  localValue1 = PlaySoundFrontend
+  localValue2 = -1
+  text = "BEEP_GREEN"
+  number34 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
+  number36 = true
+  localValue1(localValue2, text, number34, number36)
+  localValue1 = Citizen
+  localValue1 = localValue1.Wait
+  localValue2 = 2000
+  localValue1(localValue2)
+  localValue1 = PlaySoundFrontend
+  localValue2 = -1
+  text = "BEEP_GREEN"
+  number34 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
+  number36 = true
+  localValue1(localValue2, text, number34, number36)
 end
-numberValue29 = 0
+number29 = 0
 
--- === HELPER FUNCTION (decompiler name: numberValue30; parameters: arg1, arg2) ===
-function numberValue30(arg1, arg2)
-  local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed
-  textValue = GetCamCoord
-  numberValue34 = arg1
-  textValue = textValue(numberValue34)
-  numberValue34 = GetEntityCoords
-  numberValue36 = arg2
-  numberValue38 = true
+-- === HELPER FUNCTION (decompiler name: number30; parameters: localValue1, localValue2) ===
+function number30(localValue1, localValue2)
+  local text, number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed
+  text = GetCamCoord
+  number34 = localValue1
+  text = text(number34)
+  number34 = GetEntityCoords
+  number36 = localValue2
+  number38 = true
   -- Beginner: result below is entityCoords.
-  numberValue34 = numberValue34(numberValue36, numberValue38)
-  numberValue36 = _ENV
-  numberValue38 = "StartExpensiveSynchronousShapeTestLosProbe"
-  numberValue36 = numberValue36[numberValue38]
-  numberValue38 = textValue.x
-  numberValue40 = textValue.y
-  mathHelper = textValue.z
-  numberValue43 = numberValue34.x
-  workValue3 = numberValue34.y
-  workValue = numberValue34.z
-  workValue2 = 1
-  vehicle = arg2
+  number34 = number34(number36, number38)
+  number36 = _ENV
+  number38 = "StartExpensiveSynchronousShapeTestLosProbe"
+  number36 = number36[number38]
+  number38 = text.x
+  number40 = text.y
+  mathHelper = text.z
+  number43 = number34.x
+  workingValue3 = number34.y
+  workingValue = number34.z
+  workingValue2 = 1
+  vehicle = localValue2
   playerPed = 4
-  numberValue36 = numberValue36(numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed)
-  numberValue38 = GetShapeTestResult
-  numberValue40 = numberValue36
-  numberValue38, numberValue40 = numberValue38(numberValue40)
-  if 0 == numberValue40 then
+  number36 = number36(number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed)
+  number38 = GetShapeTestResult
+  number40 = number36
+  number38, number40 = number38(number40)
+  if 0 == number40 then
     mathHelper = GetGameTimer
     -- Beginner: result below is gameTimeMs.
     mathHelper = mathHelper()
-    numberValue29 = mathHelper
+    number29 = mathHelper
     mathHelper = true
     return mathHelper
   else
     mathHelper = GetGameTimer
     -- Beginner: result below is gameTimeMs.
     mathHelper = mathHelper()
-    numberValue43 = numberValue29
-    mathHelper = mathHelper - numberValue43
-    numberValue43 = 500
-    mathHelper = mathHelper <= numberValue43
+    number43 = number29
+    mathHelper = mathHelper - number43
+    number43 = 500
+    mathHelper = mathHelper <= number43
     if not mathHelper then
-      numberValue43 = notify
-      workValue3 = "~r~Lost line of sight to vehicle, tracking deactivated."
+      number43 = notify
+      workingValue3 = "~r~Lost line of sight to vehicle, tracking deactivated."
       -- Beginner: Show a notification to the player.
-      numberValue43(workValue3)
+      number43(workingValue3)
     end
     return mathHelper
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue31; parameters: none) ===
-function numberValue31()
-  local arg1, arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24
+-- === HELPER FUNCTION (decompiler name: number31; parameters: none) ===
+function number31()
+  local localValue1, localValue2, text, number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24
   while true do
-    arg1 = flag2
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.getPlayerPed
+    localValue1 = stateFlag2
+    if localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      arg2 = CMG
-      arg2 = arg2.getPlayerVehicle
+      localValue1 = localValue1()
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerVehicle
       -- Beginner: result below is currentVehicle.
-      arg2 = arg2()
-      textValue = numberValue5
-      numberValue34 = arg2
-      textValue = textValue(numberValue34)
-      if textValue then
-        textValue = IsControlJustPressed
-        numberValue34 = 0
-        numberValue36 = numberValue37
-        textValue = textValue(numberValue34, numberValue36)
-        if textValue then
-          textValue = GetEntityModel
-          numberValue34 = arg2
+      localValue2 = localValue2()
+      text = number5
+      number34 = localValue2
+      text = text(number34)
+      if text then
+        text = IsControlJustPressed
+        number34 = 0
+        number36 = number37
+        text = text(number34, number36)
+        if text then
+          text = GetEntityModel
+          number34 = localValue2
           -- Beginner: result below is modelHash.
-          textValue = textValue(numberValue34)
-          numberValue34 = 1875232888 == textValue
-          numberValue36 = CMG
-          numberValue36 = numberValue36.hasClientPermission
-          numberValue38 = "police.onduty.permission"
-          numberValue36 = numberValue36(numberValue38)
-          if not numberValue36 then
-            numberValue36 = CMG
-            numberValue36 = numberValue36.hasClientPermission
-            numberValue38 = "nhs.onduty.permission"
-            numberValue36 = numberValue36(numberValue38)
-            if not numberValue36 then
-              numberValue36 = GetPedInVehicleSeat
-              numberValue38 = arg2
-              numberValue40 = 0
-              numberValue36 = numberValue36(numberValue38, numberValue40)
-              numberValue36 = CMG
-              numberValue36 = numberValue36.hasClientSkill
-              numberValue38 = "vigilante_helicopter_thermals"
-              numberValue36 = numberValue36 == arg1 and (not numberValue34 or numberValue36)
+          text = text(number34)
+          number34 = 1875232888 == text
+          number36 = CMG
+          number36 = number36.hasClientPermission
+          number38 = "police.onduty.permission"
+          number36 = number36(number38)
+          if not number36 then
+            number36 = CMG
+            number36 = number36.hasClientPermission
+            number38 = "nhs.onduty.permission"
+            number36 = number36(number38)
+            if not number36 then
+              number36 = GetPedInVehicleSeat
+              number38 = localValue2
+              number40 = 0
+              number36 = number36(number38, number40)
+              number36 = CMG
+              number36 = number36.hasClientSkill
+              number38 = "vigilante_helicopter_thermals"
+              number36 = number36 == localValue1 and (not number34 or number36)
             end
           end
-          if numberValue36 then
-            numberValue38 = PlaySoundFrontend
-            numberValue40 = -1
+          if number36 then
+            number38 = PlaySoundFrontend
+            number40 = -1
             mathHelper = "SELECT"
-            numberValue43 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            workValue3 = false
-            numberValue38(numberValue40, mathHelper, numberValue43, workValue3)
-            numberValue38 = true
-            flag3 = numberValue38
+            number43 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            workingValue3 = false
+            number38(number40, mathHelper, number43, workingValue3)
+            number38 = true
+            stateFlag3 = number38
           end
         end
-        textValue = IsDisabledControlJustPressed
-        numberValue34 = 0
-        numberValue36 = numberValue41
-        textValue = textValue(numberValue34, numberValue36)
-        if textValue then
-          textValue = GetPedInVehicleSeat
-          numberValue34 = arg2
-          numberValue36 = -1
-          textValue = textValue(numberValue34, numberValue36)
-          if textValue ~= arg1 then
-            textValue = GetPedInVehicleSeat
-            numberValue34 = arg2
-            numberValue36 = 0
-            textValue = textValue(numberValue34, numberValue36)
-            if textValue ~= arg1 then
-              textValue = CMG
-              textValue = textValue.isHandcuffed
-              textValue = textValue()
-              if not textValue then
-                textValue = true
-                flag = textValue
-                textValue = PlaySoundFrontend
-                numberValue34 = -1
-                numberValue36 = "SELECT"
-                numberValue38 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-                numberValue40 = false
-                textValue(numberValue34, numberValue36, numberValue38, numberValue40)
-                textValue = TaskRappelFromHeli
-                numberValue34 = arg1
-                numberValue36 = 1
-                textValue(numberValue34, numberValue36)
-                textValue = Wait
-                numberValue34 = 1000
-                textValue(numberValue34)
-                textValue = GetSoundId
+        text = IsDisabledControlJustPressed
+        number34 = 0
+        number36 = number41
+        text = text(number34, number36)
+        if text then
+          text = GetPedInVehicleSeat
+          number34 = localValue2
+          number36 = -1
+          text = text(number34, number36)
+          if text ~= localValue1 then
+            text = GetPedInVehicleSeat
+            number34 = localValue2
+            number36 = 0
+            text = text(number34, number36)
+            if text ~= localValue1 then
+              text = CMG
+              text = text.isHandcuffed
+              text = text()
+              if not text then
+                text = true
+                stateFlag = text
+                text = PlaySoundFrontend
+                number34 = -1
+                number36 = "SELECT"
+                number38 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+                number40 = false
+                text(number34, number36, number38, number40)
+                text = TaskRappelFromHeli
+                number34 = localValue1
+                number36 = 1
+                text(number34, number36)
+                text = Wait
+                number34 = 1000
+                text(number34)
+                text = GetSoundId
                 -- Beginner: result below is soundHandle.
-                textValue = textValue()
-                numberValue34 = PlaySoundFrontend
-                numberValue36 = textValue
-                numberValue38 = "Rappel_Loop"
-                numberValue40 = "GTAO_Rappel_Sounds"
+                text = text()
+                number34 = PlaySoundFrontend
+                number36 = text
+                number38 = "Rappel_Loop"
+                number40 = "GTAO_Rappel_Sounds"
                 mathHelper = true
-                numberValue34(numberValue36, numberValue38, numberValue40, mathHelper)
+                number34(number36, number38, number40, mathHelper)
                 while true do
-                  numberValue34 = GetIsTaskActive
-                  numberValue36 = PlayerPedId
+                  number34 = GetIsTaskActive
+                  number36 = PlayerPedId
                   -- Beginner: result below is localPlayerPed.
-                  numberValue36 = numberValue36()
-                  numberValue38 = 49
-                  numberValue34 = numberValue34(numberValue36, numberValue38)
-                  if not numberValue34 then
-                    numberValue34 = GetIsTaskActive
-                    numberValue36 = PlayerPedId
+                  number36 = number36()
+                  number38 = 49
+                  number34 = number34(number36, number38)
+                  if not number34 then
+                    number34 = GetIsTaskActive
+                    number36 = PlayerPedId
                     -- Beginner: result below is localPlayerPed.
-                    numberValue36 = numberValue36()
-                    numberValue38 = 67
-                    numberValue34 = numberValue34(numberValue36, numberValue38)
-                    if not numberValue34 then
+                    number36 = number36()
+                    number38 = 67
+                    number34 = number34(number36, number38)
+                    if not number34 then
                       break
                     end
                   end
-                  numberValue34 = Wait
-                  numberValue36 = 0
-                  numberValue34(numberValue36)
+                  number34 = Wait
+                  number36 = 0
+                  number34(number36)
                 end
-                numberValue34 = StopSound
-                numberValue36 = textValue
-                numberValue34(numberValue36)
-                numberValue34 = ReleaseSoundId
-                numberValue36 = textValue
-                numberValue34(numberValue36)
-                numberValue34 = GetSoundId
+                number34 = StopSound
+                number36 = text
+                number34(number36)
+                number34 = ReleaseSoundId
+                number36 = text
+                number34(number36)
+                number34 = GetSoundId
                 -- Beginner: result below is soundHandle.
-                numberValue34 = numberValue34()
-                numberValue36 = PlaySoundFrontend
-                numberValue38 = numberValue34
-                numberValue40 = "Rappel_Land"
+                number34 = number34()
+                number36 = PlaySoundFrontend
+                number38 = number34
+                number40 = "Rappel_Land"
                 mathHelper = "GTAO_Rappel_Sounds"
-                numberValue43 = true
-                numberValue36(numberValue38, numberValue40, mathHelper, numberValue43)
-                numberValue36 = Wait
-                numberValue38 = 1000
-                numberValue36(numberValue38)
-                numberValue36 = ReleaseSoundId
-                numberValue38 = numberValue34
-                numberValue36(numberValue38)
-                numberValue36 = ClearPedTasks
-                numberValue38 = PlayerPedId
-                numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24 = numberValue38()
-                numberValue36(numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24)
-                numberValue36 = ClearPedTasksImmediately
-                numberValue38 = PlayerPedId
-                numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24 = numberValue38()
-                numberValue36(numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24)
+                number43 = true
+                number36(number38, number40, mathHelper, number43)
+                number36 = Wait
+                number38 = 1000
+                number36(number38)
+                number36 = ReleaseSoundId
+                number38 = number34
+                number36(number38)
+                number36 = ClearPedTasks
+                number38 = PlayerPedId
+                number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24 = number38()
+                number36(number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24)
+                number36 = ClearPedTasksImmediately
+                number38 = PlayerPedId
+                number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24 = number38()
+                number36(number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24)
               end
             end
           end
         end
       end
     end
-    arg1 = flag3
-    if arg1 then
-      arg1 = SetTimecycleModifier
-      arg2 = "heliGunCam"
-      arg1(arg2)
-      arg1 = SetTimecycleModifierStrength
-      arg2 = 0.3
-      arg1(arg2)
-      arg1 = RequestScaleformMovie
-      arg2 = "WESCAM_INTERFACE"
+    localValue1 = stateFlag3
+    if localValue1 then
+      localValue1 = SetTimecycleModifier
+      localValue2 = "heliGunCam"
+      localValue1(localValue2)
+      localValue1 = SetTimecycleModifierStrength
+      localValue2 = 0.3
+      localValue1(localValue2)
+      localValue1 = RequestScaleformMovie
+      localValue2 = "WESCAM_INTERFACE"
       -- Beginner: result below is scaleformHandle.
-      arg1 = arg1(arg2)
-      numberValue2 = arg1
+      localValue1 = localValue1(localValue2)
+      number2 = localValue1
       while true do
-        arg1 = HasScaleformMovieLoaded
-        arg2 = numberValue2
-        arg1 = arg1(arg2)
-        if arg1 then
+        localValue1 = HasScaleformMovieLoaded
+        localValue2 = number2
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
           break
         end
-        arg1 = Citizen
-        arg1 = arg1.Wait
-        arg2 = 0
-        arg1(arg2)
+        localValue1 = Citizen
+        localValue1 = localValue1.Wait
+        localValue2 = 0
+        localValue1(localValue2)
       end
-      arg1 = GetLocalTime
-      arg1, arg2, textValue, numberValue34, numberValue36, numberValue38 = arg1()
-      numberValue40 = BeginScaleformMovieMethod
-      mathHelper = numberValue2
-      numberValue43 = "SET_DATE"
-      numberValue40(mathHelper, numberValue43)
-      numberValue40 = ScaleformMovieMethodAddParamInt
-      mathHelper = textValue
-      numberValue40(mathHelper)
-      numberValue40 = ScaleformMovieMethodAddParamInt
-      mathHelper = arg2
-      numberValue40(mathHelper)
-      numberValue40 = ScaleformMovieMethodAddParamInt
-      mathHelper = arg1
-      numberValue40(mathHelper)
-      numberValue40 = EndScaleformMovieMethod
-      numberValue40()
-      numberValue40 = CMG
-      numberValue40 = numberValue40.getPlayerPed
+      localValue1 = GetLocalTime
+      localValue1, localValue2, text, number34, number36, number38 = localValue1()
+      number40 = BeginScaleformMovieMethod
+      mathHelper = number2
+      number43 = "SET_DATE"
+      number40(mathHelper, number43)
+      number40 = ScaleformMovieMethodAddParamInt
+      mathHelper = text
+      number40(mathHelper)
+      number40 = ScaleformMovieMethodAddParamInt
+      mathHelper = localValue2
+      number40(mathHelper)
+      number40 = ScaleformMovieMethodAddParamInt
+      mathHelper = localValue1
+      number40(mathHelper)
+      number40 = EndScaleformMovieMethod
+      number40()
+      number40 = CMG
+      number40 = number40.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      numberValue40 = numberValue40()
+      number40 = number40()
       mathHelper = CMG
       mathHelper = mathHelper.getPlayerVehicle
       -- Beginner: result below is currentVehicle.
       mathHelper = mathHelper()
-      numberValue43 = CreateCam
-      workValue3 = "DEFAULT_SCRIPTED_FLY_CAMERA"
-      workValue = true
+      number43 = CreateCam
+      workingValue3 = "DEFAULT_SCRIPTED_FLY_CAMERA"
+      workingValue = true
       -- Beginner: result below is cameraHandle.
-      numberValue43 = numberValue43(workValue3, workValue)
-      workValue3 = CMG
-      workValue3 = workValue3.hideAllDisplays
-      workValue = "heli"
-      workValue3(workValue)
-      workValue3 = AttachCamToEntity
-      workValue = numberValue43
-      workValue2 = mathHelper
+      number43 = number43(workingValue3, workingValue)
+      workingValue3 = CMG
+      workingValue3 = workingValue3.hideAllDisplays
+      workingValue = "heli"
+      workingValue3(workingValue)
+      workingValue3 = AttachCamToEntity
+      workingValue = number43
+      workingValue2 = mathHelper
       vehicle = 0.0
       playerPed = 0.0
-      flag5 = -2.0
-      flag6 = true
-      workValue3(workValue, workValue2, vehicle, playerPed, flag5, flag6)
-      workValue3 = SetCamRot
-      workValue = numberValue43
-      workValue2 = 0.0
+      stateFlag5 = -2.0
+      stateFlag6 = true
+      workingValue3(workingValue, workingValue2, vehicle, playerPed, stateFlag5, stateFlag6)
+      workingValue3 = SetCamRot
+      workingValue = number43
+      workingValue2 = 0.0
       vehicle = 0.0
       playerPed = GetEntityHeading
-      flag5 = mathHelper
+      stateFlag5 = mathHelper
       -- Beginner: result below is heading.
-      playerPed = playerPed(flag5)
-      flag5 = 2
-      workValue3(workValue, workValue2, vehicle, playerPed, flag5)
-      workValue3 = SetCamFov
-      workValue = numberValue43
-      workValue2 = cmgCall
-      workValue3(workValue, workValue2)
-      workValue3 = RenderScriptCams
-      workValue = true
-      workValue2 = false
+      playerPed = playerPed(stateFlag5)
+      stateFlag5 = 2
+      workingValue3(workingValue, workingValue2, vehicle, playerPed, stateFlag5)
+      workingValue3 = SetCamFov
+      workingValue = number43
+      workingValue2 = cmgOperation
+      workingValue3(workingValue, workingValue2)
+      workingValue3 = RenderScriptCams
+      workingValue = true
+      workingValue2 = false
       vehicle = 0
       playerPed = true
-      flag5 = false
-      workValue3(workValue, workValue2, vehicle, playerPed, flag5)
-      workValue3 = nil
-      workValue = 0
+      stateFlag5 = false
+      workingValue3(workingValue, workingValue2, vehicle, playerPed, stateFlag5)
+      workingValue3 = nil
+      workingValue = 0
       while true do
-        workValue2 = flag3
-        if not workValue2 then
+        workingValue2 = stateFlag3
+        if not workingValue2 then
           break
         end
-        workValue2 = IsEntityDead
-        vehicle = numberValue40
-        workValue2 = workValue2(vehicle)
-        if workValue2 then
+        workingValue2 = IsEntityDead
+        vehicle = number40
+        workingValue2 = workingValue2(vehicle)
+        if workingValue2 then
           break
         end
-        workValue2 = GetVehiclePedIsIn
-        vehicle = numberValue40
+        workingValue2 = GetVehiclePedIsIn
+        vehicle = number40
         playerPed = false
         -- Beginner: result below is currentVehicle.
-        workValue2 = workValue2(vehicle, playerPed)
-        if workValue2 ~= mathHelper then
+        workingValue2 = workingValue2(vehicle, playerPed)
+        if workingValue2 ~= mathHelper then
           break
         end
-        workValue2 = numberValue5
+        workingValue2 = number5
         vehicle = mathHelper
-        workValue2 = workValue2(vehicle)
-        if not workValue2 then
+        workingValue2 = workingValue2(vehicle)
+        if not workingValue2 then
           break
         end
-        workValue2 = IsDisabledControlJustPressed
+        workingValue2 = IsDisabledControlJustPressed
         vehicle = 0
-        playerPed = numberValue37
-        workValue2 = workValue2(vehicle, playerPed)
-        if workValue2 then
-          workValue2 = PlaySoundFrontend
+        playerPed = number37
+        workingValue2 = workingValue2(vehicle, playerPed)
+        if workingValue2 then
+          workingValue2 = PlaySoundFrontend
           vehicle = -1
           playerPed = "SELECT"
-          flag5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          flag6 = false
-          workValue2(vehicle, playerPed, flag5, flag6)
-          workValue2 = false
-          flag3 = workValue2
+          stateFlag5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          stateFlag6 = false
+          workingValue2(vehicle, playerPed, stateFlag5, stateFlag6)
+          workingValue2 = false
+          stateFlag3 = workingValue2
         end
-        workValue2 = IsDisabledControlJustPressed
+        workingValue2 = IsDisabledControlJustPressed
         vehicle = 0
-        playerPed = numberValue39
-        workValue2 = workValue2(vehicle, playerPed)
-        if workValue2 then
-          workValue2 = PlaySoundFrontend
+        playerPed = number39
+        workingValue2 = workingValue2(vehicle, playerPed)
+        if workingValue2 then
+          workingValue2 = PlaySoundFrontend
           vehicle = -1
           playerPed = "SELECT"
-          flag5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          flag6 = false
-          workValue2(vehicle, playerPed, flag5, flag6)
-          workValue2 = numberValue7
-          workValue2()
+          stateFlag5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          stateFlag6 = false
+          workingValue2(vehicle, playerPed, stateFlag5, stateFlag6)
+          workingValue2 = number7
+          workingValue2()
         end
-        workValue2 = 0.0
-        if workValue3 then
+        workingValue2 = 0.0
+        if workingValue3 then
           vehicle = DoesEntityExist
-          playerPed = workValue3
+          playerPed = workingValue3
           vehicle = vehicle(playerPed)
           if vehicle then
             vehicle = PointCamAtEntity
-            playerPed = numberValue43
-            flag5 = workValue3
-            flag6 = 0.0
-            flag7 = 0.0
-            flag8 = 0.0
-            flag9 = true
-            vehicle(playerPed, flag5, flag6, flag7, flag8, flag9)
-            vehicle = numberValue27
-            playerPed = workValue3
+            playerPed = number43
+            stateFlag5 = workingValue3
+            stateFlag6 = 0.0
+            stateFlag7 = 0.0
+            stateFlag8 = 0.0
+            stateFlag9 = true
+            vehicle(playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9)
+            vehicle = number27
+            playerPed = workingValue3
             vehicle(playerPed)
             vehicle = IsControlJustPressed
             playerPed = 0
-            flag5 = numberValue44
-            vehicle = vehicle(playerPed, flag5)
+            stateFlag5 = number44
+            vehicle = vehicle(playerPed, stateFlag5)
             if not vehicle then
-              vehicle = numberValue30
-              playerPed = numberValue43
-              flag5 = workValue3
-              vehicle = vehicle(playerPed, flag5)
+              vehicle = number30
+              playerPed = number43
+              stateFlag5 = workingValue3
+              vehicle = vehicle(playerPed, stateFlag5)
               if vehicle then
-                goto flow_label_369
+                goto continueAtStep369
               end
             end
             vehicle = PlaySoundFrontend
             playerPed = -1
-            flag5 = "SELECT"
-            flag6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            flag7 = false
-            vehicle(playerPed, flag5, flag6, flag7)
-            workValue3 = nil
+            stateFlag5 = "SELECT"
+            stateFlag6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            stateFlag7 = false
+            vehicle(playerPed, stateFlag5, stateFlag6, stateFlag7)
+            workingValue3 = nil
             vehicle = GetCamRot
-            playerPed = numberValue43
-            flag5 = 2
-            vehicle = vehicle(playerPed, flag5)
+            playerPed = number43
+            stateFlag5 = 2
+            vehicle = vehicle(playerPed, stateFlag5)
             playerPed = GetCamFov
-            flag5 = numberValue43
-            playerPed = playerPed(flag5)
-            flag5 = numberValue43
-            flag6 = DestroyCam
-            flag7 = flag5
-            flag8 = false
-            flag6(flag7, flag8)
-            flag6 = CreateCam
-            flag7 = "DEFAULT_SCRIPTED_FLY_CAMERA"
-            flag8 = true
+            stateFlag5 = number43
+            playerPed = playerPed(stateFlag5)
+            stateFlag5 = number43
+            stateFlag6 = DestroyCam
+            stateFlag7 = stateFlag5
+            stateFlag8 = false
+            stateFlag6(stateFlag7, stateFlag8)
+            stateFlag6 = CreateCam
+            stateFlag7 = "DEFAULT_SCRIPTED_FLY_CAMERA"
+            stateFlag8 = true
             -- Beginner: result below is cameraHandle.
-            flag6 = flag6(flag7, flag8)
-            numberValue43 = flag6
-            flag6 = AttachCamToEntity
-            flag7 = numberValue43
-            flag8 = mathHelper
-            flag9 = 0.0
-            flag10 = 0.0
-            flag11 = -1.5
-            flag12 = true
-            flag6(flag7, flag8, flag9, flag10, flag11, flag12)
-            flag6 = SetCamRot
-            flag7 = numberValue43
-            flag8 = vehicle.x
-            flag9 = vehicle.y
-            flag10 = vehicle.z
-            flag11 = 2
-            flag6(flag7, flag8, flag9, flag10, flag11)
-            flag6 = SetCamFov
-            flag7 = numberValue43
-            flag8 = playerPed
-            flag6(flag7, flag8)
-            flag6 = RenderScriptCams
-            flag7 = true
-            flag8 = false
-            flag9 = 0
-            flag10 = true
-            flag11 = false
-            flag6(flag7, flag8, flag9, flag10, flag11)
-            ::flow_label_369::
-            vehicle = numberValue19
+            stateFlag6 = stateFlag6(stateFlag7, stateFlag8)
+            number43 = stateFlag6
+            stateFlag6 = AttachCamToEntity
+            stateFlag7 = number43
+            stateFlag8 = mathHelper
+            stateFlag9 = 0.0
+            stateFlag10 = 0.0
+            stateFlag11 = -1.5
+            stateFlag12 = true
+            stateFlag6(stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12)
+            stateFlag6 = SetCamRot
+            stateFlag7 = number43
+            stateFlag8 = vehicle.x
+            stateFlag9 = vehicle.y
+            stateFlag10 = vehicle.z
+            stateFlag11 = 2
+            stateFlag6(stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11)
+            stateFlag6 = SetCamFov
+            stateFlag7 = number43
+            stateFlag8 = playerPed
+            stateFlag6(stateFlag7, stateFlag8)
+            stateFlag6 = RenderScriptCams
+            stateFlag7 = true
+            stateFlag8 = false
+            stateFlag9 = 0
+            stateFlag10 = true
+            stateFlag11 = false
+            stateFlag6(stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11)
+            ::continueAtStep369::
+            vehicle = number19
             playerPed = mathHelper
-            flag5 = workValue3
-            vehicle(playerPed, flag5)
+            stateFlag5 = workingValue3
+            vehicle(playerPed, stateFlag5)
           else
-            workValue3 = nil
+            workingValue3 = nil
           end
         else
-          vehicle = numberValue
-          playerPed = numberValue6
+          vehicle = number
+          playerPed = number6
           vehicle = vehicle - playerPed
           playerPed = 1.0
           vehicle = playerPed / vehicle
-          playerPed = cmgCall
-          flag5 = numberValue6
-          playerPed = playerPed - flag5
-          workValue2 = vehicle * playerPed
-          vehicle = numberValue9
-          playerPed = numberValue43
-          flag5 = workValue2
-          vehicle(playerPed, flag5)
-          vehicle = numberValue15
-          playerPed = numberValue43
+          playerPed = cmgOperation
+          stateFlag5 = number6
+          playerPed = playerPed - stateFlag5
+          workingValue2 = vehicle * playerPed
+          vehicle = number9
+          playerPed = number43
+          stateFlag5 = workingValue2
+          vehicle(playerPed, stateFlag5)
+          vehicle = number15
+          playerPed = number43
           vehicle = vehicle(playerPed)
           if vehicle then
             playerPed = DoesEntityExist
-            flag5 = vehicle
-            playerPed = playerPed(flag5)
+            stateFlag5 = vehicle
+            playerPed = playerPed(stateFlag5)
             if playerPed then
-              playerPed = numberValue27
-              flag5 = vehicle
-              playerPed(flag5)
+              playerPed = number27
+              stateFlag5 = vehicle
+              playerPed(stateFlag5)
               playerPed = IsControlJustPressed
-              flag5 = 0
-              flag6 = numberValue44
-              playerPed = playerPed(flag5, flag6)
+              stateFlag5 = 0
+              stateFlag6 = number44
+              playerPed = playerPed(stateFlag5, stateFlag6)
               if playerPed then
                 playerPed = PlaySoundFrontend
-                flag5 = -1
-                flag6 = "SELECT"
-                flag7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-                flag8 = false
-                playerPed(flag5, flag6, flag7, flag8)
+                stateFlag5 = -1
+                stateFlag6 = "SELECT"
+                stateFlag7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+                stateFlag8 = false
+                playerPed(stateFlag5, stateFlag6, stateFlag7, stateFlag8)
                 playerPed = CMG
                 playerPed = playerPed.isVehicleFlagged
-                flag5 = vehicle
-                playerPed = playerPed(flag5)
+                stateFlag5 = vehicle
+                playerPed = playerPed(stateFlag5)
                 if playerPed then
                   playerPed = Citizen
                   playerPed = playerPed.CreateThread
-                  flag5 = numberValue28
+                  stateFlag5 = number28
                   -- Beginner: Start a separate FiveM thread so this code can run independently.
-                  playerPed(flag5)
+                  playerPed(stateFlag5)
                 end
-                workValue3 = vehicle
+                workingValue3 = vehicle
               end
             end
           end
-          playerPed = numberValue21
-          flag5 = numberValue43
-          playerPed(flag5)
+          playerPed = number21
+          stateFlag5 = number43
+          playerPed(stateFlag5)
         end
         vehicle = IsControlJustPressed
         playerPed = 0
-        flag5 = numberValue42
-        vehicle = vehicle(playerPed, flag5)
+        stateFlag5 = number42
+        vehicle = vehicle(playerPed, stateFlag5)
         if vehicle then
-          vehicle = flag4
+          vehicle = stateFlag4
           vehicle = not vehicle
-          flag4 = vehicle
+          stateFlag4 = vehicle
         end
-        vehicle = flag4
+        vehicle = stateFlag4
         if vehicle then
           vehicle = GetGameTimer
           -- Beginner: result below is gameTimeMs.
           vehicle = vehicle()
           playerPed = CMG
           playerPed = playerPed.rotationToDirection
-          flag5 = GetCamRot
-          flag6 = numberValue43
-          flag7 = 2
-          flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24 = flag5(flag6, flag7)
-          playerPed = playerPed(flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24)
-          flag5 = numberValue3
-          flag5 = vehicle - flag5
-          flag6 = 500
-          if flag5 >= flag6 then
-            flag5 = GetEntityCoords
-            flag6 = mathHelper
-            flag7 = true
+          stateFlag5 = GetCamRot
+          stateFlag6 = number43
+          stateFlag7 = 2
+          stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24 = stateFlag5(stateFlag6, stateFlag7)
+          playerPed = playerPed(stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24)
+          stateFlag5 = number3
+          stateFlag5 = vehicle - stateFlag5
+          stateFlag6 = 500
+          if stateFlag5 >= stateFlag6 then
+            stateFlag5 = GetEntityCoords
+            stateFlag6 = mathHelper
+            stateFlag7 = true
             -- Beginner: result below is entityCoords.
-            flag5 = flag5(flag6, flag7)
-            flag6 = playerPed * 500.0
-            flag5 = flag5 + flag6
-            flag6 = TriggerServerEvent
-            flag7 = "9c20140c50"
-            flag8 = flag5
+            stateFlag5 = stateFlag5(stateFlag6, stateFlag7)
+            stateFlag6 = playerPed * 500.0
+            stateFlag5 = stateFlag5 + stateFlag6
+            stateFlag6 = TriggerServerEvent
+            stateFlag7 = "9c20140c50"
+            stateFlag8 = stateFlag5
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9c20140c50".
-            flag6(flag7, flag8)
-            numberValue3 = vehicle
+            stateFlag6(stateFlag7, stateFlag8)
+            number3 = vehicle
           end
-          flag5 = GetEntityCoords
-          flag6 = mathHelper
-          flag7 = true
+          stateFlag5 = GetEntityCoords
+          stateFlag6 = mathHelper
+          stateFlag7 = true
           -- Beginner: result below is entityCoords.
-          flag5 = flag5(flag6, flag7)
-          flag6 = DrawSpotLight
-          flag7 = flag5.x
-          flag8 = flag5.y
-          flag9 = flag5.z
-          flag10 = playerPed.x
-          flag11 = playerPed.y
-          flag12 = playerPed.z
-          numberValue10 = 255
-          numberValue12 = 255
-          numberValue14 = 255
-          numberValue16 = 500.0
-          numberValue18 = 20.0
-          numberValue20 = 5.0
-          numberValue22 = 15.0
-          numberValue24 = 50.0
-          flag6(flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24)
+          stateFlag5 = stateFlag5(stateFlag6, stateFlag7)
+          stateFlag6 = DrawSpotLight
+          stateFlag7 = stateFlag5.x
+          stateFlag8 = stateFlag5.y
+          stateFlag9 = stateFlag5.z
+          stateFlag10 = playerPed.x
+          stateFlag11 = playerPed.y
+          stateFlag12 = playerPed.z
+          number10 = 255
+          number12 = 255
+          number14 = 255
+          number16 = 500.0
+          number18 = 20.0
+          number20 = 5.0
+          number22 = 15.0
+          number24 = 50.0
+          stateFlag6(stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20, number22, number24)
         end
-        vehicle = numberValue11
-        playerPed = numberValue43
+        vehicle = number11
+        playerPed = number43
         vehicle(playerPed)
-        vehicle = numberValue8
+        vehicle = number8
         vehicle()
         vehicle = GetLocalTime
-        vehicle, playerPed, flag5, flag6, flag7, flag8 = vehicle()
-        numberValue38 = flag8
-        numberValue36 = flag7
-        numberValue34 = flag6
-        textValue = flag5
-        arg2 = playerPed
-        arg1 = vehicle
-        if numberValue38 ~= workValue then
+        vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8 = vehicle()
+        number38 = stateFlag8
+        number36 = stateFlag7
+        number34 = stateFlag6
+        text = stateFlag5
+        localValue2 = playerPed
+        localValue1 = vehicle
+        if number38 ~= workingValue then
           vehicle = BeginScaleformMovieMethod
-          playerPed = numberValue2
-          flag5 = "SET_TIME"
-          vehicle(playerPed, flag5)
+          playerPed = number2
+          stateFlag5 = "SET_TIME"
+          vehicle(playerPed, stateFlag5)
           vehicle = ScaleformMovieMethodAddParamInt
-          playerPed = numberValue34
+          playerPed = number34
           vehicle(playerPed)
           vehicle = ScaleformMovieMethodAddParamInt
-          playerPed = numberValue36
+          playerPed = number36
           vehicle(playerPed)
           vehicle = ScaleformMovieMethodAddParamInt
-          playerPed = numberValue38
+          playerPed = number38
           vehicle(playerPed)
           vehicle = EndScaleformMovieMethod
           vehicle()
-          workValue = numberValue38
+          workingValue = number38
         end
-        vehicle = numberValue23
+        vehicle = number23
         playerPed = mathHelper
         vehicle(playerPed)
-        vehicle = numberValue26
-        playerPed = numberValue43
+        vehicle = number26
+        playerPed = number43
         vehicle(playerPed)
         vehicle = DrawScaleformMovieFullscreen
-        playerPed = numberValue2
-        flag5 = 255
-        flag6 = 255
-        flag7 = 255
-        flag8 = 255
-        flag9 = 0
-        vehicle(playerPed, flag5, flag6, flag7, flag8, flag9)
+        playerPed = number2
+        stateFlag5 = 255
+        stateFlag6 = 255
+        stateFlag7 = 255
+        stateFlag8 = 255
+        stateFlag9 = 0
+        vehicle(playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9)
         vehicle = Citizen
         vehicle = vehicle.Wait
         playerPed = 0
         vehicle(playerPed)
       end
-      workValue2 = false
-      flag3 = workValue2
-      workValue2 = ClearTimecycleModifier
-      workValue2()
-      workValue2 = numberValue
-      vehicle = numberValue6
-      workValue2 = workValue2 + vehicle
-      workValue2 = workValue2 * 0.5
-      cmgCall = workValue2
-      workValue2 = RenderScriptCams
+      workingValue2 = false
+      stateFlag3 = workingValue2
+      workingValue2 = ClearTimecycleModifier
+      workingValue2()
+      workingValue2 = number
+      vehicle = number6
+      workingValue2 = workingValue2 + vehicle
+      workingValue2 = workingValue2 * 0.5
+      cmgOperation = workingValue2
+      workingValue2 = RenderScriptCams
       vehicle = false
       playerPed = false
-      flag5 = 0
-      flag6 = true
-      flag7 = false
-      workValue2(vehicle, playerPed, flag5, flag6, flag7)
-      workValue2 = SetScaleformMovieAsNoLongerNeeded
-      vehicle = numberValue2
-      workValue2(vehicle)
-      workValue2 = DestroyCam
-      vehicle = numberValue43
+      stateFlag5 = 0
+      stateFlag6 = true
+      stateFlag7 = false
+      workingValue2(vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7)
+      workingValue2 = SetScaleformMovieAsNoLongerNeeded
+      vehicle = number2
+      workingValue2(vehicle)
+      workingValue2 = DestroyCam
+      vehicle = number43
       playerPed = false
-      workValue2(vehicle, playerPed)
-      workValue2 = SetNightvision
+      workingValue2(vehicle, playerPed)
+      workingValue2 = SetNightvision
       vehicle = false
-      workValue2(vehicle)
-      workValue2 = SetSeethrough
+      workingValue2(vehicle)
+      workingValue2 = SetSeethrough
       vehicle = false
-      workValue2(vehicle)
-      workValue2 = CMG
-      workValue2 = workValue2.showAllDisplays
+      workingValue2(vehicle)
+      workingValue2 = CMG
+      workingValue2 = workingValue2.showAllDisplays
       vehicle = "heli"
-      workValue2(vehicle)
+      workingValue2(vehicle)
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
-eventRegistration = numberValue31
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
+eventHandler = number31
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(eventRegistration)
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread(eventHandler)
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, textValue, numberValue34, numberValue36, numberValue38
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, text, number34, number36, number38
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerPed
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = GetVehiclePedIsIn
-    textValue = arg1
-    numberValue34 = false
+    localValue1 = localValue1()
+    localValue2 = GetVehiclePedIsIn
+    text = localValue1
+    number34 = false
     -- Beginner: result below is currentVehicle.
-    arg2 = arg2(textValue, numberValue34)
-    textValue = GetEntityModel
-    numberValue34 = arg2
+    localValue2 = localValue2(text, number34)
+    text = GetEntityModel
+    number34 = localValue2
     -- Beginner: result below is modelHash.
-    textValue = textValue(numberValue34)
-    numberValue34 = table
-    numberValue34 = numberValue34.has
-    numberValue36 = dataTable
-    numberValue38 = textValue
-    numberValue34 = numberValue34(numberValue36, numberValue38)
-    if numberValue34 then
-      numberValue34 = true
-      flag2 = numberValue34
+    text = text(number34)
+    number34 = table
+    number34 = number34.has
+    number36 = dataCollection
+    number38 = text
+    number34 = number34(number36, number38)
+    if number34 then
+      number34 = true
+      stateFlag2 = number34
     else
-      numberValue34 = false
-      flag2 = numberValue34
+      number34 = false
+      stateFlag2 = number34
     end
-    numberValue34 = Wait
-    numberValue36 = 1000
-    numberValue34(numberValue36)
+    number34 = Wait
+    number36 = 1000
+    number34(number36)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(eventRegistration)
-threadCall = {}
-eventRegistration = RegisterNetEvent
-cmgCall2 = "9c20140c50"
+backgroundThread(eventHandler)
+backgroundThread = {}
+eventHandler = RegisterNetEvent
+cmgOperation2 = "9c20140c50"
 -- Beginner: this function handles network event "9c20140c50".
 
--- === HELPER FUNCTION (decompiler name: numberValue32; parameters: arg1, arg2) ===
-function numberValue32(arg1, arg2)
-  local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43
-  textValue = GetPlayerFromServerId
-  numberValue34 = arg1
+-- === HELPER FUNCTION (decompiler name: number32; parameters: localValue1, localValue2) ===
+function number32(localValue1, localValue2)
+  local text, number34, number36, number38, number40, mathHelper, number43
+  text = GetPlayerFromServerId
+  number34 = localValue1
   -- Beginner: result below is playerIndex.
-  textValue = textValue(numberValue34)
-  if -1 == textValue then
+  text = text(number34)
+  if -1 == text then
     return
   end
-  numberValue34 = GetPlayerPed
-  numberValue36 = textValue
+  number34 = GetPlayerPed
+  number36 = text
   -- Beginner: result below is playerPed.
-  numberValue34 = numberValue34(numberValue36)
-  if 0 ~= numberValue34 then
-    numberValue36 = CMG
-    numberValue36 = numberValue36.getPlayerPed
+  number34 = number34(number36)
+  if 0 ~= number34 then
+    number36 = CMG
+    number36 = number36.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    numberValue36 = numberValue36()
-    if numberValue34 ~= numberValue36 then
-      goto flow_label_18
+    number36 = number36()
+    if number34 ~= number36 then
+      goto continueAtStep18
     end
   end
   return
-  ::flow_label_18::
-  numberValue36 = GetVehiclePedIsUsing
-  numberValue38 = numberValue34
-  numberValue36 = numberValue36(numberValue38)
-  if 0 == numberValue36 then
+  ::continueAtStep18::
+  number36 = GetVehiclePedIsUsing
+  number38 = number34
+  number36 = number36(number38)
+  if 0 == number36 then
     return
   end
-  numberValue38 = threadCall
-  numberValue38 = numberValue38[arg1]
-  if not numberValue38 then
-    numberValue40 = {}
-    numberValue40.vehicle = numberValue36
-    numberValue40.currentPosition = arg2
+  number38 = backgroundThread
+  number38 = number38[localValue1]
+  if not number38 then
+    number40 = {}
+    number40.vehicle = number36
+    number40.currentPosition = localValue2
     mathHelper = GetGameTimer
     -- Beginner: result below is gameTimeMs.
     mathHelper = mathHelper()
-    numberValue40.currentTime = mathHelper
-    numberValue38 = numberValue40
-    numberValue40 = threadCall
-    numberValue40[arg1] = numberValue38
+    number40.currentTime = mathHelper
+    number38 = number40
+    number40 = backgroundThread
+    number40[localValue1] = number38
   end
-  numberValue40 = numberValue38.currentPosition
-  numberValue38.previousPosition = numberValue40
-  numberValue40 = numberValue38.currentTime
-  numberValue38.previousTime = numberValue40
-  numberValue38.currentPosition = arg2
-  numberValue40 = GetGameTimer
+  number40 = number38.currentPosition
+  number38.previousPosition = number40
+  number40 = number38.currentTime
+  number38.previousTime = number40
+  number38.currentPosition = localValue2
+  number40 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  numberValue40 = numberValue40()
-  numberValue38.currentTime = numberValue40
-  numberValue40 = GetEntityCoords
-  mathHelper = numberValue36
-  numberValue43 = true
+  number40 = number40()
+  number38.currentTime = number40
+  number40 = GetEntityCoords
+  mathHelper = number36
+  number43 = true
   -- Beginner: result below is entityCoords.
-  numberValue40 = numberValue40(mathHelper, numberValue43)
-  numberValue38.heliPosition = numberValue40
+  number40 = number40(mathHelper, number43)
+  number38.heliPosition = number40
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9c20140c50".
-eventRegistration(cmgCall2, numberValue32)
+eventHandler(cmgOperation2, number32)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20
-  arg1 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, text, number34, number36, number38, number40, mathHelper, number43, workingValue3, workingValue, workingValue2, vehicle, playerPed, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  arg2 = pairs
-  textValue = threadCall
-  arg2, textValue, numberValue34, numberValue36 = arg2(textValue)
-  for numberValue38, numberValue40 in arg2, textValue, numberValue34, numberValue36 do
-    mathHelper = numberValue40.currentTime
-    numberValue43 = numberValue40.previousTime
-    mathHelper = mathHelper - numberValue43
-    numberValue43 = numberValue40.currentTime
-    numberValue43 = arg1 - numberValue43
-    numberValue43 = numberValue43 / mathHelper
-    workValue3 = numberValue40.currentPosition
-    workValue = GetEntityCoords
-    workValue2 = numberValue40.vehicle
+  localValue1 = localValue1()
+  localValue2 = pairs
+  text = backgroundThread
+  localValue2, text, number34, number36 = localValue2(text)
+  for number38, number40 in localValue2, text, number34, number36 do
+    mathHelper = number40.currentTime
+    number43 = number40.previousTime
+    mathHelper = mathHelper - number43
+    number43 = number40.currentTime
+    number43 = localValue1 - number43
+    number43 = number43 / mathHelper
+    workingValue3 = number40.currentPosition
+    workingValue = GetEntityCoords
+    workingValue2 = number40.vehicle
     vehicle = true
     -- Beginner: result below is entityCoords.
-    workValue = workValue(workValue2, vehicle)
-    workValue2 = numberValue40.heliPosition
-    workValue = workValue - workValue2
-    workValue3 = workValue3 + workValue
-    workValue = numberValue40.previousPosition
-    workValue = workValue3 - workValue
-    workValue2 = numberValue40.previousPosition
-    vehicle = workValue * numberValue43
-    workValue2 = workValue2 + vehicle
+    workingValue = workingValue(workingValue2, vehicle)
+    workingValue2 = number40.heliPosition
+    workingValue = workingValue - workingValue2
+    workingValue3 = workingValue3 + workingValue
+    workingValue = number40.previousPosition
+    workingValue = workingValue3 - workingValue
+    workingValue2 = number40.previousPosition
+    vehicle = workingValue * number43
+    workingValue2 = workingValue2 + vehicle
     vehicle = norm
-    playerPed = numberValue40.heliPosition
-    playerPed = workValue2 - playerPed
+    playerPed = number40.heliPosition
+    playerPed = workingValue2 - playerPed
     vehicle = vehicle(playerPed)
     playerPed = DrawSpotLight
-    flag5 = numberValue40.heliPosition
-    flag5 = flag5.x
-    flag6 = numberValue40.heliPosition
-    flag6 = flag6.y
-    flag7 = numberValue40.heliPosition
-    flag7 = flag7.z
-    flag8 = vehicle.x
-    flag9 = vehicle.y
-    flag10 = vehicle.z
-    flag11 = 255
-    flag12 = 255
-    numberValue10 = 255
-    numberValue12 = 500.0
-    numberValue14 = 20.0
-    numberValue16 = 5.0
-    numberValue18 = 15.0
-    numberValue20 = 50.0
-    playerPed(flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20)
-    playerPed = numberValue40.currentTime
-    playerPed = arg1 - playerPed
-    flag5 = 1250
-    if playerPed > flag5 then
-      playerPed = threadCall
-      playerPed[numberValue38] = nil
+    stateFlag5 = number40.heliPosition
+    stateFlag5 = stateFlag5.x
+    stateFlag6 = number40.heliPosition
+    stateFlag6 = stateFlag6.y
+    stateFlag7 = number40.heliPosition
+    stateFlag7 = stateFlag7.z
+    stateFlag8 = vehicle.x
+    stateFlag9 = vehicle.y
+    stateFlag10 = vehicle.z
+    stateFlag11 = 255
+    stateFlag12 = 255
+    number10 = 255
+    number12 = 500.0
+    number14 = 20.0
+    number16 = 5.0
+    number18 = 15.0
+    number20 = 50.0
+    playerPed(stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number10, number12, number14, number16, number18, number20)
+    playerPed = number40.currentTime
+    playerPed = localValue1 - playerPed
+    stateFlag5 = 1250
+    if playerPed > stateFlag5 then
+      playerPed = backgroundThread
+      playerPed[number38] = nil
     end
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-numberValue32 = eventRegistration
-textValue2 = "Interpolate Spotlight"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+number32 = eventHandler
+text2 = "Interpolate Spotlight"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(numberValue32, textValue2)
+cmgOperation2(number32, text2)

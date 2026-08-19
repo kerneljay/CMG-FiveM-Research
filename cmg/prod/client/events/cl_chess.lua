@@ -32,1171 +32,1171 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable2, workValue8, workValue10, workValue11, workValue12, eventRegistration, textValue4, threadCall, workValue14, workValue3, cmgCall2, textValue, textValue2
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable2 = "cfg/cfg_chess"
+local cmgOperation, dataCollection2, workingValue8, workingValue10, workingValue11, workingValue12, eventHandler, text4, backgroundThread, workingValue14, workingValue3, cmgOperation2, text, text2
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection2 = "cfg/cfg_chess"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable2)
-dataTable2 = {}
-workValue8 = nil
+cmgOperation = cmgOperation(dataCollection2)
+dataCollection2 = {}
+workingValue8 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, dataTable3
-  arg2 = arg1.bViewingBoard
-  if arg2 then
-    arg2 = SendNUIMessage
-    arg3 = {}
-    arg3.updateChessBoard = true
-    dataTable3 = arg1.boardFEN
-    arg3.fen = dataTable3
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: localValue1) ===
+function workingValue10(localValue1)
+  local localValue2, localValue3, dataCollection3
+  localValue2 = localValue1.bViewingBoard
+  if localValue2 then
+    localValue2 = SendNUIMessage
+    localValue3 = {}
+    localValue3.updateChessBoard = true
+    dataCollection3 = localValue1.boardFEN
+    localValue3.fen = dataCollection3
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    arg2(arg3)
+    localValue2(localValue3)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6
-  arg2 = arg1.boardObjects
-  if arg2 then
-    arg2 = pairs
-    arg3 = arg1.boardObjects
-    arg2, arg3, dataTable3, dataTable4 = arg2(arg3)
-    for dataTable5, dataTable6 in arg2, arg3, dataTable3, dataTable4 do
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2, localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6
+  localValue2 = localValue1.boardObjects
+  if localValue2 then
+    localValue2 = pairs
+    localValue3 = localValue1.boardObjects
+    localValue2, localValue3, dataCollection3, dataCollection4 = localValue2(localValue3)
+    for dataCollection5, dataCollection6 in localValue2, localValue3, dataCollection3, dataCollection4 do
       iterator = pairs
-      dataTable7 = dataTable6
-      iterator, dataTable7, iterator2, dataTable = iterator(dataTable7)
-      for numberValue2, numberValue3 in iterator, dataTable7, iterator2, dataTable do
-        if 0 ~= numberValue3 then
-          numberValue5 = DeleteEntity
-          numberValue6 = numberValue3
+      dataCollection7 = dataCollection6
+      iterator, dataCollection7, iterator2, dataCollection = iterator(dataCollection7)
+      for number2, number3 in iterator, dataCollection7, iterator2, dataCollection do
+        if 0 ~= number3 then
+          number5 = DeleteEntity
+          number6 = number3
           -- Beginner: Delete a GTA entity.
-          numberValue5(numberValue6)
+          number5(number6)
         end
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
-function workValue12(arg1, arg2)
-  local arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7, cmgCall3, vector3Builder, workValue4, workValue5, heading, workValue7, flag2, flag3, flag4
-  arg3 = arg2.insideRadius
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: localValue1, localValue2) ===
+function workingValue12(localValue1, localValue2)
+  local localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6, number7, cmgOperation3, createVector3, workingValue4, workingValue5, heading, workingValue7, stateFlag2, stateFlag3, stateFlag4
+  localValue3 = localValue2.insideRadius
+  if not localValue3 then
     return
   end
-  arg3 = workValue11
-  dataTable3 = arg2
-  arg3(dataTable3)
-  arg3 = {}
-  dataTable3 = {}
-  dataTable4 = {}
-  dataTable5 = {}
-  dataTable6 = {}
+  localValue3 = workingValue11
+  dataCollection3 = localValue2
+  localValue3(dataCollection3)
+  localValue3 = {}
+  dataCollection3 = {}
+  dataCollection4 = {}
+  dataCollection5 = {}
+  dataCollection6 = {}
   iterator = {}
-  dataTable7 = {}
+  dataCollection7 = {}
   iterator2 = {}
-  dataTable = {}
-  arg3[1] = dataTable3
-  arg3[2] = dataTable4
-  arg3[3] = dataTable5
-  arg3[4] = dataTable6
-  arg3[5] = iterator
-  arg3[6] = dataTable7
-  arg3[7] = iterator2
-  arg3[8] = dataTable
-  arg2.boardObjects = arg3
-  arg3 = arg2.boardObject
-  if 0 == arg3 then
-    arg3 = CMG
-    arg3 = arg3.loadModel
-    dataTable3 = 1235783144
+  dataCollection = {}
+  localValue3[1] = dataCollection3
+  localValue3[2] = dataCollection4
+  localValue3[3] = dataCollection5
+  localValue3[4] = dataCollection6
+  localValue3[5] = iterator
+  localValue3[6] = dataCollection7
+  localValue3[7] = iterator2
+  localValue3[8] = dataCollection
+  localValue2.boardObjects = localValue3
+  localValue3 = localValue2.boardObject
+  if 0 == localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.loadModel
+    dataCollection3 = 1235783144
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    arg3(dataTable3)
-    arg3 = CreateObject
-    dataTable3 = 1235783144
-    dataTable4 = cmgCall.locations
-    dataTable4 = dataTable4[arg1]
-    dataTable4 = dataTable4.originPosition
-    dataTable4 = dataTable4.x
-    dataTable4 = dataTable4 + 10.1
-    dataTable5 = cmgCall.locations
-    dataTable5 = dataTable5[arg1]
-    dataTable5 = dataTable5.originPosition
-    dataTable5 = dataTable5.y
-    dataTable5 = dataTable5 + 9.25
-    dataTable6 = cmgCall.locations
-    dataTable6 = dataTable6[arg1]
-    dataTable6 = dataTable6.originPosition
-    dataTable6 = dataTable6.z
-    dataTable6 = dataTable6 - 42.85
+    localValue3(dataCollection3)
+    localValue3 = CreateObject
+    dataCollection3 = 1235783144
+    dataCollection4 = cmgOperation.locations
+    dataCollection4 = dataCollection4[localValue1]
+    dataCollection4 = dataCollection4.originPosition
+    dataCollection4 = dataCollection4.x
+    dataCollection4 = dataCollection4 + 10.1
+    dataCollection5 = cmgOperation.locations
+    dataCollection5 = dataCollection5[localValue1]
+    dataCollection5 = dataCollection5.originPosition
+    dataCollection5 = dataCollection5.y
+    dataCollection5 = dataCollection5 + 9.25
+    dataCollection6 = cmgOperation.locations
+    dataCollection6 = dataCollection6[localValue1]
+    dataCollection6 = dataCollection6.originPosition
+    dataCollection6 = dataCollection6.z
+    dataCollection6 = dataCollection6 - 42.85
     iterator = false
-    dataTable7 = false
+    dataCollection7 = false
     iterator2 = false
     -- Beginner: result below is objectEntity.
-    arg3 = arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2)
-    arg2.boardObject = arg3
-    arg3 = FreezeEntityPosition
-    dataTable3 = arg2.boardObject
-    dataTable4 = true
+    localValue3 = localValue3(dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2)
+    localValue2.boardObject = localValue3
+    localValue3 = FreezeEntityPosition
+    dataCollection3 = localValue2.boardObject
+    dataCollection4 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    arg3(dataTable3, dataTable4)
-    arg3 = SetEntityLodDist
-    dataTable3 = arg2.boardObject
-    dataTable4 = 200
-    arg3(dataTable3, dataTable4)
-    arg3 = SetModelAsNoLongerNeeded
-    dataTable3 = 1235783144
-    arg3(dataTable3)
+    localValue3(dataCollection3, dataCollection4)
+    localValue3 = SetEntityLodDist
+    dataCollection3 = localValue2.boardObject
+    dataCollection4 = 200
+    localValue3(dataCollection3, dataCollection4)
+    localValue3 = SetModelAsNoLongerNeeded
+    dataCollection3 = 1235783144
+    localValue3(dataCollection3)
   end
-  arg3 = CMG
-  arg3 = arg3.parseChessFEN
-  dataTable3 = arg2.boardFEN
-  arg3 = arg3(dataTable3)
-  dataTable3 = pairs
-  dataTable4 = arg3
-  dataTable3, dataTable4, dataTable5, dataTable6 = dataTable3(dataTable4)
-  for iterator, dataTable7 in dataTable3, dataTable4, dataTable5, dataTable6 do
+  localValue3 = CMG
+  localValue3 = localValue3.parseChessFEN
+  dataCollection3 = localValue2.boardFEN
+  localValue3 = localValue3(dataCollection3)
+  dataCollection3 = pairs
+  dataCollection4 = localValue3
+  dataCollection3, dataCollection4, dataCollection5, dataCollection6 = dataCollection3(dataCollection4)
+  for iterator, dataCollection7 in dataCollection3, dataCollection4, dataCollection5, dataCollection6 do
     iterator2 = pairs
-    dataTable = dataTable7
-    iterator2, dataTable, numberValue2, numberValue3 = iterator2(dataTable)
-    for numberValue5, numberValue6 in iterator2, dataTable, numberValue2, numberValue3 do
-      numberValue7 = cmgCall.pieceToArchetypeMap
-      numberValue7 = numberValue7[numberValue6]
-      if numberValue7 then
-        cmgCall3 = CMG
-        cmgCall3 = cmgCall3.loadModel
-        vector3Builder = numberValue7
+    dataCollection = dataCollection7
+    iterator2, dataCollection, number2, number3 = iterator2(dataCollection)
+    for number5, number6 in iterator2, dataCollection, number2, number3 do
+      number7 = cmgOperation.pieceToArchetypeMap
+      number7 = number7[number6]
+      if number7 then
+        cmgOperation3 = CMG
+        cmgOperation3 = cmgOperation3.loadModel
+        createVector3 = number7
         -- Beginner: Request/load a GTA model before spawning or applying it.
-        cmgCall3(vector3Builder)
-        cmgCall3 = cmgCall.locations
-        cmgCall3 = cmgCall3[arg1]
-        cmgCall3 = cmgCall3.originPosition
-        vector3Builder = vector3
-        workValue4 = cmgCall.squareSize
-        workValue4 = iterator * workValue4
-        workValue5 = cmgCall.squareSize
-        workValue5 = numberValue5 * workValue5
+        cmgOperation3(createVector3)
+        cmgOperation3 = cmgOperation.locations
+        cmgOperation3 = cmgOperation3[localValue1]
+        cmgOperation3 = cmgOperation3.originPosition
+        createVector3 = vector3
+        workingValue4 = cmgOperation.squareSize
+        workingValue4 = iterator * workingValue4
+        workingValue5 = cmgOperation.squareSize
+        workingValue5 = number5 * workingValue5
         heading = 0.0
-        vector3Builder = vector3Builder(workValue4, workValue5, heading)
-        cmgCall3 = cmgCall3 + vector3Builder
-        vector3Builder = cmgCall.archetypeToOffsetMap
-        vector3Builder = vector3Builder[numberValue7]
-        cmgCall3 = cmgCall3 - vector3Builder
-        vector3Builder = CreateObjectNoOffset
-        workValue4 = numberValue7
-        workValue5 = cmgCall3.x
-        heading = cmgCall3.y
-        workValue7 = cmgCall3.z
-        flag2 = false
-        flag3 = false
-        flag4 = false
+        createVector3 = createVector3(workingValue4, workingValue5, heading)
+        cmgOperation3 = cmgOperation3 + createVector3
+        createVector3 = cmgOperation.archetypeToOffsetMap
+        createVector3 = createVector3[number7]
+        cmgOperation3 = cmgOperation3 - createVector3
+        createVector3 = CreateObjectNoOffset
+        workingValue4 = number7
+        workingValue5 = cmgOperation3.x
+        heading = cmgOperation3.y
+        workingValue7 = cmgOperation3.z
+        stateFlag2 = false
+        stateFlag3 = false
+        stateFlag4 = false
         -- Beginner: result below is objectEntity.
-        vector3Builder = vector3Builder(workValue4, workValue5, heading, workValue7, flag2, flag3, flag4)
-        workValue4 = SetEntityHeading
-        workValue5 = vector3Builder
+        createVector3 = createVector3(workingValue4, workingValue5, heading, workingValue7, stateFlag2, stateFlag3, stateFlag4)
+        workingValue4 = SetEntityHeading
+        workingValue5 = createVector3
         heading = GetEntityHeading
-        workValue7 = vector3Builder
+        workingValue7 = createVector3
         -- Beginner: result below is heading.
-        heading = heading(workValue7)
-        workValue7 = cmgCall.archetypeToHeadingsMap
-        workValue7 = workValue7[numberValue7]
-        heading = heading + workValue7
+        heading = heading(workingValue7)
+        workingValue7 = cmgOperation.archetypeToHeadingsMap
+        workingValue7 = workingValue7[number7]
+        heading = heading + workingValue7
         -- Beginner: Change the direction an entity is facing.
-        workValue4(workValue5, heading)
-        workValue4 = FreezeEntityPosition
-        workValue5 = vector3Builder
+        workingValue4(workingValue5, heading)
+        workingValue4 = FreezeEntityPosition
+        workingValue5 = createVector3
         heading = true
         -- Beginner: Freeze or unfreeze an entity in place.
-        workValue4(workValue5, heading)
-        workValue4 = SetEntityLodDist
-        workValue5 = vector3Builder
+        workingValue4(workingValue5, heading)
+        workingValue4 = SetEntityLodDist
+        workingValue5 = createVector3
         heading = 200
-        workValue4(workValue5, heading)
-        workValue4 = table
-        workValue4 = workValue4.insert
-        workValue5 = arg2.boardObjects
-        workValue5 = workValue5[iterator]
-        heading = vector3Builder
-        workValue4(workValue5, heading)
-        workValue4 = SetModelAsNoLongerNeeded
-        workValue5 = numberValue7
-        workValue4(workValue5)
+        workingValue4(workingValue5, heading)
+        workingValue4 = table
+        workingValue4 = workingValue4.insert
+        workingValue5 = localValue2.boardObjects
+        workingValue5 = workingValue5[iterator]
+        heading = createVector3
+        workingValue4(workingValue5, heading)
+        workingValue4 = SetModelAsNoLongerNeeded
+        workingValue5 = number7
+        workingValue4(workingValue5)
       end
     end
   end
 end
-eventRegistration = RegisterNetEvent
-textValue4 = "a641ace444"
+eventHandler = RegisterNetEvent
+text4 = "a641ace444"
 -- Beginner: this function handles network event "a641ace444".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2) ===
-function threadCall(arg1, arg2)
-  local arg3, dataTable3, dataTable4, dataTable5
-  arg3 = dataTable2
-  arg3 = arg3[arg1]
-  dataTable3 = arg3.bViewingBoard
-  if dataTable3 then
-    dataTable3 = SendNUIMessage
-    dataTable4 = {}
-    dataTable4.transactionType = "chess_move"
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2) ===
+function backgroundThread(localValue1, localValue2)
+  local localValue3, dataCollection3, dataCollection4, dataCollection5
+  localValue3 = dataCollection2
+  localValue3 = localValue3[localValue1]
+  dataCollection3 = localValue3.bViewingBoard
+  if dataCollection3 then
+    dataCollection3 = SendNUIMessage
+    dataCollection4 = {}
+    dataCollection4.transactionType = "chess_move"
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    dataTable3(dataTable4)
+    dataCollection3(dataCollection4)
   end
-  arg3.boardFEN = arg2
-  dataTable3 = workValue10
-  dataTable4 = arg3
-  dataTable3(dataTable4)
-  dataTable3 = workValue12
-  dataTable4 = arg1
-  dataTable5 = arg3
-  dataTable3(dataTable4, dataTable5)
+  localValue3.boardFEN = localValue2
+  dataCollection3 = workingValue10
+  dataCollection4 = localValue3
+  dataCollection3(dataCollection4)
+  dataCollection3 = workingValue12
+  dataCollection4 = localValue1
+  dataCollection5 = localValue3
+  dataCollection3(dataCollection4, dataCollection5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a641ace444".
-eventRegistration(textValue4, threadCall)
-eventRegistration = RegisterNetEvent
-textValue4 = "36e0214c1e"
+eventHandler(text4, backgroundThread)
+eventHandler = RegisterNetEvent
+text4 = "36e0214c1e"
 -- Beginner: this function handles network event "36e0214c1e".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2) ===
-function threadCall(arg1, arg2)
-  local arg3
-  arg3 = dataTable2
-  arg3 = arg3[arg1]
-  if not arg2 then
-    arg3.bPlayingActive = false
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2) ===
+function backgroundThread(localValue1, localValue2)
+  local localValue3
+  localValue3 = dataCollection2
+  localValue3 = localValue3[localValue1]
+  if not localValue2 then
+    localValue3.bPlayingActive = false
   end
-  arg3.playingSide = arg2
+  localValue3.playingSide = localValue2
 end
-eventRegistration(textValue4, threadCall)
-eventRegistration = RegisterNetEvent
-textValue4 = "a8fdaf5c82"
+eventHandler(text4, backgroundThread)
+eventHandler = RegisterNetEvent
+text4 = "a8fdaf5c82"
 -- Beginner: this function handles network event "a8fdaf5c82".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2) ===
-function threadCall(arg1, arg2)
-  local arg3
-  arg3 = dataTable2
-  arg3 = arg3[arg1]
-  arg3.bPlayingActive = arg2
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2) ===
+function backgroundThread(localValue1, localValue2)
+  local localValue3
+  localValue3 = dataCollection2
+  localValue3 = localValue3[localValue1]
+  localValue3.bPlayingActive = localValue2
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a8fdaf5c82".
-eventRegistration(textValue4, threadCall)
+eventHandler(text4, backgroundThread)
 -- Beginner: this function handles network event "a8fdaf5c82".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
-function eventRegistration(arg1)
-  local arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6
-  arg2 = cmgCall.locations
-  arg2 = arg2[arg1]
-  arg2 = arg2.originPosition
-  arg3 = vector3
-  dataTable3 = 10.0
-  dataTable4 = 10.0
-  dataTable5 = 20.0
-  arg3 = arg3(dataTable3, dataTable4, dataTable5)
-  arg2 = arg2 + arg3
-  arg3 = SetCamParams
-  dataTable3 = dataTable2
-  dataTable3 = dataTable3[arg1]
-  dataTable3 = dataTable3.spectatingCamera
-  dataTable4 = arg2.x
-  dataTable5 = arg2.y
-  dataTable6 = arg2.z
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1) ===
+function eventHandler(localValue1)
+  local localValue2, localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6
+  localValue2 = cmgOperation.locations
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.originPosition
+  localValue3 = vector3
+  dataCollection3 = 10.0
+  dataCollection4 = 10.0
+  dataCollection5 = 20.0
+  localValue3 = localValue3(dataCollection3, dataCollection4, dataCollection5)
+  localValue2 = localValue2 + localValue3
+  localValue3 = SetCamParams
+  dataCollection3 = dataCollection2
+  dataCollection3 = dataCollection3[localValue1]
+  dataCollection3 = dataCollection3.spectatingCamera
+  dataCollection4 = localValue2.x
+  dataCollection5 = localValue2.y
+  dataCollection6 = localValue2.z
   iterator = -90.0
-  dataTable7 = 0.0
+  dataCollection7 = 0.0
   iterator2 = 90.0
-  dataTable = 50.0
-  numberValue2 = 1000
-  numberValue3 = 0
-  numberValue5 = 0
-  numberValue6 = 2
-  arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
+  dataCollection = 50.0
+  number2 = 1000
+  number3 = 0
+  number5 = 0
+  number6 = 2
+  localValue3(dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2) ===
-function textValue4(arg1, arg2)
-  local arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7
-  arg3 = dataTable2
-  dataTable3 = {}
-  dataTable3.boardFEN = nil
-  dataTable3.boardObject = 0
-  dataTable4 = {}
-  dataTable3.boardObjects = dataTable4
-  dataTable3.playingSide = nil
-  dataTable3.playingActive = false
-  dataTable3.bViewingBoard = false
-  dataTable3.spectatingCamera = 0
-  dataTable3.insideStartMarker = false
-  dataTable3.insideRadius = false
-  arg3[arg1] = dataTable3
-  arg3 = dataTable2
-  arg3 = arg3[arg1]
-  dataTable3 = CMG
-  dataTable3 = dataTable3.createArea
-  dataTable4 = "chess_white_"
-  dataTable5 = arg1
-  dataTable4 = dataTable4 .. dataTable5
-  dataTable5 = arg2.whitePosition
-  dataTable6 = 1.5
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1, localValue2) ===
+function text4(localValue1, localValue2)
+  local localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6, number7
+  localValue3 = dataCollection2
+  dataCollection3 = {}
+  dataCollection3.boardFEN = nil
+  dataCollection3.boardObject = 0
+  dataCollection4 = {}
+  dataCollection3.boardObjects = dataCollection4
+  dataCollection3.playingSide = nil
+  dataCollection3.playingActive = false
+  dataCollection3.bViewingBoard = false
+  dataCollection3.spectatingCamera = 0
+  dataCollection3.insideStartMarker = false
+  dataCollection3.insideRadius = false
+  localValue3[localValue1] = dataCollection3
+  localValue3 = dataCollection2
+  localValue3 = localValue3[localValue1]
+  dataCollection3 = CMG
+  dataCollection3 = dataCollection3.createArea
+  dataCollection4 = "chess_white_"
+  dataCollection5 = localValue1
+  dataCollection4 = dataCollection4 .. dataCollection5
+  dataCollection5 = localValue2.whitePosition
+  dataCollection6 = 1.5
   iterator = 6
 
-  -- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
-  function dataTable7()
-    local workValue, textValue3
-    arg3.insideStartMarker = true
+  -- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: none) ===
+  function dataCollection7()
+    local workingValue, text3
+    localValue3.insideStartMarker = true
   end
 
   -- === HELPER FUNCTION: iterator2() ===
   function iterator2()
-    local workValue, textValue3
-    arg3.insideStartMarker = false
+    local workingValue, text3
+    localValue3.insideStartMarker = false
   end
 
-  -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-  function dataTable()
-    local workValue, textValue3, numberValue8
-    workValue = arg3.playingSide
-    if not workValue then
-      workValue = drawNativeNotification
-      textValue3 = "Press ~INPUT_CONTEXT~ to play as white"
+  -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+  function dataCollection()
+    local workingValue, text3, number8
+    workingValue = localValue3.playingSide
+    if not workingValue then
+      workingValue = drawNativeNotification
+      text3 = "Press ~INPUT_CONTEXT~ to play as white"
       -- Beginner: Show a GTA-style notification/help prompt.
-      workValue(textValue3)
-      workValue = IsControlJustPressed
-      textValue3 = 0
-      numberValue8 = 51
-      workValue = workValue(textValue3, numberValue8)
-      if workValue then
-        workValue = TriggerServerEvent
-        textValue3 = "5f8c0ed877"
-        numberValue8 = arg1
+      workingValue(text3)
+      workingValue = IsControlJustPressed
+      text3 = 0
+      number8 = 51
+      workingValue = workingValue(text3, number8)
+      if workingValue then
+        workingValue = TriggerServerEvent
+        text3 = "5f8c0ed877"
+        number8 = localValue1
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5f8c0ed877".
-        workValue(textValue3, numberValue8)
+        workingValue(text3, number8)
       end
     else
-      workValue = arg3.playingSide
-      if "w" == workValue then
-        workValue = drawNativeNotification
-        textValue3 = [[
+      workingValue = localValue3.playingSide
+      if "w" == workingValue then
+        workingValue = drawNativeNotification
+        text3 = [[
 Press ~INPUT_CONTEXT~ to resign.
 Press ~INPUT_INTERACTION_MENU~ to toggle board]]
         -- Beginner: Show a GTA-style notification/help prompt.
-        workValue(textValue3)
-        workValue = IsControlJustPressed
-        textValue3 = 0
-        numberValue8 = 51
-        workValue = workValue(textValue3, numberValue8)
-        if workValue then
-          workValue = arg3.bViewingBoard
-          if not workValue then
-            workValue = TriggerServerEvent
-            textValue3 = "a7db4cf034"
-            numberValue8 = arg1
+        workingValue(text3)
+        workingValue = IsControlJustPressed
+        text3 = 0
+        number8 = 51
+        workingValue = workingValue(text3, number8)
+        if workingValue then
+          workingValue = localValue3.bViewingBoard
+          if not workingValue then
+            workingValue = TriggerServerEvent
+            text3 = "a7db4cf034"
+            number8 = localValue1
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a7db4cf034".
-            workValue(textValue3, numberValue8)
+            workingValue(text3, number8)
           end
         end
       end
     end
   end
   -- Beginner: Create an interaction area around a world position.
-  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable)
-  dataTable3 = tCMG
-  dataTable3 = dataTable3.addMarker
-  dataTable4 = arg2.whitePosition
-  dataTable4 = dataTable4.x
-  dataTable5 = arg2.whitePosition
-  dataTable5 = dataTable5.y
-  dataTable6 = arg2.whitePosition
-  dataTable6 = dataTable6.z
+  dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection)
+  dataCollection3 = tCMG
+  dataCollection3 = dataCollection3.addMarker
+  dataCollection4 = localValue2.whitePosition
+  dataCollection4 = dataCollection4.x
+  dataCollection5 = localValue2.whitePosition
+  dataCollection5 = dataCollection5.y
+  dataCollection6 = localValue2.whitePosition
+  dataCollection6 = dataCollection6.z
   iterator = 1.0
-  dataTable7 = 1.0
+  dataCollection7 = 1.0
   iterator2 = 1.0
-  dataTable = 255
-  numberValue2 = 0
-  numberValue3 = 0
-  numberValue5 = 170
-  numberValue6 = 50
-  numberValue7 = 27
+  dataCollection = 255
+  number2 = 0
+  number3 = 0
+  number5 = 170
+  number6 = 50
+  number7 = 27
   -- Beginner: Create a world marker.
-  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7)
-  dataTable3 = CMG
-  dataTable3 = dataTable3.createArea
-  dataTable4 = "chess_black_"
-  dataTable5 = arg1
-  dataTable4 = dataTable4 .. dataTable5
-  dataTable5 = arg2.blackPosition
-  dataTable6 = 1.5
+  dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6, number7)
+  dataCollection3 = CMG
+  dataCollection3 = dataCollection3.createArea
+  dataCollection4 = "chess_black_"
+  dataCollection5 = localValue1
+  dataCollection4 = dataCollection4 .. dataCollection5
+  dataCollection5 = localValue2.blackPosition
+  dataCollection6 = 1.5
   iterator = 6
 
-  -- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
-  function dataTable7()
-    local workValue, textValue3
-    arg3.insideStartMarker = true
+  -- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: none) ===
+  function dataCollection7()
+    local workingValue, text3
+    localValue3.insideStartMarker = true
   end
 
   -- === HELPER FUNCTION: iterator2() ===
   function iterator2()
-    local workValue, textValue3
-    arg3.insideStartMarker = false
+    local workingValue, text3
+    localValue3.insideStartMarker = false
   end
 
-  -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-  function dataTable()
-    local workValue, textValue3, numberValue8
-    workValue = arg3.playingSide
-    if not workValue then
-      workValue = drawNativeNotification
-      textValue3 = "Press ~INPUT_CONTEXT~ to play as black"
+  -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+  function dataCollection()
+    local workingValue, text3, number8
+    workingValue = localValue3.playingSide
+    if not workingValue then
+      workingValue = drawNativeNotification
+      text3 = "Press ~INPUT_CONTEXT~ to play as black"
       -- Beginner: Show a GTA-style notification/help prompt.
-      workValue(textValue3)
-      workValue = IsControlJustPressed
-      textValue3 = 0
-      numberValue8 = 51
-      workValue = workValue(textValue3, numberValue8)
-      if workValue then
-        workValue = TriggerServerEvent
-        textValue3 = "467142150f"
-        numberValue8 = arg1
+      workingValue(text3)
+      workingValue = IsControlJustPressed
+      text3 = 0
+      number8 = 51
+      workingValue = workingValue(text3, number8)
+      if workingValue then
+        workingValue = TriggerServerEvent
+        text3 = "467142150f"
+        number8 = localValue1
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "467142150f".
-        workValue(textValue3, numberValue8)
+        workingValue(text3, number8)
       end
     else
-      workValue = arg3.playingSide
-      if "b" == workValue then
-        workValue = drawNativeNotification
-        textValue3 = [[
+      workingValue = localValue3.playingSide
+      if "b" == workingValue then
+        workingValue = drawNativeNotification
+        text3 = [[
 Press ~INPUT_CONTEXT~ to resign.
 Press ~INPUT_INTERACTION_MENU~ to toggle board]]
         -- Beginner: Show a GTA-style notification/help prompt.
-        workValue(textValue3)
-        workValue = IsControlJustPressed
-        textValue3 = 0
-        numberValue8 = 51
-        workValue = workValue(textValue3, numberValue8)
-        if workValue then
-          workValue = arg3.bViewingBoard
-          if not workValue then
-            workValue = TriggerServerEvent
-            textValue3 = "a7db4cf034"
-            numberValue8 = arg1
+        workingValue(text3)
+        workingValue = IsControlJustPressed
+        text3 = 0
+        number8 = 51
+        workingValue = workingValue(text3, number8)
+        if workingValue then
+          workingValue = localValue3.bViewingBoard
+          if not workingValue then
+            workingValue = TriggerServerEvent
+            text3 = "a7db4cf034"
+            number8 = localValue1
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a7db4cf034".
-            workValue(textValue3, numberValue8)
+            workingValue(text3, number8)
           end
         end
       end
     end
   end
   -- Beginner: Create an interaction area around a world position.
-  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable)
-  dataTable3 = tCMG
-  dataTable3 = dataTable3.addMarker
-  dataTable4 = arg2.blackPosition
-  dataTable4 = dataTable4.x
-  dataTable5 = arg2.blackPosition
-  dataTable5 = dataTable5.y
-  dataTable6 = arg2.blackPosition
-  dataTable6 = dataTable6.z
+  dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection)
+  dataCollection3 = tCMG
+  dataCollection3 = dataCollection3.addMarker
+  dataCollection4 = localValue2.blackPosition
+  dataCollection4 = dataCollection4.x
+  dataCollection5 = localValue2.blackPosition
+  dataCollection5 = dataCollection5.y
+  dataCollection6 = localValue2.blackPosition
+  dataCollection6 = dataCollection6.z
   iterator = 1.0
-  dataTable7 = 1.0
+  dataCollection7 = 1.0
   iterator2 = 1.0
-  dataTable = 255
-  numberValue2 = 0
-  numberValue3 = 0
-  numberValue5 = 170
-  numberValue6 = 50
-  numberValue7 = 27
+  dataCollection = 255
+  number2 = 0
+  number3 = 0
+  number5 = 170
+  number6 = 50
+  number7 = 27
   -- Beginner: Create a world marker.
-  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7)
-  dataTable3 = CMG
-  dataTable3 = dataTable3.createArea
-  dataTable4 = "chess_spectate_"
-  dataTable5 = arg1
-  dataTable4 = dataTable4 .. dataTable5
-  dataTable5 = arg2.spectatePosition
-  dataTable6 = 2.0
+  dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6, number7)
+  dataCollection3 = CMG
+  dataCollection3 = dataCollection3.createArea
+  dataCollection4 = "chess_spectate_"
+  dataCollection5 = localValue1
+  dataCollection4 = dataCollection4 .. dataCollection5
+  dataCollection5 = localValue2.spectatePosition
+  dataCollection6 = 2.0
   iterator = 6
 
-  -- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
-  function dataTable7()
-    local workValue, textValue3
+  -- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: none) ===
+  function dataCollection7()
+    local workingValue, text3
   end
 
   -- === HELPER FUNCTION: iterator2() ===
   function iterator2()
-    local workValue, textValue3
+    local workingValue, text3
   end
 
-  -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-  function dataTable()
-    local workValue, textValue3, numberValue8, flag5, flag6, numberValue9, flag7, flag8, workValue13, workValue15, numberValue, flag, numberValue4
-    workValue = arg3.spectatingCamera
-    if 0 == workValue then
-      workValue = arg3.playingSide
-      if not workValue then
-        workValue = drawNativeNotification
-        textValue3 = [[
+  -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+  function dataCollection()
+    local workingValue, text3, number8, stateFlag5, stateFlag6, number9, stateFlag7, stateFlag8, workingValue13, workingValue15, number, stateFlag, number4
+    workingValue = localValue3.spectatingCamera
+    if 0 == workingValue then
+      workingValue = localValue3.playingSide
+      if not workingValue then
+        workingValue = drawNativeNotification
+        text3 = [[
 Press ~INPUT_CONTEXT~ to spectate the board
 Press ~INPUT_MELEE_ATTACK_LIGHT~ to reset the board]]
         -- Beginner: Show a GTA-style notification/help prompt.
-        workValue(textValue3)
-        workValue = IsControlJustPressed
-        textValue3 = 0
-        numberValue8 = 51
-        workValue = workValue(textValue3, numberValue8)
-        if workValue then
-          workValue = GetGameplayCamCoord
-          workValue = workValue()
-          textValue3 = GetGameplayCamRot
-          numberValue8 = 2
-          textValue3 = textValue3(numberValue8)
-          numberValue8 = CreateCamWithParams
-          flag5 = "DEFAULT_SCRIPTED_CAMERA"
-          flag6 = workValue.x
-          numberValue9 = workValue.y
-          flag7 = workValue.z
-          flag8 = textValue3.x
-          workValue13 = textValue3.y
-          workValue15 = textValue3.z
-          numberValue = 50.0
-          flag = true
-          numberValue4 = 2
-          numberValue8 = numberValue8(flag5, flag6, numberValue9, flag7, flag8, workValue13, workValue15, numberValue, flag, numberValue4)
-          arg3.spectatingCamera = numberValue8
-          numberValue8 = RenderScriptCams
-          flag5 = true
-          flag6 = true
-          numberValue9 = 1000
-          flag7 = true
-          flag8 = true
-          numberValue8(flag5, flag6, numberValue9, flag7, flag8)
-          numberValue8 = eventRegistration
-          flag5 = arg1
+        workingValue(text3)
+        workingValue = IsControlJustPressed
+        text3 = 0
+        number8 = 51
+        workingValue = workingValue(text3, number8)
+        if workingValue then
+          workingValue = GetGameplayCamCoord
+          workingValue = workingValue()
+          text3 = GetGameplayCamRot
+          number8 = 2
+          text3 = text3(number8)
+          number8 = CreateCamWithParams
+          stateFlag5 = "DEFAULT_SCRIPTED_CAMERA"
+          stateFlag6 = workingValue.x
+          number9 = workingValue.y
+          stateFlag7 = workingValue.z
+          stateFlag8 = text3.x
+          workingValue13 = text3.y
+          workingValue15 = text3.z
+          number = 50.0
+          stateFlag = true
+          number4 = 2
+          number8 = number8(stateFlag5, stateFlag6, number9, stateFlag7, stateFlag8, workingValue13, workingValue15, number, stateFlag, number4)
+          localValue3.spectatingCamera = number8
+          number8 = RenderScriptCams
+          stateFlag5 = true
+          stateFlag6 = true
+          number9 = 1000
+          stateFlag7 = true
+          stateFlag8 = true
+          number8(stateFlag5, stateFlag6, number9, stateFlag7, stateFlag8)
+          number8 = eventHandler
+          stateFlag5 = localValue1
           -- Beginner: Register a network event handler that the server/other clients can trigger.
-          numberValue8(flag5)
-          numberValue8 = CMG
-          numberValue8 = numberValue8.hideAllDisplays
-          flag5 = "chess"
-          numberValue8(flag5)
+          number8(stateFlag5)
+          number8 = CMG
+          number8 = number8.hideAllDisplays
+          stateFlag5 = "chess"
+          number8(stateFlag5)
         end
-        workValue = DisableControlAction
-        textValue3 = 0
-        numberValue8 = 140
-        flag5 = true
-        workValue(textValue3, numberValue8, flag5)
-        workValue = IsDisabledControlPressed
-        textValue3 = 0
-        numberValue8 = 140
-        workValue = workValue(textValue3, numberValue8)
-        if workValue then
-          workValue = TriggerServerEvent
-          textValue3 = "a07cde6467"
-          numberValue8 = arg1
+        workingValue = DisableControlAction
+        text3 = 0
+        number8 = 140
+        stateFlag5 = true
+        workingValue(text3, number8, stateFlag5)
+        workingValue = IsDisabledControlPressed
+        text3 = 0
+        number8 = 140
+        workingValue = workingValue(text3, number8)
+        if workingValue then
+          workingValue = TriggerServerEvent
+          text3 = "a07cde6467"
+          number8 = localValue1
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a07cde6467".
-          workValue(textValue3, numberValue8)
+          workingValue(text3, number8)
         end
       end
     end
   end
   -- Beginner: Create an interaction area around a world position.
-  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable)
-  dataTable3 = tCMG
-  dataTable3 = dataTable3.addMarker
-  dataTable4 = arg2.spectatePosition
-  dataTable4 = dataTable4.x
-  dataTable5 = arg2.spectatePosition
-  dataTable5 = dataTable5.y
-  dataTable6 = arg2.spectatePosition
-  dataTable6 = dataTable6.z
+  dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection)
+  dataCollection3 = tCMG
+  dataCollection3 = dataCollection3.addMarker
+  dataCollection4 = localValue2.spectatePosition
+  dataCollection4 = dataCollection4.x
+  dataCollection5 = localValue2.spectatePosition
+  dataCollection5 = dataCollection5.y
+  dataCollection6 = localValue2.spectatePosition
+  dataCollection6 = dataCollection6.z
   iterator = 1.0
-  dataTable7 = 1.0
+  dataCollection7 = 1.0
   iterator2 = 1.0
-  dataTable = 0
-  numberValue2 = 0
-  numberValue3 = 255
-  numberValue5 = 170
-  numberValue6 = 50
-  numberValue7 = 27
+  dataCollection = 0
+  number2 = 0
+  number3 = 255
+  number5 = 170
+  number6 = 50
+  number7 = 27
   -- Beginner: Create a world marker.
-  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7)
-  dataTable3 = tCMG
-  dataTable3 = dataTable3.addBlip
-  dataTable4 = arg2.spectatePosition
-  dataTable4 = dataTable4.x
-  dataTable5 = arg2.spectatePosition
-  dataTable5 = dataTable5.y
-  dataTable6 = arg2.spectatePosition
-  dataTable6 = dataTable6.z
+  dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6, number7)
+  dataCollection3 = tCMG
+  dataCollection3 = dataCollection3.addBlip
+  dataCollection4 = localValue2.spectatePosition
+  dataCollection4 = dataCollection4.x
+  dataCollection5 = localValue2.spectatePosition
+  dataCollection5 = dataCollection5.y
+  dataCollection6 = localValue2.spectatePosition
+  dataCollection6 = dataCollection6.z
   iterator = 183
-  dataTable7 = 13
+  dataCollection7 = 13
   iterator2 = "Chess"
-  dataTable = 1.0
-  numberValue2 = false
+  dataCollection = 1.0
+  number2 = false
   -- Beginner: Create a minimap blip.
-  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2)
-  dataTable3 = Citizen
-  dataTable3 = dataTable3.CreateThread
+  dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2)
+  dataCollection3 = Citizen
+  dataCollection3 = dataCollection3.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
-  function dataTable4()
-    local workValue, textValue3, numberValue8, flag5, flag6, numberValue9, flag7, flag8, workValue13
-    workValue = Citizen
-    workValue = workValue.Wait
-    textValue3 = 2000
-    workValue(textValue3)
-    workValue = CMG
-    workValue = workValue.createArea
-    textValue3 = "chess_radius_"
-    numberValue8 = arg1
-    textValue3 = textValue3 .. numberValue8
-    numberValue8 = arg2.spectatePosition
-    flag5 = 250.0
-    flag6 = 100.0
+  -- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: none) ===
+  function dataCollection4()
+    local workingValue, text3, number8, stateFlag5, stateFlag6, number9, stateFlag7, stateFlag8, workingValue13
+    workingValue = Citizen
+    workingValue = workingValue.Wait
+    text3 = 2000
+    workingValue(text3)
+    workingValue = CMG
+    workingValue = workingValue.createArea
+    text3 = "chess_radius_"
+    number8 = localValue1
+    text3 = text3 .. number8
+    number8 = localValue2.spectatePosition
+    stateFlag5 = 250.0
+    stateFlag6 = 100.0
 
-    -- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
-    function numberValue9()
-      local workValue2, workValue6, workValue9
-      workValue2 = arg1
-      workValue8 = workValue2
-      arg3.insideRadius = true
-      workValue2 = arg3.boardFEN
-      if workValue2 then
-        workValue2 = workValue12
-        workValue6 = arg1
-        workValue9 = arg3
-        workValue2(workValue6, workValue9)
+    -- === HELPER FUNCTION (decompiler name: number9; parameters: none) ===
+    function number9()
+      local workingValue2, workingValue6, workingValue9
+      workingValue2 = localValue1
+      workingValue8 = workingValue2
+      localValue3.insideRadius = true
+      workingValue2 = localValue3.boardFEN
+      if workingValue2 then
+        workingValue2 = workingValue12
+        workingValue6 = localValue1
+        workingValue9 = localValue3
+        workingValue2(workingValue6, workingValue9)
       end
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: none) ===
-    function flag7()
-      local workValue2, workValue6
-      arg3.insideRadius = false
-      workValue2 = workValue11
-      workValue6 = arg3
-      workValue2(workValue6)
-      workValue2 = arg3.boardObject
-      if 0 ~= workValue2 then
-        workValue2 = DeleteEntity
-        workValue6 = arg3.boardObject
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: none) ===
+    function stateFlag7()
+      local workingValue2, workingValue6
+      localValue3.insideRadius = false
+      workingValue2 = workingValue11
+      workingValue6 = localValue3
+      workingValue2(workingValue6)
+      workingValue2 = localValue3.boardObject
+      if 0 ~= workingValue2 then
+        workingValue2 = DeleteEntity
+        workingValue6 = localValue3.boardObject
         -- Beginner: Delete a GTA entity.
-        workValue2(workValue6)
-        arg3.boardObject = 0
+        workingValue2(workingValue6)
+        localValue3.boardObject = 0
       end
-      workValue2 = nil
-      workValue8 = workValue2
+      workingValue2 = nil
+      workingValue8 = workingValue2
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag8; parameters: none) ===
-    function flag8()
-      local workValue2, workValue6
+    -- === HELPER FUNCTION (decompiler name: stateFlag8; parameters: none) ===
+    function stateFlag8()
+      local workingValue2, workingValue6
     end
-    workValue13 = nil
+    workingValue13 = nil
     -- Beginner: Create an interaction area around a world position.
-    workValue(textValue3, numberValue8, flag5, flag6, numberValue9, flag7, flag8, workValue13)
+    workingValue(text3, number8, stateFlag5, stateFlag6, number9, stateFlag7, stateFlag8, workingValue13)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  dataTable3(dataTable4)
+  dataCollection3(dataCollection4)
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7
-  arg1 = AddTextEntryByHash
-  arg2 = 198910421
-  arg3 = [[
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2, localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7
+  localValue1 = AddTextEntryByHash
+  localValue2 = 198910421
+  localValue3 = [[
 ~INPUT_SELECT_WEAPON_UNARMED~ White View
 ~INPUT_SELECT_WEAPON_MELEE~ Black View
 ~INPUT_SELECT_WEAPON_SHOTGUN~ Birds View
 ~INPUT_FRONTEND_PAUSE_ALTERNATE~ Exit Spectate]]
-  arg1(arg2, arg3)
-  arg1 = pairs
-  arg2 = cmgCall.locations
-  arg1, arg2, arg3, dataTable3 = arg1(arg2)
-  for dataTable4, dataTable5 in arg1, arg2, arg3, dataTable3 do
-    dataTable6 = textValue4
-    iterator = dataTable4
-    dataTable7 = dataTable5
-    dataTable6(iterator, dataTable7)
+  localValue1(localValue2, localValue3)
+  localValue1 = pairs
+  localValue2 = cmgOperation.locations
+  localValue1, localValue2, localValue3, dataCollection3 = localValue1(localValue2)
+  for dataCollection4, dataCollection5 in localValue1, localValue2, localValue3, dataCollection3 do
+    dataCollection6 = text4
+    iterator = dataCollection4
+    dataCollection7 = dataCollection5
+    dataCollection6(iterator, dataCollection7)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(workValue14)
+backgroundThread(workingValue14)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2) ===
-function threadCall(arg1, arg2)
-  local arg3, dataTable3, dataTable4, dataTable5, dataTable6
-  arg3 = CMG
-  arg3 = arg3.parseChessFEN
-  dataTable3 = arg1.boardFEN
-  arg3, dataTable3 = arg3(dataTable3)
-  dataTable4 = SendNUIMessage
-  dataTable5 = {}
-  dataTable5.displayChessBoard = true
-  dataTable5.visible = arg2
-  dataTable5.activeColour = dataTable3
-  dataTable6 = arg1.bPlayingActive
-  dataTable5.playingActive = dataTable6
-  dataTable6 = arg1.playingSide
-  dataTable5.playingSide = dataTable6
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2) ===
+function backgroundThread(localValue1, localValue2)
+  local localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6
+  localValue3 = CMG
+  localValue3 = localValue3.parseChessFEN
+  dataCollection3 = localValue1.boardFEN
+  localValue3, dataCollection3 = localValue3(dataCollection3)
+  dataCollection4 = SendNUIMessage
+  dataCollection5 = {}
+  dataCollection5.displayChessBoard = true
+  dataCollection5.visible = localValue2
+  dataCollection5.activeColour = dataCollection3
+  dataCollection6 = localValue1.bPlayingActive
+  dataCollection5.playingActive = dataCollection6
+  dataCollection6 = localValue1.playingSide
+  dataCollection5.playingSide = dataCollection6
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  dataTable4(dataTable5)
-  dataTable4 = workValue10
-  dataTable5 = arg1
-  dataTable4(dataTable5)
+  dataCollection4(dataCollection5)
+  dataCollection4 = workingValue10
+  dataCollection5 = localValue1
+  dataCollection4(dataCollection5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
-function workValue14(arg1)
-  local arg2, arg3, dataTable3
-  arg2 = arg1.bViewingBoard
-  arg2 = not arg2
-  arg1.bViewingBoard = arg2
-  arg2 = SetNuiFocus
-  arg3 = arg1.bViewingBoard
-  dataTable3 = arg1.bViewingBoard
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: localValue1) ===
+function workingValue14(localValue1)
+  local localValue2, localValue3, dataCollection3
+  localValue2 = localValue1.bViewingBoard
+  localValue2 = not localValue2
+  localValue1.bViewingBoard = localValue2
+  localValue2 = SetNuiFocus
+  localValue3 = localValue1.bViewingBoard
+  dataCollection3 = localValue1.bViewingBoard
   -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-  arg2(arg3, dataTable3)
-  arg2 = SetNuiFocusKeepInput
-  arg3 = arg1.bViewingBoard
-  arg2(arg3)
-  arg2 = threadCall
-  arg3 = arg1
-  dataTable3 = arg1.bViewingBoard
+  localValue2(localValue3, dataCollection3)
+  localValue2 = SetNuiFocusKeepInput
+  localValue3 = localValue1.bViewingBoard
+  localValue2(localValue3)
+  localValue2 = backgroundThread
+  localValue3 = localValue1
+  dataCollection3 = localValue1.bViewingBoard
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3, dataTable3)
+  localValue2(localValue3, dataCollection3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-function workValue3()
-  local arg1, arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6
-  arg1 = workValue8
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+function workingValue3()
+  local localValue1, localValue2, localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6
+  localValue1 = workingValue8
+  if not localValue1 then
     return
   end
-  arg2 = workValue8
-  arg1 = dataTable2
-  arg1 = arg1[arg2]
-  arg2 = arg1.playingSide
-  if arg2 then
-    arg2 = Citizen
-    arg2 = arg2.InvokeNative
-    arg3 = -6795882342541246497
-    dataTable3 = -1209618476
-    arg2(arg3, dataTable3)
-    arg2 = arg1.insideStartMarker
-    if not arg2 then
-      arg2 = drawNativeNotification
-      arg3 = "Press ~INPUT_INTERACTION_MENU~ to toggle board"
+  localValue2 = workingValue8
+  localValue1 = dataCollection2
+  localValue1 = localValue1[localValue2]
+  localValue2 = localValue1.playingSide
+  if localValue2 then
+    localValue2 = Citizen
+    localValue2 = localValue2.InvokeNative
+    localValue3 = -6795882342541246497
+    dataCollection3 = -1209618476
+    localValue2(localValue3, dataCollection3)
+    localValue2 = localValue1.insideStartMarker
+    if not localValue2 then
+      localValue2 = drawNativeNotification
+      localValue3 = "Press ~INPUT_INTERACTION_MENU~ to toggle board"
       -- Beginner: Show a GTA-style notification/help prompt.
-      arg2(arg3)
+      localValue2(localValue3)
     end
-    arg2 = IsControlJustPressed
-    arg3 = 0
-    dataTable3 = 244
-    arg2 = arg2(arg3, dataTable3)
-    if arg2 then
-      arg2 = workValue14
-      arg3 = arg1
-      arg2(arg3)
+    localValue2 = IsControlJustPressed
+    localValue3 = 0
+    dataCollection3 = 244
+    localValue2 = localValue2(localValue3, dataCollection3)
+    if localValue2 then
+      localValue2 = workingValue14
+      localValue3 = localValue1
+      localValue2(localValue3)
     end
-    arg2 = arg1.bPlayingActive
-    if arg2 then
-      arg2 = CMG
-      arg2 = arg2.parseChessFEN
-      arg3 = arg1.boardFEN
-      arg2, arg3 = arg2(arg3)
-      dataTable3 = arg1.playingSide
-      if arg3 == dataTable3 then
-        dataTable3 = drawNativeText
-        dataTable4 = "~g~Your turn to make a move."
+    localValue2 = localValue1.bPlayingActive
+    if localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.parseChessFEN
+      localValue3 = localValue1.boardFEN
+      localValue2, localValue3 = localValue2(localValue3)
+      dataCollection3 = localValue1.playingSide
+      if localValue3 == dataCollection3 then
+        dataCollection3 = drawNativeText
+        dataCollection4 = "~g~Your turn to make a move."
         -- Beginner: Draw GTA-style text on screen.
-        dataTable3(dataTable4)
+        dataCollection3(dataCollection4)
       else
-        dataTable3 = drawNativeText
-        dataTable4 = string
-        dataTable4 = dataTable4.format
-        dataTable5 = "~y~%s is making their move."
-        if "w" == arg3 then
-          dataTable6 = "White"
-          if dataTable6 then
-            goto flow_label_55
+        dataCollection3 = drawNativeText
+        dataCollection4 = string
+        dataCollection4 = dataCollection4.format
+        dataCollection5 = "~y~%s is making their move."
+        if "w" == localValue3 then
+          dataCollection6 = "White"
+          if dataCollection6 then
+            goto continueAtStep55
           end
         end
-        dataTable6 = "Black"
-        ::flow_label_55::
-        dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6 = dataTable4(dataTable5, dataTable6)
-        dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
+        dataCollection6 = "Black"
+        ::continueAtStep55::
+        dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6 = dataCollection4(dataCollection5, dataCollection6)
+        dataCollection3(dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6)
       end
     else
-      arg2 = drawNativeText
-      arg3 = "~y~Waiting for other player to join..."
+      localValue2 = drawNativeText
+      localValue3 = "~y~Waiting for other player to join..."
       -- Beginner: Draw GTA-style text on screen.
-      arg2(arg3)
+      localValue2(localValue3)
     end
-    arg2 = CMG
-    arg2 = arg2.getPlayerCoords
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg2 = arg2()
-    arg3 = cmgCall.locations
-    dataTable3 = workValue8
-    arg3 = arg3[dataTable3]
-    arg3 = arg3.originPosition
-    arg2 = arg2 - arg3
-    arg2 = #arg2
-    if arg2 > 40.0 then
-      arg2 = TriggerServerEvent
-      arg3 = "a7db4cf034"
+    localValue2 = localValue2()
+    localValue3 = cmgOperation.locations
+    dataCollection3 = workingValue8
+    localValue3 = localValue3[dataCollection3]
+    localValue3 = localValue3.originPosition
+    localValue2 = localValue2 - localValue3
+    localValue2 = #localValue2
+    if localValue2 > 40.0 then
+      localValue2 = TriggerServerEvent
+      localValue3 = "a7db4cf034"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a7db4cf034".
-      arg2(arg3)
+      localValue2(localValue3)
     end
   end
-  arg2 = arg1.bViewingBoard
-  if arg2 then
-    arg2 = 0
-    arg3 = 6
-    dataTable3 = 1
-    for dataTable4 = arg2, arg3, dataTable3 do
-      dataTable5 = DisableControlAction
-      dataTable6 = 0
-      iterator = dataTable4
-      dataTable7 = true
-      dataTable5(dataTable6, iterator, dataTable7)
+  localValue2 = localValue1.bViewingBoard
+  if localValue2 then
+    localValue2 = 0
+    localValue3 = 6
+    dataCollection3 = 1
+    for dataCollection4 = localValue2, localValue3, dataCollection3 do
+      dataCollection5 = DisableControlAction
+      dataCollection6 = 0
+      iterator = dataCollection4
+      dataCollection7 = true
+      dataCollection5(dataCollection6, iterator, dataCollection7)
     end
-    arg2 = DisablePlayerFiring
-    arg3 = PlayerId
+    localValue2 = DisablePlayerFiring
+    localValue3 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    arg3 = arg3()
-    dataTable3 = true
-    arg2(arg3, dataTable3)
-    arg2 = DisableControlAction
-    arg3 = 0
-    dataTable3 = 24
-    dataTable4 = true
-    arg2(arg3, dataTable3, dataTable4)
-    arg2 = DisableControlAction
-    arg3 = 0
-    dataTable3 = 25
-    dataTable4 = true
-    arg2(arg3, dataTable3, dataTable4)
-    arg2 = DisableControlAction
-    arg3 = 0
-    dataTable3 = 200
-    dataTable4 = true
-    arg2(arg3, dataTable3, dataTable4)
-    arg2 = IsDisabledControlJustReleased
-    arg3 = 0
-    dataTable3 = 200
-    arg2 = arg2(arg3, dataTable3)
-    if arg2 then
-      arg2 = workValue14
-      arg3 = arg1
-      arg2(arg3)
+    localValue3 = localValue3()
+    dataCollection3 = true
+    localValue2(localValue3, dataCollection3)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    dataCollection3 = 24
+    dataCollection4 = true
+    localValue2(localValue3, dataCollection3, dataCollection4)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    dataCollection3 = 25
+    dataCollection4 = true
+    localValue2(localValue3, dataCollection3, dataCollection4)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    dataCollection3 = 200
+    dataCollection4 = true
+    localValue2(localValue3, dataCollection3, dataCollection4)
+    localValue2 = IsDisabledControlJustReleased
+    localValue3 = 0
+    dataCollection3 = 200
+    localValue2 = localValue2(localValue3, dataCollection3)
+    if localValue2 then
+      localValue2 = workingValue14
+      localValue3 = localValue1
+      localValue2(localValue3)
     end
   end
-  arg2 = arg1.spectatingCamera
-  if 0 ~= arg2 then
-    arg2 = Citizen
-    arg2 = arg2.InvokeNative
-    arg3 = -6795882342541246497
-    dataTable3 = -1209618476
-    arg2(arg3, dataTable3)
-    arg2 = DisableAllControlActions
-    arg3 = 0
-    arg2(arg3)
-    arg2 = BeginTextCommandDisplayHelp
-    arg3 = "STRING"
-    arg2(arg3)
-    arg2 = AddTextComponentSubstringTextLabel
-    arg3 = "CHESS_SPECTATE"
-    arg2(arg3)
-    arg2 = EndTextCommandDisplayHelp
-    arg3 = 0
-    dataTable3 = false
-    dataTable4 = false
-    dataTable5 = -1
-    arg2(arg3, dataTable3, dataTable4, dataTable5)
-    arg2 = IsDisabledControlJustPressed
-    arg3 = 0
-    dataTable3 = 157
-    arg2 = arg2(arg3, dataTable3)
-    if arg2 then
-      arg2 = cmgCall.locations
-      arg3 = workValue8
-      arg2 = arg2[arg3]
-      arg2 = arg2.originPosition
-      arg3 = vector3
-      dataTable3 = 24.0
-      dataTable4 = 10.0
-      dataTable5 = 10.0
-      arg3 = arg3(dataTable3, dataTable4, dataTable5)
-      arg2 = arg2 + arg3
-      arg3 = SetCamParams
-      dataTable3 = arg1.spectatingCamera
-      dataTable4 = arg2.x
-      dataTable5 = arg2.y
-      dataTable6 = arg2.z
+  localValue2 = localValue1.spectatingCamera
+  if 0 ~= localValue2 then
+    localValue2 = Citizen
+    localValue2 = localValue2.InvokeNative
+    localValue3 = -6795882342541246497
+    dataCollection3 = -1209618476
+    localValue2(localValue3, dataCollection3)
+    localValue2 = DisableAllControlActions
+    localValue3 = 0
+    localValue2(localValue3)
+    localValue2 = BeginTextCommandDisplayHelp
+    localValue3 = "STRING"
+    localValue2(localValue3)
+    localValue2 = AddTextComponentSubstringTextLabel
+    localValue3 = "CHESS_SPECTATE"
+    localValue2(localValue3)
+    localValue2 = EndTextCommandDisplayHelp
+    localValue3 = 0
+    dataCollection3 = false
+    dataCollection4 = false
+    dataCollection5 = -1
+    localValue2(localValue3, dataCollection3, dataCollection4, dataCollection5)
+    localValue2 = IsDisabledControlJustPressed
+    localValue3 = 0
+    dataCollection3 = 157
+    localValue2 = localValue2(localValue3, dataCollection3)
+    if localValue2 then
+      localValue2 = cmgOperation.locations
+      localValue3 = workingValue8
+      localValue2 = localValue2[localValue3]
+      localValue2 = localValue2.originPosition
+      localValue3 = vector3
+      dataCollection3 = 24.0
+      dataCollection4 = 10.0
+      dataCollection5 = 10.0
+      localValue3 = localValue3(dataCollection3, dataCollection4, dataCollection5)
+      localValue2 = localValue2 + localValue3
+      localValue3 = SetCamParams
+      dataCollection3 = localValue1.spectatingCamera
+      dataCollection4 = localValue2.x
+      dataCollection5 = localValue2.y
+      dataCollection6 = localValue2.z
       iterator = -45.0
-      dataTable7 = 0.0
+      dataCollection7 = 0.0
       iterator2 = 90.0
-      dataTable = 50.0
-      numberValue2 = 1000
-      numberValue3 = 0
-      numberValue5 = 0
-      numberValue6 = 2
-      arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
+      dataCollection = 50.0
+      number2 = 1000
+      number3 = 0
+      number5 = 0
+      number6 = 2
+      localValue3(dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6)
     else
-      arg2 = IsDisabledControlJustPressed
-      arg3 = 0
-      dataTable3 = 158
-      arg2 = arg2(arg3, dataTable3)
-      if arg2 then
-        arg2 = cmgCall.locations
-        arg3 = workValue8
-        arg2 = arg2[arg3]
-        arg2 = arg2.originPosition
-        arg3 = vector3
-        dataTable3 = -3.0
-        dataTable4 = 10.0
-        dataTable5 = 10.0
-        arg3 = arg3(dataTable3, dataTable4, dataTable5)
-        arg2 = arg2 + arg3
-        arg3 = SetCamParams
-        dataTable3 = arg1.spectatingCamera
-        dataTable4 = arg2.x
-        dataTable5 = arg2.y
-        dataTable6 = arg2.z
+      localValue2 = IsDisabledControlJustPressed
+      localValue3 = 0
+      dataCollection3 = 158
+      localValue2 = localValue2(localValue3, dataCollection3)
+      if localValue2 then
+        localValue2 = cmgOperation.locations
+        localValue3 = workingValue8
+        localValue2 = localValue2[localValue3]
+        localValue2 = localValue2.originPosition
+        localValue3 = vector3
+        dataCollection3 = -3.0
+        dataCollection4 = 10.0
+        dataCollection5 = 10.0
+        localValue3 = localValue3(dataCollection3, dataCollection4, dataCollection5)
+        localValue2 = localValue2 + localValue3
+        localValue3 = SetCamParams
+        dataCollection3 = localValue1.spectatingCamera
+        dataCollection4 = localValue2.x
+        dataCollection5 = localValue2.y
+        dataCollection6 = localValue2.z
         iterator = -45.0
-        dataTable7 = 0.0
+        dataCollection7 = 0.0
         iterator2 = -90.0
-        dataTable = 50.0
-        numberValue2 = 1000
-        numberValue3 = 0
-        numberValue5 = 0
-        numberValue6 = 2
-        arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
+        dataCollection = 50.0
+        number2 = 1000
+        number3 = 0
+        number5 = 0
+        number6 = 2
+        localValue3(dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6)
       else
-        arg2 = IsDisabledControlJustPressed
-        arg3 = 0
-        dataTable3 = 160
-        arg2 = arg2(arg3, dataTable3)
-        if arg2 then
-          arg2 = eventRegistration
-          arg3 = workValue8
+        localValue2 = IsDisabledControlJustPressed
+        localValue3 = 0
+        dataCollection3 = 160
+        localValue2 = localValue2(localValue3, dataCollection3)
+        if localValue2 then
+          localValue2 = eventHandler
+          localValue3 = workingValue8
           -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: nil.
-          arg2(arg3)
+          localValue2(localValue3)
         else
-          arg2 = IsDisabledControlJustReleased
-          arg3 = 0
-          dataTable3 = 200
-          arg2 = arg2(arg3, dataTable3)
-          if arg2 then
-            arg2 = RenderScriptCams
-            arg3 = false
-            dataTable3 = true
-            dataTable4 = 1000
-            dataTable5 = false
-            dataTable6 = false
-            arg2(arg3, dataTable3, dataTable4, dataTable5, dataTable6)
-            arg2 = SetCamActive
-            arg3 = arg1.spectatingCamera
-            dataTable3 = false
-            arg2(arg3, dataTable3)
-            arg2 = DestroyCam
-            arg3 = arg1.spectatingCamera
-            dataTable3 = true
-            arg2(arg3, dataTable3)
-            arg1.spectatingCamera = 0
-            arg2 = CMG
-            arg2 = arg2.showAllDisplays
-            arg3 = "chess"
-            arg2(arg3)
+          localValue2 = IsDisabledControlJustReleased
+          localValue3 = 0
+          dataCollection3 = 200
+          localValue2 = localValue2(localValue3, dataCollection3)
+          if localValue2 then
+            localValue2 = RenderScriptCams
+            localValue3 = false
+            dataCollection3 = true
+            dataCollection4 = 1000
+            dataCollection5 = false
+            dataCollection6 = false
+            localValue2(localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6)
+            localValue2 = SetCamActive
+            localValue3 = localValue1.spectatingCamera
+            dataCollection3 = false
+            localValue2(localValue3, dataCollection3)
+            localValue2 = DestroyCam
+            localValue3 = localValue1.spectatingCamera
+            dataCollection3 = true
+            localValue2(localValue3, dataCollection3)
+            localValue1.spectatingCamera = 0
+            localValue2 = CMG
+            localValue2 = localValue2.showAllDisplays
+            localValue3 = "chess"
+            localValue2(localValue3)
           end
         end
       end
     end
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-textValue = workValue3
-textValue2 = "Chess Board"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+text = workingValue3
+text2 = "Chess Board"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(textValue, textValue2)
-cmgCall2 = CMG
+cmgOperation2(text, text2)
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2
-  arg1 = workValue8
-  if arg1 then
-    arg2 = workValue8
-    arg1 = dataTable2
-    arg1 = arg1[arg2]
-    arg1 = arg1.playingSide
-    arg1 = nil ~= arg1
-    return arg1
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2
+  localValue1 = workingValue8
+  if localValue1 then
+    localValue2 = workingValue8
+    localValue1 = dataCollection2
+    localValue1 = localValue1[localValue2]
+    localValue1 = localValue1.playingSide
+    localValue1 = nil ~= localValue1
+    return localValue1
   else
-    arg1 = false
-    return arg1
+    localValue1 = false
+    return localValue1
   end
 end
-cmgCall2.inChessGame = textValue
-cmgCall2 = RegisterNUICallback
-textValue = "chessUpdatedFEN"
+cmgOperation2.inChessGame = text
+cmgOperation2 = RegisterNUICallback
+text = "chessUpdatedFEN"
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, dataTable3, dataTable4
-  arg2 = workValue8
-  if arg2 then
-    arg3 = workValue8
-    arg2 = dataTable2
-    arg2 = arg2[arg3]
-    arg3 = arg2.bViewingBoard
-    if arg3 then
-      arg3 = arg2.bPlayingActive
-      if arg3 then
-        arg3 = TriggerServerEvent
-        dataTable3 = "604b58a33c"
-        dataTable4 = arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, dataCollection3, dataCollection4
+  localValue2 = workingValue8
+  if localValue2 then
+    localValue3 = workingValue8
+    localValue2 = dataCollection2
+    localValue2 = localValue2[localValue3]
+    localValue3 = localValue2.bViewingBoard
+    if localValue3 then
+      localValue3 = localValue2.bPlayingActive
+      if localValue3 then
+        localValue3 = TriggerServerEvent
+        dataCollection3 = "604b58a33c"
+        dataCollection4 = localValue1
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "604b58a33c".
-        arg3(dataTable3, dataTable4)
+        localValue3(dataCollection3, dataCollection4)
       end
     end
   end
 end
-cmgCall2(textValue, textValue2)
-cmgCall2 = RegisterNUICallback
-textValue = "chessPlayCheckSound"
+cmgOperation2(text, text2)
+cmgOperation2 = RegisterNUICallback
+text = "chessPlayCheckSound"
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2
-  arg1 = workValue8
-  if arg1 then
-    arg2 = workValue8
-    arg1 = dataTable2
-    arg1 = arg1[arg2]
-    arg1 = arg1.bViewingBoard
-    if arg1 then
-      arg1 = SendNUIMessage
-      arg2 = {}
-      arg2.transactionType = "chess_notify"
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2
+  localValue1 = workingValue8
+  if localValue1 then
+    localValue2 = workingValue8
+    localValue1 = dataCollection2
+    localValue1 = localValue1[localValue2]
+    localValue1 = localValue1.bViewingBoard
+    if localValue1 then
+      localValue1 = SendNUIMessage
+      localValue2 = {}
+      localValue2.transactionType = "chess_notify"
       -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-      arg1(arg2)
+      localValue1(localValue2)
     end
   end
 end
-cmgCall2(textValue, textValue2)
-cmgCall2 = RegisterNetEvent
-textValue = "29d5f19513"
+cmgOperation2(text, text2)
+cmgOperation2 = RegisterNetEvent
+text = "29d5f19513"
 -- Beginner: this function handles network event "29d5f19513".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2, arg3) ===
-function textValue2(arg1, arg2, arg3)
-  local dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7, cmgCall3, vector3Builder, workValue4, workValue5, heading
-  dataTable3 = Citizen
-  dataTable3 = dataTable3.Wait
-  dataTable4 = 5000
-  dataTable3(dataTable4)
-  dataTable3 = dataTable2
-  dataTable3 = dataTable3[arg1]
-  dataTable4 = dataTable3.bViewingBoard
-  if dataTable4 then
-    dataTable4 = workValue14
-    dataTable5 = dataTable3
-    dataTable4(dataTable5)
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2, localValue3) ===
+function text2(localValue1, localValue2, localValue3)
+  local dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7, iterator2, dataCollection, number2, number3, number5, number6, number7, cmgOperation3, createVector3, workingValue4, workingValue5, heading
+  dataCollection3 = Citizen
+  dataCollection3 = dataCollection3.Wait
+  dataCollection4 = 5000
+  dataCollection3(dataCollection4)
+  dataCollection3 = dataCollection2
+  dataCollection3 = dataCollection3[localValue1]
+  dataCollection4 = dataCollection3.bViewingBoard
+  if dataCollection4 then
+    dataCollection4 = workingValue14
+    dataCollection5 = dataCollection3
+    dataCollection4(dataCollection5)
   end
-  dataTable4 = CMG
-  dataTable4 = dataTable4.getPlayerCoords
+  dataCollection4 = CMG
+  dataCollection4 = dataCollection4.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  dataTable4 = dataTable4()
-  dataTable5 = cmgCall.locations
-  dataTable5 = dataTable5[arg1]
-  dataTable5 = dataTable5.originPosition
-  dataTable4 = dataTable4 - dataTable5
-  dataTable4 = #dataTable4
-  if dataTable4 < 75.0 then
-    if arg2 then
-      dataTable4 = CMG
-      dataTable4 = dataTable4.announceMpBigMsg
-      dataTable5 = "STALEMATE"
-      dataTable6 = "The chess game has ended with a draw!"
+  dataCollection4 = dataCollection4()
+  dataCollection5 = cmgOperation.locations
+  dataCollection5 = dataCollection5[localValue1]
+  dataCollection5 = dataCollection5.originPosition
+  dataCollection4 = dataCollection4 - dataCollection5
+  dataCollection4 = #dataCollection4
+  if dataCollection4 < 75.0 then
+    if localValue2 then
+      dataCollection4 = CMG
+      dataCollection4 = dataCollection4.announceMpBigMsg
+      dataCollection5 = "STALEMATE"
+      dataCollection6 = "The chess game has ended with a draw!"
       iterator = 10000
-      dataTable7 = true
+      dataCollection7 = true
       iterator2 = true
-      dataTable4(dataTable5, dataTable6, iterator, dataTable7, iterator2)
+      dataCollection4(dataCollection5, dataCollection6, iterator, dataCollection7, iterator2)
     else
-      dataTable4 = CMG
-      dataTable4 = dataTable4.announceMpBigMsg
-      dataTable5 = "CHECKMATE"
-      dataTable6 = string
-      dataTable6 = dataTable6.format
+      dataCollection4 = CMG
+      dataCollection4 = dataCollection4.announceMpBigMsg
+      dataCollection5 = "CHECKMATE"
+      dataCollection6 = string
+      dataCollection6 = dataCollection6.format
       iterator = "%s has won the chess game!"
-      dataTable7 = arg3
-      dataTable6 = dataTable6(iterator, dataTable7)
+      dataCollection7 = localValue3
+      dataCollection6 = dataCollection6(iterator, dataCollection7)
       iterator = 10000
-      dataTable7 = true
+      dataCollection7 = true
       iterator2 = true
-      dataTable4(dataTable5, dataTable6, iterator, dataTable7, iterator2)
+      dataCollection4(dataCollection5, dataCollection6, iterator, dataCollection7, iterator2)
     end
   end
-  dataTable4 = dataTable3.boardObjects
-  if dataTable4 then
-    dataTable4 = pairs
-    dataTable5 = dataTable3.boardObjects
-    dataTable4, dataTable5, dataTable6, iterator = dataTable4(dataTable5)
-    for dataTable7, iterator2 in dataTable4, dataTable5, dataTable6, iterator do
-      dataTable = pairs
-      numberValue2 = iterator2
-      dataTable, numberValue2, numberValue3, numberValue5 = dataTable(numberValue2)
-      for numberValue6, numberValue7 in dataTable, numberValue2, numberValue3, numberValue5 do
-        if 0 ~= numberValue7 then
-          cmgCall3 = GetEntityModel
-          vector3Builder = numberValue7
+  dataCollection4 = dataCollection3.boardObjects
+  if dataCollection4 then
+    dataCollection4 = pairs
+    dataCollection5 = dataCollection3.boardObjects
+    dataCollection4, dataCollection5, dataCollection6, iterator = dataCollection4(dataCollection5)
+    for dataCollection7, iterator2 in dataCollection4, dataCollection5, dataCollection6, iterator do
+      dataCollection = pairs
+      number2 = iterator2
+      dataCollection, number2, number3, number5 = dataCollection(number2)
+      for number6, number7 in dataCollection, number2, number3, number5 do
+        if 0 ~= number7 then
+          cmgOperation3 = GetEntityModel
+          createVector3 = number7
           -- Beginner: result below is modelHash.
-          cmgCall3 = cmgCall3(vector3Builder)
-          if "White" == arg3 and -581108805 == cmgCall3 then
-            vector3Builder = CMG
-            vector3Builder = vector3Builder.startFireworksAtCoord
-            workValue4 = GetEntityCoords
-            workValue5 = numberValue7
+          cmgOperation3 = cmgOperation3(createVector3)
+          if "White" == localValue3 and -581108805 == cmgOperation3 then
+            createVector3 = CMG
+            createVector3 = createVector3.startFireworksAtCoord
+            workingValue4 = GetEntityCoords
+            workingValue5 = number7
             heading = true
-            workValue4, workValue5, heading = workValue4(workValue5, heading)
-            vector3Builder(workValue4, workValue5, heading)
-          elseif "Black" == arg3 and -864843523 == cmgCall3 then
-            vector3Builder = CMG
-            vector3Builder = vector3Builder.startFireworksAtCoord
-            workValue4 = GetEntityCoords
-            workValue5 = numberValue7
+            workingValue4, workingValue5, heading = workingValue4(workingValue5, heading)
+            createVector3(workingValue4, workingValue5, heading)
+          elseif "Black" == localValue3 and -864843523 == cmgOperation3 then
+            createVector3 = CMG
+            createVector3 = createVector3.startFireworksAtCoord
+            workingValue4 = GetEntityCoords
+            workingValue5 = number7
             heading = true
-            workValue4, workValue5, heading = workValue4(workValue5, heading)
-            vector3Builder(workValue4, workValue5, heading)
+            workingValue4, workingValue5, heading = workingValue4(workingValue5, heading)
+            createVector3(workingValue4, workingValue5, heading)
           end
         end
       end
@@ -1204,33 +1204,33 @@ function textValue2(arg1, arg2, arg3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "29d5f19513".
-cmgCall2(textValue, textValue2)
-cmgCall2 = AddEventHandler
-textValue = "onResourceStop"
+cmgOperation2(text, text2)
+cmgOperation2 = AddEventHandler
+text = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg2 == arg1 then
-    arg2 = pairs
-    arg3 = dataTable2
-    arg2, arg3, dataTable3, dataTable4 = arg2(arg3)
-    for dataTable5, dataTable6 in arg2, arg3, dataTable3, dataTable4 do
-      iterator = dataTable6.boardObject
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, dataCollection3, dataCollection4, dataCollection5, dataCollection6, iterator, dataCollection7
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue2 == localValue1 then
+    localValue2 = pairs
+    localValue3 = dataCollection2
+    localValue2, localValue3, dataCollection3, dataCollection4 = localValue2(localValue3)
+    for dataCollection5, dataCollection6 in localValue2, localValue3, dataCollection3, dataCollection4 do
+      iterator = dataCollection6.boardObject
       if 0 ~= iterator then
         iterator = DeleteEntity
-        dataTable7 = dataTable6.boardObject
+        dataCollection7 = dataCollection6.boardObject
         -- Beginner: Delete a GTA entity.
-        iterator(dataTable7)
+        iterator(dataCollection7)
       end
-      iterator = workValue11
-      dataTable7 = dataTable6
-      iterator(dataTable7)
+      iterator = workingValue11
+      dataCollection7 = dataCollection6
+      iterator(dataCollection7)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-cmgCall2(textValue, textValue2)
+cmgOperation2(text, text2)

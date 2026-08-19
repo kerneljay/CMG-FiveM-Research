@@ -32,1557 +32,1557 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, dataTable6, dataTable7, dataTable8, numberValue8, cmgCall8, cmgCall9, workValue15, dataTable9, dataTable10, dataTable2, dataTable3, cmgCall, dataTable4, cmgCall2, cmgCall3, dataTable5, flag, numberValue, cmgCall4, workValue, threadCall, numberValue2, cmgCall5, cmgCall6, cmgCall7, flag2, workValue5
-dataTable = {}
-dataTable6 = {}
-dataTable7 = {}
-dataTable8 = {}
-numberValue8 = 250.0
-cmgCall8 = CMG
+local dataCollection, dataCollection6, dataCollection7, dataCollection8, number8, cmgOperation8, cmgOperation9, workingValue15, dataCollection9, dataCollection10, dataCollection2, dataCollection3, cmgOperation, dataCollection4, cmgOperation2, cmgOperation3, dataCollection5, stateFlag, number, cmgOperation4, workingValue, backgroundThread, number2, cmgOperation5, cmgOperation6, cmgOperation7, stateFlag2, workingValue5
+dataCollection = {}
+dataCollection6 = {}
+dataCollection7 = {}
+dataCollection8 = {}
+number8 = 250.0
+cmgOperation8 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: none) ===
-function cmgCall9()
-  local arg1, arg2
-  arg1 = dataTable
-  return arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation9; parameters: none) ===
+function cmgOperation9()
+  local localValue1, localValue2
+  localValue1 = dataCollection
+  return localValue1
 end
-cmgCall8.getGlobalBlips = cmgCall9
-cmgCall8 = tCMG
+cmgOperation8.getGlobalBlips = cmgOperation9
+cmgOperation8 = tCMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
-function cmgCall9(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-  local arg9, arg10, arg11, arg122
-  arg9 = AddBlipForCoord
-  arg10 = arg1 + 0.001
-  arg11 = arg2 + 0.001
-  arg122 = arg3 + 0.001
+-- === HELPER FUNCTION (decompiler name: cmgOperation9; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8) ===
+function cmgOperation9(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+  local localValue9, localValue10, localValue11, localValue122
+  localValue9 = AddBlipForCoord
+  localValue10 = localValue1 + 0.001
+  localValue11 = localValue2 + 0.001
+  localValue122 = localValue3 + 0.001
   -- Beginner: result below is blipHandle.
-  arg9 = arg9(arg10, arg11, arg122)
-  arg10 = SetBlipSprite
-  arg11 = arg9
-  arg122 = arg4
-  arg10(arg11, arg122)
-  arg10 = SetBlipAsShortRange
-  arg11 = arg9
-  arg122 = true
-  arg10(arg11, arg122)
-  arg10 = SetBlipColour
-  arg11 = arg9
-  arg122 = arg5 or arg122
-  if not arg5 then
-    arg122 = 0
+  localValue9 = localValue9(localValue10, localValue11, localValue122)
+  localValue10 = SetBlipSprite
+  localValue11 = localValue9
+  localValue122 = localValue4
+  localValue10(localValue11, localValue122)
+  localValue10 = SetBlipAsShortRange
+  localValue11 = localValue9
+  localValue122 = true
+  localValue10(localValue11, localValue122)
+  localValue10 = SetBlipColour
+  localValue11 = localValue9
+  localValue122 = localValue5 or localValue122
+  if not localValue5 then
+    localValue122 = 0
   end
-  arg10(arg11, arg122)
-  if 403 == arg4 or 431 == arg4 or 365 == arg4 or 85 == arg4 or 140 == arg4 or 60 == arg4 or 44 == arg4 or 110 == arg4 or 315 == arg4 then
-    arg10 = SetBlipScale
-    arg11 = arg9
-    arg122 = 1.1
-    arg10(arg11, arg122)
-  elseif 50 == arg4 then
-    arg10 = SetBlipScale
-    arg11 = arg9
-    arg122 = 0.7
-    arg10(arg11, arg122)
+  localValue10(localValue11, localValue122)
+  if 403 == localValue4 or 431 == localValue4 or 365 == localValue4 or 85 == localValue4 or 140 == localValue4 or 60 == localValue4 or 44 == localValue4 or 110 == localValue4 or 315 == localValue4 then
+    localValue10 = SetBlipScale
+    localValue11 = localValue9
+    localValue122 = 1.1
+    localValue10(localValue11, localValue122)
+  elseif 50 == localValue4 then
+    localValue10 = SetBlipScale
+    localValue11 = localValue9
+    localValue122 = 0.7
+    localValue10(localValue11, localValue122)
   else
-    arg10 = SetBlipScale
-    arg11 = arg9
-    arg122 = 0.8
-    arg10(arg11, arg122)
+    localValue10 = SetBlipScale
+    localValue11 = localValue9
+    localValue122 = 0.8
+    localValue10(localValue11, localValue122)
   end
-  arg10 = SetBlipScale
-  arg11 = arg9
-  arg122 = arg7 or arg122
-  if not arg7 then
-    arg122 = 0.8
+  localValue10 = SetBlipScale
+  localValue11 = localValue9
+  localValue122 = localValue7 or localValue122
+  if not localValue7 then
+    localValue122 = 0.8
   end
-  arg10(arg11, arg122)
-  if arg8 then
-    arg10 = SetBlipDisplay
-    arg11 = arg9
-    arg122 = 5
-    arg10(arg11, arg122)
+  localValue10(localValue11, localValue122)
+  if localValue8 then
+    localValue10 = SetBlipDisplay
+    localValue11 = localValue9
+    localValue122 = 5
+    localValue10(localValue11, localValue122)
   end
-  if nil ~= arg6 then
-    arg10 = dataTable6
-    arg10 = arg10[arg6]
-    if not arg10 then
-      arg10 = AddTextEntryByHash
-      arg11 = GetHashKey
-      arg122 = arg6
+  if nil ~= localValue6 then
+    localValue10 = dataCollection6
+    localValue10 = localValue10[localValue6]
+    if not localValue10 then
+      localValue10 = AddTextEntryByHash
+      localValue11 = GetHashKey
+      localValue122 = localValue6
       -- Beginner: result below is hash.
-      arg11 = arg11(arg122)
-      arg122 = arg6
-      arg10(arg11, arg122)
-      arg10 = dataTable6
-      arg10[arg6] = true
+      localValue11 = localValue11(localValue122)
+      localValue122 = localValue6
+      localValue10(localValue11, localValue122)
+      localValue10 = dataCollection6
+      localValue10[localValue6] = true
     end
-    arg10 = BeginTextCommandSetBlipName
-    arg11 = arg6
-    arg10(arg11)
-    arg10 = EndTextCommandSetBlipName
-    arg11 = arg9
-    arg10(arg11)
+    localValue10 = BeginTextCommandSetBlipName
+    localValue11 = localValue6
+    localValue10(localValue11)
+    localValue10 = EndTextCommandSetBlipName
+    localValue11 = localValue9
+    localValue10(localValue11)
   end
-  arg10 = table
-  arg10 = arg10.insert
-  arg11 = dataTable
-  arg122 = arg9
-  arg10(arg11, arg122)
-  return arg9
+  localValue10 = table
+  localValue10 = localValue10.insert
+  localValue11 = dataCollection
+  localValue122 = localValue9
+  localValue10(localValue11, localValue122)
+  return localValue9
 end
-cmgCall8.addBlip = cmgCall9
-cmgCall8 = tCMG
+cmgOperation8.addBlip = cmgOperation9
+cmgOperation8 = tCMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: arg1) ===
-function cmgCall9(arg1)
-  local arg2, arg3
-  arg2 = RemoveBlip
-  arg3 = arg1
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: cmgOperation9; parameters: localValue1) ===
+function cmgOperation9(localValue1)
+  local localValue2, localValue3
+  localValue2 = RemoveBlip
+  localValue3 = localValue1
+  localValue2(localValue3)
 end
-cmgCall8.removeBlip = cmgCall9
-cmgCall8 = {}
-cmgCall9 = tCMG
+cmgOperation8.removeBlip = cmgOperation9
+cmgOperation8 = {}
+cmgOperation9 = tCMG
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
-function workValue15(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-  local arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17
-  arg9 = tCMG
-  arg9 = arg9.removeNamedBlip
-  arg10 = arg1
-  arg9(arg10)
-  arg9 = cmgCall8
-  arg10 = tCMG
-  arg10 = arg10.addBlip
-  arg11 = arg2
-  arg122 = arg3
-  arg13 = arg4
-  arg14 = arg5
-  arg15 = arg6
-  arg16 = arg7
-  arg17 = arg8
-  arg10 = arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17)
-  arg9[arg1] = arg10
-  arg9 = cmgCall8
-  arg9 = arg9[arg1]
-  return arg9
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8) ===
+function workingValue15(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+  local localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17
+  localValue9 = tCMG
+  localValue9 = localValue9.removeNamedBlip
+  localValue10 = localValue1
+  localValue9(localValue10)
+  localValue9 = cmgOperation8
+  localValue10 = tCMG
+  localValue10 = localValue10.addBlip
+  localValue11 = localValue2
+  localValue122 = localValue3
+  localValue13 = localValue4
+  localValue14 = localValue5
+  localValue15 = localValue6
+  localValue16 = localValue7
+  localValue17 = localValue8
+  localValue10 = localValue10(localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17)
+  localValue9[localValue1] = localValue10
+  localValue9 = cmgOperation8
+  localValue9 = localValue9[localValue1]
+  return localValue9
 end
-cmgCall9.setNamedBlip = workValue15
-cmgCall9 = tCMG
+cmgOperation9.setNamedBlip = workingValue15
+cmgOperation9 = tCMG
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1) ===
-function workValue15(arg1)
-  local arg2, arg3
-  arg2 = cmgCall8
-  arg2 = arg2[arg1]
-  if nil ~= arg2 then
-    arg2 = tCMG
-    arg2 = arg2.removeBlip
-    arg3 = cmgCall8
-    arg3 = arg3[arg1]
-    arg2(arg3)
-    arg2 = cmgCall8
-    arg2[arg1] = nil
-  end
-end
-cmgCall9.removeNamedBlip = workValue15
-cmgCall9 = tCMG
-
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1, arg2) ===
-function workValue15(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = SetNewWaypoint
-  arg4 = arg1 + 1.0E-4
-  arg5 = arg2 + 1.0E-4
-  arg3(arg4, arg5)
-end
-cmgCall9.setGPS = workValue15
-cmgCall9 = tCMG
-
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1) ===
-function workValue15(arg1)
-  local arg2, arg3, arg4
-  arg2 = SetBlipRoute
-  arg3 = arg1
-  arg4 = true
-  arg2(arg3, arg4)
-end
-cmgCall9.setBlipRoute = workValue15
-cmgCall9 = {}
-workValue15 = Tools
-workValue15 = workValue15.newIDGenerator
-workValue15 = workValue15()
-dataTable9 = {}
-dataTable10 = {}
-dataTable2 = {}
-dataTable3 = {}
-cmgCall = tCMG
-
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20) ===
-function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20)
-  local arg21, vector3Builder, workValue2, workValue3, workValue4
-  arg21 = {}
-  vector3Builder = vector3
-  workValue2 = arg1
-  workValue3 = arg2
-  workValue4 = arg3
-  vector3Builder = vector3Builder(workValue2, workValue3, workValue4)
-  arg21.position = vector3Builder
-  arg21.sx = arg4
-  arg21.sy = arg5
-  arg21.sz = arg6
-  arg21.r = arg7
-  arg21.g = arg8
-  arg21.b = arg9
-  arg21.a = arg10
-  arg21.visible_distance = arg11
-  arg21.mtype = arg122
-  arg21.faceCamera = arg13
-  arg21.bopUpAndDown = arg14
-  arg21.rotate = arg15
-  arg21.textureDict = arg16
-  arg21.textureName = arg17
-  arg21.xRot = arg18
-  arg21.yRot = arg19
-  arg21.zRot = arg20
-  vector3Builder = arg21.sx
-  if nil == vector3Builder then
-    arg21.sx = 2.0
-  end
-  vector3Builder = arg21.sy
-  if nil == vector3Builder then
-    arg21.sy = 2.0
-  end
-  vector3Builder = arg21.sz
-  if nil == vector3Builder then
-    arg21.sz = 0.7
-  end
-  vector3Builder = arg21.r
-  if nil == vector3Builder then
-    arg21.r = 0
-  end
-  vector3Builder = arg21.g
-  if nil == vector3Builder then
-    arg21.g = 155
-  end
-  vector3Builder = arg21.b
-  if nil == vector3Builder then
-    arg21.b = 255
-  end
-  vector3Builder = arg21.a
-  if nil == vector3Builder then
-    arg21.a = 200
-  end
-  vector3Builder = arg21.sx
-  vector3Builder = vector3Builder + 0.001
-  arg21.sx = vector3Builder
-  vector3Builder = arg21.sy
-  vector3Builder = vector3Builder + 0.001
-  arg21.sy = vector3Builder
-  vector3Builder = arg21.sz
-  vector3Builder = vector3Builder + 0.001
-  arg21.sz = vector3Builder
-  vector3Builder = arg21.visible_distance
-  if nil == vector3Builder then
-    arg21.visible_distance = 150
-  end
-  vector3Builder = workValue15
-  workValue2 = vector3Builder
-  vector3Builder = vector3Builder.gen
-  vector3Builder = vector3Builder(workValue2)
-  workValue2 = cmgCall9
-  workValue2[vector3Builder] = arg21
-  workValue2 = dataTable3
-  workValue2[vector3Builder] = arg21
-  return vector3Builder
-end
-cmgCall.addMarker = dataTable4
-cmgCall = tCMG
-
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function dataTable4(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, arg8, arg9, arg10
-  arg4 = arg4 - 0.2
-  arg6 = {}
-  arg6.propName = arg1
-  arg7 = vector3
-  arg8 = arg2
-  arg9 = arg3
-  arg10 = arg4
-  arg7 = arg7(arg8, arg9, arg10)
-  arg6.position = arg7
-  arg6.visible_distance = arg5
-  arg6.mtype = "prop_marker"
-  arg7 = workValue15
-  arg8 = arg7
-  arg7 = arg7.gen
-  arg7 = arg7(arg8)
-  arg8 = cmgCall9
-  arg8[arg7] = arg6
-  arg8 = dataTable3
-  arg8[arg7] = arg6
-  return arg7
-end
-cmgCall.addPropMarker = dataTable4
-cmgCall = tCMG
-
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
-function dataTable4(arg1)
-  local arg2, arg3, arg4
-  arg2 = cmgCall9
-  arg2 = arg2[arg1]
-  if nil ~= arg2 then
-    arg2 = cmgCall9
-    arg2[arg1] = nil
-    arg2 = workValue15
-    arg3 = arg2
-    arg2 = arg2.free
-    arg4 = arg1
-    arg2(arg3, arg4)
-  end
-  arg2 = dataTable3
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = dataTable3
-    arg2[arg1] = nil
-  end
-  arg2 = dataTable2
-  arg2[arg1] = nil
-end
-cmgCall.removeMarker = dataTable4
-cmgCall = tCMG
-
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
-function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6)
-  local arg7, arg8, arg9, arg10, arg11, arg122, arg13
-  arg7 = tCMG
-  arg7 = arg7.removeNamedPropMarker
-  arg8 = arg1
-  arg7(arg8)
-  arg7 = dataTable10
-  arg8 = tCMG
-  arg8 = arg8.addPropMarker
-  arg9 = arg2
-  arg10 = arg3
-  arg11 = arg4
-  arg122 = arg5
-  arg13 = arg6
-  arg8 = arg8(arg9, arg10, arg11, arg122, arg13)
-  arg7[arg1] = arg8
-  arg7 = dataTable10
-  arg7 = arg7[arg1]
-  return arg7
-end
-cmgCall.setNamedPropMarker = dataTable4
-cmgCall = tCMG
-
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
-function dataTable4(arg1)
-  local arg2, arg3
-  arg2 = dataTable10
-  arg2 = arg2[arg1]
-  if nil ~= arg2 then
-    arg2 = tCMG
-    arg2 = arg2.removeMarker
-    arg3 = dataTable10
-    arg3 = arg3[arg1]
-    arg2(arg3)
-    arg2 = dataTable10
-    arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: localValue1) ===
+function workingValue15(localValue1)
+  local localValue2, localValue3
+  localValue2 = cmgOperation8
+  localValue2 = localValue2[localValue1]
+  if nil ~= localValue2 then
+    localValue2 = tCMG
+    localValue2 = localValue2.removeBlip
+    localValue3 = cmgOperation8
+    localValue3 = localValue3[localValue1]
+    localValue2(localValue3)
+    localValue2 = cmgOperation8
+    localValue2[localValue1] = nil
   end
 end
-cmgCall.removeNamedPropMarker = dataTable4
-cmgCall = tCMG
+cmgOperation9.removeNamedBlip = workingValue15
+cmgOperation9 = tCMG
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21) ===
-function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21)
-  local vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14
-  vector3Builder = tCMG
-  vector3Builder = vector3Builder.removeNamedMarker
-  workValue2 = arg1
-  vector3Builder(workValue2)
-  vector3Builder = dataTable9
-  workValue2 = tCMG
-  workValue2 = workValue2.addMarker
-  workValue3 = arg2
-  workValue4 = arg3
-  numberValue3 = arg4
-  numberValue4 = arg5
-  numberValue5 = arg6
-  numberValue6 = arg7
-  flag3 = arg8
-  flag4 = arg9
-  numberValue7 = arg10
-  flag5 = arg11
-  workValue6 = arg122
-  workValue7 = arg13
-  flag6 = arg14
-  workValue8 = arg15
-  workValue9 = arg16
-  workValue10 = arg17
-  workValue11 = arg18
-  workValue12 = arg19
-  workValue13 = arg20
-  workValue14 = arg21
-  workValue2 = workValue2(workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14)
-  vector3Builder[arg1] = workValue2
-  vector3Builder = dataTable9
-  vector3Builder = vector3Builder[arg1]
-  return vector3Builder
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: localValue1, localValue2) ===
+function workingValue15(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = SetNewWaypoint
+  localValue4 = localValue1 + 1.0E-4
+  localValue5 = localValue2 + 1.0E-4
+  localValue3(localValue4, localValue5)
 end
-cmgCall.setNamedMarker = dataTable4
-cmgCall = tCMG
+cmgOperation9.setGPS = workingValue15
+cmgOperation9 = tCMG
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
-function dataTable4(arg1)
-  local arg2, arg3
-  arg2 = dataTable9
-  arg2 = arg2[arg1]
-  if nil ~= arg2 then
-    arg2 = tCMG
-    arg2 = arg2.removeMarker
-    arg3 = dataTable9
-    arg3 = arg3[arg1]
-    arg2(arg3)
-    arg2 = dataTable9
-    arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: localValue1) ===
+function workingValue15(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = SetBlipRoute
+  localValue3 = localValue1
+  localValue4 = true
+  localValue2(localValue3, localValue4)
+end
+cmgOperation9.setBlipRoute = workingValue15
+cmgOperation9 = {}
+workingValue15 = Tools
+workingValue15 = workingValue15.newIDGenerator
+workingValue15 = workingValue15()
+dataCollection9 = {}
+dataCollection10 = {}
+dataCollection2 = {}
+dataCollection3 = {}
+cmgOperation = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20) ===
+function dataCollection4(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20)
+  local localValue21, createVector3, workingValue2, workingValue3, workingValue4
+  localValue21 = {}
+  createVector3 = vector3
+  workingValue2 = localValue1
+  workingValue3 = localValue2
+  workingValue4 = localValue3
+  createVector3 = createVector3(workingValue2, workingValue3, workingValue4)
+  localValue21.position = createVector3
+  localValue21.sx = localValue4
+  localValue21.sy = localValue5
+  localValue21.sz = localValue6
+  localValue21.r = localValue7
+  localValue21.g = localValue8
+  localValue21.b = localValue9
+  localValue21.a = localValue10
+  localValue21.visible_distance = localValue11
+  localValue21.mtype = localValue122
+  localValue21.faceCamera = localValue13
+  localValue21.bopUpAndDown = localValue14
+  localValue21.rotate = localValue15
+  localValue21.textureDict = localValue16
+  localValue21.textureName = localValue17
+  localValue21.xRot = localValue18
+  localValue21.yRot = localValue19
+  localValue21.zRot = localValue20
+  createVector3 = localValue21.sx
+  if nil == createVector3 then
+    localValue21.sx = 2.0
+  end
+  createVector3 = localValue21.sy
+  if nil == createVector3 then
+    localValue21.sy = 2.0
+  end
+  createVector3 = localValue21.sz
+  if nil == createVector3 then
+    localValue21.sz = 0.7
+  end
+  createVector3 = localValue21.r
+  if nil == createVector3 then
+    localValue21.r = 0
+  end
+  createVector3 = localValue21.g
+  if nil == createVector3 then
+    localValue21.g = 155
+  end
+  createVector3 = localValue21.b
+  if nil == createVector3 then
+    localValue21.b = 255
+  end
+  createVector3 = localValue21.a
+  if nil == createVector3 then
+    localValue21.a = 200
+  end
+  createVector3 = localValue21.sx
+  createVector3 = createVector3 + 0.001
+  localValue21.sx = createVector3
+  createVector3 = localValue21.sy
+  createVector3 = createVector3 + 0.001
+  localValue21.sy = createVector3
+  createVector3 = localValue21.sz
+  createVector3 = createVector3 + 0.001
+  localValue21.sz = createVector3
+  createVector3 = localValue21.visible_distance
+  if nil == createVector3 then
+    localValue21.visible_distance = 150
+  end
+  createVector3 = workingValue15
+  workingValue2 = createVector3
+  createVector3 = createVector3.gen
+  createVector3 = createVector3(workingValue2)
+  workingValue2 = cmgOperation9
+  workingValue2[createVector3] = localValue21
+  workingValue2 = dataCollection3
+  workingValue2[createVector3] = localValue21
+  return createVector3
+end
+cmgOperation.addMarker = dataCollection4
+cmgOperation = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function dataCollection4(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue4 = localValue4 - 0.2
+  localValue6 = {}
+  localValue6.propName = localValue1
+  localValue7 = vector3
+  localValue8 = localValue2
+  localValue9 = localValue3
+  localValue10 = localValue4
+  localValue7 = localValue7(localValue8, localValue9, localValue10)
+  localValue6.position = localValue7
+  localValue6.visible_distance = localValue5
+  localValue6.mtype = "prop_marker"
+  localValue7 = workingValue15
+  localValue8 = localValue7
+  localValue7 = localValue7.gen
+  localValue7 = localValue7(localValue8)
+  localValue8 = cmgOperation9
+  localValue8[localValue7] = localValue6
+  localValue8 = dataCollection3
+  localValue8[localValue7] = localValue6
+  return localValue7
+end
+cmgOperation.addPropMarker = dataCollection4
+cmgOperation = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1) ===
+function dataCollection4(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = cmgOperation9
+  localValue2 = localValue2[localValue1]
+  if nil ~= localValue2 then
+    localValue2 = cmgOperation9
+    localValue2[localValue1] = nil
+    localValue2 = workingValue15
+    localValue3 = localValue2
+    localValue2 = localValue2.free
+    localValue4 = localValue1
+    localValue2(localValue3, localValue4)
+  end
+  localValue2 = dataCollection3
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = dataCollection3
+    localValue2[localValue1] = nil
+  end
+  localValue2 = dataCollection2
+  localValue2[localValue1] = nil
+end
+cmgOperation.removeMarker = dataCollection4
+cmgOperation = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6) ===
+function dataCollection4(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6)
+  local localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13
+  localValue7 = tCMG
+  localValue7 = localValue7.removeNamedPropMarker
+  localValue8 = localValue1
+  localValue7(localValue8)
+  localValue7 = dataCollection10
+  localValue8 = tCMG
+  localValue8 = localValue8.addPropMarker
+  localValue9 = localValue2
+  localValue10 = localValue3
+  localValue11 = localValue4
+  localValue122 = localValue5
+  localValue13 = localValue6
+  localValue8 = localValue8(localValue9, localValue10, localValue11, localValue122, localValue13)
+  localValue7[localValue1] = localValue8
+  localValue7 = dataCollection10
+  localValue7 = localValue7[localValue1]
+  return localValue7
+end
+cmgOperation.setNamedPropMarker = dataCollection4
+cmgOperation = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1) ===
+function dataCollection4(localValue1)
+  local localValue2, localValue3
+  localValue2 = dataCollection10
+  localValue2 = localValue2[localValue1]
+  if nil ~= localValue2 then
+    localValue2 = tCMG
+    localValue2 = localValue2.removeMarker
+    localValue3 = dataCollection10
+    localValue3 = localValue3[localValue1]
+    localValue2(localValue3)
+    localValue2 = dataCollection10
+    localValue2[localValue1] = nil
   end
 end
-cmgCall.removeNamedMarker = dataTable4
-cmgCall = {}
-dataTable4 = {}
-cmgCall2 = tCMG
+cmgOperation.removeNamedPropMarker = dataCollection4
+cmgOperation = tCMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
-function cmgCall3(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = cmgCall9
-  arg3 = arg3[arg1]
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21) ===
+function dataCollection4(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21)
+  local createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6, workingValue8, workingValue9, workingValue10, workingValue11, workingValue12, workingValue13, workingValue14
+  createVector3 = tCMG
+  createVector3 = createVector3.removeNamedMarker
+  workingValue2 = localValue1
+  createVector3(workingValue2)
+  createVector3 = dataCollection9
+  workingValue2 = tCMG
+  workingValue2 = workingValue2.addMarker
+  workingValue3 = localValue2
+  workingValue4 = localValue3
+  number3 = localValue4
+  number4 = localValue5
+  number5 = localValue6
+  number6 = localValue7
+  stateFlag3 = localValue8
+  stateFlag4 = localValue9
+  number7 = localValue10
+  stateFlag5 = localValue11
+  workingValue6 = localValue122
+  workingValue7 = localValue13
+  stateFlag6 = localValue14
+  workingValue8 = localValue15
+  workingValue9 = localValue16
+  workingValue10 = localValue17
+  workingValue11 = localValue18
+  workingValue12 = localValue19
+  workingValue13 = localValue20
+  workingValue14 = localValue21
+  workingValue2 = workingValue2(workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6, workingValue8, workingValue9, workingValue10, workingValue11, workingValue12, workingValue13, workingValue14)
+  createVector3[localValue1] = workingValue2
+  createVector3 = dataCollection9
+  createVector3 = createVector3[localValue1]
+  return createVector3
+end
+cmgOperation.setNamedMarker = dataCollection4
+cmgOperation = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1) ===
+function dataCollection4(localValue1)
+  local localValue2, localValue3
+  localValue2 = dataCollection9
+  localValue2 = localValue2[localValue1]
+  if nil ~= localValue2 then
+    localValue2 = tCMG
+    localValue2 = localValue2.removeMarker
+    localValue3 = dataCollection9
+    localValue3 = localValue3[localValue1]
+    localValue2(localValue3)
+    localValue2 = dataCollection9
+    localValue2[localValue1] = nil
+  end
+end
+cmgOperation.removeNamedMarker = dataCollection4
+cmgOperation = {}
+dataCollection4 = {}
+cmgOperation2 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1, localValue2) ===
+function cmgOperation3(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = cmgOperation9
+  localValue3 = localValue3[localValue1]
+  if not localValue3 then
     return
   end
-  arg4 = arg2 or arg4
-  if not arg2 then
-    arg4 = nil
+  localValue4 = localValue2 or localValue4
+  if not localValue2 then
+    localValue4 = nil
   end
-  arg3.hidden = arg4
-  if arg2 then
-    arg4 = dataTable4
-    arg4 = arg4[arg1]
-    if arg4 then
-      arg4 = DeleteObject
-      arg5 = dataTable4
-      arg5 = arg5[arg1]
-      arg5 = arg5.object
-      arg4(arg5)
-      arg4 = dataTable4
-      arg4[arg1] = nil
+  localValue3.hidden = localValue4
+  if localValue2 then
+    localValue4 = dataCollection4
+    localValue4 = localValue4[localValue1]
+    if localValue4 then
+      localValue4 = DeleteObject
+      localValue5 = dataCollection4
+      localValue5 = localValue5[localValue1]
+      localValue5 = localValue5.object
+      localValue4(localValue5)
+      localValue4 = dataCollection4
+      localValue4[localValue1] = nil
     end
   end
 end
-cmgCall2.setMarkerHidden = cmgCall3
+cmgOperation2.setMarkerHidden = cmgOperation3
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4
-  arg1 = pairs
-  arg2 = dataTable2
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = arg6.hidden
-    if arg7 then
-      arg7 = dataTable4
-      arg7 = arg7[arg5]
-      if arg7 then
-        arg7 = DeleteObject
-        arg8 = dataTable4
-        arg8 = arg8[arg5]
-        arg8 = arg8.object
-        arg7(arg8)
-        arg7 = dataTable4
-        arg7[arg5] = nil
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4
+  localValue1 = pairs
+  localValue2 = dataCollection2
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = localValue6.hidden
+    if localValue7 then
+      localValue7 = dataCollection4
+      localValue7 = localValue7[localValue5]
+      if localValue7 then
+        localValue7 = DeleteObject
+        localValue8 = dataCollection4
+        localValue8 = localValue8[localValue5]
+        localValue8 = localValue8.object
+        localValue7(localValue8)
+        localValue7 = dataCollection4
+        localValue7[localValue5] = nil
       end
     else
-      arg7 = cmgCall
-      arg7 = arg7[arg5]
-      if arg7 then
-        arg7 = cmgCall
-        arg7 = arg7[arg5]
-        arg8 = arg6.visible_distance
-        if arg7 <= arg8 then
-          arg7 = arg6.mtype
-          if nil == arg7 then
-            arg6.mtype = 1
+      localValue7 = cmgOperation
+      localValue7 = localValue7[localValue5]
+      if localValue7 then
+        localValue7 = cmgOperation
+        localValue7 = localValue7[localValue5]
+        localValue8 = localValue6.visible_distance
+        if localValue7 <= localValue8 then
+          localValue7 = localValue6.mtype
+          if nil == localValue7 then
+            localValue6.mtype = 1
           end
-          arg7 = type
-          arg8 = arg6.mtype
-          arg7 = arg7(arg8)
-          if "string" == arg7 then
-            arg7 = dataTable4
-            arg7 = arg7[arg5]
-            if nil == arg7 then
-              arg7 = CMG
-              arg7 = arg7.loadModel
-              arg8 = arg6.propName
-              arg7 = arg7(arg8)
-              if arg7 then
-                arg8 = CreateObject
-                arg9 = arg7
-                arg10 = arg6.position
-                arg10 = arg10.x
-                arg11 = arg6.position
-                arg11 = arg11.y
-                arg122 = arg6.position
-                arg122 = arg122.z
-                arg13 = false
-                arg14 = false
-                arg15 = false
+          localValue7 = type
+          localValue8 = localValue6.mtype
+          localValue7 = localValue7(localValue8)
+          if "string" == localValue7 then
+            localValue7 = dataCollection4
+            localValue7 = localValue7[localValue5]
+            if nil == localValue7 then
+              localValue7 = CMG
+              localValue7 = localValue7.loadModel
+              localValue8 = localValue6.propName
+              localValue7 = localValue7(localValue8)
+              if localValue7 then
+                localValue8 = CreateObject
+                localValue9 = localValue7
+                localValue10 = localValue6.position
+                localValue10 = localValue10.x
+                localValue11 = localValue6.position
+                localValue11 = localValue11.y
+                localValue122 = localValue6.position
+                localValue122 = localValue122.z
+                localValue13 = false
+                localValue14 = false
+                localValue15 = false
                 -- Beginner: result below is objectEntity.
-                arg8 = arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-                arg9 = dataTable4
-                arg10 = {}
-                arg10.object = arg8
-                arg9[arg5] = arg10
+                localValue8 = localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+                localValue9 = dataCollection4
+                localValue10 = {}
+                localValue10.object = localValue8
+                localValue9[localValue5] = localValue10
               end
             end
           else
-            arg7 = DrawMarker
-            arg8 = arg6.mtype
-            arg9 = arg6.position
-            arg9 = arg9.x
-            arg10 = arg6.position
-            arg10 = arg10.y
-            arg11 = arg6.position
-            arg11 = arg11.z
-            arg122 = 0.0
-            arg13 = 0.0
-            arg14 = 0.0
-            arg15 = arg6.xRot
-            arg16 = arg6.yRot
-            arg17 = arg6.zRot
-            arg18 = arg6.sx
-            arg19 = arg6.sy
-            arg20 = arg6.sz
-            arg21 = arg6.r
-            vector3Builder = arg6.g
-            workValue2 = arg6.b
-            workValue3 = arg6.a
-            workValue4 = arg6.bopUpAndDown
-            numberValue3 = arg6.faceCamera
-            numberValue4 = 2
-            numberValue5 = arg6.rotate
-            numberValue6 = arg6.textureDict
-            flag3 = arg6.textureName
-            flag4 = false
-            arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4)
+            localValue7 = DrawMarker
+            localValue8 = localValue6.mtype
+            localValue9 = localValue6.position
+            localValue9 = localValue9.x
+            localValue10 = localValue6.position
+            localValue10 = localValue10.y
+            localValue11 = localValue6.position
+            localValue11 = localValue11.z
+            localValue122 = 0.0
+            localValue13 = 0.0
+            localValue14 = 0.0
+            localValue15 = localValue6.xRot
+            localValue16 = localValue6.yRot
+            localValue17 = localValue6.zRot
+            localValue18 = localValue6.sx
+            localValue19 = localValue6.sy
+            localValue20 = localValue6.sz
+            localValue21 = localValue6.r
+            createVector3 = localValue6.g
+            workingValue2 = localValue6.b
+            workingValue3 = localValue6.a
+            workingValue4 = localValue6.bopUpAndDown
+            number3 = localValue6.faceCamera
+            number4 = 2
+            number5 = localValue6.rotate
+            number6 = localValue6.textureDict
+            stateFlag3 = localValue6.textureName
+            stateFlag4 = false
+            localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4)
           end
         end
       end
     end
   end
-  arg1 = pairs
-  arg2 = dataTable4
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = dataTable2
-    arg7 = arg7[arg5]
-    if nil == arg7 then
-      arg7 = DeleteObject
-      arg8 = arg6.object
-      arg7(arg8)
-      arg7 = dataTable4
-      arg7[arg5] = nil
+  localValue1 = pairs
+  localValue2 = dataCollection4
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = dataCollection2
+    localValue7 = localValue7[localValue5]
+    if nil == localValue7 then
+      localValue7 = DeleteObject
+      localValue8 = localValue6.object
+      localValue7(localValue8)
+      localValue7 = dataCollection4
+      localValue7[localValue5] = nil
     end
   end
 end
-cmgCall3 = AddEventHandler
-dataTable5 = "onResourceStop"
+cmgOperation3 = AddEventHandler
+dataCollection5 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: flag; parameters: arg1) ===
-function flag(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg2 == arg1 then
-    arg2 = pairs
-    arg3 = dataTable4
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = DeleteObject
-      arg9 = arg7.object
-      arg8(arg9)
-      arg8 = dataTable4
-      arg8[arg6] = nil
+-- === HELPER FUNCTION (decompiler name: stateFlag; parameters: localValue1) ===
+function stateFlag(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue2 == localValue1 then
+    localValue2 = pairs
+    localValue3 = dataCollection4
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = DeleteObject
+      localValue9 = localValue7.object
+      localValue8(localValue9)
+      localValue8 = dataCollection4
+      localValue8[localValue6] = nil
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-cmgCall3(dataTable5, flag)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.createThreadOnTick
-dataTable5 = cmgCall2
-flag = "Util Markers"
+cmgOperation3(dataCollection5, stateFlag)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.createThreadOnTick
+dataCollection5 = cmgOperation2
+stateFlag = "Util Markers"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall3(dataTable5, flag)
-cmgCall3 = Citizen
-cmgCall3 = cmgCall3.CreateThread
+cmgOperation3(dataCollection5, stateFlag)
+cmgOperation3 = Citizen
+cmgOperation3 = cmgOperation3.CreateThread
 
--- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
-function dataTable5()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+-- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: none) ===
+function dataCollection5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerCoords
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg1 = arg1()
-    arg2 = {}
-    cmgCall = arg2
-    arg2 = pairs
-    arg3 = dataTable3
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = cmgCall
-      arg9 = arg7.position
-      arg9 = arg9 - arg1
-      arg9 = #arg9
-      arg8[arg6] = arg9
-      arg8 = cmgCall
-      arg8 = arg8[arg6]
-      arg9 = arg7.visible_distance
-      if arg8 <= arg9 then
-        arg8 = arg7.textureDict
-        if arg8 then
-          arg8 = HasStreamedTextureDictLoaded
-          arg9 = arg7.textureDict
-          arg8 = arg8(arg9)
-          if not arg8 then
-            goto flow_label_33
+    localValue1 = localValue1()
+    localValue2 = {}
+    cmgOperation = localValue2
+    localValue2 = pairs
+    localValue3 = dataCollection3
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = cmgOperation
+      localValue9 = localValue7.position
+      localValue9 = localValue9 - localValue1
+      localValue9 = #localValue9
+      localValue8[localValue6] = localValue9
+      localValue8 = cmgOperation
+      localValue8 = localValue8[localValue6]
+      localValue9 = localValue7.visible_distance
+      if localValue8 <= localValue9 then
+        localValue8 = localValue7.textureDict
+        if localValue8 then
+          localValue8 = HasStreamedTextureDictLoaded
+          localValue9 = localValue7.textureDict
+          localValue8 = localValue8(localValue9)
+          if not localValue8 then
+            goto continueAtStep33
           end
         end
-        arg8 = dataTable2
-        arg8[arg6] = arg7
+        localValue8 = dataCollection2
+        localValue8[localValue6] = localValue7
       else
-        ::flow_label_33::
-        arg8 = dataTable2
-        arg8[arg6] = nil
+        ::continueAtStep33::
+        localValue8 = dataCollection2
+        localValue8[localValue6] = nil
       end
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 250
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 250
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall3(dataTable5)
-cmgCall3 = Citizen
-cmgCall3 = cmgCall3.CreateThread
+cmgOperation3(dataCollection5)
+cmgOperation3 = Citizen
+cmgOperation3 = cmgOperation3.CreateThread
 
--- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
-function dataTable5()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: none) ===
+function dataCollection5()
+  local localValue1, localValue2
   while true do
-    arg1 = CMG
-    arg1 = arg1.getNearbyMarkers
-    arg1 = arg1()
-    dataTable3 = arg1
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 10000
-    arg1(arg2)
+    localValue1 = CMG
+    localValue1 = localValue1.getNearbyMarkers
+    localValue1 = localValue1()
+    dataCollection3 = localValue1
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 10000
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall3(dataTable5)
-cmgCall3 = CMG
+cmgOperation3(dataCollection5)
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
-function dataTable5()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.getNearbyMarkers
-  arg1 = arg1()
-  dataTable3 = arg1
+-- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: none) ===
+function dataCollection5()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.getNearbyMarkers
+  localValue1 = localValue1()
+  dataCollection3 = localValue1
 end
-cmgCall3.refreshNearbyMarkers = dataTable5
-cmgCall3 = CMG
+cmgOperation3.refreshNearbyMarkers = dataCollection5
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
-function dataTable5()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
-  arg1 = {}
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: none) ===
+function dataCollection5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13
+  localValue1 = {}
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = 0
-  arg4 = pairs
-  arg5 = cmgCall9
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for arg8, arg9 in arg4, arg5, arg6, arg7 do
-    arg10 = arg9.position
-    arg10 = arg10 - arg2
-    arg10 = #arg10
-    arg11 = math
-    arg11 = arg11.max
-    arg122 = 250.0
-    arg13 = arg9.visible_distance
-    arg11 = arg11(arg122, arg13)
-    if arg10 <= arg11 then
-      arg1[arg8] = arg9
+  localValue2 = localValue2()
+  localValue3 = 0
+  localValue4 = pairs
+  localValue5 = cmgOperation9
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for localValue8, localValue9 in localValue4, localValue5, localValue6, localValue7 do
+    localValue10 = localValue9.position
+    localValue10 = localValue10 - localValue2
+    localValue10 = #localValue10
+    localValue11 = math
+    localValue11 = localValue11.max
+    localValue122 = 250.0
+    localValue13 = localValue9.visible_distance
+    localValue11 = localValue11(localValue122, localValue13)
+    if localValue10 <= localValue11 then
+      localValue1[localValue8] = localValue9
     end
-    arg3 = arg3 + 1
-    arg10 = arg3 % 25
-    if 0 == arg10 then
-      arg10 = Wait
-      arg11 = 0
-      arg10(arg11)
+    localValue3 = localValue3 + 1
+    localValue10 = localValue3 % 25
+    if 0 == localValue10 then
+      localValue10 = Wait
+      localValue11 = 0
+      localValue10(localValue11)
     end
   end
-  return arg1
+  return localValue1
 end
-cmgCall3.getNearbyMarkers = dataTable5
-cmgCall3 = {}
-dataTable5 = {}
-flag = false
-numberValue = 0
-cmgCall4 = CMG
+cmgOperation3.getNearbyMarkers = dataCollection5
+cmgOperation3 = {}
+dataCollection5 = {}
+stateFlag = false
+number = 0
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
-  arg2 = {}
-  arg3 = CMG
-  arg3 = arg3.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13
+  localValue2 = {}
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg3 = arg3()
-  arg4 = 0
-  arg5 = numberValue
-  arg5 = arg5 + 1
-  numberValue = arg5
-  arg5 = numberValue
-  arg6 = pairs
-  arg7 = cmgCall3
-  arg6, arg7, arg8, arg9 = arg6(arg7)
-  for arg10, arg11 in arg6, arg7, arg8, arg9 do
-    arg122 = arg11.position
-    arg122 = arg122 - arg3
-    arg122 = #arg122
-    arg13 = numberValue8
-    if not (arg122 <= arg13) then
-      arg122 = arg11.radius
-      arg13 = 250
-      if not (arg122 > arg13) then
-        goto flow_label_28
+  localValue3 = localValue3()
+  localValue4 = 0
+  localValue5 = number
+  localValue5 = localValue5 + 1
+  number = localValue5
+  localValue5 = number
+  localValue6 = pairs
+  localValue7 = cmgOperation3
+  localValue6, localValue7, localValue8, localValue9 = localValue6(localValue7)
+  for localValue10, localValue11 in localValue6, localValue7, localValue8, localValue9 do
+    localValue122 = localValue11.position
+    localValue122 = localValue122 - localValue3
+    localValue122 = #localValue122
+    localValue13 = number8
+    if not (localValue122 <= localValue13) then
+      localValue122 = localValue11.radius
+      localValue13 = 250
+      if not (localValue122 > localValue13) then
+        goto continueAtStep28
       end
     end
-    arg2[arg10] = arg11
-    ::flow_label_28::
-    arg4 = arg4 + 1
-    arg122 = flag
-    if not arg122 and not arg1 then
-      arg122 = arg4 % 25
-      if 0 == arg122 then
-        arg122 = Wait
-        arg13 = 0
-        arg122(arg13)
+    localValue2[localValue10] = localValue11
+    ::continueAtStep28::
+    localValue4 = localValue4 + 1
+    localValue122 = stateFlag
+    if not localValue122 and not localValue1 then
+      localValue122 = localValue4 % 25
+      if 0 == localValue122 then
+        localValue122 = Wait
+        localValue13 = 0
+        localValue122(localValue13)
       end
     end
   end
-  arg6 = numberValue
-  if arg6 ~= arg5 then
-    arg6 = dataTable5
-    return arg6
+  localValue6 = number
+  if localValue6 ~= localValue5 then
+    localValue6 = dataCollection5
+    return localValue6
   end
-  return arg2
+  return localValue2
 end
-cmgCall4.getNearbyAreas = workValue
-cmgCall4 = CMG
+cmgOperation4.getNearbyAreas = workingValue
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.getNearbyAreas
-  arg2 = true
-  arg1 = arg1(arg2)
-  dataTable5 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.getNearbyAreas
+  localValue2 = true
+  localValue1 = localValue1(localValue2)
+  dataCollection5 = localValue1
 end
-cmgCall4.forceNearbyAreasReload = workValue
-cmgCall4 = tCMG
+cmgOperation4.forceNearbyAreasReload = workingValue
+cmgOperation4 = tCMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
-function workValue(arg1, arg2, arg3, arg4, arg5, arg6)
-  local arg7, arg8, arg9, arg10, arg11
-  arg7 = {}
-  arg8 = vector3
-  arg9 = arg2 + 0.001
-  arg10 = arg3 + 0.001
-  arg11 = arg4 + 0.001
-  arg8 = arg8(arg9, arg10, arg11)
-  arg7.position = arg8
-  arg7.radius = arg5
-  arg7.height = arg6
-  arg8 = arg7.height
-  if nil == arg8 then
-    arg7.height = 6
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6) ===
+function workingValue(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6)
+  local localValue7, localValue8, localValue9, localValue10, localValue11
+  localValue7 = {}
+  localValue8 = vector3
+  localValue9 = localValue2 + 0.001
+  localValue10 = localValue3 + 0.001
+  localValue11 = localValue4 + 0.001
+  localValue8 = localValue8(localValue9, localValue10, localValue11)
+  localValue7.position = localValue8
+  localValue7.radius = localValue5
+  localValue7.height = localValue6
+  localValue8 = localValue7.height
+  if nil == localValue8 then
+    localValue7.height = 6
   end
-  arg8 = cmgCall3
-  arg8[arg1] = arg7
+  localValue8 = cmgOperation3
+  localValue8[localValue1] = localValue7
 end
-cmgCall4.setArea = workValue
-cmgCall4 = CMG
+cmgOperation4.setArea = workingValue
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
-function workValue(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-  local arg9, arg10
-  arg9 = {}
-  arg9.position = arg2
-  arg10 = arg3 + 0.0
-  arg9.radius = arg10
-  arg10 = arg4 + 0.0
-  arg9.height = arg10
-  arg9.enterArea = arg5
-  arg9.leaveArea = arg6
-  arg9.onTickArea = arg7
-  arg9.metaData = arg8
-  arg10 = arg9.height
-  if nil == arg10 then
-    arg9.height = 6
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8) ===
+function workingValue(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+  local localValue9, localValue10
+  localValue9 = {}
+  localValue9.position = localValue2
+  localValue10 = localValue3 + 0.0
+  localValue9.radius = localValue10
+  localValue10 = localValue4 + 0.0
+  localValue9.height = localValue10
+  localValue9.enterArea = localValue5
+  localValue9.leaveArea = localValue6
+  localValue9.onTickArea = localValue7
+  localValue9.metaData = localValue8
+  localValue10 = localValue9.height
+  if nil == localValue10 then
+    localValue9.height = 6
   end
-  arg10 = cmgCall3
-  arg10[arg1] = arg9
-  arg10 = dataTable5
-  arg10[arg1] = arg9
-  return arg1
+  localValue10 = cmgOperation3
+  localValue10[localValue1] = localValue9
+  localValue10 = dataCollection5
+  localValue10[localValue1] = localValue9
+  return localValue1
 end
-cmgCall4.createArea = workValue
-cmgCall4 = CMG
+cmgOperation4.createArea = workingValue
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3
-  arg2 = cmgCall3
-  arg2 = arg2[arg1]
-  if not arg2 then
-    arg3 = false
-    return arg3
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3
+  localValue2 = cmgOperation3
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
+    localValue3 = false
+    return localValue3
   end
-  arg3 = arg2.player_in
-  arg3 = true == arg3
-  return arg3
+  localValue3 = localValue2.player_in
+  localValue3 = true == localValue3
+  return localValue3
 end
-cmgCall4.isPlayerInClientArea = workValue
-cmgCall4 = tCMG
+cmgOperation4.isPlayerInClientArea = workingValue
+cmgOperation4 = tCMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2
-  arg2 = cmgCall3
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = cmgCall3
-    arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2
+  localValue2 = cmgOperation3
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = cmgOperation3
+    localValue2[localValue1] = nil
   end
-  arg2 = dataTable5
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = dataTable5
-    arg2[arg1] = nil
-  end
-end
-cmgCall4.removeArea = workValue
-cmgCall4 = CMG
-
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
-function workValue(arg1, arg2)
-  local arg3
-  arg3 = cmgCall3
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg3 = cmgCall3
-    arg3 = arg3[arg1]
-    arg3.metaData = arg2
+  localValue2 = dataCollection5
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = dataCollection5
+    localValue2[localValue1] = nil
   end
 end
-cmgCall4.updateAreaMetaData = workValue
-cmgCall4 = CMG
+cmgOperation4.removeArea = workingValue
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2
-  arg2 = cmgCall3
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = true
-    return arg2
-  end
-  arg2 = false
-  return arg2
-end
-cmgCall4.doesAreaExist = workValue
-cmgCall4 = CMG
-
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
-function workValue(arg1, arg2)
-  local arg3
-  arg3 = cmgCall3
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg3 = cmgCall3
-    arg3 = arg3[arg1]
-    arg3.metaData = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2) ===
+function workingValue(localValue1, localValue2)
+  local localValue3
+  localValue3 = cmgOperation3
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue3 = cmgOperation3
+    localValue3 = localValue3[localValue1]
+    localValue3.metaData = localValue2
   end
 end
-cmgCall4.setAreaMetaData = workValue
-cmgCall4 = CMG
+cmgOperation4.updateAreaMetaData = workingValue
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2
-  arg2 = cmgCall3
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = cmgCall3
-    arg2 = arg2[arg1]
-    arg2 = arg2.metaData
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2
+  localValue2 = cmgOperation3
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = true
+    return localValue2
+  end
+  localValue2 = false
+  return localValue2
+end
+cmgOperation4.doesAreaExist = workingValue
+cmgOperation4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2) ===
+function workingValue(localValue1, localValue2)
+  local localValue3
+  localValue3 = cmgOperation3
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue3 = cmgOperation3
+    localValue3 = localValue3[localValue1]
+    localValue3.metaData = localValue2
+  end
+end
+cmgOperation4.setAreaMetaData = workingValue
+cmgOperation4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2
+  localValue2 = cmgOperation3
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = cmgOperation3
+    localValue2 = localValue2[localValue1]
+    localValue2 = localValue2.metaData
+    return localValue2
   else
-    arg2 = {}
-    return arg2
+    localValue2 = {}
+    return localValue2
   end
 end
-cmgCall4.getAreaMetaData = workValue
-cmgCall4 = CMG
+cmgOperation4.getAreaMetaData = workingValue
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2
-  flag = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2
+  stateFlag = localValue1
 end
-cmgCall4.useIncreasedAreaRefreshRate = workValue
-cmgCall4 = CMG
+cmgOperation4.useIncreasedAreaRefreshRate = workingValue
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg2 = pairs
-  arg3 = dataTable5
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = string
-    arg8 = arg8.find
-    arg9 = arg6
-    arg10 = arg1
-    arg8 = arg8(arg9, arg10)
-    if nil ~= arg8 then
-      arg8 = arg7.player_in
-      if arg8 then
-        arg8 = true
-        return arg8
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue2 = pairs
+  localValue3 = dataCollection5
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = string
+    localValue8 = localValue8.find
+    localValue9 = localValue6
+    localValue10 = localValue1
+    localValue8 = localValue8(localValue9, localValue10)
+    if nil ~= localValue8 then
+      localValue8 = localValue7.player_in
+      if localValue8 then
+        localValue8 = true
+        return localValue8
       end
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-cmgCall4.isInAnyAreaOfType = workValue
-cmgCall4 = Citizen
-cmgCall4 = cmgCall4.CreateThread
+cmgOperation4.isInAnyAreaOfType = workingValue
+cmgOperation4 = Citizen
+cmgOperation4 = cmgOperation4.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerCoords
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg1 = arg1()
-    arg2 = {}
-    arg3 = pairs
-    arg4 = dataTable5
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7 in arg3, arg4, arg5, arg6 do
-      arg8 = #arg2
-      arg8 = arg8 + 1
-      arg2[arg8] = arg7
+    localValue1 = localValue1()
+    localValue2 = {}
+    localValue3 = pairs
+    localValue4 = dataCollection5
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7 in localValue3, localValue4, localValue5, localValue6 do
+      localValue8 = #localValue2
+      localValue8 = localValue8 + 1
+      localValue2[localValue8] = localValue7
     end
-    arg3 = ipairs
-    arg4 = arg2
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7, arg8 in arg3, arg4, arg5, arg6 do
-      arg9 = dataTable5
-      arg9 = arg9[arg8]
-      if arg9 then
-        arg10 = arg9.position
-        arg10 = arg10 - arg1
-        arg10 = #arg10
-        arg11 = arg9.radius
-        arg11 = arg10 <= arg11
-        arg9.distance = arg10
-        arg122 = arg9.player_in
-        if arg122 and not arg11 then
-          arg122 = arg9.leaveArea
-          if arg122 then
-            arg122 = arg9.metaData
-            if nil == arg122 then
-              arg122 = {}
-              arg9.metaData = arg122
+    localValue3 = ipairs
+    localValue4 = localValue2
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+      localValue9 = dataCollection5
+      localValue9 = localValue9[localValue8]
+      if localValue9 then
+        localValue10 = localValue9.position
+        localValue10 = localValue10 - localValue1
+        localValue10 = #localValue10
+        localValue11 = localValue9.radius
+        localValue11 = localValue10 <= localValue11
+        localValue9.distance = localValue10
+        localValue122 = localValue9.player_in
+        if localValue122 and not localValue11 then
+          localValue122 = localValue9.leaveArea
+          if localValue122 then
+            localValue122 = localValue9.metaData
+            if nil == localValue122 then
+              localValue122 = {}
+              localValue9.metaData = localValue122
             end
-            arg122 = arg9.leaveArea
-            arg13 = arg9.metaData
-            arg122(arg13)
+            localValue122 = localValue9.leaveArea
+            localValue13 = localValue9.metaData
+            localValue122(localValue13)
           else
-            arg122 = CMGclient
-            arg122 = arg122.leaveArea
-            arg13 = {}
-            arg14 = arg8
-            arg13[1] = arg14
-            arg122(arg13)
+            localValue122 = CMGclient
+            localValue122 = localValue122.leaveArea
+            localValue13 = {}
+            localValue14 = localValue8
+            localValue13[1] = localValue14
+            localValue122(localValue13)
           end
         else
-          arg122 = arg9.player_in
-          if not arg122 and arg11 then
-            arg122 = arg9.enterArea
-            if arg122 then
-              arg122 = arg9.metaData
-              if nil == arg122 then
-                arg122 = {}
-                arg9.metaData = arg122
+          localValue122 = localValue9.player_in
+          if not localValue122 and localValue11 then
+            localValue122 = localValue9.enterArea
+            if localValue122 then
+              localValue122 = localValue9.metaData
+              if nil == localValue122 then
+                localValue122 = {}
+                localValue9.metaData = localValue122
               end
-              arg122 = arg9.enterArea
-              arg13 = arg9.metaData
-              arg122(arg13)
+              localValue122 = localValue9.enterArea
+              localValue13 = localValue9.metaData
+              localValue122(localValue13)
             else
-              arg122 = CMGclient
-              arg122 = arg122.enterArea
-              arg13 = {}
-              arg14 = arg8
-              arg13[1] = arg14
-              arg122(arg13)
+              localValue122 = CMGclient
+              localValue122 = localValue122.enterArea
+              localValue13 = {}
+              localValue14 = localValue8
+              localValue13[1] = localValue14
+              localValue122(localValue13)
             end
           end
         end
-        arg9.player_in = arg11
+        localValue9.player_in = localValue11
       end
     end
-    arg3 = Wait
-    arg4 = 0
-    arg3(arg4)
+    localValue3 = Wait
+    localValue4 = 0
+    localValue3(localValue4)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall4(workValue)
-cmgCall4 = Citizen
-cmgCall4 = cmgCall4.CreateThread
+cmgOperation4(workingValue)
+cmgOperation4 = Citizen
+cmgOperation4 = cmgOperation4.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
   while true do
-    arg1 = {}
-    arg2 = pairs
-    arg3 = dataTable5
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6 in arg2, arg3, arg4, arg5 do
-      arg7 = #arg1
-      arg7 = arg7 + 1
-      arg1[arg7] = arg6
+    localValue1 = {}
+    localValue2 = pairs
+    localValue3 = dataCollection5
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6 in localValue2, localValue3, localValue4, localValue5 do
+      localValue7 = #localValue1
+      localValue7 = localValue7 + 1
+      localValue1[localValue7] = localValue6
     end
-    arg2 = ipairs
-    arg3 = arg1
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = dataTable5
-      arg8 = arg8[arg7]
-      if arg8 then
-        arg9 = arg8.player_in
-        if arg9 then
-          arg9 = arg8.onTickArea
-          if arg9 then
-            arg9 = arg8.metaData
-            if nil == arg9 then
-              arg9 = {}
-              arg8.metaData = arg9
+    localValue2 = ipairs
+    localValue3 = localValue1
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = dataCollection5
+      localValue8 = localValue8[localValue7]
+      if localValue8 then
+        localValue9 = localValue8.player_in
+        if localValue9 then
+          localValue9 = localValue8.onTickArea
+          if localValue9 then
+            localValue9 = localValue8.metaData
+            if nil == localValue9 then
+              localValue9 = {}
+              localValue8.metaData = localValue9
             end
-            arg9 = arg8.metaData
-            arg10 = arg8.distance
-            arg9.distance = arg10
-            arg9 = arg8.onTickArea
-            arg10 = arg8.metaData
-            arg9(arg10)
+            localValue9 = localValue8.metaData
+            localValue10 = localValue8.distance
+            localValue9.distance = localValue10
+            localValue9 = localValue8.onTickArea
+            localValue10 = localValue8.metaData
+            localValue9(localValue10)
           end
         end
       end
     end
-    arg2 = Wait
-    arg3 = 0
-    arg2(arg3)
+    localValue2 = Wait
+    localValue3 = 0
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall4(workValue)
+cmgOperation4(workingValue)
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
-function cmgCall4(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
-  arg2 = dataTable7
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = pairs
-    arg4 = arg2
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7, arg8 in arg3, arg4, arg5, arg6 do
-      arg9 = SetBlipDisplay
-      arg10 = arg8
-      arg11 = 0
-      arg9(arg10, arg11)
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1) ===
+function cmgOperation4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11
+  localValue2 = dataCollection7
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = pairs
+    localValue4 = localValue2
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+      localValue9 = SetBlipDisplay
+      localValue10 = localValue8
+      localValue11 = 0
+      localValue9(localValue10, localValue11)
     end
   end
-  arg3 = dataTable8
-  arg3[arg1] = nil
+  localValue3 = dataCollection8
+  localValue3[localValue1] = nil
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
-  arg2 = dataTable7
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = pairs
-    arg4 = arg2
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7, arg8 in arg3, arg4, arg5, arg6 do
-      arg9 = SetBlipDisplay
-      arg10 = arg8
-      arg11 = 2
-      arg9(arg10, arg11)
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11
+  localValue2 = dataCollection7
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = pairs
+    localValue4 = localValue2
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+      localValue9 = SetBlipDisplay
+      localValue10 = localValue8
+      localValue11 = 2
+      localValue9(localValue10, localValue11)
     end
   end
-  arg3 = dataTable8
-  arg3[arg1] = true
+  localValue3 = dataCollection8
+  localValue3[localValue1] = true
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
-function numberValue2()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: number2; parameters: none) ===
+function number2()
+  local localValue1, localValue2
   while true do
-    arg1 = CMG
-    arg1 = arg1.isEmergencyService
-    arg1 = arg1()
-    if arg1 then
-      arg1 = dataTable8.Civilian
-      if arg1 then
-        arg1 = cmgCall4
-        arg2 = "Civilian"
+    localValue1 = CMG
+    localValue1 = localValue1.isEmergencyService
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = dataCollection8.Civilian
+      if localValue1 then
+        localValue1 = cmgOperation4
+        localValue2 = "Civilian"
         -- Beginner: Start a separate FiveM thread so this code can run independently.
-        arg1(arg2)
+        localValue1(localValue2)
       end
     else
-      arg1 = dataTable8.Civilian
-      if not arg1 then
-        arg1 = workValue
-        arg2 = "Civilian"
-        arg1(arg2)
+      localValue1 = dataCollection8.Civilian
+      if not localValue1 then
+        localValue1 = workingValue
+        localValue2 = "Civilian"
+        localValue1(localValue2)
       end
     end
-    arg1 = CMG
-    arg1 = arg1.hasClientGroup
-    arg2 = "Vigilante"
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = dataTable8.Vigilante
-      if not arg1 then
-        arg1 = workValue
-        arg2 = "Vigilante"
-        arg1(arg2)
+    localValue1 = CMG
+    localValue1 = localValue1.hasClientGroup
+    localValue2 = "Vigilante"
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = dataCollection8.Vigilante
+      if not localValue1 then
+        localValue1 = workingValue
+        localValue2 = "Vigilante"
+        localValue1(localValue2)
       end
     else
-      arg1 = dataTable8.Vigilante
-      if arg1 then
-        arg1 = cmgCall4
-        arg2 = "Vigilante"
+      localValue1 = dataCollection8.Vigilante
+      if localValue1 then
+        localValue1 = cmgOperation4
+        localValue2 = "Vigilante"
         -- Beginner: Start a separate FiveM thread so this code can run independently.
-        arg1(arg2)
+        localValue1(localValue2)
       end
     end
-    arg1 = CMG
-    arg1 = arg1.getNearbyAreas
-    arg2 = false
-    arg1 = arg1(arg2)
-    dataTable5 = arg1
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = flag
-    if arg2 then
-      arg2 = 1000
-      if arg2 then
-        goto flow_label_52
+    localValue1 = CMG
+    localValue1 = localValue1.getNearbyAreas
+    localValue2 = false
+    localValue1 = localValue1(localValue2)
+    dataCollection5 = localValue1
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = stateFlag
+    if localValue2 then
+      localValue2 = 1000
+      if localValue2 then
+        goto continueAtStep52
       end
     end
-    arg2 = 5000
-    ::flow_label_52::
-    arg1(arg2)
+    localValue2 = 5000
+    ::continueAtStep52::
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(numberValue2)
-threadCall = nil
-numberValue2 = 617
-cmgCall5 = CMG
-cmgCall5 = cmgCall5.registerCommand
-cmgCall6 = "nextblip"
+backgroundThread(number2)
+backgroundThread = nil
+number2 = 617
+cmgOperation5 = CMG
+cmgOperation5 = cmgOperation5.registerCommand
+cmgOperation6 = "nextblip"
 
--- === HELPER FUNCTION (decompiler name: cmgCall7; parameters: none) ===
-function cmgCall7()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg1 = numberValue2
-  arg1 = arg1 + 1
-  numberValue2 = arg1
-  arg1 = threadCall
-  if arg1 then
-    arg1 = tCMG
-    arg1 = arg1.removeBlip
-    arg2 = threadCall
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation7; parameters: none) ===
+function cmgOperation7()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue1 = number2
+  localValue1 = localValue1 + 1
+  number2 = localValue1
+  localValue1 = backgroundThread
+  if localValue1 then
+    localValue1 = tCMG
+    localValue1 = localValue1.removeBlip
+    localValue2 = backgroundThread
+    localValue1(localValue2)
   end
-  arg1 = print
-  arg2 = "creating blip"
-  arg3 = numberValue2
-  arg1(arg2, arg3)
-  arg1 = tCMG
-  arg1 = arg1.addBlip
-  arg2 = 1103.9739990234
-  arg3 = 211.95138549805
-  arg4 = -49.440101623535
-  arg5 = numberValue2
-  arg6 = 0
-  arg7 = "Chips Cashier"
-  arg8 = 0.8
-  arg9 = true
-  arg1 = arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-  threadCall = arg1
+  localValue1 = print
+  localValue2 = "creating blip"
+  localValue3 = number2
+  localValue1(localValue2, localValue3)
+  localValue1 = tCMG
+  localValue1 = localValue1.addBlip
+  localValue2 = 1103.9739990234
+  localValue3 = 211.95138549805
+  localValue4 = -49.440101623535
+  localValue5 = number2
+  localValue6 = 0
+  localValue7 = "Chips Cashier"
+  localValue8 = 0.8
+  localValue9 = true
+  localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+  backgroundThread = localValue1
 end
-flag2 = false
-cmgCall5(cmgCall6, cmgCall7, flag2)
-cmgCall5 = CMG
+stateFlag2 = false
+cmgOperation5(cmgOperation6, cmgOperation7, stateFlag2)
+cmgOperation5 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
-function cmgCall6(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  arg3 = dataTable7
-  arg3 = arg3[arg1]
-  if not arg3 then
-    arg3 = dataTable7
-    arg4 = {}
-    arg3[arg1] = arg4
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1, localValue2) ===
+function cmgOperation6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  localValue3 = dataCollection7
+  localValue3 = localValue3[localValue1]
+  if not localValue3 then
+    localValue3 = dataCollection7
+    localValue4 = {}
+    localValue3[localValue1] = localValue4
   end
-  arg3 = dataTable7
-  arg3 = arg3[arg1]
-  arg4 = table
-  arg4 = arg4.insert
-  arg5 = arg3
-  arg6 = arg2
-  arg4(arg5, arg6)
-  arg4 = dataTable8
-  arg4 = arg4[arg1]
-  if arg4 then
-    arg4 = SetBlipDisplay
-    arg5 = arg2
-    arg6 = 2
-    arg4(arg5, arg6)
+  localValue3 = dataCollection7
+  localValue3 = localValue3[localValue1]
+  localValue4 = table
+  localValue4 = localValue4.insert
+  localValue5 = localValue3
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
+  localValue4 = dataCollection8
+  localValue4 = localValue4[localValue1]
+  if localValue4 then
+    localValue4 = SetBlipDisplay
+    localValue5 = localValue2
+    localValue6 = 2
+    localValue4(localValue5, localValue6)
   else
-    arg4 = SetBlipDisplay
-    arg5 = arg2
-    arg6 = 0
-    arg4(arg5, arg6)
+    localValue4 = SetBlipDisplay
+    localValue5 = localValue2
+    localValue6 = 0
+    localValue4(localValue5, localValue6)
   end
 end
-cmgCall5.addBlipContext = cmgCall6
-cmgCall5 = Wait
-cmgCall6 = 0
-cmgCall5(cmgCall6)
-cmgCall5 = CMG
-cmgCall5 = cmgCall5.registerDevMenuState
-cmgCall6 = "Areas"
-cmgCall7 = {}
-cmgCall7.enabled = false
-cmgCall7.showLargeAreas = false
-cmgCall7.showMarkerInside = false
-cmgCall7.expandNearbyCheck = false
-cmgCall5 = cmgCall5(cmgCall6, cmgCall7)
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.registerDevMenuItems
-cmgCall7 = "Areas"
+cmgOperation5.addBlipContext = cmgOperation6
+cmgOperation5 = Wait
+cmgOperation6 = 0
+cmgOperation5(cmgOperation6)
+cmgOperation5 = CMG
+cmgOperation5 = cmgOperation5.registerDevMenuState
+cmgOperation6 = "Areas"
+cmgOperation7 = {}
+cmgOperation7.enabled = false
+cmgOperation7.showLargeAreas = false
+cmgOperation7.showMarkerInside = false
+cmgOperation7.expandNearbyCheck = false
+cmgOperation5 = cmgOperation5(cmgOperation6, cmgOperation7)
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.registerDevMenuItems
+cmgOperation7 = "Areas"
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-function flag2()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Visual Enabled"
-  arg3 = "Whether to display markers and text for areas."
-  arg4 = cmgCall5.enabled
-  arg5 = {}
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+function stateFlag2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Visual Enabled"
+  localValue3 = "Whether to display markers and text for areas."
+  localValue4 = cmgOperation5.enabled
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    cmgCall5.enabled = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    cmgOperation5.enabled = localValue42
   end
   -- Beginner: Draw a RageUI checkbox.
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.Separator
-  arg2 = "~y~Configurable Options"
-  arg1(arg2)
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Show Large Areas"
-  arg3 = "Whether to show areas with a radius greater than 250 units."
-  arg4 = cmgCall5.showLargeAreas
-  arg5 = {}
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.Separator
+  localValue2 = "~y~Configurable Options"
+  localValue1(localValue2)
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Show Large Areas"
+  localValue3 = "Whether to show areas with a radius greater than 250 units."
+  localValue4 = cmgOperation5.showLargeAreas
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    cmgCall5.showLargeAreas = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    cmgOperation5.showLargeAreas = localValue42
   end
   -- Beginner: Draw a RageUI checkbox.
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Show Marker Whilst Inside"
-  arg3 = "Whether to continue drawing the debug sphere when inside of it."
-  arg4 = cmgCall5.showMarkerInside
-  arg5 = {}
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Show Marker Whilst Inside"
+  localValue3 = "Whether to continue drawing the debug sphere when inside of it."
+  localValue4 = cmgOperation5.showMarkerInside
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    cmgCall5.showMarkerInside = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    cmgOperation5.showMarkerInside = localValue42
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Expand Nearby Check"
-  arg3 = "Whether to double the nearby distance check."
-  arg4 = cmgCall5.expandNearbyCheck
-  arg5 = {}
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Expand Nearby Check"
+  localValue3 = "Whether to double the nearby distance check."
+  localValue4 = cmgOperation5.expandNearbyCheck
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    cmgCall5.expandNearbyCheck = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    cmgOperation5.expandNearbyCheck = localValue42
   end
   -- Beginner: Draw a RageUI checkbox.
-  arg1(arg2, arg3, arg4, arg5, arg6)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
 end
-cmgCall6(cmgCall7, flag2)
+cmgOperation6(cmgOperation7, stateFlag2)
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-function cmgCall6()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6
-  arg1 = cmgCall5.expandNearbyCheck
-  if arg1 then
-    arg1 = 500.0
-    if arg1 then
-      goto flow_label_8
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+function cmgOperation6()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6
+  localValue1 = cmgOperation5.expandNearbyCheck
+  if localValue1 then
+    localValue1 = 500.0
+    if localValue1 then
+      goto continueAtStep8
     end
   end
-  arg1 = 250.0
-  ::flow_label_8::
-  numberValue8 = arg1
-  arg1 = cmgCall5.enabled
-  if not arg1 then
+  localValue1 = 250.0
+  ::continueAtStep8::
+  number8 = localValue1
+  localValue1 = cmgOperation5.enabled
+  if not localValue1 then
     return
   end
-  arg1 = {}
-  arg2 = pairs
-  arg3 = table
-  arg3 = arg3.copy
-  arg4 = dataTable5
-  arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6 = arg3(arg4)
-  arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg7.id = arg6
-    arg8 = table
-    arg8 = arg8.insert
-    arg9 = arg1
-    arg10 = arg7
-    arg8(arg9, arg10)
+  localValue1 = {}
+  localValue2 = pairs
+  localValue3 = table
+  localValue3 = localValue3.copy
+  localValue4 = dataCollection5
+  localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6 = localValue3(localValue4)
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue7.id = localValue6
+    localValue8 = table
+    localValue8 = localValue8.insert
+    localValue9 = localValue1
+    localValue10 = localValue7
+    localValue8(localValue9, localValue10)
   end
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = pairs
-  arg4 = arg1
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = arg8.position
-    arg9 = arg2 - arg9
-    arg9 = #arg9
-    arg8.distance = arg9
+  localValue2 = localValue2()
+  localValue3 = pairs
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = localValue8.position
+    localValue9 = localValue2 - localValue9
+    localValue9 = #localValue9
+    localValue8.distance = localValue9
   end
-  arg3 = table
-  arg3 = arg3.sort
-  arg4 = arg1
+  localValue3 = table
+  localValue3 = localValue3.sort
+  localValue4 = localValue1
 
-  -- === HELPER FUNCTION: arg5(arg12, arg22) ===
-  function arg5(arg12, arg22)
-    local arg32, arg42
-    arg32 = arg12.distance
-    arg42 = arg22.distance
-    arg32 = arg32 < arg42
-    return arg32
+  -- === HELPER FUNCTION: localValue5(localValue12, localValue22) ===
+  function localValue5(localValue12, localValue22)
+    local localValue32, localValue42
+    localValue32 = localValue12.distance
+    localValue42 = localValue22.distance
+    localValue32 = localValue32 < localValue42
+    return localValue32
   end
-  arg3(arg4, arg5)
-  arg3 = 0
-  arg4 = pairs
-  arg5 = arg1
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for arg8, arg9 in arg4, arg5, arg6, arg7 do
-    arg10 = arg9.position
-    arg11 = arg9.distance
-    arg122 = arg9.radius
-    arg11 = arg11 < arg122
-    if not arg11 then
-      arg122 = CMG
-      arg122 = arg122.isSphereOnScreen
-      arg13 = arg10
-      arg14 = arg9.radius
-      arg122 = arg122(arg13, arg14)
-      if not arg122 then
-        goto flow_label_162
+  localValue3(localValue4, localValue5)
+  localValue3 = 0
+  localValue4 = pairs
+  localValue5 = localValue1
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for localValue8, localValue9 in localValue4, localValue5, localValue6, localValue7 do
+    localValue10 = localValue9.position
+    localValue11 = localValue9.distance
+    localValue122 = localValue9.radius
+    localValue11 = localValue11 < localValue122
+    if not localValue11 then
+      localValue122 = CMG
+      localValue122 = localValue122.isSphereOnScreen
+      localValue13 = localValue10
+      localValue14 = localValue9.radius
+      localValue122 = localValue122(localValue13, localValue14)
+      if not localValue122 then
+        goto continueAtStep162
       end
     end
-    arg122 = cmgCall5.showLargeAreas
-    if not arg122 then
-      arg122 = arg9.radius
-      arg13 = 250.0
-      if not (arg122 < arg13) then
-        goto flow_label_162
+    localValue122 = cmgOperation5.showLargeAreas
+    if not localValue122 then
+      localValue122 = localValue9.radius
+      localValue13 = 250.0
+      if not (localValue122 < localValue13) then
+        goto continueAtStep162
       end
     end
-    if arg11 then
-      arg122 = cmgCall5.showMarkerInside
-      if not arg122 then
-        goto flow_label_116
+    if localValue11 then
+      localValue122 = cmgOperation5.showMarkerInside
+      if not localValue122 then
+        goto continueAtStep116
       end
     end
-    arg122 = DrawMarker
-    arg13 = 28
-    arg14 = arg10.x
-    arg15 = arg10.y
-    arg16 = arg10.z
-    arg17 = 0.0
-    arg18 = 0.0
-    arg19 = 0.0
-    arg20 = 0.0
-    arg21 = 0.0
-    vector3Builder = 0.0
-    workValue2 = arg9.radius
-    workValue3 = arg9.radius
-    workValue4 = arg9.radius
-    if arg11 then
-      numberValue3 = 255
-      if numberValue3 then
-        goto flow_label_104
+    localValue122 = DrawMarker
+    localValue13 = 28
+    localValue14 = localValue10.x
+    localValue15 = localValue10.y
+    localValue16 = localValue10.z
+    localValue17 = 0.0
+    localValue18 = 0.0
+    localValue19 = 0.0
+    localValue20 = 0.0
+    localValue21 = 0.0
+    createVector3 = 0.0
+    workingValue2 = localValue9.radius
+    workingValue3 = localValue9.radius
+    workingValue4 = localValue9.radius
+    if localValue11 then
+      number3 = 255
+      if number3 then
+        goto continueAtStep104
       end
     end
-    numberValue3 = 0
-    ::flow_label_104::
-    numberValue4 = 255
-    numberValue5 = 0
-    numberValue6 = 125
-    flag3 = false
-    flag4 = false
-    numberValue7 = 2
-    flag5 = false
-    workValue6 = nil
-    workValue7 = nil
-    flag6 = false
-    arg122(arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6)
-    arg3 = arg3 + 1
-    ::flow_label_116::
-    arg122 = arg9.distance
-    arg13 = math
-    arg13 = arg13.min
-    arg14 = 50.0
-    arg15 = arg9.radius
-    arg15 = arg15 * 5.0
-    arg13 = arg13(arg14, arg15)
-    if arg122 < arg13 or arg11 then
-      arg122 = CMG
-      arg122 = arg122.DrawText3D
-      arg13 = arg10
-      arg14 = string
-      arg14 = arg14.format
-      arg15 = [[
+    number3 = 0
+    ::continueAtStep104::
+    number4 = 255
+    number5 = 0
+    number6 = 125
+    stateFlag3 = false
+    stateFlag4 = false
+    number7 = 2
+    stateFlag5 = false
+    workingValue6 = nil
+    workingValue7 = nil
+    stateFlag6 = false
+    localValue122(localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6)
+    localValue3 = localValue3 + 1
+    ::continueAtStep116::
+    localValue122 = localValue9.distance
+    localValue13 = math
+    localValue13 = localValue13.min
+    localValue14 = 50.0
+    localValue15 = localValue9.radius
+    localValue15 = localValue15 * 5.0
+    localValue13 = localValue13(localValue14, localValue15)
+    if localValue122 < localValue13 or localValue11 then
+      localValue122 = CMG
+      localValue122 = localValue122.DrawText3D
+      localValue13 = localValue10
+      localValue14 = string
+      localValue14 = localValue14.format
+      localValue15 = [[
 Name: %s
 Radius: %s
 Distance: %s]]
-      arg16 = arg9.id
-      arg17 = math
-      arg17 = arg17.round
-      arg18 = arg9.radius
-      arg19 = 2
-      arg17 = arg17(arg18, arg19)
-      arg18 = math
-      arg18 = arg18.round
-      arg19 = arg9.distance
-      arg20 = 1
-      arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6 = arg18(arg19, arg20)
-      arg14 = arg14(arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6)
-      arg15 = 0.3
-      arg16 = nil
-      arg17 = true
-      if arg11 then
-        arg18 = {}
-        arg19 = 255
-        arg20 = 255
-        arg21 = 0
-        vector3Builder = 255
-        arg18[1] = arg19
-        arg18[2] = arg20
-        arg18[3] = arg21
-        arg18[4] = vector3Builder
-        if arg18 then
-          goto flow_label_161
+      localValue16 = localValue9.id
+      localValue17 = math
+      localValue17 = localValue17.round
+      localValue18 = localValue9.radius
+      localValue19 = 2
+      localValue17 = localValue17(localValue18, localValue19)
+      localValue18 = math
+      localValue18 = localValue18.round
+      localValue19 = localValue9.distance
+      localValue20 = 1
+      localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6 = localValue18(localValue19, localValue20)
+      localValue14 = localValue14(localValue15, localValue16, localValue17, localValue18, localValue19, localValue20, localValue21, createVector3, workingValue2, workingValue3, workingValue4, number3, number4, number5, number6, stateFlag3, stateFlag4, number7, stateFlag5, workingValue6, workingValue7, stateFlag6)
+      localValue15 = 0.3
+      localValue16 = nil
+      localValue17 = true
+      if localValue11 then
+        localValue18 = {}
+        localValue19 = 255
+        localValue20 = 255
+        localValue21 = 0
+        createVector3 = 255
+        localValue18[1] = localValue19
+        localValue18[2] = localValue20
+        localValue18[3] = localValue21
+        localValue18[4] = createVector3
+        if localValue18 then
+          goto continueAtStep161
         end
       end
-      arg18 = nil
-      ::flow_label_161::
-      arg122(arg13, arg14, arg15, arg16, arg17, arg18)
+      localValue18 = nil
+      ::continueAtStep161::
+      localValue122(localValue13, localValue14, localValue15, localValue16, localValue17, localValue18)
     end
-    ::flow_label_162::
-    if arg3 >= 100 then
+    ::continueAtStep162::
+    if localValue3 >= 100 then
       break
     end
   end
 end
-cmgCall7 = CMG
-cmgCall7 = cmgCall7.registerDevMenuThread
-flag2 = "Areas"
-workValue5 = cmgCall6
-cmgCall7(flag2, workValue5)
+cmgOperation7 = CMG
+cmgOperation7 = cmgOperation7.registerDevMenuThread
+stateFlag2 = "Areas"
+workingValue5 = cmgOperation6
+cmgOperation7(stateFlag2, workingValue5)

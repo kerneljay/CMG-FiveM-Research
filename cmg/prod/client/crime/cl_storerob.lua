@@ -32,1430 +32,1430 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local textValue, textValue3, textValue5, textValue7, workValue5, workValue6, workValue7, gameTime, numberValue13, numberValue15, numberValue, workValue, flag4, textValue2, flag5, flag7, dataTable, dataTable2, vector3Builder, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, workValue2, workValue3, cmgCall2, eventHandlerRegistration, textValue4, workValue4
-textValue = "rotation.clockwise"
-textValue3 = ""
-textValue5 = ""
-textValue7 = ""
-workValue5 = nil
-workValue6 = nil
-workValue7 = nil
+local text, text3, text5, text7, workingValue5, workingValue6, workingValue7, gameTime, number13, number15, number, workingValue, stateFlag4, text2, stateFlag5, stateFlag7, dataCollection, dataCollection2, createVector3, number4, number5, number6, number7, number8, workingValue2, workingValue3, cmgOperation2, eventHandlerRegistration, text4, workingValue4
+text = "rotation.clockwise"
+text3 = ""
+text5 = ""
+text7 = ""
+workingValue5 = nil
+workingValue6 = nil
+workingValue7 = nil
 gameTime = GetGameTimer
 -- Beginner: result below is gameTimeMs.
 gameTime = gameTime()
-numberValue13 = 100
-numberValue15 = 0.48
-numberValue = 0.3
-workValue = nil
-flag4 = false
-textValue2 = ""
-flag5 = false
-flag7 = false
-dataTable = {}
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 1727.8286132813
-numberValue5 = 6415.54296875
-numberValue6 = 35.025634765625
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 246.61416625977
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 1736.289
-numberValue5 = 6418.842
-numberValue6 = 34.80501
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 242.48239135742
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 1736.702
-numberValue5 = 6418.888
-numberValue6 = 34.14135
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1736.702
-numberValue5 = 6418.888
-numberValue6 = 34.14135
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1736.835
-numberValue5 = 6419.24
-numberValue6 = 34.10043
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1736.798
-numberValue5 = 6418.982
-numberValue6 = 34.851775
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 331.59808349609
-dataTable2.moneyHeading2 = 331.59808349609
-dataTable2.moneyHeading3 = 335.39840698242
-dataTable2.moneyHeading4 = 242.181640625
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.paleto_twentyfourseven = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 1959.876953125
-numberValue5 = 3740.0307617188
-numberValue6 = 32.329711914062
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 303.30709838867
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 1961.656
-numberValue5 = 3748.989
-numberValue6 = 32.11159
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 299.89376831055
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 1961.845
-numberValue5 = 3749.336
-numberValue6 = 31.44533
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1961.845
-numberValue5 = 3749.336
-numberValue6 = 31.44533
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1961.586
-numberValue5 = 3749.646
-numberValue6 = 31.44697
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1961.822
-numberValue5 = 3749.47
-numberValue6 = 32.22634
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 297.69305419922
-dataTable2.moneyHeading2 = 297.69305419922
-dataTable2.moneyHeading3 = 300.09353637695
-dataTable2.moneyHeading4 = 299.99301147461
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.sandyshores_twentyfoursever = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 1984.4356689453
-numberValue5 = 3054.7565917969
-numberValue6 = 47.215145111084
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 230.0
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 1994.318
-numberValue5 = 3043.54
-numberValue6 = 46.98114
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 147.29058837891
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 1994.307
-numberValue5 = 3043.096
-numberValue6 = 46.32116
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1994.307
-numberValue5 = 3043.096
-numberValue6 = 46.32116
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1994.6
-numberValue5 = 3042.91
-numberValue6 = 46.3018
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1994.398
-numberValue5 = 3043.013
-numberValue6 = 47.12325
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 326.9977722168
-dataTable2.moneyHeading2 = 326.9977722168
-dataTable2.moneyHeading3 = 327.59765625
-dataTable2.moneyHeading4 = 147.67221069336
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.bar_one = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = -706.16192626953
-numberValue5 = -913.20764160156
-numberValue6 = 18.215581893921
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 90.0
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = -707.8496
-numberValue5 = -904.0402
-numberValue6 = 18.98337
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 0.0
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = -708.0876
-numberValue5 = -903.588
-numberValue6 = 18.21714
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = -708.0876
-numberValue5 = -903.588
-numberValue6 = 18.21714
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = -708.4515
-numberValue5 = -903.6274
-numberValue6 = 18.31876
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = -708.1865
-numberValue5 = -903.655
-numberValue6 = 19.10827
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 0.0
-dataTable2.moneyHeading2 = 0.0
-dataTable2.moneyHeading3 = 0.0
-dataTable2.moneyHeading4 = 0.0
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.littleseoul_twentyfourseven = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 24.329671859741
-numberValue5 = -1347.0329589844
-numberValue6 = 29.482055664063
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 274.96063232422
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 30.84683
-numberValue5 = -1340.337
-numberValue6 = 29.26481
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 269.98638916016
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 31.25762
-numberValue5 = -1340.125
-numberValue6 = 28.53858
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 31.232
-numberValue5 = -1340.124
-numberValue6 = 28.68855
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 31.20064
-numberValue5 = -1339.752
-numberValue6 = 28.54
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 31.22769
-numberValue5 = -1339.963
-numberValue6 = 29.36968
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 0.099
-dataTable2.moneyHeading2 = 0.099
-dataTable2.moneyHeading3 = 0.099
-dataTable2.moneyHeading4 = 269.28741455078
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.asda = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = -46.450626373291
-numberValue5 = -1757.5461425781
-numberValue6 = 28.420984268188
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 45.0
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = -41.91652
-numberValue5 = -1749.63
-numberValue6 = 29.18883
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 319.69720458984
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = -41.84
-numberValue5 = -1749.16
-numberValue6 = 28.42251
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = -41.84
-numberValue5 = -1749.16
-numberValue6 = 28.42251
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = -42.17047
-numberValue5 = -1748.993
-numberValue6 = 28.5542
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = -41.94428
-numberValue5 = -1749.123
-numberValue6 = 29.30364
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 318.39709472656
-dataTable2.moneyHeading2 = 318.39709472656
-dataTable2.moneyHeading3 = 323.59747314453
-dataTable2.moneyHeading4 = 319.59719848633
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.southlossantos_twentyfourseven = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 372.39559936523
-numberValue5 = 326.75604248047
-numberValue6 = 103.55383300781
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 257.95275878906
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 380.0088
-numberValue5 = 331.7921
-numberValue6 = 103.3343
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 255.58413696289
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 380.4388
-numberValue5 = 331.9152
-numberValue6 = 102.678
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 380.4388
-numberValue5 = 331.9152
-numberValue6 = 102.678
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 380.5645
-numberValue5 = 332.2422
-numberValue6 = 102.6495
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 380.4466
-numberValue5 = 332.0624
-numberValue6 = 103.4792
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 346.39916992188
-dataTable2.moneyHeading2 = 346.39916992188
-dataTable2.moneyHeading3 = 323.59747314453
-dataTable2.moneyHeading4 = 346.79919433594
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.vinewood_twentyfourseven = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 1134.2801513672
-numberValue5 = -982.96826171875
-numberValue6 = 45.415786743164
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 273.0
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 1126.477
-numberValue5 = -980.8321
-numberValue6 = 45.18349
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 7.4999785423279
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 1126.212
-numberValue5 = -980.4645
-numberValue6 = 44.48732
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1126.212
-numberValue5 = -980.4645
-numberValue6 = 44.48732
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1125.856
-numberValue5 = -980.6199
-numberValue6 = 44.49899
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1126.078
-numberValue5 = -980.4662
-numberValue6 = 45.28833
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 6.8999700546265
-dataTable2.moneyHeading2 = 6.8999700546265
-dataTable2.moneyHeading3 = 9.5999689102173
-dataTable2.moneyHeading4 = 7.19988489151
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.eastlossantos_robsliquor = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 2677.7670898438
-numberValue5 = 3279.4548339844
-numberValue6 = 55.228515625
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 334.48818969727
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 2674.81
-numberValue5 = 3288.004
-numberValue6 = 55.00899
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 330.4999785423279
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 2674.765
-numberValue5 = 3288.448
-numberValue6 = 54.3227
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 2674.765
-numberValue5 = 3288.448
-numberValue6 = 54.3227
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 2674.424
-numberValue5 = 3288.59
-numberValue6 = 54.33434
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 2674.656
-numberValue5 = 3288.501
-numberValue6 = 55.12368
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 331.39813232422
-dataTable2.moneyHeading2 = 331.39813232422
-dataTable2.moneyHeading3 = 332.49816894531
-dataTable2.moneyHeading4 = 331.19812011719
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.sandyshores_twentyfourseven = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = 1698.5382080078
-numberValue5 = 4922.6352539063
-numberValue6 = 41.063629150391
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-dataTable2.shopNpcHeading = 320.0
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = 1706.851
-numberValue5 = 4918.958
-numberValue6 = 41.83147
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-dataTable2.safeHeading = 234.4807434082
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = 1707.324
-numberValue5 = 4918.907
-numberValue6 = 41.1652
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1707.324
-numberValue5 = 4918.907
-numberValue6 = 41.16527
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1707.568
-numberValue5 = 4919.194
-numberValue6 = 41.13685
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = 1707.366
-numberValue5 = 4919.027
-numberValue6 = 41.94618
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-dataTable2.moneyHeading = 325.39755249023
-dataTable2.moneyHeading2 = 325.39755249023
-dataTable2.moneyHeading3 = 332.49816894531
-dataTable2.moneyHeading4 = 322.59429931641
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.grapeseed_gasstop = dataTable2
-dataTable2 = {}
-dataTable2.shopNpcModel = 416176080
-vector3Builder = vector3
-numberValue4 = -1486.6450195313
-numberValue5 = -377.64117431641
-numberValue6 = 39.16344833374
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.shopNpcPosition = vector3Builder
-vector3Builder = 128.0
-dataTable2.shopNpcHeading = vector3Builder
-dataTable2.shopNpcHandler = 0
-dataTable2.prop_safe = 1936747465
-dataTable2.prop_door = -1375589668
-vector3Builder = vector3
-numberValue4 = -1479.141
-numberValue5 = -374.8521
-numberValue6 = 38.93123
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.safePosition = vector3Builder
-vector3Builder = 226.1791229248
-dataTable2.safeHeading = vector3Builder
-dataTable2.money_prop = 1554100735
-dataTable2.money_prop2 = 1554100735
-dataTable2.money_prop3 = 290621560
-dataTable2.money_prop4 = 1603932804
-vector3Builder = vector3
-numberValue4 = -1478.691
-numberValue5 = -374.9853
-numberValue6 = 38.23492
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos = vector3Builder
-vector3Builder = vector3
-numberValue4 = -1478.691
-numberValue5 = -374.9853
-numberValue6 = 38.23492
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-numberValue4 = vector3
-numberValue5 = 0.0
-numberValue6 = 0.0
-numberValue7 = 0.15
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder = vector3Builder + numberValue4
-dataTable2.moneyPos2 = vector3Builder
-vector3Builder = vector3
-numberValue4 = -1478.475
-numberValue5 = -374.6764
-numberValue6 = 38.26654
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos3 = vector3Builder
-vector3Builder = vector3
-numberValue4 = -1478.643
-numberValue5 = -374.8643
-numberValue6 = 39.04589
-vector3Builder = vector3Builder(numberValue4, numberValue5, numberValue6)
-dataTable2.moneyPos4 = vector3Builder
-vector3Builder = 315.29690551758
-dataTable2.moneyHeading = vector3Builder
-vector3Builder = 315.29690551758
-dataTable2.moneyHeading2 = vector3Builder
-vector3Builder = 315.49691772461
-dataTable2.moneyHeading3 = vector3Builder
-vector3Builder = 225.37908935547
-dataTable2.moneyHeading4 = vector3Builder
-dataTable2.safeHandler = 0
-dataTable2.doorHandler = 0
-dataTable2.moneyHandler = 0
-dataTable2.moneyHandler2 = 0
-dataTable2.moneyHandler3 = 0
-dataTable2.moneyHandler4 = 0
-dataTable2.distanceToPlayer = 1000.0
-dataTable2.insideStore = false
-dataTable2.robberyInProgress = false
-dataTable2.isPlayingAnims = false
-dataTable.morningwood_robsliquor = dataTable2
-dataTable2 = "chumash_robsliquor"
-vector3Builder = {}
-vector3Builder.shopNpcModel = 416176080
-numberValue4 = vector3
-numberValue5 = -2966.4086914063
-numberValue6 = 391.35339355469
-numberValue7 = 14.043314933777
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.shopNpcPosition = numberValue4
-numberValue4 = 80.0
-vector3Builder.shopNpcHeading = numberValue4
-vector3Builder.shopNpcHandler = 0
-vector3Builder.prop_safe = 1936747465
-vector3Builder.prop_door = -1375589668
-numberValue4 = vector3
-numberValue5 = -2959.265
-numberValue6 = 387.6957
-numberValue7 = 13.81098
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.safePosition = numberValue4
-numberValue4 = 176.69169616699
-vector3Builder.safeHeading = numberValue4
-vector3Builder.money_prop = 1554100735
-vector3Builder.money_prop2 = 1554100735
-vector3Builder.money_prop3 = 290621560
-vector3Builder.money_prop4 = 1603932804
-numberValue4 = vector3
-numberValue5 = -2959.014
-numberValue6 = 387.3654
-numberValue7 = 13.14629
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos = numberValue4
-numberValue4 = vector3
-numberValue5 = -2959.014
-numberValue6 = 387.3654
-numberValue7 = 13.14629
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-numberValue5 = vector3
-numberValue6 = 0.0
-numberValue7 = 0.0
-numberValue8 = 0.15
-numberValue5 = numberValue5(numberValue6, numberValue7, numberValue8)
-numberValue4 = numberValue4 + numberValue5
-vector3Builder.moneyPos2 = numberValue4
-numberValue4 = vector3
-numberValue5 = -2958.639
-numberValue6 = 387.3448
-numberValue7 = 13.09645
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos3 = numberValue4
-numberValue4 = vector3
-numberValue5 = -2958.927
-numberValue6 = 387.2768
-numberValue7 = 13.91958
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos4 = numberValue4
-numberValue4 = 356.49978637695
-vector3Builder.moneyHeading = numberValue4
-numberValue4 = 356.49978637695
-vector3Builder.moneyHeading2 = numberValue4
-vector3Builder.moneyHeading3 = 0.0
-numberValue4 = 177.27951049805
-vector3Builder.moneyHeading4 = numberValue4
-vector3Builder.safeHandler = 0
-vector3Builder.doorHandler = 0
-vector3Builder.moneyHandler = 0
-vector3Builder.moneyHandler2 = 0
-vector3Builder.moneyHandler3 = 0
-vector3Builder.moneyHandler4 = 0
-vector3Builder.distanceToPlayer = 1000.0
-vector3Builder.insideStore = false
-vector3Builder.robberyInProgress = false
-vector3Builder.isPlayingAnims = false
-dataTable[dataTable2] = vector3Builder
-dataTable2 = "eastlossantos_gasstop"
-vector3Builder = {}
-vector3Builder.shopNpcModel = 416176080
-numberValue4 = vector3
-numberValue5 = 1164.5863037109
-numberValue6 = -322.3291015625
-numberValue7 = 68.205024719238
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.shopNpcPosition = numberValue4
-numberValue4 = 96.0
-vector3Builder.shopNpcHeading = numberValue4
-vector3Builder.shopNpcHandler = 0
-vector3Builder.prop_safe = 1936747465
-vector3Builder.prop_door = -1375589668
-numberValue4 = vector3
-numberValue5 = 1161.396
-numberValue6 = -313.4418
-numberValue7 = 68.97283
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.safePosition = numberValue4
-numberValue4 = 12.599948883057
-vector3Builder.safeHeading = numberValue4
-vector3Builder.money_prop = 1554100735
-vector3Builder.money_prop2 = 1554100735
-vector3Builder.money_prop3 = 290621560
-vector3Builder.money_prop4 = 1603932804
-numberValue4 = vector3
-numberValue5 = 1161.073
-numberValue6 = -313.0523
-numberValue7 = 68.25655
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos = numberValue4
-numberValue4 = vector3
-numberValue5 = 1161.073
-numberValue6 = -313.0523
-numberValue7 = 68.25655
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-numberValue5 = vector3
-numberValue6 = 0.0
-numberValue7 = 0.0
-numberValue8 = 0.15
-numberValue5 = numberValue5(numberValue6, numberValue7, numberValue8)
-numberValue4 = numberValue4 + numberValue5
-vector3Builder.moneyPos2 = numberValue4
-numberValue4 = vector3
-numberValue5 = 1160.752
-numberValue6 = -313.2396
-numberValue7 = 68.25839
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos3 = numberValue4
-numberValue4 = vector3
-numberValue5 = 1160.989
-numberValue6 = -313.1646
-numberValue7 = 69.10003
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos4 = numberValue4
-numberValue4 = 12.599948883057
-vector3Builder.moneyHeading = numberValue4
-numberValue4 = 12.599948883057
-vector3Builder.moneyHeading2 = numberValue4
-numberValue4 = 13.399929046631
-vector3Builder.moneyHeading3 = numberValue4
-numberValue4 = 13.49991607666
-vector3Builder.moneyHeading4 = numberValue4
-vector3Builder.safeHandler = 0
-vector3Builder.doorHandler = 0
-vector3Builder.moneyHandler = 0
-vector3Builder.moneyHandler2 = 0
-vector3Builder.moneyHandler3 = 0
-vector3Builder.moneyHandler4 = 0
-vector3Builder.distanceToPlayer = 1000.0
-vector3Builder.insideStore = false
-vector3Builder.robberyInProgress = false
-vector3Builder.isPlayingAnims = false
-dataTable[dataTable2] = vector3Builder
-dataTable2 = "tongva_gasstop"
-vector3Builder = {}
-vector3Builder.shopNpcModel = 416176080
-numberValue4 = vector3
-numberValue5 = -1820.384765625
-numberValue6 = 794.54663085938
-numberValue7 = 137.08973693848
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.shopNpcPosition = numberValue4
-numberValue4 = 126.0
-vector3Builder.shopNpcHeading = numberValue4
-vector3Builder.shopNpcHandler = 0
-vector3Builder.prop_safe = 1936747465
-vector3Builder.prop_door = -1375589668
-numberValue4 = vector3
-numberValue5 = -1827.91
-numberValue6 = 800.1599
-numberValue7 = 137.9252
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.safePosition = numberValue4
-numberValue4 = 41.699321746826
-vector3Builder.safeHeading = numberValue4
-vector3Builder.money_prop = 1554100735
-vector3Builder.money_prop2 = 1554100735
-vector3Builder.money_prop3 = 290621560
-vector3Builder.money_prop4 = 1603932804
-numberValue4 = vector3
-numberValue5 = -1828.359
-numberValue6 = 800.326
-numberValue7 = 137.1943
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos = numberValue4
-numberValue4 = vector3
-numberValue5 = -1828.359
-numberValue6 = 800.326
-numberValue7 = 137.1943
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-numberValue5 = vector3
-numberValue6 = 0.0
-numberValue7 = 0.0
-numberValue8 = 0.15
-numberValue5 = numberValue5(numberValue6, numberValue7, numberValue8)
-numberValue4 = numberValue4 + numberValue5
-vector3Builder.moneyPos2 = numberValue4
-numberValue4 = vector3
-numberValue5 = -1828.556
-numberValue6 = 800.006
-numberValue7 = 137.2565
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos3 = numberValue4
-numberValue4 = vector3
-numberValue5 = -1828.442
-numberValue6 = 800.2554
-numberValue7 = 138.0441
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos4 = numberValue4
-numberValue4 = 311.09548950195
-vector3Builder.moneyHeading = numberValue4
-numberValue4 = 311.09548950195
-vector3Builder.moneyHeading2 = numberValue4
-numberValue4 = 44.199123382568
-vector3Builder.moneyHeading3 = numberValue4
-numberValue4 = 41.498989105225
-vector3Builder.moneyHeading4 = numberValue4
-vector3Builder.safeHandler = 0
-vector3Builder.doorHandler = 0
-vector3Builder.moneyHandler = 0
-vector3Builder.moneyHandler2 = 0
-vector3Builder.moneyHandler3 = 0
-vector3Builder.moneyHandler4 = 0
-vector3Builder.distanceToPlayer = 1000.0
-vector3Builder.insideStore = false
-vector3Builder.robberyInProgress = false
-vector3Builder.isPlayingAnims = false
-dataTable[dataTable2] = vector3Builder
-dataTable2 = "tataviam_twentyfourseven"
-vector3Builder = {}
-vector3Builder.shopNpcModel = 416176080
-numberValue4 = vector3
-numberValue5 = 2556.8967285156
-numberValue6 = 380.67691040039
-numberValue7 = 108.60876464844
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.shopNpcPosition = numberValue4
-vector3Builder.shopNpcHeading = 0.0
-vector3Builder.shopNpcHandler = 0
-vector3Builder.prop_safe = 1936747465
-vector3Builder.prop_door = -1375589668
-numberValue4 = vector3
-numberValue5 = 2550.434
-numberValue6 = 386.8382
-numberValue7 = 108.3907
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.safePosition = numberValue4
-numberValue4 = 358.39990234375
-vector3Builder.safeHeading = numberValue4
-vector3Builder.money_prop = 1554100735
-vector3Builder.money_prop2 = 1554100735
-vector3Builder.money_prop3 = 290621560
-vector3Builder.money_prop4 = 1603932804
-numberValue4 = vector3
-numberValue5 = 2550.21
-numberValue6 = 387.2356
-numberValue7 = 107.6346
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos = numberValue4
-numberValue4 = vector3
-numberValue5 = 2550.21
-numberValue6 = 387.2356
-numberValue7 = 107.6346
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-numberValue5 = vector3
-numberValue6 = 0.0
-numberValue7 = 0.0
-numberValue8 = 0.15
-numberValue5 = numberValue5(numberValue6, numberValue7, numberValue8)
-numberValue4 = numberValue4 + numberValue5
-vector3Builder.moneyPos2 = numberValue4
-numberValue4 = vector3
-numberValue5 = 2549.838
-numberValue6 = 387.221
-numberValue7 = 107.7061
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos3 = numberValue4
-numberValue4 = vector3
-numberValue5 = 2550.109
-numberValue6 = 387.2408
-numberValue7 = 108.5108
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos4 = numberValue4
-numberValue4 = 358.89993286133
-vector3Builder.moneyHeading = numberValue4
-numberValue4 = 358.89993286133
-vector3Builder.moneyHeading2 = numberValue4
-vector3Builder.moneyHeading3 = 0.0
-numberValue4 = 358.0998840332
-vector3Builder.moneyHeading4 = numberValue4
-vector3Builder.safeHandler = 0
-vector3Builder.doorHandler = 0
-vector3Builder.moneyHandler = 0
-vector3Builder.moneyHandler2 = 0
-vector3Builder.moneyHandler3 = 0
-vector3Builder.moneyHandler4 = 0
-vector3Builder.distanceToPlayer = 1000.0
-vector3Builder.insideStore = false
-vector3Builder.robberyInProgress = false
-vector3Builder.isPlayingAnims = false
-dataTable[dataTable2] = vector3Builder
-dataTable2 = "cayoperico"
-vector3Builder = {}
-vector3Builder.shopNpcModel = 416176080
-numberValue4 = vector3
-numberValue5 = 4466.423828125
-numberValue6 = -4463.7529296875
-numberValue7 = 4.2491989135742
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.shopNpcPosition = numberValue4
-numberValue4 = 200.81
-vector3Builder.shopNpcHeading = numberValue4
-vector3Builder.shopNpcHandler = 0
-vector3Builder.prop_safe = 1936747465
-vector3Builder.prop_door = -1375589668
-numberValue4 = vector3
-numberValue5 = 4464.9482421875
-numberValue6 = -4460.5083007812
-numberValue7 = 4.0420001029968
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.safePosition = numberValue4
-numberValue4 = 110.0
-vector3Builder.safeHeading = numberValue4
-vector3Builder.money_prop = 1554100735
-vector3Builder.money_prop2 = 1554100735
-vector3Builder.money_prop3 = 290621560
-vector3Builder.money_prop4 = 1603932804
-numberValue4 = vector3
-numberValue5 = 4464.7482421875
-numberValue6 = -4461.0083007812
-numberValue7 = 3.29200010299686
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos = numberValue4
-numberValue4 = vector3
-numberValue5 = 4464.7482421875
-numberValue6 = -4461.0083007812
-numberValue7 = 3.2920001029968
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-numberValue5 = vector3
-numberValue6 = 0.0
-numberValue7 = 0.0
-numberValue8 = 0.15
-numberValue5 = numberValue5(numberValue6, numberValue7, numberValue8)
-numberValue4 = numberValue4 + numberValue5
-vector3Builder.moneyPos2 = numberValue4
-numberValue4 = vector3
-numberValue5 = 4464.7482421875
-numberValue6 = -4461.0083007812
-numberValue7 = 3.2920001029968
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos3 = numberValue4
-numberValue4 = vector3
-numberValue5 = 4464.7482421875
-numberValue6 = -4461.0083007812
-numberValue7 = 4.0920001029968
-numberValue4 = numberValue4(numberValue5, numberValue6, numberValue7)
-vector3Builder.moneyPos4 = numberValue4
-numberValue4 = 110.89993286133
-vector3Builder.moneyHeading = numberValue4
-numberValue4 = 110.89993286133
-vector3Builder.moneyHeading2 = numberValue4
-vector3Builder.moneyHeading3 = 0.0
-numberValue4 = 110.0998840332
-vector3Builder.moneyHeading4 = numberValue4
-vector3Builder.safeHandler = 0
-vector3Builder.doorHandler = 0
-vector3Builder.moneyHandler = 0
-vector3Builder.moneyHandler2 = 0
-vector3Builder.moneyHandler3 = 0
-vector3Builder.moneyHandler4 = 0
-vector3Builder.distanceToPlayer = 1000.0
-vector3Builder.insideStore = false
-vector3Builder.robberyInProgress = false
-vector3Builder.isPlayingAnims = false
-dataTable[dataTable2] = vector3Builder
+number13 = 100
+number15 = 0.48
+number = 0.3
+workingValue = nil
+stateFlag4 = false
+text2 = ""
+stateFlag5 = false
+stateFlag7 = false
+dataCollection = {}
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 1727.8286132813
+number5 = 6415.54296875
+number6 = 35.025634765625
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 246.61416625977
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 1736.289
+number5 = 6418.842
+number6 = 34.80501
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 242.48239135742
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 1736.702
+number5 = 6418.888
+number6 = 34.14135
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 1736.702
+number5 = 6418.888
+number6 = 34.14135
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 1736.835
+number5 = 6419.24
+number6 = 34.10043
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 1736.798
+number5 = 6418.982
+number6 = 34.851775
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 331.59808349609
+dataCollection2.moneyHeading2 = 331.59808349609
+dataCollection2.moneyHeading3 = 335.39840698242
+dataCollection2.moneyHeading4 = 242.181640625
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.paleto_twentyfourseven = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 1959.876953125
+number5 = 3740.0307617188
+number6 = 32.329711914062
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 303.30709838867
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 1961.656
+number5 = 3748.989
+number6 = 32.11159
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 299.89376831055
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 1961.845
+number5 = 3749.336
+number6 = 31.44533
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 1961.845
+number5 = 3749.336
+number6 = 31.44533
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 1961.586
+number5 = 3749.646
+number6 = 31.44697
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 1961.822
+number5 = 3749.47
+number6 = 32.22634
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 297.69305419922
+dataCollection2.moneyHeading2 = 297.69305419922
+dataCollection2.moneyHeading3 = 300.09353637695
+dataCollection2.moneyHeading4 = 299.99301147461
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.sandyshores_twentyfoursever = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 1984.4356689453
+number5 = 3054.7565917969
+number6 = 47.215145111084
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 230.0
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 1994.318
+number5 = 3043.54
+number6 = 46.98114
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 147.29058837891
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 1994.307
+number5 = 3043.096
+number6 = 46.32116
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 1994.307
+number5 = 3043.096
+number6 = 46.32116
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 1994.6
+number5 = 3042.91
+number6 = 46.3018
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 1994.398
+number5 = 3043.013
+number6 = 47.12325
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 326.9977722168
+dataCollection2.moneyHeading2 = 326.9977722168
+dataCollection2.moneyHeading3 = 327.59765625
+dataCollection2.moneyHeading4 = 147.67221069336
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.bar_one = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = -706.16192626953
+number5 = -913.20764160156
+number6 = 18.215581893921
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 90.0
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = -707.8496
+number5 = -904.0402
+number6 = 18.98337
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 0.0
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = -708.0876
+number5 = -903.588
+number6 = 18.21714
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = -708.0876
+number5 = -903.588
+number6 = 18.21714
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = -708.4515
+number5 = -903.6274
+number6 = 18.31876
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = -708.1865
+number5 = -903.655
+number6 = 19.10827
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 0.0
+dataCollection2.moneyHeading2 = 0.0
+dataCollection2.moneyHeading3 = 0.0
+dataCollection2.moneyHeading4 = 0.0
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.littleseoul_twentyfourseven = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 24.329671859741
+number5 = -1347.0329589844
+number6 = 29.482055664063
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 274.96063232422
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 30.84683
+number5 = -1340.337
+number6 = 29.26481
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 269.98638916016
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 31.25762
+number5 = -1340.125
+number6 = 28.53858
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 31.232
+number5 = -1340.124
+number6 = 28.68855
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 31.20064
+number5 = -1339.752
+number6 = 28.54
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 31.22769
+number5 = -1339.963
+number6 = 29.36968
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 0.099
+dataCollection2.moneyHeading2 = 0.099
+dataCollection2.moneyHeading3 = 0.099
+dataCollection2.moneyHeading4 = 269.28741455078
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.asda = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = -46.450626373291
+number5 = -1757.5461425781
+number6 = 28.420984268188
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 45.0
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = -41.91652
+number5 = -1749.63
+number6 = 29.18883
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 319.69720458984
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = -41.84
+number5 = -1749.16
+number6 = 28.42251
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = -41.84
+number5 = -1749.16
+number6 = 28.42251
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = -42.17047
+number5 = -1748.993
+number6 = 28.5542
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = -41.94428
+number5 = -1749.123
+number6 = 29.30364
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 318.39709472656
+dataCollection2.moneyHeading2 = 318.39709472656
+dataCollection2.moneyHeading3 = 323.59747314453
+dataCollection2.moneyHeading4 = 319.59719848633
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.southlossantos_twentyfourseven = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 372.39559936523
+number5 = 326.75604248047
+number6 = 103.55383300781
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 257.95275878906
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 380.0088
+number5 = 331.7921
+number6 = 103.3343
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 255.58413696289
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 380.4388
+number5 = 331.9152
+number6 = 102.678
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 380.4388
+number5 = 331.9152
+number6 = 102.678
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 380.5645
+number5 = 332.2422
+number6 = 102.6495
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 380.4466
+number5 = 332.0624
+number6 = 103.4792
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 346.39916992188
+dataCollection2.moneyHeading2 = 346.39916992188
+dataCollection2.moneyHeading3 = 323.59747314453
+dataCollection2.moneyHeading4 = 346.79919433594
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.vinewood_twentyfourseven = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 1134.2801513672
+number5 = -982.96826171875
+number6 = 45.415786743164
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 273.0
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 1126.477
+number5 = -980.8321
+number6 = 45.18349
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 7.4999785423279
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 1126.212
+number5 = -980.4645
+number6 = 44.48732
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 1126.212
+number5 = -980.4645
+number6 = 44.48732
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 1125.856
+number5 = -980.6199
+number6 = 44.49899
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 1126.078
+number5 = -980.4662
+number6 = 45.28833
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 6.8999700546265
+dataCollection2.moneyHeading2 = 6.8999700546265
+dataCollection2.moneyHeading3 = 9.5999689102173
+dataCollection2.moneyHeading4 = 7.19988489151
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.eastlossantos_robsliquor = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 2677.7670898438
+number5 = 3279.4548339844
+number6 = 55.228515625
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 334.48818969727
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 2674.81
+number5 = 3288.004
+number6 = 55.00899
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 330.4999785423279
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 2674.765
+number5 = 3288.448
+number6 = 54.3227
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 2674.765
+number5 = 3288.448
+number6 = 54.3227
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 2674.424
+number5 = 3288.59
+number6 = 54.33434
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 2674.656
+number5 = 3288.501
+number6 = 55.12368
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 331.39813232422
+dataCollection2.moneyHeading2 = 331.39813232422
+dataCollection2.moneyHeading3 = 332.49816894531
+dataCollection2.moneyHeading4 = 331.19812011719
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.sandyshores_twentyfourseven = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = 1698.5382080078
+number5 = 4922.6352539063
+number6 = 41.063629150391
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+dataCollection2.shopNpcHeading = 320.0
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = 1706.851
+number5 = 4918.958
+number6 = 41.83147
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+dataCollection2.safeHeading = 234.4807434082
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = 1707.324
+number5 = 4918.907
+number6 = 41.1652
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = 1707.324
+number5 = 4918.907
+number6 = 41.16527
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = 1707.568
+number5 = 4919.194
+number6 = 41.13685
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = 1707.366
+number5 = 4919.027
+number6 = 41.94618
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+dataCollection2.moneyHeading = 325.39755249023
+dataCollection2.moneyHeading2 = 325.39755249023
+dataCollection2.moneyHeading3 = 332.49816894531
+dataCollection2.moneyHeading4 = 322.59429931641
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.grapeseed_gasstop = dataCollection2
+dataCollection2 = {}
+dataCollection2.shopNpcModel = 416176080
+createVector3 = vector3
+number4 = -1486.6450195313
+number5 = -377.64117431641
+number6 = 39.16344833374
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.shopNpcPosition = createVector3
+createVector3 = 128.0
+dataCollection2.shopNpcHeading = createVector3
+dataCollection2.shopNpcHandler = 0
+dataCollection2.prop_safe = 1936747465
+dataCollection2.prop_door = -1375589668
+createVector3 = vector3
+number4 = -1479.141
+number5 = -374.8521
+number6 = 38.93123
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.safePosition = createVector3
+createVector3 = 226.1791229248
+dataCollection2.safeHeading = createVector3
+dataCollection2.money_prop = 1554100735
+dataCollection2.money_prop2 = 1554100735
+dataCollection2.money_prop3 = 290621560
+dataCollection2.money_prop4 = 1603932804
+createVector3 = vector3
+number4 = -1478.691
+number5 = -374.9853
+number6 = 38.23492
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos = createVector3
+createVector3 = vector3
+number4 = -1478.691
+number5 = -374.9853
+number6 = 38.23492
+createVector3 = createVector3(number4, number5, number6)
+number4 = vector3
+number5 = 0.0
+number6 = 0.0
+number7 = 0.15
+number4 = number4(number5, number6, number7)
+createVector3 = createVector3 + number4
+dataCollection2.moneyPos2 = createVector3
+createVector3 = vector3
+number4 = -1478.475
+number5 = -374.6764
+number6 = 38.26654
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos3 = createVector3
+createVector3 = vector3
+number4 = -1478.643
+number5 = -374.8643
+number6 = 39.04589
+createVector3 = createVector3(number4, number5, number6)
+dataCollection2.moneyPos4 = createVector3
+createVector3 = 315.29690551758
+dataCollection2.moneyHeading = createVector3
+createVector3 = 315.29690551758
+dataCollection2.moneyHeading2 = createVector3
+createVector3 = 315.49691772461
+dataCollection2.moneyHeading3 = createVector3
+createVector3 = 225.37908935547
+dataCollection2.moneyHeading4 = createVector3
+dataCollection2.safeHandler = 0
+dataCollection2.doorHandler = 0
+dataCollection2.moneyHandler = 0
+dataCollection2.moneyHandler2 = 0
+dataCollection2.moneyHandler3 = 0
+dataCollection2.moneyHandler4 = 0
+dataCollection2.distanceToPlayer = 1000.0
+dataCollection2.insideStore = false
+dataCollection2.robberyInProgress = false
+dataCollection2.isPlayingAnims = false
+dataCollection.morningwood_robsliquor = dataCollection2
+dataCollection2 = "chumash_robsliquor"
+createVector3 = {}
+createVector3.shopNpcModel = 416176080
+number4 = vector3
+number5 = -2966.4086914063
+number6 = 391.35339355469
+number7 = 14.043314933777
+number4 = number4(number5, number6, number7)
+createVector3.shopNpcPosition = number4
+number4 = 80.0
+createVector3.shopNpcHeading = number4
+createVector3.shopNpcHandler = 0
+createVector3.prop_safe = 1936747465
+createVector3.prop_door = -1375589668
+number4 = vector3
+number5 = -2959.265
+number6 = 387.6957
+number7 = 13.81098
+number4 = number4(number5, number6, number7)
+createVector3.safePosition = number4
+number4 = 176.69169616699
+createVector3.safeHeading = number4
+createVector3.money_prop = 1554100735
+createVector3.money_prop2 = 1554100735
+createVector3.money_prop3 = 290621560
+createVector3.money_prop4 = 1603932804
+number4 = vector3
+number5 = -2959.014
+number6 = 387.3654
+number7 = 13.14629
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos = number4
+number4 = vector3
+number5 = -2959.014
+number6 = 387.3654
+number7 = 13.14629
+number4 = number4(number5, number6, number7)
+number5 = vector3
+number6 = 0.0
+number7 = 0.0
+number8 = 0.15
+number5 = number5(number6, number7, number8)
+number4 = number4 + number5
+createVector3.moneyPos2 = number4
+number4 = vector3
+number5 = -2958.639
+number6 = 387.3448
+number7 = 13.09645
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos3 = number4
+number4 = vector3
+number5 = -2958.927
+number6 = 387.2768
+number7 = 13.91958
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos4 = number4
+number4 = 356.49978637695
+createVector3.moneyHeading = number4
+number4 = 356.49978637695
+createVector3.moneyHeading2 = number4
+createVector3.moneyHeading3 = 0.0
+number4 = 177.27951049805
+createVector3.moneyHeading4 = number4
+createVector3.safeHandler = 0
+createVector3.doorHandler = 0
+createVector3.moneyHandler = 0
+createVector3.moneyHandler2 = 0
+createVector3.moneyHandler3 = 0
+createVector3.moneyHandler4 = 0
+createVector3.distanceToPlayer = 1000.0
+createVector3.insideStore = false
+createVector3.robberyInProgress = false
+createVector3.isPlayingAnims = false
+dataCollection[dataCollection2] = createVector3
+dataCollection2 = "eastlossantos_gasstop"
+createVector3 = {}
+createVector3.shopNpcModel = 416176080
+number4 = vector3
+number5 = 1164.5863037109
+number6 = -322.3291015625
+number7 = 68.205024719238
+number4 = number4(number5, number6, number7)
+createVector3.shopNpcPosition = number4
+number4 = 96.0
+createVector3.shopNpcHeading = number4
+createVector3.shopNpcHandler = 0
+createVector3.prop_safe = 1936747465
+createVector3.prop_door = -1375589668
+number4 = vector3
+number5 = 1161.396
+number6 = -313.4418
+number7 = 68.97283
+number4 = number4(number5, number6, number7)
+createVector3.safePosition = number4
+number4 = 12.599948883057
+createVector3.safeHeading = number4
+createVector3.money_prop = 1554100735
+createVector3.money_prop2 = 1554100735
+createVector3.money_prop3 = 290621560
+createVector3.money_prop4 = 1603932804
+number4 = vector3
+number5 = 1161.073
+number6 = -313.0523
+number7 = 68.25655
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos = number4
+number4 = vector3
+number5 = 1161.073
+number6 = -313.0523
+number7 = 68.25655
+number4 = number4(number5, number6, number7)
+number5 = vector3
+number6 = 0.0
+number7 = 0.0
+number8 = 0.15
+number5 = number5(number6, number7, number8)
+number4 = number4 + number5
+createVector3.moneyPos2 = number4
+number4 = vector3
+number5 = 1160.752
+number6 = -313.2396
+number7 = 68.25839
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos3 = number4
+number4 = vector3
+number5 = 1160.989
+number6 = -313.1646
+number7 = 69.10003
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos4 = number4
+number4 = 12.599948883057
+createVector3.moneyHeading = number4
+number4 = 12.599948883057
+createVector3.moneyHeading2 = number4
+number4 = 13.399929046631
+createVector3.moneyHeading3 = number4
+number4 = 13.49991607666
+createVector3.moneyHeading4 = number4
+createVector3.safeHandler = 0
+createVector3.doorHandler = 0
+createVector3.moneyHandler = 0
+createVector3.moneyHandler2 = 0
+createVector3.moneyHandler3 = 0
+createVector3.moneyHandler4 = 0
+createVector3.distanceToPlayer = 1000.0
+createVector3.insideStore = false
+createVector3.robberyInProgress = false
+createVector3.isPlayingAnims = false
+dataCollection[dataCollection2] = createVector3
+dataCollection2 = "tongva_gasstop"
+createVector3 = {}
+createVector3.shopNpcModel = 416176080
+number4 = vector3
+number5 = -1820.384765625
+number6 = 794.54663085938
+number7 = 137.08973693848
+number4 = number4(number5, number6, number7)
+createVector3.shopNpcPosition = number4
+number4 = 126.0
+createVector3.shopNpcHeading = number4
+createVector3.shopNpcHandler = 0
+createVector3.prop_safe = 1936747465
+createVector3.prop_door = -1375589668
+number4 = vector3
+number5 = -1827.91
+number6 = 800.1599
+number7 = 137.9252
+number4 = number4(number5, number6, number7)
+createVector3.safePosition = number4
+number4 = 41.699321746826
+createVector3.safeHeading = number4
+createVector3.money_prop = 1554100735
+createVector3.money_prop2 = 1554100735
+createVector3.money_prop3 = 290621560
+createVector3.money_prop4 = 1603932804
+number4 = vector3
+number5 = -1828.359
+number6 = 800.326
+number7 = 137.1943
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos = number4
+number4 = vector3
+number5 = -1828.359
+number6 = 800.326
+number7 = 137.1943
+number4 = number4(number5, number6, number7)
+number5 = vector3
+number6 = 0.0
+number7 = 0.0
+number8 = 0.15
+number5 = number5(number6, number7, number8)
+number4 = number4 + number5
+createVector3.moneyPos2 = number4
+number4 = vector3
+number5 = -1828.556
+number6 = 800.006
+number7 = 137.2565
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos3 = number4
+number4 = vector3
+number5 = -1828.442
+number6 = 800.2554
+number7 = 138.0441
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos4 = number4
+number4 = 311.09548950195
+createVector3.moneyHeading = number4
+number4 = 311.09548950195
+createVector3.moneyHeading2 = number4
+number4 = 44.199123382568
+createVector3.moneyHeading3 = number4
+number4 = 41.498989105225
+createVector3.moneyHeading4 = number4
+createVector3.safeHandler = 0
+createVector3.doorHandler = 0
+createVector3.moneyHandler = 0
+createVector3.moneyHandler2 = 0
+createVector3.moneyHandler3 = 0
+createVector3.moneyHandler4 = 0
+createVector3.distanceToPlayer = 1000.0
+createVector3.insideStore = false
+createVector3.robberyInProgress = false
+createVector3.isPlayingAnims = false
+dataCollection[dataCollection2] = createVector3
+dataCollection2 = "tataviam_twentyfourseven"
+createVector3 = {}
+createVector3.shopNpcModel = 416176080
+number4 = vector3
+number5 = 2556.8967285156
+number6 = 380.67691040039
+number7 = 108.60876464844
+number4 = number4(number5, number6, number7)
+createVector3.shopNpcPosition = number4
+createVector3.shopNpcHeading = 0.0
+createVector3.shopNpcHandler = 0
+createVector3.prop_safe = 1936747465
+createVector3.prop_door = -1375589668
+number4 = vector3
+number5 = 2550.434
+number6 = 386.8382
+number7 = 108.3907
+number4 = number4(number5, number6, number7)
+createVector3.safePosition = number4
+number4 = 358.39990234375
+createVector3.safeHeading = number4
+createVector3.money_prop = 1554100735
+createVector3.money_prop2 = 1554100735
+createVector3.money_prop3 = 290621560
+createVector3.money_prop4 = 1603932804
+number4 = vector3
+number5 = 2550.21
+number6 = 387.2356
+number7 = 107.6346
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos = number4
+number4 = vector3
+number5 = 2550.21
+number6 = 387.2356
+number7 = 107.6346
+number4 = number4(number5, number6, number7)
+number5 = vector3
+number6 = 0.0
+number7 = 0.0
+number8 = 0.15
+number5 = number5(number6, number7, number8)
+number4 = number4 + number5
+createVector3.moneyPos2 = number4
+number4 = vector3
+number5 = 2549.838
+number6 = 387.221
+number7 = 107.7061
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos3 = number4
+number4 = vector3
+number5 = 2550.109
+number6 = 387.2408
+number7 = 108.5108
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos4 = number4
+number4 = 358.89993286133
+createVector3.moneyHeading = number4
+number4 = 358.89993286133
+createVector3.moneyHeading2 = number4
+createVector3.moneyHeading3 = 0.0
+number4 = 358.0998840332
+createVector3.moneyHeading4 = number4
+createVector3.safeHandler = 0
+createVector3.doorHandler = 0
+createVector3.moneyHandler = 0
+createVector3.moneyHandler2 = 0
+createVector3.moneyHandler3 = 0
+createVector3.moneyHandler4 = 0
+createVector3.distanceToPlayer = 1000.0
+createVector3.insideStore = false
+createVector3.robberyInProgress = false
+createVector3.isPlayingAnims = false
+dataCollection[dataCollection2] = createVector3
+dataCollection2 = "cayoperico"
+createVector3 = {}
+createVector3.shopNpcModel = 416176080
+number4 = vector3
+number5 = 4466.423828125
+number6 = -4463.7529296875
+number7 = 4.2491989135742
+number4 = number4(number5, number6, number7)
+createVector3.shopNpcPosition = number4
+number4 = 200.81
+createVector3.shopNpcHeading = number4
+createVector3.shopNpcHandler = 0
+createVector3.prop_safe = 1936747465
+createVector3.prop_door = -1375589668
+number4 = vector3
+number5 = 4464.9482421875
+number6 = -4460.5083007812
+number7 = 4.0420001029968
+number4 = number4(number5, number6, number7)
+createVector3.safePosition = number4
+number4 = 110.0
+createVector3.safeHeading = number4
+createVector3.money_prop = 1554100735
+createVector3.money_prop2 = 1554100735
+createVector3.money_prop3 = 290621560
+createVector3.money_prop4 = 1603932804
+number4 = vector3
+number5 = 4464.7482421875
+number6 = -4461.0083007812
+number7 = 3.29200010299686
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos = number4
+number4 = vector3
+number5 = 4464.7482421875
+number6 = -4461.0083007812
+number7 = 3.2920001029968
+number4 = number4(number5, number6, number7)
+number5 = vector3
+number6 = 0.0
+number7 = 0.0
+number8 = 0.15
+number5 = number5(number6, number7, number8)
+number4 = number4 + number5
+createVector3.moneyPos2 = number4
+number4 = vector3
+number5 = 4464.7482421875
+number6 = -4461.0083007812
+number7 = 3.2920001029968
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos3 = number4
+number4 = vector3
+number5 = 4464.7482421875
+number6 = -4461.0083007812
+number7 = 4.0920001029968
+number4 = number4(number5, number6, number7)
+createVector3.moneyPos4 = number4
+number4 = 110.89993286133
+createVector3.moneyHeading = number4
+number4 = 110.89993286133
+createVector3.moneyHeading2 = number4
+createVector3.moneyHeading3 = 0.0
+number4 = 110.0998840332
+createVector3.moneyHeading4 = number4
+createVector3.safeHandler = 0
+createVector3.doorHandler = 0
+createVector3.moneyHandler = 0
+createVector3.moneyHandler2 = 0
+createVector3.moneyHandler3 = 0
+createVector3.moneyHandler4 = 0
+createVector3.distanceToPlayer = 1000.0
+createVector3.insideStore = false
+createVector3.robberyInProgress = false
+createVector3.isPlayingAnims = false
+dataCollection[dataCollection2] = createVector3
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2, arg3, flag18, flag19, flag21
-  arg2 = BeginTextCommandDisplayHelp
-  arg3 = "STRING"
-  arg2(arg3)
-  arg2 = AddTextComponentSubstringPlayerName
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = EndTextCommandDisplayHelp
-  arg3 = 0
-  flag18 = false
-  flag19 = true
-  flag21 = -1
-  arg2(arg3, flag18, flag19, flag21)
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21
+  localValue2 = BeginTextCommandDisplayHelp
+  localValue3 = "STRING"
+  localValue2(localValue3)
+  localValue2 = AddTextComponentSubstringPlayerName
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = EndTextCommandDisplayHelp
+  localValue3 = 0
+  stateFlag18 = false
+  stateFlag19 = true
+  stateFlag21 = -1
+  localValue2(localValue3, stateFlag18, stateFlag19, stateFlag21)
 end
 
--- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: arg1, arg2, arg3) ===
-function vector3Builder(arg1, arg2, arg3)
-  local flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14, flag15
-  flag18 = IsPedDeadOrDying
-  flag19 = arg1
-  flag21 = false
-  flag18 = flag18(flag19, flag21)
-  if not flag18 then
-    flag18 = IsEntityPlayingAnim
-    flag19 = arg1
-    flag21 = "mp_am_hold_up"
-    flag22 = "holdup_victim_20s"
-    numberValue11 = 3
-    flag18 = flag18(flag19, flag21, flag22, numberValue11)
-    if flag18 then
-      flag18 = arg2.isPlayingAnims
-      if not flag18 then
-        arg2.isPlayingAnims = true
-        flag18 = PlayPedAmbientSpeechNative
-        flag19 = arg1
-        flag21 = "SHOP_SCARED"
-        flag22 = "SPEECH_PARAMS_FORCE"
-        flag18(flag19, flag21, flag22)
-        flag18 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: createVector3; parameters: localValue1, localValue2, localValue3) ===
+function createVector3(localValue1, localValue2, localValue3)
+  local stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15
+  stateFlag18 = IsPedDeadOrDying
+  stateFlag19 = localValue1
+  stateFlag21 = false
+  stateFlag18 = stateFlag18(stateFlag19, stateFlag21)
+  if not stateFlag18 then
+    stateFlag18 = IsEntityPlayingAnim
+    stateFlag19 = localValue1
+    stateFlag21 = "mp_am_hold_up"
+    stateFlag22 = "holdup_victim_20s"
+    number11 = 3
+    stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+    if stateFlag18 then
+      stateFlag18 = localValue2.isPlayingAnims
+      if not stateFlag18 then
+        localValue2.isPlayingAnims = true
+        stateFlag18 = PlayPedAmbientSpeechNative
+        stateFlag19 = localValue1
+        stateFlag21 = "SHOP_SCARED"
+        stateFlag22 = "SPEECH_PARAMS_FORCE"
+        stateFlag18(stateFlag19, stateFlag21, stateFlag22)
+        stateFlag18 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        flag18 = flag18()
-        flag18 = flag18 + 10800
+        stateFlag18 = stateFlag18()
+        stateFlag18 = stateFlag18 + 10800
         while true do
-          flag19 = GetGameTimer
+          stateFlag19 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          flag19 = flag19()
-          if not (flag18 >= flag19) then
+          stateFlag19 = stateFlag19()
+          if not (stateFlag18 >= stateFlag19) then
             break
           end
-          flag19 = IsPedDeadOrDying
-          flag21 = arg1
-          flag22 = false
-          flag19 = flag19(flag21, flag22)
-          if flag19 then
+          stateFlag19 = IsPedDeadOrDying
+          stateFlag21 = localValue1
+          stateFlag22 = false
+          stateFlag19 = stateFlag19(stateFlag21, stateFlag22)
+          if stateFlag19 then
             break
           end
-          flag19 = Wait
-          flag21 = 0
-          flag19(flag21)
+          stateFlag19 = Wait
+          stateFlag21 = 0
+          stateFlag19(stateFlag21)
         end
-        flag19 = IsPedDeadOrDying
-        flag21 = arg1
-        flag22 = false
-        flag19 = flag19(flag21, flag22)
-        if not flag19 then
-          flag19 = GetEntityCoords
-          flag21 = arg1
+        stateFlag19 = IsPedDeadOrDying
+        stateFlag21 = localValue1
+        stateFlag22 = false
+        stateFlag19 = stateFlag19(stateFlag21, stateFlag22)
+        if not stateFlag19 then
+          stateFlag19 = GetEntityCoords
+          stateFlag21 = localValue1
           -- Beginner: result below is entityCoords.
-          flag19 = flag19(flag21)
-          flag21 = GetClosestObjectOfType
-          flag22 = flag19.x
-          numberValue11 = flag19.y
-          flag23 = flag19.z
-          numberValue16 = 5.0
+          stateFlag19 = stateFlag19(stateFlag21)
+          stateFlag21 = GetClosestObjectOfType
+          stateFlag22 = stateFlag19.x
+          number11 = stateFlag19.y
+          stateFlag23 = stateFlag19.z
+          number16 = 5.0
           hashValue = GetHashKey
-          flag2 = "prop_till_01"
+          stateFlag2 = "prop_till_01"
           -- Beginner: result below is hash.
-          hashValue = hashValue(flag2)
-          flag2 = false
+          hashValue = hashValue(stateFlag2)
+          stateFlag2 = false
           hashValue2 = false
           hashValue3 = false
           -- Beginner: result below is objectEntity.
-          flag21 = flag21(flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3)
-          flag22 = DoesEntityExist
-          numberValue11 = flag21
-          flag22 = flag22(numberValue11)
-          if flag22 then
-            flag22 = GetEntityCoords
-            numberValue11 = flag21
+          stateFlag21 = stateFlag21(stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3)
+          stateFlag22 = DoesEntityExist
+          number11 = stateFlag21
+          stateFlag22 = stateFlag22(number11)
+          if stateFlag22 then
+            stateFlag22 = GetEntityCoords
+            number11 = stateFlag21
             -- Beginner: result below is entityCoords.
-            flag22 = flag22(numberValue11)
-            numberValue11 = CreateModelSwap
-            flag23 = flag22.x
-            numberValue16 = flag22.y
-            hashValue = flag22.z
-            flag2 = 0.5
+            stateFlag22 = stateFlag22(number11)
+            number11 = CreateModelSwap
+            stateFlag23 = stateFlag22.x
+            number16 = stateFlag22.y
+            hashValue = stateFlag22.z
+            stateFlag2 = 0.5
             hashValue2 = GetHashKey
             hashValue3 = "prop_till_01"
             -- Beginner: result below is hash.
             hashValue2 = hashValue2(hashValue3)
             hashValue3 = GetHashKey
-            flag6 = "prop_till_01_dam"
+            stateFlag6 = "prop_till_01_dam"
             -- Beginner: result below is hash.
-            hashValue3 = hashValue3(flag6)
-            flag6 = false
-            numberValue11(flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6)
+            hashValue3 = hashValue3(stateFlag6)
+            stateFlag6 = false
+            number11(stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6)
           end
-          flag22 = GetGameTimer
+          stateFlag22 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          flag22 = flag22()
-          flag18 = flag22 + 200
+          stateFlag22 = stateFlag22()
+          stateFlag18 = stateFlag22 + 200
           while true do
-            flag22 = GetGameTimer
+            stateFlag22 = GetGameTimer
             -- Beginner: result below is gameTimeMs.
-            flag22 = flag22()
-            if not (flag18 >= flag22) then
+            stateFlag22 = stateFlag22()
+            if not (stateFlag18 >= stateFlag22) then
               break
             end
-            flag22 = IsPedDeadOrDying
-            numberValue11 = arg1
-            flag23 = false
-            flag22 = flag22(numberValue11, flag23)
-            if flag22 then
+            stateFlag22 = IsPedDeadOrDying
+            number11 = localValue1
+            stateFlag23 = false
+            stateFlag22 = stateFlag22(number11, stateFlag23)
+            if stateFlag22 then
               break
             end
-            flag22 = Wait
-            numberValue11 = 0
-            flag22(numberValue11)
+            stateFlag22 = Wait
+            number11 = 0
+            stateFlag22(number11)
           end
-          flag22 = CMG
-          flag22 = flag22.loadModel
-          numberValue11 = -1194335261
-          flag22 = flag22(numberValue11)
-          numberValue11 = GetEntityCoords
-          flag23 = arg1
+          stateFlag22 = CMG
+          stateFlag22 = stateFlag22.loadModel
+          number11 = -1194335261
+          stateFlag22 = stateFlag22(number11)
+          number11 = GetEntityCoords
+          stateFlag23 = localValue1
           -- Beginner: result below is entityCoords.
-          numberValue11 = numberValue11(flag23)
-          flag23 = CreateObject
-          numberValue16 = flag22
-          hashValue = numberValue11.x
-          flag2 = numberValue11.y
-          hashValue2 = numberValue11.z
+          number11 = number11(stateFlag23)
+          stateFlag23 = CreateObject
+          number16 = stateFlag22
+          hashValue = number11.x
+          stateFlag2 = number11.y
+          hashValue2 = number11.z
           hashValue3 = false
-          flag6 = false
-          flag8 = false
+          stateFlag6 = false
+          stateFlag8 = false
           -- Beginner: result below is objectEntity.
-          flag23 = flag23(numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8)
-          numberValue16 = SetModelAsNoLongerNeeded
-          hashValue = flag22
-          numberValue16(hashValue)
-          numberValue16 = PlayPedAmbientSpeechNative
-          hashValue = arg1
-          flag2 = "SHOP_HURRYING"
+          stateFlag23 = stateFlag23(number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8)
+          number16 = SetModelAsNoLongerNeeded
+          hashValue = stateFlag22
+          number16(hashValue)
+          number16 = PlayPedAmbientSpeechNative
+          hashValue = localValue1
+          stateFlag2 = "SHOP_HURRYING"
           hashValue2 = "SPEECH_PARAMS_FORCE"
-          numberValue16(hashValue, flag2, hashValue2)
-          numberValue16 = AttachEntityToEntity
-          hashValue = flag23
-          flag2 = arg1
+          number16(hashValue, stateFlag2, hashValue2)
+          number16 = AttachEntityToEntity
+          hashValue = stateFlag23
+          stateFlag2 = localValue1
           hashValue2 = GetPedBoneIndex
-          hashValue3 = arg1
-          flag6 = 60309
-          hashValue2 = hashValue2(hashValue3, flag6)
+          hashValue3 = localValue1
+          stateFlag6 = 60309
+          hashValue2 = hashValue2(hashValue3, stateFlag6)
           hashValue3 = 0.1
-          flag6 = -0.11
-          flag8 = 0.08
-          numberValue2 = 0.0
-          numberValue3 = -75.0
-          flag9 = -75.0
-          flag10 = true
-          flag11 = true
-          flag12 = false
-          flag13 = false
-          flag14 = 2
-          flag15 = true
+          stateFlag6 = -0.11
+          stateFlag8 = 0.08
+          number2 = 0.0
+          number3 = -75.0
+          stateFlag9 = -75.0
+          stateFlag10 = true
+          stateFlag11 = true
+          stateFlag12 = false
+          stateFlag13 = false
+          stateFlag14 = 2
+          stateFlag15 = true
           -- Beginner: Attach one entity to another entity.
-          numberValue16(hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14, flag15)
-          numberValue16 = Wait
+          number16(hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15)
+          number16 = Wait
           hashValue = 10000
-          numberValue16(hashValue)
-          numberValue16 = IsPedDeadOrDying
-          hashValue = arg1
-          flag2 = false
-          numberValue16 = numberValue16(hashValue, flag2)
-          if not numberValue16 then
-            numberValue16 = PlayPedAmbientSpeechNative
-            hashValue = arg1
-            flag2 = "SCREAM_PANIC"
+          number16(hashValue)
+          number16 = IsPedDeadOrDying
+          hashValue = localValue1
+          stateFlag2 = false
+          number16 = number16(hashValue, stateFlag2)
+          if not number16 then
+            number16 = PlayPedAmbientSpeechNative
+            hashValue = localValue1
+            stateFlag2 = "SCREAM_PANIC"
             hashValue2 = "SPEECH_PARAMS_FORCE"
-            numberValue16(hashValue, flag2, hashValue2)
-            numberValue16 = DetachEntity
-            hashValue = flag23
-            flag2 = true
+            number16(hashValue, stateFlag2, hashValue2)
+            number16 = DetachEntity
+            hashValue = stateFlag23
+            stateFlag2 = true
             hashValue2 = false
-            numberValue16(hashValue, flag2, hashValue2)
-            numberValue16 = Wait
+            number16(hashValue, stateFlag2, hashValue2)
+            number16 = Wait
             hashValue = 0
-            numberValue16(hashValue)
-            numberValue16 = SetEntityHeading
-            hashValue = flag23
-            flag2 = arg2.shopNpcHeading
+            number16(hashValue)
+            number16 = SetEntityHeading
+            hashValue = stateFlag23
+            stateFlag2 = localValue2.shopNpcHeading
             -- Beginner: Change the direction an entity is facing.
-            numberValue16(hashValue, flag2)
-            numberValue16 = ApplyForceToEntity
-            hashValue = flag23
-            flag2 = 3
+            number16(hashValue, stateFlag2)
+            number16 = ApplyForceToEntity
+            hashValue = stateFlag23
+            stateFlag2 = 3
             hashValue2 = 0.0
             hashValue3 = 50.0
-            flag6 = 20.0
-            flag8 = 0.0
-            numberValue2 = 0.0
-            numberValue3 = 50.0
-            flag9 = 0
-            flag10 = true
-            flag11 = true
-            flag12 = false
-            flag13 = false
-            flag14 = true
-            numberValue16(hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14)
-            numberValue16 = false
-            flag4 = numberValue16
-            numberValue16 = Citizen
-            numberValue16 = numberValue16.CreateThread
+            stateFlag6 = 20.0
+            stateFlag8 = 0.0
+            number2 = 0.0
+            number3 = 50.0
+            stateFlag9 = 0
+            stateFlag10 = true
+            stateFlag11 = true
+            stateFlag12 = false
+            stateFlag13 = false
+            stateFlag14 = true
+            number16(hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14)
+            number16 = false
+            stateFlag4 = number16
+            number16 = Citizen
+            number16 = number16.CreateThread
 
             -- === HELPER FUNCTION: hashValue() ===
             function hashValue()
-              local coords, cmgCall, textValue6, textValue8, flag20
+              local coords, cmgOperation, text6, text8, stateFlag20
               while true do
                 coords = Wait
-                cmgCall = 5
-                coords(cmgCall)
+                cmgOperation = 5
+                coords(cmgOperation)
                 coords = DoesEntityExist
-                cmgCall = flag23
-                coords = coords(cmgCall)
+                cmgOperation = stateFlag23
+                coords = coords(cmgOperation)
                 if coords then
                   coords = GetEntityCoords
-                  cmgCall = CMG
-                  cmgCall = cmgCall.getPlayerPed
-                  cmgCall, textValue6, textValue8, flag20 = cmgCall()
+                  cmgOperation = CMG
+                  cmgOperation = cmgOperation.getPlayerPed
+                  cmgOperation, text6, text8, stateFlag20 = cmgOperation()
                   -- Beginner: result below is entityCoords.
-                  coords = coords(cmgCall, textValue6, textValue8, flag20)
-                  cmgCall = GetEntityCoords
-                  textValue6 = flag23
+                  coords = coords(cmgOperation, text6, text8, stateFlag20)
+                  cmgOperation = GetEntityCoords
+                  text6 = stateFlag23
                   -- Beginner: result below is entityCoords.
-                  cmgCall = cmgCall(textValue6)
-                  coords = coords - cmgCall
+                  cmgOperation = cmgOperation(text6)
+                  coords = coords - cmgOperation
                   coords = #coords
-                  cmgCall = 1.5
-                  if coords <= cmgCall then
+                  cmgOperation = 1.5
+                  if coords <= cmgOperation then
                     coords = PlaySoundFrontend
-                    cmgCall = -1
-                    textValue6 = "ROBBERY_MONEY_TOTAL"
-                    textValue8 = "HUD_FRONTEND_CUSTOM_SOUNDSET"
-                    flag20 = true
-                    coords(cmgCall, textValue6, textValue8, flag20)
+                    cmgOperation = -1
+                    text6 = "ROBBERY_MONEY_TOTAL"
+                    text8 = "HUD_FRONTEND_CUSTOM_SOUNDSET"
+                    stateFlag20 = true
+                    coords(cmgOperation, text6, text8, stateFlag20)
                     coords = TriggerServerEvent
-                    cmgCall = "75c4e26b58"
-                    textValue6 = arg3
+                    cmgOperation = "75c4e26b58"
+                    text6 = localValue3
                     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "75c4e26b58".
-                    coords(cmgCall, textValue6)
+                    coords(cmgOperation, text6)
                     coords = DeleteObject
-                    cmgCall = flag23
-                    coords(cmgCall)
+                    cmgOperation = stateFlag23
+                    coords(cmgOperation)
                     break
                   end
                 else
@@ -1464,683 +1464,683 @@ function vector3Builder(arg1, arg2, arg3)
               end
             end
             -- Beginner: Start a separate FiveM thread so this code can run independently.
-            numberValue16(hashValue)
+            number16(hashValue)
           else
-            numberValue16 = DeleteObject
-            hashValue = flag23
-            numberValue16(hashValue)
+            number16 = DeleteObject
+            hashValue = stateFlag23
+            number16(hashValue)
           end
-          numberValue16 = CMG
-          numberValue16 = numberValue16.loadAnimDict
+          number16 = CMG
+          number16 = number16.loadAnimDict
           hashValue = "mp_am_hold_up"
           -- Beginner: Load a GTA animation dictionary before using it.
-          numberValue16(hashValue)
-          numberValue16 = TaskPlayAnim
-          hashValue = arg1
-          flag2 = "mp_am_hold_up"
+          number16(hashValue)
+          number16 = TaskPlayAnim
+          hashValue = localValue1
+          stateFlag2 = "mp_am_hold_up"
           hashValue2 = "cower_intro"
           hashValue3 = 8.0
-          flag6 = -8.0
-          flag8 = -1
-          numberValue2 = 0
-          numberValue3 = 0
-          flag9 = false
-          flag10 = false
-          flag11 = false
+          stateFlag6 = -8.0
+          stateFlag8 = -1
+          number2 = 0
+          number3 = 0
+          stateFlag9 = false
+          stateFlag10 = false
+          stateFlag11 = false
           -- Beginner: Play an animation on a ped.
-          numberValue16(hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11)
-          numberValue16 = GetGameTimer
+          number16(hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11)
+          number16 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          numberValue16 = numberValue16()
-          flag18 = numberValue16 + 2500
+          number16 = number16()
+          stateFlag18 = number16 + 2500
           while true do
-            numberValue16 = GetGameTimer
+            number16 = GetGameTimer
             -- Beginner: result below is gameTimeMs.
-            numberValue16 = numberValue16()
-            if not (flag18 >= numberValue16) then
+            number16 = number16()
+            if not (stateFlag18 >= number16) then
               break
             end
-            numberValue16 = Wait
+            number16 = Wait
             hashValue = 0
-            numberValue16(hashValue)
+            number16(hashValue)
           end
-          numberValue16 = Citizen
-          numberValue16 = numberValue16.CreateThread
+          number16 = Citizen
+          number16 = number16.CreateThread
 
           -- === HELPER FUNCTION: hashValue() ===
           function hashValue()
-            local coords, cmgCall, textValue6, textValue8, flag20, numberValue9, numberValue10, numberValue12, numberValue14, flag24, flag, flag3
+            local coords, cmgOperation, text6, text8, stateFlag20, number9, number10, number12, number14, stateFlag24, stateFlag, stateFlag3
             coords = TaskPlayAnim
-            cmgCall = arg1
-            textValue6 = "mp_am_hold_up"
-            textValue8 = "cower_loop"
-            flag20 = 8.0
-            numberValue9 = -8.0
-            numberValue10 = -1
-            numberValue12 = 1
-            numberValue14 = 0
-            flag24 = false
-            flag = false
-            flag3 = false
+            cmgOperation = localValue1
+            text6 = "mp_am_hold_up"
+            text8 = "cower_loop"
+            stateFlag20 = 8.0
+            number9 = -8.0
+            number10 = -1
+            number12 = 1
+            number14 = 0
+            stateFlag24 = false
+            stateFlag = false
+            stateFlag3 = false
             -- Beginner: Play an animation on a ped.
-            coords(cmgCall, textValue6, textValue8, flag20, numberValue9, numberValue10, numberValue12, numberValue14, flag24, flag, flag3)
+            coords(cmgOperation, text6, text8, stateFlag20, number9, number10, number12, number14, stateFlag24, stateFlag, stateFlag3)
             coords = GetGameTimer
             -- Beginner: result below is gameTimeMs.
             coords = coords()
             coords = coords + 120000
             while true do
-              cmgCall = GetGameTimer
+              cmgOperation = GetGameTimer
               -- Beginner: result below is gameTimeMs.
-              cmgCall = cmgCall()
-              if not (coords >= cmgCall) then
+              cmgOperation = cmgOperation()
+              if not (coords >= cmgOperation) then
                 break
               end
-              cmgCall = Wait
-              textValue6 = 50
-              cmgCall(textValue6)
+              cmgOperation = Wait
+              text6 = 50
+              cmgOperation(text6)
             end
-            cmgCall = IsEntityPlayingAnim
-            textValue6 = arg1
-            textValue8 = "mp_am_hold_up"
-            flag20 = "cower_loop"
-            numberValue9 = 3
-            cmgCall = cmgCall(textValue6, textValue8, flag20, numberValue9)
-            if cmgCall then
-              cmgCall = ClearPedTasks
-              textValue6 = arg1
-              cmgCall(textValue6)
+            cmgOperation = IsEntityPlayingAnim
+            text6 = localValue1
+            text8 = "mp_am_hold_up"
+            stateFlag20 = "cower_loop"
+            number9 = 3
+            cmgOperation = cmgOperation(text6, text8, stateFlag20, number9)
+            if cmgOperation then
+              cmgOperation = ClearPedTasks
+              text6 = localValue1
+              cmgOperation(text6)
             end
-            arg2.isPlayingAnims = false
+            localValue2.isPlayingAnims = false
           end
           -- Beginner: Start a separate FiveM thread so this code can run independently.
-          numberValue16(hashValue)
+          number16(hashValue)
         end
       end
     end
   end
 end
-numberValue4 = _ENV
-numberValue5 = "AddEventHandler"
-numberValue4 = numberValue4[numberValue5]
-numberValue5 = "CMG:onClientSpawn"
+number4 = _ENV
+number5 = "AddEventHandler"
+number4 = number4[number5]
+number5 = "CMG:onClientSpawn"
 
--- === HELPER FUNCTION (decompiler name: numberValue6; parameters: arg1, arg2) ===
-function numberValue6(arg1, arg2)
-  local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2
-  if arg2 then
-    arg3 = TriggerServerEvent
-    flag18 = "d136671bcb"
+-- === HELPER FUNCTION (decompiler name: number6; parameters: localValue1, localValue2) ===
+function number6(localValue1, localValue2)
+  local localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2
+  if localValue2 then
+    localValue3 = TriggerServerEvent
+    stateFlag18 = "d136671bcb"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d136671bcb".
-    arg3(flag18)
+    localValue3(stateFlag18)
     while true do
-      arg3 = workValue
-      if nil ~= arg3 then
+      localValue3 = workingValue
+      if nil ~= localValue3 then
         break
       end
-      arg3 = Wait
-      flag18 = 0
-      arg3(flag18)
+      localValue3 = Wait
+      stateFlag18 = 0
+      localValue3(stateFlag18)
     end
     while true do
-      arg3 = pairs
-      flag18 = dataTable
-      arg3, flag18, flag19, flag21 = arg3(flag18)
-      for flag22, numberValue11 in arg3, flag18, flag19, flag21 do
-        flag23 = numberValue11.shopNpcHandler
-        if 0 ~= flag23 then
-          numberValue16 = vector3Builder
-          hashValue = flag23
-          flag2 = numberValue11
-          hashValue2 = flag22
-          numberValue16(hashValue, flag2, hashValue2)
+      localValue3 = pairs
+      stateFlag18 = dataCollection
+      localValue3, stateFlag18, stateFlag19, stateFlag21 = localValue3(stateFlag18)
+      for stateFlag22, number11 in localValue3, stateFlag18, stateFlag19, stateFlag21 do
+        stateFlag23 = number11.shopNpcHandler
+        if 0 ~= stateFlag23 then
+          number16 = createVector3
+          hashValue = stateFlag23
+          stateFlag2 = number11
+          hashValue2 = stateFlag22
+          number16(hashValue, stateFlag2, hashValue2)
         end
       end
-      arg3 = Wait
-      flag18 = 1000
-      arg3(flag18)
+      localValue3 = Wait
+      stateFlag18 = 1000
+      localValue3(stateFlag18)
     end
   end
 end
-numberValue4(numberValue5, numberValue6)
-numberValue4 = _ENV
-numberValue5 = "Citizen"
-numberValue4 = numberValue4[numberValue5]
-numberValue5 = "CreateThread"
-numberValue4 = numberValue4[numberValue5]
+number4(number5, number6)
+number4 = _ENV
+number5 = "Citizen"
+number4 = number4[number5]
+number5 = "CreateThread"
+number4 = number4[number5]
 
--- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
-function numberValue5()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16
+-- === HELPER FUNCTION (decompiler name: number5; parameters: none) ===
+function number5()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16
   while true do
-    arg1 = dataTable
-    if nil ~= arg1 then
-      arg1 = pairs
-      arg2 = dataTable
-      arg1, arg2, arg3, flag18 = arg1(arg2)
-      for flag19, flag21 in arg1, arg2, arg3, flag18 do
-        flag22 = flag21.distanceToPlayer
-        if flag22 < 10.0 then
-          flag22 = flag21.insideStore
-          if not flag22 then
-            flag22 = PlayPedAmbientSpeechNative
-            numberValue11 = flag21.shopNpcHandler
-            flag23 = "SHOP_GREET"
-            numberValue16 = "SPEECH_PARAMS_FORCE"
-            flag22(numberValue11, flag23, numberValue16)
+    localValue1 = dataCollection
+    if nil ~= localValue1 then
+      localValue1 = pairs
+      localValue2 = dataCollection
+      localValue1, localValue2, localValue3, stateFlag18 = localValue1(localValue2)
+      for stateFlag19, stateFlag21 in localValue1, localValue2, localValue3, stateFlag18 do
+        stateFlag22 = stateFlag21.distanceToPlayer
+        if stateFlag22 < 10.0 then
+          stateFlag22 = stateFlag21.insideStore
+          if not stateFlag22 then
+            stateFlag22 = PlayPedAmbientSpeechNative
+            number11 = stateFlag21.shopNpcHandler
+            stateFlag23 = "SHOP_GREET"
+            number16 = "SPEECH_PARAMS_FORCE"
+            stateFlag22(number11, stateFlag23, number16)
           end
         end
-        flag22 = flag21.distanceToPlayer
-        if flag22 < 10.0 then
-          flag22 = dataTable
-          flag22 = flag22[flag19]
-          flag22.insideStore = true
+        stateFlag22 = stateFlag21.distanceToPlayer
+        if stateFlag22 < 10.0 then
+          stateFlag22 = dataCollection
+          stateFlag22 = stateFlag22[stateFlag19]
+          stateFlag22.insideStore = true
         else
-          flag22 = dataTable
-          flag22 = flag22[flag19]
-          flag22.insideStore = false
+          stateFlag22 = dataCollection
+          stateFlag22 = stateFlag22[stateFlag19]
+          stateFlag22.insideStore = false
         end
       end
     end
-    arg1 = Wait
-    arg2 = 500
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 500
+    localValue1(localValue2)
   end
 end
-numberValue4(numberValue5)
-numberValue4 = {}
+number4(number5)
+number4 = {}
 
--- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
-function numberValue5(arg1)
-  local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8
-  workValue = arg1
-  arg2 = pairs
-  arg3 = numberValue4
-  arg2, arg3, flag18, flag19 = arg2(arg3)
-  for flag21, flag22 in arg2, arg3, flag18, flag19 do
-    if nil ~= flag22 then
-      numberValue11 = tCMG
-      numberValue11 = numberValue11.removeBlip
-      flag23 = flag22
-      numberValue11(flag23)
+-- === HELPER FUNCTION (decompiler name: number5; parameters: localValue1) ===
+function number5(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8
+  workingValue = localValue1
+  localValue2 = pairs
+  localValue3 = number4
+  localValue2, localValue3, stateFlag18, stateFlag19 = localValue2(localValue3)
+  for stateFlag21, stateFlag22 in localValue2, localValue3, stateFlag18, stateFlag19 do
+    if nil ~= stateFlag22 then
+      number11 = tCMG
+      number11 = number11.removeBlip
+      stateFlag23 = stateFlag22
+      number11(stateFlag23)
     end
   end
-  arg2 = {}
-  numberValue4 = arg2
-  arg2 = pairs
-  arg3 = workValue
-  arg2, arg3, flag18, flag19 = arg2(arg3)
-  for flag21, flag22 in arg2, arg3, flag18, flag19 do
-    numberValue11 = flag22.position
-    flag23 = 0
-    numberValue16 = flag22.beingrobbed
-    if true == numberValue16 then
-      numberValue16 = tCMG
-      numberValue16 = numberValue16.addBlip
-      hashValue = numberValue11.x
-      flag2 = numberValue11.y
-      hashValue2 = numberValue11.z
+  localValue2 = {}
+  number4 = localValue2
+  localValue2 = pairs
+  localValue3 = workingValue
+  localValue2, localValue3, stateFlag18, stateFlag19 = localValue2(localValue3)
+  for stateFlag21, stateFlag22 in localValue2, localValue3, stateFlag18, stateFlag19 do
+    number11 = stateFlag22.position
+    stateFlag23 = 0
+    number16 = stateFlag22.beingrobbed
+    if true == number16 then
+      number16 = tCMG
+      number16 = number16.addBlip
+      hashValue = number11.x
+      stateFlag2 = number11.y
+      hashValue2 = number11.z
       hashValue3 = 52
-      flag6 = 1
-      flag8 = "Robbable Store [BEING ROBBED]"
-      numberValue16 = numberValue16(hashValue, flag2, hashValue2, hashValue3, flag6, flag8)
-      flag23 = numberValue16
+      stateFlag6 = 1
+      stateFlag8 = "Robbable Store [BEING ROBBED]"
+      number16 = number16(hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8)
+      stateFlag23 = number16
     else
-      numberValue16 = tCMG
-      numberValue16 = numberValue16.addBlip
-      hashValue = numberValue11.x
-      flag2 = numberValue11.y
-      hashValue2 = numberValue11.z
+      number16 = tCMG
+      number16 = number16.addBlip
+      hashValue = number11.x
+      stateFlag2 = number11.y
+      hashValue2 = number11.z
       hashValue3 = 52
-      flag6 = 2
-      flag8 = "Robbable Store"
-      numberValue16 = numberValue16(hashValue, flag2, hashValue2, hashValue3, flag6, flag8)
-      flag23 = numberValue16
+      stateFlag6 = 2
+      stateFlag8 = "Robbable Store"
+      number16 = number16(hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8)
+      stateFlag23 = number16
     end
-    numberValue16 = numberValue4
-    numberValue16[flag21] = flag23
+    number16 = number4
+    number16[stateFlag21] = stateFlag23
   end
 end
-numberValue6 = _ENV
-numberValue7 = "RegisterNetEvent"
-numberValue6 = numberValue6[numberValue7]
-numberValue7 = "b598315839"
+number6 = _ENV
+number7 = "RegisterNetEvent"
+number6 = number6[number7]
+number7 = "b598315839"
 
--- === HELPER FUNCTION (decompiler name: numberValue8; parameters: arg1) ===
-function numberValue8(arg1)
-  local arg2, arg3
-  arg2 = numberValue5
-  arg3 = arg1
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: number8; parameters: localValue1) ===
+function number8(localValue1)
+  local localValue2, localValue3
+  localValue2 = number5
+  localValue3 = localValue1
+  localValue2(localValue3)
 end
-numberValue6(numberValue7, numberValue8)
-numberValue6 = _ENV
-numberValue7 = "Citizen"
-numberValue6 = numberValue6[numberValue7]
-numberValue7 = "CreateThread"
-numberValue6 = numberValue6[numberValue7]
+number6(number7, number8)
+number6 = _ENV
+number7 = "Citizen"
+number6 = number6[number7]
+number7 = "CreateThread"
+number6 = number6[number7]
 
--- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
-function numberValue7()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14, flag15, flag16, flag17
-  arg1 = pairs
-  arg2 = dataTable
-  arg1, arg2, arg3, flag18 = arg1(arg2)
-  for flag19, flag21 in arg1, arg2, arg3, flag18 do
-    flag22 = CMG
-    flag22 = flag22.loadModel
-    numberValue11 = flag21.shopNpcModel
-    flag22 = flag22(numberValue11)
-    numberValue11 = CreatePed
-    flag23 = 26
-    numberValue16 = flag22
-    hashValue = flag21.shopNpcPosition
+-- === HELPER FUNCTION (decompiler name: number7; parameters: none) ===
+function number7()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17
+  localValue1 = pairs
+  localValue2 = dataCollection
+  localValue1, localValue2, localValue3, stateFlag18 = localValue1(localValue2)
+  for stateFlag19, stateFlag21 in localValue1, localValue2, localValue3, stateFlag18 do
+    stateFlag22 = CMG
+    stateFlag22 = stateFlag22.loadModel
+    number11 = stateFlag21.shopNpcModel
+    stateFlag22 = stateFlag22(number11)
+    number11 = CreatePed
+    stateFlag23 = 26
+    number16 = stateFlag22
+    hashValue = stateFlag21.shopNpcPosition
     hashValue = hashValue.x
-    flag2 = flag21.shopNpcPosition
-    flag2 = flag2.y
-    hashValue2 = flag21.shopNpcPosition
+    stateFlag2 = stateFlag21.shopNpcPosition
+    stateFlag2 = stateFlag2.y
+    hashValue2 = stateFlag21.shopNpcPosition
     hashValue2 = hashValue2.z
-    hashValue3 = flag21.shopNpcHeading
-    flag6 = false
-    flag8 = true
+    hashValue3 = stateFlag21.shopNpcHeading
+    stateFlag6 = false
+    stateFlag8 = true
     -- Beginner: result below is pedEntity.
-    numberValue11 = numberValue11(flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8)
-    flag23 = dataTable
-    flag23 = flag23[flag19]
-    flag23.shopNpcHandler = numberValue11
-    flag23 = SetModelAsNoLongerNeeded
-    numberValue16 = flag22
-    flag23(numberValue16)
-    flag23 = SetEntityAsMissionEntity
-    numberValue16 = numberValue11
+    number11 = number11(stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8)
+    stateFlag23 = dataCollection
+    stateFlag23 = stateFlag23[stateFlag19]
+    stateFlag23.shopNpcHandler = number11
+    stateFlag23 = SetModelAsNoLongerNeeded
+    number16 = stateFlag22
+    stateFlag23(number16)
+    stateFlag23 = SetEntityAsMissionEntity
+    number16 = number11
     hashValue = true
-    flag2 = true
-    flag23(numberValue16, hashValue, flag2)
-    flag23 = SetPedHearingRange
-    numberValue16 = numberValue11
+    stateFlag2 = true
+    stateFlag23(number16, hashValue, stateFlag2)
+    stateFlag23 = SetPedHearingRange
+    number16 = number11
     hashValue = 0.0
-    flag23(numberValue16, hashValue)
-    flag23 = SetPedSeeingRange
-    numberValue16 = numberValue11
+    stateFlag23(number16, hashValue)
+    stateFlag23 = SetPedSeeingRange
+    number16 = number11
     hashValue = 0.0
-    flag23(numberValue16, hashValue)
-    flag23 = SetPedAlertness
-    numberValue16 = numberValue11
+    stateFlag23(number16, hashValue)
+    stateFlag23 = SetPedAlertness
+    number16 = number11
     hashValue = 0.0
-    flag23(numberValue16, hashValue)
-    flag23 = SetPedFleeAttributes
-    numberValue16 = numberValue11
+    stateFlag23(number16, hashValue)
+    stateFlag23 = SetPedFleeAttributes
+    number16 = number11
     hashValue = 0
-    flag2 = false
-    flag23(numberValue16, hashValue, flag2)
-    flag23 = SetBlockingOfNonTemporaryEvents
-    numberValue16 = numberValue11
+    stateFlag2 = false
+    stateFlag23(number16, hashValue, stateFlag2)
+    stateFlag23 = SetBlockingOfNonTemporaryEvents
+    number16 = number11
     hashValue = true
-    flag23(numberValue16, hashValue)
-    flag23 = SetPedCombatAttributes
-    numberValue16 = numberValue11
+    stateFlag23(number16, hashValue)
+    stateFlag23 = SetPedCombatAttributes
+    number16 = number11
     hashValue = 46
-    flag2 = true
-    flag23(numberValue16, hashValue, flag2)
-    flag23 = SetPedFleeAttributes
-    numberValue16 = numberValue11
+    stateFlag2 = true
+    stateFlag23(number16, hashValue, stateFlag2)
+    stateFlag23 = SetPedFleeAttributes
+    number16 = number11
     hashValue = 0
-    flag2 = false
-    flag23(numberValue16, hashValue, flag2)
-    flag23 = CMG
-    flag23 = flag23.loadModel
-    numberValue16 = flag21.prop_safe
-    flag23 = flag23(numberValue16)
-    numberValue16 = CMG
-    numberValue16 = numberValue16.loadModel
-    hashValue = flag21.prop_door
-    numberValue16 = numberValue16(hashValue)
+    stateFlag2 = false
+    stateFlag23(number16, hashValue, stateFlag2)
+    stateFlag23 = CMG
+    stateFlag23 = stateFlag23.loadModel
+    number16 = stateFlag21.prop_safe
+    stateFlag23 = stateFlag23(number16)
+    number16 = CMG
+    number16 = number16.loadModel
+    hashValue = stateFlag21.prop_door
+    number16 = number16(hashValue)
     hashValue = CMG
     hashValue = hashValue.loadModel
-    flag2 = flag21.money_prop
-    hashValue = hashValue(flag2)
-    flag2 = CMG
-    flag2 = flag2.loadModel
-    hashValue2 = flag21.money_prop2
-    flag2 = flag2(hashValue2)
+    stateFlag2 = stateFlag21.money_prop
+    hashValue = hashValue(stateFlag2)
+    stateFlag2 = CMG
+    stateFlag2 = stateFlag2.loadModel
+    hashValue2 = stateFlag21.money_prop2
+    stateFlag2 = stateFlag2(hashValue2)
     hashValue2 = CMG
     hashValue2 = hashValue2.loadModel
-    hashValue3 = flag21.money_prop3
+    hashValue3 = stateFlag21.money_prop3
     hashValue2 = hashValue2(hashValue3)
     hashValue3 = CMG
     hashValue3 = hashValue3.loadModel
-    flag6 = flag21.money_prop4
-    hashValue3 = hashValue3(flag6)
-    flag6 = CreateObject
-    flag8 = flag23
-    numberValue2 = flag21.safePosition
-    numberValue2 = numberValue2.x
-    numberValue3 = flag21.safePosition
-    numberValue3 = numberValue3.y
-    flag9 = flag21.safePosition
-    flag9 = flag9.z
-    flag9 = flag9 - 0.8
-    flag10 = false
-    flag11 = false
-    flag12 = true
+    stateFlag6 = stateFlag21.money_prop4
+    hashValue3 = hashValue3(stateFlag6)
+    stateFlag6 = CreateObject
+    stateFlag8 = stateFlag23
+    number2 = stateFlag21.safePosition
+    number2 = number2.x
+    number3 = stateFlag21.safePosition
+    number3 = number3.y
+    stateFlag9 = stateFlag21.safePosition
+    stateFlag9 = stateFlag9.z
+    stateFlag9 = stateFlag9 - 0.8
+    stateFlag10 = false
+    stateFlag11 = false
+    stateFlag12 = true
     -- Beginner: result below is objectEntity.
-    flag6 = flag6(flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12)
-    flag8 = dataTable
-    flag8 = flag8[flag19]
-    flag8.safeHandler = flag6
-    flag8 = SetEntityHeading
-    numberValue2 = flag6
-    numberValue3 = dataTable
-    numberValue3 = numberValue3[flag19]
-    numberValue3 = numberValue3.safeHeading
+    stateFlag6 = stateFlag6(stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12)
+    stateFlag8 = dataCollection
+    stateFlag8 = stateFlag8[stateFlag19]
+    stateFlag8.safeHandler = stateFlag6
+    stateFlag8 = SetEntityHeading
+    number2 = stateFlag6
+    number3 = dataCollection
+    number3 = number3[stateFlag19]
+    number3 = number3.safeHeading
     -- Beginner: Change the direction an entity is facing.
-    flag8(numberValue2, numberValue3)
-    flag8 = SetEntityInvincible
-    numberValue2 = flag6
-    numberValue3 = true
-    flag8(numberValue2, numberValue3)
-    flag8 = FreezeEntityPosition
-    numberValue2 = flag6
-    numberValue3 = true
+    stateFlag8(number2, number3)
+    stateFlag8 = SetEntityInvincible
+    number2 = stateFlag6
+    number3 = true
+    stateFlag8(number2, number3)
+    stateFlag8 = FreezeEntityPosition
+    number2 = stateFlag6
+    number3 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    flag8(numberValue2, numberValue3)
-    flag8 = CreateObject
-    numberValue2 = numberValue16
-    numberValue3 = flag21.safePosition
-    numberValue3 = numberValue3.x
-    flag9 = flag21.safePosition
-    flag9 = flag9.y
-    flag10 = flag21.safePosition
-    flag10 = flag10.z
-    flag10 = flag10 - 0.7
-    flag11 = false
-    flag12 = false
-    flag13 = true
+    stateFlag8(number2, number3)
+    stateFlag8 = CreateObject
+    number2 = number16
+    number3 = stateFlag21.safePosition
+    number3 = number3.x
+    stateFlag9 = stateFlag21.safePosition
+    stateFlag9 = stateFlag9.y
+    stateFlag10 = stateFlag21.safePosition
+    stateFlag10 = stateFlag10.z
+    stateFlag10 = stateFlag10 - 0.7
+    stateFlag11 = false
+    stateFlag12 = false
+    stateFlag13 = true
     -- Beginner: result below is objectEntity.
-    flag8 = flag8(numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13)
-    numberValue2 = dataTable
-    numberValue2 = numberValue2[flag19]
-    numberValue2.doorHandler = flag8
-    numberValue2 = SetEntityHeading
-    numberValue3 = flag8
-    flag9 = dataTable
-    flag9 = flag9[flag19]
-    flag9 = flag9.safeHeading
+    stateFlag8 = stateFlag8(number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13)
+    number2 = dataCollection
+    number2 = number2[stateFlag19]
+    number2.doorHandler = stateFlag8
+    number2 = SetEntityHeading
+    number3 = stateFlag8
+    stateFlag9 = dataCollection
+    stateFlag9 = stateFlag9[stateFlag19]
+    stateFlag9 = stateFlag9.safeHeading
     -- Beginner: Change the direction an entity is facing.
-    numberValue2(numberValue3, flag9)
-    numberValue2 = SetEntityInvincible
-    numberValue3 = flag8
-    flag9 = true
-    numberValue2(numberValue3, flag9)
-    numberValue2 = FreezeEntityPosition
-    numberValue3 = flag8
-    flag9 = true
+    number2(number3, stateFlag9)
+    number2 = SetEntityInvincible
+    number3 = stateFlag8
+    stateFlag9 = true
+    number2(number3, stateFlag9)
+    number2 = FreezeEntityPosition
+    number3 = stateFlag8
+    stateFlag9 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    numberValue2(numberValue3, flag9)
-    numberValue2 = CreateObject
-    numberValue3 = hashValue
-    flag9 = flag21.moneyPos
-    flag9 = flag9.x
-    flag10 = flag21.moneyPos
-    flag10 = flag10.y
-    flag11 = flag21.moneyPos
-    flag11 = flag11.z
-    flag12 = false
-    flag13 = false
-    flag14 = true
+    number2(number3, stateFlag9)
+    number2 = CreateObject
+    number3 = hashValue
+    stateFlag9 = stateFlag21.moneyPos
+    stateFlag9 = stateFlag9.x
+    stateFlag10 = stateFlag21.moneyPos
+    stateFlag10 = stateFlag10.y
+    stateFlag11 = stateFlag21.moneyPos
+    stateFlag11 = stateFlag11.z
+    stateFlag12 = false
+    stateFlag13 = false
+    stateFlag14 = true
     -- Beginner: result below is objectEntity.
-    numberValue2 = numberValue2(numberValue3, flag9, flag10, flag11, flag12, flag13, flag14)
-    numberValue3 = dataTable
-    numberValue3 = numberValue3[flag19]
-    numberValue3.moneyHandler = numberValue2
-    numberValue3 = SetEntityHeading
-    flag9 = numberValue2
-    flag10 = dataTable
-    flag10 = flag10[flag19]
-    flag10 = flag10.moneyHeading
+    number2 = number2(number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14)
+    number3 = dataCollection
+    number3 = number3[stateFlag19]
+    number3.moneyHandler = number2
+    number3 = SetEntityHeading
+    stateFlag9 = number2
+    stateFlag10 = dataCollection
+    stateFlag10 = stateFlag10[stateFlag19]
+    stateFlag10 = stateFlag10.moneyHeading
     -- Beginner: Change the direction an entity is facing.
-    numberValue3(flag9, flag10)
-    numberValue3 = SetEntityInvincible
-    flag9 = numberValue2
-    flag10 = true
-    numberValue3(flag9, flag10)
-    numberValue3 = FreezeEntityPosition
-    flag9 = numberValue2
-    flag10 = true
+    number3(stateFlag9, stateFlag10)
+    number3 = SetEntityInvincible
+    stateFlag9 = number2
+    stateFlag10 = true
+    number3(stateFlag9, stateFlag10)
+    number3 = FreezeEntityPosition
+    stateFlag9 = number2
+    stateFlag10 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    numberValue3(flag9, flag10)
-    numberValue3 = CreateObject
-    flag9 = flag2
-    flag10 = flag21.moneyPos2
-    flag10 = flag10.x
-    flag11 = flag21.moneyPos2
-    flag11 = flag11.y
-    flag12 = flag21.moneyPos2
-    flag12 = flag12.z
-    flag13 = false
-    flag14 = false
-    flag15 = true
+    number3(stateFlag9, stateFlag10)
+    number3 = CreateObject
+    stateFlag9 = stateFlag2
+    stateFlag10 = stateFlag21.moneyPos2
+    stateFlag10 = stateFlag10.x
+    stateFlag11 = stateFlag21.moneyPos2
+    stateFlag11 = stateFlag11.y
+    stateFlag12 = stateFlag21.moneyPos2
+    stateFlag12 = stateFlag12.z
+    stateFlag13 = false
+    stateFlag14 = false
+    stateFlag15 = true
     -- Beginner: result below is objectEntity.
-    numberValue3 = numberValue3(flag9, flag10, flag11, flag12, flag13, flag14, flag15)
-    flag9 = dataTable
-    flag9 = flag9[flag19]
-    flag9.moneyHandler2 = numberValue3
-    flag9 = SetEntityHeading
-    flag10 = numberValue3
-    flag11 = dataTable
-    flag11 = flag11[flag19]
-    flag11 = flag11.moneyHeading2
+    number3 = number3(stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15)
+    stateFlag9 = dataCollection
+    stateFlag9 = stateFlag9[stateFlag19]
+    stateFlag9.moneyHandler2 = number3
+    stateFlag9 = SetEntityHeading
+    stateFlag10 = number3
+    stateFlag11 = dataCollection
+    stateFlag11 = stateFlag11[stateFlag19]
+    stateFlag11 = stateFlag11.moneyHeading2
     -- Beginner: Change the direction an entity is facing.
-    flag9(flag10, flag11)
-    flag9 = SetEntityInvincible
-    flag10 = numberValue3
-    flag11 = true
-    flag9(flag10, flag11)
-    flag9 = FreezeEntityPosition
-    flag10 = numberValue3
-    flag11 = true
+    stateFlag9(stateFlag10, stateFlag11)
+    stateFlag9 = SetEntityInvincible
+    stateFlag10 = number3
+    stateFlag11 = true
+    stateFlag9(stateFlag10, stateFlag11)
+    stateFlag9 = FreezeEntityPosition
+    stateFlag10 = number3
+    stateFlag11 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    flag9(flag10, flag11)
-    flag9 = CreateObject
-    flag10 = hashValue2
-    flag11 = flag21.moneyPos3
-    flag11 = flag11.x
-    flag12 = flag21.moneyPos3
-    flag12 = flag12.y
-    flag13 = flag21.moneyPos3
-    flag13 = flag13.z
-    flag14 = false
-    flag15 = false
-    flag16 = true
+    stateFlag9(stateFlag10, stateFlag11)
+    stateFlag9 = CreateObject
+    stateFlag10 = hashValue2
+    stateFlag11 = stateFlag21.moneyPos3
+    stateFlag11 = stateFlag11.x
+    stateFlag12 = stateFlag21.moneyPos3
+    stateFlag12 = stateFlag12.y
+    stateFlag13 = stateFlag21.moneyPos3
+    stateFlag13 = stateFlag13.z
+    stateFlag14 = false
+    stateFlag15 = false
+    stateFlag16 = true
     -- Beginner: result below is objectEntity.
-    flag9 = flag9(flag10, flag11, flag12, flag13, flag14, flag15, flag16)
-    flag10 = dataTable
-    flag10 = flag10[flag19]
-    flag10.moneyHandler3 = flag9
-    flag10 = SetEntityHeading
-    flag11 = flag9
-    flag12 = dataTable
-    flag12 = flag12[flag19]
-    flag12 = flag12.moneyHeading3
+    stateFlag9 = stateFlag9(stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16)
+    stateFlag10 = dataCollection
+    stateFlag10 = stateFlag10[stateFlag19]
+    stateFlag10.moneyHandler3 = stateFlag9
+    stateFlag10 = SetEntityHeading
+    stateFlag11 = stateFlag9
+    stateFlag12 = dataCollection
+    stateFlag12 = stateFlag12[stateFlag19]
+    stateFlag12 = stateFlag12.moneyHeading3
     -- Beginner: Change the direction an entity is facing.
-    flag10(flag11, flag12)
-    flag10 = SetEntityInvincible
-    flag11 = flag9
-    flag12 = true
-    flag10(flag11, flag12)
-    flag10 = FreezeEntityPosition
-    flag11 = flag9
-    flag12 = true
+    stateFlag10(stateFlag11, stateFlag12)
+    stateFlag10 = SetEntityInvincible
+    stateFlag11 = stateFlag9
+    stateFlag12 = true
+    stateFlag10(stateFlag11, stateFlag12)
+    stateFlag10 = FreezeEntityPosition
+    stateFlag11 = stateFlag9
+    stateFlag12 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    flag10(flag11, flag12)
-    flag10 = CreateObject
-    flag11 = hashValue3
-    flag12 = flag21.moneyPos4
-    flag12 = flag12.x
-    flag13 = flag21.moneyPos4
-    flag13 = flag13.y
-    flag14 = flag21.moneyPos4
-    flag14 = flag14.z
-    flag15 = false
-    flag16 = false
-    flag17 = true
+    stateFlag10(stateFlag11, stateFlag12)
+    stateFlag10 = CreateObject
+    stateFlag11 = hashValue3
+    stateFlag12 = stateFlag21.moneyPos4
+    stateFlag12 = stateFlag12.x
+    stateFlag13 = stateFlag21.moneyPos4
+    stateFlag13 = stateFlag13.y
+    stateFlag14 = stateFlag21.moneyPos4
+    stateFlag14 = stateFlag14.z
+    stateFlag15 = false
+    stateFlag16 = false
+    stateFlag17 = true
     -- Beginner: result below is objectEntity.
-    flag10 = flag10(flag11, flag12, flag13, flag14, flag15, flag16, flag17)
-    flag11 = dataTable
-    flag11 = flag11[flag19]
-    flag11.moneyHandler4 = flag10
-    flag11 = SetEntityHeading
-    flag12 = flag10
-    flag13 = dataTable
-    flag13 = flag13[flag19]
-    flag13 = flag13.moneyHeading4
+    stateFlag10 = stateFlag10(stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17)
+    stateFlag11 = dataCollection
+    stateFlag11 = stateFlag11[stateFlag19]
+    stateFlag11.moneyHandler4 = stateFlag10
+    stateFlag11 = SetEntityHeading
+    stateFlag12 = stateFlag10
+    stateFlag13 = dataCollection
+    stateFlag13 = stateFlag13[stateFlag19]
+    stateFlag13 = stateFlag13.moneyHeading4
     -- Beginner: Change the direction an entity is facing.
-    flag11(flag12, flag13)
-    flag11 = SetEntityInvincible
-    flag12 = flag10
-    flag13 = true
-    flag11(flag12, flag13)
-    flag11 = FreezeEntityPosition
-    flag12 = flag10
-    flag13 = true
+    stateFlag11(stateFlag12, stateFlag13)
+    stateFlag11 = SetEntityInvincible
+    stateFlag12 = stateFlag10
+    stateFlag13 = true
+    stateFlag11(stateFlag12, stateFlag13)
+    stateFlag11 = FreezeEntityPosition
+    stateFlag12 = stateFlag10
+    stateFlag13 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    flag11(flag12, flag13)
-    flag11 = SetModelAsNoLongerNeeded
-    flag12 = flag23
-    flag11(flag12)
-    flag11 = SetModelAsNoLongerNeeded
-    flag12 = numberValue16
-    flag11(flag12)
-    flag11 = SetModelAsNoLongerNeeded
-    flag12 = hashValue
-    flag11(flag12)
-    flag11 = SetModelAsNoLongerNeeded
-    flag12 = flag2
-    flag11(flag12)
-    flag11 = SetModelAsNoLongerNeeded
-    flag12 = hashValue2
-    flag11(flag12)
-    flag11 = SetModelAsNoLongerNeeded
-    flag12 = hashValue3
-    flag11(flag12)
+    stateFlag11(stateFlag12, stateFlag13)
+    stateFlag11 = SetModelAsNoLongerNeeded
+    stateFlag12 = stateFlag23
+    stateFlag11(stateFlag12)
+    stateFlag11 = SetModelAsNoLongerNeeded
+    stateFlag12 = number16
+    stateFlag11(stateFlag12)
+    stateFlag11 = SetModelAsNoLongerNeeded
+    stateFlag12 = hashValue
+    stateFlag11(stateFlag12)
+    stateFlag11 = SetModelAsNoLongerNeeded
+    stateFlag12 = stateFlag2
+    stateFlag11(stateFlag12)
+    stateFlag11 = SetModelAsNoLongerNeeded
+    stateFlag12 = hashValue2
+    stateFlag11(stateFlag12)
+    stateFlag11 = SetModelAsNoLongerNeeded
+    stateFlag12 = hashValue3
+    stateFlag11(stateFlag12)
   end
   while true do
-    arg1 = GetEntityCoords
-    arg2 = CMG
-    arg2 = arg2.getPlayerPed
-    arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14, flag15, flag16, flag17 = arg2()
+    localValue1 = GetEntityCoords
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerPed
+    localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17 = localValue2()
     -- Beginner: result below is entityCoords.
-    arg1 = arg1(arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14, flag15, flag16, flag17)
-    arg2 = pairs
-    arg3 = dataTable
-    arg2, arg3, flag18, flag19 = arg2(arg3)
-    for flag21, flag22 in arg2, arg3, flag18, flag19 do
-      numberValue11 = flag22.safePosition
-      numberValue11 = arg1 - numberValue11
-      numberValue11 = #numberValue11
-      flag22.distanceToPlayer = numberValue11
+    localValue1 = localValue1(localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17)
+    localValue2 = pairs
+    localValue3 = dataCollection
+    localValue2, localValue3, stateFlag18, stateFlag19 = localValue2(localValue3)
+    for stateFlag21, stateFlag22 in localValue2, localValue3, stateFlag18, stateFlag19 do
+      number11 = stateFlag22.safePosition
+      number11 = localValue1 - number11
+      number11 = #number11
+      stateFlag22.distanceToPlayer = number11
     end
-    arg2 = Wait
-    arg3 = 250
-    arg2(arg3)
+    localValue2 = Wait
+    localValue3 = 250
+    localValue2(localValue3)
   end
 end
-numberValue6(numberValue7)
-numberValue6 = true
-numberValue7 = 0
-numberValue8 = 3000
+number6(number7)
+number6 = true
+number7 = 0
+number8 = 3000
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue
-  arg1 = numberValue6
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue
+  localValue1 = number6
+  if not localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = pairs
-  arg3 = dataTable
-  arg2, arg3, flag18, flag19 = arg2(arg3)
-  for flag21, flag22 in arg2, arg3, flag18, flag19 do
-    numberValue11 = flag22.distanceToPlayer
-    if numberValue11 < 10.0 then
-      numberValue11 = flag22.shopNpcHandler
-      if 0 ~= numberValue11 then
-        flag23 = IsPlayerFreeAimingAtEntity
-        numberValue16 = PlayerId
+  localValue1 = localValue1()
+  localValue2 = pairs
+  localValue3 = dataCollection
+  localValue2, localValue3, stateFlag18, stateFlag19 = localValue2(localValue3)
+  for stateFlag21, stateFlag22 in localValue2, localValue3, stateFlag18, stateFlag19 do
+    number11 = stateFlag22.distanceToPlayer
+    if number11 < 10.0 then
+      number11 = stateFlag22.shopNpcHandler
+      if 0 ~= number11 then
+        stateFlag23 = IsPlayerFreeAimingAtEntity
+        number16 = PlayerId
         -- Beginner: result below is localPlayerIndex.
-        numberValue16 = numberValue16()
-        hashValue = numberValue11
-        flag23 = flag23(numberValue16, hashValue)
-        if flag23 then
-          flag23 = HasEntityClearLosToEntityInFront
-          numberValue16 = arg1
-          hashValue = numberValue11
-          flag23 = flag23(numberValue16, hashValue)
-          if flag23 then
-            flag23 = IsPedDeadOrDying
-            numberValue16 = numberValue11
+        number16 = number16()
+        hashValue = number11
+        stateFlag23 = stateFlag23(number16, hashValue)
+        if stateFlag23 then
+          stateFlag23 = HasEntityClearLosToEntityInFront
+          number16 = localValue1
+          hashValue = number11
+          stateFlag23 = stateFlag23(number16, hashValue)
+          if stateFlag23 then
+            stateFlag23 = IsPedDeadOrDying
+            number16 = number11
             hashValue = false
-            flag23 = flag23(numberValue16, hashValue)
-            if not flag23 then
-              flag23 = GetEntityCoords
-              numberValue16 = arg1
+            stateFlag23 = stateFlag23(number16, hashValue)
+            if not stateFlag23 then
+              stateFlag23 = GetEntityCoords
+              number16 = localValue1
               -- Beginner: result below is entityCoords.
-              flag23 = flag23(numberValue16)
-              numberValue16 = GetEntityCoords
-              hashValue = numberValue11
+              stateFlag23 = stateFlag23(number16)
+              number16 = GetEntityCoords
+              hashValue = number11
               -- Beginner: result below is entityCoords.
-              numberValue16 = numberValue16(hashValue)
-              flag23 = flag23 - numberValue16
-              flag23 = #flag23
-              if flag23 <= 5.0 then
-                flag23 = flag4
-                if not flag23 then
-                  flag23 = GetSelectedPedWeapon
-                  numberValue16 = CMG
-                  numberValue16 = numberValue16.getPlayerPed
-                  numberValue16, hashValue = numberValue16()
+              number16 = number16(hashValue)
+              stateFlag23 = stateFlag23 - number16
+              stateFlag23 = #stateFlag23
+              if stateFlag23 <= 5.0 then
+                stateFlag23 = stateFlag4
+                if not stateFlag23 then
+                  stateFlag23 = GetSelectedPedWeapon
+                  number16 = CMG
+                  number16 = number16.getPlayerPed
+                  number16, hashValue = number16()
                   -- Beginner: result below is weaponHash.
-                  flag23 = flag23(numberValue16, hashValue)
-                  numberValue16 = GetHashKey
+                  stateFlag23 = stateFlag23(number16, hashValue)
+                  number16 = GetHashKey
                   hashValue = "WEAPON_UNARMED"
                   -- Beginner: result below is hash.
-                  numberValue16 = numberValue16(hashValue)
-                  if flag23 == numberValue16 then
-                    flag23 = GetGameTimer
+                  number16 = number16(hashValue)
+                  if stateFlag23 == number16 then
+                    stateFlag23 = GetGameTimer
                     -- Beginner: result below is gameTimeMs.
-                    flag23 = flag23()
-                    numberValue16 = numberValue7
-                    numberValue16 = flag23 - numberValue16
-                    hashValue = numberValue8
-                    if numberValue16 >= hashValue then
-                      numberValue7 = flag23
-                      numberValue16 = tCMG
-                      numberValue16 = numberValue16.notify
+                    stateFlag23 = stateFlag23()
+                    number16 = number7
+                    number16 = stateFlag23 - number16
+                    hashValue = number8
+                    if number16 >= hashValue then
+                      number7 = stateFlag23
+                      number16 = tCMG
+                      number16 = number16.notify
                       hashValue = "~r~You need a weapon in your hands to rob this store!"
                       -- Beginner: Show a notification to the player.
-                      numberValue16(hashValue)
+                      number16(hashValue)
                     end
                   else
-                    flag23 = TriggerServerEvent
-                    numberValue16 = "9feca19ddf"
-                    hashValue = flag21
+                    stateFlag23 = TriggerServerEvent
+                    number16 = "9feca19ddf"
+                    hashValue = stateFlag21
                     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9feca19ddf".
-                    flag23(numberValue16, hashValue)
-                    flag23 = false
-                    numberValue6 = flag23
-                    flag23 = SetTimeout
-                    numberValue16 = 40000
+                    stateFlag23(number16, hashValue)
+                    stateFlag23 = false
+                    number6 = stateFlag23
+                    stateFlag23 = SetTimeout
+                    number16 = 40000
 
                     -- === HELPER FUNCTION: hashValue() ===
                     function hashValue()
-                      local coords, cmgCall
+                      local coords, cmgOperation
                       coords = true
-                      numberValue6 = coords
+                      number6 = coords
                     end
-                    flag23(numberValue16, hashValue)
+                    stateFlag23(number16, hashValue)
                   end
                 end
               end
@@ -2151,731 +2151,731 @@ function workValue2()
     end
   end
 end
-workValue3 = _ENV
-cmgCall2 = "CMG"
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = "createThreadOnTick"
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = workValue2
+workingValue3 = _ENV
+cmgOperation2 = "CMG"
+workingValue3 = workingValue3[cmgOperation2]
+cmgOperation2 = "createThreadOnTick"
+workingValue3 = workingValue3[cmgOperation2]
+cmgOperation2 = workingValue2
 eventHandlerRegistration = "Store Robbery"
-workValue3(cmgCall2, eventHandlerRegistration)
-workValue3 = _ENV
-cmgCall2 = "RegisterNetEvent"
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = "95dec7b268"
+workingValue3(cmgOperation2, eventHandlerRegistration)
+workingValue3 = _ENV
+cmgOperation2 = "RegisterNetEvent"
+workingValue3 = workingValue3[cmgOperation2]
+cmgOperation2 = "95dec7b268"
 
--- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
-function eventHandlerRegistration(arg1)
-  local arg2
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  arg2.robberyInProgress = true
+-- === HELPER FUNCTION: eventHandlerRegistration(localValue1) ===
+function eventHandlerRegistration(localValue1)
+  local localValue2
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  localValue2.robberyInProgress = true
 end
-workValue3(cmgCall2, eventHandlerRegistration)
-workValue3 = _ENV
-cmgCall2 = "RegisterNetEvent"
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = "880648a891"
+workingValue3(cmgOperation2, eventHandlerRegistration)
+workingValue3 = _ENV
+cmgOperation2 = "RegisterNetEvent"
+workingValue3 = workingValue3[cmgOperation2]
+cmgOperation2 = "880648a891"
 
--- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
-function eventHandlerRegistration(arg1)
-  local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  arg2 = arg2.shopNpcHandler
-  arg3 = dataTable
-  arg3 = arg3[arg1]
-  arg3 = arg3.shopNpcPosition
-  flag18 = SetEntityCoords
-  flag19 = arg2
-  flag21 = arg3.x
-  flag22 = arg3.y
-  numberValue11 = arg3.z
-  flag23 = true
-  numberValue16 = false
+-- === HELPER FUNCTION: eventHandlerRegistration(localValue1) ===
+function eventHandlerRegistration(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.shopNpcHandler
+  localValue3 = dataCollection
+  localValue3 = localValue3[localValue1]
+  localValue3 = localValue3.shopNpcPosition
+  stateFlag18 = SetEntityCoords
+  stateFlag19 = localValue2
+  stateFlag21 = localValue3.x
+  stateFlag22 = localValue3.y
+  number11 = localValue3.z
+  stateFlag23 = true
+  number16 = false
   hashValue = false
-  flag2 = false
+  stateFlag2 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  flag18(flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2)
-  flag18 = SetEntityHeading
-  flag19 = arg2
-  flag21 = dataTable
-  flag21 = flag21[arg1]
-  flag21 = flag21.shopNpcHeading
+  stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2)
+  stateFlag18 = SetEntityHeading
+  stateFlag19 = localValue2
+  stateFlag21 = dataCollection
+  stateFlag21 = stateFlag21[localValue1]
+  stateFlag21 = stateFlag21.shopNpcHeading
   -- Beginner: Change the direction an entity is facing.
-  flag18(flag19, flag21)
-  flag18 = CMG
-  flag18 = flag18.loadAnimDict
-  flag19 = "mp_am_hold_up"
+  stateFlag18(stateFlag19, stateFlag21)
+  stateFlag18 = CMG
+  stateFlag18 = stateFlag18.loadAnimDict
+  stateFlag19 = "mp_am_hold_up"
   -- Beginner: Load a GTA animation dictionary before using it.
-  flag18(flag19)
-  flag18 = TaskPlayAnim
-  flag19 = arg2
-  flag21 = "mp_am_hold_up"
-  flag22 = "holdup_victim_20s"
-  numberValue11 = 8.0
-  flag23 = -8.0
-  numberValue16 = -1
+  stateFlag18(stateFlag19)
+  stateFlag18 = TaskPlayAnim
+  stateFlag19 = localValue2
+  stateFlag21 = "mp_am_hold_up"
+  stateFlag22 = "holdup_victim_20s"
+  number11 = 8.0
+  stateFlag23 = -8.0
+  number16 = -1
   hashValue = 2
-  flag2 = 0
+  stateFlag2 = 0
   hashValue2 = false
   hashValue3 = false
-  flag6 = false
+  stateFlag6 = false
   -- Beginner: Play an animation on a ped.
-  flag18(flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6)
+  stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6)
 end
-workValue3(cmgCall2, eventHandlerRegistration)
-workValue3 = _ENV
-cmgCall2 = "RegisterNetEvent"
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = "0b120db34a"
+workingValue3(cmgOperation2, eventHandlerRegistration)
+workingValue3 = _ENV
+cmgOperation2 = "RegisterNetEvent"
+workingValue3 = workingValue3[cmgOperation2]
+cmgOperation2 = "0b120db34a"
 
--- === HELPER FUNCTION: eventHandlerRegistration(arg1, arg2) ===
-function eventHandlerRegistration(arg1, arg2)
-  local arg3, flag18, flag19, flag21, flag22
-  flag4 = arg1
-  arg3 = GetEntityCoords
-  flag18 = CMG
-  flag18 = flag18.getPlayerPed
-  flag18, flag19, flag21, flag22 = flag18()
+-- === HELPER FUNCTION: eventHandlerRegistration(localValue1, localValue2) ===
+function eventHandlerRegistration(localValue1, localValue2)
+  local localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22
+  stateFlag4 = localValue1
+  localValue3 = GetEntityCoords
+  stateFlag18 = CMG
+  stateFlag18 = stateFlag18.getPlayerPed
+  stateFlag18, stateFlag19, stateFlag21, stateFlag22 = stateFlag18()
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(flag18, flag19, flag21, flag22)
+  localValue3 = localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22)
   while true do
-    flag18 = flag4
-    if not flag18 then
+    stateFlag18 = stateFlag4
+    if not stateFlag18 then
       break
     end
-    flag18 = GetEntityCoords
-    flag19 = CMG
-    flag19 = flag19.getPlayerPed
-    flag19, flag21, flag22 = flag19()
+    stateFlag18 = GetEntityCoords
+    stateFlag19 = CMG
+    stateFlag19 = stateFlag19.getPlayerPed
+    stateFlag19, stateFlag21, stateFlag22 = stateFlag19()
     -- Beginner: result below is entityCoords.
-    flag18 = flag18(flag19, flag21, flag22)
-    flag19 = arg3 - flag18
-    flag19 = #flag19
-    if flag19 > 20 then
-      flag19 = TriggerServerEvent
-      flag21 = "91fa00b324"
-      flag22 = arg2
+    stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22)
+    stateFlag19 = localValue3 - stateFlag18
+    stateFlag19 = #stateFlag19
+    if stateFlag19 > 20 then
+      stateFlag19 = TriggerServerEvent
+      stateFlag21 = "91fa00b324"
+      stateFlag22 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "91fa00b324".
-      flag19(flag21, flag22)
-      flag19 = dataTable
-      flag19 = flag19[arg2]
-      flag19.robberyInProgress = false
+      stateFlag19(stateFlag21, stateFlag22)
+      stateFlag19 = dataCollection
+      stateFlag19 = stateFlag19[localValue2]
+      stateFlag19.robberyInProgress = false
       break
     end
-    flag19 = Wait
-    flag21 = 100
-    flag19(flag21)
+    stateFlag19 = Wait
+    stateFlag21 = 100
+    stateFlag19(stateFlag21)
   end
 end
-workValue3(cmgCall2, eventHandlerRegistration)
-workValue3 = _ENV
-cmgCall2 = "RegisterNetEvent"
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = "28bff1b311"
+workingValue3(cmgOperation2, eventHandlerRegistration)
+workingValue3 = _ENV
+cmgOperation2 = "RegisterNetEvent"
+workingValue3 = workingValue3[cmgOperation2]
+cmgOperation2 = "28bff1b311"
 
--- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
-function eventHandlerRegistration(arg1)
-  local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  arg2.robberyInProgress = false
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  arg2 = arg2.shopNpcHandler
-  arg3 = DoesEntityExist
-  flag18 = arg2
-  arg3 = arg3(flag18)
-  if arg3 then
-    arg3 = DeleteEntity
-    flag18 = arg2
+-- === HELPER FUNCTION: eventHandlerRegistration(localValue1) ===
+function eventHandlerRegistration(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  localValue2.robberyInProgress = false
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.shopNpcHandler
+  localValue3 = DoesEntityExist
+  stateFlag18 = localValue2
+  localValue3 = localValue3(stateFlag18)
+  if localValue3 then
+    localValue3 = DeleteEntity
+    stateFlag18 = localValue2
     -- Beginner: Delete a GTA entity.
-    arg3(flag18)
+    localValue3(stateFlag18)
   end
-  arg3 = CMG
-  arg3 = arg3.loadModel
-  flag18 = dataTable
-  flag18 = flag18[arg1]
-  flag18 = flag18.shopNpcModel
-  arg3 = arg3(flag18)
-  flag18 = CreatePed
-  flag19 = 26
-  flag21 = arg3
-  flag22 = dataTable
-  flag22 = flag22[arg1]
-  flag22 = flag22.shopNpcPosition
-  flag22 = flag22.x
-  numberValue11 = dataTable
-  numberValue11 = numberValue11[arg1]
-  numberValue11 = numberValue11.shopNpcPosition
-  numberValue11 = numberValue11.y
-  flag23 = dataTable
-  flag23 = flag23[arg1]
-  flag23 = flag23.shopNpcPosition
-  flag23 = flag23.z
-  numberValue16 = dataTable
-  numberValue16 = numberValue16[arg1]
-  numberValue16 = numberValue16.shopNpcHeading
+  localValue3 = CMG
+  localValue3 = localValue3.loadModel
+  stateFlag18 = dataCollection
+  stateFlag18 = stateFlag18[localValue1]
+  stateFlag18 = stateFlag18.shopNpcModel
+  localValue3 = localValue3(stateFlag18)
+  stateFlag18 = CreatePed
+  stateFlag19 = 26
+  stateFlag21 = localValue3
+  stateFlag22 = dataCollection
+  stateFlag22 = stateFlag22[localValue1]
+  stateFlag22 = stateFlag22.shopNpcPosition
+  stateFlag22 = stateFlag22.x
+  number11 = dataCollection
+  number11 = number11[localValue1]
+  number11 = number11.shopNpcPosition
+  number11 = number11.y
+  stateFlag23 = dataCollection
+  stateFlag23 = stateFlag23[localValue1]
+  stateFlag23 = stateFlag23.shopNpcPosition
+  stateFlag23 = stateFlag23.z
+  number16 = dataCollection
+  number16 = number16[localValue1]
+  number16 = number16.shopNpcHeading
   hashValue = false
-  flag2 = true
+  stateFlag2 = true
   -- Beginner: result below is pedEntity.
-  flag18 = flag18(flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2)
-  flag19 = dataTable
-  flag19 = flag19[arg1]
-  flag19.shopNpcHandler = flag18
-  flag19 = SetModelAsNoLongerNeeded
-  flag21 = arg3
-  flag19(flag21)
-  flag19 = SetEntityAsMissionEntity
-  flag21 = flag18
-  flag22 = true
-  numberValue11 = true
-  flag19(flag21, flag22, numberValue11)
-  flag19 = SetPedHearingRange
-  flag21 = flag18
-  flag22 = 0.0
-  flag19(flag21, flag22)
-  flag19 = SetPedSeeingRange
-  flag21 = flag18
-  flag22 = 0.0
-  flag19(flag21, flag22)
-  flag19 = SetPedAlertness
-  flag21 = flag18
-  flag22 = 0.0
-  flag19(flag21, flag22)
-  flag19 = SetPedFleeAttributes
-  flag21 = flag18
-  flag22 = 0
-  numberValue11 = false
-  flag19(flag21, flag22, numberValue11)
-  flag19 = SetBlockingOfNonTemporaryEvents
-  flag21 = flag18
-  flag22 = true
-  flag19(flag21, flag22)
-  flag19 = SetPedCombatAttributes
-  flag21 = flag18
-  flag22 = 46
-  numberValue11 = true
-  flag19(flag21, flag22, numberValue11)
-  flag19 = SetPedFleeAttributes
-  flag21 = flag18
-  flag22 = 0
-  numberValue11 = false
-  flag19(flag21, flag22, numberValue11)
+  stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2)
+  stateFlag19 = dataCollection
+  stateFlag19 = stateFlag19[localValue1]
+  stateFlag19.shopNpcHandler = stateFlag18
+  stateFlag19 = SetModelAsNoLongerNeeded
+  stateFlag21 = localValue3
+  stateFlag19(stateFlag21)
+  stateFlag19 = SetEntityAsMissionEntity
+  stateFlag21 = stateFlag18
+  stateFlag22 = true
+  number11 = true
+  stateFlag19(stateFlag21, stateFlag22, number11)
+  stateFlag19 = SetPedHearingRange
+  stateFlag21 = stateFlag18
+  stateFlag22 = 0.0
+  stateFlag19(stateFlag21, stateFlag22)
+  stateFlag19 = SetPedSeeingRange
+  stateFlag21 = stateFlag18
+  stateFlag22 = 0.0
+  stateFlag19(stateFlag21, stateFlag22)
+  stateFlag19 = SetPedAlertness
+  stateFlag21 = stateFlag18
+  stateFlag22 = 0.0
+  stateFlag19(stateFlag21, stateFlag22)
+  stateFlag19 = SetPedFleeAttributes
+  stateFlag21 = stateFlag18
+  stateFlag22 = 0
+  number11 = false
+  stateFlag19(stateFlag21, stateFlag22, number11)
+  stateFlag19 = SetBlockingOfNonTemporaryEvents
+  stateFlag21 = stateFlag18
+  stateFlag22 = true
+  stateFlag19(stateFlag21, stateFlag22)
+  stateFlag19 = SetPedCombatAttributes
+  stateFlag21 = stateFlag18
+  stateFlag22 = 46
+  number11 = true
+  stateFlag19(stateFlag21, stateFlag22, number11)
+  stateFlag19 = SetPedFleeAttributes
+  stateFlag21 = stateFlag18
+  stateFlag22 = 0
+  number11 = false
+  stateFlag19(stateFlag21, stateFlag22, number11)
 end
-workValue3(cmgCall2, eventHandlerRegistration)
-workValue3 = _ENV
-cmgCall2 = "Citizen"
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = "CreateThread"
-workValue3 = workValue3[cmgCall2]
+workingValue3(cmgOperation2, eventHandlerRegistration)
+workingValue3 = _ENV
+cmgOperation2 = "Citizen"
+workingValue3 = workingValue3[cmgOperation2]
+cmgOperation2 = "CreateThread"
+workingValue3 = workingValue3[cmgOperation2]
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16
   while true do
-    arg1 = pairs
-    arg2 = dataTable
-    arg1, arg2, arg3, flag18 = arg1(arg2)
-    for flag19, flag21 in arg1, arg2, arg3, flag18 do
-      flag22 = flag21.distanceToPlayer
-      if flag22 < 2.0 then
-        flag22 = textValue2
-        if "complete" == flag22 then
-          flag22 = dataTable2
-          numberValue11 = "Press ~INPUT_CONTEXT~ to grab the money!"
-          flag22(numberValue11)
-          flag22 = IsControlJustReleased
-          numberValue11 = 1
-          flag23 = 51
-          flag22 = flag22(numberValue11, flag23)
-          if flag22 then
-            flag22 = DeleteObject
-            numberValue11 = flag21.moneyHandler
-            flag22(numberValue11)
-            flag22 = DeleteObject
-            numberValue11 = flag21.moneyHandler2
-            flag22(numberValue11)
-            flag22 = DeleteObject
-            numberValue11 = flag21.moneyHandler3
-            flag22(numberValue11)
-            flag22 = DeleteObject
-            numberValue11 = flag21.moneyHandler4
-            flag22(numberValue11)
-            flag22 = TriggerServerEvent
-            numberValue11 = "35457da4c0"
-            flag23 = flag19
+    localValue1 = pairs
+    localValue2 = dataCollection
+    localValue1, localValue2, localValue3, stateFlag18 = localValue1(localValue2)
+    for stateFlag19, stateFlag21 in localValue1, localValue2, localValue3, stateFlag18 do
+      stateFlag22 = stateFlag21.distanceToPlayer
+      if stateFlag22 < 2.0 then
+        stateFlag22 = text2
+        if "complete" == stateFlag22 then
+          stateFlag22 = dataCollection2
+          number11 = "Press ~INPUT_CONTEXT~ to grab the money!"
+          stateFlag22(number11)
+          stateFlag22 = IsControlJustReleased
+          number11 = 1
+          stateFlag23 = 51
+          stateFlag22 = stateFlag22(number11, stateFlag23)
+          if stateFlag22 then
+            stateFlag22 = DeleteObject
+            number11 = stateFlag21.moneyHandler
+            stateFlag22(number11)
+            stateFlag22 = DeleteObject
+            number11 = stateFlag21.moneyHandler2
+            stateFlag22(number11)
+            stateFlag22 = DeleteObject
+            number11 = stateFlag21.moneyHandler3
+            stateFlag22(number11)
+            stateFlag22 = DeleteObject
+            number11 = stateFlag21.moneyHandler4
+            stateFlag22(number11)
+            stateFlag22 = TriggerServerEvent
+            number11 = "35457da4c0"
+            stateFlag23 = stateFlag19
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "35457da4c0".
-            flag22(numberValue11, flag23)
-            flag22 = dataTable
-            flag22 = flag22[flag19]
-            flag22.robberyInProgress = false
-            flag22 = "setup"
-            textValue2 = flag22
-            flag22 = Wait
-            numberValue11 = 5000
-            flag22(numberValue11)
-            flag22 = TriggerServerEvent
-            numberValue11 = "1203341535"
-            flag23 = flag19
+            stateFlag22(number11, stateFlag23)
+            stateFlag22 = dataCollection
+            stateFlag22 = stateFlag22[stateFlag19]
+            stateFlag22.robberyInProgress = false
+            stateFlag22 = "setup"
+            text2 = stateFlag22
+            stateFlag22 = Wait
+            number11 = 5000
+            stateFlag22(number11)
+            stateFlag22 = TriggerServerEvent
+            number11 = "1203341535"
+            stateFlag23 = stateFlag19
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1203341535".
-            flag22(numberValue11, flag23)
-            flag22 = CMG
-            flag22 = flag22.setPlayerCombatTimer
-            numberValue11 = 60
-            flag23 = false
-            flag22(numberValue11, flag23)
+            stateFlag22(number11, stateFlag23)
+            stateFlag22 = CMG
+            stateFlag22 = stateFlag22.setPlayerCombatTimer
+            number11 = 60
+            stateFlag23 = false
+            stateFlag22(number11, stateFlag23)
           end
         else
-          flag22 = flag21.robberyInProgress
-          if flag22 then
-            flag22 = dataTable2
-            numberValue11 = "Press ~INPUT_CONTEXT~ to start cracking the safe!"
-            flag22(numberValue11)
-            flag22 = IsControlJustReleased
-            numberValue11 = 1
-            flag23 = 51
-            flag22 = flag22(numberValue11, flag23)
-            if flag22 then
-              flag22 = tCMG
-              flag22 = flag22.notify
-              numberValue11 = "~g~Started cracking safe.."
+          stateFlag22 = stateFlag21.robberyInProgress
+          if stateFlag22 then
+            stateFlag22 = dataCollection2
+            number11 = "Press ~INPUT_CONTEXT~ to start cracking the safe!"
+            stateFlag22(number11)
+            stateFlag22 = IsControlJustReleased
+            number11 = 1
+            stateFlag23 = 51
+            stateFlag22 = stateFlag22(number11, stateFlag23)
+            if stateFlag22 then
+              stateFlag22 = tCMG
+              stateFlag22 = stateFlag22.notify
+              number11 = "~g~Started cracking safe.."
               -- Beginner: Show a notification to the player.
-              flag22(numberValue11)
-              flag22 = LoadResources
-              flag22()
-              flag22 = math
-              flag22 = flag22.randomseed
-              numberValue11 = GetGameTimer
-              numberValue11, flag23, numberValue16 = numberValue11()
-              flag22(numberValue11, flag23, numberValue16)
-              flag22 = math
-              flag22 = flag22.random
-              numberValue11 = 0
-              flag23 = 100
-              flag22 = flag22(numberValue11, flag23)
-              numberValue11 = 3.6 * flag22
-              workValue7 = numberValue11
-              numberValue11 = textValue
-              textValue7 = numberValue11
-              numberValue11 = true
-              flag5 = numberValue11
-              numberValue11 = "setup"
-              textValue2 = numberValue11
-              numberValue11 = RunMiniGame
-              flag23 = flag19
-              numberValue16 = flag21.safeHandler
-              numberValue11(flag23, numberValue16)
-              numberValue11 = CMG
-              numberValue11 = numberValue11.setPlayerCombatTimer
-              flag23 = 60
-              numberValue16 = false
-              numberValue11(flag23, numberValue16)
+              stateFlag22(number11)
+              stateFlag22 = LoadResources
+              stateFlag22()
+              stateFlag22 = math
+              stateFlag22 = stateFlag22.randomseed
+              number11 = GetGameTimer
+              number11, stateFlag23, number16 = number11()
+              stateFlag22(number11, stateFlag23, number16)
+              stateFlag22 = math
+              stateFlag22 = stateFlag22.random
+              number11 = 0
+              stateFlag23 = 100
+              stateFlag22 = stateFlag22(number11, stateFlag23)
+              number11 = 3.6 * stateFlag22
+              workingValue7 = number11
+              number11 = text
+              text7 = number11
+              number11 = true
+              stateFlag5 = number11
+              number11 = "setup"
+              text2 = number11
+              number11 = RunMiniGame
+              stateFlag23 = stateFlag19
+              number16 = stateFlag21.safeHandler
+              number11(stateFlag23, number16)
+              number11 = CMG
+              number11 = number11.setPlayerCombatTimer
+              stateFlag23 = 60
+              number16 = false
+              number11(stateFlag23, number16)
             end
           end
         end
       end
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
 end
-workValue3(cmgCall2)
+workingValue3(cmgOperation2)
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-function workValue3()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue
-  arg1 = RequestScaleformMovie
-  arg2 = "instructional_buttons"
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+function workingValue3()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue
+  localValue1 = RequestScaleformMovie
+  localValue2 = "instructional_buttons"
   -- Beginner: result below is scaleformHandle.
-  arg1 = arg1(arg2)
-  arg2 = HasScaleformMovieLoaded
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue1 = localValue1(localValue2)
+  localValue2 = HasScaleformMovieLoaded
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     while true do
-      arg2 = HasScaleformMovieLoaded
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if arg2 then
+      localValue2 = HasScaleformMovieLoaded
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
         break
       end
-      arg2 = Wait
-      arg3 = 0
-      arg2(arg3)
+      localValue2 = Wait
+      localValue3 = 0
+      localValue2(localValue3)
     end
   end
-  arg2 = {}
-  arg3 = {}
-  arg3.label = "Attempt combination"
-  arg3.button = "~INPUT_CELLPHONE_UP~"
-  flag18 = {}
-  flag18.label = "Turn combination right"
-  flag18.button = "~INPUT_CELLPHONE_RIGHT~"
-  flag19 = {}
-  flag19.label = "Turn combination left"
-  flag19.button = "~INPUT_CELLPHONE_LEFT~"
-  flag21 = {}
-  flag21.label = "Cancel"
-  flag21.button = "~INPUT_CELLPHONE_CANCEL~"
-  arg2[1] = arg3
-  arg2[2] = flag18
-  arg2[3] = flag19
-  arg2[4] = flag21
-  arg3 = BeginScaleformMovieMethod
-  flag18 = arg1
-  flag19 = "CLEAR_ALL"
-  arg3(flag18, flag19)
-  arg3 = BeginScaleformMovieMethod
-  flag18 = arg1
-  flag19 = "TOGGLE_MOUSE_BUTTONS"
-  arg3(flag18, flag19)
-  arg3 = ScaleformMovieMethodAddParamBool
-  flag18 = false
-  arg3(flag18)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = ipairs
-  flag18 = arg2
-  arg3, flag18, flag19, flag21 = arg3(flag18)
-  for flag22, numberValue11 in arg3, flag18, flag19, flag21 do
-    flag23 = BeginScaleformMovieMethod
-    numberValue16 = arg1
+  localValue2 = {}
+  localValue3 = {}
+  localValue3.label = "Attempt combination"
+  localValue3.button = "~INPUT_CELLPHONE_UP~"
+  stateFlag18 = {}
+  stateFlag18.label = "Turn combination right"
+  stateFlag18.button = "~INPUT_CELLPHONE_RIGHT~"
+  stateFlag19 = {}
+  stateFlag19.label = "Turn combination left"
+  stateFlag19.button = "~INPUT_CELLPHONE_LEFT~"
+  stateFlag21 = {}
+  stateFlag21.label = "Cancel"
+  stateFlag21.button = "~INPUT_CELLPHONE_CANCEL~"
+  localValue2[1] = localValue3
+  localValue2[2] = stateFlag18
+  localValue2[3] = stateFlag19
+  localValue2[4] = stateFlag21
+  localValue3 = BeginScaleformMovieMethod
+  stateFlag18 = localValue1
+  stateFlag19 = "CLEAR_ALL"
+  localValue3(stateFlag18, stateFlag19)
+  localValue3 = BeginScaleformMovieMethod
+  stateFlag18 = localValue1
+  stateFlag19 = "TOGGLE_MOUSE_BUTTONS"
+  localValue3(stateFlag18, stateFlag19)
+  localValue3 = ScaleformMovieMethodAddParamBool
+  stateFlag18 = false
+  localValue3(stateFlag18)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = ipairs
+  stateFlag18 = localValue2
+  localValue3, stateFlag18, stateFlag19, stateFlag21 = localValue3(stateFlag18)
+  for stateFlag22, number11 in localValue3, stateFlag18, stateFlag19, stateFlag21 do
+    stateFlag23 = BeginScaleformMovieMethod
+    number16 = localValue1
     hashValue = "SET_DATA_SLOT"
-    flag23(numberValue16, hashValue)
-    flag23 = ScaleformMovieMethodAddParamInt
-    numberValue16 = flag22 - 1
-    flag23(numberValue16)
-    flag23 = _ENV
-    numberValue16 = "ScaleformMovieMethodAddParamPlayerNameString"
-    flag23 = flag23[numberValue16]
-    numberValue16 = numberValue11.button
-    flag23(numberValue16)
-    flag23 = _ENV
-    numberValue16 = "ScaleformMovieMethodAddParamTextureNameString"
-    flag23 = flag23[numberValue16]
-    numberValue16 = numberValue11.label
-    flag23(numberValue16)
-    flag23 = EndScaleformMovieMethod
-    flag23()
+    stateFlag23(number16, hashValue)
+    stateFlag23 = ScaleformMovieMethodAddParamInt
+    number16 = stateFlag22 - 1
+    stateFlag23(number16)
+    stateFlag23 = _ENV
+    number16 = "ScaleformMovieMethodAddParamPlayerNameString"
+    stateFlag23 = stateFlag23[number16]
+    number16 = number11.button
+    stateFlag23(number16)
+    stateFlag23 = _ENV
+    number16 = "ScaleformMovieMethodAddParamTextureNameString"
+    stateFlag23 = stateFlag23[number16]
+    number16 = number11.label
+    stateFlag23(number16)
+    stateFlag23 = EndScaleformMovieMethod
+    stateFlag23()
   end
-  arg3 = BeginScaleformMovieMethod
-  flag18 = arg1
-  flag19 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  arg3(flag18, flag19)
-  arg3 = ScaleformMovieMethodAddParamInt
-  flag18 = -1
-  arg3(flag18)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = DrawScaleformMovieFullscreen
-  flag18 = arg1
-  flag19 = 255
-  flag21 = 255
-  flag22 = 255
-  numberValue11 = 255
-  flag23 = 0
-  arg3(flag18, flag19, flag21, flag22, numberValue11, flag23)
+  localValue3 = BeginScaleformMovieMethod
+  stateFlag18 = localValue1
+  stateFlag19 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  localValue3(stateFlag18, stateFlag19)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  stateFlag18 = -1
+  localValue3(stateFlag18)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = DrawScaleformMovieFullscreen
+  stateFlag18 = localValue1
+  stateFlag19 = 255
+  stateFlag21 = 255
+  stateFlag22 = 255
+  number11 = 255
+  stateFlag23 = 0
+  localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23)
 end
-cmgCall2 = _ENV
+cmgOperation2 = _ENV
 eventHandlerRegistration = "AddEventHandler"
-cmgCall2 = cmgCall2[eventHandlerRegistration]
+cmgOperation2 = cmgOperation2[eventHandlerRegistration]
 eventHandlerRegistration = "onResourceStop"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg1 == arg2 then
-    arg2 = pairs
-    arg3 = dataTable
-    arg2, arg3, flag18, flag19 = arg2(arg3)
-    for flag21, flag22 in arg2, arg3, flag18, flag19 do
-      numberValue11 = DeleteObject
-      flag23 = flag22.safeHandler
-      numberValue11(flag23)
-      numberValue11 = DeleteObject
-      flag23 = flag22.doorHandler
-      numberValue11(flag23)
-      numberValue11 = DeleteObject
-      flag23 = flag22.moneyHandler
-      numberValue11(flag23)
-      numberValue11 = DeleteObject
-      flag23 = flag22.moneyHandler2
-      numberValue11(flag23)
-      numberValue11 = DeleteObject
-      flag23 = flag22.moneyHandler3
-      numberValue11(flag23)
-      numberValue11 = DeleteObject
-      flag23 = flag22.moneyHandler4
-      numberValue11(flag23)
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue1 == localValue2 then
+    localValue2 = pairs
+    localValue3 = dataCollection
+    localValue2, localValue3, stateFlag18, stateFlag19 = localValue2(localValue3)
+    for stateFlag21, stateFlag22 in localValue2, localValue3, stateFlag18, stateFlag19 do
+      number11 = DeleteObject
+      stateFlag23 = stateFlag22.safeHandler
+      number11(stateFlag23)
+      number11 = DeleteObject
+      stateFlag23 = stateFlag22.doorHandler
+      number11(stateFlag23)
+      number11 = DeleteObject
+      stateFlag23 = stateFlag22.moneyHandler
+      number11(stateFlag23)
+      number11 = DeleteObject
+      stateFlag23 = stateFlag22.moneyHandler2
+      number11(stateFlag23)
+      number11 = DeleteObject
+      stateFlag23 = stateFlag22.moneyHandler3
+      number11(stateFlag23)
+      number11 = DeleteObject
+      stateFlag23 = stateFlag22.moneyHandler4
+      number11(stateFlag23)
     end
   end
 end
-cmgCall2(eventHandlerRegistration, textValue4)
+cmgOperation2(eventHandlerRegistration, text4)
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23
-  arg2 = {}
-  arg3 = math
-  arg3 = arg3.randomseed
-  flag18 = GetGameTimer
-  flag18, flag19, flag21, flag22, numberValue11, flag23 = flag18()
-  arg3(flag18, flag19, flag21, flag22, numberValue11, flag23)
-  arg3 = 1
-  flag18 = arg1
-  flag19 = 1
-  for flag21 = arg3, flag18, flag19 do
-    flag22 = math
-    flag22 = flag22.random
-    numberValue11 = 1
-    flag23 = 99
-    flag22 = flag22(numberValue11, flag23)
-    arg2[flag21] = flag22
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23
+  localValue2 = {}
+  localValue3 = math
+  localValue3 = localValue3.randomseed
+  stateFlag18 = GetGameTimer
+  stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23 = stateFlag18()
+  localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23)
+  localValue3 = 1
+  stateFlag18 = localValue1
+  stateFlag19 = 1
+  for stateFlag21 = localValue3, stateFlag18, stateFlag19 do
+    stateFlag22 = math
+    stateFlag22 = stateFlag22.random
+    number11 = 1
+    stateFlag23 = 99
+    stateFlag22 = stateFlag22(number11, stateFlag23)
+    localValue2[stateFlag21] = stateFlag22
   end
-  return arg2
+  return localValue2
 end
 eventHandlerRegistration = _ENV
-textValue4 = "RunMiniGame"
+text4 = "RunMiniGame"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2
-  arg3 = 1
-  flag18 = cmgCall2
-  flag19 = 10
-  flag18 = flag18(flag19)
-  flag19 = InitSafeLocks
-  flag21 = flag18
-  flag19 = flag19(flag21)
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2
+  localValue3 = 1
+  stateFlag18 = cmgOperation2
+  stateFlag19 = 10
+  stateFlag18 = stateFlag18(stateFlag19)
+  stateFlag19 = InitSafeLocks
+  stateFlag21 = stateFlag18
+  stateFlag19 = stateFlag19(stateFlag21)
   while true do
-    flag21 = flag5
-    if not flag21 then
+    stateFlag21 = stateFlag5
+    if not stateFlag21 then
       break
     end
-    flag21 = textValue2
-    if "setup" == flag21 then
-      flag21 = GetEntityHeading
-      flag22 = arg2
+    stateFlag21 = text2
+    if "setup" == stateFlag21 then
+      stateFlag21 = GetEntityHeading
+      stateFlag22 = localValue2
       -- Beginner: result below is heading.
-      flag21 = flag21(flag22)
-      workValue6 = flag21
-      flag21 = GetSafeDoorAnimOffsetPosition
-      flag22 = GetEntityCoords
-      numberValue11 = arg2
+      stateFlag21 = stateFlag21(stateFlag22)
+      workingValue6 = stateFlag21
+      stateFlag21 = GetSafeDoorAnimOffsetPosition
+      stateFlag22 = GetEntityCoords
+      number11 = localValue2
       -- Beginner: result below is entityCoords.
-      flag22 = flag22(numberValue11)
-      numberValue11 = workValue6
-      flag23 = "intro_dont_work"
-      flag21 = flag21(flag22, numberValue11, flag23)
-      workValue5 = flag21
-      flag21 = PlaySafeCrackIntroAnim
-      flag22 = workValue5
-      numberValue11 = workValue6
-      flag21(flag22, numberValue11)
-      flag21 = GetSafeDoorAnimOffsetPosition
-      flag22 = GetEntityCoords
-      numberValue11 = arg2
+      stateFlag22 = stateFlag22(number11)
+      number11 = workingValue6
+      stateFlag23 = "intro_dont_work"
+      stateFlag21 = stateFlag21(stateFlag22, number11, stateFlag23)
+      workingValue5 = stateFlag21
+      stateFlag21 = PlaySafeCrackIntroAnim
+      stateFlag22 = workingValue5
+      number11 = workingValue6
+      stateFlag21(stateFlag22, number11)
+      stateFlag21 = GetSafeDoorAnimOffsetPosition
+      stateFlag22 = GetEntityCoords
+      number11 = localValue2
       -- Beginner: result below is entityCoords.
-      flag22 = flag22(numberValue11)
-      numberValue11 = workValue6
-      flag23 = "cracking"
-      flag21 = flag21(flag22, numberValue11, flag23)
-      workValue5 = flag21
+      stateFlag22 = stateFlag22(number11)
+      number11 = workingValue6
+      stateFlag23 = "cracking"
+      stateFlag21 = stateFlag21(stateFlag22, number11, stateFlag23)
+      workingValue5 = stateFlag21
     else
-      flag21 = textValue2
-      if "cracking" == flag21 then
-        flag21 = workValue3
-        flag21()
-        flag21 = GetEntityHealth
-        flag22 = CMG
-        flag22 = flag22.getPlayerPed
-        flag22, numberValue11, flag23, numberValue16, hashValue, flag2 = flag22()
+      stateFlag21 = text2
+      if "cracking" == stateFlag21 then
+        stateFlag21 = workingValue3
+        stateFlag21()
+        stateFlag21 = GetEntityHealth
+        stateFlag22 = CMG
+        stateFlag22 = stateFlag22.getPlayerPed
+        stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2 = stateFlag22()
         -- Beginner: result below is health.
-        flag21 = flag21(flag22, numberValue11, flag23, numberValue16, hashValue, flag2)
-        if not (flag21 <= 102) then
-          flag22 = CMG
-          flag22 = flag22.isHandcuffed
-          flag22 = flag22()
-          if not flag22 then
-            goto flow_label_59
+        stateFlag21 = stateFlag21(stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2)
+        if not (stateFlag21 <= 102) then
+          stateFlag22 = CMG
+          stateFlag22 = stateFlag22.isHandcuffed
+          stateFlag22 = stateFlag22()
+          if not stateFlag22 then
+            goto continueAtStep59
           end
         end
-        flag22 = false
-        flag5 = flag22
-        goto flow_label_155
-        ::flow_label_59::
-        flag22 = HandleSafeDialMovement
-        flag22()
-        flag22 = GetCurrentSafeDialNumber
-        numberValue11 = workValue7
-        flag22 = flag22(numberValue11)
-        numberValue11 = IsControlJustPressed
-        flag23 = 0
-        numberValue16 = 172
-        numberValue11 = numberValue11(flag23, numberValue16)
-        if numberValue11 then
-          numberValue11 = flag18[arg3]
-          if flag22 == numberValue11 then
-            flag19[arg3] = false
-            arg3 = arg3 + 1
-            numberValue11 = ReleaseCurrentPin
-            flag23 = flag19
-            numberValue16 = arg3
-            numberValue11(flag23, numberValue16)
-            numberValue11 = IsSafeUnlocked
-            flag23 = flag19
-            numberValue16 = arg3
-            numberValue11 = numberValue11(flag23, numberValue16)
-            if numberValue11 then
-              numberValue11 = EndMiniGame
-              flag23 = arg1
-              numberValue11(flag23)
-              numberValue11 = "complete"
-              textValue2 = numberValue11
-              numberValue11 = false
-              flag5 = numberValue11
-              numberValue11 = ClearPedTasksImmediately
-              flag23 = CMG
-              flag23 = flag23.getPlayerPed
-              flag23, numberValue16, hashValue, flag2 = flag23()
-              numberValue11(flag23, numberValue16, hashValue, flag2)
+        stateFlag22 = false
+        stateFlag5 = stateFlag22
+        goto continueAtStep155
+        ::continueAtStep59::
+        stateFlag22 = HandleSafeDialMovement
+        stateFlag22()
+        stateFlag22 = GetCurrentSafeDialNumber
+        number11 = workingValue7
+        stateFlag22 = stateFlag22(number11)
+        number11 = IsControlJustPressed
+        stateFlag23 = 0
+        number16 = 172
+        number11 = number11(stateFlag23, number16)
+        if number11 then
+          number11 = stateFlag18[localValue3]
+          if stateFlag22 == number11 then
+            stateFlag19[localValue3] = false
+            localValue3 = localValue3 + 1
+            number11 = ReleaseCurrentPin
+            stateFlag23 = stateFlag19
+            number16 = localValue3
+            number11(stateFlag23, number16)
+            number11 = IsSafeUnlocked
+            stateFlag23 = stateFlag19
+            number16 = localValue3
+            number11 = number11(stateFlag23, number16)
+            if number11 then
+              number11 = EndMiniGame
+              stateFlag23 = localValue1
+              number11(stateFlag23)
+              number11 = "complete"
+              text2 = number11
+              number11 = false
+              stateFlag5 = number11
+              number11 = ClearPedTasksImmediately
+              stateFlag23 = CMG
+              stateFlag23 = stateFlag23.getPlayerPed
+              stateFlag23, number16, hashValue, stateFlag2 = stateFlag23()
+              number11(stateFlag23, number16, hashValue, stateFlag2)
             end
           else
-            arg3 = 1
-            numberValue11 = InitSafeLocks
-            flag23 = flag18
-            numberValue11 = numberValue11(flag23)
-            flag19 = numberValue11
-            numberValue11 = cmgCall2
-            flag23 = 10
-            numberValue11 = numberValue11(flag23)
-            flag18 = numberValue11
-            numberValue11 = PlaySoundFrontend
-            flag23 = -1
-            numberValue16 = "TUMBLER_RESET"
+            localValue3 = 1
+            number11 = InitSafeLocks
+            stateFlag23 = stateFlag18
+            number11 = number11(stateFlag23)
+            stateFlag19 = number11
+            number11 = cmgOperation2
+            stateFlag23 = 10
+            number11 = number11(stateFlag23)
+            stateFlag18 = number11
+            number11 = PlaySoundFrontend
+            stateFlag23 = -1
+            number16 = "TUMBLER_RESET"
             hashValue = "SAFE_CRACK_SOUNDSET"
-            flag2 = true
-            numberValue11(flag23, numberValue16, hashValue, flag2)
-            numberValue11 = HandleIncorrectMovement
-            numberValue11()
-            numberValue11 = "idle"
-            textValue3 = numberValue11
-            numberValue11 = textValue
-            textValue7 = numberValue11
-            numberValue11 = Wait
-            flag23 = 3500
-            numberValue11(flag23)
-            numberValue11 = ClearPedTasksImmediately
-            flag23 = CMG
-            flag23 = flag23.getPlayerPed
-            flag23, numberValue16, hashValue, flag2 = flag23()
-            numberValue11(flag23, numberValue16, hashValue, flag2)
+            stateFlag2 = true
+            number11(stateFlag23, number16, hashValue, stateFlag2)
+            number11 = HandleIncorrectMovement
+            number11()
+            number11 = "idle"
+            text3 = number11
+            number11 = text
+            text7 = number11
+            number11 = Wait
+            stateFlag23 = 3500
+            number11(stateFlag23)
+            number11 = ClearPedTasksImmediately
+            stateFlag23 = CMG
+            stateFlag23 = stateFlag23.getPlayerPed
+            stateFlag23, number16, hashValue, stateFlag2 = stateFlag23()
+            number11(stateFlag23, number16, hashValue, stateFlag2)
           end
         else
-          numberValue11 = IsControlJustPressed
-          flag23 = 0
-          numberValue16 = 177
-          numberValue11 = numberValue11(flag23, numberValue16)
-          if numberValue11 then
-            numberValue11 = false
-            flag5 = numberValue11
-            numberValue11 = ClearPedTasksImmediately
-            flag23 = CMG
-            flag23 = flag23.getPlayerPed
-            flag23, numberValue16, hashValue, flag2 = flag23()
-            numberValue11(flag23, numberValue16, hashValue, flag2)
+          number11 = IsControlJustPressed
+          stateFlag23 = 0
+          number16 = 177
+          number11 = number11(stateFlag23, number16)
+          if number11 then
+            number11 = false
+            stateFlag5 = number11
+            number11 = ClearPedTasksImmediately
+            stateFlag23 = CMG
+            stateFlag23 = stateFlag23.getPlayerPed
+            stateFlag23, number16, hashValue, stateFlag2 = stateFlag23()
+            number11(stateFlag23, number16, hashValue, stateFlag2)
           end
         end
-        numberValue11 = textValue2
-        if "complete" ~= numberValue11 then
-          numberValue11 = GetDialProximityToTargetPin
-          flag23 = flag22
-          numberValue16 = flag18
-          hashValue = arg3
-          numberValue11 = numberValue11(flag23, numberValue16, hashValue)
-          flag23 = SetDialSpriteShake
-          numberValue16 = numberValue11
-          flag23(numberValue16)
-          flag23 = DrawSprites
-          flag23()
+        number11 = text2
+        if "complete" ~= number11 then
+          number11 = GetDialProximityToTargetPin
+          stateFlag23 = stateFlag22
+          number16 = stateFlag18
+          hashValue = localValue3
+          number11 = number11(stateFlag23, number16, hashValue)
+          stateFlag23 = SetDialSpriteShake
+          number16 = number11
+          stateFlag23(number16)
+          stateFlag23 = DrawSprites
+          stateFlag23()
         end
       end
     end
-    ::flow_label_155::
-    flag21 = Wait
-    flag22 = 0
-    flag21(flag22)
+    ::continueAtStep155::
+    stateFlag21 = Wait
+    stateFlag22 = 0
+    stateFlag21(stateFlag22)
   end
-  flag21 = RemoveAnimDict
-  flag22 = "mini@safe_cracking"
-  flag21(flag22)
+  stateFlag21 = RemoveAnimDict
+  stateFlag22 = "mini@safe_cracking"
+  stateFlag21(stateFlag22)
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "GetSafeDoorAnimOffsetPosition"
+text4 = "GetSafeDoorAnimOffsetPosition"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
-function workValue4(arg1, arg2, arg3)
-  local flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3
-  flag18 = nil
-  flag19 = nil
-  flag21 = nil
-  flag22 = nil
-  if "intro" == arg3 then
-    flag18 = 0.8
-    flag19 = -0.35
-    flag21 = -0.35
-    flag22 = -0.8
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2, localValue3) ===
+function workingValue4(localValue1, localValue2, localValue3)
+  local stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3
+  stateFlag18 = nil
+  stateFlag19 = nil
+  stateFlag21 = nil
+  stateFlag22 = nil
+  if "intro" == localValue3 then
+    stateFlag18 = 0.8
+    stateFlag19 = -0.35
+    stateFlag21 = -0.35
+    stateFlag22 = -0.8
   else
-    flag18 = 0.53
-    flag19 = -0.6
-    flag21 = -0.6
-    flag22 = -0.53
+    stateFlag18 = 0.53
+    stateFlag19 = -0.6
+    stateFlag21 = -0.6
+    stateFlag22 = -0.53
   end
-  numberValue11 = math
-  numberValue11 = numberValue11.sin
-  flag23 = math
-  flag23 = flag23.pi
-  flag23 = arg2 * flag23
-  flag23 = flag23 / 180
-  numberValue11 = numberValue11(flag23)
-  numberValue11 = flag18 * numberValue11
-  flag23 = math
-  flag23 = flag23.cos
-  numberValue16 = math
-  numberValue16 = numberValue16.pi
-  numberValue16 = arg2 * numberValue16
-  numberValue16 = numberValue16 / 180
-  flag23 = flag23(numberValue16)
-  flag23 = flag19 * flag23
-  numberValue11 = numberValue11 + flag23
-  flag23 = math
-  flag23 = flag23.sin
-  numberValue16 = math
-  numberValue16 = numberValue16.pi
-  numberValue16 = arg2 * numberValue16
-  numberValue16 = numberValue16 / 180
-  flag23 = flag23(numberValue16)
-  flag23 = flag21 * flag23
-  numberValue16 = math
-  numberValue16 = numberValue16.cos
+  number11 = math
+  number11 = number11.sin
+  stateFlag23 = math
+  stateFlag23 = stateFlag23.pi
+  stateFlag23 = localValue2 * stateFlag23
+  stateFlag23 = stateFlag23 / 180
+  number11 = number11(stateFlag23)
+  number11 = stateFlag18 * number11
+  stateFlag23 = math
+  stateFlag23 = stateFlag23.cos
+  number16 = math
+  number16 = number16.pi
+  number16 = localValue2 * number16
+  number16 = number16 / 180
+  stateFlag23 = stateFlag23(number16)
+  stateFlag23 = stateFlag19 * stateFlag23
+  number11 = number11 + stateFlag23
+  stateFlag23 = math
+  stateFlag23 = stateFlag23.sin
+  number16 = math
+  number16 = number16.pi
+  number16 = localValue2 * number16
+  number16 = number16 / 180
+  stateFlag23 = stateFlag23(number16)
+  stateFlag23 = stateFlag21 * stateFlag23
+  number16 = math
+  number16 = number16.cos
   hashValue = math
   hashValue = hashValue.pi
-  hashValue = arg2 * hashValue
+  hashValue = localValue2 * hashValue
   hashValue = hashValue / 180
-  numberValue16 = numberValue16(hashValue)
-  numberValue16 = flag22 * numberValue16
-  flag23 = flag23 + numberValue16
-  numberValue16 = vector3
-  hashValue = arg1.x
-  hashValue = hashValue + numberValue11
-  flag2 = arg1.y
-  flag2 = flag2 + flag23
+  number16 = number16(hashValue)
+  number16 = stateFlag22 * number16
+  stateFlag23 = stateFlag23 + number16
+  number16 = vector3
+  hashValue = localValue1.x
+  hashValue = hashValue + number11
+  stateFlag2 = localValue1.y
+  stateFlag2 = stateFlag2 + stateFlag23
   hashValue2 = GetEntityCoords
   hashValue3 = CMG
   hashValue3 = hashValue3.getPlayerPed
@@ -2884,221 +2884,221 @@ function workValue4(arg1, arg2, arg3)
   -- Beginner: result below is entityCoords.
   hashValue2 = hashValue2(hashValue3)
   hashValue2 = hashValue2.z
-  return numberValue16(hashValue, flag2, hashValue2)
+  return number16(hashValue, stateFlag2, hashValue2)
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "PlaySafeCrackIntroAnim"
+text4 = "PlaySafeCrackIntroAnim"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11
-  arg3 = "mini@safe_cracking"
-  flag18 = "step_into"
-  flag19 = CMG
-  flag19 = flag19.loadAnimDict
-  flag21 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11
+  localValue3 = "mini@safe_cracking"
+  stateFlag18 = "step_into"
+  stateFlag19 = CMG
+  stateFlag19 = stateFlag19.loadAnimDict
+  stateFlag21 = localValue3
   -- Beginner: Load a GTA animation dictionary before using it.
-  flag19(flag21)
-  flag19 = TaskPlayAnimAdvanced
-  flag21 = CMG
-  flag21 = flag21.getPlayerPed
+  stateFlag19(stateFlag21)
+  stateFlag19 = TaskPlayAnimAdvanced
+  stateFlag21 = CMG
+  stateFlag21 = stateFlag21.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  flag21 = flag21()
-  flag22 = arg3
-  numberValue11 = flag18
-  flag23 = arg1.x
-  numberValue16 = arg1.y
-  hashValue = arg1.z
-  flag2 = 0.0
+  stateFlag21 = stateFlag21()
+  stateFlag22 = localValue3
+  number11 = stateFlag18
+  stateFlag23 = localValue1.x
+  number16 = localValue1.y
+  hashValue = localValue1.z
+  stateFlag2 = 0.0
   hashValue2 = 0.0
-  hashValue3 = arg2
-  flag6 = 8.0
-  flag8 = 8.0
-  numberValue2 = -1
-  numberValue3 = 2
-  flag9 = 0.7
-  flag10 = 0
-  flag11 = 0
-  flag19(flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11)
-  flag19 = RemoveAnimDict
-  flag21 = arg3
-  flag19(flag21)
-  flag19 = Wait
-  flag21 = 0
-  flag19(flag21)
-  flag19 = Wait
-  flag21 = 1000
-  flag19(flag21)
-  flag19 = "cracking"
-  textValue2 = flag19
+  hashValue3 = localValue2
+  stateFlag6 = 8.0
+  stateFlag8 = 8.0
+  number2 = -1
+  number3 = 2
+  stateFlag9 = 0.7
+  stateFlag10 = 0
+  stateFlag11 = 0
+  stateFlag19(stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10, stateFlag11)
+  stateFlag19 = RemoveAnimDict
+  stateFlag21 = localValue3
+  stateFlag19(stateFlag21)
+  stateFlag19 = Wait
+  stateFlag21 = 0
+  stateFlag19(stateFlag21)
+  stateFlag19 = Wait
+  stateFlag21 = 1000
+  stateFlag19(stateFlag21)
+  stateFlag19 = "cracking"
+  text2 = stateFlag19
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "HandleSafeDialMovement"
+text4 = "HandleSafeDialMovement"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = "mini@safe_cracking"
-  arg3 = ""
-  flag18 = IsEntityPlayingAnim
-  flag19 = arg1
-  flag21 = arg2
-  flag22 = "dial_turn_fail_3"
-  numberValue11 = 3
-  flag18 = flag18(flag19, flag21, flag22, numberValue11)
-  if not flag18 then
-    flag18 = IsEntityPlayingAnim
-    flag19 = arg1
-    flag21 = arg2
-    flag22 = "dial_turn_fail_4"
-    numberValue11 = 3
-    flag18 = flag18(flag19, flag21, flag22, numberValue11)
-    if not flag18 then
-      goto flow_label_23
+  localValue1 = localValue1()
+  localValue2 = "mini@safe_cracking"
+  localValue3 = ""
+  stateFlag18 = IsEntityPlayingAnim
+  stateFlag19 = localValue1
+  stateFlag21 = localValue2
+  stateFlag22 = "dial_turn_fail_3"
+  number11 = 3
+  stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+  if not stateFlag18 then
+    stateFlag18 = IsEntityPlayingAnim
+    stateFlag19 = localValue1
+    stateFlag21 = localValue2
+    stateFlag22 = "dial_turn_fail_4"
+    number11 = 3
+    stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+    if not stateFlag18 then
+      goto continueAtStep23
     end
   end
   return
-  ::flow_label_23::
-  flag18 = IsControlJustPressed
-  flag19 = 0
-  flag21 = 174
-  flag18 = flag18(flag19, flag21)
-  if flag18 then
-    flag18 = 100
-    numberValue13 = flag18
-    flag18 = GetGameTimer
+  ::continueAtStep23::
+  stateFlag18 = IsControlJustPressed
+  stateFlag19 = 0
+  stateFlag21 = 174
+  stateFlag18 = stateFlag18(stateFlag19, stateFlag21)
+  if stateFlag18 then
+    stateFlag18 = 100
+    number13 = stateFlag18
+    stateFlag18 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    flag18 = flag18()
-    gameTime = flag18
-    arg3 = "dial_turn_anti_normal"
-    flag18 = RotateSafeDial
-    flag19 = "rotation.anticlockwise"
-    flag18(flag19)
+    stateFlag18 = stateFlag18()
+    gameTime = stateFlag18
+    localValue3 = "dial_turn_anti_normal"
+    stateFlag18 = RotateSafeDial
+    stateFlag19 = "rotation.anticlockwise"
+    stateFlag18(stateFlag19)
   else
-    flag18 = IsControlJustPressed
-    flag19 = 0
-    flag21 = 175
-    flag18 = flag18(flag19, flag21)
-    if flag18 then
-      flag18 = 100
-      numberValue13 = flag18
-      flag18 = GetGameTimer
+    stateFlag18 = IsControlJustPressed
+    stateFlag19 = 0
+    stateFlag21 = 175
+    stateFlag18 = stateFlag18(stateFlag19, stateFlag21)
+    if stateFlag18 then
+      stateFlag18 = 100
+      number13 = stateFlag18
+      stateFlag18 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      flag18 = flag18()
-      gameTime = flag18
-      arg3 = "dial_turn_clock_normal"
-      flag18 = RotateSafeDial
-      flag19 = "rotation.clockwise"
-      flag18(flag19)
+      stateFlag18 = stateFlag18()
+      gameTime = stateFlag18
+      localValue3 = "dial_turn_clock_normal"
+      stateFlag18 = RotateSafeDial
+      stateFlag19 = "rotation.clockwise"
+      stateFlag18(stateFlag19)
     else
-      flag18 = IsControlPressed
-      flag19 = 0
-      flag21 = 174
-      flag18 = flag18(flag19, flag21)
-      if flag18 then
-        flag18 = gameTime
-        flag19 = GetGameTimer
+      stateFlag18 = IsControlPressed
+      stateFlag19 = 0
+      stateFlag21 = 174
+      stateFlag18 = stateFlag18(stateFlag19, stateFlag21)
+      if stateFlag18 then
+        stateFlag18 = gameTime
+        stateFlag19 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        flag19 = flag19()
-        flag21 = numberValue13
-        flag19 = flag19 - flag21
-        if flag18 >= flag19 then
+        stateFlag19 = stateFlag19()
+        stateFlag21 = number13
+        stateFlag19 = stateFlag19 - stateFlag21
+        if stateFlag18 >= stateFlag19 then
           return
         end
-        flag18 = 10
-        numberValue13 = flag18
-        flag18 = GetGameTimer
+        stateFlag18 = 10
+        number13 = stateFlag18
+        stateFlag18 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        flag18 = flag18()
-        gameTime = flag18
-        arg3 = "dial_turn_anti_fast"
-        flag18 = RotateSafeDial
-        flag19 = "rotation.anticlockwise"
-        flag18(flag19)
+        stateFlag18 = stateFlag18()
+        gameTime = stateFlag18
+        localValue3 = "dial_turn_anti_fast"
+        stateFlag18 = RotateSafeDial
+        stateFlag19 = "rotation.anticlockwise"
+        stateFlag18(stateFlag19)
       else
-        flag18 = IsControlPressed
-        flag19 = 0
-        flag21 = 175
-        flag18 = flag18(flag19, flag21)
-        if flag18 then
-          flag18 = gameTime
-          flag19 = GetGameTimer
+        stateFlag18 = IsControlPressed
+        stateFlag19 = 0
+        stateFlag21 = 175
+        stateFlag18 = stateFlag18(stateFlag19, stateFlag21)
+        if stateFlag18 then
+          stateFlag18 = gameTime
+          stateFlag19 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          flag19 = flag19()
-          flag21 = numberValue13
-          flag19 = flag19 - flag21
-          if flag18 >= flag19 then
+          stateFlag19 = stateFlag19()
+          stateFlag21 = number13
+          stateFlag19 = stateFlag19 - stateFlag21
+          if stateFlag18 >= stateFlag19 then
             return
           end
-          flag18 = 10
-          numberValue13 = flag18
-          flag18 = GetGameTimer
+          stateFlag18 = 10
+          number13 = stateFlag18
+          stateFlag18 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          flag18 = flag18()
-          gameTime = flag18
-          arg3 = "dial_turn_clock_fast"
-          flag18 = RotateSafeDial
-          flag19 = "rotation.clockwise"
-          flag18(flag19)
+          stateFlag18 = stateFlag18()
+          gameTime = stateFlag18
+          localValue3 = "dial_turn_clock_fast"
+          stateFlag18 = RotateSafeDial
+          stateFlag19 = "rotation.clockwise"
+          stateFlag18(stateFlag19)
         else
-          flag18 = "rotation.idle"
-          textValue3 = flag18
-          flag18 = IsEntityPlayingAnim
-          flag19 = arg1
-          flag21 = arg2
-          flag22 = "dial_turn_anti_normal"
-          numberValue11 = 3
-          flag18 = flag18(flag19, flag21, flag22, numberValue11)
-          if not flag18 then
-            flag18 = IsEntityPlayingAnim
-            flag19 = arg1
-            flag21 = arg2
-            flag22 = "dial_turn_clock_normal"
-            numberValue11 = 3
-            flag18 = flag18(flag19, flag21, flag22, numberValue11)
-            if not flag18 then
-              flag18 = IsEntityPlayingAnim
-              flag19 = arg1
-              flag21 = arg2
-              flag22 = "dial_turn_anti_fast"
-              numberValue11 = 3
-              flag18 = flag18(flag19, flag21, flag22, numberValue11)
-              if not flag18 then
-                flag18 = IsEntityPlayingAnim
-                flag19 = arg1
-                flag21 = arg2
-                flag22 = "dial_turn_clock_fast"
-                numberValue11 = 3
-                flag18 = flag18(flag19, flag21, flag22, numberValue11)
-                if not flag18 then
-                  flag18 = IsEntityPlayingAnim
-                  flag19 = arg1
-                  flag21 = arg2
-                  flag22 = "idle_base"
-                  numberValue11 = 3
-                  flag18 = flag18(flag19, flag21, flag22, numberValue11)
-                  if not flag18 then
-                    flag18 = IsEntityPlayingAnim
-                    flag19 = arg1
-                    flag21 = arg2
-                    flag22 = "idle_heavy_breathe"
-                    numberValue11 = 3
-                    flag18 = flag18(flag19, flag21, flag22, numberValue11)
-                    if not flag18 then
-                      flag18 = IsEntityPlayingAnim
-                      flag19 = arg1
-                      flag21 = arg2
-                      flag22 = "idle_look_around"
-                      numberValue11 = 3
-                      flag18 = flag18(flag19, flag21, flag22, numberValue11)
-                      if not flag18 then
-                        goto flow_label_164
+          stateFlag18 = "rotation.idle"
+          text3 = stateFlag18
+          stateFlag18 = IsEntityPlayingAnim
+          stateFlag19 = localValue1
+          stateFlag21 = localValue2
+          stateFlag22 = "dial_turn_anti_normal"
+          number11 = 3
+          stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+          if not stateFlag18 then
+            stateFlag18 = IsEntityPlayingAnim
+            stateFlag19 = localValue1
+            stateFlag21 = localValue2
+            stateFlag22 = "dial_turn_clock_normal"
+            number11 = 3
+            stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+            if not stateFlag18 then
+              stateFlag18 = IsEntityPlayingAnim
+              stateFlag19 = localValue1
+              stateFlag21 = localValue2
+              stateFlag22 = "dial_turn_anti_fast"
+              number11 = 3
+              stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+              if not stateFlag18 then
+                stateFlag18 = IsEntityPlayingAnim
+                stateFlag19 = localValue1
+                stateFlag21 = localValue2
+                stateFlag22 = "dial_turn_clock_fast"
+                number11 = 3
+                stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+                if not stateFlag18 then
+                  stateFlag18 = IsEntityPlayingAnim
+                  stateFlag19 = localValue1
+                  stateFlag21 = localValue2
+                  stateFlag22 = "idle_base"
+                  number11 = 3
+                  stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+                  if not stateFlag18 then
+                    stateFlag18 = IsEntityPlayingAnim
+                    stateFlag19 = localValue1
+                    stateFlag21 = localValue2
+                    stateFlag22 = "idle_heavy_breathe"
+                    number11 = 3
+                    stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+                    if not stateFlag18 then
+                      stateFlag18 = IsEntityPlayingAnim
+                      stateFlag19 = localValue1
+                      stateFlag21 = localValue2
+                      stateFlag22 = "idle_look_around"
+                      number11 = 3
+                      stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+                      if not stateFlag18 then
+                        goto continueAtStep164
                       end
                     end
                   end
@@ -3107,377 +3107,377 @@ function workValue4()
             end
           end
           return
-          ::flow_label_164::
-          flag18 = GetGameTimer
+          ::continueAtStep164::
+          stateFlag18 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          flag18 = flag18()
-          flag18 = flag18 % 3
-          flag19 = nil
-          if 2 == flag18 then
-            flag19 = "idle_heavy_breathe"
-          elseif 1 == flag18 then
-            flag19 = "idle_look_around"
+          stateFlag18 = stateFlag18()
+          stateFlag18 = stateFlag18 % 3
+          stateFlag19 = nil
+          if 2 == stateFlag18 then
+            stateFlag19 = "idle_heavy_breathe"
+          elseif 1 == stateFlag18 then
+            stateFlag19 = "idle_look_around"
           else
-            flag19 = "idle_base"
+            stateFlag19 = "idle_base"
           end
-          arg3 = flag19
+          localValue3 = stateFlag19
         end
       end
     end
   end
-  if "" == arg3 or nil == arg3 then
+  if "" == localValue3 or nil == localValue3 then
     return
   end
-  flag18 = CMG
-  flag18 = flag18.loadAnimDict
-  flag19 = arg2
+  stateFlag18 = CMG
+  stateFlag18 = stateFlag18.loadAnimDict
+  stateFlag19 = localValue2
   -- Beginner: Load a GTA animation dictionary before using it.
-  flag18(flag19)
-  flag18 = IsEntityPlayingAnim
-  flag19 = CMG
-  flag19 = flag19.getPlayerPed
+  stateFlag18(stateFlag19)
+  stateFlag18 = IsEntityPlayingAnim
+  stateFlag19 = CMG
+  stateFlag19 = stateFlag19.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  flag19 = flag19()
-  flag21 = arg2
-  flag22 = arg3
-  numberValue11 = 3
-  flag18 = flag18(flag19, flag21, flag22, numberValue11)
-  if not flag18 then
-    flag18 = TaskPlayAnimAdvanced
-    flag19 = CMG
-    flag19 = flag19.getPlayerPed
+  stateFlag19 = stateFlag19()
+  stateFlag21 = localValue2
+  stateFlag22 = localValue3
+  number11 = 3
+  stateFlag18 = stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
+  if not stateFlag18 then
+    stateFlag18 = TaskPlayAnimAdvanced
+    stateFlag19 = CMG
+    stateFlag19 = stateFlag19.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    flag19 = flag19()
-    flag21 = arg2
-    flag22 = arg3
-    numberValue11 = workValue5.x
-    flag23 = workValue5.y
-    numberValue16 = workValue5.z
+    stateFlag19 = stateFlag19()
+    stateFlag21 = localValue2
+    stateFlag22 = localValue3
+    number11 = workingValue5.x
+    stateFlag23 = workingValue5.y
+    number16 = workingValue5.z
     hashValue = 0.0
-    flag2 = 0.0
-    hashValue2 = workValue6
+    stateFlag2 = 0.0
+    hashValue2 = workingValue6
     hashValue3 = 8.0
-    flag6 = 8.0
-    flag8 = -1
-    numberValue2 = 1
-    numberValue3 = 1.0
-    flag9 = 0
-    flag10 = 0
-    flag18(flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10)
+    stateFlag6 = 8.0
+    stateFlag8 = -1
+    number2 = 1
+    number3 = 1.0
+    stateFlag9 = 0
+    stateFlag10 = 0
+    stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9, stateFlag10)
   end
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "HandleIncorrectMovement"
+text4 = "HandleIncorrectMovement"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9
-  arg1 = "mini@safe_cracking"
-  arg2 = ""
-  arg3 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9
+  localValue1 = "mini@safe_cracking"
+  localValue2 = ""
+  localValue3 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg3 = arg3()
-  arg3 = arg3 % 2
-  if 0 == arg3 then
-    arg2 = "dial_turn_fail_3"
+  localValue3 = localValue3()
+  localValue3 = localValue3 % 2
+  if 0 == localValue3 then
+    localValue2 = "dial_turn_fail_3"
   else
-    arg2 = "dial_turn_fail_4"
+    localValue2 = "dial_turn_fail_4"
   end
-  arg3 = CMG
-  arg3 = arg3.loadAnimDict
-  flag18 = arg1
+  localValue3 = CMG
+  localValue3 = localValue3.loadAnimDict
+  stateFlag18 = localValue1
   -- Beginner: Load a GTA animation dictionary before using it.
-  arg3(flag18)
-  arg3 = TaskPlayAnimAdvanced
-  flag18 = CMG
-  flag18 = flag18.getPlayerPed
+  localValue3(stateFlag18)
+  localValue3 = TaskPlayAnimAdvanced
+  stateFlag18 = CMG
+  stateFlag18 = stateFlag18.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  flag18 = flag18()
-  flag19 = arg1
-  flag21 = arg2
-  flag22 = workValue5.x
-  numberValue11 = workValue5.y
-  flag23 = workValue5.z
-  numberValue16 = 0.0
+  stateFlag18 = stateFlag18()
+  stateFlag19 = localValue1
+  stateFlag21 = localValue2
+  stateFlag22 = workingValue5.x
+  number11 = workingValue5.y
+  stateFlag23 = workingValue5.z
+  number16 = 0.0
   hashValue = 0.0
-  flag2 = workValue6
+  stateFlag2 = workingValue6
   hashValue2 = 8.0
   hashValue3 = 8.0
-  flag6 = -1
-  flag8 = 1
-  numberValue2 = 1.0
-  numberValue3 = 0
-  flag9 = 0
-  arg3(flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9)
-  arg3 = RemoveAnimDict
-  flag18 = arg1
-  arg3(flag18)
-  arg3 = "rotation.idle"
-  textValue3 = arg3
+  stateFlag6 = -1
+  stateFlag8 = 1
+  number2 = 1.0
+  number3 = 0
+  stateFlag9 = 0
+  localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9)
+  localValue3 = RemoveAnimDict
+  stateFlag18 = localValue1
+  localValue3(stateFlag18)
+  localValue3 = "rotation.idle"
+  text3 = localValue3
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "ReleaseCurrentPin"
+text4 = "ReleaseCurrentPin"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3, flag18, flag19, flag21, flag22
-  arg3 = textValue7
-  if "rotation.anticlockwise" == arg3 then
-    arg3 = "rotation.clockwise"
-    textValue7 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22
+  localValue3 = text7
+  if "rotation.anticlockwise" == localValue3 then
+    localValue3 = "rotation.clockwise"
+    text7 = localValue3
   else
-    arg3 = "rotation.anticlockwise"
-    textValue7 = arg3
+    localValue3 = "rotation.anticlockwise"
+    text7 = localValue3
   end
-  arg3 = IsSafeUnlocked
-  flag18 = arg1
-  flag19 = arg2
-  arg3 = arg3(flag18, flag19)
-  if arg3 then
-    arg3 = PlaySoundFrontend
-    flag18 = -1
-    flag19 = "TUMBLER_PIN_FALL_FINAL"
-    flag21 = "SAFE_CRACK_SOUNDSET"
-    flag22 = true
-    arg3(flag18, flag19, flag21, flag22)
+  localValue3 = IsSafeUnlocked
+  stateFlag18 = localValue1
+  stateFlag19 = localValue2
+  localValue3 = localValue3(stateFlag18, stateFlag19)
+  if localValue3 then
+    localValue3 = PlaySoundFrontend
+    stateFlag18 = -1
+    stateFlag19 = "TUMBLER_PIN_FALL_FINAL"
+    stateFlag21 = "SAFE_CRACK_SOUNDSET"
+    stateFlag22 = true
+    localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22)
   else
-    arg3 = PlaySoundFrontend
-    flag18 = -1
-    flag19 = "TUMBLER_PIN_FALL"
-    flag21 = "SAFE_CRACK_SOUNDSET"
-    flag22 = true
-    arg3(flag18, flag19, flag21, flag22)
+    localValue3 = PlaySoundFrontend
+    stateFlag18 = -1
+    stateFlag19 = "TUMBLER_PIN_FALL"
+    stateFlag21 = "SAFE_CRACK_SOUNDSET"
+    stateFlag22 = true
+    localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22)
   end
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "DrawSprites"
+text4 = "DrawSprites"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3
-  arg1 = "MPSafeCracking"
-  arg2 = GetAspectRatio
-  arg3 = true
-  arg2 = arg2(arg3)
-  arg3 = DrawSprite
-  flag18 = arg1
-  flag19 = "Dial_BG"
-  flag21 = numberValue15
-  flag22 = numberValue
-  numberValue11 = 0.3
-  flag23 = arg2 * 0.3
-  numberValue16 = 0
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3
+  localValue1 = "MPSafeCracking"
+  localValue2 = GetAspectRatio
+  localValue3 = true
+  localValue2 = localValue2(localValue3)
+  localValue3 = DrawSprite
+  stateFlag18 = localValue1
+  stateFlag19 = "Dial_BG"
+  stateFlag21 = number15
+  stateFlag22 = number
+  number11 = 0.3
+  stateFlag23 = localValue2 * 0.3
+  number16 = 0
   hashValue = 255
-  flag2 = 255
+  stateFlag2 = 255
   hashValue2 = 255
   hashValue3 = 255
-  arg3(flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3)
-  arg3 = DrawSprite
-  flag18 = arg1
-  flag19 = "Dial"
-  flag21 = numberValue15
-  flag22 = numberValue
-  numberValue11 = 0.15
-  flag23 = arg2 * 0.3
-  flag23 = flag23 * 0.5
-  numberValue16 = workValue7
+  localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3)
+  localValue3 = DrawSprite
+  stateFlag18 = localValue1
+  stateFlag19 = "Dial"
+  stateFlag21 = number15
+  stateFlag22 = number
+  number11 = 0.15
+  stateFlag23 = localValue2 * 0.3
+  stateFlag23 = stateFlag23 * 0.5
+  number16 = workingValue7
   hashValue = 255
-  flag2 = 255
+  stateFlag2 = 255
   hashValue2 = 255
   hashValue3 = 255
-  arg3(flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3)
+  localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3)
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "IsSafeUnlocked"
+text4 = "IsSafeUnlocked"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3
-  arg3 = arg1[arg2]
-  arg3 = nil == arg3
-  return arg3
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3
+  localValue3 = localValue1[localValue2]
+  localValue3 = nil == localValue3
+  return localValue3
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "CloseSafeDoor"
+text4 = "CloseSafeDoor"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16
-  arg3 = CMG
-  arg3 = arg3.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg3 = arg3()
-  arg3 = arg3 - arg2
-  arg3 = #arg3
-  if arg3 < 15.0 then
-    arg3 = PlaySoundFrontend
-    flag18 = -1
-    flag19 = "SAFE_DOOR_CLOSE"
-    flag21 = "SAFE_CRACK_SOUNDSET"
-    flag22 = true
-    arg3(flag18, flag19, flag21, flag22)
+  localValue3 = localValue3()
+  localValue3 = localValue3 - localValue2
+  localValue3 = #localValue3
+  if localValue3 < 15.0 then
+    localValue3 = PlaySoundFrontend
+    stateFlag18 = -1
+    stateFlag19 = "SAFE_DOOR_CLOSE"
+    stateFlag21 = "SAFE_CRACK_SOUNDSET"
+    stateFlag22 = true
+    localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22)
   end
-  arg3 = 0
-  flag18 = 90
-  flag19 = 1
-  for flag21 = arg3, flag18, flag19 do
-    flag22 = GetEntityHeading
-    numberValue11 = arg1
+  localValue3 = 0
+  stateFlag18 = 90
+  stateFlag19 = 1
+  for stateFlag21 = localValue3, stateFlag18, stateFlag19 do
+    stateFlag22 = GetEntityHeading
+    number11 = localValue1
     -- Beginner: result below is heading.
-    flag22 = flag22(numberValue11)
-    numberValue11 = SetEntityHeading
-    flag23 = arg1
-    numberValue16 = flag22 - 1.0
+    stateFlag22 = stateFlag22(number11)
+    number11 = SetEntityHeading
+    stateFlag23 = localValue1
+    number16 = stateFlag22 - 1.0
     -- Beginner: Change the direction an entity is facing.
-    numberValue11(flag23, numberValue16)
-    numberValue11 = Wait
-    flag23 = 16
-    numberValue11(flag23)
+    number11(stateFlag23, number16)
+    number11 = Wait
+    stateFlag23 = 16
+    number11(stateFlag23)
   end
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "OpenSafeDoor"
+text4 = "OpenSafeDoor"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue
-  arg3 = 500
-  flag18 = Wait
-  flag19 = arg3
-  flag18(flag19)
-  flag18 = CMG
-  flag18 = flag18.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue
+  localValue3 = 500
+  stateFlag18 = Wait
+  stateFlag19 = localValue3
+  stateFlag18(stateFlag19)
+  stateFlag18 = CMG
+  stateFlag18 = stateFlag18.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  flag18 = flag18()
-  flag18 = flag18 - arg2
-  flag18 = #flag18
-  if flag18 < 15.0 then
-    flag18 = PlaySoundFrontend
-    flag19 = -1
-    flag21 = "SAFE_DOOR_OPEN"
-    flag22 = "SAFE_CRACK_SOUNDSET"
-    numberValue11 = true
-    flag18(flag19, flag21, flag22, numberValue11)
+  stateFlag18 = stateFlag18()
+  stateFlag18 = stateFlag18 - localValue2
+  stateFlag18 = #stateFlag18
+  if stateFlag18 < 15.0 then
+    stateFlag18 = PlaySoundFrontend
+    stateFlag19 = -1
+    stateFlag21 = "SAFE_DOOR_OPEN"
+    stateFlag22 = "SAFE_CRACK_SOUNDSET"
+    number11 = true
+    stateFlag18(stateFlag19, stateFlag21, stateFlag22, number11)
   end
-  flag18 = 0
-  flag19 = 90
-  flag21 = 1
-  for flag22 = flag18, flag19, flag21 do
-    numberValue11 = GetEntityHeading
-    flag23 = arg1
+  stateFlag18 = 0
+  stateFlag19 = 90
+  stateFlag21 = 1
+  for stateFlag22 = stateFlag18, stateFlag19, stateFlag21 do
+    number11 = GetEntityHeading
+    stateFlag23 = localValue1
     -- Beginner: result below is heading.
-    numberValue11 = numberValue11(flag23)
-    flag23 = SetEntityHeading
-    numberValue16 = arg1
-    hashValue = numberValue11 + 1.0
+    number11 = number11(stateFlag23)
+    stateFlag23 = SetEntityHeading
+    number16 = localValue1
+    hashValue = number11 + 1.0
     -- Beginner: Change the direction an entity is facing.
-    flag23(numberValue16, hashValue)
-    flag23 = Wait
-    numberValue16 = 16
-    flag23(numberValue16)
+    stateFlag23(number16, hashValue)
+    stateFlag23 = Wait
+    number16 = 16
+    stateFlag23(number16)
   end
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "RelockSafe"
+text4 = "RelockSafe"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2
-  arg1 = InitSafeLocks
-  arg1()
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2
+  localValue1 = InitSafeLocks
+  localValue1()
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "GetCurrentSafeDialNumber"
+text4 = "GetCurrentSafeDialNumber"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag18
-  arg2 = math
-  arg2 = arg2.round
-  arg3 = arg1 / 360
-  arg3 = 100 * arg3
-  flag18 = 1
-  arg2 = arg2(arg3, flag18)
-  arg3 = math
-  arg3 = arg3.abs
-  flag18 = arg2
-  arg3 = arg3(flag18)
-  arg2 = arg3
-  if arg2 > 100 then
-    arg3 = 200
-    if arg2 < arg3 then
-      arg2 = arg2 - 100
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag18
+  localValue2 = math
+  localValue2 = localValue2.round
+  localValue3 = localValue1 / 360
+  localValue3 = 100 * localValue3
+  stateFlag18 = 1
+  localValue2 = localValue2(localValue3, stateFlag18)
+  localValue3 = math
+  localValue3 = localValue3.abs
+  stateFlag18 = localValue2
+  localValue3 = localValue3(stateFlag18)
+  localValue2 = localValue3
+  if localValue2 > 100 then
+    localValue3 = 200
+    if localValue2 < localValue3 then
+      localValue2 = localValue2 - 100
   end
   else
-    arg3 = 200
-    if arg2 >= arg3 then
-      arg3 = 300
-      if arg2 < arg3 then
-        arg2 = arg2 - 200
+    localValue3 = 200
+    if localValue2 >= localValue3 then
+      localValue3 = 300
+      if localValue2 < localValue3 then
+        localValue2 = localValue2 - 200
     end
     else
-      arg3 = 300
-      if arg2 >= arg3 then
-        arg3 = 400
-        if arg2 < arg3 then
-          arg2 = arg2 - 300
+      localValue3 = 300
+      if localValue2 >= localValue3 then
+        localValue3 = 400
+        if localValue2 < localValue3 then
+          localValue2 = localValue2 - 300
       end
       else
-        arg3 = 400
-        if arg2 >= arg3 then
-          arg3 = 500
-          if arg2 < arg3 then
-            arg2 = arg2 - 400
+        localValue3 = 400
+        if localValue2 >= localValue3 then
+          localValue3 = 500
+          if localValue2 < localValue3 then
+            localValue2 = localValue2 - 400
         end
         else
-          arg3 = 500
-          if arg2 >= arg3 then
-            arg3 = 600
-            if arg2 < arg3 then
-              arg2 = arg2 - 500
+          localValue3 = 500
+          if localValue2 >= localValue3 then
+            localValue3 = 600
+            if localValue2 < localValue3 then
+              localValue2 = localValue2 - 500
           end
           else
-            arg3 = 600
-            if arg2 >= arg3 then
-              arg3 = 700
-              if arg2 < arg3 then
-                arg2 = arg2 - 600
+            localValue3 = 600
+            if localValue2 >= localValue3 then
+              localValue3 = 700
+              if localValue2 < localValue3 then
+                localValue2 = localValue2 - 600
             end
             else
-              arg3 = 700
-              if arg2 >= arg3 then
-                arg3 = 800
-                if arg2 < arg3 then
-                  arg2 = arg2 - 700
+              localValue3 = 700
+              if localValue2 >= localValue3 then
+                localValue3 = 800
+                if localValue2 < localValue3 then
+                  localValue2 = localValue2 - 700
               end
               else
-                arg3 = 800
-                if arg2 >= arg3 then
-                  arg3 = 900
-                  if arg2 < arg3 then
-                    arg2 = arg2 - 800
+                localValue3 = 800
+                if localValue2 >= localValue3 then
+                  localValue3 = 900
+                  if localValue2 < localValue3 then
+                    localValue2 = localValue2 - 800
                 end
                 else
-                  arg3 = 900
-                  if arg2 >= arg3 then
-                    arg3 = 1000
-                    if arg2 < arg3 then
-                      arg2 = arg2 - 900
+                  localValue3 = 900
+                  if localValue2 >= localValue3 then
+                    localValue3 = 1000
+                    if localValue2 < localValue3 then
+                      localValue2 = localValue2 - 900
                   end
                   else
-                    arg3 = 1000
-                    if arg2 >= arg3 then
-                      arg3 = 1100
-                      if arg2 < arg3 then
-                        arg2 = arg2 - 1000
+                    localValue3 = 1000
+                    if localValue2 >= localValue3 then
+                      localValue3 = 1100
+                      if localValue2 < localValue3 then
+                        localValue2 = localValue2 - 1000
                       end
                     end
                   end
@@ -3489,323 +3489,323 @@ function workValue4(arg1)
       end
     end
   end
-  return arg2
+  return localValue2
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "RotateSafeDial"
+text4 = "RotateSafeDial"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23
-  if "rotation.anticlockwise" == arg1 or "rotation.clockwise" == arg1 then
-    arg2 = 1
-    arg3 = nil
-    if "rotation.anticlockwise" == arg1 then
-      arg3 = 1
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23
+  if "rotation.anticlockwise" == localValue1 or "rotation.clockwise" == localValue1 then
+    localValue2 = 1
+    localValue3 = nil
+    if "rotation.anticlockwise" == localValue1 then
+      localValue3 = 1
     else
-      arg3 = -1
+      localValue3 = -1
     end
-    flag18 = arg3 * arg2
-    flag19 = workValue7
-    flag19 = flag19 + flag18
-    workValue7 = flag19
-    flag19 = PlaySoundFrontend
-    flag21 = -1
-    flag22 = "TUMBLER_TURN"
-    numberValue11 = "SAFE_CRACK_SOUNDSET"
-    flag23 = true
-    flag19(flag21, flag22, numberValue11, flag23)
+    stateFlag18 = localValue3 * localValue2
+    stateFlag19 = workingValue7
+    stateFlag19 = stateFlag19 + stateFlag18
+    workingValue7 = stateFlag19
+    stateFlag19 = PlaySoundFrontend
+    stateFlag21 = -1
+    stateFlag22 = "TUMBLER_TURN"
+    number11 = "SAFE_CRACK_SOUNDSET"
+    stateFlag23 = true
+    stateFlag19(stateFlag21, stateFlag22, number11, stateFlag23)
   end
-  textValue3 = arg1
-  textValue5 = arg1
+  text3 = localValue1
+  text5 = localValue1
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "RegisterNetEvent"
-eventHandlerRegistration = eventHandlerRegistration[textValue4]
-textValue4 = "8a511fd1d8"
+text4 = "RegisterNetEvent"
+eventHandlerRegistration = eventHandlerRegistration[text4]
+text4 = "8a511fd1d8"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag18, flag19, flag21
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  arg2 = arg2.doorHandler
-  arg3 = dataTable
-  arg3 = arg3[arg1]
-  arg3 = arg3.safePosition
-  flag18 = OpenSafeDoor
-  flag19 = arg2
-  flag21 = arg3
-  flag18(flag19, flag21)
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.doorHandler
+  localValue3 = dataCollection
+  localValue3 = localValue3[localValue1]
+  localValue3 = localValue3.safePosition
+  stateFlag18 = OpenSafeDoor
+  stateFlag19 = localValue2
+  stateFlag21 = localValue3
+  stateFlag18(stateFlag19, stateFlag21)
 end
-eventHandlerRegistration(textValue4, workValue4)
+eventHandlerRegistration(text4, workingValue4)
 eventHandlerRegistration = _ENV
-textValue4 = "RegisterNetEvent"
-eventHandlerRegistration = eventHandlerRegistration[textValue4]
-textValue4 = "1203341535"
+text4 = "RegisterNetEvent"
+eventHandlerRegistration = eventHandlerRegistration[text4]
+text4 = "1203341535"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag18, flag19, flag21
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  arg2 = arg2.doorHandler
-  arg3 = dataTable
-  arg3 = arg3[arg1]
-  arg3 = arg3.safePosition
-  flag18 = CloseSafeDoor
-  flag19 = arg2
-  flag21 = arg3
-  flag18(flag19, flag21)
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.doorHandler
+  localValue3 = dataCollection
+  localValue3 = localValue3[localValue1]
+  localValue3 = localValue3.safePosition
+  stateFlag18 = CloseSafeDoor
+  stateFlag19 = localValue2
+  stateFlag21 = localValue3
+  stateFlag18(stateFlag19, stateFlag21)
 end
-eventHandlerRegistration(textValue4, workValue4)
+eventHandlerRegistration(text4, workingValue4)
 eventHandlerRegistration = _ENV
-textValue4 = "EndMiniGame"
+text4 = "EndMiniGame"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9
-  arg2 = ClearPedTasks
-  arg3 = CMG
-  arg3 = arg3.getPlayerPed
-  arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9 = arg3()
-  arg2(arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9)
-  arg2 = "mini@safe_cracking"
-  arg3 = CMG
-  arg3 = arg3.loadAnimDict
-  flag18 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9
+  localValue2 = ClearPedTasks
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerPed
+  localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9 = localValue3()
+  localValue2(localValue3, stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9)
+  localValue2 = "mini@safe_cracking"
+  localValue3 = CMG
+  localValue3 = localValue3.loadAnimDict
+  stateFlag18 = localValue2
   -- Beginner: Load a GTA animation dictionary before using it.
-  arg3(flag18)
-  arg3 = TaskPlayAnimAdvanced
-  flag18 = CMG
-  flag18 = flag18.getPlayerPed
+  localValue3(stateFlag18)
+  localValue3 = TaskPlayAnimAdvanced
+  stateFlag18 = CMG
+  stateFlag18 = stateFlag18.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  flag18 = flag18()
-  flag19 = arg2
-  flag21 = "door_open_succeed_stand"
-  flag22 = workValue5.x
-  numberValue11 = workValue5.y
-  flag23 = workValue5.z
-  numberValue16 = 0.0
+  stateFlag18 = stateFlag18()
+  stateFlag19 = localValue2
+  stateFlag21 = "door_open_succeed_stand"
+  stateFlag22 = workingValue5.x
+  number11 = workingValue5.y
+  stateFlag23 = workingValue5.z
+  number16 = 0.0
   hashValue = 0.0
-  flag2 = workValue6
+  stateFlag2 = workingValue6
   hashValue2 = 8.0
   hashValue3 = 8.0
-  flag6 = -1
-  flag8 = 2
-  numberValue2 = 0.3
-  numberValue3 = 0
-  flag9 = 0
-  arg3(flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9)
-  arg3 = RemoveAnimDict
-  flag18 = arg2
-  arg3(flag18)
-  arg3 = FreezeEntityPosition
-  flag18 = CMG
-  flag18 = flag18.getPlayerPed
+  stateFlag6 = -1
+  stateFlag8 = 2
+  number2 = 0.3
+  number3 = 0
+  stateFlag9 = 0
+  localValue3(stateFlag18, stateFlag19, stateFlag21, stateFlag22, number11, stateFlag23, number16, hashValue, stateFlag2, hashValue2, hashValue3, stateFlag6, stateFlag8, number2, number3, stateFlag9)
+  localValue3 = RemoveAnimDict
+  stateFlag18 = localValue2
+  localValue3(stateFlag18)
+  localValue3 = FreezeEntityPosition
+  stateFlag18 = CMG
+  stateFlag18 = stateFlag18.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  flag18 = flag18()
-  flag19 = false
+  stateFlag18 = stateFlag18()
+  stateFlag19 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg3(flag18, flag19)
-  arg3 = Wait
-  flag18 = 2500
-  arg3(flag18)
-  arg3 = TriggerServerEvent
-  flag18 = "8a511fd1d8"
-  flag19 = arg1
+  localValue3(stateFlag18, stateFlag19)
+  localValue3 = Wait
+  stateFlag18 = 2500
+  localValue3(stateFlag18)
+  localValue3 = TriggerServerEvent
+  stateFlag18 = "8a511fd1d8"
+  stateFlag19 = localValue1
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8a511fd1d8".
-  arg3(flag18, flag19)
-  arg3 = "setup"
-  textValue2 = arg3
-  arg3 = true
-  flag7 = arg3
+  localValue3(stateFlag18, stateFlag19)
+  localValue3 = "setup"
+  text2 = localValue3
+  localValue3 = true
+  stateFlag7 = localValue3
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "UnloadSafeCountdown"
+text4 = "UnloadSafeCountdown"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, flag18, flag19
-  arg1 = 0
-  arg2 = 12
-  arg3 = 1
-  for flag18 = arg1, arg2, arg3 do
-    flag19 = flag7
-    if not flag19 then
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, stateFlag18, stateFlag19
+  localValue1 = 0
+  localValue2 = 12
+  localValue3 = 1
+  for stateFlag18 = localValue1, localValue2, localValue3 do
+    stateFlag19 = stateFlag7
+    if not stateFlag19 then
       break
     end
   end
-  arg1 = flag7
-  if arg1 then
-    arg1 = RelockSafe
-    arg1()
+  localValue1 = stateFlag7
+  if localValue1 then
+    localValue1 = RelockSafe
+    localValue1()
   end
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "InitSafeLocks"
+text4 = "InitSafeLocks"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag18, flag19, flag21
-  arg2 = {}
-  arg3 = 1
-  flag18 = #arg1
-  flag19 = 1
-  for flag21 = arg3, flag18, flag19 do
-    arg2[flag21] = true
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag18, stateFlag19, stateFlag21
+  localValue2 = {}
+  localValue3 = 1
+  stateFlag18 = #localValue1
+  stateFlag19 = 1
+  for stateFlag21 = localValue3, stateFlag18, stateFlag19 do
+    localValue2[stateFlag21] = true
   end
-  return arg2
+  return localValue2
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "LoadResources"
+text4 = "LoadResources"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3
-  arg1 = RequestStreamedTextureDict
-  arg2 = "MPSafeCracking"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestAnimDict
-  arg2 = "mini@safe_cracking"
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "MPSafeCracking"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestAnimDict
+  localValue2 = "mini@safe_cracking"
+  localValue1(localValue2)
   while true do
-    arg1 = HasStreamedTextureDictLoaded
-    arg2 = "MPSafeCracking"
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = RequestAmbientAudioBank
-      arg2 = "SAFE_CRACK"
-      arg3 = false
-      arg1 = arg1(arg2, arg3)
-      if arg1 then
-        arg1 = HasAnimDictLoaded
-        arg2 = "mini@safe_cracking"
-        arg1 = arg1(arg2)
-        if arg1 then
+    localValue1 = HasStreamedTextureDictLoaded
+    localValue2 = "MPSafeCracking"
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = RequestAmbientAudioBank
+      localValue2 = "SAFE_CRACK"
+      localValue3 = false
+      localValue1 = localValue1(localValue2, localValue3)
+      if localValue1 then
+        localValue1 = HasAnimDictLoaded
+        localValue2 = "mini@safe_cracking"
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
           break
         end
       end
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "GetDialProximityToTargetPin"
+text4 = "GetDialProximityToTargetPin"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
-function workValue4(arg1, arg2, arg3)
-  local flag18, flag19, flag21
-  flag18 = arg2[arg3]
-  flag19 = nil
-  flag21 = textValue3
-  if "rotation.anticlockwise" ~= flag21 then
-    flag21 = textValue5
-    if "rotation.anticlockwise" ~= flag21 then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2, localValue3) ===
+function workingValue4(localValue1, localValue2, localValue3)
+  local stateFlag18, stateFlag19, stateFlag21
+  stateFlag18 = localValue2[localValue3]
+  stateFlag19 = nil
+  stateFlag21 = text3
+  if "rotation.anticlockwise" ~= stateFlag21 then
+    stateFlag21 = text5
+    if "rotation.anticlockwise" ~= stateFlag21 then
+      goto continueAtStep12
     end
   end
-  flag19 = flag18 - arg1
-  goto flow_label_22
-  ::flow_label_12::
-  flag21 = textValue3
-  if "rotation.clockwise" ~= flag21 then
-    flag21 = textValue5
-    if "rotation.clockwise" ~= flag21 then
-      goto flow_label_21
+  stateFlag19 = stateFlag18 - localValue1
+  goto continueAtStep22
+  ::continueAtStep12::
+  stateFlag21 = text3
+  if "rotation.clockwise" ~= stateFlag21 then
+    stateFlag21 = text5
+    if "rotation.clockwise" ~= stateFlag21 then
+      goto continueAtStep21
     end
   end
-  flag19 = arg1 - flag18
-  goto flow_label_22
-  ::flow_label_21::
-  flag19 = 100
-  ::flow_label_22::
-  if flag19 < 0 then
-    flag19 = flag19 + 100
+  stateFlag19 = localValue1 - stateFlag18
+  goto continueAtStep22
+  ::continueAtStep21::
+  stateFlag19 = 100
+  ::continueAtStep22::
+  if stateFlag19 < 0 then
+    stateFlag19 = stateFlag19 + 100
   end
-  return flag19
+  return stateFlag19
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4
 eventHandlerRegistration = _ENV
-textValue4 = "SetDialSpriteShake"
+text4 = "SetDialSpriteShake"
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag18
-  if 5 == arg1 or 4 == arg1 or 95 == arg1 or 96 == arg1 then
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 4.7975E8
-    flag18 = 4.805E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue15 = arg2
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 2.9975E8
-    flag18 = 3.005E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue = arg2
-  elseif 3 == arg1 or 2 == arg1 or 97 == arg1 or 98 == arg1 then
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 4.795E8
-    flag18 = 4.805E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue15 = arg2
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 2.995E8
-    flag18 = 3.005E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue = arg2
-  elseif 1 == arg1 or 99 == arg1 then
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 4.79E8
-    flag18 = 4.81E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue15 = arg2
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 2.99E8
-    flag18 = 3.01E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue = arg2
-  elseif 0 == arg1 then
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 4.78E8
-    flag18 = 4.82E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue15 = arg2
-    arg2 = math
-    arg2 = arg2.random
-    arg3 = 2.98E8
-    flag18 = 3.02E8
-    arg2 = arg2(arg3, flag18)
-    arg2 = arg2 / 1000000000
-    numberValue = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag18
+  if 5 == localValue1 or 4 == localValue1 or 95 == localValue1 or 96 == localValue1 then
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 4.7975E8
+    stateFlag18 = 4.805E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number15 = localValue2
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 2.9975E8
+    stateFlag18 = 3.005E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number = localValue2
+  elseif 3 == localValue1 or 2 == localValue1 or 97 == localValue1 or 98 == localValue1 then
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 4.795E8
+    stateFlag18 = 4.805E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number15 = localValue2
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 2.995E8
+    stateFlag18 = 3.005E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number = localValue2
+  elseif 1 == localValue1 or 99 == localValue1 then
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 4.79E8
+    stateFlag18 = 4.81E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number15 = localValue2
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 2.99E8
+    stateFlag18 = 3.01E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number = localValue2
+  elseif 0 == localValue1 then
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 4.78E8
+    stateFlag18 = 4.82E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number15 = localValue2
+    localValue2 = math
+    localValue2 = localValue2.random
+    localValue3 = 2.98E8
+    stateFlag18 = 3.02E8
+    localValue2 = localValue2(localValue3, stateFlag18)
+    localValue2 = localValue2 / 1000000000
+    number = localValue2
   else
-    arg2 = 0.48
-    numberValue15 = arg2
-    arg2 = 0.3
-    numberValue = arg2
+    localValue2 = 0.48
+    number15 = localValue2
+    localValue2 = 0.3
+    number = localValue2
   end
 end
-eventHandlerRegistration[textValue4] = workValue4
+eventHandlerRegistration[text4] = workingValue4

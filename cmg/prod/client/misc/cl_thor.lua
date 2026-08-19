@@ -32,34 +32,34 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local workValue, cmgCall, textValue, workValue5, flag11
+local workingValue, cmgOperation, text, workingValue5, stateFlag11
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2
-  arg2 = GetActivePlayers
-  arg2 = arg2()
-  flag10 = -1
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, stateFlag10, playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2
+  localValue2 = GetActivePlayers
+  localValue2 = localValue2()
+  stateFlag10 = -1
   playerPed2 = -1
   playerPed3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
@@ -69,166 +69,166 @@ function workValue(arg1)
   -- Beginner: result below is entityCoords.
   coords2 = coords2(iterator)
   iterator = ipairs
-  numberValue5 = arg2
-  iterator, numberValue5, waitCall, tableHelper = iterator(numberValue5)
-  for flag, vector3Builder in iterator, numberValue5, waitCall, tableHelper do
+  number5 = localValue2
+  iterator, number5, waitCall, tableHelper = iterator(number5)
+  for stateFlag, createVector3 in iterator, number5, waitCall, tableHelper do
     playerPed = GetPlayerPed
-    coords = vector3Builder
+    coords = createVector3
     -- Beginner: result below is playerPed.
     playerPed = playerPed(coords)
     if playerPed ~= playerPed3 then
       coords = GetEntityCoords
-      workValue2 = playerPed
+      workingValue2 = playerPed
       -- Beginner: result below is entityCoords.
-      coords = coords(workValue2)
-      workValue2 = coords - coords2
-      workValue2 = #workValue2
-      if -1 == flag10 or flag10 > workValue2 then
-        playerPed2 = vector3Builder
-        flag10 = workValue2
+      coords = coords(workingValue2)
+      workingValue2 = coords - coords2
+      workingValue2 = #workingValue2
+      if -1 == stateFlag10 or stateFlag10 > workingValue2 then
+        playerPed2 = createVector3
+        stateFlag10 = workingValue2
       end
     end
   end
-  if -1 ~= flag10 and arg1 >= flag10 then
+  if -1 ~= stateFlag10 and localValue1 >= stateFlag10 then
     return playerPed2
   else
     iterator = nil
     return iterator
   end
 end
-cmgCall = RegisterNetEvent
-textValue = "c714651523"
+cmgOperation = RegisterNetEvent
+text = "c714651523"
 -- Beginner: this function handles network event "c714651523".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder
-  arg1 = FreezeEntityPosition
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, stateFlag10, playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3
+  localValue1 = FreezeEntityPosition
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  flag10 = true
+  localValue2 = localValue2()
+  stateFlag10 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg1(arg2, flag10)
-  arg1 = Wait
-  arg2 = 2500
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.loadAnimDict
-  arg2 = "ragdoll@human"
+  localValue1(localValue2, stateFlag10)
+  localValue1 = Wait
+  localValue2 = 2500
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.loadAnimDict
+  localValue2 = "ragdoll@human"
   -- Beginner: Load a GTA animation dictionary before using it.
-  arg1(arg2)
-  arg1 = TaskPlayAnim
-  arg2 = CMG
-  arg2 = arg2.getPlayerPed
+  localValue1(localValue2)
+  localValue1 = TaskPlayAnim
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  flag10 = "ragdoll@human"
+  localValue2 = localValue2()
+  stateFlag10 = "ragdoll@human"
   playerPed2 = "electrocute"
   playerPed3 = 3.0
   coords2 = 1.0
   iterator = -1
-  numberValue5 = 1
+  number5 = 1
   waitCall = 0
   tableHelper = false
-  flag = false
-  vector3Builder = false
+  stateFlag = false
+  createVector3 = false
   -- Beginner: Play an animation on a ped.
-  arg1(arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder)
-  arg1 = RemoveAnimDict
-  arg2 = "ragdoll@human"
-  arg1(arg2)
-  arg1 = Wait
-  arg2 = 5000
-  arg1(arg2)
-  arg1 = SetEntityHealth
-  arg2 = CMG
-  arg2 = arg2.getPlayerPed
+  localValue1(localValue2, stateFlag10, playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3)
+  localValue1 = RemoveAnimDict
+  localValue2 = "ragdoll@human"
+  localValue1(localValue2)
+  localValue1 = Wait
+  localValue2 = 5000
+  localValue1(localValue2)
+  localValue1 = SetEntityHealth
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  flag10 = 0
-  arg1(arg2, flag10)
-  arg1 = FreezeEntityPosition
-  arg2 = PlayerPedId
+  localValue2 = localValue2()
+  stateFlag10 = 0
+  localValue1(localValue2, stateFlag10)
+  localValue1 = FreezeEntityPosition
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  flag10 = false
+  localValue2 = localValue2()
+  stateFlag10 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg1(arg2, flag10)
+  localValue1(localValue2, stateFlag10)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c714651523".
-cmgCall(textValue, workValue5)
-cmgCall = RegisterNetEvent
-textValue = "b96db67b48"
+cmgOperation(text, workingValue5)
+cmgOperation = RegisterNetEvent
+text = "b96db67b48"
 -- Beginner: this function handles network event "b96db67b48".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6
-  flag10 = GetEntityCoords
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local stateFlag10, playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6
+  stateFlag10 = GetEntityCoords
   playerPed2 = PlayerPedId
-  playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6 = playerPed2()
+  playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6 = playerPed2()
   -- Beginner: result below is entityCoords.
-  flag10 = flag10(playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6)
-  flag10 = arg1 - flag10
-  flag10 = #flag10
-  if flag10 < 25.0 then
-    flag10 = SendNUIMessage
+  stateFlag10 = stateFlag10(playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6)
+  stateFlag10 = localValue1 - stateFlag10
+  stateFlag10 = #stateFlag10
+  if stateFlag10 < 25.0 then
+    stateFlag10 = SendNUIMessage
     playerPed2 = {}
     playerPed2.transactionType = "ulimitedpower"
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    flag10(playerPed2)
-    flag10 = {}
+    stateFlag10(playerPed2)
+    stateFlag10 = {}
     playerPed2 = 0
-    playerPed3 = arg2 - arg1
+    playerPed3 = localValue2 - localValue1
     coords2 = 1
     iterator = 10
-    numberValue5 = 1
-    for waitCall = coords2, iterator, numberValue5 do
+    number5 = 1
+    for waitCall = coords2, iterator, number5 do
       tableHelper = table
       tableHelper = tableHelper.insert
-      flag = flag10
-      vector3Builder = vector3
+      stateFlag = stateFlag10
+      createVector3 = vector3
       playerPed = playerPed3.x
       playerPed = playerPed / 10
       playerPed = playerPed * waitCall
       coords = playerPed3.y
       coords = coords / 10
       coords = coords * waitCall
-      workValue2 = playerPed3.z
-      workValue2 = workValue2 / 10
-      workValue2 = workValue2 * waitCall
-      vector3Builder = vector3Builder(playerPed, coords, workValue2)
-      vector3Builder = arg1 + vector3Builder
-      tableHelper(flag, vector3Builder)
+      workingValue2 = playerPed3.z
+      workingValue2 = workingValue2 / 10
+      workingValue2 = workingValue2 * waitCall
+      createVector3 = createVector3(playerPed, coords, workingValue2)
+      createVector3 = localValue1 + createVector3
+      tableHelper(stateFlag, createVector3)
     end
     coords2 = {}
     iterator = pairs
-    numberValue5 = flag10
-    iterator, numberValue5, waitCall, tableHelper = iterator(numberValue5)
-    for flag, vector3Builder in iterator, numberValue5, waitCall, tableHelper do
+    number5 = stateFlag10
+    iterator, number5, waitCall, tableHelper = iterator(number5)
+    for stateFlag, createVector3 in iterator, number5, waitCall, tableHelper do
       playerPed = UseParticleFxAsset
       coords = "core"
       playerPed(coords)
       playerPed = StartParticleFxLoopedAtCoord
       coords = "ent_dst_elec_crackle"
-      workValue2 = vector3Builder.x
-      workValue3 = vector3Builder.y
-      workValue4 = vector3Builder.z
-      numberValue = 0.0
-      numberValue2 = 0.0
-      numberValue3 = 0.0
-      numberValue4 = 1.2
-      flag2 = false
-      flag3 = false
-      flag4 = false
-      flag5 = false
-      playerPed = playerPed(coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5)
+      workingValue2 = createVector3.x
+      workingValue3 = createVector3.y
+      workingValue4 = createVector3.z
+      number = 0.0
+      number2 = 0.0
+      number3 = 0.0
+      number4 = 1.2
+      stateFlag2 = false
+      stateFlag3 = false
+      stateFlag4 = false
+      stateFlag5 = false
+      playerPed = playerPed(coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5)
       coords = table
       coords = coords.insert
-      workValue2 = coords2
-      workValue3 = playerPed
-      coords(workValue2, workValue3)
+      workingValue2 = coords2
+      workingValue3 = playerPed
+      coords(workingValue2, workingValue3)
     end
     while true do
       iterator = 150
@@ -237,109 +237,109 @@ function workValue5(arg1, arg2)
       end
       playerPed2 = playerPed2 + 1
       iterator = pairs
-      numberValue5 = flag10
-      iterator, numberValue5, waitCall, tableHelper = iterator(numberValue5)
-      for flag, vector3Builder in iterator, numberValue5, waitCall, tableHelper do
+      number5 = stateFlag10
+      iterator, number5, waitCall, tableHelper = iterator(number5)
+      for stateFlag, createVector3 in iterator, number5, waitCall, tableHelper do
         playerPed = UseParticleFxAsset
         coords = "core"
         playerPed(coords)
         playerPed = StartParticleFxLoopedAtCoord
         coords = "sp_foundry_sparks"
-        workValue2 = vector3Builder.x
-        workValue3 = vector3Builder.y
-        workValue4 = vector3Builder.z
-        numberValue = 90.0
-        numberValue2 = 0.0
-        numberValue3 = 0.0
-        numberValue4 = 0.3
-        flag2 = false
-        flag3 = false
-        flag4 = false
-        flag5 = false
-        playerPed = playerPed(coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5)
+        workingValue2 = createVector3.x
+        workingValue3 = createVector3.y
+        workingValue4 = createVector3.z
+        number = 90.0
+        number2 = 0.0
+        number3 = 0.0
+        number4 = 0.3
+        stateFlag2 = false
+        stateFlag3 = false
+        stateFlag4 = false
+        stateFlag5 = false
+        playerPed = playerPed(coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5)
         coords = UseParticleFxAsset
-        workValue2 = "core"
-        coords(workValue2)
+        workingValue2 = "core"
+        coords(workingValue2)
         coords = StartParticleFxLoopedAtCoord
-        workValue2 = "ent_dst_elec_fire_sp"
-        workValue3 = vector3Builder.x
-        workValue4 = vector3Builder.y
-        numberValue = vector3Builder.z
-        numberValue2 = 0.0
-        numberValue3 = 0.0
-        numberValue4 = 0.0
-        flag2 = 1.0
-        flag3 = false
-        flag4 = false
-        flag5 = false
-        flag6 = false
-        coords = coords(workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6)
-        workValue2 = table
-        workValue2 = workValue2.insert
-        workValue3 = coords2
-        workValue4 = playerPed
-        workValue2(workValue3, workValue4)
-        workValue2 = table
-        workValue2 = workValue2.insert
-        workValue3 = coords2
-        workValue4 = coords
-        workValue2(workValue3, workValue4)
+        workingValue2 = "ent_dst_elec_fire_sp"
+        workingValue3 = createVector3.x
+        workingValue4 = createVector3.y
+        number = createVector3.z
+        number2 = 0.0
+        number3 = 0.0
+        number4 = 0.0
+        stateFlag2 = 1.0
+        stateFlag3 = false
+        stateFlag4 = false
+        stateFlag5 = false
+        stateFlag6 = false
+        coords = coords(workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6)
+        workingValue2 = table
+        workingValue2 = workingValue2.insert
+        workingValue3 = coords2
+        workingValue4 = playerPed
+        workingValue2(workingValue3, workingValue4)
+        workingValue2 = table
+        workingValue2 = workingValue2.insert
+        workingValue3 = coords2
+        workingValue4 = coords
+        workingValue2(workingValue3, workingValue4)
       end
       iterator = Wait
-      numberValue5 = 50
-      iterator(numberValue5)
+      number5 = 50
+      iterator(number5)
       iterator = pairs
-      numberValue5 = coords2
-      iterator, numberValue5, waitCall, tableHelper = iterator(numberValue5)
-      for flag, vector3Builder in iterator, numberValue5, waitCall, tableHelper do
+      number5 = coords2
+      iterator, number5, waitCall, tableHelper = iterator(number5)
+      for stateFlag, createVector3 in iterator, number5, waitCall, tableHelper do
         playerPed = RemoveParticleFx
-        coords = vector3Builder
-        workValue2 = false
-        playerPed(coords, workValue2)
+        coords = createVector3
+        workingValue2 = false
+        playerPed(coords, workingValue2)
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b96db67b48".
-cmgCall(textValue, workValue5)
-cmgCall = RegisterNetEvent
-textValue = "63b35ed831"
+cmgOperation(text, workingValue5)
+cmgOperation = RegisterNetEvent
+text = "63b35ed831"
 -- Beginner: this function handles network event "63b35ed831".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7
-  flag10 = GetEntityCoords
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local stateFlag10, playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7
+  stateFlag10 = GetEntityCoords
   playerPed2 = PlayerPedId
-  playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7 = playerPed2()
+  playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7 = playerPed2()
   -- Beginner: result below is entityCoords.
-  flag10 = flag10(playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7)
-  flag10 = arg1 - flag10
-  flag10 = #flag10
-  if flag10 < 25.0 then
-    flag10 = {}
+  stateFlag10 = stateFlag10(playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+  stateFlag10 = localValue1 - stateFlag10
+  stateFlag10 = #stateFlag10
+  if stateFlag10 < 25.0 then
+    stateFlag10 = {}
     playerPed2 = 0
-    playerPed3 = arg2 - arg1
+    playerPed3 = localValue2 - localValue1
     coords2 = 1
     iterator = 10
-    numberValue5 = 1
-    for waitCall = coords2, iterator, numberValue5 do
+    number5 = 1
+    for waitCall = coords2, iterator, number5 do
       tableHelper = table
       tableHelper = tableHelper.insert
-      flag = flag10
-      vector3Builder = vector3
+      stateFlag = stateFlag10
+      createVector3 = vector3
       playerPed = playerPed3.x
       playerPed = playerPed / 10
       playerPed = playerPed * waitCall
       coords = playerPed3.y
       coords = coords / 10
       coords = coords * waitCall
-      workValue2 = playerPed3.z
-      workValue2 = workValue2 / 10
-      workValue2 = workValue2 * waitCall
-      vector3Builder = vector3Builder(playerPed, coords, workValue2)
-      vector3Builder = arg1 + vector3Builder
-      tableHelper(flag, vector3Builder)
+      workingValue2 = playerPed3.z
+      workingValue2 = workingValue2 / 10
+      workingValue2 = workingValue2 * waitCall
+      createVector3 = createVector3(playerPed, coords, workingValue2)
+      createVector3 = localValue1 + createVector3
+      tableHelper(stateFlag, createVector3)
     end
     coords2 = CMG
     coords2 = coords2.loadPtfx
@@ -356,93 +356,93 @@ function workValue5(arg1, arg2)
     coords2(iterator)
     coords2 = {}
     iterator = {}
-    numberValue5 = {}
+    number5 = {}
     waitCall = pairs
-    tableHelper = flag10
-    waitCall, tableHelper, flag, vector3Builder = waitCall(tableHelper)
-    for playerPed, coords in waitCall, tableHelper, flag, vector3Builder do
-      workValue2 = UseParticleFxAsset
-      workValue3 = "core"
-      workValue2(workValue3)
-      workValue2 = StartParticleFxLoopedAtCoord
-      workValue3 = "ent_dst_elec_crackle"
-      workValue4 = coords.x
-      numberValue = coords.y
-      numberValue2 = coords.z
-      numberValue3 = 0.0
-      numberValue4 = 0.0
-      flag2 = 0.0
-      flag3 = 1.2
-      flag4 = false
-      flag5 = false
-      flag6 = false
-      flag7 = false
-      workValue2 = workValue2(workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7)
-      workValue3 = table
-      workValue3 = workValue3.insert
-      workValue4 = coords2
-      numberValue = workValue2
-      workValue3(workValue4, numberValue)
+    tableHelper = stateFlag10
+    waitCall, tableHelper, stateFlag, createVector3 = waitCall(tableHelper)
+    for playerPed, coords in waitCall, tableHelper, stateFlag, createVector3 do
+      workingValue2 = UseParticleFxAsset
+      workingValue3 = "core"
+      workingValue2(workingValue3)
+      workingValue2 = StartParticleFxLoopedAtCoord
+      workingValue3 = "ent_dst_elec_crackle"
+      workingValue4 = coords.x
+      number = coords.y
+      number2 = coords.z
+      number3 = 0.0
+      number4 = 0.0
+      stateFlag2 = 0.0
+      stateFlag3 = 1.2
+      stateFlag4 = false
+      stateFlag5 = false
+      stateFlag6 = false
+      stateFlag7 = false
+      workingValue2 = workingValue2(workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+      workingValue3 = table
+      workingValue3 = workingValue3.insert
+      workingValue4 = coords2
+      number = workingValue2
+      workingValue3(workingValue4, number)
     end
     while playerPed2 < 20 do
       playerPed2 = playerPed2 + 1
       waitCall = pairs
-      tableHelper = flag10
-      waitCall, tableHelper, flag, vector3Builder = waitCall(tableHelper)
-      for playerPed, coords in waitCall, tableHelper, flag, vector3Builder do
-        workValue2 = UseParticleFxAsset
-        workValue3 = "core"
-        workValue2(workValue3)
-        workValue2 = StartParticleFxLoopedAtCoord
-        workValue3 = "sp_foundry_sparks"
-        workValue4 = coords.x
-        numberValue = coords.y
-        numberValue2 = coords.z
-        numberValue3 = 90.0
-        numberValue4 = 0.0
-        flag2 = 0.0
-        flag3 = 0.0
-        flag4 = false
-        flag5 = false
-        flag6 = false
-        flag7 = false
-        workValue2 = workValue2(workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7)
-        workValue3 = table
-        workValue3 = workValue3.insert
-        workValue4 = coords2
-        numberValue = workValue2
-        workValue3(workValue4, numberValue)
+      tableHelper = stateFlag10
+      waitCall, tableHelper, stateFlag, createVector3 = waitCall(tableHelper)
+      for playerPed, coords in waitCall, tableHelper, stateFlag, createVector3 do
+        workingValue2 = UseParticleFxAsset
+        workingValue3 = "core"
+        workingValue2(workingValue3)
+        workingValue2 = StartParticleFxLoopedAtCoord
+        workingValue3 = "sp_foundry_sparks"
+        workingValue4 = coords.x
+        number = coords.y
+        number2 = coords.z
+        number3 = 90.0
+        number4 = 0.0
+        stateFlag2 = 0.0
+        stateFlag3 = 0.0
+        stateFlag4 = false
+        stateFlag5 = false
+        stateFlag6 = false
+        stateFlag7 = false
+        workingValue2 = workingValue2(workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+        workingValue3 = table
+        workingValue3 = workingValue3.insert
+        workingValue4 = coords2
+        number = workingValue2
+        workingValue3(workingValue4, number)
       end
       waitCall = Wait
       tableHelper = 400
       waitCall(tableHelper)
       waitCall = pairs
       tableHelper = coords2
-      waitCall, tableHelper, flag, vector3Builder = waitCall(tableHelper)
-      for playerPed, coords in waitCall, tableHelper, flag, vector3Builder do
-        workValue2 = RemoveParticleFx
-        workValue3 = coords
-        workValue4 = false
-        workValue2(workValue3, workValue4)
+      waitCall, tableHelper, stateFlag, createVector3 = waitCall(tableHelper)
+      for playerPed, coords in waitCall, tableHelper, stateFlag, createVector3 do
+        workingValue2 = RemoveParticleFx
+        workingValue3 = coords
+        workingValue4 = false
+        workingValue2(workingValue3, workingValue4)
       end
       waitCall = pairs
       tableHelper = iterator
-      waitCall, tableHelper, flag, vector3Builder = waitCall(tableHelper)
-      for playerPed, coords in waitCall, tableHelper, flag, vector3Builder do
-        workValue2 = RemoveParticleFx
-        workValue3 = coords
-        workValue4 = false
-        workValue2(workValue3, workValue4)
+      waitCall, tableHelper, stateFlag, createVector3 = waitCall(tableHelper)
+      for playerPed, coords in waitCall, tableHelper, stateFlag, createVector3 do
+        workingValue2 = RemoveParticleFx
+        workingValue3 = coords
+        workingValue4 = false
+        workingValue2(workingValue3, workingValue4)
       end
     end
     waitCall = pairs
-    tableHelper = numberValue5
-    waitCall, tableHelper, flag, vector3Builder = waitCall(tableHelper)
-    for playerPed, coords in waitCall, tableHelper, flag, vector3Builder do
-      workValue2 = RemoveParticleFx
-      workValue3 = coords
-      workValue4 = false
-      workValue2(workValue3, workValue4)
+    tableHelper = number5
+    waitCall, tableHelper, stateFlag, createVector3 = waitCall(tableHelper)
+    for playerPed, coords in waitCall, tableHelper, stateFlag, createVector3 do
+      workingValue2 = RemoveParticleFx
+      workingValue3 = coords
+      workingValue4 = false
+      workingValue2(workingValue3, workingValue4)
     end
     waitCall = RemoveNamedPtfxAsset
     tableHelper = "core"
@@ -453,55 +453,55 @@ function workValue5(arg1, arg2)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "63b35ed831".
-cmgCall(textValue, workValue5)
-cmgCall = CMG
-cmgCall = cmgCall.registerCommand
-textValue = "theforce"
+cmgOperation(text, workingValue5)
+cmgOperation = CMG
+cmgOperation = cmgOperation.registerCommand
+text = "theforce"
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9
-  arg1 = CMG
-  arg1 = arg1.getClientUserId
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, stateFlag10, playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9
+  localValue1 = CMG
+  localValue1 = localValue1.getClientUserId
   -- Beginner: result below is userId.
-  arg1 = arg1()
-  if 1 == arg1 then
-    arg1 = workValue
-    arg2 = 10
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg2 = GetPlayerServerId
-      flag10 = arg1
+  localValue1 = localValue1()
+  if 1 == localValue1 then
+    localValue1 = workingValue
+    localValue2 = 10
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue2 = GetPlayerServerId
+      stateFlag10 = localValue1
       -- Beginner: result below is serverId.
-      arg2 = arg2(flag10)
-      if -1 ~= arg2 then
-        flag10 = HasNamedPtfxAssetLoaded
+      localValue2 = localValue2(stateFlag10)
+      if -1 ~= localValue2 then
+        stateFlag10 = HasNamedPtfxAssetLoaded
         playerPed2 = "core"
-        flag10 = flag10(playerPed2)
-        if not flag10 then
-          flag10 = RequestNamedPtfxAsset
+        stateFlag10 = stateFlag10(playerPed2)
+        if not stateFlag10 then
+          stateFlag10 = RequestNamedPtfxAsset
           playerPed2 = "core"
-          flag10(playerPed2)
+          stateFlag10(playerPed2)
           while true do
-            flag10 = HasNamedPtfxAssetLoaded
+            stateFlag10 = HasNamedPtfxAssetLoaded
             playerPed2 = "core"
-            flag10 = flag10(playerPed2)
-            if flag10 then
+            stateFlag10 = stateFlag10(playerPed2)
+            if stateFlag10 then
               break
             end
-            flag10 = Wait
+            stateFlag10 = Wait
             playerPed2 = 0
-            flag10(playerPed2)
+            stateFlag10(playerPed2)
           end
         end
-        flag10 = 0
+        stateFlag10 = 0
         playerPed2 = GetEntityCoords
         playerPed3 = PlayerPedId
-        playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9 = playerPed3()
+        playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9 = playerPed3()
         -- Beginner: result below is entityCoords.
-        playerPed2 = playerPed2(playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9)
+        playerPed2 = playerPed2(playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9)
         playerPed3 = GetPlayerPed
-        coords2 = arg1
+        coords2 = localValue1
         -- Beginner: result below is playerPed.
         playerPed3 = playerPed3(coords2)
         coords2 = GetEntityCoords
@@ -509,35 +509,35 @@ function workValue5()
         -- Beginner: result below is entityCoords.
         coords2 = coords2(iterator)
         iterator = {}
-        numberValue5 = coords2 - playerPed2
+        number5 = coords2 - playerPed2
         waitCall = TriggerServerEvent
         tableHelper = "9fd1729b1a"
-        flag = arg2
-        vector3Builder = playerPed2
+        stateFlag = localValue2
+        createVector3 = playerPed2
         playerPed = coords2
-        coords = numberValue5
+        coords = number5
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9fd1729b1a".
-        waitCall(tableHelper, flag, vector3Builder, playerPed, coords)
+        waitCall(tableHelper, stateFlag, createVector3, playerPed, coords)
         waitCall = 1
         tableHelper = 10
-        flag = 1
-        for vector3Builder = waitCall, tableHelper, flag do
+        stateFlag = 1
+        for createVector3 = waitCall, tableHelper, stateFlag do
           playerPed = table
           playerPed = playerPed.insert
           coords = iterator
-          workValue2 = vector3
-          workValue3 = numberValue5.x
-          workValue3 = workValue3 / 10
-          workValue3 = workValue3 * vector3Builder
-          workValue4 = numberValue5.y
-          workValue4 = workValue4 / 10
-          workValue4 = workValue4 * vector3Builder
-          numberValue = numberValue5.z
-          numberValue = numberValue / 10
-          numberValue = numberValue * vector3Builder
-          workValue2 = workValue2(workValue3, workValue4, numberValue)
-          workValue2 = playerPed2 + workValue2
-          playerPed(coords, workValue2)
+          workingValue2 = vector3
+          workingValue3 = number5.x
+          workingValue3 = workingValue3 / 10
+          workingValue3 = workingValue3 * createVector3
+          workingValue4 = number5.y
+          workingValue4 = workingValue4 / 10
+          workingValue4 = workingValue4 * createVector3
+          number = number5.z
+          number = number / 10
+          number = number * createVector3
+          workingValue2 = workingValue2(workingValue3, workingValue4, number)
+          workingValue2 = playerPed2 + workingValue2
+          playerPed(coords, workingValue2)
         end
         waitCall = SendNUIMessage
         tableHelper = {}
@@ -548,9 +548,9 @@ function workValue5()
         tableHelper = PlayerPedId
         -- Beginner: result below is localPlayerPed.
         tableHelper = tableHelper()
-        flag = true
+        stateFlag = true
         -- Beginner: Freeze or unfreeze an entity in place.
-        waitCall(tableHelper, flag)
+        waitCall(tableHelper, stateFlag)
         waitCall = CMG
         waitCall = waitCall.loadAnimDict
         tableHelper = "anim@amb@clubhouse@bar@drink@idle_a"
@@ -561,167 +561,167 @@ function workValue5()
         tableHelper = tableHelper.getPlayerPed
         -- Beginner: result below is localPlayerPed.
         tableHelper = tableHelper()
-        flag = "anim@amb@clubhouse@bar@drink@idle_a"
-        vector3Builder = "idle_a_bartender"
+        stateFlag = "anim@amb@clubhouse@bar@drink@idle_a"
+        createVector3 = "idle_a_bartender"
         playerPed = 3.0
         coords = 1.0
-        workValue2 = -1
-        workValue3 = 1
-        workValue4 = 0
-        numberValue = false
-        numberValue2 = false
-        numberValue3 = false
+        workingValue2 = -1
+        workingValue3 = 1
+        workingValue4 = 0
+        number = false
+        number2 = false
+        number3 = false
         -- Beginner: Play an animation on a ped.
-        waitCall(tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3)
+        waitCall(tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3)
         waitCall = RemoveAnimDict
         tableHelper = "anim@amb@clubhouse@bar@drink@idle_a"
         waitCall(tableHelper)
         waitCall = {}
         tableHelper = pairs
-        flag = iterator
-        tableHelper, flag, vector3Builder, playerPed = tableHelper(flag)
-        for coords, workValue2 in tableHelper, flag, vector3Builder, playerPed do
-          workValue3 = UseParticleFxAsset
-          workValue4 = "core"
-          workValue3(workValue4)
-          workValue3 = StartParticleFxLoopedAtCoord
-          workValue4 = "ent_dst_elec_crackle"
-          numberValue = workValue2.x
-          numberValue2 = workValue2.y
-          numberValue3 = workValue2.z
-          numberValue4 = 0.0
-          flag2 = 0.0
-          flag3 = 0.0
-          flag4 = 1.2
-          flag5 = false
-          flag6 = false
-          flag7 = false
-          flag8 = false
-          workValue3 = workValue3(workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8)
-          workValue4 = table
-          workValue4 = workValue4.insert
-          numberValue = waitCall
-          numberValue2 = workValue3
-          workValue4(numberValue, numberValue2)
+        stateFlag = iterator
+        tableHelper, stateFlag, createVector3, playerPed = tableHelper(stateFlag)
+        for coords, workingValue2 in tableHelper, stateFlag, createVector3, playerPed do
+          workingValue3 = UseParticleFxAsset
+          workingValue4 = "core"
+          workingValue3(workingValue4)
+          workingValue3 = StartParticleFxLoopedAtCoord
+          workingValue4 = "ent_dst_elec_crackle"
+          number = workingValue2.x
+          number2 = workingValue2.y
+          number3 = workingValue2.z
+          number4 = 0.0
+          stateFlag2 = 0.0
+          stateFlag3 = 0.0
+          stateFlag4 = 1.2
+          stateFlag5 = false
+          stateFlag6 = false
+          stateFlag7 = false
+          stateFlag8 = false
+          workingValue3 = workingValue3(workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8)
+          workingValue4 = table
+          workingValue4 = workingValue4.insert
+          number = waitCall
+          number2 = workingValue3
+          workingValue4(number, number2)
         end
         while true do
           tableHelper = 150
-          if not (flag10 < tableHelper) then
+          if not (stateFlag10 < tableHelper) then
             break
           end
-          flag10 = flag10 + 1
+          stateFlag10 = stateFlag10 + 1
           tableHelper = pairs
-          flag = iterator
-          tableHelper, flag, vector3Builder, playerPed = tableHelper(flag)
-          for coords, workValue2 in tableHelper, flag, vector3Builder, playerPed do
-            workValue3 = UseParticleFxAsset
-            workValue4 = "core"
-            workValue3(workValue4)
-            workValue3 = StartParticleFxLoopedAtCoord
-            workValue4 = "sp_foundry_sparks"
-            numberValue = workValue2.x
-            numberValue2 = workValue2.y
-            numberValue3 = workValue2.z
-            numberValue4 = 90.0
-            flag2 = 0.0
-            flag3 = 0.0
-            flag4 = 0.3
-            flag5 = false
-            flag6 = false
-            flag7 = false
-            flag8 = false
-            workValue3 = workValue3(workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8)
-            workValue4 = UseParticleFxAsset
-            numberValue = "core"
-            workValue4(numberValue)
-            workValue4 = StartParticleFxLoopedAtCoord
-            numberValue = "ent_dst_elec_fire_sp"
-            numberValue2 = workValue2.x
-            numberValue3 = workValue2.y
-            numberValue4 = workValue2.z
-            flag2 = 0.0
-            flag3 = 0.0
-            flag4 = 0.0
-            flag5 = 1.0
-            flag6 = false
-            flag7 = false
-            flag8 = false
-            flag9 = false
-            workValue4 = workValue4(numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9)
-            numberValue = table
-            numberValue = numberValue.insert
-            numberValue2 = waitCall
-            numberValue3 = workValue3
-            numberValue(numberValue2, numberValue3)
-            numberValue = table
-            numberValue = numberValue.insert
-            numberValue2 = waitCall
-            numberValue3 = workValue4
-            numberValue(numberValue2, numberValue3)
+          stateFlag = iterator
+          tableHelper, stateFlag, createVector3, playerPed = tableHelper(stateFlag)
+          for coords, workingValue2 in tableHelper, stateFlag, createVector3, playerPed do
+            workingValue3 = UseParticleFxAsset
+            workingValue4 = "core"
+            workingValue3(workingValue4)
+            workingValue3 = StartParticleFxLoopedAtCoord
+            workingValue4 = "sp_foundry_sparks"
+            number = workingValue2.x
+            number2 = workingValue2.y
+            number3 = workingValue2.z
+            number4 = 90.0
+            stateFlag2 = 0.0
+            stateFlag3 = 0.0
+            stateFlag4 = 0.3
+            stateFlag5 = false
+            stateFlag6 = false
+            stateFlag7 = false
+            stateFlag8 = false
+            workingValue3 = workingValue3(workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8)
+            workingValue4 = UseParticleFxAsset
+            number = "core"
+            workingValue4(number)
+            workingValue4 = StartParticleFxLoopedAtCoord
+            number = "ent_dst_elec_fire_sp"
+            number2 = workingValue2.x
+            number3 = workingValue2.y
+            number4 = workingValue2.z
+            stateFlag2 = 0.0
+            stateFlag3 = 0.0
+            stateFlag4 = 0.0
+            stateFlag5 = 1.0
+            stateFlag6 = false
+            stateFlag7 = false
+            stateFlag8 = false
+            stateFlag9 = false
+            workingValue4 = workingValue4(number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9)
+            number = table
+            number = number.insert
+            number2 = waitCall
+            number3 = workingValue3
+            number(number2, number3)
+            number = table
+            number = number.insert
+            number2 = waitCall
+            number3 = workingValue4
+            number(number2, number3)
           end
           tableHelper = Wait
-          flag = 50
-          tableHelper(flag)
+          stateFlag = 50
+          tableHelper(stateFlag)
           tableHelper = pairs
-          flag = waitCall
-          tableHelper, flag, vector3Builder, playerPed = tableHelper(flag)
-          for coords, workValue2 in tableHelper, flag, vector3Builder, playerPed do
-            workValue3 = RemoveParticleFx
-            workValue4 = workValue2
-            numberValue = false
-            workValue3(workValue4, numberValue)
+          stateFlag = waitCall
+          tableHelper, stateFlag, createVector3, playerPed = tableHelper(stateFlag)
+          for coords, workingValue2 in tableHelper, stateFlag, createVector3, playerPed do
+            workingValue3 = RemoveParticleFx
+            workingValue4 = workingValue2
+            number = false
+            workingValue3(workingValue4, number)
           end
         end
         tableHelper = RemoveNamedPtfxAsset
-        flag = "core"
-        tableHelper(flag)
+        stateFlag = "core"
+        tableHelper(stateFlag)
         tableHelper = FreezeEntityPosition
-        flag = PlayerPedId
+        stateFlag = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        flag = flag()
-        vector3Builder = false
+        stateFlag = stateFlag()
+        createVector3 = false
         -- Beginner: Freeze or unfreeze an entity in place.
-        tableHelper(flag, vector3Builder)
+        tableHelper(stateFlag, createVector3)
         tableHelper = ClearPedTasks
-        flag = PlayerPedId
-        flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9 = flag()
-        tableHelper(flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9)
+        stateFlag = PlayerPedId
+        stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9 = stateFlag()
+        tableHelper(stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9)
       else
-        flag10 = drawNativeNotification
+        stateFlag10 = drawNativeNotification
         playerPed2 = "~r~No one nearby to use the force on!"
         -- Beginner: Show a GTA-style notification/help prompt.
-        flag10(playerPed2)
+        stateFlag10(playerPed2)
       end
     else
-      arg2 = drawNativeNotification
-      flag10 = "~r~No one nearby to use the force on!"
-      arg2(flag10)
+      localValue2 = drawNativeNotification
+      stateFlag10 = "~r~No one nearby to use the force on!"
+      localValue2(stateFlag10)
     end
   end
 end
-flag11 = false
-cmgCall(textValue, workValue5, flag11)
-cmgCall = RegisterNetEvent
-textValue = "b47f9b0085"
+stateFlag11 = false
+cmgOperation(text, workingValue5, stateFlag11)
+cmgOperation = RegisterNetEvent
+text = "b47f9b0085"
 -- Beginner: this function handles network event "b47f9b0085".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, stateFlag10, playerPed2, playerPed3, coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetEntityCoords
-  flag10 = arg1
+  localValue1 = localValue1()
+  localValue2 = GetEntityCoords
+  stateFlag10 = localValue1
   -- Beginner: result below is entityCoords.
-  arg2 = arg2(flag10)
-  flag10 = -1686040670
+  localValue2 = localValue2(stateFlag10)
+  stateFlag10 = -1686040670
   playerPed2 = RequestModel
-  playerPed3 = flag10
+  playerPed3 = stateFlag10
   playerPed2(playerPed3)
   while true do
     playerPed2 = HasModelLoaded
-    playerPed3 = flag10
+    playerPed3 = stateFlag10
     playerPed2 = playerPed2(playerPed3)
     if playerPed2 then
       break
@@ -751,59 +751,59 @@ function workValue5()
   playerPed3(coords2)
   playerPed3 = CreatePed
   coords2 = 0
-  iterator = flag10
-  numberValue5 = arg2.x
-  numberValue5 = numberValue5 + 1.0
-  waitCall = arg2.y
-  tableHelper = arg2.z
-  flag = 0.0
-  vector3Builder = true
+  iterator = stateFlag10
+  number5 = localValue2.x
+  number5 = number5 + 1.0
+  waitCall = localValue2.y
+  tableHelper = localValue2.z
+  stateFlag = 0.0
+  createVector3 = true
   playerPed = true
   -- Beginner: result below is pedEntity.
-  playerPed3 = playerPed3(coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed)
+  playerPed3 = playerPed3(coords2, iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed)
   coords2 = SetBlockingOfNonTemporaryEvents
   iterator = playerPed3
-  numberValue5 = true
-  coords2(iterator, numberValue5)
+  number5 = true
+  coords2(iterator, number5)
   coords2 = SetPedCanRagdoll
   iterator = playerPed3
-  numberValue5 = false
-  coords2(iterator, numberValue5)
+  number5 = false
+  coords2(iterator, number5)
   coords2 = CMG
   coords2 = coords2.requestEntitySpawn
   iterator = "kidnap_ped2"
   coords2(iterator)
   coords2 = CreatePed
   iterator = 0
-  numberValue5 = playerPed2
-  waitCall = arg2.x
+  number5 = playerPed2
+  waitCall = localValue2.x
   waitCall = waitCall + 1.0
-  tableHelper = arg2.y
-  flag = arg2.z
-  vector3Builder = 0.0
+  tableHelper = localValue2.y
+  stateFlag = localValue2.z
+  createVector3 = 0.0
   playerPed = true
   coords = true
   -- Beginner: result below is pedEntity.
-  coords2 = coords2(iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords)
+  coords2 = coords2(iterator, number5, waitCall, tableHelper, stateFlag, createVector3, playerPed, coords)
   iterator = SetBlockingOfNonTemporaryEvents
-  numberValue5 = coords2
+  number5 = coords2
   waitCall = true
-  iterator(numberValue5, waitCall)
+  iterator(number5, waitCall)
   iterator = SetPedCanRagdoll
-  numberValue5 = coords2
+  number5 = coords2
   waitCall = false
-  iterator(numberValue5, waitCall)
+  iterator(number5, waitCall)
   iterator = -1346687836
-  numberValue5 = GetClosestVehicle
-  waitCall = arg2.x
-  tableHelper = arg2.y
-  flag = arg2.z
-  vector3Builder = 15.0
+  number5 = GetClosestVehicle
+  waitCall = localValue2.x
+  tableHelper = localValue2.y
+  stateFlag = localValue2.z
+  createVector3 = 15.0
   playerPed = iterator
   coords = 70
-  numberValue5 = numberValue5(waitCall, tableHelper, flag, vector3Builder, playerPed, coords)
+  number5 = number5(waitCall, tableHelper, stateFlag, createVector3, playerPed, coords)
   waitCall = DoesEntityExist
-  tableHelper = numberValue5
+  tableHelper = number5
   waitCall = waitCall(tableHelper)
   if not waitCall then
     waitCall = RequestModel
@@ -826,120 +826,120 @@ function workValue5()
     waitCall(tableHelper)
     waitCall = CreateVehicle
     tableHelper = iterator
-    flag = arg2.x
-    flag = flag + 3.0
-    vector3Builder = arg2.y
-    vector3Builder = vector3Builder + 1.0
-    playerPed = arg2.z
+    stateFlag = localValue2.x
+    stateFlag = stateFlag + 3.0
+    createVector3 = localValue2.y
+    createVector3 = createVector3 + 1.0
+    playerPed = localValue2.z
     coords = 0.0
-    workValue2 = true
-    workValue3 = false
+    workingValue2 = true
+    workingValue3 = false
     -- Beginner: result below is vehicleEntity.
-    waitCall = waitCall(tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3)
-    numberValue5 = waitCall
+    waitCall = waitCall(tableHelper, stateFlag, createVector3, playerPed, coords, workingValue2, workingValue3)
+    number5 = waitCall
     waitCall = CMG
     waitCall = waitCall.initLocalVehicle
-    tableHelper = numberValue5
+    tableHelper = number5
     waitCall(tableHelper)
   end
   waitCall = GetEntityCoords
-  tableHelper = numberValue5
+  tableHelper = number5
   -- Beginner: result below is entityCoords.
   waitCall = waitCall(tableHelper)
   tableHelper = GetEntityRotation
-  flag = numberValue5
-  tableHelper = tableHelper(flag)
-  flag = "random@kidnap_girl"
-  vector3Builder = RequestAnimDict
-  playerPed = flag
-  vector3Builder(playerPed)
+  stateFlag = number5
+  tableHelper = tableHelper(stateFlag)
+  stateFlag = "random@kidnap_girl"
+  createVector3 = RequestAnimDict
+  playerPed = stateFlag
+  createVector3(playerPed)
   while true do
-    vector3Builder = HasAnimDictLoaded
-    playerPed = flag
-    vector3Builder = vector3Builder(playerPed)
-    if vector3Builder then
+    createVector3 = HasAnimDictLoaded
+    playerPed = stateFlag
+    createVector3 = createVector3(playerPed)
+    if createVector3 then
       break
     end
-    vector3Builder = Wait
+    createVector3 = Wait
     playerPed = 0
-    vector3Builder(playerPed)
+    createVector3(playerPed)
   end
-  vector3Builder = NetworkCreateSynchronisedScene
+  createVector3 = NetworkCreateSynchronisedScene
   playerPed = waitCall.x
   coords = waitCall.y
-  workValue2 = waitCall.z
-  workValue3 = tableHelper.x
-  workValue4 = tableHelper.y
-  numberValue = tableHelper.z
-  numberValue2 = 2
-  numberValue3 = false
-  numberValue4 = false
-  flag2 = 1.0
-  flag3 = 0
-  flag4 = 1.0
-  vector3Builder = vector3Builder(playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4)
+  workingValue2 = waitCall.z
+  workingValue3 = tableHelper.x
+  workingValue4 = tableHelper.y
+  number = tableHelper.z
+  number2 = 2
+  number3 = false
+  number4 = false
+  stateFlag2 = 1.0
+  stateFlag3 = 0
+  stateFlag4 = 1.0
+  createVector3 = createVector3(playerPed, coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3, stateFlag4)
   playerPed = NetworkAddPedToSynchronisedScene
   coords = coords2
-  workValue2 = vector3Builder
-  workValue3 = flag
-  workValue4 = "ig_1_guy1_drag_into_van"
-  numberValue = 8.0
-  numberValue2 = -4.0
-  numberValue3 = 1
-  numberValue4 = 16
-  flag2 = 0
-  flag3 = 0
-  playerPed(coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3)
+  workingValue2 = createVector3
+  workingValue3 = stateFlag
+  workingValue4 = "ig_1_guy1_drag_into_van"
+  number = 8.0
+  number2 = -4.0
+  number3 = 1
+  number4 = 16
+  stateFlag2 = 0
+  stateFlag3 = 0
+  playerPed(coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3)
   playerPed = NetworkAddPedToSynchronisedScene
   coords = playerPed3
-  workValue2 = vector3Builder
-  workValue3 = flag
-  workValue4 = "ig_1_guy2_drag_into_van"
-  numberValue = 8.0
-  numberValue2 = -4.0
-  numberValue3 = 1
-  numberValue4 = 16
-  flag2 = 0
-  flag3 = 0
-  playerPed(coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3)
+  workingValue2 = createVector3
+  workingValue3 = stateFlag
+  workingValue4 = "ig_1_guy2_drag_into_van"
+  number = 8.0
+  number2 = -4.0
+  number3 = 1
+  number4 = 16
+  stateFlag2 = 0
+  stateFlag3 = 0
+  playerPed(coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3)
   playerPed = NetworkAddPedToSynchronisedScene
-  coords = arg1
-  workValue2 = vector3Builder
-  workValue3 = flag
-  workValue4 = "ig_1_girl_drag_into_van"
-  numberValue = 8.0
-  numberValue2 = -4.0
-  numberValue3 = 1
-  numberValue4 = 16
-  flag2 = 0
-  flag3 = 0
-  playerPed(coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3)
+  coords = localValue1
+  workingValue2 = createVector3
+  workingValue3 = stateFlag
+  workingValue4 = "ig_1_girl_drag_into_van"
+  number = 8.0
+  number2 = -4.0
+  number3 = 1
+  number4 = 16
+  stateFlag2 = 0
+  stateFlag3 = 0
+  playerPed(coords, workingValue2, workingValue3, workingValue4, number, number2, number3, number4, stateFlag2, stateFlag3)
   playerPed = NetworkAddEntityToSynchronisedScene
-  coords = numberValue5
-  workValue2 = vector3Builder
-  workValue3 = flag
-  workValue4 = "drag_into_van_burr"
-  numberValue = 1.0
-  numberValue2 = 1.0
-  numberValue3 = 1
-  playerPed(coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3)
+  coords = number5
+  workingValue2 = createVector3
+  workingValue3 = stateFlag
+  workingValue4 = "drag_into_van_burr"
+  number = 1.0
+  number2 = 1.0
+  number3 = 1
+  playerPed(coords, workingValue2, workingValue3, workingValue4, number, number2, number3)
   playerPed = NetworkStartSynchronisedScene
-  coords = vector3Builder
+  coords = createVector3
   playerPed(coords)
   playerPed = PlayAmbientSpeech1
   coords = playerPed3
-  workValue2 = "GENERIC_SHOCKED_HIGH"
-  workValue3 = "SPEECH_PARAMS_FORCE"
-  playerPed(coords, workValue2, workValue3)
+  workingValue2 = "GENERIC_SHOCKED_HIGH"
+  workingValue3 = "SPEECH_PARAMS_FORCE"
+  playerPed(coords, workingValue2, workingValue3)
   playerPed = Wait
   coords = GetAnimDuration
-  workValue2 = flag
-  workValue3 = "drag_into_van_burr"
-  coords = coords(workValue2, workValue3)
+  workingValue2 = stateFlag
+  workingValue3 = "drag_into_van_burr"
+  coords = coords(workingValue2, workingValue3)
   coords = coords * 1000
   playerPed(coords)
   playerPed = ClearPedTasks
-  coords = arg1
+  coords = localValue1
   playerPed(coords)
   playerPed = DeleteEntity
   coords = playerPed3
@@ -949,9 +949,9 @@ function workValue5()
   coords = coords2
   playerPed(coords)
   playerPed = DeleteEntity
-  coords = numberValue5
+  coords = number5
   -- Beginner: Delete a GTA entity.
   playerPed(coords)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b47f9b0085".
-cmgCall(textValue, workValue5)
+cmgOperation(text, workingValue5)

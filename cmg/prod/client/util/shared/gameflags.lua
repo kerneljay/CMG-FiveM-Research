@@ -40,10 +40,10 @@
     GTA Animation Flags
     ===================
 
-    GTA's TaskPlayAnim uses a bit-field called an animation flag.
+    GTA's TaskPlayAnim uses a bit-field called an animation stateFlag.
 
     CMG.getFlags("AF_LOOPING", "AF_UPPERBODY")
-    adds the numeric values together and returns the combined flag.
+    adds the numeric values together and returns the combined stateFlag.
 ]]
 
 local animationFlags = {

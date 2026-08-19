@@ -3555,7 +3555,7 @@ AddEventHandler("utk_fingerprint:startGame", function()
 end)
 
 AddEventHandler("StartHack", function()
-  local arg1, arg2, arg3, arg4, arg5, arg6
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
   G_0 = 1
   G_6 = 0
   Seconds = 0
@@ -3565,95 +3565,95 @@ AddEventHandler("StartHack", function()
   G_15 = true
   G_1 = false
   G_16 = false
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mphackinggamebg"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mpfclone_decor"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mphackinggame"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mphackinggamewin"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mphackinggamewin2"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mphackinggamewin3"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mpfclone_common"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mphackinggameoverlay"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mphackinggameoverlay1"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mpfclone_print0"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mpfclone_print1"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mpfclone_print2"
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = RequestStreamedTextureDict
-  arg2 = "mpfclone_print3"
-  arg3 = false
-  arg1(arg2, arg3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mphackinggamebg"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mpfclone_decor"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mphackinggame"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mphackinggamewin"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mphackinggamewin2"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mphackinggamewin3"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mpfclone_common"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mphackinggameoverlay"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mphackinggameoverlay1"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mpfclone_print0"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mpfclone_print1"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mpfclone_print2"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "mpfclone_print3"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
   while true do
-    arg1 = HasStreamedTextureDictLoaded
-    arg2 = "mphackinggame"
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = HasStreamedTextureDictLoaded
-      arg2 = "mpfclone_common"
-      arg1 = arg1(arg2)
-      if arg1 then
-        arg1 = HasStreamedTextureDictLoaded
-        arg2 = "mpfclone_decor"
-        arg1 = arg1(arg2)
-        if arg1 then
-          arg1 = HasStreamedTextureDictLoaded
-          arg2 = "mphackinggamewin"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg1 = HasStreamedTextureDictLoaded
-            arg2 = "mphackinggamebg"
-            arg1 = arg1(arg2)
-            if arg1 then
-              arg1 = HasStreamedTextureDictLoaded
-              arg2 = "mpfclone_print0"
-              arg1 = arg1(arg2)
-              if arg1 then
-                arg1 = HasStreamedTextureDictLoaded
-                arg2 = "mpfclone_print1"
-                arg1 = arg1(arg2)
-                if arg1 then
-                  arg1 = HasStreamedTextureDictLoaded
-                  arg2 = "mpfclone_print2"
-                  arg1 = arg1(arg2)
-                  if arg1 then
-                    arg1 = HasStreamedTextureDictLoaded
-                    arg2 = "mpfclone_print3"
-                    arg1 = arg1(arg2)
-                    if arg1 then
+    localValue1 = HasStreamedTextureDictLoaded
+    localValue2 = "mphackinggame"
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = HasStreamedTextureDictLoaded
+      localValue2 = "mpfclone_common"
+      localValue1 = localValue1(localValue2)
+      if localValue1 then
+        localValue1 = HasStreamedTextureDictLoaded
+        localValue2 = "mpfclone_decor"
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
+          localValue1 = HasStreamedTextureDictLoaded
+          localValue2 = "mphackinggamewin"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue1 = HasStreamedTextureDictLoaded
+            localValue2 = "mphackinggamebg"
+            localValue1 = localValue1(localValue2)
+            if localValue1 then
+              localValue1 = HasStreamedTextureDictLoaded
+              localValue2 = "mpfclone_print0"
+              localValue1 = localValue1(localValue2)
+              if localValue1 then
+                localValue1 = HasStreamedTextureDictLoaded
+                localValue2 = "mpfclone_print1"
+                localValue1 = localValue1(localValue2)
+                if localValue1 then
+                  localValue1 = HasStreamedTextureDictLoaded
+                  localValue2 = "mpfclone_print2"
+                  localValue1 = localValue1(localValue2)
+                  if localValue1 then
+                    localValue1 = HasStreamedTextureDictLoaded
+                    localValue2 = "mpfclone_print3"
+                    localValue1 = localValue1(localValue2)
+                    if localValue1 then
                       break
                     end
                   end
@@ -3664,31 +3664,31 @@ AddEventHandler("StartHack", function()
         end
       end
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 10
-    arg1(arg2)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 10
+    localValue1(localValue2)
   end
-  arg1 = GetSoundId
+  localValue1 = GetSoundId
   -- Beginner: result below is soundHandle.
-  arg1 = arg1()
-  G_17 = arg1
-  arg1 = F_0
-  arg1()
-  arg1 = F_13
-  arg2 = "instructional_buttons"
-  arg1 = arg1(arg2)
+  localValue1 = localValue1()
+  G_17 = localValue1
+  localValue1 = F_0
+  localValue1()
+  localValue1 = F_13
+  localValue2 = "instructional_buttons"
+  localValue1 = localValue1(localValue2)
 
-  -- === HELPER FUNCTION: arg2() ===
-  function arg2()
-    local threadCall, numberValue9
+  -- === HELPER FUNCTION: localValue2() ===
+  function localValue2()
+    local backgroundThread, number9
     G_19 = true
-    threadCall = Citizen
-    threadCall = threadCall.CreateThread
+    backgroundThread = Citizen
+    backgroundThread = backgroundThread.CreateThread
 
-    -- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
-    function numberValue9()
-      local waitCall, numberValue10, textValue2, textValue4, flag2
+    -- === HELPER FUNCTION (decompiler name: number9; parameters: none) ===
+    function number9()
+      local waitCall, number10, text2, text4, stateFlag2
       G_19 = false
       G_9 = 31
       while true do
@@ -3698,8 +3698,8 @@ AddEventHandler("StartHack", function()
 
         waitCall = Citizen
         waitCall = waitCall.Wait
-        numberValue10 = 1920
-        waitCall(numberValue10)
+        number10 = 1920
+        waitCall(number10)
         while true do
           waitCall = G_16
           if true ~= waitCall then
@@ -3707,8 +3707,8 @@ AddEventHandler("StartHack", function()
           end
           waitCall = Citizen
           waitCall = waitCall.Wait
-          numberValue10 = 10
-          waitCall(numberValue10)
+          number10 = 10
+          waitCall(number10)
         end
         waitCall = G_9
         if 0 == waitCall then
@@ -3719,11 +3719,11 @@ AddEventHandler("StartHack", function()
           return waitCall()
         else
           waitCall = PlaySoundFrontend
-          numberValue10 = -1
-          textValue2 = "Scramble_Countdown_Med"
-          textValue4 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-          flag2 = true
-          waitCall(numberValue10, textValue2, textValue4, flag2)
+          number10 = -1
+          text2 = "Scramble_Countdown_Med"
+          text4 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+          stateFlag2 = true
+          waitCall(number10, text2, text4, stateFlag2)
           waitCall = G_9
           waitCall = waitCall - 1
           G_9 = waitCall
@@ -3731,186 +3731,186 @@ AddEventHandler("StartHack", function()
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    threadCall(numberValue9)
+    backgroundThread(number9)
   end
-  G_18 = arg2
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  G_18 = localValue2
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local threadCall, numberValue9
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local backgroundThread, number9
     while true do
-      threadCall = G_15
-      if not threadCall then
+      backgroundThread = G_15
+      if not backgroundThread then
         break
       end
-      threadCall = F_1
-      threadCall()
-      threadCall = Citizen
-      threadCall = threadCall.Wait
-      numberValue9 = 1
-      threadCall(numberValue9)
+      backgroundThread = F_1
+      backgroundThread()
+      backgroundThread = Citizen
+      backgroundThread = backgroundThread.Wait
+      number9 = 1
+      backgroundThread(number9)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  localValue2(localValue3)
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local threadCall, numberValue9, textValue, textValue3, flag
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local backgroundThread, number9, text, text3, stateFlag
     while true do
-      threadCall = IsControlJustReleased
-      numberValue9 = 2
-      textValue = 201
-      threadCall = threadCall(numberValue9, textValue)
-      if threadCall then
-        threadCall = G_13
-        numberValue9 = G_4
-        threadCall = threadCall[numberValue9]
-        threadCall = threadCall[3]
-        if true == threadCall then
-          threadCall = G_13
-          numberValue9 = G_4
-          threadCall = threadCall[numberValue9]
-          threadCall[3] = false
-          threadCall = G_6
-          threadCall = threadCall - 1
-          G_6 = threadCall
-          threadCall = PlaySoundFrontend
-          numberValue9 = -1
-          textValue = "Deselect_Print_Tile"
-          textValue3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-          flag = true
-          threadCall(numberValue9, textValue, textValue3, flag)
+      backgroundThread = IsControlJustReleased
+      number9 = 2
+      text = 201
+      backgroundThread = backgroundThread(number9, text)
+      if backgroundThread then
+        backgroundThread = G_13
+        number9 = G_4
+        backgroundThread = backgroundThread[number9]
+        backgroundThread = backgroundThread[3]
+        if true == backgroundThread then
+          backgroundThread = G_13
+          number9 = G_4
+          backgroundThread = backgroundThread[number9]
+          backgroundThread[3] = false
+          backgroundThread = G_6
+          backgroundThread = backgroundThread - 1
+          G_6 = backgroundThread
+          backgroundThread = PlaySoundFrontend
+          number9 = -1
+          text = "Deselect_Print_Tile"
+          text3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+          stateFlag = true
+          backgroundThread(number9, text, text3, stateFlag)
         else
-          threadCall = G_13
-          numberValue9 = G_4
-          threadCall = threadCall[numberValue9]
-          threadCall = threadCall[3]
-          if false == threadCall then
-            threadCall = G_6
-            if threadCall < 4 then
-              threadCall = G_13
-              numberValue9 = G_4
-              threadCall = threadCall[numberValue9]
-              threadCall[3] = true
-              threadCall = G_6
-              threadCall = threadCall + 1
-              G_6 = threadCall
-              threadCall = PlaySoundFrontend
-              numberValue9 = -1
-              textValue = "Select_Print_Tile"
-              textValue3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-              flag = true
-              threadCall(numberValue9, textValue, textValue3, flag)
+          backgroundThread = G_13
+          number9 = G_4
+          backgroundThread = backgroundThread[number9]
+          backgroundThread = backgroundThread[3]
+          if false == backgroundThread then
+            backgroundThread = G_6
+            if backgroundThread < 4 then
+              backgroundThread = G_13
+              number9 = G_4
+              backgroundThread = backgroundThread[number9]
+              backgroundThread[3] = true
+              backgroundThread = G_6
+              backgroundThread = backgroundThread + 1
+              G_6 = backgroundThread
+              backgroundThread = PlaySoundFrontend
+              number9 = -1
+              text = "Select_Print_Tile"
+              text3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+              stateFlag = true
+              backgroundThread(number9, text, text3, stateFlag)
             end
           end
         end
       else
-        threadCall = IsControlJustReleased
-        numberValue9 = 2
-        textValue = 204
-        threadCall = threadCall(numberValue9, textValue)
-        if threadCall then
-          threadCall = G_6
-          if 4 == threadCall then
-            threadCall = F_2
-            threadCall()
-            threadCall = F_3
-            threadCall()
+        backgroundThread = IsControlJustReleased
+        number9 = 2
+        text = 204
+        backgroundThread = backgroundThread(number9, text)
+        if backgroundThread then
+          backgroundThread = G_6
+          if 4 == backgroundThread then
+            backgroundThread = F_2
+            backgroundThread()
+            backgroundThread = F_3
+            backgroundThread()
           end
         else
-          threadCall = IsControlJustReleased
-          numberValue9 = 2
-          textValue = 187
-          threadCall = threadCall(numberValue9, textValue)
-          if threadCall then
-            threadCall = F_2
-            threadCall()
-            threadCall = G_4
-            if threadCall < 7 then
-              threadCall = G_4
-              threadCall = threadCall + 2
-              G_4 = threadCall
+          backgroundThread = IsControlJustReleased
+          number9 = 2
+          text = 187
+          backgroundThread = backgroundThread(number9, text)
+          if backgroundThread then
+            backgroundThread = F_2
+            backgroundThread()
+            backgroundThread = G_4
+            if backgroundThread < 7 then
+              backgroundThread = G_4
+              backgroundThread = backgroundThread + 2
+              G_4 = backgroundThread
             else
-              threadCall = G_4
-              if 7 == threadCall then
+              backgroundThread = G_4
+              if 7 == backgroundThread then
                 G_4 = 1
               else
-                threadCall = G_4
-                if 8 == threadCall then
+                backgroundThread = G_4
+                if 8 == backgroundThread then
                   G_4 = 2
                 end
               end
             end
           else
-            threadCall = IsControlJustReleased
-            numberValue9 = 2
-            textValue = 188
-            threadCall = threadCall(numberValue9, textValue)
-            if threadCall then
-              threadCall = F_2
-              threadCall()
-              threadCall = G_4
-              if threadCall > 2 then
-                threadCall = G_4
-                threadCall = threadCall - 2
-                G_4 = threadCall
+            backgroundThread = IsControlJustReleased
+            number9 = 2
+            text = 188
+            backgroundThread = backgroundThread(number9, text)
+            if backgroundThread then
+              backgroundThread = F_2
+              backgroundThread()
+              backgroundThread = G_4
+              if backgroundThread > 2 then
+                backgroundThread = G_4
+                backgroundThread = backgroundThread - 2
+                G_4 = backgroundThread
               else
-                threadCall = G_4
-                if 1 == threadCall then
+                backgroundThread = G_4
+                if 1 == backgroundThread then
                   G_4 = 7
                 else
-                  threadCall = G_4
-                  if 2 == threadCall then
+                  backgroundThread = G_4
+                  if 2 == backgroundThread then
                     G_4 = 8
                   end
                 end
               end
             else
-              threadCall = IsControlJustReleased
-              numberValue9 = 2
-              textValue = 189
-              threadCall = threadCall(numberValue9, textValue)
-              if threadCall then
-                threadCall = F_2
-                threadCall()
-                threadCall = G_4
-                if 1 ~= threadCall then
-                  threadCall = G_4
-                  threadCall = threadCall - 1
-                  G_4 = threadCall
+              backgroundThread = IsControlJustReleased
+              number9 = 2
+              text = 189
+              backgroundThread = backgroundThread(number9, text)
+              if backgroundThread then
+                backgroundThread = F_2
+                backgroundThread()
+                backgroundThread = G_4
+                if 1 ~= backgroundThread then
+                  backgroundThread = G_4
+                  backgroundThread = backgroundThread - 1
+                  G_4 = backgroundThread
                 else
                   G_4 = 8
                 end
               else
-                threadCall = IsControlJustReleased
-                numberValue9 = 2
-                textValue = 190
-                threadCall = threadCall(numberValue9, textValue)
-                if threadCall then
-                  threadCall = F_2
-                  threadCall()
-                  threadCall = G_4
-                  if 8 ~= threadCall then
-                    threadCall = G_4
-                    threadCall = threadCall + 1
-                    G_4 = threadCall
+                backgroundThread = IsControlJustReleased
+                number9 = 2
+                text = 190
+                backgroundThread = backgroundThread(number9, text)
+                if backgroundThread then
+                  backgroundThread = F_2
+                  backgroundThread()
+                  backgroundThread = G_4
+                  if 8 ~= backgroundThread then
+                    backgroundThread = G_4
+                    backgroundThread = backgroundThread + 1
+                    G_4 = backgroundThread
                   else
                     G_4 = 1
                   end
                 else
-                  threadCall = IsControlJustReleased
-                  numberValue9 = 2
-                  textValue = 194
-                  threadCall = threadCall(numberValue9, textValue)
-                  if threadCall then
-                    threadCall = F_8
-                    numberValue9 = "Hack aborted"
-                    threadCall(numberValue9)
+                  backgroundThread = IsControlJustReleased
+                  number9 = 2
+                  text = 194
+                  backgroundThread = backgroundThread(number9, text)
+                  if backgroundThread then
+                    backgroundThread = F_8
+                    number9 = "Hack aborted"
+                    backgroundThread(number9)
                     G_1 = true
                     return
                   end
@@ -3920,811 +3920,811 @@ AddEventHandler("StartHack", function()
           end
         end
       end
-      threadCall = G_1
-      if threadCall then
+      backgroundThread = G_1
+      if backgroundThread then
         return
       end
-      threadCall = Citizen
-      threadCall = threadCall.Wait
-      numberValue9 = 1
-      threadCall(numberValue9)
+      backgroundThread = Citizen
+      backgroundThread = backgroundThread.Wait
+      number9 = 1
+      backgroundThread(number9)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
-  arg2 = PlaySoundFrontend
-  arg3 = G_17
-  arg4 = "Background_Hum"
-  arg5 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-  arg6 = true
-  arg2(arg3, arg4, arg5, arg6)
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  localValue2(localValue3)
+  localValue2 = PlaySoundFrontend
+  localValue3 = G_17
+  localValue4 = "Background_Hum"
+  localValue5 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+  localValue6 = true
+  localValue2(localValue3, localValue4, localValue5, localValue6)
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local threadCall, numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7, numberValue8
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local backgroundThread, number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7, number8
     while true do
-      threadCall = G_1
-      if threadCall then
+      backgroundThread = G_1
+      if backgroundThread then
         return
       end
-      threadCall = F_4
-      numberValue9 = "mphackinggamebg"
-      textValue = "bg"
-      textValue3 = 0.5
-      flag = 0.5
-      numberValue11 = 1920.0
-      numberValue12 = 1920.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggamewin"
-      textValue = "tech_3_0"
-      textValue3 = 0.09
-      flag = 0.489
-      numberValue11 = 980.0
-      numberValue12 = 1000.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggamewin"
-      textValue = "tech_3_0"
-      textValue3 = 0.09
-      flag = 0.489
-      numberValue11 = 980.0
-      numberValue12 = 1000.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggamewin2"
-      textValue = "tech_2_0"
-      textValue3 = 0.95
-      flag = 0.642
-      numberValue11 = 840.0
-      numberValue12 = 800.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggamewin3"
-      textValue = "tech_4_1"
-      textValue3 = 0.065
-      flag = 0.67
-      numberValue11 = 950.0
-      numberValue12 = 1000.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mpfclone_common"
-      textValue = "background_layout"
-      textValue3 = 0.5
-      flag = 0.5
-      numberValue11 = 1264.0
-      numberValue12 = 1600.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "Scrambler_BG"
-      textValue3 = 0.169
-      flag = 0.84
-      numberValue11 = 400.0
-      numberValue12 = 64.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 125
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = 1
-      numberValue9 = G_9
-      textValue = 1
-      for textValue3 = threadCall, numberValue9, textValue do
-        flag = F_4
-        numberValue11 = "mphackinggame"
-        numberValue12 = "Scrambler_Fill_Segment"
-        numberValue13 = G_10
-        numberValue13 = numberValue13[textValue3]
-        dataTable5 = 0.84
-        numberValue14 = 12.0
-        numberValue = 80.0
-        numberValue2 = 0.0
-        numberValue4 = 255
+      backgroundThread = F_4
+      number9 = "mphackinggamebg"
+      text = "bg"
+      text3 = 0.5
+      stateFlag = 0.5
+      number11 = 1920.0
+      number12 = 1920.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggamewin"
+      text = "tech_3_0"
+      text3 = 0.09
+      stateFlag = 0.489
+      number11 = 980.0
+      number12 = 1000.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggamewin"
+      text = "tech_3_0"
+      text3 = 0.09
+      stateFlag = 0.489
+      number11 = 980.0
+      number12 = 1000.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggamewin2"
+      text = "tech_2_0"
+      text3 = 0.95
+      stateFlag = 0.642
+      number11 = 840.0
+      number12 = 800.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggamewin3"
+      text = "tech_4_1"
+      text3 = 0.065
+      stateFlag = 0.67
+      number11 = 950.0
+      number12 = 1000.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mpfclone_common"
+      text = "background_layout"
+      text3 = 0.5
+      stateFlag = 0.5
+      number11 = 1264.0
+      number12 = 1600.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "Scrambler_BG"
+      text3 = 0.169
+      stateFlag = 0.84
+      number11 = 400.0
+      number12 = 64.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 125
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = 1
+      number9 = G_9
+      text = 1
+      for text3 = backgroundThread, number9, text do
+        stateFlag = F_4
+        number11 = "mphackinggame"
+        number12 = "Scrambler_Fill_Segment"
+        number13 = G_10
+        number13 = number13[text3]
+        dataCollection5 = 0.84
+        number14 = 12.0
+        number = 80.0
+        number2 = 0.0
+        number4 = 255
         mathHelper = 255
-        numberValue5 = 255
-        numberValue6 = 250
-        numberValue7 = 0
-        flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+        number5 = 255
+        number6 = 250
+        number7 = 0
+        stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
       end
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "numbers_0"
-      textValue3 = 0.06
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "numbers_"
-      textValue3 = Minutes
-      textValue = textValue .. textValue3
-      textValue3 = 0.091
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "Numbers_Colon"
-      textValue3 = 0.122
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "numbers_"
-      textValue3 = Seconds
-      textValue = textValue .. textValue3
-      textValue3 = 0.153
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "numbers_"
-      textValue3 = Seconds2
-      textValue = textValue .. textValue3
-      textValue3 = 0.184
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "Numbers_Colon"
-      textValue3 = 0.215
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "numbers_"
-      textValue3 = Ms
-      textValue = textValue .. textValue3
-      textValue3 = 0.246
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggame"
-      textValue = "numbers_"
-      textValue3 = Ms2
-      textValue = textValue .. textValue3
-      textValue3 = 0.277
-      flag = 0.154
-      numberValue11 = 40.0
-      numberValue12 = 60.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = 1
-      numberValue9 = Lifes
-      textValue = 1
-      for textValue3 = threadCall, numberValue9, textValue do
-        flag = F_4
-        numberValue11 = "mphackinggame"
-        numberValue12 = "Life"
-        numberValue13 = G_11
-        numberValue13 = numberValue13[textValue3]
-        numberValue13 = numberValue13[1]
-        dataTable5 = G_11
-        dataTable5 = dataTable5[textValue3]
-        dataTable5 = dataTable5[2]
-        numberValue14 = 64.0
-        numberValue = 100.0
-        numberValue2 = 0.0
-        numberValue4 = 255
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "numbers_0"
+      text3 = 0.06
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "numbers_"
+      text3 = Minutes
+      text = text .. text3
+      text3 = 0.091
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "Numbers_Colon"
+      text3 = 0.122
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "numbers_"
+      text3 = Seconds
+      text = text .. text3
+      text3 = 0.153
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "numbers_"
+      text3 = Seconds2
+      text = text .. text3
+      text3 = 0.184
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "Numbers_Colon"
+      text3 = 0.215
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "numbers_"
+      text3 = Ms
+      text = text .. text3
+      text3 = 0.246
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggame"
+      text = "numbers_"
+      text3 = Ms2
+      text = text .. text3
+      text3 = 0.277
+      stateFlag = 0.154
+      number11 = 40.0
+      number12 = 60.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = 1
+      number9 = Lifes
+      text = 1
+      for text3 = backgroundThread, number9, text do
+        stateFlag = F_4
+        number11 = "mphackinggame"
+        number12 = "Life"
+        number13 = G_11
+        number13 = number13[text3]
+        number13 = number13[1]
+        dataCollection5 = G_11
+        dataCollection5 = dataCollection5[text3]
+        dataCollection5 = dataCollection5[2]
+        number14 = 64.0
+        number = 100.0
+        number2 = 0.0
+        number4 = 255
         mathHelper = 255
-        numberValue5 = 255
-        numberValue6 = 250
-        numberValue7 = 0
-        flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+        number5 = 255
+        number6 = 250
+        number7 = 0
+        stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
       end
-      threadCall = F_5
-      threadCall()
-      threadCall = F_4
-      numberValue9 = "mpfclone_common"
-      textValue = "disc_A"
-      textValue3 = G_12
-      textValue3 = textValue3[1]
-      textValue = textValue .. textValue3
-      textValue3 = 0.983
-      flag = 0.66
-      numberValue11 = 90.0
-      numberValue12 = 126.5822784810127
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mpfclone_common"
-      textValue = "disc_B"
-      textValue3 = G_12
-      textValue3 = textValue3[2]
-      textValue = textValue .. textValue3
-      textValue3 = 0.983
-      flag = 0.66
-      numberValue11 = 90.0
-      numberValue12 = 126.5822784810127
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mpfclone_common"
-      textValue = "disc_C"
-      textValue3 = G_12
-      textValue3 = textValue3[3]
-      textValue = textValue .. textValue3
-      textValue3 = 0.983
-      flag = 0.66
-      numberValue11 = 90.0
-      numberValue12 = 126.5822784810127
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggameoverlay"
-      textValue = "grid_rgb_pixels"
-      textValue3 = 0.5
-      flag = 0.5
-      numberValue11 = 1920.0
-      numberValue12 = 1920.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = F_4
-      numberValue9 = "mphackinggameoverlay1"
-      textValue = "ScreenGrid"
-      textValue3 = 0.5
-      flag = 0.5
-      numberValue11 = 1920.0
-      numberValue12 = 1920.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = 1
-      numberValue9 = 4
-      textValue = 1
-      for textValue3 = threadCall, numberValue9, textValue do
-        flag = G_8
-        flag = flag[textValue3]
-        flag = flag[2]
-        if true == flag then
-          flag = F_4
-          numberValue11 = "mpfclone_common"
-          numberValue12 = "decypher_"
-          numberValue13 = textValue3
-          numberValue12 = numberValue12 .. numberValue13
-          numberValue13 = G_8
-          numberValue13 = numberValue13[textValue3]
-          numberValue13 = numberValue13[1]
-          dataTable5 = 0.818
-          numberValue14 = 120.0
-          numberValue = 200.0
-          numberValue2 = 0.0
-          numberValue4 = 255
+      backgroundThread = F_5
+      backgroundThread()
+      backgroundThread = F_4
+      number9 = "mpfclone_common"
+      text = "disc_A"
+      text3 = G_12
+      text3 = text3[1]
+      text = text .. text3
+      text3 = 0.983
+      stateFlag = 0.66
+      number11 = 90.0
+      number12 = 126.5822784810127
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mpfclone_common"
+      text = "disc_B"
+      text3 = G_12
+      text3 = text3[2]
+      text = text .. text3
+      text3 = 0.983
+      stateFlag = 0.66
+      number11 = 90.0
+      number12 = 126.5822784810127
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mpfclone_common"
+      text = "disc_C"
+      text3 = G_12
+      text3 = text3[3]
+      text = text .. text3
+      text3 = 0.983
+      stateFlag = 0.66
+      number11 = 90.0
+      number12 = 126.5822784810127
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggameoverlay"
+      text = "grid_rgb_pixels"
+      text3 = 0.5
+      stateFlag = 0.5
+      number11 = 1920.0
+      number12 = 1920.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = F_4
+      number9 = "mphackinggameoverlay1"
+      text = "ScreenGrid"
+      text3 = 0.5
+      stateFlag = 0.5
+      number11 = 1920.0
+      number12 = 1920.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = 1
+      number9 = 4
+      text = 1
+      for text3 = backgroundThread, number9, text do
+        stateFlag = G_8
+        stateFlag = stateFlag[text3]
+        stateFlag = stateFlag[2]
+        if true == stateFlag then
+          stateFlag = F_4
+          number11 = "mpfclone_common"
+          number12 = "decypher_"
+          number13 = text3
+          number12 = number12 .. number13
+          number13 = G_8
+          number13 = number13[text3]
+          number13 = number13[1]
+          dataCollection5 = 0.818
+          number14 = 120.0
+          number = 200.0
+          number2 = 0.0
+          number4 = 255
           mathHelper = 255
-          numberValue5 = 255
-          numberValue6 = 255
-          numberValue7 = 0
-          flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+          number5 = 255
+          number6 = 255
+          number7 = 0
+          stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
         else
-          flag = G_8
-          flag = flag[textValue3]
-          flag = flag[2]
-          if false == flag then
-            flag = F_4
-            numberValue11 = "mpfclone_common"
-            numberValue12 = "disabled_signal"
-            numberValue13 = G_8
-            numberValue13 = numberValue13[textValue3]
-            numberValue13 = numberValue13[1]
-            dataTable5 = 0.818
-            numberValue14 = 101.0
-            numberValue = 181.0
-            numberValue2 = 0.0
-            numberValue4 = 255
+          stateFlag = G_8
+          stateFlag = stateFlag[text3]
+          stateFlag = stateFlag[2]
+          if false == stateFlag then
+            stateFlag = F_4
+            number11 = "mpfclone_common"
+            number12 = "disabled_signal"
+            number13 = G_8
+            number13 = number13[text3]
+            number13 = number13[1]
+            dataCollection5 = 0.818
+            number14 = 101.0
+            number = 181.0
+            number2 = 0.0
+            number4 = 255
             mathHelper = 255
-            numberValue5 = 255
-            numberValue6 = 255
-            numberValue7 = 0
-            flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+            number5 = 255
+            number6 = 255
+            number7 = 0
+            stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
           end
         end
       end
-      threadCall = F_4
-      numberValue9 = "mpfclone_common"
-      textValue = "Decyphered_Selector"
-      textValue3 = G_8
-      flag = G_0
-      textValue3 = textValue3[flag]
-      textValue3 = textValue3[1]
-      flag = 0.818
-      numberValue11 = 160.0
-      numberValue12 = 260.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = 1
-      numberValue9 = 8
-      textValue = 1
-      for textValue3 = threadCall, numberValue9, textValue do
-        flag = G_13
-        flag = flag[textValue3]
-        flag = flag[3]
-        if true == flag then
-          flag = F_4
-          numberValue11 = "mpfclone_print"
-          numberValue12 = G_7
-          numberValue13 = G_0
-          numberValue12 = numberValue12[numberValue13]
-          numberValue12 = numberValue12[5]
-          numberValue11 = numberValue11 .. numberValue12
-          numberValue12 = "fp"
-          numberValue13 = G_0
-          dataTable5 = "_comp_"
-          numberValue14 = G_13
-          numberValue14 = numberValue14[textValue3]
-          numberValue14 = numberValue14[4]
-          numberValue12 = numberValue12 .. numberValue13 .. dataTable5 .. numberValue14
-          numberValue13 = G_13
-          numberValue13 = numberValue13[textValue3]
-          numberValue13 = numberValue13[1]
-          dataTable5 = G_13
-          dataTable5 = dataTable5[textValue3]
-          dataTable5 = dataTable5[2]
-          numberValue14 = 128.0
-          numberValue = 220.0
-          numberValue2 = 0.0
-          numberValue4 = 255
+      backgroundThread = F_4
+      number9 = "mpfclone_common"
+      text = "Decyphered_Selector"
+      text3 = G_8
+      stateFlag = G_0
+      text3 = text3[stateFlag]
+      text3 = text3[1]
+      stateFlag = 0.818
+      number11 = 160.0
+      number12 = 260.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 255
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = 1
+      number9 = 8
+      text = 1
+      for text3 = backgroundThread, number9, text do
+        stateFlag = G_13
+        stateFlag = stateFlag[text3]
+        stateFlag = stateFlag[3]
+        if true == stateFlag then
+          stateFlag = F_4
+          number11 = "mpfclone_print"
+          number12 = G_7
+          number13 = G_0
+          number12 = number12[number13]
+          number12 = number12[5]
+          number11 = number11 .. number12
+          number12 = "fp"
+          number13 = G_0
+          dataCollection5 = "_comp_"
+          number14 = G_13
+          number14 = number14[text3]
+          number14 = number14[4]
+          number12 = number12 .. number13 .. dataCollection5 .. number14
+          number13 = G_13
+          number13 = number13[text3]
+          number13 = number13[1]
+          dataCollection5 = G_13
+          dataCollection5 = dataCollection5[text3]
+          dataCollection5 = dataCollection5[2]
+          number14 = 128.0
+          number = 220.0
+          number2 = 0.0
+          number4 = 255
           mathHelper = 255
-          numberValue5 = 255
-          numberValue6 = 250
-          numberValue7 = 0
-          flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+          number5 = 255
+          number6 = 250
+          number7 = 0
+          stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
         else
-          flag = F_4
-          numberValue11 = "mpfclone_print"
-          numberValue12 = G_7
-          numberValue13 = G_0
-          numberValue12 = numberValue12[numberValue13]
-          numberValue12 = numberValue12[5]
-          numberValue11 = numberValue11 .. numberValue12
-          numberValue12 = "fp"
-          numberValue13 = G_0
-          dataTable5 = "_comp_"
-          numberValue14 = G_13
-          numberValue14 = numberValue14[textValue3]
-          numberValue14 = numberValue14[4]
-          numberValue12 = numberValue12 .. numberValue13 .. dataTable5 .. numberValue14
-          numberValue13 = G_13
-          numberValue13 = numberValue13[textValue3]
-          numberValue13 = numberValue13[1]
-          dataTable5 = G_13
-          dataTable5 = dataTable5[textValue3]
-          dataTable5 = dataTable5[2]
-          numberValue14 = 128.0
-          numberValue = 220.0
-          numberValue2 = 0.0
-          numberValue4 = 255
+          stateFlag = F_4
+          number11 = "mpfclone_print"
+          number12 = G_7
+          number13 = G_0
+          number12 = number12[number13]
+          number12 = number12[5]
+          number11 = number11 .. number12
+          number12 = "fp"
+          number13 = G_0
+          dataCollection5 = "_comp_"
+          number14 = G_13
+          number14 = number14[text3]
+          number14 = number14[4]
+          number12 = number12 .. number13 .. dataCollection5 .. number14
+          number13 = G_13
+          number13 = number13[text3]
+          number13 = number13[1]
+          dataCollection5 = G_13
+          dataCollection5 = dataCollection5[text3]
+          dataCollection5 = dataCollection5[2]
+          number14 = 128.0
+          number = 220.0
+          number2 = 0.0
+          number4 = 255
           mathHelper = 255
-          numberValue5 = 255
-          numberValue6 = 120
-          numberValue7 = 0
-          flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+          number5 = 255
+          number6 = 120
+          number7 = 0
+          stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
         end
       end
-      threadCall = F_4
-      numberValue9 = "MPFClone_Common"
-      textValue = "selectorFrame"
-      textValue3 = G_13
-      flag = G_4
-      textValue3 = textValue3[flag]
-      textValue3 = textValue3[1]
-      flag = G_13
-      numberValue11 = G_4
-      flag = flag[numberValue11]
-      flag = flag[2]
-      numberValue11 = 180.0
-      numberValue12 = 285.0
-      numberValue13 = 0.0
-      dataTable5 = 255
-      numberValue14 = 255
-      numberValue = 255
-      numberValue2 = 250
-      numberValue4 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-      threadCall = G_21
-      if true == threadCall then
-        threadCall = PlaySoundFrontend
-        numberValue9 = -1
-        textValue = "Window_Draw"
-        textValue3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-        flag = true
-        threadCall(numberValue9, textValue, textValue3, flag)
-        threadCall = 1
-        numberValue9 = 8
-        textValue = 1
-        for textValue3 = threadCall, numberValue9, textValue do
-          flag = F_4
-          numberValue11 = "mpfclone_print"
-          numberValue12 = G_7
-          numberValue13 = G_0
-          numberValue12 = numberValue12[numberValue13]
-          numberValue12 = numberValue12[5]
-          numberValue11 = numberValue11 .. numberValue12
-          numberValue12 = "fp"
-          numberValue13 = G_0
-          dataTable5 = "_"
-          numberValue14 = textValue3
-          numberValue12 = numberValue12 .. numberValue13 .. dataTable5 .. numberValue14
-          numberValue13 = 0.674
-          dataTable5 = 0.379
-          numberValue14 = 400.0
-          numberValue = 800.0
-          numberValue2 = 0.0
-          numberValue4 = 255
+      backgroundThread = F_4
+      number9 = "MPFClone_Common"
+      text = "selectorFrame"
+      text3 = G_13
+      stateFlag = G_4
+      text3 = text3[stateFlag]
+      text3 = text3[1]
+      stateFlag = G_13
+      number11 = G_4
+      stateFlag = stateFlag[number11]
+      stateFlag = stateFlag[2]
+      number11 = 180.0
+      number12 = 285.0
+      number13 = 0.0
+      dataCollection5 = 255
+      number14 = 255
+      number = 255
+      number2 = 250
+      number4 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+      backgroundThread = G_21
+      if true == backgroundThread then
+        backgroundThread = PlaySoundFrontend
+        number9 = -1
+        text = "Window_Draw"
+        text3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+        stateFlag = true
+        backgroundThread(number9, text, text3, stateFlag)
+        backgroundThread = 1
+        number9 = 8
+        text = 1
+        for text3 = backgroundThread, number9, text do
+          stateFlag = F_4
+          number11 = "mpfclone_print"
+          number12 = G_7
+          number13 = G_0
+          number12 = number12[number13]
+          number12 = number12[5]
+          number11 = number11 .. number12
+          number12 = "fp"
+          number13 = G_0
+          dataCollection5 = "_"
+          number14 = text3
+          number12 = number12 .. number13 .. dataCollection5 .. number14
+          number13 = 0.674
+          dataCollection5 = 0.379
+          number14 = 400.0
+          number = 800.0
+          number2 = 0.0
+          number4 = 255
           mathHelper = 255
-          numberValue5 = 255
-          numberValue6 = GetRandomIntInRange
-          numberValue7 = 127
-          numberValue8 = 255
-          numberValue6 = numberValue6(numberValue7, numberValue8)
-          numberValue7 = 0
-          flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+          number5 = 255
+          number6 = GetRandomIntInRange
+          number7 = 127
+          number8 = 255
+          number6 = number6(number7, number8)
+          number7 = 0
+          stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
         end
-        threadCall = G_20
-        if true == threadCall then
-          threadCall = F_4
-          numberValue9 = "mphackinggame"
-          textValue = "Loading_Window"
-          textValue3 = 0.5
-          flag = 0.5
-          numberValue11 = 450.0
-          numberValue12 = 250.0
-          numberValue13 = 0.0
-          dataTable5 = 255
-          numberValue14 = 255
-          numberValue = 255
-          numberValue2 = 255
-          numberValue4 = 0
-          threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
-          threadCall = 2
-          numberValue9 = G_5
-          textValue = 1
-          for textValue3 = threadCall, numberValue9, textValue do
-            flag = F_4
-            numberValue11 = "mphackinggame"
-            numberValue12 = "Loading_Bar_Segment"
-            numberValue13 = G_14
-            numberValue13 = numberValue13[textValue3]
-            dataTable5 = 0.52
-            numberValue14 = 15.0
-            numberValue = 90.0
-            numberValue2 = 0.0
-            numberValue4 = 255
+        backgroundThread = G_20
+        if true == backgroundThread then
+          backgroundThread = F_4
+          number9 = "mphackinggame"
+          text = "Loading_Window"
+          text3 = 0.5
+          stateFlag = 0.5
+          number11 = 450.0
+          number12 = 250.0
+          number13 = 0.0
+          dataCollection5 = 255
+          number14 = 255
+          number = 255
+          number2 = 255
+          number4 = 0
+          backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
+          backgroundThread = 2
+          number9 = G_5
+          text = 1
+          for text3 = backgroundThread, number9, text do
+            stateFlag = F_4
+            number11 = "mphackinggame"
+            number12 = "Loading_Bar_Segment"
+            number13 = G_14
+            number13 = number13[text3]
+            dataCollection5 = 0.52
+            number14 = 15.0
+            number = 90.0
+            number2 = 0.0
+            number4 = 255
             mathHelper = 255
-            numberValue5 = 255
-            numberValue6 = 255
-            numberValue7 = 0
-            flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+            number5 = 255
+            number6 = 255
+            number7 = 0
+            stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
           end
         end
       else
-        threadCall = G_21
-        if not threadCall then
-          threadCall = 1
-          numberValue9 = 8
-          textValue = 1
-          for textValue3 = threadCall, numberValue9, textValue do
-            flag = F_4
-            numberValue11 = "mpfclone_print"
-            numberValue12 = G_7
-            numberValue13 = G_0
-            numberValue12 = numberValue12[numberValue13]
-            numberValue12 = numberValue12[5]
-            numberValue11 = numberValue11 .. numberValue12
-            numberValue12 = "fp"
-            numberValue13 = G_0
-            dataTable5 = "_"
-            numberValue14 = textValue3
-            numberValue12 = numberValue12 .. numberValue13 .. dataTable5 .. numberValue14
-            numberValue13 = 0.674
-            dataTable5 = 0.379
-            numberValue14 = 400.0
-            numberValue = 800.0
-            numberValue2 = 0.0
-            numberValue4 = 255
+        backgroundThread = G_21
+        if not backgroundThread then
+          backgroundThread = 1
+          number9 = 8
+          text = 1
+          for text3 = backgroundThread, number9, text do
+            stateFlag = F_4
+            number11 = "mpfclone_print"
+            number12 = G_7
+            number13 = G_0
+            number12 = number12[number13]
+            number12 = number12[5]
+            number11 = number11 .. number12
+            number12 = "fp"
+            number13 = G_0
+            dataCollection5 = "_"
+            number14 = text3
+            number12 = number12 .. number13 .. dataCollection5 .. number14
+            number13 = 0.674
+            dataCollection5 = 0.379
+            number14 = 400.0
+            number = 800.0
+            number2 = 0.0
+            number4 = 255
             mathHelper = 255
-            numberValue5 = 255
-            numberValue6 = 120
-            numberValue7 = 0
-            flag(numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7)
+            number5 = 255
+            number6 = 120
+            number7 = 0
+            stateFlag(number11, number12, number13, dataCollection5, number14, number, number2, number4, mathHelper, number5, number6, number7)
           end
         end
       end
-      threadCall = G_22
-      if true == threadCall then
-        threadCall = F_4
-        numberValue9 = "mphackinggame"
-        textValue = G_3
-        textValue3 = 0.5
-        flag = 0.5
-        numberValue11 = 600.0
-        numberValue12 = 250.0
-        numberValue13 = 0.0
-        dataTable5 = 255
-        numberValue14 = 255
-        numberValue = 255
-        numberValue2 = 255
-        numberValue4 = 0
-        threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4)
+      backgroundThread = G_22
+      if true == backgroundThread then
+        backgroundThread = F_4
+        number9 = "mphackinggame"
+        text = G_3
+        text3 = 0.5
+        stateFlag = 0.5
+        number11 = 600.0
+        number12 = 250.0
+        number13 = 0.0
+        dataCollection5 = 255
+        number14 = 255
+        number = 255
+        number2 = 255
+        number4 = 0
+        backgroundThread(number9, text, text3, stateFlag, number11, number12, number13, dataCollection5, number14, number, number2, number4)
       end
-      threadCall = DrawScaleformMovieFullscreen
-      numberValue9 = arg1
-      textValue = 255
-      textValue3 = 255
-      flag = 255
-      numberValue11 = 255
-      numberValue12 = 0
-      threadCall(numberValue9, textValue, textValue3, flag, numberValue11, numberValue12)
-      threadCall = Citizen
-      threadCall = threadCall.Wait
-      numberValue9 = 1
-      threadCall(numberValue9)
+      backgroundThread = DrawScaleformMovieFullscreen
+      number9 = localValue1
+      text = 255
+      text3 = 255
+      stateFlag = 255
+      number11 = 255
+      number12 = 0
+      backgroundThread(number9, text, text3, stateFlag, number11, number12)
+      backgroundThread = Citizen
+      backgroundThread = backgroundThread.Wait
+      number9 = 1
+      backgroundThread(number9)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
-  arg2 = G_18
-  arg2()
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  localValue2(localValue3)
+  localValue2 = G_18
+  localValue2()
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local threadCall, numberValue9, textValue, textValue3, flag, numberValue11
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local backgroundThread, number9, text, text3, stateFlag, number11
     while true do
-      threadCall = G_1
-      if threadCall then
+      backgroundThread = G_1
+      if backgroundThread then
         return
       end
-      threadCall = 1
-      numberValue9 = 3
-      textValue = 1
-      for textValue3 = threadCall, numberValue9, textValue do
-        flag = G_12
-        flag = flag[textValue3]
-        if flag < 2 then
-          flag = G_12
-          numberValue11 = G_12
-          numberValue11 = numberValue11[textValue3]
-          numberValue11 = numberValue11 + 1
-          flag[textValue3] = numberValue11
+      backgroundThread = 1
+      number9 = 3
+      text = 1
+      for text3 = backgroundThread, number9, text do
+        stateFlag = G_12
+        stateFlag = stateFlag[text3]
+        if stateFlag < 2 then
+          stateFlag = G_12
+          number11 = G_12
+          number11 = number11[text3]
+          number11 = number11 + 1
+          stateFlag[text3] = number11
         else
-          flag = G_12
-          flag[textValue3] = 0
+          stateFlag = G_12
+          stateFlag[text3] = 0
         end
       end
-      threadCall = Citizen
-      threadCall = threadCall.Wait
-      numberValue9 = 1000
-      threadCall(numberValue9)
+      backgroundThread = Citizen
+      backgroundThread = backgroundThread.Wait
+      number9 = 1000
+      backgroundThread(number9)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  localValue2(localValue3)
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local threadCall, numberValue9
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local backgroundThread, number9
     while true do
-      threadCall = Citizen
-      threadCall = threadCall.Wait
-      numberValue9 = 1
-      threadCall(numberValue9)
-      threadCall = G_1
-      if threadCall then
+      backgroundThread = Citizen
+      backgroundThread = backgroundThread.Wait
+      number9 = 1
+      backgroundThread(number9)
+      backgroundThread = G_1
+      if backgroundThread then
         return
       end
-      threadCall = Ms2
-      if 0 == threadCall then
+      backgroundThread = Ms2
+      if 0 == backgroundThread then
         Ms2 = 9
-        threadCall = Ms
-        if 0 == threadCall then
+        backgroundThread = Ms
+        if 0 == backgroundThread then
           Ms = 9
-          threadCall = Seconds2
-          if 0 == threadCall then
+          backgroundThread = Seconds2
+          if 0 == backgroundThread then
             Seconds2 = 9
-            threadCall = Seconds
-            if 0 == threadCall then
+            backgroundThread = Seconds
+            if 0 == backgroundThread then
               Seconds = 5
-              threadCall = Minutes
-              threadCall = threadCall - 1
-              Minutes = threadCall
+              backgroundThread = Minutes
+              backgroundThread = backgroundThread - 1
+              Minutes = backgroundThread
             else
-              threadCall = Seconds
-              threadCall = threadCall - 1
-              Seconds = threadCall
+              backgroundThread = Seconds
+              backgroundThread = backgroundThread - 1
+              Seconds = backgroundThread
             end
           else
-            threadCall = Seconds2
-            threadCall = threadCall - 1
-            Seconds2 = threadCall
+            backgroundThread = Seconds2
+            backgroundThread = backgroundThread - 1
+            Seconds2 = backgroundThread
           end
         else
-          threadCall = Ms
-          threadCall = threadCall - 1
-          Ms = threadCall
+          backgroundThread = Ms
+          backgroundThread = backgroundThread - 1
+          Ms = backgroundThread
         end
       else
-        threadCall = Ms2
-        threadCall = threadCall - 1
-        Ms2 = threadCall
+        backgroundThread = Ms2
+        backgroundThread = backgroundThread - 1
+        Ms2 = backgroundThread
       end
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  localValue2(localValue3)
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local threadCall, numberValue9
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local backgroundThread, number9
     while true do
-      threadCall = Citizen
-      threadCall = threadCall.Wait
-      numberValue9 = 1
-      threadCall(numberValue9)
-      threadCall = G_1
-      if true == threadCall then
+      backgroundThread = Citizen
+      backgroundThread = backgroundThread.Wait
+      number9 = 1
+      backgroundThread(number9)
+      backgroundThread = G_1
+      if true == backgroundThread then
         return
       end
-      threadCall = Seconds
-      if 0 == threadCall then
-        threadCall = Seconds2
-        if 0 == threadCall then
-          threadCall = Minutes
-          if 0 == threadCall then
-            threadCall = dataTable
-            if not threadCall then
+      backgroundThread = Seconds
+      if 0 == backgroundThread then
+        backgroundThread = Seconds2
+        if 0 == backgroundThread then
+          backgroundThread = Minutes
+          if 0 == backgroundThread then
+            backgroundThread = dataCollection
+            if not backgroundThread then
               G_1 = true
-              threadCall = F_8
-              numberValue9 = "Time is up!"
-              threadCall(numberValue9)
+              backgroundThread = F_8
+              number9 = "Time is up!"
+              backgroundThread(number9)
               return
           end
         end
       end
       else
-        threadCall = Seconds
-        if 0 == threadCall then
-          threadCall = Seconds2
-          if 0 == threadCall then
-            threadCall = Minutes
-            if 0 == threadCall then
-              threadCall = dataTable
-              if threadCall then
-                threadCall = false
-                dataTable = threadCall
+        backgroundThread = Seconds
+        if 0 == backgroundThread then
+          backgroundThread = Seconds2
+          if 0 == backgroundThread then
+            backgroundThread = Minutes
+            if 0 == backgroundThread then
+              backgroundThread = dataCollection
+              if backgroundThread then
+                backgroundThread = false
+                dataCollection = backgroundThread
               end
             end
           end
@@ -4733,35 +4733,35 @@ AddEventHandler("StartHack", function()
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
+  localValue2(localValue3)
 end)
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, numberValue3
-  arg1 = nil
-  arg2 = 0
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+function dataCollection2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue12, number3
+  localValue1 = nil
+  localValue2 = 0
   G_2 = false
   G_5 = 0
   G_16 = true
   G_21 = true
   G_20 = true
-  arg3 = Citizen
-  arg3 = arg3.CreateThread
+  localValue3 = Citizen
+  localValue3 = localValue3.CreateThread
 
-  -- === HELPER FUNCTION: arg4() ===
-  function arg4()
-    local threadCall, numberValue9
+  -- === HELPER FUNCTION: localValue4() ===
+  function localValue4()
+    local backgroundThread, number9
     while true do
-      threadCall = Citizen
-      threadCall = threadCall.Wait
-      numberValue9 = 50
-      threadCall(numberValue9)
-      threadCall = G_5
-      threadCall = threadCall + 1
-      G_5 = threadCall
-      threadCall = G_5
-      if 35 == threadCall then
+      backgroundThread = Citizen
+      backgroundThread = backgroundThread.Wait
+      number9 = 50
+      backgroundThread(number9)
+      backgroundThread = G_5
+      backgroundThread = backgroundThread + 1
+      G_5 = backgroundThread
+      backgroundThread = G_5
+      if 35 == backgroundThread then
         G_20 = false
         G_21 = false
         G_22 = true
@@ -4770,139 +4770,139 @@ function dataTable2()
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg3(arg4)
-  arg3 = G_6
-  if 4 == arg3 then
-    arg3 = 1
-    arg4 = 8
-    arg5 = 1
-    for arg6 = arg3, arg4, arg5 do
-      arg7 = G_13
-      arg7 = arg7[arg6]
-      arg7 = arg7[3]
-      if true == arg7 then
-        arg7 = 1
-        arg8 = 4
-        arg9 = 1
-        for arg10 = arg7, arg8, arg9 do
-          arg11 = G_13
-          arg11 = arg11[arg6]
-          arg11 = arg11[4]
-          arg12 = G_7
-          numberValue3 = G_0
-          arg12 = arg12[numberValue3]
-          arg12 = arg12[arg10]
-          if arg11 == arg12 then
-            arg2 = arg2 + 1
+  localValue3(localValue4)
+  localValue3 = G_6
+  if 4 == localValue3 then
+    localValue3 = 1
+    localValue4 = 8
+    localValue5 = 1
+    for localValue6 = localValue3, localValue4, localValue5 do
+      localValue7 = G_13
+      localValue7 = localValue7[localValue6]
+      localValue7 = localValue7[3]
+      if true == localValue7 then
+        localValue7 = 1
+        localValue8 = 4
+        localValue9 = 1
+        for localValue10 = localValue7, localValue8, localValue9 do
+          localValue11 = G_13
+          localValue11 = localValue11[localValue6]
+          localValue11 = localValue11[4]
+          localValue12 = G_7
+          number3 = G_0
+          localValue12 = localValue12[number3]
+          localValue12 = localValue12[localValue10]
+          if localValue11 == localValue12 then
+            localValue2 = localValue2 + 1
           end
         end
       end
     end
-    if 4 == arg2 then
-      arg1 = true
+    if 4 == localValue2 then
+      localValue1 = true
     else
-      arg1 = false
+      localValue1 = false
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 1000
-    arg3(arg4)
-    arg3 = Citizen
-    arg3 = arg3.CreateThread
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 1000
+    localValue3(localValue4)
+    localValue3 = Citizen
+    localValue3 = localValue3.CreateThread
 
-    -- === HELPER FUNCTION: arg4() ===
-    function arg4()
-      local threadCall, numberValue9, textValue, textValue3, flag
+    -- === HELPER FUNCTION: localValue4() ===
+    function localValue4()
+      local backgroundThread, number9, text, text3, stateFlag
       while true do
-        threadCall = arg1
-        if true == threadCall then
-          threadCall = PlaySoundFrontend
-          numberValue9 = -1
-          textValue = "Target_Match"
-          textValue3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-          flag = true
-          threadCall(numberValue9, textValue, textValue3, flag)
+        backgroundThread = localValue1
+        if true == backgroundThread then
+          backgroundThread = PlaySoundFrontend
+          number9 = -1
+          text = "Target_Match"
+          text3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+          stateFlag = true
+          backgroundThread(number9, text, text3, stateFlag)
           G_3 = "Correct_0"
-          threadCall = Citizen
-          threadCall = threadCall.Wait
-          numberValue9 = 500
-          threadCall(numberValue9)
+          backgroundThread = Citizen
+          backgroundThread = backgroundThread.Wait
+          number9 = 500
+          backgroundThread(number9)
           G_3 = "Correct_1"
-          threadCall = Citizen
-          threadCall = threadCall.Wait
-          numberValue9 = 500
-          threadCall(numberValue9)
+          backgroundThread = Citizen
+          backgroundThread = backgroundThread.Wait
+          number9 = 500
+          backgroundThread(number9)
         else
-          threadCall = arg1
-          if false == threadCall then
-            threadCall = PlaySoundFrontend
-            numberValue9 = -1
-            textValue = "No_Match"
-            textValue3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-            flag = true
-            threadCall(numberValue9, textValue, textValue3, flag)
+          backgroundThread = localValue1
+          if false == backgroundThread then
+            backgroundThread = PlaySoundFrontend
+            number9 = -1
+            text = "No_Match"
+            text3 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+            stateFlag = true
+            backgroundThread(number9, text, text3, stateFlag)
             G_3 = "Incorrect_0"
-            threadCall = Citizen
-            threadCall = threadCall.Wait
-            numberValue9 = 500
-            threadCall(numberValue9)
+            backgroundThread = Citizen
+            backgroundThread = backgroundThread.Wait
+            number9 = 500
+            backgroundThread(number9)
             G_3 = "Incorrect_1"
-            threadCall = Citizen
-            threadCall = threadCall.Wait
-            numberValue9 = 500
-            threadCall(numberValue9)
+            backgroundThread = Citizen
+            backgroundThread = backgroundThread.Wait
+            number9 = 500
+            backgroundThread(number9)
           end
         end
         if G_1 == true or G_2 == true then
           return
         end
 
-        threadCall = Citizen
-        threadCall = threadCall.Wait
-        numberValue9 = 1
-        threadCall(numberValue9)
+        backgroundThread = Citizen
+        backgroundThread = backgroundThread.Wait
+        number9 = 1
+        backgroundThread(number9)
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    arg3(arg4)
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 3500
-    arg3(arg4)
+    localValue3(localValue4)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 3500
+    localValue3(localValue4)
     G_2 = true
-    if true == arg1 then
-      arg3 = G_0
-      arg4 = LevelCount
-      if arg3 < arg4 then
-        arg3 = F_0
-        arg3()
-        arg3 = G_0
-        arg3 = arg3 + 1
-        G_0 = arg3
+    if true == localValue1 then
+      localValue3 = G_0
+      localValue4 = LevelCount
+      if localValue3 < localValue4 then
+        localValue3 = F_0
+        localValue3()
+        localValue3 = G_0
+        localValue3 = localValue3 + 1
+        G_0 = localValue3
       else
         G_1 = true
-        arg3 = F_7
-        arg3()
+        localValue3 = F_7
+        localValue3()
       end
     else
-      arg3 = Lifes
-      if arg3 > 1 then
-        arg3 = F_0
-        arg3()
-        arg3 = G_18
-        arg3()
-        arg3 = Lifes
-        arg3 = arg3 - 1
-        Lifes = arg3
+      localValue3 = Lifes
+      if localValue3 > 1 then
+        localValue3 = F_0
+        localValue3()
+        localValue3 = G_18
+        localValue3()
+        localValue3 = Lifes
+        localValue3 = localValue3 - 1
+        Lifes = localValue3
       else
         G_1 = true
-        arg3 = F_8
-        arg4 = "Out of life"
-        arg3(arg4)
+        localValue3 = F_8
+        localValue4 = "Out of life"
+        localValue3(localValue4)
       end
     end
-    arg3 = F_6
-    arg3()
+    localValue3 = F_6
+    localValue3()
     G_6 = 0
     G_9 = 31
     G_22 = false
@@ -4911,569 +4911,569 @@ function dataTable2()
     G_20 = false
   end
 end
-F_3 = dataTable2
+F_3 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+function dataCollection2()
+  local localValue1, localValue2
   G_1 = true
-  arg1 = StopSound
-  arg2 = G_17
-  arg1(arg2)
-  arg1 = ReleaseSoundId
-  arg2 = G_17
-  arg1(arg2)
-  arg1 = SendNUIMessage
-  arg2 = {}
-  arg2.type = "success"
+  localValue1 = StopSound
+  localValue2 = G_17
+  localValue1(localValue2)
+  localValue1 = ReleaseSoundId
+  localValue2 = G_17
+  localValue1(localValue2)
+  localValue1 = SendNUIMessage
+  localValue2 = {}
+  localValue2.type = "success"
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg1(arg2)
-  arg1 = SendNUIMessage
-  arg2 = {}
-  arg2.transactionType = "hackingSuccess"
-  arg1(arg2)
-  arg1 = Callback
-  arg2 = true
-  arg1(arg2)
-  arg1 = StopSound
-  arg2 = G_17
-  arg1(arg2)
-  arg1 = ReleaseSoundId
-  arg2 = G_17
-  arg1(arg2)
+  localValue1(localValue2)
+  localValue1 = SendNUIMessage
+  localValue2 = {}
+  localValue2.transactionType = "hackingSuccess"
+  localValue1(localValue2)
+  localValue1 = Callback
+  localValue2 = true
+  localValue1(localValue2)
+  localValue1 = StopSound
+  localValue2 = G_17
+  localValue1(localValue2)
+  localValue1 = ReleaseSoundId
+  localValue2 = G_17
+  localValue1(localValue2)
   G_15 = false
 end
-F_7 = dataTable2
+F_7 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2, arg3, arg4
-  arg2 = true
-  dataTable = arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = true
+  dataCollection = localValue2
   G_1 = true
-  arg2 = SendNUIMessage
-  arg3 = {}
-  arg3.type = "fail"
+  localValue2 = SendNUIMessage
+  localValue3 = {}
+  localValue3.type = "fail"
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg2(arg3)
-  arg2 = SendNUIMessage
-  arg3 = {}
-  arg3.transactionType = "hackingFail"
-  arg2(arg3)
-  arg2 = Callback
-  arg3 = false
-  arg4 = arg1
-  arg2(arg3, arg4)
-  arg2 = StopSound
-  arg3 = G_17
-  arg2(arg3)
-  arg2 = ReleaseSoundId
-  arg3 = G_17
-  arg2(arg3)
+  localValue2(localValue3)
+  localValue2 = SendNUIMessage
+  localValue3 = {}
+  localValue3.transactionType = "hackingFail"
+  localValue2(localValue3)
+  localValue2 = Callback
+  localValue3 = false
+  localValue4 = localValue1
+  localValue2(localValue3, localValue4)
+  localValue2 = StopSound
+  localValue3 = G_17
+  localValue2(localValue3)
+  localValue2 = ReleaseSoundId
+  localValue3 = G_17
+  localValue2(localValue3)
   G_15 = false
 end
-F_8 = dataTable2
+F_8 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = PlaySoundFrontend
-  arg2 = -1
-  arg3 = "Cursor_Move"
-  arg4 = "DLC_H3_Cas_Finger_Minigame_Sounds"
-  arg5 = true
-  arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+function dataCollection2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = PlaySoundFrontend
+  localValue2 = -1
+  localValue3 = "Cursor_Move"
+  localValue4 = "DLC_H3_Cas_Finger_Minigame_Sounds"
+  localValue5 = true
+  localValue1(localValue2, localValue3, localValue4, localValue5)
 end
-F_2 = dataTable2
+F_2 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = 1
-  arg2 = 8
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
-    arg5 = G_13
-    arg5 = arg5[arg4]
-    arg5[3] = false
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+function dataCollection2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = 1
+  localValue2 = 8
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
+    localValue5 = G_13
+    localValue5 = localValue5[localValue4]
+    localValue5[3] = false
   end
 end
-F_6 = dataTable2
+F_6 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2, arg3, arg4
-  arg1 = false
-  arg2 = nil
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+function dataCollection2()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = false
+  localValue2 = nil
   repeat
-    arg3 = math
-    arg3 = arg3.random
-    arg4 = 86
-    arg3 = arg3(arg4)
-    arg2 = arg3
-    arg3 = SelectedLevelData
-    if arg2 ~= arg3 then
-      arg1 = true
+    localValue3 = math
+    localValue3 = localValue3.random
+    localValue4 = 86
+    localValue3 = localValue3(localValue4)
+    localValue2 = localValue3
+    localValue3 = SelectedLevelData
+    if localValue2 ~= localValue3 then
+      localValue1 = true
     else
-      arg1 = false
+      localValue1 = false
     end
-  until true == arg1
-  SelectedLevelData = arg2
-  arg3 = G_Table
-  arg4 = G_0
-  arg3 = arg3[arg4]
-  arg3 = arg3[arg2]
-  G_13 = arg3
+  until true == localValue1
+  SelectedLevelData = localValue2
+  localValue3 = G_Table
+  localValue4 = G_0
+  localValue3 = localValue3[localValue4]
+  localValue3 = localValue3[localValue2]
+  G_13 = localValue3
 end
-F_0 = dataTable2
+F_0 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12) ===
-function dataTable2(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
-  local numberValue3, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11
-  numberValue3 = DrawSprite
-  workValue = arg1
-  workValue2 = arg2
-  workValue3 = F_9
-  workValue4 = arg3
-  workValue3 = workValue3(workValue4)
-  workValue4 = arg4
-  workValue5 = F_10
-  workValue6 = arg5
-  workValue5 = workValue5(workValue6)
-  workValue6 = Ard
-  workValue5 = workValue5 * workValue6
-  workValue6 = F_10
-  workValue7 = arg6
-  workValue6 = workValue6(workValue7)
-  workValue7 = arg7
-  workValue8 = arg8
-  workValue9 = arg9
-  workValue10 = arg10
-  workValue11 = arg11
-  numberValue3(workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11)
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue12) ===
+function dataCollection2(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue12)
+  local number3, workingValue, workingValue2, workingValue3, workingValue4, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11
+  number3 = DrawSprite
+  workingValue = localValue1
+  workingValue2 = localValue2
+  workingValue3 = F_9
+  workingValue4 = localValue3
+  workingValue3 = workingValue3(workingValue4)
+  workingValue4 = localValue4
+  workingValue5 = F_10
+  workingValue6 = localValue5
+  workingValue5 = workingValue5(workingValue6)
+  workingValue6 = Ard
+  workingValue5 = workingValue5 * workingValue6
+  workingValue6 = F_10
+  workingValue7 = localValue6
+  workingValue6 = workingValue6(workingValue7)
+  workingValue7 = localValue7
+  workingValue8 = localValue8
+  workingValue9 = localValue9
+  workingValue10 = localValue10
+  workingValue11 = localValue11
+  number3(workingValue, workingValue2, workingValue3, workingValue4, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11)
 end
-F_4 = dataTable2
+F_4 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, numberValue3
-  arg1 = Seconds2
-  arg1 = arg1 % 2
-  if 0 == arg1 then
-    arg1 = F_4
-    arg2 = "MPFClone_Decor"
-    arg3 = "techaration_0"
-    arg4 = 0.5
-    arg5 = 0.5
-    arg6 = 1264.0
-    arg7 = 1600.0
-    arg8 = 0.0
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg12 = 255
-    numberValue3 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, numberValue3)
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+function dataCollection2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue12, number3
+  localValue1 = Seconds2
+  localValue1 = localValue1 % 2
+  if 0 == localValue1 then
+    localValue1 = F_4
+    localValue2 = "MPFClone_Decor"
+    localValue3 = "techaration_0"
+    localValue4 = 0.5
+    localValue5 = 0.5
+    localValue6 = 1264.0
+    localValue7 = 1600.0
+    localValue8 = 0.0
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue12 = 255
+    number3 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue12, number3)
   else
-    arg1 = F_4
-    arg2 = "MPFClone_Decor"
-    arg3 = "techaration_1"
-    arg4 = 0.5
-    arg5 = 0.5
-    arg6 = 1264.0
-    arg7 = 1600.0
-    arg8 = 0.0
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg12 = 255
-    numberValue3 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, numberValue3)
+    localValue1 = F_4
+    localValue2 = "MPFClone_Decor"
+    localValue3 = "techaration_1"
+    localValue4 = 0.5
+    localValue5 = 0.5
+    localValue6 = 1264.0
+    localValue7 = 1600.0
+    localValue8 = 0.0
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue12 = 255
+    number3 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue12, number3)
   end
 end
-F_5 = dataTable2
+F_5 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2, arg3, arg4
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 73
-  arg4 = false
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 24
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 257
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 25
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 263
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 32
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 34
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 31
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 30
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 45
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 22
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 44
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 37
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 23
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 288
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 289
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 170
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 167
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 73
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 2
-  arg3 = 199
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 47
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 264
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 257
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 140
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 141
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 142
-  arg4 = true
-  arg1(arg2, arg3, arg4)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 143
-  arg4 = true
-  arg1(arg2, arg3, arg4)
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+function dataCollection2()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 73
+  localValue4 = false
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 24
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 257
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 25
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 263
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 32
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 34
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 31
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 30
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 45
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 22
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 44
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 37
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 23
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 288
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 289
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 170
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 167
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 73
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 2
+  localValue3 = 199
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 47
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 264
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 257
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 140
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 141
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 142
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 143
+  localValue4 = true
+  localValue1(localValue2, localValue3, localValue4)
 end
-F_1 = dataTable2
+F_1 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2, arg3
-  arg2 = 0.5
-  arg2 = arg2 - arg1
-  arg3 = Ar
-  arg2 = arg2 / arg3
-  arg3 = 0.5
-  arg2 = arg3 - arg2
-  return arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2, localValue3
+  localValue2 = 0.5
+  localValue2 = localValue2 - localValue1
+  localValue3 = Ar
+  localValue2 = localValue2 / localValue3
+  localValue3 = 0.5
+  localValue2 = localValue3 - localValue2
+  return localValue2
 end
-F_9 = dataTable2
+F_9 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2
-  arg2 = arg1 / 1920.0
-  return arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2
+  localValue2 = localValue1 / 1920.0
+  return localValue2
 end
-F_10 = dataTable2
+F_10 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2, arg3
-  arg2 = _ENV
-  arg3 = "ScaleformMovieMethodAddParamPlayerNameString"
-  arg2 = arg2[arg3]
-  arg3 = arg1
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2, localValue3
+  localValue2 = _ENV
+  localValue3 = "ScaleformMovieMethodAddParamPlayerNameString"
+  localValue2 = localValue2[localValue3]
+  localValue3 = localValue1
+  localValue2(localValue3)
 end
-F_11 = dataTable2
+F_11 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2, arg3
-  arg2 = BeginTextCommandScaleformString
-  arg3 = "STRING"
-  arg2(arg3)
-  arg2 = AddTextComponentSubstringKeyboardDisplay
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = EndTextCommandScaleformString
-  arg2()
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2, localValue3
+  localValue2 = BeginTextCommandScaleformString
+  localValue3 = "STRING"
+  localValue2(localValue3)
+  localValue2 = AddTextComponentSubstringKeyboardDisplay
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = EndTextCommandScaleformString
+  localValue2()
 end
-F_12 = dataTable2
+F_12 = dataCollection2
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = RequestScaleformMovie
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = RequestScaleformMovie
+  localValue3 = localValue1
   -- Beginner: result below is scaleformHandle.
-  arg2 = arg2(arg3)
+  localValue2 = localValue2(localValue3)
   while true do
-    arg3 = HasScaleformMovieLoaded
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
+    localValue3 = HasScaleformMovieLoaded
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
       break
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 0
-    arg3(arg4)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 0
+    localValue3(localValue4)
   end
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "CLEAR_ALL"
-  arg3(arg4, arg5)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_CLEAR_SPACE"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 200
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = F_11
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 194
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = F_12
-  arg4 = "Abort Hack"
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 1
-  arg3(arg4)
-  arg3 = F_11
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 191
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = F_12
-  arg4 = "Select"
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 2
-  arg3(arg4)
-  arg3 = F_11
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 190
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = F_12
-  arg4 = ""
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 3
-  arg3(arg4)
-  arg3 = F_11
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 189
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = F_12
-  arg4 = ""
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 4
-  arg3(arg4)
-  arg3 = F_11
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 187
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = F_12
-  arg4 = ""
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 5
-  arg3(arg4)
-  arg3 = F_11
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 188
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = F_12
-  arg4 = "Move Selector"
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 6
-  arg3(arg4)
-  arg3 = F_11
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 192
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = F_12
-  arg4 = "Check Selections"
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  arg3(arg4, arg5)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_BACKGROUND_COLOUR"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 80
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  return arg2
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "CLEAR_ALL"
+  localValue3(localValue4, localValue5)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_CLEAR_SPACE"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 200
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = F_11
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 194
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = F_12
+  localValue4 = "Abort Hack"
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 1
+  localValue3(localValue4)
+  localValue3 = F_11
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 191
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = F_12
+  localValue4 = "Select"
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 2
+  localValue3(localValue4)
+  localValue3 = F_11
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 190
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = F_12
+  localValue4 = ""
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 3
+  localValue3(localValue4)
+  localValue3 = F_11
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 189
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = F_12
+  localValue4 = ""
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 4
+  localValue3(localValue4)
+  localValue3 = F_11
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 187
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = F_12
+  localValue4 = ""
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 5
+  localValue3(localValue4)
+  localValue3 = F_11
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 188
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = F_12
+  localValue4 = "Move Selector"
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 6
+  localValue3(localValue4)
+  localValue3 = F_11
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 192
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = F_12
+  localValue4 = "Check Selections"
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  localValue3(localValue4, localValue5)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_BACKGROUND_COLOUR"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 80
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  return localValue2
 end
-F_13 = dataTable2
+F_13 = dataCollection2
 
 AddEventHandler("utk_fingerprint:Start", function(requestedLevelCount, requestedLives, requestedMinutes, callback)
   Callback = callback

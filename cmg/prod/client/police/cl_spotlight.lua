@@ -65,7 +65,7 @@
 
     The beam is drawn every frame with DrawSpotLight.
 
-    The decompiled file contains a permission-check flag initialised to false;
+    The decompiled file contains a permission-check stateFlag initialised to false;
     therefore its optional emergency-vehicle-class restriction is inactive by
     default. That behaviour is preserved.
 ]]

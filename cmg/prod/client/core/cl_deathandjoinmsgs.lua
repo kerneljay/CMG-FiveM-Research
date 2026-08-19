@@ -75,7 +75,7 @@ end)
 -- suicide                = whether victim killed themselves
 -- range                  = distance of the kill
 -- victimGroup/killerGroup= group information used by the UI
--- wasHeadshot            = headshot flag
+-- wasHeadshot            = headshot stateFlag
 -- victimUserId/killerUserId are used to decide if this kill involved us
 
 -- === NETWORK EVENT: receives "4c1a6c17f7" from server/another network source ===

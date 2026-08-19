@@ -47,7 +47,7 @@
 
     Two decorators are registered here:
       ece3aa29cb -> integer bag/bucket/group identifier
-      b1457c1a26 -> boolean special-bag flag
+      b1457c1a26 -> boolean special-bag stateFlag
 
     Other decorator names used:
       5f7af1c5ce -> integer bag ID

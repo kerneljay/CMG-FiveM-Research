@@ -32,1187 +32,1187 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, textValue, dataTable4, workValue12, workValue16, workValue19, flag6, numberValue28, numberValue29, numberValue30, workValue, cmgCall2, cmgCall3, cmgCall4, numberValue3, dataTable, dataTable2, numberValue4, flag, numberValue6, workValue3, dataTable3, workValue4, numberValue11, flag2, numberValue14, numberValue16, numberValue18, workValue5, textValue2, dataTable5, cmgCall5, cmgCall6, workValue6, workValue7, workValue8, cmgCall7, textValue3, workValue9, workValue11, workValue13, workValue14, cmgCall8, workValue15, eventRegistration, textValue4, textValue5, eventRegistration2, flag4, dataTable6, workValue17, cmgCall9, cmgCall10, threadCall, eventRegistration3, textValue7, workValue18, cmgCall11, textValue8, flag5, textValue9
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-textValue = "cfg/cfg_gang"
+local cmgOperation, text, dataCollection4, workingValue12, workingValue16, workingValue19, stateFlag6, number28, number29, number30, workingValue, cmgOperation2, cmgOperation3, cmgOperation4, number3, dataCollection, dataCollection2, number4, stateFlag, number6, workingValue3, dataCollection3, workingValue4, number11, stateFlag2, number14, number16, number18, workingValue5, text2, dataCollection5, cmgOperation5, cmgOperation6, workingValue6, workingValue7, workingValue8, cmgOperation7, text3, workingValue9, workingValue11, workingValue13, workingValue14, cmgOperation8, workingValue15, eventHandler, text4, text5, eventHandler2, stateFlag4, dataCollection6, workingValue17, cmgOperation9, cmgOperation10, backgroundThread, eventHandler3, text7, workingValue18, cmgOperation11, text8, stateFlag5, text9
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+text = "cfg/cfg_gang"
 -- Beginner: result below is config.
-cmgCall = cmgCall(textValue)
-textValue = nil
-dataTable4 = {}
-workValue12 = nil
-workValue16 = nil
-workValue19 = nil
-flag6 = true
-numberValue28 = 18
-numberValue29 = 82
-numberValue30 = 228
-workValue = nil
-cmgCall2 = CMG
-cmgCall2.gangCachedData = nil
-cmgCall2 = CMG
+cmgOperation = cmgOperation(text)
+text = nil
+dataCollection4 = {}
+workingValue12 = nil
+workingValue16 = nil
+workingValue19 = nil
+stateFlag6 = true
+number28 = 18
+number29 = 82
+number30 = 228
+workingValue = nil
+cmgOperation2 = CMG
+cmgOperation2.gangCachedData = nil
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = 0
-  return arg2
-  ::flow_label_10::
-  arg2 = {}
-  arg3 = 2
-  arg4 = 5
-  arg5 = 10
-  arg6 = 15
-  arg7 = 20
-  arg8 = 30
-  arg2[1] = arg3
-  arg2[2] = arg4
-  arg2[3] = arg5
-  arg2[4] = arg6
-  arg2[5] = arg7
-  arg2[6] = arg8
-  arg3 = #arg2
-  arg4 = 1
-  arg5 = -1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = arg1.gangPerksUnlocked
-    arg8 = "pub_capture_time_"
-    arg9 = arg6
-    arg8 = arg8 .. arg9
-    arg7 = arg7[arg8]
-    if arg7 then
-      arg7 = arg2[arg6]
-      return arg7
+  localValue2 = 0
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = {}
+  localValue3 = 2
+  localValue4 = 5
+  localValue5 = 10
+  localValue6 = 15
+  localValue7 = 20
+  localValue8 = 30
+  localValue2[1] = localValue3
+  localValue2[2] = localValue4
+  localValue2[3] = localValue5
+  localValue2[4] = localValue6
+  localValue2[5] = localValue7
+  localValue2[6] = localValue8
+  localValue3 = #localValue2
+  localValue4 = 1
+  localValue5 = -1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = localValue1.gangPerksUnlocked
+    localValue8 = "pub_capture_time_"
+    localValue9 = localValue6
+    localValue8 = localValue8 .. localValue9
+    localValue7 = localValue7[localValue8]
+    if localValue7 then
+      localValue7 = localValue2[localValue6]
+      return localValue7
     end
   end
-  arg3 = 0
-  return arg3
+  localValue3 = 0
+  return localValue3
 end
-cmgCall2.getGangPublicCaptureTimeReductionPercent = cmgCall3
-cmgCall2 = CMG
+cmgOperation2.getGangPublicCaptureTimeReductionPercent = cmgOperation3
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = 0
-  return arg2
-  ::flow_label_10::
-  arg2 = {}
-  arg3 = 20
-  arg4 = 40
-  arg5 = 50
-  arg6 = 70
-  arg7 = 100
-  arg8 = 150
-  arg2[1] = arg3
-  arg2[2] = arg4
-  arg2[3] = arg5
-  arg2[4] = arg6
-  arg2[5] = arg7
-  arg2[6] = arg8
-  arg3 = 0
-  arg4 = 1
-  arg5 = #arg2
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
-    arg8 = arg1.gangPerksUnlocked
-    arg9 = "pub_name_distance_"
-    arg10 = arg7
-    arg9 = arg9 .. arg10
-    arg8 = arg8[arg9]
-    if arg8 then
-      arg8 = arg2[arg7]
-      if arg3 < arg8 then
-        arg3 = arg2[arg7]
+  localValue2 = 0
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = {}
+  localValue3 = 20
+  localValue4 = 40
+  localValue5 = 50
+  localValue6 = 70
+  localValue7 = 100
+  localValue8 = 150
+  localValue2[1] = localValue3
+  localValue2[2] = localValue4
+  localValue2[3] = localValue5
+  localValue2[4] = localValue6
+  localValue2[5] = localValue7
+  localValue2[6] = localValue8
+  localValue3 = 0
+  localValue4 = 1
+  localValue5 = #localValue2
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
+    localValue8 = localValue1.gangPerksUnlocked
+    localValue9 = "pub_name_distance_"
+    localValue10 = localValue7
+    localValue9 = localValue9 .. localValue10
+    localValue8 = localValue8[localValue9]
+    if localValue8 then
+      localValue8 = localValue2[localValue7]
+      if localValue3 < localValue8 then
+        localValue3 = localValue2[localValue7]
       end
     end
   end
-  return arg3
+  return localValue3
 end
-cmgCall2.getGangPublicNameViewDistanceFloor = cmgCall3
-cmgCall2 = CMG
+cmgOperation2.getGangPublicNameViewDistanceFloor = cmgOperation3
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg1 = tonumber
-  arg2 = cmgCall.gangBaseMemberLimit
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = 30
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue1 = tonumber
+  localValue2 = cmgOperation.gangBaseMemberLimit
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = 30
   end
-  arg2 = CMG
-  arg2 = arg2.gangCachedData
-  if arg2 then
-    arg3 = arg2.gangPerksUnlocked
-    if arg3 then
-      goto flow_label_15
+  localValue2 = CMG
+  localValue2 = localValue2.gangCachedData
+  if localValue2 then
+    localValue3 = localValue2.gangPerksUnlocked
+    if localValue3 then
+      goto continueAtStep15
     end
   end
-  return arg1
-  ::flow_label_15::
-  arg3 = 0
-  arg4 = 1
-  arg5 = 6
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
-    arg8 = arg2.gangPerksUnlocked
-    arg9 = "pub_member_slots_"
-    arg10 = arg7
-    arg9 = arg9 .. arg10
-    arg8 = arg8[arg9]
-    if arg8 then
-      arg3 = arg3 + 5
+  return localValue1
+  ::continueAtStep15::
+  localValue3 = 0
+  localValue4 = 1
+  localValue5 = 6
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
+    localValue8 = localValue2.gangPerksUnlocked
+    localValue9 = "pub_member_slots_"
+    localValue10 = localValue7
+    localValue9 = localValue9 .. localValue10
+    localValue8 = localValue8[localValue9]
+    if localValue8 then
+      localValue3 = localValue3 + 5
     end
   end
-  arg4 = arg1 + arg3
-  return arg4
+  localValue4 = localValue1 + localValue3
+  return localValue4
 end
-cmgCall2.getClientGangMaxMemberLimit = cmgCall3
-cmgCall2 = CMG
-cmgCall3 = "getClientGangPublicTurfCommissionBonusPercent"
+cmgOperation2.getClientGangMaxMemberLimit = cmgOperation3
+cmgOperation2 = CMG
+cmgOperation3 = "getClientGangPublicTurfCommissionBonusPercent"
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = 0
-  return arg2
-  ::flow_label_10::
-  arg2 = 0
-  arg3 = 1
-  arg4 = 5
-  arg5 = 1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = arg1.gangPerksUnlocked
-    arg8 = "pub_turf_commission_"
-    arg9 = arg6
-    arg8 = arg8 .. arg9
-    arg7 = arg7[arg8]
-    if arg7 then
-      arg2 = arg2 + arg6
+  localValue2 = 0
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = 0
+  localValue3 = 1
+  localValue4 = 5
+  localValue5 = 1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = localValue1.gangPerksUnlocked
+    localValue8 = "pub_turf_commission_"
+    localValue9 = localValue6
+    localValue8 = localValue8 .. localValue9
+    localValue7 = localValue7[localValue8]
+    if localValue7 then
+      localValue2 = localValue2 + localValue6
     end
   end
-  if arg2 > 25 then
-    arg2 = 25
+  if localValue2 > 25 then
+    localValue2 = 25
   end
-  return arg2
+  return localValue2
 end
-cmgCall2[cmgCall3] = cmgCall4
-cmgCall2 = {}
-cmgCall3 = 0.2
-cmgCall4 = 0.3
-numberValue3 = 0.4
-dataTable = 0.5
-dataTable2 = 0.6
-numberValue4 = 0.7
-cmgCall2[1] = cmgCall3
-cmgCall2[2] = cmgCall4
-cmgCall2[3] = numberValue3
-cmgCall2[4] = dataTable
-cmgCall2[5] = dataTable2
-cmgCall2[6] = numberValue4
-cmgCall3 = CMG
+cmgOperation2[cmgOperation3] = cmgOperation4
+cmgOperation2 = {}
+cmgOperation3 = 0.2
+cmgOperation4 = 0.3
+number3 = 0.4
+dataCollection = 0.5
+dataCollection2 = 0.6
+number4 = 0.7
+cmgOperation2[1] = cmgOperation3
+cmgOperation2[2] = cmgOperation4
+cmgOperation2[3] = number3
+cmgOperation2[4] = dataCollection
+cmgOperation2[5] = dataCollection2
+cmgOperation2[6] = number4
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  arg2 = 0
-  if arg1 then
-    arg3 = arg1.gangPerksUnlocked
-    if arg3 then
-      arg3 = 1
-      arg4 = cmgCall2
-      arg4 = #arg4
-      arg5 = 1
-      for arg6 = arg3, arg4, arg5 do
-        arg7 = arg1.gangPerksUnlocked
-        arg8 = "pub_deposit_fee_"
-        arg9 = arg6
-        arg8 = arg8 .. arg9
-        arg7 = arg7[arg8]
-        if arg7 then
-          arg7 = cmgCall2
-          arg7 = arg7[arg6]
-          arg2 = arg2 + arg7
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  localValue2 = 0
+  if localValue1 then
+    localValue3 = localValue1.gangPerksUnlocked
+    if localValue3 then
+      localValue3 = 1
+      localValue4 = cmgOperation2
+      localValue4 = #localValue4
+      localValue5 = 1
+      for localValue6 = localValue3, localValue4, localValue5 do
+        localValue7 = localValue1.gangPerksUnlocked
+        localValue8 = "pub_deposit_fee_"
+        localValue9 = localValue6
+        localValue8 = localValue8 .. localValue9
+        localValue7 = localValue7[localValue8]
+        if localValue7 then
+          localValue7 = cmgOperation2
+          localValue7 = localValue7[localValue6]
+          localValue2 = localValue2 + localValue7
         end
       end
     end
   end
-  if arg2 > 50 then
-    arg2 = 50
+  if localValue2 > 50 then
+    localValue2 = 50
   end
-  return arg2
+  return localValue2
 end
-cmgCall3.getClientGangDepositFeeReductionPercent = cmgCall4
-cmgCall3 = CMG
+cmgOperation3.getClientGangDepositFeeReductionPercent = cmgOperation4
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.getTunableValue
-  arg2 = "gang_tax"
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = 0
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.getTunableValue
+  localValue2 = "gang_tax"
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = 0
   end
-  arg2 = CMG
-  arg2 = arg2.getClientGangDepositFeeReductionPercent
-  arg2 = arg2()
-  arg3 = math
-  arg3 = arg3.max
-  arg4 = 0
-  arg5 = arg2 / 100
-  arg5 = arg1 - arg5
-  arg3 = arg3(arg4, arg5)
-  arg4 = math
-  arg4 = arg4.floor
-  arg5 = arg3 * 1000
-  arg5 = arg5 + 0.5
-  arg4 = arg4(arg5)
-  arg4 = arg4 / 10
-  return arg4
+  localValue2 = CMG
+  localValue2 = localValue2.getClientGangDepositFeeReductionPercent
+  localValue2 = localValue2()
+  localValue3 = math
+  localValue3 = localValue3.max
+  localValue4 = 0
+  localValue5 = localValue2 / 100
+  localValue5 = localValue1 - localValue5
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = math
+  localValue4 = localValue4.floor
+  localValue5 = localValue3 * 1000
+  localValue5 = localValue5 + 0.5
+  localValue4 = localValue4(localValue5)
+  localValue4 = localValue4 / 10
+  return localValue4
 end
-cmgCall3.getClientGangDepositFeeDisplayPercent = cmgCall4
-cmgCall3 = CMG
-cmgCall4 = "getClientGangRpHeistSetupCostAfterDiscount"
+cmgOperation3.getClientGangDepositFeeDisplayPercent = cmgOperation4
+cmgOperation3 = CMG
+cmgOperation4 = "getClientGangRpHeistSetupCostAfterDiscount"
 
--- === HELPER FUNCTION (decompiler name: numberValue3; parameters: arg1) ===
-function numberValue3(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
-  arg2 = math
-  arg2 = arg2.floor
-  arg3 = tonumber
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = 0
+-- === HELPER FUNCTION (decompiler name: number3; parameters: localValue1) ===
+function number3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13
+  localValue2 = math
+  localValue2 = localValue2.floor
+  localValue3 = tonumber
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = 0
   end
-  arg2 = arg2(arg3)
-  if arg2 <= 0 then
-    arg3 = 0
-    return arg3
+  localValue2 = localValue2(localValue3)
+  if localValue2 <= 0 then
+    localValue3 = 0
+    return localValue3
   end
-  arg3 = CMG
-  arg3 = arg3.gangCachedData
-  arg4 = 0
-  if arg3 then
-    arg5 = arg3.gangPerksUnlocked
-    if arg5 then
-      arg5 = ipairs
-      arg6 = {}
-      arg7 = 20
-      arg8 = 15
-      arg9 = 10
-      arg10 = 5
-      arg6[1] = arg7
-      arg6[2] = arg8
-      arg6[3] = arg9
-      arg6[4] = arg10
-      arg5, arg6, arg7, arg8 = arg5(arg6)
-      for arg9, arg10 in arg5, arg6, arg7, arg8 do
-        arg11 = arg3.gangPerksUnlocked
-        arg122 = "rp_heist_"
-        arg13 = arg10
-        arg122 = arg122 .. arg13
-        arg11 = arg11[arg122]
-        if arg11 then
-          arg4 = arg10
+  localValue3 = CMG
+  localValue3 = localValue3.gangCachedData
+  localValue4 = 0
+  if localValue3 then
+    localValue5 = localValue3.gangPerksUnlocked
+    if localValue5 then
+      localValue5 = ipairs
+      localValue6 = {}
+      localValue7 = 20
+      localValue8 = 15
+      localValue9 = 10
+      localValue10 = 5
+      localValue6[1] = localValue7
+      localValue6[2] = localValue8
+      localValue6[3] = localValue9
+      localValue6[4] = localValue10
+      localValue5, localValue6, localValue7, localValue8 = localValue5(localValue6)
+      for localValue9, localValue10 in localValue5, localValue6, localValue7, localValue8 do
+        localValue11 = localValue3.gangPerksUnlocked
+        localValue122 = "rp_heist_"
+        localValue13 = localValue10
+        localValue122 = localValue122 .. localValue13
+        localValue11 = localValue11[localValue122]
+        if localValue11 then
+          localValue4 = localValue10
           break
         end
       end
     end
   end
-  if arg4 <= 0 then
-    return arg2
+  if localValue4 <= 0 then
+    return localValue2
   end
-  arg5 = math
-  arg5 = arg5.max
-  arg6 = 0
-  arg7 = math
-  arg7 = arg7.floor
-  arg8 = 100
-  arg8 = arg8 - arg4
-  arg8 = arg2 * arg8
-  arg8 = arg8 / 100
-  arg8 = arg8 + 0.5
-  arg7, arg8, arg9, arg10, arg11, arg122, arg13 = arg7(arg8)
-  return arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+  localValue5 = math
+  localValue5 = localValue5.max
+  localValue6 = 0
+  localValue7 = math
+  localValue7 = localValue7.floor
+  localValue8 = 100
+  localValue8 = localValue8 - localValue4
+  localValue8 = localValue2 * localValue8
+  localValue8 = localValue8 / 100
+  localValue8 = localValue8 + 0.5
+  localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13 = localValue7(localValue8)
+  return localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
 end
-cmgCall3[cmgCall4] = numberValue3
-cmgCall3 = CMG
+cmgOperation3[cmgOperation4] = number3
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = 0
-  return arg2
-  ::flow_label_10::
-  arg2 = arg1.gangPerksUnlocked
-  arg2 = arg2.rp_spray_50
-  if arg2 then
-    arg2 = 50
-    return arg2
+  localValue2 = 0
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = localValue1.gangPerksUnlocked
+  localValue2 = localValue2.rp_spray_50
+  if localValue2 then
+    localValue2 = 50
+    return localValue2
   end
-  arg2 = arg1.gangPerksUnlocked
-  arg2 = arg2.rp_spray_25
-  if arg2 then
-    arg2 = 25
-    return arg2
+  localValue2 = localValue1.gangPerksUnlocked
+  localValue2 = localValue2.rp_spray_25
+  if localValue2 then
+    localValue2 = 25
+    return localValue2
   end
-  arg2 = 0
-  return arg2
+  localValue2 = 0
+  return localValue2
 end
-cmgCall3.getClientGangRpSpraycanDiscountPercent = cmgCall4
-cmgCall3 = CMG
+cmgOperation3.getClientGangRpSpraycanDiscountPercent = cmgOperation4
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = 0
-  return arg2
-  ::flow_label_10::
-  arg2 = ipairs
-  arg3 = {}
-  arg4 = 15
-  arg5 = 10
-  arg6 = 7
-  arg7 = 5
-  arg3[1] = arg4
-  arg3[2] = arg5
-  arg3[3] = arg6
-  arg3[4] = arg7
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = arg1.gangPerksUnlocked
-    arg9 = "rp_wl_vehicles_"
-    arg10 = arg7
-    arg9 = arg9 .. arg10
-    arg8 = arg8[arg9]
-    if arg8 then
-      return arg7
+  localValue2 = 0
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = ipairs
+  localValue3 = {}
+  localValue4 = 15
+  localValue5 = 10
+  localValue6 = 7
+  localValue7 = 5
+  localValue3[1] = localValue4
+  localValue3[2] = localValue5
+  localValue3[3] = localValue6
+  localValue3[4] = localValue7
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = localValue1.gangPerksUnlocked
+    localValue9 = "rp_wl_vehicles_"
+    localValue10 = localValue7
+    localValue9 = localValue9 .. localValue10
+    localValue8 = localValue8[localValue9]
+    if localValue8 then
+      return localValue7
     end
   end
-  arg2 = 0
-  return arg2
+  localValue2 = 0
+  return localValue2
 end
-cmgCall3.getClientGangRpWlVehiclesDiscountPercent = cmgCall4
-cmgCall3 = 5
-cmgCall4 = CMG
+cmgOperation3.getClientGangRpWlVehiclesDiscountPercent = cmgOperation4
+cmgOperation3 = 5
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue3; parameters: none) ===
-function numberValue3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: number3; parameters: none) ===
+function number3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = {}
-  ::flow_label_10::
-  arg3 = 0
-  arg4 = cmgCall.gangSkills
-  if arg4 then
-    arg4 = pairs
-    arg5 = arg2
-    arg4, arg5, arg6, arg7 = arg4(arg5)
-    for arg8, arg9 in arg4, arg5, arg6, arg7 do
-      if true == arg9 then
-        arg10 = cmgCall.gangSkills
-        arg10 = arg10[arg8]
-        if arg10 then
-          arg11 = tonumber
-          arg122 = arg10.extraRankOutfitSlots
-          arg11 = arg11(arg122)
-          if arg11 then
-            goto flow_label_30
+  localValue2 = {}
+  ::continueAtStep10::
+  localValue3 = 0
+  localValue4 = cmgOperation.gangSkills
+  if localValue4 then
+    localValue4 = pairs
+    localValue5 = localValue2
+    localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+    for localValue8, localValue9 in localValue4, localValue5, localValue6, localValue7 do
+      if true == localValue9 then
+        localValue10 = cmgOperation.gangSkills
+        localValue10 = localValue10[localValue8]
+        if localValue10 then
+          localValue11 = tonumber
+          localValue122 = localValue10.extraRankOutfitSlots
+          localValue11 = localValue11(localValue122)
+          if localValue11 then
+            goto continueAtStep30
           end
         end
-        arg11 = 0
-        ::flow_label_30::
-        if arg11 > 0 then
-          arg3 = arg3 + arg11
+        localValue11 = 0
+        ::continueAtStep30::
+        if localValue11 > 0 then
+          localValue3 = localValue3 + localValue11
         end
       end
     end
   end
-  arg4 = 1 + arg3
-  arg5 = cmgCall3
-  if arg4 > arg5 then
-    arg4 = cmgCall3
+  localValue4 = 1 + localValue3
+  localValue5 = cmgOperation3
+  if localValue4 > localValue5 then
+    localValue4 = cmgOperation3
   end
-  if arg4 < 1 then
-    arg4 = 1
+  if localValue4 < 1 then
+    localValue4 = 1
   end
-  return arg4
+  return localValue4
 end
-cmgCall4.getGangRankOutfitSlotMax = numberValue3
-cmgCall4 = CMG
+cmgOperation4.getGangRankOutfitSlotMax = number3
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue3; parameters: none) ===
-function numberValue3()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: number3; parameters: none) ===
+function number3()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_10::
-  arg2 = arg1.gangPerksUnlocked
-  arg2 = arg2.rp_ragdoll
-  arg2 = true == arg2
-  return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = localValue1.gangPerksUnlocked
+  localValue2 = localValue2.rp_ragdoll
+  localValue2 = true == localValue2
+  return localValue2
 end
-cmgCall4.hasGangRpRagdollPerk = numberValue3
-cmgCall4 = CMG
+cmgOperation4.hasGangRpRagdollPerk = number3
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue3; parameters: none) ===
-function numberValue3()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.gangPerksUnlocked
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: number3; parameters: none) ===
+function number3()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.gangPerksUnlocked
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_10::
-  arg2 = arg1.gangPerksUnlocked
-  arg2 = arg2.rp_car_theft
-  arg2 = true == arg2
-  return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = localValue1.gangPerksUnlocked
+  localValue2 = localValue2.rp_car_theft
+  localValue2 = true == localValue2
+  return localValue2
 end
-cmgCall4.hasGangRpCarTheftPerk = numberValue3
-cmgCall4 = 1
-numberValue3 = 1
-dataTable = {}
-dataTable2 = {}
-numberValue4 = nil
-flag = false
-numberValue6 = 1
-workValue3 = nil
-dataTable3 = {}
-workValue4 = nil
-numberValue11 = 1
-flag2 = false
-numberValue14 = 0
-numberValue16 = 0
-numberValue18 = 1.0
-workValue5 = cmgCall.colourLookup
-workValue5 = workValue5.Red
-textValue2 = GetResourceKvpString
-dataTable5 = "cmg_gang_colour"
-textValue2 = textValue2(dataTable5)
-if not textValue2 then
-  textValue2 = "Red"
+cmgOperation4.hasGangRpCarTheftPerk = number3
+cmgOperation4 = 1
+number3 = 1
+dataCollection = {}
+dataCollection2 = {}
+number4 = nil
+stateFlag = false
+number6 = 1
+workingValue3 = nil
+dataCollection3 = {}
+workingValue4 = nil
+number11 = 1
+stateFlag2 = false
+number14 = 0
+number16 = 0
+number18 = 1.0
+workingValue5 = cmgOperation.colourLookup
+workingValue5 = workingValue5.Red
+text2 = GetResourceKvpString
+dataCollection5 = "cmg_gang_colour"
+text2 = text2(dataCollection5)
+if not text2 then
+  text2 = "Red"
 end
-dataTable5 = {}
-cmgCall5 = CMG
-cmgCall5.gangRecognisedGangs = dataTable5
-cmgCall5 = {}
-cmgCall6 = CMG
-cmgCall6.gangCapturedTurfs = cmgCall5
-cmgCall6 = {}
+dataCollection5 = {}
+cmgOperation5 = CMG
+cmgOperation5.gangRecognisedGangs = dataCollection5
+cmgOperation5 = {}
+cmgOperation6 = CMG
+cmgOperation6.gangCapturedTurfs = cmgOperation5
+cmgOperation6 = {}
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-function workValue6()
-  local arg1, arg2
-  arg1 = workValue
-  return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+function workingValue6()
+  local localValue1, localValue2
+  localValue1 = workingValue
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg2 = {}
-  arg3 = pairs
-  arg4 = arg1.members
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg2[arg7] = arg8
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1) ===
+function workingValue7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue2 = {}
+  localValue3 = pairs
+  localValue4 = localValue1.members
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue2[localValue7] = localValue8
   end
-  arg3 = pairs
-  arg4 = arg1.guests
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg2[arg7] = arg8
+  localValue3 = pairs
+  localValue4 = localValue1.guests
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue2[localValue7] = localValue8
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg1 = {}
-  arg2 = pairs
-  arg3 = dataTable4
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = type
-    arg9 = arg7
-    arg8 = arg8(arg9)
-    if "string" == arg8 and "" ~= arg7 then
-      arg8 = #arg1
-      arg8 = arg8 + 1
-      arg9 = {}
-      arg9.gangName = arg7
-      arg9.isGuest = false
-      arg1[arg8] = arg9
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue1 = {}
+  localValue2 = pairs
+  localValue3 = dataCollection4
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = type
+    localValue9 = localValue7
+    localValue8 = localValue8(localValue9)
+    if "string" == localValue8 and "" ~= localValue7 then
+      localValue8 = #localValue1
+      localValue8 = localValue8 + 1
+      localValue9 = {}
+      localValue9.gangName = localValue7
+      localValue9.isGuest = false
+      localValue1[localValue8] = localValue9
     end
   end
-  arg2 = CMG
-  arg2.gangPendingInvites = arg1
+  localValue2 = CMG
+  localValue2.gangPendingInvites = localValue1
 end
-cmgCall7 = workValue8
-cmgCall7()
-cmgCall7 = RegisterNetEvent
-textValue3 = "2cc35dc0c0"
+cmgOperation7 = workingValue8
+cmgOperation7()
+cmgOperation7 = RegisterNetEvent
+text3 = "2cc35dc0c0"
 -- Beginner: this function handles network event "2cc35dc0c0".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = table
-  arg2 = arg2.count
-  arg3 = dataTable4
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = table
+  localValue2 = localValue2.count
+  localValue3 = dataCollection4
   -- Beginner: result below is count.
-  arg2 = arg2(arg3)
-  arg3 = dataTable4
-  arg3[arg2] = arg1
-  arg2 = workValue8
-  arg2()
-  arg2 = notify
-  arg3 = "~g~Gang invite received from "
-  arg4 = tostring
-  arg5 = arg1 or arg5
-  if not arg1 then
-    arg5 = ""
+  localValue2 = localValue2(localValue3)
+  localValue3 = dataCollection4
+  localValue3[localValue2] = localValue1
+  localValue2 = workingValue8
+  localValue2()
+  localValue2 = notify
+  localValue3 = "~g~Gang invite received from "
+  localValue4 = tostring
+  localValue5 = localValue1 or localValue5
+  if not localValue1 then
+    localValue5 = ""
   end
-  arg4 = arg4(arg5)
-  arg3 = arg3 .. arg4
+  localValue4 = localValue4(localValue5)
+  localValue3 = localValue3 .. localValue4
   -- Beginner: Show a notification to the player.
-  arg2(arg3)
-  arg2 = TriggerEvent
-  arg3 = "c89367ffd9"
+  localValue2(localValue3)
+  localValue2 = TriggerEvent
+  localValue3 = "c89367ffd9"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c89367ffd9".
-  arg2(arg3)
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2cc35dc0c0".
-cmgCall7(textValue3, workValue9)
-cmgCall7 = CMG
+cmgOperation7(text3, workingValue9)
+cmgOperation7 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1, arg2) ===
-function textValue3(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  if arg1 then
-    arg3 = type
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    if "string" == arg3 and "" ~= arg1 then
-      goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1, localValue2) ===
+function text3(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  if localValue1 then
+    localValue3 = type
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    if "string" == localValue3 and "" ~= localValue1 then
+      goto continueAtStep11
     end
   end
   return
-  ::flow_label_11::
-  arg3 = TriggerServerEvent
-  arg4 = "125d443003"
-  arg5 = arg1
+  ::continueAtStep11::
+  localValue3 = TriggerServerEvent
+  localValue4 = "125d443003"
+  localValue5 = localValue1
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "125d443003".
-  arg3(arg4, arg5)
-  arg3 = pairs
-  arg4 = dataTable4
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    if arg8 == arg1 then
-      arg9 = dataTable4
-      arg9[arg7] = nil
+  localValue3(localValue4, localValue5)
+  localValue3 = pairs
+  localValue4 = dataCollection4
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    if localValue8 == localValue1 then
+      localValue9 = dataCollection4
+      localValue9[localValue7] = nil
       break
     end
   end
-  arg3 = workValue8
-  arg3()
+  localValue3 = workingValue8
+  localValue3()
 end
-cmgCall7.gangAcceptInvite = textValue3
-cmgCall7 = CMG
+cmgOperation7.gangAcceptInvite = text3
+cmgOperation7 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  if arg1 then
-    arg2 = type
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if "string" == arg2 and "" ~= arg1 then
-      goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  if localValue1 then
+    localValue2 = type
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if "string" == localValue2 and "" ~= localValue1 then
+      goto continueAtStep11
     end
   end
   return
-  ::flow_label_11::
-  arg2 = pairs
-  arg3 = dataTable4
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    if arg7 == arg1 then
-      arg8 = dataTable4
-      arg8[arg6] = nil
+  ::continueAtStep11::
+  localValue2 = pairs
+  localValue3 = dataCollection4
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    if localValue7 == localValue1 then
+      localValue8 = dataCollection4
+      localValue8[localValue6] = nil
       break
     end
   end
-  arg2 = workValue8
-  arg2()
+  localValue2 = workingValue8
+  localValue2()
 end
-cmgCall7.gangDeclineInvite = textValue3
+cmgOperation7.gangDeclineInvite = text3
 
--- === HELPER FUNCTION (decompiler name: cmgCall7; parameters: arg1) ===
-function cmgCall7(arg1)
-  local arg2, arg3, arg4
-  arg2 = CMG
-  arg2 = arg2.GetRageInputText
-  arg3 = arg1
-  arg4 = "Yes | No"
-  arg2 = arg2(arg3, arg4)
-  if "yes" == arg2 or "Yes" == arg2 then
-    arg3 = true
-    return arg3
+-- === HELPER FUNCTION (decompiler name: cmgOperation7; parameters: localValue1) ===
+function cmgOperation7(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = CMG
+  localValue2 = localValue2.GetRageInputText
+  localValue3 = localValue1
+  localValue4 = "Yes | No"
+  localValue2 = localValue2(localValue3, localValue4)
+  if "yes" == localValue2 or "Yes" == localValue2 then
+    localValue3 = true
+    return localValue3
   else
-    arg3 = false
-    return arg3
+    localValue3 = false
+    return localValue3
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
-  arg2 = {}
-  arg3 = pairs
-  arg4 = arg1.members
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = table
-    arg9 = arg9.copy
-    arg10 = arg8
-    arg9 = arg9(arg10)
-    arg9.user_id = arg7
-    arg10 = table
-    arg10 = arg10.insert
-    arg11 = arg2
-    arg122 = arg9
-    arg10(arg11, arg122)
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13
+  localValue2 = {}
+  localValue3 = pairs
+  localValue4 = localValue1.members
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = table
+    localValue9 = localValue9.copy
+    localValue10 = localValue8
+    localValue9 = localValue9(localValue10)
+    localValue9.user_id = localValue7
+    localValue10 = table
+    localValue10 = localValue10.insert
+    localValue11 = localValue2
+    localValue122 = localValue9
+    localValue10(localValue11, localValue122)
   end
-  arg3 = pairs
-  arg4 = arg1.guests
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = table
-    arg9 = arg9.copy
-    arg10 = arg8
-    arg9 = arg9(arg10)
-    arg9.lastLogin = "Offline"
-    arg9.user_id = arg7
-    arg10 = table
-    arg10 = arg10.insert
-    arg11 = arg2
-    arg122 = arg9
-    arg10(arg11, arg122)
+  localValue3 = pairs
+  localValue4 = localValue1.guests
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = table
+    localValue9 = localValue9.copy
+    localValue10 = localValue8
+    localValue9 = localValue9(localValue10)
+    localValue9.lastLogin = "Offline"
+    localValue9.user_id = localValue7
+    localValue10 = table
+    localValue10 = localValue10.insert
+    localValue11 = localValue2
+    localValue122 = localValue9
+    localValue10(localValue11, localValue122)
   end
-  arg3 = {}
-  arg4 = workValue
-  if arg1 == arg4 then
-    arg4 = cmgCall4
-    if arg4 then
-      goto flow_label_47
+  localValue3 = {}
+  localValue4 = workingValue
+  if localValue1 == localValue4 then
+    localValue4 = cmgOperation4
+    if localValue4 then
+      goto continueAtStep47
     end
   end
-  arg4 = numberValue11
-  ::flow_label_47::
-  arg5 = arg4 - 1
-  arg5 = arg5 * 10
-  arg5 = arg5 + 1
-  arg6 = table
-  arg6 = arg6.count
-  arg7 = arg1.members
+  localValue4 = number11
+  ::continueAtStep47::
+  localValue5 = localValue4 - 1
+  localValue5 = localValue5 * 10
+  localValue5 = localValue5 + 1
+  localValue6 = table
+  localValue6 = localValue6.count
+  localValue7 = localValue1.members
   -- Beginner: result below is count.
-  arg6 = arg6(arg7)
-  arg7 = table
-  arg7 = arg7.count
-  arg8 = arg1.guests
+  localValue6 = localValue6(localValue7)
+  localValue7 = table
+  localValue7 = localValue7.count
+  localValue8 = localValue1.guests
   -- Beginner: result below is count.
-  arg7 = arg7(arg8)
-  arg6 = arg6 + arg7
-  arg7 = arg5
-  arg8 = math
-  arg8 = arg8.min
-  arg9 = arg5 + 10
-  arg10 = arg6 + 1
-  arg8 = arg8(arg9, arg10)
-  arg8 = arg8 - 1
-  arg9 = 1
-  for arg10 = arg7, arg8, arg9 do
-    arg11 = table
-    arg11 = arg11.insert
-    arg122 = arg3
-    arg13 = arg2[arg10]
-    arg11(arg122, arg13)
+  localValue7 = localValue7(localValue8)
+  localValue6 = localValue6 + localValue7
+  localValue7 = localValue5
+  localValue8 = math
+  localValue8 = localValue8.min
+  localValue9 = localValue5 + 10
+  localValue10 = localValue6 + 1
+  localValue8 = localValue8(localValue9, localValue10)
+  localValue8 = localValue8 - 1
+  localValue9 = 1
+  for localValue10 = localValue7, localValue8, localValue9 do
+    localValue11 = table
+    localValue11 = localValue11.insert
+    localValue122 = localValue3
+    localValue13 = localValue2[localValue10]
+    localValue11(localValue122, localValue13)
   end
-  arg7 = #arg3
-  if 0 == arg7 then
-    arg7 = workValue
-    if arg1 == arg7 then
-      arg7 = math
-      arg7 = arg7.max
-      arg8 = cmgCall4
-      arg8 = arg8 - 1
-      arg9 = 1
-      arg7 = arg7(arg8, arg9)
-      cmgCall4 = arg7
+  localValue7 = #localValue3
+  if 0 == localValue7 then
+    localValue7 = workingValue
+    if localValue1 == localValue7 then
+      localValue7 = math
+      localValue7 = localValue7.max
+      localValue8 = cmgOperation4
+      localValue8 = localValue8 - 1
+      localValue9 = 1
+      localValue7 = localValue7(localValue8, localValue9)
+      cmgOperation4 = localValue7
     else
-      arg7 = math
-      arg7 = arg7.max
-      arg8 = numberValue11
-      arg8 = arg8 - 1
-      arg9 = 1
-      arg7 = arg7(arg8, arg9)
-      numberValue11 = arg7
+      localValue7 = math
+      localValue7 = localValue7.max
+      localValue8 = number11
+      localValue8 = localValue8 - 1
+      localValue9 = 1
+      localValue7 = localValue7(localValue8, localValue9)
+      number11 = localValue7
     end
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg1 = workValue
-  if arg1 then
-    arg1 = workValue.contributions
-    if arg1 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: none) ===
+function workingValue9()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = workingValue.contributions
+    if localValue1 then
+      goto continueAtStep9
     end
   end
-  arg1 = {}
-  ::flow_label_9::
-  arg2 = table
-  arg2 = arg2.sort
-  arg3 = arg1
+  localValue1 = {}
+  ::continueAtStep9::
+  localValue2 = table
+  localValue2 = localValue2.sort
+  localValue3 = localValue1
 
-  -- === HELPER FUNCTION: arg4(arg12, arg22) ===
-  function arg4(arg12, arg22)
-    local arg32, localEventCall
-    arg32 = arg12.amount
-    localEventCall = arg22.amount
-    arg32 = arg32 > localEventCall
-    return arg32
+  -- === HELPER FUNCTION: localValue4(localValue12, localValue22) ===
+  function localValue4(localValue12, localValue22)
+    local localValue32, localEventCall
+    localValue32 = localValue12.amount
+    localEventCall = localValue22.amount
+    localValue32 = localValue32 > localEventCall
+    return localValue32
   end
-  arg2(arg3, arg4)
-  arg2 = {}
-  arg3 = numberValue6
-  arg3 = arg3 - 1
-  arg3 = arg3 * 10
-  arg3 = arg3 + 1
-  arg4 = arg3
-  arg5 = math
-  arg5 = arg5.min
-  arg6 = numberValue6
-  arg6 = arg6 + 10
-  arg7 = #arg1
-  arg7 = arg7 + 1
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5 - 1
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
-    arg8 = table
-    arg8 = arg8.insert
-    arg9 = arg2
-    arg10 = arg1[arg7]
-    arg8(arg9, arg10)
+  localValue2(localValue3, localValue4)
+  localValue2 = {}
+  localValue3 = number6
+  localValue3 = localValue3 - 1
+  localValue3 = localValue3 * 10
+  localValue3 = localValue3 + 1
+  localValue4 = localValue3
+  localValue5 = math
+  localValue5 = localValue5.min
+  localValue6 = number6
+  localValue6 = localValue6 + 10
+  localValue7 = #localValue1
+  localValue7 = localValue7 + 1
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5 - 1
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
+    localValue8 = table
+    localValue8 = localValue8.insert
+    localValue9 = localValue2
+    localValue10 = localValue1[localValue7]
+    localValue8(localValue9, localValue10)
   end
-  arg4 = #arg2
-  if 0 == arg4 then
-    arg4 = math
-    arg4 = arg4.max
-    arg5 = numberValue6
-    arg5 = arg5 - 1
-    arg6 = 1
-    arg4 = arg4(arg5, arg6)
-    numberValue6 = arg4
+  localValue4 = #localValue2
+  if 0 == localValue4 then
+    localValue4 = math
+    localValue4 = localValue4.max
+    localValue5 = number6
+    localValue5 = localValue5 - 1
+    localValue6 = 1
+    localValue4 = localValue4(localValue5, localValue6)
+    number6 = localValue4
   end
-  arg4 = arg2
-  arg5 = #arg1
-  return arg4, arg5
+  localValue4 = localValue2
+  localValue5 = #localValue1
+  return localValue4, localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14
-  arg2 = 0
-  arg3 = pairs
-  arg4 = arg1
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7 in arg3, arg4, arg5, arg6 do
-    arg8 = pairs
-    arg9 = cmgCall.permissions
-    arg8, arg9, arg10, arg11 = arg8(arg9)
-    for arg122, arg13 in arg8, arg9, arg10, arg11 do
-      arg14 = arg13.id
-      if arg14 == arg7 then
-        arg2 = arg2 + 1
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14
+  localValue2 = 0
+  localValue3 = pairs
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7 in localValue3, localValue4, localValue5, localValue6 do
+    localValue8 = pairs
+    localValue9 = cmgOperation.permissions
+    localValue8, localValue9, localValue10, localValue11 = localValue8(localValue9)
+    for localValue122, localValue13 in localValue8, localValue9, localValue10, localValue11 do
+      localValue14 = localValue13.id
+      if localValue14 == localValue7 then
+        localValue2 = localValue2 + 1
         break
       end
     end
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1) ===
-function workValue13(arg1)
-  local arg2, arg3, arg4
-  if "Friendly" == arg1 then
-    arg2 = 50
-    arg3 = 255
-    arg4 = 50
-    return arg2, arg3, arg4
-  elseif "Enemy" == arg1 then
-    arg2 = 255
-    arg3 = 50
-    arg4 = 50
-    return arg2, arg3, arg4
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue1) ===
+function workingValue13(localValue1)
+  local localValue2, localValue3, localValue4
+  if "Friendly" == localValue1 then
+    localValue2 = 50
+    localValue3 = 255
+    localValue4 = 50
+    return localValue2, localValue3, localValue4
+  elseif "Enemy" == localValue1 then
+    localValue2 = 255
+    localValue3 = 50
+    localValue4 = 50
+    return localValue2, localValue3, localValue4
   else
-    arg2 = 50
-    arg3 = 50
-    arg4 = 50
-    return arg2, arg3, arg4
+    localValue2 = 50
+    localValue3 = 50
+    localValue4 = 50
+    return localValue2, localValue3, localValue4
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20
-  arg1 = CMG
-  arg1 = arg1.gangUseNui
-  if arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20
+  localValue1 = CMG
+  localValue1 = localValue1.gangUseNui
+  if localValue1 then
     return
   end
-  arg1 = textValue
-  if "noGang" == arg1 then
-    arg1 = DisableControlAction
-    arg2 = 0
-    arg3 = 200
-    arg4 = true
-    arg1(arg2, arg3, arg4)
-    arg1 = CMG
-    arg1 = arg1.isNewPlayer
-    arg1 = arg1()
-    if arg1 then
-      arg1 = drawNativeNotification
-      arg2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
+  localValue1 = text
+  if "noGang" == localValue1 then
+    localValue1 = DisableControlAction
+    localValue2 = 0
+    localValue3 = 200
+    localValue4 = true
+    localValue1(localValue2, localValue3, localValue4)
+    localValue1 = CMG
+    localValue1 = localValue1.isNewPlayer
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = drawNativeNotification
+      localValue2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
       -- Beginner: Show a GTA-style notification/help prompt.
-      arg1(arg2)
+      localValue1(localValue2)
     end
-    arg1 = DrawRect
-    arg2 = 0.471
-    arg3 = 0.329
-    arg4 = 0.285
-    arg5 = -0.005
-    arg6 = 0
-    arg7 = 168
-    arg8 = 255
-    arg9 = 204
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawRect
-    arg2 = 0.471
-    arg3 = 0.304
-    arg4 = 0.285
-    arg5 = 0.046
-    arg6 = 0
-    arg7 = 0
-    arg8 = 0
-    arg9 = 150
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawRect
-    arg2 = 0.471
-    arg3 = 0.428
-    arg4 = 0.285
-    arg5 = 0.194
-    arg6 = 0
-    arg7 = 0
-    arg8 = 0
-    arg9 = 150
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawRect
-    arg2 = 0.383
-    arg3 = 0.442
-    arg4 = 0.066
-    arg5 = 0.046
-    arg6 = CreateGangSelectionRed
-    arg7 = CreateGangSelectionGreen
-    arg8 = CreateGangSelectionBlue
-    arg9 = 150
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawRect
-    arg2 = 0.469
-    arg3 = 0.442
-    arg4 = 0.066
-    arg5 = 0.046
-    arg6 = JoinGangSelectionRed
-    arg7 = JoinGangSelectionGreen
-    arg8 = JoinGangSelectionBlue
-    arg9 = 150
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawAdvancedText
-    arg2 = 0.558
-    arg3 = 0.303
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.539
-    arg7 = "CMG Gangs"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 7
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.478
-    arg3 = 0.442
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.473
-    arg7 = "Create Gang"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 4
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.564
-    arg3 = 0.443
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.473
-    arg7 = "Join Gang"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 4
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawRect
-    arg2 = 0.561
-    arg3 = 0.377
-    arg4 = 0.065
-    arg5 = -0.003
-    arg6 = 0
-    arg7 = 168
-    arg8 = 255
-    arg9 = 204
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawAdvancedText
-    arg2 = 0.654
-    arg3 = 0.37
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.364
-    arg7 = "Invite list"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 4
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = pairs
-    arg2 = dataTable4
-    arg1, arg2, arg3, arg4 = arg1(arg2)
-    for arg5, arg6 in arg1, arg2, arg3, arg4 do
-      arg7 = DrawAdvancedText
-      arg8 = 0.656
-      arg9 = 0.02 * arg5
-      arg9 = 0.398 + arg9
-      arg10 = 0.005
-      arg11 = 0.0028
-      arg122 = 0.234
-      arg13 = arg6
-      arg14 = 255
-      arg15 = 255
-      arg16 = 255
-      arg17 = 255
-      arg18 = 0
-      numberValue5 = 0
-      arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
-      arg7 = CursorInArea
-      arg8 = 0.525
-      arg9 = 0.59
-      arg10 = 0.02 * arg5
-      arg10 = 0.38 + arg10
-      arg11 = 0.02 * arg5
-      arg11 = 0.396 + arg11
-      arg7 = arg7(arg8, arg9, arg10, arg11)
-      if arg7 then
-        arg7 = workValue12
-        if arg5 ~= arg7 then
-          arg7 = DrawRect
-          arg8 = 0.56
-          arg9 = 0.02 * arg5
-          arg9 = 0.39 + arg9
-          arg10 = 0.062
-          arg11 = 0.019
-          arg122 = 0
-          arg13 = 168
-          arg14 = 255
-          arg15 = 150
-          arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-          arg7 = IsControlJustPressed
-          arg8 = 1
-          arg9 = 329
-          arg7 = arg7(arg8, arg9)
-          if not arg7 then
-            arg7 = IsDisabledControlJustPressed
-            arg8 = 1
-            arg9 = 329
-            arg7 = arg7(arg8, arg9)
+    localValue1 = DrawRect
+    localValue2 = 0.471
+    localValue3 = 0.329
+    localValue4 = 0.285
+    localValue5 = -0.005
+    localValue6 = 0
+    localValue7 = 168
+    localValue8 = 255
+    localValue9 = 204
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawRect
+    localValue2 = 0.471
+    localValue3 = 0.304
+    localValue4 = 0.285
+    localValue5 = 0.046
+    localValue6 = 0
+    localValue7 = 0
+    localValue8 = 0
+    localValue9 = 150
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawRect
+    localValue2 = 0.471
+    localValue3 = 0.428
+    localValue4 = 0.285
+    localValue5 = 0.194
+    localValue6 = 0
+    localValue7 = 0
+    localValue8 = 0
+    localValue9 = 150
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawRect
+    localValue2 = 0.383
+    localValue3 = 0.442
+    localValue4 = 0.066
+    localValue5 = 0.046
+    localValue6 = CreateGangSelectionRed
+    localValue7 = CreateGangSelectionGreen
+    localValue8 = CreateGangSelectionBlue
+    localValue9 = 150
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawRect
+    localValue2 = 0.469
+    localValue3 = 0.442
+    localValue4 = 0.066
+    localValue5 = 0.046
+    localValue6 = JoinGangSelectionRed
+    localValue7 = JoinGangSelectionGreen
+    localValue8 = JoinGangSelectionBlue
+    localValue9 = 150
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.558
+    localValue3 = 0.303
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.539
+    localValue7 = "CMG Gangs"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 7
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.478
+    localValue3 = 0.442
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.473
+    localValue7 = "Create Gang"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 4
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.564
+    localValue3 = 0.443
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.473
+    localValue7 = "Join Gang"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 4
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawRect
+    localValue2 = 0.561
+    localValue3 = 0.377
+    localValue4 = 0.065
+    localValue5 = -0.003
+    localValue6 = 0
+    localValue7 = 168
+    localValue8 = 255
+    localValue9 = 204
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.654
+    localValue3 = 0.37
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.364
+    localValue7 = "Invite list"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 4
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = pairs
+    localValue2 = dataCollection4
+    localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+    for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+      localValue7 = DrawAdvancedText
+      localValue8 = 0.656
+      localValue9 = 0.02 * localValue5
+      localValue9 = 0.398 + localValue9
+      localValue10 = 0.005
+      localValue11 = 0.0028
+      localValue122 = 0.234
+      localValue13 = localValue6
+      localValue14 = 255
+      localValue15 = 255
+      localValue16 = 255
+      localValue17 = 255
+      localValue18 = 0
+      number5 = 0
+      localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5)
+      localValue7 = CursorInArea
+      localValue8 = 0.525
+      localValue9 = 0.59
+      localValue10 = 0.02 * localValue5
+      localValue10 = 0.38 + localValue10
+      localValue11 = 0.02 * localValue5
+      localValue11 = 0.396 + localValue11
+      localValue7 = localValue7(localValue8, localValue9, localValue10, localValue11)
+      if localValue7 then
+        localValue7 = workingValue12
+        if localValue5 ~= localValue7 then
+          localValue7 = DrawRect
+          localValue8 = 0.56
+          localValue9 = 0.02 * localValue5
+          localValue9 = 0.39 + localValue9
+          localValue10 = 0.062
+          localValue11 = 0.019
+          localValue122 = 0
+          localValue13 = 168
+          localValue14 = 255
+          localValue15 = 150
+          localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+          localValue7 = IsControlJustPressed
+          localValue8 = 1
+          localValue9 = 329
+          localValue7 = localValue7(localValue8, localValue9)
+          if not localValue7 then
+            localValue7 = IsDisabledControlJustPressed
+            localValue8 = 1
+            localValue9 = 329
+            localValue7 = localValue7(localValue8, localValue9)
           end
-          if arg7 then
-            workValue12 = arg5
+          if localValue7 then
+            workingValue12 = localValue5
           end
       end
       else
-        arg7 = workValue12
-        if arg5 == arg7 then
-          arg7 = DrawRect
-          arg8 = 0.56
-          arg9 = 0.02 * arg5
-          arg9 = 0.39 + arg9
-          arg10 = 0.062
-          arg11 = 0.019
-          arg122 = 0
-          arg13 = 168
-          arg14 = 255
-          arg15 = 150
-          arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+        localValue7 = workingValue12
+        if localValue5 == localValue7 then
+          localValue7 = DrawRect
+          localValue8 = 0.56
+          localValue9 = 0.02 * localValue5
+          localValue9 = 0.39 + localValue9
+          localValue10 = 0.062
+          localValue11 = 0.019
+          localValue122 = 0
+          localValue13 = 168
+          localValue14 = 255
+          localValue15 = 150
+          localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
         end
       end
     end
-    arg1 = CursorInArea
-    arg2 = 0.35
-    arg3 = 0.415
-    arg4 = 0.415
-    arg5 = 0.46
-    arg1 = arg1(arg2, arg3, arg4, arg5)
-    if arg1 then
+    localValue1 = CursorInArea
+    localValue2 = 0.35
+    localValue3 = 0.415
+    localValue4 = 0.415
+    localValue5 = 0.46
+    localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+    if localValue1 then
       CreateGangSelectionRed = 0
       CreateGangSelectionGreen = 168
       CreateGangSelectionBlue = 255
-      arg1 = IsControlJustPressed
-      arg2 = 1
-      arg3 = 329
-      arg1 = arg1(arg2, arg3)
-      if not arg1 then
-        arg1 = IsDisabledControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
+      localValue1 = IsControlJustPressed
+      localValue2 = 1
+      localValue3 = 329
+      localValue1 = localValue1(localValue2, localValue3)
+      if not localValue1 then
+        localValue1 = IsDisabledControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
       end
-      if arg1 then
-        arg1 = PlaySound
-        arg2 = -1
-        arg3 = "SELECT"
-        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg5 = false
-        arg6 = 0
-        arg7 = true
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-        arg1 = CMG
-        arg1 = arg1.GetRageInputText
-        arg2 = "Enter Gang Name:"
-        arg1 = arg1(arg2)
-        if nil ~= arg1 and "null" ~= arg1 and "" ~= arg1 then
-          arg2 = TriggerServerEvent
-          arg3 = "36ca78a1b5"
-          arg4 = arg1
+      if localValue1 then
+        localValue1 = PlaySound
+        localValue2 = -1
+        localValue3 = "SELECT"
+        localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue5 = false
+        localValue6 = 0
+        localValue7 = true
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue1 = CMG
+        localValue1 = localValue1.GetRageInputText
+        localValue2 = "Enter Gang Name:"
+        localValue1 = localValue1(localValue2)
+        if nil ~= localValue1 and "null" ~= localValue1 and "" ~= localValue1 then
+          localValue2 = TriggerServerEvent
+          localValue3 = "36ca78a1b5"
+          localValue4 = localValue1
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "36ca78a1b5".
-          arg2(arg3, arg4)
+          localValue2(localValue3, localValue4)
         else
-          arg2 = tCMG
-          arg2 = arg2.notify
-          arg3 = "~r~No gang name entered!"
+          localValue2 = tCMG
+          localValue2 = localValue2.notify
+          localValue3 = "~r~No gang name entered!"
           -- Beginner: Show a notification to the player.
-          arg2(arg3)
+          localValue2(localValue3)
         end
       end
     else
@@ -1220,58 +1220,58 @@ function workValue14()
       CreateGangSelectionGreen = 0
       CreateGangSelectionBlue = 0
     end
-    arg1 = CursorInArea
-    arg2 = 0.435
-    arg3 = 0.51
-    arg4 = 0.415
-    arg5 = 0.46
-    arg1 = arg1(arg2, arg3, arg4, arg5)
-    if arg1 then
+    localValue1 = CursorInArea
+    localValue2 = 0.435
+    localValue3 = 0.51
+    localValue4 = 0.415
+    localValue5 = 0.46
+    localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+    if localValue1 then
       JoinGangSelectionRed = 0
       JoinGangSelectionGreen = 168
       JoinGangSelectionBlue = 255
-      arg1 = IsControlJustPressed
-      arg2 = 1
-      arg3 = 329
-      arg1 = arg1(arg2, arg3)
-      if not arg1 then
-        arg1 = IsDisabledControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
+      localValue1 = IsControlJustPressed
+      localValue2 = 1
+      localValue3 = 329
+      localValue1 = localValue1(localValue2, localValue3)
+      if not localValue1 then
+        localValue1 = IsDisabledControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
       end
-      if arg1 then
-        arg1 = PlaySound
-        arg2 = -1
-        arg3 = "SELECT"
-        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg5 = false
-        arg6 = 0
-        arg7 = true
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-        arg1 = workValue12
-        if nil ~= arg1 then
-          arg2 = workValue12
-          arg1 = dataTable4
-          arg1 = arg1[arg2]
-          workValue12 = arg1
-          arg1 = TriggerServerEvent
-          arg2 = "125d443003"
-          arg3 = workValue12
+      if localValue1 then
+        localValue1 = PlaySound
+        localValue2 = -1
+        localValue3 = "SELECT"
+        localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue5 = false
+        localValue6 = 0
+        localValue7 = true
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue1 = workingValue12
+        if nil ~= localValue1 then
+          localValue2 = workingValue12
+          localValue1 = dataCollection4
+          localValue1 = localValue1[localValue2]
+          workingValue12 = localValue1
+          localValue1 = TriggerServerEvent
+          localValue2 = "125d443003"
+          localValue3 = workingValue12
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "125d443003".
-          arg1(arg2, arg3)
-          arg1 = {}
-          dataTable4 = arg1
-          arg1 = workValue8
-          arg1()
-          arg1 = "gang"
-          textValue = arg1
+          localValue1(localValue2, localValue3)
+          localValue1 = {}
+          dataCollection4 = localValue1
+          localValue1 = workingValue8
+          localValue1()
+          localValue1 = "gang"
+          text = localValue1
         else
-          arg1 = tCMG
-          arg1 = arg1.notify
-          arg2 = "~r~No gang invite selected"
+          localValue1 = tCMG
+          localValue1 = localValue1.notify
+          localValue2 = "~r~No gang invite selected"
           -- Beginner: Show a notification to the player.
-          arg1(arg2)
+          localValue1(localValue2)
         end
       end
     else
@@ -1279,9178 +1279,9178 @@ function workValue14()
       JoinGangSelectionGreen = 0
       JoinGangSelectionBlue = 0
     end
-    arg1 = DrawAdvancedText
-    arg2 = 0.478
-    arg3 = 0.372
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.473
-    arg7 = "Guests"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 4
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = CursorInAreaRect
-    arg2 = 0.383
-    arg3 = 0.372
-    arg4 = 0.066
-    arg5 = 0.046
-    arg1 = arg1(arg2, arg3, arg4, arg5)
-    if arg1 then
-      arg1 = DrawRect
-      arg2 = 0.383
-      arg3 = 0.372
-      arg4 = 0.066
-      arg5 = 0.046
-      arg6 = numberValue28
-      arg7 = numberValue29
-      arg8 = numberValue30
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = IsControlJustPressed
-      arg2 = 1
-      arg3 = 329
-      arg1 = arg1(arg2, arg3)
-      if not arg1 then
-        arg1 = IsDisabledControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.478
+    localValue3 = 0.372
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.473
+    localValue7 = "Guests"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 4
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = CursorInAreaRect
+    localValue2 = 0.383
+    localValue3 = 0.372
+    localValue4 = 0.066
+    localValue5 = 0.046
+    localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+    if localValue1 then
+      localValue1 = DrawRect
+      localValue2 = 0.383
+      localValue3 = 0.372
+      localValue4 = 0.066
+      localValue5 = 0.046
+      localValue6 = number28
+      localValue7 = number29
+      localValue8 = number30
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = IsControlJustPressed
+      localValue2 = 1
+      localValue3 = 329
+      localValue1 = localValue1(localValue2, localValue3)
+      if not localValue1 then
+        localValue1 = IsDisabledControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
       end
-      if arg1 then
-        arg1 = PlaySound
-        arg2 = -1
-        arg3 = "SELECT"
-        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg5 = false
-        arg6 = 0
-        arg7 = true
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-        arg1 = "guest"
-        textValue = arg1
+      if localValue1 then
+        localValue1 = PlaySound
+        localValue2 = -1
+        localValue3 = "SELECT"
+        localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue5 = false
+        localValue6 = 0
+        localValue7 = true
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue1 = "guest"
+        text = localValue1
       end
     else
-      arg1 = DrawRect
-      arg2 = 0.383
-      arg3 = 0.372
-      arg4 = 0.066
-      arg5 = 0.046
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      localValue1 = DrawRect
+      localValue2 = 0.383
+      localValue3 = 0.372
+      localValue4 = 0.066
+      localValue5 = 0.046
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
     end
-    arg1 = workValue3
-    if arg1 then
-      arg1 = DrawAdvancedText
-      arg2 = 0.564
-      arg3 = 0.372
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.473
-      arg7 = "Settings"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInAreaRect
-      arg2 = 0.469
-      arg3 = 0.372
-      arg4 = 0.066
-      arg5 = 0.046
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.469
-        arg3 = 0.372
-        arg4 = 0.066
-        arg5 = 0.046
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+    localValue1 = workingValue3
+    if localValue1 then
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.564
+      localValue3 = 0.372
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.473
+      localValue7 = "Settings"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInAreaRect
+      localValue2 = 0.469
+      localValue3 = 0.372
+      localValue4 = 0.066
+      localValue5 = 0.046
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.469
+        localValue3 = 0.372
+        localValue4 = 0.066
+        localValue5 = 0.046
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "settings"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "settings"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.469
-        arg3 = 0.372
-        arg4 = 0.066
-        arg5 = 0.046
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.469
+        localValue3 = 0.372
+        localValue4 = 0.066
+        localValue5 = 0.046
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    if "funds" == arg1 then
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.558
-      arg4 = 0.421
-      arg5 = 0.326
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.374
-      arg4 = 0.421
-      arg5 = 0.047
-      arg6 = 18
-      arg7 = 82
-      arg8 = 228
-      arg9 = 248
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.591
-      arg3 = 0.378
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.48
-      arg7 = "cmg gang - funds"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.581
-      arg3 = 0.464
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.5
-      arg7 = "Gang Funds"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 0
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.581
-      arg3 = 0.502
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "\194\163"
-      arg8 = getMoneyStringFormatted
-      arg9 = workValue.displayMoney
-      arg8 = arg8(arg9)
-      arg7 = arg7 .. arg8
-      arg8 = 25
-      arg9 = 199
-      arg10 = 65
-      arg11 = 255
-      arg122 = 0
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.436
-      arg3 = 0.578
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Deposit ("
-      arg8 = tostring
-      arg9 = math
-      arg9 = arg9.floor
-      arg10 = CMG
-      arg10 = arg10.getTunableValue
-      arg11 = "gang_tax"
-      arg10 = arg10(arg11)
-      arg10 = arg10 * 100.0
-      arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg9(arg10)
-      arg8 = arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-      arg9 = "% Fee)"
-      arg7 = arg7 .. arg8 .. arg9
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.536
-      arg3 = 0.578
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Deposit All ("
-      arg8 = tostring
-      arg9 = math
-      arg9 = arg9.floor
-      arg10 = CMG
-      arg10 = arg10.getTunableValue
-      arg11 = "gang_tax"
-      arg10 = arg10(arg11)
-      arg10 = arg10 * 100.0
-      arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg9(arg10)
-      arg8 = arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-      arg9 = "% Fee)"
-      arg7 = arg7 .. arg8 .. arg9
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.637
-      arg3 = 0.578
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Withdraw"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.737
-      arg3 = 0.578
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Withdraw All"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.775
-      arg3 = 0.693
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Back"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.3083
-      arg3 = 0.3718
-      arg4 = 0.549
-      arg5 = 0.5999
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.341
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    if "funds" == localValue1 then
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.558
+      localValue4 = 0.421
+      localValue5 = 0.326
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.374
+      localValue4 = 0.421
+      localValue5 = 0.047
+      localValue6 = 18
+      localValue7 = 82
+      localValue8 = 228
+      localValue9 = 248
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.591
+      localValue3 = 0.378
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.48
+      localValue7 = "cmg gang - funds"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.581
+      localValue3 = 0.464
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.5
+      localValue7 = "Gang Funds"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 0
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.581
+      localValue3 = 0.502
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "\194\163"
+      localValue8 = getMoneyStringFormatted
+      localValue9 = workingValue.displayMoney
+      localValue8 = localValue8(localValue9)
+      localValue7 = localValue7 .. localValue8
+      localValue8 = 25
+      localValue9 = 199
+      localValue10 = 65
+      localValue11 = 255
+      localValue122 = 0
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.436
+      localValue3 = 0.578
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Deposit ("
+      localValue8 = tostring
+      localValue9 = math
+      localValue9 = localValue9.floor
+      localValue10 = CMG
+      localValue10 = localValue10.getTunableValue
+      localValue11 = "gang_tax"
+      localValue10 = localValue10(localValue11)
+      localValue10 = localValue10 * 100.0
+      localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue9(localValue10)
+      localValue8 = localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+      localValue9 = "% Fee)"
+      localValue7 = localValue7 .. localValue8 .. localValue9
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.536
+      localValue3 = 0.578
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Deposit All ("
+      localValue8 = tostring
+      localValue9 = math
+      localValue9 = localValue9.floor
+      localValue10 = CMG
+      localValue10 = localValue10.getTunableValue
+      localValue11 = "gang_tax"
+      localValue10 = localValue10(localValue11)
+      localValue10 = localValue10 * 100.0
+      localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue9(localValue10)
+      localValue8 = localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+      localValue9 = "% Fee)"
+      localValue7 = localValue7 .. localValue8 .. localValue9
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.637
+      localValue3 = 0.578
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Withdraw"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.737
+      localValue3 = 0.578
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Withdraw All"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.775
+      localValue3 = 0.693
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Back"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.3083
+      localValue3 = 0.3718
+      localValue4 = 0.549
+      localValue5 = 0.5999
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.341
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = CMG
-          arg1 = arg1.hasGangPermission
-          arg2 = "deposit"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg1 = CMG
-            arg1 = arg1.GetRageInputText
-            arg2 = "Enter amount:"
-            arg1 = arg1(arg2)
-            if nil ~= arg1 then
-              arg2 = TriggerServerEvent
-              arg3 = "36ba8d4574"
-              arg4 = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = CMG
+          localValue1 = localValue1.hasGangPermission
+          localValue2 = "deposit"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue1 = CMG
+            localValue1 = localValue1.GetRageInputText
+            localValue2 = "Enter amount:"
+            localValue1 = localValue1(localValue2)
+            if nil ~= localValue1 then
+              localValue2 = TriggerServerEvent
+              localValue3 = "36ba8d4574"
+              localValue4 = localValue1
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "36ba8d4574".
-              arg2(arg3, arg4)
+              localValue2(localValue3, localValue4)
             else
-              arg2 = tCMG
-              arg2 = arg2.notify
-              arg3 = "~r~No amount entered!"
+              localValue2 = tCMG
+              localValue2 = localValue2.notify
+              localValue3 = "~r~No amount entered!"
               -- Beginner: Show a notification to the player.
-              arg2(arg3)
+              localValue2(localValue3)
             end
           else
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~You don't have permission to deposit"
-            arg1(arg2)
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~You don't have permission to deposit"
+            localValue1(localValue2)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.341
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.341
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.4083
-      arg3 = 0.4718
-      arg4 = 0.549
-      arg5 = 0.5999
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.441
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.4083
+      localValue3 = 0.4718
+      localValue4 = 0.549
+      localValue5 = 0.5999
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.441
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = CMG
-          arg1 = arg1.hasGangPermission
-          arg2 = "deposit"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg1 = TriggerServerEvent
-            arg2 = "8536953bae"
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = CMG
+          localValue1 = localValue1.hasGangPermission
+          localValue2 = "deposit"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue1 = TriggerServerEvent
+            localValue2 = "8536953bae"
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8536953bae".
-            arg1(arg2)
+            localValue1(localValue2)
           else
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~You don't have permission to deposit"
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~You don't have permission to deposit"
             -- Beginner: Show a notification to the player.
-            arg1(arg2)
+            localValue1(localValue2)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.441
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.441
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.5088
-      arg3 = 0.5739
-      arg4 = 0.5481
-      arg5 = 0.6018
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.542
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.5088
+      localValue3 = 0.5739
+      localValue4 = 0.5481
+      localValue5 = 0.6018
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.542
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = CMG
-          arg1 = arg1.hasGangPermission
-          arg2 = "withdraw"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg1 = CMG
-            arg1 = arg1.GetRageInputText
-            arg2 = "Enter amount:"
-            arg1 = arg1(arg2)
-            if nil ~= arg1 then
-              arg2 = TriggerServerEvent
-              arg3 = "21cfbc3c22"
-              arg4 = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = CMG
+          localValue1 = localValue1.hasGangPermission
+          localValue2 = "withdraw"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue1 = CMG
+            localValue1 = localValue1.GetRageInputText
+            localValue2 = "Enter amount:"
+            localValue1 = localValue1(localValue2)
+            if nil ~= localValue1 then
+              localValue2 = TriggerServerEvent
+              localValue3 = "21cfbc3c22"
+              localValue4 = localValue1
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "21cfbc3c22".
-              arg2(arg3, arg4)
+              localValue2(localValue3, localValue4)
             else
-              arg2 = tCMG
-              arg2 = arg2.notify
-              arg3 = "~r~No amount entered!"
+              localValue2 = tCMG
+              localValue2 = localValue2.notify
+              localValue3 = "~r~No amount entered!"
               -- Beginner: Show a notification to the player.
-              arg2(arg3)
+              localValue2(localValue3)
             end
           else
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~You don't have permission to withdraw"
-            arg1(arg2)
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~You don't have permission to withdraw"
+            localValue1(localValue2)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.542
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.542
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.6088
-      arg3 = 0.6739
-      arg4 = 0.5481
-      arg5 = 0.6018
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.642
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.6088
+      localValue3 = 0.6739
+      localValue4 = 0.5481
+      localValue5 = 0.6018
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.642
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = CMG
-          arg1 = arg1.hasGangPermission
-          arg2 = "withdraw"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg1 = TriggerServerEvent
-            arg2 = "be7d1bceb0"
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = CMG
+          localValue1 = localValue1.hasGangPermission
+          localValue2 = "withdraw"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue1 = TriggerServerEvent
+            localValue2 = "be7d1bceb0"
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "be7d1bceb0".
-            arg1(arg2)
+            localValue1(localValue2)
           else
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~You don't have permission to withdraw"
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~You don't have permission to withdraw"
             -- Beginner: Show a notification to the player.
-            arg1(arg2)
+            localValue1(localValue2)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.642
-        arg3 = 0.576
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.642
+        localValue3 = 0.576
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = DrawAdvancedText
-      arg2 = 0.53645
-      arg3 = 0.653
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "View Contributions"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.4083
-      arg3 = 0.4718
-      arg4 = 0.624
-      arg5 = 0.6749
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.44145
-        arg3 = 0.651
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.53645
+      localValue3 = 0.653
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "View Contributions"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.4083
+      localValue3 = 0.4718
+      localValue4 = 0.624
+      localValue5 = 0.6749
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.44145
+        localValue3 = 0.651
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          workValue.contributions = nil
-          arg1 = TriggerServerEvent
-          arg2 = "cef5792c69"
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          workingValue.contributions = nil
+          localValue1 = TriggerServerEvent
+          localValue2 = "cef5792c69"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cef5792c69".
-          arg1(arg2)
-          arg1 = "contributions"
-          textValue = arg1
+          localValue1(localValue2)
+          localValue1 = "contributions"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.44145
-        arg3 = 0.651
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.44145
+        localValue3 = 0.651
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = DrawAdvancedText
-      arg2 = 0.637
-      arg3 = 0.653
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Withdraw Turf"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.5088
-      arg3 = 0.5739
-      arg4 = 0.624
-      arg5 = 0.6749
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.542
-        arg3 = 0.651
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.637
+      localValue3 = 0.653
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Withdraw Turf"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.5088
+      localValue3 = 0.5739
+      localValue4 = 0.624
+      localValue5 = 0.6749
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.542
+        localValue3 = 0.651
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = CMG
-          arg1 = arg1.hasGangPermission
-          arg2 = "withdrawturf"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg1 = CMG
-            arg1 = arg1.GetRageInputText
-            arg2 = "Enter amount:"
-            arg1 = arg1(arg2)
-            if nil ~= arg1 then
-              arg2 = tonumber
-              arg3 = arg1
-              arg2 = arg2(arg3)
-              if arg2 then
-                arg2 = TriggerServerEvent
-                arg3 = "6aac8fd738"
-                arg4 = tonumber
-                arg5 = arg1
-                arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg4(arg5)
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = CMG
+          localValue1 = localValue1.hasGangPermission
+          localValue2 = "withdrawturf"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue1 = CMG
+            localValue1 = localValue1.GetRageInputText
+            localValue2 = "Enter amount:"
+            localValue1 = localValue1(localValue2)
+            if nil ~= localValue1 then
+              localValue2 = tonumber
+              localValue3 = localValue1
+              localValue2 = localValue2(localValue3)
+              if localValue2 then
+                localValue2 = TriggerServerEvent
+                localValue3 = "6aac8fd738"
+                localValue4 = tonumber
+                localValue5 = localValue1
+                localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue4(localValue5)
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6aac8fd738".
-                arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+                localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
             end
             else
-              arg2 = tCMG
-              arg2 = arg2.notify
-              arg3 = "~r~No amount entered!"
+              localValue2 = tCMG
+              localValue2 = localValue2.notify
+              localValue3 = "~r~No amount entered!"
               -- Beginner: Show a notification to the player.
-              arg2(arg3)
+              localValue2(localValue3)
             end
           else
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~You don't have permission to withdraw turf"
-            arg1(arg2)
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~You don't have permission to withdraw turf"
+            localValue1(localValue2)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.542
-        arg3 = 0.651
-        arg4 = 0.075
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.542
+        localValue3 = 0.651
+        localValue4 = 0.075
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.6583
-      arg3 = 0.7056
-      arg4 = 0.6712
-      arg5 = 0.7064
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.6583
+      localValue3 = 0.7056
+      localValue4 = 0.6712
+      localValue5 = 0.7064
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "gang"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "gang"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    if "members" == arg1 then
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.525
-      arg4 = 0.421
-      arg5 = 0.387
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.308
-      arg4 = 0.421
-      arg5 = 0.047
-      arg6 = 18
-      arg7 = 82
-      arg8 = 228
-      arg9 = 248
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.591
-      arg3 = 0.312
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.48
-      arg7 = "CMG gang - members"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.448
-      arg3 = 0.52
-      arg4 = 0.295
-      arg5 = 0.291
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.449
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Name"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.506
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "ID"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.555
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Control"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.625
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Last Seen"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.675
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Pin"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.746
-      arg3 = 0.39
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Permissions"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.746
-      arg3 = 0.465
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Lockdown"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.746
-      arg3 = 0.54
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Kick"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.746
-      arg3 = 0.615
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Invite"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.491
-      arg3 = 0.695
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Previous"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.581
-      arg3 = 0.695
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Next"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = table
-      arg1 = arg1.count
-      arg2 = workValue.members
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    if "members" == localValue1 then
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.525
+      localValue4 = 0.421
+      localValue5 = 0.387
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.308
+      localValue4 = 0.421
+      localValue5 = 0.047
+      localValue6 = 18
+      localValue7 = 82
+      localValue8 = 228
+      localValue9 = 248
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.591
+      localValue3 = 0.312
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.48
+      localValue7 = "CMG gang - members"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.448
+      localValue3 = 0.52
+      localValue4 = 0.295
+      localValue5 = 0.291
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.449
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Name"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.506
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "ID"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.555
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Control"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.625
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Last Seen"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.675
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Pin"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.746
+      localValue3 = 0.39
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Permissions"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.746
+      localValue3 = 0.465
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Lockdown"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.746
+      localValue3 = 0.54
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Kick"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.746
+      localValue3 = 0.615
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Invite"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.491
+      localValue3 = 0.695
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Previous"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.581
+      localValue3 = 0.695
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Next"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = table
+      localValue1 = localValue1.count
+      localValue2 = workingValue.members
       -- Beginner: result below is count.
-      arg1 = arg1(arg2)
-      arg2 = table
-      arg2 = arg2.count
-      arg3 = workValue.guests
+      localValue1 = localValue1(localValue2)
+      localValue2 = table
+      localValue2 = localValue2.count
+      localValue3 = workingValue.guests
       -- Beginner: result below is count.
-      arg2 = arg2(arg3)
-      arg1 = arg1 + arg2
-      arg2 = DrawAdvancedText
-      arg3 = 0.536
-      arg4 = 0.695
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = tostring
-      arg9 = cmgCall4
-      arg8 = arg8(arg9)
-      arg9 = "/"
-      arg10 = tostring
-      arg11 = math
-      arg11 = arg11.ceil
-      arg122 = arg1 / 10.0
-      arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg11(arg122)
-      arg10 = arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-      arg8 = arg8 .. arg9 .. arg10
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 4
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = DrawAdvancedText
-      arg3 = 0.775
-      arg4 = 0.693
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Back"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 4
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = pairs
-      arg3 = textValue3
-      arg4 = workValue
-      arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg3(arg4)
-      arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-      for arg6, arg7 in arg2, arg3, arg4, arg5 do
-        arg8 = "Guest"
-        arg9 = arg7.permissions
-        if arg9 then
-          arg9 = tostring
-          arg10 = math
-          arg10 = arg10.floor
-          arg11 = workValue11
-          arg122 = arg7.permissions
-          arg11 = arg11(arg122)
-          arg122 = table
-          arg122 = arg122.count
-          arg13 = cmgCall.permissions
+      localValue2 = localValue2(localValue3)
+      localValue1 = localValue1 + localValue2
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.536
+      localValue4 = 0.695
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = tostring
+      localValue9 = cmgOperation4
+      localValue8 = localValue8(localValue9)
+      localValue9 = "/"
+      localValue10 = tostring
+      localValue11 = math
+      localValue11 = localValue11.ceil
+      localValue122 = localValue1 / 10.0
+      localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue11(localValue122)
+      localValue10 = localValue10(localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+      localValue8 = localValue8 .. localValue9 .. localValue10
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 4
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.775
+      localValue4 = 0.693
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Back"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 4
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = pairs
+      localValue3 = text3
+      localValue4 = workingValue
+      localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue3(localValue4)
+      localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+      for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+        localValue8 = "Guest"
+        localValue9 = localValue7.permissions
+        if localValue9 then
+          localValue9 = tostring
+          localValue10 = math
+          localValue10 = localValue10.floor
+          localValue11 = workingValue11
+          localValue122 = localValue7.permissions
+          localValue11 = localValue11(localValue122)
+          localValue122 = table
+          localValue122 = localValue122.count
+          localValue13 = cmgOperation.permissions
           -- Beginner: result below is count.
-          arg122 = arg122(arg13)
-          arg11 = arg11 / arg122
-          arg11 = arg11 * 100.0
-          arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg10(arg11)
-          arg9 = arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-          arg10 = "%"
-          arg9 = arg9 .. arg10
-          arg8 = arg9
+          localValue122 = localValue122(localValue13)
+          localValue11 = localValue11 / localValue122
+          localValue11 = localValue11 * 100.0
+          localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue10(localValue11)
+          localValue9 = localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+          localValue10 = "%"
+          localValue9 = localValue9 .. localValue10
+          localValue8 = localValue9
         end
-        arg9 = DrawAdvancedText
-        arg10 = 0.449
-        arg11 = 0.0287 * arg6
-        arg11 = 0.361 + arg11
-        arg122 = 0.005
-        arg13 = 0.0028
-        arg14 = 0.4
-        arg15 = arg7.name
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 6
-        numberValue8 = 0
-        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-        arg9 = DrawAdvancedText
-        arg10 = 0.506
-        arg11 = 0.0287 * arg6
-        arg11 = 0.361 + arg11
-        arg122 = 0.005
-        arg13 = 0.0028
-        arg14 = 0.4
-        arg15 = arg7.user_id
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 6
-        numberValue8 = 0
-        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-        arg9 = DrawAdvancedText
-        arg10 = 0.555
-        arg11 = 0.0287 * arg6
-        arg11 = 0.361 + arg11
-        arg122 = 0.005
-        arg13 = 0.0028
-        arg14 = 0.4
-        arg15 = arg8
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 6
-        numberValue8 = 0
-        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-        arg9 = arg7.lastLogin
-        arg10 = fullPlayerListData
-        arg11 = arg7.user_id
-        arg10 = arg10[arg11]
-        if arg10 then
-          arg10 = CMG
-          arg10 = arg10.isUserHidden
-          arg11 = arg7.user_id
-          arg10 = arg10(arg11)
-          if not arg10 then
-            arg9 = "Online"
+        localValue9 = DrawAdvancedText
+        localValue10 = 0.449
+        localValue11 = 0.0287 * localValue6
+        localValue11 = 0.361 + localValue11
+        localValue122 = 0.005
+        localValue13 = 0.0028
+        localValue14 = 0.4
+        localValue15 = localValue7.name
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 6
+        number8 = 0
+        localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+        localValue9 = DrawAdvancedText
+        localValue10 = 0.506
+        localValue11 = 0.0287 * localValue6
+        localValue11 = 0.361 + localValue11
+        localValue122 = 0.005
+        localValue13 = 0.0028
+        localValue14 = 0.4
+        localValue15 = localValue7.user_id
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 6
+        number8 = 0
+        localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+        localValue9 = DrawAdvancedText
+        localValue10 = 0.555
+        localValue11 = 0.0287 * localValue6
+        localValue11 = 0.361 + localValue11
+        localValue122 = 0.005
+        localValue13 = 0.0028
+        localValue14 = 0.4
+        localValue15 = localValue8
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 6
+        number8 = 0
+        localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+        localValue9 = localValue7.lastLogin
+        localValue10 = fullPlayerListData
+        localValue11 = localValue7.user_id
+        localValue10 = localValue10[localValue11]
+        if localValue10 then
+          localValue10 = CMG
+          localValue10 = localValue10.isUserHidden
+          localValue11 = localValue7.user_id
+          localValue10 = localValue10(localValue11)
+          if not localValue10 then
+            localValue9 = "Online"
           end
         end
-        arg10 = DrawAdvancedText
-        arg11 = 0.625
-        arg122 = 0.0287 * arg6
-        arg122 = 0.361 + arg122
-        arg13 = 0.005
-        arg14 = 0.0028
-        arg15 = 0.4
-        arg16 = arg9
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 255
-        numberValue8 = 6
-        numberValue9 = 0
-        arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9)
-        arg10 = dataTable.pinnedPlayers
-        arg11 = arg7.user_id
-        arg10 = arg10[arg11]
-        if arg10 then
-          arg10 = workValue.isAdvanced
-          if arg10 then
-            arg10 = "\240\159\147\140"
-            if arg10 then
-              goto flow_label_1502
+        localValue10 = DrawAdvancedText
+        localValue11 = 0.625
+        localValue122 = 0.0287 * localValue6
+        localValue122 = 0.361 + localValue122
+        localValue13 = 0.005
+        localValue14 = 0.0028
+        localValue15 = 0.4
+        localValue16 = localValue9
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 255
+        number8 = 6
+        number9 = 0
+        localValue10(localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9)
+        localValue10 = dataCollection.pinnedPlayers
+        localValue11 = localValue7.user_id
+        localValue10 = localValue10[localValue11]
+        if localValue10 then
+          localValue10 = workingValue.isAdvanced
+          if localValue10 then
+            localValue10 = "\240\159\147\140"
+            if localValue10 then
+              goto continueAtStep1502
             end
           end
         end
-        arg10 = "\226\173\149"
-        ::flow_label_1502::
-        arg11 = DrawAdvancedText
-        arg122 = 0.675
-        arg13 = 0.0287 * arg6
-        arg13 = 0.3665 + arg13
-        arg14 = 0.005
-        arg15 = 0.0028
-        arg16 = 0.2
-        arg17 = arg10
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 255
-        numberValue8 = 255
-        numberValue9 = 6
-        numberValue10 = 0
-        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg11 = CursorInArea
-        arg122 = 0.3005
-        arg13 = 0.5955
-        arg14 = arg6 - 1
-        arg14 = 0.0287 * arg14
-        arg14 = 0.3731 + arg14
-        arg15 = arg6 - 1
-        arg15 = 0.0287 * arg15
-        arg15 = 0.4018 + arg15
-        arg11 = arg11(arg122, arg13, arg14, arg15)
-        if arg11 then
-          arg11 = workValue16
-          arg122 = arg7.user_id
-          if arg11 ~= arg122 then
-            arg11 = DrawRect
-            arg122 = 0.448
-            arg13 = arg6 - 1
-            arg13 = 0.0287 * arg13
-            arg13 = 0.388 + arg13
-            arg14 = 0.295
-            arg15 = 0.027
-            arg16 = numberValue28
-            arg17 = numberValue29
-            arg18 = numberValue30
-            numberValue5 = 150
-            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
-            arg11 = IsControlJustPressed
-            arg122 = 1
-            arg13 = 329
-            arg11 = arg11(arg122, arg13)
-            if not arg11 then
-              arg11 = IsDisabledControlJustPressed
-              arg122 = 1
-              arg13 = 329
-              arg11 = arg11(arg122, arg13)
+        localValue10 = "\226\173\149"
+        ::continueAtStep1502::
+        localValue11 = DrawAdvancedText
+        localValue122 = 0.675
+        localValue13 = 0.0287 * localValue6
+        localValue13 = 0.3665 + localValue13
+        localValue14 = 0.005
+        localValue15 = 0.0028
+        localValue16 = 0.2
+        localValue17 = localValue10
+        localValue18 = 255
+        number5 = 255
+        number7 = 255
+        number8 = 255
+        number9 = 6
+        number10 = 0
+        localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+        localValue11 = CursorInArea
+        localValue122 = 0.3005
+        localValue13 = 0.5955
+        localValue14 = localValue6 - 1
+        localValue14 = 0.0287 * localValue14
+        localValue14 = 0.3731 + localValue14
+        localValue15 = localValue6 - 1
+        localValue15 = 0.0287 * localValue15
+        localValue15 = 0.4018 + localValue15
+        localValue11 = localValue11(localValue122, localValue13, localValue14, localValue15)
+        if localValue11 then
+          localValue11 = workingValue16
+          localValue122 = localValue7.user_id
+          if localValue11 ~= localValue122 then
+            localValue11 = DrawRect
+            localValue122 = 0.448
+            localValue13 = localValue6 - 1
+            localValue13 = 0.0287 * localValue13
+            localValue13 = 0.388 + localValue13
+            localValue14 = 0.295
+            localValue15 = 0.027
+            localValue16 = number28
+            localValue17 = number29
+            localValue18 = number30
+            number5 = 150
+            localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5)
+            localValue11 = IsControlJustPressed
+            localValue122 = 1
+            localValue13 = 329
+            localValue11 = localValue11(localValue122, localValue13)
+            if not localValue11 then
+              localValue11 = IsDisabledControlJustPressed
+              localValue122 = 1
+              localValue13 = 329
+              localValue11 = localValue11(localValue122, localValue13)
             end
-            if arg11 then
-              arg11 = PlaySound
-              arg122 = -1
-              arg13 = "SELECT"
-              arg14 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              arg15 = false
-              arg16 = 0
-              arg17 = true
-              arg11(arg122, arg13, arg14, arg15, arg16, arg17)
-              arg11 = arg7.user_id
-              workValue16 = arg11
+            if localValue11 then
+              localValue11 = PlaySound
+              localValue122 = -1
+              localValue13 = "SELECT"
+              localValue14 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              localValue15 = false
+              localValue16 = 0
+              localValue17 = true
+              localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17)
+              localValue11 = localValue7.user_id
+              workingValue16 = localValue11
             end
         end
         else
-          arg11 = workValue16
-          arg122 = arg7.user_id
-          if arg11 == arg122 then
-            arg11 = DrawRect
-            arg122 = 0.448
-            arg13 = arg6 - 1
-            arg13 = 0.0287 * arg13
-            arg13 = 0.388 + arg13
-            arg14 = 0.295
-            arg15 = 0.027
-            arg16 = numberValue28
-            arg17 = numberValue29
-            arg18 = numberValue30
-            numberValue5 = 150
-            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
+          localValue11 = workingValue16
+          localValue122 = localValue7.user_id
+          if localValue11 == localValue122 then
+            localValue11 = DrawRect
+            localValue122 = 0.448
+            localValue13 = localValue6 - 1
+            localValue13 = 0.0287 * localValue13
+            localValue13 = 0.388 + localValue13
+            localValue14 = 0.295
+            localValue15 = 0.027
+            localValue16 = number28
+            localValue17 = number29
+            localValue18 = number30
+            number5 = 150
+            localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5)
           end
         end
-        arg11 = CursorInArea
-        arg122 = 0.5755
-        arg13 = 0.5955
-        arg14 = arg6 - 1
-        arg14 = 0.0287 * arg14
-        arg14 = 0.3731 + arg14
-        arg15 = arg6 - 1
-        arg15 = 0.0287 * arg15
-        arg15 = 0.4018 + arg15
-        arg11 = arg11(arg122, arg13, arg14, arg15)
-        if arg11 then
-          arg11 = IsControlJustPressed
-          arg122 = 1
-          arg13 = 329
-          arg11 = arg11(arg122, arg13)
-          if not arg11 then
-            arg11 = IsDisabledControlJustPressed
-            arg122 = 1
-            arg13 = 329
-            arg11 = arg11(arg122, arg13)
-            if not arg11 then
-              goto flow_label_1654
+        localValue11 = CursorInArea
+        localValue122 = 0.5755
+        localValue13 = 0.5955
+        localValue14 = localValue6 - 1
+        localValue14 = 0.0287 * localValue14
+        localValue14 = 0.3731 + localValue14
+        localValue15 = localValue6 - 1
+        localValue15 = 0.0287 * localValue15
+        localValue15 = 0.4018 + localValue15
+        localValue11 = localValue11(localValue122, localValue13, localValue14, localValue15)
+        if localValue11 then
+          localValue11 = IsControlJustPressed
+          localValue122 = 1
+          localValue13 = 329
+          localValue11 = localValue11(localValue122, localValue13)
+          if not localValue11 then
+            localValue11 = IsDisabledControlJustPressed
+            localValue122 = 1
+            localValue13 = 329
+            localValue11 = localValue11(localValue122, localValue13)
+            if not localValue11 then
+              goto continueAtStep1654
             end
           end
-          arg11 = workValue.isAdvanced
-          if arg11 then
-            arg11 = dataTable.pinnedPlayers
-            arg122 = arg7.user_id
-            arg11 = arg11[arg122]
-            if arg11 then
-              arg11 = dataTable.pinnedPlayers
-              arg122 = arg7.user_id
-              arg11[arg122] = nil
+          localValue11 = workingValue.isAdvanced
+          if localValue11 then
+            localValue11 = dataCollection.pinnedPlayers
+            localValue122 = localValue7.user_id
+            localValue11 = localValue11[localValue122]
+            if localValue11 then
+              localValue11 = dataCollection.pinnedPlayers
+              localValue122 = localValue7.user_id
+              localValue11[localValue122] = nil
             else
-              arg11 = dataTable.pinnedPlayers
-              arg122 = arg7.user_id
-              arg11[arg122] = true
+              localValue11 = dataCollection.pinnedPlayers
+              localValue122 = localValue7.user_id
+              localValue11[localValue122] = true
             end
-            arg11 = SetResourceKvp
-            arg122 = "cmg_gang_pinned"
-            arg13 = json
-            arg13 = arg13.encode
-            arg14 = dataTable.pinnedPlayers
-            arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg13(arg14)
-            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+            localValue11 = SetResourceKvp
+            localValue122 = "cmg_gang_pinned"
+            localValue13 = json
+            localValue13 = localValue13.encode
+            localValue14 = dataCollection.pinnedPlayers
+            localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue13(localValue14)
+            localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
           else
-            arg11 = notify
-            arg122 = "~r~You must have the advanced gang license to pin a player."
+            localValue11 = notify
+            localValue122 = "~r~You must have the advanced gang license to pin a player."
             -- Beginner: Show a notification to the player.
-            arg11(arg122)
+            localValue11(localValue122)
           end
         end
-        ::flow_label_1654::
+        ::continueAtStep1654::
       end
-      arg2 = CursorInArea
-      arg3 = 0.6182
-      arg4 = 0.6822
-      arg5 = 0.36
-      arg6 = 0.416
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.388
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.6182
+      localValue4 = 0.6822
+      localValue5 = 0.36
+      localValue6 = 0.416
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.388
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = workValue16
-          if nil ~= arg2 then
-            arg2 = workValue
-            if arg2 then
-              arg2 = workValue.members
-              arg3 = workValue16
-              arg2 = arg2[arg3]
-              if arg2 then
-                arg2 = "permissions"
-                textValue = arg2
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = workingValue16
+          if nil ~= localValue2 then
+            localValue2 = workingValue
+            if localValue2 then
+              localValue2 = workingValue.members
+              localValue3 = workingValue16
+              localValue2 = localValue2[localValue3]
+              if localValue2 then
+                localValue2 = "permissions"
+                text = localValue2
             end
           end
           else
-            arg2 = tCMG
-            arg2 = arg2.notify
-            arg3 = "~r~No gang member selected"
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            localValue3 = "~r~No gang member selected"
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.388
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.388
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.6182
-      arg4 = 0.6822
-      arg5 = 0.435
-      arg6 = 0.491
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.463
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.6182
+      localValue4 = 0.6822
+      localValue5 = 0.435
+      localValue6 = 0.491
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.463
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = workValue16
-          if nil ~= arg2 then
-            arg2 = workValue
-            if arg2 then
-              arg2 = workValue.members
-              arg3 = workValue16
-              arg2 = arg2[arg3]
-              if arg2 then
-                arg2 = TriggerServerEvent
-                arg3 = "e959bf3016"
-                arg4 = workValue16
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = workingValue16
+          if nil ~= localValue2 then
+            localValue2 = workingValue
+            if localValue2 then
+              localValue2 = workingValue.members
+              localValue3 = workingValue16
+              localValue2 = localValue2[localValue3]
+              if localValue2 then
+                localValue2 = TriggerServerEvent
+                localValue3 = "e959bf3016"
+                localValue4 = workingValue16
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e959bf3016".
-                arg2(arg3, arg4)
+                localValue2(localValue3, localValue4)
             end
           end
           else
-            arg2 = tCMG
-            arg2 = arg2.notify
-            arg3 = "~r~No gang member selected"
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            localValue3 = "~r~No gang member selected"
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.463
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.463
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.6182
-      arg4 = 0.6822
-      arg5 = 0.51
-      arg6 = 0.566
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.538
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
-          if not arg2 then
-            goto flow_label_1893
+      localValue2 = CursorInArea
+      localValue3 = 0.6182
+      localValue4 = 0.6822
+      localValue5 = 0.51
+      localValue6 = 0.566
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.538
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
+          if not localValue2 then
+            goto continueAtStep1893
           end
         end
-        arg2 = PlaySound
-        arg3 = -1
-        arg4 = "SELECT"
-        arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg6 = false
-        arg7 = 0
-        arg8 = true
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-        arg2 = workValue16
-        if nil ~= arg2 then
-          arg2 = workValue.members
-          arg3 = workValue16
-          arg2 = arg2[arg3]
-          arg2 = nil ~= arg2
-          if arg2 then
-            arg3 = "kickmember"
-            if arg3 then
-              goto flow_label_1847
+        localValue2 = PlaySound
+        localValue3 = -1
+        localValue4 = "SELECT"
+        localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue6 = false
+        localValue7 = 0
+        localValue8 = true
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+        localValue2 = workingValue16
+        if nil ~= localValue2 then
+          localValue2 = workingValue.members
+          localValue3 = workingValue16
+          localValue2 = localValue2[localValue3]
+          localValue2 = nil ~= localValue2
+          if localValue2 then
+            localValue3 = "kickmember"
+            if localValue3 then
+              goto continueAtStep1847
             end
           end
-          arg3 = "kickguest"
-          ::flow_label_1847::
-          arg4 = CMG
-          arg4 = arg4.hasGangPermission
-          arg5 = arg3
-          arg4 = arg4(arg5)
-          if arg4 then
-            arg4 = cmgCall7
-            arg5 = "Are you sure?"
-            arg4 = arg4(arg5)
-            if arg4 then
-              arg4 = workValue.members
-              arg5 = workValue16
-              arg4 = arg4[arg5]
-              if arg4 then
-                arg4 = TriggerServerEvent
-                arg5 = "85c0cc23f6"
-                arg6 = workValue16
+          localValue3 = "kickguest"
+          ::continueAtStep1847::
+          localValue4 = CMG
+          localValue4 = localValue4.hasGangPermission
+          localValue5 = localValue3
+          localValue4 = localValue4(localValue5)
+          if localValue4 then
+            localValue4 = cmgOperation7
+            localValue5 = "Are you sure?"
+            localValue4 = localValue4(localValue5)
+            if localValue4 then
+              localValue4 = workingValue.members
+              localValue5 = workingValue16
+              localValue4 = localValue4[localValue5]
+              if localValue4 then
+                localValue4 = TriggerServerEvent
+                localValue5 = "85c0cc23f6"
+                localValue6 = workingValue16
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "85c0cc23f6".
-                arg4(arg5, arg6)
+                localValue4(localValue5, localValue6)
               else
-                arg4 = TriggerServerEvent
-                arg5 = "550d5b91c6"
-                arg6 = workValue16
-                arg4(arg5, arg6)
+                localValue4 = TriggerServerEvent
+                localValue5 = "550d5b91c6"
+                localValue6 = workingValue16
+                localValue4(localValue5, localValue6)
               end
             end
           else
-            arg4 = tCMG
-            arg4 = arg4.notify
-            arg5 = "~r~You don't have permission to kick!"
+            localValue4 = tCMG
+            localValue4 = localValue4.notify
+            localValue5 = "~r~You don't have permission to kick!"
             -- Beginner: Show a notification to the player.
-            arg4(arg5)
+            localValue4(localValue5)
           end
         else
-          arg2 = tCMG
-          arg2 = arg2.notify
-          arg3 = "~r~No gang member selected"
-          arg2(arg3)
+          localValue2 = tCMG
+          localValue2 = localValue2.notify
+          localValue3 = "~r~No gang member selected"
+          localValue2(localValue3)
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.538
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.538
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      ::flow_label_1893::
-      arg2 = CursorInArea
-      arg3 = 0.6182
-      arg4 = 0.6822
-      arg5 = 0.585
-      arg6 = 0.641
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.613
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      ::continueAtStep1893::
+      localValue2 = CursorInArea
+      localValue3 = 0.6182
+      localValue4 = 0.6822
+      localValue5 = 0.585
+      localValue6 = 0.641
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.613
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = CMG
-          arg2 = arg2.hasGangPermission
-          arg3 = "invitemember"
-          arg2 = arg2(arg3)
-          if arg2 then
-            arg2 = CMG
-            arg2 = arg2.GetRageInputText
-            arg3 = "Enter Perm ID to invite:"
-            arg2 = arg2(arg3)
-            if nil ~= arg2 then
-              arg3 = tonumber
-              arg4 = arg2
-              arg3 = arg3(arg4)
-              if arg3 then
-                arg3 = TriggerServerEvent
-                arg4 = "a3ebe947dd"
-                arg5 = tonumber
-                arg6 = arg2
-                arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg5(arg6)
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = CMG
+          localValue2 = localValue2.hasGangPermission
+          localValue3 = "invitemember"
+          localValue2 = localValue2(localValue3)
+          if localValue2 then
+            localValue2 = CMG
+            localValue2 = localValue2.GetRageInputText
+            localValue3 = "Enter Perm ID to invite:"
+            localValue2 = localValue2(localValue3)
+            if nil ~= localValue2 then
+              localValue3 = tonumber
+              localValue4 = localValue2
+              localValue3 = localValue3(localValue4)
+              if localValue3 then
+                localValue3 = TriggerServerEvent
+                localValue4 = "a3ebe947dd"
+                localValue5 = tonumber
+                localValue6 = localValue2
+                localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue5(localValue6)
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a3ebe947dd".
-                arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+                localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
             end
             else
-              arg3 = tCMG
-              arg3 = arg3.notify
-              arg4 = "Invalid Perm ID entered"
+              localValue3 = tCMG
+              localValue3 = localValue3.notify
+              localValue4 = "Invalid Perm ID entered"
               -- Beginner: Show a notification to the player.
-              arg3(arg4)
+              localValue3(localValue4)
             end
           else
-            arg2 = tCMG
-            arg2 = arg2.notify
-            arg3 = "~r~You don't have permission to invite players"
-            arg2(arg3)
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            localValue3 = "~r~You don't have permission to invite players"
+            localValue2(localValue3)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.613
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.613
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.3735
-      arg4 = 0.4185
-      arg5 = 0.6768
-      arg6 = 0.7074
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.396
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.3735
+      localValue4 = 0.4185
+      localValue5 = 0.6768
+      localValue6 = 0.7074
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.396
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = cmgCall4
-          if arg2 <= 1 then
-            arg2 = tCMG
-            arg2 = arg2.notify
-            arg3 = "~r~Lowest page reached"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = cmgOperation4
+          if localValue2 <= 1 then
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            localValue3 = "~r~Lowest page reached"
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           else
-            arg2 = cmgCall4
-            arg2 = arg2 - 1
-            cmgCall4 = arg2
+            localValue2 = cmgOperation4
+            localValue2 = localValue2 - 1
+            cmgOperation4 = localValue2
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.396
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.396
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.4635
-      arg4 = 0.5085
-      arg5 = 0.6712
-      arg6 = 0.7064
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.486
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.4635
+      localValue4 = 0.5085
+      localValue5 = 0.6712
+      localValue6 = 0.7064
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.486
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = cmgCall4
-          arg3 = math
-          arg3 = arg3.ceil
-          arg4 = arg1 / 10.0
-          arg3 = arg3(arg4)
-          if arg2 >= arg3 then
-            arg2 = tCMG
-            arg2 = arg2.notify
-            arg3 = "~r~Max page reached"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = cmgOperation4
+          localValue3 = math
+          localValue3 = localValue3.ceil
+          localValue4 = localValue1 / 10.0
+          localValue3 = localValue3(localValue4)
+          if localValue2 >= localValue3 then
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            localValue3 = "~r~Max page reached"
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           else
-            arg2 = cmgCall4
-            arg2 = arg2 + 1
-            cmgCall4 = arg2
+            localValue2 = cmgOperation4
+            localValue2 = localValue2 + 1
+            cmgOperation4 = localValue2
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.486
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.486
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.6583
-      arg4 = 0.7056
-      arg5 = 0.6712
-      arg6 = 0.7064
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.6583
+      localValue4 = 0.7056
+      localValue5 = 0.6712
+      localValue6 = 0.7064
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = "gang"
-          textValue = arg2
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = "gang"
+          text = localValue2
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    arg2 = "logs"
-    if arg1 == arg2 then
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.525
-      arg4 = 0.421
-      arg5 = 0.387
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.308
-      arg4 = 0.421
-      arg5 = 0.047
-      arg6 = 18
-      arg7 = 82
-      arg8 = 228
-      arg9 = 248
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.591
-      arg3 = 0.312
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.48
-      arg7 = "CMG gang - logs"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.502
-      arg3 = 0.52
-      arg4 = 0.387
-      arg5 = 0.286
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.449
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Name"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.51
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "UserID"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.583
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Date"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.757
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Amount"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.673
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "New Balance"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.592
-      arg3 = 0.6925
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = tostring
-      arg8 = numberValue3
-      arg7 = arg7(arg8)
-      arg8 = "/"
-      arg9 = tostring
-      arg10 = math
-      arg10 = arg10.ceil
-      arg11 = workValue
-      arg122 = "logCount"
-      arg11 = arg11[arg122]
-      arg11 = arg11 / 10.0
-      arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg10(arg11)
-      arg9 = arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-      arg7 = arg7 .. arg8 .. arg9
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.775
-      arg3 = 0.693
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Back"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.6583
-      arg3 = 0.7056
-      arg4 = 0.6712
-      arg5 = 0.7064
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    localValue2 = "logs"
+    if localValue1 == localValue2 then
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.525
+      localValue4 = 0.421
+      localValue5 = 0.387
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.308
+      localValue4 = 0.421
+      localValue5 = 0.047
+      localValue6 = 18
+      localValue7 = 82
+      localValue8 = 228
+      localValue9 = 248
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.591
+      localValue3 = 0.312
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.48
+      localValue7 = "CMG gang - logs"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.502
+      localValue3 = 0.52
+      localValue4 = 0.387
+      localValue5 = 0.286
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.449
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Name"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.51
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "UserID"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.583
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Date"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.757
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Amount"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.673
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "New Balance"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.592
+      localValue3 = 0.6925
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = tostring
+      localValue8 = number3
+      localValue7 = localValue7(localValue8)
+      localValue8 = "/"
+      localValue9 = tostring
+      localValue10 = math
+      localValue10 = localValue10.ceil
+      localValue11 = workingValue
+      localValue122 = "logCount"
+      localValue11 = localValue11[localValue122]
+      localValue11 = localValue11 / 10.0
+      localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue10(localValue11)
+      localValue9 = localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+      localValue7 = localValue7 .. localValue8 .. localValue9
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.775
+      localValue3 = 0.693
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Back"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.6583
+      localValue3 = 0.7056
+      localValue4 = 0.6712
+      localValue5 = 0.7064
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "gang"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "gang"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = pairs
-      arg2 = workValue
-      arg3 = "logs"
-      arg2 = arg2[arg3]
-      if not arg2 then
-        arg2 = {}
+      localValue1 = pairs
+      localValue2 = workingValue
+      localValue3 = "logs"
+      localValue2 = localValue2[localValue3]
+      if not localValue2 then
+        localValue2 = {}
       end
-      arg1, arg2, arg3, arg4 = arg1(arg2)
-      for arg5, arg6 in arg1, arg2, arg3, arg4 do
-        arg7 = "amount"
-        arg7 = arg6[arg7]
-        if arg7 >= 0 then
-          arg7 = 50
-          if arg7 then
-            goto flow_label_2385
+      localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+      for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+        localValue7 = "amount"
+        localValue7 = localValue6[localValue7]
+        if localValue7 >= 0 then
+          localValue7 = 50
+          if localValue7 then
+            goto continueAtStep2385
           end
         end
-        arg7 = 255
-        ::flow_label_2385::
-        arg8 = "amount"
-        arg8 = arg6[arg8]
-        if arg8 >= 0 then
-          arg8 = 255
-          if arg8 then
-            goto flow_label_2393
+        localValue7 = 255
+        ::continueAtStep2385::
+        localValue8 = "amount"
+        localValue8 = localValue6[localValue8]
+        if localValue8 >= 0 then
+          localValue8 = 255
+          if localValue8 then
+            goto continueAtStep2393
           end
         end
-        arg8 = 50
-        ::flow_label_2393::
-        arg9 = 50
-        arg10 = arg6.user_id
-        if -1 == arg10 then
-          arg10 = "N/A"
-          if arg10 then
-            goto flow_label_2403
+        localValue8 = 50
+        ::continueAtStep2393::
+        localValue9 = 50
+        localValue10 = localValue6.user_id
+        if -1 == localValue10 then
+          localValue10 = "N/A"
+          if localValue10 then
+            goto continueAtStep2403
           end
         end
-        arg10 = tostring
-        arg11 = arg6.user_id
-        arg10 = arg10(arg11)
-        ::flow_label_2403::
-        arg11 = DrawAdvancedText
-        arg122 = 0.449
-        arg13 = 0.0287 * arg5
-        arg14 = 0.365
-        arg13 = arg14 + arg13
-        arg14 = 0.005
-        arg15 = 0.0028
-        arg16 = 0.4
-        arg17 = arg6.name
-        arg18 = arg7
-        numberValue5 = arg8
-        numberValue7 = arg9
-        numberValue8 = 255
-        numberValue9 = 6
-        numberValue10 = 0
-        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg11 = DrawAdvancedText
-        arg122 = 0.51
-        arg13 = 0.0287 * arg5
-        arg14 = 0.365
-        arg13 = arg14 + arg13
-        arg14 = 0.005
-        arg15 = 0.0028
-        arg16 = 0.4
-        arg17 = arg10
-        arg18 = arg7
-        numberValue5 = arg8
-        numberValue7 = arg9
-        numberValue8 = 255
-        numberValue9 = 6
-        numberValue10 = 0
-        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg11 = DrawAdvancedText
-        arg122 = 0.583
-        arg13 = 0.0287 * arg5
-        arg14 = 0.365
-        arg13 = arg14 + arg13
-        arg14 = 0.005
-        arg15 = 0.0028
-        arg16 = 0.4
-        arg17 = "date"
-        arg17 = arg6[arg17]
-        arg18 = arg7
-        numberValue5 = arg8
-        numberValue7 = arg9
-        numberValue8 = 255
-        numberValue9 = 6
-        numberValue10 = 0
-        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg11 = DrawAdvancedText
-        arg122 = 0.673
-        arg13 = 0.0287 * arg5
-        arg14 = 0.365
-        arg13 = arg14 + arg13
-        arg14 = 0.005
-        arg15 = 0.0028
-        arg16 = 0.4
-        arg17 = "\194\163"
-        arg18 = getMoneyStringFormatted
-        numberValue5 = "newBalance"
-        numberValue5 = arg6[numberValue5]
-        arg18 = arg18(numberValue5)
-        arg17 = arg17 .. arg18
-        arg18 = arg7
-        numberValue5 = arg8
-        numberValue7 = arg9
-        numberValue8 = 255
-        numberValue9 = 6
-        numberValue10 = 0
-        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg11 = DrawAdvancedText
-        arg122 = 0.757
-        arg13 = 0.0287 * arg5
-        arg14 = 0.365
-        arg13 = arg14 + arg13
-        arg14 = 0.005
-        arg15 = 0.0028
-        arg16 = 0.4
-        arg17 = "\194\163"
-        arg18 = getMoneyStringFormatted
-        numberValue5 = math
-        numberValue7 = "abs"
-        numberValue5 = numberValue5[numberValue7]
-        numberValue7 = "amount"
-        numberValue7 = arg6[numberValue7]
-        numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = numberValue5(numberValue7)
-        arg18 = arg18(numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-        arg17 = arg17 .. arg18
-        arg18 = arg7
-        numberValue5 = arg8
-        numberValue7 = arg9
-        numberValue8 = 255
-        numberValue9 = 6
-        numberValue10 = 0
-        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg11 = CursorInArea
-        arg122 = 0.3005
-        arg13 = 0.5955
-        arg14 = arg5 - 1
-        arg14 = 0.0287 * arg14
-        arg14 = 0.3731 + arg14
-        arg15 = arg5 - 1
-        arg15 = 0.0287 * arg15
-        arg15 = 0.4018 + arg15
-        arg11 = arg11(arg122, arg13, arg14, arg15)
-        if arg11 then
-          arg11 = DrawRect
-          arg122 = 0.502
-          arg13 = arg5 - 1
-          arg13 = 0.0287 * arg13
-          arg13 = 0.39 + arg13
-          arg14 = 0.387
-          arg15 = 0.027
-          arg16 = numberValue28
-          arg17 = numberValue29
-          arg18 = numberValue30
-          numberValue5 = 150
-          arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
-          arg11 = DrawAdvancedText
-          arg122 = 0.591
-          arg13 = 0.75
-          arg14 = 0.005
-          arg15 = 0.0028
-          arg16 = 0.48
-          arg17 = "reason"
-          arg17 = arg6[arg17]
-          if arg17 then
-            arg17 = "reason"
-            arg17 = arg6[arg17]
-            if arg17 then
-              goto flow_label_2556
+        localValue10 = tostring
+        localValue11 = localValue6.user_id
+        localValue10 = localValue10(localValue11)
+        ::continueAtStep2403::
+        localValue11 = DrawAdvancedText
+        localValue122 = 0.449
+        localValue13 = 0.0287 * localValue5
+        localValue14 = 0.365
+        localValue13 = localValue14 + localValue13
+        localValue14 = 0.005
+        localValue15 = 0.0028
+        localValue16 = 0.4
+        localValue17 = localValue6.name
+        localValue18 = localValue7
+        number5 = localValue8
+        number7 = localValue9
+        number8 = 255
+        number9 = 6
+        number10 = 0
+        localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+        localValue11 = DrawAdvancedText
+        localValue122 = 0.51
+        localValue13 = 0.0287 * localValue5
+        localValue14 = 0.365
+        localValue13 = localValue14 + localValue13
+        localValue14 = 0.005
+        localValue15 = 0.0028
+        localValue16 = 0.4
+        localValue17 = localValue10
+        localValue18 = localValue7
+        number5 = localValue8
+        number7 = localValue9
+        number8 = 255
+        number9 = 6
+        number10 = 0
+        localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+        localValue11 = DrawAdvancedText
+        localValue122 = 0.583
+        localValue13 = 0.0287 * localValue5
+        localValue14 = 0.365
+        localValue13 = localValue14 + localValue13
+        localValue14 = 0.005
+        localValue15 = 0.0028
+        localValue16 = 0.4
+        localValue17 = "date"
+        localValue17 = localValue6[localValue17]
+        localValue18 = localValue7
+        number5 = localValue8
+        number7 = localValue9
+        number8 = 255
+        number9 = 6
+        number10 = 0
+        localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+        localValue11 = DrawAdvancedText
+        localValue122 = 0.673
+        localValue13 = 0.0287 * localValue5
+        localValue14 = 0.365
+        localValue13 = localValue14 + localValue13
+        localValue14 = 0.005
+        localValue15 = 0.0028
+        localValue16 = 0.4
+        localValue17 = "\194\163"
+        localValue18 = getMoneyStringFormatted
+        number5 = "newBalance"
+        number5 = localValue6[number5]
+        localValue18 = localValue18(number5)
+        localValue17 = localValue17 .. localValue18
+        localValue18 = localValue7
+        number5 = localValue8
+        number7 = localValue9
+        number8 = 255
+        number9 = 6
+        number10 = 0
+        localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+        localValue11 = DrawAdvancedText
+        localValue122 = 0.757
+        localValue13 = 0.0287 * localValue5
+        localValue14 = 0.365
+        localValue13 = localValue14 + localValue13
+        localValue14 = 0.005
+        localValue15 = 0.0028
+        localValue16 = 0.4
+        localValue17 = "\194\163"
+        localValue18 = getMoneyStringFormatted
+        number5 = math
+        number7 = "abs"
+        number5 = number5[number7]
+        number7 = "amount"
+        number7 = localValue6[number7]
+        number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = number5(number7)
+        localValue18 = localValue18(number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+        localValue17 = localValue17 .. localValue18
+        localValue18 = localValue7
+        number5 = localValue8
+        number7 = localValue9
+        number8 = 255
+        number9 = 6
+        number10 = 0
+        localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+        localValue11 = CursorInArea
+        localValue122 = 0.3005
+        localValue13 = 0.5955
+        localValue14 = localValue5 - 1
+        localValue14 = 0.0287 * localValue14
+        localValue14 = 0.3731 + localValue14
+        localValue15 = localValue5 - 1
+        localValue15 = 0.0287 * localValue15
+        localValue15 = 0.4018 + localValue15
+        localValue11 = localValue11(localValue122, localValue13, localValue14, localValue15)
+        if localValue11 then
+          localValue11 = DrawRect
+          localValue122 = 0.502
+          localValue13 = localValue5 - 1
+          localValue13 = 0.0287 * localValue13
+          localValue13 = 0.39 + localValue13
+          localValue14 = 0.387
+          localValue15 = 0.027
+          localValue16 = number28
+          localValue17 = number29
+          localValue18 = number30
+          number5 = 150
+          localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5)
+          localValue11 = DrawAdvancedText
+          localValue122 = 0.591
+          localValue13 = 0.75
+          localValue14 = 0.005
+          localValue15 = 0.0028
+          localValue16 = 0.48
+          localValue17 = "reason"
+          localValue17 = localValue6[localValue17]
+          if localValue17 then
+            localValue17 = "reason"
+            localValue17 = localValue6[localValue17]
+            if localValue17 then
+              goto continueAtStep2556
             end
           end
-          arg17 = "No Reason Provided"
-          ::flow_label_2556::
-          arg18 = 255
-          numberValue5 = 255
-          numberValue7 = 255
-          numberValue8 = 255
-          numberValue9 = 4
-          numberValue10 = 0
-          arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+          localValue17 = "No Reason Provided"
+          ::continueAtStep2556::
+          localValue18 = 255
+          number5 = 255
+          number7 = 255
+          number8 = 255
+          number9 = 4
+          number10 = 0
+          localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
         end
       end
-      arg1 = DrawAdvancedText
-      arg2 = 0.547
-      arg3 = 0.692
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Previous"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.4195
-      arg3 = 0.4845
-      arg4 = 0.6768
-      arg5 = 0.7074
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.452
-        arg3 = 0.69
-        arg4 = 0.065
-        arg5 = 0.036
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.547
+      localValue3 = 0.692
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Previous"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.4195
+      localValue3 = 0.4845
+      localValue4 = 0.6768
+      localValue5 = 0.7074
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.452
+        localValue3 = 0.69
+        localValue4 = 0.065
+        localValue5 = 0.036
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = numberValue3
-          if arg1 <= 1 then
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~Lowest page reached"
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = number3
+          if localValue1 <= 1 then
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~Lowest page reached"
             -- Beginner: Show a notification to the player.
-            arg1(arg2)
+            localValue1(localValue2)
           else
-            arg1 = numberValue3
-            arg1 = arg1 - 1
-            numberValue3 = arg1
-            arg1 = workValue
-            arg2 = "logs"
-            arg1[arg2] = nil
-            arg1 = TriggerServerEvent
-            arg2 = "3f8f33322f"
-            arg3 = numberValue3
-            arg4 = flag
+            localValue1 = number3
+            localValue1 = localValue1 - 1
+            number3 = localValue1
+            localValue1 = workingValue
+            localValue2 = "logs"
+            localValue1[localValue2] = nil
+            localValue1 = TriggerServerEvent
+            localValue2 = "3f8f33322f"
+            localValue3 = number3
+            localValue4 = stateFlag
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
-            arg1(arg2, arg3, arg4)
+            localValue1(localValue2, localValue3, localValue4)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.452
-        arg3 = 0.69
-        arg4 = 0.065
-        arg5 = 0.036
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.452
+        localValue3 = 0.69
+        localValue4 = 0.065
+        localValue5 = 0.036
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = DrawAdvancedText
-      arg2 = 0.639
-      arg3 = 0.692
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Next"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.5125
-      arg3 = 0.5775
-      arg4 = 0.6712
-      arg5 = 0.7064
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.545
-        arg3 = 0.69
-        arg4 = 0.065
-        arg5 = 0.036
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.639
+      localValue3 = 0.692
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Next"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.5125
+      localValue3 = 0.5775
+      localValue4 = 0.6712
+      localValue5 = 0.7064
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.545
+        localValue3 = 0.69
+        localValue4 = 0.065
+        localValue5 = 0.036
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = numberValue3
-          arg2 = math
-          arg2 = arg2.ceil
-          arg3 = workValue
-          arg4 = "logCount"
-          arg3 = arg3[arg4]
-          arg3 = arg3 / 10.0
-          arg2 = arg2(arg3)
-          if arg1 >= arg2 then
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~Max page reached"
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = number3
+          localValue2 = math
+          localValue2 = localValue2.ceil
+          localValue3 = workingValue
+          localValue4 = "logCount"
+          localValue3 = localValue3[localValue4]
+          localValue3 = localValue3 / 10.0
+          localValue2 = localValue2(localValue3)
+          if localValue1 >= localValue2 then
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~Max page reached"
             -- Beginner: Show a notification to the player.
-            arg1(arg2)
+            localValue1(localValue2)
           else
-            arg1 = numberValue3
-            arg1 = arg1 + 1
-            numberValue3 = arg1
-            arg1 = workValue
-            arg2 = "logs"
-            arg1[arg2] = nil
-            arg1 = TriggerServerEvent
-            arg2 = "3f8f33322f"
-            arg3 = numberValue3
-            arg4 = flag
+            localValue1 = number3
+            localValue1 = localValue1 + 1
+            number3 = localValue1
+            localValue1 = workingValue
+            localValue2 = "logs"
+            localValue1[localValue2] = nil
+            localValue1 = TriggerServerEvent
+            localValue2 = "3f8f33322f"
+            localValue3 = number3
+            localValue4 = stateFlag
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
-            arg1(arg2, arg3, arg4)
+            localValue1(localValue2, localValue3, localValue4)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.545
-        arg3 = 0.69
-        arg4 = 0.065
-        arg5 = 0.036
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.545
+        localValue3 = 0.69
+        localValue4 = 0.065
+        localValue5 = 0.036
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = DrawAdvancedText
-      arg2 = 0.415
-      arg3 = 0.693
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = flag
-      if arg7 then
-        arg7 = "Show Turf"
-        if arg7 then
-          goto flow_label_2753
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.415
+      localValue3 = 0.693
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = stateFlag
+      if localValue7 then
+        localValue7 = "Show Turf"
+        if localValue7 then
+          goto continueAtStep2753
         end
       end
-      arg7 = "Hide Turf"
-      ::flow_label_2753::
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.2985
-      arg3 = 0.3435
-      arg4 = 0.6712
-      arg5 = 0.7064
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.321
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue7 = "Hide Turf"
+      ::continueAtStep2753::
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.2985
+      localValue3 = 0.3435
+      localValue4 = 0.6712
+      localValue5 = 0.7064
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.321
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = flag
-          arg1 = not arg1
-          flag = arg1
-          arg1 = workValue
-          arg2 = "logs"
-          arg1[arg2] = nil
-          arg1 = TriggerServerEvent
-          arg2 = "3f8f33322f"
-          arg3 = numberValue3
-          arg4 = flag
+        if localValue1 then
+          localValue1 = stateFlag
+          localValue1 = not localValue1
+          stateFlag = localValue1
+          localValue1 = workingValue
+          localValue2 = "logs"
+          localValue1[localValue2] = nil
+          localValue1 = TriggerServerEvent
+          localValue2 = "3f8f33322f"
+          localValue3 = number3
+          localValue4 = stateFlag
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
-          arg1(arg2, arg3, arg4)
+          localValue1(localValue2, localValue3, localValue4)
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.321
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.321
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
     end
   end
-  arg1 = textValue
-  if "contributions" == arg1 then
-    arg1 = workValue9
-    arg1, arg2 = arg1()
-    arg3 = DrawRect
-    arg4 = 0.501
-    arg5 = 0.525
-    arg6 = 0.421
-    arg7 = 0.387
-    arg8 = 0
-    arg9 = 0
-    arg10 = 0
-    arg11 = 150
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-    arg3 = DrawRect
-    arg4 = 0.501
-    arg5 = 0.308
-    arg6 = 0.421
-    arg7 = 0.047
-    arg8 = 18
-    arg9 = 82
-    arg10 = 228
-    arg11 = 248
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-    arg3 = DrawAdvancedText
-    arg4 = 0.591
-    arg5 = 0.312
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.48
-    arg9 = "CMG gang - contributions"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 7
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = DrawRect
-    arg4 = 0.502
-    arg5 = 0.52
-    arg6 = 0.387
-    arg7 = 0.286
-    arg8 = 0
-    arg9 = 0
-    arg10 = 0
-    arg11 = 150
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-    arg3 = DrawAdvancedText
-    arg4 = 0.449
-    arg5 = 0.365
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "Name"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = DrawAdvancedText
-    arg4 = 0.53
-    arg5 = 0.365
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "UserID"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = DrawAdvancedText
-    arg4 = 0.623
-    arg5 = 0.365
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "Last Contribution"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = DrawAdvancedText
-    arg4 = 0.727
-    arg5 = 0.365
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "Total Amount"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = DrawAdvancedText
-    arg4 = 0.592
-    arg5 = 0.6925
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = tostring
-    arg10 = numberValue3
-    arg9 = arg9(arg10)
-    arg10 = "/"
-    arg11 = tostring
-    arg122 = math
-    arg122 = arg122.ceil
-    arg13 = arg2 / 10.0
-    arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg122(arg13)
-    arg11 = arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-    arg9 = arg9 .. arg10 .. arg11
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = DrawAdvancedText
-    arg4 = 0.775
-    arg5 = 0.693
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "Back"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = CursorInArea
-    arg4 = 0.6583
-    arg5 = 0.7056
-    arg6 = 0.6712
-    arg7 = 0.7064
-    arg3 = arg3(arg4, arg5, arg6, arg7)
-    if arg3 then
-      arg3 = DrawRect
-      arg4 = 0.681
-      arg5 = 0.689
-      arg6 = 0.045
-      arg7 = 0.036
-      arg8 = numberValue28
-      arg9 = numberValue29
-      arg10 = numberValue30
-      arg11 = 150
-      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-      arg3 = IsControlJustPressed
-      arg4 = 1
-      arg5 = 329
-      arg3 = arg3(arg4, arg5)
-      if not arg3 then
-        arg3 = IsDisabledControlJustPressed
-        arg4 = 1
-        arg5 = 329
-        arg3 = arg3(arg4, arg5)
+  localValue1 = text
+  if "contributions" == localValue1 then
+    localValue1 = workingValue9
+    localValue1, localValue2 = localValue1()
+    localValue3 = DrawRect
+    localValue4 = 0.501
+    localValue5 = 0.525
+    localValue6 = 0.421
+    localValue7 = 0.387
+    localValue8 = 0
+    localValue9 = 0
+    localValue10 = 0
+    localValue11 = 150
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+    localValue3 = DrawRect
+    localValue4 = 0.501
+    localValue5 = 0.308
+    localValue6 = 0.421
+    localValue7 = 0.047
+    localValue8 = 18
+    localValue9 = 82
+    localValue10 = 228
+    localValue11 = 248
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.591
+    localValue5 = 0.312
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.48
+    localValue9 = "CMG gang - contributions"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 7
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = DrawRect
+    localValue4 = 0.502
+    localValue5 = 0.52
+    localValue6 = 0.387
+    localValue7 = 0.286
+    localValue8 = 0
+    localValue9 = 0
+    localValue10 = 0
+    localValue11 = 150
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.449
+    localValue5 = 0.365
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "Name"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.53
+    localValue5 = 0.365
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "UserID"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.623
+    localValue5 = 0.365
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "Last Contribution"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.727
+    localValue5 = 0.365
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "Total Amount"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.592
+    localValue5 = 0.6925
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = tostring
+    localValue10 = number3
+    localValue9 = localValue9(localValue10)
+    localValue10 = "/"
+    localValue11 = tostring
+    localValue122 = math
+    localValue122 = localValue122.ceil
+    localValue13 = localValue2 / 10.0
+    localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue122(localValue13)
+    localValue11 = localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+    localValue9 = localValue9 .. localValue10 .. localValue11
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.775
+    localValue5 = 0.693
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "Back"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = CursorInArea
+    localValue4 = 0.6583
+    localValue5 = 0.7056
+    localValue6 = 0.6712
+    localValue7 = 0.7064
+    localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7)
+    if localValue3 then
+      localValue3 = DrawRect
+      localValue4 = 0.681
+      localValue5 = 0.689
+      localValue6 = 0.045
+      localValue7 = 0.036
+      localValue8 = number28
+      localValue9 = number29
+      localValue10 = number30
+      localValue11 = 150
+      localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+      localValue3 = IsControlJustPressed
+      localValue4 = 1
+      localValue5 = 329
+      localValue3 = localValue3(localValue4, localValue5)
+      if not localValue3 then
+        localValue3 = IsDisabledControlJustPressed
+        localValue4 = 1
+        localValue5 = 329
+        localValue3 = localValue3(localValue4, localValue5)
       end
-      if arg3 then
-        arg3 = PlaySound
-        arg4 = -1
-        arg5 = "SELECT"
-        arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg7 = false
-        arg8 = 0
-        arg9 = true
-        arg3(arg4, arg5, arg6, arg7, arg8, arg9)
-        arg3 = "gang"
-        textValue = arg3
+      if localValue3 then
+        localValue3 = PlaySound
+        localValue4 = -1
+        localValue5 = "SELECT"
+        localValue6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue7 = false
+        localValue8 = 0
+        localValue9 = true
+        localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue3 = "gang"
+        text = localValue3
       end
     else
-      arg3 = DrawRect
-      arg4 = 0.681
-      arg5 = 0.689
-      arg6 = 0.045
-      arg7 = 0.036
-      arg8 = 0
-      arg9 = 0
-      arg10 = 0
-      arg11 = 150
-      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+      localValue3 = DrawRect
+      localValue4 = 0.681
+      localValue5 = 0.689
+      localValue6 = 0.045
+      localValue7 = 0.036
+      localValue8 = 0
+      localValue9 = 0
+      localValue10 = 0
+      localValue11 = 150
+      localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
     end
-    arg3 = pairs
-    arg4 = arg1
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7, arg8 in arg3, arg4, arg5, arg6 do
-      arg9 = "amount"
-      arg9 = arg8[arg9]
-      if arg9 >= 0 then
-        arg9 = 50
-        if arg9 then
-          goto flow_label_3019
+    localValue3 = pairs
+    localValue4 = localValue1
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+      localValue9 = "amount"
+      localValue9 = localValue8[localValue9]
+      if localValue9 >= 0 then
+        localValue9 = 50
+        if localValue9 then
+          goto continueAtStep3019
         end
       end
-      arg9 = 255
-      ::flow_label_3019::
-      arg10 = "amount"
-      arg10 = arg8[arg10]
-      if arg10 >= 0 then
-        arg10 = 255
-        if arg10 then
-          goto flow_label_3027
+      localValue9 = 255
+      ::continueAtStep3019::
+      localValue10 = "amount"
+      localValue10 = localValue8[localValue10]
+      if localValue10 >= 0 then
+        localValue10 = 255
+        if localValue10 then
+          goto continueAtStep3027
         end
       end
-      arg10 = 50
-      ::flow_label_3027::
-      arg11 = 50
-      arg122 = arg8.user_id
-      if -1 == arg122 then
-        arg122 = "N/A"
-        if arg122 then
-          goto flow_label_3037
+      localValue10 = 50
+      ::continueAtStep3027::
+      localValue11 = 50
+      localValue122 = localValue8.user_id
+      if -1 == localValue122 then
+        localValue122 = "N/A"
+        if localValue122 then
+          goto continueAtStep3037
         end
       end
-      arg122 = tostring
-      arg13 = arg8.user_id
-      arg122 = arg122(arg13)
-      ::flow_label_3037::
-      arg13 = DrawAdvancedText
-      arg14 = 0.449
-      arg15 = 0.0287 * arg7
-      arg16 = 0.365
-      arg15 = arg16 + arg15
-      arg16 = 0.005
-      arg17 = 0.0028
-      arg18 = 0.4
-      numberValue5 = arg8.name
-      numberValue7 = arg9
-      numberValue8 = arg10
-      numberValue9 = arg11
-      numberValue10 = 255
-      numberValue12 = 6
-      numberValue13 = 0
-      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
-      arg13 = DrawAdvancedText
-      arg14 = 0.53
-      arg15 = 0.0287 * arg7
-      arg16 = 0.365
-      arg15 = arg16 + arg15
-      arg16 = 0.005
-      arg17 = 0.0028
-      arg18 = 0.4
-      numberValue5 = arg122
-      numberValue7 = arg9
-      numberValue8 = arg10
-      numberValue9 = arg11
-      numberValue10 = 255
-      numberValue12 = 6
-      numberValue13 = 0
-      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
-      arg13 = DrawAdvancedText
-      arg14 = 0.623
-      arg15 = 0.0287 * arg7
-      arg16 = 0.365
-      arg15 = arg16 + arg15
-      arg16 = 0.005
-      arg17 = 0.0028
-      arg18 = 0.4
-      numberValue5 = "lastContribution"
-      numberValue5 = arg8[numberValue5]
-      numberValue7 = arg9
-      numberValue8 = arg10
-      numberValue9 = arg11
-      numberValue10 = 255
-      numberValue12 = 6
-      numberValue13 = 0
-      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
-      arg13 = DrawAdvancedText
-      arg14 = 0.727
-      arg15 = 0.0287 * arg7
-      arg16 = 0.365
-      arg15 = arg16 + arg15
-      arg16 = 0.005
-      arg17 = 0.0028
-      arg18 = 0.4
-      numberValue5 = "\194\163"
-      numberValue7 = getMoneyStringFormatted
-      numberValue8 = "amount"
-      numberValue8 = arg8[numberValue8]
-      numberValue7 = numberValue7(numberValue8)
-      numberValue5 = numberValue5 .. numberValue7
-      numberValue7 = arg9
-      numberValue8 = arg10
-      numberValue9 = arg11
-      numberValue10 = 255
-      numberValue12 = 6
-      numberValue13 = 0
-      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+      localValue122 = tostring
+      localValue13 = localValue8.user_id
+      localValue122 = localValue122(localValue13)
+      ::continueAtStep3037::
+      localValue13 = DrawAdvancedText
+      localValue14 = 0.449
+      localValue15 = 0.0287 * localValue7
+      localValue16 = 0.365
+      localValue15 = localValue16 + localValue15
+      localValue16 = 0.005
+      localValue17 = 0.0028
+      localValue18 = 0.4
+      number5 = localValue8.name
+      number7 = localValue9
+      number8 = localValue10
+      number9 = localValue11
+      number10 = 255
+      number12 = 6
+      number13 = 0
+      localValue13(localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13)
+      localValue13 = DrawAdvancedText
+      localValue14 = 0.53
+      localValue15 = 0.0287 * localValue7
+      localValue16 = 0.365
+      localValue15 = localValue16 + localValue15
+      localValue16 = 0.005
+      localValue17 = 0.0028
+      localValue18 = 0.4
+      number5 = localValue122
+      number7 = localValue9
+      number8 = localValue10
+      number9 = localValue11
+      number10 = 255
+      number12 = 6
+      number13 = 0
+      localValue13(localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13)
+      localValue13 = DrawAdvancedText
+      localValue14 = 0.623
+      localValue15 = 0.0287 * localValue7
+      localValue16 = 0.365
+      localValue15 = localValue16 + localValue15
+      localValue16 = 0.005
+      localValue17 = 0.0028
+      localValue18 = 0.4
+      number5 = "lastContribution"
+      number5 = localValue8[number5]
+      number7 = localValue9
+      number8 = localValue10
+      number9 = localValue11
+      number10 = 255
+      number12 = 6
+      number13 = 0
+      localValue13(localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13)
+      localValue13 = DrawAdvancedText
+      localValue14 = 0.727
+      localValue15 = 0.0287 * localValue7
+      localValue16 = 0.365
+      localValue15 = localValue16 + localValue15
+      localValue16 = 0.005
+      localValue17 = 0.0028
+      localValue18 = 0.4
+      number5 = "\194\163"
+      number7 = getMoneyStringFormatted
+      number8 = "amount"
+      number8 = localValue8[number8]
+      number7 = number7(number8)
+      number5 = number5 .. number7
+      number7 = localValue9
+      number8 = localValue10
+      number9 = localValue11
+      number10 = 255
+      number12 = 6
+      number13 = 0
+      localValue13(localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13)
     end
-    arg3 = DrawAdvancedText
-    arg4 = 0.547
-    arg5 = 0.692
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "Previous"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = CursorInArea
-    arg4 = 0.4195
-    arg5 = 0.4845
-    arg6 = 0.6768
-    arg7 = 0.7074
-    arg3 = arg3(arg4, arg5, arg6, arg7)
-    if arg3 then
-      arg3 = DrawRect
-      arg4 = 0.452
-      arg5 = 0.69
-      arg6 = 0.065
-      arg7 = 0.036
-      arg8 = numberValue28
-      arg9 = numberValue29
-      arg10 = numberValue30
-      arg11 = 150
-      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-      arg3 = IsControlJustPressed
-      arg4 = 1
-      arg5 = 329
-      arg3 = arg3(arg4, arg5)
-      if not arg3 then
-        arg3 = IsDisabledControlJustPressed
-        arg4 = 1
-        arg5 = 329
-        arg3 = arg3(arg4, arg5)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.547
+    localValue5 = 0.692
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "Previous"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = CursorInArea
+    localValue4 = 0.4195
+    localValue5 = 0.4845
+    localValue6 = 0.6768
+    localValue7 = 0.7074
+    localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7)
+    if localValue3 then
+      localValue3 = DrawRect
+      localValue4 = 0.452
+      localValue5 = 0.69
+      localValue6 = 0.065
+      localValue7 = 0.036
+      localValue8 = number28
+      localValue9 = number29
+      localValue10 = number30
+      localValue11 = 150
+      localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+      localValue3 = IsControlJustPressed
+      localValue4 = 1
+      localValue5 = 329
+      localValue3 = localValue3(localValue4, localValue5)
+      if not localValue3 then
+        localValue3 = IsDisabledControlJustPressed
+        localValue4 = 1
+        localValue5 = 329
+        localValue3 = localValue3(localValue4, localValue5)
       end
-      if arg3 then
-        arg3 = PlaySound
-        arg4 = -1
-        arg5 = "SELECT"
-        arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg7 = false
-        arg8 = 0
-        arg9 = true
-        arg3(arg4, arg5, arg6, arg7, arg8, arg9)
-        arg3 = numberValue6
-        if arg3 <= 1 then
-          arg3 = tCMG
-          arg3 = arg3.notify
-          arg4 = "~r~Lowest page reached"
+      if localValue3 then
+        localValue3 = PlaySound
+        localValue4 = -1
+        localValue5 = "SELECT"
+        localValue6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue7 = false
+        localValue8 = 0
+        localValue9 = true
+        localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue3 = number6
+        if localValue3 <= 1 then
+          localValue3 = tCMG
+          localValue3 = localValue3.notify
+          localValue4 = "~r~Lowest page reached"
           -- Beginner: Show a notification to the player.
-          arg3(arg4)
+          localValue3(localValue4)
         else
-          arg3 = numberValue6
-          arg3 = arg3 - 1
-          numberValue6 = arg3
+          localValue3 = number6
+          localValue3 = localValue3 - 1
+          number6 = localValue3
         end
       end
     else
-      arg3 = DrawRect
-      arg4 = 0.452
-      arg5 = 0.69
-      arg6 = 0.065
-      arg7 = 0.036
-      arg8 = 0
-      arg9 = 0
-      arg10 = 0
-      arg11 = 150
-      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+      localValue3 = DrawRect
+      localValue4 = 0.452
+      localValue5 = 0.69
+      localValue6 = 0.065
+      localValue7 = 0.036
+      localValue8 = 0
+      localValue9 = 0
+      localValue10 = 0
+      localValue11 = 150
+      localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
     end
-    arg3 = DrawAdvancedText
-    arg4 = 0.639
-    arg5 = 0.692
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "Next"
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 4
-    arg15 = 0
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = CursorInArea
-    arg4 = 0.5125
-    arg5 = 0.5775
-    arg6 = 0.6712
-    arg7 = 0.7064
-    arg3 = arg3(arg4, arg5, arg6, arg7)
-    if arg3 then
-      arg3 = DrawRect
-      arg4 = 0.545
-      arg5 = 0.69
-      arg6 = 0.065
-      arg7 = 0.036
-      arg8 = numberValue28
-      arg9 = numberValue29
-      arg10 = numberValue30
-      arg11 = 150
-      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-      arg3 = IsControlJustPressed
-      arg4 = 1
-      arg5 = 329
-      arg3 = arg3(arg4, arg5)
-      if not arg3 then
-        arg3 = IsDisabledControlJustPressed
-        arg4 = 1
-        arg5 = 329
-        arg3 = arg3(arg4, arg5)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.639
+    localValue5 = 0.692
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "Next"
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 4
+    localValue15 = 0
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = CursorInArea
+    localValue4 = 0.5125
+    localValue5 = 0.5775
+    localValue6 = 0.6712
+    localValue7 = 0.7064
+    localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7)
+    if localValue3 then
+      localValue3 = DrawRect
+      localValue4 = 0.545
+      localValue5 = 0.69
+      localValue6 = 0.065
+      localValue7 = 0.036
+      localValue8 = number28
+      localValue9 = number29
+      localValue10 = number30
+      localValue11 = 150
+      localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+      localValue3 = IsControlJustPressed
+      localValue4 = 1
+      localValue5 = 329
+      localValue3 = localValue3(localValue4, localValue5)
+      if not localValue3 then
+        localValue3 = IsDisabledControlJustPressed
+        localValue4 = 1
+        localValue5 = 329
+        localValue3 = localValue3(localValue4, localValue5)
       end
-      if arg3 then
-        arg3 = PlaySound
-        arg4 = -1
-        arg5 = "SELECT"
-        arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg7 = false
-        arg8 = 0
-        arg9 = true
-        arg3(arg4, arg5, arg6, arg7, arg8, arg9)
-        arg3 = numberValue6
-        arg4 = math
-        arg4 = arg4.ceil
-        arg5 = arg2 / 10.0
-        arg4 = arg4(arg5)
-        if arg3 >= arg4 then
-          arg3 = tCMG
-          arg3 = arg3.notify
-          arg4 = "~r~Max page reached"
+      if localValue3 then
+        localValue3 = PlaySound
+        localValue4 = -1
+        localValue5 = "SELECT"
+        localValue6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue7 = false
+        localValue8 = 0
+        localValue9 = true
+        localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue3 = number6
+        localValue4 = math
+        localValue4 = localValue4.ceil
+        localValue5 = localValue2 / 10.0
+        localValue4 = localValue4(localValue5)
+        if localValue3 >= localValue4 then
+          localValue3 = tCMG
+          localValue3 = localValue3.notify
+          localValue4 = "~r~Max page reached"
           -- Beginner: Show a notification to the player.
-          arg3(arg4)
+          localValue3(localValue4)
         else
-          arg3 = numberValue6
-          arg3 = arg3 + 1
-          numberValue6 = arg3
+          localValue3 = number6
+          localValue3 = localValue3 + 1
+          number6 = localValue3
         end
       end
     else
-      arg3 = DrawRect
-      arg4 = 0.545
-      arg5 = 0.69
-      arg6 = 0.065
-      arg7 = 0.036
-      arg8 = 0
-      arg9 = 0
-      arg10 = 0
-      arg11 = 150
-      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+      localValue3 = DrawRect
+      localValue4 = 0.545
+      localValue5 = 0.69
+      localValue6 = 0.065
+      localValue7 = 0.036
+      localValue8 = 0
+      localValue9 = 0
+      localValue10 = 0
+      localValue11 = 150
+      localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
     end
   end
-  arg1 = textValue
-  if "settings" == arg1 then
-    arg1 = DrawRect
-    arg2 = 0.501
-    arg3 = 0.525
-    arg4 = 0.421
-    arg5 = 0.387
-    arg6 = 0
-    arg7 = 0
-    arg8 = 0
-    arg9 = 150
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawRect
-    arg2 = 0.501
-    arg3 = 0.308
-    arg4 = 0.421
-    arg5 = 0.047
-    arg6 = 18
-    arg7 = 82
-    arg8 = 228
-    arg9 = 248
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawAdvancedText
-    arg2 = 0.591
-    arg3 = 0.312
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.48
-    arg7 = "CMG gang - settings"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 7
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.7
-    arg3 = 0.398
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.46
-    arg7 = "Permissions Guide"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 6
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.7
-    arg3 = 0.436
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.46
-    arg7 = "New members by can only deposit by default"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 6
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.7
-    arg3 = 0.457
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.46
-    arg7 = "This can be configured in the members page"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 6
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.7
-    arg3 = 0.51
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.46
-    arg7 = "To withdraw, invite, kick and access more"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 6
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.7
-    arg3 = 0.572
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.46
-    arg7 = "A leader has full access to the gang."
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 6
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.7
-    arg3 = 0.532
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.46
-    arg7 = "permissions must be given in members page."
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 6
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = workValue
-    if arg1 then
-      arg1 = DrawAdvancedText
-      arg2 = 0.451
-      arg3 = 0.616
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Leave Gang"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.554
-      arg3 = 0.615
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Disband Gang"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.5025
-      arg3 = 0.69
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Set Gang Tag"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+  localValue1 = text
+  if "settings" == localValue1 then
+    localValue1 = DrawRect
+    localValue2 = 0.501
+    localValue3 = 0.525
+    localValue4 = 0.421
+    localValue5 = 0.387
+    localValue6 = 0
+    localValue7 = 0
+    localValue8 = 0
+    localValue9 = 150
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawRect
+    localValue2 = 0.501
+    localValue3 = 0.308
+    localValue4 = 0.421
+    localValue5 = 0.047
+    localValue6 = 18
+    localValue7 = 82
+    localValue8 = 228
+    localValue9 = 248
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.591
+    localValue3 = 0.312
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.48
+    localValue7 = "CMG gang - settings"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 7
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.7
+    localValue3 = 0.398
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.46
+    localValue7 = "Permissions Guide"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 6
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.7
+    localValue3 = 0.436
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.46
+    localValue7 = "New members by can only deposit by default"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 6
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.7
+    localValue3 = 0.457
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.46
+    localValue7 = "This can be configured in the members page"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 6
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.7
+    localValue3 = 0.51
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.46
+    localValue7 = "To withdraw, invite, kick and access more"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 6
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.7
+    localValue3 = 0.572
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.46
+    localValue7 = "A leader has full access to the gang."
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 6
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.7
+    localValue3 = 0.532
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.46
+    localValue7 = "permissions must be given in members page."
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 6
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = workingValue
+    if localValue1 then
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.451
+      localValue3 = 0.616
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Leave Gang"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.554
+      localValue3 = 0.615
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Disband Gang"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.5025
+      localValue3 = 0.69
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Set Gang Tag"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
     end
-    arg1 = DrawAdvancedText
-    arg2 = 0.775
-    arg3 = 0.693
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.4
-    arg7 = "Back"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 4
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = workValue6
-    arg1 = arg1()
-    arg2 = workValue
-    if arg2 then
-      arg2 = CursorInArea
-      arg3 = 0.3187
-      arg4 = 0.3937
-      arg5 = 0.5712
-      arg6 = 0.6462
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.357
-        arg4 = 0.61
-        arg5 = 0.075
-        arg6 = 0.076
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.775
+    localValue3 = 0.693
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.4
+    localValue7 = "Back"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 4
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = workingValue6
+    localValue1 = localValue1()
+    localValue2 = workingValue
+    if localValue2 then
+      localValue2 = CursorInArea
+      localValue3 = 0.3187
+      localValue4 = 0.3937
+      localValue5 = 0.5712
+      localValue6 = 0.6462
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.357
+        localValue4 = 0.61
+        localValue5 = 0.075
+        localValue6 = 0.076
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = workValue
-          if arg1 == arg2 then
-            arg2 = cmgCall7
-            arg3 = "Are you sure?"
-            arg2 = arg2(arg3)
-            if arg2 then
-              arg2 = TriggerServerEvent
-              arg3 = "4d87711de5"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = workingValue
+          if localValue1 == localValue2 then
+            localValue2 = cmgOperation7
+            localValue3 = "Are you sure?"
+            localValue2 = localValue2(localValue3)
+            if localValue2 then
+              localValue2 = TriggerServerEvent
+              localValue3 = "4d87711de5"
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4d87711de5".
-              arg2(arg3)
-              arg2 = "noGang"
-              textValue = arg2
-              arg2 = CMG
-              arg3 = "setCursor"
-              arg2 = arg2[arg3]
-              arg3 = 0
-              arg2(arg3)
-              arg2 = _ENV
-              arg3 = "SetPlayerControl"
-              arg2 = arg2[arg3]
-              arg3 = _ENV
-              arg4 = "PlayerId"
-              arg3 = arg3[arg4]
-              arg3 = arg3()
-              arg4 = true
-              arg5 = 0
-              arg2(arg3, arg4, arg5)
+              localValue2(localValue3)
+              localValue2 = "noGang"
+              text = localValue2
+              localValue2 = CMG
+              localValue3 = "setCursor"
+              localValue2 = localValue2[localValue3]
+              localValue3 = 0
+              localValue2(localValue3)
+              localValue2 = _ENV
+              localValue3 = "SetPlayerControl"
+              localValue2 = localValue2[localValue3]
+              localValue3 = _ENV
+              localValue4 = "PlayerId"
+              localValue3 = localValue3[localValue4]
+              localValue3 = localValue3()
+              localValue4 = true
+              localValue5 = 0
+              localValue2(localValue3, localValue4, localValue5)
             end
           else
-            arg2 = notify
-            arg3 = "~r~You must have your main gang selected to use this."
+            localValue2 = notify
+            localValue3 = "~r~You must have your main gang selected to use this."
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.357
-        arg4 = 0.61
-        arg5 = 0.075
-        arg6 = 0.076
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.357
+        localValue4 = 0.61
+        localValue5 = 0.075
+        localValue6 = 0.076
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.4197
-      arg4 = 0.4932
-      arg5 = 0.5712
-      arg6 = 0.6462
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.457
-        arg4 = 0.61
-        arg5 = 0.075
-        arg6 = 0.076
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.4197
+      localValue4 = 0.4932
+      localValue5 = 0.5712
+      localValue6 = 0.6462
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.457
+        localValue4 = 0.61
+        localValue5 = 0.075
+        localValue6 = 0.076
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = workValue
-          if arg1 == arg2 then
-            arg2 = CMG
-            arg2 = arg2.hasGangPermission
-            arg3 = "leader"
-            arg2 = arg2(arg3)
-            if arg2 then
-              arg2 = cmgCall7
-              arg3 = "Are you sure?"
-              arg2 = arg2(arg3)
-              if true == arg2 then
-                arg2 = TriggerServerEvent
-                arg3 = "2b85de9de2"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = workingValue
+          if localValue1 == localValue2 then
+            localValue2 = CMG
+            localValue2 = localValue2.hasGangPermission
+            localValue3 = "leader"
+            localValue2 = localValue2(localValue3)
+            if localValue2 then
+              localValue2 = cmgOperation7
+              localValue3 = "Are you sure?"
+              localValue2 = localValue2(localValue3)
+              if true == localValue2 then
+                localValue2 = TriggerServerEvent
+                localValue3 = "2b85de9de2"
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2b85de9de2".
-                arg2(arg3)
+                localValue2(localValue3)
               else
-                arg2 = tCMG
-                arg2 = arg2.notify
-                arg3 = "~r~Cancelled disbanding gang."
+                localValue2 = tCMG
+                localValue2 = localValue2.notify
+                localValue3 = "~r~Cancelled disbanding gang."
                 -- Beginner: Show a notification to the player.
-                arg2(arg3)
+                localValue2(localValue3)
               end
             else
-              arg2 = tCMG
-              arg2 = arg2.notify
-              arg3 = "~r~You don't have permission to disband!"
-              arg2(arg3)
+              localValue2 = tCMG
+              localValue2 = localValue2.notify
+              localValue3 = "~r~You don't have permission to disband!"
+              localValue2(localValue3)
             end
           else
-            arg2 = notify
-            arg3 = "~r~You must have your main gang selected to use this."
+            localValue2 = notify
+            localValue3 = "~r~You must have your main gang selected to use this."
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.457
-        arg4 = 0.61
-        arg5 = 0.075
-        arg6 = 0.076
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.457
+        localValue4 = 0.61
+        localValue5 = 0.075
+        localValue6 = 0.076
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInAreaRect
-      arg3 = 0.407
-      arg4 = 0.69
-      arg5 = 0.075
-      arg6 = 0.04
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.407
-        arg4 = 0.687
-        arg5 = 0.075
-        arg6 = 0.04
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInAreaRect
+      localValue3 = 0.407
+      localValue4 = 0.69
+      localValue5 = 0.075
+      localValue6 = 0.04
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.407
+        localValue4 = 0.687
+        localValue5 = 0.075
+        localValue6 = 0.04
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = workValue
-          if arg1 == arg2 then
-            arg2 = CMG
-            arg2 = arg2.hasGangPermission
-            arg3 = "leader"
-            arg2 = arg2(arg3)
-            if arg2 then
-              arg2 = TriggerServerEvent
-              arg3 = "9dad3c2a94"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = workingValue
+          if localValue1 == localValue2 then
+            localValue2 = CMG
+            localValue2 = localValue2.hasGangPermission
+            localValue3 = "leader"
+            localValue2 = localValue2(localValue3)
+            if localValue2 then
+              localValue2 = TriggerServerEvent
+              localValue3 = "9dad3c2a94"
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9dad3c2a94".
-              arg2(arg3)
+              localValue2(localValue3)
             else
-              arg2 = tCMG
-              arg2 = arg2.notify
-              arg3 = "~r~Only a leader can set the gang tag!"
+              localValue2 = tCMG
+              localValue2 = localValue2.notify
+              localValue3 = "~r~Only a leader can set the gang tag!"
               -- Beginner: Show a notification to the player.
-              arg2(arg3)
+              localValue2(localValue3)
             end
           else
-            arg2 = notify
-            arg3 = "~r~You must have your main gang selected to use this."
-            arg2(arg3)
+            localValue2 = notify
+            localValue3 = "~r~You must have your main gang selected to use this."
+            localValue2(localValue3)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.407
-        arg4 = 0.687
-        arg5 = 0.075
-        arg6 = 0.04
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.407
+        localValue4 = 0.687
+        localValue5 = 0.075
+        localValue6 = 0.04
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
     end
-    arg2 = CursorInArea
-    arg3 = 0.6583
-    arg4 = 0.7056
-    arg5 = 0.6712
-    arg6 = 0.7064
-    arg2 = arg2(arg3, arg4, arg5, arg6)
-    if arg2 then
-      arg2 = DrawRect
-      arg3 = 0.681
-      arg4 = 0.689
-      arg5 = 0.045
-      arg6 = 0.036
-      arg7 = numberValue28
-      arg8 = numberValue29
-      arg9 = numberValue30
-      arg10 = 150
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-      arg2 = IsControlJustPressed
-      arg3 = 1
-      arg4 = 329
-      arg2 = arg2(arg3, arg4)
-      if not arg2 then
-        arg2 = IsDisabledControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
+    localValue2 = CursorInArea
+    localValue3 = 0.6583
+    localValue4 = 0.7056
+    localValue5 = 0.6712
+    localValue6 = 0.7064
+    localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+    if localValue2 then
+      localValue2 = DrawRect
+      localValue3 = 0.681
+      localValue4 = 0.689
+      localValue5 = 0.045
+      localValue6 = 0.036
+      localValue7 = number28
+      localValue8 = number29
+      localValue9 = number30
+      localValue10 = 150
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+      localValue2 = IsControlJustPressed
+      localValue3 = 1
+      localValue4 = 329
+      localValue2 = localValue2(localValue3, localValue4)
+      if not localValue2 then
+        localValue2 = IsDisabledControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
       end
-      if arg2 then
-        arg2 = PlaySound
-        arg3 = -1
-        arg4 = "SELECT"
-        arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg6 = false
-        arg7 = 0
-        arg8 = true
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-        arg2 = workValue
-        if arg2 then
-          arg2 = "gang"
-          textValue = arg2
+      if localValue2 then
+        localValue2 = PlaySound
+        localValue3 = -1
+        localValue4 = "SELECT"
+        localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue6 = false
+        localValue7 = 0
+        localValue8 = true
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+        localValue2 = workingValue
+        if localValue2 then
+          localValue2 = "gang"
+          text = localValue2
         else
-          arg2 = "noGang"
-          textValue = arg2
+          localValue2 = "noGang"
+          text = localValue2
         end
       end
     else
-      arg2 = DrawRect
-      arg3 = 0.681
-      arg4 = 0.689
-      arg5 = 0.045
-      arg6 = 0.036
-      arg7 = 0
-      arg8 = 0
-      arg9 = 0
-      arg10 = 150
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+      localValue2 = DrawRect
+      localValue3 = 0.681
+      localValue4 = 0.689
+      localValue5 = 0.045
+      localValue6 = 0.036
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 0
+      localValue10 = 150
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
     end
-    if arg1 then
-      arg2 = arg1.isAdvanced
-      if arg2 then
-        arg2 = dataTable
-        arg3 = "blips"
-        arg2 = arg2[arg3]
-        if arg2 then
-          arg2 = "Disable"
-          if arg2 then
-            goto flow_label_3760
+    if localValue1 then
+      localValue2 = localValue1.isAdvanced
+      if localValue2 then
+        localValue2 = dataCollection
+        localValue3 = "blips"
+        localValue2 = localValue2[localValue3]
+        if localValue2 then
+          localValue2 = "Disable"
+          if localValue2 then
+            goto continueAtStep3760
           end
         end
-        arg2 = "Enable"
-        ::flow_label_3760::
-        arg3 = DrawAdvancedText
-        arg4 = 0.451
-        arg5 = 0.416
-        arg6 = 0.005
-        arg7 = 0.0028
-        arg8 = 0.4
-        arg9 = arg2
-        arg10 = " Blips"
-        arg9 = arg9 .. arg10
-        arg10 = 255
-        arg11 = 255
-        arg122 = 255
-        arg13 = 255
-        arg14 = 6
-        arg15 = 0
-        arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-        arg3 = CursorInArea
-        arg4 = 0.3187
-        arg5 = 0.3937
-        arg6 = 0.3712
-        arg7 = 0.4462
-        arg3 = arg3(arg4, arg5, arg6, arg7)
-        if arg3 then
-          arg3 = DrawRect
-          arg4 = 0.357
-          arg5 = 0.41
-          arg6 = 0.075
-          arg7 = 0.076
-          arg8 = numberValue28
-          arg9 = numberValue29
-          arg10 = numberValue30
-          arg11 = 150
-          arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-          arg3 = IsControlJustPressed
-          arg4 = 1
-          arg5 = 329
-          arg3 = arg3(arg4, arg5)
-          if not arg3 then
-            arg3 = IsDisabledControlJustPressed
-            arg4 = 1
-            arg5 = 329
-            arg3 = arg3(arg4, arg5)
-            if not arg3 then
-              goto flow_label_3874
+        localValue2 = "Enable"
+        ::continueAtStep3760::
+        localValue3 = DrawAdvancedText
+        localValue4 = 0.451
+        localValue5 = 0.416
+        localValue6 = 0.005
+        localValue7 = 0.0028
+        localValue8 = 0.4
+        localValue9 = localValue2
+        localValue10 = " Blips"
+        localValue9 = localValue9 .. localValue10
+        localValue10 = 255
+        localValue11 = 255
+        localValue122 = 255
+        localValue13 = 255
+        localValue14 = 6
+        localValue15 = 0
+        localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+        localValue3 = CursorInArea
+        localValue4 = 0.3187
+        localValue5 = 0.3937
+        localValue6 = 0.3712
+        localValue7 = 0.4462
+        localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7)
+        if localValue3 then
+          localValue3 = DrawRect
+          localValue4 = 0.357
+          localValue5 = 0.41
+          localValue6 = 0.075
+          localValue7 = 0.076
+          localValue8 = number28
+          localValue9 = number29
+          localValue10 = number30
+          localValue11 = 150
+          localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+          localValue3 = IsControlJustPressed
+          localValue4 = 1
+          localValue5 = 329
+          localValue3 = localValue3(localValue4, localValue5)
+          if not localValue3 then
+            localValue3 = IsDisabledControlJustPressed
+            localValue4 = 1
+            localValue5 = 329
+            localValue3 = localValue3(localValue4, localValue5)
+            if not localValue3 then
+              goto continueAtStep3874
             end
           end
-          arg3 = PlaySound
-          arg4 = -1
-          arg5 = "SELECT"
-          arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg7 = false
-          arg8 = 0
-          arg9 = true
-          arg3(arg4, arg5, arg6, arg7, arg8, arg9)
-          arg3 = dataTable
-          arg4 = "blips"
-          arg5 = dataTable
-          arg6 = "blips"
-          arg5 = arg5[arg6]
-          arg5 = not arg5
-          arg3[arg4] = arg5
-          arg3 = _ENV
-          arg4 = "TriggerEvent"
-          arg3 = arg3[arg4]
-          arg4 = "e713d91b70"
-          arg3(arg4)
-          arg3 = dataTable
-          arg4 = "blips"
-          arg3 = arg3[arg4]
-          if not arg3 then
-            arg3 = _ENV
-            arg4 = "TriggerEvent"
-            arg3 = arg3[arg4]
-            arg4 = "e713d91b70"
-            arg3(arg4)
-            arg3 = TriggerServerEvent
-            arg4 = "f9c26121e2"
-            arg5 = nil
+          localValue3 = PlaySound
+          localValue4 = -1
+          localValue5 = "SELECT"
+          localValue6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue7 = false
+          localValue8 = 0
+          localValue9 = true
+          localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+          localValue3 = dataCollection
+          localValue4 = "blips"
+          localValue5 = dataCollection
+          localValue6 = "blips"
+          localValue5 = localValue5[localValue6]
+          localValue5 = not localValue5
+          localValue3[localValue4] = localValue5
+          localValue3 = _ENV
+          localValue4 = "TriggerEvent"
+          localValue3 = localValue3[localValue4]
+          localValue4 = "e713d91b70"
+          localValue3(localValue4)
+          localValue3 = dataCollection
+          localValue4 = "blips"
+          localValue3 = localValue3[localValue4]
+          if not localValue3 then
+            localValue3 = _ENV
+            localValue4 = "TriggerEvent"
+            localValue3 = localValue3[localValue4]
+            localValue4 = "e713d91b70"
+            localValue3(localValue4)
+            localValue3 = TriggerServerEvent
+            localValue4 = "f9c26121e2"
+            localValue5 = nil
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-            arg3(arg4, arg5)
+            localValue3(localValue4, localValue5)
           else
-            arg3 = workValue6
-            arg3 = arg3()
-            arg4 = workValue
-            if arg3 == arg4 then
-              arg3 = "own"
-              if arg3 then
-                goto flow_label_3850
+            localValue3 = workingValue6
+            localValue3 = localValue3()
+            localValue4 = workingValue
+            if localValue3 == localValue4 then
+              localValue3 = "own"
+              if localValue3 then
+                goto continueAtStep3850
               end
             end
-            arg3 = "guest"
-            ::flow_label_3850::
-            arg4 = TriggerServerEvent
-            arg5 = "f9c26121e2"
-            arg6 = arg3
-            arg7 = true
-            arg4(arg5, arg6, arg7)
+            localValue3 = "guest"
+            ::continueAtStep3850::
+            localValue4 = TriggerServerEvent
+            localValue5 = "f9c26121e2"
+            localValue6 = localValue3
+            localValue7 = true
+            localValue4(localValue5, localValue6, localValue7)
           end
-          arg3 = SetResourceKvp
-          arg4 = "cmg_gang_blips"
-          arg5 = tostring
-          arg6 = dataTable
-          arg7 = "blips"
-          arg6 = arg6[arg7]
-          arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg5(arg6)
-          arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+          localValue3 = SetResourceKvp
+          localValue4 = "cmg_gang_blips"
+          localValue5 = tostring
+          localValue6 = dataCollection
+          localValue7 = "blips"
+          localValue6 = localValue6[localValue7]
+          localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue5(localValue6)
+          localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
         else
-          arg3 = DrawRect
-          arg4 = 0.357
-          arg5 = 0.41
-          arg6 = 0.075
-          arg7 = 0.076
-          arg8 = 0
-          arg9 = 0
-          arg10 = 0
-          arg11 = 150
-          arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+          localValue3 = DrawRect
+          localValue4 = 0.357
+          localValue5 = 0.41
+          localValue6 = 0.075
+          localValue7 = 0.076
+          localValue8 = 0
+          localValue9 = 0
+          localValue10 = 0
+          localValue11 = 150
+          localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
         end
-        ::flow_label_3874::
-        arg3 = dataTable
-        arg4 = "pings"
-        arg3 = arg3[arg4]
-        if arg3 then
-          arg3 = "Disable"
-          if arg3 then
-            goto flow_label_3883
-          end
-        end
-        arg3 = "Enable"
-        ::flow_label_3883::
-        arg4 = DrawAdvancedText
-        arg5 = 0.554
-        arg6 = 0.415
-        arg7 = 0.005
-        arg8 = 0.0028
-        arg9 = 0.4
-        arg10 = arg3
-        arg11 = " Pings"
-        arg10 = arg10 .. arg11
-        arg11 = 255
-        arg122 = 255
-        arg13 = 255
-        arg14 = 255
-        arg15 = 4
-        arg16 = 0
-        arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
-        arg4 = CursorInArea
-        arg5 = 0.4197
-        arg6 = 0.4932
-        arg7 = 0.3712
-        arg8 = 0.4462
-        arg4 = arg4(arg5, arg6, arg7, arg8)
-        if arg4 then
-          arg4 = DrawRect
-          arg5 = 0.457
-          arg6 = 0.41
-          arg7 = 0.075
-          arg8 = 0.076
-          arg9 = numberValue28
-          arg10 = numberValue29
-          arg11 = numberValue30
-          arg122 = 150
-          arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122)
-          arg4 = IsControlJustPressed
-          arg5 = 1
-          arg6 = 329
-          arg4 = arg4(arg5, arg6)
-          if not arg4 then
-            arg4 = IsDisabledControlJustPressed
-            arg5 = 1
-            arg6 = 329
-            arg4 = arg4(arg5, arg6)
-          end
-          if arg4 then
-            arg4 = PlaySound
-            arg5 = -1
-            arg6 = "SELECT"
-            arg7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            arg8 = false
-            arg9 = 0
-            arg10 = true
-            arg4(arg5, arg6, arg7, arg8, arg9, arg10)
-            arg4 = dataTable
-            arg5 = "pings"
-            arg6 = dataTable
-            arg7 = "pings"
-            arg6 = arg6[arg7]
-            arg6 = not arg6
-            arg4[arg5] = arg6
-            arg4 = SetResourceKvp
-            arg5 = "cmg_gang_pings"
-            arg6 = tostring
-            arg7 = dataTable
-            arg8 = "pings"
-            arg7 = arg7[arg8]
-            arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg6(arg7)
-            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-          end
-        else
-          arg4 = DrawRect
-          arg5 = 0.457
-          arg6 = 0.41
-          arg7 = 0.075
-          arg8 = 0.076
-          arg9 = 0
-          arg10 = 0
-          arg11 = 0
-          arg122 = 150
-          arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122)
-        end
-        arg4 = dataTable
-        arg5 = "names"
-        arg4 = arg4[arg5]
-        if arg4 then
-          arg4 = "Disable"
-          if arg4 then
-            goto flow_label_3972
+        ::continueAtStep3874::
+        localValue3 = dataCollection
+        localValue4 = "pings"
+        localValue3 = localValue3[localValue4]
+        if localValue3 then
+          localValue3 = "Disable"
+          if localValue3 then
+            goto continueAtStep3883
           end
         end
-        arg4 = "Enable"
-        ::flow_label_3972::
-        arg5 = DrawAdvancedText
-        arg6 = 0.451
-        arg7 = 0.516
-        arg8 = 0.005
-        arg9 = 0.0028
-        arg10 = 0.4
-        arg11 = arg4
-        arg122 = " Names"
-        arg11 = arg11 .. arg122
-        arg122 = 255
-        arg13 = 255
-        arg14 = 255
-        arg15 = 255
-        arg16 = 6
-        arg17 = 0
-        arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17)
-        arg5 = CursorInArea
-        arg6 = 0.3187
-        arg7 = 0.3937
-        arg8 = 0.4712
-        arg9 = 0.5462
-        arg5 = arg5(arg6, arg7, arg8, arg9)
-        if arg5 then
-          arg5 = DrawRect
-          arg6 = 0.357
-          arg7 = 0.51
-          arg8 = 0.075
-          arg9 = 0.076
-          arg10 = numberValue28
-          arg11 = numberValue29
-          arg122 = numberValue30
-          arg13 = 150
-          arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-          arg5 = IsControlJustPressed
-          arg6 = 1
-          arg7 = 329
-          arg5 = arg5(arg6, arg7)
-          if not arg5 then
-            arg5 = IsDisabledControlJustPressed
-            arg6 = 1
-            arg7 = 329
-            arg5 = arg5(arg6, arg7)
+        localValue3 = "Enable"
+        ::continueAtStep3883::
+        localValue4 = DrawAdvancedText
+        localValue5 = 0.554
+        localValue6 = 0.415
+        localValue7 = 0.005
+        localValue8 = 0.0028
+        localValue9 = 0.4
+        localValue10 = localValue3
+        localValue11 = " Pings"
+        localValue10 = localValue10 .. localValue11
+        localValue11 = 255
+        localValue122 = 255
+        localValue13 = 255
+        localValue14 = 255
+        localValue15 = 4
+        localValue16 = 0
+        localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16)
+        localValue4 = CursorInArea
+        localValue5 = 0.4197
+        localValue6 = 0.4932
+        localValue7 = 0.3712
+        localValue8 = 0.4462
+        localValue4 = localValue4(localValue5, localValue6, localValue7, localValue8)
+        if localValue4 then
+          localValue4 = DrawRect
+          localValue5 = 0.457
+          localValue6 = 0.41
+          localValue7 = 0.075
+          localValue8 = 0.076
+          localValue9 = number28
+          localValue10 = number29
+          localValue11 = number30
+          localValue122 = 150
+          localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122)
+          localValue4 = IsControlJustPressed
+          localValue5 = 1
+          localValue6 = 329
+          localValue4 = localValue4(localValue5, localValue6)
+          if not localValue4 then
+            localValue4 = IsDisabledControlJustPressed
+            localValue5 = 1
+            localValue6 = 329
+            localValue4 = localValue4(localValue5, localValue6)
           end
-          if arg5 then
-            arg5 = PlaySound
-            arg6 = -1
-            arg7 = "SELECT"
-            arg8 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            arg9 = false
-            arg10 = 0
-            arg11 = true
-            arg5(arg6, arg7, arg8, arg9, arg10, arg11)
-            arg5 = dataTable
-            arg6 = "names"
-            arg7 = dataTable
-            arg8 = "names"
-            arg7 = arg7[arg8]
-            arg7 = not arg7
-            arg5[arg6] = arg7
-            arg5 = SetResourceKvp
-            arg6 = "cmg_gang_names"
-            arg7 = tostring
-            arg8 = dataTable
-            arg9 = "names"
-            arg8 = arg8[arg9]
-            arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg7(arg8)
-            arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+          if localValue4 then
+            localValue4 = PlaySound
+            localValue5 = -1
+            localValue6 = "SELECT"
+            localValue7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            localValue8 = false
+            localValue9 = 0
+            localValue10 = true
+            localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+            localValue4 = dataCollection
+            localValue5 = "pings"
+            localValue6 = dataCollection
+            localValue7 = "pings"
+            localValue6 = localValue6[localValue7]
+            localValue6 = not localValue6
+            localValue4[localValue5] = localValue6
+            localValue4 = SetResourceKvp
+            localValue5 = "cmg_gang_pings"
+            localValue6 = tostring
+            localValue7 = dataCollection
+            localValue8 = "pings"
+            localValue7 = localValue7[localValue8]
+            localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue6(localValue7)
+            localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
           end
         else
-          arg5 = DrawRect
-          arg6 = 0.357
-          arg7 = 0.51
-          arg8 = 0.075
-          arg9 = 0.076
-          arg10 = 0
-          arg11 = 0
-          arg122 = 0
-          arg13 = 150
-          arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+          localValue4 = DrawRect
+          localValue5 = 0.457
+          localValue6 = 0.41
+          localValue7 = 0.075
+          localValue8 = 0.076
+          localValue9 = 0
+          localValue10 = 0
+          localValue11 = 0
+          localValue122 = 150
+          localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122)
         end
-        arg5 = workValue
-        if arg5 then
-          arg5 = DrawAdvancedText
-          arg6 = 0.554
-          arg7 = 0.515
-          arg8 = 0.005
-          arg9 = 0.0028
-          arg10 = 0.4
-          arg11 = "Rename Gang"
-          arg122 = 255
-          arg13 = 255
-          arg14 = 255
-          arg15 = 255
-          arg16 = 4
-          arg17 = 0
-          arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17)
-          arg5 = CursorInArea
-          arg6 = 0.4197
-          arg7 = 0.4932
-          arg8 = 0.4712
-          arg9 = 0.5462
-          arg5 = arg5(arg6, arg7, arg8, arg9)
-          if arg5 then
-            arg5 = DrawRect
-            arg6 = 0.457
-            arg7 = 0.51
-            arg8 = 0.075
-            arg9 = 0.076
-            arg10 = numberValue28
-            arg11 = numberValue29
-            arg122 = numberValue30
-            arg13 = 150
-            arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-            arg5 = IsControlJustPressed
-            arg6 = 1
-            arg7 = 329
-            arg5 = arg5(arg6, arg7)
-            if not arg5 then
-              arg5 = IsDisabledControlJustPressed
-              arg6 = 1
-              arg7 = 329
-              arg5 = arg5(arg6, arg7)
+        localValue4 = dataCollection
+        localValue5 = "names"
+        localValue4 = localValue4[localValue5]
+        if localValue4 then
+          localValue4 = "Disable"
+          if localValue4 then
+            goto continueAtStep3972
+          end
+        end
+        localValue4 = "Enable"
+        ::continueAtStep3972::
+        localValue5 = DrawAdvancedText
+        localValue6 = 0.451
+        localValue7 = 0.516
+        localValue8 = 0.005
+        localValue9 = 0.0028
+        localValue10 = 0.4
+        localValue11 = localValue4
+        localValue122 = " Names"
+        localValue11 = localValue11 .. localValue122
+        localValue122 = 255
+        localValue13 = 255
+        localValue14 = 255
+        localValue15 = 255
+        localValue16 = 6
+        localValue17 = 0
+        localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17)
+        localValue5 = CursorInArea
+        localValue6 = 0.3187
+        localValue7 = 0.3937
+        localValue8 = 0.4712
+        localValue9 = 0.5462
+        localValue5 = localValue5(localValue6, localValue7, localValue8, localValue9)
+        if localValue5 then
+          localValue5 = DrawRect
+          localValue6 = 0.357
+          localValue7 = 0.51
+          localValue8 = 0.075
+          localValue9 = 0.076
+          localValue10 = number28
+          localValue11 = number29
+          localValue122 = number30
+          localValue13 = 150
+          localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+          localValue5 = IsControlJustPressed
+          localValue6 = 1
+          localValue7 = 329
+          localValue5 = localValue5(localValue6, localValue7)
+          if not localValue5 then
+            localValue5 = IsDisabledControlJustPressed
+            localValue6 = 1
+            localValue7 = 329
+            localValue5 = localValue5(localValue6, localValue7)
+          end
+          if localValue5 then
+            localValue5 = PlaySound
+            localValue6 = -1
+            localValue7 = "SELECT"
+            localValue8 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            localValue9 = false
+            localValue10 = 0
+            localValue11 = true
+            localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+            localValue5 = dataCollection
+            localValue6 = "names"
+            localValue7 = dataCollection
+            localValue8 = "names"
+            localValue7 = localValue7[localValue8]
+            localValue7 = not localValue7
+            localValue5[localValue6] = localValue7
+            localValue5 = SetResourceKvp
+            localValue6 = "cmg_gang_names"
+            localValue7 = tostring
+            localValue8 = dataCollection
+            localValue9 = "names"
+            localValue8 = localValue8[localValue9]
+            localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue7(localValue8)
+            localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+          end
+        else
+          localValue5 = DrawRect
+          localValue6 = 0.357
+          localValue7 = 0.51
+          localValue8 = 0.075
+          localValue9 = 0.076
+          localValue10 = 0
+          localValue11 = 0
+          localValue122 = 0
+          localValue13 = 150
+          localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+        end
+        localValue5 = workingValue
+        if localValue5 then
+          localValue5 = DrawAdvancedText
+          localValue6 = 0.554
+          localValue7 = 0.515
+          localValue8 = 0.005
+          localValue9 = 0.0028
+          localValue10 = 0.4
+          localValue11 = "Rename Gang"
+          localValue122 = 255
+          localValue13 = 255
+          localValue14 = 255
+          localValue15 = 255
+          localValue16 = 4
+          localValue17 = 0
+          localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17)
+          localValue5 = CursorInArea
+          localValue6 = 0.4197
+          localValue7 = 0.4932
+          localValue8 = 0.4712
+          localValue9 = 0.5462
+          localValue5 = localValue5(localValue6, localValue7, localValue8, localValue9)
+          if localValue5 then
+            localValue5 = DrawRect
+            localValue6 = 0.457
+            localValue7 = 0.51
+            localValue8 = 0.075
+            localValue9 = 0.076
+            localValue10 = number28
+            localValue11 = number29
+            localValue122 = number30
+            localValue13 = 150
+            localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+            localValue5 = IsControlJustPressed
+            localValue6 = 1
+            localValue7 = 329
+            localValue5 = localValue5(localValue6, localValue7)
+            if not localValue5 then
+              localValue5 = IsDisabledControlJustPressed
+              localValue6 = 1
+              localValue7 = 329
+              localValue5 = localValue5(localValue6, localValue7)
             end
-            if arg5 then
-              arg5 = PlaySound
-              arg6 = -1
-              arg7 = "SELECT"
-              arg8 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              arg9 = false
-              arg10 = 0
-              arg11 = true
-              arg5(arg6, arg7, arg8, arg9, arg10, arg11)
-              arg5 = workValue.isAdvanced
-              if arg5 then
-                arg5 = CMG
-                arg5 = arg5.GetRageInputText
-                arg6 = "Enter Gang Name:"
-                arg5 = arg5(arg6)
-                if nil ~= arg5 and "null" ~= arg5 and "" ~= arg5 then
-                  arg6 = TriggerServerEvent
-                  arg7 = "7a95907fc0"
-                  arg8 = arg5
+            if localValue5 then
+              localValue5 = PlaySound
+              localValue6 = -1
+              localValue7 = "SELECT"
+              localValue8 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              localValue9 = false
+              localValue10 = 0
+              localValue11 = true
+              localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+              localValue5 = workingValue.isAdvanced
+              if localValue5 then
+                localValue5 = CMG
+                localValue5 = localValue5.GetRageInputText
+                localValue6 = "Enter Gang Name:"
+                localValue5 = localValue5(localValue6)
+                if nil ~= localValue5 and "null" ~= localValue5 and "" ~= localValue5 then
+                  localValue6 = TriggerServerEvent
+                  localValue7 = "7a95907fc0"
+                  localValue8 = localValue5
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7a95907fc0".
-                  arg6(arg7, arg8)
+                  localValue6(localValue7, localValue8)
                 else
-                  arg6 = tCMG
-                  arg6 = arg6.notify
-                  arg7 = "~r~No gang name entered!"
+                  localValue6 = tCMG
+                  localValue6 = localValue6.notify
+                  localValue7 = "~r~No gang name entered!"
                   -- Beginner: Show a notification to the player.
-                  arg6(arg7)
+                  localValue6(localValue7)
                 end
               else
-                arg5 = notify
-                arg6 = "~r~Your main gang does not have the advanced license."
-                arg5(arg6)
+                localValue5 = notify
+                localValue6 = "~r~Your main gang does not have the advanced license."
+                localValue5(localValue6)
               end
             end
           else
-            arg5 = DrawRect
-            arg6 = 0.457
-            arg7 = 0.51
-            arg8 = 0.075
-            arg9 = 0.076
-            arg10 = 0
-            arg11 = 0
-            arg122 = 0
-            arg13 = 150
-            arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+            localValue5 = DrawRect
+            localValue6 = 0.457
+            localValue7 = 0.51
+            localValue8 = 0.075
+            localValue9 = 0.076
+            localValue10 = 0
+            localValue11 = 0
+            localValue122 = 0
+            localValue13 = 150
+            localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
           end
         end
-        arg5 = _ENV
-        arg6 = "GetHudColour"
-        arg5 = arg5[arg6]
-        arg6 = cmgCall
-        arg7 = "colourLookup"
-        arg6 = arg6[arg7]
-        arg7 = textValue2
-        arg6 = arg6[arg7]
-        arg7 = "hud"
-        arg6 = arg6[arg7]
-        arg5, arg6, arg7 = arg5(arg6)
-        arg8 = DrawAdvancedText
-        arg9 = 0.645
-        arg10 = 0.63
-        arg11 = 0.005
-        arg122 = 0.0028
-        arg13 = 0.46
-        arg14 = "Your Blip Colour: "
-        arg15 = 255
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 6
-        numberValue7 = 0
-        arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
-        arg8 = DrawRect
-        arg9 = 0.62
-        arg10 = 0.628
-        arg11 = 0.05
-        arg122 = 0.025
-        arg13 = arg5
-        arg14 = arg6
-        arg15 = arg7
-        arg16 = 255
-        arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
-        arg8 = CursorInArea
-        arg9 = 0.595
-        arg10 = 0.645
-        arg11 = 0.6155
-        arg122 = 0.6405
-        arg8 = arg8(arg9, arg10, arg11, arg122)
-        if arg8 then
-          arg8 = IsControlJustPressed
-          arg9 = 1
-          arg10 = 329
-          arg8 = arg8(arg9, arg10)
-          if not arg8 then
-            arg8 = IsDisabledControlJustPressed
-            arg9 = 1
-            arg10 = 329
-            arg8 = arg8(arg9, arg10)
+        localValue5 = _ENV
+        localValue6 = "GetHudColour"
+        localValue5 = localValue5[localValue6]
+        localValue6 = cmgOperation
+        localValue7 = "colourLookup"
+        localValue6 = localValue6[localValue7]
+        localValue7 = text2
+        localValue6 = localValue6[localValue7]
+        localValue7 = "hud"
+        localValue6 = localValue6[localValue7]
+        localValue5, localValue6, localValue7 = localValue5(localValue6)
+        localValue8 = DrawAdvancedText
+        localValue9 = 0.645
+        localValue10 = 0.63
+        localValue11 = 0.005
+        localValue122 = 0.0028
+        localValue13 = 0.46
+        localValue14 = "Your Blip Colour: "
+        localValue15 = 255
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 6
+        number7 = 0
+        localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7)
+        localValue8 = DrawRect
+        localValue9 = 0.62
+        localValue10 = 0.628
+        localValue11 = 0.05
+        localValue122 = 0.025
+        localValue13 = localValue5
+        localValue14 = localValue6
+        localValue15 = localValue7
+        localValue16 = 255
+        localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16)
+        localValue8 = CursorInArea
+        localValue9 = 0.595
+        localValue10 = 0.645
+        localValue11 = 0.6155
+        localValue122 = 0.6405
+        localValue8 = localValue8(localValue9, localValue10, localValue11, localValue122)
+        if localValue8 then
+          localValue8 = IsControlJustPressed
+          localValue9 = 1
+          localValue10 = 329
+          localValue8 = localValue8(localValue9, localValue10)
+          if not localValue8 then
+            localValue8 = IsDisabledControlJustPressed
+            localValue9 = 1
+            localValue10 = 329
+            localValue8 = localValue8(localValue9, localValue10)
           end
-          if arg8 then
-            arg8 = false
-            arg9 = false
-            arg10 = pairs
-            arg11 = cmgCall
-            arg122 = "colourLookup"
-            arg11 = arg11[arg122]
-            arg10, arg11, arg122, arg13 = arg10(arg11)
-            for arg14 in arg10, arg11, arg122, arg13 do
-              arg15 = textValue2
-              if arg14 == arg15 then
-                arg8 = true
-              elseif arg8 then
-                textValue2 = arg14
-                arg9 = true
+          if localValue8 then
+            localValue8 = false
+            localValue9 = false
+            localValue10 = pairs
+            localValue11 = cmgOperation
+            localValue122 = "colourLookup"
+            localValue11 = localValue11[localValue122]
+            localValue10, localValue11, localValue122, localValue13 = localValue10(localValue11)
+            for localValue14 in localValue10, localValue11, localValue122, localValue13 do
+              localValue15 = text2
+              if localValue14 == localValue15 then
+                localValue8 = true
+              elseif localValue8 then
+                text2 = localValue14
+                localValue9 = true
                 break
               end
             end
-            if not arg9 then
-              arg10 = pairs
-              arg11 = cmgCall
-              arg122 = "colourLookup"
-              arg11 = arg11[arg122]
-              arg10, arg11, arg122, arg13 = arg10(arg11)
-              for arg14 in arg10, arg11, arg122, arg13 do
-                textValue2 = arg14
+            if not localValue9 then
+              localValue10 = pairs
+              localValue11 = cmgOperation
+              localValue122 = "colourLookup"
+              localValue11 = localValue11[localValue122]
+              localValue10, localValue11, localValue122, localValue13 = localValue10(localValue11)
+              for localValue14 in localValue10, localValue11, localValue122, localValue13 do
+                text2 = localValue14
                 break
               end
             end
-            arg10 = SetResourceKvp
-            arg11 = "cmg_gang_colour"
-            arg122 = textValue2
-            arg10(arg11, arg122)
-            arg10 = TriggerServerEvent
-            arg11 = "a74c553948"
-            arg122 = textValue2
+            localValue10 = SetResourceKvp
+            localValue11 = "cmg_gang_colour"
+            localValue122 = text2
+            localValue10(localValue11, localValue122)
+            localValue10 = TriggerServerEvent
+            localValue11 = "a74c553948"
+            localValue122 = text2
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a74c553948".
-            arg10(arg11, arg122)
+            localValue10(localValue11, localValue122)
           end
         end
     end
     else
-      arg2 = DrawAdvancedText
-      arg3 = 0.5
-      arg4 = 0.406
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Purchase Advanced License\n(\194\16350,000,000)"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 6
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = DrawAdvancedText
-      arg3 = 0.5
-      arg4 = 0.476
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = [[
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.5
+      localValue4 = 0.406
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Purchase Advanced License\n(\194\16350,000,000)"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 6
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.5
+      localValue4 = 0.476
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = [[
 NOTE:
 This purchase is tied to the gang.
 Any member will be able to use the features.]]
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 6
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = CursorInArea
-      arg3 = 0.3187
-      arg4 = 0.4932
-      arg5 = 0.3712
-      arg6 = 0.5462
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.407
-        arg4 = 0.46
-        arg5 = 0.175
-        arg6 = 0.176
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 6
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = CursorInArea
+      localValue3 = 0.3187
+      localValue4 = 0.4932
+      localValue5 = 0.3712
+      localValue6 = 0.5462
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.407
+        localValue4 = 0.46
+        localValue5 = 0.175
+        localValue6 = 0.176
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = TriggerServerEvent
-          arg3 = "40cb8bd46d"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = TriggerServerEvent
+          localValue3 = "40cb8bd46d"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "40cb8bd46d".
-          arg2(arg3)
+          localValue2(localValue3)
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.407
-        arg4 = 0.46
-        arg5 = 0.175
-        arg6 = 0.176
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.407
+        localValue4 = 0.46
+        localValue5 = 0.175
+        localValue6 = 0.176
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    arg2 = "rpturfs"
-    if arg1 == arg2 then
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.525
-      arg4 = 0.421
-      arg5 = 0.387
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.308
-      arg4 = 0.421
-      arg5 = 0.047
-      arg6 = 18
-      arg7 = 82
-      arg8 = 228
-      arg9 = 248
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.591
-      arg3 = 0.312
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.48
-      arg7 = "CMG Gang - RP Turfs"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.502
-      arg3 = 0.52
-      arg4 = 0.387
-      arg5 = 0.286
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.449
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Gang Name"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.657
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Our Relationship"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.757
-      arg3 = 0.365
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Their Relationship"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.775
-      arg3 = 0.693
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Back"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.6583
-      arg3 = 0.7056
-      arg4 = 0.6712
-      arg5 = 0.7064
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    localValue2 = "rpturfs"
+    if localValue1 == localValue2 then
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.525
+      localValue4 = 0.421
+      localValue5 = 0.387
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.308
+      localValue4 = 0.421
+      localValue5 = 0.047
+      localValue6 = 18
+      localValue7 = 82
+      localValue8 = 228
+      localValue9 = 248
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.591
+      localValue3 = 0.312
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.48
+      localValue7 = "CMG Gang - RP Turfs"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.502
+      localValue3 = 0.52
+      localValue4 = 0.387
+      localValue5 = 0.286
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.449
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Gang Name"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.657
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Our Relationship"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.757
+      localValue3 = 0.365
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Their Relationship"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.775
+      localValue3 = 0.693
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Back"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.6583
+      localValue3 = 0.7056
+      localValue4 = 0.6712
+      localValue5 = 0.7064
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "gang"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "gang"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = workValue
-      arg2 = "id"
-      arg2 = arg1[arg2]
-      arg1 = dataTable5
-      arg1 = arg1[arg2]
-      arg2 = 1
-      arg3 = pairs
-      arg4 = dataTable5
-      arg3, arg4, arg5, arg6 = arg3(arg4)
-      for arg7, arg8 in arg3, arg4, arg5, arg6 do
-        arg9 = workValue
-        arg10 = "id"
-        arg9 = arg9[arg10]
-        if arg7 ~= arg9 then
-          arg9 = "relationships"
-          arg9 = arg1[arg9]
-          arg9 = arg9[arg7]
-          if not arg9 then
-            arg9 = "Neutral"
+      localValue1 = workingValue
+      localValue2 = "id"
+      localValue2 = localValue1[localValue2]
+      localValue1 = dataCollection5
+      localValue1 = localValue1[localValue2]
+      localValue2 = 1
+      localValue3 = pairs
+      localValue4 = dataCollection5
+      localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+      for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+        localValue9 = workingValue
+        localValue10 = "id"
+        localValue9 = localValue9[localValue10]
+        if localValue7 ~= localValue9 then
+          localValue9 = "relationships"
+          localValue9 = localValue1[localValue9]
+          localValue9 = localValue9[localValue7]
+          if not localValue9 then
+            localValue9 = "Neutral"
           end
-          arg10 = "relationships"
-          arg10 = arg8[arg10]
-          arg11 = workValue
-          arg122 = "id"
-          arg11 = arg11[arg122]
-          arg10 = arg10[arg11]
-          if not arg10 then
-            arg10 = "Neutral"
+          localValue10 = "relationships"
+          localValue10 = localValue8[localValue10]
+          localValue11 = workingValue
+          localValue122 = "id"
+          localValue11 = localValue11[localValue122]
+          localValue10 = localValue10[localValue11]
+          if not localValue10 then
+            localValue10 = "Neutral"
           end
-          arg11 = DrawAdvancedText
-          arg122 = 0.449
-          arg13 = 0.0287 * arg2
-          arg14 = 0.365
-          arg13 = arg14 + arg13
-          arg14 = 0.005
-          arg15 = 0.0028
-          arg16 = 0.4
-          arg17 = arg8.name
-          arg18 = 255
-          numberValue5 = 255
-          numberValue7 = 255
-          numberValue8 = 255
-          numberValue9 = 6
-          numberValue10 = 0
-          arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-          arg11 = workValue13
-          arg122 = arg9
-          arg11, arg122, arg13 = arg11(arg122)
-          arg14 = DrawAdvancedText
-          arg15 = 0.657
-          arg16 = 0.0287 * arg2
-          arg17 = 0.365
-          arg16 = arg17 + arg16
-          arg17 = 0.005
-          arg18 = 0.0028
-          numberValue5 = 0.4
-          numberValue7 = arg9
-          numberValue8 = arg11
-          numberValue9 = arg122
-          numberValue10 = arg13
-          numberValue12 = 255
-          numberValue13 = 6
-          numberValue15 = 0
-          arg14(arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15)
-          arg14 = workValue13
-          arg15 = arg10
-          arg14, arg15, arg16 = arg14(arg15)
-          arg17 = DrawAdvancedText
-          arg18 = 0.757
-          numberValue5 = 0.0287 * arg2
-          numberValue7 = 0.365
-          numberValue5 = numberValue7 + numberValue5
-          numberValue7 = 0.005
-          numberValue8 = 0.0028
-          numberValue9 = 0.4
-          numberValue10 = arg10
-          numberValue12 = arg14
-          numberValue13 = arg15
-          numberValue15 = arg16
-          numberValue17 = 255
-          numberValue19 = 6
-          numberValue20 = 0
-          arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-          arg17 = CursorInArea
-          arg18 = 0.3005
-          numberValue5 = 0.6955
-          numberValue7 = arg2 - 1
-          numberValue7 = 0.0287 * numberValue7
-          numberValue7 = 0.3731 + numberValue7
-          numberValue8 = arg2 - 1
-          numberValue8 = 0.0287 * numberValue8
-          numberValue8 = 0.4018 + numberValue8
-          arg17 = arg17(arg18, numberValue5, numberValue7, numberValue8)
-          if arg17 then
-            arg17 = DrawRect
-            arg18 = 0.502
-            numberValue5 = arg2 - 1
-            numberValue5 = 0.0287 * numberValue5
-            numberValue5 = 0.39 + numberValue5
-            numberValue7 = 0.387
-            numberValue8 = 0.027
-            numberValue9 = numberValue28
-            numberValue10 = numberValue29
-            numberValue12 = numberValue30
-            numberValue13 = 150
-            arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
-            arg17 = IsControlJustPressed
-            arg18 = 1
-            numberValue5 = 329
-            arg17 = arg17(arg18, numberValue5)
-            if not arg17 then
-              arg17 = IsDisabledControlJustPressed
-              arg18 = 1
-              numberValue5 = 329
-              arg17 = arg17(arg18, numberValue5)
-              if not arg17 then
-                goto flow_label_4649
+          localValue11 = DrawAdvancedText
+          localValue122 = 0.449
+          localValue13 = 0.0287 * localValue2
+          localValue14 = 0.365
+          localValue13 = localValue14 + localValue13
+          localValue14 = 0.005
+          localValue15 = 0.0028
+          localValue16 = 0.4
+          localValue17 = localValue8.name
+          localValue18 = 255
+          number5 = 255
+          number7 = 255
+          number8 = 255
+          number9 = 6
+          number10 = 0
+          localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+          localValue11 = workingValue13
+          localValue122 = localValue9
+          localValue11, localValue122, localValue13 = localValue11(localValue122)
+          localValue14 = DrawAdvancedText
+          localValue15 = 0.657
+          localValue16 = 0.0287 * localValue2
+          localValue17 = 0.365
+          localValue16 = localValue17 + localValue16
+          localValue17 = 0.005
+          localValue18 = 0.0028
+          number5 = 0.4
+          number7 = localValue9
+          number8 = localValue11
+          number9 = localValue122
+          number10 = localValue13
+          number12 = 255
+          number13 = 6
+          number15 = 0
+          localValue14(localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15)
+          localValue14 = workingValue13
+          localValue15 = localValue10
+          localValue14, localValue15, localValue16 = localValue14(localValue15)
+          localValue17 = DrawAdvancedText
+          localValue18 = 0.757
+          number5 = 0.0287 * localValue2
+          number7 = 0.365
+          number5 = number7 + number5
+          number7 = 0.005
+          number8 = 0.0028
+          number9 = 0.4
+          number10 = localValue10
+          number12 = localValue14
+          number13 = localValue15
+          number15 = localValue16
+          number17 = 255
+          number19 = 6
+          number20 = 0
+          localValue17(localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+          localValue17 = CursorInArea
+          localValue18 = 0.3005
+          number5 = 0.6955
+          number7 = localValue2 - 1
+          number7 = 0.0287 * number7
+          number7 = 0.3731 + number7
+          number8 = localValue2 - 1
+          number8 = 0.0287 * number8
+          number8 = 0.4018 + number8
+          localValue17 = localValue17(localValue18, number5, number7, number8)
+          if localValue17 then
+            localValue17 = DrawRect
+            localValue18 = 0.502
+            number5 = localValue2 - 1
+            number5 = 0.0287 * number5
+            number5 = 0.39 + number5
+            number7 = 0.387
+            number8 = 0.027
+            number9 = number28
+            number10 = number29
+            number12 = number30
+            number13 = 150
+            localValue17(localValue18, number5, number7, number8, number9, number10, number12, number13)
+            localValue17 = IsControlJustPressed
+            localValue18 = 1
+            number5 = 329
+            localValue17 = localValue17(localValue18, number5)
+            if not localValue17 then
+              localValue17 = IsDisabledControlJustPressed
+              localValue18 = 1
+              number5 = 329
+              localValue17 = localValue17(localValue18, number5)
+              if not localValue17 then
+                goto continueAtStep4649
               end
             end
-            arg17 = PlaySound
-            arg18 = -1
-            numberValue5 = "SELECT"
-            numberValue7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            numberValue8 = false
-            numberValue9 = 0
-            numberValue10 = true
-            arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-            arg17 = "Friendly"
-            if arg9 == arg17 then
-              arg17 = TriggerServerEvent
-              arg18 = "bdbde03161"
-              numberValue5 = arg7
-              numberValue7 = "Neutral"
+            localValue17 = PlaySound
+            localValue18 = -1
+            number5 = "SELECT"
+            number7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            number8 = false
+            number9 = 0
+            number10 = true
+            localValue17(localValue18, number5, number7, number8, number9, number10)
+            localValue17 = "Friendly"
+            if localValue9 == localValue17 then
+              localValue17 = TriggerServerEvent
+              localValue18 = "bdbde03161"
+              number5 = localValue7
+              number7 = "Neutral"
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bdbde03161".
-              arg17(arg18, numberValue5, numberValue7)
+              localValue17(localValue18, number5, number7)
             else
-              arg17 = "Neutral"
-              if arg9 == arg17 then
-                arg17 = TriggerServerEvent
-                arg18 = "bdbde03161"
-                numberValue5 = arg7
-                numberValue7 = "Enemy"
-                arg17(arg18, numberValue5, numberValue7)
+              localValue17 = "Neutral"
+              if localValue9 == localValue17 then
+                localValue17 = TriggerServerEvent
+                localValue18 = "bdbde03161"
+                number5 = localValue7
+                number7 = "Enemy"
+                localValue17(localValue18, number5, number7)
               else
-                arg17 = "Enemy"
-                if arg9 == arg17 then
-                  arg17 = TriggerServerEvent
-                  arg18 = "bdbde03161"
-                  numberValue5 = arg7
-                  numberValue7 = "Friendly"
+                localValue17 = "Enemy"
+                if localValue9 == localValue17 then
+                  localValue17 = TriggerServerEvent
+                  localValue18 = "bdbde03161"
+                  number5 = localValue7
+                  number7 = "Friendly"
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bdbde03161".
-                  arg17(arg18, numberValue5, numberValue7)
+                  localValue17(localValue18, number5, number7)
                 end
               end
             end
           end
-          ::flow_label_4649::
-          arg2 = arg2 + 1
+          ::continueAtStep4649::
+          localValue2 = localValue2 + 1
         end
       end
-      arg3 = "turfColour"
-      arg3 = arg1[arg3]
-      if not arg3 then
-        arg3 = "Red"
+      localValue3 = "turfColour"
+      localValue3 = localValue1[localValue3]
+      if not localValue3 then
+        localValue3 = "Red"
       end
-      arg4 = DrawAdvancedText
-      arg5 = 0.415
-      arg6 = 0.693
-      arg7 = 0.005
-      arg8 = 0.0028
-      arg9 = 0.4
-      arg10 = "Turf Colour:"
-      arg11 = 255
-      arg122 = 255
-      arg13 = 255
-      arg14 = 255
-      arg15 = 4
-      arg16 = 0
-      arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
-      arg4 = 0
-      arg5 = 0
-      arg6 = 0
-      if arg3 then
-        arg7 = cmgCall
-        arg8 = "colourLookup"
-        arg7 = arg7[arg8]
-        arg7 = arg7[arg3]
-        if arg7 then
-          arg7 = _ENV
-          arg8 = "GetHudColour"
-          arg7 = arg7[arg8]
-          arg8 = cmgCall
-          arg9 = "colourLookup"
-          arg8 = arg8[arg9]
-          arg8 = arg8[arg3]
-          arg9 = "hud"
-          arg8 = arg8[arg9]
-          arg7, arg8, arg9 = arg7(arg8)
-          arg6 = arg9
-          arg5 = arg8
-          arg4 = arg7
+      localValue4 = DrawAdvancedText
+      localValue5 = 0.415
+      localValue6 = 0.693
+      localValue7 = 0.005
+      localValue8 = 0.0028
+      localValue9 = 0.4
+      localValue10 = "Turf Colour:"
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 255
+      localValue14 = 255
+      localValue15 = 4
+      localValue16 = 0
+      localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16)
+      localValue4 = 0
+      localValue5 = 0
+      localValue6 = 0
+      if localValue3 then
+        localValue7 = cmgOperation
+        localValue8 = "colourLookup"
+        localValue7 = localValue7[localValue8]
+        localValue7 = localValue7[localValue3]
+        if localValue7 then
+          localValue7 = _ENV
+          localValue8 = "GetHudColour"
+          localValue7 = localValue7[localValue8]
+          localValue8 = cmgOperation
+          localValue9 = "colourLookup"
+          localValue8 = localValue8[localValue9]
+          localValue8 = localValue8[localValue3]
+          localValue9 = "hud"
+          localValue8 = localValue8[localValue9]
+          localValue7, localValue8, localValue9 = localValue7(localValue8)
+          localValue6 = localValue9
+          localValue5 = localValue8
+          localValue4 = localValue7
         end
       end
-      arg7 = DrawRect
-      arg8 = 0.367
-      arg9 = 0.689
-      arg10 = 0.045
-      arg11 = 0.03
-      arg122 = arg4
-      arg13 = arg5
-      arg14 = arg6
-      arg15 = 255
-      arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-      arg7 = CursorInAreaRect
-      arg8 = 0.367
-      arg9 = 0.689
-      arg10 = 0.045
-      arg11 = 0.03
-      arg7 = arg7(arg8, arg9, arg10, arg11)
-      if arg7 then
-        arg7 = IsControlJustPressed
-        arg8 = 1
-        arg9 = 329
-        arg7 = arg7(arg8, arg9)
-        if not arg7 then
-          arg7 = IsDisabledControlJustPressed
-          arg8 = 1
-          arg9 = 329
-          arg7 = arg7(arg8, arg9)
-          if not arg7 then
-            goto flow_label_4769
+      localValue7 = DrawRect
+      localValue8 = 0.367
+      localValue9 = 0.689
+      localValue10 = 0.045
+      localValue11 = 0.03
+      localValue122 = localValue4
+      localValue13 = localValue5
+      localValue14 = localValue6
+      localValue15 = 255
+      localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+      localValue7 = CursorInAreaRect
+      localValue8 = 0.367
+      localValue9 = 0.689
+      localValue10 = 0.045
+      localValue11 = 0.03
+      localValue7 = localValue7(localValue8, localValue9, localValue10, localValue11)
+      if localValue7 then
+        localValue7 = IsControlJustPressed
+        localValue8 = 1
+        localValue9 = 329
+        localValue7 = localValue7(localValue8, localValue9)
+        if not localValue7 then
+          localValue7 = IsDisabledControlJustPressed
+          localValue8 = 1
+          localValue9 = 329
+          localValue7 = localValue7(localValue8, localValue9)
+          if not localValue7 then
+            goto continueAtStep4769
           end
         end
-        arg7 = PlaySound
-        arg8 = -1
-        arg9 = "SELECT"
-        arg10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg11 = false
-        arg122 = 0
-        arg13 = true
-        arg7(arg8, arg9, arg10, arg11, arg122, arg13)
-        arg7 = false
-        arg8 = nil
-        arg9 = pairs
-        arg10 = cmgCall
-        arg11 = "colourLookup"
-        arg10 = arg10[arg11]
-        arg9, arg10, arg11, arg122 = arg9(arg10)
-        for arg13 in arg9, arg10, arg11, arg122 do
-          if arg13 == arg3 then
-            arg7 = true
-          elseif arg7 then
-            arg8 = arg13
+        localValue7 = PlaySound
+        localValue8 = -1
+        localValue9 = "SELECT"
+        localValue10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue11 = false
+        localValue122 = 0
+        localValue13 = true
+        localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+        localValue7 = false
+        localValue8 = nil
+        localValue9 = pairs
+        localValue10 = cmgOperation
+        localValue11 = "colourLookup"
+        localValue10 = localValue10[localValue11]
+        localValue9, localValue10, localValue11, localValue122 = localValue9(localValue10)
+        for localValue13 in localValue9, localValue10, localValue11, localValue122 do
+          if localValue13 == localValue3 then
+            localValue7 = true
+          elseif localValue7 then
+            localValue8 = localValue13
             break
           end
         end
-        if not arg8 then
-          arg9 = table
-          arg10 = "keyat"
-          arg9 = arg9[arg10]
-          arg10 = cmgCall
-          arg11 = "colourLookup"
-          arg10 = arg10[arg11]
-          arg11 = 1
-          arg9 = arg9(arg10, arg11)
-          arg8 = arg9
+        if not localValue8 then
+          localValue9 = table
+          localValue10 = "keyat"
+          localValue9 = localValue9[localValue10]
+          localValue10 = cmgOperation
+          localValue11 = "colourLookup"
+          localValue10 = localValue10[localValue11]
+          localValue11 = 1
+          localValue9 = localValue9(localValue10, localValue11)
+          localValue8 = localValue9
         end
-        arg9 = TriggerServerEvent
-        arg10 = "adb903a8eb"
-        arg11 = arg8
+        localValue9 = TriggerServerEvent
+        localValue10 = "adb903a8eb"
+        localValue11 = localValue8
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "adb903a8eb".
-        arg9(arg10, arg11)
+        localValue9(localValue10, localValue11)
       end
     end
   end
-  ::flow_label_4769::
-  arg1 = textValue
-  arg2 = "turfs"
-  if arg1 == arg2 then
-    arg1 = DrawRect
-    arg2 = 0.501
-    arg3 = 0.555
-    arg4 = 0.481
-    arg5 = 0.547
-    arg6 = 0
-    arg7 = 0
-    arg8 = 0
-    arg9 = 150
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawRect
-    arg2 = 0.501
-    arg3 = 0.3
-    arg4 = 0.481
-    arg5 = 0.047
-    arg6 = 18
-    arg7 = 82
-    arg8 = 228
-    arg9 = 248
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawAdvancedText
-    arg2 = 0.591
-    arg3 = 0.303
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.48
-    arg7 = "CMG gang - Turfs"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 7
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = DrawAdvancedText
-    arg2 = 0.5
-    arg3 = 0.345
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.325
-    arg7 = "Turf profits updated every 15 minutes"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 0
-    arg13 = 1
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = CMG
-    arg2 = "getTurfOwnerAndProfit"
-    arg1 = arg1[arg2]
-    arg2 = "weed"
-    arg1, arg2 = arg1(arg2)
-    arg3 = DrawAdvancedText
-    arg4 = 0.369
-    arg5 = 0.38
-    arg6 = 0.005
-    arg7 = 0.0028
-    arg8 = 0.4
-    arg9 = "Weed Turf - (Owned by "
-    arg10 = arg1
-    arg11 = ") Commission - "
-    arg122 = _ENV
-    arg13 = "globalWeedCommissionPercent"
-    arg122 = arg122[arg13]
-    arg13 = "% Profit - \194\163"
-    arg14 = getMoneyStringFormatted
-    arg15 = arg2
-    arg14 = arg14(arg15)
-    arg9 = arg9 .. arg10 .. arg11 .. arg122 .. arg13 .. arg14
-    arg10 = 255
-    arg11 = 255
-    arg122 = 255
-    arg13 = 255
-    arg14 = 0
-    arg15 = 1
-    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-    arg3 = CMG
-    arg4 = "getTurfOwnerAndProfit"
-    arg3 = arg3[arg4]
-    arg4 = "cocaine"
-    arg3, arg4 = arg3(arg4)
-    arg5 = DrawAdvancedText
-    arg6 = 0.369
-    arg7 = 0.44
-    arg8 = 0.005
-    arg9 = 0.0028
-    arg10 = 0.4
-    arg11 = "Cocaine Turf - (Owned by "
-    arg122 = arg3
-    arg13 = ") Commission - "
-    arg14 = _ENV
-    arg15 = "globalCocaineCommissionPercent"
-    arg14 = arg14[arg15]
-    arg15 = "% Profit - \194\163"
-    arg16 = getMoneyStringFormatted
-    arg17 = arg4
-    arg16 = arg16(arg17)
-    arg11 = arg11 .. arg122 .. arg13 .. arg14 .. arg15 .. arg16
-    arg122 = 255
-    arg13 = 255
-    arg14 = 255
-    arg15 = 255
-    arg16 = 0
-    arg17 = 1
-    arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17)
-    arg5 = CMG
-    arg6 = "getTurfOwnerAndProfit"
-    arg5 = arg5[arg6]
-    arg6 = "meth"
-    arg5, arg6 = arg5(arg6)
-    arg7 = DrawAdvancedText
-    arg8 = 0.369
-    arg9 = 0.5
-    arg10 = 0.005
-    arg11 = 0.0028
-    arg122 = 0.4
-    arg13 = "Meth Turf - (Owned by "
-    arg14 = arg5
-    arg15 = ") Commission - "
-    arg16 = _ENV
-    arg17 = "globalMethCommissionPercent"
-    arg16 = arg16[arg17]
-    arg17 = "% Profit - \194\163"
-    arg18 = getMoneyStringFormatted
-    numberValue5 = arg6
-    arg18 = arg18(numberValue5)
-    arg13 = arg13 .. arg14 .. arg15 .. arg16 .. arg17 .. arg18
-    arg14 = 255
-    arg15 = 255
-    arg16 = 255
-    arg17 = 255
-    arg18 = 0
-    numberValue5 = 1
-    arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
-    arg7 = CMG
-    arg8 = "getTurfOwnerAndProfit"
-    arg7 = arg7[arg8]
-    arg8 = "heroin"
-    arg7, arg8 = arg7(arg8)
-    arg9 = DrawAdvancedText
-    arg10 = 0.369
-    arg11 = 0.56
-    arg122 = 0.005
-    arg13 = 0.0028
-    arg14 = 0.4
-    arg15 = "Heroin Turf - (Owned by "
-    arg16 = arg7
-    arg17 = ") Commission - "
-    arg18 = _ENV
-    numberValue5 = "globalHeroinCommissionPercent"
-    arg18 = arg18[numberValue5]
-    numberValue5 = "% Profit - \194\163"
-    numberValue7 = getMoneyStringFormatted
-    numberValue8 = arg8
-    numberValue7 = numberValue7(numberValue8)
-    arg15 = arg15 .. arg16 .. arg17 .. arg18 .. numberValue5 .. numberValue7
-    arg16 = 255
-    arg17 = 255
-    arg18 = 255
-    numberValue5 = 255
-    numberValue7 = 0
-    numberValue8 = 1
-    arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-    arg9 = CMG
-    arg10 = "getTurfOwnerAndProfit"
-    arg9 = arg9[arg10]
-    arg10 = "large_arms"
-    arg9, arg10 = arg9(arg10)
-    arg11 = DrawAdvancedText
-    arg122 = 0.369
-    arg13 = 0.62
-    arg14 = 0.005
-    arg15 = 0.0028
-    arg16 = 0.4
-    arg17 = "Large Arms - (Owned by "
-    arg18 = arg9
-    numberValue5 = ") Commission - "
-    numberValue7 = _ENV
-    numberValue8 = "globalLargeArmsCommission"
-    numberValue7 = numberValue7[numberValue8]
-    numberValue8 = "% Profit - \194\163"
-    numberValue9 = getMoneyStringFormatted
-    numberValue10 = arg10
-    numberValue9 = numberValue9(numberValue10)
-    arg17 = arg17 .. arg18 .. numberValue5 .. numberValue7 .. numberValue8 .. numberValue9
-    arg18 = 255
-    numberValue5 = 255
-    numberValue7 = 255
-    numberValue8 = 255
-    numberValue9 = 0
-    numberValue10 = 1
-    arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-    arg11 = CMG
-    arg122 = "getTurfOwnerAndProfit"
-    arg11 = arg11[arg122]
-    arg122 = "lsd_north"
-    arg11, arg122 = arg11(arg122)
-    arg13 = DrawAdvancedText
-    arg14 = 0.369
-    arg15 = 0.68
-    arg16 = 0.005
-    arg17 = 0.0028
-    arg18 = 0.4
-    numberValue5 = "LSD North Turf - (Owned by "
-    numberValue7 = arg11
-    numberValue8 = ") Commission - "
-    numberValue9 = _ENV
-    numberValue10 = "globalLSDNorthCommissionPercent"
-    numberValue9 = numberValue9[numberValue10]
-    numberValue10 = "% Profit - \194\163"
-    numberValue12 = getMoneyStringFormatted
-    numberValue13 = arg122
-    numberValue12 = numberValue12(numberValue13)
-    numberValue5 = numberValue5 .. numberValue7 .. numberValue8 .. numberValue9 .. numberValue10 .. numberValue12
-    numberValue7 = 255
-    numberValue8 = 255
-    numberValue9 = 255
-    numberValue10 = 255
-    numberValue12 = 0
-    numberValue13 = 1
-    arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
-    arg13 = CMG
-    arg14 = "getTurfOwnerAndProfit"
-    arg13 = arg13[arg14]
-    arg14 = "lsd_south"
-    arg13, arg14 = arg13(arg14)
-    arg15 = DrawAdvancedText
-    arg16 = 0.369
-    arg17 = 0.74
-    arg18 = 0.005
-    numberValue5 = 0.0028
-    numberValue7 = 0.4
-    numberValue8 = "LSD South Turf - (Owned by "
-    numberValue9 = arg13
-    numberValue10 = ") Commission - "
-    numberValue12 = _ENV
-    numberValue13 = "globalLSDSouthCommissionPercent"
-    numberValue12 = numberValue12[numberValue13]
-    numberValue13 = "% Profit - \194\163"
-    numberValue15 = getMoneyStringFormatted
-    numberValue17 = arg14
-    numberValue15 = numberValue15(numberValue17)
-    numberValue8 = numberValue8 .. numberValue9 .. numberValue10 .. numberValue12 .. numberValue13 .. numberValue15
-    numberValue9 = 255
-    numberValue10 = 255
-    numberValue12 = 255
-    numberValue13 = 255
-    numberValue15 = 0
-    numberValue17 = 1
-    arg15(arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17)
-    arg15 = CMG
-    arg16 = "getTurfOwnerAndProfit"
-    arg15 = arg15[arg16]
-    arg16 = "black_market"
-    arg15, arg16 = arg15(arg16)
-    arg17 = DrawAdvancedText
-    arg18 = 0.369
-    numberValue5 = 0.8
-    numberValue7 = 0.005
-    numberValue8 = 0.0028
-    numberValue9 = 0.4
-    numberValue10 = "Black Market - (Owned by "
-    numberValue12 = arg15
-    numberValue13 = ") Commission - "
-    numberValue15 = _ENV
-    numberValue17 = "globalBlackMarketCommision"
-    numberValue15 = numberValue15[numberValue17]
-    numberValue17 = "% Profit - \194\163"
-    numberValue19 = getMoneyStringFormatted
-    numberValue20 = arg16
-    numberValue19 = numberValue19(numberValue20)
-    numberValue10 = numberValue10 .. numberValue12 .. numberValue13 .. numberValue15 .. numberValue17 .. numberValue19
-    numberValue12 = 255
-    numberValue13 = 255
-    numberValue15 = 255
-    numberValue17 = 255
-    numberValue19 = 0
-    numberValue20 = 1
-    arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-    arg17 = DrawAdvancedText
-    arg18 = 0.804
-    numberValue5 = 0.744
-    numberValue7 = 0.005
-    numberValue8 = 0.0028
-    numberValue9 = 0.4
-    numberValue10 = "Back"
-    numberValue12 = 255
-    numberValue13 = 255
-    numberValue15 = 255
-    numberValue17 = 255
-    numberValue19 = 4
-    numberValue20 = 0
-    arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-    arg17 = CursorInArea
-    arg18 = 0.6873
-    numberValue5 = 0.7346
-    numberValue7 = 0.7222
-    numberValue8 = 0.7574
-    arg17 = arg17(arg18, numberValue5, numberValue7, numberValue8)
-    if arg17 then
-      arg17 = DrawRect
-      arg18 = 0.71
-      numberValue5 = 0.74
-      numberValue7 = 0.045
-      numberValue8 = 0.036
-      numberValue9 = numberValue28
-      numberValue10 = numberValue29
-      numberValue12 = numberValue30
-      numberValue13 = 150
-      arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
-      arg17 = IsControlJustPressed
-      arg18 = 1
-      numberValue5 = 329
-      arg17 = arg17(arg18, numberValue5)
-      if not arg17 then
-        arg17 = IsDisabledControlJustPressed
-        arg18 = 1
-        numberValue5 = 329
-        arg17 = arg17(arg18, numberValue5)
+  ::continueAtStep4769::
+  localValue1 = text
+  localValue2 = "turfs"
+  if localValue1 == localValue2 then
+    localValue1 = DrawRect
+    localValue2 = 0.501
+    localValue3 = 0.555
+    localValue4 = 0.481
+    localValue5 = 0.547
+    localValue6 = 0
+    localValue7 = 0
+    localValue8 = 0
+    localValue9 = 150
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawRect
+    localValue2 = 0.501
+    localValue3 = 0.3
+    localValue4 = 0.481
+    localValue5 = 0.047
+    localValue6 = 18
+    localValue7 = 82
+    localValue8 = 228
+    localValue9 = 248
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.591
+    localValue3 = 0.303
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.48
+    localValue7 = "CMG gang - Turfs"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 7
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.5
+    localValue3 = 0.345
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.325
+    localValue7 = "Turf profits updated every 15 minutes"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 0
+    localValue13 = 1
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = CMG
+    localValue2 = "getTurfOwnerAndProfit"
+    localValue1 = localValue1[localValue2]
+    localValue2 = "weed"
+    localValue1, localValue2 = localValue1(localValue2)
+    localValue3 = DrawAdvancedText
+    localValue4 = 0.369
+    localValue5 = 0.38
+    localValue6 = 0.005
+    localValue7 = 0.0028
+    localValue8 = 0.4
+    localValue9 = "Weed Turf - (Owned by "
+    localValue10 = localValue1
+    localValue11 = ") Commission - "
+    localValue122 = _ENV
+    localValue13 = "globalWeedCommissionPercent"
+    localValue122 = localValue122[localValue13]
+    localValue13 = "% Profit - \194\163"
+    localValue14 = getMoneyStringFormatted
+    localValue15 = localValue2
+    localValue14 = localValue14(localValue15)
+    localValue9 = localValue9 .. localValue10 .. localValue11 .. localValue122 .. localValue13 .. localValue14
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 0
+    localValue15 = 1
+    localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+    localValue3 = CMG
+    localValue4 = "getTurfOwnerAndProfit"
+    localValue3 = localValue3[localValue4]
+    localValue4 = "cocaine"
+    localValue3, localValue4 = localValue3(localValue4)
+    localValue5 = DrawAdvancedText
+    localValue6 = 0.369
+    localValue7 = 0.44
+    localValue8 = 0.005
+    localValue9 = 0.0028
+    localValue10 = 0.4
+    localValue11 = "Cocaine Turf - (Owned by "
+    localValue122 = localValue3
+    localValue13 = ") Commission - "
+    localValue14 = _ENV
+    localValue15 = "globalCocaineCommissionPercent"
+    localValue14 = localValue14[localValue15]
+    localValue15 = "% Profit - \194\163"
+    localValue16 = getMoneyStringFormatted
+    localValue17 = localValue4
+    localValue16 = localValue16(localValue17)
+    localValue11 = localValue11 .. localValue122 .. localValue13 .. localValue14 .. localValue15 .. localValue16
+    localValue122 = 255
+    localValue13 = 255
+    localValue14 = 255
+    localValue15 = 255
+    localValue16 = 0
+    localValue17 = 1
+    localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17)
+    localValue5 = CMG
+    localValue6 = "getTurfOwnerAndProfit"
+    localValue5 = localValue5[localValue6]
+    localValue6 = "meth"
+    localValue5, localValue6 = localValue5(localValue6)
+    localValue7 = DrawAdvancedText
+    localValue8 = 0.369
+    localValue9 = 0.5
+    localValue10 = 0.005
+    localValue11 = 0.0028
+    localValue122 = 0.4
+    localValue13 = "Meth Turf - (Owned by "
+    localValue14 = localValue5
+    localValue15 = ") Commission - "
+    localValue16 = _ENV
+    localValue17 = "globalMethCommissionPercent"
+    localValue16 = localValue16[localValue17]
+    localValue17 = "% Profit - \194\163"
+    localValue18 = getMoneyStringFormatted
+    number5 = localValue6
+    localValue18 = localValue18(number5)
+    localValue13 = localValue13 .. localValue14 .. localValue15 .. localValue16 .. localValue17 .. localValue18
+    localValue14 = 255
+    localValue15 = 255
+    localValue16 = 255
+    localValue17 = 255
+    localValue18 = 0
+    number5 = 1
+    localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5)
+    localValue7 = CMG
+    localValue8 = "getTurfOwnerAndProfit"
+    localValue7 = localValue7[localValue8]
+    localValue8 = "heroin"
+    localValue7, localValue8 = localValue7(localValue8)
+    localValue9 = DrawAdvancedText
+    localValue10 = 0.369
+    localValue11 = 0.56
+    localValue122 = 0.005
+    localValue13 = 0.0028
+    localValue14 = 0.4
+    localValue15 = "Heroin Turf - (Owned by "
+    localValue16 = localValue7
+    localValue17 = ") Commission - "
+    localValue18 = _ENV
+    number5 = "globalHeroinCommissionPercent"
+    localValue18 = localValue18[number5]
+    number5 = "% Profit - \194\163"
+    number7 = getMoneyStringFormatted
+    number8 = localValue8
+    number7 = number7(number8)
+    localValue15 = localValue15 .. localValue16 .. localValue17 .. localValue18 .. number5 .. number7
+    localValue16 = 255
+    localValue17 = 255
+    localValue18 = 255
+    number5 = 255
+    number7 = 0
+    number8 = 1
+    localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+    localValue9 = CMG
+    localValue10 = "getTurfOwnerAndProfit"
+    localValue9 = localValue9[localValue10]
+    localValue10 = "large_arms"
+    localValue9, localValue10 = localValue9(localValue10)
+    localValue11 = DrawAdvancedText
+    localValue122 = 0.369
+    localValue13 = 0.62
+    localValue14 = 0.005
+    localValue15 = 0.0028
+    localValue16 = 0.4
+    localValue17 = "Large Arms - (Owned by "
+    localValue18 = localValue9
+    number5 = ") Commission - "
+    number7 = _ENV
+    number8 = "globalLargeArmsCommission"
+    number7 = number7[number8]
+    number8 = "% Profit - \194\163"
+    number9 = getMoneyStringFormatted
+    number10 = localValue10
+    number9 = number9(number10)
+    localValue17 = localValue17 .. localValue18 .. number5 .. number7 .. number8 .. number9
+    localValue18 = 255
+    number5 = 255
+    number7 = 255
+    number8 = 255
+    number9 = 0
+    number10 = 1
+    localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+    localValue11 = CMG
+    localValue122 = "getTurfOwnerAndProfit"
+    localValue11 = localValue11[localValue122]
+    localValue122 = "lsd_north"
+    localValue11, localValue122 = localValue11(localValue122)
+    localValue13 = DrawAdvancedText
+    localValue14 = 0.369
+    localValue15 = 0.68
+    localValue16 = 0.005
+    localValue17 = 0.0028
+    localValue18 = 0.4
+    number5 = "LSD North Turf - (Owned by "
+    number7 = localValue11
+    number8 = ") Commission - "
+    number9 = _ENV
+    number10 = "globalLSDNorthCommissionPercent"
+    number9 = number9[number10]
+    number10 = "% Profit - \194\163"
+    number12 = getMoneyStringFormatted
+    number13 = localValue122
+    number12 = number12(number13)
+    number5 = number5 .. number7 .. number8 .. number9 .. number10 .. number12
+    number7 = 255
+    number8 = 255
+    number9 = 255
+    number10 = 255
+    number12 = 0
+    number13 = 1
+    localValue13(localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13)
+    localValue13 = CMG
+    localValue14 = "getTurfOwnerAndProfit"
+    localValue13 = localValue13[localValue14]
+    localValue14 = "lsd_south"
+    localValue13, localValue14 = localValue13(localValue14)
+    localValue15 = DrawAdvancedText
+    localValue16 = 0.369
+    localValue17 = 0.74
+    localValue18 = 0.005
+    number5 = 0.0028
+    number7 = 0.4
+    number8 = "LSD South Turf - (Owned by "
+    number9 = localValue13
+    number10 = ") Commission - "
+    number12 = _ENV
+    number13 = "globalLSDSouthCommissionPercent"
+    number12 = number12[number13]
+    number13 = "% Profit - \194\163"
+    number15 = getMoneyStringFormatted
+    number17 = localValue14
+    number15 = number15(number17)
+    number8 = number8 .. number9 .. number10 .. number12 .. number13 .. number15
+    number9 = 255
+    number10 = 255
+    number12 = 255
+    number13 = 255
+    number15 = 0
+    number17 = 1
+    localValue15(localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17)
+    localValue15 = CMG
+    localValue16 = "getTurfOwnerAndProfit"
+    localValue15 = localValue15[localValue16]
+    localValue16 = "black_market"
+    localValue15, localValue16 = localValue15(localValue16)
+    localValue17 = DrawAdvancedText
+    localValue18 = 0.369
+    number5 = 0.8
+    number7 = 0.005
+    number8 = 0.0028
+    number9 = 0.4
+    number10 = "Black Market - (Owned by "
+    number12 = localValue15
+    number13 = ") Commission - "
+    number15 = _ENV
+    number17 = "globalBlackMarketCommision"
+    number15 = number15[number17]
+    number17 = "% Profit - \194\163"
+    number19 = getMoneyStringFormatted
+    number20 = localValue16
+    number19 = number19(number20)
+    number10 = number10 .. number12 .. number13 .. number15 .. number17 .. number19
+    number12 = 255
+    number13 = 255
+    number15 = 255
+    number17 = 255
+    number19 = 0
+    number20 = 1
+    localValue17(localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+    localValue17 = DrawAdvancedText
+    localValue18 = 0.804
+    number5 = 0.744
+    number7 = 0.005
+    number8 = 0.0028
+    number9 = 0.4
+    number10 = "Back"
+    number12 = 255
+    number13 = 255
+    number15 = 255
+    number17 = 255
+    number19 = 4
+    number20 = 0
+    localValue17(localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+    localValue17 = CursorInArea
+    localValue18 = 0.6873
+    number5 = 0.7346
+    number7 = 0.7222
+    number8 = 0.7574
+    localValue17 = localValue17(localValue18, number5, number7, number8)
+    if localValue17 then
+      localValue17 = DrawRect
+      localValue18 = 0.71
+      number5 = 0.74
+      number7 = 0.045
+      number8 = 0.036
+      number9 = number28
+      number10 = number29
+      number12 = number30
+      number13 = 150
+      localValue17(localValue18, number5, number7, number8, number9, number10, number12, number13)
+      localValue17 = IsControlJustPressed
+      localValue18 = 1
+      number5 = 329
+      localValue17 = localValue17(localValue18, number5)
+      if not localValue17 then
+        localValue17 = IsDisabledControlJustPressed
+        localValue18 = 1
+        number5 = 329
+        localValue17 = localValue17(localValue18, number5)
       end
-      if arg17 then
-        arg17 = PlaySound
-        arg18 = -1
-        numberValue5 = "SELECT"
-        numberValue7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        numberValue8 = false
-        numberValue9 = 0
-        numberValue10 = true
-        arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg17 = "gang"
-        textValue = arg17
+      if localValue17 then
+        localValue17 = PlaySound
+        localValue18 = -1
+        number5 = "SELECT"
+        number7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        number8 = false
+        number9 = 0
+        number10 = true
+        localValue17(localValue18, number5, number7, number8, number9, number10)
+        localValue17 = "gang"
+        text = localValue17
       end
     else
-      arg17 = DrawRect
-      arg18 = 0.71
-      numberValue5 = 0.74
-      numberValue7 = 0.045
-      numberValue8 = 0.036
-      numberValue9 = 0
-      numberValue10 = 0
-      numberValue12 = 0
-      numberValue13 = 150
-      arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+      localValue17 = DrawRect
+      localValue18 = 0.71
+      number5 = 0.74
+      number7 = 0.045
+      number8 = 0.036
+      number9 = 0
+      number10 = 0
+      number12 = 0
+      number13 = 150
+      localValue17(localValue18, number5, number7, number8, number9, number10, number12, number13)
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    arg2 = "security"
-    if arg1 == arg2 then
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.525
-      arg4 = 0.421
-      arg5 = 0.387
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.308
-      arg4 = 0.421
-      arg5 = 0.047
-      arg6 = 18
-      arg7 = 82
-      arg8 = 228
-      arg9 = 248
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.591
-      arg3 = 0.312
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.48
-      arg7 = "CMG gang - security"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.4
-      arg3 = 0.375
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "Maximum withdraw amount per member:"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.4
-      arg3 = 0.405
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Sets the maximum amount of money a member can withdraw within a 24 hour time period."
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.525
-      arg3 = 0.377
-      arg4 = 0.1
-      arg5 = 0.03
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 175
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.575
-      arg3 = 0.377
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.44
-      arg7 = "\194\163"
-      arg8 = getMoneyStringFormatted
-      arg9 = workValue
-      arg10 = "maxWithdraw"
-      arg9 = arg9[arg10]
-      arg8 = arg8(arg9)
-      arg7 = arg7 .. arg8
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.31
-      arg3 = 0.65
-      arg4 = 0.36
-      arg5 = 0.41
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
-          if not arg1 then
-            goto flow_label_5281
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    localValue2 = "security"
+    if localValue1 == localValue2 then
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.525
+      localValue4 = 0.421
+      localValue5 = 0.387
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.308
+      localValue4 = 0.421
+      localValue5 = 0.047
+      localValue6 = 18
+      localValue7 = 82
+      localValue8 = 228
+      localValue9 = 248
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.591
+      localValue3 = 0.312
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.48
+      localValue7 = "CMG gang - security"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.4
+      localValue3 = 0.375
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "Maximum withdraw amount per member:"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.4
+      localValue3 = 0.405
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Sets the maximum amount of money a member can withdraw within a 24 hour time period."
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.525
+      localValue3 = 0.377
+      localValue4 = 0.1
+      localValue5 = 0.03
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 175
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.575
+      localValue3 = 0.377
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.44
+      localValue7 = "\194\163"
+      localValue8 = getMoneyStringFormatted
+      localValue9 = workingValue
+      localValue10 = "maxWithdraw"
+      localValue9 = localValue9[localValue10]
+      localValue8 = localValue8(localValue9)
+      localValue7 = localValue7 .. localValue8
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.31
+      localValue3 = 0.65
+      localValue4 = 0.36
+      localValue5 = 0.41
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
+          if not localValue1 then
+            goto continueAtStep5281
           end
         end
-        arg1 = PlaySound
-        arg2 = -1
-        arg3 = "SELECT"
-        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg5 = false
-        arg6 = 0
-        arg7 = true
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-        arg1 = CMG
-        arg1 = arg1.hasGangPermission
-        arg2 = "security"
-        arg1 = arg1(arg2)
-        if arg1 then
-          arg1 = CMG
-          arg1 = arg1.GetRageInputText
-          arg2 = "Enter amount:"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg2 = tonumber
-            arg3 = arg1
-            arg2 = arg2(arg3)
-            if arg2 then
-              arg2 = tonumber
-              arg3 = arg1
-              arg2 = arg2(arg3)
-              if arg2 >= 0 then
-                arg2 = TriggerServerEvent
-                arg3 = "b674c758b8"
-                arg4 = tonumber
-                arg5 = arg1
-                arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg4(arg5)
+        localValue1 = PlaySound
+        localValue2 = -1
+        localValue3 = "SELECT"
+        localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue5 = false
+        localValue6 = 0
+        localValue7 = true
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue1 = CMG
+        localValue1 = localValue1.hasGangPermission
+        localValue2 = "security"
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
+          localValue1 = CMG
+          localValue1 = localValue1.GetRageInputText
+          localValue2 = "Enter amount:"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue2 = tonumber
+            localValue3 = localValue1
+            localValue2 = localValue2(localValue3)
+            if localValue2 then
+              localValue2 = tonumber
+              localValue3 = localValue1
+              localValue2 = localValue2(localValue3)
+              if localValue2 >= 0 then
+                localValue2 = TriggerServerEvent
+                localValue3 = "b674c758b8"
+                localValue4 = tonumber
+                localValue5 = localValue1
+                localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue4(localValue5)
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b674c758b8".
-                arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+                localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
             end
           end
           else
-            arg2 = notify
-            arg3 = "~r~Invalid amount entered."
+            localValue2 = notify
+            localValue3 = "~r~Invalid amount entered."
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           end
         else
-          arg1 = notify
-          arg2 = "~r~You do not have permission to edit security.."
-          arg1(arg2)
+          localValue1 = notify
+          localValue2 = "~r~You do not have permission to edit security.."
+          localValue1(localValue2)
         end
       end
-      ::flow_label_5281::
-      arg1 = DrawAdvancedText
-      arg2 = 0.4
-      arg3 = 0.475
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "Limit withdraw amount to deposit amount:"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.4
-      arg3 = 0.505
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Prevents a member withdrawing more money then they have deposited into the funds."
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.525
-      arg3 = 0.475
-      arg4 = 0.1
-      arg5 = 0.03
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 175
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.575
-      arg3 = 0.475
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = workValue
-      arg8 = "limitWithdrawDeposit"
-      arg7 = arg7[arg8]
-      if arg7 then
-        arg7 = "Yes"
-        if arg7 then
-          goto flow_label_5334
+      ::continueAtStep5281::
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.4
+      localValue3 = 0.475
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "Limit withdraw amount to deposit amount:"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.4
+      localValue3 = 0.505
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Prevents a member withdrawing more money then they have deposited into the funds."
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.525
+      localValue3 = 0.475
+      localValue4 = 0.1
+      localValue5 = 0.03
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 175
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.575
+      localValue3 = 0.475
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = workingValue
+      localValue8 = "limitWithdrawDeposit"
+      localValue7 = localValue7[localValue8]
+      if localValue7 then
+        localValue7 = "Yes"
+        if localValue7 then
+          goto continueAtStep5334
         end
       end
-      arg7 = "No"
-      ::flow_label_5334::
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.31
-      arg3 = 0.65
-      arg4 = 0.46
-      arg5 = 0.51
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
-          if not arg1 then
-            goto flow_label_5386
+      localValue7 = "No"
+      ::continueAtStep5334::
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.31
+      localValue3 = 0.65
+      localValue4 = 0.46
+      localValue5 = 0.51
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
+          if not localValue1 then
+            goto continueAtStep5386
           end
         end
-        arg1 = PlaySound
-        arg2 = -1
-        arg3 = "SELECT"
-        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg5 = false
-        arg6 = 0
-        arg7 = true
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-        arg1 = CMG
-        arg1 = arg1.hasGangPermission
-        arg2 = "security"
-        arg1 = arg1(arg2)
-        if arg1 then
-          arg1 = cmgCall7
-          arg2 = "Enable?"
-          arg1 = arg1(arg2)
-          arg2 = TriggerServerEvent
-          arg3 = "58d834d15a"
-          arg4 = arg1
+        localValue1 = PlaySound
+        localValue2 = -1
+        localValue3 = "SELECT"
+        localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue5 = false
+        localValue6 = 0
+        localValue7 = true
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue1 = CMG
+        localValue1 = localValue1.hasGangPermission
+        localValue2 = "security"
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
+          localValue1 = cmgOperation7
+          localValue2 = "Enable?"
+          localValue1 = localValue1(localValue2)
+          localValue2 = TriggerServerEvent
+          localValue3 = "58d834d15a"
+          localValue4 = localValue1
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "58d834d15a".
-          arg2(arg3, arg4)
+          localValue2(localValue3, localValue4)
         else
-          arg1 = notify
-          arg2 = "~r~You do not have permission to edit security."
+          localValue1 = notify
+          localValue2 = "~r~You do not have permission to edit security."
           -- Beginner: Show a notification to the player.
-          arg1(arg2)
+          localValue1(localValue2)
         end
       end
-      ::flow_label_5386::
-      arg1 = DrawAdvancedText
-      arg2 = 0.4
-      arg3 = 0.575
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "Require reason for deposit/withdraw:"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.4
-      arg3 = 0.605
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Requires a member to provide a reason for depositing or withdrawing from funds."
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.525
-      arg3 = 0.575
-      arg4 = 0.1
-      arg5 = 0.03
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 175
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.575
-      arg3 = 0.575
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = workValue
-      arg8 = "requireWithdrawReason"
-      arg7 = arg7[arg8]
-      if arg7 then
-        arg7 = "Yes"
-        if arg7 then
-          goto flow_label_5439
+      ::continueAtStep5386::
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.4
+      localValue3 = 0.575
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "Require reason for deposit/withdraw:"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.4
+      localValue3 = 0.605
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Requires a member to provide a reason for depositing or withdrawing from funds."
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.525
+      localValue3 = 0.575
+      localValue4 = 0.1
+      localValue5 = 0.03
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 175
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.575
+      localValue3 = 0.575
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = workingValue
+      localValue8 = "requireWithdrawReason"
+      localValue7 = localValue7[localValue8]
+      if localValue7 then
+        localValue7 = "Yes"
+        if localValue7 then
+          goto continueAtStep5439
         end
       end
-      arg7 = "No"
-      ::flow_label_5439::
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 1
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.31
-      arg3 = 0.65
-      arg4 = 0.56
-      arg5 = 0.61
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
-          if not arg1 then
-            goto flow_label_5491
+      localValue7 = "No"
+      ::continueAtStep5439::
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 1
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.31
+      localValue3 = 0.65
+      localValue4 = 0.56
+      localValue5 = 0.61
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
+          if not localValue1 then
+            goto continueAtStep5491
           end
         end
-        arg1 = PlaySound
-        arg2 = -1
-        arg3 = "SELECT"
-        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg5 = false
-        arg6 = 0
-        arg7 = true
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-        arg1 = CMG
-        arg1 = arg1.hasGangPermission
-        arg2 = "security"
-        arg1 = arg1(arg2)
-        if arg1 then
-          arg1 = cmgCall7
-          arg2 = "Enable?"
-          arg1 = arg1(arg2)
-          arg2 = TriggerServerEvent
-          arg3 = "5d7f40bb9d"
-          arg4 = arg1
+        localValue1 = PlaySound
+        localValue2 = -1
+        localValue3 = "SELECT"
+        localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue5 = false
+        localValue6 = 0
+        localValue7 = true
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue1 = CMG
+        localValue1 = localValue1.hasGangPermission
+        localValue2 = "security"
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
+          localValue1 = cmgOperation7
+          localValue2 = "Enable?"
+          localValue1 = localValue1(localValue2)
+          localValue2 = TriggerServerEvent
+          localValue3 = "5d7f40bb9d"
+          localValue4 = localValue1
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5d7f40bb9d".
-          arg2(arg3, arg4)
+          localValue2(localValue3, localValue4)
         else
-          arg1 = notify
-          arg2 = "~r~You do not have permission to edit security."
+          localValue1 = notify
+          localValue2 = "~r~You do not have permission to edit security."
           -- Beginner: Show a notification to the player.
-          arg1(arg2)
+          localValue1(localValue2)
         end
       end
-      ::flow_label_5491::
-      arg1 = DrawAdvancedText
-      arg2 = 0.775
-      arg3 = 0.693
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Back"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.6583
-      arg3 = 0.7056
-      arg4 = 0.6712
-      arg5 = 0.7064
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      ::continueAtStep5491::
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.775
+      localValue3 = 0.693
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Back"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.6583
+      localValue3 = 0.7056
+      localValue4 = 0.6712
+      localValue5 = 0.7064
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "gang"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "gang"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.681
-        arg3 = 0.689
-        arg4 = 0.045
-        arg5 = 0.036
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.681
+        localValue3 = 0.689
+        localValue4 = 0.045
+        localValue5 = 0.036
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    if "permissions" == arg1 then
-      arg1 = workValue.members
-      arg2 = workValue16
-      arg1 = arg1[arg2]
-      if arg1 then
-        arg2 = arg1.permissions
-        if arg2 then
-          goto flow_label_5573
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    if "permissions" == localValue1 then
+      localValue1 = workingValue.members
+      localValue2 = workingValue16
+      localValue1 = localValue1[localValue2]
+      if localValue1 then
+        localValue2 = localValue1.permissions
+        if localValue2 then
+          goto continueAtStep5573
         end
       end
-      arg2 = "members"
-      textValue = arg2
+      localValue2 = "members"
+      text = localValue2
       return
-      ::flow_label_5573::
-      arg2 = DrawRect
-      arg3 = 0.501
-      arg4 = 0.525
-      arg5 = 0.421
-      arg6 = 0.387
-      arg7 = 0
-      arg8 = 0
-      arg9 = 0
-      arg10 = 150
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-      arg2 = DrawRect
-      arg3 = 0.501
-      arg4 = 0.308
-      arg5 = 0.421
-      arg6 = 0.047
-      arg7 = 18
-      arg8 = 82
-      arg9 = 228
-      arg10 = 248
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-      arg2 = DrawAdvancedText
-      arg3 = 0.591
-      arg4 = 0.312
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.48
-      arg8 = "CMG gang - permissions"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 7
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = DrawRect
-      arg3 = 0.501
-      arg4 = 0.52
-      arg5 = 0.395
-      arg6 = 0.291
-      arg7 = 0
-      arg8 = 0
-      arg9 = 0
-      arg10 = 150
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-      arg2 = DrawAdvancedText
-      arg3 = 0.449
-      arg4 = 0.359
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Permission"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 6
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = DrawAdvancedText
-      arg3 = 0.536
-      arg4 = 0.359
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Has Access"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 6
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = DrawAdvancedText
-      arg3 = 0.675
-      arg4 = 0.359
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Description"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 6
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = pairs
-      arg3 = cmgCall.permissions
-      arg2, arg3, arg4, arg5 = arg2(arg3)
-      for arg6, arg7 in arg2, arg3, arg4, arg5 do
-        arg8 = arg1.permissions
-        arg9 = "id"
-        arg9 = arg7[arg9]
-        arg8 = arg8[arg9]
-        if arg8 then
-          arg8 = true
-          if arg8 then
-            goto flow_label_5673
+      ::continueAtStep5573::
+      localValue2 = DrawRect
+      localValue3 = 0.501
+      localValue4 = 0.525
+      localValue5 = 0.421
+      localValue6 = 0.387
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 0
+      localValue10 = 150
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+      localValue2 = DrawRect
+      localValue3 = 0.501
+      localValue4 = 0.308
+      localValue5 = 0.421
+      localValue6 = 0.047
+      localValue7 = 18
+      localValue8 = 82
+      localValue9 = 228
+      localValue10 = 248
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.591
+      localValue4 = 0.312
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.48
+      localValue8 = "CMG gang - permissions"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 7
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = DrawRect
+      localValue3 = 0.501
+      localValue4 = 0.52
+      localValue5 = 0.395
+      localValue6 = 0.291
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 0
+      localValue10 = 150
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.449
+      localValue4 = 0.359
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Permission"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 6
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.536
+      localValue4 = 0.359
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Has Access"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 6
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.675
+      localValue4 = 0.359
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Description"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 6
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = pairs
+      localValue3 = cmgOperation.permissions
+      localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+      for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+        localValue8 = localValue1.permissions
+        localValue9 = "id"
+        localValue9 = localValue7[localValue9]
+        localValue8 = localValue8[localValue9]
+        if localValue8 then
+          localValue8 = true
+          if localValue8 then
+            goto continueAtStep5673
           end
         end
-        arg8 = false
-        ::flow_label_5673::
-        if arg8 then
-          arg9 = 50
-          if arg9 then
-            goto flow_label_5679
+        localValue8 = false
+        ::continueAtStep5673::
+        if localValue8 then
+          localValue9 = 50
+          if localValue9 then
+            goto continueAtStep5679
           end
         end
-        arg9 = 255
-        ::flow_label_5679::
-        if arg8 then
-          arg10 = 255
-          if arg10 then
-            goto flow_label_5685
+        localValue9 = 255
+        ::continueAtStep5679::
+        if localValue8 then
+          localValue10 = 255
+          if localValue10 then
+            goto continueAtStep5685
           end
         end
-        arg10 = 50
-        ::flow_label_5685::
-        arg11 = 50
-        arg122 = DrawAdvancedText
-        arg13 = 0.449
-        arg14 = 0.0287 * arg6
-        arg14 = 0.361 + arg14
-        arg15 = 0.005
-        arg16 = 0.0028
-        arg17 = 0.4
-        arg18 = arg7.name
-        numberValue5 = arg9
-        numberValue7 = arg10
-        numberValue8 = arg11
-        numberValue9 = 255
-        numberValue10 = 6
-        numberValue12 = 0
-        arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12)
-        arg122 = DrawAdvancedText
-        arg13 = 0.536
-        arg14 = 0.0287 * arg6
-        arg14 = 0.361 + arg14
-        arg15 = 0.005
-        arg16 = 0.0028
-        arg17 = 0.4
-        if arg8 then
-          arg18 = "Yes"
-          if arg18 then
-            goto flow_label_5718
+        localValue10 = 50
+        ::continueAtStep5685::
+        localValue11 = 50
+        localValue122 = DrawAdvancedText
+        localValue13 = 0.449
+        localValue14 = 0.0287 * localValue6
+        localValue14 = 0.361 + localValue14
+        localValue15 = 0.005
+        localValue16 = 0.0028
+        localValue17 = 0.4
+        localValue18 = localValue7.name
+        number5 = localValue9
+        number7 = localValue10
+        number8 = localValue11
+        number9 = 255
+        number10 = 6
+        number12 = 0
+        localValue122(localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12)
+        localValue122 = DrawAdvancedText
+        localValue13 = 0.536
+        localValue14 = 0.0287 * localValue6
+        localValue14 = 0.361 + localValue14
+        localValue15 = 0.005
+        localValue16 = 0.0028
+        localValue17 = 0.4
+        if localValue8 then
+          localValue18 = "Yes"
+          if localValue18 then
+            goto continueAtStep5718
           end
         end
-        arg18 = "No"
-        ::flow_label_5718::
-        numberValue5 = arg9
-        numberValue7 = arg10
-        numberValue8 = arg11
-        numberValue9 = 255
-        numberValue10 = 6
-        numberValue12 = 0
-        arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12)
-        arg122 = DrawAdvancedText
-        arg13 = 0.675
-        arg14 = 0.0287 * arg6
-        arg14 = 0.361 + arg14
-        arg15 = 0.005
-        arg16 = 0.0028
-        arg17 = 0.4
-        arg18 = "description"
-        arg18 = arg7[arg18]
-        numberValue5 = arg9
-        numberValue7 = arg10
-        numberValue8 = arg11
-        numberValue9 = 255
-        numberValue10 = 6
-        numberValue12 = 0
-        arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12)
-        arg122 = CursorInArea
-        arg13 = 0.3005
-        arg14 = 0.5955
-        arg15 = arg6 - 1
-        arg15 = 0.0287 * arg15
-        arg15 = 0.3731 + arg15
-        arg16 = arg6 - 1
-        arg16 = 0.0287 * arg16
-        arg16 = 0.4018 + arg16
-        arg122 = arg122(arg13, arg14, arg15, arg16)
-        if arg122 then
-          arg122 = IsControlJustPressed
-          arg13 = 1
-          arg14 = 329
-          arg122 = arg122(arg13, arg14)
-          if not arg122 then
-            arg122 = IsDisabledControlJustPressed
-            arg13 = 1
-            arg14 = 329
-            arg122 = arg122(arg13, arg14)
-            if not arg122 then
-              goto flow_label_5780
+        localValue18 = "No"
+        ::continueAtStep5718::
+        number5 = localValue9
+        number7 = localValue10
+        number8 = localValue11
+        number9 = 255
+        number10 = 6
+        number12 = 0
+        localValue122(localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12)
+        localValue122 = DrawAdvancedText
+        localValue13 = 0.675
+        localValue14 = 0.0287 * localValue6
+        localValue14 = 0.361 + localValue14
+        localValue15 = 0.005
+        localValue16 = 0.0028
+        localValue17 = 0.4
+        localValue18 = "description"
+        localValue18 = localValue7[localValue18]
+        number5 = localValue9
+        number7 = localValue10
+        number8 = localValue11
+        number9 = 255
+        number10 = 6
+        number12 = 0
+        localValue122(localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12)
+        localValue122 = CursorInArea
+        localValue13 = 0.3005
+        localValue14 = 0.5955
+        localValue15 = localValue6 - 1
+        localValue15 = 0.0287 * localValue15
+        localValue15 = 0.3731 + localValue15
+        localValue16 = localValue6 - 1
+        localValue16 = 0.0287 * localValue16
+        localValue16 = 0.4018 + localValue16
+        localValue122 = localValue122(localValue13, localValue14, localValue15, localValue16)
+        if localValue122 then
+          localValue122 = IsControlJustPressed
+          localValue13 = 1
+          localValue14 = 329
+          localValue122 = localValue122(localValue13, localValue14)
+          if not localValue122 then
+            localValue122 = IsDisabledControlJustPressed
+            localValue13 = 1
+            localValue14 = 329
+            localValue122 = localValue122(localValue13, localValue14)
+            if not localValue122 then
+              goto continueAtStep5780
             end
           end
-          arg122 = TriggerServerEvent
-          arg13 = "a6cd82c68e"
-          arg14 = workValue16
-          arg15 = "id"
-          arg15 = arg7[arg15]
-          arg16 = not arg8
+          localValue122 = TriggerServerEvent
+          localValue13 = "a6cd82c68e"
+          localValue14 = workingValue16
+          localValue15 = "id"
+          localValue15 = localValue7[localValue15]
+          localValue16 = not localValue8
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a6cd82c68e".
-          arg122(arg13, arg14, arg15, arg16)
+          localValue122(localValue13, localValue14, localValue15, localValue16)
         end
-        ::flow_label_5780::
+        ::continueAtStep5780::
       end
-      arg2 = DrawAdvancedText
-      arg3 = 0.4
-      arg4 = 0.693
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Editing permissions for "
-      arg9 = arg1.name
-      arg10 = " (User ID: "
-      arg11 = tostring
-      arg122 = workValue16
-      arg11 = arg11(arg122)
-      arg122 = ")"
-      arg8 = arg8 .. arg9 .. arg10 .. arg11 .. arg122
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 4
-      arg14 = 1
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = DrawAdvancedText
-      arg3 = 0.775
-      arg4 = 0.693
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Back"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 4
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = CursorInArea
-      arg3 = 0.6583
-      arg4 = 0.7056
-      arg5 = 0.6712
-      arg6 = 0.7064
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.4
+      localValue4 = 0.693
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Editing permissions for "
+      localValue9 = localValue1.name
+      localValue10 = " (User ID: "
+      localValue11 = tostring
+      localValue122 = workingValue16
+      localValue11 = localValue11(localValue122)
+      localValue122 = ")"
+      localValue8 = localValue8 .. localValue9 .. localValue10 .. localValue11 .. localValue122
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 4
+      localValue14 = 1
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.775
+      localValue4 = 0.693
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Back"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 4
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = CursorInArea
+      localValue3 = 0.6583
+      localValue4 = 0.7056
+      localValue5 = 0.6712
+      localValue6 = 0.7064
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = "members"
-          textValue = arg2
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = "members"
+          text = localValue2
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
     end
   end
-  arg1 = textValue
-  if "guest" == arg1 then
-    arg1 = DrawRect
-    arg2 = 0.501
-    arg3 = 0.525
-    arg4 = 0.421
-    arg5 = 0.387
-    arg6 = 0
-    arg7 = 0
-    arg8 = 0
-    arg9 = 150
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawRect
-    arg2 = 0.501
-    arg3 = 0.308
-    arg4 = 0.421
-    arg5 = 0.047
-    arg6 = 18
-    arg7 = 82
-    arg8 = 228
-    arg9 = 248
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-    arg1 = DrawAdvancedText
-    arg2 = 0.591
-    arg3 = 0.312
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.48
-    arg7 = "CMG gang - guest"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 7
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = workValue3
-    if arg1 then
-      arg1 = DrawRect
-      arg2 = 0.448
-      arg3 = 0.52
-      arg4 = 0.295
-      arg5 = 0.291
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.449
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Name"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.506
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "ID"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.555
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Control"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.625
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Last Seen"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.675
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Pin"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = workValue
-      if arg1 then
-        arg1 = workValue3
-        if arg1 then
-          arg1 = flag2
-          if arg1 then
-            arg1 = "Remove Selection"
-            if arg1 then
-              goto flow_label_6002
+  localValue1 = text
+  if "guest" == localValue1 then
+    localValue1 = DrawRect
+    localValue2 = 0.501
+    localValue3 = 0.525
+    localValue4 = 0.421
+    localValue5 = 0.387
+    localValue6 = 0
+    localValue7 = 0
+    localValue8 = 0
+    localValue9 = 150
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawRect
+    localValue2 = 0.501
+    localValue3 = 0.308
+    localValue4 = 0.421
+    localValue5 = 0.047
+    localValue6 = 18
+    localValue7 = 82
+    localValue8 = 228
+    localValue9 = 248
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.591
+    localValue3 = 0.312
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.48
+    localValue7 = "CMG gang - guest"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 7
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = workingValue3
+    if localValue1 then
+      localValue1 = DrawRect
+      localValue2 = 0.448
+      localValue3 = 0.52
+      localValue4 = 0.295
+      localValue5 = 0.291
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.449
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Name"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.506
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "ID"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.555
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Control"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.625
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Last Seen"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.675
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Pin"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = workingValue
+      if localValue1 then
+        localValue1 = workingValue3
+        if localValue1 then
+          localValue1 = stateFlag2
+          if localValue1 then
+            localValue1 = "Remove Selection"
+            if localValue1 then
+              goto continueAtStep6002
             end
           end
-          arg1 = "Set As Selected"
-          ::flow_label_6002::
-          arg2 = DrawAdvancedText
-          arg3 = 0.746
-          arg4 = 0.465
-          arg5 = 0.005
-          arg6 = 0.0028
-          arg7 = 0.4
-          arg8 = arg1
-          arg9 = 255
-          arg10 = 255
-          arg11 = 255
-          arg122 = 255
-          arg13 = 4
-          arg14 = 0
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+          localValue1 = "Set As Selected"
+          ::continueAtStep6002::
+          localValue2 = DrawAdvancedText
+          localValue3 = 0.746
+          localValue4 = 0.465
+          localValue5 = 0.005
+          localValue6 = 0.0028
+          localValue7 = 0.4
+          localValue8 = localValue1
+          localValue9 = 255
+          localValue10 = 255
+          localValue11 = 255
+          localValue122 = 255
+          localValue13 = 4
+          localValue14 = 0
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
         end
       end
-      arg1 = DrawAdvancedText
-      arg2 = 0.746
-      arg3 = 0.54
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Leave"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.491
-      arg3 = 0.695
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Previous"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.581
-      arg3 = 0.695
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Next"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = table
-      arg1 = arg1.count
-      arg2 = workValue3.members
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.746
+      localValue3 = 0.54
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Leave"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.491
+      localValue3 = 0.695
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Previous"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.581
+      localValue3 = 0.695
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Next"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = table
+      localValue1 = localValue1.count
+      localValue2 = workingValue3.members
       -- Beginner: result below is count.
-      arg1 = arg1(arg2)
-      arg2 = table
-      arg2 = arg2.count
-      arg3 = workValue3.guests
+      localValue1 = localValue1(localValue2)
+      localValue2 = table
+      localValue2 = localValue2.count
+      localValue3 = workingValue3.guests
       -- Beginner: result below is count.
-      arg2 = arg2(arg3)
-      arg1 = arg1 + arg2
-      arg2 = DrawAdvancedText
-      arg3 = 0.536
-      arg4 = 0.695
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = tostring
-      arg9 = numberValue11
-      arg8 = arg8(arg9)
-      arg9 = "/"
-      arg10 = tostring
-      arg11 = math
-      arg11 = arg11.ceil
-      arg122 = arg1 / 10.0
-      arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg11(arg122)
-      arg10 = arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-      arg8 = arg8 .. arg9 .. arg10
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 4
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = DrawAdvancedText
-      arg3 = 0.775
-      arg4 = 0.693
-      arg5 = 0.005
-      arg6 = 0.0028
-      arg7 = 0.4
-      arg8 = "Back"
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 255
-      arg13 = 4
-      arg14 = 0
-      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-      arg2 = workValue
-      if arg2 then
-        arg2 = DrawAdvancedText
-        arg3 = 0.746
-        arg4 = 0.622
-        arg5 = 0.005
-        arg6 = 0.0028
-        arg7 = 0.473
-        arg8 = "Invite Guest"
-        arg9 = 255
-        arg10 = 255
-        arg11 = 255
-        arg122 = 255
-        arg13 = 4
-        arg14 = 0
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-        arg2 = CursorInAreaRect
-        arg3 = 0.651
-        arg4 = 0.622
-        arg5 = 0.065
-        arg6 = 0.056
-        arg2 = arg2(arg3, arg4, arg5, arg6)
-        if arg2 then
-          arg2 = DrawRect
-          arg3 = 0.651
-          arg4 = 0.622
-          arg5 = 0.065
-          arg6 = 0.056
-          arg7 = 0
-          arg8 = 168
-          arg9 = 255
-          arg10 = 150
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-          arg2 = IsControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
-          if not arg2 then
-            arg2 = IsDisabledControlJustPressed
-            arg3 = 1
-            arg4 = 329
-            arg2 = arg2(arg3, arg4)
+      localValue2 = localValue2(localValue3)
+      localValue1 = localValue1 + localValue2
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.536
+      localValue4 = 0.695
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = tostring
+      localValue9 = number11
+      localValue8 = localValue8(localValue9)
+      localValue9 = "/"
+      localValue10 = tostring
+      localValue11 = math
+      localValue11 = localValue11.ceil
+      localValue122 = localValue1 / 10.0
+      localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue11(localValue122)
+      localValue10 = localValue10(localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+      localValue8 = localValue8 .. localValue9 .. localValue10
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 4
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = DrawAdvancedText
+      localValue3 = 0.775
+      localValue4 = 0.693
+      localValue5 = 0.005
+      localValue6 = 0.0028
+      localValue7 = 0.4
+      localValue8 = "Back"
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 255
+      localValue13 = 4
+      localValue14 = 0
+      localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+      localValue2 = workingValue
+      if localValue2 then
+        localValue2 = DrawAdvancedText
+        localValue3 = 0.746
+        localValue4 = 0.622
+        localValue5 = 0.005
+        localValue6 = 0.0028
+        localValue7 = 0.473
+        localValue8 = "Invite Guest"
+        localValue9 = 255
+        localValue10 = 255
+        localValue11 = 255
+        localValue122 = 255
+        localValue13 = 4
+        localValue14 = 0
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+        localValue2 = CursorInAreaRect
+        localValue3 = 0.651
+        localValue4 = 0.622
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+        if localValue2 then
+          localValue2 = DrawRect
+          localValue3 = 0.651
+          localValue4 = 0.622
+          localValue5 = 0.065
+          localValue6 = 0.056
+          localValue7 = 0
+          localValue8 = 168
+          localValue9 = 255
+          localValue10 = 150
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+          localValue2 = IsControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
+          if not localValue2 then
+            localValue2 = IsDisabledControlJustPressed
+            localValue3 = 1
+            localValue4 = 329
+            localValue2 = localValue2(localValue3, localValue4)
           end
-          if arg2 then
-            arg2 = PlaySound
-            arg3 = -1
-            arg4 = "SELECT"
-            arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            arg6 = false
-            arg7 = 0
-            arg8 = true
-            arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-            arg2 = CMG
-            arg2 = arg2.hasGangPermission
-            arg3 = "inviteguest"
-            arg2 = arg2(arg3)
-            if arg2 then
-              arg2 = CMG
-              arg2 = arg2.GetRageInputText
-              arg3 = "Enter Perm ID to invite:"
-              arg2 = arg2(arg3)
-              if nil ~= arg2 then
-                arg3 = tonumber
-                arg4 = arg2
-                arg3 = arg3(arg4)
-                if arg3 then
-                  arg3 = TriggerServerEvent
-                  arg4 = "306a9cdbc9"
-                  arg5 = tonumber
-                  arg6 = arg2
-                  arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg5(arg6)
+          if localValue2 then
+            localValue2 = PlaySound
+            localValue3 = -1
+            localValue4 = "SELECT"
+            localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            localValue6 = false
+            localValue7 = 0
+            localValue8 = true
+            localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+            localValue2 = CMG
+            localValue2 = localValue2.hasGangPermission
+            localValue3 = "inviteguest"
+            localValue2 = localValue2(localValue3)
+            if localValue2 then
+              localValue2 = CMG
+              localValue2 = localValue2.GetRageInputText
+              localValue3 = "Enter Perm ID to invite:"
+              localValue2 = localValue2(localValue3)
+              if nil ~= localValue2 then
+                localValue3 = tonumber
+                localValue4 = localValue2
+                localValue3 = localValue3(localValue4)
+                if localValue3 then
+                  localValue3 = TriggerServerEvent
+                  localValue4 = "306a9cdbc9"
+                  localValue5 = tonumber
+                  localValue6 = localValue2
+                  localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue5(localValue6)
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "306a9cdbc9".
-                  arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+                  localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
               end
               else
-                arg3 = tCMG
-                arg3 = arg3.notify
-                arg4 = "Invalid Perm ID entered"
+                localValue3 = tCMG
+                localValue3 = localValue3.notify
+                localValue4 = "Invalid Perm ID entered"
                 -- Beginner: Show a notification to the player.
-                arg3(arg4)
+                localValue3(localValue4)
               end
             else
-              arg2 = tCMG
-              arg2 = arg2.notify
-              arg3 = "~r~You don't have permission to invite players"
-              arg2(arg3)
+              localValue2 = tCMG
+              localValue2 = localValue2.notify
+              localValue3 = "~r~You don't have permission to invite players"
+              localValue2(localValue3)
             end
           end
         else
-          arg2 = DrawRect
-          arg3 = 0.651
-          arg4 = 0.622
-          arg5 = 0.065
-          arg6 = 0.056
-          arg7 = 0
-          arg8 = 0
-          arg9 = 0
-          arg10 = 150
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+          localValue2 = DrawRect
+          localValue3 = 0.651
+          localValue4 = 0.622
+          localValue5 = 0.065
+          localValue6 = 0.056
+          localValue7 = 0
+          localValue8 = 0
+          localValue9 = 0
+          localValue10 = 150
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
         end
       end
-      arg2 = pairs
-      arg3 = textValue3
-      arg4 = workValue3
-      arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg3(arg4)
-      arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-      for arg6, arg7 in arg2, arg3, arg4, arg5 do
-        arg8 = "Guest"
-        arg9 = arg7.permissions
-        if arg9 then
-          arg9 = tostring
-          arg10 = math
-          arg10 = arg10.floor
-          arg11 = table
-          arg11 = arg11.count
-          arg122 = arg7.permissions
+      localValue2 = pairs
+      localValue3 = text3
+      localValue4 = workingValue3
+      localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue3(localValue4)
+      localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+      for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+        localValue8 = "Guest"
+        localValue9 = localValue7.permissions
+        if localValue9 then
+          localValue9 = tostring
+          localValue10 = math
+          localValue10 = localValue10.floor
+          localValue11 = table
+          localValue11 = localValue11.count
+          localValue122 = localValue7.permissions
           -- Beginner: result below is count.
-          arg11 = arg11(arg122)
-          arg122 = table
-          arg122 = arg122.count
-          arg13 = cmgCall.permissions
+          localValue11 = localValue11(localValue122)
+          localValue122 = table
+          localValue122 = localValue122.count
+          localValue13 = cmgOperation.permissions
           -- Beginner: result below is count.
-          arg122 = arg122(arg13)
-          arg11 = arg11 / arg122
-          arg11 = arg11 * 100.0
-          arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg10(arg11)
-          arg9 = arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
-          arg10 = "%"
-          arg9 = arg9 .. arg10
-          arg8 = arg9
+          localValue122 = localValue122(localValue13)
+          localValue11 = localValue11 / localValue122
+          localValue11 = localValue11 * 100.0
+          localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue10(localValue11)
+          localValue9 = localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
+          localValue10 = "%"
+          localValue9 = localValue9 .. localValue10
+          localValue8 = localValue9
         end
-        arg9 = DrawAdvancedText
-        arg10 = 0.449
-        arg11 = 0.0287 * arg6
-        arg11 = 0.361 + arg11
-        arg122 = 0.005
-        arg13 = 0.0028
-        arg14 = 0.4
-        arg15 = arg7.name
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 6
-        numberValue8 = 0
-        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-        arg9 = DrawAdvancedText
-        arg10 = 0.506
-        arg11 = 0.0287 * arg6
-        arg11 = 0.361 + arg11
-        arg122 = 0.005
-        arg13 = 0.0028
-        arg14 = 0.4
-        arg15 = arg7.user_id
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 6
-        numberValue8 = 0
-        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-        arg9 = DrawAdvancedText
-        arg10 = 0.555
-        arg11 = 0.0287 * arg6
-        arg11 = 0.361 + arg11
-        arg122 = 0.005
-        arg13 = 0.0028
-        arg14 = 0.4
-        arg15 = arg8
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 6
-        numberValue8 = 0
-        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-        arg9 = arg7.lastLogin
-        arg10 = fullPlayerListData
-        arg11 = arg7.user_id
-        arg10 = arg10[arg11]
-        if arg10 then
-          arg10 = CMG
-          arg10 = arg10.isUserHidden
-          arg11 = arg7.user_id
-          arg10 = arg10(arg11)
-          if not arg10 then
-            arg9 = "Online"
+        localValue9 = DrawAdvancedText
+        localValue10 = 0.449
+        localValue11 = 0.0287 * localValue6
+        localValue11 = 0.361 + localValue11
+        localValue122 = 0.005
+        localValue13 = 0.0028
+        localValue14 = 0.4
+        localValue15 = localValue7.name
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 6
+        number8 = 0
+        localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+        localValue9 = DrawAdvancedText
+        localValue10 = 0.506
+        localValue11 = 0.0287 * localValue6
+        localValue11 = 0.361 + localValue11
+        localValue122 = 0.005
+        localValue13 = 0.0028
+        localValue14 = 0.4
+        localValue15 = localValue7.user_id
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 6
+        number8 = 0
+        localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+        localValue9 = DrawAdvancedText
+        localValue10 = 0.555
+        localValue11 = 0.0287 * localValue6
+        localValue11 = 0.361 + localValue11
+        localValue122 = 0.005
+        localValue13 = 0.0028
+        localValue14 = 0.4
+        localValue15 = localValue8
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 6
+        number8 = 0
+        localValue9(localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+        localValue9 = localValue7.lastLogin
+        localValue10 = fullPlayerListData
+        localValue11 = localValue7.user_id
+        localValue10 = localValue10[localValue11]
+        if localValue10 then
+          localValue10 = CMG
+          localValue10 = localValue10.isUserHidden
+          localValue11 = localValue7.user_id
+          localValue10 = localValue10(localValue11)
+          if not localValue10 then
+            localValue9 = "Online"
           end
         end
-        arg10 = DrawAdvancedText
-        arg11 = 0.625
-        arg122 = 0.0287 * arg6
-        arg122 = 0.361 + arg122
-        arg13 = 0.005
-        arg14 = 0.0028
-        arg15 = 0.4
-        arg16 = arg9
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 255
-        numberValue8 = 6
-        numberValue9 = 0
-        arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9)
-        arg10 = dataTable.pinnedPlayers
-        arg11 = arg7.user_id
-        arg10 = arg10[arg11]
-        if arg10 then
-          arg10 = workValue3.isAdvanced
-          if arg10 then
-            arg10 = "\240\159\147\140"
-            if arg10 then
-              goto flow_label_6329
+        localValue10 = DrawAdvancedText
+        localValue11 = 0.625
+        localValue122 = 0.0287 * localValue6
+        localValue122 = 0.361 + localValue122
+        localValue13 = 0.005
+        localValue14 = 0.0028
+        localValue15 = 0.4
+        localValue16 = localValue9
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 255
+        number7 = 255
+        number8 = 6
+        number9 = 0
+        localValue10(localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9)
+        localValue10 = dataCollection.pinnedPlayers
+        localValue11 = localValue7.user_id
+        localValue10 = localValue10[localValue11]
+        if localValue10 then
+          localValue10 = workingValue3.isAdvanced
+          if localValue10 then
+            localValue10 = "\240\159\147\140"
+            if localValue10 then
+              goto continueAtStep6329
             end
           end
         end
-        arg10 = "\226\173\149"
-        ::flow_label_6329::
-        arg11 = DrawAdvancedText
-        arg122 = 0.675
-        arg13 = 0.0287 * arg6
-        arg13 = 0.3665 + arg13
-        arg14 = 0.005
-        arg15 = 0.0028
-        arg16 = 0.2
-        arg17 = arg10
-        arg18 = 255
-        numberValue5 = 255
-        numberValue7 = 255
-        numberValue8 = 255
-        numberValue9 = 6
-        numberValue10 = 0
-        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
-        arg11 = CursorInArea
-        arg122 = 0.5755
-        arg13 = 0.5955
-        arg14 = arg6 - 1
-        arg14 = 0.0287 * arg14
-        arg14 = 0.3731 + arg14
-        arg15 = arg6 - 1
-        arg15 = 0.0287 * arg15
-        arg15 = 0.4018 + arg15
-        arg11 = arg11(arg122, arg13, arg14, arg15)
-        if arg11 then
-          arg11 = IsControlJustPressed
-          arg122 = 1
-          arg13 = 329
-          arg11 = arg11(arg122, arg13)
-          if not arg11 then
-            arg11 = IsDisabledControlJustPressed
-            arg122 = 1
-            arg13 = 329
-            arg11 = arg11(arg122, arg13)
-            if not arg11 then
-              goto flow_label_6402
+        localValue10 = "\226\173\149"
+        ::continueAtStep6329::
+        localValue11 = DrawAdvancedText
+        localValue122 = 0.675
+        localValue13 = 0.0287 * localValue6
+        localValue13 = 0.3665 + localValue13
+        localValue14 = 0.005
+        localValue15 = 0.0028
+        localValue16 = 0.2
+        localValue17 = localValue10
+        localValue18 = 255
+        number5 = 255
+        number7 = 255
+        number8 = 255
+        number9 = 6
+        number10 = 0
+        localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10)
+        localValue11 = CursorInArea
+        localValue122 = 0.5755
+        localValue13 = 0.5955
+        localValue14 = localValue6 - 1
+        localValue14 = 0.0287 * localValue14
+        localValue14 = 0.3731 + localValue14
+        localValue15 = localValue6 - 1
+        localValue15 = 0.0287 * localValue15
+        localValue15 = 0.4018 + localValue15
+        localValue11 = localValue11(localValue122, localValue13, localValue14, localValue15)
+        if localValue11 then
+          localValue11 = IsControlJustPressed
+          localValue122 = 1
+          localValue13 = 329
+          localValue11 = localValue11(localValue122, localValue13)
+          if not localValue11 then
+            localValue11 = IsDisabledControlJustPressed
+            localValue122 = 1
+            localValue13 = 329
+            localValue11 = localValue11(localValue122, localValue13)
+            if not localValue11 then
+              goto continueAtStep6402
             end
           end
-          arg11 = workValue3.isAdvanced
-          if arg11 then
-            arg11 = dataTable.pinnedPlayers
-            arg122 = arg7.user_id
-            arg11 = arg11[arg122]
-            if arg11 then
-              arg11 = dataTable.pinnedPlayers
-              arg122 = arg7.user_id
-              arg11[arg122] = nil
+          localValue11 = workingValue3.isAdvanced
+          if localValue11 then
+            localValue11 = dataCollection.pinnedPlayers
+            localValue122 = localValue7.user_id
+            localValue11 = localValue11[localValue122]
+            if localValue11 then
+              localValue11 = dataCollection.pinnedPlayers
+              localValue122 = localValue7.user_id
+              localValue11[localValue122] = nil
             else
-              arg11 = dataTable.pinnedPlayers
-              arg122 = arg7.user_id
-              arg11[arg122] = true
+              localValue11 = dataCollection.pinnedPlayers
+              localValue122 = localValue7.user_id
+              localValue11[localValue122] = true
             end
-            arg11 = SetResourceKvp
-            arg122 = "cmg_gang_pinned"
-            arg13 = json
-            arg13 = arg13.encode
-            arg14 = dataTable.pinnedPlayers
-            arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg13(arg14)
-            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+            localValue11 = SetResourceKvp
+            localValue122 = "cmg_gang_pinned"
+            localValue13 = json
+            localValue13 = localValue13.encode
+            localValue14 = dataCollection.pinnedPlayers
+            localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue13(localValue14)
+            localValue11(localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
           else
-            arg11 = notify
-            arg122 = "~r~You must have the advanced gang license to pin a player."
+            localValue11 = notify
+            localValue122 = "~r~You must have the advanced gang license to pin a player."
             -- Beginner: Show a notification to the player.
-            arg11(arg122)
+            localValue11(localValue122)
           end
         end
-        ::flow_label_6402::
+        ::continueAtStep6402::
       end
-      arg2 = workValue
-      if arg2 then
-        arg2 = workValue3
-        if arg2 then
-          arg2 = CursorInArea
-          arg3 = 0.6182
-          arg4 = 0.6822
-          arg5 = 0.435
-          arg6 = 0.491
-          arg2 = arg2(arg3, arg4, arg5, arg6)
-          if arg2 then
-            arg2 = DrawRect
-            arg3 = 0.651
-            arg4 = 0.463
-            arg5 = 0.065
-            arg6 = 0.056
-            arg7 = numberValue28
-            arg8 = numberValue29
-            arg9 = numberValue30
-            arg10 = 150
-            arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-            arg2 = IsControlJustPressed
-            arg3 = 1
-            arg4 = 329
-            arg2 = arg2(arg3, arg4)
-            if not arg2 then
-              arg2 = IsDisabledControlJustPressed
-              arg3 = 1
-              arg4 = 329
-              arg2 = arg2(arg3, arg4)
-              if not arg2 then
-                goto flow_label_6504
+      localValue2 = workingValue
+      if localValue2 then
+        localValue2 = workingValue3
+        if localValue2 then
+          localValue2 = CursorInArea
+          localValue3 = 0.6182
+          localValue4 = 0.6822
+          localValue5 = 0.435
+          localValue6 = 0.491
+          localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+          if localValue2 then
+            localValue2 = DrawRect
+            localValue3 = 0.651
+            localValue4 = 0.463
+            localValue5 = 0.065
+            localValue6 = 0.056
+            localValue7 = number28
+            localValue8 = number29
+            localValue9 = number30
+            localValue10 = 150
+            localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+            localValue2 = IsControlJustPressed
+            localValue3 = 1
+            localValue4 = 329
+            localValue2 = localValue2(localValue3, localValue4)
+            if not localValue2 then
+              localValue2 = IsDisabledControlJustPressed
+              localValue3 = 1
+              localValue4 = 329
+              localValue2 = localValue2(localValue3, localValue4)
+              if not localValue2 then
+                goto continueAtStep6504
               end
             end
-            arg2 = PlaySound
-            arg3 = -1
-            arg4 = "SELECT"
-            arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            arg6 = false
-            arg7 = 0
-            arg8 = true
-            arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-            arg2 = flag2
-            if arg2 then
-              arg2 = notify
-              arg3 = "~g~Set main gang as selected"
+            localValue2 = PlaySound
+            localValue3 = -1
+            localValue4 = "SELECT"
+            localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            localValue6 = false
+            localValue7 = 0
+            localValue8 = true
+            localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+            localValue2 = stateFlag2
+            if localValue2 then
+              localValue2 = notify
+              localValue3 = "~g~Set main gang as selected"
               -- Beginner: Show a notification to the player.
-              arg2(arg3)
-              arg2 = false
-              flag2 = arg2
+              localValue2(localValue3)
+              localValue2 = false
+              stateFlag2 = localValue2
             else
-              arg2 = notify
-              arg3 = "~g~Set guest gang as selected"
-              arg2(arg3)
-              arg2 = true
-              flag2 = arg2
+              localValue2 = notify
+              localValue3 = "~g~Set guest gang as selected"
+              localValue2(localValue3)
+              localValue2 = true
+              stateFlag2 = localValue2
             end
-            arg2 = _ENV
-            arg3 = "TriggerEvent"
-            arg2 = arg2[arg3]
-            arg3 = "e713d91b70"
-            arg2(arg3)
-            arg2 = workValue6
-            arg2 = arg2()
-            if not arg2 then
-              goto flow_label_6504
+            localValue2 = _ENV
+            localValue3 = "TriggerEvent"
+            localValue2 = localValue2[localValue3]
+            localValue3 = "e713d91b70"
+            localValue2(localValue3)
+            localValue2 = workingValue6
+            localValue2 = localValue2()
+            if not localValue2 then
+              goto continueAtStep6504
             end
-            arg3 = arg2.isAdvanced
-            if not arg3 then
-              goto flow_label_6504
+            localValue3 = localValue2.isAdvanced
+            if not localValue3 then
+              goto continueAtStep6504
             end
-            arg3 = dataTable
-            arg4 = "blips"
-            arg3 = arg3[arg4]
-            if not arg3 then
-              goto flow_label_6504
+            localValue3 = dataCollection
+            localValue4 = "blips"
+            localValue3 = localValue3[localValue4]
+            if not localValue3 then
+              goto continueAtStep6504
             end
-            arg3 = workValue6
-            arg3 = arg3()
-            arg4 = workValue
-            if arg3 == arg4 then
-              arg3 = "own"
-              if arg3 then
-                goto flow_label_6489
+            localValue3 = workingValue6
+            localValue3 = localValue3()
+            localValue4 = workingValue
+            if localValue3 == localValue4 then
+              localValue3 = "own"
+              if localValue3 then
+                goto continueAtStep6489
               end
             end
-            arg3 = "guest"
-            ::flow_label_6489::
-            arg4 = TriggerServerEvent
-            arg5 = "f9c26121e2"
-            arg6 = arg3
+            localValue3 = "guest"
+            ::continueAtStep6489::
+            localValue4 = TriggerServerEvent
+            localValue5 = "f9c26121e2"
+            localValue6 = localValue3
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-            arg4(arg5, arg6)
+            localValue4(localValue5, localValue6)
           else
-            arg2 = DrawRect
-            arg3 = 0.651
-            arg4 = 0.463
-            arg5 = 0.065
-            arg6 = 0.056
-            arg7 = 0
-            arg8 = 0
-            arg9 = 0
-            arg10 = 150
-            arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+            localValue2 = DrawRect
+            localValue3 = 0.651
+            localValue4 = 0.463
+            localValue5 = 0.065
+            localValue6 = 0.056
+            localValue7 = 0
+            localValue8 = 0
+            localValue9 = 0
+            localValue10 = 150
+            localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
           end
         end
       end
-      ::flow_label_6504::
-      arg2 = CursorInArea
-      arg3 = 0.6182
-      arg4 = 0.6822
-      arg5 = 0.51
-      arg6 = 0.566
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.538
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      ::continueAtStep6504::
+      localValue2 = CursorInArea
+      localValue3 = 0.6182
+      localValue4 = 0.6822
+      localValue5 = 0.51
+      localValue6 = 0.566
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.538
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = cmgCall7
-          arg3 = "Are you sure?"
-          arg2 = arg2(arg3)
-          if arg2 then
-            arg2 = TriggerServerEvent
-            arg3 = "dc72f21cc8"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = cmgOperation7
+          localValue3 = "Are you sure?"
+          localValue2 = localValue2(localValue3)
+          if localValue2 then
+            localValue2 = TriggerServerEvent
+            localValue3 = "dc72f21cc8"
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "dc72f21cc8".
-            arg2(arg3)
+            localValue2(localValue3)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.538
-        arg5 = 0.065
-        arg6 = 0.056
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.538
+        localValue5 = 0.065
+        localValue6 = 0.056
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.3735
-      arg4 = 0.4185
-      arg5 = 0.6768
-      arg6 = 0.7074
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.396
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.3735
+      localValue4 = 0.4185
+      localValue5 = 0.6768
+      localValue6 = 0.7074
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.396
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = numberValue11
-          if arg2 <= 1 then
-            arg2 = tCMG
-            arg2 = arg2.notify
-            arg3 = "~r~Lowest page reached"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = number11
+          if localValue2 <= 1 then
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            localValue3 = "~r~Lowest page reached"
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           else
-            arg2 = numberValue11
-            arg2 = arg2 - 1
-            numberValue11 = arg2
+            localValue2 = number11
+            localValue2 = localValue2 - 1
+            number11 = localValue2
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.396
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.396
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.4635
-      arg4 = 0.5085
-      arg5 = 0.6712
-      arg6 = 0.7064
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.486
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.4635
+      localValue4 = 0.5085
+      localValue5 = 0.6712
+      localValue6 = 0.7064
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.486
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = numberValue11
-          arg3 = math
-          arg3 = arg3.ceil
-          arg4 = arg1 / 10.0
-          arg3 = arg3(arg4)
-          if arg2 >= arg3 then
-            arg2 = tCMG
-            arg2 = arg2.notify
-            arg3 = "~r~Max page reached"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = number11
+          localValue3 = math
+          localValue3 = localValue3.ceil
+          localValue4 = localValue1 / 10.0
+          localValue3 = localValue3(localValue4)
+          if localValue2 >= localValue3 then
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            localValue3 = "~r~Max page reached"
             -- Beginner: Show a notification to the player.
-            arg2(arg3)
+            localValue2(localValue3)
           else
-            arg2 = numberValue11
-            arg2 = arg2 + 1
-            numberValue11 = arg2
+            localValue2 = number11
+            localValue2 = localValue2 + 1
+            number11 = localValue2
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.486
-        arg4 = 0.693
-        arg5 = 0.045
-        arg6 = 0.033
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.486
+        localValue4 = 0.693
+        localValue5 = 0.045
+        localValue6 = 0.033
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.6583
-      arg4 = 0.7056
-      arg5 = 0.6712
-      arg6 = 0.7064
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.6583
+      localValue4 = 0.7056
+      localValue5 = 0.6712
+      localValue6 = 0.7064
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = "gang"
-          textValue = arg2
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = "gang"
+          text = localValue2
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
     else
-      arg1 = DrawAdvancedText
-      arg2 = 0.501
-      arg3 = 0.378
-      arg4 = 0.105
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "Guest Guide"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.501
-      arg3 = 0.416
-      arg4 = 0.105
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "A guest is a player who will temporarily have access to a limited area of your gang."
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.501
-      arg3 = 0.454
-      arg4 = 0.105
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "They will be able to pin members, see pings, see blips and name tags."
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.501
-      arg3 = 0.492
-      arg4 = 0.105
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "They will not be able to see or access your funds, logs, settings and security."
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.501
-      arg3 = 0.53
-      arg4 = 0.105
-      arg5 = 0.0028
-      arg6 = 0.46
-      arg7 = "Being a guest of another gang will not remove you from your current gang."
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = workValue
-      if arg1 then
-        arg1 = DrawAdvancedText
-        arg2 = 0.478
-        arg3 = 0.642
-        arg4 = 0.005
-        arg5 = 0.0028
-        arg6 = 0.473
-        arg7 = "Invite Guest"
-        arg8 = 255
-        arg9 = 255
-        arg10 = 255
-        arg11 = 255
-        arg122 = 4
-        arg13 = 0
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.501
+      localValue3 = 0.378
+      localValue4 = 0.105
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "Guest Guide"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.501
+      localValue3 = 0.416
+      localValue4 = 0.105
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "A guest is a player who will temporarily have access to a limited area of your gang."
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.501
+      localValue3 = 0.454
+      localValue4 = 0.105
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "They will be able to pin members, see pings, see blips and name tags."
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.501
+      localValue3 = 0.492
+      localValue4 = 0.105
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "They will not be able to see or access your funds, logs, settings and security."
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.501
+      localValue3 = 0.53
+      localValue4 = 0.105
+      localValue5 = 0.0028
+      localValue6 = 0.46
+      localValue7 = "Being a guest of another gang will not remove you from your current gang."
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = workingValue
+      if localValue1 then
+        localValue1 = DrawAdvancedText
+        localValue2 = 0.478
+        localValue3 = 0.642
+        localValue4 = 0.005
+        localValue5 = 0.0028
+        localValue6 = 0.473
+        localValue7 = "Invite Guest"
+        localValue8 = 255
+        localValue9 = 255
+        localValue10 = 255
+        localValue11 = 255
+        localValue122 = 4
+        localValue13 = 0
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
       end
-      arg1 = DrawAdvancedText
-      arg2 = 0.564
-      arg3 = 0.643
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.473
-      arg7 = "Accept Invite"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.561
-      arg3 = 0.577
-      arg4 = 0.065
-      arg5 = -0.003
-      arg6 = 0
-      arg7 = 168
-      arg8 = 255
-      arg9 = 204
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.654
-      arg3 = 0.57
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.364
-      arg7 = "Guest Invite list"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = pairs
-      arg2 = dataTable3
-      arg1, arg2, arg3, arg4 = arg1(arg2)
-      for arg5, arg6 in arg1, arg2, arg3, arg4 do
-        arg7 = DrawAdvancedText
-        arg8 = 0.656
-        arg9 = 0.02 * arg5
-        arg10 = 0.598
-        arg9 = arg10 + arg9
-        arg10 = 0.005
-        arg11 = 0.0028
-        arg122 = 0.234
-        arg13 = arg6
-        arg14 = 255
-        arg15 = 255
-        arg16 = 255
-        arg17 = 255
-        arg18 = 0
-        numberValue5 = 0
-        arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
-        arg7 = CursorInArea
-        arg8 = 0.525
-        arg9 = 0.59
-        arg10 = 0.02 * arg5
-        arg11 = 0.58
-        arg10 = arg11 + arg10
-        arg11 = 0.02 * arg5
-        arg122 = 0.596
-        arg11 = arg122 + arg11
-        arg7 = arg7(arg8, arg9, arg10, arg11)
-        if arg7 then
-          arg7 = workValue4
-          if arg5 ~= arg7 then
-            arg7 = DrawRect
-            arg8 = 0.56
-            arg9 = 0.02 * arg5
-            arg9 = 0.59 + arg9
-            arg10 = 0.062
-            arg11 = 0.019
-            arg122 = 0
-            arg13 = 168
-            arg14 = 255
-            arg15 = 150
-            arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
-            arg7 = IsControlJustPressed
-            arg8 = 1
-            arg9 = 329
-            arg7 = arg7(arg8, arg9)
-            if not arg7 then
-              arg7 = IsDisabledControlJustPressed
-              arg8 = 1
-              arg9 = 329
-              arg7 = arg7(arg8, arg9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.564
+      localValue3 = 0.643
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.473
+      localValue7 = "Accept Invite"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.561
+      localValue3 = 0.577
+      localValue4 = 0.065
+      localValue5 = -0.003
+      localValue6 = 0
+      localValue7 = 168
+      localValue8 = 255
+      localValue9 = 204
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.654
+      localValue3 = 0.57
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.364
+      localValue7 = "Guest Invite list"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = pairs
+      localValue2 = dataCollection3
+      localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+      for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+        localValue7 = DrawAdvancedText
+        localValue8 = 0.656
+        localValue9 = 0.02 * localValue5
+        localValue10 = 0.598
+        localValue9 = localValue10 + localValue9
+        localValue10 = 0.005
+        localValue11 = 0.0028
+        localValue122 = 0.234
+        localValue13 = localValue6
+        localValue14 = 255
+        localValue15 = 255
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 0
+        number5 = 0
+        localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5)
+        localValue7 = CursorInArea
+        localValue8 = 0.525
+        localValue9 = 0.59
+        localValue10 = 0.02 * localValue5
+        localValue11 = 0.58
+        localValue10 = localValue11 + localValue10
+        localValue11 = 0.02 * localValue5
+        localValue122 = 0.596
+        localValue11 = localValue122 + localValue11
+        localValue7 = localValue7(localValue8, localValue9, localValue10, localValue11)
+        if localValue7 then
+          localValue7 = workingValue4
+          if localValue5 ~= localValue7 then
+            localValue7 = DrawRect
+            localValue8 = 0.56
+            localValue9 = 0.02 * localValue5
+            localValue9 = 0.59 + localValue9
+            localValue10 = 0.062
+            localValue11 = 0.019
+            localValue122 = 0
+            localValue13 = 168
+            localValue14 = 255
+            localValue15 = 150
+            localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
+            localValue7 = IsControlJustPressed
+            localValue8 = 1
+            localValue9 = 329
+            localValue7 = localValue7(localValue8, localValue9)
+            if not localValue7 then
+              localValue7 = IsDisabledControlJustPressed
+              localValue8 = 1
+              localValue9 = 329
+              localValue7 = localValue7(localValue8, localValue9)
             end
-            if arg7 then
-              workValue4 = arg5
+            if localValue7 then
+              workingValue4 = localValue5
             end
         end
         else
-          arg7 = workValue4
-          if arg5 == arg7 then
-            arg7 = DrawRect
-            arg8 = 0.56
-            arg9 = 0.02 * arg5
-            arg9 = 0.59 + arg9
-            arg10 = 0.062
-            arg11 = 0.019
-            arg122 = 0
-            arg13 = 168
-            arg14 = 255
-            arg15 = 150
-            arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+          localValue7 = workingValue4
+          if localValue5 == localValue7 then
+            localValue7 = DrawRect
+            localValue8 = 0.56
+            localValue9 = 0.02 * localValue5
+            localValue9 = 0.59 + localValue9
+            localValue10 = 0.062
+            localValue11 = 0.019
+            localValue122 = 0
+            localValue13 = 168
+            localValue14 = 255
+            localValue15 = 150
+            localValue7(localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15)
           end
         end
       end
-      arg1 = workValue
-      if arg1 then
-        arg1 = CursorInArea
-        arg2 = 0.35
-        arg3 = 0.415
-        arg4 = 0.615
-        arg5 = 0.66
-        arg1 = arg1(arg2, arg3, arg4, arg5)
-        if arg1 then
-          arg1 = DrawRect
-          arg2 = 0.383
-          arg3 = 0.642
-          arg4 = 0.066
-          arg5 = 0.046
-          arg6 = 0
-          arg7 = 168
-          arg8 = 255
-          arg9 = 150
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-          arg1 = IsControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
-          if not arg1 then
-            arg1 = IsDisabledControlJustPressed
-            arg2 = 1
-            arg3 = 329
-            arg1 = arg1(arg2, arg3)
+      localValue1 = workingValue
+      if localValue1 then
+        localValue1 = CursorInArea
+        localValue2 = 0.35
+        localValue3 = 0.415
+        localValue4 = 0.615
+        localValue5 = 0.66
+        localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+        if localValue1 then
+          localValue1 = DrawRect
+          localValue2 = 0.383
+          localValue3 = 0.642
+          localValue4 = 0.066
+          localValue5 = 0.046
+          localValue6 = 0
+          localValue7 = 168
+          localValue8 = 255
+          localValue9 = 150
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+          localValue1 = IsControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
+          if not localValue1 then
+            localValue1 = IsDisabledControlJustPressed
+            localValue2 = 1
+            localValue3 = 329
+            localValue1 = localValue1(localValue2, localValue3)
           end
-          if arg1 then
-            arg1 = PlaySound
-            arg2 = -1
-            arg3 = "SELECT"
-            arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            arg5 = false
-            arg6 = 0
-            arg7 = true
-            arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-            arg1 = CMG
-            arg1 = arg1.hasGangPermission
-            arg2 = "inviteguest"
-            arg1 = arg1(arg2)
-            if arg1 then
-              arg1 = CMG
-              arg1 = arg1.GetRageInputText
-              arg2 = "Enter Perm ID to invite:"
-              arg1 = arg1(arg2)
-              if nil ~= arg1 then
-                arg2 = tonumber
-                arg3 = arg1
-                arg2 = arg2(arg3)
-                if arg2 then
-                  arg2 = TriggerServerEvent
-                  arg3 = "306a9cdbc9"
-                  arg4 = tonumber
-                  arg5 = arg1
-                  arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg4(arg5)
+          if localValue1 then
+            localValue1 = PlaySound
+            localValue2 = -1
+            localValue3 = "SELECT"
+            localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            localValue5 = false
+            localValue6 = 0
+            localValue7 = true
+            localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+            localValue1 = CMG
+            localValue1 = localValue1.hasGangPermission
+            localValue2 = "inviteguest"
+            localValue1 = localValue1(localValue2)
+            if localValue1 then
+              localValue1 = CMG
+              localValue1 = localValue1.GetRageInputText
+              localValue2 = "Enter Perm ID to invite:"
+              localValue1 = localValue1(localValue2)
+              if nil ~= localValue1 then
+                localValue2 = tonumber
+                localValue3 = localValue1
+                localValue2 = localValue2(localValue3)
+                if localValue2 then
+                  localValue2 = TriggerServerEvent
+                  localValue3 = "306a9cdbc9"
+                  localValue4 = tonumber
+                  localValue5 = localValue1
+                  localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20 = localValue4(localValue5)
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "306a9cdbc9".
-                  arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+                  localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20)
               end
               else
-                arg2 = tCMG
-                arg2 = arg2.notify
-                arg3 = "Invalid Perm ID entered"
+                localValue2 = tCMG
+                localValue2 = localValue2.notify
+                localValue3 = "Invalid Perm ID entered"
                 -- Beginner: Show a notification to the player.
-                arg2(arg3)
+                localValue2(localValue3)
               end
             else
-              arg1 = tCMG
-              arg1 = arg1.notify
-              arg2 = "~r~You don't have permission to invite players"
-              arg1(arg2)
+              localValue1 = tCMG
+              localValue1 = localValue1.notify
+              localValue2 = "~r~You don't have permission to invite players"
+              localValue1(localValue2)
             end
           end
         else
-          arg1 = DrawRect
-          arg2 = 0.383
-          arg3 = 0.642
-          arg4 = 0.066
-          arg5 = 0.046
-          arg6 = 0
-          arg7 = 0
-          arg8 = 0
-          arg9 = 150
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+          localValue1 = DrawRect
+          localValue2 = 0.383
+          localValue3 = 0.642
+          localValue4 = 0.066
+          localValue5 = 0.046
+          localValue6 = 0
+          localValue7 = 0
+          localValue8 = 0
+          localValue9 = 150
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
         end
       end
-      arg1 = CursorInArea
-      arg2 = 0.435
-      arg3 = 0.51
-      arg4 = 0.615
-      arg5 = 0.66
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.469
-        arg3 = 0.642
-        arg4 = 0.066
-        arg5 = 0.046
-        arg6 = 0
-        arg7 = 168
-        arg8 = 255
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.435
+      localValue3 = 0.51
+      localValue4 = 0.615
+      localValue5 = 0.66
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.469
+        localValue3 = 0.642
+        localValue4 = 0.066
+        localValue5 = 0.046
+        localValue6 = 0
+        localValue7 = 168
+        localValue8 = 255
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = workValue4
-          if nil ~= arg1 then
-            arg2 = workValue4
-            arg1 = dataTable3
-            arg1 = arg1[arg2]
-            workValue4 = arg1
-            arg1 = TriggerServerEvent
-            arg2 = "6e7e491304"
-            arg3 = workValue4
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = workingValue4
+          if nil ~= localValue1 then
+            localValue2 = workingValue4
+            localValue1 = dataCollection3
+            localValue1 = localValue1[localValue2]
+            workingValue4 = localValue1
+            localValue1 = TriggerServerEvent
+            localValue2 = "6e7e491304"
+            localValue3 = workingValue4
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6e7e491304".
-            arg1(arg2, arg3)
-            arg1 = {}
-            dataTable3 = arg1
-            arg1 = workValue8
-            arg1()
+            localValue1(localValue2, localValue3)
+            localValue1 = {}
+            dataCollection3 = localValue1
+            localValue1 = workingValue8
+            localValue1()
           else
-            arg1 = tCMG
-            arg1 = arg1.notify
-            arg2 = "~r~No guest invite selected"
+            localValue1 = tCMG
+            localValue1 = localValue1.notify
+            localValue2 = "~r~No guest invite selected"
             -- Beginner: Show a notification to the player.
-            arg1(arg2)
+            localValue1(localValue2)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.469
-        arg3 = 0.642
-        arg4 = 0.066
-        arg5 = 0.046
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.469
+        localValue3 = 0.642
+        localValue4 = 0.066
+        localValue5 = 0.046
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
     end
-    arg1 = DrawAdvancedText
-    arg2 = 0.775
-    arg3 = 0.693
-    arg4 = 0.005
-    arg5 = 0.0028
-    arg6 = 0.4
-    arg7 = "Back"
-    arg8 = 255
-    arg9 = 255
-    arg10 = 255
-    arg11 = 255
-    arg122 = 4
-    arg13 = 0
-    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-    arg1 = CursorInArea
-    arg2 = 0.6583
-    arg3 = 0.7056
-    arg4 = 0.6712
-    arg5 = 0.7064
-    arg1 = arg1(arg2, arg3, arg4, arg5)
-    if arg1 then
-      arg1 = DrawRect
-      arg2 = 0.681
-      arg3 = 0.689
-      arg4 = 0.045
-      arg5 = 0.036
-      arg6 = numberValue28
-      arg7 = numberValue29
-      arg8 = numberValue30
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = IsControlJustPressed
-      arg2 = 1
-      arg3 = 329
-      arg1 = arg1(arg2, arg3)
-      if not arg1 then
-        arg1 = IsDisabledControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
+    localValue1 = DrawAdvancedText
+    localValue2 = 0.775
+    localValue3 = 0.693
+    localValue4 = 0.005
+    localValue5 = 0.0028
+    localValue6 = 0.4
+    localValue7 = "Back"
+    localValue8 = 255
+    localValue9 = 255
+    localValue10 = 255
+    localValue11 = 255
+    localValue122 = 4
+    localValue13 = 0
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+    localValue1 = CursorInArea
+    localValue2 = 0.6583
+    localValue3 = 0.7056
+    localValue4 = 0.6712
+    localValue5 = 0.7064
+    localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+    if localValue1 then
+      localValue1 = DrawRect
+      localValue2 = 0.681
+      localValue3 = 0.689
+      localValue4 = 0.045
+      localValue5 = 0.036
+      localValue6 = number28
+      localValue7 = number29
+      localValue8 = number30
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = IsControlJustPressed
+      localValue2 = 1
+      localValue3 = 329
+      localValue1 = localValue1(localValue2, localValue3)
+      if not localValue1 then
+        localValue1 = IsDisabledControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
       end
-      if arg1 then
-        arg1 = PlaySound
-        arg2 = -1
-        arg3 = "SELECT"
-        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        arg5 = false
-        arg6 = 0
-        arg7 = true
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-        arg1 = workValue
-        if arg1 then
-          arg1 = "gang"
-          textValue = arg1
+      if localValue1 then
+        localValue1 = PlaySound
+        localValue2 = -1
+        localValue3 = "SELECT"
+        localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        localValue5 = false
+        localValue6 = 0
+        localValue7 = true
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue1 = workingValue
+        if localValue1 then
+          localValue1 = "gang"
+          text = localValue1
         else
-          arg1 = "noGang"
-          textValue = arg1
+          localValue1 = "noGang"
+          text = localValue1
         end
       end
     else
-      arg1 = DrawRect
-      arg2 = 0.681
-      arg3 = 0.689
-      arg4 = 0.045
-      arg5 = 0.036
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      localValue1 = DrawRect
+      localValue2 = 0.681
+      localValue3 = 0.689
+      localValue4 = 0.045
+      localValue5 = 0.036
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    if "gang" == arg1 then
-      arg1 = DisableControlAction
-      arg2 = 0
-      arg3 = 200
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = CMG
-      arg1 = arg1.isNewPlayer
-      arg1 = arg1()
-      if arg1 then
-        arg1 = drawNativeNotification
-        arg2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    if "gang" == localValue1 then
+      localValue1 = DisableControlAction
+      localValue2 = 0
+      localValue3 = 200
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = CMG
+      localValue1 = localValue1.isNewPlayer
+      localValue1 = localValue1()
+      if localValue1 then
+        localValue1 = drawNativeNotification
+        localValue2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
         -- Beginner: Show a GTA-style notification/help prompt.
-        arg1(arg2)
+        localValue1(localValue2)
       end
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.532
-      arg4 = 0.375
-      arg5 = 0.225
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.396
-      arg4 = 0.375
-      arg5 = 0.046
-      arg6 = 19
-      arg7 = 86
-      arg8 = 223
-      arg9 = 255
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.591
-      arg3 = 0.399
-      arg4 = 0.005
-      arg5 = 0.003
-      arg6 = 0.51
-      arg7 = "CMG Gangs"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.46
-      arg3 = 0.534
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "funds"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.554
-      arg3 = 0.534
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "members"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.642
-      arg3 = 0.534
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "logs"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.732
-      arg3 = 0.534
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "settings"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.46
-      arg3 = 0.604
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Turfs"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.554
-      arg3 = 0.604
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Security"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.642
-      arg3 = 0.604
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Guest"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.732
-      arg3 = 0.604
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Radios"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = CursorInArea
-      arg2 = 0.3333
-      arg3 = 0.3973
-      arg4 = 0.4981
-      arg5 = 0.5537
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.366
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.532
+      localValue4 = 0.375
+      localValue5 = 0.225
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.396
+      localValue4 = 0.375
+      localValue5 = 0.046
+      localValue6 = 19
+      localValue7 = 86
+      localValue8 = 223
+      localValue9 = 255
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.591
+      localValue3 = 0.399
+      localValue4 = 0.005
+      localValue5 = 0.003
+      localValue6 = 0.51
+      localValue7 = "CMG Gangs"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.46
+      localValue3 = 0.534
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "funds"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.554
+      localValue3 = 0.534
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "members"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.642
+      localValue3 = 0.534
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "logs"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.732
+      localValue3 = 0.534
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "settings"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.46
+      localValue3 = 0.604
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Turfs"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.554
+      localValue3 = 0.604
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Security"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.642
+      localValue3 = 0.604
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Guest"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.732
+      localValue3 = 0.604
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Radios"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = CursorInArea
+      localValue2 = 0.3333
+      localValue3 = 0.3973
+      localValue4 = 0.4981
+      localValue5 = 0.5537
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.366
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "funds"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "funds"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.366
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.366
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.4244
-      arg3 = 0.4903
-      arg4 = 0.4981
-      arg5 = 0.5537
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.458
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.4244
+      localValue3 = 0.4903
+      localValue4 = 0.4981
+      localValue5 = 0.5537
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.458
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "members"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "members"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.458
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.458
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.514
-      arg3 = 0.5776
-      arg4 = 0.4981
-      arg5 = 0.5537
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.546
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.514
+      localValue3 = 0.5776
+      localValue4 = 0.4981
+      localValue5 = 0.5537
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.546
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "logs"
-          textValue = arg1
-          arg1 = workValue
-          arg2 = "logs"
-          arg1[arg2] = nil
-          arg1 = workValue
-          arg2 = "logCount"
-          arg1[arg2] = 0
-          arg1 = TriggerServerEvent
-          arg2 = "3f8f33322f"
-          arg3 = numberValue3
-          arg4 = flag
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "logs"
+          text = localValue1
+          localValue1 = workingValue
+          localValue2 = "logs"
+          localValue1[localValue2] = nil
+          localValue1 = workingValue
+          localValue2 = "logCount"
+          localValue1[localValue2] = 0
+          localValue1 = TriggerServerEvent
+          localValue2 = "3f8f33322f"
+          localValue3 = number3
+          localValue4 = stateFlag
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
-          arg1(arg2, arg3, arg4)
+          localValue1(localValue2, localValue3, localValue4)
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.546
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.546
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.602
-      arg3 = 0.6677
-      arg4 = 0.4981
-      arg5 = 0.5537
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.635
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.602
+      localValue3 = 0.6677
+      localValue4 = 0.4981
+      localValue5 = 0.5537
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.635
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "settings"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "settings"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.635
-        arg3 = 0.527
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.635
+        localValue3 = 0.527
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInAreaRect
-      arg2 = 0.366
-      arg3 = 0.6
-      arg4 = 0.065
-      arg5 = 0.056
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.366
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInAreaRect
+      localValue2 = 0.366
+      localValue3 = 0.6
+      localValue4 = 0.065
+      localValue5 = 0.056
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.366
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "turfs"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "turfs"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.366
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.366
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInAreaRect
-      arg2 = 0.458
-      arg3 = 0.6
-      arg4 = 0.065
-      arg5 = 0.056
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.458
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInAreaRect
+      localValue2 = 0.458
+      localValue3 = 0.6
+      localValue4 = 0.065
+      localValue5 = 0.056
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.458
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = workValue.isAdvanced
-          if arg1 then
-            arg1 = "security"
-            textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = workingValue.isAdvanced
+          if localValue1 then
+            localValue1 = "security"
+            text = localValue1
           else
-            arg1 = notify
-            arg2 = "~r~You must have the advanced gang license to access this page."
+            localValue1 = notify
+            localValue2 = "~r~You must have the advanced gang license to access this page."
             -- Beginner: Show a notification to the player.
-            arg1(arg2)
+            localValue1(localValue2)
           end
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.458
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.458
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.514
-      arg3 = 0.5776
-      arg4 = 0.5722
-      arg5 = 0.6259
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.546
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.514
+      localValue3 = 0.5776
+      localValue4 = 0.5722
+      localValue5 = 0.6259
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.546
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "guest"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "guest"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.546
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.546
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = CursorInArea
-      arg2 = 0.602
-      arg3 = 0.6677
-      arg4 = 0.5722
-      arg5 = 0.6259
-      arg1 = arg1(arg2, arg3, arg4, arg5)
-      if arg1 then
-        arg1 = DrawRect
-        arg2 = 0.635
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = numberValue28
-        arg7 = numberValue29
-        arg8 = numberValue30
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-        arg1 = IsControlJustPressed
-        arg2 = 1
-        arg3 = 329
-        arg1 = arg1(arg2, arg3)
-        if not arg1 then
-          arg1 = IsDisabledControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
+      localValue1 = CursorInArea
+      localValue2 = 0.602
+      localValue3 = 0.6677
+      localValue4 = 0.5722
+      localValue5 = 0.6259
+      localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+      if localValue1 then
+        localValue1 = DrawRect
+        localValue2 = 0.635
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = number28
+        localValue7 = number29
+        localValue8 = number30
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+        localValue1 = IsControlJustPressed
+        localValue2 = 1
+        localValue3 = 329
+        localValue1 = localValue1(localValue2, localValue3)
+        if not localValue1 then
+          localValue1 = IsDisabledControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
         end
-        if arg1 then
-          arg1 = PlaySound
-          arg2 = -1
-          arg3 = "SELECT"
-          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg5 = false
-          arg6 = 0
-          arg7 = true
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-          arg1 = "radios"
-          textValue = arg1
+        if localValue1 then
+          localValue1 = PlaySound
+          localValue2 = -1
+          localValue3 = "SELECT"
+          localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue5 = false
+          localValue6 = 0
+          localValue7 = true
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+          localValue1 = "radios"
+          text = localValue1
         end
       else
-        arg1 = DrawRect
-        arg2 = 0.635
-        arg3 = 0.6
-        arg4 = 0.065
-        arg5 = 0.056
-        arg6 = 0
-        arg7 = 0
-        arg8 = 0
-        arg9 = 150
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        localValue1 = DrawRect
+        localValue2 = 0.635
+        localValue3 = 0.6
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue6 = 0
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 150
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg1 = workValue
-      arg2 = "id"
-      arg2 = arg1[arg2]
-      arg1 = dataTable5
-      arg1 = arg1[arg2]
-      if arg1 then
-        arg1 = DrawAdvancedText
-        arg2 = 0.598
-        arg3 = 0.466
-        arg4 = 0.005
-        arg5 = 0.0028
-        arg6 = 0.4
-        arg7 = "RP Turfs"
-        arg8 = 255
-        arg9 = 255
-        arg10 = 255
-        arg11 = 255
-        arg122 = 7
-        arg13 = 0
-        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-        arg1 = CursorInAreaRect
-        arg2 = 0.502
-        arg3 = 0.459
-        arg4 = 0.065
-        arg5 = 0.056
-        arg1 = arg1(arg2, arg3, arg4, arg5)
-        if arg1 then
-          arg1 = DrawRect
-          arg2 = 0.502
-          arg3 = 0.459
-          arg4 = 0.065
-          arg5 = 0.056
-          arg6 = numberValue28
-          arg7 = numberValue29
-          arg8 = numberValue30
-          arg9 = 150
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-          arg1 = IsControlJustPressed
-          arg2 = 1
-          arg3 = 329
-          arg1 = arg1(arg2, arg3)
-          if not arg1 then
-            arg1 = IsDisabledControlJustPressed
-            arg2 = 1
-            arg3 = 329
-            arg1 = arg1(arg2, arg3)
+      localValue1 = workingValue
+      localValue2 = "id"
+      localValue2 = localValue1[localValue2]
+      localValue1 = dataCollection5
+      localValue1 = localValue1[localValue2]
+      if localValue1 then
+        localValue1 = DrawAdvancedText
+        localValue2 = 0.598
+        localValue3 = 0.466
+        localValue4 = 0.005
+        localValue5 = 0.0028
+        localValue6 = 0.4
+        localValue7 = "RP Turfs"
+        localValue8 = 255
+        localValue9 = 255
+        localValue10 = 255
+        localValue11 = 255
+        localValue122 = 7
+        localValue13 = 0
+        localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+        localValue1 = CursorInAreaRect
+        localValue2 = 0.502
+        localValue3 = 0.459
+        localValue4 = 0.065
+        localValue5 = 0.056
+        localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+        if localValue1 then
+          localValue1 = DrawRect
+          localValue2 = 0.502
+          localValue3 = 0.459
+          localValue4 = 0.065
+          localValue5 = 0.056
+          localValue6 = number28
+          localValue7 = number29
+          localValue8 = number30
+          localValue9 = 150
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+          localValue1 = IsControlJustPressed
+          localValue2 = 1
+          localValue3 = 329
+          localValue1 = localValue1(localValue2, localValue3)
+          if not localValue1 then
+            localValue1 = IsDisabledControlJustPressed
+            localValue2 = 1
+            localValue3 = 329
+            localValue1 = localValue1(localValue2, localValue3)
           end
-          if arg1 then
-            arg1 = PlaySound
-            arg2 = -1
-            arg3 = "SELECT"
-            arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            arg5 = false
-            arg6 = 0
-            arg7 = true
-            arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-            arg1 = "rpturfs"
-            textValue = arg1
+          if localValue1 then
+            localValue1 = PlaySound
+            localValue2 = -1
+            localValue3 = "SELECT"
+            localValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            localValue5 = false
+            localValue6 = 0
+            localValue7 = true
+            localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+            localValue1 = "rpturfs"
+            text = localValue1
           end
         else
-          arg1 = DrawRect
-          arg2 = 0.502
-          arg3 = 0.459
-          arg4 = 0.065
-          arg5 = 0.056
-          arg6 = 0
-          arg7 = 0
-          arg8 = 0
-          arg9 = 150
-          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+          localValue1 = DrawRect
+          localValue2 = 0.502
+          localValue3 = 0.459
+          localValue4 = 0.065
+          localValue5 = 0.056
+          localValue6 = 0
+          localValue7 = 0
+          localValue8 = 0
+          localValue9 = 150
+          localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
         end
       end
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    arg2 = "radios"
-    if arg1 == arg2 then
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.525
-      arg4 = 0.421
-      arg5 = 0.387
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawRect
-      arg2 = 0.501
-      arg3 = 0.308
-      arg4 = 0.421
-      arg5 = 0.047
-      arg6 = 18
-      arg7 = 82
-      arg8 = 228
-      arg9 = 248
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.591
-      arg3 = 0.312
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.48
-      arg7 = "CMG gang - radios"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 7
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawRect
-      arg2 = 0.448
-      arg3 = 0.52
-      arg4 = 0.295
-      arg5 = 0.291
-      arg6 = 0
-      arg7 = 0
-      arg8 = 0
-      arg9 = 150
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-      arg1 = DrawAdvancedText
-      arg2 = 0.479
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Channel Name"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.675
-      arg3 = 0.359
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Edit"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 6
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.746
-      arg3 = 0.455
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = [[
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    localValue2 = "radios"
+    if localValue1 == localValue2 then
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.525
+      localValue4 = 0.421
+      localValue5 = 0.387
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawRect
+      localValue2 = 0.501
+      localValue3 = 0.308
+      localValue4 = 0.421
+      localValue5 = 0.047
+      localValue6 = 18
+      localValue7 = 82
+      localValue8 = 228
+      localValue9 = 248
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.591
+      localValue3 = 0.312
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.48
+      localValue7 = "CMG gang - radios"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 7
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawRect
+      localValue2 = 0.448
+      localValue3 = 0.52
+      localValue4 = 0.295
+      localValue5 = 0.291
+      localValue6 = 0
+      localValue7 = 0
+      localValue8 = 0
+      localValue9 = 150
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.479
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Channel Name"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.675
+      localValue3 = 0.359
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Edit"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 6
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.746
+      localValue3 = 0.455
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = [[
 Purchase
 Channel]]
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = DrawAdvancedText
-      arg2 = 0.775
-      arg3 = 0.693
-      arg4 = 0.005
-      arg5 = 0.0028
-      arg6 = 0.4
-      arg7 = "Back"
-      arg8 = 255
-      arg9 = 255
-      arg10 = 255
-      arg11 = 255
-      arg122 = 4
-      arg13 = 0
-      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
-      arg1 = table
-      arg2 = "copy"
-      arg1 = arg1[arg2]
-      arg2 = workValue
-      arg3 = "additionalRadios"
-      arg2 = arg2[arg3]
-      arg1 = arg1(arg2)
-      arg2 = workValue.isAdvanced
-      if arg2 then
-        arg2 = table
-        arg3 = "insert"
-        arg2 = arg2[arg3]
-        arg3 = arg1
-        arg4 = 1
-        arg5 = {}
-        arg6 = "id"
-        arg5[arg6] = 0
-        arg6 = _ENV
-        arg7 = "string"
-        arg6 = arg6[arg7]
-        arg7 = "format"
-        arg6 = arg6[arg7]
-        arg7 = "%s (Default)"
-        arg8 = workValue.name
-        arg6 = arg6(arg7, arg8)
-        arg5.name = arg6
-        arg2(arg3, arg4, arg5)
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = DrawAdvancedText
+      localValue2 = 0.775
+      localValue3 = 0.693
+      localValue4 = 0.005
+      localValue5 = 0.0028
+      localValue6 = 0.4
+      localValue7 = "Back"
+      localValue8 = 255
+      localValue9 = 255
+      localValue10 = 255
+      localValue11 = 255
+      localValue122 = 4
+      localValue13 = 0
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13)
+      localValue1 = table
+      localValue2 = "copy"
+      localValue1 = localValue1[localValue2]
+      localValue2 = workingValue
+      localValue3 = "additionalRadios"
+      localValue2 = localValue2[localValue3]
+      localValue1 = localValue1(localValue2)
+      localValue2 = workingValue.isAdvanced
+      if localValue2 then
+        localValue2 = table
+        localValue3 = "insert"
+        localValue2 = localValue2[localValue3]
+        localValue3 = localValue1
+        localValue4 = 1
+        localValue5 = {}
+        localValue6 = "id"
+        localValue5[localValue6] = 0
+        localValue6 = _ENV
+        localValue7 = "string"
+        localValue6 = localValue6[localValue7]
+        localValue7 = "format"
+        localValue6 = localValue6[localValue7]
+        localValue7 = "%s (Default)"
+        localValue8 = workingValue.name
+        localValue6 = localValue6(localValue7, localValue8)
+        localValue5.name = localValue6
+        localValue2(localValue3, localValue4, localValue5)
       end
-      arg2 = pairs
-      arg3 = arg1
-      arg2, arg3, arg4, arg5 = arg2(arg3)
-      for arg6, arg7 in arg2, arg3, arg4, arg5 do
-        arg8 = DrawAdvancedText
-        arg9 = 0.479
-        arg10 = 0.0287 * arg6
-        arg10 = 0.361 + arg10
-        arg11 = 0.005
-        arg122 = 0.0028
-        arg13 = 0.4
-        arg14 = arg7.name
-        arg15 = 255
-        arg16 = 255
-        arg17 = 255
-        arg18 = 255
-        numberValue5 = 6
-        numberValue7 = 0
-        arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
-        arg8 = "id"
-        arg8 = arg7[arg8]
-        if 0 ~= arg8 then
-          arg8 = DrawAdvancedText
-          arg9 = 0.675
-          arg10 = 0.0287 * arg6
-          arg10 = 0.3665 + arg10
-          arg11 = 0.005
-          arg122 = 0.0028
-          arg13 = 0.2
-          arg14 = "\226\156\143\239\184\143"
-          arg15 = 255
-          arg16 = 255
-          arg17 = 255
-          arg18 = 255
-          numberValue5 = 6
-          numberValue7 = 0
-          arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
+      localValue2 = pairs
+      localValue3 = localValue1
+      localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+      for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+        localValue8 = DrawAdvancedText
+        localValue9 = 0.479
+        localValue10 = 0.0287 * localValue6
+        localValue10 = 0.361 + localValue10
+        localValue11 = 0.005
+        localValue122 = 0.0028
+        localValue13 = 0.4
+        localValue14 = localValue7.name
+        localValue15 = 255
+        localValue16 = 255
+        localValue17 = 255
+        localValue18 = 255
+        number5 = 6
+        number7 = 0
+        localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7)
+        localValue8 = "id"
+        localValue8 = localValue7[localValue8]
+        if 0 ~= localValue8 then
+          localValue8 = DrawAdvancedText
+          localValue9 = 0.675
+          localValue10 = 0.0287 * localValue6
+          localValue10 = 0.3665 + localValue10
+          localValue11 = 0.005
+          localValue122 = 0.0028
+          localValue13 = 0.2
+          localValue14 = "\226\156\143\239\184\143"
+          localValue15 = 255
+          localValue16 = 255
+          localValue17 = 255
+          localValue18 = 255
+          number5 = 6
+          number7 = 0
+          localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7)
         end
-        arg8 = CursorInArea
-        arg9 = 0.3005
-        arg10 = 0.5955
-        arg11 = arg6 - 1
-        arg11 = 0.0287 * arg11
-        arg11 = 0.3731 + arg11
-        arg122 = arg6 - 1
-        arg122 = 0.0287 * arg122
-        arg122 = 0.4018 + arg122
-        arg8 = arg8(arg9, arg10, arg11, arg122)
-        if arg8 then
-          arg8 = workValue19
-          arg9 = "id"
-          arg9 = arg7[arg9]
-          if arg8 ~= arg9 then
-            arg8 = DrawRect
-            arg9 = 0.448
-            arg10 = arg6 - 1
-            arg10 = 0.0287 * arg10
-            arg10 = 0.388 + arg10
-            arg11 = 0.295
-            arg122 = 0.027
-            arg13 = numberValue28
-            arg14 = numberValue29
-            arg15 = numberValue30
-            arg16 = 150
-            arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
-            arg8 = IsControlJustPressed
-            arg9 = 1
-            arg10 = 329
-            arg8 = arg8(arg9, arg10)
-            if not arg8 then
-              arg8 = IsDisabledControlJustPressed
-              arg9 = 1
-              arg10 = 329
-              arg8 = arg8(arg9, arg10)
+        localValue8 = CursorInArea
+        localValue9 = 0.3005
+        localValue10 = 0.5955
+        localValue11 = localValue6 - 1
+        localValue11 = 0.0287 * localValue11
+        localValue11 = 0.3731 + localValue11
+        localValue122 = localValue6 - 1
+        localValue122 = 0.0287 * localValue122
+        localValue122 = 0.4018 + localValue122
+        localValue8 = localValue8(localValue9, localValue10, localValue11, localValue122)
+        if localValue8 then
+          localValue8 = workingValue19
+          localValue9 = "id"
+          localValue9 = localValue7[localValue9]
+          if localValue8 ~= localValue9 then
+            localValue8 = DrawRect
+            localValue9 = 0.448
+            localValue10 = localValue6 - 1
+            localValue10 = 0.0287 * localValue10
+            localValue10 = 0.388 + localValue10
+            localValue11 = 0.295
+            localValue122 = 0.027
+            localValue13 = number28
+            localValue14 = number29
+            localValue15 = number30
+            localValue16 = 150
+            localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16)
+            localValue8 = IsControlJustPressed
+            localValue9 = 1
+            localValue10 = 329
+            localValue8 = localValue8(localValue9, localValue10)
+            if not localValue8 then
+              localValue8 = IsDisabledControlJustPressed
+              localValue9 = 1
+              localValue10 = 329
+              localValue8 = localValue8(localValue9, localValue10)
             end
-            if arg8 then
-              arg8 = PlaySound
-              arg9 = -1
-              arg10 = "SELECT"
-              arg11 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              arg122 = false
-              arg13 = 0
-              arg14 = true
-              arg8(arg9, arg10, arg11, arg122, arg13, arg14)
-              arg8 = "id"
-              arg8 = arg7[arg8]
-              workValue19 = arg8
+            if localValue8 then
+              localValue8 = PlaySound
+              localValue9 = -1
+              localValue10 = "SELECT"
+              localValue11 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              localValue122 = false
+              localValue13 = 0
+              localValue14 = true
+              localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+              localValue8 = "id"
+              localValue8 = localValue7[localValue8]
+              workingValue19 = localValue8
             end
         end
         else
-          arg8 = workValue19
-          arg9 = "id"
-          arg9 = arg7[arg9]
-          if arg8 == arg9 then
-            arg8 = DrawRect
-            arg9 = 0.448
-            arg10 = arg6 - 1
-            arg10 = 0.0287 * arg10
-            arg10 = 0.388 + arg10
-            arg11 = 0.295
-            arg122 = 0.027
-            arg13 = numberValue28
-            arg14 = numberValue29
-            arg15 = numberValue30
-            arg16 = 150
-            arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
+          localValue8 = workingValue19
+          localValue9 = "id"
+          localValue9 = localValue7[localValue9]
+          if localValue8 == localValue9 then
+            localValue8 = DrawRect
+            localValue9 = 0.448
+            localValue10 = localValue6 - 1
+            localValue10 = 0.0287 * localValue10
+            localValue10 = 0.388 + localValue10
+            localValue11 = 0.295
+            localValue122 = 0.027
+            localValue13 = number28
+            localValue14 = number29
+            localValue15 = number30
+            localValue16 = 150
+            localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16)
           end
         end
-        arg8 = CursorInArea
-        arg9 = 0.5755
-        arg10 = 0.5955
-        arg11 = arg6 - 1
-        arg11 = 0.0287 * arg11
-        arg11 = 0.3731 + arg11
-        arg122 = arg6 - 1
-        arg122 = 0.0287 * arg122
-        arg122 = 0.4018 + arg122
-        arg8 = arg8(arg9, arg10, arg11, arg122)
-        if arg8 then
-          arg8 = IsControlJustPressed
-          arg9 = 1
-          arg10 = 329
-          arg8 = arg8(arg9, arg10)
-          if not arg8 then
-            arg8 = IsDisabledControlJustPressed
-            arg9 = 1
-            arg10 = 329
-            arg8 = arg8(arg9, arg10)
-            if not arg8 then
-              goto flow_label_8156
+        localValue8 = CursorInArea
+        localValue9 = 0.5755
+        localValue10 = 0.5955
+        localValue11 = localValue6 - 1
+        localValue11 = 0.0287 * localValue11
+        localValue11 = 0.3731 + localValue11
+        localValue122 = localValue6 - 1
+        localValue122 = 0.0287 * localValue122
+        localValue122 = 0.4018 + localValue122
+        localValue8 = localValue8(localValue9, localValue10, localValue11, localValue122)
+        if localValue8 then
+          localValue8 = IsControlJustPressed
+          localValue9 = 1
+          localValue10 = 329
+          localValue8 = localValue8(localValue9, localValue10)
+          if not localValue8 then
+            localValue8 = IsDisabledControlJustPressed
+            localValue9 = 1
+            localValue10 = 329
+            localValue8 = localValue8(localValue9, localValue10)
+            if not localValue8 then
+              goto continueAtStep8156
             end
           end
-          arg8 = PlaySound
-          arg9 = -1
-          arg10 = "SELECT"
-          arg11 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg122 = false
-          arg13 = 0
-          arg14 = true
-          arg8(arg9, arg10, arg11, arg122, arg13, arg14)
-          arg8 = CMG
-          arg8 = arg8.GetRageInputText
-          arg9 = "Channel Name"
-          arg10 = arg7.name
-          arg8 = arg8(arg9, arg10)
-          if arg8 then
-            arg9 = TriggerServerEvent
-            arg10 = "8a2894785e"
-            arg11 = "id"
-            arg11 = arg7[arg11]
-            arg122 = arg8
+          localValue8 = PlaySound
+          localValue9 = -1
+          localValue10 = "SELECT"
+          localValue11 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue122 = false
+          localValue13 = 0
+          localValue14 = true
+          localValue8(localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+          localValue8 = CMG
+          localValue8 = localValue8.GetRageInputText
+          localValue9 = "Channel Name"
+          localValue10 = localValue7.name
+          localValue8 = localValue8(localValue9, localValue10)
+          if localValue8 then
+            localValue9 = TriggerServerEvent
+            localValue10 = "8a2894785e"
+            localValue11 = "id"
+            localValue11 = localValue7[localValue11]
+            localValue122 = localValue8
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8a2894785e".
-            arg9(arg10, arg11, arg122)
+            localValue9(localValue10, localValue11, localValue122)
           else
-            arg9 = notify
-            arg10 = "~r~Cancelled changing channel name."
+            localValue9 = notify
+            localValue10 = "~r~Cancelled changing channel name."
             -- Beginner: Show a notification to the player.
-            arg9(arg10)
+            localValue9(localValue10)
           end
         end
-        ::flow_label_8156::
+        ::continueAtStep8156::
       end
-      arg2 = CursorInAreaRect
-      arg3 = 0.651
-      arg4 = 0.463
-      arg5 = 0.065
-      arg6 = 0.086
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.463
-        arg5 = 0.065
-        arg6 = 0.086
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInAreaRect
+      localValue3 = 0.651
+      localValue4 = 0.463
+      localValue5 = 0.065
+      localValue6 = 0.086
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.463
+        localValue5 = 0.065
+        localValue6 = 0.086
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = CMG
-          arg2 = arg2.GetRageInputText
-          arg3 = "Purchase for \194\1635,000,000?"
-          arg4 = "Yes/No"
-          arg2 = arg2(arg3, arg4)
-          if arg2 then
-            arg3 = _ENV
-            arg4 = "string"
-            arg3 = arg3[arg4]
-            arg4 = "lower"
-            arg3 = arg3[arg4]
-            arg4 = arg2
-            arg3 = arg3(arg4)
-            arg4 = "yes"
-            if arg3 == arg4 then
-              arg3 = TriggerServerEvent
-              arg4 = "5b98fcee62"
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = CMG
+          localValue2 = localValue2.GetRageInputText
+          localValue3 = "Purchase for \194\1635,000,000?"
+          localValue4 = "Yes/No"
+          localValue2 = localValue2(localValue3, localValue4)
+          if localValue2 then
+            localValue3 = _ENV
+            localValue4 = "string"
+            localValue3 = localValue3[localValue4]
+            localValue4 = "lower"
+            localValue3 = localValue3[localValue4]
+            localValue4 = localValue2
+            localValue3 = localValue3(localValue4)
+            localValue4 = "yes"
+            if localValue3 == localValue4 then
+              localValue3 = TriggerServerEvent
+              localValue4 = "5b98fcee62"
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5b98fcee62".
-              arg3(arg4)
+              localValue3(localValue4)
           end
           else
-            arg3 = notify
-            arg4 = "~r~Cancelled purchase of new channel."
+            localValue3 = notify
+            localValue4 = "~r~Cancelled purchase of new channel."
             -- Beginner: Show a notification to the player.
-            arg3(arg4)
+            localValue3(localValue4)
           end
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.651
-        arg4 = 0.463
-        arg5 = 0.065
-        arg6 = 0.086
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.651
+        localValue4 = 0.463
+        localValue5 = 0.065
+        localValue6 = 0.086
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
-      arg2 = CursorInArea
-      arg3 = 0.6583
-      arg4 = 0.7056
-      arg5 = 0.6712
-      arg6 = 0.7064
-      arg2 = arg2(arg3, arg4, arg5, arg6)
-      if arg2 then
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = numberValue28
-        arg8 = numberValue29
-        arg9 = numberValue30
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-        arg2 = IsControlJustPressed
-        arg3 = 1
-        arg4 = 329
-        arg2 = arg2(arg3, arg4)
-        if not arg2 then
-          arg2 = IsDisabledControlJustPressed
-          arg3 = 1
-          arg4 = 329
-          arg2 = arg2(arg3, arg4)
+      localValue2 = CursorInArea
+      localValue3 = 0.6583
+      localValue4 = 0.7056
+      localValue5 = 0.6712
+      localValue6 = 0.7064
+      localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      if localValue2 then
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = number28
+        localValue8 = number29
+        localValue9 = number30
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+        localValue2 = IsControlJustPressed
+        localValue3 = 1
+        localValue4 = 329
+        localValue2 = localValue2(localValue3, localValue4)
+        if not localValue2 then
+          localValue2 = IsDisabledControlJustPressed
+          localValue3 = 1
+          localValue4 = 329
+          localValue2 = localValue2(localValue3, localValue4)
         end
-        if arg2 then
-          arg2 = PlaySound
-          arg3 = -1
-          arg4 = "SELECT"
-          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          arg6 = false
-          arg7 = 0
-          arg8 = true
-          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
-          arg2 = "gang"
-          textValue = arg2
+        if localValue2 then
+          localValue2 = PlaySound
+          localValue3 = -1
+          localValue4 = "SELECT"
+          localValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          localValue6 = false
+          localValue7 = 0
+          localValue8 = true
+          localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+          localValue2 = "gang"
+          text = localValue2
         end
       else
-        arg2 = DrawRect
-        arg3 = 0.681
-        arg4 = 0.689
-        arg5 = 0.045
-        arg6 = 0.036
-        arg7 = 0
-        arg8 = 0
-        arg9 = 0
-        arg10 = 150
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        localValue2 = DrawRect
+        localValue3 = 0.681
+        localValue4 = 0.689
+        localValue5 = 0.045
+        localValue6 = 0.036
+        localValue7 = 0
+        localValue8 = 0
+        localValue9 = 0
+        localValue10 = 150
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
       end
     end
   end
 end
-cmgCall8 = CMG
-cmgCall8 = cmgCall8.createThreadOnTick
-workValue15 = workValue14
-eventRegistration = "Gang UI"
+cmgOperation8 = CMG
+cmgOperation8 = cmgOperation8.createThreadOnTick
+workingValue15 = workingValue14
+eventHandler = "Gang UI"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall8(workValue15, eventRegistration)
-cmgCall8 = 0
+cmgOperation8(workingValue15, eventHandler)
+cmgOperation8 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangUseNui
-  if arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangUseNui
+  if localValue1 then
     return
   end
-  arg1 = IsControlJustPressed
-  arg2 = 0
-  arg3 = 166
-  arg1 = arg1(arg2, arg3)
-  if not arg1 then
-    arg1 = IsDisabledControlJustPressed
-    arg2 = 0
-    arg3 = 166
-    arg1 = arg1(arg2, arg3)
-    if not arg1 then
-      arg1 = IsDisabledControlJustReleased
-      arg2 = 0
-      arg3 = 200
-      arg1 = arg1(arg2, arg3)
-      if not arg1 then
-        goto flow_label_99
+  localValue1 = IsControlJustPressed
+  localValue2 = 0
+  localValue3 = 166
+  localValue1 = localValue1(localValue2, localValue3)
+  if not localValue1 then
+    localValue1 = IsDisabledControlJustPressed
+    localValue2 = 0
+    localValue3 = 166
+    localValue1 = localValue1(localValue2, localValue3)
+    if not localValue1 then
+      localValue1 = IsDisabledControlJustReleased
+      localValue2 = 0
+      localValue3 = 200
+      localValue1 = localValue1(localValue2, localValue3)
+      if not localValue1 then
+        goto continueAtStep99
       end
-      arg1 = textValue
-      if "noGang" ~= arg1 then
-        arg1 = textValue
-        if "gang" ~= arg1 then
-          goto flow_label_99
+      localValue1 = text
+      if "noGang" ~= localValue1 then
+        localValue1 = text
+        if "gang" ~= localValue1 then
+          goto continueAtStep99
         end
       end
     end
   end
-  arg1 = GetGameTimer
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  arg2 = cmgCall8
-  arg1 = arg1 - arg2
-  if arg1 < 100 then
+  localValue1 = localValue1()
+  localValue2 = cmgOperation8
+  localValue1 = localValue1 - localValue2
+  if localValue1 < 100 then
     return
   end
-  arg1 = GetGameTimer
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  cmgCall8 = arg1
-  arg1 = workValue
-  if not arg1 then
-    arg1 = textValue
-    if "noGang" == arg1 then
-      arg1 = nil
-      textValue = arg1
-      arg1 = CMG
-      arg1 = arg1.setCursor
-      arg2 = 0
-      arg1(arg2)
-      arg1 = CMG
-      arg1 = arg1.setInGUI
-      arg2 = false
-      arg1(arg2)
-      arg1 = nil
-      workValue12 = arg1
+  localValue1 = localValue1()
+  cmgOperation8 = localValue1
+  localValue1 = workingValue
+  if not localValue1 then
+    localValue1 = text
+    if "noGang" == localValue1 then
+      localValue1 = nil
+      text = localValue1
+      localValue1 = CMG
+      localValue1 = localValue1.setCursor
+      localValue2 = 0
+      localValue1(localValue2)
+      localValue1 = CMG
+      localValue1 = localValue1.setInGUI
+      localValue2 = false
+      localValue1(localValue2)
+      localValue1 = nil
+      workingValue12 = localValue1
     else
-      arg1 = "noGang"
-      textValue = arg1
-      arg1 = CMG
-      arg1 = arg1.setCursor
-      arg2 = 1
-      arg1(arg2)
-      arg1 = CMG
-      arg1 = arg1.setInGUI
-      arg2 = true
-      arg1(arg2)
+      localValue1 = "noGang"
+      text = localValue1
+      localValue1 = CMG
+      localValue1 = localValue1.setCursor
+      localValue2 = 1
+      localValue1(localValue2)
+      localValue1 = CMG
+      localValue1 = localValue1.setInGUI
+      localValue2 = true
+      localValue1(localValue2)
     end
   end
-  arg1 = workValue
-  if arg1 then
-    arg1 = textValue
-    if "gang" == arg1 then
-      arg1 = nil
-      textValue = arg1
-      arg1 = CMG
-      arg1 = arg1.setCursor
-      arg2 = 0
-      arg1(arg2)
-      arg1 = CMG
-      arg1 = arg1.setInGUI
-      arg2 = false
-      arg1(arg2)
-      arg1 = nil
-      workValue16 = arg1
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = text
+    if "gang" == localValue1 then
+      localValue1 = nil
+      text = localValue1
+      localValue1 = CMG
+      localValue1 = localValue1.setCursor
+      localValue2 = 0
+      localValue1(localValue2)
+      localValue1 = CMG
+      localValue1 = localValue1.setInGUI
+      localValue2 = false
+      localValue1(localValue2)
+      localValue1 = nil
+      workingValue16 = localValue1
     else
-      arg1 = "gang"
-      textValue = arg1
-      arg1 = CMG
-      arg1 = arg1.setCursor
-      arg2 = 1
-      arg1(arg2)
-      arg1 = CMG
-      arg1 = arg1.setInGUI
-      arg2 = true
-      arg1(arg2)
+      localValue1 = "gang"
+      text = localValue1
+      localValue1 = CMG
+      localValue1 = localValue1.setCursor
+      localValue2 = 1
+      localValue1(localValue2)
+      localValue1 = CMG
+      localValue1 = localValue1.setInGUI
+      localValue2 = true
+      localValue1(localValue2)
     end
   end
-  ::flow_label_99::
+  ::continueAtStep99::
 end
-eventRegistration = Citizen
-eventRegistration = eventRegistration.CreateThread
+eventHandler = Citizen
+eventHandler = eventHandler.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg1 = json
-  arg1 = arg1.decode
-  arg2 = GetResourceKvpString
-  arg3 = "cmg_gang_pinned"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = "{}"
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue1 = json
+  localValue1 = localValue1.decode
+  localValue2 = GetResourceKvpString
+  localValue3 = "cmg_gang_pinned"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = "{}"
   end
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = {}
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = {}
   end
-  arg2 = {}
-  arg3 = GetResourceKvpString
-  arg4 = "cmg_gang_blips"
-  arg3 = arg3(arg4)
-  arg3 = "true" == arg3
-  arg2.blips = arg3
-  arg3 = GetResourceKvpString
-  arg4 = "cmg_gang_pings"
-  arg3 = arg3(arg4)
-  arg3 = "true" == arg3
-  arg2.pings = arg3
-  arg3 = GetResourceKvpString
-  arg4 = "cmg_gang_names"
-  arg3 = arg3(arg4)
-  arg3 = "true" == arg3
-  arg2.names = arg3
-  arg3 = {}
-  arg2.pinnedPlayers = arg3
-  dataTable = arg2
-  arg2 = pairs
-  arg3 = arg1
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6 in arg2, arg3, arg4, arg5 do
-    arg7 = dataTable.pinnedPlayers
-    arg8 = tonumber
-    arg9 = arg6
-    arg8 = arg8(arg9)
-    arg7[arg8] = true
+  localValue2 = {}
+  localValue3 = GetResourceKvpString
+  localValue4 = "cmg_gang_blips"
+  localValue3 = localValue3(localValue4)
+  localValue3 = "true" == localValue3
+  localValue2.blips = localValue3
+  localValue3 = GetResourceKvpString
+  localValue4 = "cmg_gang_pings"
+  localValue3 = localValue3(localValue4)
+  localValue3 = "true" == localValue3
+  localValue2.pings = localValue3
+  localValue3 = GetResourceKvpString
+  localValue4 = "cmg_gang_names"
+  localValue3 = localValue3(localValue4)
+  localValue3 = "true" == localValue3
+  localValue2.names = localValue3
+  localValue3 = {}
+  localValue2.pinnedPlayers = localValue3
+  dataCollection = localValue2
+  localValue2 = pairs
+  localValue3 = localValue1
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6 in localValue2, localValue3, localValue4, localValue5 do
+    localValue7 = dataCollection.pinnedPlayers
+    localValue8 = tonumber
+    localValue9 = localValue6
+    localValue8 = localValue8(localValue9)
+    localValue7[localValue8] = true
   end
-  arg2 = CMG
-  arg3 = dataTable.pinnedPlayers
-  arg2.gangPinnedPlayers = arg3
-  arg2 = CMG
-  arg3 = dataTable
-  arg2.gangClientSettings = arg3
-  arg2 = CMG
-  arg2 = arg2.createThreadOnTick
-  arg3 = workValue15
-  arg4 = "Gang Key Controls"
+  localValue2 = CMG
+  localValue3 = dataCollection.pinnedPlayers
+  localValue2.gangPinnedPlayers = localValue3
+  localValue2 = CMG
+  localValue3 = dataCollection
+  localValue2.gangClientSettings = localValue3
+  localValue2 = CMG
+  localValue2 = localValue2.createThreadOnTick
+  localValue3 = workingValue15
+  localValue4 = "Gang Key Controls"
   -- Beginner: Run a helper every game frame while this script is active.
-  arg2(arg3, arg4)
+  localValue2(localValue3, localValue4)
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-eventRegistration(textValue4)
-eventRegistration = RegisterNetEvent
-textValue4 = "f9904fb04b"
+eventHandler(text4)
+eventHandler = RegisterNetEvent
+text4 = "f9904fb04b"
 -- Beginner: this function handles network event "f9904fb04b".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18) ===
-function textValue5(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18)
-  local numberValue5, numberValue7, numberValue8
-  numberValue5 = {}
-  numberValue5.id = arg10
-  numberValue5.name = arg1
-  numberValue5.displayMoney = arg2
-  numberValue5.members = arg3
-  numberValue5.guests = arg4
-  numberValue5.isAdvanced = arg5
-  numberValue5.maxWithdraw = arg6
-  numberValue5.limitWithdrawDeposit = arg7
-  numberValue5.requireWithdrawReason = arg8
-  numberValue7 = {}
-  numberValue5.pings = numberValue7
-  numberValue5.additionalRadios = arg9
-  numberValue7 = arg11 or numberValue7
-  if not arg11 then
-    numberValue7 = 0
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18) ===
+function text5(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18)
+  local number5, number7, number8
+  number5 = {}
+  number5.id = localValue10
+  number5.name = localValue1
+  number5.displayMoney = localValue2
+  number5.members = localValue3
+  number5.guests = localValue4
+  number5.isAdvanced = localValue5
+  number5.maxWithdraw = localValue6
+  number5.limitWithdrawDeposit = localValue7
+  number5.requireWithdrawReason = localValue8
+  number7 = {}
+  number5.pings = number7
+  number5.additionalRadios = localValue9
+  number7 = localValue11 or number7
+  if not localValue11 then
+    number7 = 0
   end
-  numberValue5.gangPublicSkillPoints = numberValue7
-  numberValue7 = arg18 or numberValue7
-  if not arg18 then
-    numberValue7 = 0
+  number5.gangPublicSkillPoints = number7
+  number7 = localValue18 or number7
+  if not localValue18 then
+    number7 = 0
   end
-  numberValue5.gangRpSkillPoints = numberValue7
-  numberValue7 = arg122 or numberValue7
-  if not arg122 then
-    numberValue7 = {}
+  number5.gangRpSkillPoints = number7
+  number7 = localValue122 or number7
+  if not localValue122 then
+    number7 = {}
   end
-  numberValue5.gangPerksUnlocked = numberValue7
-  numberValue7 = arg13 or numberValue7
-  if not arg13 then
-    numberValue7 = {}
+  number5.gangPerksUnlocked = number7
+  number7 = localValue13 or number7
+  if not localValue13 then
+    number7 = {}
   end
-  numberValue5.announcements = numberValue7
-  numberValue7 = arg14 or numberValue7
-  if not arg14 then
-    numberValue7 = 1
+  number5.announcements = number7
+  number7 = localValue14 or number7
+  if not localValue14 then
+    number7 = 1
   end
-  numberValue5.gangPublicLevel = numberValue7
-  numberValue7 = arg15 or numberValue7
-  if not arg15 then
-    numberValue7 = 0
+  number5.gangPublicLevel = number7
+  number7 = localValue15 or number7
+  if not localValue15 then
+    number7 = 0
   end
-  numberValue5.gangPublicXp = numberValue7
-  numberValue7 = arg16 or numberValue7
-  if not arg16 then
-    numberValue7 = 1
+  number5.gangPublicXp = number7
+  number7 = localValue16 or number7
+  if not localValue16 then
+    number7 = 1
   end
-  numberValue5.gangRpLevel = numberValue7
-  numberValue7 = arg17 or numberValue7
-  if not arg17 then
-    numberValue7 = 0
+  number5.gangRpLevel = number7
+  number7 = localValue17 or number7
+  if not localValue17 then
+    number7 = 0
   end
-  numberValue5.gangRpXp = numberValue7
-  workValue = numberValue5
-  numberValue5 = CMG
-  numberValue7 = workValue
-  numberValue5.gangCachedData = numberValue7
-  numberValue5 = workValue.isAdvanced
-  if numberValue5 then
-    numberValue5 = RequestStreamedTextureDict
-    numberValue7 = "cmg_gang"
-    numberValue8 = false
-    numberValue5(numberValue7, numberValue8)
-    numberValue5 = dataTable.blips
-    if numberValue5 then
-      numberValue5 = TriggerEvent
-      numberValue7 = "e713d91b70"
+  number5.gangRpXp = number7
+  workingValue = number5
+  number5 = CMG
+  number7 = workingValue
+  number5.gangCachedData = number7
+  number5 = workingValue.isAdvanced
+  if number5 then
+    number5 = RequestStreamedTextureDict
+    number7 = "cmg_gang"
+    number8 = false
+    number5(number7, number8)
+    number5 = dataCollection.blips
+    if number5 then
+      number5 = TriggerEvent
+      number7 = "e713d91b70"
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-      numberValue5(numberValue7)
-      numberValue5 = TriggerServerEvent
-      numberValue7 = "f9c26121e2"
-      numberValue8 = "own"
+      number5(number7)
+      number5 = TriggerServerEvent
+      number7 = "f9c26121e2"
+      number8 = "own"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-      numberValue5(numberValue7, numberValue8)
+      number5(number7, number8)
     end
-    numberValue5 = TriggerServerEvent
-    numberValue7 = "a74c553948"
-    numberValue8 = textValue2
-    numberValue5(numberValue7, numberValue8)
+    number5 = TriggerServerEvent
+    number7 = "a74c553948"
+    number8 = text2
+    number5(number7, number8)
   end
-  numberValue5 = textValue
-  if numberValue5 then
-    numberValue5 = "gang"
-    textValue = numberValue5
+  number5 = text
+  if number5 then
+    number5 = "gang"
+    text = number5
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f9904fb04b".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "4a773cc562"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "4a773cc562"
 -- Beginner: this function handles network event "4a773cc562".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function textValue5(arg1, arg2, arg3, arg4, arg5)
-  local arg6
-  arg6 = nil
-  workValue3 = arg6
-  arg6 = CMG
-  arg6.gangCachedGuestData = nil
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function text5(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6
+  localValue6 = nil
+  workingValue3 = localValue6
+  localValue6 = CMG
+  localValue6.gangCachedGuestData = nil
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "d59e8e8fd8"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "d59e8e8fd8"
 -- Beginner: this function handles network event "d59e8e8fd8".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    workValue.name = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    workingValue.name = localValue1
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d59e8e8fd8".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "38c659d0a7"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "38c659d0a7"
 -- Beginner: this function handles network event "38c659d0a7".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    workValue.displayMoney = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    workingValue.displayMoney = localValue1
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "cbebb2bd7a"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "cbebb2bd7a"
 -- Beginner: this function handles network event "cbebb2bd7a".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3
-  arg1 = workValue
-  if arg1 then
-    arg1 = RequestStreamedTextureDict
-    arg2 = "cmg_gang"
-    arg3 = false
-    arg1(arg2, arg3)
-    workValue.isAdvanced = true
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = RequestStreamedTextureDict
+    localValue2 = "cmg_gang"
+    localValue3 = false
+    localValue1(localValue2, localValue3)
+    workingValue.isAdvanced = true
   end
-  arg1 = TriggerEvent
-  arg2 = "238e25c639"
+  localValue1 = TriggerEvent
+  localValue2 = "238e25c639"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "238e25c639".
-  arg1(arg2)
+  localValue1(localValue2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "cbebb2bd7a".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "a7a59eed45"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "a7a59eed45"
 -- Beginner: this function handles network event "a7a59eed45".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3
-  arg1 = workValue3
-  if arg1 then
-    arg1 = RequestStreamedTextureDict
-    arg2 = "cmg_gang"
-    arg3 = false
-    arg1(arg2, arg3)
-    workValue3.isAdvanced = true
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3
+  localValue1 = workingValue3
+  if localValue1 then
+    localValue1 = RequestStreamedTextureDict
+    localValue2 = "cmg_gang"
+    localValue3 = false
+    localValue1(localValue2, localValue3)
+    workingValue3.isAdvanced = true
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a7a59eed45".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "6e6d067235"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "6e6d067235"
 -- Beginner: this function handles network event "6e6d067235".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.members
-    arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.members
+    localValue3[localValue1] = localValue2
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "f5b2ceb8df"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "f5b2ceb8df"
 -- Beginner: this function handles network event "f5b2ceb8df".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.members
-    arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.members
+    localValue3[localValue1] = localValue2
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f5b2ceb8df".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "363c115205"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "363c115205"
 -- Beginner: this function handles network event "363c115205".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.guests
-    arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.guests
+    localValue3[localValue1] = localValue2
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "36135ce16e"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "36135ce16e"
 -- Beginner: this function handles network event "36135ce16e".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.guests
-    arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.guests
+    localValue3[localValue1] = localValue2
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "36135ce16e".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "6998c9a240"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "6998c9a240"
 -- Beginner: this function handles network event "6998c9a240".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue.members
-      arg3 = arg3[arg1]
-      arg3.permissions = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue.members
+      localValue3 = localValue3[localValue1]
+      localValue3.permissions = localValue2
     end
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "f71d7949c0"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "f71d7949c0"
 -- Beginner: this function handles network event "f71d7949c0".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue3.members
-      arg3 = arg3[arg1]
-      arg3.permissions = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue3.members
+      localValue3 = localValue3[localValue1]
+      localValue3.permissions = localValue2
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f71d7949c0".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "854c66098d"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "854c66098d"
 -- Beginner: this function handles network event "854c66098d".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue.members
-      arg3 = arg3[arg1]
-      arg3.lastLogin = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue.members
+      localValue3 = localValue3[localValue1]
+      localValue3.lastLogin = localValue2
     end
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "982c46dbf0"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "982c46dbf0"
 -- Beginner: this function handles network event "982c46dbf0".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue3.members
-      arg3 = arg3[arg1]
-      arg3.lastLogin = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue3.members
+      localValue3 = localValue3[localValue1]
+      localValue3.lastLogin = localValue2
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "982c46dbf0".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "6049cc2bb1"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "6049cc2bb1"
 -- Beginner: this function handles network event "6049cc2bb1".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue.members
-      arg3 = arg3[arg1]
-      arg3.name = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue.members
+      localValue3 = localValue3[localValue1]
+      localValue3.name = localValue2
     end
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "f9fdd3de9c"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "f9fdd3de9c"
 -- Beginner: this function handles network event "f9fdd3de9c".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue3.members
-      arg3 = arg3[arg1]
-      arg3.name = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue3.members
+      localValue3 = localValue3[localValue1]
+      localValue3.name = localValue2
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f9fdd3de9c".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "078a4215cf"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "078a4215cf"
 -- Beginner: this function handles network event "078a4215cf".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.guests
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue.guests
-      arg3 = arg3[arg1]
-      arg3.name = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.guests
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue.guests
+      localValue3 = localValue3[localValue1]
+      localValue3.name = localValue2
     end
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "24c8e98259"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "24c8e98259"
 -- Beginner: this function handles network event "24c8e98259".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.guests
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue3.guests
-      arg3 = arg3[arg1]
-      arg3.name = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.guests
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue3.guests
+      localValue3 = localValue3[localValue1]
+      localValue3.name = localValue2
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "24c8e98259".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "c4fb7a7250"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "c4fb7a7250"
 -- Beginner: this function handles network event "c4fb7a7250".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    arg2 = workValue.members
-    arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    localValue2 = workingValue.members
+    localValue2[localValue1] = nil
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "4d2c3b82a7"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "4d2c3b82a7"
 -- Beginner: this function handles network event "4d2c3b82a7".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue3
-  if arg2 then
-    arg2 = workValue3.members
-    arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue3
+  if localValue2 then
+    localValue2 = workingValue3.members
+    localValue2[localValue1] = nil
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4d2c3b82a7".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "3a92ce94a9"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "3a92ce94a9"
 -- Beginner: this function handles network event "3a92ce94a9".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    arg2 = workValue.guests
-    arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    localValue2 = workingValue.guests
+    localValue2[localValue1] = nil
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "2b3786c5c2"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "2b3786c5c2"
 -- Beginner: this function handles network event "2b3786c5c2".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue3
-  if arg2 then
-    arg2 = workValue3.guests
-    arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue3
+  if localValue2 then
+    localValue2 = workingValue3.guests
+    localValue2[localValue1] = nil
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2b3786c5c2".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "b6d14a58c2"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "b6d14a58c2"
 -- Beginner: this function handles network event "b6d14a58c2".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2, arg3) ===
-function textValue5(arg1, arg2, arg3)
-  local arg4
-  arg4 = workValue
-  if arg4 then
-    arg4 = numberValue3
-    if arg4 == arg1 then
-      workValue.logs = arg2
-      workValue.logCount = arg3
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2, localValue3) ===
+function text5(localValue1, localValue2, localValue3)
+  local localValue4
+  localValue4 = workingValue
+  if localValue4 then
+    localValue4 = number3
+    if localValue4 == localValue1 then
+      workingValue.logs = localValue2
+      workingValue.logCount = localValue3
     end
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "df6b023891"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "df6b023891"
 -- Beginner: this function handles network event "df6b023891".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2
-  arg1 = dataTable.blips
-  if arg1 then
-    arg1 = TriggerEvent
-    arg2 = "e713d91b70"
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2
+  localValue1 = dataCollection.blips
+  if localValue1 then
+    localValue1 = TriggerEvent
+    localValue2 = "e713d91b70"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-    arg1(arg2)
+    localValue1(localValue2)
   end
-  arg1 = textValue
-  if arg1 then
-    arg1 = "noGang"
-    textValue = arg1
+  localValue1 = text
+  if localValue1 then
+    localValue1 = "noGang"
+    text = localValue1
   end
-  arg1 = nil
-  workValue = arg1
-  arg1 = CMG
-  arg1.gangCachedData = nil
+  localValue1 = nil
+  workingValue = localValue1
+  localValue1 = CMG
+  localValue1.gangCachedData = nil
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "df6b023891".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "ac7da32975"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "ac7da32975"
 -- Beginner: this function handles network event "ac7da32975".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2
-  arg1 = dataTable.blips
-  if arg1 then
-    arg1 = TriggerEvent
-    arg2 = "e713d91b70"
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2
+  localValue1 = dataCollection.blips
+  if localValue1 then
+    localValue1 = TriggerEvent
+    localValue2 = "e713d91b70"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-    arg1(arg2)
+    localValue1(localValue2)
   end
-  arg1 = nil
-  workValue3 = arg1
-  arg1 = CMG
-  arg1.gangCachedGuestData = nil
+  localValue1 = nil
+  workingValue3 = localValue1
+  localValue1 = CMG
+  localValue1.gangCachedGuestData = nil
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ac7da32975".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "0d45fc5353"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "0d45fc5353"
 -- Beginner: this function handles network event "0d45fc5353".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  dataTable2 = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  dataCollection2 = localValue1
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "b674c758b8"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "b674c758b8"
 -- Beginner: this function handles network event "b674c758b8".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    workValue.maxWithdraw = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    workingValue.maxWithdraw = localValue1
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b674c758b8".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "58d834d15a"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "58d834d15a"
 -- Beginner: this function handles network event "58d834d15a".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    workValue.limitWithdrawDeposit = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    workingValue.limitWithdrawDeposit = localValue1
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "5d7f40bb9d"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "5d7f40bb9d"
 -- Beginner: this function handles network event "5d7f40bb9d".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    workValue.requireWithdrawReason = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    workingValue.requireWithdrawReason = localValue1
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5d7f40bb9d".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "aa406726e4"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "aa406726e4"
 -- Beginner: this function handles network event "aa406726e4".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue.members
-      arg3 = arg3[arg1]
-      arg3.colour = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue.members
+      localValue3 = localValue3[localValue1]
+      localValue3.colour = localValue2
     end
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "f4a19c737d"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "f4a19c737d"
 -- Beginner: this function handles network event "f4a19c737d".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.members
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue3.members
-      arg3 = arg3[arg1]
-      arg3.colour = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.members
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue3.members
+      localValue3 = localValue3[localValue1]
+      localValue3.colour = localValue2
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f4a19c737d".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "6d46904865"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "6d46904865"
 -- Beginner: this function handles network event "6d46904865".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue
-  if arg3 then
-    arg3 = workValue.guests
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue.guests
-      arg3 = arg3[arg1]
-      arg3.colour = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = workingValue.guests
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue.guests
+      localValue3 = localValue3[localValue1]
+      localValue3.colour = localValue2
     end
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "71c5863a91"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "71c5863a91"
 -- Beginner: this function handles network event "71c5863a91".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3
-  arg3 = workValue3
-  if arg3 then
-    arg3 = workValue3.guests
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue3.guests
-      arg3 = arg3[arg1]
-      arg3.colour = arg2
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = workingValue3.guests
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue3.guests
+      localValue3 = localValue3[localValue1]
+      localValue3.colour = localValue2
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "71c5863a91".
-eventRegistration(textValue4, textValue5)
-eventRegistration = RegisterNetEvent
-textValue4 = "bb3efd07e8"
+eventHandler(text4, text5)
+eventHandler = RegisterNetEvent
+text4 = "bb3efd07e8"
 -- Beginner: this function handles network event "bb3efd07e8".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    workValue.contributions = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    workingValue.contributions = localValue1
   end
 end
-eventRegistration(textValue4, textValue5)
-eventRegistration = CMG
+eventHandler(text4, text5)
+eventHandler = CMG
 -- Beginner: this function handles network event "bb3efd07e8".
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = workValue
-  arg1 = nil ~= arg1
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = workingValue
+  localValue1 = nil ~= localValue1
+  return localValue1
 end
-eventRegistration.isInGang = textValue4
-eventRegistration = CMG
+eventHandler.isInGang = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = false
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = false
+  return localValue1
 end
-eventRegistration.isGuestGangSelected = textValue4
-eventRegistration = CMG
+eventHandler.isGuestGangSelected = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2
 end
-eventRegistration.setGuestGangSelected = textValue4
-eventRegistration = CMG
+eventHandler.setGuestGangSelected = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = workValue
-  if arg1 then
-    arg1 = workValue.isAdvanced
-    if arg1 then
-      arg1 = true
-      return arg1
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = workingValue.isAdvanced
+    if localValue1 then
+      localValue1 = true
+      return localValue1
     end
   end
-  arg1 = false
-  return arg1
+  localValue1 = false
+  return localValue1
 end
-eventRegistration.isMainGangAdvanced = textValue4
-eventRegistration = CMG
+eventHandler.isMainGangAdvanced = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3
-  arg2 = workValue
-  if arg2 then
-    arg2 = workValue.members
-    arg3 = CMG
-    arg3 = arg3.getClientUserId
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3
+  localValue2 = workingValue
+  if localValue2 then
+    localValue2 = workingValue.members
+    localValue3 = CMG
+    localValue3 = localValue3.getClientUserId
     -- Beginner: result below is userId.
-    arg3 = arg3()
-    arg2 = arg2[arg3]
-    if arg2 then
-      arg3 = arg2.permissions
-      if arg3 then
-        arg3 = arg2.permissions
-        arg3 = arg3[arg1]
-        if not arg3 then
-          arg3 = arg2.permissions
-          arg3 = arg3.leader
-          if not arg3 then
-            goto flow_label_24
+    localValue3 = localValue3()
+    localValue2 = localValue2[localValue3]
+    if localValue2 then
+      localValue3 = localValue2.permissions
+      if localValue3 then
+        localValue3 = localValue2.permissions
+        localValue3 = localValue3[localValue1]
+        if not localValue3 then
+          localValue3 = localValue2.permissions
+          localValue3 = localValue3.leader
+          if not localValue3 then
+            goto continueAtStep24
           end
         end
-        arg3 = true
-        return arg3
+        localValue3 = true
+        return localValue3
       end
     end
   end
-  ::flow_label_24::
-  arg2 = false
-  return arg2
+  ::continueAtStep24::
+  localValue2 = false
+  return localValue2
 end
-eventRegistration.hasGangPermission = textValue4
-eventRegistration = CMG
+eventHandler.hasGangPermission = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = workValue6
-  arg1 = arg1()
-  if arg1 then
-    arg2 = arg1.isAdvanced
-    if arg2 then
-      arg2 = true
-      return arg2
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = workingValue6
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = localValue1.isAdvanced
+    if localValue2 then
+      localValue2 = true
+      return localValue2
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-eventRegistration.isSelectedGangAdvanced = textValue4
-eventRegistration = CMG
+eventHandler.isSelectedGangAdvanced = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2, arg3
-  arg1 = workValue6
-  arg1 = arg1()
-  if arg1 then
-    arg2 = arg1.isAdvanced
-    if arg2 then
-      arg2 = dataTable.blips
-      if arg2 then
-        arg2 = CMG
-        arg2 = arg2.inEvent
-        arg2 = arg2()
-        if not arg2 then
-          arg2 = CMG
-          arg2 = arg2.hasRadioItem
-          arg2 = arg2()
-          if arg2 then
-            arg2 = CMG
-            arg2 = arg2.gangOrgClientState
-            if arg2 then
-              arg3 = arg2.hasOrgPack
-              if true == arg3 then
-                arg3 = CMG
-                arg3 = arg3.isClientClockedOnOrganisation
-                arg3 = arg3()
-                if not arg3 then
-                  arg3 = false
-                  return arg3
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2, localValue3
+  localValue1 = workingValue6
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = localValue1.isAdvanced
+    if localValue2 then
+      localValue2 = dataCollection.blips
+      if localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.inEvent
+        localValue2 = localValue2()
+        if not localValue2 then
+          localValue2 = CMG
+          localValue2 = localValue2.hasRadioItem
+          localValue2 = localValue2()
+          if localValue2 then
+            localValue2 = CMG
+            localValue2 = localValue2.gangOrgClientState
+            if localValue2 then
+              localValue3 = localValue2.hasOrgPack
+              if true == localValue3 then
+                localValue3 = CMG
+                localValue3 = localValue3.isClientClockedOnOrganisation
+                localValue3 = localValue3()
+                if not localValue3 then
+                  localValue3 = false
+                  return localValue3
                 end
               end
             end
-            arg3 = true
-            return arg3
+            localValue3 = true
+            return localValue3
           end
         end
       end
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-eventRegistration.hasGangBlipsEnabled = textValue4
-eventRegistration = AddEventHandler
-textValue4 = "e892eba4b7"
+eventHandler.hasGangBlipsEnabled = text4
+eventHandler = AddEventHandler
+text4 = "e892eba4b7"
 -- Beginner: this function runs when client event "e892eba4b7" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3
-  arg1 = TriggerEvent
-  arg2 = "e713d91b70"
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3
+  localValue1 = TriggerEvent
+  localValue2 = "e713d91b70"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-  arg1(arg2)
-  arg1 = TriggerServerEvent
-  arg2 = "f9c26121e2"
-  arg3 = nil
+  localValue1(localValue2)
+  localValue1 = TriggerServerEvent
+  localValue2 = "f9c26121e2"
+  localValue3 = nil
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-  arg1(arg2, arg3)
+  localValue1(localValue2, localValue3)
 end
 -- Beginner: Register a client-side event handler. Event/command: "e892eba4b7".
-eventRegistration(textValue4, textValue5)
-eventRegistration = AddEventHandler
-textValue4 = "f7b3a54a8f"
+eventHandler(text4, text5)
+eventHandler = AddEventHandler
+text4 = "f7b3a54a8f"
 -- Beginner: this function runs when client event "f7b3a54a8f" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3, arg4
-  arg1 = CMG
-  arg1 = arg1.hasGangBlipsEnabled
-  arg1 = arg1()
-  if arg1 then
-    arg1 = workValue6
-    arg1 = arg1()
-    arg2 = workValue
-    if arg1 == arg2 then
-      arg1 = "own"
-      if arg1 then
-        goto flow_label_15
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = CMG
+  localValue1 = localValue1.hasGangBlipsEnabled
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = workingValue6
+    localValue1 = localValue1()
+    localValue2 = workingValue
+    if localValue1 == localValue2 then
+      localValue1 = "own"
+      if localValue1 then
+        goto continueAtStep15
       end
     end
-    arg1 = "guest"
-    ::flow_label_15::
-    arg2 = TriggerServerEvent
-    arg3 = "f9c26121e2"
-    arg4 = arg1
+    localValue1 = "guest"
+    ::continueAtStep15::
+    localValue2 = TriggerServerEvent
+    localValue3 = "f9c26121e2"
+    localValue4 = localValue1
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-    arg2(arg3, arg4)
+    localValue2(localValue3, localValue4)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "f7b3a54a8f".
-eventRegistration(textValue4, textValue5)
-eventRegistration = CMG
+eventHandler(text4, text5)
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = workValue6
-  arg1 = arg1()
-  if arg1 then
-    arg2 = arg1.isAdvanced
-    if arg2 then
-      arg2 = dataTable.names
-      if arg2 then
-        arg2 = CMG
-        arg2 = arg2.inEvent
-        arg2 = arg2()
-        if not arg2 then
-          arg2 = CMG
-          arg2 = arg2.hasRadioItem
-          arg2 = arg2()
-          if arg2 then
-            arg2 = true
-            return arg2
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = workingValue6
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = localValue1.isAdvanced
+    if localValue2 then
+      localValue2 = dataCollection.names
+      if localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.inEvent
+        localValue2 = localValue2()
+        if not localValue2 then
+          localValue2 = CMG
+          localValue2 = localValue2.hasRadioItem
+          localValue2 = localValue2()
+          if localValue2 then
+            localValue2 = true
+            return localValue2
           end
         end
       end
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-eventRegistration.hasGangNamesEnabled = textValue4
-eventRegistration = CMG
+eventHandler.hasGangNamesEnabled = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = workValue6
-  arg2 = arg2()
-  if arg2 then
-    arg3 = CMG
-    arg3 = arg3.inEvent
-    arg3 = arg3()
-    if not arg3 then
-      arg3 = CMG
-      arg3 = arg3.clientGetUserIdFromSource
-      arg4 = arg1
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = workingValue6
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue3 = CMG
+    localValue3 = localValue3.inEvent
+    localValue3 = localValue3()
+    if not localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.clientGetUserIdFromSource
+      localValue4 = localValue1
       -- Beginner: result below is userId.
-      arg3 = arg3(arg4)
-      if arg3 then
-        arg4 = arg2.members
-        arg4 = arg4[arg3]
-        if arg4 then
-          arg5 = true
-          arg6 = cmgCall.colourLookup
-          arg7 = arg4.colour
-          arg6 = arg6[arg7]
-          if not arg6 then
-            arg6 = workValue5
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        localValue4 = localValue2.members
+        localValue4 = localValue4[localValue3]
+        if localValue4 then
+          localValue5 = true
+          localValue6 = cmgOperation.colourLookup
+          localValue7 = localValue4.colour
+          localValue6 = localValue6[localValue7]
+          if not localValue6 then
+            localValue6 = workingValue5
           end
-          return arg5, arg6
+          return localValue5, localValue6
         end
-        arg5 = arg2.guests
-        arg5 = arg5[arg3]
-        if arg5 then
-          arg6 = true
-          arg7 = cmgCall.colourLookup
-          arg8 = arg5.colour
-          arg7 = arg7[arg8]
-          if not arg7 then
-            arg7 = workValue5
+        localValue5 = localValue2.guests
+        localValue5 = localValue5[localValue3]
+        if localValue5 then
+          localValue6 = true
+          localValue7 = cmgOperation.colourLookup
+          localValue8 = localValue5.colour
+          localValue7 = localValue7[localValue8]
+          if not localValue7 then
+            localValue7 = workingValue5
           end
-          return arg6, arg7
+          return localValue6, localValue7
         end
       end
     end
   end
-  arg3 = false
-  arg4 = workValue5
-  return arg3, arg4
+  localValue3 = false
+  localValue4 = workingValue5
+  return localValue3, localValue4
 end
-eventRegistration.isPlayerInSelectedGang = textValue4
-eventRegistration = CMG
+eventHandler.isPlayerInSelectedGang = text4
+eventHandler = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2
-  arg2 = dataTable
-  if arg2 then
-    arg2 = dataTable.pinnedPlayers
-    if arg2 then
-      arg2 = dataTable.pinnedPlayers
-      arg2 = arg2[arg1]
-      if arg2 then
-        goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2
+  localValue2 = dataCollection
+  if localValue2 then
+    localValue2 = dataCollection.pinnedPlayers
+    if localValue2 then
+      localValue2 = dataCollection.pinnedPlayers
+      localValue2 = localValue2[localValue1]
+      if localValue2 then
+        goto continueAtStep12
       end
     end
   end
-  arg2 = false
-  ::flow_label_12::
-  return arg2
+  localValue2 = false
+  ::continueAtStep12::
+  return localValue2
 end
-eventRegistration.isPlayerPinnedInGang = textValue4
+eventHandler.isPlayerPinnedInGang = text4
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = GetControlInstructionalButton
-  arg2 = 2
-  arg3 = -175937621
-  arg4 = true
-  arg1 = arg1(arg2, arg3, arg4)
-  arg2 = GetControlInstructionalButton
-  arg3 = 2
-  arg4 = -1943871200
-  arg5 = true
-  arg2 = arg2(arg3, arg4, arg5)
-  arg1 = arg1 == arg2
-  return arg1
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = GetControlInstructionalButton
+  localValue2 = 2
+  localValue3 = -175937621
+  localValue4 = true
+  localValue1 = localValue1(localValue2, localValue3, localValue4)
+  localValue2 = GetControlInstructionalButton
+  localValue3 = 2
+  localValue4 = -1943871200
+  localValue5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue1 = localValue1 == localValue2
+  return localValue1
 end
-textValue4 = RegisterCommand
-textValue5 = "pinglocation"
+text4 = RegisterCommand
+text5 = "pinglocation"
 -- Beginner: this function is the command handler for "pinglocation".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8
-  arg1 = workValue6
-  arg1 = arg1()
-  if arg1 then
-    arg2 = arg1.isAdvanced
-    if arg2 then
-      arg2 = dataTable.pings
-      if arg2 then
-        arg2 = CMG
-        arg2 = arg2.isEmergencyService
-        arg2 = arg2()
-        if not arg2 then
-          arg2 = CMG
-          arg2 = arg2.inEvent
-          arg2 = arg2()
-          if not arg2 then
-            arg2 = CMG
-            arg2 = arg2.hasRadioItem
-            arg2 = arg2()
-            if arg2 then
-              arg2 = eventRegistration
-              arg2 = arg2()
-              if arg2 then
-                arg2 = arg1.pings
-                arg3 = CMG
-                arg3 = arg3.getClientUserId
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8
+  localValue1 = workingValue6
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = localValue1.isAdvanced
+    if localValue2 then
+      localValue2 = dataCollection.pings
+      if localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.isEmergencyService
+        localValue2 = localValue2()
+        if not localValue2 then
+          localValue2 = CMG
+          localValue2 = localValue2.inEvent
+          localValue2 = localValue2()
+          if not localValue2 then
+            localValue2 = CMG
+            localValue2 = localValue2.hasRadioItem
+            localValue2 = localValue2()
+            if localValue2 then
+              localValue2 = eventHandler
+              localValue2 = localValue2()
+              if localValue2 then
+                localValue2 = localValue1.pings
+                localValue3 = CMG
+                localValue3 = localValue3.getClientUserId
                 -- Beginner: result below is userId.
-                arg3 = arg3()
-                arg2 = arg2[arg3]
-                if arg2 then
+                localValue3 = localValue3()
+                localValue2 = localValue2[localValue3]
+                if localValue2 then
                   return
                 end
               end
-              arg2 = GetGameplayCamCoord
-              arg2 = arg2()
-              arg3 = CMG
-              arg3 = arg3.rotationToDirection
-              arg4 = GetGameplayCamRot
-              arg5 = 2
-              arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8 = arg4(arg5)
-              arg3 = arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
-              arg4 = arg3 * 500.0
-              arg4 = arg2 + arg4
-              arg5 = _ENV
-              arg6 = "StartExpensiveSynchronousShapeTestLosProbe"
-              arg5 = arg5[arg6]
-              arg6 = arg2.x
-              arg7 = arg2.y
-              arg8 = arg2.z
-              arg9 = arg4.x
-              arg10 = arg4.y
-              arg11 = arg4.z
-              arg122 = -1
-              arg13 = PlayerPedId
+              localValue2 = GetGameplayCamCoord
+              localValue2 = localValue2()
+              localValue3 = CMG
+              localValue3 = localValue3.rotationToDirection
+              localValue4 = GetGameplayCamRot
+              localValue5 = 2
+              localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8 = localValue4(localValue5)
+              localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8)
+              localValue4 = localValue3 * 500.0
+              localValue4 = localValue2 + localValue4
+              localValue5 = _ENV
+              localValue6 = "StartExpensiveSynchronousShapeTestLosProbe"
+              localValue5 = localValue5[localValue6]
+              localValue6 = localValue2.x
+              localValue7 = localValue2.y
+              localValue8 = localValue2.z
+              localValue9 = localValue4.x
+              localValue10 = localValue4.y
+              localValue11 = localValue4.z
+              localValue122 = -1
+              localValue13 = PlayerPedId
               -- Beginner: result below is localPlayerPed.
-              arg13 = arg13()
-              arg14 = 8
-              arg5 = arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
-              arg6 = GetShapeTestResult
-              arg7 = arg5
-              arg6, arg7, arg8 = arg6(arg7)
-              if not arg7 or 0 == arg7 then
-                arg9 = nil
-                arg10 = 2.0
-                arg11 = 20
-                arg122 = 500
-                arg13 = 1
-                for arg14 = arg11, arg122, arg13 do
-                  if arg14 > 50 and not arg9 then
-                    arg10 = 10.0
+              localValue13 = localValue13()
+              localValue14 = 8
+              localValue5 = localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14)
+              localValue6 = GetShapeTestResult
+              localValue7 = localValue5
+              localValue6, localValue7, localValue8 = localValue6(localValue7)
+              if not localValue7 or 0 == localValue7 then
+                localValue9 = nil
+                localValue10 = 2.0
+                localValue11 = 20
+                localValue122 = 500
+                localValue13 = 1
+                for localValue14 = localValue11, localValue122, localValue13 do
+                  if localValue14 > 50 and not localValue9 then
+                    localValue10 = 10.0
                   end
-                  arg15 = arg3 * arg14
-                  arg15 = arg2 + arg15
-                  arg16 = GetGroundZFor_3dCoord
-                  arg17 = arg15.x
-                  arg18 = arg15.y
-                  numberValue5 = arg15.z
-                  numberValue7 = 0.0
-                  numberValue8 = false
-                  arg16, arg17 = arg16(arg17, arg18, numberValue5, numberValue7, numberValue8)
-                  if arg16 then
-                    arg18 = vector3
-                    numberValue5 = arg15.x
-                    numberValue7 = arg15.y
-                    numberValue8 = arg17
-                    arg18 = arg18(numberValue5, numberValue7, numberValue8)
-                    numberValue5 = arg15 - arg18
-                    numberValue5 = #numberValue5
-                    if arg10 > numberValue5 then
-                      arg9 = arg18
-                      arg10 = numberValue5
+                  localValue15 = localValue3 * localValue14
+                  localValue15 = localValue2 + localValue15
+                  localValue16 = GetGroundZFor_3dCoord
+                  localValue17 = localValue15.x
+                  localValue18 = localValue15.y
+                  number5 = localValue15.z
+                  number7 = 0.0
+                  number8 = false
+                  localValue16, localValue17 = localValue16(localValue17, localValue18, number5, number7, number8)
+                  if localValue16 then
+                    localValue18 = vector3
+                    number5 = localValue15.x
+                    number7 = localValue15.y
+                    number8 = localValue17
+                    localValue18 = localValue18(number5, number7, number8)
+                    number5 = localValue15 - localValue18
+                    number5 = #number5
+                    if localValue10 > number5 then
+                      localValue9 = localValue18
+                      localValue10 = number5
                     end
                   end
                 end
-                if arg9 then
-                  arg7 = true
-                  arg8 = arg9
+                if localValue9 then
+                  localValue7 = true
+                  localValue8 = localValue9
                 end
               end
-              if arg7 and 0 ~= arg7 then
-                arg9 = GetGameTimer
+              if localValue7 and 0 ~= localValue7 then
+                localValue9 = GetGameTimer
                 -- Beginner: result below is gameTimeMs.
-                arg9 = arg9()
-                numberValue14 = arg9
-                arg9 = TriggerServerEvent
-                arg10 = "f1d8cdbd8e"
-                arg11 = arg8
-                arg122 = false
+                localValue9 = localValue9()
+                number14 = localValue9
+                localValue9 = TriggerServerEvent
+                localValue10 = "f1d8cdbd8e"
+                localValue11 = localValue8
+                localValue122 = false
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f1d8cdbd8e".
-                arg9(arg10, arg11, arg122)
+                localValue9(localValue10, localValue11, localValue122)
               end
             end
           end
@@ -10459,566 +10459,566 @@ function eventRegistration2()
     end
   end
 end
-flag4 = false
+stateFlag4 = false
 -- Beginner: Register a chat/console command. Event/command: "pinglocation".
-textValue4(textValue5, eventRegistration2, flag4)
-textValue4 = RegisterKeyMapping
-textValue5 = "pinglocation"
-eventRegistration2 = "Create Gang Ping"
-flag4 = "MOUSE_BUTTON"
-dataTable6 = "MOUSE_MIDDLE"
+text4(text5, eventHandler2, stateFlag4)
+text4 = RegisterKeyMapping
+text5 = "pinglocation"
+eventHandler2 = "Create Gang Ping"
+stateFlag4 = "MOUSE_BUTTON"
+dataCollection6 = "MOUSE_MIDDLE"
 -- Beginner: Bind a command to a keyboard/controller key.
-textValue4(textValue5, eventRegistration2, flag4, dataTable6)
-textValue4 = RegisterCommand
-textValue5 = "deletepinglocation"
+text4(text5, eventHandler2, stateFlag4, dataCollection6)
+text4 = RegisterCommand
+text5 = "deletepinglocation"
 -- Beginner: this function is the command handler for "deletepinglocation".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = workValue6
-  arg1 = arg1()
-  if arg1 then
-    arg2 = arg1.pings
-    arg3 = CMG
-    arg3 = arg3.getClientUserId
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = workingValue6
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = localValue1.pings
+    localValue3 = CMG
+    localValue3 = localValue3.getClientUserId
     -- Beginner: result below is userId.
-    arg3 = arg3()
-    arg2 = arg2[arg3]
-    if arg2 then
-      arg2 = eventRegistration
-      arg2 = arg2()
-      if arg2 then
-        arg2 = arg1.pings
-        arg3 = CMG
-        arg3 = arg3.getClientUserId
+    localValue3 = localValue3()
+    localValue2 = localValue2[localValue3]
+    if localValue2 then
+      localValue2 = eventHandler
+      localValue2 = localValue2()
+      if localValue2 then
+        localValue2 = localValue1.pings
+        localValue3 = CMG
+        localValue3 = localValue3.getClientUserId
         -- Beginner: result below is userId.
-        arg3 = arg3()
-        arg2 = arg2[arg3]
-        if not arg2 then
+        localValue3 = localValue3()
+        localValue2 = localValue2[localValue3]
+        if not localValue2 then
           return
         end
       end
-      arg2 = TriggerServerEvent
-      arg3 = "f1d8cdbd8e"
-      arg4 = nil
-      arg5 = false
+      localValue2 = TriggerServerEvent
+      localValue3 = "f1d8cdbd8e"
+      localValue4 = nil
+      localValue5 = false
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f1d8cdbd8e".
-      arg2(arg3, arg4, arg5)
+      localValue2(localValue3, localValue4, localValue5)
     end
   end
 end
-flag4 = false
+stateFlag4 = false
 -- Beginner: Register a chat/console command. Event/command: "deletepinglocation".
-textValue4(textValue5, eventRegistration2, flag4)
-textValue4 = RegisterKeyMapping
-textValue5 = "deletepinglocation"
-eventRegistration2 = "Delete Gang Ping"
-flag4 = "MOUSE_BUTTON"
-dataTable6 = "MOUSE_MIDDLE"
+text4(text5, eventHandler2, stateFlag4)
+text4 = RegisterKeyMapping
+text5 = "deletepinglocation"
+eventHandler2 = "Delete Gang Ping"
+stateFlag4 = "MOUSE_BUTTON"
+dataCollection6 = "MOUSE_MIDDLE"
 -- Beginner: Bind a command to a keyboard/controller key.
-textValue4(textValue5, eventRegistration2, flag4, dataTable6)
+text4(text5, eventHandler2, stateFlag4, dataCollection6)
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5
-  arg2 = CMG
-  arg2 = arg2.getGangPingMarkerIndex
-  arg2 = arg2()
-  if 2 == arg2 then
-    arg2 = CMG
-    arg2 = arg2.isEmergencyService
-    arg2 = arg2()
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.inEvent
-      arg2 = arg2()
-      if not arg2 then
-        arg2 = GetGroundZFor_3dCoord
-        arg3 = arg1.x
-        arg4 = arg1.y
-        arg5 = arg1.z
-        arg6 = arg1.z
-        arg7 = false
-        arg2, arg3 = arg2(arg3, arg4, arg5, arg6, arg7)
-        arg4 = math
-        arg4 = arg4.abs
-        arg5 = arg1.z
-        arg5 = arg3 - arg5
-        arg4 = arg4(arg5)
-        if arg4 > 10.0 then
-          arg5 = arg1.z
-          if arg5 then
-            goto flow_label_35
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5
+  localValue2 = CMG
+  localValue2 = localValue2.getGangPingMarkerIndex
+  localValue2 = localValue2()
+  if 2 == localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.isEmergencyService
+    localValue2 = localValue2()
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.inEvent
+      localValue2 = localValue2()
+      if not localValue2 then
+        localValue2 = GetGroundZFor_3dCoord
+        localValue3 = localValue1.x
+        localValue4 = localValue1.y
+        localValue5 = localValue1.z
+        localValue6 = localValue1.z
+        localValue7 = false
+        localValue2, localValue3 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7)
+        localValue4 = math
+        localValue4 = localValue4.abs
+        localValue5 = localValue1.z
+        localValue5 = localValue3 - localValue5
+        localValue4 = localValue4(localValue5)
+        if localValue4 > 10.0 then
+          localValue5 = localValue1.z
+          if localValue5 then
+            goto continueAtStep35
           end
         end
-        arg5 = arg3
-        ::flow_label_35::
-        arg5 = arg5 - 1.0
-        arg6 = CreateCheckpoint
-        arg7 = 47
-        arg8 = arg1.x
-        arg9 = arg1.y
-        arg10 = arg5
-        arg11 = arg1.x
-        arg122 = arg1.y
-        arg13 = arg1.z
-        arg13 = arg13 + 200.0
-        arg14 = 1.0
-        arg15 = 255
-        arg16 = 50
-        arg17 = 50
-        arg18 = 125
-        numberValue5 = 0
-        return arg6(arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
+        localValue5 = localValue3
+        ::continueAtStep35::
+        localValue5 = localValue5 - 1.0
+        localValue6 = CreateCheckpoint
+        localValue7 = 47
+        localValue8 = localValue1.x
+        localValue9 = localValue1.y
+        localValue10 = localValue5
+        localValue11 = localValue1.x
+        localValue122 = localValue1.y
+        localValue13 = localValue1.z
+        localValue13 = localValue13 + 200.0
+        localValue14 = 1.0
+        localValue15 = 255
+        localValue16 = 50
+        localValue17 = 50
+        localValue18 = 125
+        number5 = 0
+        return localValue6(localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5)
     end
   end
   else
-    arg2 = nil
-    return arg2
+    localValue2 = nil
+    return localValue2
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = CMG
-  arg2 = arg2.getGangAdditionalPingMarkerIndex
-  arg2 = arg2()
-  if 2 ~= arg2 then
-    arg2 = CMG
-    arg2 = arg2.getGangAdditionalPingMarkerIndex
-    arg2 = arg2()
-    if 4 ~= arg2 then
-      goto flow_label_25
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = CMG
+  localValue2 = localValue2.getGangAdditionalPingMarkerIndex
+  localValue2 = localValue2()
+  if 2 ~= localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.getGangAdditionalPingMarkerIndex
+    localValue2 = localValue2()
+    if 4 ~= localValue2 then
+      goto continueAtStep25
     end
   end
-  arg2 = AddBlipForCoord
-  arg3 = arg1.x
-  arg4 = arg1.y
-  arg5 = arg1.z
+  localValue2 = AddBlipForCoord
+  localValue3 = localValue1.x
+  localValue4 = localValue1.y
+  localValue5 = localValue1.z
   -- Beginner: result below is blipHandle.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = SetBlipSprite
-  arg4 = arg2
-  arg5 = 162
-  arg3(arg4, arg5)
-  arg3 = SetBlipDisplay
-  arg4 = arg2
-  arg5 = 9
-  arg3(arg4, arg5)
-  return arg2
-  ::flow_label_25::
-  arg2 = nil
-  return arg2
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = SetBlipSprite
+  localValue4 = localValue2
+  localValue5 = 162
+  localValue3(localValue4, localValue5)
+  localValue3 = SetBlipDisplay
+  localValue4 = localValue2
+  localValue5 = 9
+  localValue3(localValue4, localValue5)
+  return localValue2
+  ::continueAtStep25::
+  localValue2 = nil
+  return localValue2
 end
-eventRegistration2 = RegisterNetEvent
-flag4 = "f1d8cdbd8e"
+eventHandler2 = RegisterNetEvent
+stateFlag4 = "f1d8cdbd8e"
 -- Beginner: this function handles network event "f1d8cdbd8e".
 
--- === HELPER FUNCTION (decompiler name: dataTable6; parameters: arg1, arg2) ===
-function dataTable6(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8
-  arg3 = workValue
-  if arg3 then
-    arg3 = CMG
-    arg3 = arg3.hasRadioItem
-    arg3 = arg3()
-    if arg3 then
-      arg3 = workValue.pings
-      arg3 = arg3[arg1]
-      if arg3 then
-        arg4 = arg3.checkpoint
-        if arg4 then
-          arg4 = DeleteCheckpoint
-          arg5 = arg3.checkpoint
-          arg4(arg5)
-          arg3.checkpoint = nil
+-- === HELPER FUNCTION (decompiler name: dataCollection6; parameters: localValue1, localValue2) ===
+function dataCollection6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue3 = workingValue
+  if localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.hasRadioItem
+    localValue3 = localValue3()
+    if localValue3 then
+      localValue3 = workingValue.pings
+      localValue3 = localValue3[localValue1]
+      if localValue3 then
+        localValue4 = localValue3.checkpoint
+        if localValue4 then
+          localValue4 = DeleteCheckpoint
+          localValue5 = localValue3.checkpoint
+          localValue4(localValue5)
+          localValue3.checkpoint = nil
         end
       end
-      if arg3 then
-        arg4 = arg3.blip
-        if arg4 then
-          arg4 = RemoveBlip
-          arg5 = arg3.blip
-          arg4(arg5)
-          arg3.blip = nil
+      if localValue3 then
+        localValue4 = localValue3.blip
+        if localValue4 then
+          localValue4 = RemoveBlip
+          localValue5 = localValue3.blip
+          localValue4(localValue5)
+          localValue3.blip = nil
         end
       end
-      if arg2 then
-        arg4 = workValue.pings
-        arg5 = {}
-        arg5.position = arg2
-        arg6 = textValue4
-        arg7 = arg2
-        arg6 = arg6(arg7)
-        arg5.checkpoint = arg6
-        arg6 = textValue5
-        arg7 = arg2
-        arg6 = arg6(arg7)
-        arg5.blip = arg6
-        arg4[arg1] = arg5
-        arg4 = numberValue16
-        if arg4 > 0 then
-          arg4 = CMG
-          arg4 = arg4.getClientUserId
+      if localValue2 then
+        localValue4 = workingValue.pings
+        localValue5 = {}
+        localValue5.position = localValue2
+        localValue6 = text4
+        localValue7 = localValue2
+        localValue6 = localValue6(localValue7)
+        localValue5.checkpoint = localValue6
+        localValue6 = text5
+        localValue7 = localValue2
+        localValue6 = localValue6(localValue7)
+        localValue5.blip = localValue6
+        localValue4[localValue1] = localValue5
+        localValue4 = number16
+        if localValue4 > 0 then
+          localValue4 = CMG
+          localValue4 = localValue4.getClientUserId
           -- Beginner: result below is userId.
-          arg4 = arg4()
-          if arg1 ~= arg4 then
-            arg4 = SendNUIMessage
-            arg5 = {}
-            arg6 = "gangping"
-            arg7 = tostring
-            arg8 = numberValue16
-            arg7 = arg7(arg8)
-            arg6 = arg6 .. arg7
-            arg5.transactionType = arg6
-            arg6 = numberValue18
-            arg5.volumeOverride = arg6
+          localValue4 = localValue4()
+          if localValue1 ~= localValue4 then
+            localValue4 = SendNUIMessage
+            localValue5 = {}
+            localValue6 = "gangping"
+            localValue7 = tostring
+            localValue8 = number16
+            localValue7 = localValue7(localValue8)
+            localValue6 = localValue6 .. localValue7
+            localValue5.transactionType = localValue6
+            localValue6 = number18
+            localValue5.volumeOverride = localValue6
             -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-            arg4(arg5)
+            localValue4(localValue5)
           end
         end
       else
-        arg4 = workValue.pings
-        arg4[arg1] = nil
+        localValue4 = workingValue.pings
+        localValue4[localValue1] = nil
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f1d8cdbd8e".
-eventRegistration2(flag4, dataTable6)
-eventRegistration2 = RegisterNetEvent
-flag4 = "eef17f8aa1"
+eventHandler2(stateFlag4, dataCollection6)
+eventHandler2 = RegisterNetEvent
+stateFlag4 = "eef17f8aa1"
 -- Beginner: this function handles network event "eef17f8aa1".
 
--- === HELPER FUNCTION (decompiler name: dataTable6; parameters: arg1, arg2) ===
-function dataTable6(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  arg3 = workValue3
-  if arg3 then
-    arg3 = CMG
-    arg3 = arg3.hasRadioItem
-    arg3 = arg3()
-    if arg3 then
-      arg3 = workValue3.pings
-      arg3 = arg3[arg1]
-      if arg3 then
-        arg4 = arg3.checkpoint
-        if arg4 then
-          arg4 = DeleteCheckpoint
-          arg5 = arg3.checkpoint
-          arg4(arg5)
-          arg3.checkpoint = nil
+-- === HELPER FUNCTION (decompiler name: dataCollection6; parameters: localValue1, localValue2) ===
+function dataCollection6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue3 = workingValue3
+  if localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.hasRadioItem
+    localValue3 = localValue3()
+    if localValue3 then
+      localValue3 = workingValue3.pings
+      localValue3 = localValue3[localValue1]
+      if localValue3 then
+        localValue4 = localValue3.checkpoint
+        if localValue4 then
+          localValue4 = DeleteCheckpoint
+          localValue5 = localValue3.checkpoint
+          localValue4(localValue5)
+          localValue3.checkpoint = nil
         end
       end
-      if arg3 then
-        arg4 = arg3.blip
-        if arg4 then
-          arg4 = RemoveBlip
-          arg5 = arg3.blip
-          arg4(arg5)
-          arg3.blip = nil
+      if localValue3 then
+        localValue4 = localValue3.blip
+        if localValue4 then
+          localValue4 = RemoveBlip
+          localValue5 = localValue3.blip
+          localValue4(localValue5)
+          localValue3.blip = nil
         end
       end
-      if arg2 then
-        arg4 = workValue3.pings
-        arg5 = {}
-        arg5.position = arg2
-        arg6 = textValue4
-        arg7 = arg2
-        arg6 = arg6(arg7)
-        arg5.checkpoint = arg6
-        arg6 = textValue5
-        arg7 = arg2
-        arg6 = arg6(arg7)
-        arg5.blip = arg6
-        arg4[arg1] = arg5
+      if localValue2 then
+        localValue4 = workingValue3.pings
+        localValue5 = {}
+        localValue5.position = localValue2
+        localValue6 = text4
+        localValue7 = localValue2
+        localValue6 = localValue6(localValue7)
+        localValue5.checkpoint = localValue6
+        localValue6 = text5
+        localValue7 = localValue2
+        localValue6 = localValue6(localValue7)
+        localValue5.blip = localValue6
+        localValue4[localValue1] = localValue5
       else
-        arg4 = workValue3.pings
-        arg4[arg1] = nil
+        localValue4 = workingValue3.pings
+        localValue4[localValue1] = nil
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "eef17f8aa1".
-eventRegistration2(flag4, dataTable6)
-eventRegistration2 = 0.8
-flag4 = 0
-dataTable6 = {}
-dataTable6.metpd = true
-dataTable6.nhs = true
-dataTable6.hmp = true
-dataTable6.lfb = true
+eventHandler2(stateFlag4, dataCollection6)
+eventHandler2 = 0.8
+stateFlag4 = 0
+dataCollection6 = {}
+dataCollection6.metpd = true
+dataCollection6.nhs = true
+dataCollection6.hmp = true
+dataCollection6.lfb = true
 
--- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
-function workValue17()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26
-  arg1 = 0
-  arg2 = workValue6
-  arg2 = arg2()
-  arg3 = CMG
-  arg3 = arg3.getGangUIPostion
-  arg3 = arg3()
-  arg4 = CMG
-  arg4 = arg4.getShowHealthPercentageFlag
-  arg4 = arg4()
-  arg5 = {}
-  if arg2 then
-    arg6 = arg2.isAdvanced
-    if arg6 then
-      arg6 = CMG
-      arg6 = arg6.isEmergencyService
-      arg6 = arg6()
-      if not arg6 then
-        arg6 = CMG
-        arg6 = arg6.isDisplayVisible
-        arg7 = "gang"
-        arg6 = arg6(arg7)
-        if arg6 then
-          arg6 = CMG
-          arg6 = arg6.inEvent
-          arg6 = arg6()
-          if not arg6 then
-            arg6 = CMG
-            arg6 = arg6.hasRadioItem
-            arg6 = arg6()
-            if arg6 then
-              arg6 = dataTable.pings
-              if arg6 then
-                arg6 = GetGameplayCamCoord
-                arg6 = arg6()
-                arg7 = HasStreamedTextureDictLoaded
-                arg8 = "cmg_gang"
-                arg7 = arg7(arg8)
-                arg8 = GetActiveScreenResolution
-                arg8, arg9 = arg8()
-                arg10 = arg8 / arg9
-                arg11 = CMG
-                arg11 = arg11.getGangAdditionalPingMarkerIndex
-                arg11 = arg11()
-                arg122 = pairs
-                arg13 = arg2.pings
-                arg122, arg13, arg14, arg15 = arg122(arg13)
-                for arg16, arg17 in arg122, arg13, arg14, arg15 do
-                  arg18 = GetScreenCoordFromWorldCoord
-                  numberValue5 = arg17.position
-                  numberValue5 = numberValue5.x
-                  numberValue7 = arg17.position
-                  numberValue7 = numberValue7.y
-                  numberValue8 = arg17.position
-                  numberValue8 = numberValue8.z
-                  arg18, numberValue5, numberValue7 = arg18(numberValue5, numberValue7, numberValue8)
-                  if arg18 then
-                    numberValue8 = workValue7
-                    numberValue9 = arg2
-                    numberValue8 = numberValue8(numberValue9)
-                    numberValue8 = numberValue8[arg16]
-                    if numberValue8 then
-                      numberValue9 = arg17.position
-                      numberValue9 = arg6 - numberValue9
-                      numberValue9 = #numberValue9
-                      numberValue10 = tostring
-                      numberValue12 = math
-                      numberValue12 = numberValue12.floor
-                      numberValue13 = numberValue9
-                      numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue12(numberValue13)
-                      numberValue10 = numberValue10(numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
-                      numberValue12 = "m"
-                      numberValue10 = numberValue10 .. numberValue12
-                      numberValue12 = 1000.0
-                      if numberValue9 > numberValue12 then
-                        numberValue12 = tostring
-                        numberValue13 = math
-                        numberValue13 = numberValue13.round
-                        numberValue15 = numberValue9 / 1000.0
-                        numberValue17 = 1
-                        numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue13(numberValue15, numberValue17)
-                        numberValue12 = numberValue12(numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
-                        numberValue13 = "km"
-                        numberValue12 = numberValue12 .. numberValue13
-                        numberValue10 = numberValue12
+-- === HELPER FUNCTION (decompiler name: workingValue17; parameters: none) ===
+function workingValue17()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26
+  localValue1 = 0
+  localValue2 = workingValue6
+  localValue2 = localValue2()
+  localValue3 = CMG
+  localValue3 = localValue3.getGangUIPostion
+  localValue3 = localValue3()
+  localValue4 = CMG
+  localValue4 = localValue4.getShowHealthPercentageFlag
+  localValue4 = localValue4()
+  localValue5 = {}
+  if localValue2 then
+    localValue6 = localValue2.isAdvanced
+    if localValue6 then
+      localValue6 = CMG
+      localValue6 = localValue6.isEmergencyService
+      localValue6 = localValue6()
+      if not localValue6 then
+        localValue6 = CMG
+        localValue6 = localValue6.isDisplayVisible
+        localValue7 = "gang"
+        localValue6 = localValue6(localValue7)
+        if localValue6 then
+          localValue6 = CMG
+          localValue6 = localValue6.inEvent
+          localValue6 = localValue6()
+          if not localValue6 then
+            localValue6 = CMG
+            localValue6 = localValue6.hasRadioItem
+            localValue6 = localValue6()
+            if localValue6 then
+              localValue6 = dataCollection.pings
+              if localValue6 then
+                localValue6 = GetGameplayCamCoord
+                localValue6 = localValue6()
+                localValue7 = HasStreamedTextureDictLoaded
+                localValue8 = "cmg_gang"
+                localValue7 = localValue7(localValue8)
+                localValue8 = GetActiveScreenResolution
+                localValue8, localValue9 = localValue8()
+                localValue10 = localValue8 / localValue9
+                localValue11 = CMG
+                localValue11 = localValue11.getGangAdditionalPingMarkerIndex
+                localValue11 = localValue11()
+                localValue122 = pairs
+                localValue13 = localValue2.pings
+                localValue122, localValue13, localValue14, localValue15 = localValue122(localValue13)
+                for localValue16, localValue17 in localValue122, localValue13, localValue14, localValue15 do
+                  localValue18 = GetScreenCoordFromWorldCoord
+                  number5 = localValue17.position
+                  number5 = number5.x
+                  number7 = localValue17.position
+                  number7 = number7.y
+                  number8 = localValue17.position
+                  number8 = number8.z
+                  localValue18, number5, number7 = localValue18(number5, number7, number8)
+                  if localValue18 then
+                    number8 = workingValue7
+                    number9 = localValue2
+                    number8 = number8(number9)
+                    number8 = number8[localValue16]
+                    if number8 then
+                      number9 = localValue17.position
+                      number9 = localValue6 - number9
+                      number9 = #number9
+                      number10 = tostring
+                      number12 = math
+                      number12 = number12.floor
+                      number13 = number9
+                      number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26 = number12(number13)
+                      number10 = number10(number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26)
+                      number12 = "m"
+                      number10 = number10 .. number12
+                      number12 = 1000.0
+                      if number9 > number12 then
+                        number12 = tostring
+                        number13 = math
+                        number13 = number13.round
+                        number15 = number9 / 1000.0
+                        number17 = 1
+                        number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26 = number13(number15, number17)
+                        number12 = number12(number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26)
+                        number13 = "km"
+                        number12 = number12 .. number13
+                        number10 = number12
                       end
-                      numberValue12 = math
-                      numberValue12 = numberValue12.min
-                      numberValue13 = numberValue9 / 1000.0
-                      numberValue15 = 1.0
-                      numberValue12 = numberValue12(numberValue13, numberValue15)
-                      numberValue12 = 0.4 * numberValue12
-                      numberValue13 = CMG
-                      numberValue13 = numberValue13.DrawText
-                      numberValue15 = numberValue5
-                      numberValue17 = numberValue7
-                      numberValue19 = numberValue8.name
-                      numberValue20 = "\n"
-                      numberValue21 = numberValue10
-                      numberValue19 = numberValue19 .. numberValue20 .. numberValue21
-                      numberValue20 = 1.0
-                      numberValue20 = numberValue20 - numberValue12
-                      numberValue20 = 0.2 * numberValue20
-                      numberValue21 = eventRegistration2
-                      numberValue20 = numberValue20 * numberValue21
-                      numberValue21 = 0
-                      numberValue22 = 0
-                      numberValue23 = nil
-                      flag3 = true
-                      numberValue13(numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3)
-                      if arg7 then
-                        numberValue13 = CMG
-                        numberValue13 = numberValue13.getGangPingMarkerIndex
-                        numberValue13 = numberValue13()
-                        if 3 == numberValue13 then
-                          numberValue13 = numberValue12 * 1.25
-                          numberValue15 = 1.0
-                          numberValue13 = numberValue15 - numberValue13
-                          numberValue15 = DrawSprite
-                          numberValue17 = "cmg_gang"
-                          numberValue19 = "ping"
-                          numberValue20 = numberValue5
-                          numberValue21 = 0.01 * numberValue13
-                          numberValue22 = eventRegistration2
-                          numberValue21 = numberValue21 * numberValue22
-                          numberValue21 = numberValue7 - numberValue21
-                          numberValue22 = 0.03
-                          numberValue22 = numberValue22 / arg10
-                          numberValue22 = numberValue22 * numberValue13
-                          numberValue23 = eventRegistration2
-                          numberValue22 = numberValue22 * numberValue23
-                          numberValue23 = 0.03 * numberValue13
-                          flag3 = eventRegistration2
-                          numberValue23 = numberValue23 * flag3
-                          flag3 = 0
-                          numberValue24 = 255
-                          vector3Builder = 255
-                          numberValue25 = 255
-                          numberValue26 = 255
-                          numberValue15(numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
+                      number12 = math
+                      number12 = number12.min
+                      number13 = number9 / 1000.0
+                      number15 = 1.0
+                      number12 = number12(number13, number15)
+                      number12 = 0.4 * number12
+                      number13 = CMG
+                      number13 = number13.DrawText
+                      number15 = number5
+                      number17 = number7
+                      number19 = number8.name
+                      number20 = "\n"
+                      number21 = number10
+                      number19 = number19 .. number20 .. number21
+                      number20 = 1.0
+                      number20 = number20 - number12
+                      number20 = 0.2 * number20
+                      number21 = eventHandler2
+                      number20 = number20 * number21
+                      number21 = 0
+                      number22 = 0
+                      number23 = nil
+                      stateFlag3 = true
+                      number13(number15, number17, number19, number20, number21, number22, number23, stateFlag3)
+                      if localValue7 then
+                        number13 = CMG
+                        number13 = number13.getGangPingMarkerIndex
+                        number13 = number13()
+                        if 3 == number13 then
+                          number13 = number12 * 1.25
+                          number15 = 1.0
+                          number13 = number15 - number13
+                          number15 = DrawSprite
+                          number17 = "cmg_gang"
+                          number19 = "ping"
+                          number20 = number5
+                          number21 = 0.01 * number13
+                          number22 = eventHandler2
+                          number21 = number21 * number22
+                          number21 = number7 - number21
+                          number22 = 0.03
+                          number22 = number22 / localValue10
+                          number22 = number22 * number13
+                          number23 = eventHandler2
+                          number22 = number22 * number23
+                          number23 = 0.03 * number13
+                          stateFlag3 = eventHandler2
+                          number23 = number23 * stateFlag3
+                          stateFlag3 = 0
+                          number24 = 255
+                          createVector3 = 255
+                          number25 = 255
+                          number26 = 255
+                          number15(number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26)
                         end
                       end
                     end
                   end
-                  if 3 == arg11 or 4 == arg11 then
-                    numberValue8 = CMG
-                    numberValue8 = numberValue8.getPlayerCoords
+                  if 3 == localValue11 or 4 == localValue11 then
+                    number8 = CMG
+                    number8 = number8.getPlayerCoords
                     -- Beginner: result below is playerCoords.
-                    numberValue8 = numberValue8()
-                    numberValue9 = math
-                    numberValue9 = numberValue9.deg
-                    numberValue10 = math
-                    numberValue10 = numberValue10.atan
-                    numberValue12 = arg17.position
-                    numberValue12 = numberValue12.x
-                    numberValue13 = numberValue8.x
-                    numberValue12 = numberValue12 - numberValue13
-                    numberValue13 = arg17.position
-                    numberValue13 = numberValue13.y
-                    numberValue15 = numberValue8.y
-                    numberValue13 = numberValue13 - numberValue15
-                    numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue10(numberValue12, numberValue13)
-                    numberValue9 = numberValue9(numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
-                    numberValue9 = numberValue9 % 360
-                    numberValue10 = CMG
-                    numberValue10 = numberValue10.addCompassPing
-                    numberValue12 = numberValue9
-                    numberValue10(numberValue12)
+                    number8 = number8()
+                    number9 = math
+                    number9 = number9.deg
+                    number10 = math
+                    number10 = number10.atan
+                    number12 = localValue17.position
+                    number12 = number12.x
+                    number13 = number8.x
+                    number12 = number12 - number13
+                    number13 = localValue17.position
+                    number13 = number13.y
+                    number15 = number8.y
+                    number13 = number13 - number15
+                    number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26 = number10(number12, number13)
+                    number9 = number9(number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26)
+                    number9 = number9 % 360
+                    number10 = CMG
+                    number10 = number10.addCompassPing
+                    number12 = number9
+                    number10(number12)
                   end
                 end
               end
-              arg6 = pairs
-              arg7 = workValue7
-              arg8 = arg2
-              arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = arg7(arg8)
-              arg6, arg7, arg8, arg9 = arg6(arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
-              for arg10, arg11 in arg6, arg7, arg8, arg9 do
-                arg122 = dataTable.pinnedPlayers
-                arg122 = arg122[arg10]
-                if arg122 then
-                  arg122 = fullPlayerListData
-                  arg122 = arg122[arg10]
-                  if arg122 then
-                    arg122 = CMG
-                    arg122 = arg122.getJobType
-                    arg13 = arg10
-                    arg122 = arg122(arg13)
-                    arg13 = dataTable6
-                    arg122 = arg13[arg122]
-                    if not arg122 then
-                      arg122 = true
-                      arg13 = nil
-                      arg14 = nil
-                      arg15 = dataTable2
-                      arg15 = arg15[arg10]
-                      if arg15 then
-                        arg13 = arg15.health
-                        arg14 = arg15.armour
+              localValue6 = pairs
+              localValue7 = workingValue7
+              localValue8 = localValue2
+              localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26 = localValue7(localValue8)
+              localValue6, localValue7, localValue8, localValue9 = localValue6(localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26)
+              for localValue10, localValue11 in localValue6, localValue7, localValue8, localValue9 do
+                localValue122 = dataCollection.pinnedPlayers
+                localValue122 = localValue122[localValue10]
+                if localValue122 then
+                  localValue122 = fullPlayerListData
+                  localValue122 = localValue122[localValue10]
+                  if localValue122 then
+                    localValue122 = CMG
+                    localValue122 = localValue122.getJobType
+                    localValue13 = localValue10
+                    localValue122 = localValue122(localValue13)
+                    localValue13 = dataCollection6
+                    localValue122 = localValue13[localValue122]
+                    if not localValue122 then
+                      localValue122 = true
+                      localValue13 = nil
+                      localValue14 = nil
+                      localValue15 = dataCollection2
+                      localValue15 = localValue15[localValue10]
+                      if localValue15 then
+                        localValue13 = localValue15.health
+                        localValue14 = localValue15.armour
                       end
-                      arg16 = fullPlayerListData
-                      arg16 = arg16[arg10]
-                      arg16 = arg16[1]
-                      if arg16 then
-                        arg17 = GetPlayerFromServerId
-                        arg18 = arg16
+                      localValue16 = fullPlayerListData
+                      localValue16 = localValue16[localValue10]
+                      localValue16 = localValue16[1]
+                      if localValue16 then
+                        localValue17 = GetPlayerFromServerId
+                        localValue18 = localValue16
                         -- Beginner: result below is playerIndex.
-                        arg17 = arg17(arg18)
-                        if -1 ~= arg17 then
-                          arg18 = GetPlayerPed
-                          numberValue5 = arg17
+                        localValue17 = localValue17(localValue18)
+                        if -1 ~= localValue17 then
+                          localValue18 = GetPlayerPed
+                          number5 = localValue17
                           -- Beginner: result below is playerPed.
-                          arg18 = arg18(numberValue5)
-                          if 0 ~= arg18 then
-                            numberValue5 = GetEntityHealth
-                            numberValue7 = arg18
+                          localValue18 = localValue18(number5)
+                          if 0 ~= localValue18 then
+                            number5 = GetEntityHealth
+                            number7 = localValue18
                             -- Beginner: result below is health.
-                            numberValue5 = numberValue5(numberValue7)
-                            arg13 = numberValue5
-                            numberValue5 = GetPedArmour
-                            numberValue7 = arg18
-                            numberValue5 = numberValue5(numberValue7)
-                            arg14 = numberValue5
-                            arg122 = false
+                            number5 = number5(number7)
+                            localValue13 = number5
+                            number5 = GetPedArmour
+                            number7 = localValue18
+                            number5 = number5(number7)
+                            localValue14 = number5
+                            localValue122 = false
                           end
                         end
                       end
-                      if arg13 and arg14 then
-                        arg17 = math
-                        arg17 = arg17.min
-                        arg18 = arg13
-                        numberValue5 = 200
-                        arg17 = arg17(arg18, numberValue5)
-                        arg18 = math
-                        arg18 = arg18.max
-                        numberValue5 = 0
-                        numberValue7 = math
-                        numberValue7 = numberValue7.floor
-                        numberValue8 = arg17 - 100
-                        numberValue8 = numberValue8 / 100.0
-                        numberValue8 = numberValue8 * 100
-                        numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue7(numberValue8)
-                        arg18 = arg18(numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
-                        numberValue5 = arg14
-                        if arg13 <= 102 then
-                          numberValue5 = 0
+                      if localValue13 and localValue14 then
+                        localValue17 = math
+                        localValue17 = localValue17.min
+                        localValue18 = localValue13
+                        number5 = 200
+                        localValue17 = localValue17(localValue18, number5)
+                        localValue18 = math
+                        localValue18 = localValue18.max
+                        number5 = 0
+                        number7 = math
+                        number7 = number7.floor
+                        number8 = localValue17 - 100
+                        number8 = number8 / 100.0
+                        number8 = number8 * 100
+                        number7, number8, number9, number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26 = number7(number8)
+                        localValue18 = localValue18(number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26)
+                        number5 = localValue14
+                        if localValue13 <= 102 then
+                          number5 = 0
                         end
-                        if nil ~= arg15 then
-                          numberValue7 = arg15.hasRadio
+                        if nil ~= localValue15 then
+                          number7 = localValue15.hasRadio
                         end
-                        numberValue7 = CMG
-                        numberValue7 = numberValue7.doesPlayerHaveRadioItem
-                        numberValue8 = arg16
-                        numberValue7 = true == numberValue7 or numberValue7
-                        numberValue8 = table
-                        numberValue8 = numberValue8.insert
-                        numberValue9 = arg5
-                        numberValue10 = {}
-                        numberValue12 = arg11.name
-                        numberValue10.name = numberValue12
-                        numberValue10.health = arg18
-                        numberValue10.armour = numberValue5
-                        numberValue10.hasRadio = numberValue7
-                        numberValue8(numberValue9, numberValue10)
+                        number7 = CMG
+                        number7 = number7.doesPlayerHaveRadioItem
+                        number8 = localValue16
+                        number7 = true == number7 or number7
+                        number8 = table
+                        number8 = number8.insert
+                        number9 = localValue5
+                        number10 = {}
+                        number12 = localValue11.name
+                        number10.name = number12
+                        number10.health = localValue18
+                        number10.armour = number5
+                        number10.hasRadio = number7
+                        number8(number9, number10)
                       end
-                      if arg122 then
-                        arg1 = arg1 + 1
+                      if localValue122 then
+                        localValue1 = localValue1 + 1
                       end
                     end
                   end
@@ -11030,1309 +11030,1309 @@ function workValue17()
       end
     end
   end
-  arg6 = GetGameTimer
+  localValue6 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg6 = arg6()
-  arg7 = flag4
-  arg7 = arg6 - arg7
-  if arg7 > 100 then
-    flag4 = arg6
-    arg7 = CMG
-    arg7 = arg7.uiSendMessage
-    arg8 = {}
-    arg8.action = "GANG_PINNED_UPDATE"
-    arg9 = {}
-    arg9.players = arg5
-    arg10 = {}
-    arg11 = arg3.x
-    arg10.x = arg11
-    arg11 = arg3.y
-    arg10.y = arg11
-    arg9.position = arg10
-    arg10 = CMG
-    arg10 = arg10.getGangUIScaleMultiplier
-    arg10 = arg10()
-    arg9.scale = arg10
-    arg9.showPercentage = arg4
-    arg8.payload = arg9
-    arg7(arg8)
+  localValue6 = localValue6()
+  localValue7 = stateFlag4
+  localValue7 = localValue6 - localValue7
+  if localValue7 > 100 then
+    stateFlag4 = localValue6
+    localValue7 = CMG
+    localValue7 = localValue7.uiSendMessage
+    localValue8 = {}
+    localValue8.action = "GANG_PINNED_UPDATE"
+    localValue9 = {}
+    localValue9.players = localValue5
+    localValue10 = {}
+    localValue11 = localValue3.x
+    localValue10.x = localValue11
+    localValue11 = localValue3.y
+    localValue10.y = localValue11
+    localValue9.position = localValue10
+    localValue10 = CMG
+    localValue10 = localValue10.getGangUIScaleMultiplier
+    localValue10 = localValue10()
+    localValue9.scale = localValue10
+    localValue9.showPercentage = localValue4
+    localValue8.payload = localValue9
+    localValue7(localValue8)
   end
-  arg7 = numberValue4
-  if arg7 then
-    arg7 = numberValue4
-    if arg7 == arg2 then
-      if arg1 <= 0 then
-        arg7 = TriggerServerEvent
-        arg8 = "dc39cfbe4e"
-        arg9 = nil
+  localValue7 = number4
+  if localValue7 then
+    localValue7 = number4
+    if localValue7 == localValue2 then
+      if localValue1 <= 0 then
+        localValue7 = TriggerServerEvent
+        localValue8 = "dc39cfbe4e"
+        localValue9 = nil
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "dc39cfbe4e".
-        arg7(arg8, arg9)
-        arg7 = nil
-        numberValue4 = arg7
+        localValue7(localValue8, localValue9)
+        localValue7 = nil
+        number4 = localValue7
       end
   end
-  elseif arg1 > 0 then
-    arg7 = workValue
-    if arg2 == arg7 then
-      arg7 = "own"
-      if arg7 then
-        goto flow_label_366
+  elseif localValue1 > 0 then
+    localValue7 = workingValue
+    if localValue2 == localValue7 then
+      localValue7 = "own"
+      if localValue7 then
+        goto continueAtStep366
       end
     end
-    arg7 = "guest"
-    ::flow_label_366::
-    arg8 = TriggerServerEvent
-    arg9 = "dc39cfbe4e"
-    arg10 = arg7
-    arg8(arg9, arg10)
-    numberValue4 = arg2
+    localValue7 = "guest"
+    ::continueAtStep366::
+    localValue8 = TriggerServerEvent
+    localValue9 = "dc39cfbe4e"
+    localValue10 = localValue7
+    localValue8(localValue9, localValue10)
+    number4 = localValue2
   end
 end
-cmgCall9 = AddEventHandler
-cmgCall10 = "CMG:onDisplayVisiblityChange"
+cmgOperation9 = AddEventHandler
+cmgOperation10 = "CMG:onDisplayVisiblityChange"
 -- Beginner: this function runs when client event "CMG:onDisplayVisiblityChange" fires.
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2) ===
-function threadCall(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8
-  if "gang" ~= arg1 then
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2) ===
+function backgroundThread(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  if "gang" ~= localValue1 then
     return
   end
-  if arg2 then
+  if localValue2 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.getGangUIPostion
-  arg3 = arg3()
-  arg4 = CMG
-  arg4 = arg4.uiSendMessage
-  arg5 = {}
-  arg5.action = "GANG_PINNED_UPDATE"
-  arg6 = {}
-  arg7 = {}
-  arg6.players = arg7
-  arg7 = {}
-  arg8 = arg3.x
-  arg7.x = arg8
-  arg8 = arg3.y
-  arg7.y = arg8
-  arg6.position = arg7
-  arg7 = CMG
-  arg7 = arg7.getGangUIScaleMultiplier
-  arg7 = arg7()
-  arg6.scale = arg7
-  arg7 = CMG
-  arg7 = arg7.getShowHealthPercentageFlag
-  arg7 = arg7()
-  arg6.showPercentage = arg7
-  arg5.payload = arg6
-  arg4(arg5)
+  localValue3 = CMG
+  localValue3 = localValue3.getGangUIPostion
+  localValue3 = localValue3()
+  localValue4 = CMG
+  localValue4 = localValue4.uiSendMessage
+  localValue5 = {}
+  localValue5.action = "GANG_PINNED_UPDATE"
+  localValue6 = {}
+  localValue7 = {}
+  localValue6.players = localValue7
+  localValue7 = {}
+  localValue8 = localValue3.x
+  localValue7.x = localValue8
+  localValue8 = localValue3.y
+  localValue7.y = localValue8
+  localValue6.position = localValue7
+  localValue7 = CMG
+  localValue7 = localValue7.getGangUIScaleMultiplier
+  localValue7 = localValue7()
+  localValue6.scale = localValue7
+  localValue7 = CMG
+  localValue7 = localValue7.getShowHealthPercentageFlag
+  localValue7 = localValue7()
+  localValue6.showPercentage = localValue7
+  localValue5.payload = localValue6
+  localValue4(localValue5)
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onDisplayVisiblityChange".
-cmgCall9(cmgCall10, threadCall)
-cmgCall9 = CMG
-cmgCall9 = cmgCall9.createThreadOnTick
-cmgCall10 = workValue17
-threadCall = "Gang Location Pings"
+cmgOperation9(cmgOperation10, backgroundThread)
+cmgOperation9 = CMG
+cmgOperation9 = cmgOperation9.createThreadOnTick
+cmgOperation10 = workingValue17
+backgroundThread = "Gang Location Pings"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall9(cmgCall10, threadCall)
-cmgCall9 = RegisterNetEvent
-cmgCall10 = "028443631e"
+cmgOperation9(cmgOperation10, backgroundThread)
+cmgOperation9 = RegisterNetEvent
+cmgOperation10 = "028443631e"
 -- Beginner: this function handles network event "028443631e".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1) ===
-function threadCall(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = workValue6
-  arg2 = arg2()
-  if "polblips" == arg1 and arg2 then
-    arg3 = arg2.isAdvanced
-    if arg3 then
-      arg3 = dataTable.blips
-      if arg3 then
-        arg3 = TriggerEvent
-        arg4 = "e713d91b70"
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1) ===
+function backgroundThread(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = workingValue6
+  localValue2 = localValue2()
+  if "polblips" == localValue1 and localValue2 then
+    localValue3 = localValue2.isAdvanced
+    if localValue3 then
+      localValue3 = dataCollection.blips
+      if localValue3 then
+        localValue3 = TriggerEvent
+        localValue4 = "e713d91b70"
         -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-        arg3(arg4)
-        arg3 = TriggerServerEvent
-        arg4 = "f9c26121e2"
-        arg5 = "own"
+        localValue3(localValue4)
+        localValue3 = TriggerServerEvent
+        localValue4 = "f9c26121e2"
+        localValue5 = "own"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-        arg3(arg4, arg5)
+        localValue3(localValue4, localValue5)
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "028443631e".
-cmgCall9(cmgCall10, threadCall)
-cmgCall9 = Citizen
-cmgCall9 = cmgCall9.CreateThread
+cmgOperation9(cmgOperation10, backgroundThread)
+cmgOperation9 = Citizen
+cmgOperation9 = cmgOperation9.CreateThread
 
--- === HELPER FUNCTION (decompiler name: cmgCall10; parameters: none) ===
-function cmgCall10()
-  local arg1, arg2, arg3, arg4, arg5
+-- === HELPER FUNCTION (decompiler name: cmgOperation10; parameters: none) ===
+function cmgOperation10()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
   while true do
-    arg1 = numberValue14
-    if arg1 > 0 then
-      arg1 = GetGameTimer
+    localValue1 = number14
+    if localValue1 > 0 then
+      localValue1 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      arg1 = arg1()
-      arg2 = numberValue14
-      arg1 = arg1 - arg2
-      arg2 = 300000
-      if arg1 > arg2 then
-        arg1 = CMG
-        arg1 = arg1.getClientUserId
+      localValue1 = localValue1()
+      localValue2 = number14
+      localValue1 = localValue1 - localValue2
+      localValue2 = 300000
+      if localValue1 > localValue2 then
+        localValue1 = CMG
+        localValue1 = localValue1.getClientUserId
         -- Beginner: result below is userId.
-        arg1 = arg1()
-        arg2 = workValue
-        if arg2 then
-          arg2 = workValue.pings
-          if arg2 then
-            arg2 = workValue.pings
-            arg2 = arg2[arg1]
-            if arg2 then
-              arg2 = TriggerServerEvent
-              arg3 = "f1d8cdbd8e"
-              arg4 = nil
-              arg5 = false
+        localValue1 = localValue1()
+        localValue2 = workingValue
+        if localValue2 then
+          localValue2 = workingValue.pings
+          if localValue2 then
+            localValue2 = workingValue.pings
+            localValue2 = localValue2[localValue1]
+            if localValue2 then
+              localValue2 = TriggerServerEvent
+              localValue3 = "f1d8cdbd8e"
+              localValue4 = nil
+              localValue5 = false
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f1d8cdbd8e".
-              arg2(arg3, arg4, arg5)
+              localValue2(localValue3, localValue4, localValue5)
             end
           end
         end
-        arg2 = 0
-        numberValue14 = arg2
+        localValue2 = 0
+        number14 = localValue2
       end
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 15000
-    arg1(arg2)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 15000
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall9(cmgCall10)
-cmgCall9 = AddEventHandler
-cmgCall10 = "1c597fc419"
+cmgOperation9(cmgOperation10)
+cmgOperation9 = AddEventHandler
+cmgOperation10 = "1c597fc419"
 -- Beginner: this function runs when client event "1c597fc419" fires.
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2) ===
-function threadCall(arg1, arg2)
-  numberValue16 = arg1
-  if arg2 >= 0.0 and arg2 <= 1.0 then
-    numberValue18 = arg2
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2) ===
+function backgroundThread(localValue1, localValue2)
+  number16 = localValue1
+  if localValue2 >= 0.0 and localValue2 <= 1.0 then
+    number18 = localValue2
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "1c597fc419".
-cmgCall9(cmgCall10, threadCall)
-cmgCall9 = RegisterNetEvent
-cmgCall10 = "e35812009c"
+cmgOperation9(cmgOperation10, backgroundThread)
+cmgOperation9 = RegisterNetEvent
+cmgOperation10 = "e35812009c"
 -- Beginner: this function handles network event "e35812009c".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1) ===
-function threadCall(arg1)
-  local arg2
-  arg2 = workValue
-  if arg2 then
-    workValue.additionalRadios = arg1
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1) ===
+function backgroundThread(localValue1)
+  local localValue2
+  localValue2 = workingValue
+  if localValue2 then
+    workingValue.additionalRadios = localValue1
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e35812009c".
-cmgCall9(cmgCall10, threadCall)
-cmgCall9 = RegisterNetEvent
-cmgCall10 = "bdbde03161"
+cmgOperation9(cmgOperation10, backgroundThread)
+cmgOperation9 = RegisterNetEvent
+cmgOperation10 = "bdbde03161"
 -- Beginner: this function handles network event "bdbde03161".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2, arg3) ===
-function threadCall(arg1, arg2, arg3)
-  local arg4, arg5
-  arg4 = dataTable5
-  arg4 = arg4[arg1]
-  if arg4 then
-    arg5 = arg4.relationships
-    arg5[arg2] = arg3
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2, localValue3) ===
+function backgroundThread(localValue1, localValue2, localValue3)
+  local localValue4, localValue5
+  localValue4 = dataCollection5
+  localValue4 = localValue4[localValue1]
+  if localValue4 then
+    localValue5 = localValue4.relationships
+    localValue5[localValue2] = localValue3
   end
 end
-cmgCall9(cmgCall10, threadCall)
+cmgOperation9(cmgOperation10, backgroundThread)
 -- Beginner: this function handles network event "bdbde03161".
 
--- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: none) ===
-function cmgCall9()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.clearEnemyGamerTags
-  arg1()
+-- === HELPER FUNCTION (decompiler name: cmgOperation9; parameters: none) ===
+function cmgOperation9()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.clearEnemyGamerTags
+  localValue1()
 end
-cmgCall10 = false
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+cmgOperation10 = false
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: none) ===
-function eventRegistration3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26, nameValue, workValue10
-  arg1 = cmgCall.turfSystemEnabled
-  if not arg1 then
-    arg1 = true
-    cmgCall10 = arg1
+-- === HELPER FUNCTION (decompiler name: eventHandler3; parameters: none) ===
+function eventHandler3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7, number8, number9, number10, number12, number13, number15, number17, number19, number20, number21, number22, number23, stateFlag3, number24, createVector3, number25, number26, nameValue, workingValue10
+  localValue1 = cmgOperation.turfSystemEnabled
+  if not localValue1 then
+    localValue1 = true
+    cmgOperation10 = localValue1
     return
   end
-  arg1 = 30.0
-  arg2 = 40
-  arg3 = pairs
-  arg4 = cmgCall.turfs
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = PolyZone
-    arg10 = arg9
-    arg9 = arg9.Create
-    arg11 = arg8.bounds
-    arg122 = {}
-    arg13 = arg8.name
-    if not arg13 then
-      arg13 = "turf_"
-      arg14 = arg7
-      arg13 = arg13 .. arg14
+  localValue1 = 30.0
+  localValue2 = 40
+  localValue3 = pairs
+  localValue4 = cmgOperation.turfs
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = PolyZone
+    localValue10 = localValue9
+    localValue9 = localValue9.Create
+    localValue11 = localValue8.bounds
+    localValue122 = {}
+    localValue13 = localValue8.name
+    if not localValue13 then
+      localValue13 = "turf_"
+      localValue14 = localValue7
+      localValue13 = localValue13 .. localValue14
     end
-    arg122.name = arg13
-    arg122.minZ = 0.0
-    arg122.maxZ = 150.0
-    arg122.debugGrid = false
-    arg122.createLines = false
-    arg122.gridDivisions = 25
-    arg9 = arg9(arg10, arg11, arg122)
-    arg11 = arg8.name
-    arg10 = cmgCall6
-    arg122 = {}
-    arg10[arg11] = arg122
-    arg10 = nil
-    arg11 = nil
-    arg122 = nil
-    arg13 = nil
-    arg14 = ipairs
-    arg15 = arg8.bounds
-    arg14, arg15, arg16, arg17 = arg14(arg15)
-    for arg18, numberValue5 in arg14, arg15, arg16, arg17 do
-      numberValue7 = numberValue5.x
-      numberValue8 = numberValue5.y
-      if 1 == arg18 then
-        numberValue9 = numberValue7
-        arg11 = numberValue7
-        arg10 = numberValue9
-        numberValue9 = numberValue8
-        arg13 = numberValue8
-        arg122 = numberValue9
+    localValue122.name = localValue13
+    localValue122.minZ = 0.0
+    localValue122.maxZ = 150.0
+    localValue122.debugGrid = false
+    localValue122.createLines = false
+    localValue122.gridDivisions = 25
+    localValue9 = localValue9(localValue10, localValue11, localValue122)
+    localValue11 = localValue8.name
+    localValue10 = cmgOperation6
+    localValue122 = {}
+    localValue10[localValue11] = localValue122
+    localValue10 = nil
+    localValue11 = nil
+    localValue122 = nil
+    localValue13 = nil
+    localValue14 = ipairs
+    localValue15 = localValue8.bounds
+    localValue14, localValue15, localValue16, localValue17 = localValue14(localValue15)
+    for localValue18, number5 in localValue14, localValue15, localValue16, localValue17 do
+      number7 = number5.x
+      number8 = number5.y
+      if 1 == localValue18 then
+        number9 = number7
+        localValue11 = number7
+        localValue10 = number9
+        number9 = number8
+        localValue13 = number8
+        localValue122 = number9
       else
-        if numberValue7 < arg10 then
-          arg10 = numberValue7
+        if number7 < localValue10 then
+          localValue10 = number7
         end
-        if numberValue7 > arg11 then
-          arg11 = numberValue7
+        if number7 > localValue11 then
+          localValue11 = number7
         end
-        if numberValue8 < arg122 then
-          arg122 = numberValue8
+        if number8 < localValue122 then
+          localValue122 = number8
         end
-        if numberValue8 > arg13 then
-          arg13 = numberValue8
+        if number8 > localValue13 then
+          localValue13 = number8
         end
       end
     end
-    arg14 = arg8.bounds
-    arg14 = arg14[1]
-    if arg14 then
-      arg14 = arg8.bounds
-      arg14 = arg14[1]
-      arg14 = arg14.z
-      if arg14 then
-        goto flow_label_77
+    localValue14 = localValue8.bounds
+    localValue14 = localValue14[1]
+    if localValue14 then
+      localValue14 = localValue8.bounds
+      localValue14 = localValue14[1]
+      localValue14 = localValue14.z
+      if localValue14 then
+        goto continueAtStep77
       end
     end
-    arg14 = 0.0
-    ::flow_label_77::
-    arg15 = arg11 - arg10
-    arg16 = arg13 - arg122
-    arg17 = math
-    arg17 = arg17.floor
-    arg18 = arg15 / arg1
-    arg17 = arg17(arg18)
-    arg17 = arg17 + 1
-    arg18 = math
-    arg18 = arg18.floor
-    numberValue5 = arg16 / arg1
-    arg18 = arg18(numberValue5)
-    arg18 = arg18 + 1
-    numberValue5 = {}
-    numberValue7 = 0
-    numberValue8 = arg18 - 1
-    numberValue9 = 1
-    for numberValue10 = numberValue7, numberValue8, numberValue9 do
-      numberValue12 = {}
-      numberValue5[numberValue10] = numberValue12
-      numberValue12 = numberValue10 * arg1
-      numberValue12 = arg122 + numberValue12
-      numberValue13 = 0
-      numberValue15 = arg17 - 1
-      numberValue17 = 1
-      for numberValue19 = numberValue13, numberValue15, numberValue17 do
-        numberValue20 = numberValue19 * arg1
-        numberValue20 = arg10 + numberValue20
-        numberValue21 = arg1 * 0.5
-        numberValue21 = numberValue20 + numberValue21
-        numberValue22 = arg1 * 0.5
-        numberValue22 = numberValue12 + numberValue22
-        numberValue23 = numberValue5[numberValue10]
-        numberValue24 = arg9
-        flag3 = arg9.isPointInside
-        vector3Builder = vector3
-        numberValue25 = numberValue21
-        numberValue26 = numberValue22
-        nameValue = arg14
-        vector3Builder, numberValue25, numberValue26, nameValue, workValue10 = vector3Builder(numberValue25, numberValue26, nameValue)
-        flag3 = flag3(numberValue24, vector3Builder, numberValue25, numberValue26, nameValue, workValue10)
-        numberValue23[numberValue19] = flag3
+    localValue14 = 0.0
+    ::continueAtStep77::
+    localValue15 = localValue11 - localValue10
+    localValue16 = localValue13 - localValue122
+    localValue17 = math
+    localValue17 = localValue17.floor
+    localValue18 = localValue15 / localValue1
+    localValue17 = localValue17(localValue18)
+    localValue17 = localValue17 + 1
+    localValue18 = math
+    localValue18 = localValue18.floor
+    number5 = localValue16 / localValue1
+    localValue18 = localValue18(number5)
+    localValue18 = localValue18 + 1
+    number5 = {}
+    number7 = 0
+    number8 = localValue18 - 1
+    number9 = 1
+    for number10 = number7, number8, number9 do
+      number12 = {}
+      number5[number10] = number12
+      number12 = number10 * localValue1
+      number12 = localValue122 + number12
+      number13 = 0
+      number15 = localValue17 - 1
+      number17 = 1
+      for number19 = number13, number15, number17 do
+        number20 = number19 * localValue1
+        number20 = localValue10 + number20
+        number21 = localValue1 * 0.5
+        number21 = number20 + number21
+        number22 = localValue1 * 0.5
+        number22 = number12 + number22
+        number23 = number5[number10]
+        number24 = localValue9
+        stateFlag3 = localValue9.isPointInside
+        createVector3 = vector3
+        number25 = number21
+        number26 = number22
+        nameValue = localValue14
+        createVector3, number25, number26, nameValue, workingValue10 = createVector3(number25, number26, nameValue)
+        stateFlag3 = stateFlag3(number24, createVector3, number25, number26, nameValue, workingValue10)
+        number23[number19] = stateFlag3
       end
     end
-    numberValue7 = 0
-    numberValue8 = 0
-    numberValue9 = arg18 - 1
-    numberValue10 = 1
-    for numberValue12 = numberValue8, numberValue9, numberValue10 do
-      numberValue13 = numberValue5[numberValue12]
-      numberValue15 = 0
-      while arg17 > numberValue15 do
-        numberValue17 = numberValue13[numberValue15]
-        if numberValue17 then
-          numberValue17 = numberValue15
+    number7 = 0
+    number8 = 0
+    number9 = localValue18 - 1
+    number10 = 1
+    for number12 = number8, number9, number10 do
+      number13 = number5[number12]
+      number15 = 0
+      while localValue17 > number15 do
+        number17 = number13[number15]
+        if number17 then
+          number17 = number15
           while true do
-            numberValue19 = numberValue15 + 1
-            if not (arg17 > numberValue19) then
+            number19 = number15 + 1
+            if not (localValue17 > number19) then
               break
             end
-            numberValue19 = numberValue15 + 1
-            numberValue19 = numberValue13[numberValue19]
-            if not numberValue19 then
+            number19 = number15 + 1
+            number19 = number13[number19]
+            if not number19 then
               break
             end
-            numberValue15 = numberValue15 + 1
+            number15 = number15 + 1
           end
-          numberValue19 = numberValue15
-          numberValue20 = numberValue19 - numberValue17
-          numberValue20 = numberValue20 + 1
-          numberValue21 = arg1 * numberValue20
-          numberValue22 = arg1
-          numberValue23 = numberValue17 + numberValue19
-          numberValue23 = numberValue23 + 1
-          numberValue23 = numberValue23 * 0.5
-          numberValue23 = numberValue23 * arg1
-          numberValue23 = arg10 + numberValue23
-          flag3 = numberValue12 + 0.5
-          flag3 = flag3 * arg1
-          flag3 = arg122 + flag3
-          numberValue24 = AddBlipForArea
-          vector3Builder = numberValue23
-          numberValue25 = flag3
-          numberValue26 = arg14
-          nameValue = numberValue21
-          workValue10 = numberValue22
-          numberValue24 = numberValue24(vector3Builder, numberValue25, numberValue26, nameValue, workValue10)
-          vector3Builder = SetBlipDisplay
-          numberValue25 = numberValue24
-          numberValue26 = 3
-          vector3Builder(numberValue25, numberValue26)
-          vector3Builder = SetBlipAlpha
-          numberValue25 = numberValue24
-          numberValue26 = cmgCall.blipAlpha
-          vector3Builder(numberValue25, numberValue26)
-          vector3Builder = SetBlipColour
-          numberValue25 = numberValue24
-          numberValue26 = cmgCall.defaultTurfColour
-          vector3Builder(numberValue25, numberValue26)
-          vector3Builder = SetBlipAsShortRange
-          numberValue25 = numberValue24
-          numberValue26 = true
-          vector3Builder(numberValue25, numberValue26)
-          vector3Builder = table
-          vector3Builder = vector3Builder.insert
-          numberValue26 = arg8.name
-          numberValue25 = cmgCall6
-          numberValue25 = numberValue25[numberValue26]
-          numberValue26 = numberValue24
-          vector3Builder(numberValue25, numberValue26)
-          numberValue7 = numberValue7 + 1
-          if arg2 <= numberValue7 then
-            vector3Builder = print
-            numberValue25 = "[TURF] Reached max blips per turf for %s, stopping."
-            numberValue26 = numberValue25
-            numberValue25 = numberValue25.format
-            nameValue = arg8.name
-            numberValue25, numberValue26, nameValue, workValue10 = numberValue25(numberValue26, nameValue)
-            vector3Builder(numberValue25, numberValue26, nameValue, workValue10)
+          number19 = number15
+          number20 = number19 - number17
+          number20 = number20 + 1
+          number21 = localValue1 * number20
+          number22 = localValue1
+          number23 = number17 + number19
+          number23 = number23 + 1
+          number23 = number23 * 0.5
+          number23 = number23 * localValue1
+          number23 = localValue10 + number23
+          stateFlag3 = number12 + 0.5
+          stateFlag3 = stateFlag3 * localValue1
+          stateFlag3 = localValue122 + stateFlag3
+          number24 = AddBlipForArea
+          createVector3 = number23
+          number25 = stateFlag3
+          number26 = localValue14
+          nameValue = number21
+          workingValue10 = number22
+          number24 = number24(createVector3, number25, number26, nameValue, workingValue10)
+          createVector3 = SetBlipDisplay
+          number25 = number24
+          number26 = 3
+          createVector3(number25, number26)
+          createVector3 = SetBlipAlpha
+          number25 = number24
+          number26 = cmgOperation.blipAlpha
+          createVector3(number25, number26)
+          createVector3 = SetBlipColour
+          number25 = number24
+          number26 = cmgOperation.defaultTurfColour
+          createVector3(number25, number26)
+          createVector3 = SetBlipAsShortRange
+          number25 = number24
+          number26 = true
+          createVector3(number25, number26)
+          createVector3 = table
+          createVector3 = createVector3.insert
+          number26 = localValue8.name
+          number25 = cmgOperation6
+          number25 = number25[number26]
+          number26 = number24
+          createVector3(number25, number26)
+          number7 = number7 + 1
+          if localValue2 <= number7 then
+            createVector3 = print
+            number25 = "[TURF] Reached max blips per turf for %s, stopping."
+            number26 = number25
+            number25 = number25.format
+            nameValue = localValue8.name
+            number25, number26, nameValue, workingValue10 = number25(number26, nameValue)
+            createVector3(number25, number26, nameValue, workingValue10)
             break
           end
         end
-        numberValue15 = numberValue15 + 1
+        number15 = number15 + 1
       end
-      if arg2 <= numberValue7 then
+      if localValue2 <= number7 then
         break
       end
     end
   end
-  arg3 = true
-  cmgCall10 = arg3
-  arg3 = CMG
-  arg3 = arg3.createThreadOnTick
-  arg4 = cmgCall9
-  arg5 = "Gang Turfs"
+  localValue3 = true
+  cmgOperation10 = localValue3
+  localValue3 = CMG
+  localValue3 = localValue3.createThreadOnTick
+  localValue4 = cmgOperation9
+  localValue5 = "Gang Turfs"
   -- Beginner: Run a helper every game frame while this script is active.
-  arg3(arg4, arg5)
+  localValue3(localValue4, localValue5)
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(eventRegistration3)
+backgroundThread(eventHandler3)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
-function threadCall()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: none) ===
+function backgroundThread()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7
   while true do
-    arg1 = cmgCall10
-    if arg1 then
+    localValue1 = cmgOperation10
+    if localValue1 then
       break
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
-  arg1 = pairs
-  arg2 = cmgCall5
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg8 = arg6.ownedByGangId
-    arg7 = dataTable5
-    arg7 = arg7[arg8]
-    arg8 = cmgCall.turfNameToIndex
-    arg8 = arg8[arg5]
-    if arg8 then
-      arg9 = cmgCall.turfs
-      arg9 = arg9[arg8]
-      arg10 = arg6.attackingBlip
-      if arg10 then
-        arg10 = RemoveBlip
-        arg11 = arg6.attackingBlip
-        arg10(arg11)
-        arg6.attackingBlip = nil
+  localValue1 = pairs
+  localValue2 = cmgOperation5
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue8 = localValue6.ownedByGangId
+    localValue7 = dataCollection5
+    localValue7 = localValue7[localValue8]
+    localValue8 = cmgOperation.turfNameToIndex
+    localValue8 = localValue8[localValue5]
+    if localValue8 then
+      localValue9 = cmgOperation.turfs
+      localValue9 = localValue9[localValue8]
+      localValue10 = localValue6.attackingBlip
+      if localValue10 then
+        localValue10 = RemoveBlip
+        localValue11 = localValue6.attackingBlip
+        localValue10(localValue11)
+        localValue6.attackingBlip = nil
       end
-      arg10 = arg6.ownedByGangId
-      if arg10 then
-        arg10 = arg6.ownedByGangId
-        arg10 = arg10 > 0
+      localValue10 = localValue6.ownedByGangId
+      if localValue10 then
+        localValue10 = localValue6.ownedByGangId
+        localValue10 = localValue10 > 0
       end
-      arg11 = arg10 or arg11
-      arg11 = arg7 or arg11
-      if arg10 and arg7 then
-        arg11 = arg9.infoMarker
+      localValue11 = localValue10 or localValue11
+      localValue11 = localValue7 or localValue11
+      if localValue10 and localValue7 then
+        localValue11 = localValue9.infoMarker
       end
-      if not arg11 then
-        arg122 = arg6.ownerBlip
-        if arg122 then
-          arg122 = tCMG
-          arg122 = arg122.removeBlip
-          arg13 = arg6.ownerBlip
-          arg122(arg13)
-          arg6.ownerBlip = nil
+      if not localValue11 then
+        localValue122 = localValue6.ownerBlip
+        if localValue122 then
+          localValue122 = tCMG
+          localValue122 = localValue122.removeBlip
+          localValue13 = localValue6.ownerBlip
+          localValue122(localValue13)
+          localValue6.ownerBlip = nil
         end
       else
-        arg122 = arg6.ownerBlip
-        if not arg122 then
-          arg122 = flag6
-          if arg122 then
-            arg122 = tCMG
-            arg122 = arg122.addBlip
-            arg13 = arg9.infoMarker
-            arg13 = arg13.x
-            arg14 = arg9.infoMarker
-            arg14 = arg14.y
-            arg15 = arg9.infoMarker
-            arg15 = arg15.z
-            arg16 = arg7.blipId
-            arg17 = 1
-            arg18 = arg7.name
-            numberValue5 = 1.0
-            numberValue7 = false
-            arg122 = arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
-            arg6.ownerBlip = arg122
+        localValue122 = localValue6.ownerBlip
+        if not localValue122 then
+          localValue122 = stateFlag6
+          if localValue122 then
+            localValue122 = tCMG
+            localValue122 = localValue122.addBlip
+            localValue13 = localValue9.infoMarker
+            localValue13 = localValue13.x
+            localValue14 = localValue9.infoMarker
+            localValue14 = localValue14.y
+            localValue15 = localValue9.infoMarker
+            localValue15 = localValue15.z
+            localValue16 = localValue7.blipId
+            localValue17 = 1
+            localValue18 = localValue7.name
+            number5 = 1.0
+            number7 = false
+            localValue122 = localValue122(localValue13, localValue14, localValue15, localValue16, localValue17, localValue18, number5, number7)
+            localValue6.ownerBlip = localValue122
           end
         end
-        arg122 = arg6.ownerBlip
-        if arg122 then
-          arg122 = SetBlipSprite
-          arg13 = arg6.ownerBlip
-          arg14 = arg7.blipId
-          arg122(arg13, arg14)
-          arg122 = SetBlipColour
-          arg13 = arg6.ownerBlip
-          arg14 = 1
-          arg122(arg13, arg14)
-          arg122 = SetBlipScale
-          arg13 = arg6.ownerBlip
-          arg14 = 1.0
-          arg122(arg13, arg14)
-          arg122 = AddTextEntryByHash
-          arg13 = GetHashKey
-          arg14 = arg7.name
+        localValue122 = localValue6.ownerBlip
+        if localValue122 then
+          localValue122 = SetBlipSprite
+          localValue13 = localValue6.ownerBlip
+          localValue14 = localValue7.blipId
+          localValue122(localValue13, localValue14)
+          localValue122 = SetBlipColour
+          localValue13 = localValue6.ownerBlip
+          localValue14 = 1
+          localValue122(localValue13, localValue14)
+          localValue122 = SetBlipScale
+          localValue13 = localValue6.ownerBlip
+          localValue14 = 1.0
+          localValue122(localValue13, localValue14)
+          localValue122 = AddTextEntryByHash
+          localValue13 = GetHashKey
+          localValue14 = localValue7.name
           -- Beginner: result below is hash.
-          arg13 = arg13(arg14)
-          arg14 = arg7.name
-          arg122(arg13, arg14)
-          arg122 = BeginTextCommandSetBlipName
-          arg13 = arg7.name
-          arg122(arg13)
-          arg122 = EndTextCommandSetBlipName
-          arg13 = arg6.ownerBlip
-          arg122(arg13)
+          localValue13 = localValue13(localValue14)
+          localValue14 = localValue7.name
+          localValue122(localValue13, localValue14)
+          localValue122 = BeginTextCommandSetBlipName
+          localValue13 = localValue7.name
+          localValue122(localValue13)
+          localValue122 = EndTextCommandSetBlipName
+          localValue13 = localValue6.ownerBlip
+          localValue122(localValue13)
         end
       end
     end
-    arg9 = cmgCall6
-    arg9 = arg9[arg5]
-    if arg9 then
-      if arg7 then
-        arg10 = cmgCall.colourLookup
-        arg11 = arg7.turfColour
-        arg10 = arg10[arg11]
-        if not arg10 then
-          goto flow_label_141
+    localValue9 = cmgOperation6
+    localValue9 = localValue9[localValue5]
+    if localValue9 then
+      if localValue7 then
+        localValue10 = cmgOperation.colourLookup
+        localValue11 = localValue7.turfColour
+        localValue10 = localValue10[localValue11]
+        if not localValue10 then
+          goto continueAtStep141
         end
-        arg11 = arg6.ownedByGangId
-        if arg11 then
-          arg11 = arg10.blip
-          if arg11 then
-            goto flow_label_118
+        localValue11 = localValue6.ownedByGangId
+        if localValue11 then
+          localValue11 = localValue10.blip
+          if localValue11 then
+            goto continueAtStep118
           end
         end
-        arg11 = 0
-        ::flow_label_118::
-        arg122 = pairs
-        arg13 = arg9
-        arg122, arg13, arg14, arg15 = arg122(arg13)
-        for arg16, arg17 in arg122, arg13, arg14, arg15 do
-          arg18 = SetBlipColour
-          numberValue5 = arg17
-          numberValue7 = arg11
-          arg18(numberValue5, numberValue7)
+        localValue11 = 0
+        ::continueAtStep118::
+        localValue122 = pairs
+        localValue13 = localValue9
+        localValue122, localValue13, localValue14, localValue15 = localValue122(localValue13)
+        for localValue16, localValue17 in localValue122, localValue13, localValue14, localValue15 do
+          localValue18 = SetBlipColour
+          number5 = localValue17
+          number7 = localValue11
+          localValue18(number5, number7)
         end
       else
-        arg10 = pairs
-        arg11 = arg9
-        arg10, arg11, arg122, arg13 = arg10(arg11)
-        for arg14, arg15 in arg10, arg11, arg122, arg13 do
-          arg16 = SetBlipColour
-          arg17 = arg15
-          arg18 = cmgCall.defaultTurfColour
-          arg16(arg17, arg18)
+        localValue10 = pairs
+        localValue11 = localValue9
+        localValue10, localValue11, localValue122, localValue13 = localValue10(localValue11)
+        for localValue14, localValue15 in localValue10, localValue11, localValue122, localValue13 do
+          localValue16 = SetBlipColour
+          localValue17 = localValue15
+          localValue18 = cmgOperation.defaultTurfColour
+          localValue16(localValue17, localValue18)
         end
       end
     end
-    ::flow_label_141::
+    ::continueAtStep141::
   end
 end
-eventRegistration3 = RegisterNetEvent
-textValue7 = "adb903a8eb"
+eventHandler3 = RegisterNetEvent
+text7 = "adb903a8eb"
 -- Beginner: this function handles network event "adb903a8eb".
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2) ===
-function workValue18(arg1, arg2)
-  local arg3, arg4
-  arg3 = dataTable5
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg3.turfColour = arg2
-    arg4 = threadCall
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, localValue2) ===
+function workingValue18(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = dataCollection5
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue3.turfColour = localValue2
+    localValue4 = backgroundThread
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    arg4()
+    localValue4()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "adb903a8eb".
-eventRegistration3(textValue7, workValue18)
-eventRegistration3 = RegisterNetEvent
-textValue7 = "db88e5e716"
+eventHandler3(text7, workingValue18)
+eventHandler3 = RegisterNetEvent
+text7 = "db88e5e716"
 -- Beginner: this function handles network event "db88e5e716".
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
-function workValue18(arg1)
-  local arg2
-  dataTable5 = arg1
-  arg2 = CMG
-  arg2.gangRecognisedGangs = arg1
-  arg2 = threadCall
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1) ===
+function workingValue18(localValue1)
+  local localValue2
+  dataCollection5 = localValue1
+  localValue2 = CMG
+  localValue2.gangRecognisedGangs = localValue1
+  localValue2 = backgroundThread
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2()
+  localValue2()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "db88e5e716".
-eventRegistration3(textValue7, workValue18)
-eventRegistration3 = RegisterNetEvent
-textValue7 = "a014160254"
+eventHandler3(text7, workingValue18)
+eventHandler3 = RegisterNetEvent
+text7 = "a014160254"
 -- Beginner: this function handles network event "a014160254".
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
-function workValue18(arg1)
-  local arg2, arg3
-  cmgCall5 = arg1
-  arg2 = CMG
-  arg2.gangCapturedTurfs = arg1
-  arg2 = threadCall
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1) ===
+function workingValue18(localValue1)
+  local localValue2, localValue3
+  cmgOperation5 = localValue1
+  localValue2 = CMG
+  localValue2.gangCapturedTurfs = localValue1
+  localValue2 = backgroundThread
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2()
-  arg2 = TriggerEvent
-  arg3 = "e394af4876"
+  localValue2()
+  localValue2 = TriggerEvent
+  localValue3 = "e394af4876"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e394af4876".
-  arg2(arg3)
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a014160254".
-eventRegistration3(textValue7, workValue18)
-eventRegistration3 = RegisterNetEvent
-textValue7 = "62e40e243c"
+eventHandler3(text7, workingValue18)
+eventHandler3 = RegisterNetEvent
+text7 = "62e40e243c"
 -- Beginner: this function handles network event "62e40e243c".
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2) ===
-function workValue18(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  arg3 = dataTable5
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg4 = table
-    arg4 = arg4.insert
-    arg5 = arg3.onlinePlayers
-    arg6 = arg2
-    arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, localValue2) ===
+function workingValue18(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  localValue3 = dataCollection5
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue4 = table
+    localValue4 = localValue4.insert
+    localValue5 = localValue3.onlinePlayers
+    localValue6 = localValue2
+    localValue4(localValue5, localValue6)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "62e40e243c".
-eventRegistration3(textValue7, workValue18)
-eventRegistration3 = RegisterNetEvent
-textValue7 = "5da078c840"
+eventHandler3(text7, workingValue18)
+eventHandler3 = RegisterNetEvent
+text7 = "5da078c840"
 -- Beginner: this function handles network event "5da078c840".
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2) ===
-function workValue18(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  arg3 = dataTable5
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg4 = table
-    arg4 = arg4.find
-    arg5 = arg3.onlinePlayers
-    arg6 = arg2
-    arg4 = arg4(arg5, arg6)
-    arg5 = assert
-    arg6 = arg4
-    arg5(arg6)
-    arg5 = table
-    arg5 = arg5.insert
-    arg6 = arg3.onlinePlayers
-    arg7 = arg4
-    arg5(arg6, arg7)
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, localValue2) ===
+function workingValue18(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue3 = dataCollection5
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue4 = table
+    localValue4 = localValue4.find
+    localValue5 = localValue3.onlinePlayers
+    localValue6 = localValue2
+    localValue4 = localValue4(localValue5, localValue6)
+    localValue5 = assert
+    localValue6 = localValue4
+    localValue5(localValue6)
+    localValue5 = table
+    localValue5 = localValue5.insert
+    localValue6 = localValue3.onlinePlayers
+    localValue7 = localValue4
+    localValue5(localValue6, localValue7)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5da078c840".
-eventRegistration3(textValue7, workValue18)
-eventRegistration3 = RegisterNetEvent
-textValue7 = "b41c8a1869"
+eventHandler3(text7, workingValue18)
+eventHandler3 = RegisterNetEvent
+text7 = "b41c8a1869"
 -- Beginner: this function handles network event "b41c8a1869".
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2) ===
-function workValue18(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  arg3 = cmgCall.turfs
-  arg3 = arg3[arg1]
-  arg5 = arg3.name
-  arg4 = cmgCall5
-  arg4 = arg4[arg5]
-  if not arg4 then
-    arg5 = {}
-    arg4 = arg5
-    arg6 = arg3.name
-    arg5 = cmgCall5
-    arg5[arg6] = arg4
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, localValue2) ===
+function workingValue18(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  localValue3 = cmgOperation.turfs
+  localValue3 = localValue3[localValue1]
+  localValue5 = localValue3.name
+  localValue4 = cmgOperation5
+  localValue4 = localValue4[localValue5]
+  if not localValue4 then
+    localValue5 = {}
+    localValue4 = localValue5
+    localValue6 = localValue3.name
+    localValue5 = cmgOperation5
+    localValue5[localValue6] = localValue4
   end
-  arg4.ownedByGangId = arg2
-  arg5 = threadCall
+  localValue4.ownedByGangId = localValue2
+  localValue5 = backgroundThread
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg5()
+  localValue5()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b41c8a1869".
-eventRegistration3(textValue7, workValue18)
-eventRegistration3 = CMG
+eventHandler3(text7, workingValue18)
+eventHandler3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2, arg3
-  if not arg1 then
-    arg2 = workValue
-    arg1 = arg2 or arg1
-    if arg2 then
-      arg1 = workValue.id
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2, localValue3
+  if not localValue1 then
+    localValue2 = workingValue
+    localValue1 = localValue2 or localValue1
+    if localValue2 then
+      localValue1 = workingValue.id
     end
   end
-  arg2 = dataTable5
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = arg2.textureName
-    if arg3 then
-      arg3 = arg2.textureName
-      return arg3
+  localValue2 = dataCollection5
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = localValue2.textureName
+    if localValue3 then
+      localValue3 = localValue2.textureName
+      return localValue3
     end
   end
-  arg3 = nil
-  return arg3
+  localValue3 = nil
+  return localValue3
 end
-eventRegistration3.getGangRecognisedTexture = textValue7
-eventRegistration3 = CMG
+eventHandler3.getGangRecognisedTexture = text7
+eventHandler3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2
-  arg1 = workValue
-  if arg1 then
-    arg1 = workValue.id
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = workingValue.id
   end
-  return arg1
+  return localValue1
 end
-eventRegistration3.getGangId = textValue7
-eventRegistration3 = CMG
-eventRegistration3 = eventRegistration3.registerDevMenuItems
-textValue7 = "Gangs"
+eventHandler3.getGangId = text7
+eventHandler3 = CMG
+eventHandler3 = eventHandler3.registerDevMenuItems
+text7 = "Gangs"
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: none) ===
-function workValue18()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = workValue
-  if not arg1 then
-    arg1 = RageUI
-    arg1 = arg1.Separator
-    arg2 = "~y~No Gang Selected."
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: none) ===
+function workingValue18()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = workingValue
+  if not localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.Separator
+    localValue2 = "~y~No Gang Selected."
+    localValue1(localValue2)
     return
   end
-  arg1 = RageUI
-  arg1 = arg1.Button
-  arg2 = "Set Turf Owned Locally"
-  arg3 = "Sets the main gang to being owned locally. This will break sync, use in dev only."
-  arg4 = true
+  localValue1 = RageUI
+  localValue1 = localValue1.Button
+  localValue2 = "Set Turf Owned Locally"
+  localValue3 = "Sets the main gang to being owned locally. This will break sync, use in dev only."
+  localValue4 = true
 
-  -- === HELPER FUNCTION: arg5(arg12, arg22, arg32) ===
-  function arg5(arg12, arg22, arg32)
-    local localEventCall, textValue6, numberValue27, networkTime, workValue20
-    if arg32 then
+  -- === HELPER FUNCTION: localValue5(localValue12, localValue22, localValue32) ===
+  function localValue5(localValue12, localValue22, localValue32)
+    local localEventCall, text6, number27, networkTime, workingValue20
+    if localValue32 then
       localEventCall = TriggerEvent
-      textValue6 = "b41c8a1869"
-      numberValue27 = 1
+      text6 = "b41c8a1869"
+      number27 = 1
       networkTime = GetNetworkTime
       -- Beginner: result below is networkTime.
       networkTime = networkTime()
-      workValue20 = workValue.id
+      workingValue20 = workingValue.id
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "b41c8a1869".
-      localEventCall(textValue6, numberValue27, networkTime, workValue20)
+      localEventCall(text6, number27, networkTime, workingValue20)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, arg5)
-  arg1 = RageUI
-  arg1 = arg1.Button
-  arg2 = "Debug Gang Blips"
-  arg3 = "Display all the gang blips near to 0,0. This is just to view them, does nothing else."
-  arg4 = true
+  localValue1(localValue2, localValue3, localValue4, localValue5)
+  localValue1 = RageUI
+  localValue1 = localValue1.Button
+  localValue2 = "Debug Gang Blips"
+  localValue3 = "Display all the gang blips near to 0,0. This is just to view them, does nothing else."
+  localValue4 = true
 
-  -- === HELPER FUNCTION: arg5(arg12, arg22, arg32) ===
-  function arg5(arg12, arg22, arg32)
-    local localEventCall, textValue6, numberValue27, networkTime, workValue20, workValue21, workValue22, numberValue, workValue2, numberValue2
-    if arg32 then
+  -- === HELPER FUNCTION: localValue5(localValue12, localValue22, localValue32) ===
+  function localValue5(localValue12, localValue22, localValue32)
+    local localEventCall, text6, number27, networkTime, workingValue20, workingValue21, workingValue22, number, workingValue2, number2
+    if localValue32 then
       localEventCall = pairs
-      textValue6 = cmgCall.debugGangBlips
-      localEventCall, textValue6, numberValue27, networkTime = localEventCall(textValue6)
-      for workValue20, workValue21 in localEventCall, textValue6, numberValue27, networkTime do
-        workValue22 = AddBlipForCoord
-        numberValue = 0.0
-        workValue2 = workValue20 * 15.0
-        numberValue2 = 0.0
+      text6 = cmgOperation.debugGangBlips
+      localEventCall, text6, number27, networkTime = localEventCall(text6)
+      for workingValue20, workingValue21 in localEventCall, text6, number27, networkTime do
+        workingValue22 = AddBlipForCoord
+        number = 0.0
+        workingValue2 = workingValue20 * 15.0
+        number2 = 0.0
         -- Beginner: result below is blipHandle.
-        workValue22 = workValue22(numberValue, workValue2, numberValue2)
-        numberValue = SetBlipSprite
-        workValue2 = workValue22
-        numberValue2 = workValue21
-        numberValue(workValue2, numberValue2)
+        workingValue22 = workingValue22(number, workingValue2, number2)
+        number = SetBlipSprite
+        workingValue2 = workingValue22
+        number2 = workingValue21
+        number(workingValue2, number2)
       end
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, arg5)
+  localValue1(localValue2, localValue3, localValue4, localValue5)
 end
-eventRegistration3(textValue7, workValue18)
-eventRegistration3 = CMG
+eventHandler3(text7, workingValue18)
+eventHandler3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17
-  flag6 = arg1
-  if arg1 then
-    arg2 = cmgCall.blipAlpha
-    if arg2 then
-      goto flow_label_8
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17
+  stateFlag6 = localValue1
+  if localValue1 then
+    localValue2 = cmgOperation.blipAlpha
+    if localValue2 then
+      goto continueAtStep8
     end
   end
-  arg2 = 0
-  ::flow_label_8::
-  arg3 = pairs
-  arg4 = cmgCall6
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = pairs
-    arg10 = arg8
-    arg9, arg10, arg11, arg122 = arg9(arg10)
-    for arg13, arg14 in arg9, arg10, arg11, arg122 do
-      arg15 = DoesBlipExist
-      arg16 = arg14
-      arg15 = arg15(arg16)
-      if arg15 then
-        arg15 = SetBlipAlpha
-        arg16 = arg14
-        arg17 = arg2
-        arg15(arg16, arg17)
+  localValue2 = 0
+  ::continueAtStep8::
+  localValue3 = pairs
+  localValue4 = cmgOperation6
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = pairs
+    localValue10 = localValue8
+    localValue9, localValue10, localValue11, localValue122 = localValue9(localValue10)
+    for localValue13, localValue14 in localValue9, localValue10, localValue11, localValue122 do
+      localValue15 = DoesBlipExist
+      localValue16 = localValue14
+      localValue15 = localValue15(localValue16)
+      if localValue15 then
+        localValue15 = SetBlipAlpha
+        localValue16 = localValue14
+        localValue17 = localValue2
+        localValue15(localValue16, localValue17)
       end
     end
   end
-  arg3 = pairs
-  arg4 = cmgCall5
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = arg8.ownerBlip
-    if arg9 then
-      arg9 = DoesBlipExist
-      arg10 = arg8.ownerBlip
-      arg9 = arg9(arg10)
-      if arg9 then
-        if arg1 then
-          arg9 = 255
-          if arg9 then
-            goto flow_label_49
+  localValue3 = pairs
+  localValue4 = cmgOperation5
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = localValue8.ownerBlip
+    if localValue9 then
+      localValue9 = DoesBlipExist
+      localValue10 = localValue8.ownerBlip
+      localValue9 = localValue9(localValue10)
+      if localValue9 then
+        if localValue1 then
+          localValue9 = 255
+          if localValue9 then
+            goto continueAtStep49
           end
         end
-        arg9 = 0
-        ::flow_label_49::
-        arg10 = SetBlipAlpha
-        arg11 = arg8.ownerBlip
-        arg122 = arg9
-        arg10(arg11, arg122)
+        localValue9 = 0
+        ::continueAtStep49::
+        localValue10 = SetBlipAlpha
+        localValue11 = localValue8.ownerBlip
+        localValue122 = localValue9
+        localValue10(localValue11, localValue122)
       end
     end
-    arg9 = arg8.attackingBlip
-    if arg9 then
-      arg9 = DoesBlipExist
-      arg10 = arg8.attackingBlip
-      arg9 = arg9(arg10)
-      if arg9 then
-        arg9 = SetBlipAlpha
-        arg10 = arg8.attackingBlip
-        arg11 = arg2
-        arg9(arg10, arg11)
+    localValue9 = localValue8.attackingBlip
+    if localValue9 then
+      localValue9 = DoesBlipExist
+      localValue10 = localValue8.attackingBlip
+      localValue9 = localValue9(localValue10)
+      if localValue9 then
+        localValue9 = SetBlipAlpha
+        localValue10 = localValue8.attackingBlip
+        localValue11 = localValue2
+        localValue9(localValue10, localValue11)
       end
     end
   end
 end
-eventRegistration3.setShowTurfBlips = textValue7
-eventRegistration3 = false
+eventHandler3.setShowTurfBlips = text7
+eventHandler3 = false
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3, arg4
-  arg1 = CMG
-  arg1 = arg1.hasGangRpRagdollPerk
-  arg1 = arg1()
-  if not arg1 then
-    arg1 = false
-    return arg1
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = CMG
+  localValue1 = localValue1.hasGangRpRagdollPerk
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue1 = false
+    return localValue1
   end
-  arg1 = CMG
-  arg1 = arg1.inEvent
-  arg1 = arg1()
-  if arg1 then
-    arg1 = false
-    return arg1
+  localValue1 = CMG
+  localValue1 = localValue1.inEvent
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = false
+    return localValue1
   end
-  arg1 = CMG
-  arg1 = arg1.getPlayerCombatTimer
-  arg1 = arg1()
-  if arg1 > 0 then
-    arg1 = false
-    return arg1
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerCombatTimer
+  localValue1 = localValue1()
+  if localValue1 > 0 then
+    localValue1 = false
+    return localValue1
   end
-  arg1 = tCMG
-  arg1 = arg1.canAnim
-  arg1 = arg1()
-  if not arg1 then
-    arg1 = false
-    return arg1
+  localValue1 = tCMG
+  localValue1 = localValue1.canAnim
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue1 = false
+    return localValue1
   end
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = IsEntityDead
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
-      goto flow_label_41
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = IsEntityDead
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      goto continueAtStep41
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_41::
-  arg2 = CMG
-  arg2 = arg2.isHandcuffed
-  arg2 = arg2()
-  if arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep41::
+  localValue2 = CMG
+  localValue2 = localValue2.isHandcuffed
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = tCMG
-  arg2 = arg2.isInComa
-  arg2 = arg2()
-  if arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = tCMG
+  localValue2 = localValue2.isInComa
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = IsPedInAnyVehicle
-  arg3 = arg1
-  arg4 = false
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = IsPedInAnyVehicle
+  localValue3 = localValue1
+  localValue4 = false
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = IsPedOnFoot
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = IsPedOnFoot
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = IsPedSwimming
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = IsPedSwimmingUnderWater
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
-      goto flow_label_82
+  localValue2 = IsPedSwimming
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = IsPedSwimmingUnderWater
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      goto continueAtStep82
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_82::
-  arg2 = IsPedFalling
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = IsPedInParachuteFreeFall
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
-      goto flow_label_94
+  localValue2 = false
+  return localValue2
+  ::continueAtStep82::
+  localValue2 = IsPedFalling
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = IsPedInParachuteFreeFall
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      goto continueAtStep94
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_94::
-  arg2 = true
-  return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep94::
+  localValue2 = true
+  return localValue2
 end
-workValue18 = RegisterCommand
-cmgCall11 = "+cmgGangRpRagdoll"
+workingValue18 = RegisterCommand
+cmgOperation11 = "+cmgGangRpRagdoll"
 -- Beginner: this function is the command handler for "+cmgGangRpRagdoll".
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
-function textValue8()
-  local arg1, arg2
-  arg1 = textValue7
-  arg1 = arg1()
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: text8; parameters: none) ===
+function text8()
+  local localValue1, localValue2
+  localValue1 = text7
+  localValue1 = localValue1()
+  if not localValue1 then
     return
   end
-  arg1 = true
-  eventRegistration3 = arg1
-  arg1 = notify
-  arg2 = "~s~Release ~b~G ~s~to stop ragdolling."
+  localValue1 = true
+  eventHandler3 = localValue1
+  localValue1 = notify
+  localValue2 = "~s~Release ~b~G ~s~to stop ragdolling."
   -- Beginner: Show a notification to the player.
-  arg1(arg2)
+  localValue1(localValue2)
 end
-flag5 = false
+stateFlag5 = false
 -- Beginner: Register a chat/console command. Event/command: "+cmgGangRpRagdoll".
-workValue18(cmgCall11, textValue8, flag5)
-workValue18 = RegisterCommand
-cmgCall11 = "-cmgGangRpRagdoll"
+workingValue18(cmgOperation11, text8, stateFlag5)
+workingValue18 = RegisterCommand
+cmgOperation11 = "-cmgGangRpRagdoll"
 -- Beginner: this function is the command handler for "-cmgGangRpRagdoll".
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
-function textValue8()
-  local arg1, arg2
-  arg1 = false
-  eventRegistration3 = arg1
+-- === HELPER FUNCTION (decompiler name: text8; parameters: none) ===
+function text8()
+  local localValue1, localValue2
+  localValue1 = false
+  eventHandler3 = localValue1
 end
-flag5 = false
-workValue18(cmgCall11, textValue8, flag5)
-workValue18 = RegisterKeyMapping
-cmgCall11 = "+cmgGangRpRagdoll"
-textValue8 = "Ragdoll (hold)"
-flag5 = "keyboard"
-textValue9 = "G"
+stateFlag5 = false
+workingValue18(cmgOperation11, text8, stateFlag5)
+workingValue18 = RegisterKeyMapping
+cmgOperation11 = "+cmgGangRpRagdoll"
+text8 = "Ragdoll (hold)"
+stateFlag5 = "keyboard"
+text9 = "G"
 -- Beginner: Bind a command to a keyboard/controller key.
-workValue18(cmgCall11, textValue8, flag5, textValue9)
-workValue18 = Citizen
-workValue18 = workValue18.CreateThread
+workingValue18(cmgOperation11, text8, stateFlag5, text9)
+workingValue18 = Citizen
+workingValue18 = workingValue18.CreateThread
 
--- === HELPER FUNCTION (decompiler name: cmgCall11; parameters: none) ===
-function cmgCall11()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+-- === HELPER FUNCTION (decompiler name: cmgOperation11; parameters: none) ===
+function cmgOperation11()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
   while true do
-    arg1 = eventRegistration3
-    if arg1 then
-      arg1 = IsPauseMenuActive
-      arg1 = arg1()
-      if not arg1 then
-        arg1 = textValue7
-        arg1 = arg1()
-        if arg1 then
-          goto flow_label_19
+    localValue1 = eventHandler3
+    if localValue1 then
+      localValue1 = IsPauseMenuActive
+      localValue1 = localValue1()
+      if not localValue1 then
+        localValue1 = text7
+        localValue1 = localValue1()
+        if localValue1 then
+          goto continueAtStep19
         end
       end
-      arg1 = false
-      eventRegistration3 = arg1
-      arg1 = Citizen
-      arg1 = arg1.Wait
-      arg2 = 200
-      arg1(arg2)
-      goto flow_label_42
-      ::flow_label_19::
-      arg1 = CMG
-      arg1 = arg1.getPlayerPed
+      localValue1 = false
+      eventHandler3 = localValue1
+      localValue1 = Citizen
+      localValue1 = localValue1.Wait
+      localValue2 = 200
+      localValue1(localValue2)
+      goto continueAtStep42
+      ::continueAtStep19::
+      localValue1 = CMG
+      localValue1 = localValue1.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      if 0 ~= arg1 then
-        arg2 = SetPedToRagdoll
-        arg3 = arg1
-        arg4 = 500
-        arg5 = 500
-        arg6 = 0
-        arg7 = false
-        arg8 = false
-        arg9 = false
-        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      localValue1 = localValue1()
+      if 0 ~= localValue1 then
+        localValue2 = SetPedToRagdoll
+        localValue3 = localValue1
+        localValue4 = 500
+        localValue5 = 500
+        localValue6 = 0
+        localValue7 = false
+        localValue8 = false
+        localValue9 = false
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
       end
-      arg2 = Citizen
-      arg2 = arg2.Wait
-      arg3 = 0
-      arg2(arg3)
+      localValue2 = Citizen
+      localValue2 = localValue2.Wait
+      localValue3 = 0
+      localValue2(localValue3)
     else
-      arg1 = Citizen
-      arg1 = arg1.Wait
-      arg2 = 200
-      arg1(arg2)
+      localValue1 = Citizen
+      localValue1 = localValue1.Wait
+      localValue2 = 200
+      localValue1(localValue2)
     end
-    ::flow_label_42::
+    ::continueAtStep42::
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-workValue18(cmgCall11)
-workValue18 = false
-cmgCall11 = CMG
+workingValue18(cmgOperation11)
+workingValue18 = false
+cmgOperation11 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1) ===
-function textValue8(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = workValue18
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: text8; parameters: localValue1) ===
+function text8(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = workingValue18
+  if localValue2 then
     return
   end
-  arg2 = CMG
-  arg2 = arg2.hasGangRpCarTheftPerk
-  arg2 = arg2()
-  if not arg2 then
+  localValue2 = CMG
+  localValue2 = localValue2.hasGangRpCarTheftPerk
+  localValue2 = localValue2()
+  if not localValue2 then
     return
   end
-  arg2 = CMG
-  arg2 = arg2.getPlayerPed
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  if 0 ~= arg2 then
-    arg3 = IsEntityDead
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if not arg3 then
-      goto flow_label_22
+  localValue2 = localValue2()
+  if 0 ~= localValue2 then
+    localValue3 = IsEntityDead
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
+      goto continueAtStep22
     end
   end
   return
-  ::flow_label_22::
-  arg3 = CMG
-  arg3 = arg3.isHandcuffed
-  arg3 = arg3()
-  if arg3 then
+  ::continueAtStep22::
+  localValue3 = CMG
+  localValue3 = localValue3.isHandcuffed
+  localValue3 = localValue3()
+  if localValue3 then
     return
   end
-  arg3 = tCMG
-  arg3 = arg3.isInComa
-  arg3 = arg3()
-  if arg3 then
+  localValue3 = tCMG
+  localValue3 = localValue3.isInComa
+  localValue3 = localValue3()
+  if localValue3 then
     return
   end
-  arg3 = IsPedInAnyVehicle
-  arg4 = arg2
-  arg5 = false
-  arg3 = arg3(arg4, arg5)
-  if arg3 then
+  localValue3 = IsPedInAnyVehicle
+  localValue4 = localValue2
+  localValue5 = false
+  localValue3 = localValue3(localValue4, localValue5)
+  if localValue3 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.isInGreenzone
-  arg3 = arg3()
-  if arg3 then
+  localValue3 = CMG
+  localValue3 = localValue3.isInGreenzone
+  localValue3 = localValue3()
+  if localValue3 then
     return
   end
-  arg3 = true
-  workValue18 = arg3
-  arg3 = TriggerServerEvent
-  arg4 = "8fe4aba1e5"
-  arg5 = arg1
+  localValue3 = true
+  workingValue18 = localValue3
+  localValue3 = TriggerServerEvent
+  localValue4 = "8fe4aba1e5"
+  localValue5 = localValue1
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8fe4aba1e5".
-  arg3(arg4, arg5)
+  localValue3(localValue4, localValue5)
 end
-cmgCall11.startGangCarjack = textValue8
-cmgCall11 = RegisterNetEvent
-textValue8 = "6539f54c12"
+cmgOperation11.startGangCarjack = text8
+cmgOperation11 = RegisterNetEvent
+text8 = "6539f54c12"
 -- Beginner: this function handles network event "6539f54c12".
 
--- === HELPER FUNCTION (decompiler name: flag5; parameters: none) ===
-function flag5()
-  local arg1, arg2
-  arg1 = false
-  workValue18 = arg1
+-- === HELPER FUNCTION (decompiler name: stateFlag5; parameters: none) ===
+function stateFlag5()
+  local localValue1, localValue2
+  localValue1 = false
+  workingValue18 = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6539f54c12".
-cmgCall11(textValue8, flag5)
-cmgCall11 = RegisterNetEvent
-textValue8 = "7fbf0126af"
+cmgOperation11(text8, stateFlag5)
+cmgOperation11 = RegisterNetEvent
+text8 = "7fbf0126af"
 -- Beginner: this function handles network event "7fbf0126af".
 
--- === HELPER FUNCTION (decompiler name: flag5; parameters: arg1) ===
-function flag5(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17
-  arg2 = GetPlayerFromServerId
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: stateFlag5; parameters: localValue1) ===
+function stateFlag5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17
+  localValue2 = GetPlayerFromServerId
+  localValue3 = localValue1
   -- Beginner: result below is playerIndex.
-  arg2 = arg2(arg3)
-  if -1 == arg2 then
-    arg3 = false
-    workValue18 = arg3
+  localValue2 = localValue2(localValue3)
+  if -1 == localValue2 then
+    localValue3 = false
+    workingValue18 = localValue3
     return
   end
-  arg3 = GetPlayerPed
-  arg4 = arg2
+  localValue3 = GetPlayerPed
+  localValue4 = localValue2
   -- Beginner: result below is playerPed.
-  arg3 = arg3(arg4)
-  if 0 == arg3 then
-    arg4 = false
-    workValue18 = arg4
+  localValue3 = localValue3(localValue4)
+  if 0 == localValue3 then
+    localValue4 = false
+    workingValue18 = localValue4
     return
   end
-  arg4 = GetVehiclePedIsUsing
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if 0 == arg4 then
-    arg5 = false
-    workValue18 = arg5
+  localValue4 = GetVehiclePedIsUsing
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if 0 == localValue4 then
+    localValue5 = false
+    workingValue18 = localValue5
     return
   end
-  arg5 = PlayerPedId
+  localValue5 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg5 = arg5()
-  arg6 = GetPedRelationshipGroupHash
-  arg7 = arg5
-  arg6 = arg6(arg7)
-  arg7 = GetPedRelationshipGroupHash
-  arg8 = arg3
-  arg7 = arg7(arg8)
-  arg8 = GetRelationshipBetweenGroups
-  arg9 = arg6
-  arg10 = arg7
-  arg8 = arg8(arg9, arg10)
-  arg9 = GetRelationshipBetweenGroups
-  arg10 = arg7
-  arg11 = arg6
-  arg9 = arg9(arg10, arg11)
-  arg10 = SetRelationshipBetweenGroups
-  arg11 = 5
-  arg122 = arg6
-  arg13 = arg7
-  arg10(arg11, arg122, arg13)
-  arg10 = SetRelationshipBetweenGroups
-  arg11 = 5
-  arg122 = arg7
-  arg13 = arg6
-  arg10(arg11, arg122, arg13)
-  arg10 = SetPedCanBeDraggedOut
-  arg11 = arg3
-  arg122 = true
-  arg10(arg11, arg122)
-  arg10 = TaskEnterVehicle
-  arg11 = arg5
-  arg122 = arg4
-  arg13 = -1
-  arg14 = -1
-  arg15 = 1.0
-  arg16 = 8
-  arg17 = 0
-  arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17)
-  arg10 = GetGameTimer
+  localValue5 = localValue5()
+  localValue6 = GetPedRelationshipGroupHash
+  localValue7 = localValue5
+  localValue6 = localValue6(localValue7)
+  localValue7 = GetPedRelationshipGroupHash
+  localValue8 = localValue3
+  localValue7 = localValue7(localValue8)
+  localValue8 = GetRelationshipBetweenGroups
+  localValue9 = localValue6
+  localValue10 = localValue7
+  localValue8 = localValue8(localValue9, localValue10)
+  localValue9 = GetRelationshipBetweenGroups
+  localValue10 = localValue7
+  localValue11 = localValue6
+  localValue9 = localValue9(localValue10, localValue11)
+  localValue10 = SetRelationshipBetweenGroups
+  localValue11 = 5
+  localValue122 = localValue6
+  localValue13 = localValue7
+  localValue10(localValue11, localValue122, localValue13)
+  localValue10 = SetRelationshipBetweenGroups
+  localValue11 = 5
+  localValue122 = localValue7
+  localValue13 = localValue6
+  localValue10(localValue11, localValue122, localValue13)
+  localValue10 = SetPedCanBeDraggedOut
+  localValue11 = localValue3
+  localValue122 = true
+  localValue10(localValue11, localValue122)
+  localValue10 = TaskEnterVehicle
+  localValue11 = localValue5
+  localValue122 = localValue4
+  localValue13 = -1
+  localValue14 = -1
+  localValue15 = 1.0
+  localValue16 = 8
+  localValue17 = 0
+  localValue10(localValue11, localValue122, localValue13, localValue14, localValue15, localValue16, localValue17)
+  localValue10 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg10 = arg10()
+  localValue10 = localValue10()
   while true do
-    arg11 = GetVehiclePedIsIn
-    arg122 = arg5
-    arg13 = false
+    localValue11 = GetVehiclePedIsIn
+    localValue122 = localValue5
+    localValue13 = false
     -- Beginner: result below is currentVehicle.
-    arg11 = arg11(arg122, arg13)
-    if arg11 == arg4 then
+    localValue11 = localValue11(localValue122, localValue13)
+    if localValue11 == localValue4 then
       break
     end
-    arg11 = GetGameTimer
+    localValue11 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg11 = arg11()
-    arg11 = arg11 - arg10
-    arg122 = 8000
-    if arg11 > arg122 then
+    localValue11 = localValue11()
+    localValue11 = localValue11 - localValue10
+    localValue122 = 8000
+    if localValue11 > localValue122 then
       break
     end
-    arg11 = Citizen
-    arg11 = arg11.Wait
-    arg122 = 0
-    arg11(arg122)
+    localValue11 = Citizen
+    localValue11 = localValue11.Wait
+    localValue122 = 0
+    localValue11(localValue122)
   end
-  arg11 = SetPedCanBeDraggedOut
-  arg122 = arg3
-  arg13 = false
-  arg11(arg122, arg13)
-  arg11 = SetRelationshipBetweenGroups
-  arg122 = arg8
-  arg13 = arg6
-  arg14 = arg7
-  arg11(arg122, arg13, arg14)
-  arg11 = SetRelationshipBetweenGroups
-  arg122 = arg9
-  arg13 = arg7
-  arg14 = arg6
-  arg11(arg122, arg13, arg14)
-  arg11 = false
-  workValue18 = arg11
+  localValue11 = SetPedCanBeDraggedOut
+  localValue122 = localValue3
+  localValue13 = false
+  localValue11(localValue122, localValue13)
+  localValue11 = SetRelationshipBetweenGroups
+  localValue122 = localValue8
+  localValue13 = localValue6
+  localValue14 = localValue7
+  localValue11(localValue122, localValue13, localValue14)
+  localValue11 = SetRelationshipBetweenGroups
+  localValue122 = localValue9
+  localValue13 = localValue7
+  localValue14 = localValue6
+  localValue11(localValue122, localValue13, localValue14)
+  localValue11 = false
+  workingValue18 = localValue11
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "7fbf0126af".
-cmgCall11(textValue8, flag5)
+cmgOperation11(text8, stateFlag5)

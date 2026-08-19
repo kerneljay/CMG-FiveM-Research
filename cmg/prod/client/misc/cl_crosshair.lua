@@ -32,1089 +32,1089 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, flag2, workValue6, workValue7, workValue8, workValue10, rageUiCall4, flag4, textValue7, rageUiCall5, textValue, cmgCall2, rageUiCall2, rageUiCall3, flag, workValue5
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-flag2 = "cfg/cfg_crosshair"
+local cmgOperation, stateFlag2, workingValue6, workingValue7, workingValue8, workingValue10, rageUiOperation4, stateFlag4, text7, rageUiOperation5, text, cmgOperation2, rageUiOperation2, rageUiOperation3, stateFlag, workingValue5
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+stateFlag2 = "cfg/cfg_crosshair"
 -- Beginner: result below is config.
-cmgCall = cmgCall(flag2)
-flag2 = false
+cmgOperation = cmgOperation(stateFlag2)
+stateFlag2 = false
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-function workValue6()
-  local arg1, arg2, textValue4, textValue5, tableHelper, labelValue, workValue11, workValue12
-  arg1 = 1
-  arg2 = 20
-  textValue4 = 1
-  for textValue5 = arg1, arg2, textValue4 do
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+function workingValue6()
+  local localValue1, localValue2, text4, text5, tableHelper, labelValue, workingValue11, workingValue12
+  localValue1 = 1
+  localValue2 = 20
+  text4 = 1
+  for text5 = localValue1, localValue2, text4 do
     tableHelper = table
     tableHelper = tableHelper.insert
-    labelValue = cmgCall.menu
+    labelValue = cmgOperation.menu
     labelValue = labelValue.length
     labelValue = labelValue.labels
-    workValue11 = textValue5
-    workValue12 = textValue5
-    tableHelper(labelValue, workValue11, workValue12)
+    workingValue11 = text5
+    workingValue12 = text5
+    tableHelper(labelValue, workingValue11, workingValue12)
     tableHelper = table
     tableHelper = tableHelper.insert
-    labelValue = cmgCall.menu
+    labelValue = cmgOperation.menu
     labelValue = labelValue.thickness
     labelValue = labelValue.labels
-    workValue11 = textValue5
-    workValue12 = textValue5
-    tableHelper(labelValue, workValue11, workValue12)
+    workingValue11 = text5
+    workingValue12 = text5
+    tableHelper(labelValue, workingValue11, workingValue12)
     tableHelper = table
     tableHelper = tableHelper.insert
-    labelValue = cmgCall.menu
+    labelValue = cmgOperation.menu
     labelValue = labelValue.gap
     labelValue = labelValue.labels
-    workValue11 = textValue5
-    workValue12 = textValue5
-    tableHelper(labelValue, workValue11, workValue12)
+    workingValue11 = text5
+    workingValue12 = text5
+    tableHelper(labelValue, workingValue11, workingValue12)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, textValue4, textValue5, tableHelper, labelValue, workValue11, workValue12, indexValue, textValue8, textValue2
-  arg1 = workValue6
-  arg1()
-  arg1 = GetResourceKvpInt
-  arg2 = "cmg_crosshair_enabled"
-  arg1 = arg1(arg2)
-  if 0 == arg1 then
-    arg2 = cmgCall.options
-    arg2.enabled = 0
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, text4, text5, tableHelper, labelValue, workingValue11, workingValue12, indexValue, text8, text2
+  localValue1 = workingValue6
+  localValue1()
+  localValue1 = GetResourceKvpInt
+  localValue2 = "cmg_crosshair_enabled"
+  localValue1 = localValue1(localValue2)
+  if 0 == localValue1 then
+    localValue2 = cmgOperation.options
+    localValue2.enabled = 0
   else
-    arg2 = cmgCall.options
-    arg2.enabled = arg1
+    localValue2 = cmgOperation.options
+    localValue2.enabled = localValue1
   end
-  arg2 = GetResourceKvpInt
-  textValue4 = "cmg_gtaforce_crosshair_enabled"
-  arg2 = arg2(textValue4)
-  if 0 == arg2 then
-    textValue4 = cmgCall.options
-    textValue4.forcedGtaCrosshair = 0
+  localValue2 = GetResourceKvpInt
+  text4 = "cmg_gtaforce_crosshair_enabled"
+  localValue2 = localValue2(text4)
+  if 0 == localValue2 then
+    text4 = cmgOperation.options
+    text4.forcedGtaCrosshair = 0
   else
-    textValue4 = cmgCall.options
-    textValue4.forcedGtaCrosshair = arg2
+    text4 = cmgOperation.options
+    text4.forcedGtaCrosshair = localValue2
   end
-  textValue4 = GetResourceKvpInt
-  textValue5 = "cmg_crosshair_center_dot_enabled"
-  textValue4 = textValue4(textValue5)
-  if 0 == textValue4 then
-    textValue5 = cmgCall.options
-    textValue5.centerDotEnabled = 1
+  text4 = GetResourceKvpInt
+  text5 = "cmg_crosshair_center_dot_enabled"
+  text4 = text4(text5)
+  if 0 == text4 then
+    text5 = cmgOperation.options
+    text5.centerDotEnabled = 1
   else
-    textValue5 = cmgCall.options
-    textValue5.centerDotEnabled = textValue4
+    text5 = cmgOperation.options
+    text5.centerDotEnabled = text4
   end
-  textValue5 = GetResourceKvpInt
+  text5 = GetResourceKvpInt
   tableHelper = "cmg_crosshair_visibility"
-  textValue5 = textValue5(tableHelper)
-  if 0 == textValue5 then
-    tableHelper = cmgCall.options
+  text5 = text5(tableHelper)
+  if 0 == text5 then
+    tableHelper = cmgOperation.options
     tableHelper.visibility = 1
   else
-    tableHelper = cmgCall.options
-    tableHelper.visibility = textValue5
+    tableHelper = cmgOperation.options
+    tableHelper.visibility = text5
   end
   tableHelper = GetResourceKvpInt
   labelValue = "cmg_crosshair_length"
   tableHelper = tableHelper(labelValue)
   if 0 == tableHelper then
-    labelValue = cmgCall.options
+    labelValue = cmgOperation.options
     labelValue = labelValue.length
     labelValue.index = 1
-    labelValue = cmgCall.options
+    labelValue = cmgOperation.options
     labelValue = labelValue.length
     labelValue.value = 0.002
   else
-    labelValue = cmgCall.options
+    labelValue = cmgOperation.options
     labelValue = labelValue.length
     labelValue.index = tableHelper
-    labelValue = cmgCall.options
+    labelValue = cmgOperation.options
     labelValue = labelValue.length
-    workValue11 = cmgCall.options
-    workValue11 = workValue11.length
-    workValue11 = workValue11.index
-    workValue11 = workValue11 * 0.001
-    workValue11 = 0.001 + workValue11
-    labelValue.value = workValue11
+    workingValue11 = cmgOperation.options
+    workingValue11 = workingValue11.length
+    workingValue11 = workingValue11.index
+    workingValue11 = workingValue11 * 0.001
+    workingValue11 = 0.001 + workingValue11
+    labelValue.value = workingValue11
   end
   labelValue = GetResourceKvpInt
-  workValue11 = "cmg_crosshair_thickness"
-  labelValue = labelValue(workValue11)
+  workingValue11 = "cmg_crosshair_thickness"
+  labelValue = labelValue(workingValue11)
   if 0 == labelValue then
-    workValue11 = cmgCall.options
-    workValue11 = workValue11.thickness
-    workValue11.index = 1
-    workValue11 = cmgCall.options
-    workValue11 = workValue11.thickness
-    workValue11.value = 0.001
+    workingValue11 = cmgOperation.options
+    workingValue11 = workingValue11.thickness
+    workingValue11.index = 1
+    workingValue11 = cmgOperation.options
+    workingValue11 = workingValue11.thickness
+    workingValue11.value = 0.001
   else
-    workValue11 = cmgCall.options
-    workValue11 = workValue11.thickness
-    workValue11.index = labelValue
-    workValue11 = cmgCall.options
-    workValue11 = workValue11.thickness
-    workValue12 = cmgCall.options
-    workValue12 = workValue12.thickness
-    workValue12 = workValue12.index
-    workValue12 = 0.002 * workValue12
-    workValue11.value = workValue12
+    workingValue11 = cmgOperation.options
+    workingValue11 = workingValue11.thickness
+    workingValue11.index = labelValue
+    workingValue11 = cmgOperation.options
+    workingValue11 = workingValue11.thickness
+    workingValue12 = cmgOperation.options
+    workingValue12 = workingValue12.thickness
+    workingValue12 = workingValue12.index
+    workingValue12 = 0.002 * workingValue12
+    workingValue11.value = workingValue12
   end
-  workValue11 = GetResourceKvpInt
-  workValue12 = "cmg_crosshair_gap"
-  workValue11 = workValue11(workValue12)
-  if 0 == workValue11 then
-    workValue12 = cmgCall.options
-    workValue12 = workValue12.gap
-    workValue12.index = 1
-    workValue12 = cmgCall.options
-    workValue12 = workValue12.gap
-    workValue12.value = 0.0
+  workingValue11 = GetResourceKvpInt
+  workingValue12 = "cmg_crosshair_gap"
+  workingValue11 = workingValue11(workingValue12)
+  if 0 == workingValue11 then
+    workingValue12 = cmgOperation.options
+    workingValue12 = workingValue12.gap
+    workingValue12.index = 1
+    workingValue12 = cmgOperation.options
+    workingValue12 = workingValue12.gap
+    workingValue12.value = 0.0
   else
-    workValue12 = cmgCall.options
-    workValue12 = workValue12.gap
-    workValue12.index = workValue11
-    workValue12 = cmgCall.options
-    workValue12 = workValue12.gap
-    indexValue = cmgCall.options
+    workingValue12 = cmgOperation.options
+    workingValue12 = workingValue12.gap
+    workingValue12.index = workingValue11
+    workingValue12 = cmgOperation.options
+    workingValue12 = workingValue12.gap
+    indexValue = cmgOperation.options
     indexValue = indexValue.gap
     indexValue = indexValue.index
     indexValue = indexValue * 5.0E-4
     indexValue = indexValue - 5.0E-4
-    workValue12.value = indexValue
+    workingValue12.value = indexValue
   end
-  workValue12 = GetResourceKvpInt
+  workingValue12 = GetResourceKvpInt
   indexValue = "cmg_crosshair_red"
-  workValue12 = workValue12(indexValue)
-  if 0 == workValue12 then
-    indexValue = cmgCall.options
+  workingValue12 = workingValue12(indexValue)
+  if 0 == workingValue12 then
+    indexValue = cmgOperation.options
     indexValue = indexValue.colour
     indexValue.red = 150
   else
-    indexValue = cmgCall.options
+    indexValue = cmgOperation.options
     indexValue = indexValue.colour
-    indexValue.red = workValue12
+    indexValue.red = workingValue12
   end
   indexValue = GetResourceKvpInt
-  textValue8 = "cmg_crosshair_green"
-  indexValue = indexValue(textValue8)
+  text8 = "cmg_crosshair_green"
+  indexValue = indexValue(text8)
   if 0 == indexValue then
-    textValue8 = cmgCall.options
-    textValue8 = textValue8.colour
-    textValue8.green = 150
+    text8 = cmgOperation.options
+    text8 = text8.colour
+    text8.green = 150
   else
-    textValue8 = cmgCall.options
-    textValue8 = textValue8.colour
-    textValue8.green = indexValue
+    text8 = cmgOperation.options
+    text8 = text8.colour
+    text8.green = indexValue
   end
-  textValue8 = GetResourceKvpInt
-  textValue2 = "cmg_crosshair_blue"
-  textValue8 = textValue8(textValue2)
-  if 0 == textValue8 then
-    textValue2 = cmgCall.options
-    textValue2 = textValue2.colour
-    textValue2.blue = 150
+  text8 = GetResourceKvpInt
+  text2 = "cmg_crosshair_blue"
+  text8 = text8(text2)
+  if 0 == text8 then
+    text2 = cmgOperation.options
+    text2 = text2.colour
+    text2.blue = 150
   else
-    textValue2 = cmgCall.options
-    textValue2 = textValue2.colour
-    textValue2.blue = textValue8
+    text2 = cmgOperation.options
+    text2 = text2.colour
+    text2.blue = text8
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, arg2, textValue4
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_enabled"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.enabled
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_gtaforce_crosshair_enabled"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.forcedGtaCrosshair
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_center_dot_enabled"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.centerDotEnabled
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_visibility"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.visibility
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_length"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.length
-  textValue4 = textValue4.index
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_thickness"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.thickness
-  textValue4 = textValue4.index
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_gap"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.gap
-  textValue4 = textValue4.index
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_red"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.colour
-  textValue4 = textValue4.red
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_blue"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.colour
-  textValue4 = textValue4.blue
-  arg1(arg2, textValue4)
-  arg1 = SetResourceKvpInt
-  arg2 = "cmg_crosshair_green"
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.colour
-  textValue4 = textValue4.green
-  arg1(arg2, textValue4)
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, localValue2, text4
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_enabled"
+  text4 = cmgOperation.options
+  text4 = text4.enabled
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_gtaforce_crosshair_enabled"
+  text4 = cmgOperation.options
+  text4 = text4.forcedGtaCrosshair
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_center_dot_enabled"
+  text4 = cmgOperation.options
+  text4 = text4.centerDotEnabled
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_visibility"
+  text4 = cmgOperation.options
+  text4 = text4.visibility
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_length"
+  text4 = cmgOperation.options
+  text4 = text4.length
+  text4 = text4.index
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_thickness"
+  text4 = cmgOperation.options
+  text4 = text4.thickness
+  text4 = text4.index
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_gap"
+  text4 = cmgOperation.options
+  text4 = text4.gap
+  text4 = text4.index
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_red"
+  text4 = cmgOperation.options
+  text4 = text4.colour
+  text4 = text4.red
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_blue"
+  text4 = cmgOperation.options
+  text4 = text4.colour
+  text4 = text4.blue
+  localValue1(localValue2, text4)
+  localValue1 = SetResourceKvpInt
+  localValue2 = "cmg_crosshair_green"
+  text4 = cmgOperation.options
+  text4 = text4.colour
+  text4 = text4.green
+  localValue1(localValue2, text4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1, arg2) ===
-function workValue10(arg1, arg2)
-  local textValue4, textValue5, tableHelper
-  textValue4 = CMG
-  textValue4 = textValue4.GetRageInputInt
-  textValue5 = arg1
-  textValue4 = textValue4(textValue5)
-  textValue5 = type
-  tableHelper = textValue4
-  textValue5 = textValue5(tableHelper)
-  if "number" == textValue5 then
-    textValue5 = 255
-    if textValue4 <= textValue5 and textValue4 >= 1 then
-      return textValue4
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: localValue1, localValue2) ===
+function workingValue10(localValue1, localValue2)
+  local text4, text5, tableHelper
+  text4 = CMG
+  text4 = text4.GetRageInputInt
+  text5 = localValue1
+  text4 = text4(text5)
+  text5 = type
+  tableHelper = text4
+  text5 = text5(tableHelper)
+  if "number" == text5 then
+    text5 = 255
+    if text4 <= text5 and text4 >= 1 then
+      return text4
   end
   else
-    return arg2
+    return localValue2
   end
 end
-rageUiCall4 = RMenu
-rageUiCall4 = rageUiCall4.Add
-flag4 = "cmgcrosshair"
-textValue7 = "main"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateMenu
-textValue = "Crosshair"
-cmgCall2 = "~b~CMG Crosshair Customisation "
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-flag = nil
-workValue5 = nil
-rageUiCall5, textValue, cmgCall2, rageUiCall2, rageUiCall3, flag, workValue5 = rageUiCall5(textValue, cmgCall2, rageUiCall2, rageUiCall3, flag, workValue5)
-rageUiCall4(flag4, textValue7, rageUiCall5, textValue, cmgCall2, rageUiCall2, rageUiCall3, flag, workValue5)
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateWhile
-flag4 = 1.0
-textValue7 = RMenu
-rageUiCall5 = textValue7
-textValue7 = textValue7.Get
-textValue = "cmgcrosshair"
-cmgCall2 = "main"
+rageUiOperation4 = RMenu
+rageUiOperation4 = rageUiOperation4.Add
+stateFlag4 = "cmgcrosshair"
+text7 = "main"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateMenu
+text = "Crosshair"
+cmgOperation2 = "~b~CMG Crosshair Customisation "
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+stateFlag = nil
+workingValue5 = nil
+rageUiOperation5, text, cmgOperation2, rageUiOperation2, rageUiOperation3, stateFlag, workingValue5 = rageUiOperation5(text, cmgOperation2, rageUiOperation2, rageUiOperation3, stateFlag, workingValue5)
+rageUiOperation4(stateFlag4, text7, rageUiOperation5, text, cmgOperation2, rageUiOperation2, rageUiOperation3, stateFlag, workingValue5)
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateWhile
+stateFlag4 = 1.0
+text7 = RMenu
+rageUiOperation5 = text7
+text7 = text7.Get
+text = "cmgcrosshair"
+cmgOperation2 = "main"
 -- Beginner: result below is menu.
-textValue7 = textValue7(rageUiCall5, textValue, cmgCall2)
-rageUiCall5 = nil
+text7 = text7(rageUiOperation5, text, cmgOperation2)
+rageUiOperation5 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, textValue4, textValue5, tableHelper, labelValue
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  textValue4 = arg2
-  arg2 = arg2.Get
-  textValue5 = "cmgcrosshair"
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, text4, text5, tableHelper, labelValue
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  text4 = localValue2
+  localValue2 = localValue2.Get
+  text5 = "cmgcrosshair"
   tableHelper = "main"
   -- Beginner: result below is menu.
-  arg2 = arg2(textValue4, textValue5, tableHelper)
-  textValue4 = true
-  textValue5 = true
+  localValue2 = localValue2(text4, text5, tableHelper)
+  text4 = true
+  text5 = true
   tableHelper = true
 
   -- === HELPER FUNCTION: labelValue() ===
   function labelValue()
-    local rageUiCall, textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13
-    rageUiCall = flag2
-    if not rageUiCall then
-      rageUiCall = true
-      flag2 = rageUiCall
+    local rageUiOperation, text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13
+    rageUiOperation = stateFlag2
+    if not rageUiOperation then
+      rageUiOperation = true
+      stateFlag2 = rageUiOperation
     end
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.Checkbox
-    textValue3 = "Use Custom Crosshair"
-    dataTable = ""
-    numberValue2 = cmgCall.options
-    numberValue2 = numberValue2.enabled
-    numberValue2 = 1 == numberValue2
-    dataTable2 = {}
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.Checkbox
+    text3 = "Use Custom Crosshair"
+    dataCollection = ""
+    number2 = cmgOperation.options
+    number2 = number2.enabled
+    number2 = 1 == number2
+    dataCollection2 = {}
 
-    -- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-    function dataTable3()
-      local arg12, arg22
-    end
-
-    -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
-    function flag3()
-      local arg12, arg22
-      arg12 = cmgCall.options
-      arg12.enabled = 1
-      arg12 = workValue8
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+    function dataCollection3()
+      local localValue12, localValue22
     end
 
-    -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-    function workValue13()
-      local arg12, arg22
-      arg12 = cmgCall.options
-      arg12.enabled = 0
-      arg12 = workValue8
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: none) ===
+    function stateFlag3()
+      local localValue12, localValue22
+      localValue12 = cmgOperation.options
+      localValue12.enabled = 1
+      localValue12 = workingValue8
+      localValue12()
+    end
+
+    -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+    function workingValue13()
+      local localValue12, localValue22
+      localValue12 = cmgOperation.options
+      localValue12.enabled = 0
+      localValue12 = workingValue8
+      localValue12()
     end
     -- Beginner: Draw a RageUI checkbox.
-    rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-    rageUiCall = cmgCall.options
-    rageUiCall = rageUiCall.enabled
-    if 1 == rageUiCall then
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.Separator
-      textValue3 = "~b~Crosshair Options"
-      rageUiCall(textValue3)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.List
-      textValue3 = "Center Dot"
-      dataTable = {}
-      numberValue2 = "Enabled"
-      dataTable2 = "Disabled"
-      dataTable[1] = numberValue2
-      dataTable[2] = dataTable2
-      numberValue2 = cmgCall.options
-      numberValue2 = numberValue2.centerDotEnabled
-      dataTable2 = nil
-      dataTable3 = {}
-      flag3 = true
+    rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+    rageUiOperation = cmgOperation.options
+    rageUiOperation = rageUiOperation.enabled
+    if 1 == rageUiOperation then
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.Separator
+      text3 = "~b~Crosshair Options"
+      rageUiOperation(text3)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.List
+      text3 = "Center Dot"
+      dataCollection = {}
+      number2 = "Enabled"
+      dataCollection2 = "Disabled"
+      dataCollection[1] = number2
+      dataCollection[2] = dataCollection2
+      number2 = cmgOperation.options
+      number2 = number2.centerDotEnabled
+      dataCollection2 = nil
+      dataCollection3 = {}
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9
-        if arg22 then
-          workValue9 = cmgCall.options
-          workValue9 = workValue9.centerDotEnabled
-          if workValue9 ~= arg4 then
-            workValue9 = cmgCall.options
-            workValue9.centerDotEnabled = arg4
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9
+        if localValue22 then
+          workingValue9 = cmgOperation.options
+          workingValue9 = workingValue9.centerDotEnabled
+          if workingValue9 ~= localValue4 then
+            workingValue9 = cmgOperation.options
+            workingValue9.centerDotEnabled = localValue4
+            workingValue9 = workingValue8
+            workingValue9()
           end
         end
       end
       -- Beginner: Draw a RageUI list selector.
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.List
-      textValue3 = "Visibility"
-      dataTable = {}
-      numberValue2 = "Always"
-      dataTable2 = "While Aiming"
-      dataTable[1] = numberValue2
-      dataTable[2] = dataTable2
-      numberValue2 = cmgCall.options
-      numberValue2 = numberValue2.visibility
-      dataTable2 = nil
-      dataTable3 = {}
-      flag3 = true
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.List
+      text3 = "Visibility"
+      dataCollection = {}
+      number2 = "Always"
+      dataCollection2 = "While Aiming"
+      dataCollection[1] = number2
+      dataCollection[2] = dataCollection2
+      number2 = cmgOperation.options
+      number2 = number2.visibility
+      dataCollection2 = nil
+      dataCollection3 = {}
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9
-        if arg22 then
-          workValue9 = cmgCall.options
-          workValue9 = workValue9.visibility
-          if workValue9 ~= arg4 then
-            workValue9 = cmgCall.options
-            workValue9.visibility = arg4
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9
+        if localValue22 then
+          workingValue9 = cmgOperation.options
+          workingValue9 = workingValue9.visibility
+          if workingValue9 ~= localValue4 then
+            workingValue9 = cmgOperation.options
+            workingValue9.visibility = localValue4
+            workingValue9 = workingValue8
+            workingValue9()
           end
         end
       end
       -- Beginner: Draw a RageUI list selector.
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.List
-      textValue3 = "Length"
-      dataTable = cmgCall.menu
-      dataTable = dataTable.length
-      dataTable = dataTable.labels
-      numberValue2 = cmgCall.options
-      numberValue2 = numberValue2.length
-      numberValue2 = numberValue2.index
-      dataTable2 = nil
-      dataTable3 = {}
-      flag3 = true
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.List
+      text3 = "Length"
+      dataCollection = cmgOperation.menu
+      dataCollection = dataCollection.length
+      dataCollection = dataCollection.labels
+      number2 = cmgOperation.options
+      number2 = number2.length
+      number2 = number2.index
+      dataCollection2 = nil
+      dataCollection3 = {}
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9, numberValue3
-        if arg22 then
-          workValue9 = cmgCall.options
-          workValue9 = workValue9.length
-          workValue9 = workValue9.index
-          if workValue9 ~= arg4 then
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.length
-            workValue9.index = arg4
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.length
-            numberValue3 = arg4 * 0.001
-            numberValue3 = 0.001 + numberValue3
-            workValue9.value = numberValue3
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9, number3
+        if localValue22 then
+          workingValue9 = cmgOperation.options
+          workingValue9 = workingValue9.length
+          workingValue9 = workingValue9.index
+          if workingValue9 ~= localValue4 then
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.length
+            workingValue9.index = localValue4
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.length
+            number3 = localValue4 * 0.001
+            number3 = 0.001 + number3
+            workingValue9.value = number3
+            workingValue9 = workingValue8
+            workingValue9()
           end
         end
       end
       -- Beginner: Draw a RageUI list selector.
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.List
-      textValue3 = "Thickness"
-      dataTable = cmgCall.menu
-      dataTable = dataTable.thickness
-      dataTable = dataTable.labels
-      numberValue2 = cmgCall.options
-      numberValue2 = numberValue2.thickness
-      numberValue2 = numberValue2.index
-      dataTable2 = nil
-      dataTable3 = {}
-      flag3 = true
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.List
+      text3 = "Thickness"
+      dataCollection = cmgOperation.menu
+      dataCollection = dataCollection.thickness
+      dataCollection = dataCollection.labels
+      number2 = cmgOperation.options
+      number2 = number2.thickness
+      number2 = number2.index
+      dataCollection2 = nil
+      dataCollection3 = {}
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9, numberValue3
-        if arg22 then
-          workValue9 = cmgCall.options
-          workValue9 = workValue9.thickness
-          workValue9 = workValue9.index
-          if workValue9 ~= arg4 then
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.thickness
-            workValue9.index = arg4
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.thickness
-            numberValue3 = 0.002 * arg4
-            workValue9.value = numberValue3
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9, number3
+        if localValue22 then
+          workingValue9 = cmgOperation.options
+          workingValue9 = workingValue9.thickness
+          workingValue9 = workingValue9.index
+          if workingValue9 ~= localValue4 then
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.thickness
+            workingValue9.index = localValue4
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.thickness
+            number3 = 0.002 * localValue4
+            workingValue9.value = number3
+            workingValue9 = workingValue8
+            workingValue9()
           end
         end
       end
       -- Beginner: Draw a RageUI list selector.
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.List
-      textValue3 = "Gap"
-      dataTable = cmgCall.menu
-      dataTable = dataTable.gap
-      dataTable = dataTable.labels
-      numberValue2 = cmgCall.options
-      numberValue2 = numberValue2.gap
-      numberValue2 = numberValue2.index
-      dataTable2 = nil
-      dataTable3 = {}
-      flag3 = true
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.List
+      text3 = "Gap"
+      dataCollection = cmgOperation.menu
+      dataCollection = dataCollection.gap
+      dataCollection = dataCollection.labels
+      number2 = cmgOperation.options
+      number2 = number2.gap
+      number2 = number2.index
+      dataCollection2 = nil
+      dataCollection3 = {}
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9, numberValue3
-        if arg22 then
-          workValue9 = cmgCall.options
-          workValue9 = workValue9.gap
-          workValue9 = workValue9.index
-          if workValue9 ~= arg4 then
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.gap
-            workValue9.index = arg4
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.gap
-            numberValue3 = arg4 * 5.0E-4
-            numberValue3 = numberValue3 - 5.0E-4
-            workValue9.value = numberValue3
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9, number3
+        if localValue22 then
+          workingValue9 = cmgOperation.options
+          workingValue9 = workingValue9.gap
+          workingValue9 = workingValue9.index
+          if workingValue9 ~= localValue4 then
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.gap
+            workingValue9.index = localValue4
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.gap
+            number3 = localValue4 * 5.0E-4
+            number3 = number3 - 5.0E-4
+            workingValue9.value = number3
+            workingValue9 = workingValue8
+            workingValue9()
           end
         end
       end
       -- Beginner: Draw a RageUI list selector.
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.SliderProgress
-      textValue3 = "Red ["
-      dataTable = cmgCall.options
-      dataTable = dataTable.colour
-      dataTable = dataTable.red
-      numberValue2 = "]"
-      textValue3 = textValue3 .. dataTable .. numberValue2
-      dataTable = cmgCall.options
-      dataTable = dataTable.colour
-      dataTable = dataTable.red
-      numberValue2 = 255
-      dataTable2 = "Press ~b~ENTER~w~ to enter RGB Red value"
-      dataTable3 = {}
-      flag3 = {}
-      flag3.R = 186
-      flag3.G = 58
-      flag3.B = 48
-      flag3.A = 255
-      dataTable3.ProgressBackgroundColor = flag3
-      flag3 = {}
-      flag3.R = 212
-      flag3.G = 66
-      flag3.B = 55
-      flag3.A = 255
-      dataTable3.ProgressColor = flag3
-      flag3 = true
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.SliderProgress
+      text3 = "Red ["
+      dataCollection = cmgOperation.options
+      dataCollection = dataCollection.colour
+      dataCollection = dataCollection.red
+      number2 = "]"
+      text3 = text3 .. dataCollection .. number2
+      dataCollection = cmgOperation.options
+      dataCollection = dataCollection.colour
+      dataCollection = dataCollection.red
+      number2 = 255
+      dataCollection2 = "Press ~b~ENTER~w~ to enter RGB Red value"
+      dataCollection3 = {}
+      stateFlag3 = {}
+      stateFlag3.R = 186
+      stateFlag3.G = 58
+      stateFlag3.B = 48
+      stateFlag3.A = 255
+      dataCollection3.ProgressBackgroundColor = stateFlag3
+      stateFlag3 = {}
+      stateFlag3.R = 212
+      stateFlag3.G = 66
+      stateFlag3.B = 55
+      stateFlag3.A = 255
+      dataCollection3.ProgressColor = stateFlag3
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9, numberValue3, textValue6, workValue14
-        if arg22 then
-          workValue9 = IsControlJustPressed
-          numberValue3 = 0
-          textValue6 = 22
-          workValue9 = workValue9(numberValue3, textValue6)
-          if workValue9 then
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.colour
-            numberValue3 = workValue10
-            textValue6 = "Enter Red Value (0-255)"
-            workValue14 = cmgCall.options
-            workValue14 = workValue14.colour
-            workValue14 = workValue14.red
-            numberValue3 = numberValue3(textValue6, workValue14)
-            workValue9.red = numberValue3
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9, number3, text6, workingValue14
+        if localValue22 then
+          workingValue9 = IsControlJustPressed
+          number3 = 0
+          text6 = 22
+          workingValue9 = workingValue9(number3, text6)
+          if workingValue9 then
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.colour
+            number3 = workingValue10
+            text6 = "Enter Red Value (0-255)"
+            workingValue14 = cmgOperation.options
+            workingValue14 = workingValue14.colour
+            workingValue14 = workingValue14.red
+            number3 = number3(text6, workingValue14)
+            workingValue9.red = number3
+            workingValue9 = workingValue8
+            workingValue9()
           else
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.colour
-            workValue9 = workValue9.red
-            if arg4 ~= workValue9 then
-              workValue9 = cmgCall.options
-              workValue9 = workValue9.colour
-              workValue9.red = arg4
-              workValue9 = workValue8
-              workValue9()
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.colour
+            workingValue9 = workingValue9.red
+            if localValue4 ~= workingValue9 then
+              workingValue9 = cmgOperation.options
+              workingValue9 = workingValue9.colour
+              workingValue9.red = localValue4
+              workingValue9 = workingValue8
+              workingValue9()
             end
           end
         end
       end
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.SliderProgress
-      textValue3 = "Green ["
-      dataTable = cmgCall.options
-      dataTable = dataTable.colour
-      dataTable = dataTable.green
-      numberValue2 = "]"
-      textValue3 = textValue3 .. dataTable .. numberValue2
-      dataTable = cmgCall.options
-      dataTable = dataTable.colour
-      dataTable = dataTable.green
-      numberValue2 = 255
-      dataTable2 = "Press ~b~ENTER~w~ to enter RGB Green value"
-      dataTable3 = {}
-      flag3 = {}
-      flag3.R = 48
-      flag3.G = 186
-      flag3.B = 108
-      flag3.A = 255
-      dataTable3.ProgressBackgroundColor = flag3
-      flag3 = {}
-      flag3.R = 64
-      flag3.G = 230
-      flag3.B = 136
-      flag3.A = 255
-      dataTable3.ProgressColor = flag3
-      flag3 = true
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.SliderProgress
+      text3 = "Green ["
+      dataCollection = cmgOperation.options
+      dataCollection = dataCollection.colour
+      dataCollection = dataCollection.green
+      number2 = "]"
+      text3 = text3 .. dataCollection .. number2
+      dataCollection = cmgOperation.options
+      dataCollection = dataCollection.colour
+      dataCollection = dataCollection.green
+      number2 = 255
+      dataCollection2 = "Press ~b~ENTER~w~ to enter RGB Green value"
+      dataCollection3 = {}
+      stateFlag3 = {}
+      stateFlag3.R = 48
+      stateFlag3.G = 186
+      stateFlag3.B = 108
+      stateFlag3.A = 255
+      dataCollection3.ProgressBackgroundColor = stateFlag3
+      stateFlag3 = {}
+      stateFlag3.R = 64
+      stateFlag3.G = 230
+      stateFlag3.B = 136
+      stateFlag3.A = 255
+      dataCollection3.ProgressColor = stateFlag3
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9, numberValue3, textValue6, workValue14
-        if arg22 then
-          workValue9 = IsControlJustPressed
-          numberValue3 = 0
-          textValue6 = 22
-          workValue9 = workValue9(numberValue3, textValue6)
-          if workValue9 then
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.colour
-            numberValue3 = workValue10
-            textValue6 = "Enter Green Value (0-255)"
-            workValue14 = cmgCall.options
-            workValue14 = workValue14.colour
-            workValue14 = workValue14.green
-            numberValue3 = numberValue3(textValue6, workValue14)
-            workValue9.green = numberValue3
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9, number3, text6, workingValue14
+        if localValue22 then
+          workingValue9 = IsControlJustPressed
+          number3 = 0
+          text6 = 22
+          workingValue9 = workingValue9(number3, text6)
+          if workingValue9 then
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.colour
+            number3 = workingValue10
+            text6 = "Enter Green Value (0-255)"
+            workingValue14 = cmgOperation.options
+            workingValue14 = workingValue14.colour
+            workingValue14 = workingValue14.green
+            number3 = number3(text6, workingValue14)
+            workingValue9.green = number3
+            workingValue9 = workingValue8
+            workingValue9()
           else
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.colour
-            workValue9 = workValue9.green
-            if arg4 ~= workValue9 then
-              workValue9 = cmgCall.options
-              workValue9 = workValue9.colour
-              workValue9.green = arg4
-              workValue9 = workValue8
-              workValue9()
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.colour
+            workingValue9 = workingValue9.green
+            if localValue4 ~= workingValue9 then
+              workingValue9 = cmgOperation.options
+              workingValue9 = workingValue9.colour
+              workingValue9.green = localValue4
+              workingValue9 = workingValue8
+              workingValue9()
             end
           end
         end
       end
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.SliderProgress
-      textValue3 = "Blue ["
-      dataTable = cmgCall.options
-      dataTable = dataTable.colour
-      dataTable = dataTable.blue
-      numberValue2 = "]"
-      textValue3 = textValue3 .. dataTable .. numberValue2
-      dataTable = cmgCall.options
-      dataTable = dataTable.colour
-      dataTable = dataTable.blue
-      numberValue2 = 255
-      dataTable2 = "Press ~b~ENTER~w~ to enter RGB Blue value"
-      dataTable3 = {}
-      flag3 = {}
-      flag3.R = 48
-      flag3.G = 69
-      flag3.B = 186
-      flag3.A = 255
-      dataTable3.ProgressBackgroundColor = flag3
-      flag3 = {}
-      flag3.R = 59
-      flag3.G = 86
-      flag3.B = 237
-      flag3.A = 255
-      dataTable3.ProgressColor = flag3
-      flag3 = true
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.SliderProgress
+      text3 = "Blue ["
+      dataCollection = cmgOperation.options
+      dataCollection = dataCollection.colour
+      dataCollection = dataCollection.blue
+      number2 = "]"
+      text3 = text3 .. dataCollection .. number2
+      dataCollection = cmgOperation.options
+      dataCollection = dataCollection.colour
+      dataCollection = dataCollection.blue
+      number2 = 255
+      dataCollection2 = "Press ~b~ENTER~w~ to enter RGB Blue value"
+      dataCollection3 = {}
+      stateFlag3 = {}
+      stateFlag3.R = 48
+      stateFlag3.G = 69
+      stateFlag3.B = 186
+      stateFlag3.A = 255
+      dataCollection3.ProgressBackgroundColor = stateFlag3
+      stateFlag3 = {}
+      stateFlag3.R = 59
+      stateFlag3.G = 86
+      stateFlag3.B = 237
+      stateFlag3.A = 255
+      dataCollection3.ProgressColor = stateFlag3
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
-      function workValue13(arg12, arg22, arg3, arg4)
-        local workValue9, numberValue3, textValue6, workValue14
-        if arg22 then
-          workValue9 = IsControlJustPressed
-          numberValue3 = 0
-          textValue6 = 22
-          workValue9 = workValue9(numberValue3, textValue6)
-          if workValue9 then
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.colour
-            numberValue3 = workValue10
-            textValue6 = "Enter Blue Value (0-255)"
-            workValue14 = cmgCall.options
-            workValue14 = workValue14.colour
-            workValue14 = workValue14.blue
-            numberValue3 = numberValue3(textValue6, workValue14)
-            workValue9.blue = numberValue3
-            workValue9 = workValue8
-            workValue9()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue12, localValue22, localValue3, localValue4) ===
+      function workingValue13(localValue12, localValue22, localValue3, localValue4)
+        local workingValue9, number3, text6, workingValue14
+        if localValue22 then
+          workingValue9 = IsControlJustPressed
+          number3 = 0
+          text6 = 22
+          workingValue9 = workingValue9(number3, text6)
+          if workingValue9 then
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.colour
+            number3 = workingValue10
+            text6 = "Enter Blue Value (0-255)"
+            workingValue14 = cmgOperation.options
+            workingValue14 = workingValue14.colour
+            workingValue14 = workingValue14.blue
+            number3 = number3(text6, workingValue14)
+            workingValue9.blue = number3
+            workingValue9 = workingValue8
+            workingValue9()
           else
-            workValue9 = cmgCall.options
-            workValue9 = workValue9.colour
-            workValue9 = workValue9.blue
-            if arg4 ~= workValue9 then
-              workValue9 = cmgCall.options
-              workValue9 = workValue9.colour
-              workValue9.blue = arg4
-              workValue9 = workValue8
-              workValue9()
+            workingValue9 = cmgOperation.options
+            workingValue9 = workingValue9.colour
+            workingValue9 = workingValue9.blue
+            if localValue4 ~= workingValue9 then
+              workingValue9 = cmgOperation.options
+              workingValue9 = workingValue9.colour
+              workingValue9.blue = localValue4
+              workingValue9 = workingValue8
+              workingValue9()
             end
           end
         end
       end
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
     else
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.Checkbox
-      textValue3 = "Keep GTA Crosshair Enabled"
-      dataTable = "Whether the GTA crosshair should be visible at all times."
-      numberValue2 = cmgCall.options
-      numberValue2 = numberValue2.forcedGtaCrosshair
-      numberValue2 = 1 == numberValue2
-      dataTable2 = {}
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.Checkbox
+      text3 = "Keep GTA Crosshair Enabled"
+      dataCollection = "Whether the GTA crosshair should be visible at all times."
+      number2 = cmgOperation.options
+      number2 = number2.forcedGtaCrosshair
+      number2 = 1 == number2
+      dataCollection2 = {}
 
-      -- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-      function dataTable3()
-        local arg12, arg22
+      -- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+      function dataCollection3()
+        local localValue12, localValue22
       end
 
-      -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
-      function flag3()
-        local arg12, arg22
-        arg12 = cmgCall.options
-        arg12.forcedGtaCrosshair = 1
-        arg12 = workValue8
-        arg12()
+      -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: none) ===
+      function stateFlag3()
+        local localValue12, localValue22
+        localValue12 = cmgOperation.options
+        localValue12.forcedGtaCrosshair = 1
+        localValue12 = workingValue8
+        localValue12()
       end
 
-      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-      function workValue13()
-        local arg12, arg22
-        arg12 = cmgCall.options
-        arg12.forcedGtaCrosshair = 0
-        arg12 = workValue8
-        arg12()
+      -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+      function workingValue13()
+        local localValue12, localValue22
+        localValue12 = cmgOperation.options
+        localValue12.forcedGtaCrosshair = 0
+        localValue12 = workingValue8
+        localValue12()
       end
       -- Beginner: Draw a RageUI checkbox.
-      rageUiCall(textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13)
+      rageUiOperation(text3, dataCollection, number2, dataCollection2, dataCollection3, stateFlag3, workingValue13)
     end
   end
-  arg1(arg2, textValue4, textValue5, tableHelper, labelValue)
+  localValue1(localValue2, text4, text5, tableHelper, labelValue)
 end
-rageUiCall4(flag4, textValue7, rageUiCall5, textValue)
+rageUiOperation4(stateFlag4, text7, rageUiOperation5, text)
 
--- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
-function rageUiCall4()
-  local arg1, arg2, textValue4, textValue5, tableHelper, labelValue, workValue11, workValue12, indexValue, textValue8, textValue2, workValue, workValue2, workValue3, workValue4, numberValue
-  arg1 = cmgCall.options
-  arg1 = arg1.gap
-  arg1 = arg1.value
-  arg2 = cmgCall.options
-  arg2 = arg2.length
-  arg2 = arg2.value
-  textValue4 = cmgCall.options
-  textValue4 = textValue4.thickness
-  textValue4 = textValue4.value
-  textValue5 = cmgCall.options
-  textValue5 = textValue5.colour
-  textValue5 = textValue5.red
-  tableHelper = cmgCall.options
+-- === HELPER FUNCTION (decompiler name: rageUiOperation4; parameters: none) ===
+function rageUiOperation4()
+  local localValue1, localValue2, text4, text5, tableHelper, labelValue, workingValue11, workingValue12, indexValue, text8, text2, workingValue, workingValue2, workingValue3, workingValue4, number
+  localValue1 = cmgOperation.options
+  localValue1 = localValue1.gap
+  localValue1 = localValue1.value
+  localValue2 = cmgOperation.options
+  localValue2 = localValue2.length
+  localValue2 = localValue2.value
+  text4 = cmgOperation.options
+  text4 = text4.thickness
+  text4 = text4.value
+  text5 = cmgOperation.options
+  text5 = text5.colour
+  text5 = text5.red
+  tableHelper = cmgOperation.options
   tableHelper = tableHelper.colour
   tableHelper = tableHelper.green
-  labelValue = cmgCall.options
+  labelValue = cmgOperation.options
   labelValue = labelValue.colour
   labelValue = labelValue.blue
-  workValue11 = GetAspectRatio
-  workValue12 = false
-  workValue11 = workValue11(workValue12)
-  workValue12 = cmgCall.options
-  workValue12 = workValue12.centerDotEnabled
-  if 1 == workValue12 then
-    workValue12 = DrawRect
+  workingValue11 = GetAspectRatio
+  workingValue12 = false
+  workingValue11 = workingValue11(workingValue12)
+  workingValue12 = cmgOperation.options
+  workingValue12 = workingValue12.centerDotEnabled
+  if 1 == workingValue12 then
+    workingValue12 = DrawRect
     indexValue = 0.5
-    textValue8 = 0.5
-    textValue2 = textValue4 / 2
-    workValue = textValue4 / 2
-    workValue = workValue * workValue11
-    workValue2 = textValue5
-    workValue3 = tableHelper
-    workValue4 = labelValue
-    numberValue = 255
-    workValue12(indexValue, textValue8, textValue2, workValue, workValue2, workValue3, workValue4, numberValue)
+    text8 = 0.5
+    text2 = text4 / 2
+    workingValue = text4 / 2
+    workingValue = workingValue * workingValue11
+    workingValue2 = text5
+    workingValue3 = tableHelper
+    workingValue4 = labelValue
+    number = 255
+    workingValue12(indexValue, text8, text2, workingValue, workingValue2, workingValue3, workingValue4, number)
   end
-  workValue12 = DrawRect
+  workingValue12 = DrawRect
   indexValue = 0.5
-  indexValue = indexValue - arg1
-  textValue8 = arg2 / 2
-  indexValue = indexValue - textValue8
-  textValue8 = 0.5
-  textValue2 = arg2
-  workValue = textValue4
-  workValue2 = textValue5
-  workValue3 = tableHelper
-  workValue4 = labelValue
-  numberValue = 255
-  workValue12(indexValue, textValue8, textValue2, workValue, workValue2, workValue3, workValue4, numberValue)
-  workValue12 = DrawRect
-  indexValue = 0.5 + arg1
-  textValue8 = arg2 / 2
-  indexValue = indexValue + textValue8
-  textValue8 = 0.5
-  textValue2 = arg2
-  workValue = textValue4
-  workValue2 = textValue5
-  workValue3 = tableHelper
-  workValue4 = labelValue
-  numberValue = 255
-  workValue12(indexValue, textValue8, textValue2, workValue, workValue2, workValue3, workValue4, numberValue)
-  workValue12 = DrawRect
+  indexValue = indexValue - localValue1
+  text8 = localValue2 / 2
+  indexValue = indexValue - text8
+  text8 = 0.5
+  text2 = localValue2
+  workingValue = text4
+  workingValue2 = text5
+  workingValue3 = tableHelper
+  workingValue4 = labelValue
+  number = 255
+  workingValue12(indexValue, text8, text2, workingValue, workingValue2, workingValue3, workingValue4, number)
+  workingValue12 = DrawRect
+  indexValue = 0.5 + localValue1
+  text8 = localValue2 / 2
+  indexValue = indexValue + text8
+  text8 = 0.5
+  text2 = localValue2
+  workingValue = text4
+  workingValue2 = text5
+  workingValue3 = tableHelper
+  workingValue4 = labelValue
+  number = 255
+  workingValue12(indexValue, text8, text2, workingValue, workingValue2, workingValue3, workingValue4, number)
+  workingValue12 = DrawRect
   indexValue = 0.5
-  textValue8 = arg1 * workValue11
-  textValue2 = 0.5
-  textValue8 = textValue2 - textValue8
-  textValue2 = arg2 * workValue11
-  textValue2 = textValue2 / 2
-  textValue8 = textValue8 - textValue2
-  textValue2 = textValue4 / workValue11
-  workValue = arg2 * workValue11
-  workValue2 = textValue5
-  workValue3 = tableHelper
-  workValue4 = labelValue
-  numberValue = 255
-  workValue12(indexValue, textValue8, textValue2, workValue, workValue2, workValue3, workValue4, numberValue)
-  workValue12 = DrawRect
+  text8 = localValue1 * workingValue11
+  text2 = 0.5
+  text8 = text2 - text8
+  text2 = localValue2 * workingValue11
+  text2 = text2 / 2
+  text8 = text8 - text2
+  text2 = text4 / workingValue11
+  workingValue = localValue2 * workingValue11
+  workingValue2 = text5
+  workingValue3 = tableHelper
+  workingValue4 = labelValue
+  number = 255
+  workingValue12(indexValue, text8, text2, workingValue, workingValue2, workingValue3, workingValue4, number)
+  workingValue12 = DrawRect
   indexValue = 0.5
-  textValue8 = arg1 * workValue11
-  textValue8 = 0.5 + textValue8
-  textValue2 = arg2 * workValue11
-  textValue2 = textValue2 / 2
-  textValue8 = textValue8 + textValue2
-  textValue2 = textValue4 / workValue11
-  workValue = arg2 * workValue11
-  workValue2 = textValue5
-  workValue3 = tableHelper
-  workValue4 = labelValue
-  numberValue = 255
-  workValue12(indexValue, textValue8, textValue2, workValue, workValue2, workValue3, workValue4, numberValue)
-  workValue12 = HideHudComponentThisFrame
+  text8 = localValue1 * workingValue11
+  text8 = 0.5 + text8
+  text2 = localValue2 * workingValue11
+  text2 = text2 / 2
+  text8 = text8 + text2
+  text2 = text4 / workingValue11
+  workingValue = localValue2 * workingValue11
+  workingValue2 = text5
+  workingValue3 = tableHelper
+  workingValue4 = labelValue
+  number = 255
+  workingValue12(indexValue, text8, text2, workingValue, workingValue2, workingValue3, workingValue4, number)
+  workingValue12 = HideHudComponentThisFrame
   indexValue = 14
-  workValue12(indexValue)
+  workingValue12(indexValue)
 end
-flag4 = false
-textValue7 = false
-rageUiCall5 = 0
+stateFlag4 = false
+text7 = false
+rageUiOperation5 = 0
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, textValue4, textValue5, tableHelper
-  arg1 = cmgCall.options
-  arg1 = arg1.enabled
-  if 1 == arg1 then
-    arg1 = RageUI
-    arg1 = arg1.Visible
-    arg2 = RMenu
-    textValue4 = arg2
-    arg2 = arg2.Get
-    textValue5 = "cmgcrosshair"
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, text4, text5, tableHelper
+  localValue1 = cmgOperation.options
+  localValue1 = localValue1.enabled
+  if 1 == localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.Visible
+    localValue2 = RMenu
+    text4 = localValue2
+    localValue2 = localValue2.Get
+    text5 = "cmgcrosshair"
     tableHelper = "main"
-    arg2, textValue4, textValue5, tableHelper = arg2(textValue4, textValue5, tableHelper)
+    localValue2, text4, text5, tableHelper = localValue2(text4, text5, tableHelper)
     -- Beginner: result below is menuVisible.
-    arg1 = arg1(arg2, textValue4, textValue5, tableHelper)
-    if not arg1 then
-      arg1 = cmgCall.options
-      arg1 = arg1.visibility
-      if 1 ~= arg1 then
-        goto flow_label_33
+    localValue1 = localValue1(localValue2, text4, text5, tableHelper)
+    if not localValue1 then
+      localValue1 = cmgOperation.options
+      localValue1 = localValue1.visibility
+      if 1 ~= localValue1 then
+        goto continueAtStep33
       end
     end
-    arg1 = IsPlayerFreeAiming
-    arg2 = PlayerId
-    arg2, textValue4, textValue5, tableHelper = arg2()
-    arg1 = arg1(arg2, textValue4, textValue5, tableHelper)
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.doesCurrentWeaponHaveScope
-      arg1 = arg1()
+    localValue1 = IsPlayerFreeAiming
+    localValue2 = PlayerId
+    localValue2, text4, text5, tableHelper = localValue2()
+    localValue1 = localValue1(localValue2, text4, text5, tableHelper)
+    if localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.doesCurrentWeaponHaveScope
+      localValue1 = localValue1()
     end
-    if not arg1 then
-      arg1 = rageUiCall4
-      arg1()
-      goto flow_label_78
-      ::flow_label_33::
-      arg1 = IsPlayerFreeAiming
-      arg2 = PlayerId
-      arg2, textValue4, textValue5, tableHelper = arg2()
-      arg1 = arg1(arg2, textValue4, textValue5, tableHelper)
-      if arg1 then
-        arg1 = CMG
-        arg1 = arg1.doesCurrentWeaponHaveScope
-        arg1 = arg1()
-        if not arg1 then
-          arg1 = rageUiCall4
-          arg1()
+    if not localValue1 then
+      localValue1 = rageUiOperation4
+      localValue1()
+      goto continueAtStep78
+      ::continueAtStep33::
+      localValue1 = IsPlayerFreeAiming
+      localValue2 = PlayerId
+      localValue2, text4, text5, tableHelper = localValue2()
+      localValue1 = localValue1(localValue2, text4, text5, tableHelper)
+      if localValue1 then
+        localValue1 = CMG
+        localValue1 = localValue1.doesCurrentWeaponHaveScope
+        localValue1 = localValue1()
+        if not localValue1 then
+          localValue1 = rageUiOperation4
+          localValue1()
         end
       end
     end
   else
-    arg1 = cmgCall.options
-    arg1 = arg1.forcedGtaCrosshair
-    if 1 == arg1 then
-      arg1 = textValue7
-      if not arg1 then
-        arg1 = ShowHudComponentThisFrame
-        arg2 = 14
-        arg1(arg2)
+    localValue1 = cmgOperation.options
+    localValue1 = localValue1.forcedGtaCrosshair
+    if 1 == localValue1 then
+      localValue1 = text7
+      if not localValue1 then
+        localValue1 = ShowHudComponentThisFrame
+        localValue2 = 14
+        localValue1(localValue2)
       end
-      arg1 = false
-      textValue7 = arg1
-      arg1 = flag4
-      if not arg1 then
-        arg1 = true
-        flag4 = arg1
-        arg1 = GetConvarInt
-        arg2 = "profile_reticuleSize"
-        textValue4 = -1
-        arg1 = arg1(arg2, textValue4)
-        arg2 = rageUiCall5
-        if arg1 ~= arg2 then
-          arg2 = true
-          textValue7 = arg2
-          rageUiCall5 = arg1
+      localValue1 = false
+      text7 = localValue1
+      localValue1 = stateFlag4
+      if not localValue1 then
+        localValue1 = true
+        stateFlag4 = localValue1
+        localValue1 = GetConvarInt
+        localValue2 = "profile_reticuleSize"
+        text4 = -1
+        localValue1 = localValue1(localValue2, text4)
+        localValue2 = rageUiOperation5
+        if localValue1 ~= localValue2 then
+          localValue2 = true
+          text7 = localValue2
+          rageUiOperation5 = localValue1
         end
-        arg2 = SetTimeout
-        textValue4 = 1000
+        localValue2 = SetTimeout
+        text4 = 1000
 
-        -- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-        function textValue5()
-          local rageUiCall, textValue3
-          rageUiCall = false
-          flag4 = rageUiCall
+        -- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+        function text5()
+          local rageUiOperation, text3
+          rageUiOperation = false
+          stateFlag4 = rageUiOperation
         end
-        arg2(textValue4, textValue5)
+        localValue2(text4, text5)
       end
     end
   end
-  ::flow_label_78::
+  ::continueAtStep78::
 end
-cmgCall2 = workValue7
-cmgCall2()
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-rageUiCall2 = textValue
-rageUiCall3 = "Crosshair"
+cmgOperation2 = workingValue7
+cmgOperation2()
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+rageUiOperation2 = text
+rageUiOperation3 = "Crosshair"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(rageUiCall2, rageUiCall3)
-cmgCall2 = RegisterCommand
-rageUiCall2 = "crosshair"
+cmgOperation2(rageUiOperation2, rageUiOperation3)
+cmgOperation2 = RegisterCommand
+rageUiOperation2 = "crosshair"
 -- Beginner: this function is the command handler for "crosshair".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: none) ===
-function rageUiCall3()
-  local arg1, arg2, textValue4, textValue5, tableHelper
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  textValue4 = arg2
-  arg2 = arg2.Get
-  textValue5 = "cmgcrosshair"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation3; parameters: none) ===
+function rageUiOperation3()
+  local localValue1, localValue2, text4, text5, tableHelper
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  text4 = localValue2
+  localValue2 = localValue2.Get
+  text5 = "cmgcrosshair"
   tableHelper = "main"
   -- Beginner: result below is menu.
-  arg2 = arg2(textValue4, textValue5, tableHelper)
-  textValue4 = true
-  arg1(arg2, textValue4)
+  localValue2 = localValue2(text4, text5, tableHelper)
+  text4 = true
+  localValue1(localValue2, text4)
 end
-flag = false
+stateFlag = false
 -- Beginner: Register a chat/console command. Event/command: "crosshair".
-cmgCall2(rageUiCall2, rageUiCall3, flag)
-cmgCall2 = CMG
+cmgOperation2(rageUiOperation2, rageUiOperation3, stateFlag)
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
-function rageUiCall2()
-  local arg1, arg2
-  arg1 = true
-  textValue7 = arg1
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: none) ===
+function rageUiOperation2()
+  local localValue1, localValue2
+  localValue1 = true
+  text7 = localValue1
 end
-cmgCall2.setHideCrosshairNextFrameHack = rageUiCall2
-cmgCall2 = {}
-rageUiCall2 = false
-rageUiCall3 = CMG
+cmgOperation2.setHideCrosshairNextFrameHack = rageUiOperation2
+cmgOperation2 = {}
+rageUiOperation2 = false
+rageUiOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: flag; parameters: arg1) ===
-function flag(arg1)
-  local arg2, textValue4, textValue5, tableHelper
-  arg2 = true
-  rageUiCall2 = arg2
-  arg2 = CMG
-  arg2 = arg2.uiSetFocus
-  textValue4 = true
-  textValue5 = true
+-- === HELPER FUNCTION (decompiler name: stateFlag; parameters: localValue1) ===
+function stateFlag(localValue1)
+  local localValue2, text4, text5, tableHelper
+  localValue2 = true
+  rageUiOperation2 = localValue2
+  localValue2 = CMG
+  localValue2 = localValue2.uiSetFocus
+  text4 = true
+  text5 = true
   tableHelper = false
-  arg2(textValue4, textValue5, tableHelper)
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
-  textValue4 = {}
-  textValue4.openMenu = true
-  textValue4.type = arg1
-  arg2(textValue4)
+  localValue2(text4, text5, tableHelper)
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
+  text4 = {}
+  text4.openMenu = true
+  text4.type = localValue1
+  localValue2(text4)
 end
-rageUiCall3.openRadialMenu = flag
-rageUiCall3 = CMG
+rageUiOperation3.openRadialMenu = stateFlag
+rageUiOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: flag; parameters: arg1, arg2) ===
-function flag(arg1, arg2)
-  local textValue4
-  textValue4 = cmgCall2
-  textValue4[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: stateFlag; parameters: localValue1, localValue2) ===
+function stateFlag(localValue1, localValue2)
+  local text4
+  text4 = cmgOperation2
+  text4[localValue1] = localValue2
 end
-rageUiCall3.addRadialMenuHandler = flag
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.uiRegisterCallback
-flag = "radialClick"
+rageUiOperation3.addRadialMenuHandler = stateFlag
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.uiRegisterCallback
+stateFlag = "radialClick"
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, textValue4, textValue5, tableHelper
-  arg2 = arg1.itemid
-  textValue4 = arg1.menuName
-  textValue5 = cmgCall2
-  textValue5 = textValue5[textValue4]
-  if textValue5 then
-    textValue5 = cmgCall2
-    textValue5 = textValue5[textValue4]
-    tableHelper = arg2
-    textValue5(tableHelper)
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local localValue2, text4, text5, tableHelper
+  localValue2 = localValue1.itemid
+  text4 = localValue1.menuName
+  text5 = cmgOperation2
+  text5 = text5[text4]
+  if text5 then
+    text5 = cmgOperation2
+    text5 = text5[text4]
+    tableHelper = localValue2
+    text5(tableHelper)
   end
 end
-rageUiCall3(flag, workValue5)
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.uiRegisterCallback
-flag = "radialClose"
+rageUiOperation3(stateFlag, workingValue5)
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.uiRegisterCallback
+stateFlag = "radialClose"
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, textValue4, textValue5
-  arg1 = rageUiCall2
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.uiSetFocus
-    arg2 = false
-    textValue4 = false
-    textValue5 = false
-    arg1(arg2, textValue4, textValue5)
-    arg1 = false
-    rageUiCall2 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, text4, text5
+  localValue1 = rageUiOperation2
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.uiSetFocus
+    localValue2 = false
+    text4 = false
+    text5 = false
+    localValue1(localValue2, text4, text5)
+    localValue1 = false
+    rageUiOperation2 = localValue1
   end
 end
-rageUiCall3(flag, workValue5)
+rageUiOperation3(stateFlag, workingValue5)

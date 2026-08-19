@@ -32,1790 +32,1790 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, cmgCall2, textValue4, flag7, flag8, dataTable4, numberValue15, dataTable6, numberValue17, dataTable7, dataTable, flag, flag2, numberValue3, numberValue5, workValue9, workValue12, workValue13, workValue14, workValue15, workValue17, workValue18, threadCall, workValue19, workValue20, workValue21, workValue22, cmgCall3, textValue3, eventRegistration, textValue5, textValue6, rageUiCall, textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-cmgCall2 = "cfg/cfg_graffiti"
+local cmgOperation, cmgOperation2, text4, stateFlag7, stateFlag8, dataCollection4, number15, dataCollection6, number17, dataCollection7, dataCollection, stateFlag, stateFlag2, number3, number5, workingValue9, workingValue12, workingValue13, workingValue14, workingValue15, workingValue17, workingValue18, backgroundThread, workingValue19, workingValue20, workingValue21, workingValue22, cmgOperation3, text3, eventHandler, text5, text6, rageUiOperation, text7, text8, rageUiOperation2, rageUiOperation3, text9, text10
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+cmgOperation2 = "cfg/cfg_graffiti"
 -- Beginner: result below is config.
-cmgCall = cmgCall(cmgCall2)
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.loadModule
-textValue4 = "cfg/cfg_gang"
+cmgOperation = cmgOperation(cmgOperation2)
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.loadModule
+text4 = "cfg/cfg_gang"
 -- Beginner: result below is config.
-cmgCall2 = cmgCall2(textValue4)
-textValue4 = CreateCam
-flag7 = "DEFAULT_SCRIPTED_CAMERA"
-flag8 = false
+cmgOperation2 = cmgOperation2(text4)
+text4 = CreateCam
+stateFlag7 = "DEFAULT_SCRIPTED_CAMERA"
+stateFlag8 = false
 -- Beginner: result below is cameraHandle.
-textValue4 = textValue4(flag7, flag8)
-flag7 = false
-flag8 = nil
-dataTable4 = {}
-numberValue15 = 1
-dataTable6 = {}
-numberValue17 = 1
-dataTable7 = {}
-dataTable = {}
-flag = false
-flag2 = false
-numberValue3 = 0
-numberValue5 = 5000
+text4 = text4(stateFlag7, stateFlag8)
+stateFlag7 = false
+stateFlag8 = nil
+dataCollection4 = {}
+number15 = 1
+dataCollection6 = {}
+number17 = 1
+dataCollection7 = {}
+dataCollection = {}
+stateFlag = false
+stateFlag2 = false
+number3 = 0
+number5 = 5000
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3
-  arg2 = arg1.handle
-  if not arg2 then
-    arg2 = RequestScaleformMovie
-    arg3 = arg1.name
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3
+  localValue2 = localValue1.handle
+  if not localValue2 then
+    localValue2 = RequestScaleformMovie
+    localValue3 = localValue1.name
     -- Beginner: result below is scaleformHandle.
-    arg2 = arg2(arg3)
-    arg1.handle = arg2
+    localValue2 = localValue2(localValue3)
+    localValue1.handle = localValue2
   end
-  arg2 = arg1.loaded
-  if arg2 then
-    arg2 = arg1.handle
-    return arg2
+  localValue2 = localValue1.loaded
+  if localValue2 then
+    localValue2 = localValue1.handle
+    return localValue2
   else
-    arg2 = HasScaleformMovieLoaded
-    arg3 = arg1.handle
-    arg2 = arg2(arg3)
-    arg1.loaded = arg2
-    arg2 = nil
-    return arg2
+    localValue2 = HasScaleformMovieLoaded
+    localValue3 = localValue1.handle
+    localValue2 = localValue2(localValue3)
+    localValue1.loaded = localValue2
+    localValue2 = nil
+    return localValue2
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-function workValue12()
-  local arg1, arg2, arg3
-  arg2 = numberValue15
-  arg1 = dataTable4
-  arg1 = arg1[arg2]
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+function workingValue12()
+  local localValue1, localValue2, localValue3
+  localValue2 = number15
+  localValue1 = dataCollection4
+  localValue1 = localValue1[localValue2]
+  if not localValue1 then
     return
   end
-  arg2 = numberValue15
-  arg2 = arg2 + 1
-  numberValue15 = arg2
-  arg2 = numberValue15
-  arg3 = dataTable4
-  arg3 = #arg3
-  if arg2 > arg3 then
-    arg2 = 1
-    numberValue15 = arg2
+  localValue2 = number15
+  localValue2 = localValue2 + 1
+  number15 = localValue2
+  localValue2 = number15
+  localValue3 = dataCollection4
+  localValue3 = #localValue3
+  if localValue2 > localValue3 then
+    localValue2 = 1
+    number15 = localValue2
   end
-  arg2 = workValue9
-  arg3 = arg1
-  return arg2(arg3)
+  localValue2 = workingValue9
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, arg3
-  arg2 = numberValue17
-  arg1 = dataTable6
-  arg1 = arg1[arg2]
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, localValue3
+  localValue2 = number17
+  localValue1 = dataCollection6
+  localValue1 = localValue1[localValue2]
+  if not localValue1 then
     return
   end
-  arg2 = numberValue17
-  arg2 = arg2 + 1
-  numberValue17 = arg2
-  arg2 = numberValue17
-  arg3 = dataTable6
-  arg3 = #arg3
-  if arg2 > arg3 then
-    arg2 = 1
-    numberValue17 = arg2
+  localValue2 = number17
+  localValue2 = localValue2 + 1
+  number17 = localValue2
+  localValue2 = number17
+  localValue3 = dataCollection6
+  localValue3 = #localValue3
+  if localValue2 > localValue3 then
+    localValue2 = 1
+    number17 = localValue2
   end
-  arg2 = workValue9
-  arg3 = arg1
-  return arg2(arg3)
+  localValue2 = workingValue9
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg1 = flag2
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue1 = stateFlag2
+  if not localValue1 then
     return
   end
-  arg1 = ipairs
-  arg2 = dataTable4
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = arg6.handle
-    if arg7 then
-      arg7 = SetScaleformMovieAsNoLongerNeeded
-      arg8 = arg6.handle
-      arg7(arg8)
-      arg6.handle = nil
-      arg6.loaded = false
+  localValue1 = ipairs
+  localValue2 = dataCollection4
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = localValue6.handle
+    if localValue7 then
+      localValue7 = SetScaleformMovieAsNoLongerNeeded
+      localValue8 = localValue6.handle
+      localValue7(localValue8)
+      localValue6.handle = nil
+      localValue6.loaded = false
     end
   end
-  arg1 = ipairs
-  arg2 = dataTable6
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = arg6.handle
-    if arg7 then
-      arg7 = SetScaleformMovieAsNoLongerNeeded
-      arg8 = arg6.handle
-      arg7(arg8)
-      arg6.handle = nil
-      arg6.loaded = false
+  localValue1 = ipairs
+  localValue2 = dataCollection6
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = localValue6.handle
+    if localValue7 then
+      localValue7 = SetScaleformMovieAsNoLongerNeeded
+      localValue8 = localValue6.handle
+      localValue7(localValue8)
+      localValue6.handle = nil
+      localValue6.loaded = false
     end
   end
-  arg1 = HasStreamedTextureDictLoaded
-  arg2 = cmgCall.gangTextureDictionaryName
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = SetStreamedTextureDictAsNoLongerNeeded
-    arg2 = cmgCall.gangTextureDictionaryName
-    arg1(arg2)
+  localValue1 = HasStreamedTextureDictLoaded
+  localValue2 = cmgOperation.gangTextureDictionaryName
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = SetStreamedTextureDictAsNoLongerNeeded
+    localValue2 = cmgOperation.gangTextureDictionaryName
+    localValue1(localValue2)
   end
-  arg1 = print
-  arg2 = "[CMG] Unloaded all graffiti"
-  arg1(arg2)
-  arg1 = false
-  flag2 = arg1
+  localValue1 = print
+  localValue2 = "[CMG] Unloaded all graffiti"
+  localValue1(localValue2)
+  localValue1 = false
+  stateFlag2 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1, arg2, arg3) ===
-function workValue15(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2
-  arg4 = arg3 * 1000.0
-  arg4 = arg2 + arg4
-  arg5 = StartShapeTestRay
-  arg6 = arg2.x
-  arg7 = arg2.y
-  arg8 = arg2.z
-  stringHelper2 = arg4.x
-  textValue13 = arg4.y
-  vector3Builder = arg4.z
-  numberValue = 1
-  numberValue2 = arg1
-  vector3Builder2 = 0
-  arg5 = arg5(arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2)
-  arg6 = GetShapeTestResultEx
-  arg7 = arg5
-  arg6, arg7, arg8, stringHelper2, textValue13 = arg6(arg7)
-  vector3Builder = 1 == arg7
-  numberValue = arg8
-  numberValue2 = stringHelper2
-  vector3Builder2 = textValue13
-  return vector3Builder, numberValue, numberValue2, vector3Builder2
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: localValue1, localValue2, localValue3) ===
+function workingValue15(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32
+  localValue4 = localValue3 * 1000.0
+  localValue4 = localValue2 + localValue4
+  localValue5 = StartShapeTestRay
+  localValue6 = localValue2.x
+  localValue7 = localValue2.y
+  localValue8 = localValue2.z
+  stringHelper2 = localValue4.x
+  text13 = localValue4.y
+  createVector3 = localValue4.z
+  number = 1
+  number2 = localValue1
+  createVector32 = 0
+  localValue5 = localValue5(localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32)
+  localValue6 = GetShapeTestResultEx
+  localValue7 = localValue5
+  localValue6, localValue7, localValue8, stringHelper2, text13 = localValue6(localValue7)
+  createVector3 = 1 == localValue7
+  number = localValue8
+  number2 = stringHelper2
+  createVector32 = text13
+  return createVector3, number, number2, createVector32
 end
 
--- === HELPER FUNCTION (decompiler name: workValue17; parameters: arg1, arg2) ===
-function workValue17(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  arg3 = math
-  arg3 = arg3.abs
-  arg4 = arg1.x
-  arg5 = arg2.x
-  arg4 = arg4 - arg5
-  arg3 = arg3(arg4)
-  arg4 = math
-  arg4 = arg4.abs
-  arg5 = arg1.y
-  arg6 = arg2.y
-  arg5 = arg5 - arg6
-  arg4 = arg4(arg5)
-  arg5 = math
-  arg5 = arg5.abs
-  arg6 = arg1.z
-  arg7 = arg2.z
-  arg6 = arg6 - arg7
-  arg5 = arg5(arg6)
-  arg6 = 0.01
-  arg6 = arg3 < arg6
-  return arg6
+-- === HELPER FUNCTION (decompiler name: workingValue17; parameters: localValue1, localValue2) ===
+function workingValue17(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue3 = math
+  localValue3 = localValue3.abs
+  localValue4 = localValue1.x
+  localValue5 = localValue2.x
+  localValue4 = localValue4 - localValue5
+  localValue3 = localValue3(localValue4)
+  localValue4 = math
+  localValue4 = localValue4.abs
+  localValue5 = localValue1.y
+  localValue6 = localValue2.y
+  localValue5 = localValue5 - localValue6
+  localValue4 = localValue4(localValue5)
+  localValue5 = math
+  localValue5 = localValue5.abs
+  localValue6 = localValue1.z
+  localValue7 = localValue2.z
+  localValue6 = localValue6 - localValue7
+  localValue5 = localValue5(localValue6)
+  localValue6 = 0.01
+  localValue6 = localValue3 < localValue6
+  return localValue6
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2, arg3, arg4) ===
-function workValue18(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23, textValue2, workValue24, workValue25, workValue27
-  arg5 = workValue15
-  arg6 = arg1
-  arg7 = arg3
-  arg8 = arg4
-  arg5, arg6, arg7, arg8 = arg5(arg6, arg7, arg8)
-  stringHelper2 = workValue15
-  textValue13 = arg1
-  vector3Builder = vector3
-  numberValue = 0.0
-  numberValue2 = 0.0
-  vector3Builder2 = 0.2
-  vector3Builder = vector3Builder(numberValue, numberValue2, vector3Builder2)
-  vector3Builder = arg3 + vector3Builder
-  numberValue = arg4
-  stringHelper2, textValue13, vector3Builder = stringHelper2(textValue13, vector3Builder, numberValue)
-  numberValue = workValue15
-  numberValue2 = arg1
-  vector3Builder2 = vector3
-  numberValue6 = 1.0
-  numberValue8 = 0.0
-  vector3Builder3 = 0.0
-  vector3Builder2 = vector3Builder2(numberValue6, numberValue8, vector3Builder3)
-  vector3Builder2 = arg3 + vector3Builder2
-  numberValue6 = arg4
-  numberValue, numberValue2, vector3Builder2 = numberValue(numberValue2, vector3Builder2, numberValue6)
-  numberValue6 = workValue15
-  numberValue8 = arg1
-  vector3Builder3 = vector3
-  numberValue10 = -1.0
-  numberValue11 = 0.0
-  vector3Builder4 = 0.0
-  vector3Builder3 = vector3Builder3(numberValue10, numberValue11, vector3Builder4)
-  vector3Builder3 = arg3 + vector3Builder3
-  numberValue10 = arg4
-  numberValue6, numberValue8, vector3Builder3 = numberValue6(numberValue8, vector3Builder3, numberValue10)
-  numberValue10 = workValue15
-  numberValue11 = arg1
-  vector3Builder4 = vector3
-  numberValue12 = 0.0
-  numberValue13 = 1.0
-  vector3Builder5 = 0.0
-  vector3Builder4 = vector3Builder4(numberValue12, numberValue13, vector3Builder5)
-  vector3Builder4 = arg3 + vector3Builder4
-  numberValue12 = arg4
-  numberValue10, numberValue11, vector3Builder4 = numberValue10(numberValue11, vector3Builder4, numberValue12)
-  numberValue12 = workValue15
-  numberValue13 = arg1
-  vector3Builder5 = vector3
-  numberValue14 = 0.0
-  flag6 = -1.0
-  textValue = 0.0
-  vector3Builder5 = vector3Builder5(numberValue14, flag6, textValue)
-  vector3Builder5 = arg3 + vector3Builder5
-  numberValue14 = arg4
-  numberValue12, numberValue13, vector3Builder5 = numberValue12(numberValue13, vector3Builder5, numberValue14)
-  numberValue14 = vector3Builder.z
-  flag6 = 0.9
-  numberValue14 = numberValue14 > flag6
-  if not (not numberValue14 and arg5 and stringHelper2 and numberValue and numberValue6 and numberValue10) or not numberValue12 then
-    flag6 = false
-    textValue = "Point the spray at a flat wall"
-    return flag6, textValue
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue18(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32, number6, number8, createVector33, number10, number11, createVector34, number12, number13, createVector35, number14, stateFlag6, text, workingValue23, text2, workingValue24, workingValue25, workingValue27
+  localValue5 = workingValue15
+  localValue6 = localValue1
+  localValue7 = localValue3
+  localValue8 = localValue4
+  localValue5, localValue6, localValue7, localValue8 = localValue5(localValue6, localValue7, localValue8)
+  stringHelper2 = workingValue15
+  text13 = localValue1
+  createVector3 = vector3
+  number = 0.0
+  number2 = 0.0
+  createVector32 = 0.2
+  createVector3 = createVector3(number, number2, createVector32)
+  createVector3 = localValue3 + createVector3
+  number = localValue4
+  stringHelper2, text13, createVector3 = stringHelper2(text13, createVector3, number)
+  number = workingValue15
+  number2 = localValue1
+  createVector32 = vector3
+  number6 = 1.0
+  number8 = 0.0
+  createVector33 = 0.0
+  createVector32 = createVector32(number6, number8, createVector33)
+  createVector32 = localValue3 + createVector32
+  number6 = localValue4
+  number, number2, createVector32 = number(number2, createVector32, number6)
+  number6 = workingValue15
+  number8 = localValue1
+  createVector33 = vector3
+  number10 = -1.0
+  number11 = 0.0
+  createVector34 = 0.0
+  createVector33 = createVector33(number10, number11, createVector34)
+  createVector33 = localValue3 + createVector33
+  number10 = localValue4
+  number6, number8, createVector33 = number6(number8, createVector33, number10)
+  number10 = workingValue15
+  number11 = localValue1
+  createVector34 = vector3
+  number12 = 0.0
+  number13 = 1.0
+  createVector35 = 0.0
+  createVector34 = createVector34(number12, number13, createVector35)
+  createVector34 = localValue3 + createVector34
+  number12 = localValue4
+  number10, number11, createVector34 = number10(number11, createVector34, number12)
+  number12 = workingValue15
+  number13 = localValue1
+  createVector35 = vector3
+  number14 = 0.0
+  stateFlag6 = -1.0
+  text = 0.0
+  createVector35 = createVector35(number14, stateFlag6, text)
+  createVector35 = localValue3 + createVector35
+  number14 = localValue4
+  number12, number13, createVector35 = number12(number13, createVector35, number14)
+  number14 = createVector3.z
+  stateFlag6 = 0.9
+  number14 = number14 > stateFlag6
+  if not (not number14 and localValue5 and stringHelper2 and number and number6 and number10) or not number12 then
+    stateFlag6 = false
+    text = "Point the spray at a flat wall"
+    return stateFlag6, text
   end
-  flag6 = cmgCall.disallowedMaterials
-  flag6 = flag6[arg8]
-  if flag6 then
-    flag6 = false
-    textValue = "You cannot use the spray on this surface"
-    return flag6, textValue
+  stateFlag6 = cmgOperation.disallowedMaterials
+  stateFlag6 = stateFlag6[localValue8]
+  if stateFlag6 then
+    stateFlag6 = false
+    text = "You cannot use the spray on this surface"
+    return stateFlag6, text
   end
-  flag6 = arg2 - arg6
-  flag6 = #flag6
-  textValue = cmgCall.maxSurfaceDistance
-  if flag6 > textValue then
-    flag6 = false
-    textValue = "The surface is too far away"
-    return flag6, textValue
+  stateFlag6 = localValue2 - localValue6
+  stateFlag6 = #stateFlag6
+  text = cmgOperation.maxSurfaceDistance
+  if stateFlag6 > text then
+    stateFlag6 = false
+    text = "The surface is too far away"
+    return stateFlag6, text
   end
-  flag6 = workValue17
-  textValue = arg7
-  workValue23 = vector3Builder
-  flag6 = flag6(textValue, workValue23)
-  if flag6 then
-    flag6 = workValue17
-    textValue = arg7
-    workValue23 = vector3Builder2
-    flag6 = flag6(textValue, workValue23)
-    if flag6 then
-      flag6 = workValue17
-      textValue = arg7
-      workValue23 = vector3Builder3
-      flag6 = flag6(textValue, workValue23)
-      if flag6 then
-        flag6 = workValue17
-        textValue = arg7
-        workValue23 = vector3Builder4
-        flag6 = flag6(textValue, workValue23)
-        if flag6 then
-          flag6 = workValue17
-          textValue = arg7
-          workValue23 = vector3Builder5
-          flag6 = flag6(textValue, workValue23)
-          if flag6 then
-            flag6 = CMG
-            flag6 = flag6.isOnPlane
-            textValue = arg6
-            workValue23 = textValue13
-            textValue2 = numberValue2
-            workValue24 = numberValue8
-            workValue25 = numberValue11
-            workValue27 = numberValue13
-            flag6 = flag6(textValue, workValue23, textValue2, workValue24, workValue25, workValue27)
-            if flag6 then
-              goto flow_label_144
+  stateFlag6 = workingValue17
+  text = localValue7
+  workingValue23 = createVector3
+  stateFlag6 = stateFlag6(text, workingValue23)
+  if stateFlag6 then
+    stateFlag6 = workingValue17
+    text = localValue7
+    workingValue23 = createVector32
+    stateFlag6 = stateFlag6(text, workingValue23)
+    if stateFlag6 then
+      stateFlag6 = workingValue17
+      text = localValue7
+      workingValue23 = createVector33
+      stateFlag6 = stateFlag6(text, workingValue23)
+      if stateFlag6 then
+        stateFlag6 = workingValue17
+        text = localValue7
+        workingValue23 = createVector34
+        stateFlag6 = stateFlag6(text, workingValue23)
+        if stateFlag6 then
+          stateFlag6 = workingValue17
+          text = localValue7
+          workingValue23 = createVector35
+          stateFlag6 = stateFlag6(text, workingValue23)
+          if stateFlag6 then
+            stateFlag6 = CMG
+            stateFlag6 = stateFlag6.isOnPlane
+            text = localValue6
+            workingValue23 = text13
+            text2 = number2
+            workingValue24 = number8
+            workingValue25 = number11
+            workingValue27 = number13
+            stateFlag6 = stateFlag6(text, workingValue23, text2, workingValue24, workingValue25, workingValue27)
+            if stateFlag6 then
+              goto continueAtStep144
             end
           end
         end
       end
     end
   end
-  flag6 = false
-  textValue = "The surface is not flat enough"
-  return flag6, textValue
-  ::flow_label_144::
-  flag6 = 0.02
-  textValue = -flag6
-  textValue = arg7 * textValue
-  textValue = arg6 + textValue
-  workValue23 = true
-  textValue2 = ""
-  workValue24 = textValue
-  workValue25 = arg7
-  workValue27 = arg7
-  return workValue23, textValue2, workValue24, workValue25, workValue27
+  stateFlag6 = false
+  text = "The surface is not flat enough"
+  return stateFlag6, text
+  ::continueAtStep144::
+  stateFlag6 = 0.02
+  text = -stateFlag6
+  text = localValue7 * text
+  text = localValue6 + text
+  workingValue23 = true
+  text2 = ""
+  workingValue24 = text
+  workingValue25 = localValue7
+  workingValue27 = localValue7
+  return workingValue23, text2, workingValue24, workingValue25, workingValue27
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
-function workValue19()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
-  arg1 = 1
-  arg2 = 10
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
-    arg5 = "PLAYER_NAME_"
-    if arg4 < 10 then
-      arg6 = arg5
-      arg7 = "0"
-      arg6 = arg6 .. arg7
-      arg5 = arg6
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: none) ===
+function workingValue19()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3
+  localValue1 = 1
+  localValue2 = 10
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
+    localValue5 = "PLAYER_NAME_"
+    if localValue4 < 10 then
+      localValue6 = localValue5
+      localValue7 = "0"
+      localValue6 = localValue6 .. localValue7
+      localValue5 = localValue6
     end
-    arg6 = arg5
-    arg7 = tostring
-    arg8 = arg4
-    arg7 = arg7(arg8)
-    arg6 = arg6 .. arg7
-    arg5 = arg6
-    arg6 = table
-    arg6 = arg6.insert
-    arg7 = dataTable4
-    arg8 = {}
-    arg8.name = arg5
-    arg8.handle = nil
-    arg8.loaded = false
-    arg6(arg7, arg8)
-    arg6 = table
-    arg6 = arg6.insert
-    arg7 = dataTable6
-    arg8 = {}
+    localValue6 = localValue5
+    localValue7 = tostring
+    localValue8 = localValue4
+    localValue7 = localValue7(localValue8)
+    localValue6 = localValue6 .. localValue7
+    localValue5 = localValue6
+    localValue6 = table
+    localValue6 = localValue6.insert
+    localValue7 = dataCollection4
+    localValue8 = {}
+    localValue8.name = localValue5
+    localValue8.handle = nil
+    localValue8.loaded = false
+    localValue6(localValue7, localValue8)
+    localValue6 = table
+    localValue6 = localValue6.insert
+    localValue7 = dataCollection6
+    localValue8 = {}
     stringHelper2 = string
     stringHelper2 = stringHelper2.format
-    textValue13 = "graffiti_renderer_%s"
-    vector3Builder = arg4
-    stringHelper2 = stringHelper2(textValue13, vector3Builder)
-    arg8.name = stringHelper2
-    arg8.handle = nil
-    arg8.loaded = false
-    arg6(arg7, arg8)
+    text13 = "graffiti_renderer_%s"
+    createVector3 = localValue4
+    stringHelper2 = stringHelper2(text13, createVector3)
+    localValue8.name = stringHelper2
+    localValue8.handle = nil
+    localValue8.loaded = false
+    localValue6(localValue7, localValue8)
   end
-  arg1 = pairs
-  arg2 = cmgCall.fonts
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5 in arg1, arg2, arg3, arg4 do
-    arg6 = RegisterFontFile
-    arg7 = arg5
-    arg6(arg7)
-    arg6 = RegisterFontId
-    arg7 = arg5
-    arg6(arg7)
+  localValue1 = pairs
+  localValue2 = cmgOperation.fonts
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5 in localValue1, localValue2, localValue3, localValue4 do
+    localValue6 = RegisterFontFile
+    localValue7 = localValue5
+    localValue6(localValue7)
+    localValue6 = RegisterFontId
+    localValue7 = localValue5
+    localValue6(localValue7)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(workValue19)
+backgroundThread(workingValue19)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function threadCall(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23
-  arg8 = true
-  flag2 = arg8
-  arg8 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function backgroundThread(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local localValue8, stringHelper2, text13, createVector3, number, number2, createVector32, number6, number8, createVector33, number10, number11, createVector34, number12, number13, createVector35, number14, stateFlag6, text, workingValue23
+  localValue8 = true
+  stateFlag2 = localValue8
+  localValue8 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg8 = arg8()
-  numberValue3 = arg8
-  if arg7 then
-    arg8 = workValue13
-    arg8 = arg8()
-    if not arg8 then
+  localValue8 = localValue8()
+  number3 = localValue8
+  if localValue7 then
+    localValue8 = workingValue13
+    localValue8 = localValue8()
+    if not localValue8 then
       return
     end
     stringHelper2 = HasStreamedTextureDictLoaded
-    textValue13 = cmgCall.gangTextureDictionaryName
-    stringHelper2 = stringHelper2(textValue13)
+    text13 = cmgOperation.gangTextureDictionaryName
+    stringHelper2 = stringHelper2(text13)
     if not stringHelper2 then
       stringHelper2 = RequestStreamedTextureDict
-      textValue13 = cmgCall.gangTextureDictionaryName
-      vector3Builder = false
-      stringHelper2(textValue13, vector3Builder)
+      text13 = cmgOperation.gangTextureDictionaryName
+      createVector3 = false
+      stringHelper2(text13, createVector3)
       return
     end
     stringHelper2 = PushScaleformMovieFunction
-    textValue13 = arg8
-    vector3Builder = "SET_TEXTURE"
-    stringHelper2(textValue13, vector3Builder)
+    text13 = localValue8
+    createVector3 = "SET_TEXTURE"
+    stringHelper2(text13, createVector3)
     stringHelper2 = PushScaleformMovieMethodParameterString
-    textValue13 = cmgCall.gangTextureDictionaryName
-    stringHelper2(textValue13)
+    text13 = cmgOperation.gangTextureDictionaryName
+    stringHelper2(text13)
     stringHelper2 = PushScaleformMovieMethodParameterString
-    textValue13 = arg7
-    stringHelper2(textValue13)
+    text13 = localValue7
+    stringHelper2(text13)
     stringHelper2 = PushScaleformMovieFunctionParameterInt
-    textValue13 = 0
-    stringHelper2(textValue13)
+    text13 = 0
+    stringHelper2(text13)
     stringHelper2 = PushScaleformMovieFunctionParameterInt
-    textValue13 = 0
-    stringHelper2(textValue13)
+    text13 = 0
+    stringHelper2(text13)
     stringHelper2 = PushScaleformMovieFunctionParameterInt
-    textValue13 = 1280
-    stringHelper2(textValue13)
+    text13 = 1280
+    stringHelper2(text13)
     stringHelper2 = PushScaleformMovieFunctionParameterInt
-    textValue13 = 720
-    stringHelper2(textValue13)
+    text13 = 720
+    stringHelper2(text13)
     stringHelper2 = PopScaleformMovieFunctionVoid
     stringHelper2()
     stringHelper2 = DrawScaleformMovie_3d
-    textValue13 = arg8
-    vector3Builder = arg1.x
-    numberValue = arg1.y
-    numberValue2 = arg1.z
-    vector3Builder2 = 180.0
-    numberValue6 = arg2.y
-    numberValue8 = arg2.z
-    vector3Builder3 = 0.1
-    numberValue10 = 0.1
-    numberValue11 = 0.1
-    vector3Builder4 = 0.05
-    numberValue12 = 0.05
-    numberValue13 = 0.05
-    vector3Builder5 = 2
-    stringHelper2(textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5)
+    text13 = localValue8
+    createVector3 = localValue1.x
+    number = localValue1.y
+    number2 = localValue1.z
+    createVector32 = 180.0
+    number6 = localValue2.y
+    number8 = localValue2.z
+    createVector33 = 0.1
+    number10 = 0.1
+    number11 = 0.1
+    createVector34 = 0.05
+    number12 = 0.05
+    number13 = 0.05
+    createVector35 = 2
+    stringHelper2(text13, createVector3, number, number2, createVector32, number6, number8, createVector33, number10, number11, createVector34, number12, number13, createVector35)
   else
-    arg8 = workValue12
-    arg8 = arg8()
-    if not arg8 then
+    localValue8 = workingValue12
+    localValue8 = localValue8()
+    if not localValue8 then
       return
     end
-    stringHelper2 = cmgCall.colours
-    textValue13 = cmgCall.coloursList
-    textValue13 = textValue13[arg4]
-    stringHelper2 = stringHelper2[textValue13]
-    textValue13 = cmgCall.fontDisplayNamesIndexToKey
-    textValue13 = textValue13[arg3]
-    vector3Builder = PushScaleformMovieFunction
-    numberValue = arg8
-    numberValue2 = "SET_PLAYER_NAME"
-    vector3Builder(numberValue, numberValue2)
-    vector3Builder = PushScaleformMovieMethodParameterString
-    numberValue = "<FONT color='#"
-    numberValue2 = stringHelper2
-    vector3Builder2 = "' FACE='"
-    numberValue6 = textValue13
-    numberValue8 = "'>"
-    vector3Builder3 = arg6
-    numberValue = numberValue .. numberValue2 .. vector3Builder2 .. numberValue6 .. numberValue8 .. vector3Builder3
-    vector3Builder(numberValue)
-    vector3Builder = PopScaleformMovieFunctionVoid
-    vector3Builder()
-    vector3Builder = cmgCall.fonts
-    vector3Builder = vector3Builder[textValue13]
-    numberValue = arg5 / 10.0
-    numberValue2 = vector3Builder.scaleMultiplier
-    numberValue = numberValue * numberValue2
-    numberValue2 = DrawScaleformMovie_3dNonAdditive
-    vector3Builder2 = arg8
-    numberValue6 = arg1.x
-    numberValue8 = arg1.y
-    vector3Builder3 = arg1.z
-    numberValue10 = arg2.x
-    numberValue11 = arg2.y
-    vector3Builder4 = arg2.z
-    numberValue12 = 1.0
-    numberValue13 = 1.0
-    vector3Builder5 = 1.0
-    numberValue14 = numberValue
-    flag6 = numberValue
-    textValue = 1.0
-    workValue23 = 2
-    numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23)
+    stringHelper2 = cmgOperation.colours
+    text13 = cmgOperation.coloursList
+    text13 = text13[localValue4]
+    stringHelper2 = stringHelper2[text13]
+    text13 = cmgOperation.fontDisplayNamesIndexToKey
+    text13 = text13[localValue3]
+    createVector3 = PushScaleformMovieFunction
+    number = localValue8
+    number2 = "SET_PLAYER_NAME"
+    createVector3(number, number2)
+    createVector3 = PushScaleformMovieMethodParameterString
+    number = "<FONT color='#"
+    number2 = stringHelper2
+    createVector32 = "' FACE='"
+    number6 = text13
+    number8 = "'>"
+    createVector33 = localValue6
+    number = number .. number2 .. createVector32 .. number6 .. number8 .. createVector33
+    createVector3(number)
+    createVector3 = PopScaleformMovieFunctionVoid
+    createVector3()
+    createVector3 = cmgOperation.fonts
+    createVector3 = createVector3[text13]
+    number = localValue5 / 10.0
+    number2 = createVector3.scaleMultiplier
+    number = number * number2
+    number2 = DrawScaleformMovie_3dNonAdditive
+    createVector32 = localValue8
+    number6 = localValue1.x
+    number8 = localValue1.y
+    createVector33 = localValue1.z
+    number10 = localValue2.x
+    number11 = localValue2.y
+    createVector34 = localValue2.z
+    number12 = 1.0
+    number13 = 1.0
+    createVector35 = 1.0
+    number14 = number
+    stateFlag6 = number
+    text = 1.0
+    workingValue23 = 2
+    number2(createVector32, number6, number8, createVector33, number10, number11, createVector34, number12, number13, createVector35, number14, stateFlag6, text, workingValue23)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
-function workValue19()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11
-  arg1 = 1
-  numberValue15 = arg1
-  arg1 = 1
-  numberValue17 = arg1
-  arg1 = dataTable
-  arg1 = #arg1
-  if 0 == arg1 then
-    arg1 = flag2
-    if arg1 then
-      arg1 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: none) ===
+function workingValue19()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32, number6, number8, createVector33, number10, number11
+  localValue1 = 1
+  number15 = localValue1
+  localValue1 = 1
+  number17 = localValue1
+  localValue1 = dataCollection
+  localValue1 = #localValue1
+  if 0 == localValue1 then
+    localValue1 = stateFlag2
+    if localValue1 then
+      localValue1 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      arg1 = arg1()
-      arg2 = numberValue3
-      arg1 = arg1 - arg2
-      arg2 = numberValue5
-      if arg1 > arg2 then
-        arg1 = workValue14
-        arg1()
+      localValue1 = localValue1()
+      localValue2 = number3
+      localValue1 = localValue1 - localValue2
+      localValue2 = number5
+      if localValue1 > localValue2 then
+        localValue1 = workingValue14
+        localValue1()
       end
     end
     return
   end
-  arg1 = CMG
-  arg1 = arg1.hasClientInventoryItem
-  arg2 = "sponge"
-  arg1 = arg1(arg2)
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientInventoryItem
+  localValue2 = "sponge"
+  localValue1 = localValue1(localValue2)
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = nil
-  arg4 = pairs
-  arg5 = dataTable
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for arg8, stringHelper2 in arg4, arg5, arg6, arg7 do
-    textValue13 = stringHelper2.position
-    textValue13 = textValue13 - arg2
-    textValue13 = #textValue13
-    if textValue13 < 25.0 then
-      vector3Builder = nil
-      numberValue = stringHelper2.gangId
-      if numberValue then
-        numberValue = CMG
-        numberValue = numberValue.getGangRecognisedTexture
-        numberValue2 = stringHelper2.gangId
-        numberValue = numberValue(numberValue2)
-        vector3Builder = numberValue
+  localValue2 = localValue2()
+  localValue3 = nil
+  localValue4 = pairs
+  localValue5 = dataCollection
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for localValue8, stringHelper2 in localValue4, localValue5, localValue6, localValue7 do
+    text13 = stringHelper2.position
+    text13 = text13 - localValue2
+    text13 = #text13
+    if text13 < 25.0 then
+      createVector3 = nil
+      number = stringHelper2.gangId
+      if number then
+        number = CMG
+        number = number.getGangRecognisedTexture
+        number2 = stringHelper2.gangId
+        number = number(number2)
+        createVector3 = number
       end
-      numberValue = threadCall
-      numberValue2 = stringHelper2.position
-      vector3Builder2 = stringHelper2.rotation
-      numberValue6 = stringHelper2.fontIndex
-      numberValue8 = stringHelper2.colourIndex
-      vector3Builder3 = stringHelper2.scale
-      numberValue10 = stringHelper2.content
-      numberValue11 = vector3Builder
+      number = backgroundThread
+      number2 = stringHelper2.position
+      createVector32 = stringHelper2.rotation
+      number6 = stringHelper2.fontIndex
+      number8 = stringHelper2.colourIndex
+      createVector33 = stringHelper2.scale
+      number10 = stringHelper2.content
+      number11 = createVector3
       -- Beginner: Start a separate FiveM thread so this code can run independently.
-      numberValue(numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11)
-      if arg1 and not arg3 then
-        numberValue = stringHelper2.position
-        numberValue = numberValue - arg2
-        numberValue = #numberValue
-        numberValue2 = cmgCall.maxSurfaceDistance
-        if numberValue < numberValue2 then
-          arg3 = stringHelper2
+      number(number2, createVector32, number6, number8, createVector33, number10, number11)
+      if localValue1 and not localValue3 then
+        number = stringHelper2.position
+        number = number - localValue2
+        number = #number
+        number2 = cmgOperation.maxSurfaceDistance
+        if number < number2 then
+          localValue3 = stringHelper2
         end
       end
     end
   end
-  if arg3 then
-    arg4 = flag
-    if not arg4 then
-      arg4 = arg3.gangId
-      arg5 = CMG
-      arg5 = arg5.getGangId
-      arg5 = arg5()
-      if arg4 ~= arg5 then
-        arg4 = drawNativeNotification
-        arg5 = "Press ~INPUT_CONTEXT~ to clean graffiti with a sponge."
+  if localValue3 then
+    localValue4 = stateFlag
+    if not localValue4 then
+      localValue4 = localValue3.gangId
+      localValue5 = CMG
+      localValue5 = localValue5.getGangId
+      localValue5 = localValue5()
+      if localValue4 ~= localValue5 then
+        localValue4 = drawNativeNotification
+        localValue5 = "Press ~INPUT_CONTEXT~ to clean graffiti with a sponge."
         -- Beginner: Show a GTA-style notification/help prompt.
-        arg4(arg5)
-        arg4 = IsControlJustPressed
-        arg5 = 0
-        arg6 = 51
-        arg4 = arg4(arg5, arg6)
-        if arg4 then
-          arg4 = TriggerEvent
-          arg5 = "10f402facb"
+        localValue4(localValue5)
+        localValue4 = IsControlJustPressed
+        localValue5 = 0
+        localValue6 = 51
+        localValue4 = localValue4(localValue5, localValue6)
+        if localValue4 then
+          localValue4 = TriggerEvent
+          localValue5 = "10f402facb"
           -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "10f402facb".
-          arg4(arg5)
+          localValue4(localValue5)
         end
     end
   end
   else
-    if arg3 then
-      arg4 = drawNativeNotification
-      arg5 = "This is your gang graffiti"
+    if localValue3 then
+      localValue4 = drawNativeNotification
+      localValue5 = "This is your gang graffiti"
       -- Beginner: Show a GTA-style notification/help prompt.
-      arg4(arg5)
+      localValue4(localValue5)
     else
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = GetEntityCoords
-  arg4 = arg2
+  localValue2 = localValue2()
+  localValue3 = GetEntityCoords
+  localValue4 = localValue2
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(arg4)
-  arg4 = GetGameplayCamCoord
-  arg4 = arg4()
-  arg5 = CMG
-  arg5 = arg5.rotationToDirection
-  arg6 = GetGameplayCamRot
-  arg7 = 0
-  arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2 = arg6(arg7)
-  arg5 = arg5(arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2)
-  arg6 = workValue18
-  arg7 = arg2
-  arg8 = arg3
-  stringHelper2 = arg4
-  textValue13 = arg5
-  arg6, arg7, arg8, stringHelper2 = arg6(arg7, arg8, stringHelper2, textValue13)
-  if not arg6 then
-    if arg1 then
-      textValue13 = drawNativeText
-      vector3Builder = arg7
+  localValue3 = localValue3(localValue4)
+  localValue4 = GetGameplayCamCoord
+  localValue4 = localValue4()
+  localValue5 = CMG
+  localValue5 = localValue5.rotationToDirection
+  localValue6 = GetGameplayCamRot
+  localValue7 = 0
+  localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32 = localValue6(localValue7)
+  localValue5 = localValue5(localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32)
+  localValue6 = workingValue18
+  localValue7 = localValue2
+  localValue8 = localValue3
+  stringHelper2 = localValue4
+  text13 = localValue5
+  localValue6, localValue7, localValue8, stringHelper2 = localValue6(localValue7, localValue8, stringHelper2, text13)
+  if not localValue6 then
+    if localValue1 then
+      text13 = drawNativeText
+      createVector3 = localValue7
       -- Beginner: Draw GTA-style text on screen.
-      textValue13(vector3Builder)
+      text13(createVector3)
     end
-    textValue13 = false
-    return textValue13
+    text13 = false
+    return text13
   end
-  if arg8 and stringHelper2 then
-    if not arg1 then
-      textValue13 = true
-      return textValue13
+  if localValue8 and stringHelper2 then
+    if not localValue1 then
+      text13 = true
+      return text13
     end
-    textValue13 = cmgCall.sprayForwardOffset
-    textValue13 = stringHelper2 * textValue13
-    textValue13 = arg8 + textValue13
-    flag8.foundPosition = textValue13
-    textValue13 = vector3
-    vector3Builder = stringHelper2.x
-    numberValue = stringHelper2.y
-    numberValue2 = stringHelper2.z
-    numberValue2 = numberValue2 + 0.03
-    textValue13 = textValue13(vector3Builder, numberValue, numberValue2)
-    flag8.foundNormal = textValue13
-    textValue13 = flag8
-    if textValue13 then
-      textValue13 = flag8.useGangTexture
-      if textValue13 then
-        textValue13 = flag8.foundPosition
-        vector3Builder = vector3
-        numberValue = 0.0
-        numberValue2 = 0.0
-        vector3Builder2 = 0.6
-        vector3Builder = vector3Builder(numberValue, numberValue2, vector3Builder2)
-        textValue13 = textValue13 + vector3Builder
-        flag8.foundPosition = textValue13
+    text13 = cmgOperation.sprayForwardOffset
+    text13 = stringHelper2 * text13
+    text13 = localValue8 + text13
+    stateFlag8.foundPosition = text13
+    text13 = vector3
+    createVector3 = stringHelper2.x
+    number = stringHelper2.y
+    number2 = stringHelper2.z
+    number2 = number2 + 0.03
+    text13 = text13(createVector3, number, number2)
+    stateFlag8.foundNormal = text13
+    text13 = stateFlag8
+    if text13 then
+      text13 = stateFlag8.useGangTexture
+      if text13 then
+        text13 = stateFlag8.foundPosition
+        createVector3 = vector3
+        number = 0.0
+        number2 = 0.0
+        createVector32 = 0.6
+        createVector3 = createVector3(number, number2, createVector32)
+        text13 = text13 + createVector3
+        stateFlag8.foundPosition = text13
       end
     end
-    flag8.isValidPosition = true
-    textValue13 = true
-    return textValue13
+    stateFlag8.isValidPosition = true
+    text13 = true
+    return text13
   else
-    textValue13 = flag8
-    if textValue13 then
-      flag8.isValidPosition = false
+    text13 = stateFlag8
+    if text13 then
+      stateFlag8.isValidPosition = false
     end
   end
-  textValue13 = false
-  return textValue13
+  text13 = false
+  return text13
 end
 
--- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1) ===
-function workValue21(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = flag7
-  if arg2 then
-    arg2 = GetCamRot
-    arg3 = textValue4
-    arg4 = 2
-    arg2 = arg2(arg3, arg4)
-    flag8.calculatedRotation = arg2
-    arg2 = SetCamActive
-    arg3 = textValue4
-    arg4 = false
-    arg2(arg3, arg4)
-    arg2 = false
-    flag7 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue21; parameters: localValue1) ===
+function workingValue21(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = stateFlag7
+  if localValue2 then
+    localValue2 = GetCamRot
+    localValue3 = text4
+    localValue4 = 2
+    localValue2 = localValue2(localValue3, localValue4)
+    stateFlag8.calculatedRotation = localValue2
+    localValue2 = SetCamActive
+    localValue3 = text4
+    localValue4 = false
+    localValue2(localValue3, localValue4)
+    localValue2 = false
+    stateFlag7 = localValue2
   else
-    arg2 = arg1.foundPosition
-    arg3 = arg1.foundNormal
-    arg3 = arg3 * 10.0
-    arg2 = arg2 - arg3
-    arg3 = SetCamCoord
-    arg4 = textValue4
-    arg5 = arg1.foundPosition
-    arg5 = arg5.x
-    arg6 = arg1.foundPosition
-    arg6 = arg6.y
-    arg7 = arg1.foundPosition
-    arg7 = arg7.z
-    arg3(arg4, arg5, arg6, arg7)
-    arg3 = PointCamAtCoord
-    arg4 = textValue4
-    arg5 = arg2.x
-    arg6 = arg2.y
-    arg7 = arg2.z
-    arg3(arg4, arg5, arg6, arg7)
-    arg3 = SetCamActive
-    arg4 = textValue4
-    arg5 = true
-    arg3(arg4, arg5)
-    arg3 = true
-    flag7 = arg3
+    localValue2 = localValue1.foundPosition
+    localValue3 = localValue1.foundNormal
+    localValue3 = localValue3 * 10.0
+    localValue2 = localValue2 - localValue3
+    localValue3 = SetCamCoord
+    localValue4 = text4
+    localValue5 = localValue1.foundPosition
+    localValue5 = localValue5.x
+    localValue6 = localValue1.foundPosition
+    localValue6 = localValue6.y
+    localValue7 = localValue1.foundPosition
+    localValue7 = localValue7.z
+    localValue3(localValue4, localValue5, localValue6, localValue7)
+    localValue3 = PointCamAtCoord
+    localValue4 = text4
+    localValue5 = localValue2.x
+    localValue6 = localValue2.y
+    localValue7 = localValue2.z
+    localValue3(localValue4, localValue5, localValue6, localValue7)
+    localValue3 = SetCamActive
+    localValue4 = text4
+    localValue5 = true
+    localValue3(localValue4, localValue5)
+    localValue3 = true
+    stateFlag7 = localValue3
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue22; parameters: none) ===
-function workValue22()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2
-  arg1 = assert
-  arg2 = flag8
-  arg1(arg2)
-  arg1 = flag8
-  if arg1 then
-    arg1 = RageUI
-    arg1 = arg1.IsAnyMenuOfTypeVisible
-    arg2 = "graffiti"
-    arg1 = arg1(arg2)
-    if not arg1 then
-      arg1 = CMG
-      arg1 = arg1.deleteThreadOnTick
-      arg2 = workValue22
-      arg1(arg2)
-      arg1 = nil
-      flag8 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue22; parameters: none) ===
+function workingValue22()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2
+  localValue1 = assert
+  localValue2 = stateFlag8
+  localValue1(localValue2)
+  localValue1 = stateFlag8
+  if localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.IsAnyMenuOfTypeVisible
+    localValue2 = "graffiti"
+    localValue1 = localValue1(localValue2)
+    if not localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.deleteThreadOnTick
+      localValue2 = workingValue22
+      localValue1(localValue2)
+      localValue1 = nil
+      stateFlag8 = localValue1
       return
     end
   end
-  arg1 = workValue20
-  arg2 = true
-  arg1(arg2)
-  arg1 = workValue21
-  arg2 = flag8
-  arg1(arg2)
-  arg1 = nil
-  arg2 = flag8.useGangTexture
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.getGangRecognisedTexture
-    arg2 = arg2()
-    arg1 = arg2
+  localValue1 = workingValue20
+  localValue2 = true
+  localValue1(localValue2)
+  localValue1 = workingValue21
+  localValue2 = stateFlag8
+  localValue1(localValue2)
+  localValue1 = nil
+  localValue2 = stateFlag8.useGangTexture
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.getGangRecognisedTexture
+    localValue2 = localValue2()
+    localValue1 = localValue2
   end
-  arg2 = threadCall
-  arg3 = flag8.foundPosition
-  arg4 = flag8.calculatedRotation
-  arg5 = flag8.fontIndex
-  arg6 = flag8.colourIndex
-  arg7 = cmgCall.sprayScales
-  arg8 = flag8.scaleIndex
-  arg7 = arg7[arg8]
-  arg8 = flag8.content
-  stringHelper2 = arg1
+  localValue2 = backgroundThread
+  localValue3 = stateFlag8.foundPosition
+  localValue4 = stateFlag8.calculatedRotation
+  localValue5 = stateFlag8.fontIndex
+  localValue6 = stateFlag8.colourIndex
+  localValue7 = cmgOperation.sprayScales
+  localValue8 = stateFlag8.scaleIndex
+  localValue7 = localValue7[localValue8]
+  localValue8 = stateFlag8.content
+  stringHelper2 = localValue1
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2)
+  localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2)
 end
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.createThreadOnTick
-textValue3 = workValue19
-eventRegistration = "Graffiti Render"
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.createThreadOnTick
+text3 = workingValue19
+eventHandler = "Graffiti Render"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall3(textValue3, eventRegistration)
-cmgCall3 = RegisterNetEvent
-textValue3 = "2fa07a16b3"
+cmgOperation3(text3, eventHandler)
+cmgOperation3 = RegisterNetEvent
+text3 = "2fa07a16b3"
 -- Beginner: this function handles network event "2fa07a16b3".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
-function eventRegistration(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = flag8
-  if not arg2 then
-    arg2 = flag
-    if not arg2 then
-      goto flow_label_8
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1) ===
+function eventHandler(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = stateFlag8
+  if not localValue2 then
+    localValue2 = stateFlag
+    if not localValue2 then
+      goto continueAtStep8
     end
   end
   return
-  ::flow_label_8::
-  arg2 = table
-  arg2 = arg2.count
-  arg3 = CMG
-  arg3 = arg3.getNearbyGraffitis
-  arg3, arg4, arg5, arg6 = arg3()
+  ::continueAtStep8::
+  localValue2 = table
+  localValue2 = localValue2.count
+  localValue3 = CMG
+  localValue3 = localValue3.getNearbyGraffitis
+  localValue3, localValue4, localValue5, localValue6 = localValue3()
   -- Beginner: result below is count.
-  arg2 = arg2(arg3, arg4, arg5, arg6)
-  if arg2 > 6 then
-    arg2 = notify
-    arg3 = "~r~Too many graffiti's nearby, please clean them to spray more."
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+  if localValue2 > 6 then
+    localValue2 = notify
+    localValue3 = "~r~Too many graffiti's nearby, please clean them to spray more."
     -- Beginner: Show a notification to the player.
-    arg2(arg3)
+    localValue2(localValue3)
     return
   end
-  arg2 = {}
-  arg3 = vector3
-  arg4 = 0.0
-  arg5 = 0.0
-  arg6 = 0.0
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2.foundPosition = arg3
-  arg3 = vector3
-  arg4 = 0.0
-  arg5 = 0.0
-  arg6 = 0.0
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2.foundNormal = arg3
-  arg3 = vector3
-  arg4 = 0.0
-  arg5 = 0.0
-  arg6 = 0.0
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2.calculatedRotation = arg3
-  arg2.content = "GANG"
-  arg2.fontIndex = 1
-  arg2.colourIndex = 1
-  arg2.scaleIndex = 1
-  arg2.useGangTexture = arg1
-  arg2.isValidPosition = false
-  flag8 = arg2
-  arg2 = RageUI
-  arg2 = arg2.Visible
-  arg3 = RMenu
-  arg4 = arg3
-  arg3 = arg3.Get
-  arg5 = "graffiti"
-  arg6 = "mainmenu"
+  localValue2 = {}
+  localValue3 = vector3
+  localValue4 = 0.0
+  localValue5 = 0.0
+  localValue6 = 0.0
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2.foundPosition = localValue3
+  localValue3 = vector3
+  localValue4 = 0.0
+  localValue5 = 0.0
+  localValue6 = 0.0
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2.foundNormal = localValue3
+  localValue3 = vector3
+  localValue4 = 0.0
+  localValue5 = 0.0
+  localValue6 = 0.0
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2.calculatedRotation = localValue3
+  localValue2.content = "GANG"
+  localValue2.fontIndex = 1
+  localValue2.colourIndex = 1
+  localValue2.scaleIndex = 1
+  localValue2.useGangTexture = localValue1
+  localValue2.isValidPosition = false
+  stateFlag8 = localValue2
+  localValue2 = RageUI
+  localValue2 = localValue2.Visible
+  localValue3 = RMenu
+  localValue4 = localValue3
+  localValue3 = localValue3.Get
+  localValue5 = "graffiti"
+  localValue6 = "mainmenu"
   -- Beginner: result below is menu.
-  arg3 = arg3(arg4, arg5, arg6)
-  arg4 = true
-  arg2(arg3, arg4)
-  arg2 = CMG
-  arg2 = arg2.createThreadOnTick
-  arg3 = workValue22
-  arg4 = "Graffiti Selector"
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue4 = true
+  localValue2(localValue3, localValue4)
+  localValue2 = CMG
+  localValue2 = localValue2.createThreadOnTick
+  localValue3 = workingValue22
+  localValue4 = "Graffiti Selector"
   -- Beginner: Run a helper every game frame while this script is active.
-  arg2(arg3, arg4)
-  arg2 = TriggerServerEvent
-  arg3 = "72490db2b8"
+  localValue2(localValue3, localValue4)
+  localValue2 = TriggerServerEvent
+  localValue3 = "72490db2b8"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "72490db2b8".
-  arg2(arg3)
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2fa07a16b3".
-cmgCall3(textValue3, eventRegistration)
+cmgOperation3(text3, eventHandler)
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
-function cmgCall3(arg1)
-  local arg2, arg3, arg4, arg5
-  arg3 = arg1.id
-  arg2 = dataTable7
-  arg2 = arg2[arg3]
-  if arg2 then
-    arg3 = table
-    arg3 = arg3.insert
-    arg4 = dataTable
-    arg5 = arg2
-    arg3(arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1) ===
+function cmgOperation3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue3 = localValue1.id
+  localValue2 = dataCollection7
+  localValue2 = localValue2[localValue3]
+  if localValue2 then
+    localValue3 = table
+    localValue3 = localValue3.insert
+    localValue4 = dataCollection
+    localValue5 = localValue2
+    localValue3(localValue4, localValue5)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg3 = arg1.id
-  arg2 = dataTable7
-  arg2 = arg2[arg3]
-  if arg2 then
-    arg3 = table
-    arg3 = arg3.find
-    arg4 = dataTable
-    arg5 = arg2
-    arg3 = arg3(arg4, arg5)
-    if arg3 then
-      arg4 = table
-      arg4 = arg4.remove
-      arg5 = dataTable
-      arg6 = arg3
-      arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue3 = localValue1.id
+  localValue2 = dataCollection7
+  localValue2 = localValue2[localValue3]
+  if localValue2 then
+    localValue3 = table
+    localValue3 = localValue3.find
+    localValue4 = dataCollection
+    localValue5 = localValue2
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 then
+      localValue4 = table
+      localValue4 = localValue4.remove
+      localValue5 = dataCollection
+      localValue6 = localValue3
+      localValue4(localValue5, localValue6)
     end
   end
 end
-eventRegistration = RegisterNetEvent
-textValue5 = "5ce26fe2dd"
+eventHandler = RegisterNetEvent
+text5 = "5ce26fe2dd"
 -- Beginner: this function handles network event "5ce26fe2dd".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8
-  dataTable7 = arg1
-  arg2 = pairs
-  arg3 = dataTable7
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = CMG
-    arg8 = arg8.createArea
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3, number, number2, createVector32, number6, number8
+  dataCollection7 = localValue1
+  localValue2 = pairs
+  localValue3 = dataCollection7
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = CMG
+    localValue8 = localValue8.createArea
     stringHelper2 = string
     stringHelper2 = stringHelper2.format
-    textValue13 = "graffiti_%s"
-    vector3Builder = arg6
-    stringHelper2 = stringHelper2(textValue13, vector3Builder)
-    textValue13 = arg7.position
-    vector3Builder = 50.0
-    numberValue = 50.0
-    numberValue2 = cmgCall3
-    vector3Builder2 = textValue3
+    text13 = "graffiti_%s"
+    createVector3 = localValue6
+    stringHelper2 = stringHelper2(text13, createVector3)
+    text13 = localValue7.position
+    createVector3 = 50.0
+    number = 50.0
+    number2 = cmgOperation3
+    createVector32 = text3
 
-    -- === HELPER FUNCTION (decompiler name: numberValue6; parameters: none) ===
-    function numberValue6()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: number6; parameters: none) ===
+    function number6()
+      local localValue12, localValue22
     end
-    numberValue8 = {}
-    numberValue8.id = arg6
+    number8 = {}
+    number8.id = localValue6
     -- Beginner: Create an interaction area around a world position.
-    arg8(stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8)
+    localValue8(stringHelper2, text13, createVector3, number, number2, createVector32, number6, number8)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5ce26fe2dd".
-eventRegistration(textValue5, textValue6)
-eventRegistration = RegisterNetEvent
-textValue5 = "1190721772"
+eventHandler(text5, text6)
+eventHandler = RegisterNetEvent
+text5 = "1190721772"
 -- Beginner: this function handles network event "1190721772".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1, arg2) ===
-function textValue6(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
-  arg3 = dataTable7
-  arg3[arg1] = arg2
-  arg3 = CMG
-  arg3 = arg3.createArea
-  arg4 = string
-  arg4 = arg4.format
-  arg5 = "graffiti_%s"
-  arg6 = arg1
-  arg4 = arg4(arg5, arg6)
-  arg5 = arg2.position
-  arg6 = 50.0
-  arg7 = 50.0
-  arg8 = cmgCall3
-  stringHelper2 = textValue3
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1, localValue2) ===
+function text6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3
+  localValue3 = dataCollection7
+  localValue3[localValue1] = localValue2
+  localValue3 = CMG
+  localValue3 = localValue3.createArea
+  localValue4 = string
+  localValue4 = localValue4.format
+  localValue5 = "graffiti_%s"
+  localValue6 = localValue1
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = localValue2.position
+  localValue6 = 50.0
+  localValue7 = 50.0
+  localValue8 = cmgOperation3
+  stringHelper2 = text3
 
-  -- === HELPER FUNCTION (decompiler name: textValue13; parameters: none) ===
-  function textValue13()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: text13; parameters: none) ===
+  function text13()
+    local localValue12, localValue22
   end
-  vector3Builder = {}
-  vector3Builder.id = arg1
+  createVector3 = {}
+  createVector3.id = localValue1
   -- Beginner: Create an interaction area around a world position.
-  arg3(arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder)
+  localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1190721772".
-eventRegistration(textValue5, textValue6)
-eventRegistration = RegisterNetEvent
-textValue5 = "5b60cbfbdd"
+eventHandler(text5, text6)
+eventHandler = RegisterNetEvent
+text5 = "5b60cbfbdd"
 -- Beginner: this function handles network event "5b60cbfbdd".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = dataTable7
-  arg2 = arg2[arg1]
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = dataCollection7
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
     return
   end
-  arg3 = table
-  arg3 = arg3.find
-  arg4 = dataTable
-  arg5 = arg2
-  arg3 = arg3(arg4, arg5)
-  if arg3 then
-    arg4 = table
-    arg4 = arg4.remove
-    arg5 = dataTable
-    arg6 = arg3
-    arg4(arg5, arg6)
+  localValue3 = table
+  localValue3 = localValue3.find
+  localValue4 = dataCollection
+  localValue5 = localValue2
+  localValue3 = localValue3(localValue4, localValue5)
+  if localValue3 then
+    localValue4 = table
+    localValue4 = localValue4.remove
+    localValue5 = dataCollection
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   end
-  arg4 = tCMG
-  arg4 = arg4.removeArea
-  arg5 = string
-  arg5 = arg5.format
-  arg6 = "graffiti_%s"
-  arg7 = arg1
-  arg5, arg6, arg7 = arg5(arg6, arg7)
-  arg4(arg5, arg6, arg7)
-  arg4 = dataTable7
-  arg4[arg1] = nil
+  localValue4 = tCMG
+  localValue4 = localValue4.removeArea
+  localValue5 = string
+  localValue5 = localValue5.format
+  localValue6 = "graffiti_%s"
+  localValue7 = localValue1
+  localValue5, localValue6, localValue7 = localValue5(localValue6, localValue7)
+  localValue4(localValue5, localValue6, localValue7)
+  localValue4 = dataCollection7
+  localValue4[localValue1] = nil
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5b60cbfbdd".
-eventRegistration(textValue5, textValue6)
-eventRegistration = RMenu
-eventRegistration = eventRegistration.Add
-textValue5 = "graffiti"
-textValue6 = "mainmenu"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue7 = ""
-textValue8 = "Main Menu"
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-textValue9 = "cmg_graffiti"
-textValue10 = "menu"
-rageUiCall, textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10 = rageUiCall(textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10)
-eventRegistration(textValue5, textValue6, rageUiCall, textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10)
-eventRegistration = RageUI
-eventRegistration = eventRegistration.CreateWhile
-textValue5 = 1.0
-textValue6 = RMenu
-rageUiCall = textValue6
-textValue6 = textValue6.Get
-textValue7 = "graffiti"
-textValue8 = "mainmenu"
+eventHandler(text5, text6)
+eventHandler = RMenu
+eventHandler = eventHandler.Add
+text5 = "graffiti"
+text6 = "mainmenu"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text7 = ""
+text8 = "Main Menu"
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+text9 = "cmg_graffiti"
+text10 = "menu"
+rageUiOperation, text7, text8, rageUiOperation2, rageUiOperation3, text9, text10 = rageUiOperation(text7, text8, rageUiOperation2, rageUiOperation3, text9, text10)
+eventHandler(text5, text6, rageUiOperation, text7, text8, rageUiOperation2, rageUiOperation3, text9, text10)
+eventHandler = RageUI
+eventHandler = eventHandler.CreateWhile
+text5 = 1.0
+text6 = RMenu
+rageUiOperation = text6
+text6 = text6.Get
+text7 = "graffiti"
+text8 = "mainmenu"
 -- Beginner: result below is menu.
-textValue6 = textValue6(rageUiCall, textValue7, textValue8)
-rageUiCall = nil
+text6 = text6(rageUiOperation, text7, text8)
+rageUiOperation = nil
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "graffiti"
-  arg5 = "mainmenu"
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "graffiti"
+  localValue5 = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16
-    arg12 = assert
-    arg22 = flag8
-    arg12(arg22)
-    arg12 = CMG
-    arg12 = arg12.getGangRecognisedTexture
-    arg12 = arg12()
-    if arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Checkbox
-      arg22 = "Show Gang Texture"
-      arg32 = ""
-      dataTable2 = flag8.useGangTexture
-      dataTable3 = {}
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, dataCollection2, dataCollection3, dataCollection5, coords, number16
+    localValue12 = assert
+    localValue22 = stateFlag8
+    localValue12(localValue22)
+    localValue12 = CMG
+    localValue12 = localValue12.getGangRecognisedTexture
+    localValue12 = localValue12()
+    if localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Checkbox
+      localValue22 = "Show Gang Texture"
+      localValue32 = ""
+      dataCollection2 = stateFlag8.useGangTexture
+      dataCollection3 = {}
 
-      -- === HELPER FUNCTION (decompiler name: dataTable5; parameters: arg13, arg23, arg33, arg42) ===
-      function dataTable5(arg13, arg23, arg33, arg42)
-        flag8.useGangTexture = arg42
+      -- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: localValue13, localValue23, localValue33, localValue42) ===
+      function dataCollection5(localValue13, localValue23, localValue33, localValue42)
+        stateFlag8.useGangTexture = localValue42
       end
       -- Beginner: Draw a RageUI checkbox.
-      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5)
+      localValue12(localValue22, localValue32, dataCollection2, dataCollection3, dataCollection5)
     end
-    arg12 = flag8.useGangTexture
-    if not arg12 then
-      arg12 = RageUI
-      arg12 = arg12.ButtonWithStyle
-      arg22 = "Text"
-      arg32 = "The text that should display on the graffiti."
-      dataTable2 = {}
-      dataTable3 = flag8.content
-      dataTable2.RightLabel = dataTable3
-      dataTable3 = true
+    localValue12 = stateFlag8.useGangTexture
+    if not localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.ButtonWithStyle
+      localValue22 = "Text"
+      localValue32 = "The text that should display on the graffiti."
+      dataCollection2 = {}
+      dataCollection3 = stateFlag8.content
+      dataCollection2.RightLabel = dataCollection3
+      dataCollection3 = true
 
-      -- === HELPER FUNCTION (decompiler name: dataTable5; parameters: arg13, arg23, arg33) ===
-      function dataTable5(arg13, arg23, arg33)
-        local arg42, cmgCall4, serverEventCall, textValue11
-        if arg33 then
-          arg42 = CMG
-          arg42 = arg42.clientPrompt
-          cmgCall4 = "Enter Text"
+      -- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: localValue13, localValue23, localValue33) ===
+      function dataCollection5(localValue13, localValue23, localValue33)
+        local localValue42, cmgOperation4, serverEventCall, text11
+        if localValue33 then
+          localValue42 = CMG
+          localValue42 = localValue42.clientPrompt
+          cmgOperation4 = "Enter Text"
           serverEventCall = ""
 
-          -- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg14) ===
-          function textValue11(arg14)
-            local workValue16, workValue26, stringHelper, workValue28, workValue29, textValue12
-            workValue16 = #arg14
-            workValue26 = cmgCall.minTextLength
-            if workValue16 >= workValue26 then
-              workValue16 = #arg14
-              workValue26 = cmgCall.maxTextLength
-              if workValue16 <= workValue26 then
-                workValue16 = cmgCall.fontDisplayNamesIndexToKey
-                workValue26 = flag8.fontIndex
-                workValue16 = workValue16[workValue26]
-                workValue26 = cmgCall.fonts
-                workValue26 = workValue26[workValue16]
-                stringHelper = workValue26.forceUppercase
+          -- === HELPER FUNCTION (decompiler name: text11; parameters: localValue14) ===
+          function text11(localValue14)
+            local workingValue16, workingValue26, stringHelper, workingValue28, workingValue29, text12
+            workingValue16 = #localValue14
+            workingValue26 = cmgOperation.minTextLength
+            if workingValue16 >= workingValue26 then
+              workingValue16 = #localValue14
+              workingValue26 = cmgOperation.maxTextLength
+              if workingValue16 <= workingValue26 then
+                workingValue16 = cmgOperation.fontDisplayNamesIndexToKey
+                workingValue26 = stateFlag8.fontIndex
+                workingValue16 = workingValue16[workingValue26]
+                workingValue26 = cmgOperation.fonts
+                workingValue26 = workingValue26[workingValue16]
+                stringHelper = workingValue26.forceUppercase
                 if stringHelper then
                   stringHelper = string
                   stringHelper = stringHelper.upper
-                  workValue28 = arg14
-                  stringHelper = stringHelper(workValue28)
-                  arg14 = stringHelper
+                  workingValue28 = localValue14
+                  stringHelper = stringHelper(workingValue28)
+                  localValue14 = stringHelper
                 end
                 stringHelper = string
                 stringHelper = stringHelper.gsub
-                workValue28 = arg14
-                workValue29 = workValue26.allowedInverse
-                textValue12 = ""
-                stringHelper = stringHelper(workValue28, workValue29, textValue12)
-                arg14 = stringHelper
-                flag8.content = arg14
+                workingValue28 = localValue14
+                workingValue29 = workingValue26.allowedInverse
+                text12 = ""
+                stringHelper = stringHelper(workingValue28, workingValue29, text12)
+                localValue14 = stringHelper
+                stateFlag8.content = localValue14
             end
             else
-              workValue16 = notify
-              workValue26 = "~r~Text must be between 1 and 10 characters in length."
+              workingValue16 = notify
+              workingValue26 = "~r~Text must be between 1 and 10 characters in length."
               -- Beginner: Show a notification to the player.
-              workValue16(workValue26)
+              workingValue16(workingValue26)
             end
           end
-          arg42(cmgCall4, serverEventCall, textValue11)
+          localValue42(cmgOperation4, serverEventCall, text11)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5)
-      arg12 = RageUI
-      arg12 = arg12.List
-      arg22 = "Font"
-      arg32 = cmgCall.fontDisplayNames
-      dataTable2 = flag8.fontIndex
-      dataTable3 = ""
-      dataTable5 = {}
+      localValue12(localValue22, localValue32, dataCollection2, dataCollection3, dataCollection5)
+      localValue12 = RageUI
+      localValue12 = localValue12.List
+      localValue22 = "Font"
+      localValue32 = cmgOperation.fontDisplayNames
+      dataCollection2 = stateFlag8.fontIndex
+      dataCollection3 = ""
+      dataCollection5 = {}
       coords = true
 
-      -- === HELPER FUNCTION (decompiler name: numberValue16; parameters: arg13, arg23, arg33, arg42) ===
-      function numberValue16(arg13, arg23, arg33, arg42)
-        flag8.fontIndex = arg42
+      -- === HELPER FUNCTION (decompiler name: number16; parameters: localValue13, localValue23, localValue33, localValue42) ===
+      function number16(localValue13, localValue23, localValue33, localValue42)
+        stateFlag8.fontIndex = localValue42
       end
       -- Beginner: Draw a RageUI list selector.
-      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16)
-      arg12 = RageUI
-      arg12 = arg12.List
-      arg22 = "Colour"
-      arg32 = cmgCall.coloursList
-      dataTable2 = flag8.colourIndex
-      dataTable3 = ""
-      dataTable5 = {}
+      localValue12(localValue22, localValue32, dataCollection2, dataCollection3, dataCollection5, coords, number16)
+      localValue12 = RageUI
+      localValue12 = localValue12.List
+      localValue22 = "Colour"
+      localValue32 = cmgOperation.coloursList
+      dataCollection2 = stateFlag8.colourIndex
+      dataCollection3 = ""
+      dataCollection5 = {}
       coords = true
 
-      -- === HELPER FUNCTION (decompiler name: numberValue16; parameters: arg13, arg23, arg33, arg42) ===
-      function numberValue16(arg13, arg23, arg33, arg42)
-        flag8.colourIndex = arg42
+      -- === HELPER FUNCTION (decompiler name: number16; parameters: localValue13, localValue23, localValue33, localValue42) ===
+      function number16(localValue13, localValue23, localValue33, localValue42)
+        stateFlag8.colourIndex = localValue42
       end
-      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16)
-      arg12 = RageUI
-      arg12 = arg12.List
-      arg22 = "Scale"
-      arg32 = cmgCall.sprayScalesText
-      dataTable2 = flag8.scaleIndex
-      dataTable3 = ""
-      dataTable5 = {}
+      localValue12(localValue22, localValue32, dataCollection2, dataCollection3, dataCollection5, coords, number16)
+      localValue12 = RageUI
+      localValue12 = localValue12.List
+      localValue22 = "Scale"
+      localValue32 = cmgOperation.sprayScalesText
+      dataCollection2 = stateFlag8.scaleIndex
+      dataCollection3 = ""
+      dataCollection5 = {}
       coords = true
 
-      -- === HELPER FUNCTION (decompiler name: numberValue16; parameters: arg13, arg23, arg33, arg42) ===
-      function numberValue16(arg13, arg23, arg33, arg42)
-        flag8.scaleIndex = arg42
+      -- === HELPER FUNCTION (decompiler name: number16; parameters: localValue13, localValue23, localValue33, localValue42) ===
+      function number16(localValue13, localValue23, localValue33, localValue42)
+        stateFlag8.scaleIndex = localValue42
       end
       -- Beginner: Draw a RageUI list selector.
-      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16)
+      localValue12(localValue22, localValue32, dataCollection2, dataCollection3, dataCollection5, coords, number16)
     end
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "~b~Place Graffiti"
-    arg32 = "Places the graffiti as is currently previewed."
-    dataTable2 = true
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "~b~Place Graffiti"
+    localValue32 = "Places the graffiti as is currently previewed."
+    dataCollection2 = true
 
-    -- === HELPER FUNCTION (decompiler name: dataTable3; parameters: arg13, arg23, arg33) ===
-    function dataTable3(arg13, arg23, arg33)
-      local arg42, cmgCall4, serverEventCall, textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11
-      if arg33 then
-        arg42 = GetStreetNameFromHashKey
-        cmgCall4 = GetStreetNameAtCoord
-        serverEventCall = flag8.foundPosition
+    -- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: localValue13, localValue23, localValue33) ===
+    function dataCollection3(localValue13, localValue23, localValue33)
+      local localValue42, cmgOperation4, serverEventCall, text11, workingValue30, workingValue31, workingValue33, workingValue2, workingValue4, workingValue6, workingValue7, workingValue8, workingValue11
+      if localValue33 then
+        localValue42 = GetStreetNameFromHashKey
+        cmgOperation4 = GetStreetNameAtCoord
+        serverEventCall = stateFlag8.foundPosition
         serverEventCall = serverEventCall.x
-        textValue11 = flag8.foundPosition
-        textValue11 = textValue11.y
-        workValue30 = flag8.foundPosition
-        workValue30 = workValue30.z
-        cmgCall4, serverEventCall, textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11 = cmgCall4(serverEventCall, textValue11, workValue30)
-        arg42 = arg42(cmgCall4, serverEventCall, textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11)
-        cmgCall4 = CMG
-        cmgCall4 = cmgCall4.getModelGender
-        cmgCall4 = cmgCall4()
+        text11 = stateFlag8.foundPosition
+        text11 = text11.y
+        workingValue30 = stateFlag8.foundPosition
+        workingValue30 = workingValue30.z
+        cmgOperation4, serverEventCall, text11, workingValue30, workingValue31, workingValue33, workingValue2, workingValue4, workingValue6, workingValue7, workingValue8, workingValue11 = cmgOperation4(serverEventCall, text11, workingValue30)
+        localValue42 = localValue42(cmgOperation4, serverEventCall, text11, workingValue30, workingValue31, workingValue33, workingValue2, workingValue4, workingValue6, workingValue7, workingValue8, workingValue11)
+        cmgOperation4 = CMG
+        cmgOperation4 = cmgOperation4.getModelGender
+        cmgOperation4 = cmgOperation4()
         serverEventCall = TriggerServerEvent
-        textValue11 = "e7f30e33d9"
-        workValue30 = flag8.foundPosition
-        workValue31 = flag8.calculatedRotation
-        workValue33 = flag8.content
-        workValue2 = flag8.fontIndex
-        workValue4 = flag8.colourIndex
-        workValue6 = flag8.scaleIndex
-        workValue7 = flag8.useGangTexture
-        workValue8 = arg42
-        workValue11 = cmgCall4
+        text11 = "e7f30e33d9"
+        workingValue30 = stateFlag8.foundPosition
+        workingValue31 = stateFlag8.calculatedRotation
+        workingValue33 = stateFlag8.content
+        workingValue2 = stateFlag8.fontIndex
+        workingValue4 = stateFlag8.colourIndex
+        workingValue6 = stateFlag8.scaleIndex
+        workingValue7 = stateFlag8.useGangTexture
+        workingValue8 = localValue42
+        workingValue11 = cmgOperation4
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e7f30e33d9".
-        serverEventCall(textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11)
+        serverEventCall(text11, workingValue30, workingValue31, workingValue33, workingValue2, workingValue4, workingValue6, workingValue7, workingValue8, workingValue11)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, dataTable2, dataTable3)
+    localValue12(localValue22, localValue32, dataCollection2, dataCollection3)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
 end
-eventRegistration(textValue5, textValue6, rageUiCall, textValue7)
+eventHandler(text5, text6, rageUiOperation, text7)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
-function eventRegistration(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-  local stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8) ===
+function eventHandler(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+  local stringHelper2, text13, createVector3, number, number2, createVector32, number6, number8, createVector33, number10, number11, createVector34, number12, number13, createVector35, number14, stateFlag6, text, workingValue23
   stringHelper2 = true
-  flag = stringHelper2
+  stateFlag = stringHelper2
   stringHelper2 = tCMG
   stringHelper2 = stringHelper2.setCanAnim
-  textValue13 = false
-  stringHelper2(textValue13)
+  text13 = false
+  stringHelper2(text13)
   stringHelper2 = CMG
   stringHelper2 = stringHelper2.loadAnimDict
-  textValue13 = arg1
+  text13 = localValue1
   -- Beginner: Load a GTA animation dictionary before using it.
-  stringHelper2(textValue13)
+  stringHelper2(text13)
   stringHelper2 = CMG
   stringHelper2 = stringHelper2.loadModel
-  textValue13 = arg3
+  text13 = localValue3
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  stringHelper2(textValue13)
+  stringHelper2(text13)
   stringHelper2 = CMG
   stringHelper2 = stringHelper2.requestEntitySpawn
-  textValue13 = arg8
-  stringHelper2(textValue13)
+  text13 = localValue8
+  stringHelper2(text13)
   stringHelper2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
   stringHelper2 = stringHelper2()
-  textValue13 = CMG
-  textValue13 = textValue13.getPlayerCoords
+  text13 = CMG
+  text13 = text13.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  textValue13 = textValue13()
-  vector3Builder = CreateObject
-  numberValue = arg3
-  numberValue2 = textValue13.x
-  vector3Builder2 = textValue13.y
-  numberValue6 = textValue13.z
-  numberValue8 = true
-  vector3Builder3 = true
-  numberValue10 = false
+  text13 = text13()
+  createVector3 = CreateObject
+  number = localValue3
+  number2 = text13.x
+  createVector32 = text13.y
+  number6 = text13.z
+  number8 = true
+  createVector33 = true
+  number10 = false
   -- Beginner: result below is objectEntity.
-  vector3Builder = vector3Builder(numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10)
-  numberValue = AttachEntityToEntity
-  numberValue2 = vector3Builder
-  vector3Builder2 = stringHelper2
-  numberValue6 = GetPedBoneIndex
-  numberValue8 = stringHelper2
-  vector3Builder3 = arg4
-  numberValue6 = numberValue6(numberValue8, vector3Builder3)
-  numberValue8 = arg5.x
-  vector3Builder3 = arg5.y
-  numberValue10 = arg5.z
-  numberValue11 = arg6.x
-  vector3Builder4 = arg6.y
-  numberValue12 = arg6.z
-  numberValue13 = true
-  vector3Builder5 = true
-  numberValue14 = false
-  flag6 = false
-  textValue = 1
-  workValue23 = true
+  createVector3 = createVector3(number, number2, createVector32, number6, number8, createVector33, number10)
+  number = AttachEntityToEntity
+  number2 = createVector3
+  createVector32 = stringHelper2
+  number6 = GetPedBoneIndex
+  number8 = stringHelper2
+  createVector33 = localValue4
+  number6 = number6(number8, createVector33)
+  number8 = localValue5.x
+  createVector33 = localValue5.y
+  number10 = localValue5.z
+  number11 = localValue6.x
+  createVector34 = localValue6.y
+  number12 = localValue6.z
+  number13 = true
+  createVector35 = true
+  number14 = false
+  stateFlag6 = false
+  text = 1
+  workingValue23 = true
   -- Beginner: Attach one entity to another entity.
-  numberValue(numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23)
-  numberValue = GetGameTimer
+  number(number2, createVector32, number6, number8, createVector33, number10, number11, createVector34, number12, number13, createVector35, number14, stateFlag6, text, workingValue23)
+  number = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  numberValue = numberValue()
+  number = number()
   while true do
-    numberValue2 = GetGameTimer
+    number2 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    numberValue2 = numberValue2()
-    numberValue2 = numberValue2 - numberValue
-    if arg7 < numberValue2 then
+    number2 = number2()
+    number2 = number2 - number
+    if localValue7 < number2 then
       break
     end
-    numberValue2 = IsEntityPlayingAnim
-    vector3Builder2 = stringHelper2
-    numberValue6 = arg1
-    numberValue8 = arg2
-    vector3Builder3 = 3
-    numberValue2 = numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3)
-    if not numberValue2 then
-      numberValue2 = TaskPlayAnim
-      vector3Builder2 = stringHelper2
-      numberValue6 = arg1
-      numberValue8 = arg2
-      vector3Builder3 = 1.0
-      numberValue10 = 1.0
-      numberValue11 = -1
-      vector3Builder4 = 1
-      numberValue12 = 0
-      numberValue13 = false
-      vector3Builder5 = false
-      numberValue14 = false
+    number2 = IsEntityPlayingAnim
+    createVector32 = stringHelper2
+    number6 = localValue1
+    number8 = localValue2
+    createVector33 = 3
+    number2 = number2(createVector32, number6, number8, createVector33)
+    if not number2 then
+      number2 = TaskPlayAnim
+      createVector32 = stringHelper2
+      number6 = localValue1
+      number8 = localValue2
+      createVector33 = 1.0
+      number10 = 1.0
+      number11 = -1
+      createVector34 = 1
+      number12 = 0
+      number13 = false
+      createVector35 = false
+      number14 = false
       -- Beginner: Play an animation on a ped.
-      numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14)
+      number2(createVector32, number6, number8, createVector33, number10, number11, createVector34, number12, number13, createVector35, number14)
     end
-    numberValue2 = Wait
-    vector3Builder2 = 0
-    numberValue2(vector3Builder2)
+    number2 = Wait
+    createVector32 = 0
+    number2(createVector32)
   end
-  numberValue2 = SetModelAsNoLongerNeeded
-  vector3Builder2 = arg3
-  numberValue2(vector3Builder2)
-  numberValue2 = RemoveAnimDict
-  vector3Builder2 = arg1
-  numberValue2(vector3Builder2)
-  numberValue2 = StopAnimTask
-  vector3Builder2 = stringHelper2
-  numberValue6 = arg1
-  numberValue8 = arg2
-  vector3Builder3 = 1.0
-  numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3)
-  numberValue2 = DeleteEntity
-  vector3Builder2 = vector3Builder
+  number2 = SetModelAsNoLongerNeeded
+  createVector32 = localValue3
+  number2(createVector32)
+  number2 = RemoveAnimDict
+  createVector32 = localValue1
+  number2(createVector32)
+  number2 = StopAnimTask
+  createVector32 = stringHelper2
+  number6 = localValue1
+  number8 = localValue2
+  createVector33 = 1.0
+  number2(createVector32, number6, number8, createVector33)
+  number2 = DeleteEntity
+  createVector32 = createVector3
   -- Beginner: Delete a GTA entity.
-  numberValue2(vector3Builder2)
-  numberValue2 = tCMG
-  numberValue2 = numberValue2.setCanAnim
-  vector3Builder2 = true
-  numberValue2(vector3Builder2)
-  numberValue2 = false
-  flag = numberValue2
+  number2(createVector32)
+  number2 = tCMG
+  number2 = number2.setCanAnim
+  createVector32 = true
+  number2(createVector32)
+  number2 = false
+  stateFlag = number2
 end
-textValue5 = RegisterNetEvent
-textValue6 = "e2e61e9a92"
+text5 = RegisterNetEvent
+text6 = "e2e61e9a92"
 -- Beginner: this function handles network event "e2e61e9a92".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
-function rageUiCall(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1) ===
+function rageUiOperation(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
   -- Beginner: this function handles network event "e2e61e9a92".
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local arg12, arg22, arg32, dataTable2, dataTable3
-    arg12 = CMG
-    arg12 = arg12.startCircularProgressBar
-    arg22 = ""
-    arg32 = cmgCall.sprayGraffitiTimeMsec
-    dataTable2 = nil
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local localValue12, localValue22, localValue32, dataCollection2, dataCollection3
+    localValue12 = CMG
+    localValue12 = localValue12.startCircularProgressBar
+    localValue22 = ""
+    localValue32 = cmgOperation.sprayGraffitiTimeMsec
+    dataCollection2 = nil
 
-    -- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-    function dataTable3()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+    function dataCollection3()
+      local localValue13, localValue23
     end
-    arg12(arg22, arg32, dataTable2, dataTable3)
+    localValue12(localValue22, localValue32, dataCollection2, dataCollection3)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
-  arg2 = RageUI
-  arg2 = arg2.Visible
-  arg3 = RMenu
-  arg4 = arg3
-  arg3 = arg3.Get
-  arg5 = "graffiti"
-  arg6 = "mainmenu"
+  localValue2(localValue3)
+  localValue2 = RageUI
+  localValue2 = localValue2.Visible
+  localValue3 = RMenu
+  localValue4 = localValue3
+  localValue3 = localValue3.Get
+  localValue5 = "graffiti"
+  localValue6 = "mainmenu"
   -- Beginner: result below is menu.
-  arg3 = arg3(arg4, arg5, arg6)
-  arg4 = false
-  arg2(arg3, arg4)
-  arg2 = TaskGoStraightToCoord
-  arg3 = PlayerPedId
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue4 = false
+  localValue2(localValue3, localValue4)
+  localValue2 = TaskGoStraightToCoord
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = arg1.x
-  arg5 = arg1.y
-  arg6 = arg1.z
-  arg7 = 1.0
-  arg8 = -1
+  localValue3 = localValue3()
+  localValue4 = localValue1.x
+  localValue5 = localValue1.y
+  localValue6 = localValue1.z
+  localValue7 = 1.0
+  localValue8 = -1
   stringHelper2 = 0.0
-  textValue13 = 0.1
-  arg2(arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13)
-  arg2 = Wait
-  arg3 = 500
-  arg2(arg3)
-  arg2 = eventRegistration
-  arg3 = "anim@amb@business@weed@weed_inspecting_lo_med_hi@"
-  arg4 = "weed_spraybottle_stand_spraying_01_inspector"
-  arg5 = -765160883
-  arg6 = 57005
-  arg7 = vector3
-  arg8 = 0.072
+  text13 = 0.1
+  localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13)
+  localValue2 = Wait
+  localValue3 = 500
+  localValue2(localValue3)
+  localValue2 = eventHandler
+  localValue3 = "anim@amb@business@weed@weed_inspecting_lo_med_hi@"
+  localValue4 = "weed_spraybottle_stand_spraying_01_inspector"
+  localValue5 = -765160883
+  localValue6 = 57005
+  localValue7 = vector3
+  localValue8 = 0.072
   stringHelper2 = 0.041
-  textValue13 = -0.06
-  arg7 = arg7(arg8, stringHelper2, textValue13)
-  arg8 = vector3
+  text13 = -0.06
+  localValue7 = localValue7(localValue8, stringHelper2, text13)
+  localValue8 = vector3
   stringHelper2 = 33.0
-  textValue13 = 38.0
-  vector3Builder = 0.0
-  arg8 = arg8(stringHelper2, textValue13, vector3Builder)
-  stringHelper2 = cmgCall.sprayGraffitiTimeMsec
-  textValue13 = "graffiti_can"
-  arg2(arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13)
+  text13 = 38.0
+  createVector3 = 0.0
+  localValue8 = localValue8(stringHelper2, text13, createVector3)
+  stringHelper2 = cmgOperation.sprayGraffitiTimeMsec
+  text13 = "graffiti_can"
+  localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e2e61e9a92".
-textValue5(textValue6, rageUiCall)
-textValue5 = RegisterNetEvent
-textValue6 = "03a0c4cf0f"
+text5(text6, rageUiOperation)
+text5 = RegisterNetEvent
+text6 = "03a0c4cf0f"
 -- Beginner: this function handles network event "03a0c4cf0f".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
-function rageUiCall()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13
-  arg1 = Citizen
-  arg1 = arg1.CreateThread
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: none) ===
+function rageUiOperation()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13
+  localValue1 = Citizen
+  localValue1 = localValue1.CreateThread
   -- Beginner: this function handles network event "03a0c4cf0f".
 
-  -- === HELPER FUNCTION: arg2() ===
-  function arg2()
-    local arg12, arg22, arg32, dataTable2, dataTable3
-    arg12 = CMG
-    arg12 = arg12.startCircularProgressBar
-    arg22 = ""
-    arg32 = cmgCall.removeGraffitiTimeMsec
-    dataTable2 = nil
+  -- === HELPER FUNCTION: localValue2() ===
+  function localValue2()
+    local localValue12, localValue22, localValue32, dataCollection2, dataCollection3
+    localValue12 = CMG
+    localValue12 = localValue12.startCircularProgressBar
+    localValue22 = ""
+    localValue32 = cmgOperation.removeGraffitiTimeMsec
+    dataCollection2 = nil
 
-    -- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-    function dataTable3()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+    function dataCollection3()
+      local localValue13, localValue23
     end
-    arg12(arg22, arg32, dataTable2, dataTable3)
+    localValue12(localValue22, localValue32, dataCollection2, dataCollection3)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg1(arg2)
-  arg1 = eventRegistration
-  arg2 = "timetable@maid@cleaning_window@idle_a"
-  arg3 = "idle_a"
-  arg4 = 921993182
-  arg5 = 28422
-  arg6 = vector3
-  arg7 = 0.0
-  arg8 = 0.0
+  localValue1(localValue2)
+  localValue1 = eventHandler
+  localValue2 = "timetable@maid@cleaning_window@idle_a"
+  localValue3 = "idle_a"
+  localValue4 = 921993182
+  localValue5 = 28422
+  localValue6 = vector3
+  localValue7 = 0.0
+  localValue8 = 0.0
   stringHelper2 = 0.0
-  arg6 = arg6(arg7, arg8, stringHelper2)
-  arg7 = vector3
-  arg8 = 0.0
+  localValue6 = localValue6(localValue7, localValue8, stringHelper2)
+  localValue7 = vector3
+  localValue8 = 0.0
   stringHelper2 = 0.0
-  textValue13 = 0.0
-  arg7 = arg7(arg8, stringHelper2, textValue13)
-  arg8 = cmgCall.removeGraffitiTimeMsec
+  text13 = 0.0
+  localValue7 = localValue7(localValue8, stringHelper2, text13)
+  localValue8 = cmgOperation.removeGraffitiTimeMsec
   stringHelper2 = "graffiti_rag"
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "03a0c4cf0f".
-textValue5(textValue6, rageUiCall)
-textValue5 = RegisterNetEvent
-textValue6 = "266f8c002a"
+text5(text6, rageUiOperation)
+text5 = RegisterNetEvent
+text6 = "266f8c002a"
 -- Beginner: this function handles network event "266f8c002a".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1, arg2, arg3) ===
-function rageUiCall(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
-  arg4 = GetPlayerFromServerId
-  arg5 = arg1
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1, localValue2, localValue3) ===
+function rageUiOperation(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13, createVector3
+  localValue4 = GetPlayerFromServerId
+  localValue5 = localValue1
   -- Beginner: result below is playerIndex.
-  arg4 = arg4(arg5)
-  if -1 == arg4 then
+  localValue4 = localValue4(localValue5)
+  if -1 == localValue4 then
     return
   end
-  arg5 = GetPlayerPed
-  arg6 = arg4
+  localValue5 = GetPlayerPed
+  localValue6 = localValue4
   -- Beginner: result below is playerPed.
-  arg5 = arg5(arg6)
-  if 0 == arg5 then
+  localValue5 = localValue5(localValue6)
+  if 0 == localValue5 then
     return
   end
-  arg6 = Wait
-  arg7 = 1000
-  arg6(arg7)
-  arg6 = GetEntityForwardVector
-  arg7 = arg5
-  arg6 = arg6(arg7)
-  arg7 = GetEntityCoords
-  arg8 = arg5
+  localValue6 = Wait
+  localValue7 = 1000
+  localValue6(localValue7)
+  localValue6 = GetEntityForwardVector
+  localValue7 = localValue5
+  localValue6 = localValue6(localValue7)
+  localValue7 = GetEntityCoords
+  localValue8 = localValue5
   -- Beginner: result below is entityCoords.
-  arg7 = arg7(arg8)
-  arg8 = arg6 * 0.5
-  arg7 = arg7 + arg8
-  arg8 = vector3
+  localValue7 = localValue7(localValue8)
+  localValue8 = localValue6 * 0.5
+  localValue7 = localValue7 + localValue8
+  localValue8 = vector3
   stringHelper2 = 0.0
-  textValue13 = 0.0
-  vector3Builder = -0.5
-  arg8 = arg8(stringHelper2, textValue13, vector3Builder)
-  arg7 = arg7 + arg8
-  arg8 = GetEntityHeading
-  stringHelper2 = arg5
+  text13 = 0.0
+  createVector3 = -0.5
+  localValue8 = localValue8(stringHelper2, text13, createVector3)
+  localValue7 = localValue7 + localValue8
+  localValue8 = GetEntityHeading
+  stringHelper2 = localValue5
   -- Beginner: result below is heading.
-  arg8 = arg8(stringHelper2)
+  localValue8 = localValue8(stringHelper2)
   stringHelper2 = CMG
   stringHelper2 = stringHelper2.loadPtfx
-  textValue13 = "scr_recartheft"
-  stringHelper2(textValue13)
+  text13 = "scr_recartheft"
+  stringHelper2(text13)
   stringHelper2 = Citizen
   stringHelper2 = stringHelper2.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: textValue13; parameters: none) ===
-  function textValue13()
-    local arg12, arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16, flag9, workValue32, workValue, workValue3, workValue5, numberValue4, numberValue7, workValue10, numberValue9, flag3, flag4, flag5
-    arg12 = 1700
-    arg22 = 1
-    arg32 = math
-    arg32 = arg32.floor
-    dataTable2 = cmgCall.sprayGraffitiTimeMsec
-    dataTable2 = dataTable2 / arg12
-    arg32 = arg32(dataTable2)
-    dataTable2 = 1
-    for dataTable3 = arg22, arg32, dataTable2 do
-      dataTable5 = dataTable3 % 3
-      if 1 == dataTable5 then
-        dataTable5 = CMG
-        dataTable5 = dataTable5.getPlayerCoords
+  -- === HELPER FUNCTION (decompiler name: text13; parameters: none) ===
+  function text13()
+    local localValue12, localValue22, localValue32, dataCollection2, dataCollection3, dataCollection5, coords, number16, stateFlag9, workingValue32, workingValue, workingValue3, workingValue5, number4, number7, workingValue10, number9, stateFlag3, stateFlag4, stateFlag5
+    localValue12 = 1700
+    localValue22 = 1
+    localValue32 = math
+    localValue32 = localValue32.floor
+    dataCollection2 = cmgOperation.sprayGraffitiTimeMsec
+    dataCollection2 = dataCollection2 / localValue12
+    localValue32 = localValue32(dataCollection2)
+    dataCollection2 = 1
+    for dataCollection3 = localValue22, localValue32, dataCollection2 do
+      dataCollection5 = dataCollection3 % 3
+      if 1 == dataCollection5 then
+        dataCollection5 = CMG
+        dataCollection5 = dataCollection5.getPlayerCoords
         -- Beginner: result below is playerCoords.
-        dataTable5 = dataTable5()
+        dataCollection5 = dataCollection5()
         coords = GetEntityCoords
-        numberValue16 = arg5
-        flag9 = true
+        number16 = localValue5
+        stateFlag9 = true
         -- Beginner: result below is entityCoords.
-        coords = coords(numberValue16, flag9)
-        dataTable5 = dataTable5 - coords
-        dataTable5 = #dataTable5
-        if dataTable5 < 10.0 then
-          dataTable5 = SendNUIMessage
+        coords = coords(number16, stateFlag9)
+        dataCollection5 = dataCollection5 - coords
+        dataCollection5 = #dataCollection5
+        if dataCollection5 < 10.0 then
+          dataCollection5 = SendNUIMessage
           coords = {}
           coords.transactionType = "spray"
           -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-          dataTable5(coords)
+          dataCollection5(coords)
         end
       end
-      dataTable5 = UseParticleFxAssetNextCall
+      dataCollection5 = UseParticleFxAssetNextCall
       coords = "scr_recartheft"
-      dataTable5(coords)
-      dataTable5 = 0
+      dataCollection5(coords)
+      dataCollection5 = 0
       coords = 0
-      numberValue16 = 0
-      flag9 = arg3
-      if flag9 then
-        flag9 = cmgCall.coloursRGB
-        workValue32 = arg2
-        flag9 = flag9[workValue32]
-        workValue32 = flag9.r
-        workValue = flag9.g
-        numberValue16 = flag9.b
-        coords = workValue
-        dataTable5 = workValue32
+      number16 = 0
+      stateFlag9 = localValue3
+      if stateFlag9 then
+        stateFlag9 = cmgOperation.coloursRGB
+        workingValue32 = localValue2
+        stateFlag9 = stateFlag9[workingValue32]
+        workingValue32 = stateFlag9.r
+        workingValue = stateFlag9.g
+        number16 = stateFlag9.b
+        coords = workingValue
+        dataCollection5 = workingValue32
       else
-        flag9 = GetHudColour
-        workValue32 = cmgCall2.colourLookup
-        workValue = arg2
-        workValue32 = workValue32[workValue]
-        workValue32 = workValue32.hud
-        flag9, workValue32, workValue = flag9(workValue32)
-        numberValue16 = workValue
-        coords = workValue32
-        dataTable5 = flag9
+        stateFlag9 = GetHudColour
+        workingValue32 = cmgOperation2.colourLookup
+        workingValue = localValue2
+        workingValue32 = workingValue32[workingValue]
+        workingValue32 = workingValue32.hud
+        stateFlag9, workingValue32, workingValue = stateFlag9(workingValue32)
+        number16 = workingValue
+        coords = workingValue32
+        dataCollection5 = stateFlag9
       end
-      flag9 = SetParticleFxNonLoopedColour
-      workValue32 = dataTable5 / 255
-      workValue = coords / 255
-      workValue3 = numberValue16 / 255
-      flag9(workValue32, workValue, workValue3)
-      flag9 = SetParticleFxNonLoopedAlpha
-      workValue32 = 1.0
-      flag9(workValue32)
-      flag9 = StartParticleFxNonLoopedAtCoord
-      workValue32 = "scr_wheel_burnout"
-      workValue = arg7.x
-      workValue3 = arg7.y
-      workValue5 = arg7.z
-      workValue5 = workValue5 + 2.0
-      numberValue4 = 0.0
-      numberValue7 = 0.0
-      workValue10 = arg8
-      numberValue9 = 0.7
-      flag3 = false
-      flag4 = false
-      flag5 = false
-      flag9(workValue32, workValue, workValue3, workValue5, numberValue4, numberValue7, workValue10, numberValue9, flag3, flag4, flag5)
-      flag9 = Wait
-      workValue32 = arg12
-      flag9(workValue32)
+      stateFlag9 = SetParticleFxNonLoopedColour
+      workingValue32 = dataCollection5 / 255
+      workingValue = coords / 255
+      workingValue3 = number16 / 255
+      stateFlag9(workingValue32, workingValue, workingValue3)
+      stateFlag9 = SetParticleFxNonLoopedAlpha
+      workingValue32 = 1.0
+      stateFlag9(workingValue32)
+      stateFlag9 = StartParticleFxNonLoopedAtCoord
+      workingValue32 = "scr_wheel_burnout"
+      workingValue = localValue7.x
+      workingValue3 = localValue7.y
+      workingValue5 = localValue7.z
+      workingValue5 = workingValue5 + 2.0
+      number4 = 0.0
+      number7 = 0.0
+      workingValue10 = localValue8
+      number9 = 0.7
+      stateFlag3 = false
+      stateFlag4 = false
+      stateFlag5 = false
+      stateFlag9(workingValue32, workingValue, workingValue3, workingValue5, number4, number7, workingValue10, number9, stateFlag3, stateFlag4, stateFlag5)
+      stateFlag9 = Wait
+      workingValue32 = localValue12
+      stateFlag9(workingValue32)
     end
-    arg22 = RemoveNamedPtfxAsset
-    arg32 = "scr_recartheft"
-    arg22(arg32)
+    localValue22 = RemoveNamedPtfxAsset
+    localValue32 = "scr_recartheft"
+    localValue22(localValue32)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  stringHelper2(textValue13)
+  stringHelper2(text13)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "266f8c002a".
-textValue5(textValue6, rageUiCall)
-textValue5 = CMG
+text5(text6, rageUiOperation)
+text5 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1, arg2) ===
-function textValue6(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13
-  arg3 = {}
-  arg4 = pairs
-  arg5 = dataTable
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for arg8, stringHelper2 in arg4, arg5, arg6, arg7 do
-    textValue13 = stringHelper2.position
-    textValue13 = textValue13 - arg1
-    textValue13 = #textValue13
-    if arg2 > textValue13 then
-      textValue13 = stringHelper2.id
-      arg3[textValue13] = stringHelper2
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1, localValue2) ===
+function text6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13
+  localValue3 = {}
+  localValue4 = pairs
+  localValue5 = dataCollection
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for localValue8, stringHelper2 in localValue4, localValue5, localValue6, localValue7 do
+    text13 = stringHelper2.position
+    text13 = text13 - localValue1
+    text13 = #text13
+    if localValue2 > text13 then
+      text13 = stringHelper2.id
+      localValue3[text13] = stringHelper2
     end
   end
-  return arg3
+  return localValue3
 end
-textValue5.getNearbyGraffitisInRangeClient = textValue6
-textValue5 = RegisterNetEvent
-textValue6 = "10f402facb"
+text5.getNearbyGraffitisInRangeClient = text6
+text5 = RegisterNetEvent
+text6 = "10f402facb"
 -- Beginner: this function handles network event "10f402facb".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
-function rageUiCall()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13
-  arg1 = flag
-  if arg1 then
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: none) ===
+function rageUiOperation()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stringHelper2, text13
+  localValue1 = stateFlag
+  if localValue1 then
     return
   end
-  arg1 = cmgCall.maxSurfaceDistance
-  arg2 = nil
-  arg3 = pairs
-  arg4 = dataTable
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    stringHelper2 = arg8.position
-    textValue13 = CMG
-    textValue13 = textValue13.getPlayerCoords
+  localValue1 = cmgOperation.maxSurfaceDistance
+  localValue2 = nil
+  localValue3 = pairs
+  localValue4 = dataCollection
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    stringHelper2 = localValue8.position
+    text13 = CMG
+    text13 = text13.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    textValue13 = textValue13()
-    stringHelper2 = stringHelper2 - textValue13
+    text13 = text13()
+    stringHelper2 = stringHelper2 - text13
     stringHelper2 = #stringHelper2
-    if arg1 > stringHelper2 then
-      arg2 = arg8.id
-      arg1 = stringHelper2
+    if localValue1 > stringHelper2 then
+      localValue2 = localValue8.id
+      localValue1 = stringHelper2
     end
   end
-  arg3 = dataTable
-  if not arg3 then
-    arg3 = notify
-    arg4 = "~r~No nearby graffiti to clean."
+  localValue3 = dataCollection
+  if not localValue3 then
+    localValue3 = notify
+    localValue4 = "~r~No nearby graffiti to clean."
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
     return
   end
-  arg3 = TriggerServerEvent
-  arg4 = "5b60cbfbdd"
-  arg5 = arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "5b60cbfbdd"
+  localValue5 = localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5b60cbfbdd".
-  arg3(arg4, arg5)
+  localValue3(localValue4, localValue5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "10f402facb".
-textValue5(textValue6, rageUiCall)
-textValue5 = CMG
-textValue5 = textValue5.registerDevMenuItems
-textValue6 = "Graffiti"
+text5(text6, rageUiOperation)
+text5 = CMG
+text5 = text5.registerDevMenuItems
+text6 = "Graffiti"
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
-function rageUiCall()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = RageUI
-  arg1 = arg1.Button
-  arg2 = "Play Local Spray"
-  arg3 = ""
-  arg4 = true
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: none) ===
+function rageUiOperation()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = RageUI
+  localValue1 = localValue1.Button
+  localValue2 = "Play Local Spray"
+  localValue3 = ""
+  localValue4 = true
 
-  -- === HELPER FUNCTION: arg5(arg12, arg22, arg32) ===
-  function arg5(arg12, arg22, arg32)
-    local dataTable2, dataTable3, dataTable5
-    if arg32 then
-      dataTable2 = TriggerEvent
-      dataTable3 = "e2e61e9a92"
+  -- === HELPER FUNCTION: localValue5(localValue12, localValue22, localValue32) ===
+  function localValue5(localValue12, localValue22, localValue32)
+    local dataCollection2, dataCollection3, dataCollection5
+    if localValue32 then
+      dataCollection2 = TriggerEvent
+      dataCollection3 = "e2e61e9a92"
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e2e61e9a92".
-      dataTable2(dataTable3)
-      dataTable2 = TriggerEvent
-      dataTable3 = "266f8c002a"
-      dataTable5 = CMG
-      dataTable5 = dataTable5.getLocalPlayerSrc
-      dataTable5 = dataTable5()
-      dataTable2(dataTable3, dataTable5)
+      dataCollection2(dataCollection3)
+      dataCollection2 = TriggerEvent
+      dataCollection3 = "266f8c002a"
+      dataCollection5 = CMG
+      dataCollection5 = dataCollection5.getLocalPlayerSrc
+      dataCollection5 = dataCollection5()
+      dataCollection2(dataCollection3, dataCollection5)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, arg5)
+  localValue1(localValue2, localValue3, localValue4, localValue5)
 end
-textValue5(textValue6, rageUiCall)
-textValue5 = CMG
+text5(text6, rageUiOperation)
+text5 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = dataTable
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = dataCollection
+  return localValue1
 end
-textValue5.getNearbyGraffitis = textValue6
-textValue5 = AddEventHandler
-textValue6 = "onResourceStop"
+text5.getNearbyGraffitis = text6
+text5 = AddEventHandler
+text6 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
-function rageUiCall(arg1)
-  local arg2
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg1 ~= arg2 then
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1) ===
+function rageUiOperation(localValue1)
+  local localValue2
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue1 ~= localValue2 then
     return
   end
-  arg2 = workValue14
-  arg2()
+  localValue2 = workingValue14
+  localValue2()
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-textValue5(textValue6, rageUiCall)
+text5(text6, rageUiOperation)

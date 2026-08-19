@@ -32,368 +32,368 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable, flag7, workValue9, numberValue5, workValue11, workValue12, workValue13, workValue14, workValue15, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, cmgCall2, textValue, workValue8
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable = "cfg/cfg_forcedequipment"
+local cmgOperation, dataCollection, stateFlag7, workingValue9, number5, workingValue11, workingValue12, workingValue13, workingValue14, workingValue15, workingValue, workingValue2, workingValue3, workingValue4, workingValue5, workingValue6, workingValue7, cmgOperation2, text, workingValue8
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection = "cfg/cfg_forcedequipment"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable)
-cmgCall = cmgCall.types
-cmgCall = cmgCall.crutches
-cmgCall = cmgCall.defaultDurationSeconds
-dataTable = {}
-dataTable.disableSprint = true
-dataTable.disableWeapons = true
-dataTable.crutchModel = 1702952751
-dataTable.clipSet = "move_lester_CaneUp"
-flag7 = false
-workValue9 = nil
-numberValue5 = -1569615261
+cmgOperation = cmgOperation(dataCollection)
+cmgOperation = cmgOperation.types
+cmgOperation = cmgOperation.crutches
+cmgOperation = cmgOperation.defaultDurationSeconds
+dataCollection = {}
+dataCollection.disableSprint = true
+dataCollection.disableWeapons = true
+dataCollection.crutchModel = 1702952751
+dataCollection.clipSet = "move_lester_CaneUp"
+stateFlag7 = false
+workingValue9 = nil
+number5 = -1569615261
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, serverEventCall, cmgCall3, textValue3, workValue10
-  arg1 = workValue9
-  if arg1 then
-    arg1 = DoesEntityExist
-    serverEventCall = workValue9
-    arg1 = arg1(serverEventCall)
-    if arg1 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, serverEventCall, cmgOperation3, text3, workingValue10
+  localValue1 = workingValue9
+  if localValue1 then
+    localValue1 = DoesEntityExist
+    serverEventCall = workingValue9
+    localValue1 = localValue1(serverEventCall)
+    if localValue1 then
+      goto continueAtStep10
     end
   end
   return
-  ::flow_label_10::
-  arg1 = NetworkGetNetworkIdFromEntity
-  serverEventCall = workValue9
-  arg1 = arg1(serverEventCall)
-  if arg1 and 0 ~= arg1 then
+  ::continueAtStep10::
+  localValue1 = NetworkGetNetworkIdFromEntity
+  serverEventCall = workingValue9
+  localValue1 = localValue1(serverEventCall)
+  if localValue1 and 0 ~= localValue1 then
     serverEventCall = TriggerServerEvent
-    cmgCall3 = "ce24d993d8"
-    textValue3 = "crutch"
-    workValue10 = arg1
+    cmgOperation3 = "ce24d993d8"
+    text3 = "crutch"
+    workingValue10 = localValue1
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ce24d993d8".
-    serverEventCall(cmgCall3, textValue3, workValue10)
+    serverEventCall(cmgOperation3, text3, workingValue10)
   else
     serverEventCall = CreateThread
     -- Beginner: this function is the body of a background FiveM thread.
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-    function cmgCall3()
-      local waitCall, numberValue4, textValue2, flag8
+    -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+    function cmgOperation3()
+      local waitCall, number4, text2, stateFlag8
       waitCall = Wait
-      numberValue4 = 100
-      waitCall(numberValue4)
-      waitCall = workValue9
+      number4 = 100
+      waitCall(number4)
+      waitCall = workingValue9
       if waitCall then
         waitCall = DoesEntityExist
-        numberValue4 = workValue9
-        waitCall = waitCall(numberValue4)
+        number4 = workingValue9
+        waitCall = waitCall(number4)
         if waitCall then
           waitCall = NetworkGetNetworkIdFromEntity
-          numberValue4 = workValue9
-          waitCall = waitCall(numberValue4)
-          arg1 = waitCall
-          waitCall = arg1
+          number4 = workingValue9
+          waitCall = waitCall(number4)
+          localValue1 = waitCall
+          waitCall = localValue1
           if waitCall then
-            waitCall = arg1
+            waitCall = localValue1
             if 0 ~= waitCall then
               waitCall = TriggerServerEvent
-              numberValue4 = "ce24d993d8"
-              textValue2 = "crutch"
-              flag8 = arg1
+              number4 = "ce24d993d8"
+              text2 = "crutch"
+              stateFlag8 = localValue1
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ce24d993d8".
-              waitCall(numberValue4, textValue2, flag8)
+              waitCall(number4, text2, stateFlag8)
             end
           end
         end
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    serverEventCall(cmgCall3)
+    serverEventCall(cmgOperation3)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-function workValue12()
-  local arg1, serverEventCall, cmgCall3, textValue3, workValue10, flag10, numberValue7, numberValue8, flag13, flag15, flag, numberValue, numberValue2, flag2, flag3, flag4, flag5, numberValue3, flag6
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+function workingValue12()
+  local localValue1, serverEventCall, cmgOperation3, text3, workingValue10, stateFlag10, number7, number8, stateFlag13, stateFlag15, stateFlag, number, number2, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number3, stateFlag6
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
+  localValue1 = localValue1()
   serverEventCall = CMG
   serverEventCall = serverEventCall.getPlayerCoords
   -- Beginner: result below is playerCoords.
   serverEventCall = serverEventCall()
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.requestEntitySpawn
-  textValue3 = "crutch"
-  cmgCall3(textValue3)
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.loadModel
-  textValue3 = dataTable.crutchModel
-  cmgCall3 = cmgCall3(textValue3)
-  if not cmgCall3 then
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.requestEntitySpawn
+  text3 = "crutch"
+  cmgOperation3(text3)
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.loadModel
+  text3 = dataCollection.crutchModel
+  cmgOperation3 = cmgOperation3(text3)
+  if not cmgOperation3 then
     return
   end
-  textValue3 = CreateObject
-  workValue10 = cmgCall3
-  flag10 = serverEventCall.x
-  numberValue7 = serverEventCall.y
-  numberValue8 = serverEventCall.z
-  flag13 = true
-  flag15 = true
-  flag = false
+  text3 = CreateObject
+  workingValue10 = cmgOperation3
+  stateFlag10 = serverEventCall.x
+  number7 = serverEventCall.y
+  number8 = serverEventCall.z
+  stateFlag13 = true
+  stateFlag15 = true
+  stateFlag = false
   -- Beginner: result below is objectEntity.
-  textValue3 = textValue3(workValue10, flag10, numberValue7, numberValue8, flag13, flag15, flag)
-  workValue9 = textValue3
-  textValue3 = AttachEntityToEntity
-  workValue10 = workValue9
-  flag10 = arg1
-  numberValue7 = 70
-  numberValue8 = 1.18
-  flag13 = -0.36
-  flag15 = -0.2
-  flag = -20.0
-  numberValue = -87.0
-  numberValue2 = -20.0
-  flag2 = true
-  flag3 = true
-  flag4 = false
-  flag5 = true
-  numberValue3 = 1
-  flag6 = true
+  text3 = text3(workingValue10, stateFlag10, number7, number8, stateFlag13, stateFlag15, stateFlag)
+  workingValue9 = text3
+  text3 = AttachEntityToEntity
+  workingValue10 = workingValue9
+  stateFlag10 = localValue1
+  number7 = 70
+  number8 = 1.18
+  stateFlag13 = -0.36
+  stateFlag15 = -0.2
+  stateFlag = -20.0
+  number = -87.0
+  number2 = -20.0
+  stateFlag2 = true
+  stateFlag3 = true
+  stateFlag4 = false
+  stateFlag5 = true
+  number3 = 1
+  stateFlag6 = true
   -- Beginner: Attach one entity to another entity.
-  textValue3(workValue10, flag10, numberValue7, numberValue8, flag13, flag15, flag, numberValue, numberValue2, flag2, flag3, flag4, flag5, numberValue3, flag6)
-  textValue3 = SetModelAsNoLongerNeeded
-  workValue10 = cmgCall3
-  textValue3(workValue10)
-  textValue3 = workValue11
-  textValue3()
+  text3(workingValue10, stateFlag10, number7, number8, stateFlag13, stateFlag15, stateFlag, number, number2, stateFlag2, stateFlag3, stateFlag4, stateFlag5, number3, stateFlag6)
+  text3 = SetModelAsNoLongerNeeded
+  workingValue10 = cmgOperation3
+  text3(workingValue10)
+  text3 = workingValue11
+  text3()
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, serverEventCall, cmgCall3, textValue3, workValue10, flag10
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, serverEventCall, cmgOperation3, text3, workingValue10, stateFlag10
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
+  localValue1 = localValue1()
   serverEventCall = GetCurrentPedWeapon
-  cmgCall3 = arg1
-  textValue3 = 0
-  workValue10 = false
-  serverEventCall, cmgCall3 = serverEventCall(cmgCall3, textValue3, workValue10)
+  cmgOperation3 = localValue1
+  text3 = 0
+  workingValue10 = false
+  serverEventCall, cmgOperation3 = serverEventCall(cmgOperation3, text3, workingValue10)
   if serverEventCall then
-    textValue3 = false
-    workValue10 = "You can't use a crutch while having a weapon out!"
-    return textValue3, workValue10
+    text3 = false
+    workingValue10 = "You can't use a crutch while having a weapon out!"
+    return text3, workingValue10
   else
-    textValue3 = IsPedInAnyVehicle
-    workValue10 = arg1
-    flag10 = false
-    textValue3 = textValue3(workValue10, flag10)
-    if textValue3 then
-      textValue3 = false
-      workValue10 = "You can't use a crutch while in a vehicle!"
-      return textValue3, workValue10
+    text3 = IsPedInAnyVehicle
+    workingValue10 = localValue1
+    stateFlag10 = false
+    text3 = text3(workingValue10, stateFlag10)
+    if text3 then
+      text3 = false
+      workingValue10 = "You can't use a crutch while in a vehicle!"
+      return text3, workingValue10
     else
-      textValue3 = IsEntityDead
-      workValue10 = arg1
-      textValue3 = textValue3(workValue10)
-      if textValue3 then
-        textValue3 = false
-        workValue10 = "You can't use a crutch while dead!"
-        return textValue3, workValue10
+      text3 = IsEntityDead
+      workingValue10 = localValue1
+      text3 = text3(workingValue10)
+      if text3 then
+        text3 = false
+        workingValue10 = "You can't use a crutch while dead!"
+        return text3, workingValue10
       else
-        textValue3 = IsPedInMeleeCombat
-        workValue10 = arg1
-        textValue3 = textValue3(workValue10)
-        if textValue3 then
-          textValue3 = false
-          workValue10 = "You can't use a crutch while in combat!"
-          return textValue3, workValue10
+        text3 = IsPedInMeleeCombat
+        workingValue10 = localValue1
+        text3 = text3(workingValue10)
+        if text3 then
+          text3 = false
+          workingValue10 = "You can't use a crutch while in combat!"
+          return text3, workingValue10
         else
-          textValue3 = IsPedFalling
-          workValue10 = arg1
-          textValue3 = textValue3(workValue10)
-          if textValue3 then
-            textValue3 = false
-            workValue10 = "You can't use a crutch while falling!"
-            return textValue3, workValue10
+          text3 = IsPedFalling
+          workingValue10 = localValue1
+          text3 = text3(workingValue10)
+          if text3 then
+            text3 = false
+            workingValue10 = "You can't use a crutch while falling!"
+            return text3, workingValue10
           else
-            textValue3 = IsPedRagdoll
-            workValue10 = arg1
-            textValue3 = textValue3(workValue10)
-            if textValue3 then
-              textValue3 = false
-              workValue10 = "You can't use a crutch while in ragdoll!"
-              return textValue3, workValue10
+            text3 = IsPedRagdoll
+            workingValue10 = localValue1
+            text3 = text3(workingValue10)
+            if text3 then
+              text3 = false
+              workingValue10 = "You can't use a crutch while in ragdoll!"
+              return text3, workingValue10
             end
           end
         end
       end
     end
   end
-  textValue3 = true
-  return textValue3
+  text3 = true
+  return text3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, serverEventCall, cmgCall3
-  arg1 = workValue9
-  if arg1 then
-    arg1 = DoesEntityExist
-    serverEventCall = workValue9
-    arg1 = arg1(serverEventCall)
-    if arg1 then
-      arg1 = DeleteEntity
-      serverEventCall = workValue9
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, serverEventCall, cmgOperation3
+  localValue1 = workingValue9
+  if localValue1 then
+    localValue1 = DoesEntityExist
+    serverEventCall = workingValue9
+    localValue1 = localValue1(serverEventCall)
+    if localValue1 then
+      localValue1 = DeleteEntity
+      serverEventCall = workingValue9
       -- Beginner: Delete a GTA entity.
-      arg1(serverEventCall)
-      arg1 = nil
-      workValue9 = arg1
+      localValue1(serverEventCall)
+      localValue1 = nil
+      workingValue9 = localValue1
     end
   end
-  arg1 = TriggerServerEvent
+  localValue1 = TriggerServerEvent
   serverEventCall = "607b2e0073"
-  cmgCall3 = "crutch"
+  cmgOperation3 = "crutch"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "607b2e0073".
-  arg1(serverEventCall, cmgCall3)
+  localValue1(serverEventCall, cmgOperation3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, serverEventCall, cmgCall3
-  arg1 = workValue14
-  arg1()
-  arg1 = false
-  flag7 = arg1
-  arg1 = dataTable.disableSprint
-  if arg1 then
-    arg1 = SetPlayerSprint
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, serverEventCall, cmgOperation3
+  localValue1 = workingValue14
+  localValue1()
+  localValue1 = false
+  stateFlag7 = localValue1
+  localValue1 = dataCollection.disableSprint
+  if localValue1 then
+    localValue1 = SetPlayerSprint
     serverEventCall = PlayerId
     -- Beginner: result below is localPlayerIndex.
     serverEventCall = serverEventCall()
-    cmgCall3 = true
-    arg1(serverEventCall, cmgCall3)
+    cmgOperation3 = true
+    localValue1(serverEventCall, cmgOperation3)
   end
-  arg1 = ResetPedMovementClipset
+  localValue1 = ResetPedMovementClipset
   serverEventCall = CMG
   serverEventCall = serverEventCall.getPlayerPed
   -- Beginner: result below is localPlayerPed.
   serverEventCall = serverEventCall()
-  cmgCall3 = 1.0
-  arg1(serverEventCall, cmgCall3)
+  cmgOperation3 = 1.0
+  localValue1(serverEventCall, cmgOperation3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, serverEventCall, cmgCall3, textValue3, workValue10
-  arg1 = flag7
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, serverEventCall, cmgOperation3, text3, workingValue10
+  localValue1 = stateFlag7
+  if not localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 ~= arg1 then
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
     serverEventCall = IsEntityDead
-    cmgCall3 = arg1
-    serverEventCall = serverEventCall(cmgCall3)
+    cmgOperation3 = localValue1
+    serverEventCall = serverEventCall(cmgOperation3)
     if not serverEventCall then
       serverEventCall = IsPedInAnyVehicle
-      cmgCall3 = arg1
-      textValue3 = false
-      serverEventCall = serverEventCall(cmgCall3, textValue3)
+      cmgOperation3 = localValue1
+      text3 = false
+      serverEventCall = serverEventCall(cmgOperation3, text3)
       if not serverEventCall then
-        goto flow_label_22
+        goto continueAtStep22
       end
     end
   end
   return
-  ::flow_label_22::
+  ::continueAtStep22::
   serverEventCall = HasClipSetLoaded
-  cmgCall3 = dataTable.clipSet
-  serverEventCall = serverEventCall(cmgCall3)
+  cmgOperation3 = dataCollection.clipSet
+  serverEventCall = serverEventCall(cmgOperation3)
   if not serverEventCall then
     serverEventCall = RequestClipSet
-    cmgCall3 = dataTable.clipSet
-    serverEventCall(cmgCall3)
+    cmgOperation3 = dataCollection.clipSet
+    serverEventCall(cmgOperation3)
     return
   end
   serverEventCall = SetPedMovementClipset
-  cmgCall3 = arg1
-  textValue3 = dataTable.clipSet
-  workValue10 = 1.0
-  serverEventCall(cmgCall3, textValue3, workValue10)
+  cmgOperation3 = localValue1
+  text3 = dataCollection.clipSet
+  workingValue10 = 1.0
+  serverEventCall(cmgOperation3, text3, workingValue10)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, serverEventCall
-  arg1 = workValue
-  arg1()
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, serverEventCall
+  localValue1 = workingValue
+  localValue1()
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-function workValue3()
-  local arg1, serverEventCall
-  arg1 = Citizen
-  arg1 = arg1.CreateThread
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+function workingValue3()
+  local localValue1, serverEventCall
+  localValue1 = Citizen
+  localValue1 = localValue1.CreateThread
 
   -- === HELPER FUNCTION: serverEventCall() ===
   function serverEventCall()
-    local waitCall, numberValue4
+    local waitCall, number4
     while true do
-      waitCall = flag7
+      waitCall = stateFlag7
       if not waitCall then
         break
       end
-      waitCall = workValue
+      waitCall = workingValue
       waitCall()
       waitCall = Wait
-      numberValue4 = 100
-      waitCall(numberValue4)
+      number4 = 100
+      waitCall(number4)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg1(serverEventCall)
+  localValue1(serverEventCall)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, serverEventCall
-  arg1 = Citizen
-  arg1 = arg1.CreateThread
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, serverEventCall
+  localValue1 = Citizen
+  localValue1 = localValue1.CreateThread
 
   -- === HELPER FUNCTION: serverEventCall() ===
   function serverEventCall()
-    local waitCall, numberValue4, textValue2, flag8, flag9
+    local waitCall, number4, text2, stateFlag8, stateFlag9
     while true do
-      waitCall = flag7
+      waitCall = stateFlag7
       if not waitCall then
         break
       end
@@ -401,323 +401,323 @@ function workValue4()
       waitCall = waitCall.getPlayerPed
       -- Beginner: result below is localPlayerPed.
       waitCall = waitCall()
-      numberValue4 = SetPedCanPlayAmbientAnims
-      textValue2 = waitCall
-      flag8 = false
-      numberValue4(textValue2, flag8)
+      number4 = SetPedCanPlayAmbientAnims
+      text2 = waitCall
+      stateFlag8 = false
+      number4(text2, stateFlag8)
       if 0 ~= waitCall then
-        numberValue4 = IsPedInAnyVehicle
-        textValue2 = waitCall
-        flag8 = false
-        numberValue4 = numberValue4(textValue2, flag8)
-        if not numberValue4 then
-          numberValue4 = DisableControlAction
-          textValue2 = 0
-          flag8 = 22
-          flag9 = true
-          numberValue4(textValue2, flag8, flag9)
+        number4 = IsPedInAnyVehicle
+        text2 = waitCall
+        stateFlag8 = false
+        number4 = number4(text2, stateFlag8)
+        if not number4 then
+          number4 = DisableControlAction
+          text2 = 0
+          stateFlag8 = 22
+          stateFlag9 = true
+          number4(text2, stateFlag8, stateFlag9)
         end
       end
-      numberValue4 = Wait
-      textValue2 = 0
-      numberValue4(textValue2)
+      number4 = Wait
+      text2 = 0
+      number4(text2)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg1(serverEventCall)
+  localValue1(serverEventCall)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, serverEventCall
-  arg1 = Citizen
-  arg1 = arg1.CreateThread
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, serverEventCall
+  localValue1 = Citizen
+  localValue1 = localValue1.CreateThread
 
   -- === HELPER FUNCTION: serverEventCall() ===
   function serverEventCall()
-    local waitCall, numberValue4, textValue2, flag8, flag9, numberValue6, flag11, flag12, flag14
+    local waitCall, number4, text2, stateFlag8, stateFlag9, number6, stateFlag11, stateFlag12, stateFlag14
     waitCall = nil
-    numberValue4 = 0
+    number4 = 0
     while true do
-      textValue2 = Wait
-      flag8 = 250
-      textValue2(flag8)
-      textValue2 = flag7
-      if not textValue2 then
+      text2 = Wait
+      stateFlag8 = 250
+      text2(stateFlag8)
+      text2 = stateFlag7
+      if not text2 then
         break
       end
-      textValue2 = CMG
-      textValue2 = textValue2.getPlayerPed
+      text2 = CMG
+      text2 = text2.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      textValue2 = textValue2()
-      waitCall = textValue2
-      textValue2 = false
-      flag8 = GetCurrentPedWeapon
-      flag9 = waitCall
-      numberValue6 = 0
-      flag11 = false
-      flag8, flag9 = flag8(flag9, numberValue6, flag11)
-      if flag8 then
-        numberValue6 = dataTable.disableWeapons
-        if numberValue6 then
-          numberValue6 = SetCurrentPedWeapon
-          flag11 = waitCall
-          flag12 = numberValue5
-          flag14 = true
-          numberValue6(flag11, flag12, flag14)
-        elseif not textValue2 then
-          textValue2 = true
-          numberValue6 = workValue14
-          numberValue6()
+      text2 = text2()
+      waitCall = text2
+      text2 = false
+      stateFlag8 = GetCurrentPedWeapon
+      stateFlag9 = waitCall
+      number6 = 0
+      stateFlag11 = false
+      stateFlag8, stateFlag9 = stateFlag8(stateFlag9, number6, stateFlag11)
+      if stateFlag8 then
+        number6 = dataCollection.disableWeapons
+        if number6 then
+          number6 = SetCurrentPedWeapon
+          stateFlag11 = waitCall
+          stateFlag12 = number5
+          stateFlag14 = true
+          number6(stateFlag11, stateFlag12, stateFlag14)
+        elseif not text2 then
+          text2 = true
+          number6 = workingValue14
+          number6()
         end
       else
-        numberValue6 = IsPedInAnyVehicle
-        flag11 = waitCall
-        flag12 = true
-        numberValue6 = numberValue6(flag11, flag12)
-        if numberValue6 then
-          if not textValue2 then
-            textValue2 = true
-            numberValue6 = workValue14
-            numberValue6()
+        number6 = IsPedInAnyVehicle
+        stateFlag11 = waitCall
+        stateFlag12 = true
+        number6 = number6(stateFlag11, stateFlag12)
+        if number6 then
+          if not text2 then
+            text2 = true
+            number6 = workingValue14
+            number6()
           end
         else
-          numberValue6 = workValue9
-          if numberValue6 then
-            numberValue6 = DoesEntityExist
-            flag11 = workValue9
-            numberValue6 = numberValue6(flag11)
-            if numberValue6 then
-              goto flow_label_63
+          number6 = workingValue9
+          if number6 then
+            number6 = DoesEntityExist
+            stateFlag11 = workingValue9
+            number6 = number6(stateFlag11)
+            if number6 then
+              goto continueAtStep63
             end
           end
-          numberValue6 = Wait
-          flag11 = 750
-          numberValue6(flag11)
-          numberValue6 = workValue12
-          numberValue6()
-          textValue2 = false
-          goto flow_label_122
-          ::flow_label_63::
-          numberValue6 = IsEntityAttachedToEntity
-          flag11 = workValue9
-          flag12 = waitCall
-          numberValue6 = numberValue6(flag11, flag12)
-          if not numberValue6 then
-            numberValue6 = workValue14
-            numberValue6()
+          number6 = Wait
+          stateFlag11 = 750
+          number6(stateFlag11)
+          number6 = workingValue12
+          number6()
+          text2 = false
+          goto continueAtStep122
+          ::continueAtStep63::
+          number6 = IsEntityAttachedToEntity
+          stateFlag11 = workingValue9
+          stateFlag12 = waitCall
+          number6 = number6(stateFlag11, stateFlag12)
+          if not number6 then
+            number6 = workingValue14
+            number6()
           else
-            numberValue6 = IsPedRagdoll
-            flag11 = waitCall
-            numberValue6 = numberValue6(flag11)
-            if not numberValue6 then
-              numberValue6 = IsEntityDead
-              flag11 = waitCall
-              numberValue6 = numberValue6(flag11)
-              if not numberValue6 then
-                goto flow_label_88
+            number6 = IsPedRagdoll
+            stateFlag11 = waitCall
+            number6 = number6(stateFlag11)
+            if not number6 then
+              number6 = IsEntityDead
+              stateFlag11 = waitCall
+              number6 = number6(stateFlag11)
+              if not number6 then
+                goto continueAtStep88
               end
             end
-            numberValue6 = DetachEntity
-            flag11 = workValue9
-            flag12 = true
-            flag14 = true
-            numberValue6(flag11, flag12, flag14)
-            goto flow_label_122
-            ::flow_label_88::
-            numberValue6 = IsPedInMeleeCombat
-            flag11 = waitCall
-            numberValue6 = numberValue6(flag11)
-            if numberValue6 then
-              numberValue6 = Wait
-              flag11 = 500
-              numberValue6(flag11)
-              numberValue6 = DetachEntity
-              flag11 = workValue9
-              flag12 = true
-              flag14 = true
-              numberValue6(flag11, flag12, flag14)
+            number6 = DetachEntity
+            stateFlag11 = workingValue9
+            stateFlag12 = true
+            stateFlag14 = true
+            number6(stateFlag11, stateFlag12, stateFlag14)
+            goto continueAtStep122
+            ::continueAtStep88::
+            number6 = IsPedInMeleeCombat
+            stateFlag11 = waitCall
+            number6 = number6(stateFlag11)
+            if number6 then
+              number6 = Wait
+              stateFlag11 = 500
+              number6(stateFlag11)
+              number6 = DetachEntity
+              stateFlag11 = workingValue9
+              stateFlag12 = true
+              stateFlag14 = true
+              number6(stateFlag11, stateFlag12, stateFlag14)
             else
-              numberValue6 = IsPedFalling
-              flag11 = waitCall
-              numberValue6 = numberValue6(flag11)
-              if numberValue6 then
-                numberValue4 = numberValue4 + 1
-                if numberValue4 > 3 then
-                  numberValue6 = DetachEntity
-                  flag11 = workValue9
-                  flag12 = true
-                  flag14 = true
-                  numberValue6(flag11, flag12, flag14)
-                  numberValue4 = 0
+              number6 = IsPedFalling
+              stateFlag11 = waitCall
+              number6 = number6(stateFlag11)
+              if number6 then
+                number4 = number4 + 1
+                if number4 > 3 then
+                  number6 = DetachEntity
+                  stateFlag11 = workingValue9
+                  stateFlag12 = true
+                  stateFlag14 = true
+                  number6(stateFlag11, stateFlag12, stateFlag14)
+                  number4 = 0
                 end
-              elseif numberValue4 > 0 then
-                numberValue4 = numberValue4 - 1
+              elseif number4 > 0 then
+                number4 = number4 - 1
               end
             end
           end
         end
       end
-      ::flow_label_122::
+      ::continueAtStep122::
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg1(serverEventCall)
+  localValue1(serverEventCall)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-function workValue6()
-  local arg1, serverEventCall, cmgCall3, textValue3, workValue10, flag10, numberValue7
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+function workingValue6()
+  local localValue1, serverEventCall, cmgOperation3, text3, workingValue10, stateFlag10, number7
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  serverEventCall = workValue13
-  serverEventCall, cmgCall3 = serverEventCall()
+  localValue1 = localValue1()
+  serverEventCall = workingValue13
+  serverEventCall, cmgOperation3 = serverEventCall()
   if not serverEventCall then
-    textValue3 = notify
-    workValue10 = cmgCall3
+    text3 = notify
+    workingValue10 = cmgOperation3
     -- Beginner: Show a notification to the player.
-    textValue3(workValue10)
+    text3(workingValue10)
     return
   end
-  textValue3 = RequestClipSet
-  workValue10 = dataTable.clipSet
-  textValue3(workValue10)
+  text3 = RequestClipSet
+  workingValue10 = dataCollection.clipSet
+  text3(workingValue10)
   while true do
-    textValue3 = HasClipSetLoaded
-    workValue10 = dataTable.clipSet
-    textValue3 = textValue3(workValue10)
-    if textValue3 then
+    text3 = HasClipSetLoaded
+    workingValue10 = dataCollection.clipSet
+    text3 = text3(workingValue10)
+    if text3 then
       break
     end
-    textValue3 = Wait
-    workValue10 = 10
-    textValue3(workValue10)
+    text3 = Wait
+    workingValue10 = 10
+    text3(workingValue10)
   end
-  textValue3 = SetPedMovementClipset
-  workValue10 = arg1
-  flag10 = dataTable.clipSet
-  numberValue7 = 1.0
-  textValue3(workValue10, flag10, numberValue7)
-  textValue3 = RemoveClipSet
-  workValue10 = dataTable.clipSet
-  textValue3(workValue10)
-  textValue3 = workValue12
-  textValue3()
-  textValue3 = true
-  flag7 = textValue3
-  textValue3 = dataTable.disableSprint
-  if textValue3 then
-    textValue3 = SetPlayerSprint
-    workValue10 = PlayerId
+  text3 = SetPedMovementClipset
+  workingValue10 = localValue1
+  stateFlag10 = dataCollection.clipSet
+  number7 = 1.0
+  text3(workingValue10, stateFlag10, number7)
+  text3 = RemoveClipSet
+  workingValue10 = dataCollection.clipSet
+  text3(workingValue10)
+  text3 = workingValue12
+  text3()
+  text3 = true
+  stateFlag7 = text3
+  text3 = dataCollection.disableSprint
+  if text3 then
+    text3 = SetPlayerSprint
+    workingValue10 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    workValue10 = workValue10()
-    flag10 = false
-    textValue3(workValue10, flag10)
+    workingValue10 = workingValue10()
+    stateFlag10 = false
+    text3(workingValue10, stateFlag10)
   end
-  textValue3 = workValue4
-  textValue3()
-  textValue3 = workValue5
-  textValue3()
-  textValue3 = workValue3
-  textValue3()
+  text3 = workingValue4
+  text3()
+  text3 = workingValue5
+  text3()
+  text3 = workingValue3
+  text3()
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, serverEventCall, cmgCall3
-  arg1 = flag7
-  if arg1 then
-    arg1 = workValue15
-    arg1()
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, serverEventCall, cmgOperation3
+  localValue1 = stateFlag7
+  if localValue1 then
+    localValue1 = workingValue15
+    localValue1()
   end
-  arg1 = TriggerServerEvent
+  localValue1 = TriggerServerEvent
   serverEventCall = "895f60bda9"
-  cmgCall3 = "crutches"
+  cmgOperation3 = "crutches"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "895f60bda9".
-  arg1(serverEventCall, cmgCall3)
+  localValue1(serverEventCall, cmgOperation3)
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.RegisterClientCallback
-textValue = "e6ffab8f7e"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.RegisterClientCallback
+text = "e6ffab8f7e"
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, serverEventCall
-  arg1 = flag7
-  return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, serverEventCall
+  localValue1 = stateFlag7
+  return localValue1
 end
-cmgCall2(textValue, workValue8)
-cmgCall2 = RegisterNetEvent
-textValue = "4dc930f97a"
+cmgOperation2(text, workingValue8)
+cmgOperation2 = RegisterNetEvent
+text = "4dc930f97a"
 -- Beginner: this function handles network event "4dc930f97a".
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, serverEventCall
-  arg1 = flag7
-  if arg1 then
-    arg1 = workValue15
-    arg1()
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, serverEventCall
+  localValue1 = stateFlag7
+  if localValue1 then
+    localValue1 = workingValue15
+    localValue1()
   end
-  arg1 = CMG
-  arg1 = arg1.removeForcedEquipment
+  localValue1 = CMG
+  localValue1 = localValue1.removeForcedEquipment
   serverEventCall = "Crutches"
-  arg1(serverEventCall)
+  localValue1(serverEventCall)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4dc930f97a".
-cmgCall2(textValue, workValue8)
-cmgCall2 = RegisterNetEvent
-textValue = "0e124fc408"
+cmgOperation2(text, workingValue8)
+cmgOperation2 = RegisterNetEvent
+text = "0e124fc408"
 -- Beginner: this function handles network event "0e124fc408".
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local serverEventCall, cmgCall3, textValue3, workValue10
-  serverEventCall = flag7
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local serverEventCall, cmgOperation3, text3, workingValue10
+  serverEventCall = stateFlag7
   if not serverEventCall then
-    serverEventCall = workValue6
+    serverEventCall = workingValue6
     serverEventCall()
   end
   serverEventCall = CMG
   serverEventCall = serverEventCall.addForcedEquipment
-  cmgCall3 = "Crutches"
-  textValue3 = arg1 or textValue3
-  if nil == arg1 or not arg1 then
-    textValue3 = cmgCall
+  cmgOperation3 = "Crutches"
+  text3 = localValue1 or text3
+  if nil == localValue1 or not localValue1 then
+    text3 = cmgOperation
   end
-  workValue10 = workValue7
-  serverEventCall(cmgCall3, textValue3, workValue10)
+  workingValue10 = workingValue7
+  serverEventCall(cmgOperation3, text3, workingValue10)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "0e124fc408".
-cmgCall2(textValue, workValue8)
-cmgCall2 = AddEventHandler
-textValue = "865ab191af"
-workValue8 = workValue2
+cmgOperation2(text, workingValue8)
+cmgOperation2 = AddEventHandler
+text = "865ab191af"
+workingValue8 = workingValue2
 -- Beginner: Register a client-side event handler. Event/command: "865ab191af".
-cmgCall2(textValue, workValue8)
-cmgCall2 = AddEventHandler
-textValue = "cd58811ed9"
-workValue8 = workValue2
-cmgCall2(textValue, workValue8)
-cmgCall2 = AddEventHandler
-textValue = "onResourceStop"
+cmgOperation2(text, workingValue8)
+cmgOperation2 = AddEventHandler
+text = "cd58811ed9"
+workingValue8 = workingValue2
+cmgOperation2(text, workingValue8)
+cmgOperation2 = AddEventHandler
+text = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
   local serverEventCall
   serverEventCall = GetCurrentResourceName
   serverEventCall = serverEventCall()
-  if arg1 ~= serverEventCall then
+  if localValue1 ~= serverEventCall then
     return
   end
-  serverEventCall = flag7
+  serverEventCall = stateFlag7
   if serverEventCall then
-    serverEventCall = workValue15
+    serverEventCall = workingValue15
     serverEventCall()
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-cmgCall2(textValue, workValue8)
+cmgOperation2(text, workingValue8)

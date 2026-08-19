@@ -32,2921 +32,2921 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable5, textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable5 = "cfg/cfg_emotes"
+local cmgOperation, dataCollection5, text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection5 = "cfg/cfg_emotes"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable5)
-dataTable5 = cmgCall.shared
-if not dataTable5 then
-  dataTable5 = {}
+cmgOperation = cmgOperation(dataCollection5)
+dataCollection5 = cmgOperation.shared
+if not dataCollection5 then
+  dataCollection5 = {}
 end
-cmgCall.shared = dataTable5
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "mainmenu"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateMenu
-textValue12 = ""
-textValue13 = "Main Menu"
-rageUiCall5 = CMG
-rageUiCall5 = rageUiCall5.getRageUIMenuWidth
-rageUiCall5 = rageUiCall5()
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuHeight
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = "cmg_emotes"
-textValue = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "emotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "mainmenu"
+cmgOperation.shared = dataCollection5
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "mainmenu"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateMenu
+text12 = ""
+text13 = "Main Menu"
+rageUiOperation5 = CMG
+rageUiOperation5 = rageUiOperation5.getRageUIMenuWidth
+rageUiOperation5 = rageUiOperation5()
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuHeight
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = "cmg_emotes"
+text = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "emotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "emotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "emotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "danceemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "danceemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Dance Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "danceemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Dance Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "danceemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "customemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "customemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Custom Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "customemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Custom Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "customemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "fireworksemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "fireworksemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Fireworks Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "fireworksemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Fireworks Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "fireworksemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "carryemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "carryemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Carry (nearby player)"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "carryemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Carry (nearby player)"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "carryemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "vehicleescrowemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "vehicleescrowemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Vehicle Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "vehicleescrowemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Vehicle Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "vehicleescrowemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "punishemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "punishemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Punish Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "punishemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Punish Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "punishemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "roleplayescrowemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "roleplayescrowemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Roleplay Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "roleplayescrowemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Roleplay Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "roleplayescrowemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "flagescrowemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "flagescrowemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Flag Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "flagescrowemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Flag Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "flagescrowemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "trophyescrowemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "trophyescrowemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Trophy Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "trophyescrowemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Trophy Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "trophyescrowemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "standardemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "standardemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Standard Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "standardemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Standard Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "standardemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "gunemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "gunemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Gun Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "gunemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Gun Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "gunemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "favouriteemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "favouriteemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Favourite Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "propemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Favourite Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "propemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Prop Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "propemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Prop Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "propemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "sharedemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "sharedemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Shared Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "walkingstyles"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "mainmenu"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Shared Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "walkingstyles"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Walking Styles"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "moods"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "mainmenu"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Walking Styles"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "moods"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Moods"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "animalemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Moods"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "animalemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Animal Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "animalemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Animal Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "animalemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = RMenu
-dataTable5 = dataTable5.Add
-textValue9 = "emotesmenu"
-textValue11 = "searchemotes"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue12 = RMenu
-textValue13 = textValue12
-textValue12 = textValue12.Get
-rageUiCall5 = "emotesmenu"
-rageUiCall7 = "emotes"
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = RMenu
+dataCollection5 = dataCollection5.Add
+text9 = "emotesmenu"
+text11 = "searchemotes"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text12 = RMenu
+text13 = text12
+text12 = text12.Get
+rageUiOperation5 = "emotesmenu"
+rageUiOperation7 = "emotes"
 -- Beginner: result below is menu.
-textValue12 = textValue12(textValue13, rageUiCall5, rageUiCall7)
-textValue13 = ""
-rageUiCall5 = "Search Emotes"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8 = rageUiCall8()
-textValue = "cmg_emotes"
-textValue3 = "cmg_emotes"
-rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60 = rageUiCall4(textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3)
-dataTable5(textValue9, textValue11, rageUiCall4, textValue12, textValue13, rageUiCall5, rageUiCall7, rageUiCall8, textValue, textValue3, textValue4, dataTable3, numberValue2, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, numberValue4, flag8, numberValue5, dataTable6, flag10, workValue14, numberValue6, workValue15, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, workValue16, flag20, flag21, flag23, textValue10, cmgCall2, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue28, dataTable7, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, workValue29, workValue30, workValue31, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue54, workValue55, workValue56, workValue57, rageUiCall6, textValue16, workValue58, flag26, flag27, textValue17, cmgCall3, textValue19, workValue60)
-dataTable5 = RMenu
-textValue9 = dataTable5
-dataTable5 = dataTable5.Get
-textValue11 = "emotesmenu"
-rageUiCall4 = "searchemotes"
+text12 = text12(text13, rageUiOperation5, rageUiOperation7)
+text13 = ""
+rageUiOperation5 = "Search Emotes"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8 = rageUiOperation8()
+text = "cmg_emotes"
+text3 = "cmg_emotes"
+rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60 = rageUiOperation4(text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3)
+dataCollection5(text9, text11, rageUiOperation4, text12, text13, rageUiOperation5, rageUiOperation7, rageUiOperation8, text, text3, text4, dataCollection3, number2, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, number4, stateFlag8, number5, dataCollection6, stateFlag10, workingValue14, number6, workingValue15, number8, number9, number10, number11, number12, workingValue16, stateFlag20, stateFlag21, stateFlag23, text10, cmgOperation2, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue28, dataCollection7, number14, number15, number16, number17, number18, workingValue29, workingValue30, workingValue31, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue54, workingValue55, workingValue56, workingValue57, rageUiOperation6, text16, workingValue58, stateFlag26, stateFlag27, text17, cmgOperation3, text19, workingValue60)
+dataCollection5 = RMenu
+text9 = dataCollection5
+dataCollection5 = dataCollection5.Get
+text11 = "emotesmenu"
+rageUiOperation4 = "searchemotes"
 -- Beginner: result below is menu.
-dataTable5 = dataTable5(textValue9, textValue11, rageUiCall4)
-textValue9 = dataTable5
-dataTable5 = dataTable5.AddInstructionButton
-textValue11 = {}
-rageUiCall4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-textValue12 = "Favourite emote"
-textValue11[1] = rageUiCall4
-textValue11[2] = textValue12
-dataTable5(textValue9, textValue11)
-dataTable5 = {}
-textValue9 = {}
-textValue11 = {}
+dataCollection5 = dataCollection5(text9, text11, rageUiOperation4)
+text9 = dataCollection5
+dataCollection5 = dataCollection5.AddInstructionButton
+text11 = {}
+rageUiOperation4 = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+text12 = "Favourite emote"
+text11[1] = rageUiOperation4
+text11[2] = text12
+dataCollection5(text9, text11)
+dataCollection5 = {}
+text9 = {}
+text11 = {}
 
--- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: arg1) ===
-function rageUiCall4(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = string
-  arg2 = arg2.lower
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "[^%w]+"
-  arg6 = "_"
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2 = arg3
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "^_+"
-  arg6 = ""
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2 = arg3
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "_+$"
-  arg6 = ""
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2 = arg3
-  if "" == arg2 then
-    arg3 = "other"
-    return arg3
+-- === HELPER FUNCTION (decompiler name: rageUiOperation4; parameters: localValue1) ===
+function rageUiOperation4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = string
+  localValue2 = localValue2.lower
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "[^%w]+"
+  localValue6 = "_"
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2 = localValue3
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "^_+"
+  localValue6 = ""
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2 = localValue3
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "_+$"
+  localValue6 = ""
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2 = localValue3
+  if "" == localValue2 then
+    localValue3 = "other"
+    return localValue3
   end
-  return arg2
+  return localValue2
 end
-textValue12 = {}
-textValue12.uk = "United Kingdom"
-textValue12.us = "United States"
-textValue12.eu = "European Union"
-textValue12.scotland = "Scotland"
-textValue12.ireland = "Ireland"
-textValue12.german = "Germany"
-textValue12.france = "France"
-textValue12.canada = "Canada"
-textValue12.mexico = "Mexico"
-textValue12.japan = "Japan"
-textValue12.russia = "Russia"
-textValue12.china = "China"
-textValue12.brazil = "Brazil"
-textValue12.australia = "Australia"
-textValue12.argentina = "Argentina"
-textValue12.spain = "Spain"
-textValue12.italy = "Italy"
-textValue12.poland = "Poland"
-textValue12.portugal = "Portugal"
-textValue12.turkey = "Turkey"
-textValue12.korea = "South Korea"
-textValue12.southkorea = "South Korea"
-textValue12.austria = "Austria"
-textValue12.belgium = "Belgium"
-textValue12.sapd = "SAPD"
-textValue12.sa = "San Andreas"
-textValue12.lsfd = "LSFD"
-textValue12.lssd = "LSSD"
-textValue12.lsservices = "LS Services"
-textValue12.sheriff = "Sheriff"
-textValue12.fbi = "FBI"
-textValue12.fp = "FP"
+text12 = {}
+text12.uk = "United Kingdom"
+text12.us = "United States"
+text12.eu = "European Union"
+text12.scotland = "Scotland"
+text12.ireland = "Ireland"
+text12.german = "Germany"
+text12.france = "France"
+text12.canada = "Canada"
+text12.mexico = "Mexico"
+text12.japan = "Japan"
+text12.russia = "Russia"
+text12.china = "China"
+text12.brazil = "Brazil"
+text12.australia = "Australia"
+text12.argentina = "Argentina"
+text12.spain = "Spain"
+text12.italy = "Italy"
+text12.poland = "Poland"
+text12.portugal = "Portugal"
+text12.turkey = "Turkey"
+text12.korea = "South Korea"
+text12.southkorea = "South Korea"
+text12.austria = "Austria"
+text12.belgium = "Belgium"
+text12.sapd = "SAPD"
+text12.sa = "San Andreas"
+text12.lsfd = "LSFD"
+text12.lssd = "LSSD"
+text12.lsservices = "LS Services"
+text12.sheriff = "Sheriff"
+text12.fbi = "FBI"
+text12.fp = "FP"
 
--- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg1) ===
-function textValue13(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  if not arg1 then
-    arg2 = nil
-    return arg2
+-- === HELPER FUNCTION (decompiler name: text13; parameters: localValue1) ===
+function text13(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  if not localValue1 then
+    localValue2 = nil
+    return localValue2
   end
-  arg2 = string
-  arg2 = arg2.lower
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "_s$"
-  arg6 = ""
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2 = arg3
-  arg3 = textValue12
-  arg3 = arg3[arg2]
-  if arg3 then
-    arg3 = textValue12
-    arg3 = arg3[arg2]
-    return arg3
+  localValue2 = string
+  localValue2 = localValue2.lower
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "_s$"
+  localValue6 = ""
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2 = localValue3
+  localValue3 = text12
+  localValue3 = localValue3[localValue2]
+  if localValue3 then
+    localValue3 = text12
+    localValue3 = localValue3[localValue2]
+    return localValue3
   end
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "_"
-  arg6 = " "
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2 = arg3
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = " "
-  arg5 = arg2
-  arg4 = arg4 .. arg5
-  arg5 = "%W%l"
-  arg6 = string
-  arg6 = arg6.upper
-  arg3 = arg3(arg4, arg5, arg6)
-  arg4 = arg3
-  arg3 = arg3.sub
-  arg5 = 2
-  return arg3(arg4, arg5)
-end
-
--- === HELPER FUNCTION (decompiler name: rageUiCall5; parameters: arg1) ===
-function rageUiCall5(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  if not arg1 then
-    arg2 = nil
-    return arg2
-  end
-  arg2 = string
-  arg2 = arg2.lower
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "prop_fnccorgm_02pole" == arg2 or "a3d_pole" == arg2 then
-    arg3 = nil
-    return arg3
-  end
-  if "stt_prop_flagpole_1a" == arg2 then
-    arg3 = "Giant Flag Pole"
-    return arg3
-  end
-  arg3 = string
-  arg3 = arg3.find
-  arg4 = arg2
-  arg5 = "ind_prop_dlc_flag"
-  arg6 = 1
-  arg7 = true
-  arg3 = arg3(arg4, arg5, arg6, arg7)
-  if arg3 then
-    arg3 = "DLC Flag"
-    return arg3
-  end
-  arg3 = string
-  arg3 = arg3.match
-  arg4 = arg2
-  arg5 = "apa_prop_flag_(.+)"
-  arg3 = arg3(arg4, arg5)
-  if arg3 then
-    arg4 = textValue13
-    arg5 = arg3
-    return arg4(arg5)
-  end
-  arg4 = string
-  arg4 = arg4.match
-  arg5 = arg2
-  arg6 = "prop_flag_(.+)"
-  arg4 = arg4(arg5, arg6)
-  if arg4 then
-    arg5 = textValue13
-    arg6 = arg4
-    return arg5(arg6)
-  end
-  arg5 = nil
-  return arg5
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "_"
+  localValue6 = " "
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2 = localValue3
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = " "
+  localValue5 = localValue2
+  localValue4 = localValue4 .. localValue5
+  localValue5 = "%W%l"
+  localValue6 = string
+  localValue6 = localValue6.upper
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue4 = localValue3
+  localValue3 = localValue3.sub
+  localValue5 = 2
+  return localValue3(localValue4, localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: rageUiCall7; parameters: arg1, arg2) ===
-function rageUiCall7(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  if arg1 then
-    arg3 = string
-    arg3 = arg3.match
-    arg4 = arg1
-    arg5 = "^(.-) \194\183 "
-    arg3 = arg3(arg4, arg5)
-    if arg3 and "" ~= arg3 then
-      return arg3
+-- === HELPER FUNCTION (decompiler name: rageUiOperation5; parameters: localValue1) ===
+function rageUiOperation5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  if not localValue1 then
+    localValue2 = nil
+    return localValue2
+  end
+  localValue2 = string
+  localValue2 = localValue2.lower
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "prop_fnccorgm_02pole" == localValue2 or "a3d_pole" == localValue2 then
+    localValue3 = nil
+    return localValue3
+  end
+  if "stt_prop_flagpole_1a" == localValue2 then
+    localValue3 = "Giant Flag Pole"
+    return localValue3
+  end
+  localValue3 = string
+  localValue3 = localValue3.find
+  localValue4 = localValue2
+  localValue5 = "ind_prop_dlc_flag"
+  localValue6 = 1
+  localValue7 = true
+  localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7)
+  if localValue3 then
+    localValue3 = "DLC Flag"
+    return localValue3
+  end
+  localValue3 = string
+  localValue3 = localValue3.match
+  localValue4 = localValue2
+  localValue5 = "apa_prop_flag_(.+)"
+  localValue3 = localValue3(localValue4, localValue5)
+  if localValue3 then
+    localValue4 = text13
+    localValue5 = localValue3
+    return localValue4(localValue5)
+  end
+  localValue4 = string
+  localValue4 = localValue4.match
+  localValue5 = localValue2
+  localValue6 = "prop_flag_(.+)"
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 then
+    localValue5 = text13
+    localValue6 = localValue4
+    return localValue5(localValue6)
+  end
+  localValue5 = nil
+  return localValue5
+end
+
+-- === HELPER FUNCTION (decompiler name: rageUiOperation7; parameters: localValue1, localValue2) ===
+function rageUiOperation7(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  if localValue1 then
+    localValue3 = string
+    localValue3 = localValue3.match
+    localValue4 = localValue1
+    localValue5 = "^(.-) \194\183 "
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 and "" ~= localValue3 then
+      return localValue3
     end
   end
-  if arg2 then
-    arg3 = arg2.animationOptions
-    if arg3 then
-      arg3 = arg2.animationOptions
-      arg4 = rageUiCall5
-      arg5 = arg3.secondProp
-      arg4 = arg4(arg5)
-      if arg4 then
-        return arg4
+  if localValue2 then
+    localValue3 = localValue2.animationOptions
+    if localValue3 then
+      localValue3 = localValue2.animationOptions
+      localValue4 = rageUiOperation5
+      localValue5 = localValue3.secondProp
+      localValue4 = localValue4(localValue5)
+      if localValue4 then
+        return localValue4
       end
-      arg5 = rageUiCall5
-      arg6 = arg3.prop
-      arg5 = arg5(arg6)
-      if arg5 then
-        return arg5
+      localValue5 = rageUiOperation5
+      localValue6 = localValue3.prop
+      localValue5 = localValue5(localValue6)
+      if localValue5 then
+        return localValue5
       end
     end
   end
-  arg3 = "Other"
-  return arg3
+  localValue3 = "Other"
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: rageUiCall8; parameters: arg1) ===
-function rageUiCall8(arg1)
-  local arg2, arg3, arg4
-  if not arg1 then
-    arg2 = ""
-    return arg2
+-- === HELPER FUNCTION (decompiler name: rageUiOperation8; parameters: localValue1) ===
+function rageUiOperation8(localValue1)
+  local localValue2, localValue3, localValue4
+  if not localValue1 then
+    localValue2 = ""
+    return localValue2
   end
-  arg2 = string
-  arg2 = arg2.match
-  arg3 = arg1
-  arg4 = "^.- \194\183 (.+)$"
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    return arg2
+  localValue2 = string
+  localValue2 = localValue2.match
+  localValue3 = localValue1
+  localValue4 = "^.- \194\183 (.+)$"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    return localValue2
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6
-  arg1 = cmgCall.escrowPazeeeKeys
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6
+  localValue1 = cmgOperation.escrowPazeeeKeys
+  if not localValue1 then
     return
   end
-  arg1 = {}
+  localValue1 = {}
 
-  -- === HELPER FUNCTION: arg2(arg12, arg22) ===
-  function arg2(arg12, arg22)
-    local arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable, dataTable2
-    if not arg12 then
+  -- === HELPER FUNCTION: localValue2(localValue12, localValue22) ===
+  function localValue2(localValue12, localValue22)
+    local localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection, dataCollection2
+    if not localValue12 then
       return
     end
-    arg32 = ipairs
-    workValue17 = arg12
-    arg32, workValue17, workValue27, flag25 = arg32(workValue17)
-    for numberValue19, textValue15 in arg32, workValue17, workValue27, flag25 do
-      workValue59 = cmgCall.emotes
-      workValue59 = workValue59[textValue15]
-      if not workValue59 then
-        workValue59 = cmgCall.props
-        workValue59 = workValue59[textValue15]
-        if not workValue59 then
-          workValue59 = cmgCall.shared
-          if workValue59 then
-            workValue59 = cmgCall.shared
-            workValue59 = workValue59[textValue15]
+    localValue32 = ipairs
+    workingValue17 = localValue12
+    localValue32, workingValue17, workingValue27, stateFlag25 = localValue32(workingValue17)
+    for number19, text15 in localValue32, workingValue17, workingValue27, stateFlag25 do
+      workingValue59 = cmgOperation.emotes
+      workingValue59 = workingValue59[text15]
+      if not workingValue59 then
+        workingValue59 = cmgOperation.props
+        workingValue59 = workingValue59[text15]
+        if not workingValue59 then
+          workingValue59 = cmgOperation.shared
+          if workingValue59 then
+            workingValue59 = cmgOperation.shared
+            workingValue59 = workingValue59[text15]
           end
         end
       end
-      if workValue59 then
-        playerPed = rageUiCall7
-        workValue = workValue59[3]
-        dataTable = workValue59
-        playerPed = playerPed(workValue, dataTable)
-        workValue = arg1
-        workValue = workValue[playerPed]
-        if not workValue then
-          workValue = arg1
-          dataTable = {}
-          workValue[playerPed] = dataTable
+      if workingValue59 then
+        playerPed = rageUiOperation7
+        workingValue = workingValue59[3]
+        dataCollection = workingValue59
+        playerPed = playerPed(workingValue, dataCollection)
+        workingValue = localValue1
+        workingValue = workingValue[playerPed]
+        if not workingValue then
+          workingValue = localValue1
+          dataCollection = {}
+          workingValue[playerPed] = dataCollection
         end
-        workValue = arg1
-        workValue = workValue[playerPed]
-        dataTable = arg1
-        dataTable = dataTable[playerPed]
-        dataTable = #dataTable
-        dataTable = dataTable + 1
-        dataTable2 = {}
-        dataTable2.command = textValue15
-        dataTable2.emoteInfo = workValue59
-        dataTable2.useNearby = arg22
-        workValue[dataTable] = dataTable2
+        workingValue = localValue1
+        workingValue = workingValue[playerPed]
+        dataCollection = localValue1
+        dataCollection = dataCollection[playerPed]
+        dataCollection = #dataCollection
+        dataCollection = dataCollection + 1
+        dataCollection2 = {}
+        dataCollection2.command = text15
+        dataCollection2.emoteInfo = workingValue59
+        dataCollection2.useNearby = localValue22
+        workingValue[dataCollection] = dataCollection2
       end
     end
   end
-  arg3 = arg2
-  arg4 = cmgCall.escrowPazeeeKeys
-  arg4 = arg4.flagEmotes
-  arg5 = false
-  arg3(arg4, arg5)
-  arg3 = arg2
-  arg4 = cmgCall.escrowPazeeeKeys
-  arg4 = arg4.flagProps
-  arg5 = false
-  arg3(arg4, arg5)
-  arg3 = arg2
-  arg4 = cmgCall.escrowPazeeeKeys
-  arg4 = arg4.flagShared
-  arg5 = true
-  arg3(arg4, arg5)
-  arg3 = {}
-  dataTable5 = arg3
-  arg3 = pairs
-  arg4 = arg1
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = dataTable5
-    arg9 = #arg9
-    arg10 = arg9 + 1
-    arg9 = dataTable5
-    arg9[arg10] = arg7
+  localValue3 = localValue2
+  localValue4 = cmgOperation.escrowPazeeeKeys
+  localValue4 = localValue4.flagEmotes
+  localValue5 = false
+  localValue3(localValue4, localValue5)
+  localValue3 = localValue2
+  localValue4 = cmgOperation.escrowPazeeeKeys
+  localValue4 = localValue4.flagProps
+  localValue5 = false
+  localValue3(localValue4, localValue5)
+  localValue3 = localValue2
+  localValue4 = cmgOperation.escrowPazeeeKeys
+  localValue4 = localValue4.flagShared
+  localValue5 = true
+  localValue3(localValue4, localValue5)
+  localValue3 = {}
+  dataCollection5 = localValue3
+  localValue3 = pairs
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = dataCollection5
+    localValue9 = #localValue9
+    localValue10 = localValue9 + 1
+    localValue9 = dataCollection5
+    localValue9[localValue10] = localValue7
   end
-  arg3 = table
-  arg3 = arg3.sort
-  arg4 = dataTable5
+  localValue3 = table
+  localValue3 = localValue3.sort
+  localValue4 = dataCollection5
 
-  -- === HELPER FUNCTION: arg5(arg12, arg22) ===
-  function arg5(arg12, arg22)
-    local arg32
-    if "Other" == arg12 then
-      arg32 = false
-      return arg32
+  -- === HELPER FUNCTION: localValue5(localValue12, localValue22) ===
+  function localValue5(localValue12, localValue22)
+    local localValue32
+    if "Other" == localValue12 then
+      localValue32 = false
+      return localValue32
     end
-    if "Other" == arg22 then
-      arg32 = true
-      return arg32
+    if "Other" == localValue22 then
+      localValue32 = true
+      return localValue32
     end
-    arg32 = arg12 < arg22
-    return arg32
+    localValue32 = localValue12 < localValue22
+    return localValue32
   end
-  arg3(arg4, arg5)
-  arg3 = RMenu
-  arg4 = arg3
-  arg3 = arg3.Get
-  arg5 = "emotesmenu"
-  arg6 = "flagescrowemotes"
+  localValue3(localValue4, localValue5)
+  localValue3 = RMenu
+  localValue4 = localValue3
+  localValue3 = localValue3.Get
+  localValue5 = "emotesmenu"
+  localValue6 = "flagescrowemotes"
   -- Beginner: result below is menu.
-  arg3 = arg3(arg4, arg5, arg6)
-  arg4 = ipairs
-  arg5 = dataTable5
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for arg8, arg9 in arg4, arg5, arg6, arg7 do
-    arg10 = arg1[arg9]
-    arg11 = table
-    arg11 = arg11.sort
-    workValue2 = arg10
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue4 = ipairs
+  localValue5 = dataCollection5
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for localValue8, localValue9 in localValue4, localValue5, localValue6, localValue7 do
+    localValue10 = localValue1[localValue9]
+    localValue11 = table
+    localValue11 = localValue11.sort
+    workingValue2 = localValue10
 
-    -- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg12, arg22) ===
-    function textValue5(arg12, arg22)
-      local arg32, workValue17, workValue27
-      arg32 = rageUiCall8
-      workValue17 = arg12.emoteInfo
-      workValue17 = workValue17[3]
-      arg32 = arg32(workValue17)
-      workValue17 = rageUiCall8
-      workValue27 = arg22.emoteInfo
-      workValue27 = workValue27[3]
-      workValue17 = workValue17(workValue27)
-      arg32 = arg32 < workValue17
-      return arg32
+    -- === HELPER FUNCTION (decompiler name: text5; parameters: localValue12, localValue22) ===
+    function text5(localValue12, localValue22)
+      local localValue32, workingValue17, workingValue27
+      localValue32 = rageUiOperation8
+      workingValue17 = localValue12.emoteInfo
+      workingValue17 = workingValue17[3]
+      localValue32 = localValue32(workingValue17)
+      workingValue17 = rageUiOperation8
+      workingValue27 = localValue22.emoteInfo
+      workingValue27 = workingValue27[3]
+      workingValue17 = workingValue17(workingValue27)
+      localValue32 = localValue32 < workingValue17
+      return localValue32
     end
-    arg11(workValue2, textValue5)
-    arg11 = textValue11
-    arg11[arg9] = arg10
-    arg11 = "flagcountry_"
-    workValue2 = rageUiCall4
-    textValue5 = arg9
-    workValue2 = workValue2(textValue5)
-    arg11 = arg11 .. workValue2
-    workValue2 = textValue9
-    workValue2[arg9] = arg11
-    workValue2 = RMenu
-    workValue2 = workValue2.Add
-    textValue5 = "emotesmenu"
-    dataTable4 = arg11
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.CreateSubMenu
-    textValue6 = arg3
-    textValue8 = ""
-    flag = arg9
-    rageUiCall2 = CMG
-    rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-    rageUiCall2 = rageUiCall2()
-    rageUiCall3 = CMG
-    rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-    rageUiCall3 = rageUiCall3()
-    flag5 = "cmg_emotes"
-    flag6 = "cmg_emotes"
-    rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6 = rageUiCall(textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6)
-    workValue2(textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6)
-    workValue2 = RMenu
-    textValue5 = workValue2
-    workValue2 = workValue2.Get
-    dataTable4 = "emotesmenu"
-    rageUiCall = arg11
+    localValue11(workingValue2, text5)
+    localValue11 = text11
+    localValue11[localValue9] = localValue10
+    localValue11 = "flagcountry_"
+    workingValue2 = rageUiOperation4
+    text5 = localValue9
+    workingValue2 = workingValue2(text5)
+    localValue11 = localValue11 .. workingValue2
+    workingValue2 = text9
+    workingValue2[localValue9] = localValue11
+    workingValue2 = RMenu
+    workingValue2 = workingValue2.Add
+    text5 = "emotesmenu"
+    dataCollection4 = localValue11
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.CreateSubMenu
+    text6 = localValue3
+    text8 = ""
+    stateFlag = localValue9
+    rageUiOperation2 = CMG
+    rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+    rageUiOperation2 = rageUiOperation2()
+    rageUiOperation3 = CMG
+    rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+    rageUiOperation3 = rageUiOperation3()
+    stateFlag5 = "cmg_emotes"
+    stateFlag6 = "cmg_emotes"
+    rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6 = rageUiOperation(text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6)
+    workingValue2(text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6)
+    workingValue2 = RMenu
+    text5 = workingValue2
+    workingValue2 = workingValue2.Get
+    dataCollection4 = "emotesmenu"
+    rageUiOperation = localValue11
     -- Beginner: result below is menu.
-    workValue2 = workValue2(textValue5, dataTable4, rageUiCall)
-    textValue5 = workValue2
-    workValue2 = workValue2.AddInstructionButton
-    dataTable4 = {}
-    rageUiCall = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
-    textValue6 = "Favourite emote"
-    dataTable4[1] = rageUiCall
-    dataTable4[2] = textValue6
-    workValue2(textValue5, dataTable4)
+    workingValue2 = workingValue2(text5, dataCollection4, rageUiOperation)
+    text5 = workingValue2
+    workingValue2 = workingValue2.AddInstructionButton
+    dataCollection4 = {}
+    rageUiOperation = "~INPUT_VEH_FLY_ATTACK_CAMERA~"
+    text6 = "Favourite emote"
+    dataCollection4[1] = rageUiOperation
+    dataCollection4[2] = text6
+    workingValue2(text5, dataCollection4)
   end
 end
-textValue3 = textValue
-textValue3()
-textValue3 = false
-textValue4 = ""
-dataTable3 = {}
-numberValue2 = 0
-workValue5 = nil
-workValue6 = nil
-workValue7 = nil
-workValue8 = nil
+text3 = text
+text3()
+text3 = false
+text4 = ""
+dataCollection3 = {}
+number2 = 0
+workingValue5 = nil
+workingValue6 = nil
+workingValue7 = nil
+workingValue8 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3
-  if nil == arg1 or false == arg1 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3
+  if nil == localValue1 or false == localValue1 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "number" == arg2 and 0 == arg1 then
-    arg2 = false
-    return arg2
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "number" == localValue2 and 0 == localValue1 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-function workValue10()
-  local arg1, arg2, arg3
-  arg1 = IsDisabledControlPressed
-  arg2 = 0
-  arg3 = 47
-  arg1 = arg1(arg2, arg3)
-  if not arg1 then
-    arg1 = IsControlPressed
-    arg2 = 0
-    arg3 = 47
-    arg1 = arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+function workingValue10()
+  local localValue1, localValue2, localValue3
+  localValue1 = IsDisabledControlPressed
+  localValue2 = 0
+  localValue3 = 47
+  localValue1 = localValue1(localValue2, localValue3)
+  if not localValue1 then
+    localValue1 = IsControlPressed
+    localValue2 = 0
+    localValue3 = 47
+    localValue1 = localValue1(localValue2, localValue3)
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2, arg3
-  arg1 = IsDisabledControlJustPressed
-  arg2 = 0
-  arg3 = 47
-  arg1 = arg1(arg2, arg3)
-  if not arg1 then
-    arg1 = IsControlJustPressed
-    arg2 = 0
-    arg3 = 47
-    arg1 = arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2, localValue3
+  localValue1 = IsDisabledControlJustPressed
+  localValue2 = 0
+  localValue3 = 47
+  localValue1 = localValue1(localValue2, localValue3)
+  if not localValue1 then
+    localValue1 = IsControlJustPressed
+    localValue2 = 0
+    localValue3 = 47
+    localValue1 = localValue1(localValue2, localValue3)
   end
-  return arg1
+  return localValue1
 end
-numberValue4 = 900
-flag8 = false
-numberValue5 = 0
-dataTable6 = {}
-flag10 = false
-workValue14 = nil
-numberValue6 = 0
-workValue15 = nil
-numberValue8 = 0
-numberValue9 = 0
-numberValue10 = 0
-numberValue11 = 1500
-numberValue12 = 0
+number4 = 900
+stateFlag8 = false
+number5 = 0
+dataCollection6 = {}
+stateFlag10 = false
+workingValue14 = nil
+number6 = 0
+workingValue15 = nil
+number8 = 0
+number9 = 0
+number10 = 0
+number11 = 1500
+number12 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: none) ===
-function workValue16()
-  local arg1, arg2, arg3
-  arg1 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: none) ===
+function workingValue16()
+  local localValue1, localValue2, localValue3
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  arg2 = numberValue12
-  arg2 = arg1 - arg2
-  arg3 = 5000
-  if arg2 < arg3 then
+  localValue1 = localValue1()
+  localValue2 = number12
+  localValue2 = localValue1 - localValue2
+  localValue3 = 5000
+  if localValue2 < localValue3 then
     return
   end
-  numberValue12 = arg1
-  arg2 = notify
-  arg3 = "~r~Emotes are being rate limited."
+  number12 = localValue1
+  localValue2 = notify
+  localValue3 = "~r~Emotes are being rate limited."
   -- Beginner: Show a notification to the player.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-flag20 = true
-flag21 = false
-flag23 = false
-textValue10 = ""
-cmgCall2 = CMG
+stateFlag20 = true
+stateFlag21 = false
+stateFlag23 = false
+text10 = ""
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
-function workValue18(arg1)
-  local arg2
-  flag21 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1) ===
+function workingValue18(localValue1)
+  local localValue2
+  stateFlag21 = localValue1
 end
-cmgCall2.setEmotesIgnoreCombatTimer = workValue18
+cmgOperation2.setEmotesIgnoreCombatTimer = workingValue18
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg1 = pairs
-  arg2 = dataTable3
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = DeleteEntity
-    arg8 = arg6
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue1 = pairs
+  localValue2 = dataCollection3
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = DeleteEntity
+    localValue8 = localValue6
     -- Beginner: Delete a GTA entity.
-    arg7(arg8)
+    localValue7(localValue8)
   end
-  arg1 = {}
-  dataTable3 = arg1
+  localValue1 = {}
+  dataCollection3 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) ===
-function workValue18(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-  local workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14
-  workValue2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11) ===
+function workingValue18(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+  local workingValue2, text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14
+  workingValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  workValue2 = workValue2()
-  textValue5 = GetEntityCoords
-  dataTable4 = workValue2
-  rageUiCall = true
+  workingValue2 = workingValue2()
+  text5 = GetEntityCoords
+  dataCollection4 = workingValue2
+  rageUiOperation = true
   -- Beginner: result below is entityCoords.
-  textValue5 = textValue5(dataTable4, rageUiCall)
-  dataTable4 = CMG
-  dataTable4 = dataTable4.loadModel
-  rageUiCall = arg1
-  dataTable4 = dataTable4(rageUiCall)
-  rageUiCall = CMG
-  rageUiCall = rageUiCall.requestEntitySpawn
-  if arg9 then
-    textValue6 = "emote_object_second"
-    if textValue6 then
-      goto flow_label_19
+  text5 = text5(dataCollection4, rageUiOperation)
+  dataCollection4 = CMG
+  dataCollection4 = dataCollection4.loadModel
+  rageUiOperation = localValue1
+  dataCollection4 = dataCollection4(rageUiOperation)
+  rageUiOperation = CMG
+  rageUiOperation = rageUiOperation.requestEntitySpawn
+  if localValue9 then
+    text6 = "emote_object_second"
+    if text6 then
+      goto continueAtStep19
     end
   end
-  textValue6 = "emote_object"
-  ::flow_label_19::
-  textValue8 = arg1
-  rageUiCall(textValue6, textValue8)
-  rageUiCall = CreateObject
-  textValue6 = GetHashKey
-  textValue8 = arg1
+  text6 = "emote_object"
+  ::continueAtStep19::
+  text8 = localValue1
+  rageUiOperation(text6, text8)
+  rageUiOperation = CreateObject
+  text6 = GetHashKey
+  text8 = localValue1
   -- Beginner: result below is hash.
-  textValue6 = textValue6(textValue8)
-  textValue8 = textValue5.x
-  flag = textValue5.y
-  rageUiCall2 = textValue5.z
-  rageUiCall2 = rageUiCall2 + 0.2
-  rageUiCall3 = true
-  flag5 = true
-  flag6 = true
+  text6 = text6(text8)
+  text8 = text5.x
+  stateFlag = text5.y
+  rageUiOperation2 = text5.z
+  rageUiOperation2 = rageUiOperation2 + 0.2
+  rageUiOperation3 = true
+  stateFlag5 = true
+  stateFlag6 = true
   -- Beginner: result below is objectEntity.
-  rageUiCall = rageUiCall(textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6)
-  if false == arg11 then
-    textValue6 = SetEntityCollision
-    textValue8 = rageUiCall
-    flag = true
-    rageUiCall2 = true
-    textValue6(textValue8, flag, rageUiCall2)
+  rageUiOperation = rageUiOperation(text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6)
+  if false == localValue11 then
+    text6 = SetEntityCollision
+    text8 = rageUiOperation
+    stateFlag = true
+    rageUiOperation2 = true
+    text6(text8, stateFlag, rageUiOperation2)
   else
-    textValue6 = SetEntityCollision
-    textValue8 = rageUiCall
-    flag = false
-    rageUiCall2 = false
-    textValue6(textValue8, flag, rageUiCall2)
+    text6 = SetEntityCollision
+    text8 = rageUiOperation
+    stateFlag = false
+    rageUiOperation2 = false
+    text6(text8, stateFlag, rageUiOperation2)
   end
-  textValue6 = AttachEntityToEntity
-  textValue8 = rageUiCall
-  flag = workValue2
-  rageUiCall2 = GetPedBoneIndex
-  rageUiCall3 = workValue2
-  flag5 = arg2
-  rageUiCall2 = rageUiCall2(rageUiCall3, flag5)
-  rageUiCall3 = arg3
-  flag5 = arg4
-  flag6 = arg5
-  flag7 = arg6
-  workValue12 = arg7
-  workValue13 = arg8
-  flag9 = true
-  flag11 = true
-  flag12 = false
-  flag13 = true
-  numberValue7 = 1
-  flag14 = true
+  text6 = AttachEntityToEntity
+  text8 = rageUiOperation
+  stateFlag = workingValue2
+  rageUiOperation2 = GetPedBoneIndex
+  rageUiOperation3 = workingValue2
+  stateFlag5 = localValue2
+  rageUiOperation2 = rageUiOperation2(rageUiOperation3, stateFlag5)
+  rageUiOperation3 = localValue3
+  stateFlag5 = localValue4
+  stateFlag6 = localValue5
+  stateFlag7 = localValue6
+  workingValue12 = localValue7
+  workingValue13 = localValue8
+  stateFlag9 = true
+  stateFlag11 = true
+  stateFlag12 = false
+  stateFlag13 = true
+  number7 = 1
+  stateFlag14 = true
   -- Beginner: Attach one entity to another entity.
-  textValue6(textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14)
-  if nil ~= arg10 then
-    textValue6 = SetObjectTextureVariation
-    textValue8 = rageUiCall
-    flag = arg10
-    textValue6(textValue8, flag)
+  text6(text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14)
+  if nil ~= localValue10 then
+    text6 = SetObjectTextureVariation
+    text8 = rageUiOperation
+    stateFlag = localValue10
+    text6(text8, stateFlag)
   end
-  textValue6 = table
-  textValue6 = textValue6.insert
-  textValue8 = dataTable3
-  flag = rageUiCall
-  textValue6(textValue8, flag)
-  textValue6 = SetModelAsNoLongerNeeded
-  textValue8 = dataTable4
-  textValue6(textValue8)
+  text6 = table
+  text6 = text6.insert
+  text8 = dataCollection3
+  stateFlag = rageUiOperation
+  text6(text8, stateFlag)
+  text6 = SetModelAsNoLongerNeeded
+  text8 = dataCollection4
+  text6(text8)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: arg1) ===
-function workValue19(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = SetFacialIdleAnimOverride
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: localValue1) ===
+function workingValue19(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = SetFacialIdleAnimOverride
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = arg1[2]
-  arg5 = nil
-  arg2(arg3, arg4, arg5)
-  arg2 = true
-  textValue3 = arg2
+  localValue3 = localValue3()
+  localValue4 = localValue1[2]
+  localValue5 = nil
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = true
+  text3 = localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5
-  arg2 = CMG
-  arg2 = arg2.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2()
-  if 0 ~= arg2 then
-    arg2 = notify
-    arg3 = "~r~Can not use scenarios whilst in a vehicle."
+  localValue2 = localValue2()
+  if 0 ~= localValue2 then
+    localValue2 = notify
+    localValue3 = "~r~Can not use scenarios whilst in a vehicle."
     -- Beginner: Show a notification to the player.
-    arg2(arg3)
+    localValue2(localValue3)
     return
   end
-  arg2 = PlayerPedId
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = arg1[1]
-  if "Scenario" == arg3 then
-    arg3 = ClearPedTasks
-    arg4 = arg2
-    arg3(arg4)
-    arg3 = TaskStartScenarioInPlace
-    arg4 = arg2
-    arg5 = arg1[2]
-    arg6 = 0
-    arg7 = true
-    arg3(arg4, arg5, arg6, arg7)
+  localValue2 = localValue2()
+  localValue3 = localValue1[1]
+  if "Scenario" == localValue3 then
+    localValue3 = ClearPedTasks
+    localValue4 = localValue2
+    localValue3(localValue4)
+    localValue3 = TaskStartScenarioInPlace
+    localValue4 = localValue2
+    localValue5 = localValue1[2]
+    localValue6 = 0
+    localValue7 = true
+    localValue3(localValue4, localValue5, localValue6, localValue7)
   else
-    arg3 = arg1[1]
-    if "MaleScenario" == arg3 then
-      arg3 = CMG
-      arg3 = arg3.getModelGender
-      arg3 = arg3()
-      if "male" == arg3 then
-        arg3 = ClearPedTasks
-        arg4 = arg2
-        arg3(arg4)
-        arg3 = TaskStartScenarioInPlace
-        arg4 = arg2
-        arg5 = arg1[2]
-        arg6 = 0
-        arg7 = true
-        arg3(arg4, arg5, arg6, arg7)
+    localValue3 = localValue1[1]
+    if "MaleScenario" == localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.getModelGender
+      localValue3 = localValue3()
+      if "male" == localValue3 then
+        localValue3 = ClearPedTasks
+        localValue4 = localValue2
+        localValue3(localValue4)
+        localValue3 = TaskStartScenarioInPlace
+        localValue4 = localValue2
+        localValue5 = localValue1[2]
+        localValue6 = 0
+        localValue7 = true
+        localValue3(localValue4, localValue5, localValue6, localValue7)
       else
-        arg3 = notify
-        arg4 = "~r~This scenario is male only."
+        localValue3 = notify
+        localValue4 = "~r~This scenario is male only."
         -- Beginner: Show a notification to the player.
-        arg3(arg4)
+        localValue3(localValue4)
       end
     else
-      arg3 = arg1[1]
-      if "ScenarioObject" == arg3 then
-        arg3 = GetOffsetFromEntityInWorldCoords
-        arg4 = arg2
-        arg5 = 0.0
-        arg6 = -0.5
-        arg7 = -0.5
-        arg3 = arg3(arg4, arg5, arg6, arg7)
-        arg4 = ClearPedTasks
-        arg5 = arg2
-        arg4(arg5)
-        arg4 = TaskStartScenarioAtPosition
-        arg5 = arg2
-        arg6 = arg1[2]
-        arg7 = arg3.x
-        arg8 = arg3.y
-        arg9 = arg3.z
-        arg10 = GetEntityHeading
-        arg11 = arg2
+      localValue3 = localValue1[1]
+      if "ScenarioObject" == localValue3 then
+        localValue3 = GetOffsetFromEntityInWorldCoords
+        localValue4 = localValue2
+        localValue5 = 0.0
+        localValue6 = -0.5
+        localValue7 = -0.5
+        localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7)
+        localValue4 = ClearPedTasks
+        localValue5 = localValue2
+        localValue4(localValue5)
+        localValue4 = TaskStartScenarioAtPosition
+        localValue5 = localValue2
+        localValue6 = localValue1[2]
+        localValue7 = localValue3.x
+        localValue8 = localValue3.y
+        localValue9 = localValue3.z
+        localValue10 = GetEntityHeading
+        localValue11 = localValue2
         -- Beginner: result below is heading.
-        arg10 = arg10(arg11)
-        arg11 = 0
-        workValue2 = true
-        textValue5 = false
+        localValue10 = localValue10(localValue11)
+        localValue11 = 0
+        workingValue2 = true
+        text5 = false
         -- Beginner: Make an NPC start a GTA scenario/ambient animation.
-        arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5)
+        localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5)
       end
     end
   end
-  arg3 = true
-  textValue3 = arg3
+  localValue3 = true
+  text3 = localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1) ===
-function workValue21(arg1)
-  local arg2, arg3, arg4
-  arg2 = arg1.animationOptions
-  arg3 = CMG
-  arg3 = arg3.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: workingValue21; parameters: localValue1) ===
+function workingValue21(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = localValue1.animationOptions
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg3 = arg3()
-  arg3 = 0 ~= arg3
-  if arg3 then
-    if arg2 then
-      arg4 = arg2.fullBody
-      if arg4 then
-        arg4 = 32
-        return arg4
+  localValue3 = localValue3()
+  localValue3 = 0 ~= localValue3
+  if localValue3 then
+    if localValue2 then
+      localValue4 = localValue2.fullBody
+      if localValue4 then
+        localValue4 = 32
+        return localValue4
       end
     end
-    arg4 = 51
-    return arg4
+    localValue4 = 51
+    return localValue4
   end
-  if not arg2 then
-    arg4 = 0
-    return arg4
+  if not localValue2 then
+    localValue4 = 0
+    return localValue4
   end
-  arg4 = arg2.animFlag
-  if nil ~= arg4 then
-    arg4 = arg2.animFlag
-    return arg4
+  localValue4 = localValue2.animFlag
+  if nil ~= localValue4 then
+    localValue4 = localValue2.animFlag
+    return localValue4
   end
-  arg4 = arg2.onFootFlag
-  if nil ~= arg4 then
-    arg4 = arg2.onFootFlag
-    return arg4
+  localValue4 = localValue2.onFootFlag
+  if nil ~= localValue4 then
+    localValue4 = localValue2.onFootFlag
+    return localValue4
   end
-  arg4 = arg2.emoteStuck
-  if arg4 then
-    arg4 = 50
-    return arg4
+  localValue4 = localValue2.emoteStuck
+  if localValue4 then
+    localValue4 = 50
+    return localValue4
   end
-  arg4 = arg2.emoteLoop
-  if arg4 then
-    arg4 = arg2.emoteMoving
-    if arg4 then
-      arg4 = 51
-      return arg4
+  localValue4 = localValue2.emoteLoop
+  if localValue4 then
+    localValue4 = localValue2.emoteMoving
+    if localValue4 then
+      localValue4 = 51
+      return localValue4
     else
-      arg4 = 1
-      return arg4
+      localValue4 = 1
+      return localValue4
     end
   end
-  arg4 = arg2.emoteMoving
-  if arg4 then
-    arg4 = 51
-    return arg4
+  localValue4 = localValue2.emoteMoving
+  if localValue4 then
+    localValue4 = 51
+    return localValue4
   end
-  arg4 = 0
-  return arg4
+  localValue4 = 0
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue22; parameters: arg1) ===
-function workValue22(arg1)
-  local arg2
-  arg2 = arg1.animationOptions
-  if arg2 then
-    arg2 = arg1.animationOptions
-    arg2 = arg2.emoteDuration
-    if not arg2 then
-      arg2 = -1
+-- === HELPER FUNCTION (decompiler name: workingValue22; parameters: localValue1) ===
+function workingValue22(localValue1)
+  local localValue2
+  localValue2 = localValue1.animationOptions
+  if localValue2 then
+    localValue2 = localValue1.animationOptions
+    localValue2 = localValue2.emoteDuration
+    if not localValue2 then
+      localValue2 = -1
     end
-    return arg2
+    return localValue2
   else
-    arg2 = -1
-    return arg2
+    localValue2 = -1
+    return localValue2
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue23; parameters: arg1) ===
-function workValue23(arg1)
-  local arg2, arg3
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+-- === HELPER FUNCTION (decompiler name: workingValue23; parameters: localValue1) ===
+function workingValue23(localValue1)
+  local localValue2, localValue3
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3, flag2, flag3, flag4
-    arg12 = true
-    flag23 = arg12
-    arg12 = arg1.animationOptions
-    if not arg12 then
-      arg12 = {}
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3, stateFlag2, stateFlag3, stateFlag4
+    localValue12 = true
+    stateFlag23 = localValue12
+    localValue12 = localValue1.animationOptions
+    if not localValue12 then
+      localValue12 = {}
     end
-    arg22 = arg12.emoteDuration
-    if not arg22 then
-      arg22 = -1
+    localValue22 = localValue12.emoteDuration
+    if not localValue22 then
+      localValue22 = -1
     end
-    arg32 = arg12.startDelay
-    if not arg32 then
-      arg32 = 0
+    localValue32 = localValue12.startDelay
+    if not localValue32 then
+      localValue32 = 0
     end
-    if arg32 > 0 then
-      workValue17 = Citizen
-      workValue17 = workValue17.Wait
-      workValue27 = arg32
-      workValue17(workValue27)
+    if localValue32 > 0 then
+      workingValue17 = Citizen
+      workingValue17 = workingValue17.Wait
+      workingValue27 = localValue32
+      workingValue17(workingValue27)
     end
-    workValue17 = arg1
-    workValue17 = workValue17[1]
-    workValue27 = arg1
-    workValue27 = workValue27[2]
-    if not workValue17 or not workValue27 then
-      flag25 = false
-      flag23 = flag25
+    workingValue17 = localValue1
+    workingValue17 = workingValue17[1]
+    workingValue27 = localValue1
+    workingValue27 = workingValue27[2]
+    if not workingValue17 or not workingValue27 then
+      stateFlag25 = false
+      stateFlag23 = stateFlag25
       return
     end
-    flag25 = workValue21
-    numberValue19 = arg1
-    flag25 = flag25(numberValue19)
-    numberValue19 = arg12.blendInSpeed
-    if not numberValue19 then
-      numberValue19 = 8.0
+    stateFlag25 = workingValue21
+    number19 = localValue1
+    stateFlag25 = stateFlag25(number19)
+    number19 = localValue12.blendInSpeed
+    if not number19 then
+      number19 = 8.0
     end
-    textValue15 = arg12.blendOutSpeed
-    if not textValue15 then
-      textValue15 = 8.0
+    text15 = localValue12.blendOutSpeed
+    if not text15 then
+      text15 = 8.0
     end
-    workValue59 = CMG
-    workValue59 = workValue59.loadAnimDict
-    playerPed = workValue17
+    workingValue59 = CMG
+    workingValue59 = workingValue59.loadAnimDict
+    playerPed = workingValue17
     -- Beginner: Load a GTA animation dictionary before using it.
-    workValue59(playerPed)
-    workValue59 = TaskPlayAnim
+    workingValue59(playerPed)
+    workingValue59 = TaskPlayAnim
     playerPed = PlayerPedId
     -- Beginner: result below is localPlayerPed.
     playerPed = playerPed()
-    workValue = workValue17
-    dataTable = workValue27
-    dataTable2 = numberValue19
-    workValue3 = textValue15
-    workValue4 = arg22
-    textValue7 = flag25
-    numberValue3 = 0
-    flag2 = false
-    flag3 = false
-    flag4 = false
+    workingValue = workingValue17
+    dataCollection = workingValue27
+    dataCollection2 = number19
+    workingValue3 = text15
+    workingValue4 = localValue22
+    text7 = stateFlag25
+    number3 = 0
+    stateFlag2 = false
+    stateFlag3 = false
+    stateFlag4 = false
     -- Beginner: Play an animation on a ped.
-    workValue59(playerPed, workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3, flag2, flag3, flag4)
-    workValue59 = RemoveAnimDict
-    playerPed = workValue17
-    workValue59(playerPed)
-    if arg22 > 0 then
-      workValue59 = Citizen
-      workValue59 = workValue59.Wait
-      playerPed = arg22
-      workValue59(playerPed)
+    workingValue59(playerPed, workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3, stateFlag2, stateFlag3, stateFlag4)
+    workingValue59 = RemoveAnimDict
+    playerPed = workingValue17
+    workingValue59(playerPed)
+    if localValue22 > 0 then
+      workingValue59 = Citizen
+      workingValue59 = workingValue59.Wait
+      playerPed = localValue22
+      workingValue59(playerPed)
     else
-      workValue59 = GetAnimDuration
-      playerPed = workValue17
-      workValue = workValue27
-      workValue59 = workValue59(playerPed, workValue)
-      if workValue59 and workValue59 > 0.0 then
+      workingValue59 = GetAnimDuration
+      playerPed = workingValue17
+      workingValue = workingValue27
+      workingValue59 = workingValue59(playerPed, workingValue)
+      if workingValue59 and workingValue59 > 0.0 then
         playerPed = Citizen
         playerPed = playerPed.Wait
-        workValue = math
-        workValue = workValue.floor
-        dataTable = workValue59 * 1000
-        workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3, flag2, flag3, flag4 = workValue(dataTable)
-        playerPed(workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3, flag2, flag3, flag4)
+        workingValue = math
+        workingValue = workingValue.floor
+        dataCollection = workingValue59 * 1000
+        workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3, stateFlag2, stateFlag3, stateFlag4 = workingValue(dataCollection)
+        playerPed(workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3, stateFlag2, stateFlag3, stateFlag4)
       end
     end
-    workValue59 = ClearPedTasks
+    workingValue59 = ClearPedTasks
     playerPed = PlayerPedId
-    playerPed, workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3, flag2, flag3, flag4 = playerPed()
-    workValue59(playerPed, workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3, flag2, flag3, flag4)
-    workValue59 = cmgCall2
-    workValue59()
-    workValue59 = false
-    flag23 = workValue59
+    playerPed, workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3, stateFlag2, stateFlag3, stateFlag4 = playerPed()
+    workingValue59(playerPed, workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3, stateFlag2, stateFlag3, stateFlag4)
+    workingValue59 = cmgOperation2
+    workingValue59()
+    workingValue59 = false
+    stateFlag23 = workingValue59
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
+  localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue24; parameters: arg1) ===
-function workValue24(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg2 = flag23
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue24; parameters: localValue1) ===
+function workingValue24(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue2 = stateFlag23
+  if localValue2 then
     return
   end
-  arg2 = textValue3
-  if not arg2 then
+  localValue2 = text3
+  if not localValue2 then
     return
   end
-  arg2 = CMG
-  arg2 = arg2.getClientUserId
+  localValue2 = CMG
+  localValue2 = localValue2.getClientUserId
   -- Beginner: result below is userId.
-  arg2 = arg2()
-  if not arg2 then
+  localValue2 = localValue2()
+  if not localValue2 then
     return
   end
-  if not arg1 then
-    arg3 = LocalPlayer
-    arg3 = arg3.state
-    arg3 = arg3.canCancel
-    if false == arg3 then
+  if not localValue1 then
+    localValue3 = LocalPlayer
+    localValue3 = localValue3.state
+    localValue3 = localValue3.canCancel
+    if false == localValue3 then
       return
     end
   end
-  if not arg1 then
-    arg3 = GetGameTimer
+  if not localValue1 then
+    localValue3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg3 = arg3()
-    arg4 = numberValue2
-    arg3 = arg3 - arg4
-    arg4 = numberValue11
-    if arg3 < arg4 then
-      arg3 = CMG
-      arg3 = arg3.isDeveloper
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      if not arg3 then
-        arg3 = workValue16
-        arg3()
+    localValue3 = localValue3()
+    localValue4 = number2
+    localValue3 = localValue3 - localValue4
+    localValue4 = number11
+    if localValue3 < localValue4 then
+      localValue3 = CMG
+      localValue3 = localValue3.isDeveloper
+      localValue4 = localValue2
+      localValue3 = localValue3(localValue4)
+      if not localValue3 then
+        localValue3 = workingValue16
+        localValue3()
         return
       end
     end
   end
-  arg3 = workValue7
-  if arg3 then
-    arg3 = workValue7.animationOptions
+  localValue3 = workingValue7
+  if localValue3 then
+    localValue3 = workingValue7.animationOptions
   end
-  arg4 = arg3 or arg4
-  if arg3 then
-    arg4 = arg3.exitEmote
+  localValue4 = localValue3 or localValue4
+  if localValue3 then
+    localValue4 = localValue3.exitEmote
   end
-  arg5 = arg4 or arg5
-  if arg4 then
-    arg5 = cmgCall.exits
-    if arg5 then
-      arg5 = cmgCall.exits
-      arg5 = arg5[arg4]
+  localValue5 = localValue4 or localValue5
+  if localValue4 then
+    localValue5 = cmgOperation.exits
+    if localValue5 then
+      localValue5 = cmgOperation.exits
+      localValue5 = localValue5[localValue4]
     end
   end
-  arg6 = workValue7
-  if arg6 then
-    arg6 = workValue7.animationOptions
-    if arg6 then
-      arg6 = workValue7.animationOptions
-      arg6 = arg6.attachTo
-      if arg6 then
-        arg6 = DetachEntity
-        arg7 = PlayerPedId
+  localValue6 = workingValue7
+  if localValue6 then
+    localValue6 = workingValue7.animationOptions
+    if localValue6 then
+      localValue6 = workingValue7.animationOptions
+      localValue6 = localValue6.attachTo
+      if localValue6 then
+        localValue6 = DetachEntity
+        localValue7 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        arg7 = arg7()
-        arg8 = true
-        arg9 = false
-        arg6(arg7, arg8, arg9)
+        localValue7 = localValue7()
+        localValue8 = true
+        localValue9 = false
+        localValue6(localValue7, localValue8, localValue9)
       end
     end
   end
-  arg6 = workValue8
-  if arg6 then
-    arg6 = workValue8.handle
-    arg7 = workValue9
-    arg8 = arg6
-    arg7 = arg7(arg8)
-    if arg7 then
-      arg7 = StopParticleFxLooped
-      arg8 = arg6
-      arg9 = false
-      arg7(arg8, arg9)
+  localValue6 = workingValue8
+  if localValue6 then
+    localValue6 = workingValue8.handle
+    localValue7 = workingValue9
+    localValue8 = localValue6
+    localValue7 = localValue7(localValue8)
+    if localValue7 then
+      localValue7 = StopParticleFxLooped
+      localValue8 = localValue6
+      localValue9 = false
+      localValue7(localValue8, localValue9)
     end
-    arg7 = nil
-    workValue8 = arg7
-    arg7 = numberValue5
-    arg7 = arg7 + 1
-    numberValue5 = arg7
-    arg7 = false
-    flag8 = arg7
+    localValue7 = nil
+    workingValue8 = localValue7
+    localValue7 = number5
+    localValue7 = localValue7 + 1
+    number5 = localValue7
+    localValue7 = false
+    stateFlag8 = localValue7
   end
-  arg6 = textValue4
-  arg7 = workValue7
-  arg8 = false
-  textValue3 = arg8
-  arg8 = nil
-  workValue5 = arg8
-  arg8 = nil
-  workValue6 = arg8
-  arg8 = nil
-  workValue7 = arg8
-  if arg5 and arg7 and "Scenario" ~= arg6 and "MaleScenario" ~= arg6 and "ScenarioObject" ~= arg6 and "Expression" ~= arg6 then
-    arg8 = cmgCall2
-    arg8()
-    arg8 = ClearPedTasks
-    arg9 = PlayerPedId
+  localValue6 = text4
+  localValue7 = workingValue7
+  localValue8 = false
+  text3 = localValue8
+  localValue8 = nil
+  workingValue5 = localValue8
+  localValue8 = nil
+  workingValue6 = localValue8
+  localValue8 = nil
+  workingValue7 = localValue8
+  if localValue5 and localValue7 and "Scenario" ~= localValue6 and "MaleScenario" ~= localValue6 and "ScenarioObject" ~= localValue6 and "Expression" ~= localValue6 then
+    localValue8 = cmgOperation2
+    localValue8()
+    localValue8 = ClearPedTasks
+    localValue9 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg9 = arg9()
-    arg8(arg9)
-    arg8 = workValue23
-    arg9 = arg5
-    arg8(arg9)
+    localValue9 = localValue9()
+    localValue8(localValue9)
+    localValue8 = workingValue23
+    localValue9 = localValue5
+    localValue8(localValue9)
     return
   end
-  if "Scenario" == arg6 or "MaleScenario" == arg6 then
-    arg8 = ClearPedTasksImmediately
-    arg9 = PlayerPedId
+  if "Scenario" == localValue6 or "MaleScenario" == localValue6 then
+    localValue8 = ClearPedTasksImmediately
+    localValue9 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg9 = arg9()
-    arg8(arg9)
+    localValue9 = localValue9()
+    localValue8(localValue9)
   else
-    arg8 = ClearPedTasks
-    arg9 = PlayerPedId
+    localValue8 = ClearPedTasks
+    localValue9 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg9 = arg9()
-    arg8(arg9)
-    arg8 = cmgCall2
-    arg8()
+    localValue9 = localValue9()
+    localValue8(localValue9)
+    localValue8 = cmgOperation2
+    localValue8()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue25; parameters: arg1, arg2) ===
-function workValue25(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  arg3 = arg1.animationOptions
-  if arg3 then
-    arg4 = arg3.propTextureVariations
-    if arg4 then
-      goto flow_label_15
+-- === HELPER FUNCTION (decompiler name: workingValue25; parameters: localValue1, localValue2) ===
+function workingValue25(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  localValue3 = localValue1.animationOptions
+  if localValue3 then
+    localValue4 = localValue3.propTextureVariations
+    if localValue4 then
+      goto continueAtStep15
     end
   end
-  if nil ~= arg2 then
-    arg4 = tonumber
-    arg5 = arg2
-    return arg4(arg5)
+  if nil ~= localValue2 then
+    localValue4 = tonumber
+    localValue5 = localValue2
+    return localValue4(localValue5)
   end
-  arg4 = nil
-  return arg4
-  ::flow_label_15::
-  arg4 = arg3.propTextureVariations
-  if nil ~= arg2 then
-    arg5 = tonumber
-    arg6 = arg2
-    arg5 = arg5(arg6)
-    if arg5 then
-      arg6 = arg4[arg5]
-      if arg6 then
-        arg6 = arg4[arg5]
-        arg6 = arg6.value
-        return arg6
+  localValue4 = nil
+  return localValue4
+  ::continueAtStep15::
+  localValue4 = localValue3.propTextureVariations
+  if nil ~= localValue2 then
+    localValue5 = tonumber
+    localValue6 = localValue2
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      localValue6 = localValue4[localValue5]
+      if localValue6 then
+        localValue6 = localValue4[localValue5]
+        localValue6 = localValue6.value
+        return localValue6
       end
     end
-    if arg5 then
-      return arg5
+    if localValue5 then
+      return localValue5
     end
   end
-  arg5 = arg4[1]
-  if arg5 then
-    arg5 = arg4[1]
-    arg5 = arg5.value
-    return arg5
+  localValue5 = localValue4[1]
+  if localValue5 then
+    localValue5 = localValue4[1]
+    localValue5 = localValue5.value
+    return localValue5
   end
-  arg5 = nil
-  return arg5
+  localValue5 = nil
+  return localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: arg1, arg2) ===
-function workValue26(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14, flag15, flag16, flag17
-  arg3 = arg1.animationOptions
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: localValue1, localValue2) ===
+function workingValue26(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14, stateFlag15, stateFlag16, stateFlag17
+  localValue3 = localValue1.animationOptions
+  if not localValue3 then
     return
   end
-  arg4 = arg3.prop
-  if not arg4 then
+  localValue4 = localValue3.prop
+  if not localValue4 then
     return
   end
-  arg5 = GetGameTimer
+  localValue5 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg5 = arg5()
-  numberValue10 = arg5
-  arg5 = workValue25
-  arg6 = arg1
-  arg7 = arg2
-  arg5 = arg5(arg6, arg7)
-  arg6 = arg3.propBone
-  arg7 = table
-  arg7 = arg7.unpack
-  arg8 = arg3.propPlacement
-  arg7, arg8, arg9, arg10, arg11, workValue2 = arg7(arg8)
-  textValue5 = arg3.propNoCollision
-  textValue5 = false ~= textValue5
-  dataTable4 = workValue18
-  rageUiCall = arg4
-  textValue6 = arg6
-  textValue8 = arg7
-  flag = arg8
-  rageUiCall2 = arg9
-  rageUiCall3 = arg10
-  flag5 = arg11
-  flag6 = workValue2
-  flag7 = false
-  workValue12 = arg5
-  workValue13 = textValue5
-  dataTable4(rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13)
-  dataTable4 = arg3.secondProp
-  if not dataTable4 then
+  localValue5 = localValue5()
+  number10 = localValue5
+  localValue5 = workingValue25
+  localValue6 = localValue1
+  localValue7 = localValue2
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue6 = localValue3.propBone
+  localValue7 = table
+  localValue7 = localValue7.unpack
+  localValue8 = localValue3.propPlacement
+  localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2 = localValue7(localValue8)
+  text5 = localValue3.propNoCollision
+  text5 = false ~= text5
+  dataCollection4 = workingValue18
+  rageUiOperation = localValue4
+  text6 = localValue6
+  text8 = localValue7
+  stateFlag = localValue8
+  rageUiOperation2 = localValue9
+  rageUiOperation3 = localValue10
+  stateFlag5 = localValue11
+  stateFlag6 = workingValue2
+  stateFlag7 = false
+  workingValue12 = localValue5
+  workingValue13 = text5
+  dataCollection4(rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13)
+  dataCollection4 = localValue3.secondProp
+  if not dataCollection4 then
     return
   end
-  rageUiCall = arg3.secondPropBone
-  textValue6 = table
-  textValue6 = textValue6.unpack
-  textValue8 = arg3.secondPropPlacement
-  textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5 = textValue6(textValue8)
-  flag6 = arg3.secondPropNoCollision
-  flag6 = false ~= flag6
-  flag7 = workValue18
-  workValue12 = dataTable4
-  workValue13 = rageUiCall
-  flag9 = textValue6
-  flag11 = textValue8
-  flag12 = flag
-  flag13 = rageUiCall2
-  numberValue7 = rageUiCall3
-  flag14 = flag5
-  flag15 = true
-  flag16 = nil
-  flag17 = flag6
-  flag7(workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14, flag15, flag16, flag17)
+  rageUiOperation = localValue3.secondPropBone
+  text6 = table
+  text6 = text6.unpack
+  text8 = localValue3.secondPropPlacement
+  text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5 = text6(text8)
+  stateFlag6 = localValue3.secondPropNoCollision
+  stateFlag6 = false ~= stateFlag6
+  stateFlag7 = workingValue18
+  workingValue12 = dataCollection4
+  workingValue13 = rageUiOperation
+  stateFlag9 = text6
+  stateFlag11 = text8
+  stateFlag12 = stateFlag
+  stateFlag13 = rageUiOperation2
+  number7 = rageUiOperation3
+  stateFlag14 = stateFlag5
+  stateFlag15 = true
+  stateFlag16 = nil
+  stateFlag17 = stateFlag6
+  stateFlag7(workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14, stateFlag15, stateFlag16, stateFlag17)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue28; parameters: arg1, arg2, arg3) ===
-function workValue28(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14, flag15, flag16, flag17, flag18, flag19, numberValue13, flag22
-  arg4 = table
-  arg4 = arg4.unpack
-  arg5 = arg1
-  arg4, arg5 = arg4(arg5)
-  arg6 = workValue21
-  arg7 = arg1
-  arg6 = arg6(arg7)
-  arg7 = workValue22
-  arg8 = arg1
-  arg7 = arg7(arg8)
-  arg8 = arg1.animationOptions
-  if arg8 then
-    arg9 = arg8.startDelay
-    if arg9 then
-      goto flow_label_18
+-- === HELPER FUNCTION (decompiler name: workingValue28; parameters: localValue1, localValue2, localValue3) ===
+function workingValue28(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14, stateFlag15, stateFlag16, stateFlag17, stateFlag18, stateFlag19, number13, stateFlag22
+  localValue4 = table
+  localValue4 = localValue4.unpack
+  localValue5 = localValue1
+  localValue4, localValue5 = localValue4(localValue5)
+  localValue6 = workingValue21
+  localValue7 = localValue1
+  localValue6 = localValue6(localValue7)
+  localValue7 = workingValue22
+  localValue8 = localValue1
+  localValue7 = localValue7(localValue8)
+  localValue8 = localValue1.animationOptions
+  if localValue8 then
+    localValue9 = localValue8.startDelay
+    if localValue9 then
+      goto continueAtStep18
     end
   end
-  arg9 = 0
-  ::flow_label_18::
-  if arg9 > 0 then
-    arg10 = Citizen
-    arg10 = arg10.Wait
-    arg11 = arg9
-    arg10(arg11)
+  localValue9 = 0
+  ::continueAtStep18::
+  if localValue9 > 0 then
+    localValue10 = Citizen
+    localValue10 = localValue10.Wait
+    localValue11 = localValue9
+    localValue10(localValue11)
   end
-  if arg8 then
-    arg10 = arg8.blendInSpeed
-    if arg10 then
-      goto flow_label_30
+  if localValue8 then
+    localValue10 = localValue8.blendInSpeed
+    if localValue10 then
+      goto continueAtStep30
     end
   end
-  arg10 = 2.0
-  ::flow_label_30::
-  if arg8 then
-    arg11 = arg8.blendOutSpeed
-    if arg11 then
-      goto flow_label_36
+  localValue10 = 2.0
+  ::continueAtStep30::
+  if localValue8 then
+    localValue11 = localValue8.blendOutSpeed
+    if localValue11 then
+      goto continueAtStep36
     end
   end
-  arg11 = 2.0
-  ::flow_label_36::
-  workValue2 = CMG
-  workValue2 = workValue2.loadAnimDict
-  textValue5 = arg4
+  localValue11 = 2.0
+  ::continueAtStep36::
+  workingValue2 = CMG
+  workingValue2 = workingValue2.loadAnimDict
+  text5 = localValue4
   -- Beginner: Load a GTA animation dictionary before using it.
-  workValue2(textValue5)
-  workValue2 = TaskPlayAnim
-  textValue5 = PlayerPedId
+  workingValue2(text5)
+  workingValue2 = TaskPlayAnim
+  text5 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  textValue5 = textValue5()
-  dataTable4 = arg4
-  rageUiCall = arg5
-  textValue6 = arg10
-  textValue8 = arg11
-  flag = arg7
-  rageUiCall2 = arg6
-  rageUiCall3 = 0
-  flag5 = false
-  flag6 = false
-  flag7 = false
+  text5 = text5()
+  dataCollection4 = localValue4
+  rageUiOperation = localValue5
+  text6 = localValue10
+  text8 = localValue11
+  stateFlag = localValue7
+  rageUiOperation2 = localValue6
+  rageUiOperation3 = 0
+  stateFlag5 = false
+  stateFlag6 = false
+  stateFlag7 = false
   -- Beginner: Play an animation on a ped.
-  workValue2(textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6, flag7)
-  workValue2 = RemoveAnimDict
-  textValue5 = arg4
-  workValue2(textValue5)
-  workValue2 = Citizen
-  workValue2 = workValue2.Wait
-  textValue5 = 0
-  workValue2(textValue5)
-  workValue2 = true
-  textValue3 = workValue2
-  workValue5 = arg4
-  workValue6 = arg5
-  workValue7 = arg1
-  if arg8 then
-    workValue2 = arg8.ptfxAsset
-    if workValue2 then
-      workValue2 = numberValue5
-      workValue2 = workValue2 + 1
-      numberValue5 = workValue2
-      workValue2 = false
-      flag8 = workValue2
-      workValue2 = {}
-      textValue5 = arg8.ptfxAsset
-      workValue2.asset = textValue5
-      textValue5 = arg8.ptfxName
-      workValue2.name = textValue5
-      textValue5 = arg8.ptfxPlacement
-      workValue2.placement = textValue5
-      textValue5 = arg8.ptfxInfo
-      workValue2.info = textValue5
-      textValue5 = arg8.ptfxWait
-      workValue2.wait = textValue5
-      textValue5 = arg8.ptfxCanHold
-      workValue2.ptfxCanHold = textValue5
-      textValue5 = arg8.ptfxNoProp
-      workValue2.ptfxNoProp = textValue5
-      textValue5 = arg8.ptfxBone
-      workValue2.ptfxBone = textValue5
-      textValue5 = arg8.ptfxColor
-      workValue2.ptfxColor = textValue5
-      workValue8 = workValue2
-      workValue2 = workValue8.info
-      if workValue2 then
-        workValue2 = notify
-        textValue5 = workValue8.info
+  workingValue2(text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7)
+  workingValue2 = RemoveAnimDict
+  text5 = localValue4
+  workingValue2(text5)
+  workingValue2 = Citizen
+  workingValue2 = workingValue2.Wait
+  text5 = 0
+  workingValue2(text5)
+  workingValue2 = true
+  text3 = workingValue2
+  workingValue5 = localValue4
+  workingValue6 = localValue5
+  workingValue7 = localValue1
+  if localValue8 then
+    workingValue2 = localValue8.ptfxAsset
+    if workingValue2 then
+      workingValue2 = number5
+      workingValue2 = workingValue2 + 1
+      number5 = workingValue2
+      workingValue2 = false
+      stateFlag8 = workingValue2
+      workingValue2 = {}
+      text5 = localValue8.ptfxAsset
+      workingValue2.asset = text5
+      text5 = localValue8.ptfxName
+      workingValue2.name = text5
+      text5 = localValue8.ptfxPlacement
+      workingValue2.placement = text5
+      text5 = localValue8.ptfxInfo
+      workingValue2.info = text5
+      text5 = localValue8.ptfxWait
+      workingValue2.wait = text5
+      text5 = localValue8.ptfxCanHold
+      workingValue2.ptfxCanHold = text5
+      text5 = localValue8.ptfxNoProp
+      workingValue2.ptfxNoProp = text5
+      text5 = localValue8.ptfxBone
+      workingValue2.ptfxBone = text5
+      text5 = localValue8.ptfxColor
+      workingValue2.ptfxColor = text5
+      workingValue8 = workingValue2
+      workingValue2 = workingValue8.info
+      if workingValue2 then
+        workingValue2 = notify
+        text5 = workingValue8.info
         -- Beginner: Show a notification to the player.
-        workValue2(textValue5)
+        workingValue2(text5)
       end
     end
   end
-  workValue2 = workValue26
-  textValue5 = arg1
-  dataTable4 = arg3
-  workValue2(textValue5, dataTable4)
-  workValue2 = PlayerPedId
+  workingValue2 = workingValue26
+  text5 = localValue1
+  dataCollection4 = localValue3
+  workingValue2(text5, dataCollection4)
+  workingValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  workValue2 = workValue2()
-  if not arg2 then
+  workingValue2 = workingValue2()
+  if not localValue2 then
     return
   end
-  textValue5 = DetachEntity
-  dataTable4 = workValue2
-  rageUiCall = true
-  textValue6 = false
-  textValue5(dataTable4, rageUiCall, textValue6)
-  textValue5 = GetPlayerFromServerId
-  dataTable4 = arg2
+  text5 = DetachEntity
+  dataCollection4 = workingValue2
+  rageUiOperation = true
+  text6 = false
+  text5(dataCollection4, rageUiOperation, text6)
+  text5 = GetPlayerFromServerId
+  dataCollection4 = localValue2
   -- Beginner: result below is playerIndex.
-  textValue5 = textValue5(dataTable4)
-  if -1 == textValue5 then
+  text5 = text5(dataCollection4)
+  if -1 == text5 then
     return
   end
-  dataTable4 = GetPlayerPed
-  rageUiCall = textValue5
+  dataCollection4 = GetPlayerPed
+  rageUiOperation = text5
   -- Beginner: result below is playerPed.
-  dataTable4 = dataTable4(rageUiCall)
-  rageUiCall = DoesEntityExist
-  textValue6 = dataTable4
-  rageUiCall = rageUiCall(textValue6)
-  if not rageUiCall or dataTable4 == workValue2 then
+  dataCollection4 = dataCollection4(rageUiOperation)
+  rageUiOperation = DoesEntityExist
+  text6 = dataCollection4
+  rageUiOperation = rageUiOperation(text6)
+  if not rageUiOperation or dataCollection4 == workingValue2 then
     return
   end
-  rageUiCall = DetachEntity
-  textValue6 = dataTable4
-  textValue8 = true
-  flag = false
-  rageUiCall(textValue6, textValue8, flag)
-  if arg8 then
-    rageUiCall = arg8.attachTo
-    if rageUiCall then
-      rageUiCall = GetEntityAttachedTo
-      textValue6 = dataTable4
-      rageUiCall = rageUiCall(textValue6)
-      if 0 == rageUiCall then
-        rageUiCall = GetEntityAttachedTo
-        textValue6 = workValue2
-        rageUiCall = rageUiCall(textValue6)
-        if 0 == rageUiCall then
-          goto flow_label_156
+  rageUiOperation = DetachEntity
+  text6 = dataCollection4
+  text8 = true
+  stateFlag = false
+  rageUiOperation(text6, text8, stateFlag)
+  if localValue8 then
+    rageUiOperation = localValue8.attachTo
+    if rageUiOperation then
+      rageUiOperation = GetEntityAttachedTo
+      text6 = dataCollection4
+      rageUiOperation = rageUiOperation(text6)
+      if 0 == rageUiOperation then
+        rageUiOperation = GetEntityAttachedTo
+        text6 = workingValue2
+        rageUiOperation = rageUiOperation(text6)
+        if 0 == rageUiOperation then
+          goto continueAtStep156
         end
       end
     end
   end
   return
-  ::flow_label_156::
-  rageUiCall = arg8.bone
-  if not rageUiCall then
-    rageUiCall = -1
+  ::continueAtStep156::
+  rageUiOperation = localValue8.bone
+  if not rageUiOperation then
+    rageUiOperation = -1
   end
-  textValue6 = GetPedBoneIndex
-  textValue8 = dataTable4
-  flag = rageUiCall
-  textValue6 = textValue6(textValue8, flag)
-  if textValue6 < 0 then
+  text6 = GetPedBoneIndex
+  text8 = dataCollection4
+  stateFlag = rageUiOperation
+  text6 = text6(text8, stateFlag)
+  if text6 < 0 then
     return
   end
-  textValue8 = arg8.xPos
-  if not textValue8 then
-    textValue8 = 0.0
+  text8 = localValue8.xPos
+  if not text8 then
+    text8 = 0.0
   end
-  flag = arg8.yPos
-  if not flag then
-    flag = 0.0
+  stateFlag = localValue8.yPos
+  if not stateFlag then
+    stateFlag = 0.0
   end
-  rageUiCall2 = arg8.zPos
-  if not rageUiCall2 then
-    rageUiCall2 = 0.0
+  rageUiOperation2 = localValue8.zPos
+  if not rageUiOperation2 then
+    rageUiOperation2 = 0.0
   end
-  rageUiCall3 = arg8.xRot
-  if not rageUiCall3 then
-    rageUiCall3 = 0.0
+  rageUiOperation3 = localValue8.xRot
+  if not rageUiOperation3 then
+    rageUiOperation3 = 0.0
   end
-  flag5 = arg8.yRot
-  if not flag5 then
-    flag5 = 0.0
+  stateFlag5 = localValue8.yRot
+  if not stateFlag5 then
+    stateFlag5 = 0.0
   end
-  flag6 = arg8.zRot
-  if not flag6 then
-    flag6 = 0.0
+  stateFlag6 = localValue8.zRot
+  if not stateFlag6 then
+    stateFlag6 = 0.0
   end
-  flag7 = AttachEntityToEntity
-  workValue12 = workValue2
-  workValue13 = dataTable4
-  flag9 = textValue6
-  flag11 = textValue8
-  flag12 = flag
-  flag13 = rageUiCall2
-  numberValue7 = rageUiCall3
-  flag14 = flag5
-  flag15 = flag6
-  flag16 = false
-  flag17 = false
-  flag18 = false
-  flag19 = true
-  numberValue13 = 1
-  flag22 = true
+  stateFlag7 = AttachEntityToEntity
+  workingValue12 = workingValue2
+  workingValue13 = dataCollection4
+  stateFlag9 = text6
+  stateFlag11 = text8
+  stateFlag12 = stateFlag
+  stateFlag13 = rageUiOperation2
+  number7 = rageUiOperation3
+  stateFlag14 = stateFlag5
+  stateFlag15 = stateFlag6
+  stateFlag16 = false
+  stateFlag17 = false
+  stateFlag18 = false
+  stateFlag19 = true
+  number13 = 1
+  stateFlag22 = true
   -- Beginner: Attach one entity to another entity.
-  flag7(workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14, flag15, flag16, flag17, flag18, flag19, numberValue13, flag22)
+  stateFlag7(workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14, stateFlag15, stateFlag16, stateFlag17, stateFlag18, stateFlag19, number13, stateFlag22)
 end
-dataTable7 = {}
-numberValue14 = 2
-numberValue15 = 160
-numberValue16 = 161
-numberValue17 = 163
-numberValue18 = 167
-dataTable7[1] = numberValue14
-dataTable7[2] = numberValue15
-dataTable7[3] = numberValue16
-dataTable7[4] = numberValue17
-dataTable7[5] = numberValue18
+dataCollection7 = {}
+number14 = 2
+number15 = 160
+number16 = 161
+number17 = 163
+number18 = 167
+dataCollection7[1] = number14
+dataCollection7[2] = number15
+dataCollection7[3] = number16
+dataCollection7[4] = number17
+dataCollection7[5] = number18
 
--- === HELPER FUNCTION (decompiler name: numberValue14; parameters: arg1) ===
-function numberValue14(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2
-  arg2 = LocalPlayer
-  arg2 = arg2.state
-  arg2 = arg2.canEmote
-  if false == arg2 then
-    arg2 = true
-    return arg2
+-- === HELPER FUNCTION (decompiler name: number14; parameters: localValue1) ===
+function number14(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2
+  localValue2 = LocalPlayer
+  localValue2 = localValue2.state
+  localValue2 = localValue2.canEmote
+  if false == localValue2 then
+    localValue2 = true
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.isInTurfContest
-  arg2 = arg2()
-  if arg2 then
-    arg2 = true
-    return arg2
+  localValue2 = CMG
+  localValue2 = localValue2.isInTurfContest
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = true
+    return localValue2
   end
-  arg2 = tCMG
-  arg2 = arg2.canAnim
-  arg2 = arg2()
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.isInsideDiamondCasino
-    arg2 = arg2()
-    if not arg2 then
-      goto flow_label_40
+  localValue2 = tCMG
+  localValue2 = localValue2.canAnim
+  localValue2 = localValue2()
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.isInsideDiamondCasino
+    localValue2 = localValue2()
+    if not localValue2 then
+      goto continueAtStep40
     end
-    arg2 = tCMG
-    arg2 = arg2.getNumAnimRefs
-    arg2 = arg2()
-    if not (arg2 <= 1) then
-      goto flow_label_40
-    end
-  end
-  arg2 = CMG
-  arg2 = arg2.isHandcuffed
-  arg2 = arg2()
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.inEvent
-    arg2 = arg2()
-    if not arg2 then
-      goto flow_label_42
+    localValue2 = tCMG
+    localValue2 = localValue2.getNumAnimRefs
+    localValue2 = localValue2()
+    if not (localValue2 <= 1) then
+      goto continueAtStep40
     end
   end
-  ::flow_label_40::
-  arg2 = true
-  return arg2
-  ::flow_label_42::
-  arg2 = CMG
-  arg2 = arg2.isPlayerInRedZone
-  arg2 = arg2()
-  if arg2 then
-    arg2 = true
-    return arg2
+  localValue2 = CMG
+  localValue2 = localValue2.isHandcuffed
+  localValue2 = localValue2()
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.inEvent
+    localValue2 = localValue2()
+    if not localValue2 then
+      goto continueAtStep42
+    end
   end
-  arg2 = PlayerPedId
+  ::continueAtStep40::
+  localValue2 = true
+  return localValue2
+  ::continueAtStep42::
+  localValue2 = CMG
+  localValue2 = localValue2.isPlayerInRedZone
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = true
+    return localValue2
+  end
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = IsPedSwimming
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = IsPedSwimmingUnderWater
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if not arg3 then
-      goto flow_label_63
+  localValue2 = localValue2()
+  localValue3 = IsPedSwimming
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = IsPedSwimmingUnderWater
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
+      goto continueAtStep63
     end
   end
-  arg3 = true
-  return arg3
-  ::flow_label_63::
-  arg3 = IsPedReloading
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = IsPlayerFreeAiming
-    arg4 = PlayerId
-    arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2 = arg4()
-    arg3 = arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2)
-    if not arg3 then
-      arg3 = GetEntityHealth
-      arg4 = arg2
+  localValue3 = true
+  return localValue3
+  ::continueAtStep63::
+  localValue3 = IsPedReloading
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = IsPlayerFreeAiming
+    localValue4 = PlayerId
+    localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2 = localValue4()
+    localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2)
+    if not localValue3 then
+      localValue3 = GetEntityHealth
+      localValue4 = localValue2
       -- Beginner: result below is health.
-      arg3 = arg3(arg4)
-      if not (arg3 <= 102) then
-        goto flow_label_81
+      localValue3 = localValue3(localValue4)
+      if not (localValue3 <= 102) then
+        goto continueAtStep81
       end
     end
   end
-  arg3 = true
-  return arg3
-  ::flow_label_81::
-  arg3 = CMG
-  arg3 = arg3.getPlayerCombatTimer
-  arg3 = arg3()
-  if not (arg3 > 0) then
-    arg3 = IsPedShooting
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if not arg3 then
-      goto flow_label_96
+  localValue3 = true
+  return localValue3
+  ::continueAtStep81::
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerCombatTimer
+  localValue3 = localValue3()
+  if not (localValue3 > 0) then
+    localValue3 = IsPedShooting
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
+      goto continueAtStep96
     end
   end
-  arg3 = flag21
-  if not arg3 then
-    arg3 = true
-    return arg3
+  localValue3 = stateFlag21
+  if not localValue3 then
+    localValue3 = true
+    return localValue3
   end
-  ::flow_label_96::
-  arg3 = CMG
-  arg3 = arg3.getPlayerVehicle
+  ::continueAtStep96::
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg3 = arg3()
-  if 0 ~= arg3 then
-    arg4 = GetEntitySpeed
-    arg5 = arg3
+  localValue3 = localValue3()
+  if 0 ~= localValue3 then
+    localValue4 = GetEntitySpeed
+    localValue5 = localValue3
     -- Beginner: result below is speed.
-    arg4 = arg4(arg5)
-    if arg4 > 1.0 then
-      arg4 = GetPedInVehicleSeat
-      arg5 = arg3
-      arg6 = -1
-      arg4 = arg4(arg5, arg6)
-      if arg4 == arg2 then
-        arg4 = true
-        return arg4
+    localValue4 = localValue4(localValue5)
+    if localValue4 > 1.0 then
+      localValue4 = GetPedInVehicleSeat
+      localValue5 = localValue3
+      localValue6 = -1
+      localValue4 = localValue4(localValue5, localValue6)
+      if localValue4 == localValue2 then
+        localValue4 = true
+        return localValue4
       end
     end
   end
-  arg4 = pairs
-  arg5 = dataTable7
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for arg8, arg9 in arg4, arg5, arg6, arg7 do
-    arg10 = GetIsTaskActive
-    arg11 = arg2
-    workValue2 = arg9
-    arg10 = arg10(arg11, workValue2)
-    if arg10 then
-      arg10 = true
-      return arg10
+  localValue4 = pairs
+  localValue5 = dataCollection7
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for localValue8, localValue9 in localValue4, localValue5, localValue6, localValue7 do
+    localValue10 = GetIsTaskActive
+    localValue11 = localValue2
+    workingValue2 = localValue9
+    localValue10 = localValue10(localValue11, workingValue2)
+    if localValue10 then
+      localValue10 = true
+      return localValue10
     end
   end
-  arg4 = CMG
-  arg4 = arg4.isPlayerNearPrison
-  arg4 = arg4()
-  if arg4 then
-    arg4 = CMG
-    arg4 = arg4.isEmergencyService
-    arg4 = arg4()
-    if not arg4 then
-      goto flow_label_144
+  localValue4 = CMG
+  localValue4 = localValue4.isPlayerNearPrison
+  localValue4 = localValue4()
+  if localValue4 then
+    localValue4 = CMG
+    localValue4 = localValue4.isEmergencyService
+    localValue4 = localValue4()
+    if not localValue4 then
+      goto continueAtStep144
     end
   end
-  arg4 = CMG
-  arg4 = arg4.isInsideDiamondCasino
-  arg4 = arg4()
-  ::flow_label_144::
-  if arg4 then
-    if arg1 then
-      arg4 = arg1.animationOptions
-      if arg4 then
-        arg4 = arg1.animationOptions
-        arg4 = arg4.allowedPrison
-        if arg4 then
-          arg4 = false
-          return arg4
+  localValue4 = CMG
+  localValue4 = localValue4.isInsideDiamondCasino
+  localValue4 = localValue4()
+  ::continueAtStep144::
+  if localValue4 then
+    if localValue1 then
+      localValue4 = localValue1.animationOptions
+      if localValue4 then
+        localValue4 = localValue1.animationOptions
+        localValue4 = localValue4.allowedPrison
+        if localValue4 then
+          localValue4 = false
+          return localValue4
       end
     end
     else
-      arg4 = true
-      return arg4
+      localValue4 = true
+      return localValue4
     end
   end
-  arg4 = false
-  return arg4
+  localValue4 = false
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue15; parameters: none) ===
-function numberValue15()
-  local arg1, arg2
-  arg1 = IsPedHuman
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: number15; parameters: none) ===
+function number15()
+  local localValue1, localValue2
+  localValue1 = IsPedHuman
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg1 = arg1(arg2)
-  arg1 = not arg1
-  return arg1
+  localValue2 = localValue2()
+  localValue1 = localValue1(localValue2)
+  localValue1 = not localValue1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue16; parameters: none) ===
-function numberValue16()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.getClientUserId
+-- === HELPER FUNCTION (decompiler name: number16; parameters: none) ===
+function number16()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.getClientUserId
   -- Beginner: result below is userId.
-  arg1 = arg1()
-  if not arg1 then
-    arg2 = false
-    return arg2
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.isDeveloper
-  arg3 = arg1
-  return arg2(arg3)
+  localValue2 = CMG
+  localValue2 = localValue2.isDeveloper
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue17; parameters: none) ===
-function numberValue17()
-  local arg1, arg2, arg3
-  arg1 = flag20
-  if not arg1 then
-    arg1 = true
-    return arg1
+-- === HELPER FUNCTION (decompiler name: number17; parameters: none) ===
+function number17()
+  local localValue1, localValue2, localValue3
+  localValue1 = stateFlag20
+  if not localValue1 then
+    localValue1 = true
+    return localValue1
   end
-  arg1 = CMG
-  arg1 = arg1.getClientUserId
+  localValue1 = CMG
+  localValue1 = localValue1.getClientUserId
   -- Beginner: result below is userId.
-  arg1 = arg1()
-  if not arg1 then
-    arg2 = false
-    return arg2
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.isDeveloper
-  arg3 = arg1
-  return arg2(arg3)
+  localValue2 = CMG
+  localValue2 = localValue2.isDeveloper
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue18; parameters: arg1) ===
-function numberValue18(arg1)
-  local arg2
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.devOnly
-    arg2 = true == arg2
+-- === HELPER FUNCTION (decompiler name: number18; parameters: localValue1) ===
+function number18(localValue1)
+  local localValue2
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.devOnly
+    localValue2 = true == localValue2
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue29; parameters: none) ===
-function workValue29()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.getClientUserId
+-- === HELPER FUNCTION (decompiler name: workingValue29; parameters: none) ===
+function workingValue29()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.getClientUserId
   -- Beginner: result below is userId.
-  arg1 = arg1()
-  if not arg1 then
-    arg2 = false
-    return arg2
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.isDeveloper
-  arg3 = arg1
-  return arg2(arg3)
+  localValue2 = CMG
+  localValue2 = localValue2.isDeveloper
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue30; parameters: arg1) ===
-function workValue30(arg1)
-  local arg2, arg3
-  if not arg1 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue30; parameters: localValue1) ===
+function workingValue30(localValue1)
+  local localValue2, localValue3
+  if not localValue1 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = numberValue18
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = workValue29
-    arg2 = arg2()
-    if not arg2 then
-      arg2 = false
-      return arg2
+  localValue2 = number18
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = workingValue29
+    localValue2 = localValue2()
+    if not localValue2 then
+      localValue2 = false
+      return localValue2
     end
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue31; parameters: arg1) ===
-function workValue31(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = cmgCall.fireworksEmotes
-  if not arg2 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue31; parameters: localValue1) ===
+function workingValue31(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = cmgOperation.fireworksEmotes
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = ipairs
-  arg3 = cmgCall.fireworksEmotes
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    if arg7 == arg1 then
-      arg8 = true
-      return arg8
+  localValue2 = ipairs
+  localValue3 = cmgOperation.fireworksEmotes
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    if localValue7 == localValue1 then
+      localValue8 = true
+      return localValue8
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1) ===
-function workValue33(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg2 = cmgCall.fireworksEmotes
-  if not arg2 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue33; parameters: localValue1) ===
+function workingValue33(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue2 = cmgOperation.fireworksEmotes
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = ipairs
-  arg3 = cmgCall.fireworksEmotes
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = cmgCall.emotes
-    arg8 = arg8[arg7]
-    if not arg8 then
-      arg8 = cmgCall.props
-      arg8 = arg8[arg7]
+  localValue2 = ipairs
+  localValue3 = cmgOperation.fireworksEmotes
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = cmgOperation.emotes
+    localValue8 = localValue8[localValue7]
+    if not localValue8 then
+      localValue8 = cmgOperation.props
+      localValue8 = localValue8[localValue7]
     end
-    if arg8 == arg1 then
-      arg9 = true
-      return arg9
+    if localValue8 == localValue1 then
+      localValue9 = true
+      return localValue9
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue34; parameters: arg1) ===
-function workValue34(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = cmgCall.escrowPazeeeKeys
-  if arg2 then
-    arg2 = cmgCall.escrowPazeeeKeys
-    arg2 = arg2.trash
-    if arg2 and arg1 then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: workingValue34; parameters: localValue1) ===
+function workingValue34(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = cmgOperation.escrowPazeeeKeys
+  if localValue2 then
+    localValue2 = cmgOperation.escrowPazeeeKeys
+    localValue2 = localValue2.trash
+    if localValue2 and localValue1 then
+      goto continueAtStep12
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_12::
-  arg2 = ipairs
-  arg3 = cmgCall.escrowPazeeeKeys
-  arg3 = arg3.trash
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = cmgCall.emotes
-    arg8 = arg8[arg7]
-    if arg8 ~= arg1 then
-      arg8 = cmgCall.props
-      arg8 = arg8[arg7]
-      if arg8 ~= arg1 then
-        arg8 = cmgCall.shared
-        if not arg8 then
-          goto flow_label_34
+  localValue2 = false
+  return localValue2
+  ::continueAtStep12::
+  localValue2 = ipairs
+  localValue3 = cmgOperation.escrowPazeeeKeys
+  localValue3 = localValue3.trash
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = cmgOperation.emotes
+    localValue8 = localValue8[localValue7]
+    if localValue8 ~= localValue1 then
+      localValue8 = cmgOperation.props
+      localValue8 = localValue8[localValue7]
+      if localValue8 ~= localValue1 then
+        localValue8 = cmgOperation.shared
+        if not localValue8 then
+          goto continueAtStep34
         end
-        arg8 = cmgCall.shared
-        arg8 = arg8[arg7]
-        if arg8 ~= arg1 then
-          goto flow_label_34
+        localValue8 = cmgOperation.shared
+        localValue8 = localValue8[localValue7]
+        if localValue8 ~= localValue1 then
+          goto continueAtStep34
         end
       end
     end
-    arg8 = true
-    return arg8
-    ::flow_label_34::
+    localValue8 = true
+    return localValue8
+    ::continueAtStep34::
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue35; parameters: arg1, arg2, arg3, arg4) ===
-function workValue35(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, arg9, arg10, arg11
-  arg5 = workValue34
-  arg6 = arg1
-  arg5 = arg5(arg6)
-  if arg5 then
-    arg5 = notify
-    arg6 = "~r~That emote is not available."
+-- === HELPER FUNCTION (decompiler name: workingValue35; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue35(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11
+  localValue5 = workingValue34
+  localValue6 = localValue1
+  localValue5 = localValue5(localValue6)
+  if localValue5 then
+    localValue5 = notify
+    localValue6 = "~r~That emote is not available."
     -- Beginner: Show a notification to the player.
-    arg5(arg6)
+    localValue5(localValue6)
     return
   end
-  if not arg3 then
-    arg5 = numberValue14
-    arg6 = arg1
-    arg5 = arg5(arg6)
-    if arg5 then
-      arg5 = notify
-      arg6 = "~r~Can not use this emote at this time."
-      arg5(arg6)
+  if not localValue3 then
+    localValue5 = number14
+    localValue6 = localValue1
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      localValue5 = notify
+      localValue6 = "~r~Can not use this emote at this time."
+      localValue5(localValue6)
       return
     end
   end
-  arg5 = CMG
-  arg5 = arg5.getClientUserId
+  localValue5 = CMG
+  localValue5 = localValue5.getClientUserId
   -- Beginner: result below is userId.
-  arg5 = arg5()
-  if not arg5 then
+  localValue5 = localValue5()
+  if not localValue5 then
     return
   end
-  if not arg3 then
-    arg6 = GetGameTimer
+  if not localValue3 then
+    localValue6 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg6 = arg6()
-    arg7 = numberValue2
-    arg6 = arg6 - arg7
-    arg7 = numberValue11
-    if arg6 < arg7 then
-      arg6 = CMG
-      arg6 = arg6.isDeveloper
-      arg7 = arg5
-      arg6 = arg6(arg7)
-      if not arg6 then
-        arg6 = workValue16
-        arg6()
+    localValue6 = localValue6()
+    localValue7 = number2
+    localValue6 = localValue6 - localValue7
+    localValue7 = number11
+    if localValue6 < localValue7 then
+      localValue6 = CMG
+      localValue6 = localValue6.isDeveloper
+      localValue7 = localValue5
+      localValue6 = localValue6(localValue7)
+      if not localValue6 then
+        localValue6 = workingValue16
+        localValue6()
         return
       end
     end
   end
-  arg6 = arg1.animalEmote
-  if arg6 then
-    arg6 = numberValue16
-    arg6 = arg6()
-    if not arg6 then
-      arg6 = notify
-      arg7 = "~r~Animal emotes are developer only."
+  localValue6 = localValue1.animalEmote
+  if localValue6 then
+    localValue6 = number16
+    localValue6 = localValue6()
+    if not localValue6 then
+      localValue6 = notify
+      localValue7 = "~r~Animal emotes are developer only."
       -- Beginner: Show a notification to the player.
-      arg6(arg7)
+      localValue6(localValue7)
       return
     end
-    arg6 = IsPedHuman
-    arg7 = PlayerPedId
-    arg7, arg8, arg9, arg10, arg11 = arg7()
-    arg6 = arg6(arg7, arg8, arg9, arg10, arg11)
-    if arg6 then
-      arg6 = notify
-      arg7 = "~r~This emote is for animal peds only."
-      arg6(arg7)
+    localValue6 = IsPedHuman
+    localValue7 = PlayerPedId
+    localValue7, localValue8, localValue9, localValue10, localValue11 = localValue7()
+    localValue6 = localValue6(localValue7, localValue8, localValue9, localValue10, localValue11)
+    if localValue6 then
+      localValue6 = notify
+      localValue7 = "~r~This emote is for animal peds only."
+      localValue6(localValue7)
       return
     end
   end
-  arg6 = workValue33
-  arg7 = arg1
-  arg6 = arg6(arg7)
-  if arg6 then
-    arg6 = numberValue17
-    arg6 = arg6()
-    if not arg6 then
-      arg6 = notify
-      arg7 = "~r~Fireworks emotes are developer only."
+  localValue6 = workingValue33
+  localValue7 = localValue1
+  localValue6 = localValue6(localValue7)
+  if localValue6 then
+    localValue6 = number17
+    localValue6 = localValue6()
+    if not localValue6 then
+      localValue6 = notify
+      localValue7 = "~r~Fireworks emotes are developer only."
       -- Beginner: Show a notification to the player.
-      arg6(arg7)
+      localValue6(localValue7)
       return
     end
   end
-  arg6 = numberValue18
-  arg7 = arg1
-  arg6 = arg6(arg7)
-  if arg6 then
-    arg6 = workValue29
-    arg6 = arg6()
-    if not arg6 then
-      arg6 = notify
-      arg7 = "~r~That emote is developer only."
-      arg6(arg7)
+  localValue6 = number18
+  localValue7 = localValue1
+  localValue6 = localValue6(localValue7)
+  if localValue6 then
+    localValue6 = workingValue29
+    localValue6 = localValue6()
+    if not localValue6 then
+      localValue6 = notify
+      localValue7 = "~r~That emote is developer only."
+      localValue6(localValue7)
       return
     end
   end
-  arg6 = arg1.animationOptions
-  if arg6 then
-    arg7 = CMG
-    arg7 = arg7.getPlayerVehicle
+  localValue6 = localValue1.animationOptions
+  if localValue6 then
+    localValue7 = CMG
+    localValue7 = localValue7.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg7 = arg7()
-    arg8 = arg6.vehicleRequirement
-    if "REQUIRED" == arg8 and 0 == arg7 then
-      arg8 = notify
-      arg9 = "~r~This emote requires a vehicle."
+    localValue7 = localValue7()
+    localValue8 = localValue6.vehicleRequirement
+    if "REQUIRED" == localValue8 and 0 == localValue7 then
+      localValue8 = notify
+      localValue9 = "~r~This emote requires a vehicle."
       -- Beginner: Show a notification to the player.
-      arg8(arg9)
+      localValue8(localValue9)
       return
     end
-    arg8 = arg6.vehicleRequirement
-    if "NOT_ALLOWED" == arg8 and 0 ~= arg7 then
-      arg8 = notify
-      arg9 = "~r~You cannot use this emote in a vehicle."
-      arg8(arg9)
+    localValue8 = localValue6.vehicleRequirement
+    if "NOT_ALLOWED" == localValue8 and 0 ~= localValue7 then
+      localValue8 = notify
+      localValue9 = "~r~You cannot use this emote in a vehicle."
+      localValue8(localValue9)
       return
     end
-    arg8 = arg6.notInVehicle
-    if arg8 and 0 ~= arg7 then
-      arg8 = notify
-      arg9 = "~r~You cannot use this emote in a vehicle."
+    localValue8 = localValue6.notInVehicle
+    if localValue8 and 0 ~= localValue7 then
+      localValue8 = notify
+      localValue9 = "~r~You cannot use this emote in a vehicle."
       -- Beginner: Show a notification to the player.
-      arg8(arg9)
+      localValue8(localValue9)
       return
     end
-    arg8 = arg6.onlyInVehicle
-    if arg8 and 0 == arg7 then
-      arg8 = notify
-      arg9 = "~r~This emote requires a vehicle."
-      arg8(arg9)
+    localValue8 = localValue6.onlyInVehicle
+    if localValue8 and 0 == localValue7 then
+      localValue8 = notify
+      localValue9 = "~r~This emote requires a vehicle."
+      localValue8(localValue9)
       return
     end
   end
-  arg7 = workValue24
-  arg8 = true
-  arg7(arg8)
-  arg7 = arg1[1]
-  textValue4 = arg7
-  arg8 = GetGameTimer
+  localValue7 = workingValue24
+  localValue8 = true
+  localValue7(localValue8)
+  localValue7 = localValue1[1]
+  text4 = localValue7
+  localValue8 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg8 = arg8()
-  numberValue2 = arg8
-  if "Expression" == arg7 then
-    arg8 = workValue19
-    arg9 = arg1
-    arg8(arg9)
+  localValue8 = localValue8()
+  number2 = localValue8
+  if "Expression" == localValue7 then
+    localValue8 = workingValue19
+    localValue9 = localValue1
+    localValue8(localValue9)
     return
   end
-  if "Scenario" == arg7 or "MaleScenario" == arg7 or "ScenarioObject" == arg7 then
-    arg8 = workValue20
-    arg9 = arg1
-    arg8(arg9)
+  if "Scenario" == localValue7 or "MaleScenario" == localValue7 or "ScenarioObject" == localValue7 then
+    localValue8 = workingValue20
+    localValue9 = localValue1
+    localValue8(localValue9)
     return
   end
-  arg8 = workValue28
-  arg9 = arg1
-  arg10 = arg2
-  arg11 = arg4
-  arg8(arg9, arg10, arg11)
+  localValue8 = workingValue28
+  localValue9 = localValue1
+  localValue10 = localValue2
+  localValue11 = localValue4
+  localValue8(localValue9, localValue10, localValue11)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue36; parameters: none) ===
-function workValue36()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4
-  arg1 = PlayerId
+-- === HELPER FUNCTION (decompiler name: workingValue36; parameters: none) ===
+function workingValue36()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4
+  localValue1 = PlayerId
   -- Beginner: result below is localPlayerIndex.
-  arg1 = arg1()
-  arg2 = -1
-  arg3 = 2.0
-  arg4 = CMG
-  arg4 = arg4.getPlayerCoords
+  localValue1 = localValue1()
+  localValue2 = -1
+  localValue3 = 2.0
+  localValue4 = CMG
+  localValue4 = localValue4.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg4 = arg4()
-  arg5 = pairs
-  arg6 = GetActivePlayers
-  arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4 = arg6()
-  arg5, arg6, arg7, arg8 = arg5(arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4)
-  for arg9, arg10 in arg5, arg6, arg7, arg8 do
-    if arg10 ~= arg1 then
-      arg11 = GetPlayerPed
-      workValue2 = arg10
+  localValue4 = localValue4()
+  localValue5 = pairs
+  localValue6 = GetActivePlayers
+  localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4 = localValue6()
+  localValue5, localValue6, localValue7, localValue8 = localValue5(localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4)
+  for localValue9, localValue10 in localValue5, localValue6, localValue7, localValue8 do
+    if localValue10 ~= localValue1 then
+      localValue11 = GetPlayerPed
+      workingValue2 = localValue10
       -- Beginner: result below is playerPed.
-      arg11 = arg11(workValue2)
-      workValue2 = GetEntityCoords
-      textValue5 = arg11
-      dataTable4 = true
+      localValue11 = localValue11(workingValue2)
+      workingValue2 = GetEntityCoords
+      text5 = localValue11
+      dataCollection4 = true
       -- Beginner: result below is entityCoords.
-      workValue2 = workValue2(textValue5, dataTable4)
-      workValue2 = workValue2 - arg4
-      workValue2 = #workValue2
-      if arg3 > workValue2 then
-        arg2 = arg10
-        arg3 = workValue2
+      workingValue2 = workingValue2(text5, dataCollection4)
+      workingValue2 = workingValue2 - localValue4
+      workingValue2 = #workingValue2
+      if localValue3 > workingValue2 then
+        localValue2 = localValue10
+        localValue3 = workingValue2
       end
     end
   end
-  if -1 == arg2 then
-    arg5 = 0
-    return arg5
+  if -1 == localValue2 then
+    localValue5 = 0
+    return localValue5
   else
-    arg5 = GetPlayerServerId
-    arg6 = arg2
-    return arg5(arg6)
+    localValue5 = GetPlayerServerId
+    localValue6 = localValue2
+    return localValue5(localValue6)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue37; parameters: arg1) ===
-function workValue37(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = numberValue14
-  arg2 = arg2()
-  if arg2 then
-    arg2 = notify
-    arg3 = "~r~Can not use shared emotes at this time."
+-- === HELPER FUNCTION (decompiler name: workingValue37; parameters: localValue1) ===
+function workingValue37(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = number14
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = notify
+    localValue3 = "~r~Can not use shared emotes at this time."
     -- Beginner: Show a notification to the player.
-    arg2(arg3)
+    localValue2(localValue3)
     return
   end
-  arg2 = GetGameTimer
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
-  arg3 = numberValue2
-  arg2 = arg2 - arg3
-  arg3 = numberValue11
-  if arg2 < arg3 then
-    arg2 = workValue16
-    arg2()
+  localValue2 = localValue2()
+  localValue3 = number2
+  localValue2 = localValue2 - localValue3
+  localValue3 = number11
+  if localValue2 < localValue3 then
+    localValue2 = workingValue16
+    localValue2()
     return
   end
-  arg2 = workValue36
-  arg2 = arg2()
-  if 0 ~= arg2 then
-    workValue14 = arg1
-    numberValue6 = arg2
-    arg3 = TriggerServerEvent
-    arg4 = "c74831f601"
-    arg5 = arg2
-    arg6 = arg1
+  localValue2 = workingValue36
+  localValue2 = localValue2()
+  if 0 ~= localValue2 then
+    workingValue14 = localValue1
+    number6 = localValue2
+    localValue3 = TriggerServerEvent
+    localValue4 = "c74831f601"
+    localValue5 = localValue2
+    localValue6 = localValue1
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c74831f601".
-    arg3(arg4, arg5, arg6)
+    localValue3(localValue4, localValue5, localValue6)
   else
-    arg3 = notify
-    arg4 = "~r~No player is near by."
+    localValue3 = notify
+    localValue4 = "~r~No player is near by."
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue38; parameters: arg1) ===
-function workValue38(arg1)
-  local arg2, arg3
-  arg2 = Citizen
-  arg2 = arg2.CreateThreadNow
+-- === HELPER FUNCTION (decompiler name: workingValue38; parameters: localValue1) ===
+function workingValue38(localValue1)
+  local localValue2, localValue3
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThreadNow
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local arg12, arg22, arg32, workValue17, workValue27
-    arg12 = arg1
-    arg12 = arg12[1]
-    arg22 = CMG
-    arg22 = arg22.loadAnimDict
-    arg32 = arg12
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27
+    localValue12 = localValue1
+    localValue12 = localValue12[1]
+    localValue22 = CMG
+    localValue22 = localValue22.loadAnimDict
+    localValue32 = localValue12
     -- Beginner: Load a GTA animation dictionary before using it.
-    arg22(arg32)
-    arg22 = SetPedMovementClipset
-    arg32 = PlayerPedId
+    localValue22(localValue32)
+    localValue22 = SetPedMovementClipset
+    localValue32 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg32 = arg32()
-    workValue17 = arg12
-    workValue27 = 0.2
-    arg22(arg32, workValue17, workValue27)
-    arg22 = RemoveAnimSet
-    arg32 = arg12
-    arg22(arg32)
-    arg22 = RemoveAnimDict
-    arg32 = arg12
-    arg22(arg32)
+    localValue32 = localValue32()
+    workingValue17 = localValue12
+    workingValue27 = 0.2
+    localValue22(localValue32, workingValue17, workingValue27)
+    localValue22 = RemoveAnimSet
+    localValue32 = localValue12
+    localValue22(localValue32)
+    localValue22 = RemoveAnimDict
+    localValue32 = localValue12
+    localValue22(localValue32)
   end
-  arg2(arg3)
+  localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue39; parameters: arg1, arg2) ===
-function workValue39(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = type
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  arg4 = type
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  if arg3 ~= arg4 then
-    arg5 = arg3 < arg4
-    return arg5
+-- === HELPER FUNCTION (decompiler name: workingValue39; parameters: localValue1, localValue2) ===
+function workingValue39(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = type
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  localValue4 = type
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  if localValue3 ~= localValue4 then
+    localValue5 = localValue3 < localValue4
+    return localValue5
   else
-    arg5 = arg1 < arg2
-    return arg5
+    localValue5 = localValue1 < localValue2
+    return localValue5
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue40; parameters: arg1, arg2) ===
-function workValue40(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
-  arg3 = {}
-  if not arg1 then
-    return arg3
+-- === HELPER FUNCTION (decompiler name: workingValue40; parameters: localValue1, localValue2) ===
+function workingValue40(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11
+  localValue3 = {}
+  if not localValue1 then
+    return localValue3
   end
-  arg4 = 1
-  arg5 = pairs
-  arg6 = arg1
-  arg5, arg6, arg7, arg8 = arg5(arg6)
-  for arg9 in arg5, arg6, arg7, arg8 do
-    arg3[arg4] = arg9
-    arg4 = arg4 + 1
+  localValue4 = 1
+  localValue5 = pairs
+  localValue6 = localValue1
+  localValue5, localValue6, localValue7, localValue8 = localValue5(localValue6)
+  for localValue9 in localValue5, localValue6, localValue7, localValue8 do
+    localValue3[localValue4] = localValue9
+    localValue4 = localValue4 + 1
   end
-  if not arg2 then
-    arg2 = workValue39
+  if not localValue2 then
+    localValue2 = workingValue39
   end
-  arg5 = table
-  arg5 = arg5.sort
-  arg6 = arg3
-  arg7 = arg2
-  arg5(arg6, arg7)
-  return arg3
+  localValue5 = table
+  localValue5 = localValue5.sort
+  localValue6 = localValue3
+  localValue7 = localValue2
+  localValue5(localValue6, localValue7)
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue41; parameters: arg1, arg2) ===
-function workValue41(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = workValue40
-  arg4 = arg1
-  arg5 = arg2
-  arg3 = arg3(arg4, arg5)
-  arg4 = 0
+-- === HELPER FUNCTION (decompiler name: workingValue41; parameters: localValue1, localValue2) ===
+function workingValue41(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = workingValue40
+  localValue4 = localValue1
+  localValue5 = localValue2
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = 0
 
-  -- === HELPER FUNCTION: arg5() ===
-  function arg5()
-    local arg12, arg22, arg32
-    arg12 = arg4
-    arg12 = arg12 + 1
-    arg4 = arg12
-    arg22 = arg4
-    arg12 = arg3
-    arg12 = arg12[arg22]
-    if nil ~= arg12 then
-      arg22 = arg12
-      arg32 = arg1
-      arg32 = arg32[arg12]
-      return arg22, arg32
+  -- === HELPER FUNCTION: localValue5() ===
+  function localValue5()
+    local localValue12, localValue22, localValue32
+    localValue12 = localValue4
+    localValue12 = localValue12 + 1
+    localValue4 = localValue12
+    localValue22 = localValue4
+    localValue12 = localValue3
+    localValue12 = localValue12[localValue22]
+    if nil ~= localValue12 then
+      localValue22 = localValue12
+      localValue32 = localValue1
+      localValue32 = localValue32[localValue12]
+      return localValue22, localValue32
     else
-      arg22 = nil
-      arg32 = nil
-      return arg22, arg32
+      localValue22 = nil
+      localValue32 = nil
+      return localValue22, localValue32
     end
   end
-  return arg5
+  return localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue42; parameters: arg1) ===
-function workValue42(arg1)
-  local arg2
-  arg2 = cmgCall.emotes
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = cmgCall.emotes
-    arg2 = arg2[arg1]
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue42; parameters: localValue1) ===
+function workingValue42(localValue1)
+  local localValue2
+  localValue2 = cmgOperation.emotes
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = cmgOperation.emotes
+    localValue2 = localValue2[localValue1]
+    return localValue2
   else
-    arg2 = cmgCall.dances
-    arg2 = arg2[arg1]
-    if arg2 then
-      arg2 = cmgCall.dances
-      arg2 = arg2[arg1]
-      return arg2
+    localValue2 = cmgOperation.dances
+    localValue2 = localValue2[localValue1]
+    if localValue2 then
+      localValue2 = cmgOperation.dances
+      localValue2 = localValue2[localValue1]
+      return localValue2
     else
-      arg2 = cmgCall.custom
-      arg2 = arg2[arg1]
-      if arg2 then
-        arg2 = cmgCall.custom
-        arg2 = arg2[arg1]
-        return arg2
+      localValue2 = cmgOperation.custom
+      localValue2 = localValue2[localValue1]
+      if localValue2 then
+        localValue2 = cmgOperation.custom
+        localValue2 = localValue2[localValue1]
+        return localValue2
       else
-        arg2 = cmgCall.props
-        arg2 = arg2[arg1]
-        if arg2 then
-          arg2 = cmgCall.props
-          arg2 = arg2[arg1]
-          return arg2
+        localValue2 = cmgOperation.props
+        localValue2 = localValue2[localValue1]
+        if localValue2 then
+          localValue2 = cmgOperation.props
+          localValue2 = localValue2[localValue1]
+          return localValue2
         else
-          arg2 = cmgCall.guns
-          arg2 = arg2[arg1]
-          if arg2 then
-            arg2 = cmgCall.guns
-            arg2 = arg2[arg1]
-            return arg2
+          localValue2 = cmgOperation.guns
+          localValue2 = localValue2[localValue1]
+          if localValue2 then
+            localValue2 = cmgOperation.guns
+            localValue2 = localValue2[localValue1]
+            return localValue2
           else
-            arg2 = cmgCall.animals
-            arg2 = arg2[arg1]
-            if arg2 then
-              arg2 = cmgCall.animals
-              arg2 = arg2[arg1]
-              return arg2
+            localValue2 = cmgOperation.animals
+            localValue2 = localValue2[localValue1]
+            if localValue2 then
+              localValue2 = cmgOperation.animals
+              localValue2 = localValue2[localValue1]
+              return localValue2
             else
-              arg2 = cmgCall.shared
-              if arg2 then
-                arg2 = cmgCall.shared
-                arg2 = arg2[arg1]
-                if arg2 then
-                  arg2 = cmgCall.shared
-                  arg2 = arg2[arg1]
-                  return arg2
+              localValue2 = cmgOperation.shared
+              if localValue2 then
+                localValue2 = cmgOperation.shared
+                localValue2 = localValue2[localValue1]
+                if localValue2 then
+                  localValue2 = cmgOperation.shared
+                  localValue2 = localValue2[localValue1]
+                  return localValue2
                 end
               end
             end
@@ -2955,295 +2955,295 @@ function workValue42(arg1)
       end
     end
   end
-  arg2 = nil
-  return arg2
+  localValue2 = nil
+  return localValue2
 end
-workValue43 = nil
+workingValue43 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue44; parameters: arg1) ===
-function workValue44(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = cmgCall.escrowPazeeeKeys
-  if arg2 then
-    arg2 = cmgCall.escrowPazeeeKeys
-    arg2 = arg2.carry
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue44; parameters: localValue1) ===
+function workingValue44(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = cmgOperation.escrowPazeeeKeys
+  if localValue2 then
+    localValue2 = cmgOperation.escrowPazeeeKeys
+    localValue2 = localValue2.carry
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_10::
-  arg2 = workValue43
-  if not arg2 then
-    arg2 = {}
-    workValue43 = arg2
-    arg2 = ipairs
-    arg3 = cmgCall.escrowPazeeeKeys
-    arg3 = arg3.carry
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = workValue43
-      arg8[arg7] = true
+  localValue2 = false
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = workingValue43
+  if not localValue2 then
+    localValue2 = {}
+    workingValue43 = localValue2
+    localValue2 = ipairs
+    localValue3 = cmgOperation.escrowPazeeeKeys
+    localValue3 = localValue3.carry
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = workingValue43
+      localValue8[localValue7] = true
     end
   end
-  arg2 = workValue43
-  arg2 = arg2[arg1]
-  arg2 = true == arg2
-  return arg2
+  localValue2 = workingValue43
+  localValue2 = localValue2[localValue1]
+  localValue2 = true == localValue2
+  return localValue2
 end
-workValue45 = nil
+workingValue45 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue46; parameters: arg1) ===
-function workValue46(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = cmgCall.escrowPazeeeKeys
-  if arg2 then
-    arg2 = cmgCall.escrowPazeeeKeys
-    arg2 = arg2.trash
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue46; parameters: localValue1) ===
+function workingValue46(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = cmgOperation.escrowPazeeeKeys
+  if localValue2 then
+    localValue2 = cmgOperation.escrowPazeeeKeys
+    localValue2 = localValue2.trash
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_10::
-  arg2 = workValue45
-  if not arg2 then
-    arg2 = {}
-    workValue45 = arg2
-    arg2 = ipairs
-    arg3 = cmgCall.escrowPazeeeKeys
-    arg3 = arg3.trash
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = workValue45
-      arg8[arg7] = true
+  localValue2 = false
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = workingValue45
+  if not localValue2 then
+    localValue2 = {}
+    workingValue45 = localValue2
+    localValue2 = ipairs
+    localValue3 = cmgOperation.escrowPazeeeKeys
+    localValue3 = localValue3.trash
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = workingValue45
+      localValue8[localValue7] = true
     end
   end
-  arg2 = workValue45
-  arg2 = arg2[arg1]
-  arg2 = true == arg2
-  return arg2
-end
-
--- === HELPER FUNCTION (decompiler name: workValue47; parameters: arg1, arg2, arg3) ===
-function workValue47(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, arg9
-  if "" == arg3 then
-    arg4 = false
-    return arg4
-  end
-  arg4 = string
-  arg4 = arg4.lower
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  arg5 = string
-  arg5 = arg5.find
-  arg6 = string
-  arg6 = arg6.lower
-  arg7 = arg1
-  arg6 = arg6(arg7)
-  arg7 = arg4
-  arg8 = 1
-  arg9 = true
-  arg5 = arg5(arg6, arg7, arg8, arg9)
-  if not arg5 then
-    arg5 = string
-    arg5 = arg5.find
-    arg6 = string
-    arg6 = arg6.lower
-    arg7 = arg2 or arg7
-    if not arg2 then
-      arg7 = ""
-    end
-    arg6 = arg6(arg7)
-    arg7 = arg4
-    arg8 = 1
-    arg9 = true
-    arg5 = arg5(arg6, arg7, arg8, arg9)
-  end
-  return arg5
+  localValue2 = workingValue45
+  localValue2 = localValue2[localValue1]
+  localValue2 = true == localValue2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue48; parameters: arg1) ===
-function workValue48(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2
-  arg2 = pairs
-  arg3 = cmgCall.emotes
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = workValue46
-    arg9 = arg6
-    arg8 = arg8(arg9)
-    if not arg8 then
-      arg8 = numberValue17
-      arg8 = arg8()
-      if not arg8 then
-        arg8 = workValue31
-        arg9 = arg6
-        arg8 = arg8(arg9)
-        if arg8 then
-          goto flow_label_34
+-- === HELPER FUNCTION (decompiler name: workingValue47; parameters: localValue1, localValue2, localValue3) ===
+function workingValue47(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  if "" == localValue3 then
+    localValue4 = false
+    return localValue4
+  end
+  localValue4 = string
+  localValue4 = localValue4.lower
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  localValue5 = string
+  localValue5 = localValue5.find
+  localValue6 = string
+  localValue6 = localValue6.lower
+  localValue7 = localValue1
+  localValue6 = localValue6(localValue7)
+  localValue7 = localValue4
+  localValue8 = 1
+  localValue9 = true
+  localValue5 = localValue5(localValue6, localValue7, localValue8, localValue9)
+  if not localValue5 then
+    localValue5 = string
+    localValue5 = localValue5.find
+    localValue6 = string
+    localValue6 = localValue6.lower
+    localValue7 = localValue2 or localValue7
+    if not localValue2 then
+      localValue7 = ""
+    end
+    localValue6 = localValue6(localValue7)
+    localValue7 = localValue4
+    localValue8 = 1
+    localValue9 = true
+    localValue5 = localValue5(localValue6, localValue7, localValue8, localValue9)
+  end
+  return localValue5
+end
+
+-- === HELPER FUNCTION (decompiler name: workingValue48; parameters: localValue1) ===
+function workingValue48(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2
+  localValue2 = pairs
+  localValue3 = cmgOperation.emotes
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = workingValue46
+    localValue9 = localValue6
+    localValue8 = localValue8(localValue9)
+    if not localValue8 then
+      localValue8 = number17
+      localValue8 = localValue8()
+      if not localValue8 then
+        localValue8 = workingValue31
+        localValue9 = localValue6
+        localValue8 = localValue8(localValue9)
+        if localValue8 then
+          goto continueAtStep34
         end
       end
-      arg8 = numberValue18
-      arg9 = arg7
-      arg8 = arg8(arg9)
-      if arg8 then
-        arg8 = workValue29
-        arg8 = arg8()
-        arg8 = not arg8
-        if arg8 then
-          goto flow_label_34
+      localValue8 = number18
+      localValue9 = localValue7
+      localValue8 = localValue8(localValue9)
+      if localValue8 then
+        localValue8 = workingValue29
+        localValue8 = localValue8()
+        localValue8 = not localValue8
+        if localValue8 then
+          goto continueAtStep34
         end
       end
-      arg8 = arg1
-      arg9 = arg6
-      arg10 = arg7
-      arg11 = "emotes"
-      arg8(arg9, arg10, arg11)
+      localValue8 = localValue1
+      localValue9 = localValue6
+      localValue10 = localValue7
+      localValue11 = "emotes"
+      localValue8(localValue9, localValue10, localValue11)
     end
-    ::flow_label_34::
+    ::continueAtStep34::
   end
-  arg2 = pairs
-  arg3 = cmgCall.dances
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = workValue46
-    arg9 = arg6
-    arg8 = arg8(arg9)
-    if not arg8 then
-      arg8 = arg1
-      arg9 = arg6
-      arg10 = arg7
-      arg11 = "dances"
-      arg8(arg9, arg10, arg11)
-    end
-  end
-  arg2 = pairs
-  arg3 = cmgCall.custom
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = workValue46
-    arg9 = arg6
-    arg8 = arg8(arg9)
-    if not arg8 then
-      arg8 = arg1
-      arg9 = arg6
-      arg10 = arg7
-      arg11 = "custom"
-      arg8(arg9, arg10, arg11)
+  localValue2 = pairs
+  localValue3 = cmgOperation.dances
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = workingValue46
+    localValue9 = localValue6
+    localValue8 = localValue8(localValue9)
+    if not localValue8 then
+      localValue8 = localValue1
+      localValue9 = localValue6
+      localValue10 = localValue7
+      localValue11 = "dances"
+      localValue8(localValue9, localValue10, localValue11)
     end
   end
-  arg2 = pairs
-  arg3 = cmgCall.props
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = workValue46
-    arg9 = arg6
-    arg8 = arg8(arg9)
-    if not arg8 then
-      arg8 = numberValue17
-      arg8 = arg8()
-      if not arg8 then
-        arg8 = workValue31
-        arg9 = arg6
-        arg8 = arg8(arg9)
-        if arg8 then
-          goto flow_label_94
+  localValue2 = pairs
+  localValue3 = cmgOperation.custom
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = workingValue46
+    localValue9 = localValue6
+    localValue8 = localValue8(localValue9)
+    if not localValue8 then
+      localValue8 = localValue1
+      localValue9 = localValue6
+      localValue10 = localValue7
+      localValue11 = "custom"
+      localValue8(localValue9, localValue10, localValue11)
+    end
+  end
+  localValue2 = pairs
+  localValue3 = cmgOperation.props
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = workingValue46
+    localValue9 = localValue6
+    localValue8 = localValue8(localValue9)
+    if not localValue8 then
+      localValue8 = number17
+      localValue8 = localValue8()
+      if not localValue8 then
+        localValue8 = workingValue31
+        localValue9 = localValue6
+        localValue8 = localValue8(localValue9)
+        if localValue8 then
+          goto continueAtStep94
         end
       end
-      arg8 = arg1
-      arg9 = arg6
-      arg10 = arg7
-      arg11 = "props"
-      arg8(arg9, arg10, arg11)
+      localValue8 = localValue1
+      localValue9 = localValue6
+      localValue10 = localValue7
+      localValue11 = "props"
+      localValue8(localValue9, localValue10, localValue11)
     end
-    ::flow_label_94::
+    ::continueAtStep94::
   end
-  arg2 = pairs
-  arg3 = cmgCall.guns
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = workValue46
-    arg9 = arg6
-    arg8 = arg8(arg9)
-    if not arg8 then
-      arg8 = arg1
-      arg9 = arg6
-      arg10 = arg7
-      arg11 = "guns"
-      arg8(arg9, arg10, arg11)
-    end
-  end
-  arg2 = numberValue16
-  arg2 = arg2()
-  if arg2 then
-    arg2 = pairs
-    arg3 = cmgCall.animals
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = workValue46
-      arg9 = arg6
-      arg8 = arg8(arg9)
-      if not arg8 then
-        arg8 = arg1
-        arg9 = arg6
-        arg10 = arg7
-        arg11 = "animals"
-        arg8(arg9, arg10, arg11)
-      end
+  localValue2 = pairs
+  localValue3 = cmgOperation.guns
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = workingValue46
+    localValue9 = localValue6
+    localValue8 = localValue8(localValue9)
+    if not localValue8 then
+      localValue8 = localValue1
+      localValue9 = localValue6
+      localValue10 = localValue7
+      localValue11 = "guns"
+      localValue8(localValue9, localValue10, localValue11)
     end
   end
-  arg2 = cmgCall.shared
-  if arg2 then
-    arg2 = pairs
-    arg3 = cmgCall.shared
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = workValue46
-      arg9 = arg6
-      arg8 = arg8(arg9)
-      if not arg8 then
-        arg8 = workValue44
-        arg9 = arg6
-        arg8 = arg8(arg9)
-        if not arg8 then
-          arg8 = arg1
-          arg9 = arg6
-          arg10 = arg7
-          arg11 = "shared"
-          arg8(arg9, arg10, arg11)
-        end
+  localValue2 = number16
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = pairs
+    localValue3 = cmgOperation.animals
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = workingValue46
+      localValue9 = localValue6
+      localValue8 = localValue8(localValue9)
+      if not localValue8 then
+        localValue8 = localValue1
+        localValue9 = localValue6
+        localValue10 = localValue7
+        localValue11 = "animals"
+        localValue8(localValue9, localValue10, localValue11)
       end
     end
   end
-  arg2 = cmgCall.escrowPazeeeKeys
-  if arg2 then
-    arg2 = cmgCall.escrowPazeeeKeys
-    arg2 = arg2.carry
-    if arg2 then
-      arg2 = ipairs
-      arg3 = cmgCall.escrowPazeeeKeys
-      arg3 = arg3.carry
-      arg2, arg3, arg4, arg5 = arg2(arg3)
-      for arg6, arg7 in arg2, arg3, arg4, arg5 do
-        arg8 = cmgCall.shared
-        if arg8 then
-          arg8 = cmgCall.shared
-          arg8 = arg8[arg7]
+  localValue2 = cmgOperation.shared
+  if localValue2 then
+    localValue2 = pairs
+    localValue3 = cmgOperation.shared
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = workingValue46
+      localValue9 = localValue6
+      localValue8 = localValue8(localValue9)
+      if not localValue8 then
+        localValue8 = workingValue44
+        localValue9 = localValue6
+        localValue8 = localValue8(localValue9)
+        if not localValue8 then
+          localValue8 = localValue1
+          localValue9 = localValue6
+          localValue10 = localValue7
+          localValue11 = "shared"
+          localValue8(localValue9, localValue10, localValue11)
         end
-        if arg8 then
-          arg9 = workValue46
-          arg10 = arg7
-          arg9 = arg9(arg10)
-          if not arg9 then
-            arg9 = arg1
-            arg10 = arg7
-            arg11 = arg8
-            workValue2 = "shared"
-            arg9(arg10, arg11, workValue2)
+      end
+    end
+  end
+  localValue2 = cmgOperation.escrowPazeeeKeys
+  if localValue2 then
+    localValue2 = cmgOperation.escrowPazeeeKeys
+    localValue2 = localValue2.carry
+    if localValue2 then
+      localValue2 = ipairs
+      localValue3 = cmgOperation.escrowPazeeeKeys
+      localValue3 = localValue3.carry
+      localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+      for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+        localValue8 = cmgOperation.shared
+        if localValue8 then
+          localValue8 = cmgOperation.shared
+          localValue8 = localValue8[localValue7]
+        end
+        if localValue8 then
+          localValue9 = workingValue46
+          localValue10 = localValue7
+          localValue9 = localValue9(localValue10)
+          if not localValue9 then
+            localValue9 = localValue1
+            localValue10 = localValue7
+            localValue11 = localValue8
+            workingValue2 = "shared"
+            localValue9(localValue10, localValue11, workingValue2)
           end
         end
       end
@@ -3251,1763 +3251,1763 @@ function workValue48(arg1)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg1) ===
-function workValue49(arg1)
-  local arg2, arg3, arg4
-  arg2 = table
-  arg2 = arg2.find
-  arg3 = dataTable6
-  arg4 = arg1
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg2 = {}
-    arg2.RightLabel = "\226\173\144"
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue49; parameters: localValue1) ===
+function workingValue49(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = table
+  localValue2 = localValue2.find
+  localValue3 = dataCollection6
+  localValue4 = localValue1
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue2 = {}
+    localValue2.RightLabel = "\226\173\144"
+    return localValue2
   end
-  arg2 = {}
-  return arg2
+  localValue2 = {}
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue50; parameters: arg1, arg2) ===
-function workValue50(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  if arg1 then
-    arg3 = IsControlJustPressed
-    arg4 = 0
-    arg5 = 121
-    arg3 = arg3(arg4, arg5)
-    if arg3 then
-      arg3 = table
-      arg3 = arg3.find
-      arg4 = dataTable6
-      arg5 = arg2
-      arg3 = arg3(arg4, arg5)
-      if arg3 and arg3 > 0 then
-        arg4 = table
-        arg4 = arg4.remove
-        arg5 = dataTable6
-        arg6 = arg3
-        arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue50; parameters: localValue1, localValue2) ===
+function workingValue50(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  if localValue1 then
+    localValue3 = IsControlJustPressed
+    localValue4 = 0
+    localValue5 = 121
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 then
+      localValue3 = table
+      localValue3 = localValue3.find
+      localValue4 = dataCollection6
+      localValue5 = localValue2
+      localValue3 = localValue3(localValue4, localValue5)
+      if localValue3 and localValue3 > 0 then
+        localValue4 = table
+        localValue4 = localValue4.remove
+        localValue5 = dataCollection6
+        localValue6 = localValue3
+        localValue4(localValue5, localValue6)
       else
-        arg4 = table
-        arg4 = arg4.insert
-        arg5 = dataTable6
-        arg6 = arg2
-        arg4(arg5, arg6)
+        localValue4 = table
+        localValue4 = localValue4.insert
+        localValue5 = dataCollection6
+        localValue6 = localValue2
+        localValue4(localValue5, localValue6)
       end
-      arg4 = SetResourceKvp
-      arg5 = "cmg_favourite_emotes"
-      arg6 = json
-      arg6 = arg6.encode
-      arg7 = dataTable6
-      arg6, arg7 = arg6(arg7)
-      arg4(arg5, arg6, arg7)
+      localValue4 = SetResourceKvp
+      localValue5 = "cmg_favourite_emotes"
+      localValue6 = json
+      localValue6 = localValue6.encode
+      localValue7 = dataCollection6
+      localValue6, localValue7 = localValue6(localValue7)
+      localValue4(localValue5, localValue6, localValue7)
     end
   end
 end
-workValue51 = nil
+workingValue51 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue52; parameters: arg1) ===
-function workValue52(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = cmgCall.escrowPazeeeKeys
-  if arg2 then
-    arg2 = cmgCall.escrowPazeeeKeys
-    arg2 = arg2.all
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue52; parameters: localValue1) ===
+function workingValue52(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = cmgOperation.escrowPazeeeKeys
+  if localValue2 then
+    localValue2 = cmgOperation.escrowPazeeeKeys
+    localValue2 = localValue2.all
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_10::
-  arg2 = workValue51
-  if not arg2 then
-    arg2 = {}
-    workValue51 = arg2
-    arg2 = ipairs
-    arg3 = cmgCall.escrowPazeeeKeys
-    arg3 = arg3.all
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      arg8 = workValue51
-      arg8[arg7] = true
+  localValue2 = false
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = workingValue51
+  if not localValue2 then
+    localValue2 = {}
+    workingValue51 = localValue2
+    localValue2 = ipairs
+    localValue3 = cmgOperation.escrowPazeeeKeys
+    localValue3 = localValue3.all
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      localValue8 = workingValue51
+      localValue8[localValue7] = true
     end
   end
-  arg2 = workValue51
-  arg2 = arg2[arg1]
-  arg2 = true == arg2
-  return arg2
+  localValue2 = workingValue51
+  localValue2 = localValue2[localValue1]
+  localValue2 = true == localValue2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue54; parameters: arg1) ===
-function workValue54(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall
-  arg2 = cmgCall.escrowPazeeeKeys
-  if arg2 then
-    arg2 = cmgCall.escrowPazeeeKeys
-    arg2 = arg2[arg1]
+-- === HELPER FUNCTION (decompiler name: workingValue54; parameters: localValue1) ===
+function workingValue54(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation
+  localValue2 = cmgOperation.escrowPazeeeKeys
+  if localValue2 then
+    localValue2 = cmgOperation.escrowPazeeeKeys
+    localValue2 = localValue2[localValue1]
   end
-  if not arg2 then
+  if not localValue2 then
     return
   end
-  arg3 = ipairs
-  arg4 = arg2
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = cmgCall.emotes
-    arg9 = arg9[arg8]
-    if not arg9 then
-      arg9 = cmgCall.props
-      arg9 = arg9[arg8]
-      if not arg9 then
-        arg9 = cmgCall.shared
-        if arg9 then
-          arg9 = cmgCall.shared
-          arg9 = arg9[arg8]
+  localValue3 = ipairs
+  localValue4 = localValue2
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = cmgOperation.emotes
+    localValue9 = localValue9[localValue8]
+    if not localValue9 then
+      localValue9 = cmgOperation.props
+      localValue9 = localValue9[localValue8]
+      if not localValue9 then
+        localValue9 = cmgOperation.shared
+        if localValue9 then
+          localValue9 = cmgOperation.shared
+          localValue9 = localValue9[localValue8]
         end
       end
     end
-    if arg9 then
-      arg10 = numberValue18
-      arg11 = arg9
-      arg10 = arg10(arg11)
-      if arg10 then
-        arg10 = workValue29
-        arg10 = arg10()
-        arg10 = not arg10
-        if arg10 then
-          goto flow_label_54
+    if localValue9 then
+      localValue10 = number18
+      localValue11 = localValue9
+      localValue10 = localValue10(localValue11)
+      if localValue10 then
+        localValue10 = workingValue29
+        localValue10 = localValue10()
+        localValue10 = not localValue10
+        if localValue10 then
+          goto continueAtStep54
         end
       end
-      arg10 = RageUI
-      arg10 = arg10.ButtonWithStyle
-      arg11 = arg9[3]
-      workValue2 = "/e ("
-      textValue5 = arg8
-      dataTable4 = ")"
-      workValue2 = workValue2 .. textValue5 .. dataTable4
-      textValue5 = workValue49
-      dataTable4 = arg8
-      textValue5 = textValue5(dataTable4)
-      dataTable4 = numberValue14
-      rageUiCall = arg9
-      dataTable4 = dataTable4(rageUiCall)
-      dataTable4 = not dataTable4
+      localValue10 = RageUI
+      localValue10 = localValue10.ButtonWithStyle
+      localValue11 = localValue9[3]
+      workingValue2 = "/e ("
+      text5 = localValue8
+      dataCollection4 = ")"
+      workingValue2 = workingValue2 .. text5 .. dataCollection4
+      text5 = workingValue49
+      dataCollection4 = localValue8
+      text5 = text5(dataCollection4)
+      dataCollection4 = number14
+      rageUiOperation = localValue9
+      dataCollection4 = dataCollection4(rageUiOperation)
+      dataCollection4 = not dataCollection4
 
-      -- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg12, arg22, arg32) ===
-      function rageUiCall(arg12, arg22, arg32)
-        local workValue17, workValue27, flag25
-        workValue17 = workValue50
-        workValue27 = arg22
-        flag25 = arg8
-        workValue17(workValue27, flag25)
-        if arg32 then
-          workValue17 = workValue35
-          workValue27 = arg9
-          workValue17(workValue27)
+      -- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue12, localValue22, localValue32) ===
+      function rageUiOperation(localValue12, localValue22, localValue32)
+        local workingValue17, workingValue27, stateFlag25
+        workingValue17 = workingValue50
+        workingValue27 = localValue22
+        stateFlag25 = localValue8
+        workingValue17(workingValue27, stateFlag25)
+        if localValue32 then
+          workingValue17 = workingValue35
+          workingValue27 = localValue9
+          workingValue17(workingValue27)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      arg10(arg11, workValue2, textValue5, dataTable4, rageUiCall)
+      localValue10(localValue11, workingValue2, text5, dataCollection4, rageUiOperation)
     end
-    ::flow_label_54::
+    ::continueAtStep54::
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue55; parameters: arg1) ===
-function workValue55(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8
-  arg2 = textValue11
-  arg2 = arg2[arg1]
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue55; parameters: localValue1) ===
+function workingValue55(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8
+  localValue2 = text11
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
     return
   end
-  arg3 = 1
-  arg4 = #arg2
-  arg5 = 1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = arg2[arg6]
-    arg8 = arg7.command
-    arg9 = arg7.emoteInfo
-    arg10 = numberValue18
-    arg11 = arg9
-    arg10 = arg10(arg11)
-    if arg10 then
-      arg10 = workValue29
-      arg10 = arg10()
-      arg10 = not arg10
-      if arg10 then
-        goto flow_label_52
+  localValue3 = 1
+  localValue4 = #localValue2
+  localValue5 = 1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = localValue2[localValue6]
+    localValue8 = localValue7.command
+    localValue9 = localValue7.emoteInfo
+    localValue10 = number18
+    localValue11 = localValue9
+    localValue10 = localValue10(localValue11)
+    if localValue10 then
+      localValue10 = workingValue29
+      localValue10 = localValue10()
+      localValue10 = not localValue10
+      if localValue10 then
+        goto continueAtStep52
       end
     end
-    arg10 = rageUiCall8
-    arg11 = arg9[3]
-    arg10 = arg10(arg11)
-    arg11 = arg7.useNearby
-    if arg11 then
-      arg11 = "/nearby (~g~"
-      workValue2 = arg8
-      textValue5 = "~w~)"
-      arg11 = arg11 .. workValue2 .. textValue5
-      if arg11 then
-        goto flow_label_39
+    localValue10 = rageUiOperation8
+    localValue11 = localValue9[3]
+    localValue10 = localValue10(localValue11)
+    localValue11 = localValue7.useNearby
+    if localValue11 then
+      localValue11 = "/nearby (~g~"
+      workingValue2 = localValue8
+      text5 = "~w~)"
+      localValue11 = localValue11 .. workingValue2 .. text5
+      if localValue11 then
+        goto continueAtStep39
       end
     end
-    arg11 = "/e ("
-    workValue2 = arg8
-    textValue5 = ")"
-    arg11 = arg11 .. workValue2 .. textValue5
-    ::flow_label_39::
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    textValue5 = arg10
-    dataTable4 = arg11
-    rageUiCall = workValue49
-    textValue6 = arg8
-    rageUiCall = rageUiCall(textValue6)
-    textValue6 = numberValue14
-    textValue8 = arg9
-    textValue6 = textValue6(textValue8)
-    textValue6 = not textValue6
+    localValue11 = "/e ("
+    workingValue2 = localValue8
+    text5 = ")"
+    localValue11 = localValue11 .. workingValue2 .. text5
+    ::continueAtStep39::
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    text5 = localValue10
+    dataCollection4 = localValue11
+    rageUiOperation = workingValue49
+    text6 = localValue8
+    rageUiOperation = rageUiOperation(text6)
+    text6 = number14
+    text8 = localValue9
+    text6 = text6(text8)
+    text6 = not text6
 
-    -- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg12, arg22, arg32) ===
-    function textValue8(arg12, arg22, arg32)
-      local workValue17, workValue27, flag25
-      workValue17 = workValue50
-      workValue27 = arg22
-      flag25 = arg8
-      workValue17(workValue27, flag25)
-      if arg32 then
-        workValue17 = arg7.useNearby
-        if workValue17 then
-          workValue17 = workValue37
-          workValue27 = arg8
-          workValue17(workValue27)
+    -- === HELPER FUNCTION (decompiler name: text8; parameters: localValue12, localValue22, localValue32) ===
+    function text8(localValue12, localValue22, localValue32)
+      local workingValue17, workingValue27, stateFlag25
+      workingValue17 = workingValue50
+      workingValue27 = localValue22
+      stateFlag25 = localValue8
+      workingValue17(workingValue27, stateFlag25)
+      if localValue32 then
+        workingValue17 = localValue7.useNearby
+        if workingValue17 then
+          workingValue17 = workingValue37
+          workingValue27 = localValue8
+          workingValue17(workingValue27)
         else
-          workValue17 = workValue35
-          workValue27 = arg9
-          workValue17(workValue27)
+          workingValue17 = workingValue35
+          workingValue27 = localValue9
+          workingValue17(workingValue27)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(textValue5, dataTable4, rageUiCall, textValue6, textValue8)
-    ::flow_label_52::
+    workingValue2(text5, dataCollection4, rageUiOperation, text6, text8)
+    ::continueAtStep52::
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue56; parameters: arg1) ===
-function workValue56(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = arg1[3]
-  if not arg2 then
-    arg2 = ""
+-- === HELPER FUNCTION (decompiler name: workingValue56; parameters: localValue1) ===
+function workingValue56(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = localValue1[3]
+  if not localValue2 then
+    localValue2 = ""
   end
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "^PCarry%s+%d+%s+"
-  arg6 = ""
-  arg3 = arg3(arg4, arg5, arg6)
-  if arg3 ~= arg2 then
-    return arg3
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "^PCarry%s+%d+%s+"
+  localValue6 = ""
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  if localValue3 ~= localValue2 then
+    return localValue3
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue57; parameters: none) ===
-function workValue57()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4
-  arg1 = cmgCall.escrowPazeeeKeys
-  if arg1 then
-    arg1 = cmgCall.escrowPazeeeKeys
-    arg1 = arg1.carry
+-- === HELPER FUNCTION (decompiler name: workingValue57; parameters: none) ===
+function workingValue57()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4
+  localValue1 = cmgOperation.escrowPazeeeKeys
+  if localValue1 then
+    localValue1 = cmgOperation.escrowPazeeeKeys
+    localValue1 = localValue1.carry
   end
-  if not arg1 then
+  if not localValue1 then
     return
   end
-  arg2 = ipairs
-  arg3 = arg1
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    arg8 = string
-    arg8 = arg8.sub
-    arg9 = arg7
-    arg10 = -1
-    arg8 = arg8(arg9, arg10)
-    if "1" == arg8 then
-      arg8 = cmgCall.shared
-      if arg8 then
-        arg8 = cmgCall.shared
-        arg8 = arg8[arg7]
+  localValue2 = ipairs
+  localValue3 = localValue1
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    localValue8 = string
+    localValue8 = localValue8.sub
+    localValue9 = localValue7
+    localValue10 = -1
+    localValue8 = localValue8(localValue9, localValue10)
+    if "1" == localValue8 then
+      localValue8 = cmgOperation.shared
+      if localValue8 then
+        localValue8 = cmgOperation.shared
+        localValue8 = localValue8[localValue7]
       end
-      if arg8 then
-        arg9 = arg8.animationOptions
-        if arg9 then
-          arg9 = arg8.animationOptions
-          arg9 = arg9.invisible
-          if arg9 then
-            goto flow_label_52
+      if localValue8 then
+        localValue9 = localValue8.animationOptions
+        if localValue9 then
+          localValue9 = localValue8.animationOptions
+          localValue9 = localValue9.invisible
+          if localValue9 then
+            goto continueAtStep52
           end
         end
-        arg9 = RageUI
-        arg9 = arg9.ButtonWithStyle
-        arg10 = workValue56
-        arg11 = arg8
-        arg10 = arg10(arg11)
-        arg11 = "/nearby (~g~"
-        workValue2 = arg7
-        textValue5 = "~w~)"
-        arg11 = arg11 .. workValue2 .. textValue5
-        workValue2 = workValue49
-        textValue5 = arg7
-        workValue2 = workValue2(textValue5)
-        textValue5 = numberValue14
-        dataTable4 = arg8
-        textValue5 = textValue5(dataTable4)
-        textValue5 = not textValue5
+        localValue9 = RageUI
+        localValue9 = localValue9.ButtonWithStyle
+        localValue10 = workingValue56
+        localValue11 = localValue8
+        localValue10 = localValue10(localValue11)
+        localValue11 = "/nearby (~g~"
+        workingValue2 = localValue7
+        text5 = "~w~)"
+        localValue11 = localValue11 .. workingValue2 .. text5
+        workingValue2 = workingValue49
+        text5 = localValue7
+        workingValue2 = workingValue2(text5)
+        text5 = number14
+        dataCollection4 = localValue8
+        text5 = text5(dataCollection4)
+        text5 = not text5
 
-        -- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg12, arg22, arg32) ===
-        function dataTable4(arg12, arg22, arg32)
-          local workValue17, workValue27, flag25
-          workValue17 = workValue50
-          workValue27 = arg22
-          flag25 = arg7
-          workValue17(workValue27, flag25)
-          if arg32 then
-            workValue17 = workValue37
-            workValue27 = arg7
-            workValue17(workValue27)
+        -- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue12, localValue22, localValue32) ===
+        function dataCollection4(localValue12, localValue22, localValue32)
+          local workingValue17, workingValue27, stateFlag25
+          workingValue17 = workingValue50
+          workingValue27 = localValue22
+          stateFlag25 = localValue7
+          workingValue17(workingValue27, stateFlag25)
+          if localValue32 then
+            workingValue17 = workingValue37
+            workingValue27 = localValue7
+            workingValue17(workingValue27)
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        arg9(arg10, arg11, workValue2, textValue5, dataTable4)
+        localValue9(localValue10, localValue11, workingValue2, text5, dataCollection4)
       end
     end
-    ::flow_label_52::
+    ::continueAtStep52::
   end
 end
-rageUiCall6 = RageUI
-rageUiCall6 = rageUiCall6.CreateWhile
-textValue16 = 1.0
-workValue58 = RMenu
-flag26 = workValue58
-workValue58 = workValue58.Get
-flag27 = "emotesmenu"
-textValue17 = "mainmenu"
+rageUiOperation6 = RageUI
+rageUiOperation6 = rageUiOperation6.CreateWhile
+text16 = 1.0
+workingValue58 = RMenu
+stateFlag26 = workingValue58
+workingValue58 = workingValue58.Get
+stateFlag27 = "emotesmenu"
+text17 = "mainmenu"
 -- Beginner: result below is menu.
-workValue58 = workValue58(flag26, flag27, textValue17)
-flag26 = nil
+workingValue58 = workingValue58(stateFlag26, stateFlag27, text17)
+stateFlag26 = nil
 
--- === HELPER FUNCTION (decompiler name: flag27; parameters: none) ===
-function flag27()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "mainmenu"
+-- === HELPER FUNCTION (decompiler name: stateFlag27; parameters: none) ===
+function stateFlag27()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59
-    arg12 = CMG
-    arg12 = arg12.isNewPlayer
-    arg12 = arg12()
-    if arg12 then
-      arg12 = drawNativeNotification
-      arg22 = "Press ~INPUT_A6B0CFFB~ to toggle the Emote Menu."
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59
+    localValue12 = CMG
+    localValue12 = localValue12.isNewPlayer
+    localValue12 = localValue12()
+    if localValue12 then
+      localValue12 = drawNativeNotification
+      localValue22 = "Press ~INPUT_A6B0CFFB~ to toggle the Emote Menu."
       -- Beginner: Show a GTA-style notification/help prompt.
-      arg12(arg22)
+      localValue12(localValue22)
     end
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "Emotes"
-    arg32 = ""
-    workValue17 = true
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "emotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "emotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "Cancel Emotes"
-    arg32 = ""
-    workValue17 = true
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "Cancel Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg13, arg23, arg33) ===
-    function workValue27(arg13, arg23, arg33)
-      local gameTime, flag24
-      if arg33 then
-        gameTime = workValue24
-        flag24 = false
-        gameTime(flag24)
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: localValue13, localValue23, localValue33) ===
+    function workingValue27(localValue13, localValue23, localValue33)
+      local gameTime, stateFlag24
+      if localValue33 then
+        gameTime = workingValue24
+        stateFlag24 = false
+        gameTime(stateFlag24)
         gameTime = GetGameTimer
         -- Beginner: result below is gameTimeMs.
         gameTime = gameTime()
-        numberValue2 = gameTime
+        number2 = gameTime
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "Walking Styles"
-    arg32 = ""
-    workValue17 = true
+    localValue12(localValue22, localValue32, workingValue17, workingValue27)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "Walking Styles"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "walkingstyles"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "Moods"
-    arg32 = ""
-    workValue17 = true
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "walkingstyles"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "Moods"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "moods"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "moods"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "emotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "emotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\240\159\148\141 Search Emotes"
-    arg32 = ""
-    workValue17 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\240\159\148\141 Search Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "searchemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "searchemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\226\173\144 Favourite Emotes"
-    arg32 = ""
-    workValue17 = true
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\226\173\144 Favourite Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "favouriteemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\240\159\149\186 Dance Emotes"
-    arg32 = ""
-    workValue17 = true
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "favouriteemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\240\159\149\186 Dance Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "danceemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "danceemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\240\159\155\160\239\184\143 Custom Emotes"
-    arg32 = ""
-    workValue17 = true
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\240\159\155\160\239\184\143 Custom Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "customemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = numberValue17
-    arg12 = arg12()
-    if arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Button
-      arg22 = "\240\159\142\134 Fireworks Emotes"
-      arg32 = ""
-      workValue17 = true
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "customemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = number17
+    localValue12 = localValue12()
+    if localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Button
+      localValue22 = "\240\159\142\134 Fireworks Emotes"
+      localValue32 = ""
+      workingValue17 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-      function workValue27()
-        local arg13, arg23
+      -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+      function workingValue27()
+        local localValue13, localValue23
       end
-      flag25 = RMenu
-      numberValue19 = flag25
-      flag25 = flag25.Get
-      textValue15 = "emotesmenu"
-      workValue59 = "fireworksemotes"
-      flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+      stateFlag25 = RMenu
+      number19 = stateFlag25
+      stateFlag25 = stateFlag25.Get
+      text15 = "emotesmenu"
+      workingValue59 = "fireworksemotes"
+      stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
       -- Beginner: Draw a selectable RageUI menu button.
-      arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
+      localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
     end
-    arg12 = cmgCall.escrowPazeeeKeys
-    if arg12 then
-      arg12 = cmgCall.escrowPazeeeKeys
-      arg12 = arg12.carry
-      if arg12 then
-        arg12 = RageUI
-        arg12 = arg12.Button
-        arg22 = "\240\159\147\166 Carry (nearby)"
-        arg32 = ""
-        workValue17 = true
+    localValue12 = cmgOperation.escrowPazeeeKeys
+    if localValue12 then
+      localValue12 = cmgOperation.escrowPazeeeKeys
+      localValue12 = localValue12.carry
+      if localValue12 then
+        localValue12 = RageUI
+        localValue12 = localValue12.Button
+        localValue22 = "\240\159\147\166 Carry (nearby)"
+        localValue32 = ""
+        workingValue17 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-        function workValue27()
-          local arg13, arg23
+        -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+        function workingValue27()
+          local localValue13, localValue23
         end
-        flag25 = RMenu
-        numberValue19 = flag25
-        flag25 = flag25.Get
-        textValue15 = "emotesmenu"
-        workValue59 = "carryemotes"
-        flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-        arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-        arg12 = RageUI
-        arg12 = arg12.Button
-        arg22 = "\240\159\154\152 Vehicle Emotes"
-        arg32 = ""
-        workValue17 = true
+        stateFlag25 = RMenu
+        number19 = stateFlag25
+        stateFlag25 = stateFlag25.Get
+        text15 = "emotesmenu"
+        workingValue59 = "carryemotes"
+        stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+        localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+        localValue12 = RageUI
+        localValue12 = localValue12.Button
+        localValue22 = "\240\159\154\152 Vehicle Emotes"
+        localValue32 = ""
+        workingValue17 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-        function workValue27()
-          local arg13, arg23
+        -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+        function workingValue27()
+          local localValue13, localValue23
         end
-        flag25 = RMenu
-        numberValue19 = flag25
-        flag25 = flag25.Get
-        textValue15 = "emotesmenu"
-        workValue59 = "vehicleescrowemotes"
-        flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+        stateFlag25 = RMenu
+        number19 = stateFlag25
+        stateFlag25 = stateFlag25.Get
+        text15 = "emotesmenu"
+        workingValue59 = "vehicleescrowemotes"
+        stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
         -- Beginner: Draw a selectable RageUI menu button.
-        arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-        arg12 = RageUI
-        arg12 = arg12.Button
-        arg22 = "\226\155\147\239\184\143 Punish Emotes"
-        arg32 = ""
-        workValue17 = true
+        localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+        localValue12 = RageUI
+        localValue12 = localValue12.Button
+        localValue22 = "\226\155\147\239\184\143 Punish Emotes"
+        localValue32 = ""
+        workingValue17 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-        function workValue27()
-          local arg13, arg23
+        -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+        function workingValue27()
+          local localValue13, localValue23
         end
-        flag25 = RMenu
-        numberValue19 = flag25
-        flag25 = flag25.Get
-        textValue15 = "emotesmenu"
-        workValue59 = "punishemotes"
-        flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-        arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-        arg12 = RageUI
-        arg12 = arg12.Button
-        arg22 = "\240\159\142\173 Roleplay Emotes"
-        arg32 = ""
-        workValue17 = true
+        stateFlag25 = RMenu
+        number19 = stateFlag25
+        stateFlag25 = stateFlag25.Get
+        text15 = "emotesmenu"
+        workingValue59 = "punishemotes"
+        stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+        localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+        localValue12 = RageUI
+        localValue12 = localValue12.Button
+        localValue22 = "\240\159\142\173 Roleplay Emotes"
+        localValue32 = ""
+        workingValue17 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-        function workValue27()
-          local arg13, arg23
+        -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+        function workingValue27()
+          local localValue13, localValue23
         end
-        flag25 = RMenu
-        numberValue19 = flag25
-        flag25 = flag25.Get
-        textValue15 = "emotesmenu"
-        workValue59 = "roleplayescrowemotes"
-        flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+        stateFlag25 = RMenu
+        number19 = stateFlag25
+        stateFlag25 = stateFlag25.Get
+        text15 = "emotesmenu"
+        workingValue59 = "roleplayescrowemotes"
+        stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
         -- Beginner: Draw a selectable RageUI menu button.
-        arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
+        localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
       end
     end
-    arg12 = cmgCall.escrowPazeeeKeys
-    if arg12 then
-      arg12 = cmgCall.escrowPazeeeKeys
-      arg12 = arg12.flagEmotes
-      if arg12 then
-        arg12 = RageUI
-        arg12 = arg12.Button
-        arg22 = "\240\159\143\180 Flag Emotes"
-        arg32 = ""
-        workValue17 = true
+    localValue12 = cmgOperation.escrowPazeeeKeys
+    if localValue12 then
+      localValue12 = cmgOperation.escrowPazeeeKeys
+      localValue12 = localValue12.flagEmotes
+      if localValue12 then
+        localValue12 = RageUI
+        localValue12 = localValue12.Button
+        localValue22 = "\240\159\143\180 Flag Emotes"
+        localValue32 = ""
+        workingValue17 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-        function workValue27()
-          local arg13, arg23
+        -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+        function workingValue27()
+          local localValue13, localValue23
         end
-        flag25 = RMenu
-        numberValue19 = flag25
-        flag25 = flag25.Get
-        textValue15 = "emotesmenu"
-        workValue59 = "flagescrowemotes"
-        flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-        arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
+        stateFlag25 = RMenu
+        number19 = stateFlag25
+        stateFlag25 = stateFlag25.Get
+        text15 = "emotesmenu"
+        workingValue59 = "flagescrowemotes"
+        stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+        localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
       end
     end
-    arg12 = cmgCall.escrowPazeeeKeys
-    if arg12 then
-      arg12 = cmgCall.escrowPazeeeKeys
-      arg12 = arg12.trophyEmotes
-      if arg12 then
-        arg12 = RageUI
-        arg12 = arg12.Button
-        arg22 = "\240\159\143\134 Trophy Emotes"
-        arg32 = ""
-        workValue17 = true
+    localValue12 = cmgOperation.escrowPazeeeKeys
+    if localValue12 then
+      localValue12 = cmgOperation.escrowPazeeeKeys
+      localValue12 = localValue12.trophyEmotes
+      if localValue12 then
+        localValue12 = RageUI
+        localValue12 = localValue12.Button
+        localValue22 = "\240\159\143\134 Trophy Emotes"
+        localValue32 = ""
+        workingValue17 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-        function workValue27()
-          local arg13, arg23
+        -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+        function workingValue27()
+          local localValue13, localValue23
         end
-        flag25 = RMenu
-        numberValue19 = flag25
-        flag25 = flag25.Get
-        textValue15 = "emotesmenu"
-        workValue59 = "trophyescrowemotes"
-        flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+        stateFlag25 = RMenu
+        number19 = stateFlag25
+        stateFlag25 = stateFlag25.Get
+        text15 = "emotesmenu"
+        workingValue59 = "trophyescrowemotes"
+        stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
         -- Beginner: Draw a selectable RageUI menu button.
-        arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
+        localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
       end
     end
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\240\159\147\139 Standard Emotes"
-    arg32 = ""
-    workValue17 = true
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\240\159\147\139 Standard Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "standardemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\240\159\147\166 Prop Emotes"
-    arg32 = ""
-    workValue17 = true
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "standardemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\240\159\147\166 Prop Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "propemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "propemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\240\159\145\171 Shared Emotes"
-    arg32 = ""
-    workValue17 = true
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\240\159\145\171 Shared Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "sharedemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "\240\159\148\171 Gun Emotes"
-    arg32 = ""
-    workValue17 = true
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "sharedemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "\240\159\148\171 Gun Emotes"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-    function workValue27()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+    function workingValue27()
+      local localValue13, localValue23
     end
-    flag25 = RMenu
-    numberValue19 = flag25
-    flag25 = flag25.Get
-    textValue15 = "emotesmenu"
-    workValue59 = "gunemotes"
-    flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
+    stateFlag25 = RMenu
+    number19 = stateFlag25
+    stateFlag25 = stateFlag25.Get
+    text15 = "emotesmenu"
+    workingValue59 = "gunemotes"
+    stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
-    arg12 = numberValue16
-    arg12 = arg12()
-    if arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Button
-      arg22 = "\240\159\144\169 Animal Emotes"
-      arg32 = ""
-      workValue17 = true
+    localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
+    localValue12 = number16
+    localValue12 = localValue12()
+    if localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Button
+      localValue22 = "\240\159\144\169 Animal Emotes"
+      localValue32 = ""
+      workingValue17 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-      function workValue27()
-        local arg13, arg23
+      -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+      function workingValue27()
+        local localValue13, localValue23
       end
-      flag25 = RMenu
-      numberValue19 = flag25
-      flag25 = flag25.Get
-      textValue15 = "emotesmenu"
-      workValue59 = "animalemotes"
-      flag25, numberValue19, textValue15, workValue59 = flag25(numberValue19, textValue15, workValue59)
-      arg12(arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59)
+      stateFlag25 = RMenu
+      number19 = stateFlag25
+      stateFlag25 = stateFlag25.Get
+      text15 = "emotesmenu"
+      workingValue59 = "animalemotes"
+      stateFlag25, number19, text15, workingValue59 = stateFlag25(number19, text15, workingValue59)
+      localValue12(localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59)
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "standardemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "standardemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable, dataTable2
-    arg12 = cmgCall.standardEmotes
-    if arg12 then
-      arg12 = ipairs
-      arg22 = cmgCall.standardEmotes
-      arg12, arg22, arg32, workValue17 = arg12(arg22)
-      for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-        numberValue19 = cmgCall.emotes
-        numberValue19 = numberValue19[flag25]
-        if numberValue19 then
-          textValue15 = workValue30
-          workValue59 = numberValue19
-          textValue15 = textValue15(workValue59)
-          if textValue15 then
-            textValue15 = RageUI
-            textValue15 = textValue15.ButtonWithStyle
-            workValue59 = numberValue19[3]
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection, dataCollection2
+    localValue12 = cmgOperation.standardEmotes
+    if localValue12 then
+      localValue12 = ipairs
+      localValue22 = cmgOperation.standardEmotes
+      localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+      for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+        number19 = cmgOperation.emotes
+        number19 = number19[stateFlag25]
+        if number19 then
+          text15 = workingValue30
+          workingValue59 = number19
+          text15 = text15(workingValue59)
+          if text15 then
+            text15 = RageUI
+            text15 = text15.ButtonWithStyle
+            workingValue59 = number19[3]
             playerPed = "/e ("
-            workValue = flag25
-            dataTable = ")"
-            playerPed = playerPed .. workValue .. dataTable
-            workValue = workValue49
-            dataTable = flag25
-            workValue = workValue(dataTable)
-            dataTable = numberValue14
-            dataTable2 = numberValue19
-            dataTable = dataTable(dataTable2)
-            dataTable = not dataTable
+            workingValue = stateFlag25
+            dataCollection = ")"
+            playerPed = playerPed .. workingValue .. dataCollection
+            workingValue = workingValue49
+            dataCollection = stateFlag25
+            workingValue = workingValue(dataCollection)
+            dataCollection = number14
+            dataCollection2 = number19
+            dataCollection = dataCollection(dataCollection2)
+            dataCollection = not dataCollection
 
-            -- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg13, arg23, arg33) ===
-            function dataTable2(arg13, arg23, arg33)
-              local gameTime, flag24, workValue32
-              gameTime = workValue50
-              flag24 = arg23
-              workValue32 = flag25
-              gameTime(flag24, workValue32)
-              if arg33 then
-                gameTime = workValue35
-                flag24 = numberValue19
-                gameTime(flag24)
+            -- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue13, localValue23, localValue33) ===
+            function dataCollection2(localValue13, localValue23, localValue33)
+              local gameTime, stateFlag24, workingValue32
+              gameTime = workingValue50
+              stateFlag24 = localValue23
+              workingValue32 = stateFlag25
+              gameTime(stateFlag24, workingValue32)
+              if localValue33 then
+                gameTime = workingValue35
+                stateFlag24 = number19
+                gameTime(stateFlag24)
               end
             end
             -- Beginner: Draw a selectable RageUI menu button.
-            textValue15(workValue59, playerPed, workValue, dataTable, dataTable2)
+            text15(workingValue59, playerPed, workingValue, dataCollection, dataCollection2)
           end
         end
       end
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "danceemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "danceemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable
-    arg12 = workValue41
-    arg22 = cmgCall.dances
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = workValue30
-      textValue15 = flag25
-      numberValue19 = numberValue19(textValue15)
-      if numberValue19 then
-        numberValue19 = RageUI
-        numberValue19 = numberValue19.ButtonWithStyle
-        textValue15 = flag25[3]
-        workValue59 = "/e ("
-        playerPed = workValue27
-        workValue = ")"
-        workValue59 = workValue59 .. playerPed .. workValue
-        playerPed = workValue49
-        workValue = workValue27
-        playerPed = playerPed(workValue)
-        workValue = numberValue14
-        dataTable = flag25
-        workValue = workValue(dataTable)
-        workValue = not workValue
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.dances
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = workingValue30
+      text15 = stateFlag25
+      number19 = number19(text15)
+      if number19 then
+        number19 = RageUI
+        number19 = number19.ButtonWithStyle
+        text15 = stateFlag25[3]
+        workingValue59 = "/e ("
+        playerPed = workingValue27
+        workingValue = ")"
+        workingValue59 = workingValue59 .. playerPed .. workingValue
+        playerPed = workingValue49
+        workingValue = workingValue27
+        playerPed = playerPed(workingValue)
+        workingValue = number14
+        dataCollection = stateFlag25
+        workingValue = workingValue(dataCollection)
+        workingValue = not workingValue
 
-        -- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg13, arg23, arg33) ===
-        function dataTable(arg13, arg23, arg33)
-          local gameTime, flag24, workValue32
-          gameTime = workValue50
-          flag24 = arg23
-          workValue32 = workValue27
-          gameTime(flag24, workValue32)
-          if arg33 then
-            gameTime = workValue35
-            flag24 = flag25
-            gameTime(flag24)
-          end
-        end
-        -- Beginner: Draw a selectable RageUI menu button.
-        numberValue19(textValue15, workValue59, playerPed, workValue, dataTable)
-      end
-    end
-  end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "customemotes"
-  -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
-
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable
-    arg12 = workValue41
-    arg22 = cmgCall.custom
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = workValue30
-      textValue15 = flag25
-      numberValue19 = numberValue19(textValue15)
-      if numberValue19 then
-        numberValue19 = RageUI
-        numberValue19 = numberValue19.ButtonWithStyle
-        textValue15 = flag25[3]
-        workValue59 = "/e ("
-        playerPed = workValue27
-        workValue = ")"
-        workValue59 = workValue59 .. playerPed .. workValue
-        playerPed = workValue49
-        workValue = workValue27
-        playerPed = playerPed(workValue)
-        workValue = numberValue14
-        dataTable = flag25
-        workValue = workValue(dataTable)
-        workValue = not workValue
-
-        -- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg13, arg23, arg33) ===
-        function dataTable(arg13, arg23, arg33)
-          local gameTime, flag24, workValue32
-          gameTime = workValue50
-          flag24 = arg23
-          workValue32 = workValue27
-          gameTime(flag24, workValue32)
-          if arg33 then
-            gameTime = workValue35
-            flag24 = flag25
-            gameTime(flag24)
+        -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: localValue13, localValue23, localValue33) ===
+        function dataCollection(localValue13, localValue23, localValue33)
+          local gameTime, stateFlag24, workingValue32
+          gameTime = workingValue50
+          stateFlag24 = localValue23
+          workingValue32 = workingValue27
+          gameTime(stateFlag24, workingValue32)
+          if localValue33 then
+            gameTime = workingValue35
+            stateFlag24 = stateFlag25
+            gameTime(stateFlag24)
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        numberValue19(textValue15, workValue59, playerPed, workValue, dataTable)
+        number19(text15, workingValue59, playerPed, workingValue, dataCollection)
       end
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "fireworksemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "customemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable, dataTable2
-    arg12 = numberValue17
-    arg12 = arg12()
-    if not arg12 then
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.custom
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = workingValue30
+      text15 = stateFlag25
+      number19 = number19(text15)
+      if number19 then
+        number19 = RageUI
+        number19 = number19.ButtonWithStyle
+        text15 = stateFlag25[3]
+        workingValue59 = "/e ("
+        playerPed = workingValue27
+        workingValue = ")"
+        workingValue59 = workingValue59 .. playerPed .. workingValue
+        playerPed = workingValue49
+        workingValue = workingValue27
+        playerPed = playerPed(workingValue)
+        workingValue = number14
+        dataCollection = stateFlag25
+        workingValue = workingValue(dataCollection)
+        workingValue = not workingValue
+
+        -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: localValue13, localValue23, localValue33) ===
+        function dataCollection(localValue13, localValue23, localValue33)
+          local gameTime, stateFlag24, workingValue32
+          gameTime = workingValue50
+          stateFlag24 = localValue23
+          workingValue32 = workingValue27
+          gameTime(stateFlag24, workingValue32)
+          if localValue33 then
+            gameTime = workingValue35
+            stateFlag24 = stateFlag25
+            gameTime(stateFlag24)
+          end
+        end
+        -- Beginner: Draw a selectable RageUI menu button.
+        number19(text15, workingValue59, playerPed, workingValue, dataCollection)
+      end
+    end
+  end
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "fireworksemotes"
+  -- Beginner: result below is menu.
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
+
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection, dataCollection2
+    localValue12 = number17
+    localValue12 = localValue12()
+    if not localValue12 then
       return
     end
-    arg12 = cmgCall.fireworksEmotes
-    if arg12 then
-      arg12 = ipairs
-      arg22 = cmgCall.fireworksEmotes
-      arg12, arg22, arg32, workValue17 = arg12(arg22)
-      for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-        numberValue19 = cmgCall.emotes
-        numberValue19 = numberValue19[flag25]
-        if not numberValue19 then
-          numberValue19 = cmgCall.props
-          numberValue19 = numberValue19[flag25]
+    localValue12 = cmgOperation.fireworksEmotes
+    if localValue12 then
+      localValue12 = ipairs
+      localValue22 = cmgOperation.fireworksEmotes
+      localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+      for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+        number19 = cmgOperation.emotes
+        number19 = number19[stateFlag25]
+        if not number19 then
+          number19 = cmgOperation.props
+          number19 = number19[stateFlag25]
         end
-        if numberValue19 then
-          textValue15 = workValue30
-          workValue59 = numberValue19
-          textValue15 = textValue15(workValue59)
-          if textValue15 then
-            textValue15 = RageUI
-            textValue15 = textValue15.ButtonWithStyle
-            workValue59 = numberValue19[3]
+        if number19 then
+          text15 = workingValue30
+          workingValue59 = number19
+          text15 = text15(workingValue59)
+          if text15 then
+            text15 = RageUI
+            text15 = text15.ButtonWithStyle
+            workingValue59 = number19[3]
             playerPed = "/e ("
-            workValue = flag25
-            dataTable = ")"
-            playerPed = playerPed .. workValue .. dataTable
-            workValue = workValue49
-            dataTable = flag25
-            workValue = workValue(dataTable)
-            dataTable = numberValue14
-            dataTable2 = numberValue19
-            dataTable = dataTable(dataTable2)
-            dataTable = not dataTable
+            workingValue = stateFlag25
+            dataCollection = ")"
+            playerPed = playerPed .. workingValue .. dataCollection
+            workingValue = workingValue49
+            dataCollection = stateFlag25
+            workingValue = workingValue(dataCollection)
+            dataCollection = number14
+            dataCollection2 = number19
+            dataCollection = dataCollection(dataCollection2)
+            dataCollection = not dataCollection
 
-            -- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg13, arg23, arg33) ===
-            function dataTable2(arg13, arg23, arg33)
-              local gameTime, flag24, workValue32
-              gameTime = workValue50
-              flag24 = arg23
-              workValue32 = flag25
-              gameTime(flag24, workValue32)
-              if arg33 then
-                gameTime = workValue35
-                flag24 = numberValue19
-                gameTime(flag24)
+            -- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue13, localValue23, localValue33) ===
+            function dataCollection2(localValue13, localValue23, localValue33)
+              local gameTime, stateFlag24, workingValue32
+              gameTime = workingValue50
+              stateFlag24 = localValue23
+              workingValue32 = stateFlag25
+              gameTime(stateFlag24, workingValue32)
+              if localValue33 then
+                gameTime = workingValue35
+                stateFlag24 = number19
+                gameTime(stateFlag24)
               end
             end
             -- Beginner: Draw a selectable RageUI menu button.
-            textValue15(workValue59, playerPed, workValue, dataTable, dataTable2)
+            text15(workingValue59, playerPed, workingValue, dataCollection, dataCollection2)
           end
         end
       end
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "carryemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "carryemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22
-    arg12 = workValue57
-    arg12()
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22
+    localValue12 = workingValue57
+    localValue12()
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "vehicleescrowemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "vehicleescrowemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22
-    arg12 = workValue54
-    arg22 = "vehicle"
-    arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22
+    localValue12 = workingValue54
+    localValue22 = "vehicle"
+    localValue12(localValue22)
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "punishemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "punishemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22
-    arg12 = workValue54
-    arg22 = "punishEmotes"
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~Props"
-    arg12(arg22)
-    arg12 = workValue54
-    arg22 = "punishProps"
-    arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22
+    localValue12 = workingValue54
+    localValue22 = "punishEmotes"
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~Props"
+    localValue12(localValue22)
+    localValue12 = workingValue54
+    localValue22 = "punishProps"
+    localValue12(localValue22)
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "roleplayescrowemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "roleplayescrowemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22
-    arg12 = workValue54
-    arg22 = "roleplayEmotes"
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~Props"
-    arg12(arg22)
-    arg12 = workValue54
-    arg22 = "roleplayProps"
-    arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22
+    localValue12 = workingValue54
+    localValue22 = "roleplayEmotes"
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~Props"
+    localValue12(localValue22)
+    localValue12 = workingValue54
+    localValue22 = "roleplayProps"
+    localValue12(localValue22)
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "flagescrowemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "flagescrowemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3
-    arg12 = ipairs
-    arg22 = dataTable5
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = textValue11
-      numberValue19 = numberValue19[flag25]
-      textValue15 = textValue9
-      textValue15 = textValue15[flag25]
-      workValue59 = RageUI
-      workValue59 = workValue59.Button
-      playerPed = flag25
-      workValue = tostring
-      dataTable = #numberValue19
-      workValue = workValue(dataTable)
-      dataTable = " emotes"
-      workValue = workValue .. dataTable
-      dataTable = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3
+    localValue12 = ipairs
+    localValue22 = dataCollection5
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = text11
+      number19 = number19[stateFlag25]
+      text15 = text9
+      text15 = text15[stateFlag25]
+      workingValue59 = RageUI
+      workingValue59 = workingValue59.Button
+      playerPed = stateFlag25
+      workingValue = tostring
+      dataCollection = #number19
+      workingValue = workingValue(dataCollection)
+      dataCollection = " emotes"
+      workingValue = workingValue .. dataCollection
+      dataCollection = true
 
-      -- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-      function dataTable2()
-        local arg13, arg23
+      -- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: none) ===
+      function dataCollection2()
+        local localValue13, localValue23
       end
-      workValue3 = RMenu
-      workValue4 = workValue3
-      workValue3 = workValue3.Get
-      textValue7 = "emotesmenu"
-      numberValue3 = textValue15
-      workValue3, workValue4, textValue7, numberValue3 = workValue3(workValue4, textValue7, numberValue3)
+      workingValue3 = RMenu
+      workingValue4 = workingValue3
+      workingValue3 = workingValue3.Get
+      text7 = "emotesmenu"
+      number3 = text15
+      workingValue3, workingValue4, text7, number3 = workingValue3(workingValue4, text7, number3)
       -- Beginner: Draw a selectable RageUI menu button.
-      workValue59(playerPed, workValue, dataTable, dataTable2, workValue3, workValue4, textValue7, numberValue3)
+      workingValue59(playerPed, workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7, number3)
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = ipairs
-  arg2 = dataTable5
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = textValue9
-    arg7 = arg7[arg6]
-    arg8 = RageUI
-    arg8 = arg8.IsVisible
-    arg9 = RMenu
-    arg10 = arg9
-    arg9 = arg9.Get
-    arg11 = "emotesmenu"
-    workValue2 = arg7
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = ipairs
+  localValue2 = dataCollection5
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = text9
+    localValue7 = localValue7[localValue6]
+    localValue8 = RageUI
+    localValue8 = localValue8.IsVisible
+    localValue9 = RMenu
+    localValue10 = localValue9
+    localValue9 = localValue9.Get
+    localValue11 = "emotesmenu"
+    workingValue2 = localValue7
     -- Beginner: result below is menu.
-    arg9 = arg9(arg10, arg11, workValue2)
-    arg10 = true
-    arg11 = false
-    workValue2 = true
+    localValue9 = localValue9(localValue10, localValue11, workingValue2)
+    localValue10 = true
+    localValue11 = false
+    workingValue2 = true
 
-    -- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-    function textValue5()
-      local arg12, arg22
-      arg12 = workValue55
-      arg22 = arg6
-      arg12(arg22)
+    -- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+    function text5()
+      local localValue12, localValue22
+      localValue12 = workingValue55
+      localValue22 = localValue6
+      localValue12(localValue22)
     end
-    arg8(arg9, arg10, arg11, workValue2, textValue5)
+    localValue8(localValue9, localValue10, localValue11, workingValue2, text5)
   end
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "trophyescrowemotes"
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "trophyescrowemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22
-    arg12 = workValue54
-    arg22 = "trophyEmotes"
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~Props"
-    arg12(arg22)
-    arg12 = workValue54
-    arg22 = "trophyProps"
-    arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22
+    localValue12 = workingValue54
+    localValue22 = "trophyEmotes"
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~Props"
+    localValue12(localValue22)
+    localValue12 = workingValue54
+    localValue22 = "trophyProps"
+    localValue12(localValue22)
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "gunemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "gunemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable
-    arg12 = workValue41
-    arg22 = cmgCall.guns
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = workValue30
-      textValue15 = flag25
-      numberValue19 = numberValue19(textValue15)
-      if numberValue19 then
-        numberValue19 = RageUI
-        numberValue19 = numberValue19.ButtonWithStyle
-        textValue15 = flag25[3]
-        workValue59 = "/e ("
-        playerPed = workValue27
-        workValue = ")"
-        workValue59 = workValue59 .. playerPed .. workValue
-        playerPed = workValue49
-        workValue = workValue27
-        playerPed = playerPed(workValue)
-        workValue = numberValue14
-        dataTable = flag25
-        workValue = workValue(dataTable)
-        workValue = not workValue
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.guns
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = workingValue30
+      text15 = stateFlag25
+      number19 = number19(text15)
+      if number19 then
+        number19 = RageUI
+        number19 = number19.ButtonWithStyle
+        text15 = stateFlag25[3]
+        workingValue59 = "/e ("
+        playerPed = workingValue27
+        workingValue = ")"
+        workingValue59 = workingValue59 .. playerPed .. workingValue
+        playerPed = workingValue49
+        workingValue = workingValue27
+        playerPed = playerPed(workingValue)
+        workingValue = number14
+        dataCollection = stateFlag25
+        workingValue = workingValue(dataCollection)
+        workingValue = not workingValue
 
-        -- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg13, arg23, arg33) ===
-        function dataTable(arg13, arg23, arg33)
-          local gameTime, flag24, workValue32
-          gameTime = workValue50
-          flag24 = arg23
-          workValue32 = workValue27
-          gameTime(flag24, workValue32)
-          if arg33 then
-            gameTime = workValue35
-            flag24 = flag25
-            gameTime(flag24)
+        -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: localValue13, localValue23, localValue33) ===
+        function dataCollection(localValue13, localValue23, localValue33)
+          local gameTime, stateFlag24, workingValue32
+          gameTime = workingValue50
+          stateFlag24 = localValue23
+          workingValue32 = workingValue27
+          gameTime(stateFlag24, workingValue32)
+          if localValue33 then
+            gameTime = workingValue35
+            stateFlag24 = stateFlag25
+            gameTime(stateFlag24)
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        numberValue19(textValue15, workValue59, playerPed, workValue, dataTable)
+        number19(text15, workingValue59, playerPed, workingValue, dataCollection)
       end
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "favouriteemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "favouriteemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable
-    arg12 = dataTable6
-    arg12 = #arg12
-    if 0 == arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~y~To favourite an emote press INSERT"
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~y~Whilst hovering over the button"
-      arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection
+    localValue12 = dataCollection6
+    localValue12 = #localValue12
+    if 0 == localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~y~To favourite an emote press INSERT"
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~y~Whilst hovering over the button"
+      localValue12(localValue22)
     end
-    arg12 = pairs
-    arg22 = dataTable6
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = workValue42
-      textValue15 = flag25
-      numberValue19 = numberValue19(textValue15)
-      if numberValue19 then
-        textValue15 = workValue30
-        workValue59 = numberValue19
-        textValue15 = textValue15(workValue59)
-        if textValue15 then
-          textValue15 = RageUI
-          textValue15 = textValue15.Button
-          workValue59 = numberValue19[3]
+    localValue12 = pairs
+    localValue22 = dataCollection6
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = workingValue42
+      text15 = stateFlag25
+      number19 = number19(text15)
+      if number19 then
+        text15 = workingValue30
+        workingValue59 = number19
+        text15 = text15(workingValue59)
+        if text15 then
+          text15 = RageUI
+          text15 = text15.Button
+          workingValue59 = number19[3]
           playerPed = "/e ("
-          workValue = flag25
-          dataTable = ")"
-          playerPed = playerPed .. workValue .. dataTable
-          workValue = numberValue14
-          dataTable = numberValue19
-          workValue = workValue(dataTable)
-          workValue = not workValue
+          workingValue = stateFlag25
+          dataCollection = ")"
+          playerPed = playerPed .. workingValue .. dataCollection
+          workingValue = number14
+          dataCollection = number19
+          workingValue = workingValue(dataCollection)
+          workingValue = not workingValue
 
-          -- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg13, arg23, arg33) ===
-          function dataTable(arg13, arg23, arg33)
-            local gameTime, flag24
-            if arg33 then
-              gameTime = workValue35
-              flag24 = numberValue19
-              gameTime(flag24)
+          -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: localValue13, localValue23, localValue33) ===
+          function dataCollection(localValue13, localValue23, localValue33)
+            local gameTime, stateFlag24
+            if localValue33 then
+              gameTime = workingValue35
+              stateFlag24 = number19
+              gameTime(stateFlag24)
             end
           end
           -- Beginner: Draw a selectable RageUI menu button.
-          textValue15(workValue59, playerPed, workValue, dataTable)
+          text15(workingValue59, playerPed, workingValue, dataCollection)
         end
       end
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "propemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "propemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable
-    arg12 = workValue41
-    arg22 = cmgCall.props
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = workValue30
-      textValue15 = flag25
-      numberValue19 = numberValue19(textValue15)
-      if numberValue19 then
-        numberValue19 = numberValue17
-        numberValue19 = numberValue19()
-        if not numberValue19 then
-          numberValue19 = workValue31
-          textValue15 = workValue27
-          numberValue19 = numberValue19(textValue15)
-          if numberValue19 then
-            goto flow_label_40
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.props
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = workingValue30
+      text15 = stateFlag25
+      number19 = number19(text15)
+      if number19 then
+        number19 = number17
+        number19 = number19()
+        if not number19 then
+          number19 = workingValue31
+          text15 = workingValue27
+          number19 = number19(text15)
+          if number19 then
+            goto continueAtStep40
           end
         end
-        numberValue19 = workValue52
-        textValue15 = workValue27
-        numberValue19 = numberValue19(textValue15)
-        if not numberValue19 then
-          numberValue19 = RageUI
-          numberValue19 = numberValue19.ButtonWithStyle
-          textValue15 = flag25[3]
-          workValue59 = "/e ("
-          playerPed = workValue27
-          workValue = ")"
-          workValue59 = workValue59 .. playerPed .. workValue
-          playerPed = workValue49
-          workValue = workValue27
-          playerPed = playerPed(workValue)
-          workValue = numberValue14
-          dataTable = flag25
-          workValue = workValue(dataTable)
-          workValue = not workValue
+        number19 = workingValue52
+        text15 = workingValue27
+        number19 = number19(text15)
+        if not number19 then
+          number19 = RageUI
+          number19 = number19.ButtonWithStyle
+          text15 = stateFlag25[3]
+          workingValue59 = "/e ("
+          playerPed = workingValue27
+          workingValue = ")"
+          workingValue59 = workingValue59 .. playerPed .. workingValue
+          playerPed = workingValue49
+          workingValue = workingValue27
+          playerPed = playerPed(workingValue)
+          workingValue = number14
+          dataCollection = stateFlag25
+          workingValue = workingValue(dataCollection)
+          workingValue = not workingValue
 
-          -- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg13, arg23, arg33) ===
-          function dataTable(arg13, arg23, arg33)
-            local gameTime, flag24, workValue32
-            gameTime = workValue50
-            flag24 = arg23
-            workValue32 = workValue27
-            gameTime(flag24, workValue32)
-            if arg33 then
-              gameTime = workValue35
-              flag24 = flag25
-              gameTime(flag24)
+          -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: localValue13, localValue23, localValue33) ===
+          function dataCollection(localValue13, localValue23, localValue33)
+            local gameTime, stateFlag24, workingValue32
+            gameTime = workingValue50
+            stateFlag24 = localValue23
+            workingValue32 = workingValue27
+            gameTime(stateFlag24, workingValue32)
+            if localValue33 then
+              gameTime = workingValue35
+              stateFlag24 = stateFlag25
+              gameTime(stateFlag24)
             end
           end
           -- Beginner: Draw a selectable RageUI menu button.
-          numberValue19(textValue15, workValue59, playerPed, workValue, dataTable)
+          number19(text15, workingValue59, playerPed, workingValue, dataCollection)
         end
       end
-      ::flow_label_40::
+      ::continueAtStep40::
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "sharedemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "sharedemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue
-    arg12 = workValue41
-    arg22 = cmgCall.shared
-    if not arg22 then
-      arg22 = {}
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.shared
+    if not localValue22 then
+      localValue22 = {}
     end
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = workValue30
-      textValue15 = flag25
-      numberValue19 = numberValue19(textValue15)
-      if numberValue19 then
-        numberValue19 = workValue44
-        textValue15 = workValue27
-        numberValue19 = numberValue19(textValue15)
-        if not numberValue19 then
-          numberValue19 = flag25.animationOptions
-          if numberValue19 then
-            numberValue19 = flag25.animationOptions
-            numberValue19 = numberValue19.invisible
-            if numberValue19 then
-              goto flow_label_39
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = workingValue30
+      text15 = stateFlag25
+      number19 = number19(text15)
+      if number19 then
+        number19 = workingValue44
+        text15 = workingValue27
+        number19 = number19(text15)
+        if not number19 then
+          number19 = stateFlag25.animationOptions
+          if number19 then
+            number19 = stateFlag25.animationOptions
+            number19 = number19.invisible
+            if number19 then
+              goto continueAtStep39
             end
           end
-          numberValue19 = RageUI
-          numberValue19 = numberValue19.Button
-          textValue15 = flag25[3]
-          workValue59 = "/nearby (~g~"
-          playerPed = workValue27
-          workValue = "~w~)"
-          workValue59 = workValue59 .. playerPed .. workValue
-          playerPed = numberValue14
-          workValue = flag25
-          playerPed = playerPed(workValue)
+          number19 = RageUI
+          number19 = number19.Button
+          text15 = stateFlag25[3]
+          workingValue59 = "/nearby (~g~"
+          playerPed = workingValue27
+          workingValue = "~w~)"
+          workingValue59 = workingValue59 .. playerPed .. workingValue
+          playerPed = number14
+          workingValue = stateFlag25
+          playerPed = playerPed(workingValue)
           playerPed = not playerPed
 
-          -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg13, arg23, arg33) ===
-          function workValue(arg13, arg23, arg33)
-            local gameTime, flag24
-            if arg33 then
-              gameTime = workValue37
-              flag24 = workValue27
-              gameTime(flag24)
+          -- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue13, localValue23, localValue33) ===
+          function workingValue(localValue13, localValue23, localValue33)
+            local gameTime, stateFlag24
+            if localValue33 then
+              gameTime = workingValue37
+              stateFlag24 = workingValue27
+              gameTime(stateFlag24)
             end
           end
           -- Beginner: Draw a selectable RageUI menu button.
-          numberValue19(textValue15, workValue59, playerPed, workValue)
+          number19(text15, workingValue59, playerPed, workingValue)
         end
       end
-      ::flow_label_39::
+      ::continueAtStep39::
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "walkingstyles"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "walkingstyles"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "Normal (Reset)"
-    arg32 = ""
-    workValue17 = numberValue14
-    workValue27 = nil
-    workValue17 = workValue17(workValue27)
-    workValue17 = not workValue17
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "Normal (Reset)"
+    localValue32 = ""
+    workingValue17 = number14
+    workingValue27 = nil
+    workingValue17 = workingValue17(workingValue27)
+    workingValue17 = not workingValue17
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg13, arg23, arg33) ===
-    function workValue27(arg13, arg23, arg33)
-      local gameTime, flag24, workValue32
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: localValue13, localValue23, localValue33) ===
+    function workingValue27(localValue13, localValue23, localValue33)
+      local gameTime, stateFlag24, workingValue32
+      if localValue33 then
         gameTime = ResetPedMovementClipset
-        flag24 = PlayerPedId
+        stateFlag24 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        flag24 = flag24()
-        workValue32 = 0.0
-        gameTime(flag24, workValue32)
+        stateFlag24 = stateFlag24()
+        workingValue32 = 0.0
+        gameTime(stateFlag24, workingValue32)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27)
-    arg12 = workValue41
-    arg22 = cmgCall.walks
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = RageUI
-      numberValue19 = numberValue19.Button
-      textValue15 = workValue27
-      workValue59 = ""
-      playerPed = numberValue14
-      workValue = flag25
-      playerPed = playerPed(workValue)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27)
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.walks
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = RageUI
+      number19 = number19.Button
+      text15 = workingValue27
+      workingValue59 = ""
+      playerPed = number14
+      workingValue = stateFlag25
+      playerPed = playerPed(workingValue)
       playerPed = not playerPed
 
-      -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg13, arg23, arg33) ===
-      function workValue(arg13, arg23, arg33)
-        local gameTime, flag24
-        if arg33 then
-          gameTime = workValue38
-          flag24 = flag25
-          gameTime(flag24)
+      -- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue13, localValue23, localValue33) ===
+      function workingValue(localValue13, localValue23, localValue33)
+        local gameTime, stateFlag24
+        if localValue33 then
+          gameTime = workingValue38
+          stateFlag24 = stateFlag25
+          gameTime(stateFlag24)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      numberValue19(textValue15, workValue59, playerPed, workValue)
+      number19(text15, workingValue59, playerPed, workingValue)
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "moods"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "moods"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "Normal (Reset)"
-    arg32 = ""
-    workValue17 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "Normal (Reset)"
+    localValue32 = ""
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg13, arg23, arg33) ===
-    function workValue27(arg13, arg23, arg33)
-      local gameTime, flag24
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: localValue13, localValue23, localValue33) ===
+    function workingValue27(localValue13, localValue23, localValue33)
+      local gameTime, stateFlag24
+      if localValue33 then
         gameTime = ClearFacialIdleAnimOverride
-        flag24 = PlayerPedId
+        stateFlag24 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        flag24 = flag24()
-        gameTime(flag24)
+        stateFlag24 = stateFlag24()
+        gameTime(stateFlag24)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27)
-    arg12 = workValue41
-    arg22 = cmgCall.moods
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = RageUI
-      numberValue19 = numberValue19.Button
-      textValue15 = workValue27
-      workValue59 = ""
+    localValue12(localValue22, localValue32, workingValue17, workingValue27)
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.moods
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = RageUI
+      number19 = number19.Button
+      text15 = workingValue27
+      workingValue59 = ""
       playerPed = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg13, arg23, arg33) ===
-      function workValue(arg13, arg23, arg33)
-        local gameTime, flag24
-        if arg33 then
-          gameTime = workValue35
-          flag24 = flag25
-          gameTime(flag24)
+      -- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue13, localValue23, localValue33) ===
+      function workingValue(localValue13, localValue23, localValue33)
+        local gameTime, stateFlag24
+        if localValue33 then
+          gameTime = workingValue35
+          stateFlag24 = stateFlag25
+          gameTime(stateFlag24)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      numberValue19(textValue15, workValue59, playerPed, workValue)
+      number19(text15, workingValue59, playerPed, workingValue)
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "animalemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "animalemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable, dataTable2
-    arg12 = numberValue16
-    arg12 = arg12()
-    if not arg12 then
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection, dataCollection2
+    localValue12 = number16
+    localValue12 = localValue12()
+    if not localValue12 then
       return
     end
-    arg12 = numberValue15
-    arg12 = arg12()
-    if not arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~y~Animal emotes need a non-human ped"
-      arg12(arg22)
+    localValue12 = number15
+    localValue12 = localValue12()
+    if not localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~y~Animal emotes need a non-human ped"
+      localValue12(localValue22)
     end
-    arg12 = workValue41
-    arg22 = cmgCall.animals
-    arg12, arg22, arg32, workValue17 = arg12(arg22)
-    for workValue27, flag25 in arg12, arg22, arg32, workValue17 do
-      numberValue19 = workValue30
-      textValue15 = flag25
-      numberValue19 = numberValue19(textValue15)
-      if numberValue19 then
-        numberValue19 = numberValue15
-        numberValue19 = numberValue19()
-        if numberValue19 then
-          numberValue19 = numberValue14
-          textValue15 = flag25
-          numberValue19 = numberValue19(textValue15)
-          numberValue19 = not numberValue19
+    localValue12 = workingValue41
+    localValue22 = cmgOperation.animals
+    localValue12, localValue22, localValue32, workingValue17 = localValue12(localValue22)
+    for workingValue27, stateFlag25 in localValue12, localValue22, localValue32, workingValue17 do
+      number19 = workingValue30
+      text15 = stateFlag25
+      number19 = number19(text15)
+      if number19 then
+        number19 = number15
+        number19 = number19()
+        if number19 then
+          number19 = number14
+          text15 = stateFlag25
+          number19 = number19(text15)
+          number19 = not number19
         end
-        textValue15 = RageUI
-        textValue15 = textValue15.ButtonWithStyle
-        workValue59 = flag25[3]
+        text15 = RageUI
+        text15 = text15.ButtonWithStyle
+        workingValue59 = stateFlag25[3]
         playerPed = "/e ("
-        workValue = workValue27
-        dataTable = ")"
-        playerPed = playerPed .. workValue .. dataTable
-        workValue = workValue49
-        dataTable = workValue27
-        workValue = workValue(dataTable)
-        dataTable = numberValue19
+        workingValue = workingValue27
+        dataCollection = ")"
+        playerPed = playerPed .. workingValue .. dataCollection
+        workingValue = workingValue49
+        dataCollection = workingValue27
+        workingValue = workingValue(dataCollection)
+        dataCollection = number19
 
-        -- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg13, arg23, arg33) ===
-        function dataTable2(arg13, arg23, arg33)
-          local gameTime, flag24, workValue32
-          gameTime = workValue50
-          flag24 = arg23
-          workValue32 = workValue27
-          gameTime(flag24, workValue32)
-          if arg33 then
-            gameTime = numberValue19
+        -- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue13, localValue23, localValue33) ===
+        function dataCollection2(localValue13, localValue23, localValue33)
+          local gameTime, stateFlag24, workingValue32
+          gameTime = workingValue50
+          stateFlag24 = localValue23
+          workingValue32 = workingValue27
+          gameTime(stateFlag24, workingValue32)
+          if localValue33 then
+            gameTime = number19
             if gameTime then
-              gameTime = workValue35
-              flag24 = flag25
-              gameTime(flag24)
+              gameTime = workingValue35
+              stateFlag24 = stateFlag25
+              gameTime(stateFlag24)
             end
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        textValue15(workValue59, playerPed, workValue, dataTable, dataTable2)
+        text15(workingValue59, playerPed, workingValue, dataCollection, dataCollection2)
       end
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "searchemotes"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "searchemotes"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = false
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = false
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable, dataTable2, workValue3, workValue4, textValue7
-    arg12 = RageUI
-    arg12 = arg12.Button
-    arg22 = "Set search text"
-    arg32 = textValue10
-    if "" == arg32 then
-      arg32 = "~c~Tap to type"
-      if arg32 then
-        goto flow_label_11
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection, dataCollection2, workingValue3, workingValue4, text7
+    localValue12 = RageUI
+    localValue12 = localValue12.Button
+    localValue22 = "Set search text"
+    localValue32 = text10
+    if "" == localValue32 then
+      localValue32 = "~c~Tap to type"
+      if localValue32 then
+        goto continueAtStep11
       end
     end
-    arg32 = textValue10
-    ::flow_label_11::
-    workValue17 = true
+    localValue32 = text10
+    ::continueAtStep11::
+    workingValue17 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg13, arg23, arg33) ===
-    function workValue27(arg13, arg23, arg33)
-      local gameTime, flag24, workValue32, textValue14, workValue53, textValue18, textValue20, textValue2, numberValue
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: workingValue27; parameters: localValue13, localValue23, localValue33) ===
+    function workingValue27(localValue13, localValue23, localValue33)
+      local gameTime, stateFlag24, workingValue32, text14, workingValue53, text18, text20, text2, number
+      if localValue33 then
         gameTime = AddTextEntry
-        flag24 = "CMG_EMOTE_SEARCH"
-        workValue32 = "Search emotes"
-        gameTime(flag24, workValue32)
+        stateFlag24 = "CMG_EMOTE_SEARCH"
+        workingValue32 = "Search emotes"
+        gameTime(stateFlag24, workingValue32)
         gameTime = DisplayOnscreenKeyboard
-        flag24 = 1
-        workValue32 = "CMG_EMOTE_SEARCH"
-        textValue14 = ""
-        workValue53 = textValue10
-        textValue18 = ""
-        textValue20 = ""
-        textValue2 = ""
-        numberValue = 48
-        gameTime(flag24, workValue32, textValue14, workValue53, textValue18, textValue20, textValue2, numberValue)
+        stateFlag24 = 1
+        workingValue32 = "CMG_EMOTE_SEARCH"
+        text14 = ""
+        workingValue53 = text10
+        text18 = ""
+        text20 = ""
+        text2 = ""
+        number = 48
+        gameTime(stateFlag24, workingValue32, text14, workingValue53, text18, text20, text2, number)
         while true do
           gameTime = UpdateOnscreenKeyboard
           gameTime = gameTime()
@@ -5016,311 +5016,311 @@ function flag27()
           end
           gameTime = Citizen
           gameTime = gameTime.Wait
-          flag24 = 0
-          gameTime(flag24)
+          stateFlag24 = 0
+          gameTime(stateFlag24)
         end
         gameTime = GetOnscreenKeyboardResult
         gameTime = gameTime()
         if gameTime then
-          flag24 = string
-          flag24 = flag24.lower
-          workValue32 = gameTime
-          flag24 = flag24(workValue32)
-          textValue10 = flag24
+          stateFlag24 = string
+          stateFlag24 = stateFlag24.lower
+          workingValue32 = gameTime
+          stateFlag24 = stateFlag24(workingValue32)
+          text10 = stateFlag24
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, workValue17, workValue27)
-    arg12 = textValue10
-    if "" == arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~y~Set search text to filter emotes"
-      arg12(arg22)
+    localValue12(localValue22, localValue32, workingValue17, workingValue27)
+    localValue12 = text10
+    if "" == localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~y~Set search text to filter emotes"
+      localValue12(localValue22)
     else
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~g~Query: ~w~"
-      arg32 = textValue10
-      arg22 = arg22 .. arg32
-      arg12(arg22)
-      arg12 = {}
-      arg22 = workValue48
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~g~Query: ~w~"
+      localValue32 = text10
+      localValue22 = localValue22 .. localValue32
+      localValue12(localValue22)
+      localValue12 = {}
+      localValue22 = workingValue48
 
-      -- === HELPER FUNCTION: arg32(arg13, arg23, arg33) ===
-      function arg32(arg13, arg23, arg33)
-        local gameTime, flag24, workValue32, textValue14, workValue53, textValue18
-        gameTime = workValue47
-        flag24 = arg13
-        workValue32 = arg23[3]
-        textValue14 = textValue10
-        gameTime = gameTime(flag24, workValue32, textValue14)
+      -- === HELPER FUNCTION: localValue32(localValue13, localValue23, localValue33) ===
+      function localValue32(localValue13, localValue23, localValue33)
+        local gameTime, stateFlag24, workingValue32, text14, workingValue53, text18
+        gameTime = workingValue47
+        stateFlag24 = localValue13
+        workingValue32 = localValue23[3]
+        text14 = text10
+        gameTime = gameTime(stateFlag24, workingValue32, text14)
         if gameTime then
           gameTime = table
           gameTime = gameTime.insert
-          flag24 = arg12
-          workValue32 = {}
-          textValue14 = arg13
-          workValue53 = arg23
-          textValue18 = arg33
-          workValue32[1] = textValue14
-          workValue32[2] = workValue53
-          workValue32[3] = textValue18
-          gameTime(flag24, workValue32)
+          stateFlag24 = localValue12
+          workingValue32 = {}
+          text14 = localValue13
+          workingValue53 = localValue23
+          text18 = localValue33
+          workingValue32[1] = text14
+          workingValue32[2] = workingValue53
+          workingValue32[3] = text18
+          gameTime(stateFlag24, workingValue32)
         end
       end
-      arg22(arg32)
-      arg22 = table
-      arg22 = arg22.sort
-      arg32 = arg12
+      localValue22(localValue32)
+      localValue22 = table
+      localValue22 = localValue22.sort
+      localValue32 = localValue12
 
-      -- === HELPER FUNCTION (decompiler name: workValue17; parameters: arg13, arg23) ===
-      function workValue17(arg13, arg23)
-        local arg33, gameTime
-        arg33 = arg13[1]
-        gameTime = arg23[1]
-        arg33 = arg33 < gameTime
-        return arg33
+      -- === HELPER FUNCTION (decompiler name: workingValue17; parameters: localValue13, localValue23) ===
+      function workingValue17(localValue13, localValue23)
+        local localValue33, gameTime
+        localValue33 = localValue13[1]
+        gameTime = localValue23[1]
+        localValue33 = localValue33 < gameTime
+        return localValue33
       end
-      arg22(arg32, workValue17)
-      arg22 = math
-      arg22 = arg22.min
-      arg32 = #arg12
-      workValue17 = 80
-      arg22 = arg22(arg32, workValue17)
-      arg32 = #arg12
-      if arg32 > 80 then
-        arg32 = RageUI
-        arg32 = arg32.Separator
-        workValue17 = "~y~"
-        workValue27 = #arg12
-        flag25 = " hits, showing 80"
-        workValue17 = workValue17 .. workValue27 .. flag25
-        arg32(workValue17)
+      localValue22(localValue32, workingValue17)
+      localValue22 = math
+      localValue22 = localValue22.min
+      localValue32 = #localValue12
+      workingValue17 = 80
+      localValue22 = localValue22(localValue32, workingValue17)
+      localValue32 = #localValue12
+      if localValue32 > 80 then
+        localValue32 = RageUI
+        localValue32 = localValue32.Separator
+        workingValue17 = "~y~"
+        workingValue27 = #localValue12
+        stateFlag25 = " hits, showing 80"
+        workingValue17 = workingValue17 .. workingValue27 .. stateFlag25
+        localValue32(workingValue17)
       end
-      arg32 = 1
-      workValue17 = arg22
-      workValue27 = 1
-      for flag25 = arg32, workValue17, workValue27 do
-        numberValue19 = arg12[flag25]
-        numberValue19 = numberValue19[1]
-        textValue15 = arg12[flag25]
-        textValue15 = textValue15[2]
-        workValue59 = arg12[flag25]
-        workValue59 = workValue59[3]
-        if "shared" == workValue59 then
+      localValue32 = 1
+      workingValue17 = localValue22
+      workingValue27 = 1
+      for stateFlag25 = localValue32, workingValue17, workingValue27 do
+        number19 = localValue12[stateFlag25]
+        number19 = number19[1]
+        text15 = localValue12[stateFlag25]
+        text15 = text15[2]
+        workingValue59 = localValue12[stateFlag25]
+        workingValue59 = workingValue59[3]
+        if "shared" == workingValue59 then
           playerPed = "/nearby (~g~"
-          workValue = numberValue19
-          dataTable = "~w~)"
-          playerPed = playerPed .. workValue .. dataTable
+          workingValue = number19
+          dataCollection = "~w~)"
+          playerPed = playerPed .. workingValue .. dataCollection
           if playerPed then
-            goto flow_label_75
+            goto continueAtStep75
           end
         end
         playerPed = "/e ("
-        workValue = numberValue19
-        dataTable = ")"
-        playerPed = playerPed .. workValue .. dataTable
-        ::flow_label_75::
-        workValue = RageUI
-        workValue = workValue.ButtonWithStyle
-        dataTable = textValue15[3]
-        dataTable2 = playerPed
-        workValue3 = workValue49
-        workValue4 = numberValue19
-        workValue3 = workValue3(workValue4)
-        workValue4 = numberValue14
-        textValue7 = textValue15
-        workValue4 = workValue4(textValue7)
-        workValue4 = not workValue4
+        workingValue = number19
+        dataCollection = ")"
+        playerPed = playerPed .. workingValue .. dataCollection
+        ::continueAtStep75::
+        workingValue = RageUI
+        workingValue = workingValue.ButtonWithStyle
+        dataCollection = text15[3]
+        dataCollection2 = playerPed
+        workingValue3 = workingValue49
+        workingValue4 = number19
+        workingValue3 = workingValue3(workingValue4)
+        workingValue4 = number14
+        text7 = text15
+        workingValue4 = workingValue4(text7)
+        workingValue4 = not workingValue4
 
-        -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg13, arg23, arg33) ===
-        function textValue7(arg13, arg23, arg33)
-          local gameTime, flag24, workValue32
-          gameTime = workValue50
-          flag24 = arg23
-          workValue32 = numberValue19
-          gameTime(flag24, workValue32)
-          if arg33 then
-            gameTime = workValue59
+        -- === HELPER FUNCTION (decompiler name: text7; parameters: localValue13, localValue23, localValue33) ===
+        function text7(localValue13, localValue23, localValue33)
+          local gameTime, stateFlag24, workingValue32
+          gameTime = workingValue50
+          stateFlag24 = localValue23
+          workingValue32 = number19
+          gameTime(stateFlag24, workingValue32)
+          if localValue33 then
+            gameTime = workingValue59
             if "shared" == gameTime then
-              gameTime = workValue37
-              flag24 = numberValue19
-              gameTime(flag24)
+              gameTime = workingValue37
+              stateFlag24 = number19
+              gameTime(stateFlag24)
             else
-              gameTime = workValue35
-              flag24 = textValue15
-              gameTime(flag24)
+              gameTime = workingValue35
+              stateFlag24 = text15
+              gameTime(stateFlag24)
             end
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        workValue(dataTable, dataTable2, workValue3, workValue4, textValue7)
+        workingValue(dataCollection, dataCollection2, workingValue3, workingValue4, text7)
       end
     end
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
 end
-rageUiCall6(textValue16, workValue58, flag26, flag27)
-rageUiCall6 = RegisterCommand
-textValue16 = "emotemenu"
+rageUiOperation6(text16, workingValue58, stateFlag26, stateFlag27)
+rageUiOperation6 = RegisterCommand
+text16 = "emotemenu"
 -- Beginner: this function is the command handler for "emotemenu".
 
--- === HELPER FUNCTION (decompiler name: workValue58; parameters: none) ===
-function workValue58()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "emotesmenu"
-  arg5 = "mainmenu"
+-- === HELPER FUNCTION (decompiler name: workingValue58; parameters: none) ===
+function workingValue58()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "emotesmenu"
+  localValue5 = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = RageUI
-  arg3 = arg3.Visible
-  arg4 = RMenu
-  arg5 = arg4
-  arg4 = arg4.Get
-  arg6 = "emotesmenu"
-  arg7 = "mainmenu"
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = RageUI
+  localValue3 = localValue3.Visible
+  localValue4 = RMenu
+  localValue5 = localValue4
+  localValue4 = localValue4.Get
+  localValue6 = "emotesmenu"
+  localValue7 = "mainmenu"
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
   -- Beginner: result below is menuVisible.
-  arg3 = arg3(arg4, arg5, arg6, arg7)
-  arg3 = not arg3
-  arg1(arg2, arg3)
+  localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = not localValue3
+  localValue1(localValue2, localValue3)
 end
-flag26 = false
+stateFlag26 = false
 -- Beginner: Register a chat/console command. Event/command: "emotemenu".
-rageUiCall6(textValue16, workValue58, flag26)
-rageUiCall6 = RegisterKeyMapping
-textValue16 = "emotemenu"
-workValue58 = "Open Emote Menu"
-flag26 = "KEYBOARD"
-flag27 = "F3"
+rageUiOperation6(text16, workingValue58, stateFlag26)
+rageUiOperation6 = RegisterKeyMapping
+text16 = "emotemenu"
+workingValue58 = "Open Emote Menu"
+stateFlag26 = "KEYBOARD"
+stateFlag27 = "F3"
 -- Beginner: Bind a command to a keyboard/controller key.
-rageUiCall6(textValue16, workValue58, flag26, flag27)
+rageUiOperation6(text16, workingValue58, stateFlag26, stateFlag27)
 
--- === HELPER FUNCTION (decompiler name: rageUiCall6; parameters: arg1, arg2) ===
-function rageUiCall6(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg3 = #arg2
-  if arg3 < 1 then
-    arg3 = notify
-    arg4 = "~r~No emote name was specified."
+-- === HELPER FUNCTION (decompiler name: rageUiOperation6; parameters: localValue1, localValue2) ===
+function rageUiOperation6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue3 = #localValue2
+  if localValue3 < 1 then
+    localValue3 = notify
+    localValue4 = "~r~No emote name was specified."
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
     return
   end
-  arg3 = string
-  arg3 = arg3.lower
-  arg4 = arg2[1]
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg4 = notify
-    arg5 = "~r~No emote name was specified."
-    arg4(arg5)
+  localValue3 = string
+  localValue3 = localValue3.lower
+  localValue4 = localValue2[1]
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue4 = notify
+    localValue5 = "~r~No emote name was specified."
+    localValue4(localValue5)
     return
-  elseif "c" == arg3 then
-    arg4 = workValue24
-    arg5 = false
-    arg4(arg5)
+  elseif "c" == localValue3 then
+    localValue4 = workingValue24
+    localValue5 = false
+    localValue4(localValue5)
     return
   end
-  arg4 = nil
-  arg5 = #arg2
-  if arg5 >= 2 then
-    arg5 = tonumber
-    arg6 = arg2[2]
-    arg5 = arg5(arg6)
-    arg4 = arg5
+  localValue4 = nil
+  localValue5 = #localValue2
+  if localValue5 >= 2 then
+    localValue5 = tonumber
+    localValue6 = localValue2[2]
+    localValue5 = localValue5(localValue6)
+    localValue4 = localValue5
   end
-  arg5 = cmgCall.emotes
-  arg5 = arg5[arg3]
-  if arg5 then
-    arg5 = workValue35
-    arg6 = cmgCall.emotes
-    arg6 = arg6[arg3]
-    arg7 = nil
-    arg8 = nil
-    arg9 = arg4
-    arg5(arg6, arg7, arg8, arg9)
+  localValue5 = cmgOperation.emotes
+  localValue5 = localValue5[localValue3]
+  if localValue5 then
+    localValue5 = workingValue35
+    localValue6 = cmgOperation.emotes
+    localValue6 = localValue6[localValue3]
+    localValue7 = nil
+    localValue8 = nil
+    localValue9 = localValue4
+    localValue5(localValue6, localValue7, localValue8, localValue9)
   else
-    arg5 = cmgCall.dances
-    arg5 = arg5[arg3]
-    if arg5 then
-      arg5 = workValue35
-      arg6 = cmgCall.dances
-      arg6 = arg6[arg3]
-      arg7 = nil
-      arg8 = nil
-      arg9 = arg4
-      arg5(arg6, arg7, arg8, arg9)
+    localValue5 = cmgOperation.dances
+    localValue5 = localValue5[localValue3]
+    if localValue5 then
+      localValue5 = workingValue35
+      localValue6 = cmgOperation.dances
+      localValue6 = localValue6[localValue3]
+      localValue7 = nil
+      localValue8 = nil
+      localValue9 = localValue4
+      localValue5(localValue6, localValue7, localValue8, localValue9)
     else
-      arg5 = cmgCall.custom
-      arg5 = arg5[arg3]
-      if arg5 then
-        arg5 = workValue35
-        arg6 = cmgCall.custom
-        arg6 = arg6[arg3]
-        arg7 = nil
-        arg8 = nil
-        arg9 = arg4
-        arg5(arg6, arg7, arg8, arg9)
+      localValue5 = cmgOperation.custom
+      localValue5 = localValue5[localValue3]
+      if localValue5 then
+        localValue5 = workingValue35
+        localValue6 = cmgOperation.custom
+        localValue6 = localValue6[localValue3]
+        localValue7 = nil
+        localValue8 = nil
+        localValue9 = localValue4
+        localValue5(localValue6, localValue7, localValue8, localValue9)
       else
-        arg5 = cmgCall.props
-        arg5 = arg5[arg3]
-        if arg5 then
-          arg5 = workValue35
-          arg6 = cmgCall.props
-          arg6 = arg6[arg3]
-          arg7 = nil
-          arg8 = nil
-          arg9 = arg4
-          arg5(arg6, arg7, arg8, arg9)
+        localValue5 = cmgOperation.props
+        localValue5 = localValue5[localValue3]
+        if localValue5 then
+          localValue5 = workingValue35
+          localValue6 = cmgOperation.props
+          localValue6 = localValue6[localValue3]
+          localValue7 = nil
+          localValue8 = nil
+          localValue9 = localValue4
+          localValue5(localValue6, localValue7, localValue8, localValue9)
         else
-          arg5 = cmgCall.guns
-          arg5 = arg5[arg3]
-          if arg5 then
-            arg5 = workValue35
-            arg6 = cmgCall.guns
-            arg6 = arg6[arg3]
-            arg7 = nil
-            arg8 = nil
-            arg9 = arg4
-            arg5(arg6, arg7, arg8, arg9)
+          localValue5 = cmgOperation.guns
+          localValue5 = localValue5[localValue3]
+          if localValue5 then
+            localValue5 = workingValue35
+            localValue6 = cmgOperation.guns
+            localValue6 = localValue6[localValue3]
+            localValue7 = nil
+            localValue8 = nil
+            localValue9 = localValue4
+            localValue5(localValue6, localValue7, localValue8, localValue9)
           else
-            arg5 = cmgCall.animals
-            arg5 = arg5[arg3]
-            if arg5 then
-              arg5 = workValue35
-              arg6 = cmgCall.animals
-              arg6 = arg6[arg3]
-              arg7 = nil
-              arg8 = nil
-              arg9 = arg4
-              arg5(arg6, arg7, arg8, arg9)
+            localValue5 = cmgOperation.animals
+            localValue5 = localValue5[localValue3]
+            if localValue5 then
+              localValue5 = workingValue35
+              localValue6 = cmgOperation.animals
+              localValue6 = localValue6[localValue3]
+              localValue7 = nil
+              localValue8 = nil
+              localValue9 = localValue4
+              localValue5(localValue6, localValue7, localValue8, localValue9)
             else
-              arg5 = cmgCall.shared
-              if arg5 then
-                arg5 = cmgCall.shared
-                arg5 = arg5[arg3]
-                if arg5 then
-                  arg5 = workValue35
-                  arg6 = cmgCall.shared
-                  arg6 = arg6[arg3]
-                  arg7 = nil
-                  arg8 = nil
-                  arg9 = arg4
-                  arg5(arg6, arg7, arg8, arg9)
+              localValue5 = cmgOperation.shared
+              if localValue5 then
+                localValue5 = cmgOperation.shared
+                localValue5 = localValue5[localValue3]
+                if localValue5 then
+                  localValue5 = workingValue35
+                  localValue6 = cmgOperation.shared
+                  localValue6 = localValue6[localValue3]
+                  localValue7 = nil
+                  localValue8 = nil
+                  localValue9 = localValue4
+                  localValue5(localValue6, localValue7, localValue8, localValue9)
               end
               else
-                arg5 = notify
-                arg6 = "~r~Invalid emote name was specified."
+                localValue5 = notify
+                localValue6 = "~r~Invalid emote name was specified."
                 -- Beginner: Show a notification to the player.
-                arg5(arg6)
+                localValue5(localValue6)
               end
             end
           end
@@ -5329,996 +5329,996 @@ function rageUiCall6(arg1, arg2)
     end
   end
 end
-textValue16 = RegisterCommand
-workValue58 = "e"
-flag26 = rageUiCall6
-flag27 = false
+text16 = RegisterCommand
+workingValue58 = "e"
+stateFlag26 = rageUiOperation6
+stateFlag27 = false
 -- Beginner: Register a chat/console command. Event/command: "e".
-textValue16(workValue58, flag26, flag27)
-textValue16 = RegisterCommand
-workValue58 = "emote"
-flag26 = rageUiCall6
-flag27 = false
-textValue16(workValue58, flag26, flag27)
-textValue16 = RegisterCommand
-workValue58 = "nearby"
+text16(workingValue58, stateFlag26, stateFlag27)
+text16 = RegisterCommand
+workingValue58 = "emote"
+stateFlag26 = rageUiOperation6
+stateFlag27 = false
+text16(workingValue58, stateFlag26, stateFlag27)
+text16 = RegisterCommand
+workingValue58 = "nearby"
 -- Beginner: this function is the command handler for "nearby".
 
--- === HELPER FUNCTION (decompiler name: flag26; parameters: arg1, arg2) ===
-function flag26(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = #arg2
-  if arg3 < 1 then
-    arg3 = notify
-    arg4 = "~r~No emote name was specified."
+-- === HELPER FUNCTION (decompiler name: stateFlag26; parameters: localValue1, localValue2) ===
+function stateFlag26(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = #localValue2
+  if localValue3 < 1 then
+    localValue3 = notify
+    localValue4 = "~r~No emote name was specified."
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
     return
   end
-  arg3 = string
-  arg3 = arg3.lower
-  arg4 = arg2[1]
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg4 = notify
-    arg5 = "~r~No emote name was specified."
-    arg4(arg5)
+  localValue3 = string
+  localValue3 = localValue3.lower
+  localValue4 = localValue2[1]
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue4 = notify
+    localValue5 = "~r~No emote name was specified."
+    localValue4(localValue5)
     return
   end
-  arg4 = cmgCall.shared
-  if arg4 then
-    arg4 = cmgCall.shared
-    arg4 = arg4[arg3]
-    if arg4 then
-      arg4 = workValue37
-      arg5 = arg3
-      arg4(arg5)
+  localValue4 = cmgOperation.shared
+  if localValue4 then
+    localValue4 = cmgOperation.shared
+    localValue4 = localValue4[localValue3]
+    if localValue4 then
+      localValue4 = workingValue37
+      localValue5 = localValue3
+      localValue4(localValue5)
   end
   else
-    arg4 = notify
-    arg5 = "~r~Invalid emote name was specified."
+    localValue4 = notify
+    localValue5 = "~r~Invalid emote name was specified."
     -- Beginner: Show a notification to the player.
-    arg4(arg5)
+    localValue4(localValue5)
   end
 end
-flag27 = false
+stateFlag27 = false
 -- Beginner: Register a chat/console command. Event/command: "nearby".
-textValue16(workValue58, flag26, flag27)
-textValue16 = RegisterCommand
-workValue58 = "walk"
+text16(workingValue58, stateFlag26, stateFlag27)
+text16 = RegisterCommand
+workingValue58 = "walk"
 -- Beginner: this function is the command handler for "walk".
 
--- === HELPER FUNCTION (decompiler name: flag26; parameters: arg1, arg2) ===
-function flag26(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = #arg2
-  if arg3 < 1 then
-    arg3 = notify
-    arg4 = "~r~No walk name was specified."
+-- === HELPER FUNCTION (decompiler name: stateFlag26; parameters: localValue1, localValue2) ===
+function stateFlag26(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = #localValue2
+  if localValue3 < 1 then
+    localValue3 = notify
+    localValue4 = "~r~No walk name was specified."
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
     return
   end
-  arg3 = arg2[1]
-  if not arg3 then
-    arg4 = notify
-    arg5 = "~r~No walk name was specified."
-    arg4(arg5)
+  localValue3 = localValue2[1]
+  if not localValue3 then
+    localValue4 = notify
+    localValue5 = "~r~No walk name was specified."
+    localValue4(localValue5)
     return
   end
-  arg4 = cmgCall.walks
-  arg4 = arg4[arg3]
-  if arg4 then
-    arg4 = numberValue14
-    arg5 = cmgCall.walks
-    arg5 = arg5[arg3]
-    arg4 = arg4(arg5)
-    if not arg4 then
-      arg4 = workValue38
-      arg5 = cmgCall.walks
-      arg5 = arg5[arg3]
-      arg4(arg5)
+  localValue4 = cmgOperation.walks
+  localValue4 = localValue4[localValue3]
+  if localValue4 then
+    localValue4 = number14
+    localValue5 = cmgOperation.walks
+    localValue5 = localValue5[localValue3]
+    localValue4 = localValue4(localValue5)
+    if not localValue4 then
+      localValue4 = workingValue38
+      localValue5 = cmgOperation.walks
+      localValue5 = localValue5[localValue3]
+      localValue4(localValue5)
     else
-      arg4 = notify
-      arg5 = "~r~You can not use emotes at this time."
+      localValue4 = notify
+      localValue5 = "~r~You can not use emotes at this time."
       -- Beginner: Show a notification to the player.
-      arg4(arg5)
+      localValue4(localValue5)
     end
   else
-    arg4 = notify
-    arg5 = "~r~Invalid walk name was specified."
-    arg4(arg5)
+    localValue4 = notify
+    localValue5 = "~r~Invalid walk name was specified."
+    localValue4(localValue5)
   end
 end
-flag27 = false
+stateFlag27 = false
 -- Beginner: Register a chat/console command. Event/command: "walk".
-textValue16(workValue58, flag26, flag27)
-textValue16 = RegisterNetEvent
-workValue58 = "c74831f601"
+text16(workingValue58, stateFlag26, stateFlag27)
+text16 = RegisterNetEvent
+workingValue58 = "c74831f601"
 -- Beginner: this function handles network event "c74831f601".
 
--- === HELPER FUNCTION (decompiler name: flag26; parameters: arg1, arg2) ===
-function flag26(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  arg3 = cmgCall.shared
-  if arg3 then
-    arg3 = cmgCall.shared
-    arg3 = arg3[arg2]
-    if arg3 then
-      arg3 = numberValue14
-      arg3 = arg3()
-      if not arg3 then
-        workValue15 = arg2
-        numberValue8 = arg1
-        arg3 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: stateFlag26; parameters: localValue1, localValue2) ===
+function stateFlag26(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  localValue3 = cmgOperation.shared
+  if localValue3 then
+    localValue3 = cmgOperation.shared
+    localValue3 = localValue3[localValue2]
+    if localValue3 then
+      localValue3 = number14
+      localValue3 = localValue3()
+      if not localValue3 then
+        workingValue15 = localValue2
+        number8 = localValue1
+        localValue3 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        arg3 = arg3()
-        numberValue9 = arg3
-        arg3 = notify
-        arg4 = "~y~Y~w~ to accept, ~r~L~w~ to refuse (~g~"
-        arg5 = cmgCall.shared
-        arg5 = arg5[arg2]
-        arg5 = arg5[3]
-        arg6 = "~w~)"
-        arg4 = arg4 .. arg5 .. arg6
+        localValue3 = localValue3()
+        number9 = localValue3
+        localValue3 = notify
+        localValue4 = "~y~Y~w~ to accept, ~r~L~w~ to refuse (~g~"
+        localValue5 = cmgOperation.shared
+        localValue5 = localValue5[localValue2]
+        localValue5 = localValue5[3]
+        localValue6 = "~w~)"
+        localValue4 = localValue4 .. localValue5 .. localValue6
         -- Beginner: Show a notification to the player.
-        arg3(arg4)
+        localValue3(localValue4)
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c74831f601".
-textValue16(workValue58, flag26)
+text16(workingValue58, stateFlag26)
 
--- === HELPER FUNCTION (decompiler name: textValue16; parameters: arg1) ===
-function textValue16(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = workValue24
-  arg3 = false
-  arg2(arg3)
-  arg2 = SetEntityVelocity
-  arg3 = arg1
-  arg4 = 0.0
-  arg5 = 0.0
-  arg6 = 0.0
-  arg2(arg3, arg4, arg5, arg6)
-  arg2 = ClearPedTasksImmediately
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = DetachEntity
-  arg3 = arg1
-  arg4 = true
-  arg5 = false
-  arg2(arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: text16; parameters: localValue1) ===
+function text16(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = workingValue24
+  localValue3 = false
+  localValue2(localValue3)
+  localValue2 = SetEntityVelocity
+  localValue3 = localValue1
+  localValue4 = 0.0
+  localValue5 = 0.0
+  localValue6 = 0.0
+  localValue2(localValue3, localValue4, localValue5, localValue6)
+  localValue2 = ClearPedTasksImmediately
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = DetachEntity
+  localValue3 = localValue1
+  localValue4 = true
+  localValue5 = false
+  localValue2(localValue3, localValue4, localValue5)
 end
-workValue58 = RegisterNetEvent
-flag26 = "3c60b83bb5"
+workingValue58 = RegisterNetEvent
+stateFlag26 = "3c60b83bb5"
 -- Beginner: this function handles network event "3c60b83bb5".
 
--- === HELPER FUNCTION (decompiler name: flag27; parameters: arg1, arg2) ===
-function flag27(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = textValue16
-  arg4 = PlayerPedId
-  arg4, arg5 = arg4()
+-- === HELPER FUNCTION (decompiler name: stateFlag27; parameters: localValue1, localValue2) ===
+function stateFlag27(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = text16
+  localValue4 = PlayerPedId
+  localValue4, localValue5 = localValue4()
   -- Beginner: Register a network event handler that the server/other clients can trigger.
-  arg3(arg4, arg5)
-  arg3 = cmgCall.shared
-  if arg3 then
-    arg3 = cmgCall.shared
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = workValue35
-      arg4 = cmgCall.shared
-      arg4 = arg4[arg1]
-      arg5 = arg2
-      arg3(arg4, arg5)
+  localValue3(localValue4, localValue5)
+  localValue3 = cmgOperation.shared
+  if localValue3 then
+    localValue3 = cmgOperation.shared
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = workingValue35
+      localValue4 = cmgOperation.shared
+      localValue4 = localValue4[localValue1]
+      localValue5 = localValue2
+      localValue3(localValue4, localValue5)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3c60b83bb5".
-workValue58(flag26, flag27)
+workingValue58(stateFlag26, stateFlag27)
 
--- === HELPER FUNCTION (decompiler name: workValue58; parameters: arg1, arg2) ===
-function workValue58(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5
-  arg3 = arg2.animationOptions
-  if not arg3 then
-    arg3 = {}
+-- === HELPER FUNCTION (decompiler name: workingValue58; parameters: localValue1, localValue2) ===
+function workingValue58(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5
+  localValue3 = localValue2.animationOptions
+  if not localValue3 then
+    localValue3 = {}
   end
-  arg4 = arg3.syncOffsetFront
-  if not arg4 then
-    arg4 = 1.0
+  localValue4 = localValue3.syncOffsetFront
+  if not localValue4 then
+    localValue4 = 1.0
   end
-  arg5 = arg3.syncOffsetSide
-  if not arg5 then
-    arg5 = 0.0
+  localValue5 = localValue3.syncOffsetSide
+  if not localValue5 then
+    localValue5 = 0.0
   end
-  arg6 = arg3.syncOffsetHeight
-  if not arg6 then
-    arg6 = 0.0
+  localValue6 = localValue3.syncOffsetHeight
+  if not localValue6 then
+    localValue6 = 0.0
   end
-  arg7 = arg3.syncOffsetHeading
-  if nil == arg7 then
-    arg7 = -180.0
+  localValue7 = localValue3.syncOffsetHeading
+  if nil == localValue7 then
+    localValue7 = -180.0
   end
-  arg8 = GetEntityHeading
-  arg9 = arg1
+  localValue8 = GetEntityHeading
+  localValue9 = localValue1
   -- Beginner: result below is heading.
-  arg8 = arg8(arg9)
-  arg9 = math
-  arg9 = arg9.rad
-  arg10 = arg8
-  arg9 = arg9(arg10)
-  arg10 = math
-  arg10 = arg10.sin
-  arg11 = arg9
-  arg10 = arg10(arg11)
-  arg10 = -arg10
-  arg11 = math
-  arg11 = arg11.cos
-  workValue2 = arg9
-  arg11 = arg11(workValue2)
-  workValue2 = math
-  workValue2 = workValue2.cos
-  textValue5 = arg9
-  workValue2 = workValue2(textValue5)
-  textValue5 = math
-  textValue5 = textValue5.sin
-  dataTable4 = arg9
-  textValue5 = textValue5(dataTable4)
-  dataTable4 = GetEntityCoords
-  rageUiCall = arg1
+  localValue8 = localValue8(localValue9)
+  localValue9 = math
+  localValue9 = localValue9.rad
+  localValue10 = localValue8
+  localValue9 = localValue9(localValue10)
+  localValue10 = math
+  localValue10 = localValue10.sin
+  localValue11 = localValue9
+  localValue10 = localValue10(localValue11)
+  localValue10 = -localValue10
+  localValue11 = math
+  localValue11 = localValue11.cos
+  workingValue2 = localValue9
+  localValue11 = localValue11(workingValue2)
+  workingValue2 = math
+  workingValue2 = workingValue2.cos
+  text5 = localValue9
+  workingValue2 = workingValue2(text5)
+  text5 = math
+  text5 = text5.sin
+  dataCollection4 = localValue9
+  text5 = text5(dataCollection4)
+  dataCollection4 = GetEntityCoords
+  rageUiOperation = localValue1
   -- Beginner: result below is entityCoords.
-  dataTable4 = dataTable4(rageUiCall)
-  rageUiCall = dataTable4.x
-  textValue6 = arg10 * arg4
-  rageUiCall = rageUiCall + textValue6
-  textValue6 = workValue2 * arg5
-  rageUiCall = rageUiCall + textValue6
-  textValue6 = dataTable4.y
-  textValue8 = arg11 * arg4
-  textValue6 = textValue6 + textValue8
-  textValue8 = textValue5 * arg5
-  textValue6 = textValue6 + textValue8
-  textValue8 = dataTable4.z
-  textValue8 = textValue8 + arg6
-  flag = rageUiCall
-  rageUiCall2 = textValue6
-  rageUiCall3 = textValue8
-  flag5 = arg8 + arg7
-  return flag, rageUiCall2, rageUiCall3, flag5
+  dataCollection4 = dataCollection4(rageUiOperation)
+  rageUiOperation = dataCollection4.x
+  text6 = localValue10 * localValue4
+  rageUiOperation = rageUiOperation + text6
+  text6 = workingValue2 * localValue5
+  rageUiOperation = rageUiOperation + text6
+  text6 = dataCollection4.y
+  text8 = localValue11 * localValue4
+  text6 = text6 + text8
+  text8 = text5 * localValue5
+  text6 = text6 + text8
+  text8 = dataCollection4.z
+  text8 = text8 + localValue6
+  stateFlag = rageUiOperation
+  rageUiOperation2 = text6
+  rageUiOperation3 = text8
+  stateFlag5 = localValue8 + localValue7
+  return stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5
 end
-flag26 = RegisterNetEvent
-flag27 = "03634a9527"
+stateFlag26 = RegisterNetEvent
+stateFlag27 = "03634a9527"
 -- Beginner: this function handles network event "03634a9527".
 
--- === HELPER FUNCTION (decompiler name: textValue17; parameters: arg1) ===
-function textValue17(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8
-  arg2 = GetPlayerFromServerId
-  arg3 = numberValue6
+-- === HELPER FUNCTION (decompiler name: text17; parameters: localValue1) ===
+function text17(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8
+  localValue2 = GetPlayerFromServerId
+  localValue3 = number6
   -- Beginner: result below is playerIndex.
-  arg2 = arg2(arg3)
-  if -1 == arg2 then
+  localValue2 = localValue2(localValue3)
+  if -1 == localValue2 then
     return
   end
-  arg3 = GetPlayerPed
-  arg4 = arg2
+  localValue3 = GetPlayerPed
+  localValue4 = localValue2
   -- Beginner: result below is playerPed.
-  arg3 = arg3(arg4)
-  if 0 == arg3 then
+  localValue3 = localValue3(localValue4)
+  if 0 == localValue3 then
     return
   end
-  arg4 = cmgCall.shared
-  if arg4 then
-    arg4 = cmgCall.shared
-    arg5 = workValue14
-    arg4 = arg4[arg5]
+  localValue4 = cmgOperation.shared
+  if localValue4 then
+    localValue4 = cmgOperation.shared
+    localValue5 = workingValue14
+    localValue4 = localValue4[localValue5]
   end
-  if not arg4 then
+  if not localValue4 then
     return
   end
-  arg5 = workValue58
-  arg6 = arg3
-  arg7 = arg4
-  arg5, arg6, arg7, arg8 = arg5(arg6, arg7)
-  arg9 = PlayerPedId
+  localValue5 = workingValue58
+  localValue6 = localValue3
+  localValue7 = localValue4
+  localValue5, localValue6, localValue7, localValue8 = localValue5(localValue6, localValue7)
+  localValue9 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg9 = arg9()
-  arg10 = textValue16
-  arg11 = arg9
-  arg10(arg11)
-  arg10 = SetEntityHeading
-  arg11 = arg9
-  workValue2 = arg8
+  localValue9 = localValue9()
+  localValue10 = text16
+  localValue11 = localValue9
+  localValue10(localValue11)
+  localValue10 = SetEntityHeading
+  localValue11 = localValue9
+  workingValue2 = localValue8
   -- Beginner: Change the direction an entity is facing.
-  arg10(arg11, workValue2)
-  arg10 = SetEntityCoordsNoOffset
-  arg11 = arg9
-  workValue2 = arg5
-  textValue5 = arg6
-  dataTable4 = arg7
-  rageUiCall = false
-  textValue6 = false
-  textValue8 = false
+  localValue10(localValue11, workingValue2)
+  localValue10 = SetEntityCoordsNoOffset
+  localValue11 = localValue9
+  workingValue2 = localValue5
+  text5 = localValue6
+  dataCollection4 = localValue7
+  rageUiOperation = false
+  text6 = false
+  text8 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  arg10(arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8)
-  arg10 = workValue35
-  arg11 = arg4
-  workValue2 = arg1
-  arg10(arg11, workValue2)
+  localValue10(localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8)
+  localValue10 = workingValue35
+  localValue11 = localValue4
+  workingValue2 = localValue1
+  localValue10(localValue11, workingValue2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "03634a9527".
-flag26(flag27, textValue17)
+stateFlag26(stateFlag27, text17)
 
--- === HELPER FUNCTION (decompiler name: flag26; parameters: none) ===
-function flag26()
-  local arg1, arg2
-  arg1 = nil
-  workValue15 = arg1
-  arg1 = 0
-  numberValue8 = arg1
-  arg1 = 0
-  numberValue9 = arg1
+-- === HELPER FUNCTION (decompiler name: stateFlag26; parameters: none) ===
+function stateFlag26()
+  local localValue1, localValue2
+  localValue1 = nil
+  workingValue15 = localValue1
+  localValue1 = 0
+  number8 = localValue1
+  localValue1 = 0
+  number9 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: flag27; parameters: none) ===
-function flag27()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, workValue2, textValue5, dataTable4, rageUiCall, textValue6, textValue8, flag, rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14
-  arg1 = workValue8
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: stateFlag27; parameters: none) ===
+function stateFlag27()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11, workingValue2, text5, dataCollection4, rageUiOperation, text6, text8, stateFlag, rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14
+  localValue1 = workingValue8
+  if not localValue1 then
     return
   end
-  arg1 = workValue9
-  arg2 = workValue8.handle
-  arg1 = arg1(arg2)
-  if arg1 then
+  localValue1 = workingValue9
+  localValue2 = workingValue8.handle
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
     return
   end
-  arg1 = workValue8
-  arg2 = HasNamedPtfxAssetLoaded
-  arg3 = arg1.asset
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = RequestNamedPtfxAsset
-    arg3 = arg1.asset
-    arg2(arg3)
+  localValue1 = workingValue8
+  localValue2 = HasNamedPtfxAssetLoaded
+  localValue3 = localValue1.asset
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = RequestNamedPtfxAsset
+    localValue3 = localValue1.asset
+    localValue2(localValue3)
     while true do
-      arg2 = HasNamedPtfxAssetLoaded
-      arg3 = arg1.asset
-      arg2 = arg2(arg3)
-      if arg2 then
+      localValue2 = HasNamedPtfxAssetLoaded
+      localValue3 = localValue1.asset
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
         break
       end
-      arg2 = Wait
-      arg3 = 0
-      arg2(arg3)
+      localValue2 = Wait
+      localValue3 = 0
+      localValue2(localValue3)
     end
   end
 
-  -- === HELPER FUNCTION: arg2() ===
-  function arg2()
-    local arg12, arg22
-    arg12 = UseParticleFxAsset
-    arg22 = arg1.asset
-    arg12(arg22)
+  -- === HELPER FUNCTION: localValue2() ===
+  function localValue2()
+    local localValue12, localValue22
+    localValue12 = UseParticleFxAsset
+    localValue22 = localValue1.asset
+    localValue12(localValue22)
   end
-  arg3 = arg1.placement
-  if not arg3 then
-    arg3 = {}
-    arg4 = 0.0
-    arg5 = 0.0
-    arg6 = 0.0
-    arg7 = 0.0
-    arg8 = 0.0
-    arg9 = 0.0
-    arg10 = 1.0
-    arg3[1] = arg4
-    arg3[2] = arg5
-    arg3[3] = arg6
-    arg3[4] = arg7
-    arg3[5] = arg8
-    arg3[6] = arg9
-    arg3[7] = arg10
+  localValue3 = localValue1.placement
+  if not localValue3 then
+    localValue3 = {}
+    localValue4 = 0.0
+    localValue5 = 0.0
+    localValue6 = 0.0
+    localValue7 = 0.0
+    localValue8 = 0.0
+    localValue9 = 0.0
+    localValue10 = 1.0
+    localValue3[1] = localValue4
+    localValue3[2] = localValue5
+    localValue3[3] = localValue6
+    localValue3[4] = localValue7
+    localValue3[5] = localValue8
+    localValue3[6] = localValue9
+    localValue3[7] = localValue10
   end
-  arg4 = arg3[1]
-  arg5 = arg3[2]
-  arg6 = arg3[3]
-  arg7 = arg3[4]
-  if not arg7 then
-    arg7 = 0.0
+  localValue4 = localValue3[1]
+  localValue5 = localValue3[2]
+  localValue6 = localValue3[3]
+  localValue7 = localValue3[4]
+  if not localValue7 then
+    localValue7 = 0.0
   end
-  arg8 = arg3[5]
-  if not arg8 then
-    arg8 = 0.0
+  localValue8 = localValue3[5]
+  if not localValue8 then
+    localValue8 = 0.0
   end
-  arg9 = arg3[6]
-  if not arg9 then
-    arg9 = 0.0
+  localValue9 = localValue3[6]
+  if not localValue9 then
+    localValue9 = 0.0
   end
-  arg10 = arg3[7]
-  if nil == arg10 or 0.0 == arg10 then
-    arg10 = 1.0
+  localValue10 = localValue3[7]
+  if nil == localValue10 or 0.0 == localValue10 then
+    localValue10 = 1.0
   end
-  arg11 = arg10 or arg11
-  if not arg10 then
-    arg11 = 1.0
+  localValue11 = localValue10 or localValue11
+  if not localValue10 then
+    localValue11 = 1.0
   end
-  arg11 = arg11 + 0.0
-  workValue2 = PlayerPedId
+  localValue11 = localValue11 + 0.0
+  workingValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  workValue2 = workValue2()
+  workingValue2 = workingValue2()
 
-  -- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg12) ===
-  function textValue5(arg12)
-    local arg22, arg32, workValue17, workValue27, flag25, numberValue19, textValue15, workValue59, playerPed, workValue, dataTable
-    arg22 = workValue9
-    arg32 = arg12
-    arg22 = arg22(arg32)
-    if not arg22 then
+  -- === HELPER FUNCTION (decompiler name: text5; parameters: localValue12) ===
+  function text5(localValue12)
+    local localValue22, localValue32, workingValue17, workingValue27, stateFlag25, number19, text15, workingValue59, playerPed, workingValue, dataCollection
+    localValue22 = workingValue9
+    localValue32 = localValue12
+    localValue22 = localValue22(localValue32)
+    if not localValue22 then
       return
     end
-    arg22 = arg1.ptfxColor
-    if not arg22 then
-      arg32 = SetParticleFxLoopedColour
-      workValue17 = arg12
-      workValue27 = 1.0
-      flag25 = 1.0
-      numberValue19 = 1.0
-      textValue15 = false
-      arg32(workValue17, workValue27, flag25, numberValue19, textValue15)
+    localValue22 = localValue1.ptfxColor
+    if not localValue22 then
+      localValue32 = SetParticleFxLoopedColour
+      workingValue17 = localValue12
+      workingValue27 = 1.0
+      stateFlag25 = 1.0
+      number19 = 1.0
+      text15 = false
+      localValue32(workingValue17, workingValue27, stateFlag25, number19, text15)
       return
     end
-    arg32 = arg22[1]
-    if arg32 then
-      workValue17 = type
-      workValue27 = arg32
-      workValue17 = workValue17(workValue27)
-      if "table" == workValue17 then
-        workValue17 = arg32[1]
-        if workValue17 then
-          workValue17 = type
-          workValue27 = arg32[1]
-          workValue17 = workValue17(workValue27)
-          if "table" == workValue17 then
-            workValue17 = math
-            workValue17 = workValue17.random
-            workValue27 = 1
-            flag25 = #arg22
-            workValue17 = workValue17(workValue27, flag25)
-            arg32 = arg22[workValue17]
+    localValue32 = localValue22[1]
+    if localValue32 then
+      workingValue17 = type
+      workingValue27 = localValue32
+      workingValue17 = workingValue17(workingValue27)
+      if "table" == workingValue17 then
+        workingValue17 = localValue32[1]
+        if workingValue17 then
+          workingValue17 = type
+          workingValue27 = localValue32[1]
+          workingValue17 = workingValue17(workingValue27)
+          if "table" == workingValue17 then
+            workingValue17 = math
+            workingValue17 = workingValue17.random
+            workingValue27 = 1
+            stateFlag25 = #localValue22
+            workingValue17 = workingValue17(workingValue27, stateFlag25)
+            localValue32 = localValue22[workingValue17]
           end
         end
       end
     end
-    if arg32 then
-      workValue17 = type
-      workValue27 = arg32
-      workValue17 = workValue17(workValue27)
-      if "table" == workValue17 then
-        workValue17 = arg32.R
-        if not workValue17 then
-          workValue17 = arg32.r
-          if not workValue17 then
-            workValue17 = 255
+    if localValue32 then
+      workingValue17 = type
+      workingValue27 = localValue32
+      workingValue17 = workingValue17(workingValue27)
+      if "table" == workingValue17 then
+        workingValue17 = localValue32.R
+        if not workingValue17 then
+          workingValue17 = localValue32.r
+          if not workingValue17 then
+            workingValue17 = 255
           end
         end
-        workValue17 = workValue17 / 255.0
-        workValue27 = arg32.G
-        if not workValue27 then
-          workValue27 = arg32.g
-          if not workValue27 then
-            workValue27 = 255
+        workingValue17 = workingValue17 / 255.0
+        workingValue27 = localValue32.G
+        if not workingValue27 then
+          workingValue27 = localValue32.g
+          if not workingValue27 then
+            workingValue27 = 255
           end
         end
-        workValue27 = workValue27 / 255.0
-        flag25 = arg32.B
-        if not flag25 then
-          flag25 = arg32.b
-          if not flag25 then
-            flag25 = 255
+        workingValue27 = workingValue27 / 255.0
+        stateFlag25 = localValue32.B
+        if not stateFlag25 then
+          stateFlag25 = localValue32.b
+          if not stateFlag25 then
+            stateFlag25 = 255
           end
         end
-        flag25 = flag25 / 255.0
-        numberValue19 = SetParticleFxLoopedColour
-        textValue15 = arg12
-        workValue59 = workValue17
-        playerPed = workValue27
-        workValue = flag25
-        dataTable = false
-        numberValue19(textValue15, workValue59, playerPed, workValue, dataTable)
-        numberValue19 = arg32.A
-        if not numberValue19 then
-          numberValue19 = arg32.a
+        stateFlag25 = stateFlag25 / 255.0
+        number19 = SetParticleFxLoopedColour
+        text15 = localValue12
+        workingValue59 = workingValue17
+        playerPed = workingValue27
+        workingValue = stateFlag25
+        dataCollection = false
+        number19(text15, workingValue59, playerPed, workingValue, dataCollection)
+        number19 = localValue32.A
+        if not number19 then
+          number19 = localValue32.a
         end
-        if nil ~= numberValue19 and numberValue19 > 1.0 then
-          textValue15 = SetParticleFxLoopedAlpha
-          workValue59 = arg12
-          playerPed = numberValue19 / 255.0
-          textValue15(workValue59, playerPed)
-        elseif nil ~= numberValue19 then
-          textValue15 = SetParticleFxLoopedAlpha
-          workValue59 = arg12
-          playerPed = numberValue19
-          textValue15(workValue59, playerPed)
+        if nil ~= number19 and number19 > 1.0 then
+          text15 = SetParticleFxLoopedAlpha
+          workingValue59 = localValue12
+          playerPed = number19 / 255.0
+          text15(workingValue59, playerPed)
+        elseif nil ~= number19 then
+          text15 = SetParticleFxLoopedAlpha
+          workingValue59 = localValue12
+          playerPed = number19
+          text15(workingValue59, playerPed)
         end
     end
     else
-      workValue17 = SetParticleFxLoopedColour
-      workValue27 = arg12
-      flag25 = 1.0
-      numberValue19 = 1.0
-      textValue15 = 1.0
-      workValue59 = false
-      workValue17(workValue27, flag25, numberValue19, textValue15, workValue59)
+      workingValue17 = SetParticleFxLoopedColour
+      workingValue27 = localValue12
+      stateFlag25 = 1.0
+      number19 = 1.0
+      text15 = 1.0
+      workingValue59 = false
+      workingValue17(workingValue27, stateFlag25, number19, text15, workingValue59)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg12) ===
-  function dataTable4(arg12)
-    local arg22, arg32, workValue17
-    arg22 = arg1.ptfxBone
-    if arg22 then
-      arg22 = GetPedBoneIndex
-      arg32 = workValue2
-      workValue17 = arg1.ptfxBone
-      return arg22(arg32, workValue17)
+  -- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue12) ===
+  function dataCollection4(localValue12)
+    local localValue22, localValue32, workingValue17
+    localValue22 = localValue1.ptfxBone
+    if localValue22 then
+      localValue22 = GetPedBoneIndex
+      localValue32 = workingValue2
+      workingValue17 = localValue1.ptfxBone
+      return localValue22(localValue32, workingValue17)
     end
-    arg22 = IsEntityAPed
-    arg32 = arg12
-    arg22 = arg22(arg32)
-    if arg22 then
-      arg22 = GetPedBoneIndex
-      arg32 = arg12
-      workValue17 = 60309
-      return arg22(arg32, workValue17)
+    localValue22 = IsEntityAPed
+    localValue32 = localValue12
+    localValue22 = localValue22(localValue32)
+    if localValue22 then
+      localValue22 = GetPedBoneIndex
+      localValue32 = localValue12
+      workingValue17 = 60309
+      return localValue22(localValue32, workingValue17)
     end
-    arg22 = GetEntityBoneIndexByName
-    arg32 = arg12
-    workValue17 = "VFX"
-    arg22 = arg22(arg32, workValue17)
-    if nil == arg22 or arg22 < 0 then
-      arg22 = 0
+    localValue22 = GetEntityBoneIndexByName
+    localValue32 = localValue12
+    workingValue17 = "VFX"
+    localValue22 = localValue22(localValue32, workingValue17)
+    if nil == localValue22 or localValue22 < 0 then
+      localValue22 = 0
     end
-    return arg22
+    return localValue22
   end
-  rageUiCall = workValue2
-  textValue6 = arg1.ptfxNoProp
-  if not textValue6 then
-    textValue6 = dataTable3
-    textValue6 = textValue6[1]
-    if textValue6 then
-      textValue6 = DoesEntityExist
-      textValue8 = dataTable3
-      textValue8 = textValue8[1]
-      textValue6 = textValue6(textValue8)
-      if textValue6 then
-        textValue6 = dataTable3
-        rageUiCall = textValue6[1]
+  rageUiOperation = workingValue2
+  text6 = localValue1.ptfxNoProp
+  if not text6 then
+    text6 = dataCollection3
+    text6 = text6[1]
+    if text6 then
+      text6 = DoesEntityExist
+      text8 = dataCollection3
+      text8 = text8[1]
+      text6 = text6(text8)
+      if text6 then
+        text6 = dataCollection3
+        rageUiOperation = text6[1]
       end
     end
   end
-  textValue6 = dataTable4
-  textValue8 = rageUiCall
-  textValue6 = textValue6(textValue8)
-  textValue8 = 0
-  flag = IsEntityAPed
-  rageUiCall2 = rageUiCall
-  flag = flag(rageUiCall2)
-  if flag then
-    flag = arg2
-    flag()
-    flag = StartParticleFxLoopedOnEntityBone
-    rageUiCall2 = arg1.name
-    rageUiCall3 = rageUiCall
-    flag5 = arg4
-    flag6 = arg5
-    flag7 = arg6
-    workValue12 = arg7
-    workValue13 = arg8
-    flag9 = arg9
-    flag11 = textValue6
-    flag12 = arg11
-    flag13 = false
-    numberValue7 = false
-    flag14 = false
-    flag = flag(rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14)
-    textValue8 = flag
-    flag = workValue9
-    rageUiCall2 = textValue8
-    flag = flag(rageUiCall2)
-    if not flag then
-      flag = arg2
-      flag()
-      flag = _ENV
-      rageUiCall2 = "StartNetworkedParticleFxLoopedOnEntityBone"
-      flag = flag[rageUiCall2]
-      rageUiCall2 = arg1.name
-      rageUiCall3 = rageUiCall
-      flag5 = arg4
-      flag6 = arg5
-      flag7 = arg6
-      workValue12 = arg7
-      workValue13 = arg8
-      flag9 = arg9
-      flag11 = textValue6
-      flag12 = arg11
-      flag13 = false
-      numberValue7 = false
-      flag14 = false
-      flag = flag(rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14)
-      textValue8 = flag
+  text6 = dataCollection4
+  text8 = rageUiOperation
+  text6 = text6(text8)
+  text8 = 0
+  stateFlag = IsEntityAPed
+  rageUiOperation2 = rageUiOperation
+  stateFlag = stateFlag(rageUiOperation2)
+  if stateFlag then
+    stateFlag = localValue2
+    stateFlag()
+    stateFlag = StartParticleFxLoopedOnEntityBone
+    rageUiOperation2 = localValue1.name
+    rageUiOperation3 = rageUiOperation
+    stateFlag5 = localValue4
+    stateFlag6 = localValue5
+    stateFlag7 = localValue6
+    workingValue12 = localValue7
+    workingValue13 = localValue8
+    stateFlag9 = localValue9
+    stateFlag11 = text6
+    stateFlag12 = localValue11
+    stateFlag13 = false
+    number7 = false
+    stateFlag14 = false
+    stateFlag = stateFlag(rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14)
+    text8 = stateFlag
+    stateFlag = workingValue9
+    rageUiOperation2 = text8
+    stateFlag = stateFlag(rageUiOperation2)
+    if not stateFlag then
+      stateFlag = localValue2
+      stateFlag()
+      stateFlag = _ENV
+      rageUiOperation2 = "StartNetworkedParticleFxLoopedOnEntityBone"
+      stateFlag = stateFlag[rageUiOperation2]
+      rageUiOperation2 = localValue1.name
+      rageUiOperation3 = rageUiOperation
+      stateFlag5 = localValue4
+      stateFlag6 = localValue5
+      stateFlag7 = localValue6
+      workingValue12 = localValue7
+      workingValue13 = localValue8
+      stateFlag9 = localValue9
+      stateFlag11 = text6
+      stateFlag12 = localValue11
+      stateFlag13 = false
+      number7 = false
+      stateFlag14 = false
+      stateFlag = stateFlag(rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14)
+      text8 = stateFlag
     end
   else
-    flag = arg2
-    flag()
-    flag = StartParticleFxLoopedOnEntity
-    rageUiCall2 = arg1.name
-    rageUiCall3 = rageUiCall
-    flag5 = arg4
-    flag6 = arg5
-    flag7 = arg6
-    workValue12 = arg7
-    workValue13 = arg8
-    flag9 = arg9
-    flag11 = arg11
-    flag12 = false
-    flag13 = false
-    numberValue7 = false
-    flag = flag(rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7)
-    textValue8 = flag
-    flag = workValue9
-    rageUiCall2 = textValue8
-    flag = flag(rageUiCall2)
-    if not flag then
-      flag = arg2
-      flag()
-      flag = StartParticleFxLoopedOnEntityBone
-      rageUiCall2 = arg1.name
-      rageUiCall3 = rageUiCall
-      flag5 = arg4
-      flag6 = arg5
-      flag7 = arg6
-      workValue12 = arg7
-      workValue13 = arg8
-      flag9 = arg9
-      flag11 = -1
-      flag12 = arg11
-      flag13 = false
-      numberValue7 = false
-      flag14 = false
-      flag = flag(rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14)
-      textValue8 = flag
+    stateFlag = localValue2
+    stateFlag()
+    stateFlag = StartParticleFxLoopedOnEntity
+    rageUiOperation2 = localValue1.name
+    rageUiOperation3 = rageUiOperation
+    stateFlag5 = localValue4
+    stateFlag6 = localValue5
+    stateFlag7 = localValue6
+    workingValue12 = localValue7
+    workingValue13 = localValue8
+    stateFlag9 = localValue9
+    stateFlag11 = localValue11
+    stateFlag12 = false
+    stateFlag13 = false
+    number7 = false
+    stateFlag = stateFlag(rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7)
+    text8 = stateFlag
+    stateFlag = workingValue9
+    rageUiOperation2 = text8
+    stateFlag = stateFlag(rageUiOperation2)
+    if not stateFlag then
+      stateFlag = localValue2
+      stateFlag()
+      stateFlag = StartParticleFxLoopedOnEntityBone
+      rageUiOperation2 = localValue1.name
+      rageUiOperation3 = rageUiOperation
+      stateFlag5 = localValue4
+      stateFlag6 = localValue5
+      stateFlag7 = localValue6
+      workingValue12 = localValue7
+      workingValue13 = localValue8
+      stateFlag9 = localValue9
+      stateFlag11 = -1
+      stateFlag12 = localValue11
+      stateFlag13 = false
+      number7 = false
+      stateFlag14 = false
+      stateFlag = stateFlag(rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14)
+      text8 = stateFlag
     end
-    flag = workValue9
-    rageUiCall2 = textValue8
-    flag = flag(rageUiCall2)
-    if not flag then
-      flag = arg2
-      flag()
-      flag = StartParticleFxLoopedOnEntityBone
-      rageUiCall2 = arg1.name
-      rageUiCall3 = rageUiCall
-      flag5 = arg4
-      flag6 = arg5
-      flag7 = arg6
-      workValue12 = arg7
-      workValue13 = arg8
-      flag9 = arg9
-      flag11 = textValue6
-      flag12 = arg11
-      flag13 = false
-      numberValue7 = false
-      flag14 = false
-      flag = flag(rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14)
-      textValue8 = flag
+    stateFlag = workingValue9
+    rageUiOperation2 = text8
+    stateFlag = stateFlag(rageUiOperation2)
+    if not stateFlag then
+      stateFlag = localValue2
+      stateFlag()
+      stateFlag = StartParticleFxLoopedOnEntityBone
+      rageUiOperation2 = localValue1.name
+      rageUiOperation3 = rageUiOperation
+      stateFlag5 = localValue4
+      stateFlag6 = localValue5
+      stateFlag7 = localValue6
+      workingValue12 = localValue7
+      workingValue13 = localValue8
+      stateFlag9 = localValue9
+      stateFlag11 = text6
+      stateFlag12 = localValue11
+      stateFlag13 = false
+      number7 = false
+      stateFlag14 = false
+      stateFlag = stateFlag(rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14)
+      text8 = stateFlag
     end
-    flag = workValue9
-    rageUiCall2 = textValue8
-    flag = flag(rageUiCall2)
-    if not flag then
-      flag = arg2
-      flag()
-      flag = StartNetworkedParticleFxLoopedOnEntity
-      rageUiCall2 = arg1.name
-      rageUiCall3 = rageUiCall
-      flag5 = arg4
-      flag6 = arg5
-      flag7 = arg6
-      workValue12 = arg7
-      workValue13 = arg8
-      flag9 = arg9
-      flag11 = arg11
-      flag12 = false
-      flag13 = false
-      numberValue7 = false
-      flag = flag(rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7)
-      textValue8 = flag
+    stateFlag = workingValue9
+    rageUiOperation2 = text8
+    stateFlag = stateFlag(rageUiOperation2)
+    if not stateFlag then
+      stateFlag = localValue2
+      stateFlag()
+      stateFlag = StartNetworkedParticleFxLoopedOnEntity
+      rageUiOperation2 = localValue1.name
+      rageUiOperation3 = rageUiOperation
+      stateFlag5 = localValue4
+      stateFlag6 = localValue5
+      stateFlag7 = localValue6
+      workingValue12 = localValue7
+      workingValue13 = localValue8
+      stateFlag9 = localValue9
+      stateFlag11 = localValue11
+      stateFlag12 = false
+      stateFlag13 = false
+      number7 = false
+      stateFlag = stateFlag(rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7)
+      text8 = stateFlag
     end
-    flag = workValue9
-    rageUiCall2 = textValue8
-    flag = flag(rageUiCall2)
-    if not flag then
-      flag = arg2
-      flag()
-      flag = _ENV
-      rageUiCall2 = "StartNetworkedParticleFxLoopedOnEntityBone"
-      flag = flag[rageUiCall2]
-      rageUiCall2 = arg1.name
-      rageUiCall3 = rageUiCall
-      flag5 = arg4
-      flag6 = arg5
-      flag7 = arg6
-      workValue12 = arg7
-      workValue13 = arg8
-      flag9 = arg9
-      flag11 = textValue6
-      flag12 = arg11
-      flag13 = false
-      numberValue7 = false
-      flag14 = false
-      flag = flag(rageUiCall2, rageUiCall3, flag5, flag6, flag7, workValue12, workValue13, flag9, flag11, flag12, flag13, numberValue7, flag14)
-      textValue8 = flag
+    stateFlag = workingValue9
+    rageUiOperation2 = text8
+    stateFlag = stateFlag(rageUiOperation2)
+    if not stateFlag then
+      stateFlag = localValue2
+      stateFlag()
+      stateFlag = _ENV
+      rageUiOperation2 = "StartNetworkedParticleFxLoopedOnEntityBone"
+      stateFlag = stateFlag[rageUiOperation2]
+      rageUiOperation2 = localValue1.name
+      rageUiOperation3 = rageUiOperation
+      stateFlag5 = localValue4
+      stateFlag6 = localValue5
+      stateFlag7 = localValue6
+      workingValue12 = localValue7
+      workingValue13 = localValue8
+      stateFlag9 = localValue9
+      stateFlag11 = text6
+      stateFlag12 = localValue11
+      stateFlag13 = false
+      number7 = false
+      stateFlag14 = false
+      stateFlag = stateFlag(rageUiOperation2, rageUiOperation3, stateFlag5, stateFlag6, stateFlag7, workingValue12, workingValue13, stateFlag9, stateFlag11, stateFlag12, stateFlag13, number7, stateFlag14)
+      text8 = stateFlag
     end
   end
-  flag = workValue9
-  rageUiCall2 = textValue8
-  flag = flag(rageUiCall2)
-  flag = textValue8 or flag
-  if not flag or not textValue8 then
-    flag = nil
+  stateFlag = workingValue9
+  rageUiOperation2 = text8
+  stateFlag = stateFlag(rageUiOperation2)
+  stateFlag = text8 or stateFlag
+  if not stateFlag or not text8 then
+    stateFlag = nil
   end
-  arg1.handle = flag
-  flag = textValue5
-  rageUiCall2 = arg1.handle
-  flag(rageUiCall2)
-  flag = arg1.ptfxCanHold
-  if not flag then
-    flag = Citizen
-    flag = flag.CreateThread
+  localValue1.handle = stateFlag
+  stateFlag = text5
+  rageUiOperation2 = localValue1.handle
+  stateFlag(rageUiOperation2)
+  stateFlag = localValue1.ptfxCanHold
+  if not stateFlag then
+    stateFlag = Citizen
+    stateFlag = stateFlag.CreateThread
 
-    -- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
-    function rageUiCall2()
-      local arg12, arg22, arg32, workValue17
-      arg12 = workValue8
-      if arg12 then
-        arg12 = textValue5
-        arg22 = workValue8.handle
-        arg12(arg22)
-        arg12 = workValue8.wait
-        if nil == arg12 then
-          arg12 = 500
+    -- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: none) ===
+    function rageUiOperation2()
+      local localValue12, localValue22, localValue32, workingValue17
+      localValue12 = workingValue8
+      if localValue12 then
+        localValue12 = text5
+        localValue22 = workingValue8.handle
+        localValue12(localValue22)
+        localValue12 = workingValue8.wait
+        if nil == localValue12 then
+          localValue12 = 500
         end
-        if arg12 > 0 then
-          arg22 = Citizen
-          arg22 = arg22.Wait
-          arg32 = arg12
-          arg22(arg32)
+        if localValue12 > 0 then
+          localValue22 = Citizen
+          localValue22 = localValue22.Wait
+          localValue32 = localValue12
+          localValue22(localValue32)
         end
-        arg22 = workValue8
-        if arg22 then
-          arg22 = workValue9
-          arg32 = workValue8.handle
-          arg22 = arg22(arg32)
-          if arg22 then
-            arg22 = StopParticleFxLooped
-            arg32 = workValue8.handle
-            workValue17 = false
-            arg22(arg32, workValue17)
-            workValue8.handle = nil
+        localValue22 = workingValue8
+        if localValue22 then
+          localValue22 = workingValue9
+          localValue32 = workingValue8.handle
+          localValue22 = localValue22(localValue32)
+          if localValue22 then
+            localValue22 = StopParticleFxLooped
+            localValue32 = workingValue8.handle
+            workingValue17 = false
+            localValue22(localValue32, workingValue17)
+            workingValue8.handle = nil
           end
         end
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    flag(rageUiCall2)
+    stateFlag(rageUiOperation2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue17; parameters: none) ===
-function textValue17()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = workValue15
-  if arg1 then
-    arg1 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: text17; parameters: none) ===
+function text17()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = workingValue15
+  if localValue1 then
+    localValue1 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg1 = arg1()
-    arg2 = numberValue9
-    arg1 = arg1 - arg2
-    arg2 = 5000
-    if arg1 > arg2 then
-      arg1 = flag26
+    localValue1 = localValue1()
+    localValue2 = number9
+    localValue1 = localValue1 - localValue2
+    localValue2 = 5000
+    if localValue1 > localValue2 then
+      localValue1 = stateFlag26
       -- Beginner: Register a network event handler that the server/other clients can trigger.
-      arg1()
+      localValue1()
     else
-      arg1 = IsControlJustPressed
-      arg2 = 1
-      arg3 = 246
-      arg1 = arg1(arg2, arg3)
-      if arg1 then
-        arg1 = numberValue14
-        arg1 = arg1()
-        if arg1 then
-          arg1 = notify
-          arg2 = "~r~You can not use emotes at this time."
+      localValue1 = IsControlJustPressed
+      localValue2 = 1
+      localValue3 = 246
+      localValue1 = localValue1(localValue2, localValue3)
+      if localValue1 then
+        localValue1 = number14
+        localValue1 = localValue1()
+        if localValue1 then
+          localValue1 = notify
+          localValue2 = "~r~You can not use emotes at this time."
           -- Beginner: Show a notification to the player.
-          arg1(arg2)
+          localValue1(localValue2)
         else
-          arg1 = cmgCall.shared
-          if arg1 then
-            arg1 = cmgCall.shared
-            arg2 = workValue15
-            arg1 = arg1[arg2]
-            if arg1 then
-              arg1 = TriggerServerEvent
-              arg2 = "3c60b83bb5"
-              arg3 = numberValue8
-              arg4 = cmgCall.shared
-              arg5 = workValue15
-              arg4 = arg4[arg5]
-              arg4 = arg4[4]
+          localValue1 = cmgOperation.shared
+          if localValue1 then
+            localValue1 = cmgOperation.shared
+            localValue2 = workingValue15
+            localValue1 = localValue1[localValue2]
+            if localValue1 then
+              localValue1 = TriggerServerEvent
+              localValue2 = "3c60b83bb5"
+              localValue3 = number8
+              localValue4 = cmgOperation.shared
+              localValue5 = workingValue15
+              localValue4 = localValue4[localValue5]
+              localValue4 = localValue4[4]
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3c60b83bb5".
-              arg1(arg2, arg3, arg4)
+              localValue1(localValue2, localValue3, localValue4)
             end
           end
         end
-        arg1 = flag26
+        localValue1 = stateFlag26
         -- Beginner: Register a network event handler that the server/other clients can trigger.
-        arg1()
+        localValue1()
       end
     end
   end
-  arg1 = textValue3
-  if arg1 then
-    arg1 = workValue5
-    if arg1 then
-      arg1 = workValue6
-      if arg1 then
-        arg1 = flag23
-        if not arg1 then
-          arg1 = workValue8
-          if arg1 then
-            arg1 = EnableControlAction
-            arg2 = 0
-            arg3 = 47
-            arg4 = true
-            arg1(arg2, arg3, arg4)
-            arg1 = workValue8.ptfxCanHold
-            if arg1 then
-              arg1 = workValue10
-              arg1 = arg1()
-              arg2 = workValue11
-              arg2 = arg2()
-              if arg2 then
-                arg3 = numberValue5
-                arg3 = arg3 + 1
-                numberValue5 = arg3
-                arg3 = workValue9
-                arg4 = workValue8.handle
-                arg3 = arg3(arg4)
-                if arg3 then
-                  arg3 = StopParticleFxLooped
-                  arg4 = workValue8.handle
-                  arg5 = false
-                  arg3(arg4, arg5)
-                  workValue8.handle = nil
+  localValue1 = text3
+  if localValue1 then
+    localValue1 = workingValue5
+    if localValue1 then
+      localValue1 = workingValue6
+      if localValue1 then
+        localValue1 = stateFlag23
+        if not localValue1 then
+          localValue1 = workingValue8
+          if localValue1 then
+            localValue1 = EnableControlAction
+            localValue2 = 0
+            localValue3 = 47
+            localValue4 = true
+            localValue1(localValue2, localValue3, localValue4)
+            localValue1 = workingValue8.ptfxCanHold
+            if localValue1 then
+              localValue1 = workingValue10
+              localValue1 = localValue1()
+              localValue2 = workingValue11
+              localValue2 = localValue2()
+              if localValue2 then
+                localValue3 = number5
+                localValue3 = localValue3 + 1
+                number5 = localValue3
+                localValue3 = workingValue9
+                localValue4 = workingValue8.handle
+                localValue3 = localValue3(localValue4)
+                if localValue3 then
+                  localValue3 = StopParticleFxLooped
+                  localValue4 = workingValue8.handle
+                  localValue5 = false
+                  localValue3(localValue4, localValue5)
+                  workingValue8.handle = nil
                 end
-                arg3 = flag27
-                arg3()
-              elseif arg1 then
-                arg3 = workValue9
-                arg4 = workValue8.handle
-                arg3 = arg3(arg4)
-                if not arg3 then
-                  arg3 = flag27
-                  arg3()
+                localValue3 = stateFlag27
+                localValue3()
+              elseif localValue1 then
+                localValue3 = workingValue9
+                localValue4 = workingValue8.handle
+                localValue3 = localValue3(localValue4)
+                if not localValue3 then
+                  localValue3 = stateFlag27
+                  localValue3()
                 end
               else
-                arg3 = flag8
-                if arg3 then
-                  arg3 = numberValue5
-                  arg3 = arg3 + 1
-                  numberValue5 = arg3
-                  arg3 = numberValue5
-                  arg4 = workValue8.handle
-                  arg5 = Citizen
-                  arg5 = arg5.CreateThread
+                localValue3 = stateFlag8
+                if localValue3 then
+                  localValue3 = number5
+                  localValue3 = localValue3 + 1
+                  number5 = localValue3
+                  localValue3 = number5
+                  localValue4 = workingValue8.handle
+                  localValue5 = Citizen
+                  localValue5 = localValue5.CreateThread
 
-                  -- === HELPER FUNCTION: arg6() ===
-                  function arg6()
-                    local arg12, arg22, arg32
-                    arg12 = Citizen
-                    arg12 = arg12.Wait
-                    arg22 = numberValue4
-                    arg12(arg22)
-                    arg12 = arg3
-                    arg22 = numberValue5
-                    if arg12 ~= arg22 then
+                  -- === HELPER FUNCTION: localValue6() ===
+                  function localValue6()
+                    local localValue12, localValue22, localValue32
+                    localValue12 = Citizen
+                    localValue12 = localValue12.Wait
+                    localValue22 = number4
+                    localValue12(localValue22)
+                    localValue12 = localValue3
+                    localValue22 = number5
+                    if localValue12 ~= localValue22 then
                       return
                     end
-                    arg12 = workValue8
-                    if not arg12 then
+                    localValue12 = workingValue8
+                    if not localValue12 then
                       return
                     end
-                    arg12 = workValue10
-                    arg12 = arg12()
-                    if arg12 then
+                    localValue12 = workingValue10
+                    localValue12 = localValue12()
+                    if localValue12 then
                       return
                     end
-                    arg12 = workValue9
-                    arg22 = workValue8.handle
-                    arg12 = arg12(arg22)
-                    if not arg12 then
+                    localValue12 = workingValue9
+                    localValue22 = workingValue8.handle
+                    localValue12 = localValue12(localValue22)
+                    if not localValue12 then
                       return
                     end
-                    arg12 = workValue8.handle
-                    arg22 = arg4
-                    if arg12 ~= arg22 then
+                    localValue12 = workingValue8.handle
+                    localValue22 = localValue4
+                    if localValue12 ~= localValue22 then
                       return
                     end
-                    arg12 = StopParticleFxLooped
-                    arg22 = workValue8.handle
-                    arg32 = false
-                    arg12(arg22, arg32)
-                    workValue8.handle = nil
+                    localValue12 = StopParticleFxLooped
+                    localValue22 = workingValue8.handle
+                    localValue32 = false
+                    localValue12(localValue22, localValue32)
+                    workingValue8.handle = nil
                   end
                   -- Beginner: Start a separate FiveM thread so this code can run independently.
-                  arg5(arg6)
+                  localValue5(localValue6)
                 end
               end
-              flag8 = arg1
+              stateFlag8 = localValue1
             else
-              arg1 = workValue11
-              arg1 = arg1()
-              if arg1 then
-                arg1 = flag27
-                arg1()
+              localValue1 = workingValue11
+              localValue1 = localValue1()
+              if localValue1 then
+                localValue1 = stateFlag27
+                localValue1()
               end
             end
           end
-          arg1 = IsEntityPlayingAnim
-          arg2 = PlayerPedId
+          localValue1 = IsEntityPlayingAnim
+          localValue2 = PlayerPedId
           -- Beginner: result below is localPlayerPed.
-          arg2 = arg2()
-          arg3 = workValue5
-          arg4 = workValue6
-          arg5 = 3
-          arg1 = arg1(arg2, arg3, arg4, arg5)
-          if not arg1 then
-            arg1 = GetAnimDuration
-            arg2 = workValue5
-            arg3 = workValue6
-            arg1 = arg1(arg2, arg3)
-            if arg1 > 0.0 then
-              goto flow_label_145
+          localValue2 = localValue2()
+          localValue3 = workingValue5
+          localValue4 = workingValue6
+          localValue5 = 3
+          localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5)
+          if not localValue1 then
+            localValue1 = GetAnimDuration
+            localValue2 = workingValue5
+            localValue3 = workingValue6
+            localValue1 = localValue1(localValue2, localValue3)
+            if localValue1 > 0.0 then
+              goto continueAtStep145
             end
           end
-          arg1 = numberValue14
-          arg2 = workValue7
-          arg1 = arg1(arg2)
-          ::flow_label_145::
-          if arg1 then
-            arg1 = flag10
-            if arg1 then
-              arg1 = Citizen
-              arg1 = arg1.CreateThreadNow
+          localValue1 = number14
+          localValue2 = workingValue7
+          localValue1 = localValue1(localValue2)
+          ::continueAtStep145::
+          if localValue1 then
+            localValue1 = stateFlag10
+            if localValue1 then
+              localValue1 = Citizen
+              localValue1 = localValue1.CreateThreadNow
 
-              -- === HELPER FUNCTION: arg2() ===
-              function arg2()
-                local arg12, arg22
-                arg12 = workValue7
-                if arg12 then
-                  arg12 = workValue35
-                  arg22 = workValue7
-                  arg12(arg22)
+              -- === HELPER FUNCTION: localValue2() ===
+              function localValue2()
+                local localValue12, localValue22
+                localValue12 = workingValue7
+                if localValue12 then
+                  localValue12 = workingValue35
+                  localValue22 = workingValue7
+                  localValue12(localValue22)
                 end
               end
-              arg1(arg2)
+              localValue1(localValue2)
             else
-              arg1 = workValue24
-              arg2 = true
-              arg1(arg2)
+              localValue1 = workingValue24
+              localValue2 = true
+              localValue1(localValue2)
             end
           end
         end
@@ -6326,89 +6326,89 @@ function textValue17()
     end
   end
 end
-cmgCall3 = CMG
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue19; parameters: arg1, arg2, arg3) ===
-function textValue19(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8
-  arg4 = cmgCall.emotes
-  arg4 = arg4[arg1]
-  if arg4 then
-    arg4 = workValue35
-    arg5 = cmgCall.emotes
-    arg5 = arg5[arg1]
-    arg6 = nil
-    arg7 = arg2
-    arg8 = arg3
-    arg4(arg5, arg6, arg7, arg8)
+-- === HELPER FUNCTION (decompiler name: text19; parameters: localValue1, localValue2, localValue3) ===
+function text19(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue4 = cmgOperation.emotes
+  localValue4 = localValue4[localValue1]
+  if localValue4 then
+    localValue4 = workingValue35
+    localValue5 = cmgOperation.emotes
+    localValue5 = localValue5[localValue1]
+    localValue6 = nil
+    localValue7 = localValue2
+    localValue8 = localValue3
+    localValue4(localValue5, localValue6, localValue7, localValue8)
   else
-    arg4 = cmgCall.dances
-    arg4 = arg4[arg1]
-    if arg4 then
-      arg4 = workValue35
-      arg5 = cmgCall.dances
-      arg5 = arg5[arg1]
-      arg6 = nil
-      arg7 = arg2
-      arg8 = arg3
-      arg4(arg5, arg6, arg7, arg8)
+    localValue4 = cmgOperation.dances
+    localValue4 = localValue4[localValue1]
+    if localValue4 then
+      localValue4 = workingValue35
+      localValue5 = cmgOperation.dances
+      localValue5 = localValue5[localValue1]
+      localValue6 = nil
+      localValue7 = localValue2
+      localValue8 = localValue3
+      localValue4(localValue5, localValue6, localValue7, localValue8)
     else
-      arg4 = cmgCall.custom
-      arg4 = arg4[arg1]
-      if arg4 then
-        arg4 = workValue35
-        arg5 = cmgCall.custom
-        arg5 = arg5[arg1]
-        arg6 = nil
-        arg7 = arg2
-        arg8 = arg3
-        arg4(arg5, arg6, arg7, arg8)
+      localValue4 = cmgOperation.custom
+      localValue4 = localValue4[localValue1]
+      if localValue4 then
+        localValue4 = workingValue35
+        localValue5 = cmgOperation.custom
+        localValue5 = localValue5[localValue1]
+        localValue6 = nil
+        localValue7 = localValue2
+        localValue8 = localValue3
+        localValue4(localValue5, localValue6, localValue7, localValue8)
       else
-        arg4 = cmgCall.props
-        arg4 = arg4[arg1]
-        if arg4 then
-          arg4 = workValue35
-          arg5 = cmgCall.props
-          arg5 = arg5[arg1]
-          arg6 = nil
-          arg7 = arg2
-          arg8 = arg3
-          arg4(arg5, arg6, arg7, arg8)
+        localValue4 = cmgOperation.props
+        localValue4 = localValue4[localValue1]
+        if localValue4 then
+          localValue4 = workingValue35
+          localValue5 = cmgOperation.props
+          localValue5 = localValue5[localValue1]
+          localValue6 = nil
+          localValue7 = localValue2
+          localValue8 = localValue3
+          localValue4(localValue5, localValue6, localValue7, localValue8)
         else
-          arg4 = cmgCall.guns
-          arg4 = arg4[arg1]
-          if arg4 then
-            arg4 = workValue35
-            arg5 = cmgCall.guns
-            arg5 = arg5[arg1]
-            arg6 = nil
-            arg7 = arg2
-            arg8 = arg3
-            arg4(arg5, arg6, arg7, arg8)
+          localValue4 = cmgOperation.guns
+          localValue4 = localValue4[localValue1]
+          if localValue4 then
+            localValue4 = workingValue35
+            localValue5 = cmgOperation.guns
+            localValue5 = localValue5[localValue1]
+            localValue6 = nil
+            localValue7 = localValue2
+            localValue8 = localValue3
+            localValue4(localValue5, localValue6, localValue7, localValue8)
           else
-            arg4 = cmgCall.animals
-            arg4 = arg4[arg1]
-            if arg4 then
-              arg4 = workValue35
-              arg5 = cmgCall.animals
-              arg5 = arg5[arg1]
-              arg6 = nil
-              arg7 = arg2
-              arg8 = arg3
-              arg4(arg5, arg6, arg7, arg8)
+            localValue4 = cmgOperation.animals
+            localValue4 = localValue4[localValue1]
+            if localValue4 then
+              localValue4 = workingValue35
+              localValue5 = cmgOperation.animals
+              localValue5 = localValue5[localValue1]
+              localValue6 = nil
+              localValue7 = localValue2
+              localValue8 = localValue3
+              localValue4(localValue5, localValue6, localValue7, localValue8)
             else
-              arg4 = cmgCall.shared
-              if arg4 then
-                arg4 = cmgCall.shared
-                arg4 = arg4[arg1]
-                if arg4 then
-                  arg4 = workValue35
-                  arg5 = cmgCall.shared
-                  arg5 = arg5[arg1]
-                  arg6 = nil
-                  arg7 = arg2
-                  arg8 = arg3
-                  arg4(arg5, arg6, arg7, arg8)
+              localValue4 = cmgOperation.shared
+              if localValue4 then
+                localValue4 = cmgOperation.shared
+                localValue4 = localValue4[localValue1]
+                if localValue4 then
+                  localValue4 = workingValue35
+                  localValue5 = cmgOperation.shared
+                  localValue5 = localValue5[localValue1]
+                  localValue6 = nil
+                  localValue7 = localValue2
+                  localValue8 = localValue3
+                  localValue4(localValue5, localValue6, localValue7, localValue8)
                 end
               end
             end
@@ -6418,230 +6418,230 @@ function textValue19(arg1, arg2, arg3)
     end
   end
 end
-cmgCall3.playEmote = textValue19
-cmgCall3 = CMG
+cmgOperation3.playEmote = text19
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue19; parameters: none) ===
-function textValue19()
-  local arg1, arg2
-  arg1 = textValue3
-  arg2 = workValue7
-  if arg2 then
-    arg2 = workValue7
-    arg2 = arg2[3]
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: text19; parameters: none) ===
+function text19()
+  local localValue1, localValue2
+  localValue1 = text3
+  localValue2 = workingValue7
+  if localValue2 then
+    localValue2 = workingValue7
+    localValue2 = localValue2[3]
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = nil
-  ::flow_label_10::
-  return arg1, arg2
+  localValue2 = nil
+  ::continueAtStep10::
+  return localValue1, localValue2
 end
-cmgCall3.isPlayingEmote = textValue19
-cmgCall3 = CMG
+cmgOperation3.isPlayingEmote = text19
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue19; parameters: none) ===
-function textValue19()
-  local arg1, arg2
-  arg1 = workValue7
-  if arg1 then
-    arg1 = workValue7.animationOptions
-    if arg1 then
-      arg1 = workValue7.animationOptions
-      arg1 = arg1.attachTo
-      if arg1 then
-        arg1 = true
-        return arg1
+-- === HELPER FUNCTION (decompiler name: text19; parameters: none) ===
+function text19()
+  local localValue1, localValue2
+  localValue1 = workingValue7
+  if localValue1 then
+    localValue1 = workingValue7.animationOptions
+    if localValue1 then
+      localValue1 = workingValue7.animationOptions
+      localValue1 = localValue1.attachTo
+      if localValue1 then
+        localValue1 = true
+        return localValue1
     end
   end
   else
-    arg1 = false
-    return arg1
+    localValue1 = false
+    return localValue1
   end
 end
-cmgCall3.isCurrentEmoteAttachingPed = textValue19
-cmgCall3 = CMG
-cmgCall3.cancelEmote = workValue24
-cmgCall3 = Citizen
-cmgCall3 = cmgCall3.CreateThread
+cmgOperation3.isCurrentEmoteAttachingPed = text19
+cmgOperation3 = CMG
+cmgOperation3.cancelEmote = workingValue24
+cmgOperation3 = Citizen
+cmgOperation3 = cmgOperation3.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue19; parameters: none) ===
-function textValue19()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = json
-  arg1 = arg1.decode
-  arg2 = GetResourceKvpString
-  arg3 = "cmg_favourite_emotes"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = "{}"
+-- === HELPER FUNCTION (decompiler name: text19; parameters: none) ===
+function text19()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = json
+  localValue1 = localValue1.decode
+  localValue2 = GetResourceKvpString
+  localValue3 = "cmg_favourite_emotes"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = "{}"
   end
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = {}
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = {}
   end
-  dataTable6 = arg1
-  arg1 = TriggerEvent
-  arg2 = "chat:addSuggestion"
-  arg3 = "/e"
-  arg4 = "Play an emote"
-  arg5 = {}
-  arg6 = {}
-  arg6.name = "emotename"
-  arg6.help = "dance, camera, sit or any valid emote."
-  arg5[1] = arg6
+  dataCollection6 = localValue1
+  localValue1 = TriggerEvent
+  localValue2 = "chat:addSuggestion"
+  localValue3 = "/e"
+  localValue4 = "Play an emote"
+  localValue5 = {}
+  localValue6 = {}
+  localValue6.name = "emotename"
+  localValue6.help = "dance, camera, sit or any valid emote."
+  localValue5[1] = localValue6
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-  arg1(arg2, arg3, arg4, arg5)
-  arg1 = TriggerEvent
-  arg2 = "chat:addSuggestion"
-  arg3 = "/emote"
-  arg4 = "Play an emote"
-  arg5 = {}
-  arg6 = {}
-  arg6.name = "emotename"
-  arg6.help = "dance, camera, sit or any valid emote."
-  arg5[1] = arg6
-  arg1(arg2, arg3, arg4, arg5)
-  arg1 = TriggerEvent
-  arg2 = "chat:addSuggestion"
-  arg3 = "/emotemenu"
-  arg4 = "Open emotes menu (F3) by default."
+  localValue1(localValue2, localValue3, localValue4, localValue5)
+  localValue1 = TriggerEvent
+  localValue2 = "chat:addSuggestion"
+  localValue3 = "/emote"
+  localValue4 = "Play an emote"
+  localValue5 = {}
+  localValue6 = {}
+  localValue6.name = "emotename"
+  localValue6.help = "dance, camera, sit or any valid emote."
+  localValue5[1] = localValue6
+  localValue1(localValue2, localValue3, localValue4, localValue5)
+  localValue1 = TriggerEvent
+  localValue2 = "chat:addSuggestion"
+  localValue3 = "/emotemenu"
+  localValue4 = "Open emotes menu (F3) by default."
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-  arg1(arg2, arg3, arg4)
-  arg1 = TriggerEvent
-  arg2 = "chat:addSuggestion"
-  arg3 = "/walk"
-  arg4 = "Set your walkingstyle."
-  arg5 = {}
-  arg6 = {}
-  arg6.name = "style"
-  arg6.help = "/walks for a list of valid styles"
-  arg5[1] = arg6
-  arg1(arg2, arg3, arg4, arg5)
-  arg1 = CMG
-  arg1 = arg1.createThreadOnTick
-  arg2 = textValue17
-  arg3 = "Emotes"
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = TriggerEvent
+  localValue2 = "chat:addSuggestion"
+  localValue3 = "/walk"
+  localValue4 = "Set your walkingstyle."
+  localValue5 = {}
+  localValue6 = {}
+  localValue6.name = "style"
+  localValue6.help = "/walks for a list of valid styles"
+  localValue5[1] = localValue6
+  localValue1(localValue2, localValue3, localValue4, localValue5)
+  localValue1 = CMG
+  localValue1 = localValue1.createThreadOnTick
+  localValue2 = text17
+  localValue3 = "Emotes"
   -- Beginner: Run a helper every game frame while this script is active.
-  arg1(arg2, arg3)
+  localValue1(localValue2, localValue3)
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall3(textValue19)
-cmgCall3 = RegisterNetEvent
-textValue19 = "14d094e30b"
+cmgOperation3(text19)
+cmgOperation3 = RegisterNetEvent
+text19 = "14d094e30b"
 -- Beginner: this function handles network event "14d094e30b".
 
--- === HELPER FUNCTION (decompiler name: workValue60; parameters: none) ===
-function workValue60()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: workingValue60; parameters: none) ===
+function workingValue60()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg1 = arg1()
-  if 0 == arg1 then
-    arg1 = tCMG
-    arg1 = arg1.canAnim
-    arg1 = arg1()
-    if arg1 then
-      arg1 = TaskStartScenarioInPlace
-      arg2 = PlayerPedId
+  localValue1 = localValue1()
+  if 0 == localValue1 then
+    localValue1 = tCMG
+    localValue1 = localValue1.canAnim
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = TaskStartScenarioInPlace
+      localValue2 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      arg2 = arg2()
-      arg3 = "WORLD_HUMAN_STAND_MOBILE"
-      arg4 = 0
-      arg5 = true
-      arg1(arg2, arg3, arg4, arg5)
+      localValue2 = localValue2()
+      localValue3 = "WORLD_HUMAN_STAND_MOBILE"
+      localValue4 = 0
+      localValue5 = true
+      localValue1(localValue2, localValue3, localValue4, localValue5)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "14d094e30b".
-cmgCall3(textValue19, workValue60)
-cmgCall3 = RegisterNetEvent
-textValue19 = "8f6ef1fbb5"
+cmgOperation3(text19, workingValue60)
+cmgOperation3 = RegisterNetEvent
+text19 = "8f6ef1fbb5"
 -- Beginner: this function handles network event "8f6ef1fbb5".
 
--- === HELPER FUNCTION (decompiler name: workValue60; parameters: none) ===
-function workValue60()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: workingValue60; parameters: none) ===
+function workingValue60()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg1 = arg1()
-  if 0 == arg1 then
-    arg1 = tCMG
-    arg1 = arg1.canAnim
-    arg1 = arg1()
-    if arg1 then
-      arg1 = ClearPedTasks
-      arg2 = PlayerPedId
+  localValue1 = localValue1()
+  if 0 == localValue1 then
+    localValue1 = tCMG
+    localValue1 = localValue1.canAnim
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = ClearPedTasks
+      localValue2 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      arg2 = arg2()
-      arg1(arg2)
+      localValue2 = localValue2()
+      localValue1(localValue2)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8f6ef1fbb5".
-cmgCall3(textValue19, workValue60)
-cmgCall3 = AddEventHandler
-textValue19 = "CEventOpenDoor"
+cmgOperation3(text19, workingValue60)
+cmgOperation3 = AddEventHandler
+text19 = "CEventOpenDoor"
 -- Beginner: this function runs when client event "CEventOpenDoor" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue60; parameters: none) ===
-function workValue60()
-  local arg1, arg2, arg3
-  arg1 = textValue3
-  if arg1 then
-    arg1 = flag10
-    if not arg1 then
-      arg1 = true
-      flag10 = arg1
-      arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue60; parameters: none) ===
+function workingValue60()
+  local localValue1, localValue2, localValue3
+  localValue1 = text3
+  if localValue1 then
+    localValue1 = stateFlag10
+    if not localValue1 then
+      localValue1 = true
+      stateFlag10 = localValue1
+      localValue1 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
+      localValue1 = localValue1()
       while true do
-        arg2 = IsPedOpeningADoor
-        arg3 = arg1
-        arg2 = arg2(arg3)
-        if not arg2 then
+        localValue2 = IsPedOpeningADoor
+        localValue3 = localValue1
+        localValue2 = localValue2(localValue3)
+        if not localValue2 then
           break
         end
-        arg2 = Citizen
-        arg2 = arg2.Wait
-        arg3 = 0
-        arg2(arg3)
+        localValue2 = Citizen
+        localValue2 = localValue2.Wait
+        localValue3 = 0
+        localValue2(localValue3)
       end
-      arg2 = false
-      flag10 = arg2
+      localValue2 = false
+      stateFlag10 = localValue2
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CEventOpenDoor".
-cmgCall3(textValue19, workValue60)
-cmgCall3 = CMG
+cmgOperation3(text19, workingValue60)
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue19; parameters: none) ===
-function textValue19()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg1 = math
-  arg1 = arg1.random
-  arg2 = 1
-  arg3 = table
-  arg3 = arg3.count
-  arg4 = cmgCall.walks
-  arg3, arg4, arg5, arg6, arg7, arg8, arg9 = arg3(arg4)
-  arg1 = arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
-  arg2 = 1
-  arg3 = pairs
-  arg4 = cmgCall.walks
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    if arg2 == arg1 then
-      arg9 = arg8[1]
-      return arg9
+-- === HELPER FUNCTION (decompiler name: text19; parameters: none) ===
+function text19()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue1 = math
+  localValue1 = localValue1.random
+  localValue2 = 1
+  localValue3 = table
+  localValue3 = localValue3.count
+  localValue4 = cmgOperation.walks
+  localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9 = localValue3(localValue4)
+  localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9)
+  localValue2 = 1
+  localValue3 = pairs
+  localValue4 = cmgOperation.walks
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    if localValue2 == localValue1 then
+      localValue9 = localValue8[1]
+      return localValue9
     end
-    arg2 = arg2 + 1
+    localValue2 = localValue2 + 1
   end
-  arg3 = nil
-  return arg3
+  localValue3 = nil
+  return localValue3
 end
-cmgCall3.getRandomWalkStyle = textValue19
+cmgOperation3.getRandomWalkStyle = text19

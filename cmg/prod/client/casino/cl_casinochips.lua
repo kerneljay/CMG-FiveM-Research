@@ -32,1030 +32,1030 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local textValue, numberValue15, workValue5, textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23
-textValue = "0"
-numberValue15 = 0
-workValue5 = RMenu
-workValue5 = workValue5.Add
-textValue7 = "cmgchips"
-textValue8 = "cashier"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue11 = ""
-textValue12 = ""
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-textValue2 = "cmg_casino"
-textValue3 = "cmg_casino"
-rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
-workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
-workValue5 = RMenu
-textValue7 = workValue5
-workValue5 = workValue5.Get
-textValue8 = "cmgchips"
-rageUiCall = "cashier"
+local text, number15, workingValue5, text7, text8, rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23
+text = "0"
+number15 = 0
+workingValue5 = RMenu
+workingValue5 = workingValue5.Add
+text7 = "cmgchips"
+text8 = "cashier"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text11 = ""
+text12 = ""
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+text2 = "cmg_casino"
+text3 = "cmg_casino"
+rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23 = rageUiOperation(text11, text12, rageUiOperation2, rageUiOperation3, text2, text3)
+workingValue5(text7, text8, rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23)
+workingValue5 = RMenu
+text7 = workingValue5
+workingValue5 = workingValue5.Get
+text8 = "cmgchips"
+rageUiOperation = "cashier"
 -- Beginner: result below is menu.
-workValue5 = workValue5(textValue7, textValue8, rageUiCall)
-textValue7 = workValue5
-workValue5 = workValue5.SetSubtitle
-textValue8 = "~b~CHIPS"
-workValue5(textValue7, textValue8)
-workValue5 = RMenu
-workValue5 = workValue5.Add
-textValue7 = "casino_enter"
-textValue8 = "casino"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue11 = ""
-textValue12 = ""
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-textValue2 = "cmg_casino"
-textValue3 = "cmg_casino"
-rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
-workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
-workValue5 = RMenu
-textValue7 = workValue5
-workValue5 = workValue5.Get
-textValue8 = "casino_enter"
-rageUiCall = "casino"
+workingValue5 = workingValue5(text7, text8, rageUiOperation)
+text7 = workingValue5
+workingValue5 = workingValue5.SetSubtitle
+text8 = "~b~CHIPS"
+workingValue5(text7, text8)
+workingValue5 = RMenu
+workingValue5 = workingValue5.Add
+text7 = "casino_enter"
+text8 = "casino"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text11 = ""
+text12 = ""
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+text2 = "cmg_casino"
+text3 = "cmg_casino"
+rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23 = rageUiOperation(text11, text12, rageUiOperation2, rageUiOperation3, text2, text3)
+workingValue5(text7, text8, rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23)
+workingValue5 = RMenu
+text7 = workingValue5
+workingValue5 = workingValue5.Get
+text8 = "casino_enter"
+rageUiOperation = "casino"
 -- Beginner: result below is menu.
-workValue5 = workValue5(textValue7, textValue8, rageUiCall)
-textValue7 = workValue5
-workValue5 = workValue5.SetSubtitle
-textValue8 = "~b~ENTER"
-workValue5(textValue7, textValue8)
-workValue5 = RMenu
-workValue5 = workValue5.Add
-textValue7 = "casino_exit"
-textValue8 = "casino"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue11 = ""
-textValue12 = ""
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-textValue2 = "cmg_casino"
-textValue3 = "cmg_casino"
-rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
-workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
-workValue5 = RMenu
-textValue7 = workValue5
-workValue5 = workValue5.Get
-textValue8 = "casino_exit"
-rageUiCall = "casino"
+workingValue5 = workingValue5(text7, text8, rageUiOperation)
+text7 = workingValue5
+workingValue5 = workingValue5.SetSubtitle
+text8 = "~b~ENTER"
+workingValue5(text7, text8)
+workingValue5 = RMenu
+workingValue5 = workingValue5.Add
+text7 = "casino_exit"
+text8 = "casino"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text11 = ""
+text12 = ""
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+text2 = "cmg_casino"
+text3 = "cmg_casino"
+rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23 = rageUiOperation(text11, text12, rageUiOperation2, rageUiOperation3, text2, text3)
+workingValue5(text7, text8, rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23)
+workingValue5 = RMenu
+text7 = workingValue5
+workingValue5 = workingValue5.Get
+text8 = "casino_exit"
+rageUiOperation = "casino"
 -- Beginner: result below is menu.
-workValue5 = workValue5(textValue7, textValue8, rageUiCall)
-textValue7 = workValue5
-workValue5 = workValue5.SetSubtitle
-textValue8 = "~b~EXIT"
-workValue5(textValue7, textValue8)
-workValue5 = RMenu
-workValue5 = workValue5.Add
-textValue7 = "casino_rooftop_exit"
-textValue8 = "casino"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue11 = ""
-textValue12 = ""
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-textValue2 = "cmg_casino"
-textValue3 = "cmg_casino"
-rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
-workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
-workValue5 = RMenu
-textValue7 = workValue5
-workValue5 = workValue5.Get
-textValue8 = "casino_rooftop_exit"
-rageUiCall = "casino"
+workingValue5 = workingValue5(text7, text8, rageUiOperation)
+text7 = workingValue5
+workingValue5 = workingValue5.SetSubtitle
+text8 = "~b~EXIT"
+workingValue5(text7, text8)
+workingValue5 = RMenu
+workingValue5 = workingValue5.Add
+text7 = "casino_rooftop_exit"
+text8 = "casino"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text11 = ""
+text12 = ""
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+text2 = "cmg_casino"
+text3 = "cmg_casino"
+rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23 = rageUiOperation(text11, text12, rageUiOperation2, rageUiOperation3, text2, text3)
+workingValue5(text7, text8, rageUiOperation, text11, text12, rageUiOperation2, rageUiOperation3, text2, text3, number3, number5, number7, number8, number9, number10, number12, number14, number16, createVector3, createVector32, number19, number21, number23)
+workingValue5 = RMenu
+text7 = workingValue5
+workingValue5 = workingValue5.Get
+text8 = "casino_rooftop_exit"
+rageUiOperation = "casino"
 -- Beginner: result below is menu.
-workValue5 = workValue5(textValue7, textValue8, rageUiCall)
-textValue7 = workValue5
-workValue5 = workValue5.SetSubtitle
-textValue8 = "~b~EXIT"
-workValue5(textValue7, textValue8)
-workValue5 = {}
-textValue7 = {}
-textValue7.model = -1156746507
-textValue8 = vector3
-rageUiCall = 966.41003417969
-textValue11 = 23.916101455688
-textValue12 = 81.00611114502
-textValue8 = textValue8(rageUiCall, textValue11, textValue12)
-textValue7.pedPosition = textValue8
-textValue7.pedHeading = 328.0
-textValue8 = vector3
-rageUiCall = 967.09735107422
-textValue11 = 25.525142669678
-textValue12 = 80.026103515625
-textValue8 = textValue8(rageUiCall, textValue11, textValue12)
-textValue7.entryPosition = textValue8
-textValue8 = {}
-textValue8.model = -1156746507
-rageUiCall = vector3
-textValue11 = 414.69891357422
-textValue12 = 8.465934753418
-rageUiCall2 = 91.927490234375
-rageUiCall = rageUiCall(textValue11, textValue12, rageUiCall2)
-textValue8.pedPosition = rageUiCall
-textValue8.pedHeading = 62.362205505371
-rageUiCall = vector3
-textValue11 = 412.84494018555
-textValue12 = 9.5947942733765
-rageUiCall2 = 91.035302734375
-rageUiCall = rageUiCall(textValue11, textValue12, rageUiCall2)
-textValue8.entryPosition = rageUiCall
-rageUiCall = {}
-rageUiCall.model = -1156746507
-textValue11 = vector3
-textValue12 = -274.54943847656
-rageUiCall2 = -732.19781494141
-rageUiCall3 = 125.49230957031
-textValue11 = textValue11(textValue12, rageUiCall2, rageUiCall3)
-rageUiCall.pedPosition = textValue11
-rageUiCall.pedHeading = 73.700790405273
-textValue11 = vector3
-textValue12 = -276.10549926758
-rageUiCall2 = -731.72308349609
-rageUiCall3 = 124.46861816406
-textValue11 = textValue11(textValue12, rageUiCall2, rageUiCall3)
-rageUiCall.entryPosition = textValue11
-textValue11 = {}
-textValue11.model = -1156746507
-textValue12 = vector3
-rageUiCall2 = -54.039554595947
-rageUiCall3 = 8039.7231445312
-textValue2 = 12.665893554688
-textValue12 = textValue12(rageUiCall2, rageUiCall3, textValue2)
-textValue11.pedPosition = textValue12
-textValue11.pedHeading = 249.44882202148
-textValue12 = vector3
-rageUiCall2 = -52.50394821167
-rageUiCall3 = 8039.302734375
-textValue2 = 11.70361164093
-textValue12 = textValue12(rageUiCall2, rageUiCall3, textValue2)
-textValue11.entryPosition = textValue12
-textValue12 = {}
-textValue12.model = -1156746507
-rageUiCall2 = vector3
-rageUiCall3 = 1148.6636962891
-textValue2 = -428.51867675781
-textValue3 = 62.22119140625
-rageUiCall2 = rageUiCall2(rageUiCall3, textValue2, textValue3)
-textValue12.pedPosition = rageUiCall2
-textValue12.pedHeading = 167.24407958984
-rageUiCall2 = vector3
-rageUiCall3 = 1147.1414794922
-textValue2 = -429.94134521484
-textValue3 = 61.235101470947
-rageUiCall2 = rageUiCall2(rageUiCall3, textValue2, textValue3)
-textValue12.entryPosition = rageUiCall2
-rageUiCall2 = {}
-rageUiCall2.model = -1156746507
-rageUiCall3 = vector3
-textValue2 = -114.57550811768
-textValue3 = 384.71957397461
-numberValue3 = 113.28313446045
-rageUiCall3 = rageUiCall3(textValue2, textValue3, numberValue3)
-rageUiCall2.pedPosition = rageUiCall3
-rageUiCall2.pedHeading = 252.28346252441
-rageUiCall3 = vector3
-textValue2 = -112.58515167236
-textValue3 = 383.98904418945
-numberValue3 = 112.28524890137
-rageUiCall3 = rageUiCall3(textValue2, textValue3, numberValue3)
-rageUiCall2.entryPosition = rageUiCall3
-rageUiCall3 = {}
-rageUiCall3.model = -1156746507
-textValue2 = vector3
-textValue3 = -263.38021850586
-numberValue3 = -913.14727783203
-numberValue5 = 32.312866210938
-textValue2 = textValue2(textValue3, numberValue3, numberValue5)
-rageUiCall3.pedPosition = textValue2
-rageUiCall3.pedHeading = 17.007873535156
-textValue2 = vector3
-textValue3 = -262.64916992188
-numberValue3 = -911.17016601562
-numberValue5 = 31.34413269043
-textValue2 = textValue2(textValue3, numberValue3, numberValue5)
-rageUiCall3.entryPosition = textValue2
-textValue2 = {}
-textValue2.model = -1156746507
-textValue3 = vector3
-numberValue3 = 2071.5825195312
-numberValue5 = 5085.4946289062
-numberValue7 = 41.950927734375
-textValue3 = textValue3(numberValue3, numberValue5, numberValue7)
-textValue2.pedPosition = textValue3
-textValue2.pedHeading = 124.72441101074
-textValue3 = vector3
-numberValue3 = 2070.2563476562
-numberValue5 = 5084.326171875
-numberValue7 = 40.965917358398
-textValue3 = textValue3(numberValue3, numberValue5, numberValue7)
-textValue2.entryPosition = textValue3
-textValue3 = {}
-textValue3.model = -1156746507
-numberValue3 = vector3
-numberValue5 = 3943.1472167969
-numberValue7 = 4859.7495117188
-numberValue8 = 14.114990234375
-numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8)
-textValue3.pedPosition = numberValue3
-textValue3.pedHeading = 289.13385009766
-numberValue3 = vector3
-numberValue5 = 3943.9750976562
-numberValue7 = 4860.068359375
-numberValue8 = 13.121613502502
-numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8)
-textValue3.entryPosition = numberValue3
-numberValue3 = {}
-numberValue3.model = -1156746507
-numberValue5 = vector3
-numberValue7 = 1157.31640625
-numberValue8 = -436.75601196289
-numberValue9 = 62.225215911865
-numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9)
-numberValue3.pedPosition = numberValue5
-numberValue3.pedHeading = 345.82678222656
-numberValue5 = vector3
-numberValue7 = 1157.9731445312
-numberValue8 = -434.87191772461
-numberValue9 = 61.225276947021
-numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9)
-numberValue3.entryPosition = numberValue5
-numberValue5 = {}
-numberValue5.model = -1156746507
-numberValue7 = vector3
-numberValue8 = 3762.5803222656
-numberValue9 = -1556.5977783203
-numberValue10 = 4.02197265625
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10)
-numberValue5.pedPosition = numberValue7
-numberValue5.pedHeading = 164.4094543457
-numberValue7 = vector3
-numberValue8 = 3762.2326660156
-numberValue9 = -1559.1011962891
-numberValue10 = 3.0253777503967
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10)
-numberValue5.entryPosition = numberValue7
-numberValue7 = {}
-numberValue7.model = -1156746507
-numberValue8 = vector3
-numberValue9 = -3007.8989257812
-numberValue10 = 76.193405151367
-numberValue12 = 16.305541992188
-numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12)
-numberValue7.pedPosition = numberValue8
-numberValue7.pedHeading = 238.11022949219
-numberValue8 = vector3
-numberValue9 = -3006.765625
-numberValue10 = 75.510192871094
-numberValue12 = 15.231451034546
-numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12)
-numberValue7.entryPosition = numberValue8
-numberValue8 = {}
-numberValue8.model = -1156746507
-numberValue9 = vector3
-numberValue10 = -1026.8967285156
-numberValue12 = -1369.3714599609
-numberValue14 = 9.4476318359375
-numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14)
-numberValue8.pedPosition = numberValue9
-numberValue8.pedHeading = 289.13385009766
-numberValue9 = vector3
-numberValue10 = -1026.01171875
-numberValue12 = -1368.8759765625
-numberValue14 = 8.4597616195679
-numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14)
-numberValue8.entryPosition = numberValue9
-numberValue9 = {}
-numberValue9.model = -1156746507
-numberValue10 = vector3
-numberValue12 = -1890.4483642578
-numberValue14 = 2064.3295898438
-numberValue16 = 145.56042480469
-numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16)
-numberValue9.pedPosition = numberValue10
-numberValue9.pedHeading = 252.28346252441
-numberValue10 = vector3
-numberValue12 = -1888.734375
-numberValue14 = 2063.6904296875
-numberValue16 = 144.57385253906
-numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16)
-numberValue9.entryPosition = numberValue10
-workValue5[1] = textValue7
-workValue5[2] = textValue8
-workValue5[3] = rageUiCall
-workValue5[4] = textValue11
-workValue5[5] = textValue12
-workValue5[6] = rageUiCall2
-workValue5[7] = rageUiCall3
-workValue5[8] = textValue2
-workValue5[9] = textValue3
-workValue5[10] = numberValue3
-workValue5[11] = numberValue5
-workValue5[12] = numberValue7
-workValue5[13] = numberValue8
-workValue5[14] = numberValue9
-textValue7 = Citizen
-textValue7 = textValue7.CreateThread
+workingValue5 = workingValue5(text7, text8, rageUiOperation)
+text7 = workingValue5
+workingValue5 = workingValue5.SetSubtitle
+text8 = "~b~EXIT"
+workingValue5(text7, text8)
+workingValue5 = {}
+text7 = {}
+text7.model = -1156746507
+text8 = vector3
+rageUiOperation = 966.41003417969
+text11 = 23.916101455688
+text12 = 81.00611114502
+text8 = text8(rageUiOperation, text11, text12)
+text7.pedPosition = text8
+text7.pedHeading = 328.0
+text8 = vector3
+rageUiOperation = 967.09735107422
+text11 = 25.525142669678
+text12 = 80.026103515625
+text8 = text8(rageUiOperation, text11, text12)
+text7.entryPosition = text8
+text8 = {}
+text8.model = -1156746507
+rageUiOperation = vector3
+text11 = 414.69891357422
+text12 = 8.465934753418
+rageUiOperation2 = 91.927490234375
+rageUiOperation = rageUiOperation(text11, text12, rageUiOperation2)
+text8.pedPosition = rageUiOperation
+text8.pedHeading = 62.362205505371
+rageUiOperation = vector3
+text11 = 412.84494018555
+text12 = 9.5947942733765
+rageUiOperation2 = 91.035302734375
+rageUiOperation = rageUiOperation(text11, text12, rageUiOperation2)
+text8.entryPosition = rageUiOperation
+rageUiOperation = {}
+rageUiOperation.model = -1156746507
+text11 = vector3
+text12 = -274.54943847656
+rageUiOperation2 = -732.19781494141
+rageUiOperation3 = 125.49230957031
+text11 = text11(text12, rageUiOperation2, rageUiOperation3)
+rageUiOperation.pedPosition = text11
+rageUiOperation.pedHeading = 73.700790405273
+text11 = vector3
+text12 = -276.10549926758
+rageUiOperation2 = -731.72308349609
+rageUiOperation3 = 124.46861816406
+text11 = text11(text12, rageUiOperation2, rageUiOperation3)
+rageUiOperation.entryPosition = text11
+text11 = {}
+text11.model = -1156746507
+text12 = vector3
+rageUiOperation2 = -54.039554595947
+rageUiOperation3 = 8039.7231445312
+text2 = 12.665893554688
+text12 = text12(rageUiOperation2, rageUiOperation3, text2)
+text11.pedPosition = text12
+text11.pedHeading = 249.44882202148
+text12 = vector3
+rageUiOperation2 = -52.50394821167
+rageUiOperation3 = 8039.302734375
+text2 = 11.70361164093
+text12 = text12(rageUiOperation2, rageUiOperation3, text2)
+text11.entryPosition = text12
+text12 = {}
+text12.model = -1156746507
+rageUiOperation2 = vector3
+rageUiOperation3 = 1148.6636962891
+text2 = -428.51867675781
+text3 = 62.22119140625
+rageUiOperation2 = rageUiOperation2(rageUiOperation3, text2, text3)
+text12.pedPosition = rageUiOperation2
+text12.pedHeading = 167.24407958984
+rageUiOperation2 = vector3
+rageUiOperation3 = 1147.1414794922
+text2 = -429.94134521484
+text3 = 61.235101470947
+rageUiOperation2 = rageUiOperation2(rageUiOperation3, text2, text3)
+text12.entryPosition = rageUiOperation2
+rageUiOperation2 = {}
+rageUiOperation2.model = -1156746507
+rageUiOperation3 = vector3
+text2 = -114.57550811768
+text3 = 384.71957397461
+number3 = 113.28313446045
+rageUiOperation3 = rageUiOperation3(text2, text3, number3)
+rageUiOperation2.pedPosition = rageUiOperation3
+rageUiOperation2.pedHeading = 252.28346252441
+rageUiOperation3 = vector3
+text2 = -112.58515167236
+text3 = 383.98904418945
+number3 = 112.28524890137
+rageUiOperation3 = rageUiOperation3(text2, text3, number3)
+rageUiOperation2.entryPosition = rageUiOperation3
+rageUiOperation3 = {}
+rageUiOperation3.model = -1156746507
+text2 = vector3
+text3 = -263.38021850586
+number3 = -913.14727783203
+number5 = 32.312866210938
+text2 = text2(text3, number3, number5)
+rageUiOperation3.pedPosition = text2
+rageUiOperation3.pedHeading = 17.007873535156
+text2 = vector3
+text3 = -262.64916992188
+number3 = -911.17016601562
+number5 = 31.34413269043
+text2 = text2(text3, number3, number5)
+rageUiOperation3.entryPosition = text2
+text2 = {}
+text2.model = -1156746507
+text3 = vector3
+number3 = 2071.5825195312
+number5 = 5085.4946289062
+number7 = 41.950927734375
+text3 = text3(number3, number5, number7)
+text2.pedPosition = text3
+text2.pedHeading = 124.72441101074
+text3 = vector3
+number3 = 2070.2563476562
+number5 = 5084.326171875
+number7 = 40.965917358398
+text3 = text3(number3, number5, number7)
+text2.entryPosition = text3
+text3 = {}
+text3.model = -1156746507
+number3 = vector3
+number5 = 3943.1472167969
+number7 = 4859.7495117188
+number8 = 14.114990234375
+number3 = number3(number5, number7, number8)
+text3.pedPosition = number3
+text3.pedHeading = 289.13385009766
+number3 = vector3
+number5 = 3943.9750976562
+number7 = 4860.068359375
+number8 = 13.121613502502
+number3 = number3(number5, number7, number8)
+text3.entryPosition = number3
+number3 = {}
+number3.model = -1156746507
+number5 = vector3
+number7 = 1157.31640625
+number8 = -436.75601196289
+number9 = 62.225215911865
+number5 = number5(number7, number8, number9)
+number3.pedPosition = number5
+number3.pedHeading = 345.82678222656
+number5 = vector3
+number7 = 1157.9731445312
+number8 = -434.87191772461
+number9 = 61.225276947021
+number5 = number5(number7, number8, number9)
+number3.entryPosition = number5
+number5 = {}
+number5.model = -1156746507
+number7 = vector3
+number8 = 3762.5803222656
+number9 = -1556.5977783203
+number10 = 4.02197265625
+number7 = number7(number8, number9, number10)
+number5.pedPosition = number7
+number5.pedHeading = 164.4094543457
+number7 = vector3
+number8 = 3762.2326660156
+number9 = -1559.1011962891
+number10 = 3.0253777503967
+number7 = number7(number8, number9, number10)
+number5.entryPosition = number7
+number7 = {}
+number7.model = -1156746507
+number8 = vector3
+number9 = -3007.8989257812
+number10 = 76.193405151367
+number12 = 16.305541992188
+number8 = number8(number9, number10, number12)
+number7.pedPosition = number8
+number7.pedHeading = 238.11022949219
+number8 = vector3
+number9 = -3006.765625
+number10 = 75.510192871094
+number12 = 15.231451034546
+number8 = number8(number9, number10, number12)
+number7.entryPosition = number8
+number8 = {}
+number8.model = -1156746507
+number9 = vector3
+number10 = -1026.8967285156
+number12 = -1369.3714599609
+number14 = 9.4476318359375
+number9 = number9(number10, number12, number14)
+number8.pedPosition = number9
+number8.pedHeading = 289.13385009766
+number9 = vector3
+number10 = -1026.01171875
+number12 = -1368.8759765625
+number14 = 8.4597616195679
+number9 = number9(number10, number12, number14)
+number8.entryPosition = number9
+number9 = {}
+number9.model = -1156746507
+number10 = vector3
+number12 = -1890.4483642578
+number14 = 2064.3295898438
+number16 = 145.56042480469
+number10 = number10(number12, number14, number16)
+number9.pedPosition = number10
+number9.pedHeading = 252.28346252441
+number10 = vector3
+number12 = -1888.734375
+number14 = 2063.6904296875
+number16 = 144.57385253906
+number10 = number10(number12, number14, number16)
+number9.entryPosition = number10
+workingValue5[1] = text7
+workingValue5[2] = text8
+workingValue5[3] = rageUiOperation
+workingValue5[4] = text11
+workingValue5[5] = text12
+workingValue5[6] = rageUiOperation2
+workingValue5[7] = rageUiOperation3
+workingValue5[8] = text2
+workingValue5[9] = text3
+workingValue5[10] = number3
+workingValue5[11] = number5
+workingValue5[12] = number7
+workingValue5[13] = number8
+workingValue5[14] = number9
+text7 = Citizen
+text7 = text7.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
-function textValue8()
-  local arg1, arg2, flag2, flag3, flag5, textValue9, cmgCall4, iterator, workValue8, numberValue26, flag, textValue4, textValue5, cmgCall, workValue, workValue2
-  arg1 = pairs
-  arg2 = workValue5
-  arg1, arg2, flag2, flag3 = arg1(arg2)
-  for flag5, textValue9 in arg1, arg2, flag2, flag3 do
-    cmgCall4 = CMG
-    cmgCall4 = cmgCall4.createDynamicPed
-    iterator = textValue9.model
-    workValue8 = textValue9.pedPosition
-    numberValue26 = 100.0
-    flag = true
-    textValue4 = "mini@strip_club@idles@bouncer@base"
-    textValue5 = "base"
-    cmgCall = 75.0
-    workValue = nil
+-- === HELPER FUNCTION (decompiler name: text8; parameters: none) ===
+function text8()
+  local localValue1, localValue2, stateFlag2, stateFlag3, stateFlag5, text9, cmgOperation4, iterator, workingValue8, number26, stateFlag, text4, text5, cmgOperation, workingValue, workingValue2
+  localValue1 = pairs
+  localValue2 = workingValue5
+  localValue1, localValue2, stateFlag2, stateFlag3 = localValue1(localValue2)
+  for stateFlag5, text9 in localValue1, localValue2, stateFlag2, stateFlag3 do
+    cmgOperation4 = CMG
+    cmgOperation4 = cmgOperation4.createDynamicPed
+    iterator = text9.model
+    workingValue8 = text9.pedPosition
+    number26 = 100.0
+    stateFlag = true
+    text4 = "mini@strip_club@idles@bouncer@base"
+    text5 = "base"
+    cmgOperation = 75.0
+    workingValue = nil
 
-    -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg12) ===
-    function workValue2(arg12)
-      local workValue4, workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9
-      workValue4 = SetEntityCanBeDamaged
-      workValue6 = arg12
-      flag4 = false
-      workValue4(workValue6, flag4)
-      workValue4 = SetPedAsEnemy
-      workValue6 = arg12
-      flag4 = false
-      workValue4(workValue6, flag4)
-      workValue4 = SetBlockingOfNonTemporaryEvents
-      workValue6 = arg12
-      flag4 = true
-      workValue4(workValue6, flag4)
-      workValue4 = SetPedResetFlag
-      workValue6 = arg12
-      flag4 = 249
-      flag6 = true
-      workValue4(workValue6, flag4, flag6)
-      workValue4 = SetPedConfigFlag
-      workValue6 = arg12
-      flag4 = 185
-      flag6 = true
-      workValue4(workValue6, flag4, flag6)
-      workValue4 = SetPedConfigFlag
-      workValue6 = arg12
-      flag4 = 108
-      flag6 = true
-      workValue4(workValue6, flag4, flag6)
-      workValue4 = SetPedCanEvasiveDive
-      workValue6 = arg12
-      flag4 = false
-      workValue4(workValue6, flag4)
-      workValue4 = SetPedCanRagdollFromPlayerImpact
-      workValue6 = arg12
-      flag4 = false
-      workValue4(workValue6, flag4)
-      workValue4 = SetPedConfigFlag
-      workValue6 = arg12
-      flag4 = 208
-      flag6 = true
-      workValue4(workValue6, flag4, flag6)
-      workValue4 = SetEntityCollision
-      workValue6 = arg12
-      flag4 = false
-      flag6 = false
-      workValue4(workValue6, flag4, flag6)
-      workValue4 = SetEntityCoordsNoOffset
-      workValue6 = arg12
-      flag4 = textValue9.pedPosition
-      flag4 = flag4.x
-      flag6 = textValue9.pedPosition
-      flag6 = flag6.y
-      numberValue25 = textValue9.pedPosition
-      numberValue25 = numberValue25.z
-      flag7 = false
-      flag8 = false
-      flag9 = false
+    -- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue12) ===
+    function workingValue2(localValue12)
+      local workingValue4, workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9
+      workingValue4 = SetEntityCanBeDamaged
+      workingValue6 = localValue12
+      stateFlag4 = false
+      workingValue4(workingValue6, stateFlag4)
+      workingValue4 = SetPedAsEnemy
+      workingValue6 = localValue12
+      stateFlag4 = false
+      workingValue4(workingValue6, stateFlag4)
+      workingValue4 = SetBlockingOfNonTemporaryEvents
+      workingValue6 = localValue12
+      stateFlag4 = true
+      workingValue4(workingValue6, stateFlag4)
+      workingValue4 = SetPedResetFlag
+      workingValue6 = localValue12
+      stateFlag4 = 249
+      stateFlag6 = true
+      workingValue4(workingValue6, stateFlag4, stateFlag6)
+      workingValue4 = SetPedConfigFlag
+      workingValue6 = localValue12
+      stateFlag4 = 185
+      stateFlag6 = true
+      workingValue4(workingValue6, stateFlag4, stateFlag6)
+      workingValue4 = SetPedConfigFlag
+      workingValue6 = localValue12
+      stateFlag4 = 108
+      stateFlag6 = true
+      workingValue4(workingValue6, stateFlag4, stateFlag6)
+      workingValue4 = SetPedCanEvasiveDive
+      workingValue6 = localValue12
+      stateFlag4 = false
+      workingValue4(workingValue6, stateFlag4)
+      workingValue4 = SetPedCanRagdollFromPlayerImpact
+      workingValue6 = localValue12
+      stateFlag4 = false
+      workingValue4(workingValue6, stateFlag4)
+      workingValue4 = SetPedConfigFlag
+      workingValue6 = localValue12
+      stateFlag4 = 208
+      stateFlag6 = true
+      workingValue4(workingValue6, stateFlag4, stateFlag6)
+      workingValue4 = SetEntityCollision
+      workingValue6 = localValue12
+      stateFlag4 = false
+      stateFlag6 = false
+      workingValue4(workingValue6, stateFlag4, stateFlag6)
+      workingValue4 = SetEntityCoordsNoOffset
+      workingValue6 = localValue12
+      stateFlag4 = text9.pedPosition
+      stateFlag4 = stateFlag4.x
+      stateFlag6 = text9.pedPosition
+      stateFlag6 = stateFlag6.y
+      number25 = text9.pedPosition
+      number25 = number25.z
+      stateFlag7 = false
+      stateFlag8 = false
+      stateFlag9 = false
       -- Beginner: Move/teleport an entity to new coordinates.
-      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9)
-      workValue4 = SetEntityHeading
-      workValue6 = arg12
-      flag4 = textValue9.pedHeading
+      workingValue4(workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9)
+      workingValue4 = SetEntityHeading
+      workingValue6 = localValue12
+      stateFlag4 = text9.pedHeading
       -- Beginner: Change the direction an entity is facing.
-      workValue4(workValue6, flag4)
-      workValue4 = FreezeEntityPosition
-      workValue6 = arg12
-      flag4 = true
+      workingValue4(workingValue6, stateFlag4)
+      workingValue4 = FreezeEntityPosition
+      workingValue6 = localValue12
+      stateFlag4 = true
       -- Beginner: Freeze or unfreeze an entity in place.
-      workValue4(workValue6, flag4)
+      workingValue4(workingValue6, stateFlag4)
     end
-    cmgCall4(iterator, workValue8, numberValue26, flag, textValue4, textValue5, cmgCall, workValue, workValue2)
+    cmgOperation4(iterator, workingValue8, number26, stateFlag, text4, text5, cmgOperation, workingValue, workingValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue7(textValue8)
-textValue7 = RageUI
-textValue7 = textValue7.CreateWhile
-textValue8 = 1.0
-rageUiCall = RMenu
-textValue11 = rageUiCall
-rageUiCall = rageUiCall.Get
-textValue12 = "cmgchips"
-rageUiCall2 = "cashier"
+text7(text8)
+text7 = RageUI
+text7 = text7.CreateWhile
+text8 = 1.0
+rageUiOperation = RMenu
+text11 = rageUiOperation
+rageUiOperation = rageUiOperation.Get
+text12 = "cmgchips"
+rageUiOperation2 = "cashier"
 -- Beginner: result below is menu.
-rageUiCall = rageUiCall(textValue11, textValue12, rageUiCall2)
-textValue11 = nil
+rageUiOperation = rageUiOperation(text11, text12, rageUiOperation2)
+text11 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue12; parameters: none) ===
-function textValue12()
-  local arg1, arg2, flag2, flag3, flag5, textValue9, cmgCall4
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  flag2 = arg2
-  arg2 = arg2.Get
-  flag3 = "cmgchips"
-  flag5 = "cashier"
+-- === HELPER FUNCTION (decompiler name: text12; parameters: none) ===
+function text12()
+  local localValue1, localValue2, stateFlag2, stateFlag3, stateFlag5, text9, cmgOperation4
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  stateFlag2 = localValue2
+  localValue2 = localValue2.Get
+  stateFlag3 = "cmgchips"
+  stateFlag5 = "cashier"
   -- Beginner: result below is menu.
-  arg2 = arg2(flag2, flag3, flag5)
-  flag2 = true
-  flag3 = true
-  flag5 = true
+  localValue2 = localValue2(stateFlag2, stateFlag3, stateFlag5)
+  stateFlag2 = true
+  stateFlag3 = true
+  stateFlag5 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
-  function textValue9()
-    local arg12, workValue4, workValue6, flag4, flag6, numberValue25
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    workValue4 = "Buy chips"
-    workValue6 = ""
-    flag4 = {}
-    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+  -- === HELPER FUNCTION (decompiler name: text9; parameters: none) ===
+  function text9()
+    local localValue12, workingValue4, workingValue6, stateFlag4, stateFlag6, number25
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    workingValue4 = "Buy chips"
+    workingValue6 = ""
+    stateFlag4 = {}
+    stateFlag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: numberValue25; parameters: arg13, arg22, arg3) ===
-    function numberValue25(arg13, arg22, arg3)
-      local cmgCall2, cmgCall3, textValue10, mathHelper, workValue7
-      if arg3 then
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.GetRageInputInt
-        cmgCall3 = "Enter Chips"
-        cmgCall2 = cmgCall2(cmgCall3)
-        if cmgCall2 then
-          if cmgCall2 > 0 then
-            cmgCall3 = TriggerServerEvent
-            textValue10 = "d5dbf55707"
+    -- === HELPER FUNCTION (decompiler name: number25; parameters: localValue13, localValue22, localValue3) ===
+    function number25(localValue13, localValue22, localValue3)
+      local cmgOperation2, cmgOperation3, text10, mathHelper, workingValue7
+      if localValue3 then
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.GetRageInputInt
+        cmgOperation3 = "Enter Chips"
+        cmgOperation2 = cmgOperation2(cmgOperation3)
+        if cmgOperation2 then
+          if cmgOperation2 > 0 then
+            cmgOperation3 = TriggerServerEvent
+            text10 = "d5dbf55707"
             mathHelper = math
             mathHelper = mathHelper.floor
-            workValue7 = cmgCall2
-            mathHelper, workValue7 = mathHelper(workValue7)
+            workingValue7 = cmgOperation2
+            mathHelper, workingValue7 = mathHelper(workingValue7)
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d5dbf55707".
-            cmgCall3(textValue10, mathHelper, workValue7)
+            cmgOperation3(text10, mathHelper, workingValue7)
           else
-            cmgCall3 = tCMG
-            cmgCall3 = cmgCall3.notify
-            textValue10 = "~r~Negative amount."
+            cmgOperation3 = tCMG
+            cmgOperation3 = cmgOperation3.notify
+            text10 = "~r~Negative amount."
             -- Beginner: Show a notification to the player.
-            cmgCall3(textValue10)
+            cmgOperation3(text10)
           end
         else
-          cmgCall3 = tCMG
-          cmgCall3 = cmgCall3.notify
-          textValue10 = "~r~Invalid amount."
-          cmgCall3(textValue10)
+          cmgOperation3 = tCMG
+          cmgOperation3 = cmgOperation3.notify
+          text10 = "~r~Invalid amount."
+          cmgOperation3(text10)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    workValue4 = "Buy all chips"
-    workValue6 = ""
-    flag4 = {}
-    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    localValue12(workingValue4, workingValue6, stateFlag4, stateFlag6, number25)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    workingValue4 = "Buy all chips"
+    workingValue6 = ""
+    stateFlag4 = {}
+    stateFlag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: numberValue25; parameters: arg13, arg22, arg3) ===
-    function numberValue25(arg13, arg22, arg3)
-      local cmgCall2, cmgCall3
-      if arg3 then
-        cmgCall2 = TriggerServerEvent
-        cmgCall3 = "434a212611"
+    -- === HELPER FUNCTION (decompiler name: number25; parameters: localValue13, localValue22, localValue3) ===
+    function number25(localValue13, localValue22, localValue3)
+      local cmgOperation2, cmgOperation3
+      if localValue3 then
+        cmgOperation2 = TriggerServerEvent
+        cmgOperation3 = "434a212611"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "434a212611".
-        cmgCall2(cmgCall3)
+        cmgOperation2(cmgOperation3)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    workValue4 = "Sell chips"
-    workValue6 = ""
-    flag4 = {}
-    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    localValue12(workingValue4, workingValue6, stateFlag4, stateFlag6, number25)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    workingValue4 = "Sell chips"
+    workingValue6 = ""
+    stateFlag4 = {}
+    stateFlag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: numberValue25; parameters: arg13, arg22, arg3) ===
-    function numberValue25(arg13, arg22, arg3)
-      local cmgCall2, cmgCall3, textValue10, mathHelper
-      if arg3 then
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.GetRageInputInt
-        cmgCall3 = "Enter Chips"
-        cmgCall2 = cmgCall2(cmgCall3)
-        if cmgCall2 then
-          if cmgCall2 > 0 then
-            cmgCall3 = TriggerServerEvent
-            textValue10 = "5de4d2dc4c"
-            mathHelper = cmgCall2
+    -- === HELPER FUNCTION (decompiler name: number25; parameters: localValue13, localValue22, localValue3) ===
+    function number25(localValue13, localValue22, localValue3)
+      local cmgOperation2, cmgOperation3, text10, mathHelper
+      if localValue3 then
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.GetRageInputInt
+        cmgOperation3 = "Enter Chips"
+        cmgOperation2 = cmgOperation2(cmgOperation3)
+        if cmgOperation2 then
+          if cmgOperation2 > 0 then
+            cmgOperation3 = TriggerServerEvent
+            text10 = "5de4d2dc4c"
+            mathHelper = cmgOperation2
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5de4d2dc4c".
-            cmgCall3(textValue10, mathHelper)
+            cmgOperation3(text10, mathHelper)
           else
-            cmgCall3 = tCMG
-            cmgCall3 = cmgCall3.notify
-            textValue10 = "~r~Negative amount."
+            cmgOperation3 = tCMG
+            cmgOperation3 = cmgOperation3.notify
+            text10 = "~r~Negative amount."
             -- Beginner: Show a notification to the player.
-            cmgCall3(textValue10)
+            cmgOperation3(text10)
           end
         else
-          cmgCall3 = tCMG
-          cmgCall3 = cmgCall3.notify
-          textValue10 = "~r~Invalid amount."
-          cmgCall3(textValue10)
+          cmgOperation3 = tCMG
+          cmgOperation3 = cmgOperation3.notify
+          text10 = "~r~Invalid amount."
+          cmgOperation3(text10)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    workValue4 = "Sell all chips"
-    workValue6 = ""
-    flag4 = {}
-    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    localValue12(workingValue4, workingValue6, stateFlag4, stateFlag6, number25)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    workingValue4 = "Sell all chips"
+    workingValue6 = ""
+    stateFlag4 = {}
+    stateFlag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: numberValue25; parameters: arg13, arg22, arg3) ===
-    function numberValue25(arg13, arg22, arg3)
-      local cmgCall2, cmgCall3
-      if arg3 then
-        cmgCall2 = TriggerServerEvent
-        cmgCall3 = "d1aaad3e19"
+    -- === HELPER FUNCTION (decompiler name: number25; parameters: localValue13, localValue22, localValue3) ===
+    function number25(localValue13, localValue22, localValue3)
+      local cmgOperation2, cmgOperation3
+      if localValue3 then
+        cmgOperation2 = TriggerServerEvent
+        cmgOperation3 = "d1aaad3e19"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d1aaad3e19".
-        cmgCall2(cmgCall3)
+        cmgOperation2(cmgOperation3)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
+    localValue12(workingValue4, workingValue6, stateFlag4, stateFlag6, number25)
   end
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-  function cmgCall4()
-    local arg12, workValue4
+  -- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+  function cmgOperation4()
+    local localValue12, workingValue4
   end
-  arg1(arg2, flag2, flag3, flag5, textValue9, cmgCall4)
+  localValue1(localValue2, stateFlag2, stateFlag3, stateFlag5, text9, cmgOperation4)
 end
-textValue7(textValue8, rageUiCall, textValue11, textValue12)
+text7(text8, rageUiOperation, text11, text12)
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2, flag2, flag3, flag5, textValue9
-  arg2 = RageUI
-  arg2 = arg2.Visible
-  flag2 = RMenu
-  flag3 = flag2
-  flag2 = flag2.Get
-  flag5 = "cmgchips"
-  textValue9 = "cashier"
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2, stateFlag2, stateFlag3, stateFlag5, text9
+  localValue2 = RageUI
+  localValue2 = localValue2.Visible
+  stateFlag2 = RMenu
+  stateFlag3 = stateFlag2
+  stateFlag2 = stateFlag2.Get
+  stateFlag5 = "cmgchips"
+  text9 = "cashier"
   -- Beginner: result below is menu.
-  flag2 = flag2(flag3, flag5, textValue9)
-  flag3 = arg1
-  arg2(flag2, flag3)
+  stateFlag2 = stateFlag2(stateFlag3, stateFlag5, text9)
+  stateFlag3 = localValue1
+  localValue2(stateFlag2, stateFlag3)
 end
-textValue8 = RegisterNetEvent
-rageUiCall = "5b934498c8"
+text8 = RegisterNetEvent
+rageUiOperation = "5b934498c8"
 -- Beginner: this function handles network event "5b934498c8".
 
--- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg1) ===
-function textValue11(arg1)
-  local arg2, flag2, flag3
-  arg2 = math
-  arg2 = arg2.floor
-  flag2 = arg1
-  arg2 = arg2(flag2)
-  numberValue15 = arg2
-  arg2 = tostring
-  flag2 = math
-  flag2 = flag2.floor
-  flag3 = arg1
-  flag2, flag3 = flag2(flag3)
-  arg2 = arg2(flag2, flag3)
-  flag2 = getMoneyStringFormatted
-  flag3 = arg2
-  flag2 = flag2(flag3)
-  textValue = flag2
+-- === HELPER FUNCTION (decompiler name: text11; parameters: localValue1) ===
+function text11(localValue1)
+  local localValue2, stateFlag2, stateFlag3
+  localValue2 = math
+  localValue2 = localValue2.floor
+  stateFlag2 = localValue1
+  localValue2 = localValue2(stateFlag2)
+  number15 = localValue2
+  localValue2 = tostring
+  stateFlag2 = math
+  stateFlag2 = stateFlag2.floor
+  stateFlag3 = localValue1
+  stateFlag2, stateFlag3 = stateFlag2(stateFlag3)
+  localValue2 = localValue2(stateFlag2, stateFlag3)
+  stateFlag2 = getMoneyStringFormatted
+  stateFlag3 = localValue2
+  stateFlag2 = stateFlag2(stateFlag3)
+  text = stateFlag2
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5b934498c8".
-textValue8(rageUiCall, textValue11)
-textValue8 = {}
-rageUiCall = {}
-textValue11 = vector3
-textValue12 = 967.20806884766
-rageUiCall2 = 36.561210632324
-rageUiCall3 = 80.994140625
-textValue11 = textValue11(textValue12, rageUiCall2, rageUiCall3)
-rageUiCall.position = textValue11
-rageUiCall.radius = 100
-textValue11 = {}
-textValue12 = vector3
-rageUiCall2 = 54.053936004639
-rageUiCall3 = 6742.1513671875
-textValue2 = -107.354347229
-textValue12 = textValue12(rageUiCall2, rageUiCall3, textValue2)
-textValue11.position = textValue12
-textValue11.radius = 100
-textValue12 = {}
-rageUiCall2 = vector3
-rageUiCall3 = -1896.8582763672
-textValue2 = 2069.3537597656
-textValue3 = 144.86274719238
-rageUiCall2 = rageUiCall2(rageUiCall3, textValue2, textValue3)
-textValue12.position = rageUiCall2
-textValue12.radius = 10
-rageUiCall2 = {}
-rageUiCall3 = vector3
-textValue2 = 774.75134277344
-textValue3 = -552.91137695312
-numberValue3 = 22.498882293701
-rageUiCall3 = rageUiCall3(textValue2, textValue3, numberValue3)
-rageUiCall2.position = rageUiCall3
-rageUiCall2.radius = 100
-rageUiCall3 = {}
-textValue2 = vector3
-textValue3 = -1137.8917236328
-numberValue3 = -184.71762084961
-numberValue5 = 40.0803565979
-textValue2 = textValue2(textValue3, numberValue3, numberValue5)
-rageUiCall3.position = textValue2
-rageUiCall3.radius = 50
-textValue2 = {}
-textValue3 = vector3
-numberValue3 = 422.06201171875
-numberValue5 = 18.277492523193
-numberValue7 = 91.935234069824
-textValue3 = textValue3(numberValue3, numberValue5, numberValue7)
-textValue2.position = textValue3
-textValue2.radius = 25
-textValue3 = {}
-numberValue3 = vector3
-numberValue5 = -276.10549926758
-numberValue7 = -731.72308349609
-numberValue8 = 124.46861816406
-numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8)
-textValue3.position = numberValue3
-textValue3.radius = 25
-numberValue3 = {}
-numberValue5 = vector3
-numberValue7 = -112.58515167236
-numberValue8 = 383.98904418945
-numberValue9 = 113.28324890137
-numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9)
-numberValue3.position = numberValue5
-numberValue3.radius = 25
-numberValue5 = {}
-numberValue7 = vector3
-numberValue8 = -52.887622833252
-numberValue9 = 8034.4389648438
-numberValue10 = 12.681856155396
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10)
-numberValue5.position = numberValue7
-numberValue5.radius = 25
-numberValue5.ignoreInteriorCheck = true
-numberValue7 = {}
-numberValue8 = vector3
-numberValue9 = 1147.0424804688
-numberValue10 = -433.18096923828
-numberValue12 = 62.217880249023
-numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12)
-numberValue7.position = numberValue8
-numberValue7.radius = 25
-numberValue8 = {}
-numberValue9 = vector3
-numberValue10 = -251.02876281738
-numberValue12 = -914.43530273438
-numberValue14 = 32.557731628418
-numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14)
-numberValue8.position = numberValue9
-numberValue8.radius = 25
-numberValue9 = {}
-numberValue10 = vector3
-numberValue12 = -266.23413085938
-numberValue14 = -912.22039794922
-numberValue16 = 46.270469665527
-numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16)
-numberValue9.position = numberValue10
-numberValue9.radius = 10
-numberValue10 = {}
-numberValue12 = vector3
-numberValue14 = 2062.2058105469
-numberValue16 = 5095.21484375
-vector3Builder = 41.955909729004
-numberValue12 = numberValue12(numberValue14, numberValue16, vector3Builder)
-numberValue10.position = numberValue12
-numberValue10.radius = 25
-numberValue12 = {}
-numberValue14 = vector3
-numberValue16 = 3945.9306640625
-vector3Builder = 4855.9868164062
-vector3Builder2 = 14.121611595154
-numberValue14 = numberValue14(numberValue16, vector3Builder, vector3Builder2)
-numberValue12.position = numberValue14
-numberValue12.radius = 10
-numberValue14 = {}
-numberValue16 = vector3
-vector3Builder = 3761.9794921875
-vector3Builder2 = -1559.1925048828
-numberValue19 = 4.0253777503967
-numberValue16 = numberValue16(vector3Builder, vector3Builder2, numberValue19)
-numberValue14.position = numberValue16
-numberValue14.radius = 40
-numberValue14.ignoreInteriorCheck = true
-numberValue16 = {}
-vector3Builder = vector3
-vector3Builder2 = -3006.765625
-numberValue19 = 75.510192871094
-numberValue21 = 16.231451034546
-vector3Builder = vector3Builder(vector3Builder2, numberValue19, numberValue21)
-numberValue16.position = vector3Builder
-numberValue16.radius = 40
-numberValue16.ignoreInteriorCheck = true
-vector3Builder = {}
-vector3Builder2 = vector3
-numberValue19 = -1022.5
-numberValue21 = -1367.5
-numberValue23 = 9.46
-vector3Builder2 = vector3Builder2(numberValue19, numberValue21, numberValue23)
-vector3Builder.position = vector3Builder2
-vector3Builder.radius = 25
-textValue8[1] = rageUiCall
-textValue8[2] = textValue11
-textValue8[3] = textValue12
-textValue8[4] = rageUiCall2
-textValue8[5] = rageUiCall3
-textValue8[6] = textValue2
-textValue8[7] = textValue3
-textValue8[8] = numberValue3
-textValue8[9] = numberValue5
-textValue8[10] = numberValue7
-textValue8[11] = numberValue8
-textValue8[12] = numberValue9
-textValue8[13] = numberValue10
-textValue8[14] = numberValue12
-textValue8[15] = numberValue14
-textValue8[16] = numberValue16
-textValue8[17] = vector3Builder
-rageUiCall = false
-textValue11 = CMG
+text8(rageUiOperation, text11)
+text8 = {}
+rageUiOperation = {}
+text11 = vector3
+text12 = 967.20806884766
+rageUiOperation2 = 36.561210632324
+rageUiOperation3 = 80.994140625
+text11 = text11(text12, rageUiOperation2, rageUiOperation3)
+rageUiOperation.position = text11
+rageUiOperation.radius = 100
+text11 = {}
+text12 = vector3
+rageUiOperation2 = 54.053936004639
+rageUiOperation3 = 6742.1513671875
+text2 = -107.354347229
+text12 = text12(rageUiOperation2, rageUiOperation3, text2)
+text11.position = text12
+text11.radius = 100
+text12 = {}
+rageUiOperation2 = vector3
+rageUiOperation3 = -1896.8582763672
+text2 = 2069.3537597656
+text3 = 144.86274719238
+rageUiOperation2 = rageUiOperation2(rageUiOperation3, text2, text3)
+text12.position = rageUiOperation2
+text12.radius = 10
+rageUiOperation2 = {}
+rageUiOperation3 = vector3
+text2 = 774.75134277344
+text3 = -552.91137695312
+number3 = 22.498882293701
+rageUiOperation3 = rageUiOperation3(text2, text3, number3)
+rageUiOperation2.position = rageUiOperation3
+rageUiOperation2.radius = 100
+rageUiOperation3 = {}
+text2 = vector3
+text3 = -1137.8917236328
+number3 = -184.71762084961
+number5 = 40.0803565979
+text2 = text2(text3, number3, number5)
+rageUiOperation3.position = text2
+rageUiOperation3.radius = 50
+text2 = {}
+text3 = vector3
+number3 = 422.06201171875
+number5 = 18.277492523193
+number7 = 91.935234069824
+text3 = text3(number3, number5, number7)
+text2.position = text3
+text2.radius = 25
+text3 = {}
+number3 = vector3
+number5 = -276.10549926758
+number7 = -731.72308349609
+number8 = 124.46861816406
+number3 = number3(number5, number7, number8)
+text3.position = number3
+text3.radius = 25
+number3 = {}
+number5 = vector3
+number7 = -112.58515167236
+number8 = 383.98904418945
+number9 = 113.28324890137
+number5 = number5(number7, number8, number9)
+number3.position = number5
+number3.radius = 25
+number5 = {}
+number7 = vector3
+number8 = -52.887622833252
+number9 = 8034.4389648438
+number10 = 12.681856155396
+number7 = number7(number8, number9, number10)
+number5.position = number7
+number5.radius = 25
+number5.ignoreInteriorCheck = true
+number7 = {}
+number8 = vector3
+number9 = 1147.0424804688
+number10 = -433.18096923828
+number12 = 62.217880249023
+number8 = number8(number9, number10, number12)
+number7.position = number8
+number7.radius = 25
+number8 = {}
+number9 = vector3
+number10 = -251.02876281738
+number12 = -914.43530273438
+number14 = 32.557731628418
+number9 = number9(number10, number12, number14)
+number8.position = number9
+number8.radius = 25
+number9 = {}
+number10 = vector3
+number12 = -266.23413085938
+number14 = -912.22039794922
+number16 = 46.270469665527
+number10 = number10(number12, number14, number16)
+number9.position = number10
+number9.radius = 10
+number10 = {}
+number12 = vector3
+number14 = 2062.2058105469
+number16 = 5095.21484375
+createVector3 = 41.955909729004
+number12 = number12(number14, number16, createVector3)
+number10.position = number12
+number10.radius = 25
+number12 = {}
+number14 = vector3
+number16 = 3945.9306640625
+createVector3 = 4855.9868164062
+createVector32 = 14.121611595154
+number14 = number14(number16, createVector3, createVector32)
+number12.position = number14
+number12.radius = 10
+number14 = {}
+number16 = vector3
+createVector3 = 3761.9794921875
+createVector32 = -1559.1925048828
+number19 = 4.0253777503967
+number16 = number16(createVector3, createVector32, number19)
+number14.position = number16
+number14.radius = 40
+number14.ignoreInteriorCheck = true
+number16 = {}
+createVector3 = vector3
+createVector32 = -3006.765625
+number19 = 75.510192871094
+number21 = 16.231451034546
+createVector3 = createVector3(createVector32, number19, number21)
+number16.position = createVector3
+number16.radius = 40
+number16.ignoreInteriorCheck = true
+createVector3 = {}
+createVector32 = vector3
+number19 = -1022.5
+number21 = -1367.5
+number23 = 9.46
+createVector32 = createVector32(number19, number21, number23)
+createVector3.position = createVector32
+createVector3.radius = 25
+text8[1] = rageUiOperation
+text8[2] = text11
+text8[3] = text12
+text8[4] = rageUiOperation2
+text8[5] = rageUiOperation3
+text8[6] = text2
+text8[7] = text3
+text8[8] = number3
+text8[9] = number5
+text8[10] = number7
+text8[11] = number8
+text8[12] = number9
+text8[13] = number10
+text8[14] = number12
+text8[15] = number14
+text8[16] = number16
+text8[17] = createVector3
+rageUiOperation = false
+text11 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue12; parameters: none) ===
-function textValue12()
-  local arg1, arg2
-  arg1 = rageUiCall
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text12; parameters: none) ===
+function text12()
+  local localValue1, localValue2
+  localValue1 = rageUiOperation
+  return localValue1
 end
-textValue11.isDrawingCasinoChipsUI = textValue12
-textValue11 = CMG
+text11.isDrawingCasinoChipsUI = text12
+text11 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue12; parameters: none) ===
-function textValue12()
-  local arg1, arg2
-  arg1 = numberValue15
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text12; parameters: none) ===
+function text12()
+  local localValue1, localValue2
+  localValue1 = number15
+  return localValue1
 end
-textValue11.getChipsClientDisplayAmount = textValue12
-textValue11 = AddEventHandler
-textValue12 = "CMG:onClientSpawn"
+text11.getChipsClientDisplayAmount = text12
+text11 = AddEventHandler
+text12 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: arg1, arg2) ===
-function rageUiCall2(arg1, arg2)
-  local flag2, flag3, flag5, textValue9, cmgCall4, iterator, workValue8, numberValue26, flag, textValue4, textValue5, cmgCall, workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable, numberValue18, numberValue20, numberValue22, numberValue24
-  if arg2 then
-    flag2 = RequestStreamedTextureDict
-    flag3 = "CommonMenu"
-    flag5 = false
-    flag2(flag3, flag5)
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: localValue1, localValue2) ===
+function rageUiOperation2(localValue1, localValue2)
+  local stateFlag2, stateFlag3, stateFlag5, text9, cmgOperation4, iterator, workingValue8, number26, stateFlag, text4, text5, cmgOperation, workingValue, workingValue2, workingValue3, number11, number13, text6, number17, dataCollection, number18, number20, number22, number24
+  if localValue2 then
+    stateFlag2 = RequestStreamedTextureDict
+    stateFlag3 = "CommonMenu"
+    stateFlag5 = false
+    stateFlag2(stateFlag3, stateFlag5)
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-    function flag2()
-      local arg12, workValue4
-      arg12 = textValue7
-      workValue4 = true
-      arg12(workValue4)
+    -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+    function stateFlag2()
+      local localValue12, workingValue4
+      localValue12 = text7
+      workingValue4 = true
+      localValue12(workingValue4)
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
-    function flag3()
-      local arg12, workValue4
-      arg12 = textValue7
-      workValue4 = false
-      arg12(workValue4)
+    -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: none) ===
+    function stateFlag3()
+      local localValue12, workingValue4
+      localValue12 = text7
+      workingValue4 = false
+      localValue12(workingValue4)
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag5; parameters: none) ===
-    function flag5()
-      local arg12, workValue4
+    -- === HELPER FUNCTION (decompiler name: stateFlag5; parameters: none) ===
+    function stateFlag5()
+      local localValue12, workingValue4
     end
 
-    -- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
-    function textValue9()
-      local arg12, workValue4
-      arg12 = false
-      rageUiCall = arg12
+    -- === HELPER FUNCTION (decompiler name: text9; parameters: none) ===
+    function text9()
+      local localValue12, workingValue4
+      localValue12 = false
+      rageUiOperation = localValue12
     end
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg12) ===
-    function cmgCall4(arg12)
-      local workValue4, workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6
-      workValue4 = false
-      rageUiCall = workValue4
-      workValue4 = GetRoomKeyFromEntity
-      workValue6 = PlayerPedId
-      workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6 = workValue6()
-      workValue4 = workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6)
-      if 0 == workValue4 then
-        workValue4 = arg12.ignoreInteriorCheck
-        if not workValue4 then
-          goto flow_label_57
+    -- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue12) ===
+    function cmgOperation4(localValue12)
+      local workingValue4, workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9, number27, number, number2, number4, number6
+      workingValue4 = false
+      rageUiOperation = workingValue4
+      workingValue4 = GetRoomKeyFromEntity
+      workingValue6 = PlayerPedId
+      workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9, number27, number, number2, number4, number6 = workingValue6()
+      workingValue4 = workingValue4(workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9, number27, number, number2, number4, number6)
+      if 0 == workingValue4 then
+        workingValue4 = localValue12.ignoreInteriorCheck
+        if not workingValue4 then
+          goto continueAtStep57
         end
       end
-      workValue4 = SetScriptGfxDrawOrder
-      workValue6 = 7
-      workValue4(workValue6)
-      workValue4 = DrawSprite
-      workValue6 = "CommonMenu"
-      flag4 = "shop_chips_b"
-      flag6 = 0.89
-      numberValue25 = 0.078
-      flag7 = 0.025
-      flag8 = 0.03
-      flag9 = 0.0
-      numberValue27 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 255
-      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4)
-      workValue4 = SetScriptGfxDrawOrder
-      workValue6 = 1
-      workValue4(workValue6)
-      workValue4 = DrawRect
-      workValue6 = 0.934
-      flag4 = 0.077
-      flag6 = 0.104
-      numberValue25 = 0.036
-      flag7 = 0
-      flag8 = 0
-      flag9 = 0
-      numberValue27 = 150
-      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27)
-      workValue4 = DrawAdvancedTextNoOutline
-      workValue6 = 1.037
-      flag4 = 0.08
-      flag6 = 0.005
-      numberValue25 = 0.0028
-      flag7 = 0.52
-      flag8 = textValue
-      flag9 = 255
-      numberValue27 = 255
-      numberValue = 255
-      numberValue2 = 255
-      numberValue4 = 7
-      numberValue6 = 0
-      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6)
-      workValue4 = true
-      rageUiCall = workValue4
-      ::flow_label_57::
+      workingValue4 = SetScriptGfxDrawOrder
+      workingValue6 = 7
+      workingValue4(workingValue6)
+      workingValue4 = DrawSprite
+      workingValue6 = "CommonMenu"
+      stateFlag4 = "shop_chips_b"
+      stateFlag6 = 0.89
+      number25 = 0.078
+      stateFlag7 = 0.025
+      stateFlag8 = 0.03
+      stateFlag9 = 0.0
+      number27 = 255
+      number = 255
+      number2 = 255
+      number4 = 255
+      workingValue4(workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9, number27, number, number2, number4)
+      workingValue4 = SetScriptGfxDrawOrder
+      workingValue6 = 1
+      workingValue4(workingValue6)
+      workingValue4 = DrawRect
+      workingValue6 = 0.934
+      stateFlag4 = 0.077
+      stateFlag6 = 0.104
+      number25 = 0.036
+      stateFlag7 = 0
+      stateFlag8 = 0
+      stateFlag9 = 0
+      number27 = 150
+      workingValue4(workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9, number27)
+      workingValue4 = DrawAdvancedTextNoOutline
+      workingValue6 = 1.037
+      stateFlag4 = 0.08
+      stateFlag6 = 0.005
+      number25 = 0.0028
+      stateFlag7 = 0.52
+      stateFlag8 = text
+      stateFlag9 = 255
+      number27 = 255
+      number = 255
+      number2 = 255
+      number4 = 7
+      number6 = 0
+      workingValue4(workingValue6, stateFlag4, stateFlag6, number25, stateFlag7, stateFlag8, stateFlag9, number27, number, number2, number4, number6)
+      workingValue4 = true
+      rageUiOperation = workingValue4
+      ::continueAtStep57::
     end
     iterator = pairs
-    workValue8 = workValue5
-    iterator, workValue8, numberValue26, flag = iterator(workValue8)
-    for textValue4, textValue5 in iterator, workValue8, numberValue26, flag do
-      cmgCall = tCMG
-      cmgCall = cmgCall.addBlip
-      workValue = textValue5.entryPosition
-      workValue = workValue.x
-      workValue2 = textValue5.entryPosition
-      workValue2 = workValue2.y
-      workValue3 = textValue5.entryPosition
-      workValue3 = workValue3.z
-      numberValue11 = 683
-      numberValue13 = 0
-      textValue6 = "Chips Cashier"
-      numberValue17 = 0.7
-      dataTable = true
+    workingValue8 = workingValue5
+    iterator, workingValue8, number26, stateFlag = iterator(workingValue8)
+    for text4, text5 in iterator, workingValue8, number26, stateFlag do
+      cmgOperation = tCMG
+      cmgOperation = cmgOperation.addBlip
+      workingValue = text5.entryPosition
+      workingValue = workingValue.x
+      workingValue2 = text5.entryPosition
+      workingValue2 = workingValue2.y
+      workingValue3 = text5.entryPosition
+      workingValue3 = workingValue3.z
+      number11 = 683
+      number13 = 0
+      text6 = "Chips Cashier"
+      number17 = 0.7
+      dataCollection = true
       -- Beginner: Create a minimap blip.
-      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable)
-      cmgCall = tCMG
-      cmgCall = cmgCall.addMarker
-      workValue = textValue5.entryPosition
-      workValue = workValue.x
-      workValue2 = textValue5.entryPosition
-      workValue2 = workValue2.y
-      workValue3 = textValue5.entryPosition
-      workValue3 = workValue3.z
-      numberValue11 = 1.0
-      numberValue13 = 1.0
-      textValue6 = 1.0
-      numberValue17 = 138
-      dataTable = 43
-      numberValue18 = 226
-      numberValue20 = 70
-      numberValue22 = 50
-      numberValue24 = 27
+      cmgOperation(workingValue, workingValue2, workingValue3, number11, number13, text6, number17, dataCollection)
+      cmgOperation = tCMG
+      cmgOperation = cmgOperation.addMarker
+      workingValue = text5.entryPosition
+      workingValue = workingValue.x
+      workingValue2 = text5.entryPosition
+      workingValue2 = workingValue2.y
+      workingValue3 = text5.entryPosition
+      workingValue3 = workingValue3.z
+      number11 = 1.0
+      number13 = 1.0
+      text6 = 1.0
+      number17 = 138
+      dataCollection = 43
+      number18 = 226
+      number20 = 70
+      number22 = 50
+      number24 = 27
       -- Beginner: Create a world marker.
-      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable, numberValue18, numberValue20, numberValue22, numberValue24)
-      cmgCall = CMG
-      cmgCall = cmgCall.createArea
-      workValue = "chipscashier_"
-      workValue2 = textValue4
-      workValue = workValue .. workValue2
-      workValue2 = textValue5.entryPosition
-      workValue3 = 1.5
-      numberValue11 = 6
-      numberValue13 = flag2
-      textValue6 = flag3
-      numberValue17 = flag5
-      dataTable = {}
+      cmgOperation(workingValue, workingValue2, workingValue3, number11, number13, text6, number17, dataCollection, number18, number20, number22, number24)
+      cmgOperation = CMG
+      cmgOperation = cmgOperation.createArea
+      workingValue = "chipscashier_"
+      workingValue2 = text4
+      workingValue = workingValue .. workingValue2
+      workingValue2 = text5.entryPosition
+      workingValue3 = 1.5
+      number11 = 6
+      number13 = stateFlag2
+      text6 = stateFlag3
+      number17 = stateFlag5
+      dataCollection = {}
       -- Beginner: Create an interaction area around a world position.
-      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable)
+      cmgOperation(workingValue, workingValue2, workingValue3, number11, number13, text6, number17, dataCollection)
     end
     iterator = pairs
-    workValue8 = textValue8
-    iterator, workValue8, numberValue26, flag = iterator(workValue8)
-    for textValue4, textValue5 in iterator, workValue8, numberValue26, flag do
-      cmgCall = CMG
-      cmgCall = cmgCall.createArea
-      workValue = "casinos_"
-      workValue2 = textValue4
-      workValue = workValue .. workValue2
-      workValue2 = textValue5.position
-      workValue3 = textValue5.radius
-      numberValue11 = 6
+    workingValue8 = text8
+    iterator, workingValue8, number26, stateFlag = iterator(workingValue8)
+    for text4, text5 in iterator, workingValue8, number26, stateFlag do
+      cmgOperation = CMG
+      cmgOperation = cmgOperation.createArea
+      workingValue = "casinos_"
+      workingValue2 = text4
+      workingValue = workingValue .. workingValue2
+      workingValue2 = text5.position
+      workingValue3 = text5.radius
+      number11 = 6
 
-      -- === HELPER FUNCTION (decompiler name: numberValue13; parameters: none) ===
-      function numberValue13()
-        local arg12, workValue4
+      -- === HELPER FUNCTION (decompiler name: number13; parameters: none) ===
+      function number13()
+        local localValue12, workingValue4
       end
-      textValue6 = textValue9
-      numberValue17 = cmgCall4
-      dataTable = {}
-      numberValue18 = textValue5.ignoreInteriorCheck
-      dataTable.ignoreInteriorCheck = numberValue18
-      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable)
+      text6 = text9
+      number17 = cmgOperation4
+      dataCollection = {}
+      number18 = text5.ignoreInteriorCheck
+      dataCollection.ignoreInteriorCheck = number18
+      cmgOperation(workingValue, workingValue2, workingValue3, number11, number13, text6, number17, dataCollection)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-textValue11(textValue12, rageUiCall2)
+text11(text12, rageUiOperation2)

@@ -32,994 +32,994 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, flag, cmgCall5, workValue2, workValue4, workValue6, stringHelper, tableHelper2, workValue7, workValue9, cmgCall, cmgCall2, cmgCall3, cmgCall4, textValue5, workValue
-dataTable = {}
-flag = true
-cmgCall5 = CMG
+local dataCollection, stateFlag, cmgOperation5, workingValue2, workingValue4, workingValue6, stringHelper, tableHelper2, workingValue7, workingValue9, cmgOperation, cmgOperation2, cmgOperation3, cmgOperation4, text5, workingValue
+dataCollection = {}
+stateFlag = true
+cmgOperation5 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
-function workValue2(arg1, arg2)
-  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4
-  if nil == arg2 then
-    arg2 = arg1
-    arg1 = "cmg"
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, localValue2) ===
+function workingValue2(localValue1, localValue2)
+  local localValue3, text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text, text2, text3, text4
+  if nil == localValue2 then
+    localValue2 = localValue1
+    localValue1 = "cmg"
   end
-  arg3 = flag
-  if not arg3 then
-    arg3 = CMG
-    arg3 = arg3.warn
-    textValue32 = "Failed to load "
-    workValue5 = arg1
-    cmgCall6 = "/"
-    textValue49 = arg2
-    textValue50 = ", isLoadingFiles is false"
-    textValue32 = textValue32 .. workValue5 .. cmgCall6 .. textValue49 .. textValue50
-    arg3(textValue32)
-    arg3 = {}
-    return arg3
+  localValue3 = stateFlag
+  if not localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.warn
+    text32 = "Failed to load "
+    workingValue5 = localValue1
+    cmgOperation6 = "/"
+    text49 = localValue2
+    text50 = ", isLoadingFiles is false"
+    text32 = text32 .. workingValue5 .. cmgOperation6 .. text49 .. text50
+    localValue3(text32)
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = arg1
-  textValue32 = arg2
-  arg3 = arg3 .. textValue32
-  textValue32 = dataTable
-  textValue32 = textValue32[arg3]
-  if textValue32 then
-    textValue32 = table
-    textValue32 = textValue32.unpack
-    workValue5 = dataTable
-    workValue5 = workValue5[arg3]
-    return textValue32(workValue5)
+  localValue3 = localValue1
+  text32 = localValue2
+  localValue3 = localValue3 .. text32
+  text32 = dataCollection
+  text32 = text32[localValue3]
+  if text32 then
+    text32 = table
+    text32 = text32.unpack
+    workingValue5 = dataCollection
+    workingValue5 = workingValue5[localValue3]
+    return text32(workingValue5)
   else
-    textValue32 = CMG
-    textValue32 = textValue32.loadResourceFile
-    workValue5 = arg1
-    cmgCall6 = arg2
-    textValue49 = ".lua"
-    cmgCall6 = cmgCall6 .. textValue49
-    textValue32 = textValue32(workValue5, cmgCall6)
-    if not textValue32 then
-      workValue5 = CMG
-      workValue5 = workValue5.warn
-      cmgCall6 = "[CMG] Failed to CMG.loadResourceFile "
-      textValue49 = arg1
-      textValue50 = "/"
-      workValue8 = arg2
-      cmgCall6 = cmgCall6 .. textValue49 .. textValue50 .. workValue8
-      workValue5(cmgCall6)
-      workValue5 = {}
-      return workValue5
+    text32 = CMG
+    text32 = text32.loadResourceFile
+    workingValue5 = localValue1
+    cmgOperation6 = localValue2
+    text49 = ".lua"
+    cmgOperation6 = cmgOperation6 .. text49
+    text32 = text32(workingValue5, cmgOperation6)
+    if not text32 then
+      workingValue5 = CMG
+      workingValue5 = workingValue5.warn
+      cmgOperation6 = "[CMG] Failed to CMG.loadResourceFile "
+      text49 = localValue1
+      text50 = "/"
+      workingValue8 = localValue2
+      cmgOperation6 = cmgOperation6 .. text49 .. text50 .. workingValue8
+      workingValue5(cmgOperation6)
+      workingValue5 = {}
+      return workingValue5
     end
-    workValue5 = load
-    cmgCall6 = textValue32
-    workValue5, cmgCall6 = workValue5(cmgCall6)
-    if workValue5 then
-      textValue49 = {}
-      textValue50 = pcall
-      workValue8 = workValue5
-      textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4 = textValue50(workValue8)
-      textValue49[1] = textValue50
-      textValue49[2] = workValue8
-      textValue49[3] = textValue51
-      textValue49[4] = textValue
-      textValue49[5] = textValue2
-      textValue49[6] = textValue3
-      textValue49[7] = textValue4
-      textValue50 = textValue49[1]
-      if textValue50 then
-        textValue50 = table
-        textValue50 = textValue50.remove
-        workValue8 = textValue49
-        textValue51 = 1
-        textValue50(workValue8, textValue51)
-        textValue50 = dataTable
-        textValue50[arg3] = textValue49
-        textValue50 = table
-        textValue50 = textValue50.unpack
-        workValue8 = textValue49
-        return textValue50(workValue8)
+    workingValue5 = load
+    cmgOperation6 = text32
+    workingValue5, cmgOperation6 = workingValue5(cmgOperation6)
+    if workingValue5 then
+      text49 = {}
+      text50 = pcall
+      workingValue8 = workingValue5
+      text50, workingValue8, text51, text, text2, text3, text4 = text50(workingValue8)
+      text49[1] = text50
+      text49[2] = workingValue8
+      text49[3] = text51
+      text49[4] = text
+      text49[5] = text2
+      text49[6] = text3
+      text49[7] = text4
+      text50 = text49[1]
+      if text50 then
+        text50 = table
+        text50 = text50.remove
+        workingValue8 = text49
+        text51 = 1
+        text50(workingValue8, text51)
+        text50 = dataCollection
+        text50[localValue3] = text49
+        text50 = table
+        text50 = text50.unpack
+        workingValue8 = text49
+        return text50(workingValue8)
       else
-        textValue50 = dataTable
-        textValue50[arg3] = nil
-        textValue50 = CMG
-        textValue50 = textValue50.warn
-        workValue8 = "[CMG] error loading module "
-        textValue51 = arg1
-        textValue = "/"
-        textValue2 = arg2
-        textValue3 = ":"
-        textValue4 = textValue49[2]
-        workValue8 = workValue8 .. textValue51 .. textValue .. textValue2 .. textValue3 .. textValue4
-        textValue50(workValue8)
+        text50 = dataCollection
+        text50[localValue3] = nil
+        text50 = CMG
+        text50 = text50.warn
+        workingValue8 = "[CMG] error loading module "
+        text51 = localValue1
+        text = "/"
+        text2 = localValue2
+        text3 = ":"
+        text4 = text49[2]
+        workingValue8 = workingValue8 .. text51 .. text .. text2 .. text3 .. text4
+        text50(workingValue8)
       end
     else
-      textValue49 = CMG
-      textValue49 = textValue49.warn
-      textValue50 = "[CMG] error parsing module "
-      workValue8 = arg1
-      textValue51 = "/"
-      textValue = arg2
-      textValue2 = ":"
-      textValue3 = cmgCall6
-      textValue50 = textValue50 .. workValue8 .. textValue51 .. textValue .. textValue2 .. textValue3
-      textValue49(textValue50)
+      text49 = CMG
+      text49 = text49.warn
+      text50 = "[CMG] error parsing module "
+      workingValue8 = localValue1
+      text51 = "/"
+      text = localValue2
+      text2 = ":"
+      text3 = cmgOperation6
+      text50 = text50 .. workingValue8 .. text51 .. text .. text2 .. text3
+      text49(text50)
     end
   end
-  textValue32 = {}
-  return textValue32
+  text32 = {}
+  return text32
 end
-cmgCall5.loadModule = workValue2
+cmgOperation5.loadModule = workingValue2
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2, arg3) ===
-function cmgCall5(arg1, arg2, arg3)
-  local textValue32, workValue5
-  textValue32 = arg1 >> arg2
-  workValue5 = 1 << arg3
-  workValue5 = workValue5 - 1
-  textValue32 = textValue32 & workValue5
-  return textValue32
-end
-
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2, arg3) ===
-function workValue2(arg1, arg2, arg3)
-  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48
-  textValue32 = {}
-  workValue5 = pairs
-  cmgCall6 = {}
-  cmgCall6[0] = "A"
-  textValue49 = "B"
-  textValue50 = "C"
-  workValue8 = "D"
-  textValue51 = "E"
-  textValue = "F"
-  textValue2 = "G"
-  textValue3 = "H"
-  textValue4 = "I"
-  textValue6 = "J"
-  textValue7 = "K"
-  textValue8 = "L"
-  textValue9 = "M"
-  textValue10 = "N"
-  textValue11 = "O"
-  textValue12 = "P"
-  textValue13 = "Q"
-  textValue14 = "R"
-  textValue15 = "S"
-  textValue16 = "T"
-  textValue17 = "U"
-  textValue18 = "V"
-  textValue19 = "W"
-  textValue20 = "X"
-  textValue21 = "Y"
-  textValue22 = "Z"
-  textValue23 = "a"
-  textValue24 = "b"
-  textValue25 = "c"
-  textValue26 = "d"
-  textValue27 = "e"
-  textValue28 = "f"
-  textValue29 = "g"
-  textValue30 = "h"
-  textValue31 = "i"
-  textValue33 = "j"
-  textValue34 = "k"
-  textValue35 = "l"
-  textValue36 = "m"
-  textValue37 = "n"
-  textValue38 = "o"
-  textValue39 = "p"
-  textValue40 = "q"
-  textValue41 = "r"
-  textValue42 = "s"
-  textValue43 = "t"
-  textValue44 = "u"
-  textValue45 = "v"
-  textValue46 = "w"
-  textValue47 = "x"
-  textValue48 = "y"
-  cmgCall6[1] = textValue49
-  cmgCall6[2] = textValue50
-  cmgCall6[3] = workValue8
-  cmgCall6[4] = textValue51
-  cmgCall6[5] = textValue
-  cmgCall6[6] = textValue2
-  cmgCall6[7] = textValue3
-  cmgCall6[8] = textValue4
-  cmgCall6[9] = textValue6
-  cmgCall6[10] = textValue7
-  cmgCall6[11] = textValue8
-  cmgCall6[12] = textValue9
-  cmgCall6[13] = textValue10
-  cmgCall6[14] = textValue11
-  cmgCall6[15] = textValue12
-  cmgCall6[16] = textValue13
-  cmgCall6[17] = textValue14
-  cmgCall6[18] = textValue15
-  cmgCall6[19] = textValue16
-  cmgCall6[20] = textValue17
-  cmgCall6[21] = textValue18
-  cmgCall6[22] = textValue19
-  cmgCall6[23] = textValue20
-  cmgCall6[24] = textValue21
-  cmgCall6[25] = textValue22
-  cmgCall6[26] = textValue23
-  cmgCall6[27] = textValue24
-  cmgCall6[28] = textValue25
-  cmgCall6[29] = textValue26
-  cmgCall6[30] = textValue27
-  cmgCall6[31] = textValue28
-  cmgCall6[32] = textValue29
-  cmgCall6[33] = textValue30
-  cmgCall6[34] = textValue31
-  cmgCall6[35] = textValue33
-  cmgCall6[36] = textValue34
-  cmgCall6[37] = textValue35
-  cmgCall6[38] = textValue36
-  cmgCall6[39] = textValue37
-  cmgCall6[40] = textValue38
-  cmgCall6[41] = textValue39
-  cmgCall6[42] = textValue40
-  cmgCall6[43] = textValue41
-  cmgCall6[44] = textValue42
-  cmgCall6[45] = textValue43
-  cmgCall6[46] = textValue44
-  cmgCall6[47] = textValue45
-  cmgCall6[48] = textValue46
-  cmgCall6[49] = textValue47
-  cmgCall6[50] = textValue48
-  textValue49 = "z"
-  textValue50 = "0"
-  workValue8 = "1"
-  textValue51 = "2"
-  textValue = "3"
-  textValue2 = "4"
-  textValue3 = "5"
-  textValue4 = "6"
-  textValue6 = "7"
-  textValue7 = "8"
-  textValue8 = "9"
-  textValue9 = arg1 or textValue9
-  if not arg1 then
-    textValue9 = "+"
-  end
-  textValue10 = arg2 or textValue10
-  if not arg2 then
-    textValue10 = "/"
-  end
-  textValue11 = arg3 or textValue11
-  if not arg3 then
-    textValue11 = "="
-  end
-  cmgCall6[51] = textValue49
-  cmgCall6[52] = textValue50
-  cmgCall6[53] = workValue8
-  cmgCall6[54] = textValue51
-  cmgCall6[55] = textValue
-  cmgCall6[56] = textValue2
-  cmgCall6[57] = textValue3
-  cmgCall6[58] = textValue4
-  cmgCall6[59] = textValue6
-  cmgCall6[60] = textValue7
-  cmgCall6[61] = textValue8
-  cmgCall6[62] = textValue9
-  cmgCall6[63] = textValue10
-  cmgCall6[64] = textValue11
-  workValue5, cmgCall6, textValue49, textValue50 = workValue5(cmgCall6)
-  for workValue8, textValue51 in workValue5, cmgCall6, textValue49, textValue50 do
-    textValue = string
-    textValue = textValue.byte
-    textValue2 = textValue51
-    textValue = textValue(textValue2)
-    textValue32[workValue8] = textValue
-  end
-  return textValue32
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation5(localValue1, localValue2, localValue3)
+  local text32, workingValue5
+  text32 = localValue1 >> localValue2
+  workingValue5 = 1 << localValue3
+  workingValue5 = workingValue5 - 1
+  text32 = text32 & workingValue5
+  return text32
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
-function workValue4(arg1, arg2, arg3)
-  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue
-  textValue32 = {}
-  workValue5 = pairs
-  cmgCall6 = workValue2
-  textValue49 = arg1
-  textValue50 = arg2
-  workValue8 = arg3
-  cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue = cmgCall6(textValue49, textValue50, workValue8)
-  workValue5, cmgCall6, textValue49, textValue50 = workValue5(cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue)
-  for workValue8, textValue51 in workValue5, cmgCall6, textValue49, textValue50 do
-    textValue32[textValue51] = workValue8
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, localValue2, localValue3) ===
+function workingValue2(localValue1, localValue2, localValue3)
+  local text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text, text2, text3, text4, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text33, text34, text35, text36, text37, text38, text39, text40, text41, text42, text43, text44, text45, text46, text47, text48
+  text32 = {}
+  workingValue5 = pairs
+  cmgOperation6 = {}
+  cmgOperation6[0] = "A"
+  text49 = "B"
+  text50 = "C"
+  workingValue8 = "D"
+  text51 = "E"
+  text = "F"
+  text2 = "G"
+  text3 = "H"
+  text4 = "I"
+  text6 = "J"
+  text7 = "K"
+  text8 = "L"
+  text9 = "M"
+  text10 = "N"
+  text11 = "O"
+  text12 = "P"
+  text13 = "Q"
+  text14 = "R"
+  text15 = "S"
+  text16 = "T"
+  text17 = "U"
+  text18 = "V"
+  text19 = "W"
+  text20 = "X"
+  text21 = "Y"
+  text22 = "Z"
+  text23 = "a"
+  text24 = "b"
+  text25 = "c"
+  text26 = "d"
+  text27 = "e"
+  text28 = "f"
+  text29 = "g"
+  text30 = "h"
+  text31 = "i"
+  text33 = "j"
+  text34 = "k"
+  text35 = "l"
+  text36 = "m"
+  text37 = "n"
+  text38 = "o"
+  text39 = "p"
+  text40 = "q"
+  text41 = "r"
+  text42 = "s"
+  text43 = "t"
+  text44 = "u"
+  text45 = "v"
+  text46 = "w"
+  text47 = "x"
+  text48 = "y"
+  cmgOperation6[1] = text49
+  cmgOperation6[2] = text50
+  cmgOperation6[3] = workingValue8
+  cmgOperation6[4] = text51
+  cmgOperation6[5] = text
+  cmgOperation6[6] = text2
+  cmgOperation6[7] = text3
+  cmgOperation6[8] = text4
+  cmgOperation6[9] = text6
+  cmgOperation6[10] = text7
+  cmgOperation6[11] = text8
+  cmgOperation6[12] = text9
+  cmgOperation6[13] = text10
+  cmgOperation6[14] = text11
+  cmgOperation6[15] = text12
+  cmgOperation6[16] = text13
+  cmgOperation6[17] = text14
+  cmgOperation6[18] = text15
+  cmgOperation6[19] = text16
+  cmgOperation6[20] = text17
+  cmgOperation6[21] = text18
+  cmgOperation6[22] = text19
+  cmgOperation6[23] = text20
+  cmgOperation6[24] = text21
+  cmgOperation6[25] = text22
+  cmgOperation6[26] = text23
+  cmgOperation6[27] = text24
+  cmgOperation6[28] = text25
+  cmgOperation6[29] = text26
+  cmgOperation6[30] = text27
+  cmgOperation6[31] = text28
+  cmgOperation6[32] = text29
+  cmgOperation6[33] = text30
+  cmgOperation6[34] = text31
+  cmgOperation6[35] = text33
+  cmgOperation6[36] = text34
+  cmgOperation6[37] = text35
+  cmgOperation6[38] = text36
+  cmgOperation6[39] = text37
+  cmgOperation6[40] = text38
+  cmgOperation6[41] = text39
+  cmgOperation6[42] = text40
+  cmgOperation6[43] = text41
+  cmgOperation6[44] = text42
+  cmgOperation6[45] = text43
+  cmgOperation6[46] = text44
+  cmgOperation6[47] = text45
+  cmgOperation6[48] = text46
+  cmgOperation6[49] = text47
+  cmgOperation6[50] = text48
+  text49 = "z"
+  text50 = "0"
+  workingValue8 = "1"
+  text51 = "2"
+  text = "3"
+  text2 = "4"
+  text3 = "5"
+  text4 = "6"
+  text6 = "7"
+  text7 = "8"
+  text8 = "9"
+  text9 = localValue1 or text9
+  if not localValue1 then
+    text9 = "+"
   end
-  return textValue32
+  text10 = localValue2 or text10
+  if not localValue2 then
+    text10 = "/"
+  end
+  text11 = localValue3 or text11
+  if not localValue3 then
+    text11 = "="
+  end
+  cmgOperation6[51] = text49
+  cmgOperation6[52] = text50
+  cmgOperation6[53] = workingValue8
+  cmgOperation6[54] = text51
+  cmgOperation6[55] = text
+  cmgOperation6[56] = text2
+  cmgOperation6[57] = text3
+  cmgOperation6[58] = text4
+  cmgOperation6[59] = text6
+  cmgOperation6[60] = text7
+  cmgOperation6[61] = text8
+  cmgOperation6[62] = text9
+  cmgOperation6[63] = text10
+  cmgOperation6[64] = text11
+  workingValue5, cmgOperation6, text49, text50 = workingValue5(cmgOperation6)
+  for workingValue8, text51 in workingValue5, cmgOperation6, text49, text50 do
+    text = string
+    text = text.byte
+    text2 = text51
+    text = text(text2)
+    text32[workingValue8] = text
+  end
+  return text32
 end
-workValue6 = workValue4
-workValue6 = workValue6()
+
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2, localValue3) ===
+function workingValue4(localValue1, localValue2, localValue3)
+  local text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text
+  text32 = {}
+  workingValue5 = pairs
+  cmgOperation6 = workingValue2
+  text49 = localValue1
+  text50 = localValue2
+  workingValue8 = localValue3
+  cmgOperation6, text49, text50, workingValue8, text51, text = cmgOperation6(text49, text50, workingValue8)
+  workingValue5, cmgOperation6, text49, text50 = workingValue5(cmgOperation6, text49, text50, workingValue8, text51, text)
+  for workingValue8, text51 in workingValue5, cmgOperation6, text49, text50 do
+    text32[text51] = workingValue8
+  end
+  return text32
+end
+workingValue6 = workingValue4
+workingValue6 = workingValue6()
 stringHelper = string
 stringHelper = stringHelper.char
 tableHelper2 = table
 tableHelper2 = tableHelper2.concat
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2, arg3) ===
-function workValue7(arg1, arg2, arg3)
-  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18
-  if not arg2 then
-    arg2 = workValue6
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1, localValue2, localValue3) ===
+function workingValue7(localValue1, localValue2, localValue3)
+  local text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text, text2, text3, text4, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18
+  if not localValue2 then
+    localValue2 = workingValue6
   end
-  textValue32 = "[^%w%+%/%=]"
-  if arg2 then
-    workValue5 = nil
-    cmgCall6 = nil
-    textValue49 = pairs
-    textValue50 = arg2
-    textValue49, textValue50, workValue8, textValue51 = textValue49(textValue50)
-    for textValue, textValue2 in textValue49, textValue50, workValue8, textValue51 do
-      if 62 == textValue2 then
-        workValue5 = textValue
-      elseif 63 == textValue2 then
-        cmgCall6 = textValue
+  text32 = "[^%w%+%/%=]"
+  if localValue2 then
+    workingValue5 = nil
+    cmgOperation6 = nil
+    text49 = pairs
+    text50 = localValue2
+    text49, text50, workingValue8, text51 = text49(text50)
+    for text, text2 in text49, text50, workingValue8, text51 do
+      if 62 == text2 then
+        workingValue5 = text
+      elseif 63 == text2 then
+        cmgOperation6 = text
       end
     end
-    textValue49 = string
-    textValue49 = textValue49.format
-    textValue50 = "[^%%w%%%s%%%s%%=]"
-    workValue8 = stringHelper
-    textValue51 = workValue5
-    workValue8 = workValue8(textValue51)
-    textValue51 = stringHelper
-    textValue = cmgCall6
-    textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18 = textValue51(textValue)
-    textValue49 = textValue49(textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
-    textValue32 = textValue49
+    text49 = string
+    text49 = text49.format
+    text50 = "[^%%w%%%s%%%s%%=]"
+    workingValue8 = stringHelper
+    text51 = workingValue5
+    workingValue8 = workingValue8(text51)
+    text51 = stringHelper
+    text = cmgOperation6
+    text51, text, text2, text3, text4, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18 = text51(text)
+    text49 = text49(text50, workingValue8, text51, text, text2, text3, text4, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18)
+    text32 = text49
   end
-  cmgCall6 = arg1
-  workValue5 = arg1.gsub
-  textValue49 = textValue32
-  textValue50 = ""
-  workValue5 = workValue5(cmgCall6, textValue49, textValue50)
-  arg1 = workValue5
-  workValue5 = arg3 or workValue5
-  if arg3 then
-    workValue5 = {}
+  cmgOperation6 = localValue1
+  workingValue5 = localValue1.gsub
+  text49 = text32
+  text50 = ""
+  workingValue5 = workingValue5(cmgOperation6, text49, text50)
+  localValue1 = workingValue5
+  workingValue5 = localValue3 or workingValue5
+  if localValue3 then
+    workingValue5 = {}
   end
-  cmgCall6 = {}
-  textValue49 = 1
-  textValue50 = #arg1
-  textValue51 = arg1
-  workValue8 = arg1.sub
-  textValue = -2
-  workValue8 = workValue8(textValue51, textValue)
-  if "==" == workValue8 then
-    workValue8 = 2
-    if workValue8 then
-      goto flow_label_63
+  cmgOperation6 = {}
+  text49 = 1
+  text50 = #localValue1
+  text51 = localValue1
+  workingValue8 = localValue1.sub
+  text = -2
+  workingValue8 = workingValue8(text51, text)
+  if "==" == workingValue8 then
+    workingValue8 = 2
+    if workingValue8 then
+      goto continueAtStep63
     end
   end
-  textValue51 = arg1
-  workValue8 = arg1.sub
-  textValue = -1
-  workValue8 = workValue8(textValue51, textValue)
-  if "=" == workValue8 then
-    workValue8 = 1
-    if workValue8 then
-      goto flow_label_63
+  text51 = localValue1
+  workingValue8 = localValue1.sub
+  text = -1
+  workingValue8 = workingValue8(text51, text)
+  if "=" == workingValue8 then
+    workingValue8 = 1
+    if workingValue8 then
+      goto continueAtStep63
     end
   end
-  workValue8 = 0
-  ::flow_label_63::
-  textValue51 = 1
-  if workValue8 > 0 then
-    textValue = textValue50 - 4
-    if textValue then
-      goto flow_label_71
+  workingValue8 = 0
+  ::continueAtStep63::
+  text51 = 1
+  if workingValue8 > 0 then
+    text = text50 - 4
+    if text then
+      goto continueAtStep71
     end
   end
-  textValue = textValue50
-  ::flow_label_71::
-  textValue2 = 4
-  for textValue3 = textValue51, textValue, textValue2 do
-    textValue6 = arg1
-    textValue4 = arg1.byte
-    textValue7 = textValue3
-    textValue8 = textValue3 + 3
-    textValue4, textValue6, textValue7, textValue8 = textValue4(textValue6, textValue7, textValue8)
-    textValue9 = nil
-    if arg3 then
-      textValue10 = textValue4 * 16777216
-      textValue11 = textValue6 * 65536
-      textValue10 = textValue10 + textValue11
-      textValue11 = textValue7 * 256
-      textValue10 = textValue10 + textValue11
-      textValue10 = textValue10 + textValue8
-      textValue9 = workValue5[textValue10]
-      if not textValue9 then
-        textValue11 = arg2[textValue4]
-        textValue11 = textValue11 * 262144
-        textValue12 = arg2[textValue6]
-        textValue12 = textValue12 * 4096
-        textValue11 = textValue11 + textValue12
-        textValue12 = arg2[textValue7]
-        textValue12 = textValue12 * 64
-        textValue11 = textValue11 + textValue12
-        textValue12 = arg2[textValue8]
-        textValue11 = textValue11 + textValue12
-        textValue12 = stringHelper
-        textValue13 = cmgCall5
-        textValue14 = textValue11
-        textValue15 = 16
-        textValue16 = 8
-        textValue13 = textValue13(textValue14, textValue15, textValue16)
-        textValue14 = cmgCall5
-        textValue15 = textValue11
-        textValue16 = 8
-        textValue17 = 8
-        textValue14 = textValue14(textValue15, textValue16, textValue17)
-        textValue15 = cmgCall5
-        textValue16 = textValue11
-        textValue17 = 0
-        textValue18 = 8
-        textValue15, textValue16, textValue17, textValue18 = textValue15(textValue16, textValue17, textValue18)
-        textValue12 = textValue12(textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
-        textValue9 = textValue12
-        workValue5[textValue10] = textValue9
+  text = text50
+  ::continueAtStep71::
+  text2 = 4
+  for text3 = text51, text, text2 do
+    text6 = localValue1
+    text4 = localValue1.byte
+    text7 = text3
+    text8 = text3 + 3
+    text4, text6, text7, text8 = text4(text6, text7, text8)
+    text9 = nil
+    if localValue3 then
+      text10 = text4 * 16777216
+      text11 = text6 * 65536
+      text10 = text10 + text11
+      text11 = text7 * 256
+      text10 = text10 + text11
+      text10 = text10 + text8
+      text9 = workingValue5[text10]
+      if not text9 then
+        text11 = localValue2[text4]
+        text11 = text11 * 262144
+        text12 = localValue2[text6]
+        text12 = text12 * 4096
+        text11 = text11 + text12
+        text12 = localValue2[text7]
+        text12 = text12 * 64
+        text11 = text11 + text12
+        text12 = localValue2[text8]
+        text11 = text11 + text12
+        text12 = stringHelper
+        text13 = cmgOperation5
+        text14 = text11
+        text15 = 16
+        text16 = 8
+        text13 = text13(text14, text15, text16)
+        text14 = cmgOperation5
+        text15 = text11
+        text16 = 8
+        text17 = 8
+        text14 = text14(text15, text16, text17)
+        text15 = cmgOperation5
+        text16 = text11
+        text17 = 0
+        text18 = 8
+        text15, text16, text17, text18 = text15(text16, text17, text18)
+        text12 = text12(text13, text14, text15, text16, text17, text18)
+        text9 = text12
+        workingValue5[text10] = text9
       end
     else
-      textValue10 = arg2[textValue4]
-      textValue10 = textValue10 * 262144
-      textValue11 = arg2[textValue6]
-      textValue11 = textValue11 * 4096
-      textValue10 = textValue10 + textValue11
-      textValue11 = arg2[textValue7]
-      textValue11 = textValue11 * 64
-      textValue10 = textValue10 + textValue11
-      textValue11 = arg2[textValue8]
-      textValue10 = textValue10 + textValue11
-      textValue11 = stringHelper
-      textValue12 = cmgCall5
-      textValue13 = textValue10
-      textValue14 = 16
-      textValue15 = 8
-      textValue12 = textValue12(textValue13, textValue14, textValue15)
-      textValue13 = cmgCall5
-      textValue14 = textValue10
-      textValue15 = 8
-      textValue16 = 8
-      textValue13 = textValue13(textValue14, textValue15, textValue16)
-      textValue14 = cmgCall5
-      textValue15 = textValue10
-      textValue16 = 0
-      textValue17 = 8
-      textValue14, textValue15, textValue16, textValue17, textValue18 = textValue14(textValue15, textValue16, textValue17)
-      textValue11 = textValue11(textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
-      textValue9 = textValue11
+      text10 = localValue2[text4]
+      text10 = text10 * 262144
+      text11 = localValue2[text6]
+      text11 = text11 * 4096
+      text10 = text10 + text11
+      text11 = localValue2[text7]
+      text11 = text11 * 64
+      text10 = text10 + text11
+      text11 = localValue2[text8]
+      text10 = text10 + text11
+      text11 = stringHelper
+      text12 = cmgOperation5
+      text13 = text10
+      text14 = 16
+      text15 = 8
+      text12 = text12(text13, text14, text15)
+      text13 = cmgOperation5
+      text14 = text10
+      text15 = 8
+      text16 = 8
+      text13 = text13(text14, text15, text16)
+      text14 = cmgOperation5
+      text15 = text10
+      text16 = 0
+      text17 = 8
+      text14, text15, text16, text17, text18 = text14(text15, text16, text17)
+      text11 = text11(text12, text13, text14, text15, text16, text17, text18)
+      text9 = text11
     end
-    cmgCall6[textValue49] = textValue9
-    textValue49 = textValue49 + 1
+    cmgOperation6[text49] = text9
+    text49 = text49 + 1
   end
-  if 1 == workValue8 then
-    textValue = arg1
-    textValue51 = arg1.byte
-    textValue2 = textValue50 - 3
-    textValue3 = textValue50 - 1
-    textValue51, textValue, textValue2 = textValue51(textValue, textValue2, textValue3)
-    textValue3 = arg2[textValue51]
-    textValue3 = textValue3 * 262144
-    textValue4 = arg2[textValue]
-    textValue4 = textValue4 * 4096
-    textValue3 = textValue3 + textValue4
-    textValue4 = arg2[textValue2]
-    textValue4 = textValue4 * 64
-    textValue3 = textValue3 + textValue4
-    textValue4 = stringHelper
-    textValue6 = cmgCall5
-    textValue7 = textValue3
-    textValue8 = 16
-    textValue9 = 8
-    textValue6 = textValue6(textValue7, textValue8, textValue9)
-    textValue7 = cmgCall5
-    textValue8 = textValue3
-    textValue9 = 8
-    textValue10 = 8
-    textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18 = textValue7(textValue8, textValue9, textValue10)
-    textValue4 = textValue4(textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
-    cmgCall6[textValue49] = textValue4
-  elseif 2 == workValue8 then
-    textValue = arg1
-    textValue51 = arg1.byte
-    textValue2 = textValue50 - 3
-    textValue3 = textValue50 - 2
-    textValue51, textValue = textValue51(textValue, textValue2, textValue3)
-    textValue2 = arg2[textValue51]
-    textValue2 = textValue2 * 262144
-    textValue3 = arg2[textValue]
-    textValue3 = textValue3 * 4096
-    textValue2 = textValue2 + textValue3
-    textValue3 = stringHelper
-    textValue4 = cmgCall5
-    textValue6 = textValue2
-    textValue7 = 16
-    textValue8 = 8
-    textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18 = textValue4(textValue6, textValue7, textValue8)
-    textValue3 = textValue3(textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
-    cmgCall6[textValue49] = textValue3
+  if 1 == workingValue8 then
+    text = localValue1
+    text51 = localValue1.byte
+    text2 = text50 - 3
+    text3 = text50 - 1
+    text51, text, text2 = text51(text, text2, text3)
+    text3 = localValue2[text51]
+    text3 = text3 * 262144
+    text4 = localValue2[text]
+    text4 = text4 * 4096
+    text3 = text3 + text4
+    text4 = localValue2[text2]
+    text4 = text4 * 64
+    text3 = text3 + text4
+    text4 = stringHelper
+    text6 = cmgOperation5
+    text7 = text3
+    text8 = 16
+    text9 = 8
+    text6 = text6(text7, text8, text9)
+    text7 = cmgOperation5
+    text8 = text3
+    text9 = 8
+    text10 = 8
+    text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18 = text7(text8, text9, text10)
+    text4 = text4(text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18)
+    cmgOperation6[text49] = text4
+  elseif 2 == workingValue8 then
+    text = localValue1
+    text51 = localValue1.byte
+    text2 = text50 - 3
+    text3 = text50 - 2
+    text51, text = text51(text, text2, text3)
+    text2 = localValue2[text51]
+    text2 = text2 * 262144
+    text3 = localValue2[text]
+    text3 = text3 * 4096
+    text2 = text2 + text3
+    text3 = stringHelper
+    text4 = cmgOperation5
+    text6 = text2
+    text7 = 16
+    text8 = 8
+    text4, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18 = text4(text6, text7, text8)
+    text3 = text3(text4, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15, text16, text17, text18)
+    cmgOperation6[text49] = text3
   end
-  textValue51 = tableHelper2
-  textValue = cmgCall6
-  return textValue51(textValue)
+  text51 = tableHelper2
+  text = cmgOperation6
+  return text51(text)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2) ===
-function workValue9(arg1, arg2)
-  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7
-  arg3 = flag
-  if not arg3 then
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2) ===
+function workingValue9(localValue1, localValue2)
+  local localValue3, text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text, text2, text3, text4, text6, text7
+  localValue3 = stateFlag
+  if not localValue3 then
+    return localValue2
   end
-  arg3 = string
-  arg3 = arg3.find
-  textValue32 = arg1
-  workValue5 = "cfg"
-  arg3 = arg3(textValue32, workValue5)
-  if not arg3 or arg3 <= 0 then
-    return arg2
+  localValue3 = string
+  localValue3 = localValue3.find
+  text32 = localValue1
+  workingValue5 = "cfg"
+  localValue3 = localValue3(text32, workingValue5)
+  if not localValue3 or localValue3 <= 0 then
+    return localValue2
   end
-  textValue32 = string
-  textValue32 = textValue32.sub
-  workValue5 = arg1
-  cmgCall6 = arg3 + 4
-  textValue49 = -1
-  textValue32 = textValue32(workValue5, cmgCall6, textValue49)
-  workValue5 = GetHashKey
-  cmgCall6 = textValue32
+  text32 = string
+  text32 = text32.sub
+  workingValue5 = localValue1
+  cmgOperation6 = localValue3 + 4
+  text49 = -1
+  text32 = text32(workingValue5, cmgOperation6, text49)
+  workingValue5 = GetHashKey
+  cmgOperation6 = text32
   -- Beginner: result below is hash.
-  workValue5 = workValue5(cmgCall6)
-  cmgCall6 = table
-  cmgCall6 = cmgCall6.create
-  textValue49 = #arg2
-  textValue50 = 0
-  cmgCall6 = cmgCall6(textValue49, textValue50)
-  textValue49 = 5
-  textValue50 = #arg2
-  workValue8 = 1
-  for textValue51 = textValue49, textValue50, workValue8 do
-    textValue = string
-    textValue = textValue.byte
-    textValue2 = arg2
-    textValue3 = textValue51
-    textValue = textValue(textValue2, textValue3)
-    textValue2 = textValue51 % 8
-    textValue2 = textValue2 * 4
-    textValue2 = workValue5 >> textValue2
-    textValue2 = textValue2 & 15
-    textValue3 = textValue2 + textValue51
-    textValue3 = textValue3 % 63
-    textValue3 = textValue - textValue3
-    textValue4 = textValue51 - 4
-    textValue6 = string
-    textValue6 = textValue6.char
-    textValue7 = textValue3
-    textValue6 = textValue6(textValue7)
-    cmgCall6[textValue4] = textValue6
+  workingValue5 = workingValue5(cmgOperation6)
+  cmgOperation6 = table
+  cmgOperation6 = cmgOperation6.create
+  text49 = #localValue2
+  text50 = 0
+  cmgOperation6 = cmgOperation6(text49, text50)
+  text49 = 5
+  text50 = #localValue2
+  workingValue8 = 1
+  for text51 = text49, text50, workingValue8 do
+    text = string
+    text = text.byte
+    text2 = localValue2
+    text3 = text51
+    text = text(text2, text3)
+    text2 = text51 % 8
+    text2 = text2 * 4
+    text2 = workingValue5 >> text2
+    text2 = text2 & 15
+    text3 = text2 + text51
+    text3 = text3 % 63
+    text3 = text - text3
+    text4 = text51 - 4
+    text6 = string
+    text6 = text6.char
+    text7 = text3
+    text6 = text6(text7)
+    cmgOperation6[text4] = text6
   end
-  textValue49 = workValue7
-  textValue50 = table
-  textValue50 = textValue50.concat
-  workValue8 = cmgCall6
-  textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7 = textValue50(workValue8)
-  return textValue49(textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7)
+  text49 = workingValue7
+  text50 = table
+  text50 = text50.concat
+  workingValue8 = cmgOperation6
+  text50, workingValue8, text51, text, text2, text3, text4, text6, text7 = text50(workingValue8)
+  return text49(text50, workingValue8, text51, text, text2, text3, text4, text6, text7)
 end
-cmgCall = CMG
+cmgOperation = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2) ===
-function cmgCall2(arg1, arg2)
-  local arg3, textValue32, workValue5, cmgCall6, textValue49
-  arg3 = nil
-  textValue32 = IsDuplicityVersion
-  textValue32 = textValue32()
-  if textValue32 then
-    textValue32 = GetConvarInt
-    workValue5 = "serverNum"
-    cmgCall6 = 0
-    textValue32 = textValue32(workValue5, cmgCall6)
-    if 0 ~= textValue32 then
-      goto flow_label_17
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1, localValue2) ===
+function cmgOperation2(localValue1, localValue2)
+  local localValue3, text32, workingValue5, cmgOperation6, text49
+  localValue3 = nil
+  text32 = IsDuplicityVersion
+  text32 = text32()
+  if text32 then
+    text32 = GetConvarInt
+    workingValue5 = "serverNum"
+    cmgOperation6 = 0
+    text32 = text32(workingValue5, cmgOperation6)
+    if 0 ~= text32 then
+      goto continueAtStep17
     end
   end
-  textValue32 = LoadResourceFile
-  workValue5 = arg1
-  cmgCall6 = arg2
-  textValue32 = textValue32(workValue5, cmgCall6)
-  arg3 = textValue32
-  ::flow_label_17::
-  if not arg3 then
-    textValue32 = LoadResourceFile
-    workValue5 = arg1
-    cmgCall6 = "prod/"
-    textValue49 = arg2
-    cmgCall6 = cmgCall6 .. textValue49
-    textValue32 = textValue32(workValue5, cmgCall6)
-    arg3 = textValue32
+  text32 = LoadResourceFile
+  workingValue5 = localValue1
+  cmgOperation6 = localValue2
+  text32 = text32(workingValue5, cmgOperation6)
+  localValue3 = text32
+  ::continueAtStep17::
+  if not localValue3 then
+    text32 = LoadResourceFile
+    workingValue5 = localValue1
+    cmgOperation6 = "prod/"
+    text49 = localValue2
+    cmgOperation6 = cmgOperation6 .. text49
+    text32 = text32(workingValue5, cmgOperation6)
+    localValue3 = text32
   end
-  if arg3 then
-    textValue32 = #arg3
-    if textValue32 > 4 then
-      textValue32 = string
-      textValue32 = textValue32.sub
-      workValue5 = arg3
-      cmgCall6 = 1
-      textValue49 = 4
-      textValue32 = textValue32(workValue5, cmgCall6, textValue49)
-      if "CMGP" == textValue32 then
-        textValue32 = workValue9
-        workValue5 = arg2
-        cmgCall6 = arg3
-        textValue32 = textValue32(workValue5, cmgCall6)
-        arg3 = textValue32
+  if localValue3 then
+    text32 = #localValue3
+    if text32 > 4 then
+      text32 = string
+      text32 = text32.sub
+      workingValue5 = localValue3
+      cmgOperation6 = 1
+      text49 = 4
+      text32 = text32(workingValue5, cmgOperation6, text49)
+      if "CMGP" == text32 then
+        text32 = workingValue9
+        workingValue5 = localValue2
+        cmgOperation6 = localValue3
+        text32 = text32(workingValue5, cmgOperation6)
+        localValue3 = text32
       end
     end
   end
-  return arg3
+  return localValue3
 end
-cmgCall.loadResourceFile = cmgCall2
-cmgCall = nil
-cmgCall2 = CMG
+cmgOperation.loadResourceFile = cmgOperation2
+cmgOperation = nil
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
-function cmgCall3(arg1, arg2)
-  local arg3, textValue32
-  arg3 = type
-  textValue32 = arg1
-  arg3 = arg3(textValue32)
-  if "boolean" == arg3 then
-    arg3 = type
-    textValue32 = arg2
-    arg3 = arg3(textValue32)
-    if "number" == arg3 then
-      arg3 = GetFrameCount
-      arg3 = arg3()
-      if arg2 == arg3 then
-        arg3 = string
-        arg3 = arg3.dump
-        textValue32 = CMG
-        textValue32 = textValue32.setGameplayTask
-        arg3 = arg3(textValue32)
-        textValue32 = cmgCall
-        if arg3 == textValue32 then
-          flag = arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1, localValue2) ===
+function cmgOperation3(localValue1, localValue2)
+  local localValue3, text32
+  localValue3 = type
+  text32 = localValue1
+  localValue3 = localValue3(text32)
+  if "boolean" == localValue3 then
+    localValue3 = type
+    text32 = localValue2
+    localValue3 = localValue3(text32)
+    if "number" == localValue3 then
+      localValue3 = GetFrameCount
+      localValue3 = localValue3()
+      if localValue2 == localValue3 then
+        localValue3 = string
+        localValue3 = localValue3.dump
+        text32 = CMG
+        text32 = text32.setGameplayTask
+        localValue3 = localValue3(text32)
+        text32 = cmgOperation
+        if localValue3 == text32 then
+          stateFlag = localValue1
         end
       end
     end
   end
 end
-cmgCall2.setGameplayTask = cmgCall3
-cmgCall2 = string
-cmgCall2 = cmgCall2.dump
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.setGameplayTask
-cmgCall2 = cmgCall2(cmgCall3)
-cmgCall = cmgCall2
-cmgCall2 = IsDuplicityVersion
-cmgCall2 = cmgCall2()
-if not cmgCall2 then
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.CreateThread
+cmgOperation2.setGameplayTask = cmgOperation3
+cmgOperation2 = string
+cmgOperation2 = cmgOperation2.dump
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.setGameplayTask
+cmgOperation2 = cmgOperation2(cmgOperation3)
+cmgOperation = cmgOperation2
+cmgOperation2 = IsDuplicityVersion
+cmgOperation2 = cmgOperation2()
+if not cmgOperation2 then
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-  function cmgCall3()
-    local arg1, arg2
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 0
-    arg1(arg2)
-    arg1 = false
-    flag = arg1
+  -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+  function cmgOperation3()
+    local localValue1, localValue2
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 0
+    localValue1(localValue2)
+    localValue1 = false
+    stateFlag = localValue1
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  cmgCall2(cmgCall3)
+  cmgOperation2(cmgOperation3)
 end
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2, arg3) ===
-function cmgCall2(arg1, arg2, arg3)
-  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8
-  if nil == arg3 then
-    arg3 = 5000
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation2(localValue1, localValue2, localValue3)
+  local text32, workingValue5, cmgOperation6, text49, text50, workingValue8
+  if nil == localValue3 then
+    localValue3 = 5000
   end
-  textValue32 = {}
-  textValue32.done = false
+  text32 = {}
+  text32.done = false
 
-  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg12) ===
-  function workValue5(arg12)
-    local arg22, tableHelper, workValue3
-    arg22 = textValue32.done
-    if not arg22 then
-      if nil == arg12 then
-        arg22 = arg2
-        arg12 = arg22 or arg12
-        if not arg22 then
-          arg22 = {}
-          arg12 = arg22
+  -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue12) ===
+  function workingValue5(localValue12)
+    local localValue22, tableHelper, workingValue3
+    localValue22 = text32.done
+    if not localValue22 then
+      if nil == localValue12 then
+        localValue22 = localValue2
+        localValue12 = localValue22 or localValue12
+        if not localValue22 then
+          localValue22 = {}
+          localValue12 = localValue22
         end
       end
-      textValue32.done = true
-      arg22 = arg1
+      text32.done = true
+      localValue22 = localValue1
       tableHelper = table
       tableHelper = tableHelper.unpack
-      workValue3 = arg12
-      tableHelper, workValue3 = tableHelper(workValue3)
-      arg22(tableHelper, workValue3)
+      workingValue3 = localValue12
+      tableHelper, workingValue3 = tableHelper(workingValue3)
+      localValue22(tableHelper, workingValue3)
     end
   end
-  cmgCall6 = setmetatable
-  textValue49 = textValue32
-  textValue50 = {}
+  cmgOperation6 = setmetatable
+  text49 = text32
+  text50 = {}
 
-  -- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg12, arg22) ===
-  function workValue8(arg12, arg22)
-    local tableHelper, workValue3
-    tableHelper = workValue5
-    workValue3 = arg22
-    tableHelper(workValue3)
+  -- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue12, localValue22) ===
+  function workingValue8(localValue12, localValue22)
+    local tableHelper, workingValue3
+    tableHelper = workingValue5
+    workingValue3 = localValue22
+    tableHelper(workingValue3)
   end
-  textValue50.__call = workValue8
-  cmgCall6(textValue49, textValue50)
-  cmgCall6 = SetTimeout
-  textValue49 = arg3
+  text50.__call = workingValue8
+  cmgOperation6(text49, text50)
+  cmgOperation6 = SetTimeout
+  text49 = localValue3
 
-  -- === HELPER FUNCTION (decompiler name: textValue50; parameters: none) ===
-  function textValue50()
-    local arg12, arg22
-    arg12 = workValue5
-    arg22 = arg2
-    arg12(arg22)
+  -- === HELPER FUNCTION (decompiler name: text50; parameters: none) ===
+  function text50()
+    local localValue12, localValue22
+    localValue12 = workingValue5
+    localValue22 = localValue2
+    localValue12(localValue22)
   end
-  cmgCall6(textValue49, textValue50)
-  return textValue32
+  cmgOperation6(text49, text50)
+  return text32
 end
-Task = cmgCall2
+Task = cmgOperation2
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, textValue32
-  arg2 = tonumber
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if nil == arg2 then
-    arg3 = 0
-    return arg3
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, text32
+  localValue2 = tonumber
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if nil == localValue2 then
+    localValue3 = 0
+    return localValue3
   else
-    arg3 = math
-    arg3 = arg3.floor
-    textValue32 = arg2
-    return arg3(textValue32)
+    localValue3 = math
+    localValue3 = localValue3.floor
+    text32 = localValue2
+    return localValue3(text32)
   end
 end
-parseInt = cmgCall2
+parseInt = cmgOperation2
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3
-  arg2 = tonumber
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if nil == arg2 then
-    arg2 = 0
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3
+  localValue2 = tonumber
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if nil == localValue2 then
+    localValue2 = 0
   end
-  return arg2
+  return localValue2
 end
-parseDouble = cmgCall2
+parseDouble = cmgOperation2
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3
-  arg2 = parseDouble
-  arg3 = arg1
-  return arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3
+  localValue2 = parseDouble
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
-parseFloat = cmgCall2
-cmgCall2 = {}
+parseFloat = cmgOperation2
+cmgOperation2 = {}
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2, arg3) ===
-function cmgCall3(arg1, arg2, arg3)
-  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4
-  textValue32 = ""
-  workValue5 = cmgCall2
-  workValue5 = workValue5[arg2]
-  if nil == workValue5 then
-    cmgCall6 = {}
-    workValue5 = cmgCall6
-    cmgCall6 = string
-    cmgCall6 = cmgCall6.len
-    textValue49 = arg2
-    cmgCall6 = cmgCall6(textValue49)
-    textValue49 = 1
-    textValue50 = cmgCall6
-    workValue8 = 1
-    for textValue51 = textValue49, textValue50, workValue8 do
-      textValue = string
-      textValue = textValue.sub
-      textValue2 = arg2
-      textValue3 = textValue51
-      textValue4 = textValue51
-      textValue = textValue(textValue2, textValue3, textValue4)
-      workValue5[textValue] = true
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation3(localValue1, localValue2, localValue3)
+  local text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text, text2, text3, text4
+  text32 = ""
+  workingValue5 = cmgOperation2
+  workingValue5 = workingValue5[localValue2]
+  if nil == workingValue5 then
+    cmgOperation6 = {}
+    workingValue5 = cmgOperation6
+    cmgOperation6 = string
+    cmgOperation6 = cmgOperation6.len
+    text49 = localValue2
+    cmgOperation6 = cmgOperation6(text49)
+    text49 = 1
+    text50 = cmgOperation6
+    workingValue8 = 1
+    for text51 = text49, text50, workingValue8 do
+      text = string
+      text = text.sub
+      text2 = localValue2
+      text3 = text51
+      text4 = text51
+      text = text(text2, text3, text4)
+      workingValue5[text] = true
     end
-    textValue49 = cmgCall2
-    textValue49[arg2] = workValue5
+    text49 = cmgOperation2
+    text49[localValue2] = workingValue5
   end
-  cmgCall6 = string
-  cmgCall6 = cmgCall6.len
-  textValue49 = arg1
-  cmgCall6 = cmgCall6(textValue49)
-  textValue49 = 1
-  textValue50 = cmgCall6
-  workValue8 = 1
-  for textValue51 = textValue49, textValue50, workValue8 do
-    textValue = string
-    textValue = textValue.sub
-    textValue2 = arg1
-    textValue3 = textValue51
-    textValue4 = textValue51
-    textValue = textValue(textValue2, textValue3, textValue4)
-    if arg3 then
-      textValue2 = workValue5[textValue]
-      if textValue2 then
-        goto flow_label_51
+  cmgOperation6 = string
+  cmgOperation6 = cmgOperation6.len
+  text49 = localValue1
+  cmgOperation6 = cmgOperation6(text49)
+  text49 = 1
+  text50 = cmgOperation6
+  workingValue8 = 1
+  for text51 = text49, text50, workingValue8 do
+    text = string
+    text = text.sub
+    text2 = localValue1
+    text3 = text51
+    text4 = text51
+    text = text(text2, text3, text4)
+    if localValue3 then
+      text2 = workingValue5[text]
+      if text2 then
+        goto continueAtStep51
       end
     end
-    if not arg3 then
-      textValue2 = workValue5[textValue]
-      ::flow_label_51::
-      if not textValue2 then
-        textValue2 = textValue32
-        textValue3 = textValue
-        textValue2 = textValue2 .. textValue3
-        textValue32 = textValue2
+    if not localValue3 then
+      text2 = workingValue5[text]
+      ::continueAtStep51::
+      if not text2 then
+        text2 = text32
+        text3 = text
+        text2 = text2 .. text3
+        text32 = text2
       end
     end
   end
-  return textValue32
+  return text32
 end
-sanitizeString = cmgCall3
+sanitizeString = cmgOperation3
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
-function cmgCall3(arg1, arg2)
-  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue
-  if nil == arg2 then
-    arg2 = "%s"
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1, localValue2) ===
+function cmgOperation3(localValue1, localValue2)
+  local localValue3, text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text
+  if nil == localValue2 then
+    localValue2 = "%s"
   end
-  arg3 = {}
-  textValue32 = 1
-  workValue5 = string
-  workValue5 = workValue5.gmatch
-  cmgCall6 = arg1
-  textValue49 = "([^"
-  textValue50 = arg2
-  workValue8 = "]+)"
-  textValue49 = textValue49 .. textValue50 .. workValue8
-  workValue5, cmgCall6, textValue49, textValue50 = workValue5(cmgCall6, textValue49)
-  for workValue8 in workValue5, cmgCall6, textValue49, textValue50 do
-    arg3[textValue32] = workValue8
-    textValue32 = textValue32 + 1
+  localValue3 = {}
+  text32 = 1
+  workingValue5 = string
+  workingValue5 = workingValue5.gmatch
+  cmgOperation6 = localValue1
+  text49 = "([^"
+  text50 = localValue2
+  workingValue8 = "]+)"
+  text49 = text49 .. text50 .. workingValue8
+  workingValue5, cmgOperation6, text49, text50 = workingValue5(cmgOperation6, text49)
+  for workingValue8 in workingValue5, cmgOperation6, text49, text50 do
+    localValue3[text32] = workingValue8
+    text32 = text32 + 1
   end
-  return arg3
+  return localValue3
 end
-splitString = cmgCall3
+splitString = cmgOperation3
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
-function cmgCall3(arg1, arg2)
-  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3
-  if nil == arg2 then
-    arg2 = ""
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1, localValue2) ===
+function cmgOperation3(localValue1, localValue2)
+  local localValue3, text32, workingValue5, cmgOperation6, text49, text50, workingValue8, text51, text, text2, text3
+  if nil == localValue2 then
+    localValue2 = ""
   end
-  arg3 = ""
-  textValue32 = 0
-  workValue5 = #arg1
-  cmgCall6 = pairs
-  textValue49 = arg1
-  cmgCall6, textValue49, textValue50, workValue8 = cmgCall6(textValue49)
-  for textValue51, textValue in cmgCall6, textValue49, textValue50, workValue8 do
-    textValue32 = textValue32 + 1
-    textValue2 = arg3
-    textValue3 = textValue
-    textValue2 = textValue2 .. textValue3
-    arg3 = textValue2
-    if workValue5 > textValue32 then
-      textValue2 = arg3
-      textValue3 = arg2
-      textValue2 = textValue2 .. textValue3
-      arg3 = textValue2
+  localValue3 = ""
+  text32 = 0
+  workingValue5 = #localValue1
+  cmgOperation6 = pairs
+  text49 = localValue1
+  cmgOperation6, text49, text50, workingValue8 = cmgOperation6(text49)
+  for text51, text in cmgOperation6, text49, text50, workingValue8 do
+    text32 = text32 + 1
+    text2 = localValue3
+    text3 = text
+    text2 = text2 .. text3
+    localValue3 = text2
+    if workingValue5 > text32 then
+      text2 = localValue3
+      text3 = localValue2
+      text2 = text2 .. text3
+      localValue3 = text2
     end
   end
-  return arg3
+  return localValue3
 end
-joinStrings = cmgCall3
-cmgCall3 = CMG
+joinStrings = cmgOperation3
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
-function cmgCall4(arg1)
-  local arg2, arg3, textValue32
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = dataTable
-    arg2 = arg2[arg1]
-    return arg2
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1) ===
+function cmgOperation4(localValue1)
+  local localValue2, localValue3, text32
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = dataCollection
+    localValue2 = localValue2[localValue1]
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.loadResourceFile
-  arg3 = GetCurrentResourceName
-  arg3 = arg3()
-  textValue32 = arg1
-  arg2 = arg2(arg3, textValue32)
-  arg3 = json
-  arg3 = arg3.decode
-  textValue32 = arg2
-  arg3 = arg3(textValue32)
-  textValue32 = dataTable
-  textValue32[arg1] = arg3
-  return arg3
+  localValue2 = CMG
+  localValue2 = localValue2.loadResourceFile
+  localValue3 = GetCurrentResourceName
+  localValue3 = localValue3()
+  text32 = localValue1
+  localValue2 = localValue2(localValue3, text32)
+  localValue3 = json
+  localValue3 = localValue3.decode
+  text32 = localValue2
+  localValue3 = localValue3(text32)
+  text32 = dataCollection
+  text32[localValue1] = localValue3
+  return localValue3
 end
-cmgCall3.loadJsonModule = cmgCall4
-cmgCall3 = {}
-cmgCall4 = CMG
+cmgOperation3.loadJsonModule = cmgOperation4
+cmgOperation3 = {}
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2, arg3) ===
-function textValue5(arg1, arg2, arg3)
-  local textValue32, workValue5, cmgCall6, textValue49
-  textValue32 = cmgCall3
-  textValue32[arg1] = true
-  textValue32 = RegisterCommand
-  workValue5 = arg1
-  cmgCall6 = arg2
-  textValue49 = arg3
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2, localValue3) ===
+function text5(localValue1, localValue2, localValue3)
+  local text32, workingValue5, cmgOperation6, text49
+  text32 = cmgOperation3
+  text32[localValue1] = true
+  text32 = RegisterCommand
+  workingValue5 = localValue1
+  cmgOperation6 = localValue2
+  text49 = localValue3
   -- Beginner: Register a chat/console command. Event/command: false.
-  textValue32(workValue5, cmgCall6, textValue49)
+  text32(workingValue5, cmgOperation6, text49)
 end
-cmgCall4.registerCommand = textValue5
-cmgCall4 = exports
-textValue5 = "isCommandHidden"
+cmgOperation4.registerCommand = text5
+cmgOperation4 = exports
+text5 = "isCommandHidden"
 -- Beginner: this function is the command handler for "isCommandHidden".
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, textValue32
-  arg2 = string
-  arg2 = arg2.starts
-  arg3 = arg1
-  textValue32 = "+"
-  arg2 = arg2(arg3, textValue32)
-  if not arg2 then
-    arg2 = string
-    arg2 = arg2.starts
-    arg3 = arg1
-    textValue32 = "-"
-    arg2 = arg2(arg3, textValue32)
-    if not arg2 then
-      goto flow_label_17
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, text32
+  localValue2 = string
+  localValue2 = localValue2.starts
+  localValue3 = localValue1
+  text32 = "+"
+  localValue2 = localValue2(localValue3, text32)
+  if not localValue2 then
+    localValue2 = string
+    localValue2 = localValue2.starts
+    localValue3 = localValue1
+    text32 = "-"
+    localValue2 = localValue2(localValue3, text32)
+    if not localValue2 then
+      goto continueAtStep17
     end
   end
-  arg2 = true
-  return arg2
-  ::flow_label_17::
-  arg2 = cmgCall3
-  arg2 = arg2[arg1]
-  return arg2
+  localValue2 = true
+  return localValue2
+  ::continueAtStep17::
+  localValue2 = cmgOperation3
+  localValue2 = localValue2[localValue1]
+  return localValue2
 end
-cmgCall4(textValue5, workValue)
+cmgOperation4(text5, workingValue)

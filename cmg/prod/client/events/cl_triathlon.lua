@@ -32,1336 +32,1336 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable, textValue4, dataTable2, workValue4, dataTable3, dataTable4, dataTable5, dataTable6, eventRegistration3, textValue, workValue, eventRegistration, eventRegistration2, threadCall, cmgCall2, cmgCall3, cmgCall4, textValue2, textValue3, flag4
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable = "cfg/events/cfg_triathlon"
+local cmgOperation, dataCollection, text4, dataCollection2, workingValue4, dataCollection3, dataCollection4, dataCollection5, dataCollection6, eventHandler3, text, workingValue, eventHandler, eventHandler2, backgroundThread, cmgOperation2, cmgOperation3, cmgOperation4, text2, text3, stateFlag4
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection = "cfg/events/cfg_triathlon"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable)
-dataTable = {}
-textValue4 = ""
-dataTable2 = {}
-dataTable2.isParachuting = false
-dataTable2.isOnBMX = false
-dataTable2.isRunning = false
-dataTable2.isInRace = false
-dataTable2.closetCheckpoint = nil
-dataTable2.hasFinished = false
-dataTable2.currentCheckpoint = 0
-dataTable2.currentCheckpointId = 0
-dataTable2.checkpointDistance = 0.0
-workValue4 = nil
-dataTable3 = {}
-dataTable4 = {}
-dataTable5 = {}
-dataTable6 = {}
-eventRegistration3 = Citizen
-eventRegistration3 = eventRegistration3.CreateThread
+cmgOperation = cmgOperation(dataCollection)
+dataCollection = {}
+text4 = ""
+dataCollection2 = {}
+dataCollection2.isParachuting = false
+dataCollection2.isOnBMX = false
+dataCollection2.isRunning = false
+dataCollection2.isInRace = false
+dataCollection2.closetCheckpoint = nil
+dataCollection2.hasFinished = false
+dataCollection2.currentCheckpoint = 0
+dataCollection2.currentCheckpointId = 0
+dataCollection2.checkpointDistance = 0.0
+workingValue4 = nil
+dataCollection3 = {}
+dataCollection4 = {}
+dataCollection5 = {}
+dataCollection6 = {}
+eventHandler3 = Citizen
+eventHandler3 = eventHandler3.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7
-  arg1 = pairs
-  arg2 = cmgCall.triathlon
-  arg2 = arg2.races
-  arg1, arg2, numberValue10, numberValue11 = arg1(arg2)
-  for workValue5 in arg1, arg2, numberValue10, numberValue11 do
-    workValue6 = dataTable
-    workValue6 = #workValue6
-    workValue7 = workValue6 + 1
-    workValue6 = dataTable
-    workValue6[workValue7] = workValue5
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7
+  localValue1 = pairs
+  localValue2 = cmgOperation.triathlon
+  localValue2 = localValue2.races
+  localValue1, localValue2, number10, number11 = localValue1(localValue2)
+  for workingValue5 in localValue1, localValue2, number10, number11 do
+    workingValue6 = dataCollection
+    workingValue6 = #workingValue6
+    workingValue7 = workingValue6 + 1
+    workingValue6 = dataCollection
+    workingValue6[workingValue7] = workingValue5
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-eventRegistration3(textValue)
-eventRegistration3 = RegisterNetEvent
-textValue = "b703d69501"
+eventHandler3(text)
+eventHandler3 = RegisterNetEvent
+text = "b703d69501"
 -- Beginner: this function handles network event "b703d69501".
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2
-  textValue4 = arg1
-  dataTable2.isInRace = true
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2
+  text4 = localValue1
+  dataCollection2.isInRace = true
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b703d69501".
-eventRegistration3(textValue, workValue)
-eventRegistration3 = RegisterNetEvent
-textValue = "e3ef1bd162"
+eventHandler3(text, workingValue)
+eventHandler3 = RegisterNetEvent
+text = "e3ef1bd162"
 -- Beginner: this function handles network event "e3ef1bd162".
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8
-  arg1 = 1
-  arg2 = cmgCall.triathlon
-  arg2 = arg2.races
-  numberValue10 = textValue4
-  arg2 = arg2[numberValue10]
-  arg2 = arg2.checkpoints
-  arg2 = #arg2
-  numberValue10 = 1
-  for numberValue11 = arg1, arg2, numberValue10 do
-    workValue5 = cmgCall.triathlon
-    workValue5 = workValue5.races
-    workValue6 = textValue4
-    workValue5 = workValue5[workValue6]
-    workValue5 = workValue5.checkpoints
-    workValue5 = workValue5[numberValue11]
-    workValue6 = cmgCall.triathlon
-    workValue6 = workValue6.races
-    workValue7 = textValue4
-    workValue6 = workValue6[workValue7]
-    workValue6 = workValue6.cycle
-    workValue7 = dataTable5
-    numberValue13 = CreateCheckpoint
-    numberValue14 = 13
-    numberValue15 = workValue5.x
-    flag = workValue5.y
-    flag2 = workValue5.z
-    flag3 = workValue6.x
-    numberValue = workValue6.y
-    numberValue2 = workValue6.z
-    numberValue3 = 50.0
-    numberValue4 = 255
-    numberValue5 = 255
-    numberValue6 = 0
-    numberValue7 = 127
-    numberValue8 = 0
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4, number5, number6, number7, number8
+  localValue1 = 1
+  localValue2 = cmgOperation.triathlon
+  localValue2 = localValue2.races
+  number10 = text4
+  localValue2 = localValue2[number10]
+  localValue2 = localValue2.checkpoints
+  localValue2 = #localValue2
+  number10 = 1
+  for number11 = localValue1, localValue2, number10 do
+    workingValue5 = cmgOperation.triathlon
+    workingValue5 = workingValue5.races
+    workingValue6 = text4
+    workingValue5 = workingValue5[workingValue6]
+    workingValue5 = workingValue5.checkpoints
+    workingValue5 = workingValue5[number11]
+    workingValue6 = cmgOperation.triathlon
+    workingValue6 = workingValue6.races
+    workingValue7 = text4
+    workingValue6 = workingValue6[workingValue7]
+    workingValue6 = workingValue6.cycle
+    workingValue7 = dataCollection5
+    number13 = CreateCheckpoint
+    number14 = 13
+    number15 = workingValue5.x
+    stateFlag = workingValue5.y
+    stateFlag2 = workingValue5.z
+    stateFlag3 = workingValue6.x
+    number = workingValue6.y
+    number2 = workingValue6.z
+    number3 = 50.0
+    number4 = 255
+    number5 = 255
+    number6 = 0
+    number7 = 127
+    number8 = 0
     -- Beginner: result below is checkpointHandle.
-    numberValue13 = numberValue13(numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8)
-    workValue7[numberValue11] = numberValue13
+    number13 = number13(number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4, number5, number6, number7, number8)
+    workingValue7[number11] = number13
   end
-  arg1 = textValue4
-  if "Vinewood Sign" == arg1 then
-    arg1 = 0
-    arg2 = CMG
-    arg2 = arg2.loadModel
-    numberValue10 = 1867879106
+  localValue1 = text4
+  if "Vinewood Sign" == localValue1 then
+    localValue1 = 0
+    localValue2 = CMG
+    localValue2 = localValue2.loadModel
+    number10 = 1867879106
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    arg2(numberValue10)
-    arg2 = 1
-    numberValue10 = 12
-    numberValue11 = 1
-    for workValue5 = arg2, numberValue10, numberValue11 do
-      workValue6 = CreateObject
-      workValue7 = 1867879106
-      numberValue13 = 847.02429199219 + arg1
-      numberValue14 = 1290.3720703125
-      numberValue14 = numberValue14 - arg1
-      numberValue15 = 359.15859985352
-      flag = false
-      flag2 = true
-      flag3 = true
+    localValue2(number10)
+    localValue2 = 1
+    number10 = 12
+    number11 = 1
+    for workingValue5 = localValue2, number10, number11 do
+      workingValue6 = CreateObject
+      workingValue7 = 1867879106
+      number13 = 847.02429199219 + localValue1
+      number14 = 1290.3720703125
+      number14 = number14 - localValue1
+      number15 = 359.15859985352
+      stateFlag = false
+      stateFlag2 = true
+      stateFlag3 = true
       -- Beginner: result below is objectEntity.
-      workValue6 = workValue6(workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3)
-      workValue7 = SetEntityHeading
-      numberValue13 = workValue6
-      numberValue14 = 308.5
+      workingValue6 = workingValue6(workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3)
+      workingValue7 = SetEntityHeading
+      number13 = workingValue6
+      number14 = 308.5
       -- Beginner: Change the direction an entity is facing.
-      workValue7(numberValue13, numberValue14)
-      workValue7 = FreezeEntityPosition
-      numberValue13 = workValue6
-      numberValue14 = true
+      workingValue7(number13, number14)
+      workingValue7 = FreezeEntityPosition
+      number13 = workingValue6
+      number14 = true
       -- Beginner: Freeze or unfreeze an entity in place.
-      workValue7(numberValue13, numberValue14)
-      workValue7 = PlaceObjectOnGroundProperly
-      numberValue13 = workValue6
-      workValue7(numberValue13)
-      workValue7 = dataTable6
-      workValue7 = #workValue7
-      numberValue13 = workValue7 + 1
-      workValue7 = dataTable6
-      workValue7[numberValue13] = workValue6
-      arg1 = arg1 + 2
+      workingValue7(number13, number14)
+      workingValue7 = PlaceObjectOnGroundProperly
+      number13 = workingValue6
+      workingValue7(number13)
+      workingValue7 = dataCollection6
+      workingValue7 = #workingValue7
+      number13 = workingValue7 + 1
+      workingValue7 = dataCollection6
+      workingValue7[number13] = workingValue6
+      localValue1 = localValue1 + 2
     end
-    arg2 = SetModelAsNoLongerNeeded
-    numberValue10 = 1867879106
-    arg2(numberValue10)
+    localValue2 = SetModelAsNoLongerNeeded
+    number10 = 1867879106
+    localValue2(number10)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e3ef1bd162".
-eventRegistration3(textValue, workValue)
+eventHandler3(text, workingValue)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: arg1) ===
-function eventRegistration3(arg1)
-  local arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3
-  arg2 = AddBlipForCoord
-  numberValue10 = arg1.x
-  numberValue11 = arg1.y
-  workValue5 = arg1.z
+-- === HELPER FUNCTION (decompiler name: eventHandler3; parameters: localValue1) ===
+function eventHandler3(localValue1)
+  local localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3
+  localValue2 = AddBlipForCoord
+  number10 = localValue1.x
+  number11 = localValue1.y
+  workingValue5 = localValue1.z
   -- Beginner: result below is blipHandle.
-  arg2 = arg2(numberValue10, numberValue11, workValue5)
-  numberValue10 = SetBlipSprite
-  numberValue11 = arg2
-  workValue5 = 38
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = CreateCheckpoint
-  numberValue11 = 9
-  workValue5 = arg1.x
-  workValue6 = arg1.y
-  workValue7 = arg1.z
-  workValue7 = workValue7 - 1.0
-  numberValue13 = 0
-  numberValue14 = 0
-  numberValue15 = 0
-  flag = 10.0
-  flag2 = 255
-  flag3 = 255
-  numberValue = 0
-  numberValue2 = 127
-  numberValue3 = 0
+  localValue2 = localValue2(number10, number11, workingValue5)
+  number10 = SetBlipSprite
+  number11 = localValue2
+  workingValue5 = 38
+  number10(number11, workingValue5)
+  number10 = CreateCheckpoint
+  number11 = 9
+  workingValue5 = localValue1.x
+  workingValue6 = localValue1.y
+  workingValue7 = localValue1.z
+  workingValue7 = workingValue7 - 1.0
+  number13 = 0
+  number14 = 0
+  number15 = 0
+  stateFlag = 10.0
+  stateFlag2 = 255
+  stateFlag3 = 255
+  number = 0
+  number2 = 127
+  number3 = 0
   -- Beginner: result below is checkpointHandle.
-  numberValue10 = numberValue10(numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3)
-  dataTable3.finish = numberValue10
-  dataTable4.finish = arg2
+  number10 = number10(number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3)
+  dataCollection3.finish = number10
+  dataCollection4.finish = localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4
-  arg2 = AddBlipForCoord
-  numberValue10 = arg1.x
-  numberValue11 = arg1.y
-  workValue5 = arg1.z
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4
+  localValue2 = AddBlipForCoord
+  number10 = localValue1.x
+  number11 = localValue1.y
+  workingValue5 = localValue1.z
   -- Beginner: result below is blipHandle.
-  arg2 = arg2(numberValue10, numberValue11, workValue5)
-  numberValue10 = SetBlipSprite
-  numberValue11 = arg2
-  workValue5 = 226
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = SetBlipRoute
-  numberValue11 = arg2
-  workValue5 = true
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = cmgCall.triathlon
-  numberValue10 = numberValue10.races
-  numberValue11 = textValue4
-  numberValue10 = numberValue10[numberValue11]
-  numberValue10 = numberValue10.finish
-  numberValue11 = CreateCheckpoint
-  workValue5 = 0
-  workValue6 = arg1.x
-  workValue7 = arg1.y
-  numberValue13 = arg1.z
-  numberValue13 = numberValue13 - 1.0
-  numberValue14 = numberValue10.x
-  numberValue15 = numberValue10.y
-  flag = numberValue10.z
-  flag2 = 10.0
-  flag3 = 255
-  numberValue = 255
-  numberValue2 = 0
-  numberValue3 = 127
-  numberValue4 = 0
+  localValue2 = localValue2(number10, number11, workingValue5)
+  number10 = SetBlipSprite
+  number11 = localValue2
+  workingValue5 = 226
+  number10(number11, workingValue5)
+  number10 = SetBlipRoute
+  number11 = localValue2
+  workingValue5 = true
+  number10(number11, workingValue5)
+  number10 = cmgOperation.triathlon
+  number10 = number10.races
+  number11 = text4
+  number10 = number10[number11]
+  number10 = number10.finish
+  number11 = CreateCheckpoint
+  workingValue5 = 0
+  workingValue6 = localValue1.x
+  workingValue7 = localValue1.y
+  number13 = localValue1.z
+  number13 = number13 - 1.0
+  number14 = number10.x
+  number15 = number10.y
+  stateFlag = number10.z
+  stateFlag2 = 10.0
+  stateFlag3 = 255
+  number = 255
+  number2 = 0
+  number3 = 127
+  number4 = 0
   -- Beginner: result below is checkpointHandle.
-  numberValue11 = numberValue11(workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4)
-  dataTable3.bmxTo = numberValue11
-  numberValue11 = SetCheckpointCylinderHeight
-  workValue5 = dataTable3.bmxTo
-  workValue6 = 40.0
-  workValue7 = 140.0
-  numberValue13 = 25.0
-  numberValue11(workValue5, workValue6, workValue7, numberValue13)
-  dataTable4.bmxTo = arg2
+  number11 = number11(workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4)
+  dataCollection3.bmxTo = number11
+  number11 = SetCheckpointCylinderHeight
+  workingValue5 = dataCollection3.bmxTo
+  workingValue6 = 40.0
+  workingValue7 = 140.0
+  number13 = 25.0
+  number11(workingValue5, workingValue6, workingValue7, number13)
+  dataCollection4.bmxTo = localValue2
 
-  -- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-  function numberValue11()
-    local modelHash, cmgCall5, textValue5, textValue6, flag9
+  -- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+  function number11()
+    local modelHash, cmgOperation5, text5, text6, stateFlag9
     modelHash = GetEntityModel
-    cmgCall5 = CMG
-    cmgCall5 = cmgCall5.getPlayerVehicle
-    cmgCall5, textValue5, textValue6, flag9 = cmgCall5()
+    cmgOperation5 = CMG
+    cmgOperation5 = cmgOperation5.getPlayerVehicle
+    cmgOperation5, text5, text6, stateFlag9 = cmgOperation5()
     -- Beginner: result below is modelHash.
-    modelHash = modelHash(cmgCall5, textValue5, textValue6, flag9)
+    modelHash = modelHash(cmgOperation5, text5, text6, stateFlag9)
     if 1131912276 == modelHash then
       modelHash = DeleteEntity
-      cmgCall5 = CMG
-      cmgCall5 = cmgCall5.getPlayerVehicle
-      cmgCall5, textValue5, textValue6, flag9 = cmgCall5()
+      cmgOperation5 = CMG
+      cmgOperation5 = cmgOperation5.getPlayerVehicle
+      cmgOperation5, text5, text6, stateFlag9 = cmgOperation5()
       -- Beginner: Delete a GTA entity.
-      modelHash(cmgCall5, textValue5, textValue6, flag9)
-      dataTable2.isOnBMX = false
-      dataTable2.isRunning = true
+      modelHash(cmgOperation5, text5, text6, stateFlag9)
+      dataCollection2.isOnBMX = false
+      dataCollection2.isRunning = true
       modelHash = DeleteCheckpoint
-      cmgCall5 = dataTable3.bmxTo
-      modelHash(cmgCall5)
+      cmgOperation5 = dataCollection3.bmxTo
+      modelHash(cmgOperation5)
       modelHash = RemoveBlip
-      cmgCall5 = dataTable4.bmxTo
-      modelHash(cmgCall5)
+      cmgOperation5 = dataCollection4.bmxTo
+      modelHash(cmgOperation5)
       modelHash = tCMG
       modelHash = modelHash.removeArea
-      cmgCall5 = "cmg_triathlon_race_bmxTo"
-      modelHash(cmgCall5)
+      cmgOperation5 = "cmg_triathlon_race_bmxTo"
+      modelHash(cmgOperation5)
       modelHash = PlaySoundFrontend
-      cmgCall5 = -1
-      textValue5 = "RACE_PLACED"
-      textValue6 = "HUD_AWARDS"
-      flag9 = false
-      modelHash(cmgCall5, textValue5, textValue6, flag9)
-      modelHash = eventRegistration3
-      cmgCall5 = cmgCall.triathlon
-      cmgCall5 = cmgCall5.races
-      textValue5 = textValue4
-      cmgCall5 = cmgCall5[textValue5]
-      cmgCall5 = cmgCall5.finish
+      cmgOperation5 = -1
+      text5 = "RACE_PLACED"
+      text6 = "HUD_AWARDS"
+      stateFlag9 = false
+      modelHash(cmgOperation5, text5, text6, stateFlag9)
+      modelHash = eventHandler3
+      cmgOperation5 = cmgOperation.triathlon
+      cmgOperation5 = cmgOperation5.races
+      text5 = text4
+      cmgOperation5 = cmgOperation5[text5]
+      cmgOperation5 = cmgOperation5.finish
       -- Beginner: Register a network event handler that the server/other clients can trigger.
-      modelHash(cmgCall5)
+      modelHash(cmgOperation5)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-  function workValue5()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+  function workingValue5()
+    local modelHash, cmgOperation5
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-  function workValue6()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+  function workingValue6()
+    local modelHash, cmgOperation5
   end
-  workValue7 = CMG
-  workValue7 = workValue7.createArea
-  numberValue13 = "cmg_triathlon_race_bmxTo"
-  numberValue14 = arg1
-  numberValue15 = 6.0
-  flag = 6
-  flag2 = numberValue11
-  flag3 = workValue5
-  numberValue = workValue6
+  workingValue7 = CMG
+  workingValue7 = workingValue7.createArea
+  number13 = "cmg_triathlon_race_bmxTo"
+  number14 = localValue1
+  number15 = 6.0
+  stateFlag = 6
+  stateFlag2 = number11
+  stateFlag3 = workingValue5
+  number = workingValue6
   -- Beginner: Create an interaction area around a world position.
-  workValue7(numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue)
+  workingValue7(number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3
-  arg1 = dataTable2.currentCheckpointId
-  if 0 ~= arg1 then
-    arg1 = DeleteCheckpoint
-    arg2 = dataTable2.currentCheckpointId
-    arg1(arg2)
-    arg1 = tCMG
-    arg1 = arg1.removeArea
-    arg2 = "cmg_triathlon_race_"
-    numberValue10 = dataTable2.currentCheckpointId
-    arg2 = arg2 .. numberValue10
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3
+  localValue1 = dataCollection2.currentCheckpointId
+  if 0 ~= localValue1 then
+    localValue1 = DeleteCheckpoint
+    localValue2 = dataCollection2.currentCheckpointId
+    localValue1(localValue2)
+    localValue1 = tCMG
+    localValue1 = localValue1.removeArea
+    localValue2 = "cmg_triathlon_race_"
+    number10 = dataCollection2.currentCheckpointId
+    localValue2 = localValue2 .. number10
+    localValue1(localValue2)
   end
-  arg1 = dataTable2.currentCheckpoint
-  if 1 ~= arg1 then
-    arg1 = dataTable2.currentCheckpoint
-    arg1 = arg1 + 1
-    dataTable2.currentCheckpoint = arg1
+  localValue1 = dataCollection2.currentCheckpoint
+  if 1 ~= localValue1 then
+    localValue1 = dataCollection2.currentCheckpoint
+    localValue1 = localValue1 + 1
+    dataCollection2.currentCheckpoint = localValue1
   end
-  arg1 = dataTable2.currentCheckpoint
-  arg2 = cmgCall.triathlon
-  arg2 = arg2.races
-  numberValue10 = textValue4
-  arg2 = arg2[numberValue10]
-  arg2 = arg2.extraCheckpoints
-  arg2 = #arg2
-  if arg1 > arg2 then
+  localValue1 = dataCollection2.currentCheckpoint
+  localValue2 = cmgOperation.triathlon
+  localValue2 = localValue2.races
+  number10 = text4
+  localValue2 = localValue2[number10]
+  localValue2 = localValue2.extraCheckpoints
+  localValue2 = #localValue2
+  if localValue1 > localValue2 then
     return
   end
-  arg1 = cmgCall.triathlon
-  arg1 = arg1.races
-  arg2 = textValue4
-  arg1 = arg1[arg2]
-  arg1 = arg1.extraCheckpoints
-  arg2 = dataTable2.currentCheckpoint
-  arg1 = arg1[arg2]
-  arg2 = cmgCall.triathlon
-  arg2 = arg2.races
-  numberValue10 = textValue4
-  arg2 = arg2[numberValue10]
-  arg2 = arg2.extraCheckpoints
-  numberValue10 = dataTable2.currentCheckpoint
-  numberValue10 = numberValue10 + 1
-  arg2 = arg2[numberValue10]
-  numberValue10 = CreateCheckpoint
-  numberValue11 = 0
-  workValue5 = arg1.x
-  workValue6 = arg1.y
-  workValue7 = arg1.z
-  workValue7 = workValue7 - 1.0
-  numberValue13 = arg2.x
-  numberValue14 = arg2.y
-  numberValue15 = arg2.z
-  flag = 10.0
-  flag2 = 255
-  flag3 = 255
-  numberValue = 0
-  numberValue2 = 127
-  numberValue3 = 0
+  localValue1 = cmgOperation.triathlon
+  localValue1 = localValue1.races
+  localValue2 = text4
+  localValue1 = localValue1[localValue2]
+  localValue1 = localValue1.extraCheckpoints
+  localValue2 = dataCollection2.currentCheckpoint
+  localValue1 = localValue1[localValue2]
+  localValue2 = cmgOperation.triathlon
+  localValue2 = localValue2.races
+  number10 = text4
+  localValue2 = localValue2[number10]
+  localValue2 = localValue2.extraCheckpoints
+  number10 = dataCollection2.currentCheckpoint
+  number10 = number10 + 1
+  localValue2 = localValue2[number10]
+  number10 = CreateCheckpoint
+  number11 = 0
+  workingValue5 = localValue1.x
+  workingValue6 = localValue1.y
+  workingValue7 = localValue1.z
+  workingValue7 = workingValue7 - 1.0
+  number13 = localValue2.x
+  number14 = localValue2.y
+  number15 = localValue2.z
+  stateFlag = 10.0
+  stateFlag2 = 255
+  stateFlag3 = 255
+  number = 0
+  number2 = 127
+  number3 = 0
   -- Beginner: result below is checkpointHandle.
-  numberValue10 = numberValue10(numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3)
-  dataTable2.currentCheckpointId = numberValue10
-  numberValue10 = dataTable2.currentCheckpoint
-  if 1 == numberValue10 then
-    dataTable2.currentCheckpoint = 2
+  number10 = number10(number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3)
+  dataCollection2.currentCheckpointId = number10
+  number10 = dataCollection2.currentCheckpoint
+  if 1 == number10 then
+    dataCollection2.currentCheckpoint = 2
   end
-  numberValue10 = CMG
-  numberValue10 = numberValue10.getPlayerCoords
+  number10 = CMG
+  number10 = number10.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  numberValue10 = numberValue10()
-  numberValue11 = cmgCall.triathlon
-  numberValue11 = numberValue11.races
-  workValue5 = textValue4
-  numberValue11 = numberValue11[workValue5]
-  numberValue11 = numberValue11.extraCheckpoints
-  workValue5 = dataTable2.currentCheckpoint
-  workValue5 = workValue5 + 1
-  numberValue11 = numberValue11[workValue5]
-  numberValue10 = numberValue10 - numberValue11
-  numberValue10 = #numberValue10
-  dataTable2.checkpointDistance = numberValue10
+  number10 = number10()
+  number11 = cmgOperation.triathlon
+  number11 = number11.races
+  workingValue5 = text4
+  number11 = number11[workingValue5]
+  number11 = number11.extraCheckpoints
+  workingValue5 = dataCollection2.currentCheckpoint
+  workingValue5 = workingValue5 + 1
+  number11 = number11[workingValue5]
+  number10 = number10 - number11
+  number10 = #number10
+  dataCollection2.checkpointDistance = number10
 
-  -- === HELPER FUNCTION (decompiler name: numberValue10; parameters: none) ===
-  function numberValue10()
-    local modelHash, cmgCall5, textValue5, textValue6, flag9
+  -- === HELPER FUNCTION (decompiler name: number10; parameters: none) ===
+  function number10()
+    local modelHash, cmgOperation5, text5, text6, stateFlag9
     modelHash = GetEntityModel
-    cmgCall5 = CMG
-    cmgCall5 = cmgCall5.getPlayerVehicle
-    cmgCall5, textValue5, textValue6, flag9 = cmgCall5()
+    cmgOperation5 = CMG
+    cmgOperation5 = cmgOperation5.getPlayerVehicle
+    cmgOperation5, text5, text6, stateFlag9 = cmgOperation5()
     -- Beginner: result below is modelHash.
-    modelHash = modelHash(cmgCall5, textValue5, textValue6, flag9)
+    modelHash = modelHash(cmgOperation5, text5, text6, stateFlag9)
     if 1131912276 == modelHash then
-      modelHash = workValue
+      modelHash = workingValue
       modelHash()
       modelHash = PlaySoundFrontend
-      cmgCall5 = -1
-      textValue5 = "RACE_PLACED"
-      textValue6 = "HUD_AWARDS"
-      flag9 = false
-      modelHash(cmgCall5, textValue5, textValue6, flag9)
+      cmgOperation5 = -1
+      text5 = "RACE_PLACED"
+      text6 = "HUD_AWARDS"
+      stateFlag9 = false
+      modelHash(cmgOperation5, text5, text6, stateFlag9)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-  function numberValue11()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+  function number11()
+    local modelHash, cmgOperation5
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-  function workValue5()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+  function workingValue5()
+    local modelHash, cmgOperation5
   end
-  workValue6 = CMG
-  workValue6 = workValue6.createArea
-  workValue7 = "cmg_triathlon_race_"
-  numberValue13 = dataTable2.currentCheckpointId
-  workValue7 = workValue7 .. numberValue13
-  numberValue13 = arg1
-  numberValue14 = 6.0
-  numberValue15 = 6
-  flag = numberValue10
-  flag2 = numberValue11
-  flag3 = workValue5
+  workingValue6 = CMG
+  workingValue6 = workingValue6.createArea
+  workingValue7 = "cmg_triathlon_race_"
+  number13 = dataCollection2.currentCheckpointId
+  workingValue7 = workingValue7 .. number13
+  number13 = localValue1
+  number14 = 6.0
+  number15 = 6
+  stateFlag = number10
+  stateFlag2 = number11
+  stateFlag3 = workingValue5
   -- Beginner: Create an interaction area around a world position.
-  workValue6(workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3)
+  workingValue6(workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3)
 end
-eventRegistration = RegisterNetEvent
-eventRegistration2 = "cdbc466c3d"
+eventHandler = RegisterNetEvent
+eventHandler2 = "cdbc466c3d"
 -- Beginner: this function handles network event "cdbc466c3d".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1) ===
-function threadCall(arg1)
-  local arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4
-  workValue4 = arg1
-  arg2 = CMG
-  arg2 = arg2.stopEventSequence
-  numberValue10 = false
-  arg2(numberValue10)
-  dataTable2.isParachuting = true
-  arg2 = AddBlipForCoord
-  numberValue10 = arg1.x
-  numberValue11 = arg1.y
-  workValue5 = arg1.z
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1) ===
+function backgroundThread(localValue1)
+  local localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4
+  workingValue4 = localValue1
+  localValue2 = CMG
+  localValue2 = localValue2.stopEventSequence
+  number10 = false
+  localValue2(number10)
+  dataCollection2.isParachuting = true
+  localValue2 = AddBlipForCoord
+  number10 = localValue1.x
+  number11 = localValue1.y
+  workingValue5 = localValue1.z
   -- Beginner: result below is blipHandle.
-  arg2 = arg2(numberValue10, numberValue11, workValue5)
-  numberValue10 = SetBlipSprite
-  numberValue11 = arg2
-  workValue5 = 226
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = cmgCall.triathlon
-  numberValue10 = numberValue10.races
-  numberValue11 = textValue4
-  numberValue10 = numberValue10[numberValue11]
-  numberValue10 = numberValue10.run
-  numberValue11 = CreateCheckpoint
-  workValue5 = 0
-  workValue6 = arg1.x
-  workValue7 = arg1.y
-  numberValue13 = arg1.z
-  numberValue13 = numberValue13 - 1.0
-  numberValue14 = numberValue10.x
-  numberValue15 = numberValue10.y
-  flag = numberValue10.z
-  flag2 = 10.0
-  flag3 = 255
-  numberValue = 255
-  numberValue2 = 0
-  numberValue3 = 127
-  numberValue4 = 0
+  localValue2 = localValue2(number10, number11, workingValue5)
+  number10 = SetBlipSprite
+  number11 = localValue2
+  workingValue5 = 226
+  number10(number11, workingValue5)
+  number10 = cmgOperation.triathlon
+  number10 = number10.races
+  number11 = text4
+  number10 = number10[number11]
+  number10 = number10.run
+  number11 = CreateCheckpoint
+  workingValue5 = 0
+  workingValue6 = localValue1.x
+  workingValue7 = localValue1.y
+  number13 = localValue1.z
+  number13 = number13 - 1.0
+  number14 = number10.x
+  number15 = number10.y
+  stateFlag = number10.z
+  stateFlag2 = 10.0
+  stateFlag3 = 255
+  number = 255
+  number2 = 0
+  number3 = 127
+  number4 = 0
   -- Beginner: result below is checkpointHandle.
-  numberValue11 = numberValue11(workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4)
-  dataTable3.bmx = numberValue11
-  numberValue11 = SetCheckpointCylinderHeight
-  workValue5 = dataTable3.bmx
-  workValue6 = 40.0
-  workValue7 = 70.0
-  numberValue13 = 25.0
-  numberValue11(workValue5, workValue6, workValue7, numberValue13)
-  dataTable4.bmx = arg2
+  number11 = number11(workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4)
+  dataCollection3.bmx = number11
+  number11 = SetCheckpointCylinderHeight
+  workingValue5 = dataCollection3.bmx
+  workingValue6 = 40.0
+  workingValue7 = 70.0
+  number13 = 25.0
+  number11(workingValue5, workingValue6, workingValue7, number13)
+  dataCollection4.bmx = localValue2
 
-  -- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-  function numberValue11()
-    local modelHash, cmgCall5, textValue5, textValue6, flag9, numberValue12, flag10, flag11, flag12
+  -- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+  function number11()
+    local modelHash, cmgOperation5, text5, text6, stateFlag9, number12, stateFlag10, stateFlag11, stateFlag12
     modelHash = CMG
     modelHash = modelHash.loadModel
-    cmgCall5 = 1131912276
+    cmgOperation5 = 1131912276
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    modelHash(cmgCall5)
+    modelHash(cmgOperation5)
     modelHash = CMG
     modelHash = modelHash.spawnVehicle
-    cmgCall5 = 1131912276
-    textValue5 = arg1.x
-    textValue6 = arg1.y
-    flag9 = arg1.z
-    numberValue12 = 10.0
-    flag10 = true
-    flag11 = true
-    flag12 = true
-    modelHash(cmgCall5, textValue5, textValue6, flag9, numberValue12, flag10, flag11, flag12)
+    cmgOperation5 = 1131912276
+    text5 = localValue1.x
+    text6 = localValue1.y
+    stateFlag9 = localValue1.z
+    number12 = 10.0
+    stateFlag10 = true
+    stateFlag11 = true
+    stateFlag12 = true
+    modelHash(cmgOperation5, text5, text6, stateFlag9, number12, stateFlag10, stateFlag11, stateFlag12)
     modelHash = SetModelAsNoLongerNeeded
-    cmgCall5 = 1131912276
-    modelHash(cmgCall5)
-    dataTable2.isParachuting = false
-    dataTable2.isOnBMX = true
+    cmgOperation5 = 1131912276
+    modelHash(cmgOperation5)
+    dataCollection2.isParachuting = false
+    dataCollection2.isOnBMX = true
     modelHash = DeleteCheckpoint
-    cmgCall5 = dataTable3.bmx
-    modelHash(cmgCall5)
+    cmgOperation5 = dataCollection3.bmx
+    modelHash(cmgOperation5)
     modelHash = RemoveBlip
-    cmgCall5 = dataTable4.bmx
-    modelHash(cmgCall5)
+    cmgOperation5 = dataCollection4.bmx
+    modelHash(cmgOperation5)
     modelHash = tCMG
     modelHash = modelHash.removeArea
-    cmgCall5 = "cmg_triathlon_race_bmx"
-    modelHash(cmgCall5)
+    cmgOperation5 = "cmg_triathlon_race_bmx"
+    modelHash(cmgOperation5)
     modelHash = PlaySoundFrontend
-    cmgCall5 = -1
-    textValue5 = "RACE_PLACED"
-    textValue6 = "HUD_AWARDS"
-    flag9 = false
-    modelHash(cmgCall5, textValue5, textValue6, flag9)
-    modelHash = textValue
-    cmgCall5 = cmgCall.triathlon
-    cmgCall5 = cmgCall5.races
-    textValue5 = textValue4
-    cmgCall5 = cmgCall5[textValue5]
-    cmgCall5 = cmgCall5.run
-    modelHash(cmgCall5)
-    modelHash = workValue
+    cmgOperation5 = -1
+    text5 = "RACE_PLACED"
+    text6 = "HUD_AWARDS"
+    stateFlag9 = false
+    modelHash(cmgOperation5, text5, text6, stateFlag9)
+    modelHash = text
+    cmgOperation5 = cmgOperation.triathlon
+    cmgOperation5 = cmgOperation5.races
+    text5 = text4
+    cmgOperation5 = cmgOperation5[text5]
+    cmgOperation5 = cmgOperation5.run
+    modelHash(cmgOperation5)
+    modelHash = workingValue
     modelHash()
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-  function workValue5()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+  function workingValue5()
+    local modelHash, cmgOperation5
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-  function workValue6()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+  function workingValue6()
+    local modelHash, cmgOperation5
   end
-  workValue7 = CMG
-  workValue7 = workValue7.createArea
-  numberValue13 = "cmg_triathlon_race_bmx"
-  numberValue14 = arg1
-  numberValue15 = 6.0
-  flag = 6
-  flag2 = numberValue11
-  flag3 = workValue5
-  numberValue = workValue6
+  workingValue7 = CMG
+  workingValue7 = workingValue7.createArea
+  number13 = "cmg_triathlon_race_bmx"
+  number14 = localValue1
+  number15 = 6.0
+  stateFlag = 6
+  stateFlag2 = number11
+  stateFlag3 = workingValue5
+  number = workingValue6
   -- Beginner: Create an interaction area around a world position.
-  workValue7(numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue)
+  workingValue7(number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "cdbc466c3d".
-eventRegistration(eventRegistration2, threadCall)
-eventRegistration = RegisterNetEvent
-eventRegistration2 = "a8589480c9"
+eventHandler(eventHandler2, backgroundThread)
+eventHandler = RegisterNetEvent
+eventHandler2 = "a8589480c9"
 -- Beginner: this function handles network event "a8589480c9".
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1) ===
-function threadCall(arg1)
-  local arg2, numberValue10
-  arg2 = CMG
-  arg2 = arg2.showCountdownTimer
-  numberValue10 = arg1
-  arg2(numberValue10)
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1) ===
+function backgroundThread(localValue1)
+  local localValue2, number10
+  localValue2 = CMG
+  localValue2 = localValue2.showCountdownTimer
+  number10 = localValue1
+  localValue2(number10)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a8589480c9".
-eventRegistration(eventRegistration2, threadCall)
-eventRegistration = {}
+eventHandler(eventHandler2, backgroundThread)
+eventHandler = {}
 -- Beginner: this function handles network event "a8589480c9".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15
-  arg1 = true
-  arg2 = Scaleform
-  numberValue10 = "MIDSIZED_MESSAGE"
-  arg2 = arg2(numberValue10)
-  numberValue10 = arg2.RunFunction
-  numberValue11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-  workValue5 = {}
-  workValue6 = "~y~TRIATHLON"
-  workValue7 = "RIDE TO THE CHECKPOINT!"
-  numberValue13 = 5
-  numberValue14 = true
-  numberValue15 = false
-  workValue5[1] = workValue6
-  workValue5[2] = workValue7
-  workValue5[3] = numberValue13
-  workValue5[4] = numberValue14
-  workValue5[5] = numberValue15
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = Citizen
-  numberValue10 = numberValue10.CreateThread
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15
+  localValue1 = true
+  localValue2 = Scaleform
+  number10 = "MIDSIZED_MESSAGE"
+  localValue2 = localValue2(number10)
+  number10 = localValue2.RunFunction
+  number11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
+  workingValue5 = {}
+  workingValue6 = "~y~TRIATHLON"
+  workingValue7 = "RIDE TO THE CHECKPOINT!"
+  number13 = 5
+  number14 = true
+  number15 = false
+  workingValue5[1] = workingValue6
+  workingValue5[2] = workingValue7
+  workingValue5[3] = number13
+  workingValue5[4] = number14
+  workingValue5[5] = number15
+  number10(number11, workingValue5)
+  number10 = Citizen
+  number10 = number10.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-  function numberValue11()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+  function number11()
+    local modelHash, cmgOperation5
     while true do
-      modelHash = arg1
+      modelHash = localValue1
       if not modelHash then
         break
       end
-      modelHash = arg2.Render2D
+      modelHash = localValue2.Render2D
       modelHash()
       modelHash = Wait
-      cmgCall5 = 0
-      modelHash(cmgCall5)
+      cmgOperation5 = 0
+      modelHash(cmgOperation5)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  numberValue10(numberValue11)
-  numberValue10 = Wait
-  numberValue11 = 5000
-  numberValue10(numberValue11)
-  arg1 = false
+  number10(number11)
+  number10 = Wait
+  number11 = 5000
+  number10(number11)
+  localValue1 = false
 end
-eventRegistration.bmx = eventRegistration2
+eventHandler.bmx = eventHandler2
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15
-  arg1 = true
-  arg2 = Scaleform
-  numberValue10 = "MIDSIZED_MESSAGE"
-  arg2 = arg2(numberValue10)
-  numberValue10 = arg2.RunFunction
-  numberValue11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-  workValue5 = {}
-  workValue6 = "~y~TRIATHLON"
-  workValue7 = "RUN TO THE FINISH!"
-  numberValue13 = 5
-  numberValue14 = true
-  numberValue15 = false
-  workValue5[1] = workValue6
-  workValue5[2] = workValue7
-  workValue5[3] = numberValue13
-  workValue5[4] = numberValue14
-  workValue5[5] = numberValue15
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = Citizen
-  numberValue10 = numberValue10.CreateThread
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15
+  localValue1 = true
+  localValue2 = Scaleform
+  number10 = "MIDSIZED_MESSAGE"
+  localValue2 = localValue2(number10)
+  number10 = localValue2.RunFunction
+  number11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
+  workingValue5 = {}
+  workingValue6 = "~y~TRIATHLON"
+  workingValue7 = "RUN TO THE FINISH!"
+  number13 = 5
+  number14 = true
+  number15 = false
+  workingValue5[1] = workingValue6
+  workingValue5[2] = workingValue7
+  workingValue5[3] = number13
+  workingValue5[4] = number14
+  workingValue5[5] = number15
+  number10(number11, workingValue5)
+  number10 = Citizen
+  number10 = number10.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-  function numberValue11()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+  function number11()
+    local modelHash, cmgOperation5
     while true do
-      modelHash = arg1
+      modelHash = localValue1
       if not modelHash then
         break
       end
-      modelHash = arg2.Render2D
+      modelHash = localValue2.Render2D
       modelHash()
       modelHash = Wait
-      cmgCall5 = 0
-      modelHash(cmgCall5)
+      cmgOperation5 = 0
+      modelHash(cmgOperation5)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  numberValue10(numberValue11)
-  numberValue10 = Wait
-  numberValue11 = 5000
-  numberValue10(numberValue11)
-  arg1 = false
+  number10(number11)
+  number10 = Wait
+  number11 = 5000
+  number10(number11)
+  localValue1 = false
 end
-eventRegistration.runto = eventRegistration2
+eventHandler.runto = eventHandler2
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag
-  arg2 = true
-  numberValue10 = Scaleform
-  numberValue11 = "MIDSIZED_MESSAGE"
-  numberValue10 = numberValue10(numberValue11)
-  numberValue11 = numberValue10.RunFunction
-  workValue5 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-  workValue6 = {}
-  workValue7 = "~y~TRIATHLON"
-  numberValue13 = arg1
-  numberValue14 = 5
-  numberValue15 = true
-  flag = false
-  workValue6[1] = workValue7
-  workValue6[2] = numberValue13
-  workValue6[3] = numberValue14
-  workValue6[4] = numberValue15
-  workValue6[5] = flag
-  numberValue11(workValue5, workValue6)
-  numberValue11 = Citizen
-  numberValue11 = numberValue11.CreateThread
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag
+  localValue2 = true
+  number10 = Scaleform
+  number11 = "MIDSIZED_MESSAGE"
+  number10 = number10(number11)
+  number11 = number10.RunFunction
+  workingValue5 = "SHOW_SHARD_MIDSIZED_MESSAGE"
+  workingValue6 = {}
+  workingValue7 = "~y~TRIATHLON"
+  number13 = localValue1
+  number14 = 5
+  number15 = true
+  stateFlag = false
+  workingValue6[1] = workingValue7
+  workingValue6[2] = number13
+  workingValue6[3] = number14
+  workingValue6[4] = number15
+  workingValue6[5] = stateFlag
+  number11(workingValue5, workingValue6)
+  number11 = Citizen
+  number11 = number11.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-  function workValue5()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+  function workingValue5()
+    local modelHash, cmgOperation5
     while true do
-      modelHash = arg2
+      modelHash = localValue2
       if not modelHash then
         break
       end
-      modelHash = numberValue10.Render2D
+      modelHash = number10.Render2D
       modelHash()
       modelHash = Wait
-      cmgCall5 = 0
-      modelHash(cmgCall5)
+      cmgOperation5 = 0
+      modelHash(cmgOperation5)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  numberValue11(workValue5)
-  numberValue11 = Wait
-  workValue5 = 5000
-  numberValue11(workValue5)
-  arg2 = false
+  number11(workingValue5)
+  number11 = Wait
+  workingValue5 = 5000
+  number11(workingValue5)
+  localValue2 = false
 end
-eventRegistration.finish = eventRegistration2
+eventHandler.finish = eventHandler2
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15
-  arg1 = true
-  arg2 = Scaleform
-  numberValue10 = "MIDSIZED_MESSAGE"
-  arg2 = arg2(numberValue10)
-  numberValue10 = arg2.RunFunction
-  numberValue11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-  workValue5 = {}
-  workValue6 = "~y~TRIATHLON"
-  workValue7 = "PARACHUTE THROUGH THE CHECKPOINTS TO THE BMX!"
-  numberValue13 = 5
-  numberValue14 = true
-  numberValue15 = false
-  workValue5[1] = workValue6
-  workValue5[2] = workValue7
-  workValue5[3] = numberValue13
-  workValue5[4] = numberValue14
-  workValue5[5] = numberValue15
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = Citizen
-  numberValue10 = numberValue10.CreateThread
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15
+  localValue1 = true
+  localValue2 = Scaleform
+  number10 = "MIDSIZED_MESSAGE"
+  localValue2 = localValue2(number10)
+  number10 = localValue2.RunFunction
+  number11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
+  workingValue5 = {}
+  workingValue6 = "~y~TRIATHLON"
+  workingValue7 = "PARACHUTE THROUGH THE CHECKPOINTS TO THE BMX!"
+  number13 = 5
+  number14 = true
+  number15 = false
+  workingValue5[1] = workingValue6
+  workingValue5[2] = workingValue7
+  workingValue5[3] = number13
+  workingValue5[4] = number14
+  workingValue5[5] = number15
+  number10(number11, workingValue5)
+  number10 = Citizen
+  number10 = number10.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-  function numberValue11()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+  function number11()
+    local modelHash, cmgOperation5
     while true do
-      modelHash = arg1
+      modelHash = localValue1
       if not modelHash then
         break
       end
-      modelHash = arg2.Render2D
+      modelHash = localValue2.Render2D
       modelHash()
       modelHash = Wait
-      cmgCall5 = 0
-      modelHash(cmgCall5)
+      cmgOperation5 = 0
+      modelHash(cmgOperation5)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  numberValue10(numberValue11)
-  numberValue10 = Wait
-  numberValue11 = 5000
-  numberValue10(numberValue11)
-  arg1 = false
+  number10(number11)
+  number10 = Wait
+  number11 = 5000
+  number10(number11)
+  localValue1 = false
 end
-eventRegistration.para = eventRegistration2
-eventRegistration2 = RegisterNetEvent
-threadCall = "d9697d34f9"
+eventHandler.para = eventHandler2
+eventHandler2 = RegisterNetEvent
+backgroundThread = "d9697d34f9"
 -- Beginner: this function handles network event "d9697d34f9".
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2) ===
-function cmgCall2(arg1, arg2)
-  local numberValue10, numberValue11, workValue5
-  numberValue10 = eventRegistration
-  numberValue10 = numberValue10[arg1]
-  if nil ~= numberValue10 then
-    numberValue10 = eventRegistration
-    numberValue10 = numberValue10[arg1]
-    numberValue11 = table
-    numberValue11 = numberValue11.unpack
-    workValue5 = arg2 or workValue5
-    if not arg2 then
-      workValue5 = {}
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1, localValue2) ===
+function cmgOperation2(localValue1, localValue2)
+  local number10, number11, workingValue5
+  number10 = eventHandler
+  number10 = number10[localValue1]
+  if nil ~= number10 then
+    number10 = eventHandler
+    number10 = number10[localValue1]
+    number11 = table
+    number11 = number11.unpack
+    workingValue5 = localValue2 or workingValue5
+    if not localValue2 then
+      workingValue5 = {}
     end
-    numberValue11, workValue5 = numberValue11(workValue5)
-    numberValue10(numberValue11, workValue5)
+    number11, workingValue5 = number11(workingValue5)
+    number10(number11, workingValue5)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d9697d34f9".
-eventRegistration2(threadCall, cmgCall2)
-eventRegistration2 = RegisterNetEvent
-threadCall = "f1c217712f"
+eventHandler2(backgroundThread, cmgOperation2)
+eventHandler2 = RegisterNetEvent
+backgroundThread = "f1c217712f"
 -- Beginner: this function handles network event "f1c217712f".
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15
-  arg1 = true
-  arg2 = Scaleform
-  numberValue10 = "MIDSIZED_MESSAGE"
-  arg2 = arg2(numberValue10)
-  numberValue10 = arg2.RunFunction
-  numberValue11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-  workValue5 = {}
-  workValue6 = "~y~TRIATHLON"
-  workValue7 = "EVENT IS ENDING IN 30 SECONDS"
-  numberValue13 = 5
-  numberValue14 = true
-  numberValue15 = false
-  workValue5[1] = workValue6
-  workValue5[2] = workValue7
-  workValue5[3] = numberValue13
-  workValue5[4] = numberValue14
-  workValue5[5] = numberValue15
-  numberValue10(numberValue11, workValue5)
-  numberValue10 = Citizen
-  numberValue10 = numberValue10.CreateThread
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15
+  localValue1 = true
+  localValue2 = Scaleform
+  number10 = "MIDSIZED_MESSAGE"
+  localValue2 = localValue2(number10)
+  number10 = localValue2.RunFunction
+  number11 = "SHOW_SHARD_MIDSIZED_MESSAGE"
+  workingValue5 = {}
+  workingValue6 = "~y~TRIATHLON"
+  workingValue7 = "EVENT IS ENDING IN 30 SECONDS"
+  number13 = 5
+  number14 = true
+  number15 = false
+  workingValue5[1] = workingValue6
+  workingValue5[2] = workingValue7
+  workingValue5[3] = number13
+  workingValue5[4] = number14
+  workingValue5[5] = number15
+  number10(number11, workingValue5)
+  number10 = Citizen
+  number10 = number10.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-  function numberValue11()
-    local modelHash, cmgCall5
+  -- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+  function number11()
+    local modelHash, cmgOperation5
     while true do
-      modelHash = arg1
+      modelHash = localValue1
       if not modelHash then
         break
       end
-      modelHash = arg2.Render2D
+      modelHash = localValue2.Render2D
       modelHash()
       modelHash = Wait
-      cmgCall5 = 0
-      modelHash(cmgCall5)
+      cmgOperation5 = 0
+      modelHash(cmgOperation5)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  numberValue10(numberValue11)
-  numberValue10 = Wait
-  numberValue11 = 5000
-  numberValue10(numberValue11)
-  numberValue10 = CMG
-  numberValue10 = numberValue10.showCountdownTimer
-  numberValue11 = 31
-  numberValue10(numberValue11)
-  arg1 = false
-  numberValue10 = dataTable2.hasFinished
-  if not numberValue10 then
-    numberValue10 = TriggerServerEvent
-    numberValue11 = "07033c0723"
-    workValue5 = currentEvent
-    workValue5 = workValue5.minigameId
+  number10(number11)
+  number10 = Wait
+  number11 = 5000
+  number10(number11)
+  number10 = CMG
+  number10 = number10.showCountdownTimer
+  number11 = 31
+  number10(number11)
+  localValue1 = false
+  number10 = dataCollection2.hasFinished
+  if not number10 then
+    number10 = TriggerServerEvent
+    number11 = "07033c0723"
+    workingValue5 = currentEvent
+    workingValue5 = workingValue5.minigameId
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "07033c0723".
-    numberValue10(numberValue11, workValue5)
+    number10(number11, workingValue5)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f1c217712f".
-eventRegistration2(threadCall, cmgCall2)
-eventRegistration2 = false
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+eventHandler2(backgroundThread, cmgOperation2)
+eventHandler2 = false
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag
   while true do
-    arg1 = dataTable2.isParachuting
-    if arg1 then
-      arg1 = textValue4
-      if nil ~= arg1 then
-        arg1 = GetEntityCoords
-        arg2 = PlayerPedId
-        arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag = arg2()
+    localValue1 = dataCollection2.isParachuting
+    if localValue1 then
+      localValue1 = text4
+      if nil ~= localValue1 then
+        localValue1 = GetEntityCoords
+        localValue2 = PlayerPedId
+        localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag = localValue2()
         -- Beginner: result below is entityCoords.
-        arg1 = arg1(arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag)
-        arg2 = 1
-        numberValue10 = cmgCall.triathlon
-        numberValue10 = numberValue10.races
-        numberValue11 = textValue4
-        numberValue10 = numberValue10[numberValue11]
-        numberValue10 = numberValue10.checkpoints
-        numberValue10 = #numberValue10
-        numberValue11 = 1
-        for workValue5 = arg2, numberValue10, numberValue11 do
-          workValue6 = cmgCall.triathlon
-          workValue6 = workValue6.races
-          workValue7 = textValue4
-          workValue6 = workValue6[workValue7]
-          workValue6 = workValue6.checkpoints
-          workValue6 = workValue6[workValue5]
-          workValue7 = arg1 - workValue6
-          workValue7 = #workValue7
-          if workValue7 <= 25.0 then
-            workValue7 = eventRegistration2
-            if not workValue7 then
-              workValue7 = PlaySoundFrontend
-              numberValue13 = -1
-              numberValue14 = "RACE_PLACED"
-              numberValue15 = "HUD_AWARDS"
-              flag = false
-              workValue7(numberValue13, numberValue14, numberValue15, flag)
-              workValue7 = true
-              eventRegistration2 = workValue7
-              workValue7 = SetTimeout
-              numberValue13 = 500
+        localValue1 = localValue1(localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag)
+        localValue2 = 1
+        number10 = cmgOperation.triathlon
+        number10 = number10.races
+        number11 = text4
+        number10 = number10[number11]
+        number10 = number10.checkpoints
+        number10 = #number10
+        number11 = 1
+        for workingValue5 = localValue2, number10, number11 do
+          workingValue6 = cmgOperation.triathlon
+          workingValue6 = workingValue6.races
+          workingValue7 = text4
+          workingValue6 = workingValue6[workingValue7]
+          workingValue6 = workingValue6.checkpoints
+          workingValue6 = workingValue6[workingValue5]
+          workingValue7 = localValue1 - workingValue6
+          workingValue7 = #workingValue7
+          if workingValue7 <= 25.0 then
+            workingValue7 = eventHandler2
+            if not workingValue7 then
+              workingValue7 = PlaySoundFrontend
+              number13 = -1
+              number14 = "RACE_PLACED"
+              number15 = "HUD_AWARDS"
+              stateFlag = false
+              workingValue7(number13, number14, number15, stateFlag)
+              workingValue7 = true
+              eventHandler2 = workingValue7
+              workingValue7 = SetTimeout
+              number13 = 500
 
-              -- === HELPER FUNCTION (decompiler name: numberValue14; parameters: none) ===
-              function numberValue14()
-                local modelHash, cmgCall5
+              -- === HELPER FUNCTION (decompiler name: number14; parameters: none) ===
+              function number14()
+                local modelHash, cmgOperation5
                 modelHash = false
-                eventRegistration2 = modelHash
+                eventHandler2 = modelHash
               end
-              workValue7(numberValue13, numberValue14)
+              workingValue7(number13, number14)
             end
-            workValue7 = DeleteCheckpoint
-            numberValue13 = dataTable5
-            numberValue13 = numberValue13[workValue5]
-            workValue7(numberValue13)
-            workValue7 = dataTable5
-            workValue7[workValue5] = nil
+            workingValue7 = DeleteCheckpoint
+            number13 = dataCollection5
+            number13 = number13[workingValue5]
+            workingValue7(number13)
+            workingValue7 = dataCollection5
+            workingValue7[workingValue5] = nil
           end
         end
       end
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 150
-    arg1(arg2)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 150
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(cmgCall2)
+backgroundThread(cmgOperation2)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
-function threadCall()
-  local arg1, arg2
-  arg1 = dataTable2.isParachuting
-  if arg1 then
-    arg1 = RageUI
-    arg1 = arg1.Text
-    arg2 = {}
-    arg2.message = "Press LMB or F to deploy parachute"
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: none) ===
+function backgroundThread()
+  local localValue1, localValue2
+  localValue1 = dataCollection2.isParachuting
+  if localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.Text
+    localValue2 = {}
+    localValue2.message = "Press LMB or F to deploy parachute"
+    localValue1(localValue2)
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-cmgCall3 = threadCall
-cmgCall4 = "Triathlon Deploy"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+cmgOperation3 = backgroundThread
+cmgOperation4 = "Triathlon Deploy"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(cmgCall3, cmgCall4)
+cmgOperation2(cmgOperation3, cmgOperation4)
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, flag5, flag6, numberValue9, flag7, workValue2, workValue3, flag8
-  arg1 = dataTable2.isParachuting
-  if arg1 then
-    arg1 = workValue4
-    arg2 = CMG
-    arg2 = arg2.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4, number5, number6, number7, number8, stateFlag5, stateFlag6, number9, stateFlag7, workingValue2, workingValue3, stateFlag8
+  localValue1 = dataCollection2.isParachuting
+  if localValue1 then
+    localValue1 = workingValue4
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg2 = arg2()
-    numberValue10 = arg1 - arg2
-    numberValue11 = #numberValue10
-    numberValue10 = numberValue10 / numberValue11
-    numberValue11 = DrawMarker
-    workValue5 = 2
-    workValue6 = arg2.x
-    workValue7 = arg2.y
-    numberValue13 = arg2.z
-    numberValue13 = numberValue13 + 1.0
-    numberValue14 = numberValue10.x
-    numberValue15 = numberValue10.y
-    flag = numberValue10.z
-    flag2 = 90.0
-    flag3 = 0
-    numberValue = 0
-    numberValue2 = 1.0
-    numberValue3 = 1.0
-    numberValue4 = 1.0
-    numberValue5 = 0
-    numberValue6 = 0
-    numberValue7 = 255
-    numberValue8 = 150
-    flag5 = false
-    flag6 = false
-    numberValue9 = 2
-    flag7 = false
-    workValue2 = nil
-    workValue3 = nil
-    flag8 = false
-    numberValue11(workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, flag5, flag6, numberValue9, flag7, workValue2, workValue3, flag8)
+    localValue2 = localValue2()
+    number10 = localValue1 - localValue2
+    number11 = #number10
+    number10 = number10 / number11
+    number11 = DrawMarker
+    workingValue5 = 2
+    workingValue6 = localValue2.x
+    workingValue7 = localValue2.y
+    number13 = localValue2.z
+    number13 = number13 + 1.0
+    number14 = number10.x
+    number15 = number10.y
+    stateFlag = number10.z
+    stateFlag2 = 90.0
+    stateFlag3 = 0
+    number = 0
+    number2 = 1.0
+    number3 = 1.0
+    number4 = 1.0
+    number5 = 0
+    number6 = 0
+    number7 = 255
+    number8 = 150
+    stateFlag5 = false
+    stateFlag6 = false
+    number9 = 2
+    stateFlag7 = false
+    workingValue2 = nil
+    workingValue3 = nil
+    stateFlag8 = false
+    number11(workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2, number3, number4, number5, number6, number7, number8, stateFlag5, stateFlag6, number9, stateFlag7, workingValue2, workingValue3, stateFlag8)
   end
 end
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.createThreadOnTick
-cmgCall4 = cmgCall2
-textValue2 = "Triathlon Direction Marker"
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.createThreadOnTick
+cmgOperation4 = cmgOperation2
+text2 = "Triathlon Direction Marker"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall3(cmgCall4, textValue2)
+cmgOperation3(cmgOperation4, text2)
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2
-  arg1 = dataTable2.isInRace
-  if arg1 then
-    arg1 = IsPedInParachuteFreeFall
-    arg2 = CMG
-    arg2 = arg2.getPlayerPed
-    arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2 = arg2()
-    arg1 = arg1(arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2)
-    if arg1 then
-      arg1 = HasEntityCollidedWithAnything
-      arg2 = CMG
-      arg2 = arg2.getPlayerPed
-      arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2 = arg2()
-      arg1 = arg1(arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2)
-      if not arg1 then
-        arg1 = ApplyForceToEntity
-        arg2 = CMG
-        arg2 = arg2.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2
+  localValue1 = dataCollection2.isInRace
+  if localValue1 then
+    localValue1 = IsPedInParachuteFreeFall
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerPed
+    localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2 = localValue2()
+    localValue1 = localValue1(localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2)
+    if localValue1 then
+      localValue1 = HasEntityCollidedWithAnything
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerPed
+      localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2 = localValue2()
+      localValue1 = localValue1(localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2)
+      if not localValue1 then
+        localValue1 = ApplyForceToEntity
+        localValue2 = CMG
+        localValue2 = localValue2.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        arg2 = arg2()
-        numberValue10 = 1
-        numberValue11 = 0.0
-        workValue5 = 75.0
-        workValue6 = 2.5
-        workValue7 = 0.0
-        numberValue13 = 0.0
-        numberValue14 = 0.0
-        numberValue15 = 0
-        flag = true
-        flag2 = false
-        flag3 = false
-        numberValue = false
-        numberValue2 = true
-        arg1(arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag, flag2, flag3, numberValue, numberValue2)
+        localValue2 = localValue2()
+        number10 = 1
+        number11 = 0.0
+        workingValue5 = 75.0
+        workingValue6 = 2.5
+        workingValue7 = 0.0
+        number13 = 0.0
+        number14 = 0.0
+        number15 = 0
+        stateFlag = true
+        stateFlag2 = false
+        stateFlag3 = false
+        number = false
+        number2 = true
+        localValue1(localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag, stateFlag2, stateFlag3, number, number2)
       end
     end
-    arg1 = DisableControlAction
-    arg2 = 2
-    numberValue10 = 37
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = DisablePlayerFiring
-    arg2 = PlayerId
+    localValue1 = DisableControlAction
+    localValue2 = 2
+    number10 = 37
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = DisablePlayerFiring
+    localValue2 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    arg2 = arg2()
-    numberValue10 = true
-    arg1(arg2, numberValue10)
-    arg1 = DisableControlAction
-    arg2 = 0
-    numberValue10 = 106
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = DisableControlAction
-    arg2 = 0
-    numberValue10 = 45
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = DisableControlAction
-    arg2 = 0
-    numberValue10 = 24
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = DisableControlAction
-    arg2 = 0
-    numberValue10 = 263
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = DisableControlAction
-    arg2 = 0
-    numberValue10 = 140
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = DisableControlAction
-    arg2 = 0
-    numberValue10 = 75
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = DisableControlAction
-    arg2 = 27
-    numberValue10 = 75
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = CMG
-    arg1 = arg1.setWeapon
-    arg2 = PlayerPedId
+    localValue2 = localValue2()
+    number10 = true
+    localValue1(localValue2, number10)
+    localValue1 = DisableControlAction
+    localValue2 = 0
+    number10 = 106
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = DisableControlAction
+    localValue2 = 0
+    number10 = 45
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = DisableControlAction
+    localValue2 = 0
+    number10 = 24
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = DisableControlAction
+    localValue2 = 0
+    number10 = 263
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = DisableControlAction
+    localValue2 = 0
+    number10 = 140
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = DisableControlAction
+    localValue2 = 0
+    number10 = 75
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = DisableControlAction
+    localValue2 = 27
+    number10 = 75
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = CMG
+    localValue1 = localValue1.setWeapon
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
-    numberValue10 = -1569615261
-    numberValue11 = true
-    arg1(arg2, numberValue10, numberValue11)
-    arg1 = CMG
-    arg1 = arg1.getPlayerPed
+    localValue2 = localValue2()
+    number10 = -1569615261
+    number11 = true
+    localValue1(localValue2, number10, number11)
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = SetEntityInvincible
-    numberValue10 = arg1
-    numberValue11 = true
-    arg2(numberValue10, numberValue11)
-    arg2 = SetPlayerInvincible
-    numberValue10 = PlayerId
+    localValue1 = localValue1()
+    localValue2 = SetEntityInvincible
+    number10 = localValue1
+    number11 = true
+    localValue2(number10, number11)
+    localValue2 = SetPlayerInvincible
+    number10 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    numberValue10 = numberValue10()
-    numberValue11 = true
-    arg2(numberValue10, numberValue11)
-    arg2 = SetPedCanRagdoll
-    numberValue10 = arg1
-    numberValue11 = false
-    arg2(numberValue10, numberValue11)
-    arg2 = ClearPedBloodDamage
-    numberValue10 = arg1
-    arg2(numberValue10)
-    arg2 = ResetPedVisibleDamage
-    numberValue10 = arg1
-    arg2(numberValue10)
-    arg2 = ClearPedLastWeaponDamage
-    numberValue10 = arg1
-    arg2(numberValue10)
-    arg2 = SetEntityProofs
-    numberValue10 = arg1
-    numberValue11 = true
-    workValue5 = true
-    workValue6 = true
-    workValue7 = true
-    numberValue13 = true
-    numberValue14 = true
-    numberValue15 = true
-    flag = true
-    arg2(numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag)
-    arg2 = SetEntityCanBeDamaged
-    numberValue10 = arg1
-    numberValue11 = false
-    arg2(numberValue10, numberValue11)
+    number10 = number10()
+    number11 = true
+    localValue2(number10, number11)
+    localValue2 = SetPedCanRagdoll
+    number10 = localValue1
+    number11 = false
+    localValue2(number10, number11)
+    localValue2 = ClearPedBloodDamage
+    number10 = localValue1
+    localValue2(number10)
+    localValue2 = ResetPedVisibleDamage
+    number10 = localValue1
+    localValue2(number10)
+    localValue2 = ClearPedLastWeaponDamage
+    number10 = localValue1
+    localValue2(number10)
+    localValue2 = SetEntityProofs
+    number10 = localValue1
+    number11 = true
+    workingValue5 = true
+    workingValue6 = true
+    workingValue7 = true
+    number13 = true
+    number14 = true
+    number15 = true
+    stateFlag = true
+    localValue2(number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag)
+    localValue2 = SetEntityCanBeDamaged
+    number10 = localValue1
+    number11 = false
+    localValue2(number10, number11)
   end
 end
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.createThreadOnTick
-textValue2 = cmgCall3
-textValue3 = "Triathlon Parachute"
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.createThreadOnTick
+text2 = cmgOperation3
+text3 = "Triathlon Parachute"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall4(textValue2, textValue3)
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.registerCommand
-textValue2 = "heading"
+cmgOperation4(text2, text3)
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.registerCommand
+text2 = "heading"
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-function textValue3()
-  local arg1, arg2, numberValue10
-  arg1 = print
-  arg2 = GetEntityHeading
-  numberValue10 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+function text3()
+  local localValue1, localValue2, number10
+  localValue1 = print
+  localValue2 = GetEntityHeading
+  number10 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  numberValue10 = numberValue10()
-  arg2, numberValue10 = arg2(numberValue10)
-  arg1(arg2, numberValue10)
+  number10 = number10()
+  localValue2, number10 = localValue2(number10)
+  localValue1(localValue2, number10)
 end
-flag4 = false
-cmgCall4(textValue2, textValue3, flag4)
-cmgCall4 = RegisterNetEvent
-textValue2 = "c1cdf22c86"
+stateFlag4 = false
+cmgOperation4(text2, text3, stateFlag4)
+cmgOperation4 = RegisterNetEvent
+text2 = "c1cdf22c86"
 -- Beginner: this function handles network event "c1cdf22c86".
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-function textValue3()
-  local arg1, arg2, numberValue10, numberValue11, workValue5
-  arg1 = DeleteCheckpoint
-  arg2 = dataTable3.finish
-  arg1(arg2)
-  arg1 = RemoveBlip
-  arg2 = dataTable4.finish
-  arg1(arg2)
-  arg1 = PlaySoundFrontend
-  arg2 = -1
-  numberValue10 = "ScreenFlash"
-  numberValue11 = "WastedSounds"
-  workValue5 = false
-  arg1(arg2, numberValue10, numberValue11, workValue5)
-  dataTable2.isRunning = false
-  dataTable2.isInRace = false
-  dataTable2.hasFinished = true
+-- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+function text3()
+  local localValue1, localValue2, number10, number11, workingValue5
+  localValue1 = DeleteCheckpoint
+  localValue2 = dataCollection3.finish
+  localValue1(localValue2)
+  localValue1 = RemoveBlip
+  localValue2 = dataCollection4.finish
+  localValue1(localValue2)
+  localValue1 = PlaySoundFrontend
+  localValue2 = -1
+  number10 = "ScreenFlash"
+  number11 = "WastedSounds"
+  workingValue5 = false
+  localValue1(localValue2, number10, number11, workingValue5)
+  dataCollection2.isRunning = false
+  dataCollection2.isInRace = false
+  dataCollection2.hasFinished = true
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c1cdf22c86".
-cmgCall4(textValue2, textValue3)
+cmgOperation4(text2, text3)
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13
-  arg1 = currentEvent
-  arg1.isActive = false
-  arg1 = pairs
-  arg2 = dataTable3
-  arg1, arg2, numberValue10, numberValue11 = arg1(arg2)
-  for workValue5, workValue6 in arg1, arg2, numberValue10, numberValue11 do
-    workValue7 = DeleteCheckpoint
-    numberValue13 = workValue6
-    workValue7(numberValue13)
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13
+  localValue1 = currentEvent
+  localValue1.isActive = false
+  localValue1 = pairs
+  localValue2 = dataCollection3
+  localValue1, localValue2, number10, number11 = localValue1(localValue2)
+  for workingValue5, workingValue6 in localValue1, localValue2, number10, number11 do
+    workingValue7 = DeleteCheckpoint
+    number13 = workingValue6
+    workingValue7(number13)
   end
-  arg1 = {}
-  dataTable3 = arg1
-  arg1 = pairs
-  arg2 = dataTable4
-  arg1, arg2, numberValue10, numberValue11 = arg1(arg2)
-  for workValue5, workValue6 in arg1, arg2, numberValue10, numberValue11 do
-    workValue7 = RemoveBlip
-    numberValue13 = workValue6
-    workValue7(numberValue13)
+  localValue1 = {}
+  dataCollection3 = localValue1
+  localValue1 = pairs
+  localValue2 = dataCollection4
+  localValue1, localValue2, number10, number11 = localValue1(localValue2)
+  for workingValue5, workingValue6 in localValue1, localValue2, number10, number11 do
+    workingValue7 = RemoveBlip
+    number13 = workingValue6
+    workingValue7(number13)
   end
-  arg1 = {}
-  dataTable4 = arg1
-  arg1 = pairs
-  arg2 = dataTable5
-  arg1, arg2, numberValue10, numberValue11 = arg1(arg2)
-  for workValue5, workValue6 in arg1, arg2, numberValue10, numberValue11 do
-    workValue7 = DeleteCheckpoint
-    numberValue13 = workValue6
-    workValue7(numberValue13)
+  localValue1 = {}
+  dataCollection4 = localValue1
+  localValue1 = pairs
+  localValue2 = dataCollection5
+  localValue1, localValue2, number10, number11 = localValue1(localValue2)
+  for workingValue5, workingValue6 in localValue1, localValue2, number10, number11 do
+    workingValue7 = DeleteCheckpoint
+    number13 = workingValue6
+    workingValue7(number13)
   end
-  dataTable2.isInRace = false
+  dataCollection2.isInRace = false
 end
-textValue2 = AddEventHandler
-textValue3 = "e27d89983c"
-flag4 = cmgCall4
+text2 = AddEventHandler
+text3 = "e27d89983c"
+stateFlag4 = cmgOperation4
 -- Beginner: Register a client-side event handler. Event/command: "e27d89983c".
-textValue2(textValue3, flag4)
-textValue2 = Citizen
-textValue2 = textValue2.CreateThread
+text2(text3, stateFlag4)
+text2 = Citizen
+text2 = text2.CreateThread
 -- Beginner: this function runs when client event "e27d89983c" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-function textValue3()
-  local arg1, arg2, numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag
+-- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+function text3()
+  local localValue1, localValue2, number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag
   while true do
-    arg1 = dataTable2.isInRace
-    if arg1 then
-      arg1 = textValue4
-      if arg1 then
-        arg1 = dataTable2.currentCheckpoint
-        if nil ~= arg1 then
-          arg1 = cmgCall.triathlon
-          arg1 = arg1.races
-          arg2 = textValue4
-          arg1 = arg1[arg2]
-          arg1 = arg1.extraCheckpoints
-          if arg1 then
-            arg1 = cmgCall.triathlon
-            arg1 = arg1.races
-            arg2 = textValue4
-            arg1 = arg1[arg2]
-            arg1 = arg1.extraCheckpoints
-            arg2 = dataTable2.currentCheckpoint
-            arg1 = arg1[arg2]
-            if arg1 then
-              arg1 = CMG
-              arg1 = arg1.getPlayerCoords
+    localValue1 = dataCollection2.isInRace
+    if localValue1 then
+      localValue1 = text4
+      if localValue1 then
+        localValue1 = dataCollection2.currentCheckpoint
+        if nil ~= localValue1 then
+          localValue1 = cmgOperation.triathlon
+          localValue1 = localValue1.races
+          localValue2 = text4
+          localValue1 = localValue1[localValue2]
+          localValue1 = localValue1.extraCheckpoints
+          if localValue1 then
+            localValue1 = cmgOperation.triathlon
+            localValue1 = localValue1.races
+            localValue2 = text4
+            localValue1 = localValue1[localValue2]
+            localValue1 = localValue1.extraCheckpoints
+            localValue2 = dataCollection2.currentCheckpoint
+            localValue1 = localValue1[localValue2]
+            if localValue1 then
+              localValue1 = CMG
+              localValue1 = localValue1.getPlayerCoords
               -- Beginner: result below is playerCoords.
-              arg1 = arg1()
-              arg2 = cmgCall.triathlon
-              arg2 = arg2.races
-              numberValue10 = textValue4
-              arg2 = arg2[numberValue10]
-              arg2 = arg2.extraCheckpoints
-              numberValue10 = dataTable2.currentCheckpoint
-              arg2 = arg2[numberValue10]
-              arg1 = arg1 - arg2
-              arg1 = #arg1
-              arg2 = dataTable2.checkpointDistance
-              if arg1 >= arg2 then
-                arg1 = cmgCall.triathlon
-                arg1 = arg1.races
-                arg2 = textValue4
-                arg1 = arg1[arg2]
-                arg1 = arg1.extraCheckpoints
-                arg2 = dataTable2.currentCheckpoint
-                arg1 = arg1[arg2]
-                arg2 = SetEntityCoords
-                numberValue10 = PlayerPedId
+              localValue1 = localValue1()
+              localValue2 = cmgOperation.triathlon
+              localValue2 = localValue2.races
+              number10 = text4
+              localValue2 = localValue2[number10]
+              localValue2 = localValue2.extraCheckpoints
+              number10 = dataCollection2.currentCheckpoint
+              localValue2 = localValue2[number10]
+              localValue1 = localValue1 - localValue2
+              localValue1 = #localValue1
+              localValue2 = dataCollection2.checkpointDistance
+              if localValue1 >= localValue2 then
+                localValue1 = cmgOperation.triathlon
+                localValue1 = localValue1.races
+                localValue2 = text4
+                localValue1 = localValue1[localValue2]
+                localValue1 = localValue1.extraCheckpoints
+                localValue2 = dataCollection2.currentCheckpoint
+                localValue1 = localValue1[localValue2]
+                localValue2 = SetEntityCoords
+                number10 = PlayerPedId
                 -- Beginner: result below is localPlayerPed.
-                numberValue10 = numberValue10()
-                numberValue11 = arg1.x
-                workValue5 = arg1.y
-                workValue6 = arg1.z
-                workValue7 = false
-                numberValue13 = false
-                numberValue14 = false
-                numberValue15 = false
+                number10 = number10()
+                number11 = localValue1.x
+                workingValue5 = localValue1.y
+                workingValue6 = localValue1.z
+                workingValue7 = false
+                number13 = false
+                number14 = false
+                number15 = false
                 -- Beginner: Move/teleport an entity to new coordinates.
-                arg2(numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15)
-                arg2 = GetEntityModel
-                numberValue10 = CMG
-                numberValue10 = numberValue10.getPlayerVehicle
-                numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag = numberValue10()
+                localValue2(number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15)
+                localValue2 = GetEntityModel
+                number10 = CMG
+                number10 = number10.getPlayerVehicle
+                number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag = number10()
                 -- Beginner: result below is modelHash.
-                arg2 = arg2(numberValue10, numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag)
-                if 1131912276 ~= arg2 then
-                  arg2 = cmgCall.triathlon
-                  arg2 = arg2.races
-                  numberValue10 = textValue4
-                  arg2 = arg2[numberValue10]
-                  arg2 = arg2.extraCheckpoints
-                  numberValue10 = dataTable2.currentCheckpoint
-                  arg2 = arg2[numberValue10]
-                  numberValue10 = CMG
-                  numberValue10 = numberValue10.spawnVehicle
-                  numberValue11 = 1131912276
-                  workValue5 = arg2.x
-                  workValue6 = arg2.y
-                  workValue7 = arg2.z
-                  numberValue13 = 10.0
-                  numberValue14 = true
-                  numberValue15 = true
-                  flag = true
-                  numberValue10(numberValue11, workValue5, workValue6, workValue7, numberValue13, numberValue14, numberValue15, flag)
+                localValue2 = localValue2(number10, number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag)
+                if 1131912276 ~= localValue2 then
+                  localValue2 = cmgOperation.triathlon
+                  localValue2 = localValue2.races
+                  number10 = text4
+                  localValue2 = localValue2[number10]
+                  localValue2 = localValue2.extraCheckpoints
+                  number10 = dataCollection2.currentCheckpoint
+                  localValue2 = localValue2[number10]
+                  number10 = CMG
+                  number10 = number10.spawnVehicle
+                  number11 = 1131912276
+                  workingValue5 = localValue2.x
+                  workingValue6 = localValue2.y
+                  workingValue7 = localValue2.z
+                  number13 = 10.0
+                  number14 = true
+                  number15 = true
+                  stateFlag = true
+                  number10(number11, workingValue5, workingValue6, workingValue7, number13, number14, number15, stateFlag)
                 end
               end
             end
@@ -1369,10 +1369,10 @@ function textValue3()
         end
       end
     end
-    arg1 = Wait
-    arg2 = 2000
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 2000
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue2(textValue3)
+text2(text3)

@@ -32,1599 +32,1599 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local workValue, textValue10, numberValue9, textValue12, dataTable22, numberValue20, textValue15, textValue16, numberValue23, workValue34, textValue4, workValue4, workValue6, dataTable2, numberValue3, numberValue4, dataTable3, flag4, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8, workValue11, workValue12, vector3Builder, dataTable9, dataTable10, dataTable11, flag5, flag6, dataTable12, dataTable13, workValue14, dataTable14, dataTable15, dataTable16, dataTable17, workValue16, numberValue13, numberValue14, dataTable18, dataTable19, dataTable20, dataTable21, numberValue15, numberValue16, numberValue17, numberValue18, flag10, workValue19, numberValue19, cmgCall7, cmgCall8, eventRegistration2, eventRegistration3, textValue13, workValue20, eventRegistration4, cmgCall9, textValue14, dataTable23, dataTable24, numberValue21, cmgCall10, workValue21, workValue22, workValue23, cmgCall11, numberValue22, workValue25, cmgCall13, workValue26, workValue27, workValue28, workValue29, workValue30, cmgCall14, cmgCall15, workValue31, textValue19, workValue32, textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5
-workValue = DecorRegister
-textValue10 = "ac76c9d452"
-numberValue9 = 3
-workValue(textValue10, numberValue9)
-workValue = DecorRegister
-textValue10 = "0a6cf607ed"
-numberValue9 = 3
-workValue(textValue10, numberValue9)
-workValue = DecorRegister
-textValue10 = "5f7af1c5ce"
-numberValue9 = 3
-workValue(textValue10, numberValue9)
-workValue = DecorRegister
-textValue10 = "6939027d97"
-numberValue9 = 3
-workValue(textValue10, numberValue9)
-workValue = DecorRegister
-textValue10 = "12da94aa7e"
-numberValue9 = 3
-workValue(textValue10, numberValue9)
-workValue = RequestScriptAudioBank
-textValue10 = "DLC_ALARM\\ALARMPACK_ONE"
-numberValue9 = false
-workValue(textValue10, numberValue9)
-workValue = CMG
-workValue = workValue.loadModule
-textValue10 = "cfg/cfg_garages"
+local workingValue, text10, number9, text12, dataCollection22, number20, text15, text16, number23, workingValue34, text4, workingValue4, workingValue6, dataCollection2, number3, number4, dataCollection3, stateFlag4, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8, workingValue11, workingValue12, createVector3, dataCollection9, dataCollection10, dataCollection11, stateFlag5, stateFlag6, dataCollection12, dataCollection13, workingValue14, dataCollection14, dataCollection15, dataCollection16, dataCollection17, workingValue16, number13, number14, dataCollection18, dataCollection19, dataCollection20, dataCollection21, number15, number16, number17, number18, stateFlag10, workingValue19, number19, cmgOperation7, cmgOperation8, eventHandler2, eventHandler3, text13, workingValue20, eventHandler4, cmgOperation9, text14, dataCollection23, dataCollection24, number21, cmgOperation10, workingValue21, workingValue22, workingValue23, cmgOperation11, number22, workingValue25, cmgOperation13, workingValue26, workingValue27, workingValue28, workingValue29, workingValue30, cmgOperation14, cmgOperation15, workingValue31, text19, workingValue32, text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5
+workingValue = DecorRegister
+text10 = "ac76c9d452"
+number9 = 3
+workingValue(text10, number9)
+workingValue = DecorRegister
+text10 = "0a6cf607ed"
+number9 = 3
+workingValue(text10, number9)
+workingValue = DecorRegister
+text10 = "5f7af1c5ce"
+number9 = 3
+workingValue(text10, number9)
+workingValue = DecorRegister
+text10 = "6939027d97"
+number9 = 3
+workingValue(text10, number9)
+workingValue = DecorRegister
+text10 = "12da94aa7e"
+number9 = 3
+workingValue(text10, number9)
+workingValue = RequestScriptAudioBank
+text10 = "DLC_ALARM\\ALARMPACK_ONE"
+number9 = false
+workingValue(text10, number9)
+workingValue = CMG
+workingValue = workingValue.loadModule
+text10 = "cfg/cfg_garages"
 -- Beginner: result below is config.
-workValue = workValue(textValue10)
-textValue10 = CMG
-textValue10 = textValue10.loadModule
-numberValue9 = "cfg/cfg_lscustoms"
+workingValue = workingValue(text10)
+text10 = CMG
+text10 = text10.loadModule
+number9 = "cfg/cfg_lscustoms"
 -- Beginner: result below is config.
-textValue10 = textValue10(numberValue9)
-numberValue9 = CMG
-numberValue9 = numberValue9.loadModule
-textValue12 = "cfg/cfg_vehicles"
+text10 = text10(number9)
+number9 = CMG
+number9 = number9.loadModule
+text12 = "cfg/cfg_vehicles"
 -- Beginner: result below is config.
-numberValue9 = numberValue9(textValue12)
-textValue12 = 0
-dataTable22 = {}
-numberValue20 = 0
-textValue15 = ""
-textValue16 = ""
-numberValue23 = 0
-workValue34 = nil
-textValue4 = ""
-workValue4 = nil
-workValue6 = nil
-dataTable2 = {}
-numberValue3 = 0
-numberValue4 = 0
-dataTable3 = {}
-flag4 = false
-dataTable4 = {}
-dataTable5 = {}
-dataTable6 = {}
-dataTable7 = {}
-dataTable8 = {}
-workValue11 = nil
-workValue12 = nil
-vector3Builder = vector3
-dataTable9 = 0.0
-dataTable10 = 0.0
-dataTable11 = 0.0
-vector3Builder = vector3Builder(dataTable9, dataTable10, dataTable11)
-dataTable9 = {}
-dataTable10 = {}
-dataTable10.income = 0
-dataTable10.outcome = 0
-dataTable11 = {}
-flag5 = false
-flag6 = false
-dataTable12 = {}
-dataTable13 = {}
-workValue14 = nil
-dataTable14 = {}
-dataTable15 = {}
-dataTable15[0] = ""
-dataTable15[1] = ""
-dataTable15[2] = ""
-dataTable15[3] = ""
-dataTable15[4] = ""
-dataTable15[5] = ""
-dataTable15[6] = "bnr34ffeng"
-dataTable15[7] = "ta028viper"
-dataTable15[8] = "rotary7"
-dataTable15[9] = "lgcy12ferf40"
-dataTable15[10] = "v6audiea839"
-dataTable15[11] = "n55b30t0"
-dataTable15[12] = "fordvoodoo"
-dataTable15[13] = "ta103ninjah2r"
-dataTable15[14] = "gb811s2"
-dataTable15[15] = "gbarcherpro2"
-dataTable15[16] = "gbargento2f"
-dataTable15[17] = "gbargento7f"
-dataTable15[18] = "gbargento7fs"
-dataTable15[19] = "gbbanshees2"
-dataTable15[20] = "gbbisonhf"
-dataTable15[21] = "gbbisonstx"
-dataTable15[22] = "gbbriosof"
-dataTable15[23] = "gbcheetahs"
-dataTable15[24] = "gbclubxr"
-dataTable15[25] = "gbcometcl"
-dataTable15[26] = "gbcomets1t"
-dataTable15[27] = "gbcomets2r"
-dataTable15[28] = "gbcomets2rc"
-dataTable15[29] = "gbcyphergts"
-dataTable15[30] = "gbdominatorgsx"
-dataTable15[31] = "gbechelon"
-dataTable15[32] = "gbeon"
-dataTable15[33] = "gbgresleypol"
-dataTable15[34] = "gbgresleystx"
-dataTable15[35] = "gbharmann"
-dataTable15[36] = "gbhedrakombi"
-dataTable15[37] = "gbkomodagt"
-dataTable15[38] = "gbmilano"
-dataTable15[39] = "gbmogulrs"
-dataTable15[40] = "gbmojave"
-dataTable15[41] = "gbmugello"
-dataTable15[42] = "gbpolargento7f"
-dataTable15[43] = "gbpolbanshees2"
-dataTable15[44] = "gbpolbisonhf"
-dataTable15[45] = "gbpolbisonstx"
-dataTable15[46] = "gbpolclubxr"
-dataTable15[47] = "gbpolcometcl"
-dataTable15[48] = "gbpolcomets2r"
-dataTable15[49] = "gbpoldominatorgsx"
-dataTable15[50] = "gbpolechelon"
-dataTable15[51] = "gbpoleon"
-dataTable15[52] = "gbpolhedra"
-dataTable15[53] = "gbpolprospero"
-dataTable15[54] = "gbpolsentinelgts"
-dataTable15[55] = "gbpolsolace"
-dataTable15[56] = "gbpolstanierle"
-dataTable15[57] = "gbpolstarlight"
-dataTable15[58] = "gbpolsultanrsx"
-dataTable15[59] = "gbpoltahomagt"
-dataTable15[60] = "gbpoltr3s"
-dataTable15[61] = "gbpolturismogt"
-dataTable15[62] = "gbprospero"
-dataTable15[63] = "gbromulus"
-dataTable15[64] = "gbronin"
-dataTable15[65] = "gbrumina"
-dataTable15[66] = "gbsapphire"
-dataTable15[67] = "gbschlagenr"
-dataTable15[68] = "gbschrauber"
-dataTable15[69] = "gbschwartzers"
-dataTable15[70] = "gbsentinelgts"
-dataTable15[71] = "gbsolace"
-dataTable15[72] = "gbsolacev"
-dataTable15[73] = "gbstanierle"
-dataTable15[74] = "gbstarlight"
-dataTable15[75] = "gbsultanrsx"
-dataTable15[76] = "gbtahomagt"
-dataTable15[77] = "gbtaxieon"
-dataTable15[78] = "gbtr3s"
-dataTable15[79] = "gbturismogt"
-dataTable15[80] = "gbturismogts"
-dataTable15[81] = "gbvivant"
-dataTable16 = {}
-dataTable17 = {}
-workValue16 = nil
-numberValue13 = 0
-numberValue14 = 0
-dataTable18 = {}
-dataTable19 = {}
-dataTable20 = {}
-dataTable21 = {}
-numberValue15 = 10000
-numberValue16 = 1
-numberValue17 = 1
-numberValue18 = 1
-flag10 = true
-workValue19 = nil
-numberValue19 = 0
-cmgCall7 = CMG
+number9 = number9(text12)
+text12 = 0
+dataCollection22 = {}
+number20 = 0
+text15 = ""
+text16 = ""
+number23 = 0
+workingValue34 = nil
+text4 = ""
+workingValue4 = nil
+workingValue6 = nil
+dataCollection2 = {}
+number3 = 0
+number4 = 0
+dataCollection3 = {}
+stateFlag4 = false
+dataCollection4 = {}
+dataCollection5 = {}
+dataCollection6 = {}
+dataCollection7 = {}
+dataCollection8 = {}
+workingValue11 = nil
+workingValue12 = nil
+createVector3 = vector3
+dataCollection9 = 0.0
+dataCollection10 = 0.0
+dataCollection11 = 0.0
+createVector3 = createVector3(dataCollection9, dataCollection10, dataCollection11)
+dataCollection9 = {}
+dataCollection10 = {}
+dataCollection10.income = 0
+dataCollection10.outcome = 0
+dataCollection11 = {}
+stateFlag5 = false
+stateFlag6 = false
+dataCollection12 = {}
+dataCollection13 = {}
+workingValue14 = nil
+dataCollection14 = {}
+dataCollection15 = {}
+dataCollection15[0] = ""
+dataCollection15[1] = ""
+dataCollection15[2] = ""
+dataCollection15[3] = ""
+dataCollection15[4] = ""
+dataCollection15[5] = ""
+dataCollection15[6] = "bnr34ffeng"
+dataCollection15[7] = "ta028viper"
+dataCollection15[8] = "rotary7"
+dataCollection15[9] = "lgcy12ferf40"
+dataCollection15[10] = "v6audiea839"
+dataCollection15[11] = "n55b30t0"
+dataCollection15[12] = "fordvoodoo"
+dataCollection15[13] = "ta103ninjah2r"
+dataCollection15[14] = "gb811s2"
+dataCollection15[15] = "gbarcherpro2"
+dataCollection15[16] = "gbargento2f"
+dataCollection15[17] = "gbargento7f"
+dataCollection15[18] = "gbargento7fs"
+dataCollection15[19] = "gbbanshees2"
+dataCollection15[20] = "gbbisonhf"
+dataCollection15[21] = "gbbisonstx"
+dataCollection15[22] = "gbbriosof"
+dataCollection15[23] = "gbcheetahs"
+dataCollection15[24] = "gbclubxr"
+dataCollection15[25] = "gbcometcl"
+dataCollection15[26] = "gbcomets1t"
+dataCollection15[27] = "gbcomets2r"
+dataCollection15[28] = "gbcomets2rc"
+dataCollection15[29] = "gbcyphergts"
+dataCollection15[30] = "gbdominatorgsx"
+dataCollection15[31] = "gbechelon"
+dataCollection15[32] = "gbeon"
+dataCollection15[33] = "gbgresleypol"
+dataCollection15[34] = "gbgresleystx"
+dataCollection15[35] = "gbharmann"
+dataCollection15[36] = "gbhedrakombi"
+dataCollection15[37] = "gbkomodagt"
+dataCollection15[38] = "gbmilano"
+dataCollection15[39] = "gbmogulrs"
+dataCollection15[40] = "gbmojave"
+dataCollection15[41] = "gbmugello"
+dataCollection15[42] = "gbpolargento7f"
+dataCollection15[43] = "gbpolbanshees2"
+dataCollection15[44] = "gbpolbisonhf"
+dataCollection15[45] = "gbpolbisonstx"
+dataCollection15[46] = "gbpolclubxr"
+dataCollection15[47] = "gbpolcometcl"
+dataCollection15[48] = "gbpolcomets2r"
+dataCollection15[49] = "gbpoldominatorgsx"
+dataCollection15[50] = "gbpolechelon"
+dataCollection15[51] = "gbpoleon"
+dataCollection15[52] = "gbpolhedra"
+dataCollection15[53] = "gbpolprospero"
+dataCollection15[54] = "gbpolsentinelgts"
+dataCollection15[55] = "gbpolsolace"
+dataCollection15[56] = "gbpolstanierle"
+dataCollection15[57] = "gbpolstarlight"
+dataCollection15[58] = "gbpolsultanrsx"
+dataCollection15[59] = "gbpoltahomagt"
+dataCollection15[60] = "gbpoltr3s"
+dataCollection15[61] = "gbpolturismogt"
+dataCollection15[62] = "gbprospero"
+dataCollection15[63] = "gbromulus"
+dataCollection15[64] = "gbronin"
+dataCollection15[65] = "gbrumina"
+dataCollection15[66] = "gbsapphire"
+dataCollection15[67] = "gbschlagenr"
+dataCollection15[68] = "gbschrauber"
+dataCollection15[69] = "gbschwartzers"
+dataCollection15[70] = "gbsentinelgts"
+dataCollection15[71] = "gbsolace"
+dataCollection15[72] = "gbsolacev"
+dataCollection15[73] = "gbstanierle"
+dataCollection15[74] = "gbstarlight"
+dataCollection15[75] = "gbsultanrsx"
+dataCollection15[76] = "gbtahomagt"
+dataCollection15[77] = "gbtaxieon"
+dataCollection15[78] = "gbtr3s"
+dataCollection15[79] = "gbturismogt"
+dataCollection15[80] = "gbturismogts"
+dataCollection15[81] = "gbvivant"
+dataCollection16 = {}
+dataCollection17 = {}
+workingValue16 = nil
+number13 = 0
+number14 = 0
+dataCollection18 = {}
+dataCollection19 = {}
+dataCollection20 = {}
+dataCollection21 = {}
+number15 = 10000
+number16 = 1
+number17 = 1
+number18 = 1
+stateFlag10 = true
+workingValue19 = nil
+number19 = 0
+cmgOperation7 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall8; parameters: none) ===
-function cmgCall8()
-  local arg1, arg2
-  arg1 = textValue12
-  return arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation8; parameters: none) ===
+function cmgOperation8()
+  local localValue1, localValue2
+  localValue1 = text12
+  return localValue1
 end
-cmgCall7.getLastSpawnedGarageVehicleTime = cmgCall8
-cmgCall7 = AddEventHandler
-cmgCall8 = "CMG:onClientSpawn"
+cmgOperation7.getLastSpawnedGarageVehicleTime = cmgOperation8
+cmgOperation7 = AddEventHandler
+cmgOperation8 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1, arg2) ===
-function eventRegistration2(arg1, arg2)
-  local arg3, arg4
-  if arg2 then
-    arg3 = TriggerServerEvent
-    arg4 = "CMG:CMG.refreshPlayerGaragePermissions"
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1, localValue2) ===
+function eventHandler2(localValue1, localValue2)
+  local localValue3, localValue4
+  if localValue2 then
+    localValue3 = TriggerServerEvent
+    localValue4 = "CMG:CMG.refreshPlayerGaragePermissions"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "CMG:CMG.refreshPlayerGaragePermissions".
-    arg3(arg4)
+    localValue3(localValue4)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-cmgCall7(cmgCall8, eventRegistration2)
-cmgCall7 = RegisterNetEvent
-cmgCall8 = "f7c0db0592"
+cmgOperation7(cmgOperation8, eventHandler2)
+cmgOperation7 = RegisterNetEvent
+cmgOperation8 = "f7c0db0592"
 -- Beginner: this function handles network event "f7c0db0592".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2
-  dataTable22 = arg1
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2
+  dataCollection22 = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f7c0db0592".
-cmgCall7(cmgCall8, eventRegistration2)
-cmgCall7 = RegisterNetEvent
-cmgCall8 = "d9cdde6632"
+cmgOperation7(cmgOperation8, eventHandler2)
+cmgOperation7 = RegisterNetEvent
+cmgOperation8 = "d9cdde6632"
 -- Beginner: this function handles network event "d9cdde6632".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10
-  arg2 = pairs
-  arg3 = arg1
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = dataTable20
-    iterator2[arg6] = arg7
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10
+  localValue2 = pairs
+  localValue3 = localValue1
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = dataCollection20
+    iterator2[localValue6] = localValue7
   end
-  arg2 = {}
-  dataTable21 = arg2
-  arg2 = pairs
-  arg3 = dataTable20
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+  localValue2 = {}
+  dataCollection21 = localValue2
+  localValue2 = pairs
+  localValue3 = dataCollection20
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = pairs
-    tableHelper2 = arg7.vehicles
+    tableHelper2 = localValue7.vehicles
     if not tableHelper2 then
       tableHelper2 = {}
     end
-    iterator2, tableHelper2, dataTable25, workValue2 = iterator2(tableHelper2)
-    for dataTable in iterator2, tableHelper2, dataTable25, workValue2 do
-      iterator = dataTable21
-      iterator[dataTable] = arg6
+    iterator2, tableHelper2, dataCollection25, workingValue2 = iterator2(tableHelper2)
+    for dataCollection in iterator2, tableHelper2, dataCollection25, workingValue2 do
+      iterator = dataCollection21
+      iterator[dataCollection] = localValue6
     end
   end
-  arg2 = {}
-  arg3 = ipairs
-  arg4 = dataTable18
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, iterator2 in arg3, arg4, arg5, arg6 do
+  localValue2 = {}
+  localValue3 = ipairs
+  localValue4 = dataCollection18
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, iterator2 in localValue3, localValue4, localValue5, localValue6 do
     tableHelper2 = iterator2.isGangGarage
     if tableHelper2 then
       tableHelper2 = table
       tableHelper2 = tableHelper2.insert
-      dataTable25 = arg2
-      workValue2 = arg7
-      tableHelper2(dataTable25, workValue2)
+      dataCollection25 = localValue2
+      workingValue2 = localValue7
+      tableHelper2(dataCollection25, workingValue2)
     end
   end
-  arg3 = #arg2
-  arg4 = 1
-  arg5 = -1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = table
-    arg7 = arg7.remove
-    iterator2 = dataTable18
-    tableHelper2 = arg2[arg6]
-    arg7(iterator2, tableHelper2)
+  localValue3 = #localValue2
+  localValue4 = 1
+  localValue5 = -1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = table
+    localValue7 = localValue7.remove
+    iterator2 = dataCollection18
+    tableHelper2 = localValue2[localValue6]
+    localValue7(iterator2, tableHelper2)
   end
-  arg3 = pairs
-  arg4 = dataTable20
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, iterator2 in arg3, arg4, arg5, arg6 do
+  localValue3 = pairs
+  localValue4 = dataCollection20
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, iterator2 in localValue3, localValue4, localValue5, localValue6 do
     tableHelper2 = iterator2.gangName
     if not tableHelper2 then
       tableHelper2 = "Gang "
-      dataTable25 = arg7
-      tableHelper2 = tableHelper2 .. dataTable25
+      dataCollection25 = localValue7
+      tableHelper2 = tableHelper2 .. dataCollection25
     end
-    dataTable25 = {}
-    workValue2 = tableHelper2
-    dataTable = " Garage"
-    workValue2 = workValue2 .. dataTable
-    dataTable25.type = workValue2
-    dataTable25.class = "vehicle"
-    workValue2 = {}
-    dataTable25.vehicles = workValue2
-    dataTable25.isGangGarage = true
-    dataTable25.gangId = arg7
-    workValue2 = pairs
-    dataTable = iterator2.vehicles
-    if not dataTable then
-      dataTable = {}
+    dataCollection25 = {}
+    workingValue2 = tableHelper2
+    dataCollection = " Garage"
+    workingValue2 = workingValue2 .. dataCollection
+    dataCollection25.type = workingValue2
+    dataCollection25.class = "vehicle"
+    workingValue2 = {}
+    dataCollection25.vehicles = workingValue2
+    dataCollection25.isGangGarage = true
+    dataCollection25.gangId = localValue7
+    workingValue2 = pairs
+    dataCollection = iterator2.vehicles
+    if not dataCollection then
+      dataCollection = {}
     end
-    workValue2, dataTable, iterator, stringHelper = workValue2(dataTable)
-    for workValue7, stringHelper2 in workValue2, dataTable, iterator, stringHelper do
-      cmgCall3 = CMG
-      cmgCall3 = cmgCall3.getVehicleNameFromId
+    workingValue2, dataCollection, iterator, stringHelper = workingValue2(dataCollection)
+    for workingValue7, stringHelper2 in workingValue2, dataCollection, iterator, stringHelper do
+      cmgOperation3 = CMG
+      cmgOperation3 = cmgOperation3.getVehicleNameFromId
       tableHelper = stringHelper2.vehicleId
-      cmgCall3 = cmgCall3(tableHelper)
+      cmgOperation3 = cmgOperation3(tableHelper)
       tableHelper = table
       tableHelper = tableHelper.insert
-      workValue9 = dataTable25.vehicles
+      workingValue9 = dataCollection25.vehicles
       heading = {}
-      heading.uuid = workValue7
-      workValue10 = stringHelper2.vehicleId
-      heading.vehicleId = workValue10
-      workValue10 = cmgCall3 or workValue10
-      if not cmgCall3 then
-        workValue10 = stringHelper2.vehicleId
+      heading.uuid = workingValue7
+      workingValue10 = stringHelper2.vehicleId
+      heading.vehicleId = workingValue10
+      workingValue10 = cmgOperation3 or workingValue10
+      if not cmgOperation3 then
+        workingValue10 = stringHelper2.vehicleId
       end
-      heading.name = workValue10
-      workValue10 = stringHelper2.fuel
-      heading.fuel = workValue10
-      tableHelper(workValue9, heading)
+      heading.name = workingValue10
+      workingValue10 = stringHelper2.fuel
+      heading.fuel = workingValue10
+      tableHelper(workingValue9, heading)
     end
-    workValue2 = table
-    workValue2 = workValue2.sort
-    dataTable = dataTable25.vehicles
+    workingValue2 = table
+    workingValue2 = workingValue2.sort
+    dataCollection = dataCollection25.vehicles
 
-    -- === HELPER FUNCTION: iterator(arg12, arg22) ===
-    function iterator(arg12, arg22)
-      local arg32, arg42
-      arg32 = arg12.name
-      arg42 = arg22.name
-      arg32 = arg32 < arg42
-      return arg32
+    -- === HELPER FUNCTION: iterator(localValue12, localValue22) ===
+    function iterator(localValue12, localValue22)
+      local localValue32, localValue42
+      localValue32 = localValue12.name
+      localValue42 = localValue22.name
+      localValue32 = localValue32 < localValue42
+      return localValue32
     end
-    workValue2(dataTable, iterator)
-    workValue2 = dataTable25.vehicles
-    workValue2 = #workValue2
-    if workValue2 > 0 then
-      workValue2 = table
-      workValue2 = workValue2.insert
-      dataTable = dataTable18
-      iterator = dataTable25
-      workValue2(dataTable, iterator)
+    workingValue2(dataCollection, iterator)
+    workingValue2 = dataCollection25.vehicles
+    workingValue2 = #workingValue2
+    if workingValue2 > 0 then
+      workingValue2 = table
+      workingValue2 = workingValue2.insert
+      dataCollection = dataCollection18
+      iterator = dataCollection25
+      workingValue2(dataCollection, iterator)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d9cdde6632".
-cmgCall7(cmgCall8, eventRegistration2)
-cmgCall7 = RegisterNetEvent
-cmgCall8 = "758f696f69"
+cmgOperation7(cmgOperation8, eventHandler2)
+cmgOperation7 = RegisterNetEvent
+cmgOperation8 = "758f696f69"
 -- Beginner: this function handles network event "758f696f69".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2
-  dataTable4 = arg1
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2
+  dataCollection4 = localValue1
 end
-cmgCall7(cmgCall8, eventRegistration2)
-cmgCall7 = RegisterNetEvent
-cmgCall8 = "4074c74728"
+cmgOperation7(cmgOperation8, eventHandler2)
+cmgOperation7 = RegisterNetEvent
+cmgOperation8 = "4074c74728"
 -- Beginner: this function handles network event "4074c74728".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = CMG
-  arg2 = arg2.unpackTable
-  arg3 = arg1
-  arg4 = {}
-  arg5 = "uuid"
-  arg6 = "vehicleName"
-  arg7 = "rentedBy"
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = CMG
+  localValue2 = localValue2.unpackTable
+  localValue3 = localValue1
+  localValue4 = {}
+  localValue5 = "uuid"
+  localValue6 = "vehicleName"
+  localValue7 = "rentedBy"
   iterator2 = "hoursLeft"
-  arg4[1] = arg5
-  arg4[2] = arg6
-  arg4[3] = arg7
-  arg4[4] = iterator2
-  arg2 = arg2(arg3, arg4)
-  dataTable5 = arg2
+  localValue4[1] = localValue5
+  localValue4[2] = localValue6
+  localValue4[3] = localValue7
+  localValue4[4] = iterator2
+  localValue2 = localValue2(localValue3, localValue4)
+  dataCollection5 = localValue2
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4074c74728".
-cmgCall7(cmgCall8, eventRegistration2)
-cmgCall7 = RegisterNetEvent
-cmgCall8 = "ffdf8f478c"
+cmgOperation7(cmgOperation8, eventHandler2)
+cmgOperation7 = RegisterNetEvent
+cmgOperation8 = "ffdf8f478c"
 -- Beginner: this function handles network event "ffdf8f478c".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = {}
-  dataTable6 = arg2
-  arg2 = ipairs
-  arg3 = arg1 or arg3
-  if not arg1 then
-    arg3 = {}
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = {}
+  dataCollection6 = localValue2
+  localValue2 = ipairs
+  localValue3 = localValue1 or localValue3
+  if not localValue1 then
+    localValue3 = {}
   end
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = dataTable6
-    iterator2[arg7] = true
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = dataCollection6
+    iterator2[localValue7] = true
   end
 end
-cmgCall7(cmgCall8, eventRegistration2)
+cmgOperation7(cmgOperation8, eventHandler2)
 
--- === HELPER FUNCTION (decompiler name: cmgCall7; parameters: arg1) ===
-function cmgCall7(arg1)
-  local arg2
-  arg2 = dataTable6
-  arg2 = arg2[arg1]
-  arg2 = true == arg2
-  return arg2
+-- === HELPER FUNCTION (decompiler name: cmgOperation7; parameters: localValue1) ===
+function cmgOperation7(localValue1)
+  local localValue2
+  localValue2 = dataCollection6
+  localValue2 = localValue2[localValue1]
+  localValue2 = true == localValue2
+  return localValue2
 end
-cmgCall8 = "~r~This vehicle is scheduled for auction."
-eventRegistration2 = RegisterNetEvent
-eventRegistration3 = "710b16ba26"
+cmgOperation8 = "~r~This vehicle is scheduled for auction."
+eventHandler2 = RegisterNetEvent
+eventHandler3 = "710b16ba26"
 -- Beginner: this function handles network event "710b16ba26".
 
--- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg1) ===
-function textValue13(arg1)
-  local arg2
-  dataTable7 = arg1
+-- === HELPER FUNCTION (decompiler name: text13; parameters: localValue1) ===
+function text13(localValue1)
+  local localValue2
+  dataCollection7 = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "710b16ba26".
-eventRegistration2(eventRegistration3, textValue13)
+eventHandler2(eventHandler3, text13)
 -- Beginner: this function handles network event "710b16ba26".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2
-  arg1 = notify
-  arg2 = "~y~You have outstanding debt on vehicle payment plans. Please ensure you make weekly payments."
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2
+  localValue1 = notify
+  localValue2 = "~y~You have outstanding debt on vehicle payment plans. Please ensure you make weekly payments."
   -- Beginner: Show a notification to the player.
-  arg1(arg2)
+  localValue1(localValue2)
 end
-eventRegistration3 = RegisterNetEvent
-textValue13 = "6495e4bcfd"
+eventHandler3 = RegisterNetEvent
+text13 = "6495e4bcfd"
 -- Beginner: this function handles network event "6495e4bcfd".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2) ===
-function workValue20(arg1, arg2)
-  local arg3, arg4, arg5
-  dataTable8 = arg1
-  if arg2 then
-    arg3 = SetTimeout
-    arg4 = 10000
-    arg5 = eventRegistration2
-    arg3(arg4, arg5)
-    arg3 = SetTimeout
-    arg4 = 30000
-    arg5 = eventRegistration2
-    arg3(arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1, localValue2) ===
+function workingValue20(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  dataCollection8 = localValue1
+  if localValue2 then
+    localValue3 = SetTimeout
+    localValue4 = 10000
+    localValue5 = eventHandler2
+    localValue3(localValue4, localValue5)
+    localValue3 = SetTimeout
+    localValue4 = 30000
+    localValue5 = eventHandler2
+    localValue3(localValue4, localValue5)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6495e4bcfd".
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "47267c0d5c"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "47267c0d5c"
 -- Beginner: this function handles network event "47267c0d5c".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = table
-  arg2 = arg2.insert
-  arg3 = dataTable5
-  arg4 = arg1
-  arg2(arg3, arg4)
-  arg2 = arg1.uuid
-  arg3 = numberValue23
-  if arg2 == arg3 then
-    arg2 = RageUI
-    arg2 = arg2.IsAnyMenuOfTypeVisible
-    arg3 = "garages"
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg2 = RageUI
-      arg2 = arg2.Visible
-      arg3 = RMenu
-      arg4 = arg3
-      arg3 = arg3.Get
-      arg5 = "garages"
-      arg6 = "mainmenu"
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = table
+  localValue2 = localValue2.insert
+  localValue3 = dataCollection5
+  localValue4 = localValue1
+  localValue2(localValue3, localValue4)
+  localValue2 = localValue1.uuid
+  localValue3 = number23
+  if localValue2 == localValue3 then
+    localValue2 = RageUI
+    localValue2 = localValue2.IsAnyMenuOfTypeVisible
+    localValue3 = "garages"
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue2 = RageUI
+      localValue2 = localValue2.Visible
+      localValue3 = RMenu
+      localValue4 = localValue3
+      localValue3 = localValue3.Get
+      localValue5 = "garages"
+      localValue6 = "mainmenu"
       -- Beginner: result below is menu.
-      arg3 = arg3(arg4, arg5, arg6)
-      arg4 = true
-      arg2(arg3, arg4)
+      localValue3 = localValue3(localValue4, localValue5, localValue6)
+      localValue4 = true
+      localValue2(localValue3, localValue4)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "47267c0d5c".
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "52c5e9ab6d"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "52c5e9ab6d"
 -- Beginner: this function handles network event "52c5e9ab6d".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4
-  arg2 = table
-  arg2 = arg2.insert
-  arg3 = dataTable4
-  arg4 = arg1
-  arg2(arg3, arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = table
+  localValue2 = localValue2.insert
+  localValue3 = dataCollection4
+  localValue4 = localValue1
+  localValue2(localValue3, localValue4)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "52c5e9ab6d".
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "f70e91482e"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "f70e91482e"
 -- Beginner: this function handles network event "f70e91482e".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2) ===
-function workValue20(arg1, arg2)
-  local arg3
-  arg3 = dataTable16
-  arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1, localValue2) ===
+function workingValue20(localValue1, localValue2)
+  local localValue3
+  localValue3 = dataCollection16
+  localValue3[localValue1] = localValue2
 end
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "72ce12449f"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "72ce12449f"
 -- Beginner: this function handles network event "72ce12449f".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2) ===
-function workValue20(arg1, arg2)
-  local arg3
-  arg3 = dataTable17
-  arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1, localValue2) ===
+function workingValue20(localValue1, localValue2)
+  local localValue3
+  localValue3 = dataCollection17
+  localValue3[localValue1] = localValue2
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "72ce12449f".
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "66ab2aef34"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "66ab2aef34"
 -- Beginner: this function handles network event "66ab2aef34".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2, arg3, arg4) ===
-function workValue20(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, iterator2
-  arg5 = numberValue14
-  if arg5 == arg1 then
-    arg5 = {}
-    arg6 = arg2
-    arg7 = arg3
-    iterator2 = arg4
-    arg5[1] = arg6
-    arg5[2] = arg7
-    arg5[3] = iterator2
-    workValue16 = arg5
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue20(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, iterator2
+  localValue5 = number14
+  if localValue5 == localValue1 then
+    localValue5 = {}
+    localValue6 = localValue2
+    localValue7 = localValue3
+    iterator2 = localValue4
+    localValue5[1] = localValue6
+    localValue5[2] = localValue7
+    localValue5[3] = iterator2
+    workingValue16 = localValue5
   end
 end
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "514c94a95c"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "514c94a95c"
 -- Beginner: this function handles network event "514c94a95c".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2
-  arg2 = pairs
-  arg3 = dataTable5
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = arg7.uuid
-    if iterator2 == arg1 then
-      iterator2 = dataTable5
-      iterator2 = iterator2[arg6]
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2
+  localValue2 = pairs
+  localValue3 = dataCollection5
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = localValue7.uuid
+    if iterator2 == localValue1 then
+      iterator2 = dataCollection5
+      iterator2 = iterator2[localValue6]
       iterator2 = iterator2.hoursLeft
       if iterator2 > 1 then
-        iterator2 = dataTable5
-        iterator2 = iterator2[arg6]
-        tableHelper2 = dataTable5
-        tableHelper2 = tableHelper2[arg6]
+        iterator2 = dataCollection5
+        iterator2 = iterator2[localValue6]
+        tableHelper2 = dataCollection5
+        tableHelper2 = tableHelper2[localValue6]
         tableHelper2 = tableHelper2.hoursLeft
         tableHelper2 = tableHelper2 - 1
         iterator2.hoursLeft = tableHelper2
       else
-        iterator2 = dataTable5
-        iterator2[arg6] = nil
+        iterator2 = dataCollection5
+        iterator2[localValue6] = nil
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "514c94a95c".
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "c05ba37ff7"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "c05ba37ff7"
 -- Beginner: this function handles network event "c05ba37ff7".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2
-  arg2 = pairs
-  arg3 = dataTable4
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = arg7.uuid
-    if iterator2 == arg1 then
-      iterator2 = dataTable4
-      iterator2 = iterator2[arg6]
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2
+  localValue2 = pairs
+  localValue3 = dataCollection4
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = localValue7.uuid
+    if iterator2 == localValue1 then
+      iterator2 = dataCollection4
+      iterator2 = iterator2[localValue6]
       iterator2 = iterator2.hoursLeft
       if iterator2 > 1 then
-        iterator2 = dataTable4
-        iterator2 = iterator2[arg6]
-        tableHelper2 = dataTable4
-        tableHelper2 = tableHelper2[arg6]
+        iterator2 = dataCollection4
+        iterator2 = iterator2[localValue6]
+        tableHelper2 = dataCollection4
+        tableHelper2 = tableHelper2[localValue6]
         tableHelper2 = tableHelper2.hoursLeft
         tableHelper2 = tableHelper2 - 1
         iterator2.hoursLeft = tableHelper2
       else
-        iterator2 = dataTable4
-        iterator2[arg6] = nil
+        iterator2 = dataCollection4
+        iterator2[localValue6] = nil
       end
     end
   end
 end
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "b4785de6ec"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "b4785de6ec"
 -- Beginner: this function handles network event "b4785de6ec".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = pairs
-  arg3 = dataTable5
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = arg7.uuid
-    if iterator2 == arg1 then
-      iterator2 = dataTable5
-      iterator2[arg6] = nil
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = pairs
+  localValue3 = dataCollection5
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = localValue7.uuid
+    if iterator2 == localValue1 then
+      iterator2 = dataCollection5
+      iterator2[localValue6] = nil
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b4785de6ec".
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = RegisterNetEvent
-textValue13 = "f61fc6bcb1"
+eventHandler3(text13, workingValue20)
+eventHandler3 = RegisterNetEvent
+text13 = "f61fc6bcb1"
 -- Beginner: this function handles network event "f61fc6bcb1".
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1) ===
-function workValue20(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = pairs
-  arg3 = dataTable4
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = arg7.uuid
-    if iterator2 == arg1 then
-      iterator2 = dataTable4
-      iterator2[arg6] = nil
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1) ===
+function workingValue20(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = pairs
+  localValue3 = dataCollection4
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = localValue7.uuid
+    if iterator2 == localValue1 then
+      iterator2 = dataCollection4
+      iterator2[localValue6] = nil
     end
   end
 end
-eventRegistration3(textValue13, workValue20)
-eventRegistration3 = CMG
+eventHandler3(text13, workingValue20)
+eventHandler3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg1) ===
-function textValue13(arg1)
-  local arg2
-  arg2 = dataTable19
-  arg2 = arg2[arg1]
-  return arg2
+-- === HELPER FUNCTION (decompiler name: text13; parameters: localValue1) ===
+function text13(localValue1)
+  local localValue2
+  localValue2 = dataCollection19
+  localValue2 = localValue2[localValue1]
+  return localValue2
 end
-eventRegistration3.getVehicleInfoFromUUID = textValue13
-eventRegistration3 = CMG
+eventHandler3.getVehicleInfoFromUUID = text13
+eventHandler3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg1) ===
-function textValue13(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = pairs
-  arg3 = dataTable19
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = arg7.vehicleId
-    if iterator2 == arg1 then
+-- === HELPER FUNCTION (decompiler name: text13; parameters: localValue1) ===
+function text13(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = pairs
+  localValue3 = dataCollection19
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = localValue7.vehicleId
+    if iterator2 == localValue1 then
       iterator2 = true
       return iterator2
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-eventRegistration3.hasLiveVehicleId = textValue13
-eventRegistration3 = CMG
+eventHandler3.hasLiveVehicleId = text13
+eventHandler3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue13; parameters: none) ===
-function textValue13()
-  local arg1, arg2
-  arg1 = dataTable19
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text13; parameters: none) ===
+function text13()
+  local localValue1, localValue2
+  localValue1 = dataCollection19
+  return localValue1
 end
-eventRegistration3.getVehicleInfoLookup = textValue13
+eventHandler3.getVehicleInfoLookup = text13
 
--- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: arg1, arg2) ===
-function eventRegistration3(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  if arg2 and "" ~= arg2 then
-    arg3 = string
-    arg3 = arg3.lower
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    arg4 = string
-    arg4 = arg4.lower
-    arg5 = arg1
-    arg4 = arg4(arg5)
-    if arg3 ~= arg4 then
-      return arg2
+-- === HELPER FUNCTION (decompiler name: eventHandler3; parameters: localValue1, localValue2) ===
+function eventHandler3(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  if localValue2 and "" ~= localValue2 then
+    localValue3 = string
+    localValue3 = localValue3.lower
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    localValue4 = string
+    localValue4 = localValue4.lower
+    localValue5 = localValue1
+    localValue4 = localValue4(localValue5)
+    if localValue3 ~= localValue4 then
+      return localValue2
     end
   end
-  arg3 = GetHashKey
-  arg4 = arg1
+  localValue3 = GetHashKey
+  localValue4 = localValue1
   -- Beginner: result below is hash.
-  arg3 = arg3(arg4)
-  arg4 = IsModelInCdimage
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg4 = GetLabelText
-    arg5 = GetDisplayNameFromVehicleModel
-    arg6 = arg3
-    arg5, arg6 = arg5(arg6)
-    arg4 = arg4(arg5, arg6)
-    if arg4 and "" ~= arg4 and "NULL" ~= arg4 then
-      return arg4
+  localValue3 = localValue3(localValue4)
+  localValue4 = IsModelInCdimage
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue4 = GetLabelText
+    localValue5 = GetDisplayNameFromVehicleModel
+    localValue6 = localValue3
+    localValue5, localValue6 = localValue5(localValue6)
+    localValue4 = localValue4(localValue5, localValue6)
+    if localValue4 and "" ~= localValue4 and "NULL" ~= localValue4 then
+      return localValue4
     end
   end
-  arg4 = arg2 or arg4
-  if nil == arg2 or "" == arg2 or not arg2 then
-    arg4 = arg1
+  localValue4 = localValue2 or localValue4
+  if nil == localValue2 or "" == localValue2 or not localValue2 then
+    localValue4 = localValue1
   end
-  return arg4
+  return localValue4
 end
-textValue13 = CMG
+text13 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: none) ===
-function workValue20()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper
-  arg1 = {}
-  arg2 = pairs
-  arg3 = dataTable18
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: none) ===
+function workingValue20()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper
+  localValue1 = {}
+  localValue2 = pairs
+  localValue3 = dataCollection18
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = pairs
-    tableHelper2 = arg7.vehicles
-    iterator2, tableHelper2, dataTable25, workValue2 = iterator2(tableHelper2)
-    for dataTable, iterator in iterator2, tableHelper2, dataTable25, workValue2 do
-      workValue7 = iterator.uuid
-      stringHelper = dataTable12
-      stringHelper = stringHelper[workValue7]
-      workValue7 = stringHelper or workValue7
+    tableHelper2 = localValue7.vehicles
+    iterator2, tableHelper2, dataCollection25, workingValue2 = iterator2(tableHelper2)
+    for dataCollection, iterator in iterator2, tableHelper2, dataCollection25, workingValue2 do
+      workingValue7 = iterator.uuid
+      stringHelper = dataCollection12
+      stringHelper = stringHelper[workingValue7]
+      workingValue7 = stringHelper or workingValue7
       if not stringHelper or "" == stringHelper or not stringHelper then
-        workValue7 = eventRegistration3
+        workingValue7 = eventHandler3
         stringHelper2 = iterator.vehicleId
-        cmgCall3 = iterator.name
-        workValue7 = workValue7(stringHelper2, cmgCall3)
+        cmgOperation3 = iterator.name
+        workingValue7 = workingValue7(stringHelper2, cmgOperation3)
       end
       stringHelper2 = tostring
-      cmgCall3 = iterator.uuid
-      stringHelper2 = stringHelper2(cmgCall3)
-      cmgCall3 = {}
-      tableHelper = arg7.type
-      cmgCall3.garage = tableHelper
-      cmgCall3.name = workValue7
-      arg1[stringHelper2] = cmgCall3
+      cmgOperation3 = iterator.uuid
+      stringHelper2 = stringHelper2(cmgOperation3)
+      cmgOperation3 = {}
+      tableHelper = localValue7.type
+      cmgOperation3.garage = tableHelper
+      cmgOperation3.name = workingValue7
+      localValue1[stringHelper2] = cmgOperation3
     end
   end
-  arg2 = {}
-  arg3 = pairs
-  arg4 = dataTable9
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, iterator2 in arg3, arg4, arg5, arg6 do
+  localValue2 = {}
+  localValue3 = pairs
+  localValue4 = dataCollection9
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, iterator2 in localValue3, localValue4, localValue5, localValue6 do
     tableHelper2 = pairs
-    dataTable25 = iterator2
-    tableHelper2, dataTable25, workValue2, dataTable = tableHelper2(dataTable25)
-    for iterator in tableHelper2, dataTable25, workValue2, dataTable do
+    dataCollection25 = iterator2
+    tableHelper2, dataCollection25, workingValue2, dataCollection = tableHelper2(dataCollection25)
+    for iterator in tableHelper2, dataCollection25, workingValue2, dataCollection do
       stringHelper = tostring
-      workValue7 = iterator
-      stringHelper = stringHelper(workValue7)
-      arg2[stringHelper] = arg7
+      workingValue7 = iterator
+      stringHelper = stringHelper(workingValue7)
+      localValue2[stringHelper] = localValue7
     end
   end
-  arg3 = {}
-  arg3.byUuid = arg1
-  arg3.folderOf = arg2
-  return arg3
+  localValue3 = {}
+  localValue3.byUuid = localValue1
+  localValue3.folderOf = localValue2
+  return localValue3
 end
-textValue13.getTradeVehicleGrouping = workValue20
+text13.getTradeVehicleGrouping = workingValue20
 
--- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg1) ===
-function textValue13(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25
-  arg2 = pairs
-  arg3 = dataTable19
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+-- === HELPER FUNCTION (decompiler name: text13; parameters: localValue1) ===
+function text13(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25
+  localValue2 = pairs
+  localValue3 = dataCollection19
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = string
     iterator2 = iterator2.lower
-    tableHelper2 = arg7.vehicleId
+    tableHelper2 = localValue7.vehicleId
     iterator2 = iterator2(tableHelper2)
     tableHelper2 = string
     tableHelper2 = tableHelper2.lower
-    dataTable25 = arg1
-    tableHelper2 = tableHelper2(dataTable25)
+    dataCollection25 = localValue1
+    tableHelper2 = tableHelper2(dataCollection25)
     if iterator2 == tableHelper2 then
-      return arg6
+      return localValue6
     end
   end
-  arg2 = nil
-  return arg2
+  localValue2 = nil
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2) ===
-function workValue20(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5
-  arg3 = pairs
-  arg4 = workValue.garages
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, iterator2 in arg3, arg4, arg5, arg6 do
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1, localValue2) ===
+function workingValue20(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5
+  localValue3 = pairs
+  localValue4 = workingValue.garages
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, iterator2 in localValue3, localValue4, localValue5, localValue6 do
     tableHelper2 = pairs
-    dataTable25 = iterator2
-    tableHelper2, dataTable25, workValue2, dataTable = tableHelper2(dataTable25)
-    for iterator, stringHelper in tableHelper2, dataTable25, workValue2, dataTable do
-      workValue7 = string
-      workValue7 = workValue7.lower
+    dataCollection25 = iterator2
+    tableHelper2, dataCollection25, workingValue2, dataCollection = tableHelper2(dataCollection25)
+    for iterator, stringHelper in tableHelper2, dataCollection25, workingValue2, dataCollection do
+      workingValue7 = string
+      workingValue7 = workingValue7.lower
       stringHelper2 = iterator
-      workValue7 = workValue7(stringHelper2)
+      workingValue7 = workingValue7(stringHelper2)
       stringHelper2 = string
       stringHelper2 = stringHelper2.lower
-      cmgCall3 = arg2.vehicleId
-      stringHelper2 = stringHelper2(cmgCall3)
-      if workValue7 == stringHelper2 then
-        workValue7 = nil
+      cmgOperation3 = localValue2.vehicleId
+      stringHelper2 = stringHelper2(cmgOperation3)
+      if workingValue7 == stringHelper2 then
+        workingValue7 = nil
         stringHelper2 = pairs
-        cmgCall3 = dataTable18
-        stringHelper2, cmgCall3, tableHelper, workValue9 = stringHelper2(cmgCall3)
-        for heading, workValue10 in stringHelper2, cmgCall3, tableHelper, workValue9 do
-          cmgCall5 = workValue10.type
-          if cmgCall5 == arg7 then
-            workValue7 = workValue10
+        cmgOperation3 = dataCollection18
+        stringHelper2, cmgOperation3, tableHelper, workingValue9 = stringHelper2(cmgOperation3)
+        for heading, workingValue10 in stringHelper2, cmgOperation3, tableHelper, workingValue9 do
+          cmgOperation5 = workingValue10.type
+          if cmgOperation5 == localValue7 then
+            workingValue7 = workingValue10
             break
           end
         end
-        if not workValue7 then
+        if not workingValue7 then
           stringHelper2 = {}
-          stringHelper2.type = arg7
-          cmgCall3 = iterator2._config
-          cmgCall3 = cmgCall3.type
-          stringHelper2.class = cmgCall3
-          cmgCall3 = {}
-          stringHelper2.vehicles = cmgCall3
-          workValue7 = stringHelper2
+          stringHelper2.type = localValue7
+          cmgOperation3 = iterator2._config
+          cmgOperation3 = cmgOperation3.type
+          stringHelper2.class = cmgOperation3
+          cmgOperation3 = {}
+          stringHelper2.vehicles = cmgOperation3
+          workingValue7 = stringHelper2
           stringHelper2 = table
           stringHelper2 = stringHelper2.insert
-          cmgCall3 = dataTable18
-          tableHelper = workValue7
-          stringHelper2(cmgCall3, tableHelper)
+          cmgOperation3 = dataCollection18
+          tableHelper = workingValue7
+          stringHelper2(cmgOperation3, tableHelper)
         end
         stringHelper2 = {}
-        stringHelper2.uuid = arg1
-        cmgCall3 = arg2.vehicleId
-        stringHelper2.vehicleId = cmgCall3
-        cmgCall3 = stringHelper.name
-        stringHelper2.name = cmgCall3
-        cmgCall3 = arg2.fuel
-        stringHelper2.fuel = cmgCall3
-        cmgCall3 = table
-        cmgCall3 = cmgCall3.insert
-        tableHelper = workValue7.vehicles
-        workValue9 = stringHelper2
-        cmgCall3(tableHelper, workValue9)
-        cmgCall3 = dataTable19
-        cmgCall3[arg1] = stringHelper2
+        stringHelper2.uuid = localValue1
+        cmgOperation3 = localValue2.vehicleId
+        stringHelper2.vehicleId = cmgOperation3
+        cmgOperation3 = stringHelper.name
+        stringHelper2.name = cmgOperation3
+        cmgOperation3 = localValue2.fuel
+        stringHelper2.fuel = cmgOperation3
+        cmgOperation3 = table
+        cmgOperation3 = cmgOperation3.insert
+        tableHelper = workingValue7.vehicles
+        workingValue9 = stringHelper2
+        cmgOperation3(tableHelper, workingValue9)
+        cmgOperation3 = dataCollection19
+        cmgOperation3[localValue1] = stringHelper2
         break
       end
     end
   end
 end
-eventRegistration4 = RegisterNetEvent
-cmgCall9 = "d7e6bd6cc0"
+eventHandler4 = RegisterNetEvent
+cmgOperation9 = "d7e6bd6cc0"
 -- Beginner: this function handles network event "d7e6bd6cc0".
 
--- === HELPER FUNCTION (decompiler name: textValue14; parameters: arg1) ===
-function textValue14(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9
-  arg2 = {}
-  dataTable19 = arg2
-  arg2 = {}
-  dataTable18 = arg2
-  arg2 = pairs
-  arg3 = arg1
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = workValue20
-    tableHelper2 = arg6
-    dataTable25 = arg7
-    iterator2(tableHelper2, dataTable25)
+-- === HELPER FUNCTION (decompiler name: text14; parameters: localValue1) ===
+function text14(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9
+  localValue2 = {}
+  dataCollection19 = localValue2
+  localValue2 = {}
+  dataCollection18 = localValue2
+  localValue2 = pairs
+  localValue3 = localValue1
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = workingValue20
+    tableHelper2 = localValue6
+    dataCollection25 = localValue7
+    iterator2(tableHelper2, dataCollection25)
   end
-  arg2 = table
-  arg2 = arg2.sort
-  arg3 = dataTable18
+  localValue2 = table
+  localValue2 = localValue2.sort
+  localValue3 = dataCollection18
 
-  -- === HELPER FUNCTION: arg4(arg12, arg22) ===
-  function arg4(arg12, arg22)
-    local arg32, arg42
-    arg32 = arg12.type
-    arg42 = arg22.type
-    arg32 = arg32 < arg42
-    return arg32
+  -- === HELPER FUNCTION: localValue4(localValue12, localValue22) ===
+  function localValue4(localValue12, localValue22)
+    local localValue32, localValue42
+    localValue32 = localValue12.type
+    localValue42 = localValue22.type
+    localValue32 = localValue32 < localValue42
+    return localValue32
   end
-  arg2(arg3, arg4)
-  arg2 = pairs
-  arg3 = dataTable18
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+  localValue2(localValue3, localValue4)
+  localValue2 = pairs
+  localValue3 = dataCollection18
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = table
     iterator2 = iterator2.sort
-    tableHelper2 = arg7.vehicles
+    tableHelper2 = localValue7.vehicles
 
-    -- === HELPER FUNCTION (decompiler name: dataTable25; parameters: arg12, arg22) ===
-    function dataTable25(arg12, arg22)
-      local arg32, arg42
-      arg32 = arg12.name
-      arg42 = arg22.name
-      arg32 = arg32 < arg42
-      return arg32
+    -- === HELPER FUNCTION (decompiler name: dataCollection25; parameters: localValue12, localValue22) ===
+    function dataCollection25(localValue12, localValue22)
+      local localValue32, localValue42
+      localValue32 = localValue12.name
+      localValue42 = localValue22.name
+      localValue32 = localValue32 < localValue42
+      return localValue32
     end
-    iterator2(tableHelper2, dataTable25)
+    iterator2(tableHelper2, dataCollection25)
   end
-  arg2 = CMG
-  arg2 = arg2.getCustomFolders
-  arg2 = arg2()
-  arg3 = GetResourceKvpInt
-  arg4 = "cmg_garagefolders_version"
-  arg3 = arg3(arg4)
-  arg4 = table
-  arg4 = arg4.count
-  arg5 = arg2
+  localValue2 = CMG
+  localValue2 = localValue2.getCustomFolders
+  localValue2 = localValue2()
+  localValue3 = GetResourceKvpInt
+  localValue4 = "cmg_garagefolders_version"
+  localValue3 = localValue3(localValue4)
+  localValue4 = table
+  localValue4 = localValue4.count
+  localValue5 = localValue2
   -- Beginner: result below is count.
-  arg4 = arg4(arg5)
-  if arg4 > 0 then
-    if 0 == arg3 then
-      arg4 = table
-      arg4 = arg4.copy
-      arg5 = arg2
-      arg4 = arg4(arg5)
-      arg5 = pairs
-      arg6 = arg4
-      arg5, arg6, arg7, iterator2 = arg5(arg6)
-      for tableHelper2, dataTable25 in arg5, arg6, arg7, iterator2 do
-        workValue2 = {}
-        dataTable = pairs
-        iterator = dataTable25
-        dataTable, iterator, stringHelper, workValue7 = dataTable(iterator)
-        for stringHelper2 in dataTable, iterator, stringHelper, workValue7 do
-          cmgCall3 = textValue13
+  localValue4 = localValue4(localValue5)
+  if localValue4 > 0 then
+    if 0 == localValue3 then
+      localValue4 = table
+      localValue4 = localValue4.copy
+      localValue5 = localValue2
+      localValue4 = localValue4(localValue5)
+      localValue5 = pairs
+      localValue6 = localValue4
+      localValue5, localValue6, localValue7, iterator2 = localValue5(localValue6)
+      for tableHelper2, dataCollection25 in localValue5, localValue6, localValue7, iterator2 do
+        workingValue2 = {}
+        dataCollection = pairs
+        iterator = dataCollection25
+        dataCollection, iterator, stringHelper, workingValue7 = dataCollection(iterator)
+        for stringHelper2 in dataCollection, iterator, stringHelper, workingValue7 do
+          cmgOperation3 = text13
           tableHelper = stringHelper2
-          cmgCall3 = cmgCall3(tableHelper)
-          if cmgCall3 then
-            workValue2[cmgCall3] = true
+          cmgOperation3 = cmgOperation3(tableHelper)
+          if cmgOperation3 then
+            workingValue2[cmgOperation3] = true
           end
         end
-        arg4[tableHelper2] = workValue2
+        localValue4[tableHelper2] = workingValue2
       end
-      arg2 = arg4
-      arg5 = CMG
-      arg5 = arg5.saveCustomFolders
-      arg6 = 1
-      arg5(arg6)
+      localValue2 = localValue4
+      localValue5 = CMG
+      localValue5 = localValue5.saveCustomFolders
+      localValue6 = 1
+      localValue5(localValue6)
     end
-    if 1 == arg3 then
-      arg4 = table
-      arg4 = arg4.copy
-      arg5 = arg2
-      arg4 = arg4(arg5)
-      arg5 = pairs
-      arg6 = arg4
-      arg5, arg6, arg7, iterator2 = arg5(arg6)
-      for tableHelper2, dataTable25 in arg5, arg6, arg7, iterator2 do
-        workValue2 = {}
-        dataTable = 0
+    if 1 == localValue3 then
+      localValue4 = table
+      localValue4 = localValue4.copy
+      localValue5 = localValue2
+      localValue4 = localValue4(localValue5)
+      localValue5 = pairs
+      localValue6 = localValue4
+      localValue5, localValue6, localValue7, iterator2 = localValue5(localValue6)
+      for tableHelper2, dataCollection25 in localValue5, localValue6, localValue7, iterator2 do
+        workingValue2 = {}
+        dataCollection = 0
         iterator = pairs
-        stringHelper = dataTable25
-        iterator, stringHelper, workValue7, stringHelper2 = iterator(stringHelper)
-        for cmgCall3 in iterator, stringHelper, workValue7, stringHelper2 do
-          workValue2[cmgCall3] = dataTable
-          dataTable = dataTable + 1
+        stringHelper = dataCollection25
+        iterator, stringHelper, workingValue7, stringHelper2 = iterator(stringHelper)
+        for cmgOperation3 in iterator, stringHelper, workingValue7, stringHelper2 do
+          workingValue2[cmgOperation3] = dataCollection
+          dataCollection = dataCollection + 1
         end
-        arg4[tableHelper2] = workValue2
+        localValue4[tableHelper2] = workingValue2
       end
-      arg2 = arg4
-      arg5 = CMG
-      arg5 = arg5.saveCustomFolders
-      arg6 = 2
-      arg5(arg6)
+      localValue2 = localValue4
+      localValue5 = CMG
+      localValue5 = localValue5.saveCustomFolders
+      localValue6 = 2
+      localValue5(localValue6)
     end
   end
-  dataTable9 = arg2
-  arg4 = CMG
-  arg4 = arg4.getGarageSettings
-  arg4 = arg4()
-  dataTable11 = arg4
+  dataCollection9 = localValue2
+  localValue4 = CMG
+  localValue4 = localValue4.getGarageSettings
+  localValue4 = localValue4()
+  dataCollection11 = localValue4
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d7e6bd6cc0".
-eventRegistration4(cmgCall9, textValue14)
-eventRegistration4 = RegisterNetEvent
-cmgCall9 = "5ab691b0b2"
+eventHandler4(cmgOperation9, text14)
+eventHandler4 = RegisterNetEvent
+cmgOperation9 = "5ab691b0b2"
 -- Beginner: this function handles network event "5ab691b0b2".
 
--- === HELPER FUNCTION (decompiler name: textValue14; parameters: arg1) ===
-function textValue14(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3
-  arg2 = dataTable19
-  arg2[arg1] = nil
-  arg2 = pairs
-  arg3 = dataTable18
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+-- === HELPER FUNCTION (decompiler name: text14; parameters: localValue1) ===
+function text14(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3
+  localValue2 = dataCollection19
+  localValue2[localValue1] = nil
+  localValue2 = pairs
+  localValue3 = dataCollection18
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = false
     tableHelper2 = pairs
-    dataTable25 = arg7.vehicles
-    tableHelper2, dataTable25, workValue2, dataTable = tableHelper2(dataTable25)
-    for iterator, stringHelper in tableHelper2, dataTable25, workValue2, dataTable do
-      workValue7 = stringHelper.uuid
-      if workValue7 == arg1 then
+    dataCollection25 = localValue7.vehicles
+    tableHelper2, dataCollection25, workingValue2, dataCollection = tableHelper2(dataCollection25)
+    for iterator, stringHelper in tableHelper2, dataCollection25, workingValue2, dataCollection do
+      workingValue7 = stringHelper.uuid
+      if workingValue7 == localValue1 then
         iterator2 = true
-        workValue7 = table
-        workValue7 = workValue7.remove
-        stringHelper2 = arg7.vehicles
-        cmgCall3 = iterator
-        workValue7(stringHelper2, cmgCall3)
+        workingValue7 = table
+        workingValue7 = workingValue7.remove
+        stringHelper2 = localValue7.vehicles
+        cmgOperation3 = iterator
+        workingValue7(stringHelper2, cmgOperation3)
         break
       end
     end
     if iterator2 then
-      tableHelper2 = arg7.vehicles
+      tableHelper2 = localValue7.vehicles
       tableHelper2 = #tableHelper2
       if 0 == tableHelper2 then
         tableHelper2 = table
         tableHelper2 = tableHelper2.remove
-        dataTable25 = dataTable18
-        workValue2 = arg6
-        tableHelper2(dataTable25, workValue2)
+        dataCollection25 = dataCollection18
+        workingValue2 = localValue6
+        tableHelper2(dataCollection25, workingValue2)
         break
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5ab691b0b2".
-eventRegistration4(cmgCall9, textValue14)
-eventRegistration4 = RegisterNetEvent
-cmgCall9 = "e3d9da6250"
+eventHandler4(cmgOperation9, text14)
+eventHandler4 = RegisterNetEvent
+cmgOperation9 = "e3d9da6250"
 -- Beginner: this function handles network event "e3d9da6250".
 
--- === HELPER FUNCTION (decompiler name: textValue14; parameters: arg1, arg2, arg3) ===
-function textValue14(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9
-  arg4 = workValue20
-  arg5 = arg1
-  arg6 = {}
-  arg6.vehicleId = arg2
-  arg6.fuel = arg3
-  arg4(arg5, arg6)
-  arg4 = pairs
-  arg5 = dataTable18
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
-    dataTable25 = false
-    workValue2 = pairs
-    dataTable = tableHelper2.vehicles
-    workValue2, dataTable, iterator, stringHelper = workValue2(dataTable)
-    for workValue7, stringHelper2 in workValue2, dataTable, iterator, stringHelper do
-      cmgCall3 = stringHelper2.uuid
-      if cmgCall3 == arg1 then
-        dataTable25 = true
-        cmgCall3 = table
-        cmgCall3 = cmgCall3.sort
+-- === HELPER FUNCTION (decompiler name: text14; parameters: localValue1, localValue2, localValue3) ===
+function text14(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9
+  localValue4 = workingValue20
+  localValue5 = localValue1
+  localValue6 = {}
+  localValue6.vehicleId = localValue2
+  localValue6.fuel = localValue3
+  localValue4(localValue5, localValue6)
+  localValue4 = pairs
+  localValue5 = dataCollection18
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
+    dataCollection25 = false
+    workingValue2 = pairs
+    dataCollection = tableHelper2.vehicles
+    workingValue2, dataCollection, iterator, stringHelper = workingValue2(dataCollection)
+    for workingValue7, stringHelper2 in workingValue2, dataCollection, iterator, stringHelper do
+      cmgOperation3 = stringHelper2.uuid
+      if cmgOperation3 == localValue1 then
+        dataCollection25 = true
+        cmgOperation3 = table
+        cmgOperation3 = cmgOperation3.sort
         tableHelper = tableHelper2.vehicles
 
-        -- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg12, arg22) ===
-        function workValue9(arg12, arg22)
-          local arg32, arg42
-          arg32 = arg12.name
-          arg42 = arg22.name
-          arg32 = arg32 < arg42
-          return arg32
+        -- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue12, localValue22) ===
+        function workingValue9(localValue12, localValue22)
+          local localValue32, localValue42
+          localValue32 = localValue12.name
+          localValue42 = localValue22.name
+          localValue32 = localValue32 < localValue42
+          return localValue32
         end
-        cmgCall3(tableHelper, workValue9)
+        cmgOperation3(tableHelper, workingValue9)
         break
       end
     end
-    if dataTable25 then
-      workValue2 = table
-      workValue2 = workValue2.sort
-      dataTable = dataTable18
+    if dataCollection25 then
+      workingValue2 = table
+      workingValue2 = workingValue2.sort
+      dataCollection = dataCollection18
 
-      -- === HELPER FUNCTION: iterator(arg12, arg22) ===
-      function iterator(arg12, arg22)
-        local arg32, arg42
-        arg32 = arg12.type
-        arg42 = arg22.type
-        arg32 = arg32 < arg42
-        return arg32
+      -- === HELPER FUNCTION: iterator(localValue12, localValue22) ===
+      function iterator(localValue12, localValue22)
+        local localValue32, localValue42
+        localValue32 = localValue12.type
+        localValue42 = localValue22.type
+        localValue32 = localValue32 < localValue42
+        return localValue32
       end
-      workValue2(dataTable, iterator)
+      workingValue2(dataCollection, iterator)
       break
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e3d9da6250".
-eventRegistration4(cmgCall9, textValue14)
+eventHandler4(cmgOperation9, text14)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration4; parameters: arg1) ===
-function eventRegistration4(arg1)
-  local arg2
-  arg2 = dataTable22
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = true
-    return arg2
+-- === HELPER FUNCTION (decompiler name: eventHandler4; parameters: localValue1) ===
+function eventHandler4(localValue1)
+  local localValue2
+  localValue2 = dataCollection22
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = true
+    return localValue2
   else
-    arg2 = false
-    return arg2
+    localValue2 = false
+    return localValue2
   end
 end
-cmgCall9 = CMG
-cmgCall9 = cmgCall9.RegisterClientCallback
-textValue14 = "90da0d8135"
+cmgOperation9 = CMG
+cmgOperation9 = cmgOperation9.RegisterClientCallback
+text14 = "90da0d8135"
 
--- === HELPER FUNCTION (decompiler name: dataTable23; parameters: none) ===
-function dataTable23()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7
-  arg1 = table
-  arg1 = arg1.copy
-  arg2 = dataTable18
-  arg1 = arg1(arg2)
-  arg2 = pairs
-  arg3 = arg1
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = eventRegistration4
-    tableHelper2 = arg7.type
+-- === HELPER FUNCTION (decompiler name: dataCollection23; parameters: none) ===
+function dataCollection23()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7
+  localValue1 = table
+  localValue1 = localValue1.copy
+  localValue2 = dataCollection18
+  localValue1 = localValue1(localValue2)
+  localValue2 = pairs
+  localValue3 = localValue1
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = eventHandler4
+    tableHelper2 = localValue7.type
     iterator2 = iterator2(tableHelper2)
     if iterator2 then
       iterator2 = pairs
-      tableHelper2 = arg7.vehicles
-      iterator2, tableHelper2, dataTable25, workValue2 = iterator2(tableHelper2)
-      for dataTable, iterator in iterator2, tableHelper2, dataTable25, workValue2 do
-        workValue7 = iterator.uuid
-        stringHelper = dataTable12
-        stringHelper = stringHelper[workValue7]
+      tableHelper2 = localValue7.vehicles
+      iterator2, tableHelper2, dataCollection25, workingValue2 = iterator2(tableHelper2)
+      for dataCollection, iterator in iterator2, tableHelper2, dataCollection25, workingValue2 do
+        workingValue7 = iterator.uuid
+        stringHelper = dataCollection12
+        stringHelper = stringHelper[workingValue7]
         if stringHelper then
-          workValue7 = iterator.uuid
-          stringHelper = dataTable12
-          stringHelper = stringHelper[workValue7]
+          workingValue7 = iterator.uuid
+          stringHelper = dataCollection12
+          stringHelper = stringHelper[workingValue7]
           iterator.name = stringHelper
         end
       end
     else
       iterator2 = {}
-      arg7.vehicles = iterator2
+      localValue7.vehicles = iterator2
     end
   end
-  return arg1
+  return localValue1
 end
-cmgCall9(textValue14, dataTable23)
-cmgCall9 = CMG
-cmgCall9 = cmgCall9.RegisterClientCallback
-textValue14 = "c1d4a26d0d"
+cmgOperation9(text14, dataCollection23)
+cmgOperation9 = CMG
+cmgOperation9 = cmgOperation9.RegisterClientCallback
+text14 = "c1d4a26d0d"
 
--- === HELPER FUNCTION (decompiler name: dataTable23; parameters: none) ===
-function dataTable23()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: dataCollection23; parameters: none) ===
+function dataCollection23()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetInteriorFromEntity
-  arg3 = arg1
+  localValue1 = localValue1()
+  localValue2 = GetInteriorFromEntity
+  localValue3 = localValue1
   -- Beginner: result below is interiorId.
-  arg2 = arg2(arg3)
-  if arg2 and 0 ~= arg2 then
-    arg3 = true
-    return arg3
+  localValue2 = localValue2(localValue3)
+  if localValue2 and 0 ~= localValue2 then
+    localValue3 = true
+    return localValue3
   else
-    arg3 = false
-    return arg3
+    localValue3 = false
+    return localValue3
   end
 end
-cmgCall9(textValue14, dataTable23)
+cmgOperation9(text14, dataCollection23)
 
--- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: arg1) ===
-function cmgCall9(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = eventRegistration4
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = RageUI
-    arg2 = arg2.Visible
-    arg3 = RMenu
-    arg4 = arg3
-    arg3 = arg3.Get
-    arg5 = "garages"
-    arg6 = "mainmenu"
+-- === HELPER FUNCTION (decompiler name: cmgOperation9; parameters: localValue1) ===
+function cmgOperation9(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = eventHandler4
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = RageUI
+    localValue2 = localValue2.Visible
+    localValue3 = RMenu
+    localValue4 = localValue3
+    localValue3 = localValue3.Get
+    localValue5 = "garages"
+    localValue6 = "mainmenu"
     -- Beginner: result below is menu.
-    arg3 = arg3(arg4, arg5, arg6)
-    arg4 = true
-    arg2(arg3, arg4)
+    localValue3 = localValue3(localValue4, localValue5, localValue6)
+    localValue4 = true
+    localValue2(localValue3, localValue4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue14; parameters: none) ===
-function textValue14()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = RageUI
-  arg1 = arg1.CloseAll
-  arg1()
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "mainmenu"
+-- === HELPER FUNCTION (decompiler name: text14; parameters: none) ===
+function text14()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = RageUI
+  localValue1 = localValue1.CloseAll
+  localValue1()
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = false
-  arg1(arg2, arg3)
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = false
+  localValue1(localValue2, localValue3)
 end
-dataTable23 = {}
-dataTable24 = {}
-numberValue21 = 0
-cmgCall10 = CMG
+dataCollection23 = {}
+dataCollection24 = {}
+number21 = 0
+cmgOperation10 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue21; parameters: none) ===
-function workValue21()
-  local arg1, arg2
-  arg1 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue21; parameters: none) ===
+function workingValue21()
+  local localValue1, localValue2
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  arg2 = numberValue21
-  arg1 = arg1 - arg2
-  arg2 = 1000
-  arg1 = arg1 < arg2
-  return arg1
+  localValue1 = localValue1()
+  localValue2 = number21
+  localValue1 = localValue1 - localValue2
+  localValue2 = 1000
+  localValue1 = localValue1 < localValue2
+  return localValue1
 end
-cmgCall10.isInsideGarageArea = workValue21
+cmgOperation10.isInsideGarageArea = workingValue21
 
--- === HELPER FUNCTION (decompiler name: cmgCall10; parameters: arg1) ===
-function cmgCall10(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg3 = arg1.garageId
-  arg2 = dataTable23
-  arg2 = arg2[arg3]
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation10; parameters: localValue1) ===
+function cmgOperation10(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue3 = localValue1.garageId
+  localValue2 = dataCollection23
+  localValue2 = localValue2[localValue3]
+  if localValue2 then
     return
   end
-  arg2 = PlaySound
-  arg3 = -1
-  arg4 = "Hit"
-  arg5 = "RESPAWN_SOUNDSET"
-  arg6 = false
-  arg7 = false
+  localValue2 = PlaySound
+  localValue3 = -1
+  localValue4 = "Hit"
+  localValue5 = "RESPAWN_SOUNDSET"
+  localValue6 = false
+  localValue7 = false
   iterator2 = true
-  arg2(arg3, arg4, arg5, arg6, arg7, iterator2)
-  arg2 = workValue.garages
-  arg3 = arg1.garageType
-  arg2 = arg2[arg3]
-  arg2 = arg2._config
-  arg2 = arg2.type
-  textValue4 = arg2
-  arg2 = cmgCall9
-  arg3 = arg1.garageType
-  arg2(arg3)
-  arg2 = arg1.position
-  vector3Builder = arg2
-  arg3 = arg1.garageId
-  arg2 = dataTable23
-  arg2[arg3] = true
+  localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, iterator2)
+  localValue2 = workingValue.garages
+  localValue3 = localValue1.garageType
+  localValue2 = localValue2[localValue3]
+  localValue2 = localValue2._config
+  localValue2 = localValue2.type
+  text4 = localValue2
+  localValue2 = cmgOperation9
+  localValue3 = localValue1.garageType
+  localValue2(localValue3)
+  localValue2 = localValue1.position
+  createVector3 = localValue2
+  localValue3 = localValue1.garageId
+  localValue2 = dataCollection23
+  localValue2[localValue3] = true
 end
 
--- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1) ===
-function workValue21(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg3 = arg1.garageId
-  arg2 = dataTable23
-  arg2 = arg2[arg3]
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue21; parameters: localValue1) ===
+function workingValue21(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue3 = localValue1.garageId
+  localValue2 = dataCollection23
+  localValue2 = localValue2[localValue3]
+  if not localValue2 then
     return
   end
-  arg2 = PlaySound
-  arg3 = -1
-  arg4 = "Hit"
-  arg5 = "RESPAWN_SOUNDSET"
-  arg6 = false
-  arg7 = false
+  localValue2 = PlaySound
+  localValue3 = -1
+  localValue4 = "Hit"
+  localValue5 = "RESPAWN_SOUNDSET"
+  localValue6 = false
+  localValue7 = false
   iterator2 = true
-  arg2(arg3, arg4, arg5, arg6, arg7, iterator2)
-  arg2 = textValue14
-  arg2()
-  arg2 = table
-  arg2 = arg2.clear
-  arg3 = dataTable24
-  arg2(arg3)
-  arg3 = arg1.garageId
-  arg2 = dataTable23
-  arg2[arg3] = false
-  arg2 = nil
-  workValue4 = arg2
-  arg2 = nil
-  workValue6 = arg2
+  localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, iterator2)
+  localValue2 = text14
+  localValue2()
+  localValue2 = table
+  localValue2 = localValue2.clear
+  localValue3 = dataCollection24
+  localValue2(localValue3)
+  localValue3 = localValue1.garageId
+  localValue2 = dataCollection23
+  localValue2[localValue3] = false
+  localValue2 = nil
+  workingValue4 = localValue2
+  localValue2 = nil
+  workingValue6 = localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue22; parameters: arg1) ===
-function workValue22(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = NetworkHasControlOfEntity
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = DeleteEntity
-    arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue22; parameters: localValue1) ===
+function workingValue22(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = NetworkHasControlOfEntity
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = DeleteEntity
+    localValue3 = localValue1
     -- Beginner: Delete a GTA entity.
-    arg2(arg3)
+    localValue2(localValue3)
     return
   end
-  arg2 = NetworkGetNetworkIdFromEntity
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 ~= arg2 then
-    arg3 = TriggerServerEvent
-    arg4 = "79ec855d76"
-    arg5 = arg2
+  localValue2 = NetworkGetNetworkIdFromEntity
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if 0 ~= localValue2 then
+    localValue3 = TriggerServerEvent
+    localValue4 = "79ec855d76"
+    localValue5 = localValue2
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "79ec855d76".
-    arg3(arg4, arg5)
+    localValue3(localValue4, localValue5)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue23; parameters: arg1) ===
-function workValue23(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg2 = arg1.distance
-  arg3 = 1.5
-  if arg2 < arg3 then
-    arg3 = arg1.garageId
-    arg2 = dataTable23
-    arg2 = arg2[arg3]
-    if not arg2 then
-      arg2 = cmgCall10
-      arg3 = arg1
-      arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue23; parameters: localValue1) ===
+function workingValue23(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue2 = localValue1.distance
+  localValue3 = 1.5
+  if localValue2 < localValue3 then
+    localValue3 = localValue1.garageId
+    localValue2 = dataCollection23
+    localValue2 = localValue2[localValue3]
+    if not localValue2 then
+      localValue2 = cmgOperation10
+      localValue3 = localValue1
+      localValue2(localValue3)
     end
   else
-    arg3 = arg1.garageId
-    arg2 = dataTable23
-    arg2 = arg2[arg3]
-    if arg2 then
-      arg2 = workValue21
-      arg3 = arg1
-      arg2(arg3)
+    localValue3 = localValue1.garageId
+    localValue2 = dataCollection23
+    localValue2 = localValue2[localValue3]
+    if localValue2 then
+      localValue2 = workingValue21
+      localValue3 = localValue1
+      localValue2(localValue3)
     end
   end
-  arg2 = arg1.type
-  if "vehicle" == arg2 then
-    arg2 = arg1.disableDelete
-    if not arg2 then
-      goto flow_label_29
+  localValue2 = localValue1.type
+  if "vehicle" == localValue2 then
+    localValue2 = localValue1.disableDelete
+    if not localValue2 then
+      goto continueAtStep29
     end
   end
   return
-  ::flow_label_29::
-  arg2 = GetGameTimer
+  ::continueAtStep29::
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
-  arg3 = numberValue21
-  arg3 = arg2 - arg3
-  arg4 = 1000
-  if arg3 < arg4 then
+  localValue2 = localValue2()
+  localValue3 = number21
+  localValue3 = localValue2 - localValue3
+  localValue4 = 1000
+  if localValue3 < localValue4 then
     return
   end
-  arg3 = pairs
-  arg4 = CMG
-  arg4 = arg4.getAllVehicles
-  arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable = arg4()
-  arg3, arg4, arg5, arg6 = arg3(arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-  for arg7, iterator2 in arg3, arg4, arg5, arg6 do
+  localValue3 = pairs
+  localValue4 = CMG
+  localValue4 = localValue4.getAllVehicles
+  localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection = localValue4()
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+  for localValue7, iterator2 in localValue3, localValue4, localValue5, localValue6 do
     tableHelper2 = GetEntityCoords
-    dataTable25 = iterator2
-    workValue2 = true
+    dataCollection25 = iterator2
+    workingValue2 = true
     -- Beginner: result below is entityCoords.
-    tableHelper2 = tableHelper2(dataTable25, workValue2)
-    dataTable25 = arg1.position
-    tableHelper2 = tableHelper2 - dataTable25
+    tableHelper2 = tableHelper2(dataCollection25, workingValue2)
+    dataCollection25 = localValue1.position
+    tableHelper2 = tableHelper2 - dataCollection25
     tableHelper2 = #tableHelper2
     if tableHelper2 < 5.0 then
       tableHelper2 = NetworkGetEntityIsNetworked
-      dataTable25 = iterator2
-      tableHelper2 = tableHelper2(dataTable25)
+      dataCollection25 = iterator2
+      tableHelper2 = tableHelper2(dataCollection25)
       if tableHelper2 then
-        tableHelper2 = dataTable24
+        tableHelper2 = dataCollection24
         tableHelper2 = tableHelper2[iterator2]
         if not tableHelper2 then
           tableHelper2 = 0
         end
         tableHelper2 = tableHelper2 + 1
-        dataTable25 = GetPedInVehicleSeat
-        workValue2 = iterator2
-        dataTable = -1
-        dataTable25 = dataTable25(workValue2, dataTable)
-        if 0 == dataTable25 then
-          dataTable25 = 2
-          if dataTable25 then
-            goto flow_label_76
+        dataCollection25 = GetPedInVehicleSeat
+        workingValue2 = iterator2
+        dataCollection = -1
+        dataCollection25 = dataCollection25(workingValue2, dataCollection)
+        if 0 == dataCollection25 then
+          dataCollection25 = 2
+          if dataCollection25 then
+            goto continueAtStep76
           end
         end
-        dataTable25 = 10
-        ::flow_label_76::
-        if tableHelper2 > dataTable25 then
-          workValue2 = workValue22
-          dataTable = iterator2
-          workValue2(dataTable)
+        dataCollection25 = 10
+        ::continueAtStep76::
+        if tableHelper2 > dataCollection25 then
+          workingValue2 = workingValue22
+          dataCollection = iterator2
+          workingValue2(dataCollection)
         end
-        workValue2 = dataTable24
-        workValue2[iterator2] = tableHelper2
+        workingValue2 = dataCollection24
+        workingValue2[iterator2] = tableHelper2
       end
     end
   end
-  numberValue21 = arg2
+  number21 = localValue2
 end
-cmgCall11 = CMG
+cmgOperation11 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue22; parameters: arg1) ===
-function numberValue22(arg1)
-  local arg2
-  arg2 = dataTable24
-  arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: number22; parameters: localValue1) ===
+function number22(localValue1)
+  local localValue2
+  localValue2 = dataCollection24
+  localValue2[localValue1] = nil
 end
-cmgCall11.clearBlockingVehicleCounter = numberValue22
-cmgCall11 = CMG
+cmgOperation11.clearBlockingVehicleCounter = number22
+cmgOperation11 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue22; parameters: arg1, arg2, arg3, arg4) ===
-function numberValue22(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper
-  arg5 = workValue.garages
-  arg5 = arg5[arg1]
-  arg6 = assert
-  arg7 = arg5
+-- === HELPER FUNCTION (decompiler name: number22; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function number22(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper
+  localValue5 = workingValue.garages
+  localValue5 = localValue5[localValue1]
+  localValue6 = assert
+  localValue7 = localValue5
   iterator2 = string
   iterator2 = iterator2.format
   tableHelper2 = "Garage type %s is not defined in garages.lua config"
-  dataTable25 = arg1
-  iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper = iterator2(tableHelper2, dataTable25)
-  arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper)
-  arg6 = arg5._config
-  arg7 = assert
-  iterator2 = arg6
+  dataCollection25 = localValue1
+  iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper = iterator2(tableHelper2, dataCollection25)
+  localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper)
+  localValue6 = localValue5._config
+  localValue7 = assert
+  iterator2 = localValue6
   tableHelper2 = string
   tableHelper2 = tableHelper2.format
-  dataTable25 = "Garage type %s does not have a config entry"
-  workValue2 = arg1
-  tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper = tableHelper2(dataTable25, workValue2)
-  arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper)
-  arg7 = CMG
-  arg7 = arg7.generateUUID
+  dataCollection25 = "Garage type %s does not have a config entry"
+  workingValue2 = localValue1
+  tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper = tableHelper2(dataCollection25, workingValue2)
+  localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper)
+  localValue7 = CMG
+  localValue7 = localValue7.generateUUID
   iterator2 = "garages"
   tableHelper2 = 5
-  dataTable25 = "alphanumeric"
-  arg7 = arg7(iterator2, tableHelper2, dataTable25)
+  dataCollection25 = "alphanumeric"
+  localValue7 = localValue7(iterator2, tableHelper2, dataCollection25)
   iterator2 = {}
-  tableHelper2 = dataTable14
-  tableHelper2[arg7] = iterator2
+  tableHelper2 = dataCollection14
+  tableHelper2[localValue7] = iterator2
   tableHelper2 = CMG
   tableHelper2 = tableHelper2.createArea
-  dataTable25 = "garage_"
-  workValue2 = arg7
-  dataTable25 = dataTable25 .. workValue2
-  workValue2 = arg2
-  dataTable = 10.0
+  dataCollection25 = "garage_"
+  workingValue2 = localValue7
+  dataCollection25 = dataCollection25 .. workingValue2
+  workingValue2 = localValue2
+  dataCollection = 10.0
   iterator = 6
 
   -- === HELPER FUNCTION: stringHelper() ===
   function stringHelper()
-    local arg12, arg22
+    local localValue12, localValue22
   end
-  workValue7 = workValue21
-  stringHelper2 = workValue23
-  cmgCall3 = {}
-  cmgCall3.garageType = arg1
-  cmgCall3.garageId = arg7
-  cmgCall3.position = arg2
-  tableHelper = arg6.type
-  cmgCall3.type = tableHelper
-  cmgCall3.disableDelete = arg4
-  tableHelper2 = tableHelper2(dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3)
+  workingValue7 = workingValue21
+  stringHelper2 = workingValue23
+  cmgOperation3 = {}
+  cmgOperation3.garageType = localValue1
+  cmgOperation3.garageId = localValue7
+  cmgOperation3.position = localValue2
+  tableHelper = localValue6.type
+  cmgOperation3.type = tableHelper
+  cmgOperation3.disableDelete = localValue4
+  tableHelper2 = tableHelper2(dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3)
   iterator2.areaId = tableHelper2
   tableHelper2 = tCMG
   tableHelper2 = tableHelper2.addPropMarker
-  dataTable25 = "bzzz_marker_garage_green_anim"
-  workValue2 = arg2.x
-  dataTable = arg2.y
-  iterator = arg2.z
+  dataCollection25 = "bzzz_marker_garage_green_anim"
+  workingValue2 = localValue2.x
+  dataCollection = localValue2.y
+  iterator = localValue2.z
   stringHelper = 50.0
-  tableHelper2 = tableHelper2(dataTable25, workValue2, dataTable, iterator, stringHelper)
+  tableHelper2 = tableHelper2(dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
   iterator2.marker = tableHelper2
-  if arg3 then
+  if localValue3 then
     tableHelper2 = tCMG
     tableHelper2 = tableHelper2.addBlip
-    dataTable25 = arg2.x
-    workValue2 = arg2.y
-    dataTable = arg2.z
-    iterator = arg6.blipid
-    stringHelper = arg6.blipcolor
-    workValue7 = arg1
+    dataCollection25 = localValue2.x
+    workingValue2 = localValue2.y
+    dataCollection = localValue2.z
+    iterator = localValue6.blipid
+    stringHelper = localValue6.blipcolor
+    workingValue7 = localValue1
     stringHelper2 = 0.7
-    cmgCall3 = false
-    tableHelper2 = tableHelper2(dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3)
+    cmgOperation3 = false
+    tableHelper2 = tableHelper2(dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3)
     iterator2.blip = tableHelper2
   end
-  return arg7
+  return localValue7
 end
-cmgCall11.createGarage = numberValue22
-cmgCall11 = CMG
+cmgOperation11.createGarage = number22
+cmgOperation11 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue22; parameters: arg1) ===
-function numberValue22(arg1)
-  local arg2, arg3, arg4
-  arg2 = dataTable14
-  arg2 = arg2[arg1]
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: number22; parameters: localValue1) ===
+function number22(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = dataCollection14
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
     return
   end
-  arg3 = tCMG
-  arg3 = arg3.removeArea
-  arg4 = arg2.areaId
-  arg3(arg4)
-  arg3 = tCMG
-  arg3 = arg3.removeMarker
-  arg4 = arg2.marker
-  arg3(arg4)
-  arg3 = arg2.blip
-  if arg3 then
-    arg3 = tCMG
-    arg3 = arg3.removeBlip
-    arg4 = arg2.blip
-    arg3(arg4)
+  localValue3 = tCMG
+  localValue3 = localValue3.removeArea
+  localValue4 = localValue2.areaId
+  localValue3(localValue4)
+  localValue3 = tCMG
+  localValue3 = localValue3.removeMarker
+  localValue4 = localValue2.marker
+  localValue3(localValue4)
+  localValue3 = localValue2.blip
+  if localValue3 then
+    localValue3 = tCMG
+    localValue3 = localValue3.removeBlip
+    localValue4 = localValue2.blip
+    localValue3(localValue4)
   end
-  arg3 = dataTable14
-  arg3[arg1] = nil
+  localValue3 = dataCollection14
+  localValue3[localValue1] = nil
 end
-cmgCall11.deleteGarage = numberValue22
-cmgCall11 = CreateThread
+cmgOperation11.deleteGarage = number22
+cmgOperation11 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
 
--- === HELPER FUNCTION (decompiler name: numberValue22; parameters: none) ===
-function numberValue22()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6
-  arg1 = pairs
-  arg2 = workValue.garages
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = pairs
-    iterator2 = arg6
-    arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-    for workValue2 in arg7, iterator2, tableHelper2, dataTable25 do
-      if "_config" == workValue2 then
-        dataTable = pairs
-        iterator = workValue.garageInstances
-        dataTable, iterator, stringHelper, workValue7 = dataTable(iterator)
-        for stringHelper2, cmgCall3 in dataTable, iterator, stringHelper, workValue7 do
+-- === HELPER FUNCTION (decompiler name: number22; parameters: none) ===
+function number22()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6
+  localValue1 = pairs
+  localValue2 = workingValue.garages
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = pairs
+    iterator2 = localValue6
+    localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+    for workingValue2 in localValue7, iterator2, tableHelper2, dataCollection25 do
+      if "_config" == workingValue2 then
+        dataCollection = pairs
+        iterator = workingValue.garageInstances
+        dataCollection, iterator, stringHelper, workingValue7 = dataCollection(iterator)
+        for stringHelper2, cmgOperation3 in dataCollection, iterator, stringHelper, workingValue7 do
           tableHelper = table
           tableHelper = tableHelper.unpack
-          workValue9 = cmgCall3
-          tableHelper, workValue9, heading, workValue10 = tableHelper(workValue9)
-          if arg5 == tableHelper then
-            cmgCall5 = CMG
-            cmgCall5 = cmgCall5.createGarage
-            numberValue5 = arg5
-            vehicle = workValue9
+          workingValue9 = cmgOperation3
+          tableHelper, workingValue9, heading, workingValue10 = tableHelper(workingValue9)
+          if localValue5 == tableHelper then
+            cmgOperation5 = CMG
+            cmgOperation5 = cmgOperation5.createGarage
+            number5 = localValue5
+            vehicle = workingValue9
             stringHelper3 = heading
-            numberValue6 = workValue10
-            cmgCall5(numberValue5, vehicle, stringHelper3, numberValue6)
+            number6 = workingValue10
+            cmgOperation5(number5, vehicle, stringHelper3, number6)
           end
         end
       end
@@ -1632,611 +1632,611 @@ function numberValue22()
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall11(numberValue22)
-cmgCall11 = 0
-numberValue22 = 0.0
+cmgOperation11(number22)
+cmgOperation11 = 0
+number22 = 0.0
 
--- === HELPER FUNCTION (decompiler name: workValue25; parameters: arg1) ===
-function workValue25(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = DeleteVehicle
-  arg3 = GetVehiclePedIsIn
-  arg4 = CMG
-  arg4 = arg4.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue25; parameters: localValue1) ===
+function workingValue25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = DeleteVehicle
+  localValue3 = GetVehiclePedIsIn
+  localValue4 = CMG
+  localValue4 = localValue4.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg4 = arg4()
-  arg5 = false
-  arg3, arg4, arg5 = arg3(arg4, arg5)
-  arg2(arg3, arg4, arg5)
-  arg2 = CreateThread
+  localValue4 = localValue4()
+  localValue5 = false
+  localValue3, localValue4, localValue5 = localValue3(localValue4, localValue5)
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2
-    arg12 = GetHashKey
-    arg22 = arg1
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2
+    localValue12 = GetHashKey
+    localValue22 = localValue1
     -- Beginner: result below is hash.
-    arg12 = arg12(arg22)
-    arg22 = RequestModel
-    arg32 = arg12
-    arg22(arg32)
-    arg22 = 0
+    localValue12 = localValue12(localValue22)
+    localValue22 = RequestModel
+    localValue32 = localValue12
+    localValue22(localValue32)
+    localValue22 = 0
     while true do
-      arg32 = HasModelLoaded
-      arg42 = arg12
-      arg32 = arg32(arg42)
-      if arg32 then
+      localValue32 = HasModelLoaded
+      localValue42 = localValue12
+      localValue32 = localValue32(localValue42)
+      if localValue32 then
         break
       end
-      arg32 = 200
-      if not (arg22 < arg32) then
+      localValue32 = 200
+      if not (localValue22 < localValue32) then
         break
       end
-      arg32 = drawNativeText
-      arg42 = "~r~Downloading vehicle model"
+      localValue32 = drawNativeText
+      localValue42 = "~r~Downloading vehicle model"
       -- Beginner: Draw GTA-style text on screen.
-      arg32(arg42)
-      arg32 = Wait
-      arg42 = 0
-      arg32(arg42)
-      arg22 = arg22 + 1
+      localValue32(localValue42)
+      localValue32 = Wait
+      localValue42 = 0
+      localValue32(localValue42)
+      localValue22 = localValue22 + 1
     end
-    arg32 = HasModelLoaded
-    arg42 = arg12
-    arg32 = arg32(arg42)
-    if arg32 then
-      arg32 = CreateVehicle
-      arg42 = arg12
-      workValue18 = vector3Builder.x
-      flag11 = vector3Builder.y
-      flag13 = vector3Builder.z
-      flag14 = numberValue22
-      cmgCall16 = false
-      flag17 = false
+    localValue32 = HasModelLoaded
+    localValue42 = localValue12
+    localValue32 = localValue32(localValue42)
+    if localValue32 then
+      localValue32 = CreateVehicle
+      localValue42 = localValue12
+      workingValue18 = createVector3.x
+      stateFlag11 = createVector3.y
+      stateFlag13 = createVector3.z
+      stateFlag14 = number22
+      cmgOperation16 = false
+      stateFlag17 = false
       -- Beginner: result below is vehicleEntity.
-      arg32 = arg32(arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-      arg42 = CMG
-      arg42 = arg42.initLocalVehicle
-      workValue18 = arg32
-      arg42(workValue18)
-      arg42 = SetEntityAsMissionEntity
-      workValue18 = arg32
-      flag11 = false
-      flag13 = false
-      arg42(workValue18, flag11, flag13)
-      arg42 = FreezeEntityPosition
-      workValue18 = arg32
-      flag11 = true
+      localValue32 = localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+      localValue42 = CMG
+      localValue42 = localValue42.initLocalVehicle
+      workingValue18 = localValue32
+      localValue42(workingValue18)
+      localValue42 = SetEntityAsMissionEntity
+      workingValue18 = localValue32
+      stateFlag11 = false
+      stateFlag13 = false
+      localValue42(workingValue18, stateFlag11, stateFlag13)
+      localValue42 = FreezeEntityPosition
+      workingValue18 = localValue32
+      stateFlag11 = true
       -- Beginner: Freeze or unfreeze an entity in place.
-      arg42(workValue18, flag11)
-      arg42 = SetEntityInvincible
-      workValue18 = arg32
-      flag11 = true
-      arg42(workValue18, flag11)
-      arg42 = SetVehicleDoorsLocked
-      workValue18 = arg32
-      flag11 = 4
-      arg42(workValue18, flag11)
-      arg42 = SetModelAsNoLongerNeeded
-      workValue18 = arg12
-      arg42(workValue18)
-      arg42 = cmgCall11
-      if 0 ~= arg42 then
-        arg42 = DestroyCam
-        workValue18 = cmgCall11
-        flag11 = false
-        arg42(workValue18, flag11)
-        arg42 = 0
-        cmgCall11 = arg42
+      localValue42(workingValue18, stateFlag11)
+      localValue42 = SetEntityInvincible
+      workingValue18 = localValue32
+      stateFlag11 = true
+      localValue42(workingValue18, stateFlag11)
+      localValue42 = SetVehicleDoorsLocked
+      workingValue18 = localValue32
+      stateFlag11 = 4
+      localValue42(workingValue18, stateFlag11)
+      localValue42 = SetModelAsNoLongerNeeded
+      workingValue18 = localValue12
+      localValue42(workingValue18)
+      localValue42 = cmgOperation11
+      if 0 ~= localValue42 then
+        localValue42 = DestroyCam
+        workingValue18 = cmgOperation11
+        stateFlag11 = false
+        localValue42(workingValue18, stateFlag11)
+        localValue42 = 0
+        cmgOperation11 = localValue42
       end
-      arg42 = SetEntityAlpha
-      workValue18 = CMG
-      workValue18 = workValue18.getPlayerPed
+      localValue42 = SetEntityAlpha
+      workingValue18 = CMG
+      workingValue18 = workingValue18.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue18 = workValue18()
-      flag11 = 0
-      flag13 = false
-      arg42(workValue18, flag11, flag13)
-      arg42 = FreezeEntityPosition
-      workValue18 = CMG
-      workValue18 = workValue18.getPlayerPed
+      workingValue18 = workingValue18()
+      stateFlag11 = 0
+      stateFlag13 = false
+      localValue42(workingValue18, stateFlag11, stateFlag13)
+      localValue42 = FreezeEntityPosition
+      workingValue18 = CMG
+      workingValue18 = workingValue18.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue18 = workValue18()
-      flag11 = true
+      workingValue18 = workingValue18()
+      stateFlag11 = true
       -- Beginner: Freeze or unfreeze an entity in place.
-      arg42(workValue18, flag11)
-      arg42 = SetEntityCollision
-      workValue18 = CMG
-      workValue18 = workValue18.getPlayerPed
+      localValue42(workingValue18, stateFlag11)
+      localValue42 = SetEntityCollision
+      workingValue18 = CMG
+      workingValue18 = workingValue18.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue18 = workValue18()
-      flag11 = false
-      flag13 = false
-      arg42(workValue18, flag11, flag13)
-      arg42 = SetEntityCollision
-      workValue18 = arg32
-      flag11 = false
-      flag13 = false
-      arg42(workValue18, flag11, flag13)
-      arg42 = GetEntityCoords
-      workValue18 = CMG
-      workValue18 = workValue18.getPlayerPed
-      workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2 = workValue18()
+      workingValue18 = workingValue18()
+      stateFlag11 = false
+      stateFlag13 = false
+      localValue42(workingValue18, stateFlag11, stateFlag13)
+      localValue42 = SetEntityCollision
+      workingValue18 = localValue32
+      stateFlag11 = false
+      stateFlag13 = false
+      localValue42(workingValue18, stateFlag11, stateFlag13)
+      localValue42 = GetEntityCoords
+      workingValue18 = CMG
+      workingValue18 = workingValue18.getPlayerPed
+      workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2 = workingValue18()
       -- Beginner: result below is entityCoords.
-      arg42 = arg42(workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2)
-      workValue18 = GetEntityRotation
-      flag11 = CMG
-      flag11 = flag11.getPlayerPed
-      flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2 = flag11()
-      workValue18 = workValue18(flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2)
-      flag11 = CreateCam
-      flag13 = "DEFAULT_SCRIPTED_CAMERA"
-      flag14 = true
+      localValue42 = localValue42(workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2)
+      workingValue18 = GetEntityRotation
+      stateFlag11 = CMG
+      stateFlag11 = stateFlag11.getPlayerPed
+      stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2 = stateFlag11()
+      workingValue18 = workingValue18(stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2)
+      stateFlag11 = CreateCam
+      stateFlag13 = "DEFAULT_SCRIPTED_CAMERA"
+      stateFlag14 = true
       -- Beginner: result below is cameraHandle.
-      flag11 = flag11(flag13, flag14)
-      flag13 = vector3
-      flag14 = arg42.x
-      cmgCall16 = arg42.y
-      flag17 = arg42.z
-      flag17 = flag17 + 2.0
-      flag13 = flag13(flag14, cmgCall16, flag17)
-      flag14 = GetEntityForwardVector
-      cmgCall16 = CMG
-      cmgCall16 = cmgCall16.getPlayerPed
-      cmgCall16, flag17, numberValue2, flag, flag2 = cmgCall16()
-      flag14 = flag14(cmgCall16, flag17, numberValue2, flag, flag2)
-      flag14 = flag14 * 5.0
-      flag13 = flag13 - flag14
-      flag14 = SetCamActive
-      cmgCall16 = flag11
-      flag17 = true
-      flag14(cmgCall16, flag17)
-      flag14 = RenderScriptCams
-      cmgCall16 = true
-      flag17 = true
-      numberValue2 = 500
-      flag = true
-      flag2 = false
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2)
-      flag14 = SetCamCoord
-      cmgCall16 = flag11
-      flag17 = flag13.x
-      numberValue2 = flag13.y
-      flag = flag13.z
-      flag14(cmgCall16, flag17, numberValue2, flag)
-      flag14 = SetCamRot
-      cmgCall16 = flag11
-      flag17 = -20.0
-      numberValue2 = workValue18.y
-      flag = workValue18.z
-      flag2 = 2
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2)
-      cmgCall11 = flag11
-      flag14 = Citizen
-      flag14 = flag14.CreateThread
+      stateFlag11 = stateFlag11(stateFlag13, stateFlag14)
+      stateFlag13 = vector3
+      stateFlag14 = localValue42.x
+      cmgOperation16 = localValue42.y
+      stateFlag17 = localValue42.z
+      stateFlag17 = stateFlag17 + 2.0
+      stateFlag13 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
+      stateFlag14 = GetEntityForwardVector
+      cmgOperation16 = CMG
+      cmgOperation16 = cmgOperation16.getPlayerPed
+      cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2 = cmgOperation16()
+      stateFlag14 = stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2)
+      stateFlag14 = stateFlag14 * 5.0
+      stateFlag13 = stateFlag13 - stateFlag14
+      stateFlag14 = SetCamActive
+      cmgOperation16 = stateFlag11
+      stateFlag17 = true
+      stateFlag14(cmgOperation16, stateFlag17)
+      stateFlag14 = RenderScriptCams
+      cmgOperation16 = true
+      stateFlag17 = true
+      number2 = 500
+      stateFlag = true
+      stateFlag2 = false
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2)
+      stateFlag14 = SetCamCoord
+      cmgOperation16 = stateFlag11
+      stateFlag17 = stateFlag13.x
+      number2 = stateFlag13.y
+      stateFlag = stateFlag13.z
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag)
+      stateFlag14 = SetCamRot
+      cmgOperation16 = stateFlag11
+      stateFlag17 = -20.0
+      number2 = workingValue18.y
+      stateFlag = workingValue18.z
+      stateFlag2 = 2
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2)
+      cmgOperation11 = stateFlag11
+      stateFlag14 = Citizen
+      stateFlag14 = stateFlag14.CreateThread
 
-      -- === HELPER FUNCTION (decompiler name: cmgCall16; parameters: none) ===
-      function cmgCall16()
-        local arg13, arg23, arg33
+      -- === HELPER FUNCTION (decompiler name: cmgOperation16; parameters: none) ===
+      function cmgOperation16()
+        local localValue13, localValue23, localValue33
         while true do
-          arg13 = DoesEntityExist
-          arg23 = arg32
-          arg13 = arg13(arg23)
-          if not arg13 then
+          localValue13 = DoesEntityExist
+          localValue23 = localValue32
+          localValue13 = localValue13(localValue23)
+          if not localValue13 then
             break
           end
-          arg13 = Citizen
-          arg13 = arg13.Wait
-          arg23 = 25
-          arg13(arg23)
-          arg13 = numberValue22
-          arg13 = arg13 + 1
-          arg13 = arg13 % 360
-          numberValue22 = arg13
-          arg13 = SetEntityHeading
-          arg23 = arg32
-          arg33 = numberValue22
+          localValue13 = Citizen
+          localValue13 = localValue13.Wait
+          localValue23 = 25
+          localValue13(localValue23)
+          localValue13 = number22
+          localValue13 = localValue13 + 1
+          localValue13 = localValue13 % 360
+          number22 = localValue13
+          localValue13 = SetEntityHeading
+          localValue23 = localValue32
+          localValue33 = number22
           -- Beginner: Change the direction an entity is facing.
-          arg13(arg23, arg33)
+          localValue13(localValue23, localValue33)
         end
       end
       -- Beginner: Start a separate FiveM thread so this code can run independently.
-      flag14(cmgCall16)
-      flag14 = false
-      flag5 = flag14
-      flag14 = true
-      flag4 = flag14
-      numberValue3 = arg32
+      stateFlag14(cmgOperation16)
+      stateFlag14 = false
+      stateFlag5 = stateFlag14
+      stateFlag14 = true
+      stateFlag4 = stateFlag14
+      number3 = localValue32
     else
-      arg32 = tCMG
-      arg32 = arg32.notify
-      arg42 = "~r~Failed to load vehicle."
+      localValue32 = tCMG
+      localValue32 = localValue32.notify
+      localValue42 = "~r~Failed to load vehicle."
       -- Beginner: Show a notification to the player.
-      arg32(arg42)
-      arg32 = -1
-      return arg32
+      localValue32(localValue42)
+      localValue32 = -1
+      return localValue32
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-cmgCall13 = CMG
+cmgOperation13 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: none) ===
-function workValue26()
-  local arg1, arg2
-  arg1 = flag4
-  return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: none) ===
+function workingValue26()
+  local localValue1, localValue2
+  localValue1 = stateFlag4
+  return localValue1
 end
-cmgCall13.isPreviewingVehicle = workValue26
+cmgOperation13.isPreviewingVehicle = workingValue26
 
--- === HELPER FUNCTION (decompiler name: cmgCall13; parameters: arg1) ===
-function cmgCall13(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = AddBlipForEntity
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation13; parameters: localValue1) ===
+function cmgOperation13(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = AddBlipForEntity
+  localValue3 = localValue1
   -- Beginner: result below is blipHandle.
-  arg2 = arg2(arg3)
-  arg3 = SetBlipSprite
-  arg4 = arg2
-  arg5 = 56
-  arg3(arg4, arg5)
-  arg3 = SetBlipDisplay
-  arg4 = arg2
-  arg5 = 4
-  arg3(arg4, arg5)
-  arg3 = SetBlipScale
-  arg4 = arg2
-  arg5 = 1.0
-  arg3(arg4, arg5)
-  arg3 = SetBlipColour
-  arg4 = arg2
-  arg5 = 2
-  arg3(arg4, arg5)
-  arg3 = SetBlipAsShortRange
-  arg4 = arg2
-  arg5 = true
-  arg3(arg4, arg5)
+  localValue2 = localValue2(localValue3)
+  localValue3 = SetBlipSprite
+  localValue4 = localValue2
+  localValue5 = 56
+  localValue3(localValue4, localValue5)
+  localValue3 = SetBlipDisplay
+  localValue4 = localValue2
+  localValue5 = 4
+  localValue3(localValue4, localValue5)
+  localValue3 = SetBlipScale
+  localValue4 = localValue2
+  localValue5 = 1.0
+  localValue3(localValue4, localValue5)
+  localValue3 = SetBlipColour
+  localValue4 = localValue2
+  localValue5 = 2
+  localValue3(localValue4, localValue5)
+  localValue3 = SetBlipAsShortRange
+  localValue4 = localValue2
+  localValue5 = true
+  localValue3(localValue4, localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: arg1, arg2, arg3) ===
-function workValue26(arg1, arg2, arg3)
-  local arg4, arg5
-  arg4 = Citizen
-  arg4 = arg4.CreateThread
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: localValue1, localValue2, localValue3) ===
+function workingValue26(localValue1, localValue2, localValue3)
+  local localValue4, localValue5
+  localValue4 = Citizen
+  localValue4 = localValue4.CreateThread
 
-  -- === HELPER FUNCTION: arg5() ===
-  function arg5()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13
-    arg12 = GetGameTimer
+  -- === HELPER FUNCTION: localValue5() ===
+  function localValue5()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13
+    localValue12 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg12 = arg12()
+    localValue12 = localValue12()
     while true do
-      arg22 = NetworkGetEntityIsNetworked
-      arg32 = arg2
-      arg22 = arg22(arg32)
-      if arg22 then
-        arg22 = NetworkGetNetworkIdFromEntity
-        arg32 = arg2
-        arg22 = arg22(arg32)
-        if 0 ~= arg22 then
+      localValue22 = NetworkGetEntityIsNetworked
+      localValue32 = localValue2
+      localValue22 = localValue22(localValue32)
+      if localValue22 then
+        localValue22 = NetworkGetNetworkIdFromEntity
+        localValue32 = localValue2
+        localValue22 = localValue22(localValue32)
+        if 0 ~= localValue22 then
           break
         end
       end
-      arg22 = GetGameTimer
+      localValue22 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      arg22 = arg22()
-      arg22 = arg22 - arg12
-      arg32 = 10000
-      if arg22 > arg32 then
+      localValue22 = localValue22()
+      localValue22 = localValue22 - localValue12
+      localValue32 = 10000
+      if localValue22 > localValue32 then
         break
       end
-      arg22 = Citizen
-      arg22 = arg22.Wait
-      arg32 = 0
-      arg22(arg32)
+      localValue22 = Citizen
+      localValue22 = localValue22.Wait
+      localValue32 = 0
+      localValue22(localValue32)
     end
-    arg22 = NetworkGetNetworkIdFromEntity
-    arg32 = arg2
-    arg22 = arg22(arg32)
-    if 0 ~= arg22 then
-      arg32 = TriggerServerEvent
-      arg42 = "bf7c06a813"
-      workValue18 = arg1
-      flag11 = arg22
-      flag13 = arg3
+    localValue22 = NetworkGetNetworkIdFromEntity
+    localValue32 = localValue2
+    localValue22 = localValue22(localValue32)
+    if 0 ~= localValue22 then
+      localValue32 = TriggerServerEvent
+      localValue42 = "bf7c06a813"
+      workingValue18 = localValue1
+      stateFlag11 = localValue22
+      stateFlag13 = localValue3
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf7c06a813".
-      arg32(arg42, workValue18, flag11, flag13)
+      localValue32(localValue42, workingValue18, stateFlag11, stateFlag13)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg4(arg5)
+  localValue4(localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-function workValue27()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator
-  arg1 = {}
-  arg2 = pairs
-  arg3 = CMG
-  arg3 = arg3.getAllVehicles
-  arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator = arg3()
-  arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+-- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+function workingValue27()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator
+  localValue1 = {}
+  localValue2 = pairs
+  localValue3 = CMG
+  localValue3 = localValue3.getAllVehicles
+  localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator = localValue3()
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = DecorGetInt
-    tableHelper2 = arg7
-    dataTable25 = "ac76c9d452"
-    iterator2 = iterator2(tableHelper2, dataTable25)
+    tableHelper2 = localValue7
+    dataCollection25 = "ac76c9d452"
+    iterator2 = iterator2(tableHelper2, dataCollection25)
     tableHelper2 = DecorGetInt
-    dataTable25 = arg7
-    workValue2 = "0a6cf607ed"
-    tableHelper2 = tableHelper2(dataTable25, workValue2)
+    dataCollection25 = localValue7
+    workingValue2 = "0a6cf607ed"
+    tableHelper2 = tableHelper2(dataCollection25, workingValue2)
     if iterator2 > 0 then
-      dataTable25 = CMG
-      dataTable25 = dataTable25.getClientUserId
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.getClientUserId
       -- Beginner: result below is userId.
-      dataTable25 = dataTable25()
-      if iterator2 == dataTable25 and tableHelper2 > 0 then
-        dataTable25 = CMG
-        dataTable25 = dataTable25.getVehicleIdFromModel
-        workValue2 = GetEntityModel
-        dataTable = arg7
-        workValue2, dataTable, iterator = workValue2(dataTable)
-        dataTable25 = dataTable25(workValue2, dataTable, iterator)
-        if dataTable25 then
-          workValue2 = {}
-          dataTable = dataTable25
-          iterator = arg7
-          workValue2[1] = dataTable
-          workValue2[2] = iterator
-          arg1[tableHelper2] = workValue2
+      dataCollection25 = dataCollection25()
+      if iterator2 == dataCollection25 and tableHelper2 > 0 then
+        dataCollection25 = CMG
+        dataCollection25 = dataCollection25.getVehicleIdFromModel
+        workingValue2 = GetEntityModel
+        dataCollection = localValue7
+        workingValue2, dataCollection, iterator = workingValue2(dataCollection)
+        dataCollection25 = dataCollection25(workingValue2, dataCollection, iterator)
+        if dataCollection25 then
+          workingValue2 = {}
+          dataCollection = dataCollection25
+          iterator = localValue7
+          workingValue2[1] = dataCollection
+          workingValue2[2] = iterator
+          localValue1[tableHelper2] = workingValue2
         end
       end
     end
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue28; parameters: arg1) ===
-function workValue28(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = true
-  arg3 = SetTimeout
-  arg4 = 5000
+-- === HELPER FUNCTION (decompiler name: workingValue28; parameters: localValue1) ===
+function workingValue28(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = true
+  localValue3 = SetTimeout
+  localValue4 = 5000
 
-  -- === HELPER FUNCTION: arg5() ===
-  function arg5()
-    local arg12, arg22
-    arg12 = false
-    arg2 = arg12
+  -- === HELPER FUNCTION: localValue5() ===
+  function localValue5()
+    local localValue12, localValue22
+    localValue12 = false
+    localValue2 = localValue12
   end
-  arg3(arg4, arg5)
-  while arg2 do
-    arg3 = DoesEntityExist
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = SetLocalPlayerAsGhost
-      arg4 = true
-      arg3(arg4)
-      arg3 = SetNetworkVehicleAsGhost
-      arg4 = arg1
-      arg5 = true
-      arg3(arg4, arg5)
-      arg3 = SetEntityAlpha
-      arg4 = arg1
-      arg5 = 220
-      arg6 = false
-      arg3(arg4, arg5, arg6)
+  localValue3(localValue4, localValue5)
+  while localValue2 do
+    localValue3 = DoesEntityExist
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = SetLocalPlayerAsGhost
+      localValue4 = true
+      localValue3(localValue4)
+      localValue3 = SetNetworkVehicleAsGhost
+      localValue4 = localValue1
+      localValue5 = true
+      localValue3(localValue4, localValue5)
+      localValue3 = SetEntityAlpha
+      localValue4 = localValue1
+      localValue5 = 220
+      localValue6 = false
+      localValue3(localValue4, localValue5, localValue6)
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 0
-    arg3(arg4)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 0
+    localValue3(localValue4)
   end
-  arg3 = SetLocalPlayerAsGhost
-  arg4 = false
-  arg3(arg4)
-  arg3 = SetNetworkVehicleAsGhost
-  arg4 = arg1
-  arg5 = false
-  arg3(arg4, arg5)
-  arg3 = SetEntityAlpha
-  arg4 = arg1
-  arg5 = 255
-  arg6 = false
-  arg3(arg4, arg5, arg6)
-  arg3 = ResetEntityAlpha
-  arg4 = arg1
-  arg3(arg4)
+  localValue3 = SetLocalPlayerAsGhost
+  localValue4 = false
+  localValue3(localValue4)
+  localValue3 = SetNetworkVehicleAsGhost
+  localValue4 = localValue1
+  localValue5 = false
+  localValue3(localValue4, localValue5)
+  localValue3 = SetEntityAlpha
+  localValue4 = localValue1
+  localValue5 = 255
+  localValue6 = false
+  localValue3(localValue4, localValue5, localValue6)
+  localValue3 = ResetEntityAlpha
+  localValue4 = localValue1
+  localValue3(localValue4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue29; parameters: arg1) ===
-function workValue29(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2
-  arg2 = dataTable19
-  arg2 = arg2[arg1]
-  if arg2 then
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue29; parameters: localValue1) ===
+function workingValue29(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2
+  localValue2 = dataCollection19
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    return localValue2
   end
-  arg3 = tonumber
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = arg1
+  localValue3 = tonumber
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = localValue1
   end
-  arg4 = dataTable19
-  arg2 = arg4[arg3]
-  if arg2 then
-    return arg2
+  localValue4 = dataCollection19
+  localValue2 = localValue4[localValue3]
+  if localValue2 then
+    return localValue2
   end
-  arg4 = dataTable21
-  arg4 = arg4[arg1]
-  if not arg4 then
-    arg4 = dataTable21
-    arg4 = arg4[arg3]
+  localValue4 = dataCollection21
+  localValue4 = localValue4[localValue1]
+  if not localValue4 then
+    localValue4 = dataCollection21
+    localValue4 = localValue4[localValue3]
   end
-  if not arg4 then
-    arg5 = nil
-    return arg5
+  if not localValue4 then
+    localValue5 = nil
+    return localValue5
   end
-  arg5 = dataTable20
-  arg5 = arg5[arg4]
-  if arg5 then
-    arg6 = arg5.vehicles
-    if arg6 then
-      goto flow_label_36
+  localValue5 = dataCollection20
+  localValue5 = localValue5[localValue4]
+  if localValue5 then
+    localValue6 = localValue5.vehicles
+    if localValue6 then
+      goto continueAtStep36
     end
   end
-  arg6 = nil
-  return arg6
-  ::flow_label_36::
-  arg6 = arg5.vehicles
-  arg6 = arg6[arg1]
-  if not arg6 then
-    arg6 = arg5.vehicles
-    arg6 = arg6[arg3]
+  localValue6 = nil
+  return localValue6
+  ::continueAtStep36::
+  localValue6 = localValue5.vehicles
+  localValue6 = localValue6[localValue1]
+  if not localValue6 then
+    localValue6 = localValue5.vehicles
+    localValue6 = localValue6[localValue3]
   end
-  if not arg6 then
-    arg7 = nil
-    return arg7
+  if not localValue6 then
+    localValue7 = nil
+    return localValue7
   end
-  arg7 = {}
-  arg7.uuid = arg1
-  iterator2 = arg6.vehicleId
-  arg7.vehicleId = iterator2
+  localValue7 = {}
+  localValue7.uuid = localValue1
+  iterator2 = localValue6.vehicleId
+  localValue7.vehicleId = iterator2
   iterator2 = CMG
   iterator2 = iterator2.getVehicleNameFromId
-  tableHelper2 = arg6.vehicleId
+  tableHelper2 = localValue6.vehicleId
   iterator2 = iterator2(tableHelper2)
   if not iterator2 then
-    iterator2 = arg6.vehicleId
+    iterator2 = localValue6.vehicleId
   end
-  arg7.name = iterator2
-  iterator2 = arg6.fuel
-  arg7.fuel = iterator2
-  return arg7
+  localValue7.name = iterator2
+  iterator2 = localValue6.fuel
+  localValue7.fuel = iterator2
+  return localValue7
 end
 
--- === HELPER FUNCTION (decompiler name: workValue30; parameters: arg1, arg2) ===
-function workValue30(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "table" == arg3 then
-    arg3 = arg2.vehicle
-    if arg3 then
-      goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: workingValue30; parameters: localValue1, localValue2) ===
+function workingValue30(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "table" == localValue3 then
+    localValue3 = localValue2.vehicle
+    if localValue3 then
+      goto continueAtStep11
     end
   end
-  arg3 = nil
-  return arg3
-  ::flow_label_11::
-  arg3 = arg2.vehicle
-  arg4 = type
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if "string" == arg4 then
-    arg4 = string
-    arg4 = arg4.lower
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    arg3 = arg4
+  localValue3 = nil
+  return localValue3
+  ::continueAtStep11::
+  localValue3 = localValue2.vehicle
+  localValue4 = type
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if "string" == localValue4 then
+    localValue4 = string
+    localValue4 = localValue4.lower
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    localValue3 = localValue4
   end
-  arg4 = {}
-  arg4.uuid = arg1
-  arg4.vehicleId = arg3
-  arg5 = CMG
-  arg5 = arg5.getVehicleNameFromId
-  arg6 = arg3
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg5 = arg3
+  localValue4 = {}
+  localValue4.uuid = localValue1
+  localValue4.vehicleId = localValue3
+  localValue5 = CMG
+  localValue5 = localValue5.getVehicleNameFromId
+  localValue6 = localValue3
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue5 = localValue3
   end
-  arg4.name = arg5
-  arg5 = tonumber
-  arg6 = arg2.fuel
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg5 = 0
+  localValue4.name = localValue5
+  localValue5 = tonumber
+  localValue6 = localValue2.fuel
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue5 = 0
   end
-  arg4.fuel = arg5
-  return arg4
+  localValue4.fuel = localValue5
+  return localValue4
 end
-cmgCall14 = RegisterNetEvent
-cmgCall15 = "0cd4f2f872"
+cmgOperation14 = RegisterNetEvent
+cmgOperation15 = "0cd4f2f872"
 -- Beginner: this function handles network event "0cd4f2f872".
 
--- === HELPER FUNCTION (decompiler name: workValue31; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function workValue31(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13, mathHelper, numberValue7, numberValue8, flag7, flag8, flag9, workValue15, numberValue10, numberValue11, numberValue12
-  iterator2 = true == arg7
-  tableHelper2 = textValue14
+-- === HELPER FUNCTION (decompiler name: workingValue31; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function workingValue31(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13, mathHelper, number7, number8, stateFlag7, stateFlag8, stateFlag9, workingValue15, number10, number11, number12
+  iterator2 = true == localValue7
+  tableHelper2 = text14
   tableHelper2()
   tableHelper2 = GetVehiclePedIsIn
-  dataTable25 = CMG
-  dataTable25 = dataTable25.getPlayerPed
+  dataCollection25 = CMG
+  dataCollection25 = dataCollection25.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  dataTable25 = dataTable25()
-  workValue2 = false
+  dataCollection25 = dataCollection25()
+  workingValue2 = false
   -- Beginner: result below is currentVehicle.
-  tableHelper2 = tableHelper2(dataTable25, workValue2)
-  dataTable25 = numberValue20
-  if tableHelper2 == dataTable25 then
+  tableHelper2 = tableHelper2(dataCollection25, workingValue2)
+  dataCollection25 = number20
+  if tableHelper2 == dataCollection25 then
     tableHelper2 = DeleteEntity
-    dataTable25 = numberValue20
+    dataCollection25 = number20
     -- Beginner: Delete a GTA entity.
-    tableHelper2(dataTable25)
+    tableHelper2(dataCollection25)
   end
   tableHelper2 = tCMG
   tableHelper2 = tableHelper2.notify
-  dataTable25 = "~g~Loading vehicle, please wait."
+  dataCollection25 = "~g~Loading vehicle, please wait."
   -- Beginner: Show a notification to the player.
-  tableHelper2(dataTable25)
-  tableHelper2 = workValue29
-  dataTable25 = arg1
-  tableHelper2 = tableHelper2(dataTable25)
+  tableHelper2(dataCollection25)
+  tableHelper2 = workingValue29
+  dataCollection25 = localValue1
+  tableHelper2 = tableHelper2(dataCollection25)
   if not tableHelper2 then
-    dataTable25 = workValue30
-    workValue2 = arg1
-    dataTable = arg2
-    dataTable25 = dataTable25(workValue2, dataTable)
-    tableHelper2 = dataTable25
+    dataCollection25 = workingValue30
+    workingValue2 = localValue1
+    dataCollection = localValue2
+    dataCollection25 = dataCollection25(workingValue2, dataCollection)
+    tableHelper2 = dataCollection25
   end
   if not tableHelper2 then
-    dataTable25 = tCMG
-    dataTable25 = dataTable25.notify
-    workValue2 = "~r~Could not load vehicle data for spawn."
-    dataTable25(workValue2)
+    dataCollection25 = tCMG
+    dataCollection25 = dataCollection25.notify
+    workingValue2 = "~r~Could not load vehicle data for spawn."
+    dataCollection25(workingValue2)
     return
   end
-  dataTable25 = tableHelper2.vehicleId
-  workValue2 = workValue27
-  workValue2 = workValue2()
-  workValue2 = workValue2[arg1]
-  if not workValue2 then
-    workValue2 = workValue27
-    workValue2 = workValue2()
-    dataTable = tonumber
-    iterator = arg1
-    dataTable = dataTable(iterator)
-    workValue2 = workValue2[dataTable]
+  dataCollection25 = tableHelper2.vehicleId
+  workingValue2 = workingValue27
+  workingValue2 = workingValue2()
+  workingValue2 = workingValue2[localValue1]
+  if not workingValue2 then
+    workingValue2 = workingValue27
+    workingValue2 = workingValue2()
+    dataCollection = tonumber
+    iterator = localValue1
+    dataCollection = dataCollection(iterator)
+    workingValue2 = workingValue2[dataCollection]
   end
-  if nil ~= workValue2 then
-    dataTable = DoesEntityExist
-    iterator = workValue2[2]
-    dataTable = dataTable(iterator)
-    if dataTable then
-      goto flow_label_379
+  if nil ~= workingValue2 then
+    dataCollection = DoesEntityExist
+    iterator = workingValue2[2]
+    dataCollection = dataCollection(iterator)
+    if dataCollection then
+      goto continueAtStep379
     end
   end
-  dataTable = CMG
-  dataTable = dataTable.loadModel
-  iterator = dataTable25
-  dataTable = dataTable(iterator)
-  if nil == dataTable then
+  dataCollection = CMG
+  dataCollection = dataCollection.loadModel
+  iterator = dataCollection25
+  dataCollection = dataCollection(iterator)
+  if nil == dataCollection then
     iterator = tCMG
     iterator = iterator.notify
     stringHelper = "~r~Vehicle does not exist, if you believe this is an error contact a Car Dev on discord."
@@ -2247,578 +2247,578 @@ function workValue31(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   iterator = GetGameTimer
   -- Beginner: result below is gameTimeMs.
   iterator = iterator()
-  textValue12 = iterator
+  text12 = iterator
   iterator = nil
-  if arg4 then
+  if localValue4 then
     stringHelper = CMG
     stringHelper = stringHelper.getPosition
     stringHelper = stringHelper()
-    workValue7 = vector3
+    workingValue7 = vector3
     stringHelper2 = 0.0
-    cmgCall3 = 0.0
+    cmgOperation3 = 0.0
     tableHelper = 0.0
-    workValue7 = workValue7(stringHelper2, cmgCall3, tableHelper)
+    workingValue7 = workingValue7(stringHelper2, cmgOperation3, tableHelper)
     stringHelper2 = GetNthClosestVehicleNode
-    cmgCall3 = stringHelper.x
+    cmgOperation3 = stringHelper.x
     tableHelper = stringHelper.y
-    workValue9 = stringHelper.z
+    workingValue9 = stringHelper.z
     heading = 0
-    workValue10 = workValue7
-    cmgCall5 = 8
-    numberValue5 = 8
+    workingValue10 = workingValue7
+    cmgOperation5 = 8
+    number5 = 8
     vehicle = 8
-    stringHelper2, cmgCall3, tableHelper = stringHelper2(cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle)
-    workValue9 = GetNthClosestVehicleNode
+    stringHelper2, cmgOperation3, tableHelper = stringHelper2(cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle)
+    workingValue9 = GetNthClosestVehicleNode
     heading = stringHelper.x
-    workValue10 = stringHelper.y
-    cmgCall5 = stringHelper.z
-    numberValue5 = 15
-    workValue9, heading, workValue10 = workValue9(heading, workValue10, cmgCall5, numberValue5)
-    cmgCall5 = GetPointOnRoadSide
-    numberValue5 = stringHelper.x
+    workingValue10 = stringHelper.y
+    cmgOperation5 = stringHelper.z
+    number5 = 15
+    workingValue9, heading, workingValue10 = workingValue9(heading, workingValue10, cmgOperation5, number5)
+    cmgOperation5 = GetPointOnRoadSide
+    number5 = stringHelper.x
     vehicle = stringHelper.y
     stringHelper3 = stringHelper.z
-    numberValue6 = 0.0
-    cmgCall5, numberValue5, vehicle = cmgCall5(numberValue5, vehicle, stringHelper3, numberValue6)
+    number6 = 0.0
+    cmgOperation5, number5, vehicle = cmgOperation5(number5, vehicle, stringHelper3, number6)
     stringHelper3 = tostring
-    numberValue6 = numberValue5
-    stringHelper3 = stringHelper3(numberValue6)
+    number6 = number5
+    stringHelper3 = stringHelper3(number6)
     if "vector3(0, 0, 0)" == stringHelper3 then
-      goto flow_label_332
+      goto continueAtStep332
     end
     stringHelper3 = tostring
-    numberValue6 = heading
-    stringHelper3 = stringHelper3(numberValue6)
+    number6 = heading
+    stringHelper3 = stringHelper3(number6)
     if "vector3(0, 0, 0)" == stringHelper3 then
-      goto flow_label_332
+      goto continueAtStep332
     end
     stringHelper3 = CMG
     stringHelper3 = stringHelper3.requestEntitySpawn
-    numberValue6 = "garages_valet"
-    workValue13 = arg1
+    number6 = "garages_valet"
+    workingValue13 = localValue1
     mathHelper = heading
-    stringHelper3(numberValue6, workValue13, mathHelper)
+    stringHelper3(number6, workingValue13, mathHelper)
     stringHelper3 = CMG
     stringHelper3 = stringHelper3.spawnVehicle
-    numberValue6 = dataTable
-    workValue13 = heading.x
+    number6 = dataCollection
+    workingValue13 = heading.x
     mathHelper = heading.y
-    numberValue7 = heading.z
-    numberValue7 = numberValue7 + 0.5
-    numberValue8 = tableHelper or numberValue8
+    number7 = heading.z
+    number7 = number7 + 0.5
+    number8 = tableHelper or number8
     if not tableHelper then
-      numberValue8 = 0.0
+      number8 = 0.0
     end
-    flag7 = false
-    flag8 = true
-    flag9 = true
-    stringHelper3 = stringHelper3(numberValue6, workValue13, mathHelper, numberValue7, numberValue8, flag7, flag8, flag9)
+    stateFlag7 = false
+    stateFlag8 = true
+    stateFlag9 = true
+    stringHelper3 = stringHelper3(number6, workingValue13, mathHelper, number7, number8, stateFlag7, stateFlag8, stateFlag9)
     iterator = stringHelper3
     stringHelper3 = TriggerServerEvent
-    numberValue6 = "1e0bbaf6cd"
-    workValue13 = dataTable25
+    number6 = "1e0bbaf6cd"
+    workingValue13 = dataCollection25
     mathHelper = "garage_valet"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1e0bbaf6cd".
-    stringHelper3(numberValue6, workValue13, mathHelper)
+    stringHelper3(number6, workingValue13, mathHelper)
     stringHelper3 = CMG
     stringHelper3 = stringHelper3.loadModel
-    numberValue6 = 1142162924
+    number6 = 1142162924
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    stringHelper3(numberValue6)
+    stringHelper3(number6)
     stringHelper3 = SendNUIMessage
-    numberValue6 = {}
-    workValue13 = "MPCT_AKAA_0"
+    number6 = {}
+    workingValue13 = "MPCT_AKAA_0"
     mathHelper = math
     mathHelper = mathHelper.random
-    numberValue7 = 1
-    numberValue8 = 5
-    mathHelper = mathHelper(numberValue7, numberValue8)
-    workValue13 = workValue13 .. mathHelper
-    numberValue6.transactionType = workValue13
+    number7 = 1
+    number8 = 5
+    mathHelper = mathHelper(number7, number8)
+    workingValue13 = workingValue13 .. mathHelper
+    number6.transactionType = workingValue13
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    stringHelper3(numberValue6)
+    stringHelper3(number6)
     stringHelper3 = CreatePedInsideVehicle
-    numberValue6 = iterator
-    workValue13 = 4
+    number6 = iterator
+    workingValue13 = 4
     mathHelper = 1142162924
-    numberValue7 = -1
-    numberValue8 = false
-    flag7 = false
-    stringHelper3 = stringHelper3(numberValue6, workValue13, mathHelper, numberValue7, numberValue8, flag7)
-    numberValue6 = SetModelAsNoLongerNeeded
-    workValue13 = 1142162924
-    numberValue6(workValue13)
-    numberValue6 = TaskVehicleDriveToCoord
-    workValue13 = stringHelper3
+    number7 = -1
+    number8 = false
+    stateFlag7 = false
+    stringHelper3 = stringHelper3(number6, workingValue13, mathHelper, number7, number8, stateFlag7)
+    number6 = SetModelAsNoLongerNeeded
+    workingValue13 = 1142162924
+    number6(workingValue13)
+    number6 = TaskVehicleDriveToCoord
+    workingValue13 = stringHelper3
     mathHelper = iterator
-    numberValue7 = numberValue5.x
-    numberValue8 = numberValue5.y
-    flag7 = numberValue5.z
-    flag8 = 15.0
-    flag9 = 1.0
-    workValue15 = dataTable
-    numberValue10 = 786603
-    numberValue11 = 5.0
-    numberValue12 = 0.0
-    numberValue6(workValue13, mathHelper, numberValue7, numberValue8, flag7, flag8, flag9, workValue15, numberValue10, numberValue11, numberValue12)
-    numberValue6 = cmgCall13
-    workValue13 = iterator
-    numberValue6(workValue13)
-    numberValue6 = SetTimeout
-    workValue13 = 5000
+    number7 = number5.x
+    number8 = number5.y
+    stateFlag7 = number5.z
+    stateFlag8 = 15.0
+    stateFlag9 = 1.0
+    workingValue15 = dataCollection
+    number10 = 786603
+    number11 = 5.0
+    number12 = 0.0
+    number6(workingValue13, mathHelper, number7, number8, stateFlag7, stateFlag8, stateFlag9, workingValue15, number10, number11, number12)
+    number6 = cmgOperation13
+    workingValue13 = iterator
+    number6(workingValue13)
+    number6 = SetTimeout
+    workingValue13 = 5000
 
     -- === HELPER FUNCTION: mathHelper() ===
     function mathHelper()
-      local arg12, arg22, arg32, arg42
+      local localValue12, localValue22, localValue32, localValue42
       while true do
-        arg12 = GetEntitySpeed
-        arg22 = iterator
+        localValue12 = GetEntitySpeed
+        localValue22 = iterator
         -- Beginner: result below is speed.
-        arg12 = arg12(arg22)
-        if not (arg12 > 5.0) then
+        localValue12 = localValue12(localValue22)
+        if not (localValue12 > 5.0) then
           break
         end
-        arg12 = Citizen
-        arg12 = arg12.Wait
-        arg22 = 500
-        arg12(arg22)
+        localValue12 = Citizen
+        localValue12 = localValue12.Wait
+        localValue22 = 500
+        localValue12(localValue22)
       end
-      arg12 = TaskLeaveVehicle
-      arg22 = stringHelper3
-      arg32 = iterator
-      arg42 = 64
-      arg12(arg22, arg32, arg42)
-      arg12 = TaskWanderStandard
-      arg22 = stringHelper3
-      arg32 = 10.0
-      arg42 = 10
-      arg12(arg22, arg32, arg42)
-      arg12 = Wait
-      arg22 = 10000
-      arg12(arg22)
-      arg12 = DeletePed
-      arg22 = stringHelper3
-      arg12(arg22)
+      localValue12 = TaskLeaveVehicle
+      localValue22 = stringHelper3
+      localValue32 = iterator
+      localValue42 = 64
+      localValue12(localValue22, localValue32, localValue42)
+      localValue12 = TaskWanderStandard
+      localValue22 = stringHelper3
+      localValue32 = 10.0
+      localValue42 = 10
+      localValue12(localValue22, localValue32, localValue42)
+      localValue12 = Wait
+      localValue22 = 10000
+      localValue12(localValue22)
+      localValue12 = DeletePed
+      localValue22 = stringHelper3
+      localValue12(localValue22)
     end
-    numberValue6(workValue13, mathHelper)
-    numberValue6 = print
-    workValue13 = "[CMG] Spawned vehicle with spawncode:"
+    number6(workingValue13, mathHelper)
+    number6 = print
+    workingValue13 = "[CMG] Spawned vehicle with spawncode:"
     mathHelper = tostring
-    numberValue7 = dataTable25
-    mathHelper = mathHelper(numberValue7)
-    workValue13 = workValue13 .. mathHelper
-    numberValue6(workValue13)
-    numberValue6 = CMG
-    numberValue6 = numberValue6.getClientUserId
+    number7 = dataCollection25
+    mathHelper = mathHelper(number7)
+    workingValue13 = workingValue13 .. mathHelper
+    number6(workingValue13)
+    number6 = CMG
+    number6 = number6.getClientUserId
     -- Beginner: result below is userId.
-    numberValue6 = numberValue6()
-    if numberValue6 then
-      workValue13 = DecorSetInt
+    number6 = number6()
+    if number6 then
+      workingValue13 = DecorSetInt
       mathHelper = iterator
-      numberValue7 = "ac76c9d452"
-      numberValue8 = numberValue6
-      workValue13(mathHelper, numberValue7, numberValue8)
+      number7 = "ac76c9d452"
+      number8 = number6
+      workingValue13(mathHelper, number7, number8)
     end
-    workValue13 = DecorSetInt
+    workingValue13 = DecorSetInt
     mathHelper = iterator
-    numberValue7 = "0a6cf607ed"
-    numberValue8 = arg1
-    workValue13(mathHelper, numberValue7, numberValue8)
-    workValue13 = CMG
-    workValue13 = workValue13.setVehicleFuel
+    number7 = "0a6cf607ed"
+    number8 = localValue1
+    workingValue13(mathHelper, number7, number8)
+    workingValue13 = CMG
+    workingValue13 = workingValue13.setVehicleFuel
     mathHelper = iterator
-    numberValue7 = tableHelper2.fuel
-    workValue13(mathHelper, numberValue7)
+    number7 = tableHelper2.fuel
+    workingValue13(mathHelper, number7)
     while true do
-      workValue13 = CMG
-      workValue13 = workValue13.getPlayerVehicle
+      workingValue13 = CMG
+      workingValue13 = workingValue13.getPlayerVehicle
       -- Beginner: result below is currentVehicle.
-      workValue13 = workValue13()
-      if workValue13 == iterator then
+      workingValue13 = workingValue13()
+      if workingValue13 == iterator then
         break
       end
-      workValue13 = Wait
+      workingValue13 = Wait
       mathHelper = 100
-      workValue13(mathHelper)
+      workingValue13(mathHelper)
     end
-    workValue13 = tCMG
-    workValue13 = workValue13.applyModsOnVehicle
-    mathHelper = arg2
-    numberValue7 = arg1
-    numberValue8 = iterator
-    workValue13(mathHelper, numberValue7, numberValue8)
-    workValue13 = workValue26
-    mathHelper = arg3
-    numberValue7 = iterator
-    numberValue8 = arg1
-    workValue13(mathHelper, numberValue7, numberValue8)
-    workValue13 = table
-    workValue13 = workValue13.insert
-    mathHelper = dataTable3
-    numberValue7 = iterator
-    workValue13(mathHelper, numberValue7)
+    workingValue13 = tCMG
+    workingValue13 = workingValue13.applyModsOnVehicle
+    mathHelper = localValue2
+    number7 = localValue1
+    number8 = iterator
+    workingValue13(mathHelper, number7, number8)
+    workingValue13 = workingValue26
+    mathHelper = localValue3
+    number7 = iterator
+    number8 = localValue1
+    workingValue13(mathHelper, number7, number8)
+    workingValue13 = table
+    workingValue13 = workingValue13.insert
+    mathHelper = dataCollection3
+    number7 = iterator
+    workingValue13(mathHelper, number7)
   else
-    stringHelper = arg5 or stringHelper
-    if not arg5 then
+    stringHelper = localValue5 or stringHelper
+    if not localValue5 then
       stringHelper = CMG
       stringHelper = stringHelper.getPosition
       stringHelper = stringHelper()
     end
-    workValue7 = CMG
-    workValue7 = workValue7.requestEntitySpawn
+    workingValue7 = CMG
+    workingValue7 = workingValue7.requestEntitySpawn
     stringHelper2 = "garages_normal"
-    cmgCall3 = arg1
-    workValue7(stringHelper2, cmgCall3)
-    workValue7 = CMG
-    workValue7 = workValue7.spawnVehicle
-    stringHelper2 = dataTable
-    cmgCall3 = stringHelper.x
+    cmgOperation3 = localValue1
+    workingValue7(stringHelper2, cmgOperation3)
+    workingValue7 = CMG
+    workingValue7 = workingValue7.spawnVehicle
+    stringHelper2 = dataCollection
+    cmgOperation3 = stringHelper.x
     tableHelper = stringHelper.y
-    workValue9 = stringHelper.z
-    workValue9 = workValue9 + 0.5
+    workingValue9 = stringHelper.z
+    workingValue9 = workingValue9 + 0.5
     heading = GetEntityHeading
-    workValue10 = PlayerPedId
-    workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13, mathHelper, numberValue7, numberValue8, flag7, flag8, flag9, workValue15, numberValue10, numberValue11, numberValue12 = workValue10()
+    workingValue10 = PlayerPedId
+    workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13, mathHelper, number7, number8, stateFlag7, stateFlag8, stateFlag9, workingValue15, number10, number11, number12 = workingValue10()
     -- Beginner: result below is heading.
-    heading = heading(workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13, mathHelper, numberValue7, numberValue8, flag7, flag8, flag9, workValue15, numberValue10, numberValue11, numberValue12)
-    workValue10 = true
-    cmgCall5 = true
-    numberValue5 = true
-    workValue7 = workValue7(stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5)
-    iterator = workValue7
-    workValue7 = TriggerServerEvent
+    heading = heading(workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13, mathHelper, number7, number8, stateFlag7, stateFlag8, stateFlag9, workingValue15, number10, number11, number12)
+    workingValue10 = true
+    cmgOperation5 = true
+    number5 = true
+    workingValue7 = workingValue7(stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5)
+    iterator = workingValue7
+    workingValue7 = TriggerServerEvent
     stringHelper2 = "1e0bbaf6cd"
-    cmgCall3 = dataTable25
+    cmgOperation3 = dataCollection25
     tableHelper = "garage"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1e0bbaf6cd".
-    workValue7(stringHelper2, cmgCall3, tableHelper)
-    workValue7 = cmgCall13
+    workingValue7(stringHelper2, cmgOperation3, tableHelper)
+    workingValue7 = cmgOperation13
     stringHelper2 = iterator
-    workValue7(stringHelper2)
-    workValue7 = print
+    workingValue7(stringHelper2)
+    workingValue7 = print
     stringHelper2 = "[CMG] Spawned vehicle with spawncode:"
-    cmgCall3 = tostring
-    tableHelper = dataTable25
-    cmgCall3 = cmgCall3(tableHelper)
-    stringHelper2 = stringHelper2 .. cmgCall3
-    workValue7(stringHelper2)
-    workValue7 = CMG
-    workValue7 = workValue7.getClientUserId
+    cmgOperation3 = tostring
+    tableHelper = dataCollection25
+    cmgOperation3 = cmgOperation3(tableHelper)
+    stringHelper2 = stringHelper2 .. cmgOperation3
+    workingValue7(stringHelper2)
+    workingValue7 = CMG
+    workingValue7 = workingValue7.getClientUserId
     -- Beginner: result below is userId.
-    workValue7 = workValue7()
-    if workValue7 then
+    workingValue7 = workingValue7()
+    if workingValue7 then
       stringHelper2 = DecorSetInt
-      cmgCall3 = iterator
+      cmgOperation3 = iterator
       tableHelper = "ac76c9d452"
-      workValue9 = workValue7
-      stringHelper2(cmgCall3, tableHelper, workValue9)
+      workingValue9 = workingValue7
+      stringHelper2(cmgOperation3, tableHelper, workingValue9)
     end
     stringHelper2 = DecorSetInt
-    cmgCall3 = iterator
+    cmgOperation3 = iterator
     tableHelper = "0a6cf607ed"
-    workValue9 = arg1
-    stringHelper2(cmgCall3, tableHelper, workValue9)
+    workingValue9 = localValue1
+    stringHelper2(cmgOperation3, tableHelper, workingValue9)
     stringHelper2 = CMG
     stringHelper2 = stringHelper2.setVehicleFuel
-    cmgCall3 = iterator
+    cmgOperation3 = iterator
     tableHelper = tableHelper2.fuel
-    stringHelper2(cmgCall3, tableHelper)
+    stringHelper2(cmgOperation3, tableHelper)
     stringHelper2 = Citizen
     stringHelper2 = stringHelper2.CreateThreadNow
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-    function cmgCall3()
-      local arg12, arg22
-      arg12 = workValue28
-      arg22 = iterator
-      arg12(arg22)
+    -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+    function cmgOperation3()
+      local localValue12, localValue22
+      localValue12 = workingValue28
+      localValue22 = iterator
+      localValue12(localValue22)
     end
-    stringHelper2(cmgCall3)
+    stringHelper2(cmgOperation3)
     stringHelper2 = tCMG
     stringHelper2 = stringHelper2.applyModsOnVehicle
-    cmgCall3 = arg2
-    tableHelper = arg1
-    workValue9 = iterator
-    stringHelper2(cmgCall3, tableHelper, workValue9)
-    stringHelper2 = workValue26
-    cmgCall3 = arg3
+    cmgOperation3 = localValue2
+    tableHelper = localValue1
+    workingValue9 = iterator
+    stringHelper2(cmgOperation3, tableHelper, workingValue9)
+    stringHelper2 = workingValue26
+    cmgOperation3 = localValue3
     tableHelper = iterator
-    workValue9 = arg1
-    stringHelper2(cmgCall3, tableHelper, workValue9)
+    workingValue9 = localValue1
+    stringHelper2(cmgOperation3, tableHelper, workingValue9)
     stringHelper2 = table
     stringHelper2 = stringHelper2.insert
-    cmgCall3 = dataTable3
+    cmgOperation3 = dataCollection3
     tableHelper = iterator
-    stringHelper2(cmgCall3, tableHelper)
+    stringHelper2(cmgOperation3, tableHelper)
     if iterator2 then
       stringHelper2 = Citizen
       stringHelper2 = stringHelper2.CreateThread
 
-      -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-      function cmgCall3()
-        local arg12, arg22, arg32, arg42, workValue18
-        arg12 = Citizen
-        arg12 = arg12.Wait
-        arg22 = 500
-        arg12(arg22)
-        arg12 = DoesEntityExist
-        arg22 = iterator
-        arg12 = arg12(arg22)
-        if arg12 then
-          arg12 = CMG
-          arg12 = arg12.enterRemoteLsCustomsFromGarage
-          arg22 = iterator
-          arg32 = vector3Builder
-          arg42 = GetEntityHeading
-          workValue18 = PlayerPedId
+      -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+      function cmgOperation3()
+        local localValue12, localValue22, localValue32, localValue42, workingValue18
+        localValue12 = Citizen
+        localValue12 = localValue12.Wait
+        localValue22 = 500
+        localValue12(localValue22)
+        localValue12 = DoesEntityExist
+        localValue22 = iterator
+        localValue12 = localValue12(localValue22)
+        if localValue12 then
+          localValue12 = CMG
+          localValue12 = localValue12.enterRemoteLsCustomsFromGarage
+          localValue22 = iterator
+          localValue32 = createVector3
+          localValue42 = GetEntityHeading
+          workingValue18 = PlayerPedId
           -- Beginner: result below is localPlayerPed.
-          workValue18 = workValue18()
-          arg42, workValue18 = arg42(workValue18)
-          arg12(arg22, arg32, arg42, workValue18)
+          workingValue18 = workingValue18()
+          localValue42, workingValue18 = localValue42(workingValue18)
+          localValue12(localValue22, localValue32, localValue42, workingValue18)
         end
       end
       -- Beginner: Start a separate FiveM thread so this code can run independently.
-      stringHelper2(cmgCall3)
+      stringHelper2(cmgOperation3)
     end
   end
-  ::flow_label_332::
+  ::continueAtStep332::
   stringHelper = SetModelAsNoLongerNeeded
-  workValue7 = dataTable
-  stringHelper(workValue7)
-  if arg6 then
+  workingValue7 = dataCollection
+  stringHelper(workingValue7)
+  if localValue6 then
     stringHelper = Citizen
     stringHelper = stringHelper.CreateThread
 
-    -- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-    function workValue7()
-      local arg12, arg22, arg32, arg42, workValue18, flag11
-      arg12 = CMG
-      arg12 = arg12.notifyPicture
-      arg22 = "polnotification"
-      arg32 = "lockpick"
-      arg42 = "~y~Your vehicle has been lockpicked since it was last taken out of the garage."
-      workValue18 = "Garage Notification"
-      flag11 = "~r~Lockpick Alert"
-      arg12(arg22, arg32, arg42, workValue18, flag11)
+    -- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+    function workingValue7()
+      local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11
+      localValue12 = CMG
+      localValue12 = localValue12.notifyPicture
+      localValue22 = "polnotification"
+      localValue32 = "lockpick"
+      localValue42 = "~y~Your vehicle has been lockpicked since it was last taken out of the garage."
+      workingValue18 = "Garage Notification"
+      stateFlag11 = "~r~Lockpick Alert"
+      localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    stringHelper(workValue7)
+    stringHelper(workingValue7)
   end
   while true do
     stringHelper = DoesEntityExist
-    workValue7 = iterator
-    stringHelper = stringHelper(workValue7)
+    workingValue7 = iterator
+    stringHelper = stringHelper(workingValue7)
     if not stringHelper then
       break
     end
     stringHelper = CMG
     stringHelper = stringHelper.getVehicleFuel
-    workValue7 = iterator
-    stringHelper = stringHelper(workValue7)
-    workValue7 = tableHelper2.fuel
-    if workValue7 ~= stringHelper then
-      workValue7 = TriggerServerEvent
+    workingValue7 = iterator
+    stringHelper = stringHelper(workingValue7)
+    workingValue7 = tableHelper2.fuel
+    if workingValue7 ~= stringHelper then
+      workingValue7 = TriggerServerEvent
       stringHelper2 = "486c23d750"
-      cmgCall3 = arg1
+      cmgOperation3 = localValue1
       tableHelper = math
       tableHelper = tableHelper.floor
-      workValue9 = stringHelper * 1000
-      tableHelper = tableHelper(workValue9)
+      workingValue9 = stringHelper * 1000
+      tableHelper = tableHelper(workingValue9)
       tableHelper = tableHelper / 1000
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "486c23d750".
-      workValue7(stringHelper2, cmgCall3, tableHelper)
+      workingValue7(stringHelper2, cmgOperation3, tableHelper)
       tableHelper2.fuel = stringHelper
-      workValue7 = SetEntityInvincible
+      workingValue7 = SetEntityInvincible
       stringHelper2 = iterator
-      cmgCall3 = false
-      workValue7(stringHelper2, cmgCall3)
-      workValue7 = SetEntityCanBeDamaged
+      cmgOperation3 = false
+      workingValue7(stringHelper2, cmgOperation3)
+      workingValue7 = SetEntityCanBeDamaged
       stringHelper2 = iterator
-      cmgCall3 = true
-      workValue7(stringHelper2, cmgCall3)
+      cmgOperation3 = true
+      workingValue7(stringHelper2, cmgOperation3)
     end
-    workValue7 = Wait
+    workingValue7 = Wait
     stringHelper2 = 60000
-    workValue7(stringHelper2)
+    workingValue7(stringHelper2)
   end
-  goto flow_label_383
-  ::flow_label_379::
-  dataTable = tCMG
-  dataTable = dataTable.notify
+  goto continueAtStep383
+  ::continueAtStep379::
+  dataCollection = tCMG
+  dataCollection = dataCollection.notify
   iterator = "This vehicle is already out."
   -- Beginner: Show a notification to the player.
-  dataTable(iterator)
-  ::flow_label_383::
+  dataCollection(iterator)
+  ::continueAtStep383::
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "0cd4f2f872".
-cmgCall14(cmgCall15, workValue31)
-cmgCall14 = CMG
+cmgOperation14(cmgOperation15, workingValue31)
+cmgOperation14 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall15; parameters: arg1) ===
-function cmgCall15(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = fullPlayerListData
-  arg2 = arg2[arg1]
-  if not arg2 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION (decompiler name: cmgOperation15; parameters: localValue1) ===
+function cmgOperation15(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = fullPlayerListData
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = fullPlayerListData
-  arg2 = arg2[arg1]
-  arg2 = arg2[1]
-  if not arg2 then
-    arg3 = false
-    return arg3
+  localValue2 = fullPlayerListData
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2[1]
+  if not localValue2 then
+    localValue3 = false
+    return localValue3
   end
-  arg3 = GetPlayerFromServerId
-  arg4 = arg2
+  localValue3 = GetPlayerFromServerId
+  localValue4 = localValue2
   -- Beginner: result below is playerIndex.
-  arg3 = arg3(arg4)
-  if arg3 < 0 then
-    arg4 = false
-    return arg4
+  localValue3 = localValue3(localValue4)
+  if localValue3 < 0 then
+    localValue4 = false
+    return localValue4
   end
-  arg4 = GetPlayerPed
-  arg5 = arg3
+  localValue4 = GetPlayerPed
+  localValue5 = localValue3
   -- Beginner: result below is playerPed.
-  arg4 = arg4(arg5)
-  if 0 == arg4 then
-    arg5 = false
-    return arg5
+  localValue4 = localValue4(localValue5)
+  if 0 == localValue4 then
+    localValue5 = false
+    return localValue5
   end
-  arg5 = CMG
-  arg5 = arg5.getPlayerCoords
+  localValue5 = CMG
+  localValue5 = localValue5.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg5 = arg5()
-  arg6 = GetEntityCoords
-  arg7 = arg4
+  localValue5 = localValue5()
+  localValue6 = GetEntityCoords
+  localValue7 = localValue4
   iterator2 = true
   -- Beginner: result below is entityCoords.
-  arg6 = arg6(arg7, iterator2)
-  arg5 = arg5 - arg6
-  arg5 = #arg5
-  arg5 = arg5 < 5.0
-  return arg5
+  localValue6 = localValue6(localValue7, iterator2)
+  localValue5 = localValue5 - localValue6
+  localValue5 = #localValue5
+  localValue5 = localValue5 < 5.0
+  return localValue5
 end
-cmgCall14.isUserOnlineAndNearby = cmgCall15
+cmgOperation14.isUserOnlineAndNearby = cmgOperation15
 
--- === HELPER FUNCTION (decompiler name: cmgCall14; parameters: none) ===
-function cmgCall14()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = flag4
-  if arg1 then
-    arg1 = IsControlJustPressed
-    arg2 = 0
-    arg3 = 177
-    arg1 = arg1(arg2, arg3)
-    if arg1 then
-      arg1 = DeleteVehicle
-      arg2 = numberValue3
-      arg1(arg2)
-      arg1 = 0
-      numberValue3 = arg1
-      arg1 = 0
-      numberValue4 = arg1
-      arg1 = false
-      flag4 = arg1
-      arg1 = DestroyCam
-      arg2 = cmgCall11
-      arg3 = false
-      arg1(arg2, arg3)
-      arg1 = RenderScriptCams
-      arg2 = false
-      arg3 = false
-      arg4 = 1
-      arg5 = true
-      arg6 = true
-      arg1(arg2, arg3, arg4, arg5, arg6)
-      arg1 = 0
-      cmgCall11 = arg1
-      arg1 = SetFocusEntity
-      arg2 = GetPlayerPed
-      arg3 = PlayerId
-      arg3, arg4, arg5, arg6 = arg3()
-      arg2, arg3, arg4, arg5, arg6 = arg2(arg3, arg4, arg5, arg6)
-      arg1(arg2, arg3, arg4, arg5, arg6)
-      arg1 = SetEntityAlpha
-      arg2 = CMG
-      arg2 = arg2.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: cmgOperation14; parameters: none) ===
+function cmgOperation14()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = stateFlag4
+  if localValue1 then
+    localValue1 = IsControlJustPressed
+    localValue2 = 0
+    localValue3 = 177
+    localValue1 = localValue1(localValue2, localValue3)
+    if localValue1 then
+      localValue1 = DeleteVehicle
+      localValue2 = number3
+      localValue1(localValue2)
+      localValue1 = 0
+      number3 = localValue1
+      localValue1 = 0
+      number4 = localValue1
+      localValue1 = false
+      stateFlag4 = localValue1
+      localValue1 = DestroyCam
+      localValue2 = cmgOperation11
+      localValue3 = false
+      localValue1(localValue2, localValue3)
+      localValue1 = RenderScriptCams
+      localValue2 = false
+      localValue3 = false
+      localValue4 = 1
+      localValue5 = true
+      localValue6 = true
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+      localValue1 = 0
+      cmgOperation11 = localValue1
+      localValue1 = SetFocusEntity
+      localValue2 = GetPlayerPed
+      localValue3 = PlayerId
+      localValue3, localValue4, localValue5, localValue6 = localValue3()
+      localValue2, localValue3, localValue4, localValue5, localValue6 = localValue2(localValue3, localValue4, localValue5, localValue6)
+      localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+      localValue1 = SetEntityAlpha
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg2 = arg2()
-      arg3 = 255
-      arg4 = false
-      arg1(arg2, arg3, arg4)
-      arg1 = FreezeEntityPosition
-      arg2 = CMG
-      arg2 = arg2.getPlayerPed
+      localValue2 = localValue2()
+      localValue3 = 255
+      localValue4 = false
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = FreezeEntityPosition
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg2 = arg2()
-      arg3 = false
+      localValue2 = localValue2()
+      localValue3 = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      arg1(arg2, arg3)
-      arg1 = SetEntityCollision
-      arg2 = CMG
-      arg2 = arg2.getPlayerPed
+      localValue1(localValue2, localValue3)
+      localValue1 = SetEntityCollision
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg2 = arg2()
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
+      localValue2 = localValue2()
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
     end
   end
-  arg1 = workValue19
-  if arg1 then
-    arg1 = workValue19.sellerUserId
-    arg2 = CMG
-    arg2 = arg2.isUserOnlineAndNearby
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = nil
-      workValue19 = arg2
-      arg2 = TriggerServerEvent
-      arg3 = "17e8eb1c8c"
+  localValue1 = workingValue19
+  if localValue1 then
+    localValue1 = workingValue19.sellerUserId
+    localValue2 = CMG
+    localValue2 = localValue2.isUserOnlineAndNearby
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = nil
+      workingValue19 = localValue2
+      localValue2 = TriggerServerEvent
+      localValue3 = "17e8eb1c8c"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "17e8eb1c8c".
-      arg2(arg3)
-      arg2 = RageUI
-      arg2 = arg2.CloseAll
-      arg2()
+      localValue2(localValue3)
+      localValue2 = RageUI
+      localValue2 = localValue2.CloseAll
+      localValue2()
       return
     end
   end
 end
-cmgCall15 = CMG
-cmgCall15 = cmgCall15.createThreadOnTick
-workValue31 = cmgCall14
-textValue19 = "Preview Garage"
+cmgOperation15 = CMG
+cmgOperation15 = cmgOperation15.createThreadOnTick
+workingValue31 = cmgOperation14
+text19 = "Preview Garage"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall15(workValue31, textValue19)
+cmgOperation15(workingValue31, text19)
 
--- === HELPER FUNCTION (decompiler name: cmgCall15; parameters: arg1) ===
-function cmgCall15(arg1)
-  local arg2
-  arg2 = "surprise" == arg1
-  return arg2
+-- === HELPER FUNCTION (decompiler name: cmgOperation15; parameters: localValue1) ===
+function cmgOperation15(localValue1)
+  local localValue2
+  localValue2 = "surprise" == localValue1
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue31; parameters: arg1) ===
-function workValue31(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper
-  arg2 = pairs
-  arg3 = workValue.garages
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+-- === HELPER FUNCTION (decompiler name: workingValue31; parameters: localValue1) ===
+function workingValue31(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper
+  localValue2 = pairs
+  localValue3 = workingValue.garages
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = pairs
-    tableHelper2 = arg7
-    iterator2, tableHelper2, dataTable25, workValue2 = iterator2(tableHelper2)
-    for dataTable in iterator2, tableHelper2, dataTable25, workValue2 do
-      if "_config" ~= dataTable and dataTable == arg1 then
-        iterator = eventRegistration4
-        stringHelper = arg6
+    tableHelper2 = localValue7
+    iterator2, tableHelper2, dataCollection25, workingValue2 = iterator2(tableHelper2)
+    for dataCollection in iterator2, tableHelper2, dataCollection25, workingValue2 do
+      if "_config" ~= dataCollection and dataCollection == localValue1 then
+        iterator = eventHandler4
+        stringHelper = localValue6
         iterator = iterator(stringHelper)
         if iterator then
-          iterator = textValue4
-          stringHelper = arg7._config
+          iterator = text4
+          stringHelper = localValue7._config
           stringHelper = stringHelper.type
           if iterator == stringHelper then
             iterator = true
@@ -2828,1201 +2828,1201 @@ function workValue31(arg1)
       end
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: textValue19; parameters: none) ===
-function textValue19()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25
-  arg1 = {}
-  arg2 = pairs
-  arg3 = dataTable19
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+-- === HELPER FUNCTION (decompiler name: text19; parameters: none) ===
+function text19()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25
+  localValue1 = {}
+  localValue2 = pairs
+  localValue3 = dataCollection19
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = table
     iterator2 = iterator2.insert
-    tableHelper2 = arg1
-    dataTable25 = {}
-    dataTable25.uuid = arg6
-    dataTable25.info = arg7
-    iterator2(tableHelper2, dataTable25)
+    tableHelper2 = localValue1
+    dataCollection25 = {}
+    dataCollection25.uuid = localValue6
+    dataCollection25.info = localValue7
+    iterator2(tableHelper2, dataCollection25)
   end
-  arg2 = table
-  arg2 = arg2.sort
-  arg3 = arg1
+  localValue2 = table
+  localValue2 = localValue2.sort
+  localValue3 = localValue1
 
-  -- === HELPER FUNCTION: arg4(arg12, arg22) ===
-  function arg4(arg12, arg22)
-    local arg32, arg42
-    arg32 = arg12.info
-    arg32 = arg32.name
-    arg42 = arg22.info
-    arg42 = arg42.name
-    arg32 = arg32 < arg42
-    return arg32
+  -- === HELPER FUNCTION: localValue4(localValue12, localValue22) ===
+  function localValue4(localValue12, localValue22)
+    local localValue32, localValue42
+    localValue32 = localValue12.info
+    localValue32 = localValue32.name
+    localValue42 = localValue22.info
+    localValue42 = localValue42.name
+    localValue32 = localValue32 < localValue42
+    return localValue32
   end
-  arg2(arg3, arg4)
-  return arg1
+  localValue2(localValue3, localValue4)
+  return localValue1
 end
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "mainmenu"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateMenu
-textValue22 = ""
-textValue23 = ""
-rageUiCall6 = CMG
-rageUiCall6 = rageUiCall6.getRageUIMenuWidth
-rageUiCall6 = rageUiCall6()
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuHeight
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = "cmg_garageui"
-textValue24 = "cmg_garageui"
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-textValue20 = workValue32
-workValue32 = workValue32.Get
-textValue21 = "garages"
-rageUiCall5 = "mainmenu"
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "mainmenu"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateMenu
+text22 = ""
+text23 = ""
+rageUiOperation6 = CMG
+rageUiOperation6 = rageUiOperation6.getRageUIMenuWidth
+rageUiOperation6 = rageUiOperation6()
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuHeight
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = "cmg_garageui"
+text24 = "cmg_garageui"
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+text20 = workingValue32
+workingValue32 = workingValue32.Get
+text21 = "garages"
+rageUiOperation5 = "mainmenu"
 -- Beginner: result below is menu.
-workValue32 = workValue32(textValue20, textValue21, rageUiCall5)
-textValue20 = workValue32
-workValue32 = workValue32.SetSubtitle
-textValue21 = "~b~Garages"
-workValue32(textValue20, textValue21)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "rentmanager"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "mainmenu"
+workingValue32 = workingValue32(text20, text21, rageUiOperation5)
+text20 = workingValue32
+workingValue32 = workingValue32.SetSubtitle
+text21 = "~b~Garages"
+workingValue32(text20, text21)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "rentmanager"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Rent Management Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "rentedout"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "rentmanager"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Rent Management Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "rentedout"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "rentmanager"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicles Rented Out"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "rentedin"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "rentmanager"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicles Rented Out"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "rentedin"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "rentmanager"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicles Renting"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "paymentplanmanager"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "mainmenu"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicles Renting"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "paymentplanmanager"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Payment Plan Management Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "paymentplanout"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "paymentplanmanager"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Payment Plan Management Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "paymentplanout"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "paymentplanmanager"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicles Payment Planned Out"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "paymentplanin"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "paymentplanmanager"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicles Payment Planned Out"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "paymentplanin"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "paymentplanmanager"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicles Payment Planned In"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "paymentplansummary"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "paymentplanmanager"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicles Payment Planned In"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "paymentplansummary"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "paymentplanmanager"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Payment Plan Summary"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "paymentplaninfo"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "paymentplanin"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Payment Plan Summary"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "paymentplaninfo"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "paymentplanin"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicles Payment Plan Info"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "recentlogs"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "mainmenu"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicles Payment Plan Info"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "recentlogs"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Recent Logs"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "rentedinfo"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "rentedin"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Recent Logs"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "rentedinfo"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "rentedin"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicles Rent Info"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "listgarages"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "mainmenu"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicles Rent Info"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "listgarages"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Garage Management Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "vehiclemenu"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "listgarages"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Garage Management Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "vehiclemenu"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "listgarages"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicle Management Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "spawnmenu"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "vehiclemenu"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicle Management Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "spawnmenu"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "vehiclemenu"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Spawn Management Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "paymentplan"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "spawnmenu"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Spawn Management Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "paymentplan"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "spawnmenu"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Payment Plan Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "paymentplanoffer"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateMenu
-textValue22 = ""
-textValue23 = "~b~Payment Plan Offer"
-rageUiCall6 = CMG
-rageUiCall6 = rageUiCall6.getRageUIMenuWidth
-rageUiCall6 = rageUiCall6()
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuHeight
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = "cmg_garageui"
-textValue24 = "cmg_garageui"
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "customfolders"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "listgarages"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Payment Plan Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "paymentplanoffer"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateMenu
+text22 = ""
+text23 = "~b~Payment Plan Offer"
+rageUiOperation6 = CMG
+rageUiOperation6 = rageUiOperation6.getRageUIMenuWidth
+rageUiOperation6 = rageUiOperation6()
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuHeight
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = "cmg_garageui"
+text24 = "cmg_garageui"
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "customfolders"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "listgarages"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Custom Folders Management Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "settings"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "mainmenu"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Custom Folders Management Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "settings"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "mainmenu"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Settings"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "viewall"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "settings"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Settings"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "viewall"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "settings"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~All Vehicles"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "rentonlymenu"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateSubMenu
-textValue22 = RMenu
-textValue23 = textValue22
-textValue22 = textValue22.Get
-rageUiCall6 = "garages"
-rageUiCall7 = "viewall"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~All Vehicles"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "rentonlymenu"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateSubMenu
+text22 = RMenu
+text23 = text22
+text22 = text22.Get
+rageUiOperation6 = "garages"
+rageUiOperation7 = "viewall"
 -- Beginner: result below is menu.
-textValue22 = textValue22(textValue23, rageUiCall6, rageUiCall7)
-textValue23 = ""
-rageUiCall6 = "~b~Vehicle Management Menu"
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuWidth
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = CMG
-rageUiCall8 = rageUiCall8.getRageUIMenuHeight
-rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall8()
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-workValue32 = workValue32.Add
-textValue20 = "garages"
-textValue21 = "confirm"
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateMenu
-textValue22 = ""
-textValue23 = ""
-rageUiCall6 = CMG
-rageUiCall6 = rageUiCall6.getRageUIMenuWidth
-rageUiCall6 = rageUiCall6()
-rageUiCall7 = CMG
-rageUiCall7 = rageUiCall7.getRageUIMenuHeight
-rageUiCall7 = rageUiCall7()
-rageUiCall8 = "cmg_garageui"
-textValue24 = "cmg_garageui"
-rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall5(textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24)
-workValue32(textValue20, textValue21, rageUiCall5, textValue22, textValue23, rageUiCall6, rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-workValue32 = RMenu
-textValue20 = workValue32
-workValue32 = workValue32.Get
-textValue21 = "garages"
-rageUiCall5 = "confirm"
+text22 = text22(text23, rageUiOperation6, rageUiOperation7)
+text23 = ""
+rageUiOperation6 = "~b~Vehicle Management Menu"
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuWidth
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = CMG
+rageUiOperation8 = rageUiOperation8.getRageUIMenuHeight
+rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation8()
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+workingValue32 = workingValue32.Add
+text20 = "garages"
+text21 = "confirm"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateMenu
+text22 = ""
+text23 = ""
+rageUiOperation6 = CMG
+rageUiOperation6 = rageUiOperation6.getRageUIMenuWidth
+rageUiOperation6 = rageUiOperation6()
+rageUiOperation7 = CMG
+rageUiOperation7 = rageUiOperation7.getRageUIMenuHeight
+rageUiOperation7 = rageUiOperation7()
+rageUiOperation8 = "cmg_garageui"
+text24 = "cmg_garageui"
+rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation5(text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24)
+workingValue32(text20, text21, rageUiOperation5, text22, text23, rageUiOperation6, rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+workingValue32 = RMenu
+text20 = workingValue32
+workingValue32 = workingValue32.Get
+text21 = "garages"
+rageUiOperation5 = "confirm"
 -- Beginner: result below is menu.
-workValue32 = workValue32(textValue20, textValue21, rageUiCall5)
-textValue20 = workValue32
-workValue32 = workValue32.SetSubtitle
-textValue21 = "~b~Are you sure you want to DELETE this vehicle?"
-workValue32(textValue20, textValue21)
+workingValue32 = workingValue32(text20, text21, rageUiOperation5)
+text20 = workingValue32
+workingValue32 = workingValue32.SetSubtitle
+text21 = "~b~Are you sure you want to DELETE this vehicle?"
+workingValue32(text20, text21)
 
--- === HELPER FUNCTION (decompiler name: workValue32; parameters: none) ===
-function workValue32()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7
-  arg1 = RageUI
-  arg1 = arg1.ButtonWithStyle
-  arg2 = "[Create Custom Folder]"
-  arg3 = ""
-  arg4 = {}
-  arg4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-  arg5 = true
+-- === HELPER FUNCTION (decompiler name: workingValue32; parameters: none) ===
+function workingValue32()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7
+  localValue1 = RageUI
+  localValue1 = localValue1.ButtonWithStyle
+  localValue2 = "[Create Custom Folder]"
+  localValue3 = ""
+  localValue4 = {}
+  localValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32) ===
-  function arg6(arg12, arg22, arg32)
-    local arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag
-    if arg32 then
-      arg42 = CMG
-      arg42 = arg42.GetRageInputText
-      workValue18 = "Enter folder name:"
-      arg42 = arg42(workValue18)
-      if "" ~= arg42 then
-        workValue18 = dataTable9
-        workValue18 = workValue18[arg42]
-        if nil == workValue18 then
-          workValue18 = pairs
-          flag11 = dataTable9
-          workValue18, flag11, flag13, flag14 = workValue18(flag11)
-          for cmgCall16 in workValue18, flag11, flag13, flag14 do
-            flag17 = string
-            flag17 = flag17.lower
-            numberValue2 = cmgCall16
-            flag17 = flag17(numberValue2)
-            numberValue2 = string
-            numberValue2 = numberValue2.lower
-            flag = arg42
-            numberValue2 = numberValue2(flag)
-            if flag17 == numberValue2 then
-              flag17 = notify
-              numberValue2 = "~r~A folder with this name already exists."
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32) ===
+  function localValue6(localValue12, localValue22, localValue32)
+    local localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag
+    if localValue32 then
+      localValue42 = CMG
+      localValue42 = localValue42.GetRageInputText
+      workingValue18 = "Enter folder name:"
+      localValue42 = localValue42(workingValue18)
+      if "" ~= localValue42 then
+        workingValue18 = dataCollection9
+        workingValue18 = workingValue18[localValue42]
+        if nil == workingValue18 then
+          workingValue18 = pairs
+          stateFlag11 = dataCollection9
+          workingValue18, stateFlag11, stateFlag13, stateFlag14 = workingValue18(stateFlag11)
+          for cmgOperation16 in workingValue18, stateFlag11, stateFlag13, stateFlag14 do
+            stateFlag17 = string
+            stateFlag17 = stateFlag17.lower
+            number2 = cmgOperation16
+            stateFlag17 = stateFlag17(number2)
+            number2 = string
+            number2 = number2.lower
+            stateFlag = localValue42
+            number2 = number2(stateFlag)
+            if stateFlag17 == number2 then
+              stateFlag17 = notify
+              number2 = "~r~A folder with this name already exists."
               -- Beginner: Show a notification to the player.
-              flag17(numberValue2)
+              stateFlag17(number2)
               return
             end
           end
-          workValue18 = CMG
-          workValue18 = workValue18.createCustomFolder
-          flag11 = arg42
-          workValue18(flag11)
+          workingValue18 = CMG
+          workingValue18 = workingValue18.createCustomFolder
+          stateFlag11 = localValue42
+          workingValue18(stateFlag11)
         else
-          workValue18 = tCMG
-          workValue18 = workValue18.notify
-          flag11 = "~r~Folder already exists."
+          workingValue18 = tCMG
+          workingValue18 = workingValue18.notify
+          stateFlag11 = "~r~Folder already exists."
           -- Beginner: Show a notification to the player.
-          workValue18(flag11)
+          workingValue18(stateFlag11)
         end
       else
-        workValue18 = tCMG
-        workValue18 = workValue18.notify
-        flag11 = "~r~Invalid folder name."
-        workValue18(flag11)
+        workingValue18 = tCMG
+        workingValue18 = workingValue18.notify
+        stateFlag11 = "~r~Invalid folder name."
+        workingValue18(stateFlag11)
       end
     end
   end
-  arg7 = RMenu
-  iterator2 = arg7
-  arg7 = arg7.Get
+  localValue7 = RMenu
+  iterator2 = localValue7
+  localValue7 = localValue7.Get
   tableHelper2 = "garages"
-  dataTable25 = "customfolders"
-  arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7 = arg7(iterator2, tableHelper2, dataTable25)
+  dataCollection25 = "customfolders"
+  localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7 = localValue7(iterator2, tableHelper2, dataCollection25)
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
-  arg1 = RageUI
-  arg1 = arg1.ButtonWithStyle
-  arg2 = "[Delete Custom Folder]"
-  arg3 = ""
-  arg4 = {}
-  arg4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-  arg5 = true
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.ButtonWithStyle
+  localValue2 = "[Delete Custom Folder]"
+  localValue3 = ""
+  localValue4 = {}
+  localValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32) ===
-  function arg6(arg12, arg22, arg32)
-    local arg42, workValue18, flag11
-    if arg32 then
-      arg42 = CMG
-      arg42 = arg42.GetRageInputText
-      workValue18 = "Enter folder name:"
-      arg42 = arg42(workValue18)
-      if "" ~= arg42 then
-        workValue18 = CMG
-        workValue18 = workValue18.deleteCustomFolder
-        flag11 = arg42
-        workValue18(flag11)
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32) ===
+  function localValue6(localValue12, localValue22, localValue32)
+    local localValue42, workingValue18, stateFlag11
+    if localValue32 then
+      localValue42 = CMG
+      localValue42 = localValue42.GetRageInputText
+      workingValue18 = "Enter folder name:"
+      localValue42 = localValue42(workingValue18)
+      if "" ~= localValue42 then
+        workingValue18 = CMG
+        workingValue18 = workingValue18.deleteCustomFolder
+        stateFlag11 = localValue42
+        workingValue18(stateFlag11)
       else
-        workValue18 = tCMG
-        workValue18 = workValue18.notify
-        flag11 = "~r~Invalid folder name."
+        workingValue18 = tCMG
+        workingValue18 = workingValue18.notify
+        stateFlag11 = "~r~Invalid folder name."
         -- Beginner: Show a notification to the player.
-        workValue18(flag11)
+        workingValue18(stateFlag11)
       end
     end
   end
-  arg7 = RMenu
-  iterator2 = arg7
-  arg7 = arg7.Get
+  localValue7 = RMenu
+  iterator2 = localValue7
+  localValue7 = localValue7.Get
   tableHelper2 = "garages"
-  dataTable25 = "customfolders"
-  arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7 = arg7(iterator2, tableHelper2, dataTable25)
+  dataCollection25 = "customfolders"
+  localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7 = localValue7(iterator2, tableHelper2, dataCollection25)
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
-  arg1 = pairsByKeys
-  arg2 = dataTable9
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5 in arg1, arg2, arg3, arg4 do
-    arg6 = RageUI
-    arg6 = arg6.ButtonWithStyle
-    arg7 = arg5
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
+  localValue1 = pairsByKeys
+  localValue2 = dataCollection9
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5 in localValue1, localValue2, localValue3, localValue4 do
+    localValue6 = RageUI
+    localValue6 = localValue6.ButtonWithStyle
+    localValue7 = localValue5
     iterator2 = ""
     tableHelper2 = {}
     tableHelper2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    dataTable25 = true
+    dataCollection25 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg12, arg22, arg32) ===
-    function workValue2(arg12, arg22, arg32)
-      local arg42
-      if arg32 then
-        arg42 = nil
-        workValue34 = arg42
-        arg42 = arg5
-        workValue12 = arg42
+    -- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue12, localValue22, localValue32) ===
+    function workingValue2(localValue12, localValue22, localValue32)
+      local localValue42
+      if localValue32 then
+        localValue42 = nil
+        workingValue34 = localValue42
+        localValue42 = localValue5
+        workingValue12 = localValue42
       end
     end
-    dataTable = RMenu
-    iterator = dataTable
-    dataTable = dataTable.Get
+    dataCollection = RMenu
+    iterator = dataCollection
+    dataCollection = dataCollection.Get
     stringHelper = "garages"
-    workValue7 = "vehiclemenu"
-    dataTable, iterator, stringHelper, workValue7 = dataTable(iterator, stringHelper, workValue7)
-    arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
+    workingValue7 = "vehiclemenu"
+    dataCollection, iterator, stringHelper, workingValue7 = dataCollection(iterator, stringHelper, workingValue7)
+    localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue20; parameters: arg1, arg2, arg3) ===
-function textValue20(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper
-  arg4 = arg1[arg2]
-  arg5 = 10000
-  arg6 = pairs
-  arg7 = arg1
-  arg6, arg7, iterator2, tableHelper2 = arg6(arg7)
-  for dataTable25, workValue2 in arg6, arg7, iterator2, tableHelper2 do
-    if dataTable25 ~= arg2 then
-      if arg3 then
-        dataTable = 1
-        if dataTable then
-          goto flow_label_15
+-- === HELPER FUNCTION (decompiler name: text20; parameters: localValue1, localValue2, localValue3) ===
+function text20(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper
+  localValue4 = localValue1[localValue2]
+  localValue5 = 10000
+  localValue6 = pairs
+  localValue7 = localValue1
+  localValue6, localValue7, iterator2, tableHelper2 = localValue6(localValue7)
+  for dataCollection25, workingValue2 in localValue6, localValue7, iterator2, tableHelper2 do
+    if dataCollection25 ~= localValue2 then
+      if localValue3 then
+        dataCollection = 1
+        if dataCollection then
+          goto continueAtStep15
         end
       end
-      dataTable = -1
-      ::flow_label_15::
-      dataTable = workValue2 + dataTable
+      dataCollection = -1
+      ::continueAtStep15::
+      dataCollection = workingValue2 + dataCollection
       iterator = math
       iterator = iterator.abs
-      stringHelper = arg1[arg2]
-      stringHelper = stringHelper - dataTable
+      stringHelper = localValue1[localValue2]
+      stringHelper = stringHelper - dataCollection
       iterator = iterator(stringHelper)
-      if arg3 then
-        stringHelper = arg1[arg2]
-        if dataTable > stringHelper then
-          goto flow_label_33
+      if localValue3 then
+        stringHelper = localValue1[localValue2]
+        if dataCollection > stringHelper then
+          goto continueAtStep33
         end
       end
-      if not arg3 then
-        stringHelper = arg1[arg2]
-        ::flow_label_33::
-        if dataTable < stringHelper and arg5 > iterator then
-          arg4 = dataTable
-          arg5 = iterator
+      if not localValue3 then
+        stringHelper = localValue1[localValue2]
+        ::continueAtStep33::
+        if dataCollection < stringHelper and localValue5 > iterator then
+          localValue4 = dataCollection
+          localValue5 = iterator
         end
       end
     end
   end
-  return arg4
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: textValue21; parameters: arg1, arg2) ===
-function textValue21(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7
-  if not arg2 then
-    arg3 = dataTable11
-    arg4 = "hideCustomFolderVehiclesFromOriginalGarages"
-    arg3 = arg3[arg4]
-    if arg3 then
-      arg3 = CMG
-      arg3 = arg3.isVehicleInAnyCustomFolder
-      arg4 = arg1.uuid
-      arg3 = arg3(arg4)
-      if arg3 then
+-- === HELPER FUNCTION (decompiler name: text21; parameters: localValue1, localValue2) ===
+function text21(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7
+  if not localValue2 then
+    localValue3 = dataCollection11
+    localValue4 = "hideCustomFolderVehiclesFromOriginalGarages"
+    localValue3 = localValue3[localValue4]
+    if localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.isVehicleInAnyCustomFolder
+      localValue4 = localValue1.uuid
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
         return
       end
     end
   end
-  arg3 = cmgCall15
-  arg4 = arg1.vehicleId
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = CMG
-    arg3 = arg3.hasClientPermission
-    arg4 = "admin.tickets"
-    arg3 = arg3(arg4)
-    if not arg3 then
+  localValue3 = cmgOperation15
+  localValue4 = localValue1.vehicleId
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.hasClientPermission
+    localValue4 = "admin.tickets"
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
       return
     end
   end
-  arg3 = ""
-  arg4 = arg1.fuel
-  if arg4 <= 20 then
-    arg3 = "~r~"
+  localValue3 = ""
+  localValue4 = localValue1.fuel
+  if localValue4 <= 20 then
+    localValue3 = "~r~"
   else
-    arg4 = arg1.fuel
-    if arg4 <= 50 then
-      arg3 = "~y~"
+    localValue4 = localValue1.fuel
+    if localValue4 <= 50 then
+      localValue3 = "~y~"
     else
-      arg4 = arg1.fuel
-      if arg4 <= 100 then
-        arg3 = "~g~"
+      localValue4 = localValue1.fuel
+      if localValue4 <= 100 then
+        localValue3 = "~g~"
       end
     end
   end
-  arg5 = arg1.uuid
-  arg4 = dataTable12
-  arg4 = arg4[arg5]
-  if not arg4 then
-    arg4 = arg1.name
+  localValue5 = localValue1.uuid
+  localValue4 = dataCollection12
+  localValue4 = localValue4[localValue5]
+  if not localValue4 then
+    localValue4 = localValue1.name
   end
-  arg5 = arg3
-  arg6 = "Fuel "
-  arg7 = tostring
+  localValue5 = localValue3
+  localValue6 = "Fuel "
+  localValue7 = tostring
   iterator2 = math
   iterator2 = iterator2.floor
-  tableHelper2 = arg1.fuel
-  iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7 = iterator2(tableHelper2)
-  arg7 = arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
+  tableHelper2 = localValue1.fuel
+  iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7 = iterator2(tableHelper2)
+  localValue7 = localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
   iterator2 = "%"
-  arg5 = arg5 .. arg6 .. arg7 .. iterator2
-  arg6 = workValue16
-  if arg6 then
-    arg6 = arg5
-    arg7 = " | Boot "
+  localValue5 = localValue5 .. localValue6 .. localValue7 .. iterator2
+  localValue6 = workingValue16
+  if localValue6 then
+    localValue6 = localValue5
+    localValue7 = " | Boot "
     iterator2 = tostring
-    tableHelper2 = workValue16
+    tableHelper2 = workingValue16
     tableHelper2 = tableHelper2[1]
     iterator2 = iterator2(tableHelper2)
     tableHelper2 = "/"
-    dataTable25 = tostring
-    workValue2 = workValue16
-    workValue2 = workValue2[2]
-    dataTable25 = dataTable25(workValue2)
-    workValue2 = "kg"
-    arg6 = arg6 .. arg7 .. iterator2 .. tableHelper2 .. dataTable25 .. workValue2
-    arg5 = arg6
-    arg6 = workValue16
-    arg6 = arg6[3]
-    if arg6 then
-      arg6 = arg5
-      arg7 = " | Has Dirty Cash"
-      arg6 = arg6 .. arg7
-      arg5 = arg6
+    dataCollection25 = tostring
+    workingValue2 = workingValue16
+    workingValue2 = workingValue2[2]
+    dataCollection25 = dataCollection25(workingValue2)
+    workingValue2 = "kg"
+    localValue6 = localValue6 .. localValue7 .. iterator2 .. tableHelper2 .. dataCollection25 .. workingValue2
+    localValue5 = localValue6
+    localValue6 = workingValue16
+    localValue6 = localValue6[3]
+    if localValue6 then
+      localValue6 = localValue5
+      localValue7 = " | Has Dirty Cash"
+      localValue6 = localValue6 .. localValue7
+      localValue5 = localValue6
     end
   end
-  arg6 = RageUI
-  arg6 = arg6.ButtonWithStyle
-  arg7 = arg4
-  iterator2 = arg5
+  localValue6 = RageUI
+  localValue6 = localValue6.ButtonWithStyle
+  localValue7 = localValue4
+  iterator2 = localValue5
   tableHelper2 = {}
   tableHelper2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-  dataTable25 = true
+  dataCollection25 = true
 
-  -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg12, arg22, arg32) ===
-  function workValue2(arg12, arg22, arg32)
-    local arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2
-    if arg22 then
-      arg42 = numberValue3
-      if 0 ~= arg42 then
-        arg42 = numberValue4
-        workValue18 = arg1.vehicleId
-        if arg42 == workValue18 then
-          goto flow_label_23
+  -- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue12, localValue22, localValue32) ===
+  function workingValue2(localValue12, localValue22, localValue32)
+    local localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2
+    if localValue22 then
+      localValue42 = number3
+      if 0 ~= localValue42 then
+        localValue42 = number4
+        workingValue18 = localValue1.vehicleId
+        if localValue42 == workingValue18 then
+          goto continueAtStep23
         end
       end
-      arg42 = flag5
-      if not arg42 then
-        arg42 = DeleteVehicle
-        workValue18 = numberValue3
-        arg42(workValue18)
-        arg42 = true
-        flag5 = arg42
-        arg42 = workValue25
-        workValue18 = arg1.vehicleId
-        arg42(workValue18)
-        arg42 = arg1.vehicleId
-        numberValue4 = arg42
+      localValue42 = stateFlag5
+      if not localValue42 then
+        localValue42 = DeleteVehicle
+        workingValue18 = number3
+        localValue42(workingValue18)
+        localValue42 = true
+        stateFlag5 = localValue42
+        localValue42 = workingValue25
+        workingValue18 = localValue1.vehicleId
+        localValue42(workingValue18)
+        localValue42 = localValue1.vehicleId
+        number4 = localValue42
       end
-      ::flow_label_23::
-      arg42 = numberValue14
-      workValue18 = arg1.uuid
-      if arg42 ~= workValue18 then
-        arg42 = arg1.uuid
-        numberValue14 = arg42
-        arg42 = GetGameTimer
+      ::continueAtStep23::
+      localValue42 = number14
+      workingValue18 = localValue1.uuid
+      if localValue42 ~= workingValue18 then
+        localValue42 = localValue1.uuid
+        number14 = localValue42
+        localValue42 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        arg42 = arg42()
-        numberValue13 = arg42
-        arg42 = nil
-        workValue16 = arg42
+        localValue42 = localValue42()
+        number13 = localValue42
+        localValue42 = nil
+        workingValue16 = localValue42
       end
-      arg42 = numberValue13
-      if 0 ~= arg42 then
-        arg42 = GetGameTimer
+      localValue42 = number13
+      if 0 ~= localValue42 then
+        localValue42 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        arg42 = arg42()
-        workValue18 = numberValue13
-        arg42 = arg42 - workValue18
-        workValue18 = 250
-        if arg42 > workValue18 then
-          arg42 = 0
-          numberValue13 = arg42
-          arg42 = nil
-          workValue16 = arg42
-          arg42 = TriggerServerEvent
-          workValue18 = "a5ea65d755"
-          flag11 = arg1.vehicleId
-          flag13 = arg1.uuid
+        localValue42 = localValue42()
+        workingValue18 = number13
+        localValue42 = localValue42 - workingValue18
+        workingValue18 = 250
+        if localValue42 > workingValue18 then
+          localValue42 = 0
+          number13 = localValue42
+          localValue42 = nil
+          workingValue16 = localValue42
+          localValue42 = TriggerServerEvent
+          workingValue18 = "a5ea65d755"
+          stateFlag11 = localValue1.vehicleId
+          stateFlag13 = localValue1.uuid
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a5ea65d755".
-          arg42(workValue18, flag11, flag13)
+          localValue42(workingValue18, stateFlag11, stateFlag13)
         end
       end
-      arg42 = arg2
-      if arg42 then
-        arg42 = IsControlPressed
-        workValue18 = 0
-        flag11 = 209
-        arg42 = arg42(workValue18, flag11)
-        if arg42 then
-          workValue18 = workValue12
-          arg42 = dataTable9
-          arg42 = arg42[workValue18]
-          workValue18 = nil
-          flag11 = IsControlJustPressed
-          flag13 = 0
-          flag14 = 188
-          flag11 = flag11(flag13, flag14)
-          if flag11 then
-            workValue18 = true
+      localValue42 = localValue2
+      if localValue42 then
+        localValue42 = IsControlPressed
+        workingValue18 = 0
+        stateFlag11 = 209
+        localValue42 = localValue42(workingValue18, stateFlag11)
+        if localValue42 then
+          workingValue18 = workingValue12
+          localValue42 = dataCollection9
+          localValue42 = localValue42[workingValue18]
+          workingValue18 = nil
+          stateFlag11 = IsControlJustPressed
+          stateFlag13 = 0
+          stateFlag14 = 188
+          stateFlag11 = stateFlag11(stateFlag13, stateFlag14)
+          if stateFlag11 then
+            workingValue18 = true
           else
-            flag11 = IsControlJustPressed
-            flag13 = 0
-            flag14 = 187
-            flag11 = flag11(flag13, flag14)
-            if flag11 then
-              workValue18 = false
+            stateFlag11 = IsControlJustPressed
+            stateFlag13 = 0
+            stateFlag14 = 187
+            stateFlag11 = stateFlag11(stateFlag13, stateFlag14)
+            if stateFlag11 then
+              workingValue18 = false
             end
           end
-          flag11 = type
-          flag13 = workValue18
-          flag11 = flag11(flag13)
-          if "boolean" == flag11 then
-            flag11 = textValue20
-            flag13 = arg42
-            flag14 = arg1.uuid
-            cmgCall16 = workValue18
-            flag11 = flag11(flag13, flag14, cmgCall16)
-            flag13 = arg1.uuid
-            flag13 = arg42[flag13]
-            if flag11 ~= flag13 then
-              flag13 = pairs
-              flag14 = arg42
-              flag13, flag14, cmgCall16, flag17 = flag13(flag14)
-              for numberValue2, flag in flag13, flag14, cmgCall16, flag17 do
-                if not workValue18 or not (flag >= flag11) then
-                  if not (not workValue18 and flag <= flag11) then
-                    goto flow_label_120
+          stateFlag11 = type
+          stateFlag13 = workingValue18
+          stateFlag11 = stateFlag11(stateFlag13)
+          if "boolean" == stateFlag11 then
+            stateFlag11 = text20
+            stateFlag13 = localValue42
+            stateFlag14 = localValue1.uuid
+            cmgOperation16 = workingValue18
+            stateFlag11 = stateFlag11(stateFlag13, stateFlag14, cmgOperation16)
+            stateFlag13 = localValue1.uuid
+            stateFlag13 = localValue42[stateFlag13]
+            if stateFlag11 ~= stateFlag13 then
+              stateFlag13 = pairs
+              stateFlag14 = localValue42
+              stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14)
+              for number2, stateFlag in stateFlag13, stateFlag14, cmgOperation16, stateFlag17 do
+                if not workingValue18 or not (stateFlag >= stateFlag11) then
+                  if not (not workingValue18 and stateFlag <= stateFlag11) then
+                    goto continueAtStep120
                   end
-                  flag2 = arg1.uuid
-                  if numberValue2 == flag2 then
-                    goto flow_label_120
-                  end
-                end
-                if workValue18 then
-                  flag2 = 1
-                  if flag2 then
-                    goto flow_label_117
+                  stateFlag2 = localValue1.uuid
+                  if number2 == stateFlag2 then
+                    goto continueAtStep120
                   end
                 end
-                flag2 = -1
-                ::flow_label_117::
-                flag2 = flag + flag2
-                arg42[numberValue2] = flag2
-                ::flow_label_120::
+                if workingValue18 then
+                  stateFlag2 = 1
+                  if stateFlag2 then
+                    goto continueAtStep117
+                  end
+                end
+                stateFlag2 = -1
+                ::continueAtStep117::
+                stateFlag2 = stateFlag + stateFlag2
+                localValue42[number2] = stateFlag2
+                ::continueAtStep120::
               end
-              flag13 = arg1.uuid
-              arg42[flag13] = flag11
-              flag13 = CMG
-              flag13 = flag13.saveCustomFolders
-              flag13()
+              stateFlag13 = localValue1.uuid
+              localValue42[stateFlag13] = stateFlag11
+              stateFlag13 = CMG
+              stateFlag13 = stateFlag13.saveCustomFolders
+              stateFlag13()
             end
           end
         end
       end
     end
-    if arg32 then
-      arg42 = arg1.vehicleId
-      textValue15 = arg42
-      arg42 = arg1.uuid
-      numberValue23 = arg42
-      workValue18 = arg1.vehicleId
-      arg42 = dataTable16
-      arg42 = arg42[workValue18]
-      if not arg42 then
-        arg42 = TriggerServerEvent
-        workValue18 = "e7f85609de"
-        flag11 = arg1.vehicleId
+    if localValue32 then
+      localValue42 = localValue1.vehicleId
+      text15 = localValue42
+      localValue42 = localValue1.uuid
+      number23 = localValue42
+      workingValue18 = localValue1.vehicleId
+      localValue42 = dataCollection16
+      localValue42 = localValue42[workingValue18]
+      if not localValue42 then
+        localValue42 = TriggerServerEvent
+        workingValue18 = "e7f85609de"
+        stateFlag11 = localValue1.vehicleId
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e7f85609de".
-        arg42(workValue18, flag11)
+        localValue42(workingValue18, stateFlag11)
       end
-      workValue18 = arg1.uuid
-      arg42 = dataTable17
-      arg42 = arg42[workValue18]
-      if not arg42 then
-        arg42 = TriggerServerEvent
-        workValue18 = "8f66b92a5f"
-        flag11 = arg1.uuid
-        arg42(workValue18, flag11)
+      workingValue18 = localValue1.uuid
+      localValue42 = dataCollection17
+      localValue42 = localValue42[workingValue18]
+      if not localValue42 then
+        localValue42 = TriggerServerEvent
+        workingValue18 = "8f66b92a5f"
+        stateFlag11 = localValue1.uuid
+        localValue42(workingValue18, stateFlag11)
       end
-      arg42 = arg4
-      textValue16 = arg42
-      arg42 = arg2
-      if not arg42 then
-        arg42 = nil
-        workValue12 = arg42
+      localValue42 = localValue4
+      text16 = localValue42
+      localValue42 = localValue2
+      if not localValue42 then
+        localValue42 = nil
+        workingValue12 = localValue42
       end
     end
   end
-  dataTable = RMenu
-  iterator = dataTable
-  dataTable = dataTable.Get
+  dataCollection = RMenu
+  iterator = dataCollection
+  dataCollection = dataCollection.Get
   stringHelper = "garages"
-  workValue7 = "spawnmenu"
-  dataTable, iterator, stringHelper, workValue7 = dataTable(iterator, stringHelper, workValue7)
+  workingValue7 = "spawnmenu"
+  dataCollection, iterator, stringHelper, workingValue7 = dataCollection(iterator, stringHelper, workingValue7)
   -- Beginner: Draw a selectable RageUI menu button.
-  arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
+  localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
 end
-rageUiCall5 = {}
+rageUiOperation5 = {}
 
--- === HELPER FUNCTION (decompiler name: textValue22; parameters: arg1) ===
-function textValue22(arg1)
-  local arg2, arg3, arg4
-  arg2 = rageUiCall5
-  arg2[arg1] = true
-  arg2 = CMG
-  arg2 = arg2.loadModel
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = rageUiCall5
-  arg3[arg1] = nil
-  if not arg2 then
-    arg3 = false
-    return arg3
+-- === HELPER FUNCTION (decompiler name: text22; parameters: localValue1) ===
+function text22(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = rageUiOperation5
+  localValue2[localValue1] = true
+  localValue2 = CMG
+  localValue2 = localValue2.loadModel
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = rageUiOperation5
+  localValue3[localValue1] = nil
+  if not localValue2 then
+    localValue3 = false
+    return localValue3
   end
-  arg3 = SetModelAsNoLongerNeeded
-  arg4 = arg2
-  arg3(arg4)
-  arg3 = IsModelValid
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = HasModelLoaded
-    arg4 = arg2
-    arg3 = arg3(arg4)
+  localValue3 = SetModelAsNoLongerNeeded
+  localValue4 = localValue2
+  localValue3(localValue4)
+  localValue3 = IsModelValid
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = HasModelLoaded
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: textValue23; parameters: arg1, arg2) ===
-function textValue23(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2
-  arg3 = workValue29
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg4 = tCMG
-    arg4 = arg4.notify
-    arg5 = "~r~Vehicle data is out of date. Close and reopen the garage menu."
+-- === HELPER FUNCTION (decompiler name: text23; parameters: localValue1, localValue2) ===
+function text23(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue3 = workingValue29
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue4 = tCMG
+    localValue4 = localValue4.notify
+    localValue5 = "~r~Vehicle data is out of date. Close and reopen the garage menu."
     -- Beginner: Show a notification to the player.
-    arg4(arg5)
+    localValue4(localValue5)
     return
   end
-  arg5 = arg3.vehicleId
-  arg4 = rageUiCall5
-  arg4 = arg4[arg5]
-  if arg4 then
-    arg4 = notify
-    arg5 = "~r~Vehicle is being downloaded, please wait."
-    arg4(arg5)
+  localValue5 = localValue3.vehicleId
+  localValue4 = rageUiOperation5
+  localValue4 = localValue4[localValue5]
+  if localValue4 then
+    localValue4 = notify
+    localValue5 = "~r~Vehicle is being downloaded, please wait."
+    localValue4(localValue5)
     return
   end
-  arg4 = textValue22
-  arg5 = arg3.vehicleId
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = TriggerServerEvent
-    arg5 = "3cee06ce88"
-    arg6 = arg3.vehicleId
-    arg7 = arg1
+  localValue4 = text22
+  localValue5 = localValue3.vehicleId
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "3cee06ce88"
+    localValue6 = localValue3.vehicleId
+    localValue7 = localValue1
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3cee06ce88".
-    arg4(arg5, arg6, arg7)
+    localValue4(localValue5, localValue6, localValue7)
     return
   end
-  arg4 = workValue27
-  arg4 = arg4()
-  arg4 = arg4[arg1]
-  if nil ~= arg4 then
-    arg5 = DoesEntityExist
-    arg6 = arg4[2]
-    arg5 = arg5(arg6)
-    if arg5 then
-      goto flow_label_47
+  localValue4 = workingValue27
+  localValue4 = localValue4()
+  localValue4 = localValue4[localValue1]
+  if nil ~= localValue4 then
+    localValue5 = DoesEntityExist
+    localValue6 = localValue4[2]
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      goto continueAtStep47
     end
   end
-  arg5 = TriggerServerEvent
-  arg6 = "0cd4f2f872"
-  arg7 = arg1
-  iterator2 = arg2
-  arg5(arg6, arg7, iterator2)
-  goto flow_label_51
-  ::flow_label_47::
-  arg5 = tCMG
-  arg5 = arg5.notify
-  arg6 = "Vehicle is already out!"
+  localValue5 = TriggerServerEvent
+  localValue6 = "0cd4f2f872"
+  localValue7 = localValue1
+  iterator2 = localValue2
+  localValue5(localValue6, localValue7, iterator2)
+  goto continueAtStep51
+  ::continueAtStep47::
+  localValue5 = tCMG
+  localValue5 = localValue5.notify
+  localValue6 = "Vehicle is already out!"
   -- Beginner: Show a notification to the player.
-  arg5(arg6)
-  ::flow_label_51::
+  localValue5(localValue6)
+  ::continueAtStep51::
 end
-rageUiCall6 = RageUI
-rageUiCall6 = rageUiCall6.CreateWhile
-rageUiCall7 = 1.0
-rageUiCall8 = RMenu
-textValue24 = rageUiCall8
-rageUiCall8 = rageUiCall8.Get
-textValue25 = "garages"
-textValue26 = "mainmenu"
+rageUiOperation6 = RageUI
+rageUiOperation6 = rageUiOperation6.CreateWhile
+rageUiOperation7 = 1.0
+rageUiOperation8 = RMenu
+text24 = rageUiOperation8
+rageUiOperation8 = rageUiOperation8.Get
+text25 = "garages"
+text26 = "mainmenu"
 -- Beginner: result below is menu.
-rageUiCall8 = rageUiCall8(textValue24, textValue25, textValue26)
-textValue24 = nil
+rageUiOperation8 = rageUiOperation8(text24, text25, text26)
+text24 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: none) ===
-function textValue25()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "mainmenu"
+-- === HELPER FUNCTION (decompiler name: text25; parameters: none) ===
+function text25()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Garages"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Garages"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "listgarages"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "listgarages"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Store Vehicle"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Store Vehicle"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12, textValue17
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12, text17
+      if localValue33 then
         vehicle2 = GetVehiclePedIsIn
-        cmgCall6 = CMG
-        cmgCall6 = cmgCall6.getPlayerPed
+        cmgOperation6 = CMG
+        cmgOperation6 = cmgOperation6.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        cmgCall6 = cmgCall6()
-        flag12 = false
+        cmgOperation6 = cmgOperation6()
+        stateFlag12 = false
         -- Beginner: result below is currentVehicle.
-        vehicle2 = vehicle2(cmgCall6, flag12)
-        cmgCall6 = DoesEntityExist
-        flag12 = vehicle2
-        cmgCall6 = cmgCall6(flag12)
-        if cmgCall6 then
-          cmgCall6 = DecorGetInt
-          flag12 = vehicle2
-          cmgCall12 = "ac76c9d452"
-          cmgCall6 = cmgCall6(flag12, cmgCall12)
-          flag12 = DecorGetInt
-          cmgCall12 = vehicle2
-          textValue17 = "0a6cf607ed"
-          flag12 = flag12(cmgCall12, textValue17)
-          cmgCall12 = CMG
-          cmgCall12 = cmgCall12.getClientUserId
+        vehicle2 = vehicle2(cmgOperation6, stateFlag12)
+        cmgOperation6 = DoesEntityExist
+        stateFlag12 = vehicle2
+        cmgOperation6 = cmgOperation6(stateFlag12)
+        if cmgOperation6 then
+          cmgOperation6 = DecorGetInt
+          stateFlag12 = vehicle2
+          cmgOperation12 = "ac76c9d452"
+          cmgOperation6 = cmgOperation6(stateFlag12, cmgOperation12)
+          stateFlag12 = DecorGetInt
+          cmgOperation12 = vehicle2
+          text17 = "0a6cf607ed"
+          stateFlag12 = stateFlag12(cmgOperation12, text17)
+          cmgOperation12 = CMG
+          cmgOperation12 = cmgOperation12.getClientUserId
           -- Beginner: result below is userId.
-          cmgCall12 = cmgCall12()
-          if cmgCall6 == cmgCall12 and flag12 > 0 then
-            workValue14 = flag12
+          cmgOperation12 = cmgOperation12()
+          if cmgOperation6 == cmgOperation12 and stateFlag12 > 0 then
+            workingValue14 = stateFlag12
           end
-          cmgCall12 = DeleteEntity
-          textValue17 = vehicle2
+          cmgOperation12 = DeleteEntity
+          text17 = vehicle2
           -- Beginner: Delete a GTA entity.
-          cmgCall12(textValue17)
+          cmgOperation12(text17)
         end
       end
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "mainmenu"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "mainmenu"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = workValue14
-    if arg12 then
-      arg12 = RageUI
-      arg12 = arg12.ButtonWithStyle
-      arg22 = "Spawn Last Vehicle"
-      arg32 = "Spawns the last owned vehicle that was spawned or stored via the garage menu"
-      arg42 = {}
-      arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = workingValue14
+    if localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.ButtonWithStyle
+      localValue22 = "Spawn Last Vehicle"
+      localValue32 = "Spawns the last owned vehicle that was spawned or stored via the garage menu"
+      localValue42 = {}
+      localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workingValue18 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-      function flag11(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag11(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12
+        if localValue33 then
           vehicle2 = CMG
           vehicle2 = vehicle2.getPlayerCombatTimer
           vehicle2 = vehicle2()
           if vehicle2 > 0 then
             vehicle2 = notify
-            cmgCall6 = "~r~You can not spawn a vehicle with a combat timer."
+            cmgOperation6 = "~r~You can not spawn a vehicle with a combat timer."
             -- Beginner: Show a notification to the player.
-            vehicle2(cmgCall6)
+            vehicle2(cmgOperation6)
             return
           end
           vehicle2 = CMG
@@ -4030,142 +4030,142 @@ function textValue25()
           vehicle2 = vehicle2()
           if vehicle2 then
             vehicle2 = notify
-            cmgCall6 = "~r~You can not spawn new vehicles in a race."
-            vehicle2(cmgCall6)
+            cmgOperation6 = "~r~You can not spawn new vehicles in a race."
+            vehicle2(cmgOperation6)
             return
           end
           vehicle2 = CMG
           vehicle2 = vehicle2.getVehicleInfoFromUUID
-          cmgCall6 = workValue14
-          vehicle2 = vehicle2(cmgCall6)
+          cmgOperation6 = workingValue14
+          vehicle2 = vehicle2(cmgOperation6)
           if vehicle2 then
-            cmgCall6 = vehicle2.vehicleId
-            if cmgCall6 then
-              cmgCall6 = workValue31
-              flag12 = vehicle2.vehicleId
-              cmgCall6 = cmgCall6(flag12)
-              if cmgCall6 then
-                cmgCall6 = Citizen
-                cmgCall6 = cmgCall6.CreateThreadNow
+            cmgOperation6 = vehicle2.vehicleId
+            if cmgOperation6 then
+              cmgOperation6 = workingValue31
+              stateFlag12 = vehicle2.vehicleId
+              cmgOperation6 = cmgOperation6(stateFlag12)
+              if cmgOperation6 then
+                cmgOperation6 = Citizen
+                cmgOperation6 = cmgOperation6.CreateThreadNow
 
-                -- === HELPER FUNCTION (decompiler name: flag12; parameters: none) ===
-                function flag12()
-                  local arg14, cmgCall4
-                  arg14 = textValue23
-                  cmgCall4 = workValue14
-                  arg14(cmgCall4)
+                -- === HELPER FUNCTION (decompiler name: stateFlag12; parameters: none) ===
+                function stateFlag12()
+                  local localValue14, cmgOperation4
+                  localValue14 = text23
+                  cmgOperation4 = workingValue14
+                  localValue14(cmgOperation4)
                 end
-                cmgCall6(flag12)
+                cmgOperation6(stateFlag12)
               else
-                cmgCall6 = notify
-                flag12 = "~r~The last vehicle can not be spawned from this type of garage."
+                cmgOperation6 = notify
+                stateFlag12 = "~r~The last vehicle can not be spawned from this type of garage."
                 -- Beginner: Show a notification to the player.
-                cmgCall6(flag12)
+                cmgOperation6(stateFlag12)
               end
           end
           else
-            cmgCall6 = notify
-            flag12 = "~r~Can not spawn this vehicle. Do you still own it?"
-            cmgCall6(flag12)
+            cmgOperation6 = notify
+            stateFlag12 = "~r~Can not spawn this vehicle. Do you still own it?"
+            cmgOperation6(stateFlag12)
           end
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      arg12(arg22, arg32, arg42, workValue18, flag11)
+      localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
     end
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Rent Manager"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Rent Manager"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "rentmanager"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Payment Plan Manager"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "rentmanager"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Payment Plan Manager"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "paymentplanmanager"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "paymentplanmanager"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "View Recent Logs"
-    arg32 = "View logs from the past month."
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "View Recent Logs"
+    localValue32 = "View logs from the past month."
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
-      local vehicle2, cmgCall6
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6
+      if localValue33 then
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "6463b9ec47"
+        cmgOperation6 = "6463b9ec47"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6463b9ec47".
-        vehicle2(cmgCall6)
+        vehicle2(cmgOperation6)
       end
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "recentlogs"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "recentlogs"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Settings"
-    arg32 = ""
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Settings"
+    localValue32 = ""
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "settings"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~y~Fuel all vehicles. (\194\16325,000)"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "settings"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~y~Fuel all vehicles. (\194\16325,000)"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.isPlusClub
         vehicle2 = vehicle2()
@@ -4174,1174 +4174,1174 @@ function textValue25()
           vehicle2 = vehicle2.isPlatClub
           vehicle2 = vehicle2()
           if not vehicle2 then
-            goto flow_label_36
+            goto continueAtStep36
           end
         end
-        vehicle2 = flag6
+        vehicle2 = stateFlag6
         if not vehicle2 then
           vehicle2 = TriggerServerEvent
-          cmgCall6 = "bf584d3fa8"
+          cmgOperation6 = "bf584d3fa8"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf584d3fa8".
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
           vehicle2 = true
-          flag6 = vehicle2
+          stateFlag6 = vehicle2
           vehicle2 = SendNUIMessage
-          cmgCall6 = {}
-          cmgCall6.transactionType = "playMoney"
+          cmgOperation6 = {}
+          cmgOperation6.transactionType = "playMoney"
           -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
           vehicle2 = SetTimeout
-          cmgCall6 = 60000
+          cmgOperation6 = 60000
 
-          -- === HELPER FUNCTION (decompiler name: flag12; parameters: none) ===
-          function flag12()
-            local arg14, cmgCall4
-            arg14 = false
-            flag6 = arg14
+          -- === HELPER FUNCTION (decompiler name: stateFlag12; parameters: none) ===
+          function stateFlag12()
+            local localValue14, cmgOperation4
+            localValue14 = false
+            stateFlag6 = localValue14
           end
-          vehicle2(cmgCall6, flag12)
+          vehicle2(cmgOperation6, stateFlag12)
         else
           vehicle2 = tCMG
           vehicle2 = vehicle2.notify
-          cmgCall6 = "~r~You've done this too recently, try again later."
+          cmgOperation6 = "~r~You've done this too recently, try again later."
           -- Beginner: Show a notification to the player.
-          vehicle2(cmgCall6)
-          goto flow_label_44
-          ::flow_label_36::
+          vehicle2(cmgOperation6)
+          goto continueAtStep44
+          ::continueAtStep36::
           vehicle2 = tCMG
           vehicle2 = vehicle2.notify
-          cmgCall6 = "~y~You need to be a subscriber of CMG Plus or CMG Platinum to use this feature."
-          vehicle2(cmgCall6)
+          cmgOperation6 = "~y~You need to be a subscriber of CMG Plus or CMG Platinum to use this feature."
+          vehicle2(cmgOperation6)
           vehicle2 = tCMG
           vehicle2 = vehicle2.notify
-          cmgCall6 = "~y~Available @ store.cmgstudios.net"
+          cmgOperation6 = "~y~Available @ store.cmgstudios.net"
           -- Beginner: Show a notification to the player.
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
         end
       end
-      ::flow_label_44::
+      ::continueAtStep44::
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "rentmanager"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "rentmanager"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Vehicles Rented Out"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Vehicles Rented Out"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "rentedout"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "rentedout"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Vehicles Rented In"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Vehicles Rented In"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "rentedin"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "rentedin"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "paymentplanmanager"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "paymentplanmanager"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Vehicles Payment Planned Out"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Vehicles Payment Planned Out"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "paymentplanout"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "paymentplanout"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Vehicles Payment Planned In"
-    arg32 = textValue16
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Vehicles Payment Planned In"
+    localValue32 = text16
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "paymentplanin"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Payment Plan Summary"
-    arg32 = ""
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "paymentplanin"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Payment Plan Summary"
+    localValue32 = ""
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
-      local vehicle2, cmgCall6
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6
+      if localValue33 then
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "2f22f5216b"
+        cmgOperation6 = "2f22f5216b"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2f22f5216b".
-        vehicle2(cmgCall6)
+        vehicle2(cmgOperation6)
       end
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "paymentplansummary"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "paymentplansummary"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "paymentplansummary"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "paymentplansummary"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~g~Estimated income of \194\163"
-    arg32 = getMoneyStringFormatted
-    arg42 = dataTable10.income
-    arg32 = arg32(arg42)
-    arg42 = " per week"
-    arg22 = arg22 .. arg32 .. arg42
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~Estimated outflow of \194\163"
-    arg32 = getMoneyStringFormatted
-    arg42 = dataTable10.outcome
-    arg32 = arg32(arg42)
-    arg42 = " per week"
-    arg22 = arg22 .. arg32 .. arg42
-    arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~g~Estimated income of \194\163"
+    localValue32 = getMoneyStringFormatted
+    localValue42 = dataCollection10.income
+    localValue32 = localValue32(localValue42)
+    localValue42 = " per week"
+    localValue22 = localValue22 .. localValue32 .. localValue42
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~Estimated outflow of \194\163"
+    localValue32 = getMoneyStringFormatted
+    localValue42 = dataCollection10.outcome
+    localValue32 = localValue32(localValue42)
+    localValue42 = " per week"
+    localValue22 = localValue22 .. localValue32 .. localValue42
+    localValue12(localValue22)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "paymentplanout"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "paymentplanout"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8
-    arg12 = pairs
-    arg22 = dataTable7
-    arg12, arg22, arg32, arg42 = arg12(arg22)
-    for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-      flag14 = flag11.uuid
-      flag13 = dataTable12
-      flag13 = flag13[flag14]
-      if not flag13 then
-        flag13 = flag11.vehicleName
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8
+    localValue12 = pairs
+    localValue22 = dataCollection7
+    localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22)
+    for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+      stateFlag14 = stateFlag11.uuid
+      stateFlag13 = dataCollection12
+      stateFlag13 = stateFlag13[stateFlag14]
+      if not stateFlag13 then
+        stateFlag13 = stateFlag11.vehicleName
       end
-      flag14 = flag11.paymentPlannedBy
-      cmgCall16 = RageUI
-      cmgCall16 = cmgCall16.ButtonWithStyle
-      flag17 = flag13
-      numberValue2 = "Payment Planned to "
-      flag = flag14
-      numberValue2 = numberValue2 .. flag
-      flag = {}
-      flag.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag2 = true
+      stateFlag14 = stateFlag11.paymentPlannedBy
+      cmgOperation16 = RageUI
+      cmgOperation16 = cmgOperation16.ButtonWithStyle
+      stateFlag17 = stateFlag13
+      number2 = "Payment Planned to "
+      stateFlag = stateFlag14
+      number2 = number2 .. stateFlag
+      stateFlag = {}
+      stateFlag.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag2 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag3; parameters: arg13, arg23, arg33) ===
-      function flag3(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12, cmgCall12
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag3(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+        if localValue33 then
           vehicle2 = nil
-          workValue11 = vehicle2
+          workingValue11 = vehicle2
           vehicle2 = TriggerServerEvent
-          cmgCall6 = "8e0470d982"
-          flag12 = flag11.uuid
-          cmgCall12 = flag13
+          cmgOperation6 = "8e0470d982"
+          stateFlag12 = stateFlag11.uuid
+          cmgOperation12 = stateFlag13
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8e0470d982".
-          vehicle2(cmgCall6, flag12, cmgCall12)
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
         end
       end
-      workValue8 = RMenu
-      textValue6 = workValue8
-      workValue8 = workValue8.Get
-      textValue7 = "garages"
-      textValue8 = "paymentplaninfo"
-      workValue8, textValue6, textValue7, textValue8 = workValue8(textValue6, textValue7, textValue8)
+      workingValue8 = RMenu
+      text6 = workingValue8
+      workingValue8 = workingValue8.Get
+      text7 = "garages"
+      text8 = "paymentplaninfo"
+      workingValue8, text6, text7, text8 = workingValue8(text6, text7, text8)
       -- Beginner: Draw a selectable RageUI menu button.
-      cmgCall16(flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8)
+      cmgOperation16(stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "paymentplanin"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "paymentplanin"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8
-    arg12 = pairs
-    arg22 = dataTable8
-    arg12, arg22, arg32, arg42 = arg12(arg22)
-    for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-      flag14 = flag11.uuid
-      flag13 = dataTable12
-      flag13 = flag13[flag14]
-      if not flag13 then
-        flag13 = flag11.vehicleName
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8
+    localValue12 = pairs
+    localValue22 = dataCollection8
+    localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22)
+    for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+      stateFlag14 = stateFlag11.uuid
+      stateFlag13 = dataCollection12
+      stateFlag13 = stateFlag13[stateFlag14]
+      if not stateFlag13 then
+        stateFlag13 = stateFlag11.vehicleName
       end
-      flag14 = flag11.paymentPlannedBy
-      cmgCall16 = RageUI
-      cmgCall16 = cmgCall16.ButtonWithStyle
-      flag17 = flag13
-      numberValue2 = "Payment Planned from "
-      flag = flag14
-      numberValue2 = numberValue2 .. flag
-      flag = {}
-      flag.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag2 = true
+      stateFlag14 = stateFlag11.paymentPlannedBy
+      cmgOperation16 = RageUI
+      cmgOperation16 = cmgOperation16.ButtonWithStyle
+      stateFlag17 = stateFlag13
+      number2 = "Payment Planned from "
+      stateFlag = stateFlag14
+      number2 = number2 .. stateFlag
+      stateFlag = {}
+      stateFlag.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag2 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag3; parameters: arg13, arg23, arg33) ===
-      function flag3(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12, cmgCall12
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag3(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+        if localValue33 then
           vehicle2 = nil
-          workValue11 = vehicle2
+          workingValue11 = vehicle2
           vehicle2 = TriggerServerEvent
-          cmgCall6 = "8e0470d982"
-          flag12 = flag11.uuid
-          cmgCall12 = flag13
+          cmgOperation6 = "8e0470d982"
+          stateFlag12 = stateFlag11.uuid
+          cmgOperation12 = stateFlag13
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8e0470d982".
-          vehicle2(cmgCall6, flag12, cmgCall12)
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
         end
       end
-      workValue8 = RMenu
-      textValue6 = workValue8
-      workValue8 = workValue8.Get
-      textValue7 = "garages"
-      textValue8 = "paymentplaninfo"
-      workValue8, textValue6, textValue7, textValue8 = workValue8(textValue6, textValue7, textValue8)
+      workingValue8 = RMenu
+      text6 = workingValue8
+      workingValue8 = workingValue8.Get
+      text7 = "garages"
+      text8 = "paymentplaninfo"
+      workingValue8, text6, text7, text8 = workingValue8(text6, text7, text8)
       -- Beginner: Draw a selectable RageUI menu button.
-      cmgCall16(flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8)
+      cmgOperation16(stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "recentlogs"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "recentlogs"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2
-    arg12 = pairs
-    arg22 = dataTable13
-    arg12, arg22, arg32, arg42 = arg12(arg22)
-    for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-      flag13 = string
-      flag13 = flag13.sub
-      flag14 = flag11
-      cmgCall16 = 1
-      flag17 = 50
-      flag13 = flag13(flag14, cmgCall16, flag17)
-      flag14 = #flag13
-      if flag14 >= 50 then
-        flag14 = flag13
-        cmgCall16 = "..."
-        flag14 = flag14 .. cmgCall16
-        flag13 = flag14
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2
+    localValue12 = pairs
+    localValue22 = dataCollection13
+    localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22)
+    for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+      stateFlag13 = string
+      stateFlag13 = stateFlag13.sub
+      stateFlag14 = stateFlag11
+      cmgOperation16 = 1
+      stateFlag17 = 50
+      stateFlag13 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
+      stateFlag14 = #stateFlag13
+      if stateFlag14 >= 50 then
+        stateFlag14 = stateFlag13
+        cmgOperation16 = "..."
+        stateFlag14 = stateFlag14 .. cmgOperation16
+        stateFlag13 = stateFlag14
       end
-      flag14 = RageUI
-      flag14 = flag14.ButtonWithStyle
-      cmgCall16 = flag13
-      flag17 = flag11
-      numberValue2 = {}
-      flag = true
+      stateFlag14 = RageUI
+      stateFlag14 = stateFlag14.ButtonWithStyle
+      cmgOperation16 = stateFlag13
+      stateFlag17 = stateFlag11
+      number2 = {}
+      stateFlag = true
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-      function flag2()
-        local arg13, arg23
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+      function stateFlag2()
+        local localValue13, localValue23
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2)
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "rentedout"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "rentedout"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8, textValue9
-    arg12 = pairs
-    arg22 = dataTable5
-    arg12, arg22, arg32, arg42 = arg12(arg22)
-    for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-      flag14 = flag11.uuid
-      flag13 = dataTable12
-      flag13 = flag13[flag14]
-      if not flag13 then
-        flag13 = flag11.vehicleName
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8, text9
+    localValue12 = pairs
+    localValue22 = dataCollection5
+    localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22)
+    for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+      stateFlag14 = stateFlag11.uuid
+      stateFlag13 = dataCollection12
+      stateFlag13 = stateFlag13[stateFlag14]
+      if not stateFlag13 then
+        stateFlag13 = stateFlag11.vehicleName
       end
-      flag14 = flag11.rentedBy
-      cmgCall16 = flag11.hoursLeft
-      flag17 = RageUI
-      flag17 = flag17.ButtonWithStyle
-      numberValue2 = flag13
-      flag = "Rented to "
-      flag2 = flag14
-      flag3 = " - "
-      workValue8 = cmgCall16
-      textValue6 = " hours left!"
-      flag = flag .. flag2 .. flag3 .. workValue8 .. textValue6
-      flag2 = {}
-      flag2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag3 = true
+      stateFlag14 = stateFlag11.rentedBy
+      cmgOperation16 = stateFlag11.hoursLeft
+      stateFlag17 = RageUI
+      stateFlag17 = stateFlag17.ButtonWithStyle
+      number2 = stateFlag13
+      stateFlag = "Rented to "
+      stateFlag2 = stateFlag14
+      stateFlag3 = " - "
+      workingValue8 = cmgOperation16
+      text6 = " hours left!"
+      stateFlag = stateFlag .. stateFlag2 .. stateFlag3 .. workingValue8 .. text6
+      stateFlag2 = {}
+      stateFlag2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg13, arg23, arg33) ===
-      function workValue8(arg13, arg23, arg33)
+      -- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue13, localValue23, localValue33) ===
+      function workingValue8(localValue13, localValue23, localValue33)
         local vehicle2
-        if arg33 then
-          vehicle2 = flag11
-          dataTable2 = vehicle2
-          dataTable2.type = "rentingout"
+        if localValue33 then
+          vehicle2 = stateFlag11
+          dataCollection2 = vehicle2
+          dataCollection2.type = "rentingout"
         end
       end
-      textValue6 = RMenu
-      textValue7 = textValue6
-      textValue6 = textValue6.Get
-      textValue8 = "garages"
-      textValue9 = "rentedinfo"
-      textValue6, textValue7, textValue8, textValue9 = textValue6(textValue7, textValue8, textValue9)
+      text6 = RMenu
+      text7 = text6
+      text6 = text6.Get
+      text8 = "garages"
+      text9 = "rentedinfo"
+      text6, text7, text8, text9 = text6(text7, text8, text9)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag17(numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8, textValue9)
+      stateFlag17(number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8, text9)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "rentedin"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "rentedin"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8, textValue9
-    arg12 = pairs
-    arg22 = dataTable4
-    arg12, arg22, arg32, arg42 = arg12(arg22)
-    for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-      flag14 = flag11.uuid
-      flag13 = dataTable12
-      flag13 = flag13[flag14]
-      if not flag13 then
-        flag13 = flag11.vehicleName
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8, text9
+    localValue12 = pairs
+    localValue22 = dataCollection4
+    localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22)
+    for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+      stateFlag14 = stateFlag11.uuid
+      stateFlag13 = dataCollection12
+      stateFlag13 = stateFlag13[stateFlag14]
+      if not stateFlag13 then
+        stateFlag13 = stateFlag11.vehicleName
       end
-      flag14 = flag11.rentedBy
-      cmgCall16 = flag11.hoursLeft
-      flag17 = RageUI
-      flag17 = flag17.ButtonWithStyle
-      numberValue2 = flag13
-      flag = "Rented from "
-      flag2 = flag14
-      flag3 = " - "
-      workValue8 = cmgCall16
-      textValue6 = " hours left!"
-      flag = flag .. flag2 .. flag3 .. workValue8 .. textValue6
-      flag2 = {}
-      flag2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag3 = true
+      stateFlag14 = stateFlag11.rentedBy
+      cmgOperation16 = stateFlag11.hoursLeft
+      stateFlag17 = RageUI
+      stateFlag17 = stateFlag17.ButtonWithStyle
+      number2 = stateFlag13
+      stateFlag = "Rented from "
+      stateFlag2 = stateFlag14
+      stateFlag3 = " - "
+      workingValue8 = cmgOperation16
+      text6 = " hours left!"
+      stateFlag = stateFlag .. stateFlag2 .. stateFlag3 .. workingValue8 .. text6
+      stateFlag2 = {}
+      stateFlag2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag3 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg13, arg23, arg33) ===
-      function workValue8(arg13, arg23, arg33)
+      -- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue13, localValue23, localValue33) ===
+      function workingValue8(localValue13, localValue23, localValue33)
         local vehicle2
-        if arg33 then
-          vehicle2 = flag11
-          dataTable2 = vehicle2
-          dataTable2.type = "rentingin"
+        if localValue33 then
+          vehicle2 = stateFlag11
+          dataCollection2 = vehicle2
+          dataCollection2.type = "rentingin"
         end
       end
-      textValue6 = RMenu
-      textValue7 = textValue6
-      textValue6 = textValue6.Get
-      textValue8 = "garages"
-      textValue9 = "rentedinfo"
-      textValue6, textValue7, textValue8, textValue9 = textValue6(textValue7, textValue8, textValue9)
+      text6 = RMenu
+      text7 = text6
+      text6 = text6.Get
+      text8 = "garages"
+      text9 = "rentedinfo"
+      text6, text7, text8, text9 = text6(text7, text8, text9)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag17(numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7, textValue8, textValue9)
+      stateFlag17(number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7, text8, text9)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "rentedinfo"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "rentedinfo"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17
-    arg12 = dataTable2.uuid
-    arg22 = dataTable2.vehicleName
-    arg32 = dataTable2.rentedBy
-    arg42 = dataTable2.hoursLeft
-    workValue18 = RageUI
-    workValue18 = workValue18.Separator
-    flag11 = "~y~Rent Info"
-    workValue18(flag11)
-    workValue18 = RageUI
-    workValue18 = workValue18.Separator
-    flag11 = "---------"
-    workValue18(flag11)
-    workValue18 = RageUI
-    workValue18 = workValue18.Separator
-    flag11 = "Vehicle: "
-    flag13 = arg22
-    flag11 = flag11 .. flag13
-    workValue18(flag11)
-    workValue18 = RageUI
-    workValue18 = workValue18.Separator
-    flag11 = "Rented from: "
-    flag13 = arg32
-    flag11 = flag11 .. flag13
-    workValue18(flag11)
-    workValue18 = RageUI
-    workValue18 = workValue18.Separator
-    flag11 = "Hours Left: "
-    flag13 = arg42
-    flag11 = flag11 .. flag13
-    workValue18(flag11)
-    workValue18 = RageUI
-    workValue18 = workValue18.ButtonWithStyle
-    flag11 = "Request Rent Cancellation"
-    flag13 = ""
-    flag14 = {}
-    flag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    cmgCall16 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17
+    localValue12 = dataCollection2.uuid
+    localValue22 = dataCollection2.vehicleName
+    localValue32 = dataCollection2.rentedBy
+    localValue42 = dataCollection2.hoursLeft
+    workingValue18 = RageUI
+    workingValue18 = workingValue18.Separator
+    stateFlag11 = "~y~Rent Info"
+    workingValue18(stateFlag11)
+    workingValue18 = RageUI
+    workingValue18 = workingValue18.Separator
+    stateFlag11 = "---------"
+    workingValue18(stateFlag11)
+    workingValue18 = RageUI
+    workingValue18 = workingValue18.Separator
+    stateFlag11 = "Vehicle: "
+    stateFlag13 = localValue22
+    stateFlag11 = stateFlag11 .. stateFlag13
+    workingValue18(stateFlag11)
+    workingValue18 = RageUI
+    workingValue18 = workingValue18.Separator
+    stateFlag11 = "Rented from: "
+    stateFlag13 = localValue32
+    stateFlag11 = stateFlag11 .. stateFlag13
+    workingValue18(stateFlag11)
+    workingValue18 = RageUI
+    workingValue18 = workingValue18.Separator
+    stateFlag11 = "Hours Left: "
+    stateFlag13 = localValue42
+    stateFlag11 = stateFlag11 .. stateFlag13
+    workingValue18(stateFlag11)
+    workingValue18 = RageUI
+    workingValue18 = workingValue18.ButtonWithStyle
+    stateFlag11 = "Request Rent Cancellation"
+    stateFlag13 = ""
+    stateFlag14 = {}
+    stateFlag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    cmgOperation16 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag17; parameters: arg13, arg23, arg33) ===
-    function flag17(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12, textValue17
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag17; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag17(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12, text17
+      if localValue33 then
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "3f4752da34"
-        flag12 = arg22
-        cmgCall12 = arg12
-        textValue17 = dataTable2.type
+        cmgOperation6 = "3f4752da34"
+        stateFlag12 = localValue22
+        cmgOperation12 = localValue12
+        text17 = dataCollection2.type
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f4752da34".
-        vehicle2(cmgCall6, flag12, cmgCall12, textValue17)
+        vehicle2(cmgOperation6, stateFlag12, cmgOperation12, text17)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue18(flag11, flag13, flag14, cmgCall16, flag17)
+    workingValue18(stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "paymentplaninfo"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "paymentplaninfo"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14
-    arg12 = workValue11
-    if not arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~y~Fetching information..."
-      arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14
+    localValue12 = workingValue11
+    if not localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~y~Fetching information..."
+      localValue12(localValue22)
       return
     end
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~Vehicle: "
-    arg32 = workValue11.vehicleName
-    arg22 = arg22 .. arg32
-    arg12(arg22)
-    arg12 = workValue11.sellerUserId
-    arg22 = CMG
-    arg22 = arg22.getClientUserId
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~Vehicle: "
+    localValue32 = workingValue11.vehicleName
+    localValue22 = localValue22 .. localValue32
+    localValue12(localValue22)
+    localValue12 = workingValue11.sellerUserId
+    localValue22 = CMG
+    localValue22 = localValue22.getClientUserId
     -- Beginner: result below is userId.
-    arg22 = arg22()
-    arg12 = arg12 == arg22
-    if arg12 then
-      arg22 = RageUI
-      arg22 = arg22.Separator
-      arg32 = "~y~Buying Player: "
-      arg42 = workValue11.buyerName
-      workValue18 = " ("
-      flag11 = tostring
-      flag13 = workValue11.buyerUserId
-      flag11 = flag11(flag13)
-      flag13 = ")"
-      arg32 = arg32 .. arg42 .. workValue18 .. flag11 .. flag13
-      arg22(arg32)
+    localValue22 = localValue22()
+    localValue12 = localValue12 == localValue22
+    if localValue12 then
+      localValue22 = RageUI
+      localValue22 = localValue22.Separator
+      localValue32 = "~y~Buying Player: "
+      localValue42 = workingValue11.buyerName
+      workingValue18 = " ("
+      stateFlag11 = tostring
+      stateFlag13 = workingValue11.buyerUserId
+      stateFlag11 = stateFlag11(stateFlag13)
+      stateFlag13 = ")"
+      localValue32 = localValue32 .. localValue42 .. workingValue18 .. stateFlag11 .. stateFlag13
+      localValue22(localValue32)
     else
-      arg22 = RageUI
-      arg22 = arg22.Separator
-      arg32 = "~y~Selling Player: "
-      arg42 = workValue11.sellerName
-      workValue18 = " ("
-      flag11 = tostring
-      flag13 = workValue11.sellerUserId
-      flag11 = flag11(flag13)
-      flag13 = ")"
-      arg32 = arg32 .. arg42 .. workValue18 .. flag11 .. flag13
-      arg22(arg32)
+      localValue22 = RageUI
+      localValue22 = localValue22.Separator
+      localValue32 = "~y~Selling Player: "
+      localValue42 = workingValue11.sellerName
+      workingValue18 = " ("
+      stateFlag11 = tostring
+      stateFlag13 = workingValue11.sellerUserId
+      stateFlag11 = stateFlag11(stateFlag13)
+      stateFlag13 = ")"
+      localValue32 = localValue32 .. localValue42 .. workingValue18 .. stateFlag11 .. stateFlag13
+      localValue22(localValue32)
     end
-    arg22 = workValue11.hasPaidThisWeek
-    if arg22 then
-      arg22 = RageUI
-      arg22 = arg22.Separator
-      arg32 = "~g~The payment for this week is completed!"
-      arg22(arg32)
+    localValue22 = workingValue11.hasPaidThisWeek
+    if localValue22 then
+      localValue22 = RageUI
+      localValue22 = localValue22.Separator
+      localValue32 = "~g~The payment for this week is completed!"
+      localValue22(localValue32)
     else
-      arg22 = RageUI
-      arg22 = arg22.Separator
-      arg32 = "~r~The payment for this week is outstanding."
-      arg22(arg32)
+      localValue22 = RageUI
+      localValue22 = localValue22.Separator
+      localValue32 = "~r~The payment for this week is outstanding."
+      localValue22(localValue32)
     end
-    arg22 = RageUI
-    arg22 = arg22.ButtonWithStyle
-    arg32 = "Total Price"
-    arg42 = "The total amount of money that has to be paid."
-    workValue18 = {}
-    flag11 = "\194\163"
-    flag13 = getMoneyStringFormatted
-    flag14 = workValue11.totalPrice
-    flag13 = flag13(flag14)
-    flag11 = flag11 .. flag13
-    workValue18.RightLabel = flag11
-    flag11 = true
+    localValue22 = RageUI
+    localValue22 = localValue22.ButtonWithStyle
+    localValue32 = "Total Price"
+    localValue42 = "The total amount of money that has to be paid."
+    workingValue18 = {}
+    stateFlag11 = "\194\163"
+    stateFlag13 = getMoneyStringFormatted
+    stateFlag14 = workingValue11.totalPrice
+    stateFlag13 = stateFlag13(stateFlag14)
+    stateFlag11 = stateFlag11 .. stateFlag13
+    workingValue18.RightLabel = stateFlag11
+    stateFlag11 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg22(arg32, arg42, workValue18, flag11, flag13)
-    arg22 = RageUI
-    arg22 = arg22.ButtonWithStyle
-    arg32 = "Amount Paid"
-    arg42 = "The amount of money that has been paid so far."
-    workValue18 = {}
-    flag11 = "\194\163"
-    flag13 = getMoneyStringFormatted
-    flag14 = workValue11.amountPaid
-    flag13 = flag13(flag14)
-    flag11 = flag11 .. flag13
-    workValue18.RightLabel = flag11
-    flag11 = true
+    localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
+    localValue22 = RageUI
+    localValue22 = localValue22.ButtonWithStyle
+    localValue32 = "Amount Paid"
+    localValue42 = "The amount of money that has been paid so far."
+    workingValue18 = {}
+    stateFlag11 = "\194\163"
+    stateFlag13 = getMoneyStringFormatted
+    stateFlag14 = workingValue11.amountPaid
+    stateFlag13 = stateFlag13(stateFlag14)
+    stateFlag11 = stateFlag11 .. stateFlag13
+    workingValue18.RightLabel = stateFlag11
+    stateFlag11 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
     end
-    arg22(arg32, arg42, workValue18, flag11, flag13)
-    arg22 = RageUI
-    arg22 = arg22.ButtonWithStyle
-    arg32 = "Weeks Remaining"
-    arg42 = "The amount of weeks left until the payment plan is paid off."
-    workValue18 = {}
-    flag11 = tostring
-    flag13 = workValue11.weeksRemaining
-    flag11 = flag11(flag13)
-    flag13 = " week"
-    flag14 = workValue11.weeksRemaining
-    if flag14 > 1 then
-      flag14 = "s"
-      if flag14 then
-        goto flow_label_107
+    localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
+    localValue22 = RageUI
+    localValue22 = localValue22.ButtonWithStyle
+    localValue32 = "Weeks Remaining"
+    localValue42 = "The amount of weeks left until the payment plan is paid off."
+    workingValue18 = {}
+    stateFlag11 = tostring
+    stateFlag13 = workingValue11.weeksRemaining
+    stateFlag11 = stateFlag11(stateFlag13)
+    stateFlag13 = " week"
+    stateFlag14 = workingValue11.weeksRemaining
+    if stateFlag14 > 1 then
+      stateFlag14 = "s"
+      if stateFlag14 then
+        goto continueAtStep107
       end
     end
-    flag14 = ""
-    ::flow_label_107::
-    flag11 = flag11 .. flag13 .. flag14
-    workValue18.RightLabel = flag11
-    flag11 = true
+    stateFlag14 = ""
+    ::continueAtStep107::
+    stateFlag11 = stateFlag11 .. stateFlag13 .. stateFlag14
+    workingValue18.RightLabel = stateFlag11
+    stateFlag11 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg22(arg32, arg42, workValue18, flag11, flag13)
-    arg22 = RageUI
-    arg22 = arg22.ButtonWithStyle
-    arg32 = "Missed Weeks Remaining"
-    arg42 = "The amount of weeks a missed payment is allowed."
-    workValue18 = {}
-    flag11 = tostring
-    flag13 = workValue11.missedWeeksRemaining
-    flag11 = flag11(flag13)
-    flag13 = " week"
-    flag14 = workValue11.missedWeeksRemaining
-    if flag14 > 1 then
-      flag14 = "s"
-      if flag14 then
-        goto flow_label_129
+    localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
+    localValue22 = RageUI
+    localValue22 = localValue22.ButtonWithStyle
+    localValue32 = "Missed Weeks Remaining"
+    localValue42 = "The amount of weeks a missed payment is allowed."
+    workingValue18 = {}
+    stateFlag11 = tostring
+    stateFlag13 = workingValue11.missedWeeksRemaining
+    stateFlag11 = stateFlag11(stateFlag13)
+    stateFlag13 = " week"
+    stateFlag14 = workingValue11.missedWeeksRemaining
+    if stateFlag14 > 1 then
+      stateFlag14 = "s"
+      if stateFlag14 then
+        goto continueAtStep129
       end
     end
-    flag14 = ""
-    ::flow_label_129::
-    flag11 = flag11 .. flag13 .. flag14
-    workValue18.RightLabel = flag11
-    flag11 = true
+    stateFlag14 = ""
+    ::continueAtStep129::
+    stateFlag11 = stateFlag11 .. stateFlag13 .. stateFlag14
+    workingValue18.RightLabel = stateFlag11
+    stateFlag11 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
     end
-    arg22(arg32, arg42, workValue18, flag11, flag13)
-    arg22 = RageUI
-    arg22 = arg22.ButtonWithStyle
-    arg32 = "Week Start Time"
-    arg42 = "The time that is considered the start of the week."
-    workValue18 = {}
-    flag11 = workValue11.weekStartTime
-    workValue18.RightLabel = flag11
-    flag11 = true
+    localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
+    localValue22 = RageUI
+    localValue22 = localValue22.ButtonWithStyle
+    localValue32 = "Week Start Time"
+    localValue42 = "The time that is considered the start of the week."
+    workingValue18 = {}
+    stateFlag11 = workingValue11.weekStartTime
+    workingValue18.RightLabel = stateFlag11
+    stateFlag11 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
-    end
-    -- Beginner: Draw a selectable RageUI menu button.
-    arg22(arg32, arg42, workValue18, flag11, flag13)
-    arg22 = RageUI
-    arg22 = arg22.ButtonWithStyle
-    arg32 = "Last Payment Time"
-    arg42 = "The time the payment plan last had a payment."
-    workValue18 = {}
-    flag11 = workValue11.lastPaymentTime
-    workValue18.RightLabel = flag11
-    flag11 = true
-
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
-    end
-    arg22(arg32, arg42, workValue18, flag11, flag13)
-    arg22 = RageUI
-    arg22 = arg22.ButtonWithStyle
-    arg32 = "Failed Return Date"
-    arg42 = "The time the vehicle would be returned if no further payments were made (within the hour)."
-    workValue18 = {}
-    flag11 = workValue11.estimatedReturnDate
-    workValue18.RightLabel = flag11
-    flag11 = true
-
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg22(arg32, arg42, workValue18, flag11, flag13)
-    if not arg12 then
-      arg22 = workValue11.hasPaidThisWeek
-      if not arg22 then
-        arg22 = RageUI
-        arg22 = arg22.ButtonWithStyle
-        arg32 = "~g~Pay Debt This week"
-        arg42 = "You will make a payment of \194\163"
-        workValue18 = getMoneyStringFormatted
-        flag11 = workValue11.amountPayThisWeek
-        workValue18 = workValue18(flag11)
-        flag11 = " this week."
-        arg42 = arg42 .. workValue18 .. flag11
-        workValue18 = {}
-        workValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag11 = true
+    localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
+    localValue22 = RageUI
+    localValue22 = localValue22.ButtonWithStyle
+    localValue32 = "Last Payment Time"
+    localValue42 = "The time the payment plan last had a payment."
+    workingValue18 = {}
+    stateFlag11 = workingValue11.lastPaymentTime
+    workingValue18.RightLabel = stateFlag11
+    stateFlag11 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag13; parameters: arg13, arg23, arg33) ===
-        function flag13(arg13, arg23, arg33)
-          local vehicle2, cmgCall6, flag12
-          if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
+    end
+    localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
+    localValue22 = RageUI
+    localValue22 = localValue22.ButtonWithStyle
+    localValue32 = "Failed Return Date"
+    localValue42 = "The time the vehicle would be returned if no further payments were made (within the hour)."
+    workingValue18 = {}
+    stateFlag11 = workingValue11.estimatedReturnDate
+    workingValue18.RightLabel = stateFlag11
+    stateFlag11 = true
+
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
+    end
+    -- Beginner: Draw a selectable RageUI menu button.
+    localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
+    if not localValue12 then
+      localValue22 = workingValue11.hasPaidThisWeek
+      if not localValue22 then
+        localValue22 = RageUI
+        localValue22 = localValue22.ButtonWithStyle
+        localValue32 = "~g~Pay Debt This week"
+        localValue42 = "You will make a payment of \194\163"
+        workingValue18 = getMoneyStringFormatted
+        stateFlag11 = workingValue11.amountPayThisWeek
+        workingValue18 = workingValue18(stateFlag11)
+        stateFlag11 = " this week."
+        localValue42 = localValue42 .. workingValue18 .. stateFlag11
+        workingValue18 = {}
+        workingValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag11 = true
+
+        -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: localValue13, localValue23, localValue33) ===
+        function stateFlag13(localValue13, localValue23, localValue33)
+          local vehicle2, cmgOperation6, stateFlag12
+          if localValue33 then
             vehicle2 = TriggerServerEvent
-            cmgCall6 = "54e798dce5"
-            flag12 = workValue11.vehicleUUID
+            cmgOperation6 = "54e798dce5"
+            stateFlag12 = workingValue11.vehicleUUID
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "54e798dce5".
-            vehicle2(cmgCall6, flag12)
+            vehicle2(cmgOperation6, stateFlag12)
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        arg22(arg32, arg42, workValue18, flag11, flag13)
+        localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
       else
-        arg22 = RageUI
-        arg22 = arg22.ButtonWithStyle
-        arg32 = "~y~Pay Week In Advance"
-        arg42 = "You will make a payment of \194\163"
-        workValue18 = getMoneyStringFormatted
-        flag11 = workValue11.amountPayThisWeek
-        workValue18 = workValue18(flag11)
-        flag11 = " for the next week."
-        arg42 = arg42 .. workValue18 .. flag11
-        workValue18 = {}
-        workValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag11 = true
+        localValue22 = RageUI
+        localValue22 = localValue22.ButtonWithStyle
+        localValue32 = "~y~Pay Week In Advance"
+        localValue42 = "You will make a payment of \194\163"
+        workingValue18 = getMoneyStringFormatted
+        stateFlag11 = workingValue11.amountPayThisWeek
+        workingValue18 = workingValue18(stateFlag11)
+        stateFlag11 = " for the next week."
+        localValue42 = localValue42 .. workingValue18 .. stateFlag11
+        workingValue18 = {}
+        workingValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag11 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag13; parameters: arg13, arg23, arg33) ===
-        function flag13(arg13, arg23, arg33)
-          local vehicle2, cmgCall6, flag12
-          if arg33 then
+        -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: localValue13, localValue23, localValue33) ===
+        function stateFlag13(localValue13, localValue23, localValue33)
+          local vehicle2, cmgOperation6, stateFlag12
+          if localValue33 then
             vehicle2 = TriggerServerEvent
-            cmgCall6 = "54e798dce5"
-            flag12 = workValue11.vehicleUUID
+            cmgOperation6 = "54e798dce5"
+            stateFlag12 = workingValue11.vehicleUUID
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "54e798dce5".
-            vehicle2(cmgCall6, flag12)
+            vehicle2(cmgOperation6, stateFlag12)
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        arg22(arg32, arg42, workValue18, flag11, flag13)
+        localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
       end
-      arg22 = RageUI
-      arg22 = arg22.ButtonWithStyle
-      arg32 = "~r~Request Payment Plan Cancellation"
-      arg42 = "~r~This will cancel the payment plan and return the vehicle back to the seller. You will not receive any money back from doing this."
-      workValue18 = {}
-      flag11 = true
+      localValue22 = RageUI
+      localValue22 = localValue22.ButtonWithStyle
+      localValue32 = "~r~Request Payment Plan Cancellation"
+      localValue42 = "~r~This will cancel the payment plan and return the vehicle back to the seller. You will not receive any money back from doing this."
+      workingValue18 = {}
+      stateFlag11 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag13; parameters: arg13, arg23, arg33) ===
-      function flag13(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag13(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12
+        if localValue33 then
           vehicle2 = TriggerServerEvent
-          cmgCall6 = "ce91f872d5"
-          flag12 = workValue11.vehicleUUID
+          cmgOperation6 = "ce91f872d5"
+          stateFlag12 = workingValue11.vehicleUUID
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ce91f872d5".
-          vehicle2(cmgCall6, flag12)
+          vehicle2(cmgOperation6, stateFlag12)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      arg22(arg32, arg42, workValue18, flag11, flag13)
+      localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "listgarages"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "listgarages"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6
-    arg12 = dataTable11.showCustomFoldersInGarageMenu
-    if not arg12 then
-      arg12 = RageUI
-      arg12 = arg12.ButtonWithStyle
-      arg22 = "[Custom Folders]"
-      arg32 = ""
-      arg42 = {}
-      arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      workValue18 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6
+    localValue12 = dataCollection11.showCustomFoldersInGarageMenu
+    if not localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.ButtonWithStyle
+      localValue22 = "[Custom Folders]"
+      localValue32 = ""
+      localValue42 = {}
+      localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workingValue18 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-      function flag11(arg13, arg23, arg33)
+      -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag11(localValue13, localValue23, localValue33)
       end
-      flag13 = RMenu
-      flag14 = flag13
-      flag13 = flag13.Get
-      cmgCall16 = "garages"
-      flag17 = "customfolders"
-      flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6 = flag13(flag14, cmgCall16, flag17)
+      stateFlag13 = RMenu
+      stateFlag14 = stateFlag13
+      stateFlag13 = stateFlag13.Get
+      cmgOperation16 = "garages"
+      stateFlag17 = "customfolders"
+      stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
       -- Beginner: Draw a selectable RageUI menu button.
-      arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6)
+      localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6)
     else
-      arg12 = workValue32
-      arg12()
+      localValue12 = workingValue32
+      localValue12()
     end
-    arg12 = pairs
-    arg22 = dataTable18
-    arg12, arg22, arg32, arg42 = arg12(arg22)
-    for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-      flag13 = eventRegistration4
-      flag14 = flag11.type
-      flag13 = flag13(flag14)
-      if not flag13 then
-        flag13 = flag11.isGangGarage
-        if not flag13 then
-          goto flow_label_53
+    localValue12 = pairs
+    localValue22 = dataCollection18
+    localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22)
+    for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+      stateFlag13 = eventHandler4
+      stateFlag14 = stateFlag11.type
+      stateFlag13 = stateFlag13(stateFlag14)
+      if not stateFlag13 then
+        stateFlag13 = stateFlag11.isGangGarage
+        if not stateFlag13 then
+          goto continueAtStep53
         end
       end
-      flag13 = textValue4
-      flag14 = flag11.class
-      if flag13 == flag14 then
-        flag13 = RageUI
-        flag13 = flag13.ButtonWithStyle
-        flag14 = flag11.type
-        cmgCall16 = ""
-        flag17 = {}
-        flag17.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        numberValue2 = true
+      stateFlag13 = text4
+      stateFlag14 = stateFlag11.class
+      if stateFlag13 == stateFlag14 then
+        stateFlag13 = RageUI
+        stateFlag13 = stateFlag13.ButtonWithStyle
+        stateFlag14 = stateFlag11.type
+        cmgOperation16 = ""
+        stateFlag17 = {}
+        stateFlag17.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        number2 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag; parameters: arg13, arg23, arg33) ===
-        function flag(arg13, arg23, arg33)
-          local vehicle2, cmgCall6
-          if arg33 then
-            vehicle2 = flag11
-            workValue34 = vehicle2
+        -- === HELPER FUNCTION (decompiler name: stateFlag; parameters: localValue13, localValue23, localValue33) ===
+        function stateFlag(localValue13, localValue23, localValue33)
+          local vehicle2, cmgOperation6
+          if localValue33 then
+            vehicle2 = stateFlag11
+            workingValue34 = vehicle2
             vehicle2 = nil
-            workValue12 = vehicle2
+            workingValue12 = vehicle2
             vehicle2 = CreateThread
             -- Beginner: this function is the body of a background FiveM thread.
 
-            -- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-            function cmgCall6()
-              local arg14, cmgCall4, textValue11, workValue17
-              arg14 = flag11.type
-              cmgCall4 = CMG
-              cmgCall4 = cmgCall4.TriggerServerCallback
-              textValue11 = "d189dbfff3"
-              workValue17 = arg14
-              cmgCall4 = cmgCall4(textValue11, workValue17)
-              textValue11 = workValue34
-              if textValue11 then
-                textValue11 = workValue34.type
-                if textValue11 == arg14 then
-                  workValue4 = cmgCall4
-                  workValue6 = arg14
+            -- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+            function cmgOperation6()
+              local localValue14, cmgOperation4, text11, workingValue17
+              localValue14 = stateFlag11.type
+              cmgOperation4 = CMG
+              cmgOperation4 = cmgOperation4.TriggerServerCallback
+              text11 = "d189dbfff3"
+              workingValue17 = localValue14
+              cmgOperation4 = cmgOperation4(text11, workingValue17)
+              text11 = workingValue34
+              if text11 then
+                text11 = workingValue34.type
+                if text11 == localValue14 then
+                  workingValue4 = cmgOperation4
+                  workingValue6 = localValue14
                 end
               end
             end
             -- Beginner: Start a separate FiveM thread so this code can run independently.
-            vehicle2(cmgCall6)
+            vehicle2(cmgOperation6)
           end
         end
-        flag2 = RMenu
-        flag3 = flag2
-        flag2 = flag2.Get
-        workValue8 = "garages"
-        textValue6 = "vehiclemenu"
-        flag2, flag3, workValue8, textValue6 = flag2(flag3, workValue8, textValue6)
+        stateFlag2 = RMenu
+        stateFlag3 = stateFlag2
+        stateFlag2 = stateFlag2.Get
+        workingValue8 = "garages"
+        text6 = "vehiclemenu"
+        stateFlag2, stateFlag3, workingValue8, text6 = stateFlag2(stateFlag3, workingValue8, text6)
         -- Beginner: Draw a selectable RageUI menu button.
-        flag13(flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6)
+        stateFlag13(stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6)
       end
-      ::flow_label_53::
+      ::continueAtStep53::
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "customfolders"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "customfolders"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22
-    arg12 = workValue32
-    arg12()
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22
+    localValue12 = workingValue32
+    localValue12()
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "spawnmenu"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "spawnmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7
-    arg12 = workValue34
-    if arg12 then
-      arg12 = workValue34.isGangGarage
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7
+    localValue12 = workingValue34
+    if localValue12 then
+      localValue12 = workingValue34.isGangGarage
     end
-    if not arg12 then
-      arg22 = workValue31
-      arg32 = textValue15
-      arg22 = arg22(arg32)
-      if not arg22 then
-        arg22 = RageUI
-        arg22 = arg22.Visible
-        arg32 = RMenu
-        arg42 = arg32
-        arg32 = arg32.Get
-        workValue18 = "garages"
-        flag11 = "mainmenu"
+    if not localValue12 then
+      localValue22 = workingValue31
+      localValue32 = text15
+      localValue22 = localValue22(localValue32)
+      if not localValue22 then
+        localValue22 = RageUI
+        localValue22 = localValue22.Visible
+        localValue32 = RMenu
+        localValue42 = localValue32
+        localValue32 = localValue32.Get
+        workingValue18 = "garages"
+        stateFlag11 = "mainmenu"
         -- Beginner: result below is menu.
-        arg32 = arg32(arg42, workValue18, flag11)
-        arg42 = true
-        arg22(arg32, arg42)
+        localValue32 = localValue32(localValue42, workingValue18, stateFlag11)
+        localValue42 = true
+        localValue22(localValue32, localValue42)
         return
       end
     end
-    arg22 = textValue16
-    arg42 = textValue15
-    arg32 = dataTable16
-    arg32 = arg32[arg42]
-    if arg32 then
-      arg32 = arg22
-      arg42 = " | "
-      workValue18 = "Rarity (1:"
-      flag11 = tostring
-      flag14 = textValue15
-      flag13 = dataTable16
-      flag13 = flag13[flag14]
-      flag11 = flag11(flag13)
-      flag13 = ")"
-      arg32 = arg32 .. arg42 .. workValue18 .. flag11 .. flag13
-      arg22 = arg32
+    localValue22 = text16
+    localValue42 = text15
+    localValue32 = dataCollection16
+    localValue32 = localValue32[localValue42]
+    if localValue32 then
+      localValue32 = localValue22
+      localValue42 = " | "
+      workingValue18 = "Rarity (1:"
+      stateFlag11 = tostring
+      stateFlag14 = text15
+      stateFlag13 = dataCollection16
+      stateFlag13 = stateFlag13[stateFlag14]
+      stateFlag11 = stateFlag11(stateFlag13)
+      stateFlag13 = ")"
+      localValue32 = localValue32 .. localValue42 .. workingValue18 .. stateFlag11 .. stateFlag13
+      localValue22 = localValue32
     end
-    arg42 = numberValue23
-    arg32 = dataTable17
-    arg32 = arg32[arg42]
-    if arg32 then
-      arg32 = arg22
-      arg42 = " | Milage ("
-      workValue18 = tostring
-      flag13 = numberValue23
-      flag11 = dataTable17
-      flag11 = flag11[flag13]
-      workValue18 = workValue18(flag11)
-      flag11 = " miles)"
-      arg32 = arg32 .. arg42 .. workValue18 .. flag11
-      arg22 = arg32
+    localValue42 = number23
+    localValue32 = dataCollection17
+    localValue32 = localValue32[localValue42]
+    if localValue32 then
+      localValue32 = localValue22
+      localValue42 = " | Milage ("
+      workingValue18 = tostring
+      stateFlag13 = number23
+      stateFlag11 = dataCollection17
+      stateFlag11 = stateFlag11[stateFlag13]
+      workingValue18 = workingValue18(stateFlag11)
+      stateFlag11 = " miles)"
+      localValue32 = localValue32 .. localValue42 .. workingValue18 .. stateFlag11
+      localValue22 = localValue32
     end
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Spawn Vehicle"
-    workValue18 = arg22
-    flag11 = {}
-    flag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag13 = CMG
-    flag13 = flag13.isInsideNoVehicleZone
-    flag13 = flag13()
-    flag13 = not flag13
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Spawn Vehicle"
+    workingValue18 = localValue22
+    stateFlag11 = {}
+    stateFlag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag13 = CMG
+    stateFlag13 = stateFlag13.isInsideNoVehicleZone
+    stateFlag13 = stateFlag13()
+    stateFlag13 = not stateFlag13
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.getPlayerCombatTimer
         vehicle2 = vehicle2()
         if vehicle2 > 0 then
           vehicle2 = notify
-          cmgCall6 = "~r~You can not spawn a vehicle with a combat timer."
+          cmgOperation6 = "~r~You can not spawn a vehicle with a combat timer."
           -- Beginner: Show a notification to the player.
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
           return
         end
         vehicle2 = CMG
@@ -5349,135 +5349,135 @@ function textValue25()
         vehicle2 = vehicle2()
         if vehicle2 then
           vehicle2 = notify
-          cmgCall6 = "~r~You can not spawn new vehicles in a race."
-          vehicle2(cmgCall6)
+          cmgOperation6 = "~r~You can not spawn new vehicles in a race."
+          vehicle2(cmgOperation6)
           return
         end
         vehicle2 = pairs
-        cmgCall6 = dataTable3
-        vehicle2, cmgCall6, flag12, cmgCall12 = vehicle2(cmgCall6)
-        for textValue17, flag15 in vehicle2, cmgCall6, flag12, cmgCall12 do
+        cmgOperation6 = dataCollection3
+        vehicle2, cmgOperation6, stateFlag12, cmgOperation12 = vehicle2(cmgOperation6)
+        for text17, stateFlag15 in vehicle2, cmgOperation6, stateFlag12, cmgOperation12 do
           tableHelper3 = DoesEntityExist
-          workValue3 = flag15
-          tableHelper3 = tableHelper3(workValue3)
+          workingValue3 = stateFlag15
+          tableHelper3 = tableHelper3(workingValue3)
           if not tableHelper3 then
             tableHelper3 = table
             tableHelper3 = tableHelper3.remove
-            workValue3 = dataTable3
-            workValue5 = textValue17
-            tableHelper3(workValue3, workValue5)
+            workingValue3 = dataCollection3
+            workingValue5 = text17
+            tableHelper3(workingValue3, workingValue5)
           end
         end
-        vehicle2 = dataTable3
+        vehicle2 = dataCollection3
         vehicle2 = #vehicle2
         if vehicle2 <= 5 then
           vehicle2 = DeleteVehicle
-          cmgCall6 = numberValue3
-          vehicle2(cmgCall6)
+          cmgOperation6 = number3
+          vehicle2(cmgOperation6)
           vehicle2 = 0
-          numberValue3 = vehicle2
+          number3 = vehicle2
           vehicle2 = 0
-          numberValue4 = vehicle2
+          number4 = vehicle2
           vehicle2 = false
-          flag4 = vehicle2
+          stateFlag4 = vehicle2
           vehicle2 = DestroyCam
-          cmgCall6 = cmgCall11
-          flag12 = false
-          vehicle2(cmgCall6, flag12)
+          cmgOperation6 = cmgOperation11
+          stateFlag12 = false
+          vehicle2(cmgOperation6, stateFlag12)
           vehicle2 = RenderScriptCams
-          cmgCall6 = false
-          flag12 = false
-          cmgCall12 = 1
-          textValue17 = true
-          flag15 = true
-          vehicle2(cmgCall6, flag12, cmgCall12, textValue17, flag15)
+          cmgOperation6 = false
+          stateFlag12 = false
+          cmgOperation12 = 1
+          text17 = true
+          stateFlag15 = true
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15)
           vehicle2 = 0
-          cmgCall11 = vehicle2
+          cmgOperation11 = vehicle2
           vehicle2 = SetFocusEntity
-          cmgCall6 = GetPlayerPed
-          flag12 = PlayerId
-          flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5 = flag12()
-          cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5 = cmgCall6(flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5)
-          vehicle2(cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5)
+          cmgOperation6 = GetPlayerPed
+          stateFlag12 = PlayerId
+          stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5 = stateFlag12()
+          cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5 = cmgOperation6(stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5)
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5)
           vehicle2 = SetEntityAlpha
-          cmgCall6 = CMG
-          cmgCall6 = cmgCall6.getPlayerPed
+          cmgOperation6 = CMG
+          cmgOperation6 = cmgOperation6.getPlayerPed
           -- Beginner: result below is localPlayerPed.
-          cmgCall6 = cmgCall6()
-          flag12 = 255
-          cmgCall12 = false
-          vehicle2(cmgCall6, flag12, cmgCall12)
+          cmgOperation6 = cmgOperation6()
+          stateFlag12 = 255
+          cmgOperation12 = false
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
           vehicle2 = FreezeEntityPosition
-          cmgCall6 = CMG
-          cmgCall6 = cmgCall6.getPlayerPed
+          cmgOperation6 = CMG
+          cmgOperation6 = cmgOperation6.getPlayerPed
           -- Beginner: result below is localPlayerPed.
-          cmgCall6 = cmgCall6()
-          flag12 = false
+          cmgOperation6 = cmgOperation6()
+          stateFlag12 = false
           -- Beginner: Freeze or unfreeze an entity in place.
-          vehicle2(cmgCall6, flag12)
+          vehicle2(cmgOperation6, stateFlag12)
           vehicle2 = SetEntityCollision
-          cmgCall6 = CMG
-          cmgCall6 = cmgCall6.getPlayerPed
+          cmgOperation6 = CMG
+          cmgOperation6 = cmgOperation6.getPlayerPed
           -- Beginner: result below is localPlayerPed.
-          cmgCall6 = cmgCall6()
-          flag12 = true
-          cmgCall12 = true
-          vehicle2(cmgCall6, flag12, cmgCall12)
+          cmgOperation6 = cmgOperation6()
+          stateFlag12 = true
+          cmgOperation12 = true
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
           vehicle2 = Citizen
           vehicle2 = vehicle2.CreateThreadNow
 
-          -- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-          function cmgCall6()
-            local arg14, cmgCall4
-            arg14 = textValue23
-            cmgCall4 = numberValue23
-            arg14(cmgCall4)
+          -- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+          function cmgOperation6()
+            local localValue14, cmgOperation4
+            localValue14 = text23
+            cmgOperation4 = number23
+            localValue14(cmgOperation4)
           end
-          vehicle2(cmgCall6)
-          vehicle2 = numberValue23
-          workValue14 = vehicle2
+          vehicle2(cmgOperation6)
+          vehicle2 = number23
+          workingValue14 = vehicle2
         else
           vehicle2 = tCMG
           vehicle2 = vehicle2.notify
-          cmgCall6 = "~r~You may only take out a maximum of 5 vehicles at a time."
+          cmgOperation6 = "~r~You may only take out a maximum of 5 vehicles at a time."
           -- Beginner: Show a notification to the player.
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = textValue4
-    arg32 = CMG
-    arg32 = arg32.hasClientSkill
-    arg42 = "mechanic_remote_ls_customs"
-    arg32 = "vehicle" == arg32 and arg32
-    arg42 = RageUI
-    arg42 = arg42.ButtonWithStyle
-    workValue18 = "LS Customs"
-    flag11 = "(Skill Required)"
-    flag13 = {}
-    flag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag14 = arg32 or flag14
-    if arg32 then
-      flag14 = CMG
-      flag14 = flag14.isInsideNoVehicleZone
-      flag14 = flag14()
-      flag14 = not flag14
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = text4
+    localValue32 = CMG
+    localValue32 = localValue32.hasClientSkill
+    localValue42 = "mechanic_remote_ls_customs"
+    localValue32 = "vehicle" == localValue32 and localValue32
+    localValue42 = RageUI
+    localValue42 = localValue42.ButtonWithStyle
+    workingValue18 = "LS Customs"
+    stateFlag11 = "(Skill Required)"
+    stateFlag13 = {}
+    stateFlag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag14 = localValue32 or stateFlag14
+    if localValue32 then
+      stateFlag14 = CMG
+      stateFlag14 = stateFlag14.isInsideNoVehicleZone
+      stateFlag14 = stateFlag14()
+      stateFlag14 = not stateFlag14
     end
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall16; parameters: arg13, arg23, arg33) ===
-    function cmgCall16(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: cmgOperation16; parameters: localValue13, localValue23, localValue33) ===
+    function cmgOperation16(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.getPlayerCombatTimer
         vehicle2 = vehicle2()
         if vehicle2 > 0 then
           vehicle2 = notify
-          cmgCall6 = "~r~You can not spawn a vehicle with a combat timer."
+          cmgOperation6 = "~r~You can not spawn a vehicle with a combat timer."
           -- Beginner: Show a notification to the player.
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
           return
         end
         vehicle2 = CMG
@@ -5485,128 +5485,128 @@ function textValue25()
         vehicle2 = vehicle2()
         if vehicle2 then
           vehicle2 = notify
-          cmgCall6 = "~r~You can not spawn new vehicles in a race."
-          vehicle2(cmgCall6)
+          cmgOperation6 = "~r~You can not spawn new vehicles in a race."
+          vehicle2(cmgOperation6)
           return
         end
         vehicle2 = pairs
-        cmgCall6 = dataTable3
-        vehicle2, cmgCall6, flag12, cmgCall12 = vehicle2(cmgCall6)
-        for textValue17, flag15 in vehicle2, cmgCall6, flag12, cmgCall12 do
+        cmgOperation6 = dataCollection3
+        vehicle2, cmgOperation6, stateFlag12, cmgOperation12 = vehicle2(cmgOperation6)
+        for text17, stateFlag15 in vehicle2, cmgOperation6, stateFlag12, cmgOperation12 do
           tableHelper3 = DoesEntityExist
-          workValue3 = flag15
-          tableHelper3 = tableHelper3(workValue3)
+          workingValue3 = stateFlag15
+          tableHelper3 = tableHelper3(workingValue3)
           if not tableHelper3 then
             tableHelper3 = table
             tableHelper3 = tableHelper3.remove
-            workValue3 = dataTable3
-            workValue5 = textValue17
-            tableHelper3(workValue3, workValue5)
+            workingValue3 = dataCollection3
+            workingValue5 = text17
+            tableHelper3(workingValue3, workingValue5)
           end
         end
-        vehicle2 = dataTable3
+        vehicle2 = dataCollection3
         vehicle2 = #vehicle2
         if vehicle2 <= 5 then
           vehicle2 = DeleteVehicle
-          cmgCall6 = numberValue3
-          vehicle2(cmgCall6)
+          cmgOperation6 = number3
+          vehicle2(cmgOperation6)
           vehicle2 = 0
-          numberValue3 = vehicle2
+          number3 = vehicle2
           vehicle2 = 0
-          numberValue4 = vehicle2
+          number4 = vehicle2
           vehicle2 = false
-          flag4 = vehicle2
+          stateFlag4 = vehicle2
           vehicle2 = DestroyCam
-          cmgCall6 = cmgCall11
-          flag12 = false
-          vehicle2(cmgCall6, flag12)
+          cmgOperation6 = cmgOperation11
+          stateFlag12 = false
+          vehicle2(cmgOperation6, stateFlag12)
           vehicle2 = RenderScriptCams
-          cmgCall6 = false
-          flag12 = false
-          cmgCall12 = 1
-          textValue17 = true
-          flag15 = true
-          vehicle2(cmgCall6, flag12, cmgCall12, textValue17, flag15)
+          cmgOperation6 = false
+          stateFlag12 = false
+          cmgOperation12 = 1
+          text17 = true
+          stateFlag15 = true
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15)
           vehicle2 = 0
-          cmgCall11 = vehicle2
+          cmgOperation11 = vehicle2
           vehicle2 = SetFocusEntity
-          cmgCall6 = GetPlayerPed
-          flag12 = PlayerId
-          flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5 = flag12()
-          cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5 = cmgCall6(flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5)
-          vehicle2(cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3, workValue3, workValue5)
+          cmgOperation6 = GetPlayerPed
+          stateFlag12 = PlayerId
+          stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5 = stateFlag12()
+          cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5 = cmgOperation6(stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5)
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3, workingValue3, workingValue5)
           vehicle2 = SetEntityAlpha
-          cmgCall6 = CMG
-          cmgCall6 = cmgCall6.getPlayerPed
+          cmgOperation6 = CMG
+          cmgOperation6 = cmgOperation6.getPlayerPed
           -- Beginner: result below is localPlayerPed.
-          cmgCall6 = cmgCall6()
-          flag12 = 255
-          cmgCall12 = false
-          vehicle2(cmgCall6, flag12, cmgCall12)
+          cmgOperation6 = cmgOperation6()
+          stateFlag12 = 255
+          cmgOperation12 = false
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
           vehicle2 = FreezeEntityPosition
-          cmgCall6 = CMG
-          cmgCall6 = cmgCall6.getPlayerPed
+          cmgOperation6 = CMG
+          cmgOperation6 = cmgOperation6.getPlayerPed
           -- Beginner: result below is localPlayerPed.
-          cmgCall6 = cmgCall6()
-          flag12 = false
+          cmgOperation6 = cmgOperation6()
+          stateFlag12 = false
           -- Beginner: Freeze or unfreeze an entity in place.
-          vehicle2(cmgCall6, flag12)
+          vehicle2(cmgOperation6, stateFlag12)
           vehicle2 = SetEntityCollision
-          cmgCall6 = CMG
-          cmgCall6 = cmgCall6.getPlayerPed
+          cmgOperation6 = CMG
+          cmgOperation6 = cmgOperation6.getPlayerPed
           -- Beginner: result below is localPlayerPed.
-          cmgCall6 = cmgCall6()
-          flag12 = true
-          cmgCall12 = true
-          vehicle2(cmgCall6, flag12, cmgCall12)
+          cmgOperation6 = cmgOperation6()
+          stateFlag12 = true
+          cmgOperation12 = true
+          vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
           vehicle2 = Citizen
           vehicle2 = vehicle2.CreateThreadNow
 
-          -- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-          function cmgCall6()
-            local arg14, cmgCall4, textValue11
-            arg14 = textValue23
-            cmgCall4 = numberValue23
-            textValue11 = {}
-            textValue11.remoteLsCustoms = true
-            arg14(cmgCall4, textValue11)
+          -- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+          function cmgOperation6()
+            local localValue14, cmgOperation4, text11
+            localValue14 = text23
+            cmgOperation4 = number23
+            text11 = {}
+            text11.remoteLsCustoms = true
+            localValue14(cmgOperation4, text11)
           end
-          vehicle2(cmgCall6)
-          vehicle2 = numberValue23
-          workValue14 = vehicle2
+          vehicle2(cmgOperation6)
+          vehicle2 = number23
+          workingValue14 = vehicle2
         else
           vehicle2 = tCMG
           vehicle2 = vehicle2.notify
-          cmgCall6 = "~r~You may only take out a maximum of 5 vehicles at a time."
+          cmgOperation6 = "~r~You may only take out a maximum of 5 vehicles at a time."
           -- Beginner: Show a notification to the player.
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg42(workValue18, flag11, flag13, flag14, cmgCall16)
-    arg42 = RageUI
-    arg42 = arg42.ButtonWithStyle
-    workValue18 = "Open Boot"
-    flag11 = arg22
-    flag13 = {}
-    flag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag14 = CMG
-    flag14 = flag14.isInGreenzone
-    flag14 = flag14()
+    localValue42(workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16)
+    localValue42 = RageUI
+    localValue42 = localValue42.ButtonWithStyle
+    workingValue18 = "Open Boot"
+    stateFlag11 = localValue22
+    stateFlag13 = {}
+    stateFlag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag14 = CMG
+    stateFlag14 = stateFlag14.isInGreenzone
+    stateFlag14 = stateFlag14()
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall16; parameters: arg13, arg23, arg33) ===
-    function cmgCall16(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: cmgOperation16; parameters: localValue13, localValue23, localValue33) ===
+    function cmgOperation16(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.getPlayerCombatTimer
         vehicle2 = vehicle2()
         if vehicle2 > 0 then
           vehicle2 = notify
-          cmgCall6 = "~r~You can not open the boot with a combat timer."
+          cmgOperation6 = "~r~You can not open the boot with a combat timer."
           -- Beginner: Show a notification to the player.
-          vehicle2(cmgCall6)
+          vehicle2(cmgOperation6)
           return
         end
         vehicle2 = CMG
@@ -5614,2291 +5614,2291 @@ function textValue25()
         vehicle2 = vehicle2()
         if vehicle2 then
           vehicle2 = notify
-          cmgCall6 = "~r~You can not open the boot in a race."
-          vehicle2(cmgCall6)
+          cmgOperation6 = "~r~You can not open the boot in a race."
+          vehicle2(cmgOperation6)
           return
         end
-        vehicle2 = workValue27
+        vehicle2 = workingValue27
         vehicle2 = vehicle2()
-        cmgCall6 = numberValue23
-        vehicle2 = vehicle2[cmgCall6]
+        cmgOperation6 = number23
+        vehicle2 = vehicle2[cmgOperation6]
         if vehicle2 then
-          cmgCall6 = DoesEntityExist
-          flag12 = vehicle2[2]
-          cmgCall6 = cmgCall6(flag12)
-          if cmgCall6 then
-            cmgCall6 = notify
-            flag12 = "~r~You can not open the boot of a vehicle that is already out!"
+          cmgOperation6 = DoesEntityExist
+          stateFlag12 = vehicle2[2]
+          cmgOperation6 = cmgOperation6(stateFlag12)
+          if cmgOperation6 then
+            cmgOperation6 = notify
+            stateFlag12 = "~r~You can not open the boot of a vehicle that is already out!"
             -- Beginner: Show a notification to the player.
-            cmgCall6(flag12)
+            cmgOperation6(stateFlag12)
             return
           end
         end
-        cmgCall6 = CMG
-        cmgCall6 = cmgCall6.setOpeningBootFromGarage
-        cmgCall6()
-        cmgCall6 = TriggerServerEvent
-        flag12 = "c28fbcd83a"
-        cmgCall12 = numberValue23
+        cmgOperation6 = CMG
+        cmgOperation6 = cmgOperation6.setOpeningBootFromGarage
+        cmgOperation6()
+        cmgOperation6 = TriggerServerEvent
+        stateFlag12 = "c28fbcd83a"
+        cmgOperation12 = number23
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c28fbcd83a".
-        cmgCall6(flag12, cmgCall12)
+        cmgOperation6(stateFlag12, cmgOperation12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg42(workValue18, flag11, flag13, flag14, cmgCall16)
-    if arg12 then
-      arg42 = CMG
-      arg42 = arg42.hasGangPermission
-      workValue18 = "removegarage"
-      arg42 = arg42(workValue18)
-      workValue18 = RageUI
-      workValue18 = workValue18.ButtonWithStyle
-      flag11 = "Remove from Gang Garage"
-      flag13 = arg22
-      flag14 = {}
-      flag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      cmgCall16 = arg42
+    localValue42(workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16)
+    if localValue12 then
+      localValue42 = CMG
+      localValue42 = localValue42.hasGangPermission
+      workingValue18 = "removegarage"
+      localValue42 = localValue42(workingValue18)
+      workingValue18 = RageUI
+      workingValue18 = workingValue18.ButtonWithStyle
+      stateFlag11 = "Remove from Gang Garage"
+      stateFlag13 = localValue22
+      stateFlag14 = {}
+      stateFlag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      cmgOperation16 = localValue42
 
-      -- === HELPER FUNCTION (decompiler name: flag17; parameters: arg13, arg23, arg33) ===
-      function flag17(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12
-        if arg33 then
-          vehicle2 = arg42
+      -- === HELPER FUNCTION (decompiler name: stateFlag17; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag17(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12
+        if localValue33 then
+          vehicle2 = localValue42
           if vehicle2 then
             vehicle2 = TriggerServerEvent
-            cmgCall6 = "00689ace60"
-            flag12 = numberValue23
+            cmgOperation6 = "00689ace60"
+            stateFlag12 = number23
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "00689ace60".
-            vehicle2(cmgCall6, flag12)
+            vehicle2(cmgOperation6, stateFlag12)
           end
         end
       end
-      numberValue2 = RMenu
-      flag = numberValue2
-      numberValue2 = numberValue2.Get
-      flag2 = "garages"
-      flag3 = "spawnmenu"
-      numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7 = numberValue2(flag, flag2, flag3)
+      number2 = RMenu
+      stateFlag = number2
+      number2 = number2.Get
+      stateFlag2 = "garages"
+      stateFlag3 = "spawnmenu"
+      number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7 = number2(stateFlag, stateFlag2, stateFlag3)
       -- Beginner: Draw a selectable RageUI menu button.
-      workValue18(flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
+      workingValue18(stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
     end
-    if not arg12 then
-      arg42 = CMG
-      arg42 = arg42.canVehicleBeSold
-      workValue18 = textValue15
-      arg42 = arg42(workValue18)
-      if arg42 then
-        arg42 = cmgCall7
-        workValue18 = numberValue23
-        arg42 = arg42(workValue18)
-        arg42 = not arg42
+    if not localValue12 then
+      localValue42 = CMG
+      localValue42 = localValue42.canVehicleBeSold
+      workingValue18 = text15
+      localValue42 = localValue42(workingValue18)
+      if localValue42 then
+        localValue42 = cmgOperation7
+        workingValue18 = number23
+        localValue42 = localValue42(workingValue18)
+        localValue42 = not localValue42
       end
-      workValue18 = cmgCall7
-      flag11 = numberValue23
-      workValue18 = workValue18(flag11)
-      if workValue18 then
-        workValue18 = cmgCall8
-        if workValue18 then
-          goto flow_label_147
+      workingValue18 = cmgOperation7
+      stateFlag11 = number23
+      workingValue18 = workingValue18(stateFlag11)
+      if workingValue18 then
+        workingValue18 = cmgOperation8
+        if workingValue18 then
+          goto continueAtStep147
         end
       end
-      workValue18 = arg22
-      ::flow_label_147::
-      flag11 = RageUI
-      flag11 = flag11.ButtonWithStyle
-      flag13 = "Sell Vehicle to Player"
-      flag14 = workValue18
-      cmgCall16 = {}
-      cmgCall16.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag17 = arg42
+      workingValue18 = localValue22
+      ::continueAtStep147::
+      stateFlag11 = RageUI
+      stateFlag11 = stateFlag11.ButtonWithStyle
+      stateFlag13 = "Sell Vehicle to Player"
+      stateFlag14 = workingValue18
+      cmgOperation16 = {}
+      cmgOperation16.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag17 = localValue42
 
-      -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: arg13, arg23, arg33) ===
-      function numberValue2(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12
-        if arg33 then
-          vehicle2 = arg42
+      -- === HELPER FUNCTION (decompiler name: number2; parameters: localValue13, localValue23, localValue33) ===
+      function number2(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12
+        if localValue33 then
+          vehicle2 = localValue42
           if vehicle2 then
             vehicle2 = CMG
             vehicle2 = vehicle2.displaySellDisclaimer
-            cmgCall6 = "vehicle"
+            cmgOperation6 = "vehicle"
 
-            -- === HELPER FUNCTION (decompiler name: flag12; parameters: none) ===
-            function flag12()
-              local arg14, cmgCall4, textValue11
-              arg14 = TriggerServerEvent
-              cmgCall4 = "0d3561179d"
-              textValue11 = numberValue23
+            -- === HELPER FUNCTION (decompiler name: stateFlag12; parameters: none) ===
+            function stateFlag12()
+              local localValue14, cmgOperation4, text11
+              localValue14 = TriggerServerEvent
+              cmgOperation4 = "0d3561179d"
+              text11 = number23
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "0d3561179d".
-              arg14(cmgCall4, textValue11)
+              localValue14(cmgOperation4, text11)
             end
-            vehicle2(cmgCall6, flag12)
+            vehicle2(cmgOperation6, stateFlag12)
           end
         end
       end
-      flag = RMenu
-      flag2 = flag
-      flag = flag.Get
-      flag3 = "garages"
-      workValue8 = "spawnmenu"
-      flag, flag2, flag3, workValue8, textValue6, textValue7 = flag(flag2, flag3, workValue8)
+      stateFlag = RMenu
+      stateFlag2 = stateFlag
+      stateFlag = stateFlag.Get
+      stateFlag3 = "garages"
+      workingValue8 = "spawnmenu"
+      stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7 = stateFlag(stateFlag2, stateFlag3, workingValue8)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag11(flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
-      flag11 = RageUI
-      flag11 = flag11.ButtonWithStyle
-      flag13 = "Rent Vehicle to Player"
-      flag14 = arg22
-      cmgCall16 = {}
-      cmgCall16.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag17 = CMG
-      flag17 = flag17.canVehicleBeRented
-      numberValue2 = textValue15
-      flag17 = flag17(numberValue2)
+      stateFlag11(stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
+      stateFlag11 = RageUI
+      stateFlag11 = stateFlag11.ButtonWithStyle
+      stateFlag13 = "Rent Vehicle to Player"
+      stateFlag14 = localValue22
+      cmgOperation16 = {}
+      cmgOperation16.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag17 = CMG
+      stateFlag17 = stateFlag17.canVehicleBeRented
+      number2 = text15
+      stateFlag17 = stateFlag17(number2)
 
-      -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: arg13, arg23, arg33) ===
-      function numberValue2(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: number2; parameters: localValue13, localValue23, localValue33) ===
+      function number2(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12
+        if localValue33 then
           vehicle2 = CMG
           vehicle2 = vehicle2.canVehicleBeRented
-          cmgCall6 = textValue15
-          vehicle2 = vehicle2(cmgCall6)
+          cmgOperation6 = text15
+          vehicle2 = vehicle2(cmgOperation6)
           if vehicle2 then
             vehicle2 = TriggerServerEvent
-            cmgCall6 = "6cf393ee47"
-            flag12 = numberValue23
+            cmgOperation6 = "6cf393ee47"
+            stateFlag12 = number23
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6cf393ee47".
-            vehicle2(cmgCall6, flag12)
+            vehicle2(cmgOperation6, stateFlag12)
           end
         end
       end
-      flag = RMenu
-      flag2 = flag
-      flag = flag.Get
-      flag3 = "garages"
-      workValue8 = "spawnmenu"
-      flag, flag2, flag3, workValue8, textValue6, textValue7 = flag(flag2, flag3, workValue8)
+      stateFlag = RMenu
+      stateFlag2 = stateFlag
+      stateFlag = stateFlag.Get
+      stateFlag3 = "garages"
+      workingValue8 = "spawnmenu"
+      stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7 = stateFlag(stateFlag2, stateFlag3, workingValue8)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag11(flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
-      flag11 = CMG
-      flag11 = flag11.canVehicleBeRented
-      flag13 = textValue15
-      flag11 = flag11(flag13)
-      if flag11 then
-        flag11 = cmgCall7
-        flag13 = numberValue23
-        flag11 = flag11(flag13)
-        flag11 = not flag11
+      stateFlag11(stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
+      stateFlag11 = CMG
+      stateFlag11 = stateFlag11.canVehicleBeRented
+      stateFlag13 = text15
+      stateFlag11 = stateFlag11(stateFlag13)
+      if stateFlag11 then
+        stateFlag11 = cmgOperation7
+        stateFlag13 = number23
+        stateFlag11 = stateFlag11(stateFlag13)
+        stateFlag11 = not stateFlag11
       end
-      flag13 = cmgCall7
-      flag14 = numberValue23
-      flag13 = flag13(flag14)
-      if flag13 then
-        flag13 = cmgCall8
-        if flag13 then
-          goto flow_label_199
+      stateFlag13 = cmgOperation7
+      stateFlag14 = number23
+      stateFlag13 = stateFlag13(stateFlag14)
+      if stateFlag13 then
+        stateFlag13 = cmgOperation8
+        if stateFlag13 then
+          goto continueAtStep199
         end
       end
-      flag13 = arg22
-      ::flow_label_199::
-      flag14 = RageUI
-      flag14 = flag14.ButtonWithStyle
-      cmgCall16 = "Payment Plan Vehicle to Player"
-      flag17 = flag13
-      numberValue2 = {}
-      numberValue2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag = flag11
+      stateFlag13 = localValue22
+      ::continueAtStep199::
+      stateFlag14 = RageUI
+      stateFlag14 = stateFlag14.ButtonWithStyle
+      cmgOperation16 = "Payment Plan Vehicle to Player"
+      stateFlag17 = stateFlag13
+      number2 = {}
+      number2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag = stateFlag11
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-      function flag2()
-        local arg13, arg23
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+      function stateFlag2()
+        local localValue13, localValue23
       end
-      flag3 = RMenu
-      workValue8 = flag3
-      flag3 = flag3.Get
-      textValue6 = "garages"
-      textValue7 = "paymentplan"
-      flag3, workValue8, textValue6, textValue7 = flag3(workValue8, textValue6, textValue7)
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
-      flag14 = RageUI
-      flag14 = flag14.ButtonWithStyle
-      cmgCall16 = "Crush Vehicle"
-      flag17 = "This will ~r~DELETE ~w~this vehicle from your garage!"
-      numberValue2 = {}
-      numberValue2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag = CMG
-      flag = flag.canVehicleBeSold
-      flag2 = textValue15
-      flag = flag(flag2)
+      stateFlag3 = RMenu
+      workingValue8 = stateFlag3
+      stateFlag3 = stateFlag3.Get
+      text6 = "garages"
+      text7 = "paymentplan"
+      stateFlag3, workingValue8, text6, text7 = stateFlag3(workingValue8, text6, text7)
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
+      stateFlag14 = RageUI
+      stateFlag14 = stateFlag14.ButtonWithStyle
+      cmgOperation16 = "Crush Vehicle"
+      stateFlag17 = "This will ~r~DELETE ~w~this vehicle from your garage!"
+      number2 = {}
+      number2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag = CMG
+      stateFlag = stateFlag.canVehicleBeSold
+      stateFlag2 = text15
+      stateFlag = stateFlag(stateFlag2)
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg13, arg23, arg33) ===
-      function flag2(arg13, arg23, arg33)
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag2(localValue13, localValue23, localValue33)
       end
-      flag3 = RMenu
-      workValue8 = flag3
-      flag3 = flag3.Get
-      textValue6 = "garages"
-      textValue7 = "confirm"
-      flag3, workValue8, textValue6, textValue7 = flag3(workValue8, textValue6, textValue7)
+      stateFlag3 = RMenu
+      workingValue8 = stateFlag3
+      stateFlag3 = stateFlag3.Get
+      text6 = "garages"
+      text7 = "confirm"
+      stateFlag3, workingValue8, text6, text7 = stateFlag3(workingValue8, text6, text7)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
-      flag14 = RageUI
-      flag14 = flag14.ButtonWithStyle
-      cmgCall16 = "Add to custom folder"
-      flag17 = arg22
-      numberValue2 = {}
-      numberValue2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag = true
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
+      stateFlag14 = RageUI
+      stateFlag14 = stateFlag14.ButtonWithStyle
+      cmgOperation16 = "Add to custom folder"
+      stateFlag17 = localValue22
+      number2 = {}
+      number2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag = true
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg13, arg23, arg33) ===
-      function flag2(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12, cmgCall12, textValue17
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag2(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12, cmgOperation12, text17
+        if localValue33 then
           vehicle2 = CMG
           vehicle2 = vehicle2.GetRageInputText
-          cmgCall6 = "Enter folder name:"
-          vehicle2 = vehicle2(cmgCall6)
+          cmgOperation6 = "Enter folder name:"
+          vehicle2 = vehicle2(cmgOperation6)
           if vehicle2 then
-            cmgCall6 = CMG
-            cmgCall6 = cmgCall6.addCarToCustomFolder
-            flag12 = numberValue23
-            cmgCall12 = textValue16
-            textValue17 = vehicle2
-            cmgCall6(flag12, cmgCall12, textValue17)
+            cmgOperation6 = CMG
+            cmgOperation6 = cmgOperation6.addCarToCustomFolder
+            stateFlag12 = number23
+            cmgOperation12 = text16
+            text17 = vehicle2
+            cmgOperation6(stateFlag12, cmgOperation12, text17)
           end
         end
       end
-      flag3 = RMenu
-      workValue8 = flag3
-      flag3 = flag3.Get
-      textValue6 = "garages"
-      textValue7 = "spawnmenu"
-      flag3, workValue8, textValue6, textValue7 = flag3(workValue8, textValue6, textValue7)
+      stateFlag3 = RMenu
+      workingValue8 = stateFlag3
+      stateFlag3 = stateFlag3.Get
+      text6 = "garages"
+      text7 = "spawnmenu"
+      stateFlag3, workingValue8, text6, text7 = stateFlag3(workingValue8, text6, text7)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
-      flag14 = RageUI
-      flag14 = flag14.ButtonWithStyle
-      cmgCall16 = "Remove from custom folder"
-      flag17 = arg22
-      numberValue2 = {}
-      numberValue2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag = true
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
+      stateFlag14 = RageUI
+      stateFlag14 = stateFlag14.ButtonWithStyle
+      cmgOperation16 = "Remove from custom folder"
+      stateFlag17 = localValue22
+      number2 = {}
+      number2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag = true
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg13, arg23, arg33) ===
-      function flag2(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12, cmgCall12
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag2(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+        if localValue33 then
           vehicle2 = CMG
           vehicle2 = vehicle2.GetRageInputText
-          cmgCall6 = "Enter folder name:"
-          vehicle2 = vehicle2(cmgCall6)
+          cmgOperation6 = "Enter folder name:"
+          vehicle2 = vehicle2(cmgOperation6)
           if vehicle2 then
-            cmgCall6 = CMG
-            cmgCall6 = cmgCall6.removeCarFromCustomFolder
-            flag12 = numberValue23
-            cmgCall12 = vehicle2
-            cmgCall6(flag12, cmgCall12)
+            cmgOperation6 = CMG
+            cmgOperation6 = cmgOperation6.removeCarFromCustomFolder
+            stateFlag12 = number23
+            cmgOperation12 = vehicle2
+            cmgOperation6(stateFlag12, cmgOperation12)
           end
         end
       end
-      flag3 = RMenu
-      workValue8 = flag3
-      flag3 = flag3.Get
-      textValue6 = "garages"
-      textValue7 = "spawnmenu"
-      flag3, workValue8, textValue6, textValue7 = flag3(workValue8, textValue6, textValue7)
+      stateFlag3 = RMenu
+      workingValue8 = stateFlag3
+      stateFlag3 = stateFlag3.Get
+      text6 = "garages"
+      text7 = "spawnmenu"
+      stateFlag3, workingValue8, text6, text7 = stateFlag3(workingValue8, text6, text7)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
-      flag14 = RageUI
-      flag14 = flag14.ButtonWithStyle
-      cmgCall16 = "Assign Custom Name"
-      flag17 = "Assigns a custom name for this vehicle that is only visible to you"
-      numberValue2 = {}
-      numberValue2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag = true
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
+      stateFlag14 = RageUI
+      stateFlag14 = stateFlag14.ButtonWithStyle
+      cmgOperation16 = "Assign Custom Name"
+      stateFlag17 = "Assigns a custom name for this vehicle that is only visible to you"
+      number2 = {}
+      number2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag = true
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg13, arg23, arg33) ===
-      function flag2(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12, cmgCall12, textValue17
-        if arg33 then
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag2(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12, cmgOperation12, text17
+        if localValue33 then
           vehicle2 = CMG
           vehicle2 = vehicle2.GetRageInputText
-          cmgCall6 = "Enter custom name (blank to remove)"
-          vehicle2 = vehicle2(cmgCall6)
+          cmgOperation6 = "Enter custom name (blank to remove)"
+          vehicle2 = vehicle2(cmgOperation6)
           if vehicle2 then
-            cmgCall6 = #vehicle2
-            if cmgCall6 >= 2 then
-              flag12 = numberValue23
-              cmgCall6 = dataTable12
-              cmgCall6[flag12] = vehicle2
-              cmgCall6 = notify
-              flag12 = "~g~Custom name set to "
-              cmgCall12 = vehicle2
-              textValue17 = "."
-              flag12 = flag12 .. cmgCall12 .. textValue17
+            cmgOperation6 = #vehicle2
+            if cmgOperation6 >= 2 then
+              stateFlag12 = number23
+              cmgOperation6 = dataCollection12
+              cmgOperation6[stateFlag12] = vehicle2
+              cmgOperation6 = notify
+              stateFlag12 = "~g~Custom name set to "
+              cmgOperation12 = vehicle2
+              text17 = "."
+              stateFlag12 = stateFlag12 .. cmgOperation12 .. text17
               -- Beginner: Show a notification to the player.
-              cmgCall6(flag12)
+              cmgOperation6(stateFlag12)
           end
           else
-            flag12 = numberValue23
-            cmgCall6 = dataTable12
-            cmgCall6[flag12] = nil
-            cmgCall6 = notify
-            flag12 = "~g~Custom name removed."
-            cmgCall6(flag12)
+            stateFlag12 = number23
+            cmgOperation6 = dataCollection12
+            cmgOperation6[stateFlag12] = nil
+            cmgOperation6 = notify
+            stateFlag12 = "~g~Custom name removed."
+            cmgOperation6(stateFlag12)
           end
-          cmgCall6 = SetResourceKvp
-          flag12 = "cmg_custom_vehicle_names"
-          cmgCall12 = json
-          cmgCall12 = cmgCall12.encode
-          textValue17 = dataTable12
-          cmgCall12, textValue17 = cmgCall12(textValue17)
-          cmgCall6(flag12, cmgCall12, textValue17)
+          cmgOperation6 = SetResourceKvp
+          stateFlag12 = "cmg_custom_vehicle_names"
+          cmgOperation12 = json
+          cmgOperation12 = cmgOperation12.encode
+          text17 = dataCollection12
+          cmgOperation12, text17 = cmgOperation12(text17)
+          cmgOperation6(stateFlag12, cmgOperation12, text17)
         end
       end
-      flag3 = RMenu
-      workValue8 = flag3
-      flag3 = flag3.Get
-      textValue6 = "garages"
-      textValue7 = "spawnmenu"
-      flag3, workValue8, textValue6, textValue7 = flag3(workValue8, textValue6, textValue7)
+      stateFlag3 = RMenu
+      workingValue8 = stateFlag3
+      stateFlag3 = stateFlag3.Get
+      text6 = "garages"
+      text7 = "spawnmenu"
+      stateFlag3, workingValue8, text6, text7 = stateFlag3(workingValue8, text6, text7)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
     end
-    arg42 = RageUI
-    arg42 = arg42.ButtonWithStyle
-    workValue18 = "View Remote Dashcam"
-    flag11 = arg22
-    flag13 = {}
-    flag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag14 = true
+    localValue42 = RageUI
+    localValue42 = localValue42.ButtonWithStyle
+    workingValue18 = "View Remote Dashcam"
+    stateFlag11 = localValue22
+    stateFlag13 = {}
+    stateFlag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag14 = true
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall16; parameters: arg13, arg23, arg33) ===
-    function cmgCall16(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: cmgOperation16; parameters: localValue13, localValue23, localValue33) ===
+    function cmgOperation16(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12
+      if localValue33 then
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "7444109bf3"
-        flag12 = numberValue23
+        cmgOperation6 = "7444109bf3"
+        stateFlag12 = number23
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7444109bf3".
-        vehicle2(cmgCall6, flag12)
+        vehicle2(cmgOperation6, stateFlag12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg42(workValue18, flag11, flag13, flag14, cmgCall16)
-    arg42 = RageUI
-    arg42 = arg42.ButtonWithStyle
-    workValue18 = "Display Vehicle Blip"
-    flag11 = arg22
-    flag13 = {}
-    flag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag14 = true
+    localValue42(workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16)
+    localValue42 = RageUI
+    localValue42 = localValue42.ButtonWithStyle
+    workingValue18 = "Display Vehicle Blip"
+    stateFlag11 = localValue22
+    stateFlag13 = {}
+    stateFlag13.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag14 = true
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall16; parameters: arg13, arg23, arg33) ===
-    function cmgCall16(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: cmgOperation16; parameters: localValue13, localValue23, localValue33) ===
+    function cmgOperation16(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12
+      if localValue33 then
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "a30d55e751"
-        flag12 = numberValue23
+        cmgOperation6 = "a30d55e751"
+        stateFlag12 = number23
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a30d55e751".
-        vehicle2(cmgCall6, flag12)
+        vehicle2(cmgOperation6, stateFlag12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg42(workValue18, flag11, flag13, flag14, cmgCall16)
-    if not arg12 then
-      arg42 = CMG
-      arg42 = arg42.hasGangPermission
-      workValue18 = "addgarage"
-      arg42 = arg42(workValue18)
-      if arg42 then
-        arg42 = CMG
-        arg42 = arg42.canVehicleBeSold
-        workValue18 = textValue15
-        arg42 = arg42(workValue18)
-        if arg42 then
-          arg42 = CMG
-          arg42 = arg42.canVehicleBeRented
-          workValue18 = textValue15
-          arg42 = arg42(workValue18)
-          if arg42 then
-            workValue18 = numberValue23
-            arg42 = dataTable21
-            arg42 = arg42[workValue18]
-            arg42 = not arg42
+    localValue42(workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16)
+    if not localValue12 then
+      localValue42 = CMG
+      localValue42 = localValue42.hasGangPermission
+      workingValue18 = "addgarage"
+      localValue42 = localValue42(workingValue18)
+      if localValue42 then
+        localValue42 = CMG
+        localValue42 = localValue42.canVehicleBeSold
+        workingValue18 = text15
+        localValue42 = localValue42(workingValue18)
+        if localValue42 then
+          localValue42 = CMG
+          localValue42 = localValue42.canVehicleBeRented
+          workingValue18 = text15
+          localValue42 = localValue42(workingValue18)
+          if localValue42 then
+            workingValue18 = number23
+            localValue42 = dataCollection21
+            localValue42 = localValue42[workingValue18]
+            localValue42 = not localValue42
           end
         end
       end
-      workValue18 = RageUI
-      workValue18 = workValue18.ButtonWithStyle
-      flag11 = "~p~Move to Gang Garage"
-      flag13 = arg22
-      flag14 = {}
-      flag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      cmgCall16 = arg42
+      workingValue18 = RageUI
+      workingValue18 = workingValue18.ButtonWithStyle
+      stateFlag11 = "~p~Move to Gang Garage"
+      stateFlag13 = localValue22
+      stateFlag14 = {}
+      stateFlag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      cmgOperation16 = localValue42
 
-      -- === HELPER FUNCTION (decompiler name: flag17; parameters: arg13, arg23, arg33) ===
-      function flag17(arg13, arg23, arg33)
-        local vehicle2, cmgCall6, flag12
-        if arg33 then
-          vehicle2 = arg42
+      -- === HELPER FUNCTION (decompiler name: stateFlag17; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag17(localValue13, localValue23, localValue33)
+        local vehicle2, cmgOperation6, stateFlag12
+        if localValue33 then
+          vehicle2 = localValue42
           if vehicle2 then
             vehicle2 = TriggerServerEvent
-            cmgCall6 = "987b362726"
-            flag12 = numberValue23
+            cmgOperation6 = "987b362726"
+            stateFlag12 = number23
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "987b362726".
-            vehicle2(cmgCall6, flag12)
+            vehicle2(cmgOperation6, stateFlag12)
           end
         end
       end
-      numberValue2 = RMenu
-      flag = numberValue2
-      numberValue2 = numberValue2.Get
-      flag2 = "garages"
-      flag3 = "spawnmenu"
-      numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7 = numberValue2(flag, flag2, flag3)
+      number2 = RMenu
+      stateFlag = number2
+      number2 = number2.Get
+      stateFlag2 = "garages"
+      stateFlag3 = "spawnmenu"
+      number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7 = number2(stateFlag, stateFlag2, stateFlag3)
       -- Beginner: Draw a selectable RageUI menu button.
-      workValue18(flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
+      workingValue18(stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "paymentplan"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "paymentplan"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~Vehicle: "
-    arg32 = CMG
-    arg32 = arg32.getVehicleNameFromId
-    arg42 = textValue15
-    arg32 = arg32(arg42)
-    arg22 = arg22 .. arg32
-    arg12(arg22)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~Vehicle: "
+    localValue32 = CMG
+    localValue32 = localValue32.getVehicleNameFromId
+    localValue42 = text15
+    localValue32 = localValue32(localValue42)
+    localValue22 = localValue22 .. localValue32
+    localValue12(localValue22)
 
-    -- === HELPER FUNCTION: arg12() ===
-    function arg12()
-      local arg13, arg23
-      arg13 = numberValue15
-      arg23 = numberValue19
-      arg13 = arg13 - arg23
-      return arg13
+    -- === HELPER FUNCTION: localValue12() ===
+    function localValue12()
+      local localValue13, localValue23
+      localValue13 = number15
+      localValue23 = number19
+      localValue13 = localValue13 - localValue23
+      return localValue13
     end
 
-    -- === HELPER FUNCTION: arg22() ===
-    function arg22()
-      local arg13, arg23, arg33
-      arg13 = flag10
-      if arg13 then
-        arg13 = math
-        arg13 = arg13.ceil
-        arg23 = arg12
-        arg23 = arg23()
-        arg33 = numberValue16
-        arg23 = arg23 / arg33
-        arg13 = arg13(arg23)
-        numberValue17 = arg13
+    -- === HELPER FUNCTION: localValue22() ===
+    function localValue22()
+      local localValue13, localValue23, localValue33
+      localValue13 = stateFlag10
+      if localValue13 then
+        localValue13 = math
+        localValue13 = localValue13.ceil
+        localValue23 = localValue12
+        localValue23 = localValue23()
+        localValue33 = number16
+        localValue23 = localValue23 / localValue33
+        localValue13 = localValue13(localValue23)
+        number17 = localValue13
       else
-        arg13 = math
-        arg13 = arg13.ceil
-        arg23 = arg12
-        arg23 = arg23()
-        arg33 = numberValue17
-        arg23 = arg23 / arg33
-        arg13 = arg13(arg23)
-        numberValue16 = arg13
-        arg13 = numberValue16
-        if arg13 > 26 then
-          arg13 = 1
-          numberValue16 = arg13
-          arg13 = true
-          flag10 = arg13
-          arg13 = arg22
-          arg13()
+        localValue13 = math
+        localValue13 = localValue13.ceil
+        localValue23 = localValue12
+        localValue23 = localValue23()
+        localValue33 = number17
+        localValue23 = localValue23 / localValue33
+        localValue13 = localValue13(localValue23)
+        number16 = localValue13
+        localValue13 = number16
+        if localValue13 > 26 then
+          localValue13 = 1
+          number16 = localValue13
+          localValue13 = true
+          stateFlag10 = localValue13
+          localValue13 = localValue22
+          localValue13()
         end
       end
     end
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Total Price"
-    workValue18 = "The total amount of money that will have to be paid before ownership is transferred."
-    flag11 = {}
-    flag13 = "\194\163"
-    flag14 = getMoneyStringFormatted
-    cmgCall16 = numberValue15
-    flag14 = flag14(cmgCall16)
-    flag13 = flag13 .. flag14
-    flag11.RightLabel = flag13
-    flag13 = true
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Total Price"
+    workingValue18 = "The total amount of money that will have to be paid before ownership is transferred."
+    stateFlag11 = {}
+    stateFlag13 = "\194\163"
+    stateFlag14 = getMoneyStringFormatted
+    cmgOperation16 = number15
+    stateFlag14 = stateFlag14(cmgOperation16)
+    stateFlag13 = stateFlag13 .. stateFlag14
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.clientPrompt
-        cmgCall6 = "Enter Total Price"
-        flag12 = ""
+        cmgOperation6 = "Enter Total Price"
+        stateFlag12 = ""
 
-        -- === HELPER FUNCTION (decompiler name: cmgCall12; parameters: arg14) ===
-        function cmgCall12(arg14)
-          local cmgCall4, textValue11, workValue17, mathHelper2, mathHelper3
-          cmgCall4 = tonumber
-          textValue11 = arg14
-          cmgCall4 = cmgCall4(textValue11)
-          if cmgCall4 then
-            textValue11 = math
-            textValue11 = textValue11.type
-            workValue17 = cmgCall4
-            textValue11 = textValue11(workValue17)
-            if "integer" == textValue11 then
-              textValue11 = 10000
-              if cmgCall4 >= textValue11 then
-                textValue11 = 10000000000
-                if cmgCall4 <= textValue11 then
-                  numberValue15 = cmgCall4
-                  textValue11 = math
-                  textValue11 = textValue11.min
-                  workValue17 = numberValue19
+        -- === HELPER FUNCTION (decompiler name: cmgOperation12; parameters: localValue14) ===
+        function cmgOperation12(localValue14)
+          local cmgOperation4, text11, workingValue17, mathHelper2, mathHelper3
+          cmgOperation4 = tonumber
+          text11 = localValue14
+          cmgOperation4 = cmgOperation4(text11)
+          if cmgOperation4 then
+            text11 = math
+            text11 = text11.type
+            workingValue17 = cmgOperation4
+            text11 = text11(workingValue17)
+            if "integer" == text11 then
+              text11 = 10000
+              if cmgOperation4 >= text11 then
+                text11 = 10000000000
+                if cmgOperation4 <= text11 then
+                  number15 = cmgOperation4
+                  text11 = math
+                  text11 = text11.min
+                  workingValue17 = number19
                   mathHelper2 = math
                   mathHelper2 = mathHelper2.floor
-                  mathHelper3 = cmgCall4 / 2
+                  mathHelper3 = cmgOperation4 / 2
                   mathHelper2, mathHelper3 = mathHelper2(mathHelper3)
-                  textValue11 = textValue11(workValue17, mathHelper2, mathHelper3)
-                  numberValue19 = textValue11
-                  textValue11 = arg22
-                  textValue11()
+                  text11 = text11(workingValue17, mathHelper2, mathHelper3)
+                  number19 = text11
+                  text11 = localValue22
+                  text11()
               end
             end
           end
           else
-            textValue11 = notify
-            workValue17 = "~r~Total price must be a whole number between \194\16310,000 and \194\16310,000,000,000."
+            text11 = notify
+            workingValue17 = "~r~Total price must be a whole number between \194\16310,000 and \194\16310,000,000,000."
             -- Beginner: Show a notification to the player.
-            textValue11(workValue17)
+            text11(workingValue17)
           end
         end
-        vehicle2(cmgCall6, flag12, cmgCall12)
+        vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Weeks To Pay"
-    workValue18 = "The amount of weeks the player has to pay off the plan. Automatically calculated if Pay Amount Per Week is set."
-    flag11 = {}
-    flag13 = tostring
-    flag14 = numberValue16
-    flag13 = flag13(flag14)
-    flag14 = " week"
-    cmgCall16 = numberValue16
-    if cmgCall16 > 1 then
-      cmgCall16 = "s"
-      if cmgCall16 then
-        goto flow_label_44
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Weeks To Pay"
+    workingValue18 = "The amount of weeks the player has to pay off the plan. Automatically calculated if Pay Amount Per Week is set."
+    stateFlag11 = {}
+    stateFlag13 = tostring
+    stateFlag14 = number16
+    stateFlag13 = stateFlag13(stateFlag14)
+    stateFlag14 = " week"
+    cmgOperation16 = number16
+    if cmgOperation16 > 1 then
+      cmgOperation16 = "s"
+      if cmgOperation16 then
+        goto continueAtStep44
       end
     end
-    cmgCall16 = ""
-    ::flow_label_44::
-    flag13 = flag13 .. flag14 .. cmgCall16
-    flag11.RightLabel = flag13
-    flag13 = true
+    cmgOperation16 = ""
+    ::continueAtStep44::
+    stateFlag13 = stateFlag13 .. stateFlag14 .. cmgOperation16
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.clientPrompt
-        cmgCall6 = "Enter Weeks To Pay"
-        flag12 = ""
+        cmgOperation6 = "Enter Weeks To Pay"
+        stateFlag12 = ""
 
-        -- === HELPER FUNCTION (decompiler name: cmgCall12; parameters: arg14) ===
-        function cmgCall12(arg14)
-          local cmgCall4, textValue11, workValue17
-          cmgCall4 = tonumber
-          textValue11 = arg14
-          cmgCall4 = cmgCall4(textValue11)
-          if cmgCall4 then
-            textValue11 = math
-            textValue11 = textValue11.type
-            workValue17 = cmgCall4
-            textValue11 = textValue11(workValue17)
-            if "integer" == textValue11 and cmgCall4 >= 1 and cmgCall4 <= 26 then
-              numberValue16 = cmgCall4
-              textValue11 = math
-              textValue11 = textValue11.ceil
-              workValue17 = arg12
-              workValue17 = workValue17()
-              workValue17 = workValue17 / cmgCall4
-              textValue11 = textValue11(workValue17)
-              numberValue17 = textValue11
-              textValue11 = true
-              flag10 = textValue11
+        -- === HELPER FUNCTION (decompiler name: cmgOperation12; parameters: localValue14) ===
+        function cmgOperation12(localValue14)
+          local cmgOperation4, text11, workingValue17
+          cmgOperation4 = tonumber
+          text11 = localValue14
+          cmgOperation4 = cmgOperation4(text11)
+          if cmgOperation4 then
+            text11 = math
+            text11 = text11.type
+            workingValue17 = cmgOperation4
+            text11 = text11(workingValue17)
+            if "integer" == text11 and cmgOperation4 >= 1 and cmgOperation4 <= 26 then
+              number16 = cmgOperation4
+              text11 = math
+              text11 = text11.ceil
+              workingValue17 = localValue12
+              workingValue17 = workingValue17()
+              workingValue17 = workingValue17 / cmgOperation4
+              text11 = text11(workingValue17)
+              number17 = text11
+              text11 = true
+              stateFlag10 = text11
           end
           else
-            textValue11 = notify
-            workValue17 = "~r~Total amount of weeks must be a whole number between 1 week and 26 weeks."
+            text11 = notify
+            workingValue17 = "~r~Total amount of weeks must be a whole number between 1 week and 26 weeks."
             -- Beginner: Show a notification to the player.
-            textValue11(workValue17)
+            text11(workingValue17)
           end
         end
-        vehicle2(cmgCall6, flag12, cmgCall12)
+        vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Pay Amount Per Week"
-    workValue18 = "The amount of money to pay each week. Automatically calculated if Weekly Pay Amount is set."
-    flag11 = {}
-    flag13 = "\194\163"
-    flag14 = getMoneyStringFormatted
-    cmgCall16 = numberValue17
-    flag14 = flag14(cmgCall16)
-    flag13 = flag13 .. flag14
-    flag11.RightLabel = flag13
-    flag13 = true
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Pay Amount Per Week"
+    workingValue18 = "The amount of money to pay each week. Automatically calculated if Weekly Pay Amount is set."
+    stateFlag11 = {}
+    stateFlag13 = "\194\163"
+    stateFlag14 = getMoneyStringFormatted
+    cmgOperation16 = number17
+    stateFlag14 = stateFlag14(cmgOperation16)
+    stateFlag13 = stateFlag13 .. stateFlag14
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.clientPrompt
-        cmgCall6 = "Enter Amount Per Week"
-        flag12 = ""
+        cmgOperation6 = "Enter Amount Per Week"
+        stateFlag12 = ""
 
-        -- === HELPER FUNCTION (decompiler name: cmgCall12; parameters: arg14) ===
-        function cmgCall12(arg14)
-          local cmgCall4, textValue11, workValue17, mathHelper2, mathHelper3, workValue24, textValue18
-          cmgCall4 = tonumber
-          textValue11 = arg14
-          cmgCall4 = cmgCall4(textValue11)
-          if cmgCall4 then
-            textValue11 = math
-            textValue11 = textValue11.type
-            workValue17 = cmgCall4
-            textValue11 = textValue11(workValue17)
-            if "integer" == textValue11 then
-              textValue11 = math
-              textValue11 = textValue11.ceil
-              workValue17 = arg12
-              workValue17 = workValue17()
-              workValue17 = workValue17 / 26
-              textValue11 = textValue11(workValue17)
-              if cmgCall4 >= textValue11 then
-                textValue11 = arg12
-                textValue11 = textValue11()
-                if cmgCall4 <= textValue11 then
-                  numberValue17 = cmgCall4
-                  textValue11 = math
-                  textValue11 = textValue11.ceil
-                  workValue17 = arg12
-                  workValue17 = workValue17()
-                  workValue17 = workValue17 / cmgCall4
-                  textValue11 = textValue11(workValue17)
-                  numberValue16 = textValue11
-                  textValue11 = false
-                  flag10 = textValue11
+        -- === HELPER FUNCTION (decompiler name: cmgOperation12; parameters: localValue14) ===
+        function cmgOperation12(localValue14)
+          local cmgOperation4, text11, workingValue17, mathHelper2, mathHelper3, workingValue24, text18
+          cmgOperation4 = tonumber
+          text11 = localValue14
+          cmgOperation4 = cmgOperation4(text11)
+          if cmgOperation4 then
+            text11 = math
+            text11 = text11.type
+            workingValue17 = cmgOperation4
+            text11 = text11(workingValue17)
+            if "integer" == text11 then
+              text11 = math
+              text11 = text11.ceil
+              workingValue17 = localValue12
+              workingValue17 = workingValue17()
+              workingValue17 = workingValue17 / 26
+              text11 = text11(workingValue17)
+              if cmgOperation4 >= text11 then
+                text11 = localValue12
+                text11 = text11()
+                if cmgOperation4 <= text11 then
+                  number17 = cmgOperation4
+                  text11 = math
+                  text11 = text11.ceil
+                  workingValue17 = localValue12
+                  workingValue17 = workingValue17()
+                  workingValue17 = workingValue17 / cmgOperation4
+                  text11 = text11(workingValue17)
+                  number16 = text11
+                  text11 = false
+                  stateFlag10 = text11
               end
             end
           end
           else
-            textValue11 = notify
-            workValue17 = "~r~Pay amount per week must be a whole number between \194\163"
+            text11 = notify
+            workingValue17 = "~r~Pay amount per week must be a whole number between \194\163"
             mathHelper2 = getMoneyStringFormatted
             mathHelper3 = math
             mathHelper3 = mathHelper3.ceil
-            workValue24 = arg12
-            workValue24 = workValue24()
-            workValue24 = workValue24 / 26
-            mathHelper3, workValue24, textValue18 = mathHelper3(workValue24)
-            mathHelper2 = mathHelper2(mathHelper3, workValue24, textValue18)
+            workingValue24 = localValue12
+            workingValue24 = workingValue24()
+            workingValue24 = workingValue24 / 26
+            mathHelper3, workingValue24, text18 = mathHelper3(workingValue24)
+            mathHelper2 = mathHelper2(mathHelper3, workingValue24, text18)
             mathHelper3 = " and \194\163"
-            workValue24 = getMoneyStringFormatted
-            textValue18 = arg12
-            textValue18 = textValue18()
-            workValue24 = workValue24(textValue18)
-            textValue18 = "."
-            workValue17 = workValue17 .. mathHelper2 .. mathHelper3 .. workValue24 .. textValue18
+            workingValue24 = getMoneyStringFormatted
+            text18 = localValue12
+            text18 = text18()
+            workingValue24 = workingValue24(text18)
+            text18 = "."
+            workingValue17 = workingValue17 .. mathHelper2 .. mathHelper3 .. workingValue24 .. text18
             -- Beginner: Show a notification to the player.
-            textValue11(workValue17)
+            text11(workingValue17)
           end
         end
-        vehicle2(cmgCall6, flag12, cmgCall12)
+        vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Maximum Missed Payments"
-    workValue18 = "The maximum amount of missed payments in weeks allowed before the payment plan is automatically cancelled."
-    flag11 = {}
-    flag13 = tostring
-    flag14 = numberValue18
-    flag13 = flag13(flag14)
-    flag14 = " week"
-    cmgCall16 = numberValue18
-    if cmgCall16 > 1 then
-      cmgCall16 = "s"
-      if cmgCall16 then
-        goto flow_label_81
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Maximum Missed Payments"
+    workingValue18 = "The maximum amount of missed payments in weeks allowed before the payment plan is automatically cancelled."
+    stateFlag11 = {}
+    stateFlag13 = tostring
+    stateFlag14 = number18
+    stateFlag13 = stateFlag13(stateFlag14)
+    stateFlag14 = " week"
+    cmgOperation16 = number18
+    if cmgOperation16 > 1 then
+      cmgOperation16 = "s"
+      if cmgOperation16 then
+        goto continueAtStep81
       end
     end
-    cmgCall16 = ""
-    ::flow_label_81::
-    flag13 = flag13 .. flag14 .. cmgCall16
-    flag11.RightLabel = flag13
-    flag13 = true
+    cmgOperation16 = ""
+    ::continueAtStep81::
+    stateFlag13 = stateFlag13 .. stateFlag14 .. cmgOperation16
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.clientPrompt
-        cmgCall6 = "Enter Maximum Missed Payments"
-        flag12 = ""
+        cmgOperation6 = "Enter Maximum Missed Payments"
+        stateFlag12 = ""
 
-        -- === HELPER FUNCTION (decompiler name: cmgCall12; parameters: arg14) ===
-        function cmgCall12(arg14)
-          local cmgCall4, textValue11, workValue17
-          cmgCall4 = tonumber
-          textValue11 = arg14
-          cmgCall4 = cmgCall4(textValue11)
-          if cmgCall4 then
-            textValue11 = math
-            textValue11 = textValue11.type
-            workValue17 = cmgCall4
-            textValue11 = textValue11(workValue17)
-            if "integer" == textValue11 and cmgCall4 >= 1 and cmgCall4 <= 4 then
-              numberValue18 = cmgCall4
+        -- === HELPER FUNCTION (decompiler name: cmgOperation12; parameters: localValue14) ===
+        function cmgOperation12(localValue14)
+          local cmgOperation4, text11, workingValue17
+          cmgOperation4 = tonumber
+          text11 = localValue14
+          cmgOperation4 = cmgOperation4(text11)
+          if cmgOperation4 then
+            text11 = math
+            text11 = text11.type
+            workingValue17 = cmgOperation4
+            text11 = text11(workingValue17)
+            if "integer" == text11 and cmgOperation4 >= 1 and cmgOperation4 <= 4 then
+              number18 = cmgOperation4
           end
           else
-            textValue11 = notify
-            workValue17 = "~r~Total price must be a whole number between 1 week and 4 weeks."
+            text11 = notify
+            workingValue17 = "~r~Total price must be a whole number between 1 week and 4 weeks."
             -- Beginner: Show a notification to the player.
-            textValue11(workValue17)
+            text11(workingValue17)
           end
         end
-        vehicle2(cmgCall6, flag12, cmgCall12)
+        vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Initial Deposit"
-    workValue18 = "The amount that has to be paid when accepting the offer. Counts towards the total."
-    flag11 = {}
-    flag13 = "\194\163"
-    flag14 = getMoneyStringFormatted
-    cmgCall16 = numberValue19
-    flag14 = flag14(cmgCall16)
-    flag13 = flag13 .. flag14
-    flag11.RightLabel = flag13
-    flag13 = true
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Initial Deposit"
+    workingValue18 = "The amount that has to be paid when accepting the offer. Counts towards the total."
+    stateFlag11 = {}
+    stateFlag13 = "\194\163"
+    stateFlag14 = getMoneyStringFormatted
+    cmgOperation16 = number19
+    stateFlag14 = stateFlag14(cmgOperation16)
+    stateFlag13 = stateFlag13 .. stateFlag14
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.clientPrompt
-        cmgCall6 = "Enter Initial Deposit"
-        flag12 = ""
+        cmgOperation6 = "Enter Initial Deposit"
+        stateFlag12 = ""
 
-        -- === HELPER FUNCTION (decompiler name: cmgCall12; parameters: arg14) ===
-        function cmgCall12(arg14)
-          local cmgCall4, textValue11, workValue17, mathHelper2, mathHelper3, workValue24
-          cmgCall4 = tonumber
-          textValue11 = arg14
-          cmgCall4 = cmgCall4(textValue11)
-          if cmgCall4 then
-            textValue11 = math
-            textValue11 = textValue11.type
-            workValue17 = cmgCall4
-            textValue11 = textValue11(workValue17)
-            if "integer" == textValue11 and cmgCall4 >= 0 then
-              textValue11 = numberValue15
-              textValue11 = textValue11 / 2
-              if cmgCall4 <= textValue11 then
-                numberValue19 = cmgCall4
-                textValue11 = arg22
-                textValue11()
+        -- === HELPER FUNCTION (decompiler name: cmgOperation12; parameters: localValue14) ===
+        function cmgOperation12(localValue14)
+          local cmgOperation4, text11, workingValue17, mathHelper2, mathHelper3, workingValue24
+          cmgOperation4 = tonumber
+          text11 = localValue14
+          cmgOperation4 = cmgOperation4(text11)
+          if cmgOperation4 then
+            text11 = math
+            text11 = text11.type
+            workingValue17 = cmgOperation4
+            text11 = text11(workingValue17)
+            if "integer" == text11 and cmgOperation4 >= 0 then
+              text11 = number15
+              text11 = text11 / 2
+              if cmgOperation4 <= text11 then
+                number19 = cmgOperation4
+                text11 = localValue22
+                text11()
             end
           end
           else
-            textValue11 = notify
-            workValue17 = "~r~Initial deposit must be a whole number between \194\1630 and \194\163"
+            text11 = notify
+            workingValue17 = "~r~Initial deposit must be a whole number between \194\1630 and \194\163"
             mathHelper2 = getMoneyStringFormatted
             mathHelper3 = math
             mathHelper3 = mathHelper3.floor
-            workValue24 = numberValue15
-            workValue24 = workValue24 / 2
-            mathHelper3, workValue24 = mathHelper3(workValue24)
-            mathHelper2 = mathHelper2(mathHelper3, workValue24)
+            workingValue24 = number15
+            workingValue24 = workingValue24 / 2
+            mathHelper3, workingValue24 = mathHelper3(workingValue24)
+            mathHelper2 = mathHelper2(mathHelper3, workingValue24)
             mathHelper3 = "."
-            workValue17 = workValue17 .. mathHelper2 .. mathHelper3
+            workingValue17 = workingValue17 .. mathHelper2 .. mathHelper3
             -- Beginner: Show a notification to the player.
-            textValue11(workValue17)
+            text11(workingValue17)
           end
         end
-        vehicle2(cmgCall6, flag12, cmgCall12)
+        vehicle2(cmgOperation6, stateFlag12, cmgOperation12)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "~g~Submit To Nearby"
-    workValue18 = ""
-    flag11 = {}
-    flag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag13 = true
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "~g~Submit To Nearby"
+    workingValue18 = ""
+    stateFlag11 = {}
+    stateFlag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3
+      if localValue33 then
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "1fb9ace400"
-        flag12 = numberValue23
-        cmgCall12 = numberValue15
-        textValue17 = numberValue16
-        flag15 = numberValue18
-        tableHelper3 = numberValue19
+        cmgOperation6 = "1fb9ace400"
+        stateFlag12 = number23
+        cmgOperation12 = number15
+        text17 = number16
+        stateFlag15 = number18
+        tableHelper3 = number19
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1fb9ace400".
-        vehicle2(cmgCall6, flag12, cmgCall12, textValue17, flag15, tableHelper3)
+        vehicle2(cmgOperation6, stateFlag12, cmgOperation12, text17, stateFlag15, tableHelper3)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "paymentplanoffer"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "paymentplanoffer"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16
-    arg12 = workValue19
-    if not arg12 then
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16
+    localValue12 = workingValue19
+    if not localValue12 then
       return
     end
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~Vehicle Offered: "
-    arg32 = CMG
-    arg32 = arg32.getVehicleNameFromId
-    arg42 = workValue19.vehicleId
-    arg32 = arg32(arg42)
-    arg22 = arg22 .. arg32
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Total Price"
-    arg32 = "The total amount of money that you will have to be pay before ownership is transferred."
-    arg42 = {}
-    workValue18 = "\194\163"
-    flag11 = getMoneyStringFormatted
-    flag13 = workValue19.totalPrice
-    flag11 = flag11(flag13)
-    workValue18 = workValue18 .. flag11
-    arg42.RightLabel = workValue18
-    workValue18 = true
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~Vehicle Offered: "
+    localValue32 = CMG
+    localValue32 = localValue32.getVehicleNameFromId
+    localValue42 = workingValue19.vehicleId
+    localValue32 = localValue32(localValue42)
+    localValue22 = localValue22 .. localValue32
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Total Price"
+    localValue32 = "The total amount of money that you will have to be pay before ownership is transferred."
+    localValue42 = {}
+    workingValue18 = "\194\163"
+    stateFlag11 = getMoneyStringFormatted
+    stateFlag13 = workingValue19.totalPrice
+    stateFlag11 = stateFlag11(stateFlag13)
+    workingValue18 = workingValue18 .. stateFlag11
+    localValue42.RightLabel = workingValue18
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: none) ===
-    function flag11()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: none) ===
+    function stateFlag11()
+      local localValue13, localValue23
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Weeks To Pay"
-    arg32 = "The amount of weeks you have to pay off the plan."
-    arg42 = {}
-    workValue18 = tostring
-    flag11 = workValue19.numWeeks
-    workValue18 = workValue18(flag11)
-    flag11 = " week"
-    flag13 = workValue19.numWeeks
-    if flag13 > 1 then
-      flag13 = "s"
-      if flag13 then
-        goto flow_label_46
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Weeks To Pay"
+    localValue32 = "The amount of weeks you have to pay off the plan."
+    localValue42 = {}
+    workingValue18 = tostring
+    stateFlag11 = workingValue19.numWeeks
+    workingValue18 = workingValue18(stateFlag11)
+    stateFlag11 = " week"
+    stateFlag13 = workingValue19.numWeeks
+    if stateFlag13 > 1 then
+      stateFlag13 = "s"
+      if stateFlag13 then
+        goto continueAtStep46
       end
     end
-    flag13 = ""
-    ::flow_label_46::
-    workValue18 = workValue18 .. flag11 .. flag13
-    arg42.RightLabel = workValue18
-    workValue18 = true
+    stateFlag13 = ""
+    ::continueAtStep46::
+    workingValue18 = workingValue18 .. stateFlag11 .. stateFlag13
+    localValue42.RightLabel = workingValue18
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: none) ===
-    function flag11()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: none) ===
+    function stateFlag11()
+      local localValue13, localValue23
     end
-    arg12(arg22, arg32, arg42, workValue18, flag11)
-    arg12 = workValue19.totalPrice
-    arg22 = workValue19.initialDeposit
-    arg12 = arg12 - arg22
-    arg22 = math
-    arg22 = arg22.ceil
-    arg32 = workValue19.numWeeks
-    arg32 = arg12 / arg32
-    arg22 = arg22(arg32)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Pay Amount Per Week"
-    workValue18 = "The amount of money you have to pay each week."
-    flag11 = {}
-    flag13 = "\194\163"
-    flag14 = getMoneyStringFormatted
-    cmgCall16 = arg22
-    flag14 = flag14(cmgCall16)
-    flag13 = flag13 .. flag14
-    flag11.RightLabel = flag13
-    flag13 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
+    localValue12 = workingValue19.totalPrice
+    localValue22 = workingValue19.initialDeposit
+    localValue12 = localValue12 - localValue22
+    localValue22 = math
+    localValue22 = localValue22.ceil
+    localValue32 = workingValue19.numWeeks
+    localValue32 = localValue12 / localValue32
+    localValue22 = localValue22(localValue32)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Pay Amount Per Week"
+    workingValue18 = "The amount of money you have to pay each week."
+    stateFlag11 = {}
+    stateFlag13 = "\194\163"
+    stateFlag14 = getMoneyStringFormatted
+    cmgOperation16 = localValue22
+    stateFlag14 = stateFlag14(cmgOperation16)
+    stateFlag13 = stateFlag13 .. stateFlag14
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: none) ===
-    function flag14()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: none) ===
+    function stateFlag14()
+      local localValue13, localValue23
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Maximum Missed Payments"
-    workValue18 = "The maximum amount of missed payments in weeks allowed before the payment plan is automatically cancelled."
-    flag11 = {}
-    flag13 = tostring
-    flag14 = workValue19.maxMissedWeeks
-    flag13 = flag13(flag14)
-    flag14 = " week"
-    cmgCall16 = workValue19.maxMissedWeeks
-    if cmgCall16 > 1 then
-      cmgCall16 = "s"
-      if cmgCall16 then
-        goto flow_label_93
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Maximum Missed Payments"
+    workingValue18 = "The maximum amount of missed payments in weeks allowed before the payment plan is automatically cancelled."
+    stateFlag11 = {}
+    stateFlag13 = tostring
+    stateFlag14 = workingValue19.maxMissedWeeks
+    stateFlag13 = stateFlag13(stateFlag14)
+    stateFlag14 = " week"
+    cmgOperation16 = workingValue19.maxMissedWeeks
+    if cmgOperation16 > 1 then
+      cmgOperation16 = "s"
+      if cmgOperation16 then
+        goto continueAtStep93
       end
     end
-    cmgCall16 = ""
-    ::flow_label_93::
-    flag13 = flag13 .. flag14 .. cmgCall16
-    flag11.RightLabel = flag13
-    flag13 = true
+    cmgOperation16 = ""
+    ::continueAtStep93::
+    stateFlag13 = stateFlag13 .. stateFlag14 .. cmgOperation16
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: none) ===
-    function flag14()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: none) ===
+    function stateFlag14()
+      local localValue13, localValue23
     end
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Initial Deposit"
-    workValue18 = "The amount that has to be paid when accepting the offer. Counts towards the total."
-    flag11 = {}
-    flag13 = "\194\163"
-    flag14 = getMoneyStringFormatted
-    cmgCall16 = workValue19.initialDeposit
-    flag14 = flag14(cmgCall16)
-    flag13 = flag13 .. flag14
-    flag11.RightLabel = flag13
-    flag13 = true
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Initial Deposit"
+    workingValue18 = "The amount that has to be paid when accepting the offer. Counts towards the total."
+    stateFlag11 = {}
+    stateFlag13 = "\194\163"
+    stateFlag14 = getMoneyStringFormatted
+    cmgOperation16 = workingValue19.initialDeposit
+    stateFlag14 = stateFlag14(cmgOperation16)
+    stateFlag13 = stateFlag13 .. stateFlag14
+    stateFlag11.RightLabel = stateFlag13
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: none) ===
-    function flag14()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: none) ===
+    function stateFlag14()
+      local localValue13, localValue23
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "~g~Accept Payment Plan"
-    workValue18 = ""
-    flag11 = {}
-    flag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag13 = true
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "~g~Accept Payment Plan"
+    workingValue18 = ""
+    stateFlag11 = {}
+    stateFlag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag13 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6
+      if localValue33 then
         vehicle2 = nil
-        workValue19 = vehicle2
+        workingValue19 = vehicle2
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "2c17720884"
+        cmgOperation6 = "2c17720884"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2c17720884".
-        vehicle2(cmgCall6)
+        vehicle2(cmgOperation6)
         vehicle2 = RageUI
         vehicle2 = vehicle2.CloseAll
         vehicle2()
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14)
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "vehiclemenu"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "vehiclemenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag
-    arg12 = workValue34
-    if arg12 then
-      arg12 = workValue34.isGangGarage
-      if arg12 then
-        arg12 = workValue34.gangId
-        arg22 = dataTable20
-        arg22 = arg22[arg12]
-        if arg22 then
-          arg32 = table
-          arg32 = arg32.count
-          arg42 = arg22.vehicles
-          if not arg42 then
-            arg42 = {}
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag
+    localValue12 = workingValue34
+    if localValue12 then
+      localValue12 = workingValue34.isGangGarage
+      if localValue12 then
+        localValue12 = workingValue34.gangId
+        localValue22 = dataCollection20
+        localValue22 = localValue22[localValue12]
+        if localValue22 then
+          localValue32 = table
+          localValue32 = localValue32.count
+          localValue42 = localValue22.vehicles
+          if not localValue42 then
+            localValue42 = {}
           end
           -- Beginner: result below is count.
-          arg32 = arg32(arg42)
-          arg42 = arg22.maxSlots
-          if not arg42 then
-            arg42 = 0
+          localValue32 = localValue32(localValue42)
+          localValue42 = localValue22.maxSlots
+          if not localValue42 then
+            localValue42 = 0
           end
-          if arg32 >= arg42 then
-            workValue18 = RageUI
-            workValue18 = workValue18.Separator
-            flag11 = string
-            flag11 = flag11.format
-            flag13 = "~r~Gang Garage Slots: %d/%d"
-            flag14 = arg32
-            cmgCall16 = arg42
-            flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag = flag11(flag13, flag14, cmgCall16)
-            workValue18(flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag)
+          if localValue32 >= localValue42 then
+            workingValue18 = RageUI
+            workingValue18 = workingValue18.Separator
+            stateFlag11 = string
+            stateFlag11 = stateFlag11.format
+            stateFlag13 = "~r~Gang Garage Slots: %d/%d"
+            stateFlag14 = localValue32
+            cmgOperation16 = localValue42
+            stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag = stateFlag11(stateFlag13, stateFlag14, cmgOperation16)
+            workingValue18(stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag)
           else
-            workValue18 = RageUI
-            workValue18 = workValue18.Separator
-            flag11 = string
-            flag11 = flag11.format
-            flag13 = "~s~Gang Garage Slots: ~b~%d~s~/~b~%d"
-            flag14 = arg32
-            cmgCall16 = arg42
-            flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag = flag11(flag13, flag14, cmgCall16)
-            workValue18(flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag)
+            workingValue18 = RageUI
+            workingValue18 = workingValue18.Separator
+            stateFlag11 = string
+            stateFlag11 = stateFlag11.format
+            stateFlag13 = "~s~Gang Garage Slots: ~b~%d~s~/~b~%d"
+            stateFlag14 = localValue32
+            cmgOperation16 = localValue42
+            stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag = stateFlag11(stateFlag13, stateFlag14, cmgOperation16)
+            workingValue18(stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag)
           end
         end
     end
     else
-      arg12 = workValue34
-      if arg12 then
-        arg12 = workValue4
-        if arg12 then
-          arg12 = workValue6
-          arg22 = workValue34.type
-          if arg12 == arg22 then
-            arg12 = workValue4.current
-            arg22 = workValue4.cap
-            if arg12 > arg22 then
-              arg32 = RageUI
-              arg32 = arg32.Separator
-              arg42 = string
-              arg42 = arg42.format
-              workValue18 = "~r~Unique Slots | %s: %d/%d"
-              flag11 = workValue34.type
-              flag13 = arg12
-              flag14 = arg22
-              arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag = arg42(workValue18, flag11, flag13, flag14)
-              arg32(arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag)
+      localValue12 = workingValue34
+      if localValue12 then
+        localValue12 = workingValue4
+        if localValue12 then
+          localValue12 = workingValue6
+          localValue22 = workingValue34.type
+          if localValue12 == localValue22 then
+            localValue12 = workingValue4.current
+            localValue22 = workingValue4.cap
+            if localValue12 > localValue22 then
+              localValue32 = RageUI
+              localValue32 = localValue32.Separator
+              localValue42 = string
+              localValue42 = localValue42.format
+              workingValue18 = "~r~Unique Slots | %s: %d/%d"
+              stateFlag11 = workingValue34.type
+              stateFlag13 = localValue12
+              stateFlag14 = localValue22
+              localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag = localValue42(workingValue18, stateFlag11, stateFlag13, stateFlag14)
+              localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag)
             else
-              arg32 = RageUI
-              arg32 = arg32.Separator
-              arg42 = string
-              arg42 = arg42.format
-              workValue18 = "~s~Unique Slots | %s: ~b~%d~s~/~b~%d"
-              flag11 = workValue34.type
-              flag13 = arg12
-              flag14 = arg22
-              arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag = arg42(workValue18, flag11, flag13, flag14)
-              arg32(arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag)
+              localValue32 = RageUI
+              localValue32 = localValue32.Separator
+              localValue42 = string
+              localValue42 = localValue42.format
+              workingValue18 = "~s~Unique Slots | %s: ~b~%d~s~/~b~%d"
+              stateFlag11 = workingValue34.type
+              stateFlag13 = localValue12
+              stateFlag14 = localValue22
+              localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag = localValue42(workingValue18, stateFlag11, stateFlag13, stateFlag14)
+              localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag)
             end
           end
         end
       end
     end
-    arg12 = workValue34
-    if arg12 then
-      arg12 = pairs
-      arg22 = workValue34.vehicles
-      arg12, arg22, arg32, arg42 = arg12(arg22)
-      for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-        flag13 = textValue21
-        flag14 = flag11
-        cmgCall16 = false
-        flag13(flag14, cmgCall16)
+    localValue12 = workingValue34
+    if localValue12 then
+      localValue12 = pairs
+      localValue22 = workingValue34.vehicles
+      localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22)
+      for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+        stateFlag13 = text21
+        stateFlag14 = stateFlag11
+        cmgOperation16 = false
+        stateFlag13(stateFlag14, cmgOperation16)
       end
     end
-    arg22 = workValue12
-    arg12 = dataTable9
-    arg12 = arg12[arg22]
-    if arg12 then
-      arg22 = {}
-      arg32 = pairs
-      arg42 = arg12
-      arg32, arg42, workValue18, flag11 = arg32(arg42)
-      for flag13, flag14 in arg32, arg42, workValue18, flag11 do
-        cmgCall16 = tonumber
-        flag17 = flag13
-        cmgCall16 = cmgCall16(flag17)
-        flag17 = dataTable19
-        cmgCall16 = flag17[cmgCall16]
-        if cmgCall16 then
-          flag17 = workValue31
-          numberValue2 = cmgCall16.vehicleId
-          flag17 = flag17(numberValue2)
-          if flag17 then
-            flag17 = table
-            flag17 = flag17.insert
-            numberValue2 = arg22
-            flag = {}
-            flag.priority = flag14
-            flag.vehicleInfo = cmgCall16
-            flag17(numberValue2, flag)
+    localValue22 = workingValue12
+    localValue12 = dataCollection9
+    localValue12 = localValue12[localValue22]
+    if localValue12 then
+      localValue22 = {}
+      localValue32 = pairs
+      localValue42 = localValue12
+      localValue32, localValue42, workingValue18, stateFlag11 = localValue32(localValue42)
+      for stateFlag13, stateFlag14 in localValue32, localValue42, workingValue18, stateFlag11 do
+        cmgOperation16 = tonumber
+        stateFlag17 = stateFlag13
+        cmgOperation16 = cmgOperation16(stateFlag17)
+        stateFlag17 = dataCollection19
+        cmgOperation16 = stateFlag17[cmgOperation16]
+        if cmgOperation16 then
+          stateFlag17 = workingValue31
+          number2 = cmgOperation16.vehicleId
+          stateFlag17 = stateFlag17(number2)
+          if stateFlag17 then
+            stateFlag17 = table
+            stateFlag17 = stateFlag17.insert
+            number2 = localValue22
+            stateFlag = {}
+            stateFlag.priority = stateFlag14
+            stateFlag.vehicleInfo = cmgOperation16
+            stateFlag17(number2, stateFlag)
           end
         end
       end
-      arg32 = table
-      arg32 = arg32.sort
-      arg42 = arg22
+      localValue32 = table
+      localValue32 = localValue32.sort
+      localValue42 = localValue22
 
-      -- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg13, arg23) ===
-      function workValue18(arg13, arg23)
-        local arg33, vehicle2
-        arg33 = arg13.priority
-        vehicle2 = arg23.priority
-        arg33 = arg33 > vehicle2
-        return arg33
+      -- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue13, localValue23) ===
+      function workingValue18(localValue13, localValue23)
+        local localValue33, vehicle2
+        localValue33 = localValue13.priority
+        vehicle2 = localValue23.priority
+        localValue33 = localValue33 > vehicle2
+        return localValue33
       end
-      arg32(arg42, workValue18)
-      arg32 = pairs
-      arg42 = arg22
-      arg32, arg42, workValue18, flag11 = arg32(arg42)
-      for flag13, flag14 in arg32, arg42, workValue18, flag11 do
-        cmgCall16 = textValue21
-        flag17 = flag14.vehicleInfo
-        numberValue2 = true
-        cmgCall16(flag17, numberValue2)
+      localValue32(localValue42, workingValue18)
+      localValue32 = pairs
+      localValue42 = localValue22
+      localValue32, localValue42, workingValue18, stateFlag11 = localValue32(localValue42)
+      for stateFlag13, stateFlag14 in localValue32, localValue42, workingValue18, stateFlag11 do
+        cmgOperation16 = text21
+        stateFlag17 = stateFlag14.vehicleInfo
+        number2 = true
+        cmgOperation16(stateFlag17, number2)
       end
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "confirm"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "confirm"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "No"
-    arg32 = ""
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "No"
+    localValue32 = ""
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
-      local vehicle2, cmgCall6
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6
+      if localValue33 then
         vehicle2 = tCMG
         vehicle2 = vehicle2.notify
-        cmgCall6 = "~y~Cancelled!"
+        cmgOperation6 = "~y~Cancelled!"
         -- Beginner: Show a notification to the player.
-        vehicle2(cmgCall6)
+        vehicle2(cmgOperation6)
       end
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "spawnmenu"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "spawnmenu"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Yes"
-    arg32 = ""
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Yes"
+    localValue32 = ""
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12, cmgCall12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12, cmgOperation12
+      if localValue33 then
         vehicle2 = GetVehiclePedIsIn
-        cmgCall6 = CMG
-        cmgCall6 = cmgCall6.getPlayerPed
+        cmgOperation6 = CMG
+        cmgOperation6 = cmgOperation6.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        cmgCall6 = cmgCall6()
-        flag12 = false
+        cmgOperation6 = cmgOperation6()
+        stateFlag12 = false
         -- Beginner: result below is currentVehicle.
-        vehicle2 = vehicle2(cmgCall6, flag12)
-        cmgCall6 = DoesEntityExist
-        flag12 = vehicle2
-        cmgCall6 = cmgCall6(flag12)
-        if cmgCall6 then
-          cmgCall6 = DeleteEntity
-          flag12 = vehicle2
+        vehicle2 = vehicle2(cmgOperation6, stateFlag12)
+        cmgOperation6 = DoesEntityExist
+        stateFlag12 = vehicle2
+        cmgOperation6 = cmgOperation6(stateFlag12)
+        if cmgOperation6 then
+          cmgOperation6 = DeleteEntity
+          stateFlag12 = vehicle2
           -- Beginner: Delete a GTA entity.
-          cmgCall6(flag12)
+          cmgOperation6(stateFlag12)
         end
-        cmgCall6 = CMG
-        cmgCall6 = cmgCall6.GetRageInputText
-        flag12 = "Please type CONFIRM in all caps to confirm the crushing of this vehicle"
-        cmgCall6 = cmgCall6(flag12)
-        if "CONFIRM" == cmgCall6 then
-          cmgCall6 = TriggerServerEvent
-          flag12 = "54472a6cb5"
-          cmgCall12 = numberValue23
+        cmgOperation6 = CMG
+        cmgOperation6 = cmgOperation6.GetRageInputText
+        stateFlag12 = "Please type CONFIRM in all caps to confirm the crushing of this vehicle"
+        cmgOperation6 = cmgOperation6(stateFlag12)
+        if "CONFIRM" == cmgOperation6 then
+          cmgOperation6 = TriggerServerEvent
+          stateFlag12 = "54472a6cb5"
+          cmgOperation12 = number23
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "54472a6cb5".
-          cmgCall6(flag12, cmgCall12)
+          cmgOperation6(stateFlag12, cmgOperation12)
         else
-          cmgCall6 = tCMG
-          cmgCall6 = cmgCall6.notify
-          flag12 = "~r~Cancelled vehicle crush!"
+          cmgOperation6 = tCMG
+          cmgOperation6 = cmgOperation6.notify
+          stateFlag12 = "~r~Cancelled vehicle crush!"
           -- Beginner: Show a notification to the player.
-          cmgCall6(flag12)
+          cmgOperation6(stateFlag12)
         end
       end
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "spawnmenu"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "spawnmenu"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "settings"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "settings"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17
-    arg12 = RageUI
-    arg12 = arg12.Checkbox
-    arg22 = "Hide custom folder vehicles"
-    arg32 = "This hides these vehicles from their original garage."
-    arg42 = dataTable11
-    workValue18 = "hideCustomFolderVehiclesFromOriginalGarages"
-    arg42 = arg42[workValue18]
-    workValue18 = {}
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17
+    localValue12 = RageUI
+    localValue12 = localValue12.Checkbox
+    localValue22 = "Hide custom folder vehicles"
+    localValue32 = "This hides these vehicles from their original garage."
+    localValue42 = dataCollection11
+    workingValue18 = "hideCustomFolderVehiclesFromOriginalGarages"
+    localValue42 = localValue42[workingValue18]
+    workingValue18 = {}
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
-      arg13 = dataTable11
-      arg23 = "hideCustomFolderVehiclesFromOriginalGarages"
-      arg13[arg23] = true
-      arg13 = CMG
-      arg13 = arg13.saveGarageSettings
-      arg13()
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
+      localValue13 = dataCollection11
+      localValue23 = "hideCustomFolderVehiclesFromOriginalGarages"
+      localValue13[localValue23] = true
+      localValue13 = CMG
+      localValue13 = localValue13.saveGarageSettings
+      localValue13()
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: none) ===
-    function flag14()
-      local arg13, arg23
-      arg13 = dataTable11
-      arg23 = "hideCustomFolderVehiclesFromOriginalGarages"
-      arg13[arg23] = false
-      arg13 = CMG
-      arg13 = arg13.saveGarageSettings
-      arg13()
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: none) ===
+    function stateFlag14()
+      local localValue13, localValue23
+      localValue13 = dataCollection11
+      localValue23 = "hideCustomFolderVehiclesFromOriginalGarages"
+      localValue13[localValue23] = false
+      localValue13 = CMG
+      localValue13 = localValue13.saveGarageSettings
+      localValue13()
     end
     -- Beginner: Draw a RageUI checkbox.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14)
-    arg12 = RageUI
-    arg12 = arg12.Checkbox
-    arg22 = "Show Custom Folders In Garage Menu"
-    arg32 = "~y~This removes the [Custom Folders] menu item, and puts custom folders in the root garages menu."
-    arg42 = dataTable11.showCustomFoldersInGarageMenu
-    workValue18 = {}
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue12 = RageUI
+    localValue12 = localValue12.Checkbox
+    localValue22 = "Show Custom Folders In Garage Menu"
+    localValue32 = "~y~This removes the [Custom Folders] menu item, and puts custom folders in the root garages menu."
+    localValue42 = dataCollection11.showCustomFoldersInGarageMenu
+    workingValue18 = {}
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local arg13, arg23
-      dataTable11.showCustomFoldersInGarageMenu = true
-      arg13 = CMG
-      arg13 = arg13.saveGarageSettings
-      arg13()
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local localValue13, localValue23
+      dataCollection11.showCustomFoldersInGarageMenu = true
+      localValue13 = CMG
+      localValue13 = localValue13.saveGarageSettings
+      localValue13()
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: none) ===
-    function flag14()
-      local arg13, arg23
-      dataTable11.showCustomFoldersInGarageMenu = false
-      arg13 = CMG
-      arg13 = arg13.saveGarageSettings
-      arg13()
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: none) ===
+    function stateFlag14()
+      local localValue13, localValue23
+      dataCollection11.showCustomFoldersInGarageMenu = false
+      localValue13 = CMG
+      localValue13 = localValue13.saveGarageSettings
+      localValue13()
     end
     -- Beginner: Draw a RageUI checkbox.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "View All Vehicles"
-    arg32 = "View vehicles for the purpose of selling and renting."
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "View All Vehicles"
+    localValue32 = "View vehicles for the purpose of selling and renting."
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: none) ===
-    function flag11()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: none) ===
+    function stateFlag11()
+      local localValue13, localValue23
     end
-    flag13 = RMenu
-    flag14 = flag13
-    flag13 = flag13.Get
-    cmgCall16 = "garages"
-    flag17 = "viewall"
-    flag13, flag14, cmgCall16, flag17 = flag13(flag14, cmgCall16, flag17)
+    stateFlag13 = RMenu
+    stateFlag14 = stateFlag13
+    stateFlag13 = stateFlag13.Get
+    cmgOperation16 = "garages"
+    stateFlag17 = "viewall"
+    stateFlag13, stateFlag14, cmgOperation16, stateFlag17 = stateFlag13(stateFlag14, cmgOperation16, stateFlag17)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "viewall"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "viewall"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7
-    arg12 = pairs
-    arg22 = textValue19
-    arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7 = arg22()
-    arg12, arg22, arg32, arg42 = arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
-    for workValue18, flag11 in arg12, arg22, arg32, arg42 do
-      flag13 = flag11.info
-      flag14 = flag13.uuid
-      flag13 = dataTable12
-      flag13 = flag13[flag14]
-      if not flag13 then
-        flag13 = flag11.info
-        flag13 = flag13.name
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7
+    localValue12 = pairs
+    localValue22 = text19
+    localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7 = localValue22()
+    localValue12, localValue22, localValue32, localValue42 = localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
+    for workingValue18, stateFlag11 in localValue12, localValue22, localValue32, localValue42 do
+      stateFlag13 = stateFlag11.info
+      stateFlag14 = stateFlag13.uuid
+      stateFlag13 = dataCollection12
+      stateFlag13 = stateFlag13[stateFlag14]
+      if not stateFlag13 then
+        stateFlag13 = stateFlag11.info
+        stateFlag13 = stateFlag13.name
       end
-      flag14 = RageUI
-      flag14 = flag14.ButtonWithStyle
-      cmgCall16 = flag13
-      flag17 = ""
-      numberValue2 = {}
-      numberValue2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag = true
+      stateFlag14 = RageUI
+      stateFlag14 = stateFlag14.ButtonWithStyle
+      cmgOperation16 = stateFlag13
+      stateFlag17 = ""
+      number2 = {}
+      number2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag = true
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg13, arg23, arg33) ===
-      function flag2(arg13, arg23, arg33)
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue13, localValue23, localValue33) ===
+      function stateFlag2(localValue13, localValue23, localValue33)
         local vehicle2
-        if arg33 then
-          vehicle2 = flag11.uuid
-          numberValue23 = vehicle2
-          vehicle2 = flag11.info
+        if localValue33 then
+          vehicle2 = stateFlag11.uuid
+          number23 = vehicle2
+          vehicle2 = stateFlag11.info
           vehicle2 = vehicle2.vehicleId
-          textValue15 = vehicle2
+          text15 = vehicle2
         end
       end
-      flag3 = RMenu
-      workValue8 = flag3
-      flag3 = flag3.Get
-      textValue6 = "garages"
-      textValue7 = "rentonlymenu"
-      flag3, workValue8, textValue6, textValue7 = flag3(workValue8, textValue6, textValue7)
+      stateFlag3 = RMenu
+      workingValue8 = stateFlag3
+      stateFlag3 = stateFlag3.Get
+      text6 = "garages"
+      text7 = "rentonlymenu"
+      stateFlag3, workingValue8, text6, text7 = stateFlag3(workingValue8, text6, text7)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag14(cmgCall16, flag17, numberValue2, flag, flag2, flag3, workValue8, textValue6, textValue7)
+      stateFlag14(cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3, workingValue8, text6, text7)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "rentonlymenu"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "rentonlymenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3
-    arg12 = CMG
-    arg12 = arg12.canVehicleBeSold
-    arg22 = textValue15
-    arg12 = arg12(arg22)
-    if arg12 then
-      arg12 = cmgCall7
-      arg22 = numberValue23
-      arg12 = arg12(arg22)
-      arg12 = not arg12
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3
+    localValue12 = CMG
+    localValue12 = localValue12.canVehicleBeSold
+    localValue22 = text15
+    localValue12 = localValue12(localValue22)
+    if localValue12 then
+      localValue12 = cmgOperation7
+      localValue22 = number23
+      localValue12 = localValue12(localValue22)
+      localValue12 = not localValue12
     end
-    arg22 = cmgCall7
-    arg32 = numberValue23
-    arg22 = arg22(arg32)
-    if arg22 then
-      arg22 = cmgCall8
-      if arg22 then
-        goto flow_label_20
+    localValue22 = cmgOperation7
+    localValue32 = number23
+    localValue22 = localValue22(localValue32)
+    if localValue22 then
+      localValue22 = cmgOperation8
+      if localValue22 then
+        goto continueAtStep20
       end
     end
-    arg22 = ""
-    ::flow_label_20::
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Sell Vehicle to Player"
-    workValue18 = arg22
-    flag11 = {}
-    flag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag13 = arg12
+    localValue22 = ""
+    ::continueAtStep20::
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Sell Vehicle to Player"
+    workingValue18 = localValue22
+    stateFlag11 = {}
+    stateFlag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag13 = localValue12
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12
-      if arg33 then
-        vehicle2 = arg12
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12
+      if localValue33 then
+        vehicle2 = localValue12
         if vehicle2 then
           vehicle2 = TriggerServerEvent
-          cmgCall6 = "0d3561179d"
-          flag12 = numberValue23
+          cmgOperation6 = "0d3561179d"
+          stateFlag12 = number23
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "0d3561179d".
-          vehicle2(cmgCall6, flag12)
+          vehicle2(cmgOperation6, stateFlag12)
         end
       end
     end
-    cmgCall16 = RMenu
-    flag17 = cmgCall16
-    cmgCall16 = cmgCall16.Get
-    numberValue2 = "garages"
-    flag = "viewall"
-    cmgCall16, flag17, numberValue2, flag, flag2, flag3 = cmgCall16(flag17, numberValue2, flag)
+    cmgOperation16 = RMenu
+    stateFlag17 = cmgOperation16
+    cmgOperation16 = cmgOperation16.Get
+    number2 = "garages"
+    stateFlag = "viewall"
+    cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3 = cmgOperation16(stateFlag17, number2, stateFlag)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3)
-    arg32 = RageUI
-    arg32 = arg32.ButtonWithStyle
-    arg42 = "Rent Vehicle to Player"
-    workValue18 = ""
-    flag11 = {}
-    flag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag13 = CMG
-    flag13 = flag13.canVehicleBeRented
-    flag14 = textValue15
-    flag13 = flag13(flag14)
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3)
+    localValue32 = RageUI
+    localValue32 = localValue32.ButtonWithStyle
+    localValue42 = "Rent Vehicle to Player"
+    workingValue18 = ""
+    stateFlag11 = {}
+    stateFlag11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag13 = CMG
+    stateFlag13 = stateFlag13.canVehicleBeRented
+    stateFlag14 = text15
+    stateFlag13 = stateFlag13(stateFlag14)
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg13, arg23, arg33) ===
-    function flag14(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag14(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12
+      if localValue33 then
         vehicle2 = CMG
         vehicle2 = vehicle2.canVehicleBeRented
-        cmgCall6 = textValue15
-        vehicle2 = vehicle2(cmgCall6)
+        cmgOperation6 = text15
+        vehicle2 = vehicle2(cmgOperation6)
         if vehicle2 then
           vehicle2 = TriggerServerEvent
-          cmgCall6 = "6cf393ee47"
-          flag12 = numberValue23
+          cmgOperation6 = "6cf393ee47"
+          stateFlag12 = number23
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6cf393ee47".
-          vehicle2(cmgCall6, flag12)
+          vehicle2(cmgOperation6, stateFlag12)
         end
       end
     end
-    cmgCall16 = RMenu
-    flag17 = cmgCall16
-    cmgCall16 = cmgCall16.Get
-    numberValue2 = "garages"
-    flag = "viewall"
-    cmgCall16, flag17, numberValue2, flag, flag2, flag3 = cmgCall16(flag17, numberValue2, flag)
+    cmgOperation16 = RMenu
+    stateFlag17 = cmgOperation16
+    cmgOperation16 = cmgOperation16.Get
+    number2 = "garages"
+    stateFlag = "viewall"
+    cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3 = cmgOperation16(stateFlag17, number2, stateFlag)
     -- Beginner: Draw a selectable RageUI menu button.
-    arg32(arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3)
-    arg32 = CMG
-    arg32 = arg32.canVehicleBeRented
-    arg42 = textValue15
-    arg32 = arg32(arg42)
-    if arg32 then
-      arg32 = cmgCall7
-      arg42 = numberValue23
-      arg32 = arg32(arg42)
-      arg32 = not arg32
+    localValue32(localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3)
+    localValue32 = CMG
+    localValue32 = localValue32.canVehicleBeRented
+    localValue42 = text15
+    localValue32 = localValue32(localValue42)
+    if localValue32 then
+      localValue32 = cmgOperation7
+      localValue42 = number23
+      localValue32 = localValue32(localValue42)
+      localValue32 = not localValue32
     end
-    arg42 = cmgCall7
-    workValue18 = numberValue23
-    arg42 = arg42(workValue18)
-    if arg42 then
-      arg42 = cmgCall8
-      if arg42 then
-        goto flow_label_72
+    localValue42 = cmgOperation7
+    workingValue18 = number23
+    localValue42 = localValue42(workingValue18)
+    if localValue42 then
+      localValue42 = cmgOperation8
+      if localValue42 then
+        goto continueAtStep72
       end
     end
-    arg42 = ""
-    ::flow_label_72::
-    workValue18 = RageUI
-    workValue18 = workValue18.ButtonWithStyle
-    flag11 = "Payment Plan Vehicle to Player"
-    flag13 = arg42
-    flag14 = {}
-    flag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    cmgCall16 = arg32
+    localValue42 = ""
+    ::continueAtStep72::
+    workingValue18 = RageUI
+    workingValue18 = workingValue18.ButtonWithStyle
+    stateFlag11 = "Payment Plan Vehicle to Player"
+    stateFlag13 = localValue42
+    stateFlag14 = {}
+    stateFlag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    cmgOperation16 = localValue32
 
-    -- === HELPER FUNCTION (decompiler name: flag17; parameters: none) ===
-    function flag17()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: stateFlag17; parameters: none) ===
+    function stateFlag17()
+      local localValue13, localValue23
     end
-    numberValue2 = RMenu
-    flag = numberValue2
-    numberValue2 = numberValue2.Get
-    flag2 = "garages"
-    flag3 = "paymentplan"
-    numberValue2, flag, flag2, flag3 = numberValue2(flag, flag2, flag3)
-    workValue18(flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag, flag2, flag3)
+    number2 = RMenu
+    stateFlag = number2
+    number2 = number2.Get
+    stateFlag2 = "garages"
+    stateFlag3 = "paymentplan"
+    number2, stateFlag, stateFlag2, stateFlag3 = number2(stateFlag, stateFlag2, stateFlag3)
+    workingValue18(stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag, stateFlag2, stateFlag3)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
 end
-rageUiCall6(rageUiCall7, rageUiCall8, textValue24, textValue25)
-rageUiCall6 = RMenu
-rageUiCall6 = rageUiCall6.Add
-rageUiCall7 = "disclaimer"
-rageUiCall8 = "main"
-textValue24 = RageUI
-textValue24 = textValue24.CreateMenu
-textValue25 = ""
-textValue26 = "~b~Terms And Conditions"
-rageUiCall9 = CMG
-rageUiCall9 = rageUiCall9.getRageUIMenuWidth
-rageUiCall9 = rageUiCall9()
-rageUiCall10 = CMG
-rageUiCall10 = rageUiCall10.getRageUIMenuHeight
-rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall10()
-textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = textValue24(textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-rageUiCall6(rageUiCall7, rageUiCall8, textValue24, textValue25, textValue26, rageUiCall9, rageUiCall10, eventRegistration5, eventRegistration6, flag16, workValue33, cmgCall17, cmgCall, threadCall, numberValue, eventRegistration, textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-rageUiCall6 = CMG
+rageUiOperation6(rageUiOperation7, rageUiOperation8, text24, text25)
+rageUiOperation6 = RMenu
+rageUiOperation6 = rageUiOperation6.Add
+rageUiOperation7 = "disclaimer"
+rageUiOperation8 = "main"
+text24 = RageUI
+text24 = text24.CreateMenu
+text25 = ""
+text26 = "~b~Terms And Conditions"
+rageUiOperation9 = CMG
+rageUiOperation9 = rageUiOperation9.getRageUIMenuWidth
+rageUiOperation9 = rageUiOperation9()
+rageUiOperation10 = CMG
+rageUiOperation10 = rageUiOperation10.getRageUIMenuHeight
+rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation10()
+text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = text24(text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+rageUiOperation6(rageUiOperation7, rageUiOperation8, text24, text25, text26, rageUiOperation9, rageUiOperation10, eventHandler5, eventHandler6, stateFlag16, workingValue33, cmgOperation17, cmgOperation, backgroundThread, number, eventHandler, text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+rageUiOperation6 = CMG
 
--- === HELPER FUNCTION (decompiler name: rageUiCall7; parameters: arg1, arg2) ===
-function rageUiCall7(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg3 = false
-  arg4 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: rageUiOperation7; parameters: localValue1, localValue2) ===
+function rageUiOperation7(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue3 = false
+  localValue4 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg4 = arg4()
-  arg5 = RageUI
-  arg5 = arg5.Visible
-  arg6 = RMenu
-  arg7 = arg6
-  arg6 = arg6.Get
+  localValue4 = localValue4()
+  localValue5 = RageUI
+  localValue5 = localValue5.Visible
+  localValue6 = RMenu
+  localValue7 = localValue6
+  localValue6 = localValue6.Get
   iterator2 = "disclaimer"
   tableHelper2 = "main"
   -- Beginner: result below is menu.
-  arg6 = arg6(arg7, iterator2, tableHelper2)
-  arg7 = true
-  arg5(arg6, arg7)
+  localValue6 = localValue6(localValue7, iterator2, tableHelper2)
+  localValue7 = true
+  localValue5(localValue6, localValue7)
   while true do
-    arg5 = RageUI
-    arg5 = arg5.Visible
-    arg6 = RMenu
-    arg7 = arg6
-    arg6 = arg6.Get
+    localValue5 = RageUI
+    localValue5 = localValue5.Visible
+    localValue6 = RMenu
+    localValue7 = localValue6
+    localValue6 = localValue6.Get
     iterator2 = "disclaimer"
     tableHelper2 = "main"
-    arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable = arg6(arg7, iterator2, tableHelper2)
+    localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection = localValue6(localValue7, iterator2, tableHelper2)
     -- Beginner: result below is menuVisible.
-    arg5 = arg5(arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-    if not arg5 or arg3 then
+    localValue5 = localValue5(localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+    if not localValue5 or localValue3 then
       break
     end
-    arg5 = math
-    arg5 = arg5.floor
-    arg6 = GetGameTimer
+    localValue5 = math
+    localValue5 = localValue5.floor
+    localValue6 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg6 = arg6()
-    arg6 = arg6 - arg4
-    arg6 = arg6 / 1000
-    arg5 = arg5(arg6)
-    arg6 = math
-    arg6 = arg6.max
-    arg7 = 0
+    localValue6 = localValue6()
+    localValue6 = localValue6 - localValue4
+    localValue6 = localValue6 / 1000
+    localValue5 = localValue5(localValue6)
+    localValue6 = math
+    localValue6 = localValue6.max
+    localValue7 = 0
     iterator2 = 3
-    iterator2 = iterator2 - arg5
-    arg6 = arg6(arg7, iterator2)
-    arg7 = RageUI
-    arg7 = arg7.IsVisible
+    iterator2 = iterator2 - localValue5
+    localValue6 = localValue6(localValue7, iterator2)
+    localValue7 = RageUI
+    localValue7 = localValue7.IsVisible
     iterator2 = RMenu
     tableHelper2 = iterator2
     iterator2 = iterator2.Get
-    dataTable25 = "disclaimer"
-    workValue2 = "main"
+    dataCollection25 = "disclaimer"
+    workingValue2 = "main"
     -- Beginner: result below is menu.
-    iterator2 = iterator2(tableHelper2, dataTable25, workValue2)
+    iterator2 = iterator2(tableHelper2, dataCollection25, workingValue2)
     tableHelper2 = true
-    dataTable25 = true
-    workValue2 = true
+    dataCollection25 = true
+    workingValue2 = true
 
-    -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-    function dataTable()
-      local arg12, arg22, arg32, arg42, workValue18, flag11
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~y~Terms of selling the "
-      arg32 = arg1
-      arg42 = ":"
-      arg22 = arg22 .. arg32 .. arg42
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "Any agreements made between you and the buyer are not covered by CMG"
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "You forfeit any right to claim the "
-      arg32 = arg1
-      arg42 = " back after payment"
-      arg22 = arg22 .. arg32 .. arg42
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "You agree the buyer has full discretion over the "
-      arg32 = arg1
-      arg42 = " hereafter"
-      arg22 = arg22 .. arg32 .. arg42
-      arg12(arg22)
-      arg12 = arg6
-      if arg12 > 0 then
-        arg12 = RageUI
-        arg12 = arg12.ButtonWithStyle
-        arg22 = "~r~I agree to the above"
-        arg32 = ""
-        arg42 = {}
-        workValue18 = tostring
-        flag11 = arg6
-        workValue18 = workValue18(flag11)
-        arg42.RightLabel = workValue18
-        workValue18 = true
+    -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+    function dataCollection()
+      local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~y~Terms of selling the "
+      localValue32 = localValue1
+      localValue42 = ":"
+      localValue22 = localValue22 .. localValue32 .. localValue42
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "Any agreements made between you and the buyer are not covered by CMG"
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "You forfeit any right to claim the "
+      localValue32 = localValue1
+      localValue42 = " back after payment"
+      localValue22 = localValue22 .. localValue32 .. localValue42
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "You agree the buyer has full discretion over the "
+      localValue32 = localValue1
+      localValue42 = " hereafter"
+      localValue22 = localValue22 .. localValue32 .. localValue42
+      localValue12(localValue22)
+      localValue12 = localValue6
+      if localValue12 > 0 then
+        localValue12 = RageUI
+        localValue12 = localValue12.ButtonWithStyle
+        localValue22 = "~r~I agree to the above"
+        localValue32 = ""
+        localValue42 = {}
+        workingValue18 = tostring
+        stateFlag11 = localValue6
+        workingValue18 = workingValue18(stateFlag11)
+        localValue42.RightLabel = workingValue18
+        workingValue18 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag11; parameters: none) ===
-        function flag11()
-          local arg13, arg23
+        -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: none) ===
+        function stateFlag11()
+          local localValue13, localValue23
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        arg12(arg22, arg32, arg42, workValue18, flag11)
+        localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
       else
-        arg12 = RageUI
-        arg12 = arg12.ButtonWithStyle
-        arg22 = "~g~I agree to the above"
-        arg32 = ""
-        arg42 = {}
-        arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        workValue18 = true
+        localValue12 = RageUI
+        localValue12 = localValue12.ButtonWithStyle
+        localValue22 = "~g~I agree to the above"
+        localValue32 = ""
+        localValue42 = {}
+        localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        workingValue18 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-        function flag11(arg13, arg23, arg33)
+        -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+        function stateFlag11(localValue13, localValue23, localValue33)
           local vehicle2
-          if arg33 then
+          if localValue33 then
             vehicle2 = true
-            arg3 = vehicle2
+            localValue3 = vehicle2
           end
         end
-        arg12(arg22, arg32, arg42, workValue18, flag11)
+        localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
       end
     end
-    arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-    arg7 = Citizen
-    arg7 = arg7.Wait
+    localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+    localValue7 = Citizen
+    localValue7 = localValue7.Wait
     iterator2 = 0
-    arg7(iterator2)
+    localValue7(iterator2)
   end
-  if arg3 then
-    arg5 = arg2
-    arg5()
+  if localValue3 then
+    localValue5 = localValue2
+    localValue5()
   else
-    arg5 = notify
-    arg6 = "~r~Sell ended as you did not agree to the terms."
+    localValue5 = notify
+    localValue6 = "~r~Sell ended as you did not agree to the terms."
     -- Beginner: Show a notification to the player.
-    arg5(arg6)
+    localValue5(localValue6)
   end
 end
-rageUiCall6.displaySellDisclaimer = rageUiCall7
-rageUiCall6 = tCMG
+rageUiOperation6.displaySellDisclaimer = rageUiOperation7
+rageUiOperation6 = tCMG
 
--- === HELPER FUNCTION (decompiler name: rageUiCall7; parameters: arg1) ===
-function rageUiCall7(arg1)
-  local arg2, arg3, arg4, arg5
-  if arg1 then
-    arg2 = DecorExistOn
-    arg3 = arg1
-    arg4 = "ac76c9d452"
-    arg2 = arg2(arg3, arg4)
-    if arg2 then
-      arg2 = DecorGetInt
-      arg3 = arg1
-      arg4 = "ac76c9d452"
-      arg2 = arg2(arg3, arg4)
-      arg3 = CMG
-      arg3 = arg3.getVehicleIdFromModel
-      arg4 = GetEntityModel
-      arg5 = arg1
-      arg4, arg5 = arg4(arg5)
-      arg3 = arg3(arg4, arg5)
-      if arg3 then
-        arg4 = arg2
-        arg5 = arg3
-        return arg4, arg5
+-- === HELPER FUNCTION (decompiler name: rageUiOperation7; parameters: localValue1) ===
+function rageUiOperation7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  if localValue1 then
+    localValue2 = DecorExistOn
+    localValue3 = localValue1
+    localValue4 = "ac76c9d452"
+    localValue2 = localValue2(localValue3, localValue4)
+    if localValue2 then
+      localValue2 = DecorGetInt
+      localValue3 = localValue1
+      localValue4 = "ac76c9d452"
+      localValue2 = localValue2(localValue3, localValue4)
+      localValue3 = CMG
+      localValue3 = localValue3.getVehicleIdFromModel
+      localValue4 = GetEntityModel
+      localValue5 = localValue1
+      localValue4, localValue5 = localValue4(localValue5)
+      localValue3 = localValue3(localValue4, localValue5)
+      if localValue3 then
+        localValue4 = localValue2
+        localValue5 = localValue3
+        return localValue4, localValue5
       end
     end
   end
 end
-rageUiCall6.getVehicleInfos = rageUiCall7
-rageUiCall6 = tCMG
+rageUiOperation6.getVehicleInfos = rageUiOperation7
+rageUiOperation6 = tCMG
 
--- === HELPER FUNCTION (decompiler name: rageUiCall7; parameters: arg1) ===
-function rageUiCall7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = CMG
-  arg2 = arg2.getObjectId
-  arg3 = arg1
-  arg4 = "tCMG.getNetworkedVehicleInfos"
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg3 = DecorExistOn
-    arg4 = arg2
-    arg5 = "ac76c9d452"
-    arg3 = arg3(arg4, arg5)
-    if arg3 then
-      arg3 = DecorGetInt
-      arg4 = arg2
-      arg5 = "ac76c9d452"
-      arg3 = arg3(arg4, arg5)
-      arg4 = CMG
-      arg4 = arg4.getVehicleIdFromModel
-      arg5 = GetEntityModel
-      arg6 = arg2
-      arg5, arg6, arg7, iterator2 = arg5(arg6)
-      arg4 = arg4(arg5, arg6, arg7, iterator2)
-      arg5 = DecorGetInt
-      arg6 = arg2
-      arg7 = "0a6cf607ed"
-      arg5 = arg5(arg6, arg7)
-      if arg4 and arg5 > 0 then
-        arg6 = arg3
-        arg7 = arg4
-        iterator2 = arg5
-        return arg6, arg7, iterator2
+-- === HELPER FUNCTION (decompiler name: rageUiOperation7; parameters: localValue1) ===
+function rageUiOperation7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = CMG
+  localValue2 = localValue2.getObjectId
+  localValue3 = localValue1
+  localValue4 = "tCMG.getNetworkedVehicleInfos"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue3 = DecorExistOn
+    localValue4 = localValue2
+    localValue5 = "ac76c9d452"
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 then
+      localValue3 = DecorGetInt
+      localValue4 = localValue2
+      localValue5 = "ac76c9d452"
+      localValue3 = localValue3(localValue4, localValue5)
+      localValue4 = CMG
+      localValue4 = localValue4.getVehicleIdFromModel
+      localValue5 = GetEntityModel
+      localValue6 = localValue2
+      localValue5, localValue6, localValue7, iterator2 = localValue5(localValue6)
+      localValue4 = localValue4(localValue5, localValue6, localValue7, iterator2)
+      localValue5 = DecorGetInt
+      localValue6 = localValue2
+      localValue7 = "0a6cf607ed"
+      localValue5 = localValue5(localValue6, localValue7)
+      if localValue4 and localValue5 > 0 then
+        localValue6 = localValue3
+        localValue7 = localValue4
+        iterator2 = localValue5
+        return localValue6, localValue7, iterator2
       end
     end
   end
 end
-rageUiCall6.getNetworkedVehicleInfos = rageUiCall7
+rageUiOperation6.getNetworkedVehicleInfos = rageUiOperation7
 
--- === HELPER FUNCTION (decompiler name: rageUiCall6; parameters: arg1, arg2, arg3) ===
-function rageUiCall6(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg4 = 0
-  arg5 = GetNumModColors
-  arg6 = arg1
-  arg7 = false
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5 - 1
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
+-- === HELPER FUNCTION (decompiler name: rageUiOperation6; parameters: localValue1, localValue2, localValue3) ===
+function rageUiOperation6(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue4 = 0
+  localValue5 = GetNumModColors
+  localValue6 = localValue1
+  localValue7 = false
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5 - 1
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
     iterator2 = SetVehicleModColor_1
-    tableHelper2 = arg3
-    dataTable25 = arg1
-    workValue2 = arg7
-    dataTable = 0
-    iterator2(tableHelper2, dataTable25, workValue2, dataTable)
+    tableHelper2 = localValue3
+    dataCollection25 = localValue1
+    workingValue2 = localValue7
+    dataCollection = 0
+    iterator2(tableHelper2, dataCollection25, workingValue2, dataCollection)
     iterator2 = GetVehicleColours
-    tableHelper2 = arg3
+    tableHelper2 = localValue3
     iterator2 = iterator2(tableHelper2)
-    if iterator2 == arg2 then
+    if iterator2 == localValue2 then
       return
     end
   end
-  arg4 = GetVehicleColours
-  arg5 = arg3
-  arg4, arg5 = arg4(arg5)
-  arg6 = SetVehicleColours
-  arg7 = arg3
-  iterator2 = arg2
-  tableHelper2 = arg5
-  arg6(arg7, iterator2, tableHelper2)
+  localValue4 = GetVehicleColours
+  localValue5 = localValue3
+  localValue4, localValue5 = localValue4(localValue5)
+  localValue6 = SetVehicleColours
+  localValue7 = localValue3
+  iterator2 = localValue2
+  tableHelper2 = localValue5
+  localValue6(localValue7, iterator2, tableHelper2)
 end
 
--- === HELPER FUNCTION (decompiler name: rageUiCall7; parameters: arg1, arg2, arg3) ===
-function rageUiCall7(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2
-  arg4 = 0
-  arg5 = GetNumModColors
-  arg6 = arg1
-  arg7 = false
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5 - 1
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
+-- === HELPER FUNCTION (decompiler name: rageUiOperation7; parameters: localValue1, localValue2, localValue3) ===
+function rageUiOperation7(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2
+  localValue4 = 0
+  localValue5 = GetNumModColors
+  localValue6 = localValue1
+  localValue7 = false
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5 - 1
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
     iterator2 = SetVehicleModColor_2
-    tableHelper2 = arg3
-    dataTable25 = arg1
-    workValue2 = arg7
-    iterator2(tableHelper2, dataTable25, workValue2)
+    tableHelper2 = localValue3
+    dataCollection25 = localValue1
+    workingValue2 = localValue7
+    iterator2(tableHelper2, dataCollection25, workingValue2)
     iterator2 = GetVehicleColours
-    tableHelper2 = arg3
+    tableHelper2 = localValue3
     iterator2, tableHelper2 = iterator2(tableHelper2)
-    if tableHelper2 == arg2 then
+    if tableHelper2 == localValue2 then
       return
     end
   end
-  arg4 = SetVehicleColours
-  arg5 = arg3
-  arg6 = GetVehicleColours
-  arg7 = arg3
-  arg6 = arg6(arg7)
-  arg7 = arg2
-  arg4(arg5, arg6, arg7)
+  localValue4 = SetVehicleColours
+  localValue5 = localValue3
+  localValue6 = GetVehicleColours
+  localValue7 = localValue3
+  localValue6 = localValue6(localValue7)
+  localValue7 = localValue2
+  localValue4(localValue5, localValue6, localValue7)
 end
-rageUiCall8 = CMG
+rageUiOperation8 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue24; parameters: arg1, arg2) ===
-function textValue24(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator
-  arg3 = 0
-  arg4 = pairs
-  arg5 = arg1.chrome
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+-- === HELPER FUNCTION (decompiler name: text24; parameters: localValue1, localValue2) ===
+function text24(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator
+  localValue3 = 0
+  localValue4 = pairs
+  localValue5 = localValue1.chrome
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall6
-      workValue2 = 5
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation6
+      workingValue2 = 5
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.classic
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.classic
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall6
-      workValue2 = 0
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation6
+      workingValue2 = 0
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.matte
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.matte
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall6
-      workValue2 = 3
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation6
+      workingValue2 = 3
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.metals
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.metals
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall6
-      workValue2 = 4
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation6
+      workingValue2 = 4
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.metallic
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.metallic
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall6
-      workValue2 = 1
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation6
+      workingValue2 = 1
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.util
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.util
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = tonumber
-      workValue2 = iterator2
-      dataTable25 = dataTable25(workValue2)
-      arg3 = dataTable25 or arg3
-      if not dataTable25 then
-        arg3 = 0
+      dataCollection25 = tonumber
+      workingValue2 = iterator2
+      dataCollection25 = dataCollection25(workingValue2)
+      localValue3 = dataCollection25 or localValue3
+      if not dataCollection25 then
+        localValue3 = 0
       end
     end
   end
-  arg4 = pairs
-  arg5 = arg1.chameleon
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.chameleon
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = tonumber
-      workValue2 = iterator2
-      dataTable25 = dataTable25(workValue2)
-      arg3 = dataTable25 or arg3
-      if not dataTable25 then
-        arg3 = 0
+      dataCollection25 = tonumber
+      workingValue2 = iterator2
+      dataCollection25 = dataCollection25(workingValue2)
+      localValue3 = dataCollection25 or localValue3
+      if not dataCollection25 then
+        localValue3 = 0
       end
     end
   end
-  arg4 = arg1.primaryrgb
-  if arg4 then
-    arg5 = arg4.blue
-    if arg5 then
-      arg5 = arg4.red
-      if arg5 then
-        arg5 = arg4.green
-        if arg5 then
-          arg5 = arg4.active
-          if arg5 then
-            arg5 = SetVehicleCustomPrimaryColour
-            arg6 = arg2
-            arg7 = arg4.red
-            iterator2 = arg4.green
-            tableHelper2 = arg4.blue
-            arg5(arg6, arg7, iterator2, tableHelper2)
+  localValue4 = localValue1.primaryrgb
+  if localValue4 then
+    localValue5 = localValue4.blue
+    if localValue5 then
+      localValue5 = localValue4.red
+      if localValue5 then
+        localValue5 = localValue4.green
+        if localValue5 then
+          localValue5 = localValue4.active
+          if localValue5 then
+            localValue5 = SetVehicleCustomPrimaryColour
+            localValue6 = localValue2
+            localValue7 = localValue4.red
+            iterator2 = localValue4.green
+            tableHelper2 = localValue4.blue
+            localValue5(localValue6, localValue7, iterator2, tableHelper2)
         end
       end
     end
   end
-  elseif 0 ~= arg3 then
-    arg5 = GetVehicleColours
-    arg6 = arg2
-    arg5, arg6 = arg5(arg6)
-    arg7 = SetVehicleColours
-    iterator2 = arg2
-    tableHelper2 = arg3
-    dataTable25 = arg6
-    arg7(iterator2, tableHelper2, dataTable25)
+  elseif 0 ~= localValue3 then
+    localValue5 = GetVehicleColours
+    localValue6 = localValue2
+    localValue5, localValue6 = localValue5(localValue6)
+    localValue7 = SetVehicleColours
+    iterator2 = localValue2
+    tableHelper2 = localValue3
+    dataCollection25 = localValue6
+    localValue7(iterator2, tableHelper2, dataCollection25)
   end
 end
-rageUiCall8.applyPrimaryVehicleColours = textValue24
-rageUiCall8 = CMG
+rageUiOperation8.applyPrimaryVehicleColours = text24
+rageUiOperation8 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue24; parameters: arg1, arg2) ===
-function textValue24(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator
-  arg3 = 0
-  arg4 = pairs
-  arg5 = arg1.chrome2
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+-- === HELPER FUNCTION (decompiler name: text24; parameters: localValue1, localValue2) ===
+function text24(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator
+  localValue3 = 0
+  localValue4 = pairs
+  localValue5 = localValue1.chrome2
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall7
-      workValue2 = 5
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation7
+      workingValue2 = 5
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.classic2
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.classic2
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall7
-      workValue2 = 0
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation7
+      workingValue2 = 0
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.matte2
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.matte2
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall7
-      workValue2 = 3
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation7
+      workingValue2 = 3
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.metal2
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.metal2
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall7
-      workValue2 = 4
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation7
+      workingValue2 = 4
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.metallic2
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.metallic2
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = rageUiCall7
-      workValue2 = 1
-      dataTable = tonumber
+      dataCollection25 = rageUiOperation7
+      workingValue2 = 1
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      iterator = arg2
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection = dataCollection(iterator)
+      iterator = localValue2
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  if 0 ~= arg3 then
-    arg4 = GetVehicleColours
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    arg5 = SetVehicleColours
-    arg6 = arg2
-    arg7 = arg4
-    iterator2 = arg3
-    arg5(arg6, arg7, iterator2)
+  if 0 ~= localValue3 then
+    localValue4 = GetVehicleColours
+    localValue5 = localValue2
+    localValue4 = localValue4(localValue5)
+    localValue5 = SetVehicleColours
+    localValue6 = localValue2
+    localValue7 = localValue4
+    iterator2 = localValue3
+    localValue5(localValue6, localValue7, iterator2)
   end
 end
-rageUiCall8.applySecondaryVehicleColours = textValue24
+rageUiOperation8.applySecondaryVehicleColours = text24
 
--- === HELPER FUNCTION (decompiler name: rageUiCall8; parameters: arg1, arg2) ===
-function rageUiCall8(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper
-  arg3 = {}
-  arg4 = 0
-  arg5 = 49
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
+-- === HELPER FUNCTION (decompiler name: rageUiOperation8; parameters: localValue1, localValue2) ===
+function rageUiOperation8(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper
+  localValue3 = {}
+  localValue4 = 0
+  localValue5 = 49
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
     iterator2 = GetVehicleMod
-    tableHelper2 = arg1
-    dataTable25 = arg7
-    iterator2 = iterator2(tableHelper2, dataTable25)
+    tableHelper2 = localValue1
+    dataCollection25 = localValue7
+    iterator2 = iterator2(tableHelper2, dataCollection25)
     if iterator2 >= 0 then
       tableHelper2 = GetModTextLabel
-      dataTable25 = arg1
-      workValue2 = arg7
-      dataTable = iterator2
-      tableHelper2 = tableHelper2(dataTable25, workValue2, dataTable)
+      dataCollection25 = localValue1
+      workingValue2 = localValue7
+      dataCollection = iterator2
+      tableHelper2 = tableHelper2(dataCollection25, workingValue2, dataCollection)
       if tableHelper2 then
-        dataTable25 = table
-        dataTable25 = dataTable25.insert
-        workValue2 = arg3
-        dataTable = tableHelper2
-        dataTable25(workValue2, dataTable)
-        if arg2 then
-          dataTable25 = CMG
-          dataTable25 = dataTable25.drawDebugText
-          workValue2 = "VMT: %s Index: %s Name: %s"
-          dataTable = arg7
+        dataCollection25 = table
+        dataCollection25 = dataCollection25.insert
+        workingValue2 = localValue3
+        dataCollection = tableHelper2
+        dataCollection25(workingValue2, dataCollection)
+        if localValue2 then
+          dataCollection25 = CMG
+          dataCollection25 = dataCollection25.drawDebugText
+          workingValue2 = "VMT: %s Index: %s Name: %s"
+          dataCollection = localValue7
           iterator = iterator2
           stringHelper = tableHelper2
-          dataTable25(workValue2, dataTable, iterator, stringHelper)
+          dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
         end
       end
     end
   end
-  if not arg2 then
-    arg4 = #arg3
-    if arg4 > 0 then
-      arg4 = CMG
-      arg4 = arg4.getVehicleIdFromModel
-      arg5 = GetEntityModel
-      arg6 = arg1
-      arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper = arg5(arg6)
-      arg4 = arg4(arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-      if arg4 then
-        arg5 = TriggerServerEvent
-        arg6 = "02b1617ec9"
-        arg7 = arg4
-        iterator2 = arg3
+  if not localValue2 then
+    localValue4 = #localValue3
+    if localValue4 > 0 then
+      localValue4 = CMG
+      localValue4 = localValue4.getVehicleIdFromModel
+      localValue5 = GetEntityModel
+      localValue6 = localValue1
+      localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper = localValue5(localValue6)
+      localValue4 = localValue4(localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+      if localValue4 then
+        localValue5 = TriggerServerEvent
+        localValue6 = "02b1617ec9"
+        localValue7 = localValue4
+        iterator2 = localValue3
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "02b1617ec9".
-        arg5(arg6, arg7, iterator2)
+        localValue5(localValue6, localValue7, iterator2)
       end
     end
   end
 end
-textValue24 = tCMG
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1, arg2, arg3) ===
-function textValue25(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13
-  arg4 = pairs
-  arg5 = arg1.windowtint
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1, localValue2, localValue3) ===
+function text25(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13
+  localValue4 = pairs
+  localValue5 = localValue1.windowtint
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWindowTint
-      workValue2 = arg3
-      dataTable = tonumber
+      dataCollection25 = SetVehicleWindowTint
+      workingValue2 = localValue3
+      dataCollection = tonumber
       iterator = iterator2
-      dataTable = dataTable(iterator)
-      if not dataTable then
-        dataTable = 0
+      dataCollection = dataCollection(iterator)
+      if not dataCollection then
+        dataCollection = 0
       end
-      dataTable25(workValue2, dataTable)
+      dataCollection25(workingValue2, dataCollection)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = SetVehicleModKit
-  arg5 = arg3
-  arg6 = 0
-  arg4(arg5, arg6)
-  arg4 = pairs
-  arg5 = arg1.sportwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = SetVehicleModKit
+  localValue5 = localValue3
+  localValue6 = 0
+  localValue4(localValue5, localValue6)
+  localValue4 = pairs
+  localValue5 = localValue1.sportwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 0
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 0
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -7906,25 +7906,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.musclewheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.musclewheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 1
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 1
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -7932,25 +7932,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.lowriderwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.lowriderwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 2
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 2
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -7958,25 +7958,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.highendwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.highendwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 7
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 7
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -7984,25 +7984,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.suvwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.suvwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 3
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 3
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8010,25 +8010,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.offroadwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.offroadwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 4
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 4
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8036,25 +8036,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.tunerwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.tunerwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 6
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 6
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8062,25 +8062,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.bennysonewheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.bennysonewheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 8
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 8
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8088,25 +8088,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.bennystwowheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.bennystwowheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 9
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 9
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8114,25 +8114,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.openwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.openwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 10
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 10
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8140,25 +8140,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.streetwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.streetwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 11
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 11
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8166,25 +8166,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.trackwheels
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.trackwheels
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 12
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 12
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8192,25 +8192,25 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = false
-      dataTable25(workValue2, dataTable, iterator, stringHelper)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.frontwheel
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.frontwheel
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 6
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 23
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 6
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 23
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8218,28 +8218,28 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = GetVehicleModVariation
-      workValue7 = arg3
+      workingValue7 = localValue3
       stringHelper2 = 23
-      stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13 = stringHelper(workValue7, stringHelper2)
-      dataTable25(workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13)
+      stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13 = stringHelper(workingValue7, stringHelper2)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.backwheel
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.backwheel
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleWheelType
-      workValue2 = arg3
-      dataTable = 6
-      dataTable25(workValue2, dataTable)
-      dataTable25 = CMG
-      dataTable25 = dataTable25.setVehicleMod
-      workValue2 = arg3
-      dataTable = 24
+      dataCollection25 = SetVehicleWheelType
+      workingValue2 = localValue3
+      dataCollection = 6
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = CMG
+      dataCollection25 = dataCollection25.setVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 24
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
@@ -8247,3705 +8247,3705 @@ function textValue25(arg1, arg2, arg3)
         iterator = 0
       end
       stringHelper = GetVehicleModVariation
-      workValue7 = arg3
+      workingValue7 = localValue3
       stringHelper2 = 24
-      stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13 = stringHelper(workValue7, stringHelper2)
-      dataTable25(workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13)
+      stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13 = stringHelper(workingValue7, stringHelper2)
+      dataCollection25(workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = pairs
-  arg5 = arg1.wheelaccessories
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = pairs
+  localValue5 = localValue1.wheelaccessories
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 and "[0,0,0]" ~= iterator2 then
-      dataTable25 = SetVehicleModKit
-      workValue2 = arg3
-      dataTable = 0
-      dataTable25(workValue2, dataTable)
-      dataTable25 = ToggleVehicleMod
-      workValue2 = arg3
-      dataTable = 20
+      dataCollection25 = SetVehicleModKit
+      workingValue2 = localValue3
+      dataCollection = 0
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = ToggleVehicleMod
+      workingValue2 = localValue3
+      dataCollection = 20
       iterator = true
-      dataTable25(workValue2, dataTable, iterator)
-      workValue2 = iterator2
-      dataTable25 = iterator2.gsub
-      dataTable = "%["
+      dataCollection25(workingValue2, dataCollection, iterator)
+      workingValue2 = iterator2
+      dataCollection25 = iterator2.gsub
+      dataCollection = "%["
       iterator = ""
-      dataTable25 = dataTable25(workValue2, dataTable, iterator)
-      iterator2 = dataTable25
-      workValue2 = iterator2
-      dataTable25 = iterator2.gsub
-      dataTable = "]"
+      dataCollection25 = dataCollection25(workingValue2, dataCollection, iterator)
+      iterator2 = dataCollection25
+      workingValue2 = iterator2
+      dataCollection25 = iterator2.gsub
+      dataCollection = "]"
       iterator = ""
-      dataTable25 = dataTable25(workValue2, dataTable, iterator)
-      iterator2 = dataTable25
-      dataTable25 = stringsplit
-      workValue2 = iterator2
-      dataTable = ","
-      dataTable25 = dataTable25(workValue2, dataTable)
-      workValue2 = SetVehicleTyreSmokeColor
-      dataTable = arg3
+      dataCollection25 = dataCollection25(workingValue2, dataCollection, iterator)
+      iterator2 = dataCollection25
+      dataCollection25 = stringsplit
+      workingValue2 = iterator2
+      dataCollection = ","
+      dataCollection25 = dataCollection25(workingValue2, dataCollection)
+      workingValue2 = SetVehicleTyreSmokeColor
+      dataCollection = localValue3
       iterator = tonumber
-      stringHelper = dataTable25[1]
+      stringHelper = dataCollection25[1]
       iterator = iterator(stringHelper)
       if not iterator then
         iterator = 0
       end
       stringHelper = tonumber
-      workValue7 = dataTable25[2]
-      stringHelper = stringHelper(workValue7)
+      workingValue7 = dataCollection25[2]
+      stringHelper = stringHelper(workingValue7)
       if not stringHelper then
         stringHelper = 0
       end
-      workValue7 = tonumber
-      stringHelper2 = dataTable25[3]
-      workValue7 = workValue7(stringHelper2)
-      if not workValue7 then
-        workValue7 = 0
+      workingValue7 = tonumber
+      stringHelper2 = dataCollection25[3]
+      workingValue7 = workingValue7(stringHelper2)
+      if not workingValue7 then
+        workingValue7 = 0
       end
-      workValue2(dataTable, iterator, stringHelper, workValue7)
+      workingValue2(dataCollection, iterator, stringHelper, workingValue7)
     end
   end
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = CMG
-  arg4 = arg4.applyPrimaryVehicleColours
-  arg5 = arg1
-  arg6 = arg3
-  arg4(arg5, arg6)
-  arg4 = Wait
-  arg5 = 0
-  arg4(arg5)
-  arg4 = CMG
-  arg4 = arg4.applySecondaryVehicleColours
-  arg5 = arg1
-  arg6 = arg3
-  arg4(arg5, arg6)
-  arg4 = pairs
-  arg5 = arg1.pearlescent
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = CMG
+  localValue4 = localValue4.applyPrimaryVehicleColours
+  localValue5 = localValue1
+  localValue6 = localValue3
+  localValue4(localValue5, localValue6)
+  localValue4 = Wait
+  localValue5 = 0
+  localValue4(localValue5)
+  localValue4 = CMG
+  localValue4 = localValue4.applySecondaryVehicleColours
+  localValue5 = localValue1
+  localValue6 = localValue3
+  localValue4(localValue5, localValue6)
+  localValue4 = pairs
+  localValue5 = localValue1.pearlescent
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = GetVehicleExtraColours
-      workValue2 = arg3
-      dataTable25, workValue2 = dataTable25(workValue2)
-      dataTable = SetVehicleExtraColours
-      iterator = arg3
+      dataCollection25 = GetVehicleExtraColours
+      workingValue2 = localValue3
+      dataCollection25, workingValue2 = dataCollection25(workingValue2)
+      dataCollection = SetVehicleExtraColours
+      iterator = localValue3
       stringHelper = tonumber
-      workValue7 = iterator2
-      stringHelper = stringHelper(workValue7)
+      workingValue7 = iterator2
+      stringHelper = stringHelper(workingValue7)
       if not stringHelper then
         stringHelper = 0
       end
-      workValue7 = workValue2
-      dataTable(iterator, stringHelper, workValue7)
+      workingValue7 = workingValue2
+      dataCollection(iterator, stringHelper, workingValue7)
     end
   end
-  arg4 = pairs
-  arg5 = arg1.wheelcolor
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
+  localValue4 = pairs
+  localValue5 = localValue1.wheelcolor
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
     if true == tableHelper2 then
-      dataTable25 = SetVehicleExtraColours
-      workValue2 = arg3
-      dataTable = GetVehicleExtraColours
-      iterator = arg3
-      dataTable = dataTable(iterator)
+      dataCollection25 = SetVehicleExtraColours
+      workingValue2 = localValue3
+      dataCollection = GetVehicleExtraColours
+      iterator = localValue3
+      dataCollection = dataCollection(iterator)
       iterator = tonumber
       stringHelper = iterator2
       iterator = iterator(stringHelper)
       if not iterator then
         iterator = 0
       end
-      dataTable25(workValue2, dataTable, iterator)
+      dataCollection25(workingValue2, dataCollection, iterator)
     end
   end
-  arg4 = 0
-  arg5 = pairs
-  arg6 = arg1.interiorcolour
-  arg5, arg6, arg7, iterator2 = arg5(arg6)
-  for tableHelper2, dataTable25 in arg5, arg6, arg7, iterator2 do
-    if true == dataTable25 then
-      workValue2 = tonumber
-      dataTable = tableHelper2
-      workValue2 = workValue2(dataTable)
-      arg4 = workValue2 or arg4
-      if not workValue2 then
-        arg4 = 0
+  localValue4 = 0
+  localValue5 = pairs
+  localValue6 = localValue1.interiorcolour
+  localValue5, localValue6, localValue7, iterator2 = localValue5(localValue6)
+  for tableHelper2, dataCollection25 in localValue5, localValue6, localValue7, iterator2 do
+    if true == dataCollection25 then
+      workingValue2 = tonumber
+      dataCollection = tableHelper2
+      workingValue2 = workingValue2(dataCollection)
+      localValue4 = workingValue2 or localValue4
+      if not workingValue2 then
+        localValue4 = 0
       end
     end
   end
-  arg5 = SetVehicleInteriorColor
-  arg6 = arg3
-  arg7 = arg4
-  arg5(arg6, arg7)
-  arg5 = 0
-  arg6 = pairs
-  arg7 = arg1.dashboardcolour
-  arg6, arg7, iterator2, tableHelper2 = arg6(arg7)
-  for dataTable25, workValue2 in arg6, arg7, iterator2, tableHelper2 do
-    if true == workValue2 then
-      dataTable = tonumber
-      iterator = dataTable25
-      dataTable = dataTable(iterator)
-      arg5 = dataTable or arg5
-      if not dataTable then
-        arg5 = 0
+  localValue5 = SetVehicleInteriorColor
+  localValue6 = localValue3
+  localValue7 = localValue4
+  localValue5(localValue6, localValue7)
+  localValue5 = 0
+  localValue6 = pairs
+  localValue7 = localValue1.dashboardcolour
+  localValue6, localValue7, iterator2, tableHelper2 = localValue6(localValue7)
+  for dataCollection25, workingValue2 in localValue6, localValue7, iterator2, tableHelper2 do
+    if true == workingValue2 then
+      dataCollection = tonumber
+      iterator = dataCollection25
+      dataCollection = dataCollection(iterator)
+      localValue5 = dataCollection or localValue5
+      if not dataCollection then
+        localValue5 = 0
       end
     end
   end
-  arg6 = SetVehicleDashboardColor
-  arg7 = arg3
-  iterator2 = arg5
-  arg6(arg7, iterator2)
-  arg6 = GetVehiclePedIsIn
-  arg7 = CMG
-  arg7 = arg7.getPlayerPed
+  localValue6 = SetVehicleDashboardColor
+  localValue7 = localValue3
+  iterator2 = localValue5
+  localValue6(localValue7, iterator2)
+  localValue6 = GetVehiclePedIsIn
+  localValue7 = CMG
+  localValue7 = localValue7.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg7 = arg7()
+  localValue7 = localValue7()
   iterator2 = false
   -- Beginner: result below is currentVehicle.
-  arg6 = arg6(arg7, iterator2)
-  arg3 = arg6
-  arg6 = SetVehicleModKit
-  arg7 = arg3
+  localValue6 = localValue6(localValue7, iterator2)
+  localValue3 = localValue6
+  localValue6 = SetVehicleModKit
+  localValue7 = localValue3
   iterator2 = 0
-  arg6(arg7, iterator2)
-  arg6 = 0
-  arg7 = 48
+  localValue6(localValue7, iterator2)
+  localValue6 = 0
+  localValue7 = 48
   iterator2 = 1
-  for tableHelper2 = arg6, arg7, iterator2 do
-    dataTable25 = tostring
-    workValue2 = "mod_"
-    dataTable = tableHelper2
-    workValue2 = workValue2 .. dataTable
-    dataTable25 = dataTable25(workValue2)
-    dataTable25 = arg1[dataTable25]
-    if nil ~= dataTable25 then
-      dataTable25 = pairs
-      workValue2 = tostring
-      dataTable = "mod_"
+  for tableHelper2 = localValue6, localValue7, iterator2 do
+    dataCollection25 = tostring
+    workingValue2 = "mod_"
+    dataCollection = tableHelper2
+    workingValue2 = workingValue2 .. dataCollection
+    dataCollection25 = dataCollection25(workingValue2)
+    dataCollection25 = localValue1[dataCollection25]
+    if nil ~= dataCollection25 then
+      dataCollection25 = pairs
+      workingValue2 = tostring
+      dataCollection = "mod_"
       iterator = tableHelper2
-      dataTable = dataTable .. iterator
-      workValue2 = workValue2(dataTable)
-      workValue2 = arg1[workValue2]
-      dataTable25, workValue2, dataTable, iterator = dataTable25(workValue2)
-      for stringHelper, workValue7 in dataTable25, workValue2, dataTable, iterator do
-        if true == workValue7 then
+      dataCollection = dataCollection .. iterator
+      workingValue2 = workingValue2(dataCollection)
+      workingValue2 = localValue1[workingValue2]
+      dataCollection25, workingValue2, dataCollection, iterator = dataCollection25(workingValue2)
+      for stringHelper, workingValue7 in dataCollection25, workingValue2, dataCollection, iterator do
+        if true == workingValue7 then
           stringHelper2 = Wait
-          cmgCall3 = 0
-          stringHelper2(cmgCall3)
+          cmgOperation3 = 0
+          stringHelper2(cmgOperation3)
           stringHelper2 = tonumber
-          cmgCall3 = stringHelper
-          stringHelper2 = stringHelper2(cmgCall3)
+          cmgOperation3 = stringHelper
+          stringHelper2 = stringHelper2(cmgOperation3)
           if 18 == tableHelper2 then
-            cmgCall3 = ToggleVehicleMod
-            tableHelper = arg3
-            workValue9 = 18
+            cmgOperation3 = ToggleVehicleMod
+            tableHelper = localValue3
+            workingValue9 = 18
             heading = true
-            cmgCall3(tableHelper, workValue9, heading)
+            cmgOperation3(tableHelper, workingValue9, heading)
           elseif 22 == tableHelper2 then
-            cmgCall3 = ToggleVehicleMod
-            tableHelper = arg3
-            workValue9 = 22
+            cmgOperation3 = ToggleVehicleMod
+            tableHelper = localValue3
+            workingValue9 = 22
             heading = stringHelper2 > 0
-            cmgCall3(tableHelper, workValue9, heading)
+            cmgOperation3(tableHelper, workingValue9, heading)
           else
-            cmgCall3 = CMG
-            cmgCall3 = cmgCall3.setVehicleMod
-            tableHelper = arg3
-            workValue9 = tableHelper2
+            cmgOperation3 = CMG
+            cmgOperation3 = cmgOperation3.setVehicleMod
+            tableHelper = localValue3
+            workingValue9 = tableHelper2
             heading = stringHelper2 or heading
             if not stringHelper2 then
               heading = 0
             end
-            workValue10 = false
-            cmgCall3(tableHelper, workValue9, heading, workValue10)
+            workingValue10 = false
+            cmgOperation3(tableHelper, workingValue9, heading, workingValue10)
           end
         end
       end
     end
   end
-  arg6 = Wait
-  arg7 = 0
-  arg6(arg7)
-  arg6 = CMG
-  arg6 = arg6.setVehicleIdNitro
-  arg7 = arg2
-  iterator2 = arg1.nitro
-  arg6(arg7, iterator2)
-  arg6 = pairs
-  arg7 = arg1.antilag
-  arg6, arg7, iterator2, tableHelper2 = arg6(arg7)
-  for dataTable25, workValue2 in arg6, arg7, iterator2, tableHelper2 do
-    if true == workValue2 then
-      dataTable = CMG
-      dataTable = dataTable.setVehicleAntiLag
-      iterator = arg2
+  localValue6 = Wait
+  localValue7 = 0
+  localValue6(localValue7)
+  localValue6 = CMG
+  localValue6 = localValue6.setVehicleIdNitro
+  localValue7 = localValue2
+  iterator2 = localValue1.nitro
+  localValue6(localValue7, iterator2)
+  localValue6 = pairs
+  localValue7 = localValue1.antilag
+  localValue6, localValue7, iterator2, tableHelper2 = localValue6(localValue7)
+  for dataCollection25, workingValue2 in localValue6, localValue7, iterator2, tableHelper2 do
+    if true == workingValue2 then
+      dataCollection = CMG
+      dataCollection = dataCollection.setVehicleAntiLag
+      iterator = localValue2
       stringHelper = tonumber
-      workValue7 = dataTable25
-      stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13 = stringHelper(workValue7)
-      dataTable(iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13)
+      workingValue7 = dataCollection25
+      stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13 = stringHelper(workingValue7)
+      dataCollection(iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13)
     end
   end
-  arg6 = CMG
-  arg6 = arg6.setVehicleIdDriftSuspension
-  arg7 = arg2
-  iterator2 = arg1.driftsuspension
-  arg6(arg7, iterator2)
-  arg6 = pairs
-  arg7 = arg1.driftsmoke
-  arg6, arg7, iterator2, tableHelper2 = arg6(arg7)
-  for dataTable25, workValue2 in arg6, arg7, iterator2, tableHelper2 do
-    if true == workValue2 then
-      dataTable = CMG
-      dataTable = dataTable.setVehicleIdDriftSmoke
-      iterator = arg2
+  localValue6 = CMG
+  localValue6 = localValue6.setVehicleIdDriftSuspension
+  localValue7 = localValue2
+  iterator2 = localValue1.driftsuspension
+  localValue6(localValue7, iterator2)
+  localValue6 = pairs
+  localValue7 = localValue1.driftsmoke
+  localValue6, localValue7, iterator2, tableHelper2 = localValue6(localValue7)
+  for dataCollection25, workingValue2 in localValue6, localValue7, iterator2, tableHelper2 do
+    if true == workingValue2 then
+      dataCollection = CMG
+      dataCollection = dataCollection.setVehicleIdDriftSmoke
+      iterator = localValue2
       stringHelper = tonumber
-      workValue7 = dataTable25
-      stringHelper = stringHelper(workValue7)
+      workingValue7 = dataCollection25
+      stringHelper = stringHelper(workingValue7)
       if not stringHelper then
         stringHelper = 0
       end
-      dataTable(iterator, stringHelper)
+      dataCollection(iterator, stringHelper)
     end
   end
-  arg6 = CMG
-  arg6 = arg6.setVehicleIdPlaneSmoke
-  arg7 = arg3
-  iterator2 = arg2
-  tableHelper2 = arg1.planesmokes
-  arg6(arg7, iterator2, tableHelper2)
-  arg6 = CMG
-  arg6 = arg6.setVehicleIdBiometricLock
-  arg7 = arg3
-  iterator2 = arg1.security
-  tableHelper2 = arg1.biometric_users
-  arg6(arg7, iterator2, tableHelper2)
-  arg6 = CMG
-  arg6 = arg6.setVehicleIdStancer
-  arg7 = arg3
-  iterator2 = arg1.stancer
-  arg6(arg7, iterator2)
-  arg6 = Wait
-  arg7 = 0
-  arg6(arg7)
-  arg6 = pcall
+  localValue6 = CMG
+  localValue6 = localValue6.setVehicleIdPlaneSmoke
+  localValue7 = localValue3
+  iterator2 = localValue2
+  tableHelper2 = localValue1.planesmokes
+  localValue6(localValue7, iterator2, tableHelper2)
+  localValue6 = CMG
+  localValue6 = localValue6.setVehicleIdBiometricLock
+  localValue7 = localValue3
+  iterator2 = localValue1.security
+  tableHelper2 = localValue1.biometric_users
+  localValue6(localValue7, iterator2, tableHelper2)
+  localValue6 = CMG
+  localValue6 = localValue6.setVehicleIdStancer
+  localValue7 = localValue3
+  iterator2 = localValue1.stancer
+  localValue6(localValue7, iterator2)
+  localValue6 = Wait
+  localValue7 = 0
+  localValue6(localValue7)
+  localValue6 = pcall
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22, arg32
-    arg12 = SetVehicleNumberPlateText
-    arg22 = CMG
-    arg22 = arg22.getPlayerVehicle
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22, localValue32
+    localValue12 = SetVehicleNumberPlateText
+    localValue22 = CMG
+    localValue22 = localValue22.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg22 = arg22()
-    arg32 = arg1.vehicle_plate
-    arg12(arg22, arg32)
+    localValue22 = localValue22()
+    localValue32 = localValue1.vehicle_plate
+    localValue12(localValue22, localValue32)
   end
-  arg6 = arg6(arg7)
-  if not arg6 then
-    arg7 = print
+  localValue6 = localValue6(localValue7)
+  if not localValue6 then
+    localValue7 = print
     iterator2 = "Failed to set the licence plate of your vehicle, please report to a developer. Plate:"
-    tableHelper2 = arg1.vehicle_plate
-    arg7(iterator2, tableHelper2)
+    tableHelper2 = localValue1.vehicle_plate
+    localValue7(iterator2, tableHelper2)
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = pairs
-  iterator2 = arg1.sounds
-  arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-  for workValue2, dataTable in arg7, iterator2, tableHelper2, dataTable25 do
-    if true == dataTable then
+  localValue7(iterator2)
+  localValue7 = pairs
+  iterator2 = localValue1.sounds
+  localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+  for workingValue2, dataCollection in localValue7, iterator2, tableHelper2, dataCollection25 do
+    if true == dataCollection then
       iterator = CMG
       iterator = iterator.getVehicleSoundNameFromId
       stringHelper = tonumber
-      workValue7 = workValue2
-      stringHelper = stringHelper(workValue7)
+      workingValue7 = workingValue2
+      stringHelper = stringHelper(workingValue7)
       if not stringHelper then
         stringHelper = 0
       end
       iterator = iterator(stringHelper)
       stringHelper = GetVehiclePedIsIn
-      workValue7 = CMG
-      workValue7 = workValue7.getPlayerPed
+      workingValue7 = CMG
+      workingValue7 = workingValue7.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue7 = workValue7()
+      workingValue7 = workingValue7()
       stringHelper2 = false
       -- Beginner: result below is currentVehicle.
-      stringHelper = stringHelper(workValue7, stringHelper2)
-      workValue7 = ForceVehicleEngineAudio
+      stringHelper = stringHelper(workingValue7, stringHelper2)
+      workingValue7 = ForceVehicleEngineAudio
       stringHelper2 = stringHelper
-      cmgCall3 = iterator
-      workValue7(stringHelper2, cmgCall3)
-      workValue7 = SetTimeout
+      cmgOperation3 = iterator
+      workingValue7(stringHelper2, cmgOperation3)
+      workingValue7 = SetTimeout
       stringHelper2 = 500
 
-      -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-      function cmgCall3()
-        local arg12, arg22, arg32
-        arg12 = SetVehicleRadioEnabled
-        arg22 = stringHelper
-        arg32 = false
-        arg12(arg22, arg32)
-        arg12 = SetVehRadioStation
-        arg22 = stringHelper
-        arg32 = "OFF"
-        arg12(arg22, arg32)
+      -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+      function cmgOperation3()
+        local localValue12, localValue22, localValue32
+        localValue12 = SetVehicleRadioEnabled
+        localValue22 = stringHelper
+        localValue32 = false
+        localValue12(localValue22, localValue32)
+        localValue12 = SetVehRadioStation
+        localValue22 = stringHelper
+        localValue32 = "OFF"
+        localValue12(localValue22, localValue32)
       end
-      workValue7(stringHelper2, cmgCall3)
-      workValue7 = DecorSetInt
+      workingValue7(stringHelper2, cmgOperation3)
+      workingValue7 = DecorSetInt
       stringHelper2 = stringHelper
-      cmgCall3 = "6939027d97"
+      cmgOperation3 = "6939027d97"
       tableHelper = tonumber
-      workValue9 = workValue2
-      tableHelper = tableHelper(workValue9)
+      workingValue9 = workingValue2
+      tableHelper = tableHelper(workingValue9)
       if not tableHelper then
         tableHelper = 0
       end
-      workValue7(stringHelper2, cmgCall3, tableHelper)
+      workingValue7(stringHelper2, cmgOperation3, tableHelper)
     end
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = pairs
-  iterator2 = arg1.bulletproof_tires
-  arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-  for workValue2, dataTable in arg7, iterator2, tableHelper2, dataTable25 do
-    if true == dataTable then
+  localValue7(iterator2)
+  localValue7 = pairs
+  iterator2 = localValue1.bulletproof_tires
+  localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+  for workingValue2, dataCollection in localValue7, iterator2, tableHelper2, dataCollection25 do
+    if true == dataCollection then
       iterator = DecorSetBool
       stringHelper = GetVehiclePedIsIn
-      workValue7 = CMG
-      workValue7 = workValue7.getPlayerPed
+      workingValue7 = CMG
+      workingValue7 = workingValue7.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue7 = workValue7()
+      workingValue7 = workingValue7()
       stringHelper2 = false
       -- Beginner: result below is currentVehicle.
-      stringHelper = stringHelper(workValue7, stringHelper2)
-      workValue7 = "bb6df5797c"
+      stringHelper = stringHelper(workingValue7, stringHelper2)
+      workingValue7 = "bb6df5797c"
       stringHelper2 = true
-      iterator(stringHelper, workValue7, stringHelper2)
+      iterator(stringHelper, workingValue7, stringHelper2)
     end
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = pairs
-  iterator2 = arg1.plate_colour
-  arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-  for workValue2, dataTable in arg7, iterator2, tableHelper2, dataTable25 do
-    if true == dataTable then
+  localValue7(iterator2)
+  localValue7 = pairs
+  iterator2 = localValue1.plate_colour
+  localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+  for workingValue2, dataCollection in localValue7, iterator2, tableHelper2, dataCollection25 do
+    if true == dataCollection then
       iterator = SetVehicleNumberPlateTextIndex
       stringHelper = GetVehiclePedIsIn
-      workValue7 = CMG
-      workValue7 = workValue7.getPlayerPed
+      workingValue7 = CMG
+      workingValue7 = workingValue7.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue7 = workValue7()
+      workingValue7 = workingValue7()
       stringHelper2 = false
       -- Beginner: result below is currentVehicle.
-      stringHelper = stringHelper(workValue7, stringHelper2)
-      workValue7 = tonumber
-      stringHelper2 = workValue2
-      workValue7 = workValue7(stringHelper2)
-      if not workValue7 then
-        workValue7 = 0
+      stringHelper = stringHelper(workingValue7, stringHelper2)
+      workingValue7 = tonumber
+      stringHelper2 = workingValue2
+      workingValue7 = workingValue7(stringHelper2)
+      if not workingValue7 then
+        workingValue7 = 0
       end
-      iterator(stringHelper, workValue7)
+      iterator(stringHelper, workingValue7)
     end
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = pairs
-  iterator2 = arg1.neonlayout
-  arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-  for workValue2, dataTable in arg7, iterator2, tableHelper2, dataTable25 do
+  localValue7(iterator2)
+  localValue7 = pairs
+  iterator2 = localValue1.neonlayout
+  localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+  for workingValue2, dataCollection in localValue7, iterator2, tableHelper2, dataCollection25 do
     iterator = tonumber
-    stringHelper = workValue2
+    stringHelper = workingValue2
     iterator = iterator(stringHelper)
-    if true == dataTable and iterator and iterator > 0 then
+    if true == dataCollection and iterator and iterator > 0 then
       if 1 == iterator then
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 0
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 1
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 2
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 3
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
       elseif 2 == iterator then
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 2
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 3
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
       elseif 3 == iterator then
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 0
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 1
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 2
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
       elseif 4 == iterator then
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 0
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 1
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
         stringHelper = SetVehicleNeonLightEnabled
-        workValue7 = arg3
+        workingValue7 = localValue3
         stringHelper2 = 3
-        cmgCall3 = true
-        stringHelper(workValue7, stringHelper2, cmgCall3)
+        cmgOperation3 = true
+        stringHelper(workingValue7, stringHelper2, cmgOperation3)
       end
-      stringHelper = arg1.neoncolour
+      stringHelper = localValue1.neoncolour
       if stringHelper then
         stringHelper = pairs
-        workValue7 = arg1.neoncolour
-        stringHelper, workValue7, stringHelper2, cmgCall3 = stringHelper(workValue7)
-        for tableHelper, workValue9 in stringHelper, workValue7, stringHelper2, cmgCall3 do
-          if true == workValue9 then
+        workingValue7 = localValue1.neoncolour
+        stringHelper, workingValue7, stringHelper2, cmgOperation3 = stringHelper(workingValue7)
+        for tableHelper, workingValue9 in stringHelper, workingValue7, stringHelper2, cmgOperation3 do
+          if true == workingValue9 then
             heading = table
             heading = heading.unpack
-            workValue10 = textValue10.neonColours
-            workValue10 = workValue10[tableHelper]
-            heading, workValue10, cmgCall5 = heading(workValue10)
-            numberValue5 = SetVehicleNeonLightsColour
+            workingValue10 = text10.neonColours
+            workingValue10 = workingValue10[tableHelper]
+            heading, workingValue10, cmgOperation5 = heading(workingValue10)
+            number5 = SetVehicleNeonLightsColour
             vehicle = GetVehiclePedIsIn
             stringHelper3 = CMG
             stringHelper3 = stringHelper3.getPlayerPed
             -- Beginner: result below is localPlayerPed.
             stringHelper3 = stringHelper3()
-            numberValue6 = false
+            number6 = false
             -- Beginner: result below is currentVehicle.
-            vehicle = vehicle(stringHelper3, numberValue6)
+            vehicle = vehicle(stringHelper3, number6)
             stringHelper3 = heading
-            numberValue6 = workValue10
-            workValue13 = cmgCall5
-            numberValue5(vehicle, stringHelper3, numberValue6, workValue13)
+            number6 = workingValue10
+            workingValue13 = cmgOperation5
+            number5(vehicle, stringHelper3, number6, workingValue13)
           end
         end
       end
     end
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = pairs
-  iterator2 = arg1.xenonlights
-  arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-  for workValue2, dataTable in arg7, iterator2, tableHelper2, dataTable25 do
-    if true == dataTable then
+  localValue7(iterator2)
+  localValue7 = pairs
+  iterator2 = localValue1.xenonlights
+  localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+  for workingValue2, dataCollection in localValue7, iterator2, tableHelper2, dataCollection25 do
+    if true == dataCollection then
       iterator = SetVehicleXenonLightsColor
       stringHelper = GetVehiclePedIsIn
-      workValue7 = CMG
-      workValue7 = workValue7.getPlayerPed
+      workingValue7 = CMG
+      workingValue7 = workingValue7.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue7 = workValue7()
+      workingValue7 = workingValue7()
       stringHelper2 = false
       -- Beginner: result below is currentVehicle.
-      stringHelper = stringHelper(workValue7, stringHelper2)
-      workValue7 = tonumber
-      stringHelper2 = workValue2
-      workValue7 = workValue7(stringHelper2)
-      if not workValue7 then
-        workValue7 = 0
+      stringHelper = stringHelper(workingValue7, stringHelper2)
+      workingValue7 = tonumber
+      stringHelper2 = workingValue2
+      workingValue7 = workingValue7(stringHelper2)
+      if not workingValue7 then
+        workingValue7 = 0
       end
-      iterator(stringHelper, workValue7)
+      iterator(stringHelper, workingValue7)
     end
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = pairs
-  iterator2 = arg1.liveries
-  arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-  for workValue2, dataTable in arg7, iterator2, tableHelper2, dataTable25 do
-    if true == dataTable then
+  localValue7(iterator2)
+  localValue7 = pairs
+  iterator2 = localValue1.liveries
+  localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+  for workingValue2, dataCollection in localValue7, iterator2, tableHelper2, dataCollection25 do
+    if true == dataCollection then
       iterator = SetVehicleLivery
       stringHelper = GetVehiclePedIsIn
-      workValue7 = CMG
-      workValue7 = workValue7.getPlayerPed
+      workingValue7 = CMG
+      workingValue7 = workingValue7.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue7 = workValue7()
+      workingValue7 = workingValue7()
       stringHelper2 = false
       -- Beginner: result below is currentVehicle.
-      stringHelper = stringHelper(workValue7, stringHelper2)
-      workValue7 = tonumber
-      stringHelper2 = workValue2
-      workValue7 = workValue7(stringHelper2)
-      if not workValue7 then
-        workValue7 = 0
+      stringHelper = stringHelper(workingValue7, stringHelper2)
+      workingValue7 = tonumber
+      stringHelper2 = workingValue2
+      workingValue7 = workingValue7(stringHelper2)
+      if not workingValue7 then
+        workingValue7 = 0
       end
-      iterator(stringHelper, workValue7)
+      iterator(stringHelper, workingValue7)
     end
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = pairs
-  iterator2 = arg1.extras
-  arg7, iterator2, tableHelper2, dataTable25 = arg7(iterator2)
-  for workValue2, dataTable in arg7, iterator2, tableHelper2, dataTable25 do
-    if true == dataTable then
+  localValue7(iterator2)
+  localValue7 = pairs
+  iterator2 = localValue1.extras
+  localValue7, iterator2, tableHelper2, dataCollection25 = localValue7(iterator2)
+  for workingValue2, dataCollection in localValue7, iterator2, tableHelper2, dataCollection25 do
+    if true == dataCollection then
       iterator = SetVehicleExtra
       stringHelper = GetVehiclePedIsIn
-      workValue7 = CMG
-      workValue7 = workValue7.getPlayerPed
+      workingValue7 = CMG
+      workingValue7 = workingValue7.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue7 = workValue7()
+      workingValue7 = workingValue7()
       stringHelper2 = false
       -- Beginner: result below is currentVehicle.
-      stringHelper = stringHelper(workValue7, stringHelper2)
-      workValue7 = tonumber
-      stringHelper2 = workValue2
-      workValue7 = workValue7(stringHelper2)
-      if not workValue7 then
-        workValue7 = 0
+      stringHelper = stringHelper(workingValue7, stringHelper2)
+      workingValue7 = tonumber
+      stringHelper2 = workingValue2
+      workingValue7 = workingValue7(stringHelper2)
+      if not workingValue7 then
+        workingValue7 = 0
       end
       stringHelper2 = false
-      iterator(stringHelper, workValue7, stringHelper2)
-    elseif false == dataTable then
+      iterator(stringHelper, workingValue7, stringHelper2)
+    elseif false == dataCollection then
       iterator = SetVehicleExtra
       stringHelper = GetVehiclePedIsIn
-      workValue7 = CMG
-      workValue7 = workValue7.getPlayerPed
+      workingValue7 = CMG
+      workingValue7 = workingValue7.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue7 = workValue7()
+      workingValue7 = workingValue7()
       stringHelper2 = false
       -- Beginner: result below is currentVehicle.
-      stringHelper = stringHelper(workValue7, stringHelper2)
-      workValue7 = tonumber
-      stringHelper2 = workValue2
-      workValue7 = workValue7(stringHelper2)
-      if not workValue7 then
-        workValue7 = 0
+      stringHelper = stringHelper(workingValue7, stringHelper2)
+      workingValue7 = tonumber
+      stringHelper2 = workingValue2
+      workingValue7 = workingValue7(stringHelper2)
+      if not workingValue7 then
+        workingValue7 = 0
       end
       stringHelper2 = true
-      iterator(stringHelper, workValue7, stringHelper2)
+      iterator(stringHelper, workingValue7, stringHelper2)
     end
   end
-  arg7 = Wait
+  localValue7 = Wait
   iterator2 = 0
-  arg7(iterator2)
-  arg7 = dataTable19
-  arg7 = arg7[arg2]
-  if arg7 then
-    arg7 = dataTable19
-    arg7 = arg7[arg2]
-    iterator2 = arg1.fuel
-    arg7.fuel = iterator2
+  localValue7(iterator2)
+  localValue7 = dataCollection19
+  localValue7 = localValue7[localValue2]
+  if localValue7 then
+    localValue7 = dataCollection19
+    localValue7 = localValue7[localValue2]
+    iterator2 = localValue1.fuel
+    localValue7.fuel = iterator2
   end
-  arg7 = CMG
-  arg7 = arg7.getPlayerVehicle
+  localValue7 = CMG
+  localValue7 = localValue7.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg7 = arg7()
-  iterator2 = rageUiCall8
-  tableHelper2 = arg7
-  dataTable25 = false
-  iterator2(tableHelper2, dataTable25)
+  localValue7 = localValue7()
+  iterator2 = rageUiOperation8
+  tableHelper2 = localValue7
+  dataCollection25 = false
+  iterator2(tableHelper2, dataCollection25)
 end
-textValue24.applyModsOnVehicle = textValue25
-textValue24 = CMG
+text24.applyModsOnVehicle = text25
+text24 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2
-  arg2 = dataTable15
-  arg2 = arg2[arg1]
-  return arg2
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2
+  localValue2 = dataCollection15
+  localValue2 = localValue2[localValue1]
+  return localValue2
 end
-textValue24.getVehicleSoundNameFromId = textValue25
-textValue24 = tCMG
+text24.getVehicleSoundNameFromId = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = SetVehicleHasBeenOwnedByPlayer
-    arg4 = arg2[2]
-    arg5 = false
-    arg3(arg4, arg5)
-    arg3 = DeleteEntity
-    arg4 = arg2[2]
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = SetVehicleHasBeenOwnedByPlayer
+    localValue4 = localValue2[2]
+    localValue5 = false
+    localValue3(localValue4, localValue5)
+    localValue3 = DeleteEntity
+    localValue4 = localValue2[2]
     -- Beginner: Delete a GTA entity.
-    arg3(arg4)
-    arg3 = tCMG
-    arg3 = arg3.notify
-    arg4 = "Vehicle stored."
+    localValue3(localValue4)
+    localValue3 = tCMG
+    localValue3 = localValue3.notify
+    localValue4 = "Vehicle stored."
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
   end
 end
-textValue24.despawnGarageVehicle = textValue25
-textValue24 = tCMG
+text24.despawnGarageVehicle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper
-  arg2 = CMG
-  arg2 = arg2.getPosition
-  arg2 = arg2()
-  arg3 = arg2.x
-  arg4 = arg2.y
-  arg5 = arg2.z
-  arg6 = CMG
-  arg6 = arg6.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper
+  localValue2 = CMG
+  localValue2 = localValue2.getPosition
+  localValue2 = localValue2()
+  localValue3 = localValue2.x
+  localValue4 = localValue2.y
+  localValue5 = localValue2.z
+  localValue6 = CMG
+  localValue6 = localValue6.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg6 = arg6()
-  arg7 = IsPedSittingInAnyVehicle
-  iterator2 = arg6
-  arg7 = arg7(iterator2)
-  if arg7 then
-    arg7 = GetVehiclePedIsIn
-    iterator2 = arg6
+  localValue6 = localValue6()
+  localValue7 = IsPedSittingInAnyVehicle
+  iterator2 = localValue6
+  localValue7 = localValue7(iterator2)
+  if localValue7 then
+    localValue7 = GetVehiclePedIsIn
+    iterator2 = localValue6
     tableHelper2 = true
-    return arg7(iterator2, tableHelper2)
+    return localValue7(iterator2, tableHelper2)
   else
-    arg7 = GetClosestVehicle
-    iterator2 = arg3 + 1.0E-4
-    tableHelper2 = arg4 + 1.0E-4
-    dataTable25 = arg5 + 1.0E-4
-    workValue2 = arg1 + 1.0E-4
-    dataTable = 0
+    localValue7 = GetClosestVehicle
+    iterator2 = localValue3 + 1.0E-4
+    tableHelper2 = localValue4 + 1.0E-4
+    dataCollection25 = localValue5 + 1.0E-4
+    workingValue2 = localValue1 + 1.0E-4
+    dataCollection = 0
     iterator = 12295
-    arg7 = arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator)
+    localValue7 = localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator)
     iterator2 = IsEntityAVehicle
-    tableHelper2 = arg7
+    tableHelper2 = localValue7
     iterator2 = iterator2(tableHelper2)
     if not iterator2 then
       iterator2 = GetClosestVehicle
-      tableHelper2 = arg3 + 1.0E-4
-      dataTable25 = arg4 + 1.0E-4
-      workValue2 = arg5 + 1.0E-4
-      dataTable = arg1 + 1.0E-4
+      tableHelper2 = localValue3 + 1.0E-4
+      dataCollection25 = localValue4 + 1.0E-4
+      workingValue2 = localValue5 + 1.0E-4
+      dataCollection = localValue1 + 1.0E-4
       iterator = 0
       stringHelper = 7
-      iterator2 = iterator2(tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-      arg7 = iterator2
+      iterator2 = iterator2(tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+      localValue7 = iterator2
     end
     iterator2 = IsEntityAVehicle
-    tableHelper2 = arg7
+    tableHelper2 = localValue7
     iterator2 = iterator2(tableHelper2)
     if not iterator2 then
       iterator2 = GetClosestVehicle
-      tableHelper2 = arg3 + 1.0E-4
-      dataTable25 = arg4 + 1.0E-4
-      workValue2 = arg5 + 1.0E-4
-      dataTable = arg1 + 1.0E-4
+      tableHelper2 = localValue3 + 1.0E-4
+      dataCollection25 = localValue4 + 1.0E-4
+      workingValue2 = localValue5 + 1.0E-4
+      dataCollection = localValue1 + 1.0E-4
       iterator = 0
       stringHelper = 16384
-      iterator2 = iterator2(tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-      arg7 = iterator2
+      iterator2 = iterator2(tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+      localValue7 = iterator2
     end
-    if 0 == arg7 then
+    if 0 == localValue7 then
       iterator2 = GetVehiclePedIsIn
-      tableHelper2 = arg6
-      dataTable25 = true
-      return iterator2(tableHelper2, dataTable25)
+      tableHelper2 = localValue6
+      dataCollection25 = true
+      return iterator2(tableHelper2, dataCollection25)
     else
-      return arg7
+      return localValue7
     end
   end
 end
-textValue24.getNearestVehicle = textValue25
-textValue24 = CMG
+text24.getNearestVehicle = text25
+text24 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = 100
-  arg4 = 100
-  arg5 = pairs
-  arg6 = CMG
-  arg6 = arg6.getAllVehicles
-  arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable = arg6()
-  arg5, arg6, arg7, iterator2 = arg5(arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-  for tableHelper2, dataTable25 in arg5, arg6, arg7, iterator2 do
-    workValue2 = GetEntityCoords
-    dataTable = dataTable25
+  localValue2 = localValue2()
+  localValue3 = 100
+  localValue4 = 100
+  localValue5 = pairs
+  localValue6 = CMG
+  localValue6 = localValue6.getAllVehicles
+  localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection = localValue6()
+  localValue5, localValue6, localValue7, iterator2 = localValue5(localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+  for tableHelper2, dataCollection25 in localValue5, localValue6, localValue7, iterator2 do
+    workingValue2 = GetEntityCoords
+    dataCollection = dataCollection25
     -- Beginner: result below is entityCoords.
-    workValue2 = workValue2(dataTable)
-    dataTable = arg2 - workValue2
-    dataTable = #dataTable
-    if arg4 > dataTable then
-      arg4 = dataTable
-      arg3 = dataTable25
+    workingValue2 = workingValue2(dataCollection)
+    dataCollection = localValue2 - workingValue2
+    dataCollection = #dataCollection
+    if localValue4 > dataCollection then
+      localValue4 = dataCollection
+      localValue3 = dataCollection25
     end
   end
-  if arg1 >= arg4 then
-    return arg3
+  if localValue1 >= localValue4 then
+    return localValue3
   else
-    arg5 = 0
-    return arg5
+    localValue5 = 0
+    return localValue5
   end
 end
-textValue24.getClosestVehicle = textValue25
-textValue24 = CMG
+text24.getClosestVehicle = text25
+text24 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1, arg2) ===
-function textValue25(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper
-  arg3 = 0
-  arg4 = 1000000.0
-  arg5 = -1
-  arg6 = CMG
-  arg6 = arg6.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1, localValue2) ===
+function text25(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper
+  localValue3 = 0
+  localValue4 = 1000000.0
+  localValue5 = -1
+  localValue6 = CMG
+  localValue6 = localValue6.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg6 = arg6()
-  arg7 = CMG
-  arg7 = arg7.getClosestVehicle
-  iterator2 = arg1
-  arg7 = arg7(iterator2)
-  if 0 ~= arg7 then
+  localValue6 = localValue6()
+  localValue7 = CMG
+  localValue7 = localValue7.getClosestVehicle
+  iterator2 = localValue1
+  localValue7 = localValue7(iterator2)
+  if 0 ~= localValue7 then
     iterator2 = GetEntityModel
-    tableHelper2 = arg7
+    tableHelper2 = localValue7
     -- Beginner: result below is modelHash.
     iterator2 = iterator2(tableHelper2)
     tableHelper2 = GetVehicleModelNumberOfSeats
-    dataTable25 = iterator2
-    tableHelper2 = tableHelper2(dataTable25)
+    dataCollection25 = iterator2
+    tableHelper2 = tableHelper2(dataCollection25)
     if tableHelper2 > 0 then
-      dataTable25 = -1
-      workValue2 = tableHelper2 - 2
-      dataTable = 1
-      for iterator = dataTable25, workValue2, dataTable do
+      dataCollection25 = -1
+      workingValue2 = tableHelper2 - 2
+      dataCollection = 1
+      for iterator = dataCollection25, workingValue2, dataCollection do
         stringHelper = GetPedInVehicleSeat
-        workValue7 = arg7
+        workingValue7 = localValue7
         stringHelper2 = iterator
-        stringHelper = stringHelper(workValue7, stringHelper2)
+        stringHelper = stringHelper(workingValue7, stringHelper2)
         if 0 ~= stringHelper then
-          workValue7 = GetPedBoneIndex
+          workingValue7 = GetPedBoneIndex
           stringHelper2 = stringHelper
-          cmgCall3 = 0
-          workValue7 = workValue7(stringHelper2, cmgCall3)
-          if workValue7 > -1 then
+          cmgOperation3 = 0
+          workingValue7 = workingValue7(stringHelper2, cmgOperation3)
+          if workingValue7 > -1 then
             stringHelper2 = GetWorldPositionOfEntityBone
-            cmgCall3 = stringHelper
-            tableHelper = workValue7
-            stringHelper2 = stringHelper2(cmgCall3, tableHelper)
-            if arg2 then
-              cmgCall3 = arg6.xy
+            cmgOperation3 = stringHelper
+            tableHelper = workingValue7
+            stringHelper2 = stringHelper2(cmgOperation3, tableHelper)
+            if localValue2 then
+              cmgOperation3 = localValue6.xy
               tableHelper = stringHelper2.xy
-              cmgCall3 = cmgCall3 - tableHelper
-              cmgCall3 = #cmgCall3
-              if cmgCall3 then
-                goto flow_label_54
+              cmgOperation3 = cmgOperation3 - tableHelper
+              cmgOperation3 = #cmgOperation3
+              if cmgOperation3 then
+                goto continueAtStep54
               end
             end
-            cmgCall3 = arg6 - stringHelper2
-            cmgCall3 = #cmgCall3
-            ::flow_label_54::
-            if arg4 > cmgCall3 then
-              arg3 = stringHelper
-              arg4 = cmgCall3
-              arg5 = iterator
+            cmgOperation3 = localValue6 - stringHelper2
+            cmgOperation3 = #cmgOperation3
+            ::continueAtStep54::
+            if localValue4 > cmgOperation3 then
+              localValue3 = stringHelper
+              localValue4 = cmgOperation3
+              localValue5 = iterator
             end
           end
         end
       end
     end
   end
-  iterator2 = arg7
-  tableHelper2 = arg3
-  dataTable25 = arg5
-  workValue2 = arg4
-  return iterator2, tableHelper2, dataTable25, workValue2
+  iterator2 = localValue7
+  tableHelper2 = localValue3
+  dataCollection25 = localValue5
+  workingValue2 = localValue4
+  return iterator2, tableHelper2, dataCollection25, workingValue2
 end
-textValue24.getClosestVehicleIncludingPed = textValue25
-textValue24 = tCMG
+text24.getClosestVehicleIncludingPed = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4
-  arg2 = tCMG
-  arg2 = arg2.getNearestVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = IsEntityAVehicle
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = SetVehicleFixed
-    arg4 = arg2
-    arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = tCMG
+  localValue2 = localValue2.getNearestVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = IsEntityAVehicle
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = SetVehicleFixed
+    localValue4 = localValue2
+    localValue3(localValue4)
   end
 end
-textValue24.fixeNearestVehicle = textValue25
-textValue24 = tCMG
+text24.fixeNearestVehicle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4
-  arg2 = tCMG
-  arg2 = arg2.getNearestVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = IsEntityAVehicle
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = SetVehicleOnGroundProperly
-    arg4 = arg2
-    arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = tCMG
+  localValue2 = localValue2.getNearestVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = IsEntityAVehicle
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = SetVehicleOnGroundProperly
+    localValue4 = localValue2
+    localValue3(localValue4)
   end
 end
-textValue24.replaceNearestVehicle = textValue25
-textValue24 = tCMG
+text24.replaceNearestVehicle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1, arg2, arg3) ===
-function textValue25(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator
-  arg1 = arg1 + 1.0E-4
-  arg2 = arg2 + 1.0E-4
-  arg3 = arg3 + 1.0E-4
-  arg4 = _ENV
-  arg5 = "StartExpensiveSynchronousShapeTestLosProbe"
-  arg4 = arg4[arg5]
-  arg5 = arg1
-  arg6 = arg2
-  arg7 = arg3
-  iterator2 = arg1
-  tableHelper2 = arg2
-  dataTable25 = arg3 + 4
-  workValue2 = 10
-  dataTable = CMG
-  dataTable = dataTable.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1, localValue2, localValue3) ===
+function text25(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator
+  localValue1 = localValue1 + 1.0E-4
+  localValue2 = localValue2 + 1.0E-4
+  localValue3 = localValue3 + 1.0E-4
+  localValue4 = _ENV
+  localValue5 = "StartExpensiveSynchronousShapeTestLosProbe"
+  localValue4 = localValue4[localValue5]
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue7 = localValue3
+  iterator2 = localValue1
+  tableHelper2 = localValue2
+  dataCollection25 = localValue3 + 4
+  workingValue2 = 10
+  dataCollection = CMG
+  dataCollection = dataCollection.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  dataTable = dataTable()
+  dataCollection = dataCollection()
   iterator = 0
-  arg4 = arg4(arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator)
-  arg5 = GetShapeTestResult
-  arg6 = arg4
-  arg5, arg6, arg7, iterator2, tableHelper2 = arg5(arg6)
+  localValue4 = localValue4(localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator)
+  localValue5 = GetShapeTestResult
+  localValue6 = localValue4
+  localValue5, localValue6, localValue7, iterator2, tableHelper2 = localValue5(localValue6)
   return tableHelper2
 end
-textValue24.getVehicleAtPosition = textValue25
-textValue24 = tCMG
+text24.getVehicleAtPosition = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper
-  arg2 = nil
-  arg3 = nil
-  arg4 = nil
-  arg5 = GetEntityCoords
-  arg6 = CMG
-  arg6 = arg6.getPlayerPed
-  arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper = arg6()
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper
+  localValue2 = nil
+  localValue3 = nil
+  localValue4 = nil
+  localValue5 = GetEntityCoords
+  localValue6 = CMG
+  localValue6 = localValue6.getPlayerPed
+  localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper = localValue6()
   -- Beginner: result below is entityCoords.
-  arg5 = arg5(arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-  arg6 = pairs
-  arg7 = workValue27
-  arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper = arg7()
-  arg6, arg7, iterator2, tableHelper2 = arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-  for dataTable25, workValue2 in arg6, arg7, iterator2, tableHelper2 do
-    dataTable = GetEntityCoords
-    iterator = workValue2[2]
+  localValue5 = localValue5(localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+  localValue6 = pairs
+  localValue7 = workingValue27
+  localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper = localValue7()
+  localValue6, localValue7, iterator2, tableHelper2 = localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+  for dataCollection25, workingValue2 in localValue6, localValue7, iterator2, tableHelper2 do
+    dataCollection = GetEntityCoords
+    iterator = workingValue2[2]
     stringHelper = true
     -- Beginner: result below is entityCoords.
-    dataTable = dataTable(iterator, stringHelper)
-    dataTable = dataTable - arg5
-    dataTable = #dataTable
-    iterator = arg1 + 1.0E-4
-    if dataTable <= iterator and (not arg2 or arg2 > dataTable) then
-      arg2 = dataTable
-      arg3 = dataTable25
-      arg4 = workValue2[2]
+    dataCollection = dataCollection(iterator, stringHelper)
+    dataCollection = dataCollection - localValue5
+    dataCollection = #dataCollection
+    iterator = localValue1 + 1.0E-4
+    if dataCollection <= iterator and (not localValue2 or localValue2 > dataCollection) then
+      localValue2 = dataCollection
+      localValue3 = dataCollection25
+      localValue4 = workingValue2[2]
     end
   end
-  if arg3 then
-    arg6 = DecorGetInt
-    arg7 = arg4
+  if localValue3 then
+    localValue6 = DecorGetInt
+    localValue7 = localValue4
     iterator2 = "ac76c9d452"
-    arg6 = arg6(arg7, iterator2)
-    arg7 = true
-    iterator2 = arg3
-    tableHelper2 = arg6
-    return arg7, iterator2, tableHelper2
+    localValue6 = localValue6(localValue7, iterator2)
+    localValue7 = true
+    iterator2 = localValue3
+    tableHelper2 = localValue6
+    return localValue7, iterator2, tableHelper2
   end
-  arg6 = false
-  return arg6
+  localValue6 = false
+  return localValue6
 end
-textValue24.getNearestOwnedVehicle = textValue25
-textValue24 = tCMG
+text24.getNearestOwnedVehicle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg2 = nil
-  arg3 = nil
-  arg4 = pairs
-  arg5 = workValue27
-  arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable = arg5()
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-  for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
-    dataTable25 = GetEntityCoords
-    workValue2 = tableHelper2[2]
-    dataTable = true
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue2 = nil
+  localValue3 = nil
+  localValue4 = pairs
+  localValue5 = workingValue27
+  localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection = localValue5()
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+  for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
+    dataCollection25 = GetEntityCoords
+    workingValue2 = tableHelper2[2]
+    dataCollection = true
     -- Beginner: result below is entityCoords.
-    dataTable25 = dataTable25(workValue2, dataTable)
-    workValue2 = GetEntityCoords
-    dataTable = CMG
-    dataTable = dataTable.getPlayerPed
+    dataCollection25 = dataCollection25(workingValue2, dataCollection)
+    workingValue2 = GetEntityCoords
+    dataCollection = CMG
+    dataCollection = dataCollection.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    dataTable = dataTable()
+    dataCollection = dataCollection()
     -- Beginner: result below is entityCoords.
-    workValue2 = workValue2(dataTable)
-    dataTable25 = dataTable25 - workValue2
-    dataTable25 = #dataTable25
-    workValue2 = arg1 + 1.0E-4
-    if dataTable25 <= workValue2 and (not arg2 or arg2 > dataTable25) then
-      arg2 = dataTable25
-      arg3 = iterator2
+    workingValue2 = workingValue2(dataCollection)
+    dataCollection25 = dataCollection25 - workingValue2
+    dataCollection25 = #dataCollection25
+    workingValue2 = localValue1 + 1.0E-4
+    if dataCollection25 <= workingValue2 and (not localValue2 or localValue2 > dataCollection25) then
+      localValue2 = dataCollection25
+      localValue3 = iterator2
     end
   end
-  if arg3 then
-    arg4 = true
-    arg5 = arg3
-    return arg4, arg5
+  if localValue3 then
+    localValue4 = true
+    localValue5 = localValue3
+    return localValue4, localValue5
   end
-  arg4 = false
-  return arg4
+  localValue4 = false
+  return localValue4
 end
-textValue24.getCurrentOwnedVehicle = textValue25
-textValue24 = tCMG
+text24.getCurrentOwnedVehicle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: none) ===
-function textValue25()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator
-  arg1 = pairs
-  arg2 = workValue27
-  arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator = arg2()
-  arg1, arg2, arg3, arg4 = arg1(arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = IsEntityAVehicle
-    iterator2 = arg6[2]
-    arg7 = arg7(iterator2)
-    if arg7 then
-      arg7 = table
-      arg7 = arg7.unpack
+-- === HELPER FUNCTION (decompiler name: text25; parameters: none) ===
+function text25()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator
+  localValue1 = pairs
+  localValue2 = workingValue27
+  localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator = localValue2()
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = IsEntityAVehicle
+    iterator2 = localValue6[2]
+    localValue7 = localValue7(iterator2)
+    if localValue7 then
+      localValue7 = table
+      localValue7 = localValue7.unpack
       iterator2 = GetEntityCoords
-      tableHelper2 = arg6[2]
-      dataTable25 = true
-      iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator = iterator2(tableHelper2, dataTable25)
-      arg7, iterator2, tableHelper2 = arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator)
-      dataTable25 = true
-      workValue2 = arg7
-      dataTable = iterator2
+      tableHelper2 = localValue6[2]
+      dataCollection25 = true
+      iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator = iterator2(tableHelper2, dataCollection25)
+      localValue7, iterator2, tableHelper2 = localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator)
+      dataCollection25 = true
+      workingValue2 = localValue7
+      dataCollection = iterator2
       iterator = tableHelper2
-      return dataTable25, workValue2, dataTable, iterator
+      return dataCollection25, workingValue2, dataCollection, iterator
     end
   end
-  arg1 = false
-  arg2 = 0
-  arg3 = 0
-  arg4 = 0
-  return arg1, arg2, arg3, arg4
+  localValue1 = false
+  localValue2 = 0
+  localValue3 = 0
+  localValue4 = 0
+  return localValue1, localValue2, localValue3, localValue4
 end
-textValue24.getAnyOwnedVehiclePosition = textValue25
-textValue24 = tCMG
+text24.getAnyOwnedVehiclePosition = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  arg3 = 0
-  arg4 = 0
-  arg5 = 0
-  if arg2 then
-    arg6 = table
-    arg6 = arg6.unpack
-    arg7 = GetEntityCoords
-    iterator2 = arg2[2]
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  localValue3 = 0
+  localValue4 = 0
+  localValue5 = 0
+  if localValue2 then
+    localValue6 = table
+    localValue6 = localValue6.unpack
+    localValue7 = GetEntityCoords
+    iterator2 = localValue2[2]
     tableHelper2 = true
-    arg7, iterator2, tableHelper2 = arg7(iterator2, tableHelper2)
-    arg6, arg7, iterator2 = arg6(arg7, iterator2, tableHelper2)
-    arg5 = iterator2
-    arg4 = arg7
-    arg3 = arg6
+    localValue7, iterator2, tableHelper2 = localValue7(iterator2, tableHelper2)
+    localValue6, localValue7, iterator2 = localValue6(localValue7, iterator2, tableHelper2)
+    localValue5 = iterator2
+    localValue4 = localValue7
+    localValue3 = localValue6
   end
-  arg6 = arg3
-  arg7 = arg4
-  iterator2 = arg5
-  return arg6, arg7, iterator2
+  localValue6 = localValue3
+  localValue7 = localValue4
+  iterator2 = localValue5
+  return localValue6, localValue7, iterator2
 end
-textValue24.getOwnedVehiclePosition = textValue25
-textValue24 = tCMG
+text24.getOwnedVehiclePosition = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = arg2[2]
-    return arg3
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = localValue2[2]
+    return localValue3
   end
 end
-textValue24.getOwnedVehicleHandle = textValue25
-textValue24 = tCMG
+text24.getOwnedVehicleHandle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: none) ===
-function textValue25()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text25; parameters: none) ===
+function text25()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = IsPedSittingInAnyVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = GetVehiclePedIsIn
-    arg3 = arg1
-    arg4 = false
+  localValue1 = localValue1()
+  localValue2 = IsPedSittingInAnyVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = GetVehiclePedIsIn
+    localValue3 = localValue1
+    localValue4 = false
     -- Beginner: result below is currentVehicle.
-    arg2 = arg2(arg3, arg4)
-    arg3 = CMG
-    arg3 = arg3.inEvent
-    arg3 = arg3()
-    if not arg3 then
-      arg3 = TaskLeaveVehicle
-      arg4 = arg1
-      arg5 = arg2
-      arg6 = 4160
-      arg3(arg4, arg5, arg6)
+    localValue2 = localValue2(localValue3, localValue4)
+    localValue3 = CMG
+    localValue3 = localValue3.inEvent
+    localValue3 = localValue3()
+    if not localValue3 then
+      localValue3 = TaskLeaveVehicle
+      localValue4 = localValue1
+      localValue5 = localValue2
+      localValue6 = 4160
+      localValue3(localValue4, localValue5, localValue6)
     end
   end
 end
-textValue24.ejectVehicle = textValue25
-textValue24 = tCMG
+text24.ejectVehicle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: none) ===
-function textValue25()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text25; parameters: none) ===
+function text25()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = IsPedSittingInAnyVehicle
-  arg3 = arg1
-  return arg2(arg3)
+  localValue1 = localValue1()
+  localValue2 = IsPedSittingInAnyVehicle
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
-textValue24.isInVehicle = textValue25
-textValue24 = tCMG
+text24.isInVehicle = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1, arg2) ===
-function textValue25(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2
-  arg3 = workValue27
-  arg3 = arg3()
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg4 = SetVehicleDoorOpen
-    arg5 = arg3[2]
-    arg6 = arg2
-    arg7 = false
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1, localValue2) ===
+function text25(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue3 = workingValue27
+  localValue3 = localValue3()
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue4 = SetVehicleDoorOpen
+    localValue5 = localValue3[2]
+    localValue6 = localValue2
+    localValue7 = false
     iterator2 = false
-    arg4(arg5, arg6, arg7, iterator2)
+    localValue4(localValue5, localValue6, localValue7, iterator2)
   end
 end
-textValue24.vc_openDoor = textValue25
-textValue24 = tCMG
+text24.vc_openDoor = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1, arg2) ===
-function textValue25(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  arg3 = workValue27
-  arg3 = arg3()
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg4 = SetVehicleDoorShut
-    arg5 = arg3[2]
-    arg6 = arg2
-    arg7 = false
-    arg4(arg5, arg6, arg7)
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1, localValue2) ===
+function text25(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue3 = workingValue27
+  localValue3 = localValue3()
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue4 = SetVehicleDoorShut
+    localValue5 = localValue3[2]
+    localValue6 = localValue2
+    localValue7 = false
+    localValue4(localValue5, localValue6, localValue7)
   end
 end
-textValue24.vc_closeDoor = textValue25
-textValue24 = tCMG
+text24.vc_closeDoor = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = DetachVehicleFromTrailer
-    arg4 = arg2[2]
-    arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = DetachVehicleFromTrailer
+    localValue4 = localValue2[2]
+    localValue3(localValue4)
   end
 end
-textValue24.vc_detachTrailer = textValue25
-textValue24 = tCMG
+text24.vc_detachTrailer = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = GetEntityAttachedToTowTruck
-    arg4 = arg2[2]
-    arg3 = arg3(arg4)
-    arg4 = IsEntityAVehicle
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = DetachVehicleFromTowTruck
-      arg5 = arg2[2]
-      arg6 = arg3
-      arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = GetEntityAttachedToTowTruck
+    localValue4 = localValue2[2]
+    localValue3 = localValue3(localValue4)
+    localValue4 = IsEntityAVehicle
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = DetachVehicleFromTowTruck
+      localValue5 = localValue2[2]
+      localValue6 = localValue3
+      localValue4(localValue5, localValue6)
     end
   end
 end
-textValue24.vc_detachTowTruck = textValue25
-textValue24 = tCMG
+text24.vc_detachTowTruck = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = GetVehicleAttachedToCargobob
-    arg4 = arg2[2]
-    arg3 = arg3(arg4)
-    arg4 = IsEntityAVehicle
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = DetachVehicleFromCargobob
-      arg5 = arg2[2]
-      arg6 = arg3
-      arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = GetVehicleAttachedToCargobob
+    localValue4 = localValue2[2]
+    localValue3 = localValue3(localValue4)
+    localValue4 = IsEntityAVehicle
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = DetachVehicleFromCargobob
+      localValue5 = localValue2[2]
+      localValue6 = localValue3
+      localValue4(localValue5, localValue6)
     end
   end
 end
-textValue24.vc_detachCargobob = textValue25
-textValue24 = tCMG
+text24.vc_detachCargobob = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = GetIsVehicleEngineRunning
-    arg4 = arg2[2]
-    arg3 = arg3(arg4)
-    arg4 = SetVehicleEngineOn
-    arg5 = arg2[2]
-    arg6 = not arg3
-    arg7 = true
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = GetIsVehicleEngineRunning
+    localValue4 = localValue2[2]
+    localValue3 = localValue3(localValue4)
+    localValue4 = SetVehicleEngineOn
+    localValue5 = localValue2[2]
+    localValue6 = not localValue3
+    localValue7 = true
     iterator2 = true
-    arg4(arg5, arg6, arg7, iterator2)
-    if arg3 then
-      arg4 = SetVehicleUndriveable
-      arg5 = arg2[2]
-      arg6 = true
-      arg4(arg5, arg6)
+    localValue4(localValue5, localValue6, localValue7, iterator2)
+    if localValue3 then
+      localValue4 = SetVehicleUndriveable
+      localValue5 = localValue2[2]
+      localValue6 = true
+      localValue4(localValue5, localValue6)
     else
-      arg4 = SetVehicleUndriveable
-      arg5 = arg2[2]
-      arg6 = false
-      arg4(arg5, arg6)
+      localValue4 = SetVehicleUndriveable
+      localValue5 = localValue2[2]
+      localValue6 = false
+      localValue4(localValue5, localValue6)
     end
   end
 end
-textValue24.vc_toggleEngine = textValue25
-textValue24 = tCMG
+text24.vc_toggleEngine = text25
+text24 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
-function textValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2
-  arg2 = workValue27
-  arg2 = arg2()
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = arg2[2]
-    arg4 = GetVehicleDoorLockStatus
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    arg4 = arg4 >= 2
-    arg5 = NetworkGetNetworkIdFromEntity
-    arg6 = arg3
-    arg5 = arg5(arg6)
-    if 0 == arg5 then
-      arg6 = tCMG
-      arg6 = arg6.notify
-      arg7 = "~r~Failed to get ownership of vehicle to lock/unlock."
+-- === HELPER FUNCTION (decompiler name: text25; parameters: localValue1) ===
+function text25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2
+  localValue2 = workingValue27
+  localValue2 = localValue2()
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = localValue2[2]
+    localValue4 = GetVehicleDoorLockStatus
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    localValue4 = localValue4 >= 2
+    localValue5 = NetworkGetNetworkIdFromEntity
+    localValue6 = localValue3
+    localValue5 = localValue5(localValue6)
+    if 0 == localValue5 then
+      localValue6 = tCMG
+      localValue6 = localValue6.notify
+      localValue7 = "~r~Failed to get ownership of vehicle to lock/unlock."
       -- Beginner: Show a notification to the player.
-      arg6(arg7)
+      localValue6(localValue7)
     else
-      arg6 = tCMG
-      arg6 = arg6.notify
-      arg7 = "Vehicle "
-      if arg4 then
+      localValue6 = tCMG
+      localValue6 = localValue6.notify
+      localValue7 = "Vehicle "
+      if localValue4 then
         iterator2 = "unlocked"
         if iterator2 then
-          goto flow_label_33
+          goto continueAtStep33
         end
       end
       iterator2 = "locked"
-      ::flow_label_33::
+      ::continueAtStep33::
       tableHelper2 = "."
-      arg7 = arg7 .. iterator2 .. tableHelper2
-      arg6(arg7)
-      arg6 = NetworkHasControlOfEntity
-      arg7 = arg3
-      arg6 = arg6(arg7)
-      if arg6 then
-        arg6 = TriggerEvent
-        arg7 = "126d6c2d61"
-        iterator2 = arg5
-        tableHelper2 = not arg4
+      localValue7 = localValue7 .. iterator2 .. tableHelper2
+      localValue6(localValue7)
+      localValue6 = NetworkHasControlOfEntity
+      localValue7 = localValue3
+      localValue6 = localValue6(localValue7)
+      if localValue6 then
+        localValue6 = TriggerEvent
+        localValue7 = "126d6c2d61"
+        iterator2 = localValue5
+        tableHelper2 = not localValue4
         -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "126d6c2d61".
-        arg6(arg7, iterator2, tableHelper2)
+        localValue6(localValue7, iterator2, tableHelper2)
       else
-        arg6 = TriggerServerEvent
-        arg7 = "126d6c2d61"
-        iterator2 = arg5
-        tableHelper2 = not arg4
+        localValue6 = TriggerServerEvent
+        localValue7 = "126d6c2d61"
+        iterator2 = localValue5
+        tableHelper2 = not localValue4
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "126d6c2d61".
-        arg6(arg7, iterator2, tableHelper2)
+        localValue6(localValue7, iterator2, tableHelper2)
       end
     end
   end
 end
-textValue24.vc_toggleLock = textValue25
-textValue24 = RegisterNetEvent
-textValue25 = "126d6c2d61"
+text24.vc_toggleLock = text25
+text24 = RegisterNetEvent
+text25 = "126d6c2d61"
 -- Beginner: this function handles network event "126d6c2d61".
 
--- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1, arg2) ===
-function textValue26(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  arg3 = NetworkDoesNetworkIdExist
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: text26; parameters: localValue1, localValue2) ===
+function text26(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue3 = NetworkDoesNetworkIdExist
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
     return
   end
-  arg3 = NetworkGetEntityFromNetworkId
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if 0 == arg3 then
+  localValue3 = NetworkGetEntityFromNetworkId
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if 0 == localValue3 then
     return
   end
-  arg4 = NetworkHasControlOfEntity
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if not arg4 then
+  localValue4 = NetworkHasControlOfEntity
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
     return
   end
-  if arg2 then
-    arg4 = SetVehicleDoorsLocked
-    arg5 = arg3
-    arg6 = 2
-    arg4(arg5, arg6)
-    arg4 = SetVehicleDoorsLockedForAllPlayers
-    arg5 = arg3
-    arg6 = true
-    arg4(arg5, arg6)
+  if localValue2 then
+    localValue4 = SetVehicleDoorsLocked
+    localValue5 = localValue3
+    localValue6 = 2
+    localValue4(localValue5, localValue6)
+    localValue4 = SetVehicleDoorsLockedForAllPlayers
+    localValue5 = localValue3
+    localValue6 = true
+    localValue4(localValue5, localValue6)
   else
-    arg4 = SetVehicleDoorsLockedForAllPlayers
-    arg5 = arg3
-    arg6 = false
-    arg4(arg5, arg6)
-    arg4 = SetVehicleDoorsLocked
-    arg5 = arg3
-    arg6 = 1
-    arg4(arg5, arg6)
-    arg4 = SetVehicleDoorsLockedForPlayer
-    arg5 = arg3
-    arg6 = PlayerId
+    localValue4 = SetVehicleDoorsLockedForAllPlayers
+    localValue5 = localValue3
+    localValue6 = false
+    localValue4(localValue5, localValue6)
+    localValue4 = SetVehicleDoorsLocked
+    localValue5 = localValue3
+    localValue6 = 1
+    localValue4(localValue5, localValue6)
+    localValue4 = SetVehicleDoorsLockedForPlayer
+    localValue5 = localValue3
+    localValue6 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    arg6 = arg6()
-    arg7 = false
-    arg4(arg5, arg6, arg7)
+    localValue6 = localValue6()
+    localValue7 = false
+    localValue4(localValue5, localValue6, localValue7)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "126d6c2d61".
-textValue24(textValue25, textValue26)
-textValue24 = RegisterNetEvent
-textValue25 = "d105efe483"
+text24(text25, text26)
+text24 = RegisterNetEvent
+text25 = "d105efe483"
 -- Beginner: this function handles network event "d105efe483".
 
--- === HELPER FUNCTION (decompiler name: textValue26; parameters: none) ===
-function textValue26()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text26; parameters: none) ===
+function text26()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = IsPedInAnyVehicle
-  arg3 = arg1
-  arg4 = true
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg2 = GetVehiclePedIsIn
-    arg3 = arg1
-    arg4 = false
+  localValue1 = localValue1()
+  localValue2 = IsPedInAnyVehicle
+  localValue3 = localValue1
+  localValue4 = true
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue2 = GetVehiclePedIsIn
+    localValue3 = localValue1
+    localValue4 = false
     -- Beginner: result below is currentVehicle.
-    arg2 = arg2(arg3, arg4)
-    arg3 = SetVehicleEngineHealth
-    arg4 = arg2
-    arg5 = 9999
-    arg3(arg4, arg5)
-    arg3 = SetVehiclePetrolTankHealth
-    arg4 = arg2
-    arg5 = 9999
-    arg3(arg4, arg5)
-    arg3 = SetVehicleFixed
-    arg4 = arg2
-    arg3(arg4)
+    localValue2 = localValue2(localValue3, localValue4)
+    localValue3 = SetVehicleEngineHealth
+    localValue4 = localValue2
+    localValue5 = 9999
+    localValue3(localValue4, localValue5)
+    localValue3 = SetVehiclePetrolTankHealth
+    localValue4 = localValue2
+    localValue5 = 9999
+    localValue3(localValue4, localValue5)
+    localValue3 = SetVehicleFixed
+    localValue4 = localValue2
+    localValue3(localValue4)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d105efe483".
-textValue24(textValue25, textValue26)
-textValue24 = RegisterNetEvent
-textValue25 = "53092b8739"
+text24(text25, text26)
+text24 = RegisterNetEvent
+text25 = "53092b8739"
 -- Beginner: this function handles network event "53092b8739".
 
--- === HELPER FUNCTION (decompiler name: textValue26; parameters: none) ===
-function textValue26()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text26; parameters: none) ===
+function text26()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = IsPedInAnyVehicle
-  arg3 = arg1
-  arg4 = true
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg2 = GetVehiclePedIsIn
-    arg3 = arg1
-    arg4 = false
+  localValue1 = localValue1()
+  localValue2 = IsPedInAnyVehicle
+  localValue3 = localValue1
+  localValue4 = true
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue2 = GetVehiclePedIsIn
+    localValue3 = localValue1
+    localValue4 = false
     -- Beginner: result below is currentVehicle.
-    arg2 = arg2(arg3, arg4)
-    arg3 = SetVehicleEngineHealth
-    arg4 = arg2
-    arg5 = 9999
-    arg3(arg4, arg5)
-    arg3 = SetVehiclePetrolTankHealth
-    arg4 = arg2
-    arg5 = 9999
-    arg3(arg4, arg5)
-    arg3 = SetVehicleFixed
-    arg4 = arg2
-    arg3(arg4)
+    localValue2 = localValue2(localValue3, localValue4)
+    localValue3 = SetVehicleEngineHealth
+    localValue4 = localValue2
+    localValue5 = 9999
+    localValue3(localValue4, localValue5)
+    localValue3 = SetVehiclePetrolTankHealth
+    localValue4 = localValue2
+    localValue5 = 9999
+    localValue3(localValue4, localValue5)
+    localValue3 = SetVehicleFixed
+    localValue4 = localValue2
+    localValue3(localValue4)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "53092b8739".
-textValue24(textValue25, textValue26)
-textValue24 = RegisterCommand
-textValue25 = "callanambulance"
+text24(text25, text26)
+text24 = RegisterCommand
+text25 = "callanambulance"
 -- Beginner: this function is the command handler for "callanambulance".
 
--- === HELPER FUNCTION (decompiler name: textValue26; parameters: none) ===
-function textValue26()
-  local arg1, arg2
-  arg1 = tCMG
-  arg1 = arg1.notify
-  arg2 = "~y~CALL AN AMBULANCE"
+-- === HELPER FUNCTION (decompiler name: text26; parameters: none) ===
+function text26()
+  local localValue1, localValue2
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  localValue2 = "~y~CALL AN AMBULANCE"
   -- Beginner: Show a notification to the player.
-  arg1(arg2)
-  arg1 = tCMG
-  arg1 = arg1.notify
-  arg2 = "~y~CALL AN AMBULANCE!"
-  arg1(arg2)
-  arg1 = tCMG
-  arg1 = arg1.notify
-  arg2 = "~r~BUT NOT FOR ME."
+  localValue1(localValue2)
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  localValue2 = "~y~CALL AN AMBULANCE!"
+  localValue1(localValue2)
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  localValue2 = "~r~BUT NOT FOR ME."
   -- Beginner: Show a notification to the player.
-  arg1(arg2)
-  arg1 = SendNUIMessage
-  arg2 = {}
-  arg2.transactionType = "callanambulance"
+  localValue1(localValue2)
+  localValue1 = SendNUIMessage
+  localValue2 = {}
+  localValue2.transactionType = "callanambulance"
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg1(arg2)
+  localValue1(localValue2)
 end
-rageUiCall9 = false
+rageUiOperation9 = false
 -- Beginner: Register a chat/console command. Event/command: "callanambulance".
-textValue24(textValue25, textValue26, rageUiCall9)
+text24(text25, text26, rageUiOperation9)
 
--- === HELPER FUNCTION (decompiler name: textValue24; parameters: none) ===
-function textValue24()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "superadmin.permission"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = true
-    return arg1
+-- === HELPER FUNCTION (decompiler name: text24; parameters: none) ===
+function text24()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "superadmin.permission"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = true
+    return localValue1
   end
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "admin.spawncar"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.isPurge
-    arg1 = arg1()
-    if not arg1 then
-      arg1 = true
-      return arg1
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "admin.spawncar"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.isPurge
+    localValue1 = localValue1()
+    if not localValue1 then
+      localValue1 = true
+      return localValue1
     end
   end
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "admin.eventbucket"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.getEventBucketId
-    arg1 = arg1()
-    arg2 = CMG
-    arg2 = arg2.getPlayerBucket
-    arg2 = arg2()
-    if arg1 == arg2 then
-      arg1 = true
-      return arg1
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "admin.eventbucket"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.getEventBucketId
+    localValue1 = localValue1()
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerBucket
+    localValue2 = localValue2()
+    if localValue1 == localValue2 then
+      localValue1 = true
+      return localValue1
     end
   end
-  arg1 = false
-  return arg1
+  localValue1 = false
+  return localValue1
 end
-textValue25 = RegisterCommand
-textValue26 = "car"
+text25 = RegisterCommand
+text26 = "car"
 -- Beginner: this function is the command handler for "car".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall9; parameters: arg1, arg2) ===
-function rageUiCall9(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper
-  arg3 = textValue24
-  arg3 = arg3()
-  if arg3 then
-    arg3 = GetEntityCoords
-    arg4 = CMG
-    arg4 = arg4.getPlayerPed
-    arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper = arg4()
+-- === HELPER FUNCTION (decompiler name: rageUiOperation9; parameters: localValue1, localValue2) ===
+function rageUiOperation9(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper
+  localValue3 = text24
+  localValue3 = localValue3()
+  if localValue3 then
+    localValue3 = GetEntityCoords
+    localValue4 = CMG
+    localValue4 = localValue4.getPlayerPed
+    localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper = localValue4()
     -- Beginner: result below is entityCoords.
-    arg3 = arg3(arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-    arg4 = vector3
-    arg5 = -1341.9575195313
-    arg6 = -3032.8686523438
-    arg7 = 13.944421768188
-    arg4 = arg4(arg5, arg6, arg7)
-    arg5 = arg2[1]
-    if nil == arg5 then
-      arg6 = tCMG
-      arg6 = arg6.notify
-      arg7 = "~r~No vehicle spawncode specified."
+    localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+    localValue4 = vector3
+    localValue5 = -1341.9575195313
+    localValue6 = -3032.8686523438
+    localValue7 = 13.944421768188
+    localValue4 = localValue4(localValue5, localValue6, localValue7)
+    localValue5 = localValue2[1]
+    if nil == localValue5 then
+      localValue6 = tCMG
+      localValue6 = localValue6.notify
+      localValue7 = "~r~No vehicle spawncode specified."
       -- Beginner: Show a notification to the player.
-      arg6(arg7)
+      localValue6(localValue7)
       return
     end
-    if "vwpolo" == arg5 then
-      arg6 = CMG
-      arg6 = arg6.getClientUserId
+    if "vwpolo" == localValue5 then
+      localValue6 = CMG
+      localValue6 = localValue6.getClientUserId
       -- Beginner: result below is userId.
-      arg6 = arg6()
-      if 1 ~= arg6 then
-        arg6 = tCMG
-        arg6 = arg6.teleport
-        arg7 = -807.62481689453
+      localValue6 = localValue6()
+      if 1 ~= localValue6 then
+        localValue6 = tCMG
+        localValue6 = localValue6.teleport
+        localValue7 = -807.62481689453
         iterator2 = 172.82191467285
         tableHelper2 = 76.740547180176
-        arg6(arg7, iterator2, tableHelper2)
+        localValue6(localValue7, iterator2, tableHelper2)
     end
     else
-      arg6 = string
-      arg6 = arg6.lower
-      arg7 = arg5
-      arg6 = arg6(arg7)
-      if "lloydzlego" ~= arg6 then
-        arg6 = string
-        arg6 = arg6.lower
-        arg7 = arg5
-        arg6 = arg6(arg7)
-        if "lloydzlego2" ~= arg6 then
-          goto flow_label_59
+      localValue6 = string
+      localValue6 = localValue6.lower
+      localValue7 = localValue5
+      localValue6 = localValue6(localValue7)
+      if "lloydzlego" ~= localValue6 then
+        localValue6 = string
+        localValue6 = localValue6.lower
+        localValue7 = localValue5
+        localValue6 = localValue6(localValue7)
+        if "lloydzlego2" ~= localValue6 then
+          goto continueAtStep59
         end
       end
-      arg6 = CMG
-      arg6 = arg6.getClientUserId
+      localValue6 = CMG
+      localValue6 = localValue6.getClientUserId
       -- Beginner: result below is userId.
-      arg6 = arg6()
-      if 71 ~= arg6 then
-        arg6 = tCMG
-        arg6 = arg6.notify
-        arg7 = "~y~Oak's words echoed... There's a time and place for everything, but not now."
+      localValue6 = localValue6()
+      if 71 ~= localValue6 then
+        localValue6 = tCMG
+        localValue6 = localValue6.notify
+        localValue7 = "~y~Oak's words echoed... There's a time and place for everything, but not now."
         -- Beginner: Show a notification to the player.
-        arg6(arg7)
+        localValue6(localValue7)
       else
-        ::flow_label_59::
-        if "redarrow2" == arg5 then
-          arg6 = tCMG
-          arg6 = arg6.notify
-          arg7 = "~y~CALL AN AMBULANCE"
-          arg6(arg7)
-          arg6 = tCMG
-          arg6 = arg6.notify
-          arg7 = "~y~CALL AN AMBULANCE"
+        ::continueAtStep59::
+        if "redarrow2" == localValue5 then
+          localValue6 = tCMG
+          localValue6 = localValue6.notify
+          localValue7 = "~y~CALL AN AMBULANCE"
+          localValue6(localValue7)
+          localValue6 = tCMG
+          localValue6 = localValue6.notify
+          localValue7 = "~y~CALL AN AMBULANCE"
           -- Beginner: Show a notification to the player.
-          arg6(arg7)
-          arg6 = tCMG
-          arg6 = arg6.notify
-          arg7 = "~r~BUT NOT FOR ME."
-          arg6(arg7)
-          arg6 = SendNUIMessage
-          arg7 = {}
-          arg7.transactionType = "callanambulance"
+          localValue6(localValue7)
+          localValue6 = tCMG
+          localValue6 = localValue6.notify
+          localValue7 = "~r~BUT NOT FOR ME."
+          localValue6(localValue7)
+          localValue6 = SendNUIMessage
+          localValue7 = {}
+          localValue7.transactionType = "callanambulance"
           -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-          arg6(arg7)
+          localValue6(localValue7)
         else
-          arg6 = arg3 - arg4
-          arg6 = #arg6
-          arg7 = 600.0
-          if not (arg6 < arg7) then
-            arg6 = CMG
-            arg6 = arg6.hasClientPermission
-            arg7 = "superadmin.permission"
-            arg6 = arg6(arg7)
-            if not arg6 then
-              arg6 = CMG
-              arg6 = arg6.getPlayerBucket
-              arg6 = arg6()
-              arg7 = CMG
-              arg7 = arg7.getEventBucketId
-              arg7 = arg7()
-              if arg6 ~= arg7 then
-                goto flow_label_163
+          localValue6 = localValue3 - localValue4
+          localValue6 = #localValue6
+          localValue7 = 600.0
+          if not (localValue6 < localValue7) then
+            localValue6 = CMG
+            localValue6 = localValue6.hasClientPermission
+            localValue7 = "superadmin.permission"
+            localValue6 = localValue6(localValue7)
+            if not localValue6 then
+              localValue6 = CMG
+              localValue6 = localValue6.getPlayerBucket
+              localValue6 = localValue6()
+              localValue7 = CMG
+              localValue7 = localValue7.getEventBucketId
+              localValue7 = localValue7()
+              if localValue6 ~= localValue7 then
+                goto continueAtStep163
               end
             end
           end
-          arg6 = TriggerServerEvent
-          arg7 = "1e0bbaf6cd"
-          iterator2 = arg5
+          localValue6 = TriggerServerEvent
+          localValue7 = "1e0bbaf6cd"
+          iterator2 = localValue5
           tableHelper2 = "/car"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1e0bbaf6cd".
-          arg6(arg7, iterator2, tableHelper2)
-          arg6 = CMG
-          arg6 = arg6.requestEntitySpawn
-          arg7 = "carcommand"
-          iterator2 = arg5
-          arg6(arg7, iterator2)
-          arg6 = CMG
-          arg6 = arg6.spawnVehicle
-          arg7 = arg5
-          iterator2 = arg3.x
-          tableHelper2 = arg3.y
-          dataTable25 = arg3.z
-          workValue2 = GetEntityHeading
-          dataTable = CMG
-          dataTable = dataTable.getPlayerPed
-          dataTable, iterator, stringHelper = dataTable()
+          localValue6(localValue7, iterator2, tableHelper2)
+          localValue6 = CMG
+          localValue6 = localValue6.requestEntitySpawn
+          localValue7 = "carcommand"
+          iterator2 = localValue5
+          localValue6(localValue7, iterator2)
+          localValue6 = CMG
+          localValue6 = localValue6.spawnVehicle
+          localValue7 = localValue5
+          iterator2 = localValue3.x
+          tableHelper2 = localValue3.y
+          dataCollection25 = localValue3.z
+          workingValue2 = GetEntityHeading
+          dataCollection = CMG
+          dataCollection = dataCollection.getPlayerPed
+          dataCollection, iterator, stringHelper = dataCollection()
           -- Beginner: result below is heading.
-          workValue2 = workValue2(dataTable, iterator, stringHelper)
-          dataTable = true
+          workingValue2 = workingValue2(dataCollection, iterator, stringHelper)
+          dataCollection = true
           iterator = true
           stringHelper = true
-          arg6 = arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-          arg7 = CMG
-          arg7 = arg7.initLocalVehicle
-          iterator2 = arg6
-          arg7(iterator2)
-          arg7 = SetVehicleOnGroundProperly
-          iterator2 = arg6
-          arg7(iterator2)
-          arg7 = SetEntityInvincible
-          iterator2 = arg6
+          localValue6 = localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+          localValue7 = CMG
+          localValue7 = localValue7.initLocalVehicle
+          iterator2 = localValue6
+          localValue7(iterator2)
+          localValue7 = SetVehicleOnGroundProperly
+          iterator2 = localValue6
+          localValue7(iterator2)
+          localValue7 = SetEntityInvincible
+          iterator2 = localValue6
           tableHelper2 = false
-          arg7(iterator2, tableHelper2)
-          arg7 = CMG
-          arg7 = arg7.applyMaxDefaultModsToVehicle
-          iterator2 = arg6
-          arg7(iterator2)
-          arg7 = SetPedIntoVehicle
+          localValue7(iterator2, tableHelper2)
+          localValue7 = CMG
+          localValue7 = localValue7.applyMaxDefaultModsToVehicle
+          iterator2 = localValue6
+          localValue7(iterator2)
+          localValue7 = SetPedIntoVehicle
           iterator2 = CMG
           iterator2 = iterator2.getPlayerPed
           -- Beginner: result below is localPlayerPed.
           iterator2 = iterator2()
-          tableHelper2 = arg6
-          dataTable25 = -1
-          arg7(iterator2, tableHelper2, dataTable25)
-          arg7 = SetModelAsNoLongerNeeded
+          tableHelper2 = localValue6
+          dataCollection25 = -1
+          localValue7(iterator2, tableHelper2, dataCollection25)
+          localValue7 = SetModelAsNoLongerNeeded
           iterator2 = GetHashKey
-          tableHelper2 = arg5
-          iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper = iterator2(tableHelper2)
-          arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper)
-          arg7 = SetVehRadioStation
-          iterator2 = arg6
+          tableHelper2 = localValue5
+          iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper = iterator2(tableHelper2)
+          localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper)
+          localValue7 = SetVehRadioStation
+          iterator2 = localValue6
           tableHelper2 = "OFF"
-          arg7(iterator2, tableHelper2)
-          arg7 = Wait
+          localValue7(iterator2, tableHelper2)
+          localValue7 = Wait
           iterator2 = 500
-          arg7(iterator2)
-          arg7 = SetVehRadioStation
-          iterator2 = arg6
+          localValue7(iterator2)
+          localValue7 = SetVehRadioStation
+          iterator2 = localValue6
           tableHelper2 = "OFF"
-          arg7(iterator2, tableHelper2)
-          goto flow_label_167
-          ::flow_label_163::
-          arg6 = tCMG
-          arg6 = arg6.notify
-          arg7 = "~r~Vehicles may only be spawned at the airport for testing"
+          localValue7(iterator2, tableHelper2)
+          goto continueAtStep167
+          ::continueAtStep163::
+          localValue6 = tCMG
+          localValue6 = localValue6.notify
+          localValue7 = "~r~Vehicles may only be spawned at the airport for testing"
           -- Beginner: Show a notification to the player.
-          arg6(arg7)
+          localValue6(localValue7)
         end
       end
     end
   end
-  ::flow_label_167::
+  ::continueAtStep167::
 end
-rageUiCall10 = false
+rageUiOperation10 = false
 -- Beginner: Register a chat/console command. Event/command: "car".
-textValue25(textValue26, rageUiCall9, rageUiCall10)
-textValue25 = RegisterCommand
-textValue26 = "dv"
+text25(text26, rageUiOperation9, rageUiOperation10)
+text25 = RegisterCommand
+text26 = "dv"
 -- Beginner: this function is the command handler for "dv".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall9; parameters: none) ===
-function rageUiCall9()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "admin.tickets"
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = CMG
-    arg1 = arg1.hasClientPermission
-    arg2 = "eventadmin.whitelist"
-    arg1 = arg1(arg2)
-    if not arg1 then
-      goto flow_label_35
+-- === HELPER FUNCTION (decompiler name: rageUiOperation9; parameters: none) ===
+function rageUiOperation9()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "admin.tickets"
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.hasClientPermission
+    localValue2 = "eventadmin.whitelist"
+    localValue1 = localValue1(localValue2)
+    if not localValue1 then
+      goto continueAtStep35
     end
-    arg1 = CMG
-    arg1 = arg1.getPlayerBucket
-    arg1 = arg1()
-    arg2 = CMG
-    arg2 = arg2.getEventBucketId
-    arg2 = arg2()
-    if arg1 ~= arg2 then
-      goto flow_label_35
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerBucket
+    localValue1 = localValue1()
+    localValue2 = CMG
+    localValue2 = localValue2.getEventBucketId
+    localValue2 = localValue2()
+    if localValue1 ~= localValue2 then
+      goto continueAtStep35
     end
   end
-  arg1 = GetVehiclePedIsIn
-  arg2 = CMG
-  arg2 = arg2.getPlayerPed
+  localValue1 = GetVehiclePedIsIn
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = false
+  localValue2 = localValue2()
+  localValue3 = false
   -- Beginner: result below is currentVehicle.
-  arg1 = arg1(arg2, arg3)
-  arg2 = NetworkHasControlOfEntity
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = DeleteEntity
-    arg3 = arg1
+  localValue1 = localValue1(localValue2, localValue3)
+  localValue2 = NetworkHasControlOfEntity
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = DeleteEntity
+    localValue3 = localValue1
     -- Beginner: Delete a GTA entity.
-    arg2(arg3)
+    localValue2(localValue3)
   end
-  ::flow_label_35::
+  ::continueAtStep35::
 end
-rageUiCall10 = false
+rageUiOperation10 = false
 -- Beginner: Register a chat/console command. Event/command: "dv".
-textValue25(textValue26, rageUiCall9, rageUiCall10)
-textValue25 = AddEventHandler
-textValue26 = "918c11c450"
+text25(text26, rageUiOperation9, rageUiOperation10)
+text25 = AddEventHandler
+text26 = "918c11c450"
 -- Beginner: this function runs when client event "918c11c450" fires.
 
--- === HELPER FUNCTION (decompiler name: rageUiCall9; parameters: arg1) ===
-function rageUiCall9(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7
-  arg2 = tonumber
-  arg3 = DecorGetInt
-  arg4 = arg1
-  arg5 = "ac76c9d452"
-  arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7 = arg3(arg4, arg5)
-  arg2 = arg2(arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
-  arg3 = DecorGetInt
-  arg4 = arg1
-  arg5 = "0a6cf607ed"
-  arg3 = arg3(arg4, arg5)
-  if arg2 > 0 and arg3 > 0 then
-    arg4 = CMG
-    arg4 = arg4.loadAnimDict
-    arg5 = "missexile3"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation9; parameters: localValue1) ===
+function rageUiOperation9(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7
+  localValue2 = tonumber
+  localValue3 = DecorGetInt
+  localValue4 = localValue1
+  localValue5 = "ac76c9d452"
+  localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7 = localValue3(localValue4, localValue5)
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
+  localValue3 = DecorGetInt
+  localValue4 = localValue1
+  localValue5 = "0a6cf607ed"
+  localValue3 = localValue3(localValue4, localValue5)
+  if localValue2 > 0 and localValue3 > 0 then
+    localValue4 = CMG
+    localValue4 = localValue4.loadAnimDict
+    localValue5 = "missexile3"
     -- Beginner: Load a GTA animation dictionary before using it.
-    arg4(arg5)
-    arg4 = TaskPlayAnim
-    arg5 = PlayerPedId
+    localValue4(localValue5)
+    localValue4 = TaskPlayAnim
+    localValue5 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg5 = arg5()
-    arg6 = "missexile3"
-    arg7 = "ex03_dingy_search_case_base_michael"
+    localValue5 = localValue5()
+    localValue6 = "missexile3"
+    localValue7 = "ex03_dingy_search_case_base_michael"
     iterator2 = 1.0
     tableHelper2 = 8.0
-    dataTable25 = 12000
-    workValue2 = 1
-    dataTable = 1.0
+    dataCollection25 = 12000
+    workingValue2 = 1
+    dataCollection = 1.0
     iterator = false
     stringHelper = false
-    workValue7 = false
+    workingValue7 = false
     -- Beginner: Play an animation on a ped.
-    arg4(arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
-    arg4 = RemoveAnimDict
-    arg5 = "missexile3"
-    arg4(arg5)
-    arg4 = TriggerServerEvent
-    arg5 = "d9ee87e5cb"
-    arg6 = VehToNet
-    arg7 = arg1
-    arg6 = arg6(arg7)
-    arg7 = arg3
+    localValue4(localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
+    localValue4 = RemoveAnimDict
+    localValue5 = "missexile3"
+    localValue4(localValue5)
+    localValue4 = TriggerServerEvent
+    localValue5 = "d9ee87e5cb"
+    localValue6 = VehToNet
+    localValue7 = localValue1
+    localValue6 = localValue6(localValue7)
+    localValue7 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d9ee87e5cb".
-    arg4(arg5, arg6, arg7)
+    localValue4(localValue5, localValue6, localValue7)
   else
-    arg4 = IsEntityAVehicle
-    arg5 = arg1
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = GetEntityAttachedTo
-      arg5 = arg1
-      arg4 = arg4(arg5)
-      if 0 ~= arg4 then
-        arg5 = IsEntityAVehicle
-        arg6 = arg1
-        arg5 = arg5(arg6)
-        if arg5 then
-          arg5 = NetworkGetNetworkIdFromEntity
-          arg6 = arg4
-          arg5 = arg5(arg6)
-          if arg5 > 0 then
-            arg6 = TriggerServerEvent
-            arg7 = "3395fde4e7"
-            iterator2 = arg5
-            arg6(arg7, iterator2)
+    localValue4 = IsEntityAVehicle
+    localValue5 = localValue1
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = GetEntityAttachedTo
+      localValue5 = localValue1
+      localValue4 = localValue4(localValue5)
+      if 0 ~= localValue4 then
+        localValue5 = IsEntityAVehicle
+        localValue6 = localValue1
+        localValue5 = localValue5(localValue6)
+        if localValue5 then
+          localValue5 = NetworkGetNetworkIdFromEntity
+          localValue6 = localValue4
+          localValue5 = localValue5(localValue6)
+          if localValue5 > 0 then
+            localValue6 = TriggerServerEvent
+            localValue7 = "3395fde4e7"
+            iterator2 = localValue5
+            localValue6(localValue7, iterator2)
           end
         end
       end
     end
-    arg4 = tCMG
-    arg4 = arg4.notify
-    arg5 = "~r~Vehicle is not owned by anyone"
+    localValue4 = tCMG
+    localValue4 = localValue4.notify
+    localValue5 = "~r~Vehicle is not owned by anyone"
     -- Beginner: Show a notification to the player.
-    arg4(arg5)
+    localValue4(localValue5)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "918c11c450".
-textValue25(textValue26, rageUiCall9)
-textValue25 = RegisterNetEvent
-textValue26 = "3b617398d3"
+text25(text26, rageUiOperation9)
+text25 = RegisterNetEvent
+text26 = "3b617398d3"
 -- Beginner: this function handles network event "3b617398d3".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall9; parameters: arg1, arg2) ===
-function rageUiCall9(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator
-  arg3 = CMG
-  arg3 = arg3.getObjectId
-  arg4 = arg1
-  arg5 = "3b617398d3"
-  arg3 = arg3(arg4, arg5)
-  arg4 = GetNumberOfVehicleDoors
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  arg5 = 0
-  arg6 = arg4
-  arg7 = 1
-  for iterator2 = arg5, arg6, arg7 do
-    if arg2 then
+-- === HELPER FUNCTION (decompiler name: rageUiOperation9; parameters: localValue1, localValue2) ===
+function rageUiOperation9(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator
+  localValue3 = CMG
+  localValue3 = localValue3.getObjectId
+  localValue4 = localValue1
+  localValue5 = "3b617398d3"
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = GetNumberOfVehicleDoors
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  localValue5 = 0
+  localValue6 = localValue4
+  localValue7 = 1
+  for iterator2 = localValue5, localValue6, localValue7 do
+    if localValue2 then
       tableHelper2 = SetVehicleDoorOpen
-      dataTable25 = arg3
-      workValue2 = iterator2
-      dataTable = false
+      dataCollection25 = localValue3
+      workingValue2 = iterator2
+      dataCollection = false
       iterator = false
-      tableHelper2(dataTable25, workValue2, dataTable, iterator)
+      tableHelper2(dataCollection25, workingValue2, dataCollection, iterator)
     else
       tableHelper2 = SetVehicleDoorShut
-      dataTable25 = arg3
-      workValue2 = iterator2
-      dataTable = false
-      tableHelper2(dataTable25, workValue2, dataTable)
+      dataCollection25 = localValue3
+      workingValue2 = iterator2
+      dataCollection = false
+      tableHelper2(dataCollection25, workingValue2, dataCollection)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3b617398d3".
-textValue25(textValue26, rageUiCall9)
-textValue25 = {}
-textValue26 = RegisterNetEvent
-rageUiCall9 = "7d90029b70"
+text25(text26, rageUiOperation9)
+text25 = {}
+text26 = RegisterNetEvent
+rageUiOperation9 = "7d90029b70"
 -- Beginner: this function handles network event "7d90029b70".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall10; parameters: arg1, arg2, arg3, arg4) ===
-function rageUiCall10(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7
-  arg5 = tonumber
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg5 = 60000
+-- === HELPER FUNCTION (decompiler name: rageUiOperation10; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function rageUiOperation10(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7
+  localValue5 = tonumber
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue5 = 60000
   end
-  arg6 = 1000
-  if arg5 < arg6 then
-    arg5 = 60000
+  localValue6 = 1000
+  if localValue5 < localValue6 then
+    localValue5 = 60000
   end
-  arg6 = FreezeEntityPosition
-  arg7 = CMG
-  arg7 = arg7.getPlayerPed
+  localValue6 = FreezeEntityPosition
+  localValue7 = CMG
+  localValue7 = localValue7.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg7 = arg7()
+  localValue7 = localValue7()
   iterator2 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg6(arg7, iterator2)
-  arg6 = RequestAnimDict
-  arg7 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-  arg6(arg7)
+  localValue6(localValue7, iterator2)
+  localValue6 = RequestAnimDict
+  localValue7 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
+  localValue6(localValue7)
   while true do
-    arg6 = HasAnimDictLoaded
-    arg7 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-    arg6 = arg6(arg7)
-    if arg6 then
+    localValue6 = HasAnimDictLoaded
+    localValue7 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
       break
     end
-    arg6 = Citizen
-    arg6 = arg6.Wait
-    arg7 = 0
-    arg6(arg7)
+    localValue6 = Citizen
+    localValue6 = localValue6.Wait
+    localValue7 = 0
+    localValue6(localValue7)
   end
-  arg6 = true
-  arg7 = false
+  localValue6 = true
+  localValue7 = false
   iterator2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
   iterator2 = iterator2()
   tableHelper2 = tCMG
   tableHelper2 = tableHelper2.notify
-  dataTable25 = "~g~Lock Picking in progress, you can cancel with [Backspace]."
+  dataCollection25 = "~g~Lock Picking in progress, you can cancel with [Backspace]."
   -- Beginner: Show a notification to the player.
-  tableHelper2(dataTable25)
+  tableHelper2(dataCollection25)
   tableHelper2 = Citizen
   tableHelper2 = tableHelper2.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: dataTable25; parameters: none) ===
-  function dataTable25()
-    local arg12, arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag
+  -- === HELPER FUNCTION (decompiler name: dataCollection25; parameters: none) ===
+  function dataCollection25()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag
     while true do
-      arg12 = arg6
-      if not arg12 then
+      localValue12 = localValue6
+      if not localValue12 then
         break
       end
-      arg12 = IsEntityPlayingAnim
-      arg22 = CMG
-      arg22 = arg22.getPlayerPed
+      localValue12 = IsEntityPlayingAnim
+      localValue22 = CMG
+      localValue22 = localValue22.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg22 = arg22()
-      arg32 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-      arg42 = "machinic_loop_mechandplayer"
-      workValue18 = 3
-      arg12 = arg12(arg22, arg32, arg42, workValue18)
-      if not arg12 then
-        arg12 = TaskPlayAnim
-        arg22 = CMG
-        arg22 = arg22.getPlayerPed
+      localValue22 = localValue22()
+      localValue32 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
+      localValue42 = "machinic_loop_mechandplayer"
+      workingValue18 = 3
+      localValue12 = localValue12(localValue22, localValue32, localValue42, workingValue18)
+      if not localValue12 then
+        localValue12 = TaskPlayAnim
+        localValue22 = CMG
+        localValue22 = localValue22.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        arg22 = arg22()
-        arg32 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-        arg42 = "machinic_loop_mechandplayer"
-        workValue18 = 8.0
-        flag11 = -8.0
-        flag13 = -1
-        flag14 = 1
-        cmgCall16 = 0
-        flag17 = false
-        numberValue2 = false
-        flag = false
+        localValue22 = localValue22()
+        localValue32 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
+        localValue42 = "machinic_loop_mechandplayer"
+        workingValue18 = 8.0
+        stateFlag11 = -8.0
+        stateFlag13 = -1
+        stateFlag14 = 1
+        cmgOperation16 = 0
+        stateFlag17 = false
+        number2 = false
+        stateFlag = false
         -- Beginner: Play an animation on a ped.
-        arg12(arg22, arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag)
+        localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag)
       end
-      arg12 = math
-      arg12 = arg12.floor
-      arg22 = GetGameTimer
+      localValue12 = math
+      localValue12 = localValue12.floor
+      localValue22 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      arg22 = arg22()
-      arg32 = iterator2
-      arg22 = arg22 - arg32
-      arg32 = arg5
-      arg22 = arg22 / arg32
-      arg22 = arg22 * 100
-      arg12 = arg12(arg22)
-      arg22 = drawNativeText
-      arg32 = "~y~Lock picking - "
-      arg42 = arg12
-      workValue18 = "%"
-      arg32 = arg32 .. arg42 .. workValue18
+      localValue22 = localValue22()
+      localValue32 = iterator2
+      localValue22 = localValue22 - localValue32
+      localValue32 = localValue5
+      localValue22 = localValue22 / localValue32
+      localValue22 = localValue22 * 100
+      localValue12 = localValue12(localValue22)
+      localValue22 = drawNativeText
+      localValue32 = "~y~Lock picking - "
+      localValue42 = localValue12
+      workingValue18 = "%"
+      localValue32 = localValue32 .. localValue42 .. workingValue18
       -- Beginner: Draw GTA-style text on screen.
-      arg22(arg32)
-      arg22 = EnableControlAction
-      arg32 = 0
-      arg42 = 177
-      workValue18 = true
-      arg22(arg32, arg42, workValue18)
-      arg22 = IsControlJustPressed
-      arg32 = 0
-      arg42 = 177
-      arg22 = arg22(arg32, arg42)
-      if not arg22 then
-        arg22 = IsDisabledControlJustPressed
-        arg32 = 0
-        arg42 = 177
-        arg22 = arg22(arg32, arg42)
-        if not arg22 then
-          goto flow_label_88
+      localValue22(localValue32)
+      localValue22 = EnableControlAction
+      localValue32 = 0
+      localValue42 = 177
+      workingValue18 = true
+      localValue22(localValue32, localValue42, workingValue18)
+      localValue22 = IsControlJustPressed
+      localValue32 = 0
+      localValue42 = 177
+      localValue22 = localValue22(localValue32, localValue42)
+      if not localValue22 then
+        localValue22 = IsDisabledControlJustPressed
+        localValue32 = 0
+        localValue42 = 177
+        localValue22 = localValue22(localValue32, localValue42)
+        if not localValue22 then
+          goto continueAtStep88
         end
       end
-      arg22 = tCMG
-      arg22 = arg22.notify
-      arg32 = "~r~Lock Picking cancelled."
+      localValue22 = tCMG
+      localValue22 = localValue22.notify
+      localValue32 = "~r~Lock Picking cancelled."
       -- Beginner: Show a notification to the player.
-      arg22(arg32)
-      arg22 = false
-      arg6 = arg22
-      arg22 = true
-      arg7 = arg22
-      arg22 = ClearPedTasks
-      arg32 = CMG
-      arg32 = arg32.getPlayerPed
-      arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag = arg32()
-      arg22(arg32, arg42, workValue18, flag11, flag13, flag14, cmgCall16, flag17, numberValue2, flag)
-      arg22 = FreezeEntityPosition
-      arg32 = CMG
-      arg32 = arg32.getPlayerPed
+      localValue22(localValue32)
+      localValue22 = false
+      localValue6 = localValue22
+      localValue22 = true
+      localValue7 = localValue22
+      localValue22 = ClearPedTasks
+      localValue32 = CMG
+      localValue32 = localValue32.getPlayerPed
+      localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag = localValue32()
+      localValue22(localValue32, localValue42, workingValue18, stateFlag11, stateFlag13, stateFlag14, cmgOperation16, stateFlag17, number2, stateFlag)
+      localValue22 = FreezeEntityPosition
+      localValue32 = CMG
+      localValue32 = localValue32.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg32 = arg32()
-      arg42 = false
+      localValue32 = localValue32()
+      localValue42 = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      arg22(arg32, arg42)
-      arg22 = TriggerServerEvent
-      arg32 = "24bc17d15e"
-      arg42 = arg2
+      localValue22(localValue32, localValue42)
+      localValue22 = TriggerServerEvent
+      localValue32 = "24bc17d15e"
+      localValue42 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "24bc17d15e".
-      arg22(arg32, arg42)
-      ::flow_label_88::
-      arg22 = Wait
-      arg32 = 0
-      arg22(arg32)
+      localValue22(localValue32, localValue42)
+      ::continueAtStep88::
+      localValue22 = Wait
+      localValue32 = 0
+      localValue22(localValue32)
     end
-    arg12 = RemoveAnimDict
-    arg22 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-    arg12(arg22)
+    localValue12 = RemoveAnimDict
+    localValue22 = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
+    localValue12(localValue22)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  tableHelper2(dataTable25)
+  tableHelper2(dataCollection25)
   tableHelper2 = Wait
-  dataTable25 = arg5
-  tableHelper2(dataTable25)
+  dataCollection25 = localValue5
+  tableHelper2(dataCollection25)
   tableHelper2 = FreezeEntityPosition
-  dataTable25 = CMG
-  dataTable25 = dataTable25.getPlayerPed
+  dataCollection25 = CMG
+  dataCollection25 = dataCollection25.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  dataTable25 = dataTable25()
-  workValue2 = false
+  dataCollection25 = dataCollection25()
+  workingValue2 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  tableHelper2(dataTable25, workValue2)
+  tableHelper2(dataCollection25, workingValue2)
   tableHelper2 = ClearPedTasks
-  dataTable25 = CMG
-  dataTable25 = dataTable25.getPlayerPed
-  dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7 = dataTable25()
-  tableHelper2(dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
-  arg6 = false
-  if arg3 and not arg7 then
-    tableHelper2 = textValue25
-    tableHelper2[arg1] = true
+  dataCollection25 = CMG
+  dataCollection25 = dataCollection25.getPlayerPed
+  dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7 = dataCollection25()
+  tableHelper2(dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
+  localValue6 = false
+  if localValue3 and not localValue7 then
+    tableHelper2 = text25
+    tableHelper2[localValue1] = true
     tableHelper2 = tonumber
-    dataTable25 = DecorGetInt
-    workValue2 = arg1
-    dataTable = "ac76c9d452"
-    dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7 = dataTable25(workValue2, dataTable)
-    tableHelper2 = tableHelper2(dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7)
-    dataTable25 = DecorGetInt
-    workValue2 = arg1
-    dataTable = "0a6cf607ed"
-    dataTable25 = dataTable25(workValue2, dataTable)
-    if tableHelper2 > 0 and dataTable25 > 0 then
-      workValue2 = TriggerServerEvent
-      dataTable = "c8979f62fb"
-      iterator = dataTable25
+    dataCollection25 = DecorGetInt
+    workingValue2 = localValue1
+    dataCollection = "ac76c9d452"
+    dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7 = dataCollection25(workingValue2, dataCollection)
+    tableHelper2 = tableHelper2(dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7)
+    dataCollection25 = DecorGetInt
+    workingValue2 = localValue1
+    dataCollection = "0a6cf607ed"
+    dataCollection25 = dataCollection25(workingValue2, dataCollection)
+    if tableHelper2 > 0 and dataCollection25 > 0 then
+      workingValue2 = TriggerServerEvent
+      dataCollection = "c8979f62fb"
+      iterator = dataCollection25
       stringHelper = tableHelper2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c8979f62fb".
-      workValue2(dataTable, iterator, stringHelper)
+      workingValue2(dataCollection, iterator, stringHelper)
     else
-      workValue2 = tCMG
-      workValue2 = workValue2.notify
-      dataTable = "~r~Vehicle is not owned by anyone"
+      workingValue2 = tCMG
+      workingValue2 = workingValue2.notify
+      dataCollection = "~r~Vehicle is not owned by anyone"
       -- Beginner: Show a notification to the player.
-      workValue2(dataTable)
+      workingValue2(dataCollection)
     end
-    workValue2 = NetworkGetNetworkIdFromEntity
-    dataTable = arg1
-    workValue2 = workValue2(dataTable)
-    if 0 ~= workValue2 then
-      dataTable = NetworkHasControlOfEntity
-      iterator = arg1
-      dataTable = dataTable(iterator)
-      if dataTable then
-        dataTable = TriggerEvent
+    workingValue2 = NetworkGetNetworkIdFromEntity
+    dataCollection = localValue1
+    workingValue2 = workingValue2(dataCollection)
+    if 0 ~= workingValue2 then
+      dataCollection = NetworkHasControlOfEntity
+      iterator = localValue1
+      dataCollection = dataCollection(iterator)
+      if dataCollection then
+        dataCollection = TriggerEvent
         iterator = "126d6c2d61"
-        stringHelper = workValue2
-        workValue7 = false
+        stringHelper = workingValue2
+        workingValue7 = false
         -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "126d6c2d61".
-        dataTable(iterator, stringHelper, workValue7)
+        dataCollection(iterator, stringHelper, workingValue7)
       else
-        dataTable = TriggerServerEvent
+        dataCollection = TriggerServerEvent
         iterator = "126d6c2d61"
-        stringHelper = workValue2
-        workValue7 = false
+        stringHelper = workingValue2
+        workingValue7 = false
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "126d6c2d61".
-        dataTable(iterator, stringHelper, workValue7)
+        dataCollection(iterator, stringHelper, workingValue7)
       end
-      dataTable = TriggerServerEvent
+      dataCollection = TriggerServerEvent
       iterator = "3b617398d3"
-      stringHelper = workValue2
-      dataTable(iterator, stringHelper)
-      dataTable = tCMG
-      dataTable = dataTable.notify
+      stringHelper = workingValue2
+      dataCollection(iterator, stringHelper)
+      dataCollection = tCMG
+      dataCollection = dataCollection.notify
       iterator = "Vehicle unlocked."
       -- Beginner: Show a notification to the player.
-      dataTable(iterator)
+      dataCollection(iterator)
     end
   else
     tableHelper2 = tCMG
     tableHelper2 = tableHelper2.notify
-    dataTable25 = "~r~Failed to lockpick vehicle."
-    tableHelper2(dataTable25)
+    dataCollection25 = "~r~Failed to lockpick vehicle."
+    tableHelper2(dataCollection25)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "7d90029b70".
-textValue26(rageUiCall9, rageUiCall10)
-textValue26 = {}
-rageUiCall9 = RegisterNetEvent
-rageUiCall10 = "49b4103abb"
+text26(rageUiOperation9, rageUiOperation10)
+text26 = {}
+rageUiOperation9 = RegisterNetEvent
+rageUiOperation10 = "49b4103abb"
 -- Beginner: this function handles network event "49b4103abb".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1, arg2) ===
-function eventRegistration5(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg3 = tonumber
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = 60000
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1, localValue2) ===
+function eventHandler5(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue3 = tonumber
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = 60000
   end
-  arg4 = 1000
-  if arg3 < arg4 then
-    arg3 = 60000
+  localValue4 = 1000
+  if localValue3 < localValue4 then
+    localValue3 = 60000
   end
-  arg4 = CMG
-  arg4 = arg4.getObjectId
-  arg5 = arg1
-  arg6 = "49b4103abb"
-  arg4 = arg4(arg5, arg6)
-  if arg4 then
-    arg5 = GetSoundId
+  localValue4 = CMG
+  localValue4 = localValue4.getObjectId
+  localValue5 = localValue1
+  localValue6 = "49b4103abb"
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 then
+    localValue5 = GetSoundId
     -- Beginner: result below is soundHandle.
-    arg5 = arg5()
-    arg6 = PlaySoundFromEntity
-    arg7 = arg5
+    localValue5 = localValue5()
+    localValue6 = PlaySoundFromEntity
+    localValue7 = localValue5
     iterator2 = "ALARM_ONE"
-    tableHelper2 = arg4
-    dataTable25 = "DLC_ALARM_SOUNDSET"
-    workValue2 = false
-    dataTable = 0
-    arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-    arg6 = textValue26
-    arg6[arg1] = arg5
-    arg6 = SetTimeout
-    arg7 = arg3
+    tableHelper2 = localValue4
+    dataCollection25 = "DLC_ALARM_SOUNDSET"
+    workingValue2 = false
+    dataCollection = 0
+    localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+    localValue6 = text26
+    localValue6[localValue1] = localValue5
+    localValue6 = SetTimeout
+    localValue7 = localValue3
 
     -- === HELPER FUNCTION: iterator2() ===
     function iterator2()
-      local arg12, arg22
-      arg22 = arg1
-      arg12 = textValue26
-      arg12 = arg12[arg22]
-      if arg12 then
-        arg12 = StopSound
-        arg22 = arg5
-        arg12(arg22)
-        arg12 = ReleaseSoundId
-        arg22 = arg5
-        arg12(arg22)
-        arg22 = arg1
-        arg12 = textValue26
-        arg12[arg22] = nil
+      local localValue12, localValue22
+      localValue22 = localValue1
+      localValue12 = text26
+      localValue12 = localValue12[localValue22]
+      if localValue12 then
+        localValue12 = StopSound
+        localValue22 = localValue5
+        localValue12(localValue22)
+        localValue12 = ReleaseSoundId
+        localValue22 = localValue5
+        localValue12(localValue22)
+        localValue22 = localValue1
+        localValue12 = text26
+        localValue12[localValue22] = nil
       end
     end
-    arg6(arg7, iterator2)
+    localValue6(localValue7, iterator2)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "49b4103abb".
-rageUiCall9(rageUiCall10, eventRegistration5)
-rageUiCall9 = RegisterNetEvent
-rageUiCall10 = "4b7575ffbe"
+rageUiOperation9(rageUiOperation10, eventHandler5)
+rageUiOperation9 = RegisterNetEvent
+rageUiOperation10 = "4b7575ffbe"
 -- Beginner: this function handles network event "4b7575ffbe".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1) ===
-function eventRegistration5(arg1)
-  local arg2, arg3, arg4
-  arg2 = textValue26
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = StopSound
-    arg4 = arg2
-    arg3(arg4)
-    arg3 = ReleaseSoundId
-    arg4 = arg2
-    arg3(arg4)
-    arg3 = textValue26
-    arg3[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1) ===
+function eventHandler5(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = text26
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = StopSound
+    localValue4 = localValue2
+    localValue3(localValue4)
+    localValue3 = ReleaseSoundId
+    localValue4 = localValue2
+    localValue3(localValue4)
+    localValue3 = text26
+    localValue3[localValue1] = nil
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4b7575ffbe".
-rageUiCall9(rageUiCall10, eventRegistration5)
-rageUiCall9 = AddEventHandler
-rageUiCall10 = "1631601e81"
+rageUiOperation9(rageUiOperation10, eventHandler5)
+rageUiOperation9 = AddEventHandler
+rageUiOperation10 = "1631601e81"
 -- Beginner: this function runs when client event "1631601e81" fires.
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1) ===
-function eventRegistration5(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = DecorGetBool
-  arg3 = arg1
-  arg4 = "6b6dade745"
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg2 = notify
-    arg3 = "~r~This vehicle has been towed by Mechanic and can't be lock picked."
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1) ===
+function eventHandler5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = DecorGetBool
+  localValue3 = localValue1
+  localValue4 = "6b6dade745"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue2 = notify
+    localValue3 = "~r~This vehicle has been towed by Mechanic and can't be lock picked."
     -- Beginner: Show a notification to the player.
-    arg2(arg3)
+    localValue2(localValue3)
     return
   else
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "aa.onduty.permission"
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg2 = notify
-      arg3 = "~r~This action is very illegal."
-      arg2(arg3)
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "aa.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue2 = notify
+      localValue3 = "~r~This action is very illegal."
+      localValue2(localValue3)
       return
     else
-      arg2 = tCMG
-      arg2 = arg2.isInGreenzone
-      arg3 = false
-      arg2 = arg2(arg3)
-      if arg2 then
-        arg2 = notify
-        arg3 = "~r~You can not lockpick in a greenzone"
+      localValue2 = tCMG
+      localValue2 = localValue2.isInGreenzone
+      localValue3 = false
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        localValue2 = notify
+        localValue3 = "~r~You can not lockpick in a greenzone"
         -- Beginner: Show a notification to the player.
-        arg2(arg3)
+        localValue2(localValue3)
         return
       end
     end
   end
-  arg2 = DecorGetInt
-  arg3 = arg1
-  arg4 = "0a6cf607ed"
-  arg2 = arg2(arg3, arg4)
-  if arg2 > 0 then
-    arg3 = textValue25
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = TriggerServerEvent
-      arg4 = "c8979f62fb"
-      arg5 = arg2
+  localValue2 = DecorGetInt
+  localValue3 = localValue1
+  localValue4 = "0a6cf607ed"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 > 0 then
+    localValue3 = text25
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = TriggerServerEvent
+      localValue4 = "c8979f62fb"
+      localValue5 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c8979f62fb".
-      arg3(arg4, arg5)
+      localValue3(localValue4, localValue5)
     else
-      arg3 = TriggerServerEvent
-      arg4 = "bcccb7ede5"
-      arg5 = arg1
-      arg6 = VehToNet
-      arg7 = arg1
-      arg6 = arg6(arg7)
-      arg7 = arg2
-      arg3(arg4, arg5, arg6, arg7)
+      localValue3 = TriggerServerEvent
+      localValue4 = "bcccb7ede5"
+      localValue5 = localValue1
+      localValue6 = VehToNet
+      localValue7 = localValue1
+      localValue6 = localValue6(localValue7)
+      localValue7 = localValue2
+      localValue3(localValue4, localValue5, localValue6, localValue7)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "1631601e81".
-rageUiCall9(rageUiCall10, eventRegistration5)
-rageUiCall9 = CMG
-rageUiCall10 = "clientVehicleWasLockpickedThisSession"
+rageUiOperation9(rageUiOperation10, eventHandler5)
+rageUiOperation9 = CMG
+rageUiOperation10 = "clientVehicleWasLockpickedThisSession"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1) ===
-function eventRegistration5(arg1)
-  local arg2
-  arg2 = textValue25
-  arg2 = arg2[arg1]
-  arg2 = true == arg2
-  return arg2
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1) ===
+function eventHandler5(localValue1)
+  local localValue2
+  localValue2 = text25
+  localValue2 = localValue2[localValue1]
+  localValue2 = true == localValue2
+  return localValue2
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = CMG
-rageUiCall10 = "getCustomFolders"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = CMG
+rageUiOperation10 = "getCustomFolders"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: none) ===
-function eventRegistration5()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper
-  arg1 = GetResourceKvpString
-  arg2 = "cmg_garagefolders"
-  arg1 = arg1(arg2)
-  if nil == arg1 or "null" == arg1 then
-    arg1 = "{}"
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: none) ===
+function eventHandler5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper
+  localValue1 = GetResourceKvpString
+  localValue2 = "cmg_garagefolders"
+  localValue1 = localValue1(localValue2)
+  if nil == localValue1 or "null" == localValue1 then
+    localValue1 = "{}"
   end
-  arg2 = json
-  arg2 = arg2.decode
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = {}
-  if arg2 then
-    arg4 = pairs
-    arg5 = arg2
-    arg4, arg5, arg6, arg7 = arg4(arg5)
-    for iterator2, tableHelper2 in arg4, arg5, arg6, arg7 do
-      dataTable25 = {}
-      workValue2 = pairs
-      dataTable = tableHelper2
-      workValue2, dataTable, iterator, stringHelper = workValue2(dataTable)
-      for workValue7, stringHelper2 in workValue2, dataTable, iterator, stringHelper do
-        cmgCall3 = tonumber
-        tableHelper = workValue7
-        cmgCall3 = cmgCall3(tableHelper)
-        if cmgCall3 then
-          cmgCall3 = tonumber
-          tableHelper = workValue7
-          cmgCall3 = cmgCall3(tableHelper)
-          dataTable25[cmgCall3] = stringHelper2
+  localValue2 = json
+  localValue2 = localValue2.decode
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = {}
+  if localValue2 then
+    localValue4 = pairs
+    localValue5 = localValue2
+    localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+    for iterator2, tableHelper2 in localValue4, localValue5, localValue6, localValue7 do
+      dataCollection25 = {}
+      workingValue2 = pairs
+      dataCollection = tableHelper2
+      workingValue2, dataCollection, iterator, stringHelper = workingValue2(dataCollection)
+      for workingValue7, stringHelper2 in workingValue2, dataCollection, iterator, stringHelper do
+        cmgOperation3 = tonumber
+        tableHelper = workingValue7
+        cmgOperation3 = cmgOperation3(tableHelper)
+        if cmgOperation3 then
+          cmgOperation3 = tonumber
+          tableHelper = workingValue7
+          cmgOperation3 = cmgOperation3(tableHelper)
+          dataCollection25[cmgOperation3] = stringHelper2
         end
       end
-      arg3[iterator2] = dataTable25
+      localValue3[iterator2] = dataCollection25
     end
   end
-  return arg3
+  return localValue3
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = CMG
-rageUiCall10 = "isVehicleInAnyCustomFolder"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = CMG
+rageUiOperation10 = "isVehicleInAnyCustomFolder"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1) ===
-function eventRegistration5(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = pairs
-  arg3 = dataTable9
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    iterator2 = arg7[arg1]
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1) ===
+function eventHandler5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = pairs
+  localValue3 = dataCollection9
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    iterator2 = localValue7[localValue1]
     if iterator2 then
       iterator2 = true
       return iterator2
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = CMG
-rageUiCall10 = "saveCustomFolders"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = CMG
+rageUiOperation10 = "saveCustomFolders"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1) ===
-function eventRegistration5(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = SetResourceKvp
-  arg3 = "cmg_garagefolders"
-  arg4 = json
-  arg4 = arg4.encode
-  arg5 = dataTable9
-  arg4, arg5 = arg4(arg5)
-  arg2(arg3, arg4, arg5)
-  arg2 = SetResourceKvpInt
-  arg3 = "cmg_garagefolders_version"
-  arg4 = arg1 or arg4
-  if not arg1 then
-    arg4 = 2
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1) ===
+function eventHandler5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = SetResourceKvp
+  localValue3 = "cmg_garagefolders"
+  localValue4 = json
+  localValue4 = localValue4.encode
+  localValue5 = dataCollection9
+  localValue4, localValue5 = localValue4(localValue5)
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = SetResourceKvpInt
+  localValue3 = "cmg_garagefolders_version"
+  localValue4 = localValue1 or localValue4
+  if not localValue1 then
+    localValue4 = 2
   end
-  arg2(arg3, arg4)
+  localValue2(localValue3, localValue4)
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = CMG
-rageUiCall10 = "addCarToCustomFolder"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = CMG
+rageUiOperation10 = "addCarToCustomFolder"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1, arg2, arg3) ===
-function eventRegistration5(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2
-  arg4 = dataTable9
-  arg4 = arg4[arg3]
-  if arg4 then
-    arg4 = 0
-    arg5 = pairs
-    arg6 = dataTable9
-    arg6 = arg6[arg3]
-    arg5, arg6, arg7, iterator2 = arg5(arg6)
-    for tableHelper2, dataTable25 in arg5, arg6, arg7, iterator2 do
-      if dataTable25 > arg4 then
-        arg4 = dataTable25
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1, localValue2, localValue3) ===
+function eventHandler5(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2
+  localValue4 = dataCollection9
+  localValue4 = localValue4[localValue3]
+  if localValue4 then
+    localValue4 = 0
+    localValue5 = pairs
+    localValue6 = dataCollection9
+    localValue6 = localValue6[localValue3]
+    localValue5, localValue6, localValue7, iterator2 = localValue5(localValue6)
+    for tableHelper2, dataCollection25 in localValue5, localValue6, localValue7, iterator2 do
+      if dataCollection25 > localValue4 then
+        localValue4 = dataCollection25
       end
     end
-    arg5 = dataTable9
-    arg5 = arg5[arg3]
-    arg6 = arg4 + 1
-    arg5[arg1] = arg6
-    arg5 = CMG
-    arg5 = arg5.saveCustomFolders
-    arg5()
-    arg5 = tCMG
-    arg5 = arg5.notify
-    arg6 = "~g~Added vehicle to custom folder."
+    localValue5 = dataCollection9
+    localValue5 = localValue5[localValue3]
+    localValue6 = localValue4 + 1
+    localValue5[localValue1] = localValue6
+    localValue5 = CMG
+    localValue5 = localValue5.saveCustomFolders
+    localValue5()
+    localValue5 = tCMG
+    localValue5 = localValue5.notify
+    localValue6 = "~g~Added vehicle to custom folder."
     -- Beginner: Show a notification to the player.
-    arg5(arg6)
+    localValue5(localValue6)
   else
-    arg4 = tCMG
-    arg4 = arg4.notify
-    arg5 = "~r~Failed to add vehicle to folder, folder does not exist?"
-    arg4(arg5)
+    localValue4 = tCMG
+    localValue4 = localValue4.notify
+    localValue5 = "~r~Failed to add vehicle to folder, folder does not exist?"
+    localValue4(localValue5)
   end
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = _ENV
-rageUiCall10 = "CMG"
-rageUiCall9 = rageUiCall9[rageUiCall10]
-rageUiCall10 = "removeCarFromCustomFolder"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = _ENV
+rageUiOperation10 = "CMG"
+rageUiOperation9 = rageUiOperation9[rageUiOperation10]
+rageUiOperation10 = "removeCarFromCustomFolder"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1, arg2) ===
-function eventRegistration5(arg1, arg2)
-  local arg3, arg4
-  arg3 = dataTable9
-  arg3 = arg3[arg2]
-  if arg3 then
-    arg3 = dataTable9
-    arg3 = arg3[arg2]
-    arg3 = arg3[arg1]
-    if arg3 then
-      arg3 = dataTable9
-      arg3 = arg3[arg2]
-      arg3[arg1] = nil
-      arg3 = CMG
-      arg3 = arg3.saveCustomFolders
-      arg3()
-      arg3 = tCMG
-      arg3 = arg3.notify
-      arg4 = "~g~Removed vehicle from custom folder."
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1, localValue2) ===
+function eventHandler5(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = dataCollection9
+  localValue3 = localValue3[localValue2]
+  if localValue3 then
+    localValue3 = dataCollection9
+    localValue3 = localValue3[localValue2]
+    localValue3 = localValue3[localValue1]
+    if localValue3 then
+      localValue3 = dataCollection9
+      localValue3 = localValue3[localValue2]
+      localValue3[localValue1] = nil
+      localValue3 = CMG
+      localValue3 = localValue3.saveCustomFolders
+      localValue3()
+      localValue3 = tCMG
+      localValue3 = localValue3.notify
+      localValue4 = "~g~Removed vehicle from custom folder."
       -- Beginner: Show a notification to the player.
-      arg3(arg4)
+      localValue3(localValue4)
     else
-      arg3 = tCMG
-      arg3 = arg3.notify
-      arg4 = "~r~Failed to remove vehicle from folder, vehicle not in folder."
-      arg3(arg4)
+      localValue3 = tCMG
+      localValue3 = localValue3.notify
+      localValue4 = "~r~Failed to remove vehicle from folder, vehicle not in folder."
+      localValue3(localValue4)
     end
   else
-    arg3 = tCMG
-    arg3 = arg3.notify
-    arg4 = "~r~Failed to remove vehicle from folder, folder does not exist?"
+    localValue3 = tCMG
+    localValue3 = localValue3.notify
+    localValue4 = "~r~Failed to remove vehicle from folder, folder does not exist?"
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
   end
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = _ENV
-rageUiCall10 = "CMG"
-rageUiCall9 = rageUiCall9[rageUiCall10]
-rageUiCall10 = "createCustomFolder"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = _ENV
+rageUiOperation10 = "CMG"
+rageUiOperation9 = rageUiOperation9[rageUiOperation10]
+rageUiOperation10 = "createCustomFolder"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1) ===
-function eventRegistration5(arg1)
-  local arg2, arg3, arg4
-  arg2 = dataTable9
-  arg3 = {}
-  arg2[arg1] = arg3
-  arg2 = CMG
-  arg2 = arg2.saveCustomFolders
-  arg2()
-  arg2 = tCMG
-  arg2 = arg2.notify
-  arg3 = "~g~Created "
-  arg4 = arg1
-  arg3 = arg3 .. arg4
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1) ===
+function eventHandler5(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = dataCollection9
+  localValue3 = {}
+  localValue2[localValue1] = localValue3
+  localValue2 = CMG
+  localValue2 = localValue2.saveCustomFolders
+  localValue2()
+  localValue2 = tCMG
+  localValue2 = localValue2.notify
+  localValue3 = "~g~Created "
+  localValue4 = localValue1
+  localValue3 = localValue3 .. localValue4
   -- Beginner: Show a notification to the player.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = _ENV
-rageUiCall10 = "CMG"
-rageUiCall9 = rageUiCall9[rageUiCall10]
-rageUiCall10 = "deleteCustomFolder"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = _ENV
+rageUiOperation10 = "CMG"
+rageUiOperation9 = rageUiOperation9[rageUiOperation10]
+rageUiOperation10 = "deleteCustomFolder"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: arg1) ===
-function eventRegistration5(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2
-  arg2 = pairs
-  arg3 = dataTable9
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6 in arg2, arg3, arg4, arg5 do
-    arg7 = string
-    arg7 = arg7.lower
-    iterator2 = arg6
-    arg7 = arg7(iterator2)
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: localValue1) ===
+function eventHandler5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2
+  localValue2 = pairs
+  localValue3 = dataCollection9
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6 in localValue2, localValue3, localValue4, localValue5 do
+    localValue7 = string
+    localValue7 = localValue7.lower
+    iterator2 = localValue6
+    localValue7 = localValue7(iterator2)
     iterator2 = string
     iterator2 = iterator2.lower
-    tableHelper2 = arg1
+    tableHelper2 = localValue1
     iterator2 = iterator2(tableHelper2)
-    if arg7 == iterator2 then
-      arg7 = dataTable9
-      arg7[arg6] = nil
+    if localValue7 == iterator2 then
+      localValue7 = dataCollection9
+      localValue7[localValue6] = nil
     end
   end
-  arg2 = dataTable9
-  arg2[arg1] = nil
-  arg2 = CMG
-  arg2 = arg2.saveCustomFolders
-  arg2()
-  arg2 = tCMG
-  arg2 = arg2.notify
-  arg3 = "~g~Deleted "
-  arg4 = arg1
-  arg3 = arg3 .. arg4
+  localValue2 = dataCollection9
+  localValue2[localValue1] = nil
+  localValue2 = CMG
+  localValue2 = localValue2.saveCustomFolders
+  localValue2()
+  localValue2 = tCMG
+  localValue2 = localValue2.notify
+  localValue3 = "~g~Deleted "
+  localValue4 = localValue1
+  localValue3 = localValue3 .. localValue4
   -- Beginner: Show a notification to the player.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = _ENV
-rageUiCall10 = "CMG"
-rageUiCall9 = rageUiCall9[rageUiCall10]
-rageUiCall10 = "getGarageSettings"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = _ENV
+rageUiOperation10 = "CMG"
+rageUiOperation9 = rageUiOperation9[rageUiOperation10]
+rageUiOperation10 = "getGarageSettings"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: none) ===
-function eventRegistration5()
-  local arg1, arg2, arg3
-  arg1 = GetResourceKvpString
-  arg2 = "cmg_garagesettings"
-  arg1 = arg1(arg2)
-  if nil == arg1 or "null" == arg1 then
-    arg1 = "{}"
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: none) ===
+function eventHandler5()
+  local localValue1, localValue2, localValue3
+  localValue1 = GetResourceKvpString
+  localValue2 = "cmg_garagesettings"
+  localValue1 = localValue1(localValue2)
+  if nil == localValue1 or "null" == localValue1 then
+    localValue1 = "{}"
   end
-  arg2 = json
-  arg2 = arg2.decode
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = {}
+  localValue2 = json
+  localValue2 = localValue2.decode
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = {}
   end
-  return arg2
+  return localValue2
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = _ENV
-rageUiCall10 = "CMG"
-rageUiCall9 = rageUiCall9[rageUiCall10]
-rageUiCall10 = "saveGarageSettings"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = _ENV
+rageUiOperation10 = "CMG"
+rageUiOperation9 = rageUiOperation9[rageUiOperation10]
+rageUiOperation10 = "saveGarageSettings"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: none) ===
-function eventRegistration5()
-  local arg1, arg2, arg3, arg4
-  arg1 = SetResourceKvp
-  arg2 = "cmg_garagesettings"
-  arg3 = json
-  arg3 = arg3.encode
-  arg4 = dataTable11
-  arg3, arg4 = arg3(arg4)
-  arg1(arg2, arg3, arg4)
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: none) ===
+function eventHandler5()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = SetResourceKvp
+  localValue2 = "cmg_garagesettings"
+  localValue3 = json
+  localValue3 = localValue3.encode
+  localValue4 = dataCollection11
+  localValue3, localValue4 = localValue3(localValue4)
+  localValue1(localValue2, localValue3, localValue4)
 end
-rageUiCall9[rageUiCall10] = eventRegistration5
-rageUiCall9 = _ENV
-rageUiCall10 = "CMG"
-rageUiCall9 = rageUiCall9[rageUiCall10]
-rageUiCall10 = "registerCommand"
-rageUiCall9 = rageUiCall9[rageUiCall10]
-rageUiCall10 = "cleanupgarages"
+rageUiOperation9[rageUiOperation10] = eventHandler5
+rageUiOperation9 = _ENV
+rageUiOperation10 = "CMG"
+rageUiOperation9 = rageUiOperation9[rageUiOperation10]
+rageUiOperation10 = "registerCommand"
+rageUiOperation9 = rageUiOperation9[rageUiOperation10]
+rageUiOperation10 = "cleanupgarages"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: none) ===
-function eventRegistration5()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9
-  arg1 = CMG
-  arg1 = arg1.getClientUserId
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: none) ===
+function eventHandler5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9
+  localValue1 = CMG
+  localValue1 = localValue1.getClientUserId
   -- Beginner: result below is userId.
-  arg1 = arg1()
-  if 1 == arg1 then
-    arg1 = {}
-    arg2 = tCMG
-    arg2 = arg2.notify
-    arg3 = "~y~Y to OK, U to mark as removed"
+  localValue1 = localValue1()
+  if 1 == localValue1 then
+    localValue1 = {}
+    localValue2 = tCMG
+    localValue2 = localValue2.notify
+    localValue3 = "~y~Y to OK, U to mark as removed"
     -- Beginner: Show a notification to the player.
-    arg2(arg3)
-    arg2 = 1
-    arg3 = workValue.garageInstances
-    arg3 = #arg3
-    arg4 = 1
-    for arg5 = arg2, arg3, arg4 do
-      arg6 = workValue.garageInstances
-      arg6 = arg6[arg5]
-      arg7 = arg6[1]
-      iterator2 = arg6[2]
-      tableHelper2 = arg6[3]
-      dataTable25 = print
-      workValue2 = "Checking"
-      dataTable = arg7
-      dataTable25(workValue2, dataTable)
-      dataTable25 = tCMG
-      dataTable25 = dataTable25.teleport
-      workValue2 = iterator2.x
-      dataTable = iterator2.y
+    localValue2(localValue3)
+    localValue2 = 1
+    localValue3 = workingValue.garageInstances
+    localValue3 = #localValue3
+    localValue4 = 1
+    for localValue5 = localValue2, localValue3, localValue4 do
+      localValue6 = workingValue.garageInstances
+      localValue6 = localValue6[localValue5]
+      localValue7 = localValue6[1]
+      iterator2 = localValue6[2]
+      tableHelper2 = localValue6[3]
+      dataCollection25 = print
+      workingValue2 = "Checking"
+      dataCollection = localValue7
+      dataCollection25(workingValue2, dataCollection)
+      dataCollection25 = tCMG
+      dataCollection25 = dataCollection25.teleport
+      workingValue2 = iterator2.x
+      dataCollection = iterator2.y
       iterator = iterator2.z
-      dataTable25(workValue2, dataTable, iterator)
-      dataTable25 = true
-      while dataTable25 do
-        workValue2 = IsControlJustPressed
-        dataTable = 0
+      dataCollection25(workingValue2, dataCollection, iterator)
+      dataCollection25 = true
+      while dataCollection25 do
+        workingValue2 = IsControlJustPressed
+        dataCollection = 0
         iterator = 246
-        workValue2 = workValue2(dataTable, iterator)
-        if workValue2 then
-          workValue2 = tCMG
-          workValue2 = workValue2.notify
-          dataTable = "~g~This garage is fine."
+        workingValue2 = workingValue2(dataCollection, iterator)
+        if workingValue2 then
+          workingValue2 = tCMG
+          workingValue2 = workingValue2.notify
+          dataCollection = "~g~This garage is fine."
           -- Beginner: Show a notification to the player.
-          workValue2(dataTable)
-          workValue2 = table
-          workValue2 = workValue2.insert
-          dataTable = arg1
+          workingValue2(dataCollection)
+          workingValue2 = table
+          workingValue2 = workingValue2.insert
+          dataCollection = localValue1
           iterator = "{\""
-          stringHelper = arg7
-          workValue7 = "\", "
+          stringHelper = localValue7
+          workingValue7 = "\", "
           stringHelper2 = tostring
-          cmgCall3 = iterator2
-          stringHelper2 = stringHelper2(cmgCall3)
-          cmgCall3 = ", "
+          cmgOperation3 = iterator2
+          stringHelper2 = stringHelper2(cmgOperation3)
+          cmgOperation3 = ", "
           tableHelper = tostring
-          workValue9 = tableHelper2
-          tableHelper = tableHelper(workValue9)
-          workValue9 = "},"
-          iterator = iterator .. stringHelper .. workValue7 .. stringHelper2 .. cmgCall3 .. tableHelper .. workValue9
-          workValue2(dataTable, iterator)
-          dataTable25 = false
+          workingValue9 = tableHelper2
+          tableHelper = tableHelper(workingValue9)
+          workingValue9 = "},"
+          iterator = iterator .. stringHelper .. workingValue7 .. stringHelper2 .. cmgOperation3 .. tableHelper .. workingValue9
+          workingValue2(dataCollection, iterator)
+          dataCollection25 = false
         else
-          workValue2 = IsControlJustPressed
-          dataTable = 0
+          workingValue2 = IsControlJustPressed
+          dataCollection = 0
           iterator = 303
-          workValue2 = workValue2(dataTable, iterator)
-          if workValue2 then
-            workValue2 = tCMG
-            workValue2 = workValue2.notify
-            dataTable = "~g~Removing this garage."
+          workingValue2 = workingValue2(dataCollection, iterator)
+          if workingValue2 then
+            workingValue2 = tCMG
+            workingValue2 = workingValue2.notify
+            dataCollection = "~g~Removing this garage."
             -- Beginner: Show a notification to the player.
-            workValue2(dataTable)
-            dataTable25 = false
+            workingValue2(dataCollection)
+            dataCollection25 = false
           end
         end
-        workValue2 = Wait
-        dataTable = 0
-        workValue2(dataTable)
+        workingValue2 = Wait
+        dataCollection = 0
+        workingValue2(dataCollection)
       end
     end
-    arg2 = TriggerServerEvent
-    arg3 = "0d535cac57"
-    arg4 = arg1
+    localValue2 = TriggerServerEvent
+    localValue3 = "0d535cac57"
+    localValue4 = localValue1
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "0d535cac57".
-    arg2(arg3, arg4)
+    localValue2(localValue3, localValue4)
   end
 end
-eventRegistration6 = false
-rageUiCall9(rageUiCall10, eventRegistration5, eventRegistration6)
-rageUiCall9 = AddEventHandler
-rageUiCall10 = "9bf490d170"
+eventHandler6 = false
+rageUiOperation9(rageUiOperation10, eventHandler5, eventHandler6)
+rageUiOperation9 = AddEventHandler
+rageUiOperation10 = "9bf490d170"
 -- Beginner: this function runs when client event "9bf490d170" fires.
 
--- === HELPER FUNCTION (decompiler name: eventRegistration5; parameters: none) ===
-function eventRegistration5()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = SendNUIMessage
-  arg2 = {}
-  arg3 = "MPCT_ALAA_0"
-  arg4 = math
-  arg4 = arg4.random
-  arg5 = 1
-  arg6 = 5
-  arg4 = arg4(arg5, arg6)
-  arg3 = arg3 .. arg4
-  arg2.transactionType = arg3
+-- === HELPER FUNCTION (decompiler name: eventHandler5; parameters: none) ===
+function eventHandler5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = SendNUIMessage
+  localValue2 = {}
+  localValue3 = "MPCT_ALAA_0"
+  localValue4 = math
+  localValue4 = localValue4.random
+  localValue5 = 1
+  localValue6 = 5
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue3 = localValue3 .. localValue4
+  localValue2.transactionType = localValue3
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg1(arg2)
+  localValue1(localValue2)
 end
 -- Beginner: Register a client-side event handler. Event/command: "9bf490d170".
-rageUiCall9(rageUiCall10, eventRegistration5)
-rageUiCall9 = 0
+rageUiOperation9(rageUiOperation10, eventHandler5)
+rageUiOperation9 = 0
 
--- === HELPER FUNCTION (decompiler name: rageUiCall10; parameters: none) ===
-function rageUiCall10()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = RenderScriptCams
-  arg2 = false
-  arg3 = false
-  arg4 = 0
-  arg5 = false
-  arg6 = false
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = DestroyCam
-  arg2 = rageUiCall9
-  arg3 = false
-  arg1(arg2, arg3)
-  arg1 = 0
-  rageUiCall9 = arg1
-  arg1 = DoScreenFadeIn
-  arg2 = 0
-  arg1(arg2)
-  arg1 = ClearFocus
-  arg1()
+-- === HELPER FUNCTION (decompiler name: rageUiOperation10; parameters: none) ===
+function rageUiOperation10()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = RenderScriptCams
+  localValue2 = false
+  localValue3 = false
+  localValue4 = 0
+  localValue5 = false
+  localValue6 = false
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = DestroyCam
+  localValue2 = rageUiOperation9
+  localValue3 = false
+  localValue1(localValue2, localValue3)
+  localValue1 = 0
+  rageUiOperation9 = localValue1
+  localValue1 = DoScreenFadeIn
+  localValue2 = 0
+  localValue1(localValue2)
+  localValue1 = ClearFocus
+  localValue1()
 end
-eventRegistration5 = RegisterNetEvent
-eventRegistration6 = "7444109bf3"
+eventHandler5 = RegisterNetEvent
+eventHandler6 = "7444109bf3"
 -- Beginner: this function handles network event "7444109bf3".
 
--- === HELPER FUNCTION (decompiler name: flag16; parameters: arg1, arg2) ===
-function flag16(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator
-  arg3 = rageUiCall9
-  if 0 ~= arg3 then
-    arg3 = DestroyCam
-    arg4 = rageUiCall9
-    arg5 = false
-    arg3(arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: stateFlag16; parameters: localValue1, localValue2) ===
+function stateFlag16(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator
+  localValue3 = rageUiOperation9
+  if 0 ~= localValue3 then
+    localValue3 = DestroyCam
+    localValue4 = rageUiOperation9
+    localValue5 = false
+    localValue3(localValue4, localValue5)
     return
   end
-  arg3 = DoScreenFadeOut
-  arg4 = 0
-  arg3(arg4)
-  arg3 = CreateCam
-  arg4 = "DEFAULT_SCRIPTED_CAMERA"
-  arg5 = true
+  localValue3 = DoScreenFadeOut
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = CreateCam
+  localValue4 = "DEFAULT_SCRIPTED_CAMERA"
+  localValue5 = true
   -- Beginner: result below is cameraHandle.
-  arg3 = arg3(arg4, arg5)
-  rageUiCall9 = arg3
-  arg3 = SetCamActive
-  arg4 = rageUiCall9
-  arg5 = true
-  arg3(arg4, arg5)
-  arg3 = SetCamCoord
-  arg4 = rageUiCall9
-  arg5 = arg1.x
-  arg6 = arg1.y
-  arg7 = arg1.z
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = RenderScriptCams
-  arg4 = true
-  arg5 = false
-  arg6 = 0
-  arg7 = true
+  localValue3 = localValue3(localValue4, localValue5)
+  rageUiOperation9 = localValue3
+  localValue3 = SetCamActive
+  localValue4 = rageUiOperation9
+  localValue5 = true
+  localValue3(localValue4, localValue5)
+  localValue3 = SetCamCoord
+  localValue4 = rageUiOperation9
+  localValue5 = localValue1.x
+  localValue6 = localValue1.y
+  localValue7 = localValue1.z
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = RenderScriptCams
+  localValue4 = true
+  localValue5 = false
+  localValue6 = 0
+  localValue7 = true
   iterator2 = true
-  arg3(arg4, arg5, arg6, arg7, iterator2)
-  arg3 = SetFocusPosAndVel
-  arg4 = arg1.x
-  arg5 = arg1.y
-  arg6 = arg1.z
-  arg7 = 0.0
+  localValue3(localValue4, localValue5, localValue6, localValue7, iterator2)
+  localValue3 = SetFocusPosAndVel
+  localValue4 = localValue1.x
+  localValue5 = localValue1.y
+  localValue6 = localValue1.z
+  localValue7 = 0.0
   iterator2 = 0.0
   tableHelper2 = 0.0
-  arg3(arg4, arg5, arg6, arg7, iterator2, tableHelper2)
-  arg3 = RageUI
-  arg3 = arg3.CloseAll
-  arg3()
-  arg3 = GetGameTimer
+  localValue3(localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2)
+  localValue3 = RageUI
+  localValue3 = localValue3.CloseAll
+  localValue3()
+  localValue3 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg3 = arg3()
+  localValue3 = localValue3()
   while true do
-    arg4 = NetworkDoesEntityExistWithNetworkId
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    if arg4 then
+    localValue4 = NetworkDoesEntityExistWithNetworkId
+    localValue5 = localValue2
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
       break
     end
-    arg4 = GetGameTimer
+    localValue4 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg4 = arg4()
-    arg4 = arg4 - arg3
-    arg5 = 5000
-    if arg4 > arg5 then
-      arg4 = rageUiCall10
-      arg4()
-      arg4 = notify
-      arg5 = "~r~Can not view dashcam of vehicle."
+    localValue4 = localValue4()
+    localValue4 = localValue4 - localValue3
+    localValue5 = 5000
+    if localValue4 > localValue5 then
+      localValue4 = rageUiOperation10
+      localValue4()
+      localValue4 = notify
+      localValue5 = "~r~Can not view dashcam of vehicle."
       -- Beginner: Show a notification to the player.
-      arg4(arg5)
+      localValue4(localValue5)
       return
     end
-    arg4 = Citizen
-    arg4 = arg4.Wait
-    arg5 = 0
-    arg4(arg5)
+    localValue4 = Citizen
+    localValue4 = localValue4.Wait
+    localValue5 = 0
+    localValue4(localValue5)
   end
-  arg4 = NetworkGetEntityFromNetworkId
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  if 0 == arg4 then
-    arg5 = rageUiCall10
-    arg5()
-    arg5 = notify
-    arg6 = "~r~Can not view dashcam of vehicle."
+  localValue4 = NetworkGetEntityFromNetworkId
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  if 0 == localValue4 then
+    localValue5 = rageUiOperation10
+    localValue5()
+    localValue5 = notify
+    localValue6 = "~r~Can not view dashcam of vehicle."
     -- Beginner: Show a notification to the player.
-    arg5(arg6)
+    localValue5(localValue6)
     return
   end
-  arg5 = DoScreenFadeIn
-  arg6 = 0
-  arg5(arg6)
-  arg5 = notify
-  arg6 = "~g~Viewing your vehicle dashcam."
+  localValue5 = DoScreenFadeIn
+  localValue6 = 0
+  localValue5(localValue6)
+  localValue5 = notify
+  localValue6 = "~g~Viewing your vehicle dashcam."
   -- Beginner: Show a notification to the player.
-  arg5(arg6)
+  localValue5(localValue6)
   while true do
-    arg5 = DoesEntityExist
-    arg6 = arg4
-    arg5 = arg5(arg6)
-    if not arg5 then
+    localValue5 = DoesEntityExist
+    localValue6 = localValue4
+    localValue5 = localValue5(localValue6)
+    if not localValue5 then
       break
     end
-    arg5 = IsCamActive
-    arg6 = rageUiCall9
-    arg5 = arg5(arg6)
-    if not arg5 then
+    localValue5 = IsCamActive
+    localValue6 = rageUiOperation9
+    localValue5 = localValue5(localValue6)
+    if not localValue5 then
       break
     end
-    arg5 = IsControlJustPressed
-    arg6 = 0
-    arg7 = 177
-    arg5 = arg5(arg6, arg7)
-    if arg5 then
+    localValue5 = IsControlJustPressed
+    localValue6 = 0
+    localValue7 = 177
+    localValue5 = localValue5(localValue6, localValue7)
+    if localValue5 then
       break
     end
-    arg5 = GetWorldPositionOfEntityBone
-    arg6 = arg4
-    arg7 = GetEntityBoneIndexByName
-    iterator2 = arg4
+    localValue5 = GetWorldPositionOfEntityBone
+    localValue6 = localValue4
+    localValue7 = GetEntityBoneIndexByName
+    iterator2 = localValue4
     tableHelper2 = "windscreen"
-    arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator = arg7(iterator2, tableHelper2)
-    arg5 = arg5(arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator)
-    arg6 = GetEntityRotation
-    arg7 = arg4
+    localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator = localValue7(iterator2, tableHelper2)
+    localValue5 = localValue5(localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator)
+    localValue6 = GetEntityRotation
+    localValue7 = localValue4
     iterator2 = 2
-    arg6 = arg6(arg7, iterator2)
-    arg7 = SetCamCoord
-    iterator2 = rageUiCall9
-    tableHelper2 = arg5.x
-    dataTable25 = arg5.y
-    workValue2 = arg5.z
-    arg7(iterator2, tableHelper2, dataTable25, workValue2)
-    arg7 = SetFocusPosAndVel
-    iterator2 = arg5.x
-    tableHelper2 = arg5.y
-    dataTable25 = arg5.z
-    workValue2 = 0.0
-    dataTable = 0.0
+    localValue6 = localValue6(localValue7, iterator2)
+    localValue7 = SetCamCoord
+    iterator2 = rageUiOperation9
+    tableHelper2 = localValue5.x
+    dataCollection25 = localValue5.y
+    workingValue2 = localValue5.z
+    localValue7(iterator2, tableHelper2, dataCollection25, workingValue2)
+    localValue7 = SetFocusPosAndVel
+    iterator2 = localValue5.x
+    tableHelper2 = localValue5.y
+    dataCollection25 = localValue5.z
+    workingValue2 = 0.0
+    dataCollection = 0.0
     iterator = 0.0
-    arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator)
-    arg7 = SetCamRot
-    iterator2 = rageUiCall9
-    tableHelper2 = arg6.x
-    dataTable25 = arg6.y
-    workValue2 = arg6.z
-    dataTable = 2
-    arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-    arg7 = Citizen
-    arg7 = arg7.Wait
+    localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator)
+    localValue7 = SetCamRot
+    iterator2 = rageUiOperation9
+    tableHelper2 = localValue6.x
+    dataCollection25 = localValue6.y
+    workingValue2 = localValue6.z
+    dataCollection = 2
+    localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+    localValue7 = Citizen
+    localValue7 = localValue7.Wait
     iterator2 = 0
-    arg7(iterator2)
+    localValue7(iterator2)
   end
-  arg5 = notify
-  arg6 = "~r~Stopped viewing your vehicle dashcam."
+  localValue5 = notify
+  localValue6 = "~r~Stopped viewing your vehicle dashcam."
   -- Beginner: Show a notification to the player.
-  arg5(arg6)
-  arg5 = RenderScriptCams
-  arg6 = false
-  arg7 = false
+  localValue5(localValue6)
+  localValue5 = RenderScriptCams
+  localValue6 = false
+  localValue7 = false
   iterator2 = 0
   tableHelper2 = false
-  dataTable25 = false
-  arg5(arg6, arg7, iterator2, tableHelper2, dataTable25)
-  arg5 = DestroyCam
-  arg6 = rageUiCall9
-  arg7 = false
-  arg5(arg6, arg7)
-  arg5 = 0
-  rageUiCall9 = arg5
+  dataCollection25 = false
+  localValue5(localValue6, localValue7, iterator2, tableHelper2, dataCollection25)
+  localValue5 = DestroyCam
+  localValue6 = rageUiOperation9
+  localValue7 = false
+  localValue5(localValue6, localValue7)
+  localValue5 = 0
+  rageUiOperation9 = localValue5
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "7444109bf3".
-eventRegistration5(eventRegistration6, flag16)
-eventRegistration5 = nil
-eventRegistration6 = RegisterNetEvent
-flag16 = "a30d55e751"
+eventHandler5(eventHandler6, stateFlag16)
+eventHandler5 = nil
+eventHandler6 = RegisterNetEvent
+stateFlag16 = "a30d55e751"
 -- Beginner: this function handles network event "a30d55e751".
 
--- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1) ===
-function workValue33(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = eventRegistration5
-  if 0 ~= arg2 then
-    arg2 = RemoveBlip
-    arg3 = eventRegistration5
-    arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue33; parameters: localValue1) ===
+function workingValue33(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = eventHandler5
+  if 0 ~= localValue2 then
+    localValue2 = RemoveBlip
+    localValue3 = eventHandler5
+    localValue2(localValue3)
   end
-  if arg1 then
-    arg2 = AddBlipForCoord
-    arg3 = arg1.x
-    arg4 = arg1.y
-    arg5 = arg1.z
+  if localValue1 then
+    localValue2 = AddBlipForCoord
+    localValue3 = localValue1.x
+    localValue4 = localValue1.y
+    localValue5 = localValue1.z
     -- Beginner: result below is blipHandle.
-    arg2 = arg2(arg3, arg4, arg5)
-    eventRegistration5 = arg2
-    arg2 = SetBlipSprite
-    arg3 = eventRegistration5
-    arg4 = 56
-    arg2(arg3, arg4)
-    arg2 = SetBlipScale
-    arg3 = eventRegistration5
-    arg4 = 1.0
-    arg2(arg3, arg4)
-    arg2 = SetBlipColour
-    arg3 = eventRegistration5
-    arg4 = 2
-    arg2(arg3, arg4)
+    localValue2 = localValue2(localValue3, localValue4, localValue5)
+    eventHandler5 = localValue2
+    localValue2 = SetBlipSprite
+    localValue3 = eventHandler5
+    localValue4 = 56
+    localValue2(localValue3, localValue4)
+    localValue2 = SetBlipScale
+    localValue3 = eventHandler5
+    localValue4 = 1.0
+    localValue2(localValue3, localValue4)
+    localValue2 = SetBlipColour
+    localValue3 = eventHandler5
+    localValue4 = 2
+    localValue2(localValue3, localValue4)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a30d55e751".
-eventRegistration6(flag16, workValue33)
-eventRegistration6 = 0
-flag16 = false
-workValue33 = _ENV
-cmgCall17 = "CMG"
-workValue33 = workValue33[cmgCall17]
-cmgCall17 = "inBiometricLockedVehicle"
+eventHandler6(stateFlag16, workingValue33)
+eventHandler6 = 0
+stateFlag16 = false
+workingValue33 = _ENV
+cmgOperation17 = "CMG"
+workingValue33 = workingValue33[cmgOperation17]
+cmgOperation17 = "inBiometricLockedVehicle"
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = flag16
-  return arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = stateFlag16
+  return localValue1
 end
-workValue33[cmgCall17] = cmgCall
+workingValue33[cmgOperation17] = cmgOperation
 
--- === HELPER FUNCTION (decompiler name: workValue33; parameters: none) ===
-function workValue33()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25
-  arg1 = false
-  flag16 = arg1
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
-  arg1, arg2 = arg1()
-  if 0 ~= arg1 and arg2 then
-    arg3 = DecorGetBool
-    arg4 = arg1
-    arg5 = "9d5712766f"
-    arg3 = arg3(arg4, arg5)
-    if arg3 then
-      arg4 = CMG
-      arg4 = arg4.getClientUserId
+-- === HELPER FUNCTION (decompiler name: workingValue33; parameters: none) ===
+function workingValue33()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25
+  localValue1 = false
+  stateFlag16 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
+  localValue1, localValue2 = localValue1()
+  if 0 ~= localValue1 and localValue2 then
+    localValue3 = DecorGetBool
+    localValue4 = localValue1
+    localValue5 = "9d5712766f"
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 then
+      localValue4 = CMG
+      localValue4 = localValue4.getClientUserId
       -- Beginner: result below is userId.
-      arg4 = arg4()
-      arg5 = Entity
-      arg6 = arg1
-      arg5 = arg5(arg6)
-      arg5 = arg5.state
-      arg5 = arg5.biometricUsers
-      arg6 = DecorGetInt
-      arg7 = arg1
+      localValue4 = localValue4()
+      localValue5 = Entity
+      localValue6 = localValue1
+      localValue5 = localValue5(localValue6)
+      localValue5 = localValue5.state
+      localValue5 = localValue5.biometricUsers
+      localValue6 = DecorGetInt
+      localValue7 = localValue1
       iterator2 = "ac76c9d452"
-      arg6 = arg6(arg7, iterator2)
-      if arg4 ~= arg6 then
-        if arg5 then
-          arg7 = table
-          arg7 = arg7.has
-          iterator2 = arg5
-          tableHelper2 = arg4
-          arg7 = arg7(iterator2, tableHelper2)
-          if arg7 then
-            goto flow_label_138
+      localValue6 = localValue6(localValue7, iterator2)
+      if localValue4 ~= localValue6 then
+        if localValue5 then
+          localValue7 = table
+          localValue7 = localValue7.has
+          iterator2 = localValue5
+          tableHelper2 = localValue4
+          localValue7 = localValue7(iterator2, tableHelper2)
+          if localValue7 then
+            goto continueAtStep138
           end
         end
-        arg7 = DisableControlAction
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 32
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 33
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 34
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 35
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 71
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 72
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 87
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 88
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 129
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 130
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 107
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 108
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 109
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 110
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 111
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 112
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 350
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = DisableControlAction
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = DisableControlAction
         iterator2 = 0
         tableHelper2 = 351
-        dataTable25 = true
-        arg7(iterator2, tableHelper2, dataTable25)
-        arg7 = SetVehicleRocketBoostPercentage
-        iterator2 = arg1
+        dataCollection25 = true
+        localValue7(iterator2, tableHelper2, dataCollection25)
+        localValue7 = SetVehicleRocketBoostPercentage
+        iterator2 = localValue1
         tableHelper2 = 0.0
-        arg7(iterator2, tableHelper2)
-        arg7 = drawNativeText
+        localValue7(iterator2, tableHelper2)
+        localValue7 = drawNativeText
         iterator2 = "This vehicle is locked biometrically to the owner."
         -- Beginner: Draw GTA-style text on screen.
-        arg7(iterator2)
-        arg7 = true
-        flag16 = arg7
+        localValue7(iterator2)
+        localValue7 = true
+        stateFlag16 = localValue7
       end
     end
   end
-  ::flow_label_138::
-  arg3 = PlayerPedId
+  ::continueAtStep138::
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = GetIsTaskActive
-  arg5 = arg3
-  arg6 = 160
-  arg4 = arg4(arg5, arg6)
-  if arg4 then
-    arg4 = GetVehiclePedIsEntering
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if 0 ~= arg4 then
-      arg5 = GetVehicleDoorLockStatus
-      arg6 = arg4
-      arg5 = arg5(arg6)
-      if 2 == arg5 then
-        eventRegistration6 = arg4
-      elseif 1 == arg5 then
-        arg6 = eventRegistration6
-        if arg4 == arg6 then
-          arg6 = ClearPedTasks
-          arg7 = arg3
-          arg6(arg7)
-          arg6 = 0
-          eventRegistration6 = arg6
+  localValue3 = localValue3()
+  localValue4 = GetIsTaskActive
+  localValue5 = localValue3
+  localValue6 = 160
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 then
+    localValue4 = GetVehiclePedIsEntering
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if 0 ~= localValue4 then
+      localValue5 = GetVehicleDoorLockStatus
+      localValue6 = localValue4
+      localValue5 = localValue5(localValue6)
+      if 2 == localValue5 then
+        eventHandler6 = localValue4
+      elseif 1 == localValue5 then
+        localValue6 = eventHandler6
+        if localValue4 == localValue6 then
+          localValue6 = ClearPedTasks
+          localValue7 = localValue3
+          localValue6(localValue7)
+          localValue6 = 0
+          eventHandler6 = localValue6
         end
       end
     end
   else
-    arg4 = 0
-    eventRegistration6 = arg4
+    localValue4 = 0
+    eventHandler6 = localValue4
   end
 end
-cmgCall17 = DecorRegister
-cmgCall = "9d5712766f"
-threadCall = 2
-cmgCall17(cmgCall, threadCall)
-cmgCall17 = _ENV
-cmgCall = "CMG"
-cmgCall17 = cmgCall17[cmgCall]
-cmgCall17 = cmgCall17.createThreadOnTick
-cmgCall = workValue33
-threadCall = "Biometric Lock"
-cmgCall17(cmgCall, threadCall)
-cmgCall17 = _ENV
-cmgCall = "CMG"
-cmgCall17 = cmgCall17[cmgCall]
-cmgCall = "setVehicleIdBiometricLock"
+cmgOperation17 = DecorRegister
+cmgOperation = "9d5712766f"
+backgroundThread = 2
+cmgOperation17(cmgOperation, backgroundThread)
+cmgOperation17 = _ENV
+cmgOperation = "CMG"
+cmgOperation17 = cmgOperation17[cmgOperation]
+cmgOperation17 = cmgOperation17.createThreadOnTick
+cmgOperation = workingValue33
+backgroundThread = "Biometric Lock"
+cmgOperation17(cmgOperation, backgroundThread)
+cmgOperation17 = _ENV
+cmgOperation = "CMG"
+cmgOperation17 = cmgOperation17[cmgOperation]
+cmgOperation = "setVehicleIdBiometricLock"
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1, arg2, arg3) ===
-function threadCall(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = arg2["21"]
-  if arg4 then
-    arg4 = DecorSetBool
-    arg5 = arg1
-    arg6 = "9d5712766f"
-    arg7 = true
-    arg4(arg5, arg6, arg7)
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1, localValue2, localValue3) ===
+function backgroundThread(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = localValue2["21"]
+  if localValue4 then
+    localValue4 = DecorSetBool
+    localValue5 = localValue1
+    localValue6 = "9d5712766f"
+    localValue7 = true
+    localValue4(localValue5, localValue6, localValue7)
   end
-  if arg3 then
-    arg4 = #arg3
-    if arg4 > 0 then
-      arg4 = false
-      arg5 = NetworkGetEntityIsNetworked
-      arg6 = arg1
-      arg5 = arg5(arg6)
-      if arg5 then
-        arg5 = NetworkGetNetworkIdFromEntity
-        arg6 = arg1
-        arg5 = arg5(arg6)
-        if 0 ~= arg5 then
-          goto flow_label_26
+  if localValue3 then
+    localValue4 = #localValue3
+    if localValue4 > 0 then
+      localValue4 = false
+      localValue5 = NetworkGetEntityIsNetworked
+      localValue6 = localValue1
+      localValue5 = localValue5(localValue6)
+      if localValue5 then
+        localValue5 = NetworkGetNetworkIdFromEntity
+        localValue6 = localValue1
+        localValue5 = localValue5(localValue6)
+        if 0 ~= localValue5 then
+          goto continueAtStep26
         end
       end
-      arg4 = true
-      ::flow_label_26::
-      arg5 = Citizen
-      arg5 = arg5.CreateThread
+      localValue4 = true
+      ::continueAtStep26::
+      localValue5 = Citizen
+      localValue5 = localValue5.CreateThread
 
-      -- === HELPER FUNCTION: arg6() ===
-      function arg6()
-        local arg12, arg22, arg32, arg42, workValue18
-        arg12 = Citizen
-        arg12 = arg12.Wait
-        arg22 = arg4
-        if arg22 then
-          arg22 = 2500
-          if arg22 then
-            goto flow_label_10
+      -- === HELPER FUNCTION: localValue6() ===
+      function localValue6()
+        local localValue12, localValue22, localValue32, localValue42, workingValue18
+        localValue12 = Citizen
+        localValue12 = localValue12.Wait
+        localValue22 = localValue4
+        if localValue22 then
+          localValue22 = 2500
+          if localValue22 then
+            goto continueAtStep10
           end
         end
-        arg22 = 0
-        ::flow_label_10::
-        arg12(arg22)
-        arg12 = NetworkGetNetworkIdFromEntity
-        arg22 = arg1
-        arg12 = arg12(arg22)
-        arg22 = TriggerServerEvent
-        arg32 = "ee931fcf36"
-        arg42 = arg12
-        workValue18 = arg3
+        localValue22 = 0
+        ::continueAtStep10::
+        localValue12(localValue22)
+        localValue12 = NetworkGetNetworkIdFromEntity
+        localValue22 = localValue1
+        localValue12 = localValue12(localValue22)
+        localValue22 = TriggerServerEvent
+        localValue32 = "ee931fcf36"
+        localValue42 = localValue12
+        workingValue18 = localValue3
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ee931fcf36".
-        arg22(arg32, arg42, workValue18)
+        localValue22(localValue32, localValue42, workingValue18)
       end
       -- Beginner: Start a separate FiveM thread so this code can run independently.
-      arg5(arg6)
+      localValue5(localValue6)
     end
   end
 end
-cmgCall17[cmgCall] = threadCall
-cmgCall17 = {}
-cmgCall = _ENV
-threadCall = "Citizen"
-cmgCall = cmgCall[threadCall]
-threadCall = "CreateThread"
-cmgCall = cmgCall[threadCall]
+cmgOperation17[cmgOperation] = backgroundThread
+cmgOperation17 = {}
+cmgOperation = _ENV
+backgroundThread = "Citizen"
+cmgOperation = cmgOperation[backgroundThread]
+backgroundThread = "CreateThread"
+cmgOperation = cmgOperation[backgroundThread]
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
-function threadCall()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg1 = GetResourceKvpString
-  arg2 = "cmg_custom_vehicle_names"
-  arg1 = arg1(arg2)
-  if arg1 and "" ~= arg1 then
-    arg2 = json
-    arg2 = arg2.decode
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg3 = pairs
-      arg4 = arg2
-      arg3, arg4, arg5, arg6 = arg3(arg4)
-      for arg7, iterator2 in arg3, arg4, arg5, arg6 do
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: none) ===
+function backgroundThread()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue1 = GetResourceKvpString
+  localValue2 = "cmg_custom_vehicle_names"
+  localValue1 = localValue1(localValue2)
+  if localValue1 and "" ~= localValue1 then
+    localValue2 = json
+    localValue2 = localValue2.decode
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue3 = pairs
+      localValue4 = localValue2
+      localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+      for localValue7, iterator2 in localValue3, localValue4, localValue5, localValue6 do
         tableHelper2 = tonumber
-        dataTable25 = arg7
-        tableHelper2 = tableHelper2(dataTable25)
-        dataTable25 = dataTable12
-        dataTable25[tableHelper2] = iterator2
+        dataCollection25 = localValue7
+        tableHelper2 = tableHelper2(dataCollection25)
+        dataCollection25 = dataCollection12
+        dataCollection25[tableHelper2] = iterator2
       end
     end
   end
   while true do
-    arg2 = pairs
-    arg3 = CMG
-    arg3 = arg3.getAllVehicles
-    arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable = arg3()
-    arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      iterator2 = cmgCall17
-      iterator2 = iterator2[arg7]
+    localValue2 = pairs
+    localValue3 = CMG
+    localValue3 = localValue3.getAllVehicles
+    localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection = localValue3()
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      iterator2 = cmgOperation17
+      iterator2 = iterator2[localValue7]
       if not iterator2 then
         iterator2 = DecorExistOn
-        tableHelper2 = arg7
-        dataTable25 = "6939027d97"
-        iterator2 = iterator2(tableHelper2, dataTable25)
+        tableHelper2 = localValue7
+        dataCollection25 = "6939027d97"
+        iterator2 = iterator2(tableHelper2, dataCollection25)
         if iterator2 then
           iterator2 = DecorGetInt
-          tableHelper2 = arg7
-          dataTable25 = "6939027d97"
-          iterator2 = iterator2(tableHelper2, dataTable25)
+          tableHelper2 = localValue7
+          dataCollection25 = "6939027d97"
+          iterator2 = iterator2(tableHelper2, dataCollection25)
           tableHelper2 = CMG
           tableHelper2 = tableHelper2.getVehicleSoundNameFromId
-          dataTable25 = iterator2
-          tableHelper2 = tableHelper2(dataTable25)
-          dataTable25 = ForceVehicleEngineAudio
-          workValue2 = arg7
-          dataTable = tableHelper2
-          dataTable25(workValue2, dataTable)
-          dataTable25 = cmgCall17
-          workValue2 = GetGameTimer
+          dataCollection25 = iterator2
+          tableHelper2 = tableHelper2(dataCollection25)
+          dataCollection25 = ForceVehicleEngineAudio
+          workingValue2 = localValue7
+          dataCollection = tableHelper2
+          dataCollection25(workingValue2, dataCollection)
+          dataCollection25 = cmgOperation17
+          workingValue2 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          workValue2 = workValue2()
-          dataTable25[arg7] = workValue2
+          workingValue2 = workingValue2()
+          dataCollection25[localValue7] = workingValue2
         end
       end
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 2000
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 2000
+    localValue2(localValue3)
   end
 end
-cmgCall(threadCall)
-cmgCall = _ENV
-threadCall = "exports"
-cmgCall = cmgCall[threadCall]
-threadCall = "hasAppliedEngineAudio"
+cmgOperation(backgroundThread)
+cmgOperation = _ENV
+backgroundThread = "exports"
+cmgOperation = cmgOperation[backgroundThread]
+backgroundThread = "hasAppliedEngineAudio"
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg1) ===
-function numberValue(arg1)
-  local arg2, arg3, arg4
-  arg2 = cmgCall17
-  arg2 = arg2[arg1]
-  arg3 = arg2 or arg3
-  if arg2 then
-    arg3 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: number; parameters: localValue1) ===
+function number(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = cmgOperation17
+  localValue2 = localValue2[localValue1]
+  localValue3 = localValue2 or localValue3
+  if localValue2 then
+    localValue3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg3 = arg3()
-    arg3 = arg3 - arg2
-    arg4 = 5000
-    arg3 = arg3 > arg4
+    localValue3 = localValue3()
+    localValue3 = localValue3 - localValue2
+    localValue4 = 5000
+    localValue3 = localValue3 > localValue4
   end
-  return arg3
+  return localValue3
 end
-cmgCall(threadCall, numberValue)
-cmgCall = _ENV
-threadCall = "vector3"
-cmgCall = cmgCall[threadCall]
-threadCall = 0.0
-numberValue = 0.0
-eventRegistration = 0.0
-cmgCall = cmgCall(threadCall, numberValue, eventRegistration)
-threadCall = {}
-numberValue = _ENV
-eventRegistration = "Citizen"
-numberValue = numberValue[eventRegistration]
-eventRegistration = "CreateThread"
-numberValue = numberValue[eventRegistration]
+cmgOperation(backgroundThread, number)
+cmgOperation = _ENV
+backgroundThread = "vector3"
+cmgOperation = cmgOperation[backgroundThread]
+backgroundThread = 0.0
+number = 0.0
+eventHandler = 0.0
+cmgOperation = cmgOperation(backgroundThread, number, eventHandler)
+backgroundThread = {}
+number = _ENV
+eventHandler = "Citizen"
+number = number[eventHandler]
+eventHandler = "CreateThread"
+number = number[eventHandler]
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerVehicle
-    arg1, arg2 = arg1()
-    arg3 = CMG
-    arg3 = arg3.getPlayerCoords
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerVehicle
+    localValue1, localValue2 = localValue1()
+    localValue3 = CMG
+    localValue3 = localValue3.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg3 = arg3()
-    if 0 ~= arg1 and arg2 then
-      arg4 = DecorGetInt
-      arg5 = arg1
-      arg6 = "ac76c9d452"
-      arg4 = arg4(arg5, arg6)
-      arg5 = CMG
-      arg5 = arg5.getClientUserId
+    localValue3 = localValue3()
+    if 0 ~= localValue1 and localValue2 then
+      localValue4 = DecorGetInt
+      localValue5 = localValue1
+      localValue6 = "ac76c9d452"
+      localValue4 = localValue4(localValue5, localValue6)
+      localValue5 = CMG
+      localValue5 = localValue5.getClientUserId
       -- Beginner: result below is userId.
-      arg5 = arg5()
-      if arg4 == arg5 then
-        arg4 = GetEntityModel
-        arg5 = arg1
+      localValue5 = localValue5()
+      if localValue4 == localValue5 then
+        localValue4 = GetEntityModel
+        localValue5 = localValue1
         -- Beginner: result below is modelHash.
-        arg4 = arg4(arg5)
-        arg5 = cmgCall
-        arg5 = arg5 - arg3
-        arg5 = #arg5
-        if arg5 < 120.0 then
-          arg6 = GetEntitySpeed
-          arg7 = arg1
+        localValue4 = localValue4(localValue5)
+        localValue5 = cmgOperation
+        localValue5 = localValue5 - localValue3
+        localValue5 = #localValue5
+        if localValue5 < 120.0 then
+          localValue6 = GetEntitySpeed
+          localValue7 = localValue1
           -- Beginner: result below is speed.
-          arg6 = arg6(arg7)
-          if arg6 > 5.0 then
-            arg6 = threadCall
-            arg6 = arg6[arg4]
-            if not arg6 then
-              arg7 = {}
-              arg7.meters = 0.0
-              arg7.secondsInVehicle = 0
-              arg6 = arg7
-              arg7 = threadCall
-              arg7[arg4] = arg6
+          localValue6 = localValue6(localValue7)
+          if localValue6 > 5.0 then
+            localValue6 = backgroundThread
+            localValue6 = localValue6[localValue4]
+            if not localValue6 then
+              localValue7 = {}
+              localValue7.meters = 0.0
+              localValue7.secondsInVehicle = 0
+              localValue6 = localValue7
+              localValue7 = backgroundThread
+              localValue7[localValue4] = localValue6
             end
-            arg7 = arg6.meters
-            arg7 = arg7 + arg5
-            arg6.meters = arg7
-            arg7 = arg6.secondsInVehicle
-            arg7 = arg7 + 1
-            arg6.secondsInVehicle = arg7
-            arg7 = arg6.secondsInVehicle
-            if arg7 >= 30 then
-              arg7 = arg6.meters
-              if arg7 > 50.0 then
-                arg7 = DecorGetInt
-                iterator2 = arg1
+            localValue7 = localValue6.meters
+            localValue7 = localValue7 + localValue5
+            localValue6.meters = localValue7
+            localValue7 = localValue6.secondsInVehicle
+            localValue7 = localValue7 + 1
+            localValue6.secondsInVehicle = localValue7
+            localValue7 = localValue6.secondsInVehicle
+            if localValue7 >= 30 then
+              localValue7 = localValue6.meters
+              if localValue7 > 50.0 then
+                localValue7 = DecorGetInt
+                iterator2 = localValue1
                 tableHelper2 = "0a6cf607ed"
-                arg7 = arg7(iterator2, tableHelper2)
-                if arg7 > 0 then
+                localValue7 = localValue7(iterator2, tableHelper2)
+                if localValue7 > 0 then
                   iterator2 = TriggerServerEvent
                   tableHelper2 = "589dcb122a"
-                  dataTable25 = arg7
-                  workValue2 = arg6.meters
+                  dataCollection25 = localValue7
+                  workingValue2 = localValue6.meters
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "589dcb122a".
-                  iterator2(tableHelper2, dataTable25, workValue2)
+                  iterator2(tableHelper2, dataCollection25, workingValue2)
                 end
               end
-              arg6.meters = 0.0
-              arg6.secondsInVehicle = 0
+              localValue6.meters = 0.0
+              localValue6.secondsInVehicle = 0
             end
           end
         end
-        cmgCall = arg3
+        cmgOperation = localValue3
       end
     end
-    arg4 = Citizen
-    arg4 = arg4.Wait
-    arg5 = 1000
-    arg4(arg5)
+    localValue4 = Citizen
+    localValue4 = localValue4.Wait
+    localValue5 = 1000
+    localValue4(localValue5)
   end
 end
-numberValue(eventRegistration)
+number(eventHandler)
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg1) ===
-function numberValue(arg1)
-  local arg2, arg3
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "number" == arg2 and arg1 >= 0 and arg1 <= 50 then
-    arg2 = arg1 / 100
-    arg3 = 1
-    arg2 = arg3 - arg2
-    return arg2
+-- === HELPER FUNCTION (decompiler name: number; parameters: localValue1) ===
+function number(localValue1)
+  local localValue2, localValue3
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "number" == localValue2 and localValue1 >= 0 and localValue1 <= 50 then
+    localValue2 = localValue1 / 100
+    localValue3 = 1
+    localValue2 = localValue3 - localValue2
+    return localValue2
   end
-  arg2 = 1.0
-  return arg2
+  localValue2 = 1.0
+  return localValue2
 end
-eventRegistration = RegisterNetEvent
-textValue = "1f270ab7bb"
+eventHandler = RegisterNetEvent
+text = "1f270ab7bb"
 -- Beginner: this function handles network event "1f270ab7bb".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2) ===
-function textValue2(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2) ===
+function text2(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = TaskLookAtEntity
-  arg5 = arg3
-  arg6 = arg1
-  arg7 = -1
+  localValue3 = localValue3()
+  localValue4 = TaskLookAtEntity
+  localValue5 = localValue3
+  localValue6 = localValue1
+  localValue7 = -1
   iterator2 = 2048
   tableHelper2 = 3
-  arg4(arg5, arg6, arg7, iterator2, tableHelper2)
-  arg4 = Citizen
-  arg4 = arg4.Wait
-  arg5 = 3000
-  arg4(arg5)
-  arg4 = numberValue
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  arg5 = math
-  arg5 = arg5.max
-  arg6 = 1000
-  arg7 = math
-  arg7 = arg7.floor
-  iterator2 = 12000 * arg4
-  arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper = arg7(iterator2)
-  arg5 = arg5(arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper)
-  arg6 = GetGameTimer
+  localValue4(localValue5, localValue6, localValue7, iterator2, tableHelper2)
+  localValue4 = Citizen
+  localValue4 = localValue4.Wait
+  localValue5 = 3000
+  localValue4(localValue5)
+  localValue4 = number
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  localValue5 = math
+  localValue5 = localValue5.max
+  localValue6 = 1000
+  localValue7 = math
+  localValue7 = localValue7.floor
+  iterator2 = 12000 * localValue4
+  localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper = localValue7(iterator2)
+  localValue5 = localValue5(localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper)
+  localValue6 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg6 = arg6()
-  arg7 = Citizen
-  arg7 = arg7.CreateThreadNow
+  localValue6 = localValue6()
+  localValue7 = Citizen
+  localValue7 = localValue7.CreateThreadNow
 
   -- === HELPER FUNCTION: iterator2() ===
   function iterator2()
-    local arg12, arg22, arg32, arg42, workValue18
-    arg12 = CMG
-    arg12 = arg12.startCircularProgressBar
-    arg22 = "Repairing vehicle"
-    arg32 = arg5
-    arg42 = nil
+    local localValue12, localValue22, localValue32, localValue42, workingValue18
+    localValue12 = CMG
+    localValue12 = localValue12.startCircularProgressBar
+    localValue22 = "Repairing vehicle"
+    localValue32 = localValue5
+    localValue42 = nil
 
-    -- === HELPER FUNCTION (decompiler name: workValue18; parameters: none) ===
-    function workValue18()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue18; parameters: none) ===
+    function workingValue18()
+      local localValue13, localValue23
     end
-    arg12(arg22, arg32, arg42, workValue18)
+    localValue12(localValue22, localValue32, localValue42, workingValue18)
   end
-  arg7(iterator2)
-  arg7 = Citizen
-  arg7 = arg7.Wait
+  localValue7(iterator2)
+  localValue7 = Citizen
+  localValue7 = localValue7.Wait
   iterator2 = 0
-  arg7(iterator2)
+  localValue7(iterator2)
   while true do
-    arg7 = GetEntityHealth
-    iterator2 = arg3
+    localValue7 = GetEntityHealth
+    iterator2 = localValue3
     -- Beginner: result below is health.
-    arg7 = arg7(iterator2)
-    if not (arg7 > 102) then
+    localValue7 = localValue7(iterator2)
+    if not (localValue7 > 102) then
       break
     end
-    arg7 = GetGameTimer
+    localValue7 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg7 = arg7()
-    arg7 = arg7 - arg6
-    if not (arg5 > arg7) then
+    localValue7 = localValue7()
+    localValue7 = localValue7 - localValue6
+    if not (localValue5 > localValue7) then
       break
     end
-    arg7 = IsEntityPlayingAnim
-    iterator2 = arg3
+    localValue7 = IsEntityPlayingAnim
+    iterator2 = localValue3
     tableHelper2 = "mini@repair"
-    dataTable25 = "fixing_a_ped"
-    workValue2 = 3
-    arg7 = arg7(iterator2, tableHelper2, dataTable25, workValue2)
-    if not arg7 then
-      arg7 = CMG
-      arg7 = arg7.loadAnimDict
+    dataCollection25 = "fixing_a_ped"
+    workingValue2 = 3
+    localValue7 = localValue7(iterator2, tableHelper2, dataCollection25, workingValue2)
+    if not localValue7 then
+      localValue7 = CMG
+      localValue7 = localValue7.loadAnimDict
       iterator2 = "mini@repair"
       -- Beginner: Load a GTA animation dictionary before using it.
-      arg7(iterator2)
-      arg7 = TaskPlayAnim
-      iterator2 = arg3
+      localValue7(iterator2)
+      localValue7 = TaskPlayAnim
+      iterator2 = localValue3
       tableHelper2 = "mini@repair"
-      dataTable25 = "fixing_a_ped"
-      workValue2 = 1.0
-      dataTable = 8.0
+      dataCollection25 = "fixing_a_ped"
+      workingValue2 = 1.0
+      dataCollection = 8.0
       iterator = -1
       stringHelper = 49
-      workValue7 = 1.0
+      workingValue7 = 1.0
       stringHelper2 = false
-      cmgCall3 = false
+      cmgOperation3 = false
       tableHelper = false
       -- Beginner: Play an animation on a ped.
-      arg7(iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper)
-      arg7 = RemoveAnimDict
+      localValue7(iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper)
+      localValue7 = RemoveAnimDict
       iterator2 = "mini@repair"
-      arg7(iterator2)
+      localValue7(iterator2)
     end
-    arg7 = Citizen
-    arg7 = arg7.Wait
+    localValue7 = Citizen
+    localValue7 = localValue7.Wait
     iterator2 = 0
-    arg7(iterator2)
+    localValue7(iterator2)
   end
-  arg7 = CMG
-  arg7 = arg7.stopCircularProgressBar
-  arg7()
-  arg7 = ClearPedTasksImmediately
-  iterator2 = arg3
-  arg7(iterator2)
+  localValue7 = CMG
+  localValue7 = localValue7.stopCircularProgressBar
+  localValue7()
+  localValue7 = ClearPedTasksImmediately
+  iterator2 = localValue3
+  localValue7(iterator2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1f270ab7bb".
-eventRegistration(textValue, textValue2)
-eventRegistration = RegisterNetEvent
-textValue = "68cd4709a6"
+eventHandler(text, text2)
+eventHandler = RegisterNetEvent
+text = "68cd4709a6"
 -- Beginner: this function handles network event "68cd4709a6".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2) ===
-function textValue2(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2
-  arg3 = NetworkDoesNetworkIdExist
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = NetworkDoesEntityExistWithNetworkId
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = NetworkGetEntityFromNetworkId
-      arg4 = arg1
-      arg3 = arg3(arg4)
-      if 0 ~= arg3 then
-        arg4 = NetworkHasControlOfEntity
-        arg5 = arg3
-        arg4 = arg4(arg5)
-        if arg4 then
-          arg4 = SetVehicleDoorOpen
-          arg5 = arg3
-          arg6 = 4
-          arg7 = false
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2) ===
+function text2(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue3 = NetworkDoesNetworkIdExist
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = NetworkDoesEntityExistWithNetworkId
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = NetworkGetEntityFromNetworkId
+      localValue4 = localValue1
+      localValue3 = localValue3(localValue4)
+      if 0 ~= localValue3 then
+        localValue4 = NetworkHasControlOfEntity
+        localValue5 = localValue3
+        localValue4 = localValue4(localValue5)
+        if localValue4 then
+          localValue4 = SetVehicleDoorOpen
+          localValue5 = localValue3
+          localValue6 = 4
+          localValue7 = false
           iterator2 = false
-          arg4(arg5, arg6, arg7, iterator2)
-          arg4 = FreezeEntityPosition
-          arg5 = arg3
-          arg6 = true
+          localValue4(localValue5, localValue6, localValue7, iterator2)
+          localValue4 = FreezeEntityPosition
+          localValue5 = localValue3
+          localValue6 = true
           -- Beginner: Freeze or unfreeze an entity in place.
-          arg4(arg5, arg6)
+          localValue4(localValue5, localValue6)
         end
-        arg4 = numberValue
-        arg5 = arg2
-        arg4 = arg4(arg5)
-        arg5 = math
-        arg5 = arg5.max
-        arg6 = 1000
-        arg7 = math
-        arg7 = arg7.floor
-        iterator2 = 12000 * arg4
-        arg7, iterator2 = arg7(iterator2)
-        arg5 = arg5(arg6, arg7, iterator2)
-        arg6 = Citizen
-        arg6 = arg6.Wait
-        arg7 = 3000 + arg5
-        arg6(arg7)
-        arg6 = NetworkHasControlOfEntity
-        arg7 = arg3
-        arg6 = arg6(arg7)
-        if arg6 then
-          arg6 = FreezeEntityPosition
-          arg7 = arg3
+        localValue4 = number
+        localValue5 = localValue2
+        localValue4 = localValue4(localValue5)
+        localValue5 = math
+        localValue5 = localValue5.max
+        localValue6 = 1000
+        localValue7 = math
+        localValue7 = localValue7.floor
+        iterator2 = 12000 * localValue4
+        localValue7, iterator2 = localValue7(iterator2)
+        localValue5 = localValue5(localValue6, localValue7, iterator2)
+        localValue6 = Citizen
+        localValue6 = localValue6.Wait
+        localValue7 = 3000 + localValue5
+        localValue6(localValue7)
+        localValue6 = NetworkHasControlOfEntity
+        localValue7 = localValue3
+        localValue6 = localValue6(localValue7)
+        if localValue6 then
+          localValue6 = FreezeEntityPosition
+          localValue7 = localValue3
           iterator2 = false
           -- Beginner: Freeze or unfreeze an entity in place.
-          arg6(arg7, iterator2)
-          arg6 = SetVehicleEngineHealth
-          arg7 = arg3
+          localValue6(localValue7, iterator2)
+          localValue6 = SetVehicleEngineHealth
+          localValue7 = localValue3
           iterator2 = 9999
-          arg6(arg7, iterator2)
-          arg6 = SetVehiclePetrolTankHealth
-          arg7 = arg3
+          localValue6(localValue7, iterator2)
+          localValue6 = SetVehiclePetrolTankHealth
+          localValue7 = localValue3
           iterator2 = 9999
-          arg6(arg7, iterator2)
-          arg6 = CMG
-          arg6 = arg6.setVehicleFixedPreservingFuel
-          arg7 = arg3
-          arg6(arg7)
+          localValue6(localValue7, iterator2)
+          localValue6 = CMG
+          localValue6 = localValue6.setVehicleFixedPreservingFuel
+          localValue7 = localValue3
+          localValue6(localValue7)
         end
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "68cd4709a6".
-eventRegistration(textValue, textValue2)
-eventRegistration = RegisterNetEvent
-textValue = "a37e8d69f4"
+eventHandler(text, text2)
+eventHandler = RegisterNetEvent
+text = "a37e8d69f4"
 -- Beginner: this function handles network event "a37e8d69f4".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2
-  arg2 = CMG
-  arg2 = arg2.getClosestVehicle
-  arg3 = 5.0
-  arg2 = arg2(arg3)
-  if arg2 and 0 ~= arg2 then
-    arg3 = GetPedInVehicleSeat
-    arg4 = arg2
-    arg5 = -1
-    arg3 = arg3(arg4, arg5)
-    if 0 == arg3 then
-      arg4 = NetworkGetNetworkIdFromEntity
-      arg5 = arg2
-      arg4 = arg4(arg5)
-      if 0 ~= arg4 then
-        arg5 = TriggerServerEvent
-        arg6 = "a37e8d69f4"
-        arg7 = arg4
-        iterator2 = arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue2 = CMG
+  localValue2 = localValue2.getClosestVehicle
+  localValue3 = 5.0
+  localValue2 = localValue2(localValue3)
+  if localValue2 and 0 ~= localValue2 then
+    localValue3 = GetPedInVehicleSeat
+    localValue4 = localValue2
+    localValue5 = -1
+    localValue3 = localValue3(localValue4, localValue5)
+    if 0 == localValue3 then
+      localValue4 = NetworkGetNetworkIdFromEntity
+      localValue5 = localValue2
+      localValue4 = localValue4(localValue5)
+      if 0 ~= localValue4 then
+        localValue5 = TriggerServerEvent
+        localValue6 = "a37e8d69f4"
+        localValue7 = localValue4
+        iterator2 = localValue1
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a37e8d69f4".
-        arg5(arg6, arg7, iterator2)
+        localValue5(localValue6, localValue7, iterator2)
       end
     else
-      arg4 = notify
-      arg5 = "~r~Can not repair vehicle with a person in the driver seat."
+      localValue4 = notify
+      localValue5 = "~r~Can not repair vehicle with a person in the driver seat."
       -- Beginner: Show a notification to the player.
-      arg4(arg5)
+      localValue4(localValue5)
     end
   else
-    arg3 = notify
-    arg4 = "~r~No vehicle nearby to repair."
-    arg3(arg4)
+    localValue3 = notify
+    localValue4 = "~r~No vehicle nearby to repair."
+    localValue3(localValue4)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a37e8d69f4".
-eventRegistration(textValue, textValue2)
-eventRegistration = RegisterNetEvent
-textValue = "e271da7ccf"
+eventHandler(text, text2)
+eventHandler = RegisterNetEvent
+text = "e271da7ccf"
 -- Beginner: this function handles network event "e271da7ccf".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2) ===
-function textValue2(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9
-  arg3 = NetworkDoesNetworkIdExist
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2) ===
+function text2(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9
+  localValue3 = NetworkDoesNetworkIdExist
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
     return
   end
-  arg3 = NetworkGetEntityFromNetworkId
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if 0 == arg3 then
+  localValue3 = NetworkGetEntityFromNetworkId
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if 0 == localValue3 then
     return
   end
-  arg4 = PlayerPedId
+  localValue4 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg4 = arg4()
-  arg5 = TaskLookAtEntity
-  arg6 = arg4
-  arg7 = arg3
+  localValue4 = localValue4()
+  localValue5 = TaskLookAtEntity
+  localValue6 = localValue4
+  localValue7 = localValue3
   iterator2 = -1
   tableHelper2 = 2048
-  dataTable25 = 3
-  arg5(arg6, arg7, iterator2, tableHelper2, dataTable25)
-  arg5 = Citizen
-  arg5 = arg5.Wait
-  arg6 = 3000
-  arg5(arg6)
-  arg5 = numberValue
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  arg6 = math
-  arg6 = arg6.max
-  arg7 = 1000
+  dataCollection25 = 3
+  localValue5(localValue6, localValue7, iterator2, tableHelper2, dataCollection25)
+  localValue5 = Citizen
+  localValue5 = localValue5.Wait
+  localValue6 = 3000
+  localValue5(localValue6)
+  localValue5 = number
+  localValue6 = localValue2
+  localValue5 = localValue5(localValue6)
+  localValue6 = math
+  localValue6 = localValue6.max
+  localValue7 = 1000
   iterator2 = math
   iterator2 = iterator2.floor
-  tableHelper2 = 28000 * arg5
-  iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9 = iterator2(tableHelper2)
-  arg6 = arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9)
-  arg7 = GetGameTimer
+  tableHelper2 = 28000 * localValue5
+  iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9 = iterator2(tableHelper2)
+  localValue6 = localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9)
+  localValue7 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg7 = arg7()
+  localValue7 = localValue7()
   iterator2 = Citizen
   iterator2 = iterator2.CreateThreadNow
 
   -- === HELPER FUNCTION: tableHelper2() ===
   function tableHelper2()
-    local arg12, arg22, arg32, arg42, workValue18
-    arg12 = CMG
-    arg12 = arg12.startCircularProgressBar
-    arg22 = "Repairing vehicle"
-    arg32 = arg6
-    arg42 = nil
+    local localValue12, localValue22, localValue32, localValue42, workingValue18
+    localValue12 = CMG
+    localValue12 = localValue12.startCircularProgressBar
+    localValue22 = "Repairing vehicle"
+    localValue32 = localValue6
+    localValue42 = nil
 
-    -- === HELPER FUNCTION (decompiler name: workValue18; parameters: none) ===
-    function workValue18()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue18; parameters: none) ===
+    function workingValue18()
+      local localValue13, localValue23
     end
-    arg12(arg22, arg32, arg42, workValue18)
+    localValue12(localValue22, localValue32, localValue42, workingValue18)
   end
   iterator2(tableHelper2)
   iterator2 = Citizen
@@ -11954,7 +11954,7 @@ function textValue2(arg1, arg2)
   iterator2(tableHelper2)
   while true do
     iterator2 = GetEntityHealth
-    tableHelper2 = arg4
+    tableHelper2 = localValue4
     -- Beginner: result below is health.
     iterator2 = iterator2(tableHelper2)
     if not (iterator2 > 102) then
@@ -11963,16 +11963,16 @@ function textValue2(arg1, arg2)
     iterator2 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
     iterator2 = iterator2()
-    iterator2 = iterator2 - arg7
-    if not (arg6 > iterator2) then
+    iterator2 = iterator2 - localValue7
+    if not (localValue6 > iterator2) then
       break
     end
     iterator2 = IsEntityPlayingAnim
-    tableHelper2 = arg4
-    dataTable25 = "mini@repair"
-    workValue2 = "fixing_a_ped"
-    dataTable = 3
-    iterator2 = iterator2(tableHelper2, dataTable25, workValue2, dataTable)
+    tableHelper2 = localValue4
+    dataCollection25 = "mini@repair"
+    workingValue2 = "fixing_a_ped"
+    dataCollection = 3
+    iterator2 = iterator2(tableHelper2, dataCollection25, workingValue2, dataCollection)
     if not iterator2 then
       iterator2 = CMG
       iterator2 = iterator2.loadAnimDict
@@ -11980,19 +11980,19 @@ function textValue2(arg1, arg2)
       -- Beginner: Load a GTA animation dictionary before using it.
       iterator2(tableHelper2)
       iterator2 = TaskPlayAnim
-      tableHelper2 = arg4
-      dataTable25 = "mini@repair"
-      workValue2 = "fixing_a_ped"
-      dataTable = 1.0
+      tableHelper2 = localValue4
+      dataCollection25 = "mini@repair"
+      workingValue2 = "fixing_a_ped"
+      dataCollection = 1.0
       iterator = 8.0
       stringHelper = -1
-      workValue7 = 49
+      workingValue7 = 49
       stringHelper2 = 1.0
-      cmgCall3 = false
+      cmgOperation3 = false
       tableHelper = false
-      workValue9 = false
+      workingValue9 = false
       -- Beginner: Play an animation on a ped.
-      iterator2(tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9)
+      iterator2(tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9)
       iterator2 = RemoveAnimDict
       tableHelper2 = "mini@repair"
       iterator2(tableHelper2)
@@ -12006,351 +12006,351 @@ function textValue2(arg1, arg2)
   iterator2 = iterator2.stopCircularProgressBar
   iterator2()
   iterator2 = ClearPedTasksImmediately
-  tableHelper2 = arg4
+  tableHelper2 = localValue4
   iterator2(tableHelper2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e271da7ccf".
-eventRegistration(textValue, textValue2)
-eventRegistration = RegisterNetEvent
-textValue = "3afdeeb96c"
+eventHandler(text, text2)
+eventHandler = RegisterNetEvent
+text = "3afdeeb96c"
 -- Beginner: this function handles network event "3afdeeb96c".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2) ===
-function textValue2(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, iterator2
-  arg3 = NetworkDoesNetworkIdExist
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2) ===
+function text2(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, iterator2
+  localValue3 = NetworkDoesNetworkIdExist
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
     return
   end
-  arg3 = NetworkGetEntityFromNetworkId
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if 0 == arg3 then
+  localValue3 = NetworkGetEntityFromNetworkId
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if 0 == localValue3 then
     return
   end
-  arg4 = NetworkHasControlOfEntity
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg4 = SetVehicleDoorOpen
-    arg5 = arg3
-    arg6 = 4
-    arg7 = false
+  localValue4 = NetworkHasControlOfEntity
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue4 = SetVehicleDoorOpen
+    localValue5 = localValue3
+    localValue6 = 4
+    localValue7 = false
     iterator2 = false
-    arg4(arg5, arg6, arg7, iterator2)
-    arg4 = FreezeEntityPosition
-    arg5 = arg3
-    arg6 = true
+    localValue4(localValue5, localValue6, localValue7, iterator2)
+    localValue4 = FreezeEntityPosition
+    localValue5 = localValue3
+    localValue6 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    arg4(arg5, arg6)
+    localValue4(localValue5, localValue6)
   end
-  arg4 = numberValue
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  arg5 = math
-  arg5 = arg5.max
-  arg6 = 1000
-  arg7 = math
-  arg7 = arg7.floor
-  iterator2 = 28000 * arg4
-  arg7, iterator2 = arg7(iterator2)
-  arg5 = arg5(arg6, arg7, iterator2)
-  arg6 = Citizen
-  arg6 = arg6.Wait
-  arg7 = 3000 + arg5
-  arg6(arg7)
-  arg6 = NetworkHasControlOfEntity
-  arg7 = arg3
-  arg6 = arg6(arg7)
-  if arg6 then
-    arg6 = FreezeEntityPosition
-    arg7 = arg3
+  localValue4 = number
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  localValue5 = math
+  localValue5 = localValue5.max
+  localValue6 = 1000
+  localValue7 = math
+  localValue7 = localValue7.floor
+  iterator2 = 28000 * localValue4
+  localValue7, iterator2 = localValue7(iterator2)
+  localValue5 = localValue5(localValue6, localValue7, iterator2)
+  localValue6 = Citizen
+  localValue6 = localValue6.Wait
+  localValue7 = 3000 + localValue5
+  localValue6(localValue7)
+  localValue6 = NetworkHasControlOfEntity
+  localValue7 = localValue3
+  localValue6 = localValue6(localValue7)
+  if localValue6 then
+    localValue6 = FreezeEntityPosition
+    localValue7 = localValue3
     iterator2 = false
     -- Beginner: Freeze or unfreeze an entity in place.
-    arg6(arg7, iterator2)
-    arg6 = SetVehicleEngineHealth
-    arg7 = arg3
+    localValue6(localValue7, iterator2)
+    localValue6 = SetVehicleEngineHealth
+    localValue7 = localValue3
     iterator2 = 9999
-    arg6(arg7, iterator2)
-    arg6 = SetVehiclePetrolTankHealth
-    arg7 = arg3
+    localValue6(localValue7, iterator2)
+    localValue6 = SetVehiclePetrolTankHealth
+    localValue7 = localValue3
     iterator2 = 9999
-    arg6(arg7, iterator2)
-    arg6 = CMG
-    arg6 = arg6.setVehicleFixedPreservingFuel
-    arg7 = arg3
-    arg6(arg7)
+    localValue6(localValue7, iterator2)
+    localValue6 = CMG
+    localValue6 = localValue6.setVehicleFixedPreservingFuel
+    localValue7 = localValue3
+    localValue6(localValue7)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3afdeeb96c".
-eventRegistration(textValue, textValue2)
-eventRegistration = RegisterNetEvent
-textValue = "82540e2ca1"
+eventHandler(text, text2)
+eventHandler = RegisterNetEvent
+text = "82540e2ca1"
 -- Beginner: this function handles network event "82540e2ca1".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  workValue19 = arg1
-  arg2 = RageUI
-  arg2 = arg2.Visible
-  arg3 = RMenu
-  arg4 = arg3
-  arg3 = arg3.Get
-  arg5 = "garages"
-  arg6 = "paymentplanoffer"
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  workingValue19 = localValue1
+  localValue2 = RageUI
+  localValue2 = localValue2.Visible
+  localValue3 = RMenu
+  localValue4 = localValue3
+  localValue3 = localValue3.Get
+  localValue5 = "garages"
+  localValue6 = "paymentplanoffer"
   -- Beginner: result below is menu.
-  arg3 = arg3(arg4, arg5, arg6)
-  arg4 = true
-  arg2(arg3, arg4)
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue4 = true
+  localValue2(localValue3, localValue4)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "82540e2ca1".
-eventRegistration(textValue, textValue2)
-eventRegistration = RegisterNetEvent
-textValue = "e728b25029"
+eventHandler(text, text2)
+eventHandler = RegisterNetEvent
+text = "e728b25029"
 -- Beginner: this function handles network event "e728b25029".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2
-  arg2 = workValue11
-  if arg2 then
-    arg2 = workValue11.vehicleName
-    if arg2 then
-      arg2 = arg1.vehicleName
-      if not arg2 then
-        arg2 = workValue11.vehicleName
-        arg1.vehicleName = arg2
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2
+  localValue2 = workingValue11
+  if localValue2 then
+    localValue2 = workingValue11.vehicleName
+    if localValue2 then
+      localValue2 = localValue1.vehicleName
+      if not localValue2 then
+        localValue2 = workingValue11.vehicleName
+        localValue1.vehicleName = localValue2
       end
     end
   end
-  workValue11 = arg1
+  workingValue11 = localValue1
 end
-eventRegistration(textValue, textValue2)
-eventRegistration = _ENV
-textValue = "RMenu"
-eventRegistration = eventRegistration[textValue]
-eventRegistration = eventRegistration.Add
-textValue = "garages"
-textValue2 = "inactivity"
-rageUiCall = _ENV
-rageUiCall2 = "RageUI"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall = rageUiCall.CreateMenu
-rageUiCall2 = ""
-textValue3 = "Vehicle Inactivity"
-rageUiCall3 = _ENV
-rageUiCall4 = "CMG"
-rageUiCall3 = rageUiCall3[rageUiCall4]
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = _ENV
-cmgCall2 = "CMG"
-rageUiCall4 = rageUiCall4[cmgCall2]
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-cmgCall2 = "cmg_garageui"
-textValue5 = "cmg_garageui"
-rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5 = rageUiCall(rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-eventRegistration(textValue, textValue2, rageUiCall, rageUiCall2, textValue3, rageUiCall3, rageUiCall4, cmgCall2, textValue5)
-eventRegistration = nil
-textValue = nil
-textValue2 = _ENV
-rageUiCall = "RageUI"
-textValue2 = textValue2[rageUiCall]
-textValue2 = textValue2.CreateWhile
-rageUiCall = 1.0
-rageUiCall2 = _ENV
-textValue3 = "RMenu"
-rageUiCall2 = rageUiCall2[textValue3]
-rageUiCall3 = "Get"
-textValue3 = rageUiCall2
-rageUiCall2 = rageUiCall2[rageUiCall3]
-rageUiCall3 = "garages"
-rageUiCall4 = "inactivity"
-rageUiCall2 = rageUiCall2(textValue3, rageUiCall3, rageUiCall4)
-textValue3 = nil
+eventHandler(text, text2)
+eventHandler = _ENV
+text = "RMenu"
+eventHandler = eventHandler[text]
+eventHandler = eventHandler.Add
+text = "garages"
+text2 = "inactivity"
+rageUiOperation = _ENV
+rageUiOperation2 = "RageUI"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation = rageUiOperation.CreateMenu
+rageUiOperation2 = ""
+text3 = "Vehicle Inactivity"
+rageUiOperation3 = _ENV
+rageUiOperation4 = "CMG"
+rageUiOperation3 = rageUiOperation3[rageUiOperation4]
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = _ENV
+cmgOperation2 = "CMG"
+rageUiOperation4 = rageUiOperation4[cmgOperation2]
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+cmgOperation2 = "cmg_garageui"
+text5 = "cmg_garageui"
+rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5 = rageUiOperation(rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+eventHandler(text, text2, rageUiOperation, rageUiOperation2, text3, rageUiOperation3, rageUiOperation4, cmgOperation2, text5)
+eventHandler = nil
+text = nil
+text2 = _ENV
+rageUiOperation = "RageUI"
+text2 = text2[rageUiOperation]
+text2 = text2.CreateWhile
+rageUiOperation = 1.0
+rageUiOperation2 = _ENV
+text3 = "RMenu"
+rageUiOperation2 = rageUiOperation2[text3]
+rageUiOperation3 = "Get"
+text3 = rageUiOperation2
+rageUiOperation2 = rageUiOperation2[rageUiOperation3]
+rageUiOperation3 = "garages"
+rageUiOperation4 = "inactivity"
+rageUiOperation2 = rageUiOperation2(text3, rageUiOperation3, rageUiOperation4)
+text3 = nil
 
--- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: none) ===
-function rageUiCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "garages"
-  arg5 = "inactivity"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation3; parameters: none) ===
+function rageUiOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "garages"
+  localValue5 = "inactivity"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, arg32, arg42, workValue18, flag11
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~The vehicle '"
-    arg32 = eventRegistration
-    arg42 = "' is inactive."
-    arg22 = arg22 .. arg32 .. arg42
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~This occurs to vehicles which aren't used in 1 month."
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~This improves load times and increases performance."
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~To make the vehicle active click the button below."
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "~y~The vehicle will be spawnable from the next restart."
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~g~Activate Vehicle"
-    arg32 = ""
-    arg42 = {}
-    arg42.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    workValue18 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, localValue32, localValue42, workingValue18, stateFlag11
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~The vehicle '"
+    localValue32 = eventHandler
+    localValue42 = "' is inactive."
+    localValue22 = localValue22 .. localValue32 .. localValue42
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~This occurs to vehicles which aren't used in 1 month."
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~This improves load times and increases performance."
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~To make the vehicle active click the button below."
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "~y~The vehicle will be spawnable from the next restart."
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~g~Activate Vehicle"
+    localValue32 = ""
+    localValue42 = {}
+    localValue42.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue18 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag11; parameters: arg13, arg23, arg33) ===
-    function flag11(arg13, arg23, arg33)
-      local vehicle2, cmgCall6, flag12
-      if arg33 then
+    -- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue13, localValue23, localValue33) ===
+    function stateFlag11(localValue13, localValue23, localValue33)
+      local vehicle2, cmgOperation6, stateFlag12
+      if localValue33 then
         vehicle2 = TriggerServerEvent
-        cmgCall6 = "9b0f552679"
-        flag12 = textValue
+        cmgOperation6 = "9b0f552679"
+        stateFlag12 = text
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9b0f552679".
-        vehicle2(cmgCall6, flag12)
+        vehicle2(cmgOperation6, stateFlag12)
         vehicle2 = RageUI
         vehicle2 = vehicle2.CloseAll
         vehicle2()
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, arg32, arg42, workValue18, flag11)
+    localValue12(localValue22, localValue32, localValue42, workingValue18, stateFlag11)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
 end
-textValue2(rageUiCall, rageUiCall2, textValue3, rageUiCall3)
-textValue2 = RegisterNetEvent
-rageUiCall = "a4cc02a91b"
+text2(rageUiOperation, rageUiOperation2, text3, rageUiOperation3)
+text2 = RegisterNetEvent
+rageUiOperation = "a4cc02a91b"
 -- Beginner: this function handles network event "a4cc02a91b".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: arg1, arg2) ===
-function rageUiCall2(arg1, arg2)
-  dataTable10.income = arg1
-  dataTable10.outcome = arg2
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: localValue1, localValue2) ===
+function rageUiOperation2(localValue1, localValue2)
+  dataCollection10.income = localValue1
+  dataCollection10.outcome = localValue2
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a4cc02a91b".
-textValue2(rageUiCall, rageUiCall2)
-textValue2 = RegisterNetEvent
-rageUiCall = "41a06d8fbd"
+text2(rageUiOperation, rageUiOperation2)
+text2 = RegisterNetEvent
+rageUiOperation = "41a06d8fbd"
 -- Beginner: this function handles network event "41a06d8fbd".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: arg1, arg2) ===
-function rageUiCall2(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  eventRegistration = arg1
-  textValue = arg2
-  arg3 = RageUI
-  arg3 = arg3.Visible
-  arg4 = RMenu
-  arg5 = arg4
-  arg4 = arg4.Get
-  arg6 = "garages"
-  arg7 = "inactivity"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: localValue1, localValue2) ===
+function rageUiOperation2(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  eventHandler = localValue1
+  text = localValue2
+  localValue3 = RageUI
+  localValue3 = localValue3.Visible
+  localValue4 = RMenu
+  localValue5 = localValue4
+  localValue4 = localValue4.Get
+  localValue6 = "garages"
+  localValue7 = "inactivity"
   -- Beginner: result below is menu.
-  arg4 = arg4(arg5, arg6, arg7)
-  arg5 = true
-  arg3(arg4, arg5)
+  localValue4 = localValue4(localValue5, localValue6, localValue7)
+  localValue5 = true
+  localValue3(localValue4, localValue5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "41a06d8fbd".
-textValue2(rageUiCall, rageUiCall2)
-textValue2 = RegisterNetEvent
-rageUiCall = "88f392bb4d"
+text2(rageUiOperation, rageUiOperation2)
+text2 = RegisterNetEvent
+rageUiOperation = "88f392bb4d"
 -- Beginner: this function handles network event "88f392bb4d".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
-function rageUiCall2()
-  local arg1, arg2
-  arg1 = RageUI
-  arg1 = arg1.IsAnyMenuOfTypeVisible
-  arg2 = "garages"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = RageUI
-    arg1 = arg1.CloseAll
-    arg1()
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: none) ===
+function rageUiOperation2()
+  local localValue1, localValue2
+  localValue1 = RageUI
+  localValue1 = localValue1.IsAnyMenuOfTypeVisible
+  localValue2 = "garages"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.CloseAll
+    localValue1()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "88f392bb4d".
-textValue2(rageUiCall, rageUiCall2)
-textValue2 = RegisterNetEvent
-rageUiCall = "2648b1efcf"
+text2(rageUiOperation, rageUiOperation2)
+text2 = RegisterNetEvent
+rageUiOperation = "2648b1efcf"
 -- Beginner: this function handles network event "2648b1efcf".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: arg1) ===
-function rageUiCall2(arg1)
-  local arg2
-  dataTable13 = arg1
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: localValue1) ===
+function rageUiOperation2(localValue1)
+  local localValue2
+  dataCollection13 = localValue1
 end
-textValue2(rageUiCall, rageUiCall2)
+text2(rageUiOperation, rageUiOperation2)
 -- Beginner: this function handles network event "2648b1efcf".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable
-  arg2 = "Not Set"
-  arg3 = DecorGetInt
-  arg4 = arg1
-  arg5 = "ac76c9d452"
-  arg3 = arg3(arg4, arg5)
-  if arg3 > 0 then
-    arg4 = tostring
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    arg2 = arg4
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection
+  localValue2 = "Not Set"
+  localValue3 = DecorGetInt
+  localValue4 = localValue1
+  localValue5 = "ac76c9d452"
+  localValue3 = localValue3(localValue4, localValue5)
+  if localValue3 > 0 then
+    localValue4 = tostring
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    localValue2 = localValue4
   end
-  arg4 = GetEntityModel
-  arg5 = arg1
+  localValue4 = GetEntityModel
+  localValue5 = localValue1
   -- Beginner: result below is modelHash.
-  arg4 = arg4(arg5)
-  arg5 = CMG
-  arg5 = arg5.getVehicleIdFromModel
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg6 = tostring
-    arg7 = arg4
-    arg6 = arg6(arg7)
-    arg5 = arg6
+  localValue4 = localValue4(localValue5)
+  localValue5 = CMG
+  localValue5 = localValue5.getVehicleIdFromModel
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue6 = tostring
+    localValue7 = localValue4
+    localValue6 = localValue6(localValue7)
+    localValue5 = localValue6
   end
-  arg6 = "Not Set"
-  arg7 = DecorGetInt
-  iterator2 = arg1
+  localValue6 = "Not Set"
+  localValue7 = DecorGetInt
+  iterator2 = localValue1
   tableHelper2 = "0a6cf607ed"
-  arg7 = arg7(iterator2, tableHelper2)
-  if arg7 > 0 then
+  localValue7 = localValue7(iterator2, tableHelper2)
+  if localValue7 > 0 then
     iterator2 = tostring
-    tableHelper2 = arg7
+    tableHelper2 = localValue7
     iterator2 = iterator2(tableHelper2)
-    arg6 = iterator2
+    localValue6 = iterator2
   end
   iterator2 = string
   iterator2 = iterator2.format
@@ -12358,456 +12358,456 @@ function textValue2(arg1)
 UserID: %s
 Model: %s
 UUID: %s]]
-  dataTable25 = arg2
-  workValue2 = arg5
-  dataTable = arg6
-  return iterator2(tableHelper2, dataTable25, workValue2, dataTable)
+  dataCollection25 = localValue2
+  workingValue2 = localValue5
+  dataCollection = localValue6
+  return iterator2(tableHelper2, dataCollection25, workingValue2, dataCollection)
 end
-rageUiCall = _ENV
-rageUiCall2 = "CMG"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall2 = "registerDevMenuEntityEditor"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall2 = "Garages"
-textValue3 = "vehicle"
-rageUiCall3 = textValue2
+rageUiOperation = _ENV
+rageUiOperation2 = "CMG"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation2 = "registerDevMenuEntityEditor"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation2 = "Garages"
+text3 = "vehicle"
+rageUiOperation3 = text2
 
--- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
-function rageUiCall4()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: rageUiOperation4; parameters: none) ===
+function rageUiOperation4()
+  local localValue1, localValue2
 end
-rageUiCall(rageUiCall2, textValue3, rageUiCall3, rageUiCall4)
-rageUiCall = _ENV
-rageUiCall2 = "CMG"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall2 = "canVehicleBeSold"
+rageUiOperation(rageUiOperation2, text3, rageUiOperation3, rageUiOperation4)
+rageUiOperation = _ENV
+rageUiOperation2 = "CMG"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation2 = "canVehicleBeSold"
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3
-  arg2 = numberValue9.whitelisted
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = arg2.blockSelling
-    if arg3 then
-      arg3 = false
-      return arg3
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3
+  localValue2 = number9.whitelisted
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = localValue2.blockSelling
+    if localValue3 then
+      localValue3 = false
+      return localValue3
     end
   end
-  arg3 = true
-  return arg3
+  localValue3 = true
+  return localValue3
 end
-rageUiCall[rageUiCall2] = textValue3
-rageUiCall = _ENV
-rageUiCall2 = "CMG"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall2 = "canVehicleBeRented"
+rageUiOperation[rageUiOperation2] = text3
+rageUiOperation = _ENV
+rageUiOperation2 = "CMG"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation2 = "canVehicleBeRented"
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3
-  arg2 = numberValue9.whitelisted
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = arg2.blockRenting
-    if arg3 then
-      arg3 = false
-      return arg3
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3
+  localValue2 = number9.whitelisted
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = localValue2.blockRenting
+    if localValue3 then
+      localValue3 = false
+      return localValue3
     end
   end
-  arg3 = true
-  return arg3
+  localValue3 = true
+  return localValue3
 end
-rageUiCall[rageUiCall2] = textValue3
-rageUiCall = _ENV
-rageUiCall2 = "CMG"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall2 = "isVehicleRemoteControlled"
+rageUiOperation[rageUiOperation2] = text3
+rageUiOperation = _ENV
+rageUiOperation2 = "CMG"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation2 = "isVehicleRemoteControlled"
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2
-  arg2 = numberValue9.remoteControlledModels
-  arg2 = arg2[arg1]
-  if not arg2 then
-    arg2 = false
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2
+  localValue2 = number9.remoteControlledModels
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
+    localValue2 = false
   end
-  return arg2
+  return localValue2
 end
-rageUiCall[rageUiCall2] = textValue3
-rageUiCall = _ENV
-rageUiCall2 = "CMG"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall2 = "registerDevMenuState"
-rageUiCall = rageUiCall[rageUiCall2]
-rageUiCall2 = "Garages"
-textValue3 = {}
-rageUiCall3 = "drawVehicleModNames"
-rageUiCall4 = false
-textValue3[rageUiCall3] = rageUiCall4
-rageUiCall3 = "drawHeadlightDebug"
-rageUiCall4 = false
-textValue3[rageUiCall3] = rageUiCall4
-rageUiCall3 = "drawNearbyNodes"
-rageUiCall4 = false
-textValue3[rageUiCall3] = rageUiCall4
-rageUiCall = rageUiCall(rageUiCall2, textValue3)
-rageUiCall2 = _ENV
-textValue3 = "CMG"
-rageUiCall2 = rageUiCall2[textValue3]
-textValue3 = "registerDevMenuItems"
-rageUiCall2 = rageUiCall2[textValue3]
-textValue3 = "Garages"
+rageUiOperation[rageUiOperation2] = text3
+rageUiOperation = _ENV
+rageUiOperation2 = "CMG"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation2 = "registerDevMenuState"
+rageUiOperation = rageUiOperation[rageUiOperation2]
+rageUiOperation2 = "Garages"
+text3 = {}
+rageUiOperation3 = "drawVehicleModNames"
+rageUiOperation4 = false
+text3[rageUiOperation3] = rageUiOperation4
+rageUiOperation3 = "drawHeadlightDebug"
+rageUiOperation4 = false
+text3[rageUiOperation3] = rageUiOperation4
+rageUiOperation3 = "drawNearbyNodes"
+rageUiOperation4 = false
+text3[rageUiOperation3] = rageUiOperation4
+rageUiOperation = rageUiOperation(rageUiOperation2, text3)
+rageUiOperation2 = _ENV
+text3 = "CMG"
+rageUiOperation2 = rageUiOperation2[text3]
+text3 = "registerDevMenuItems"
+rageUiOperation2 = rageUiOperation2[text3]
+text3 = "Garages"
 
--- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: none) ===
-function rageUiCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = RageUI
-  arg1 = arg1.Button
-  arg2 = "Upload Current Vehicle Mods"
-  arg3 = "Uploads the mods for the vehicle to the server."
-  arg4 = true
+-- === HELPER FUNCTION (decompiler name: rageUiOperation3; parameters: none) ===
+function rageUiOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = RageUI
+  localValue1 = localValue1.Button
+  localValue2 = "Upload Current Vehicle Mods"
+  localValue3 = "Uploads the mods for the vehicle to the server."
+  localValue4 = true
 
-  -- === HELPER FUNCTION: arg5(arg12, arg22, arg32) ===
-  function arg5(arg12, arg22, arg32)
-    local arg42, workValue18, flag11, flag13
-    if arg32 then
-      arg42 = CMG
-      arg42 = arg42.getPlayerVehicle
+  -- === HELPER FUNCTION: localValue5(localValue12, localValue22, localValue32) ===
+  function localValue5(localValue12, localValue22, localValue32)
+    local localValue42, workingValue18, stateFlag11, stateFlag13
+    if localValue32 then
+      localValue42 = CMG
+      localValue42 = localValue42.getPlayerVehicle
       -- Beginner: result below is currentVehicle.
-      arg42 = arg42()
-      if 0 == arg42 then
-        workValue18 = notify
-        flag11 = "~r~You must be in a vehicle to use this."
+      localValue42 = localValue42()
+      if 0 == localValue42 then
+        workingValue18 = notify
+        stateFlag11 = "~r~You must be in a vehicle to use this."
         -- Beginner: Show a notification to the player.
-        workValue18(flag11)
+        workingValue18(stateFlag11)
       else
-        workValue18 = rageUiCall8
-        flag11 = arg42
-        flag13 = false
-        workValue18(flag11, flag13)
+        workingValue18 = rageUiOperation8
+        stateFlag11 = localValue42
+        stateFlag13 = false
+        workingValue18(stateFlag11, stateFlag13)
       end
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, arg5)
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Draw Vehicle Mod Names"
-  arg3 = "Displays current vehicle mods on the screen"
-  arg4 = rageUiCall.drawVehicleModNames
-  arg5 = {}
+  localValue1(localValue2, localValue3, localValue4, localValue5)
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Draw Vehicle Mod Names"
+  localValue3 = "Displays current vehicle mods on the screen"
+  localValue4 = rageUiOperation.drawVehicleModNames
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    rageUiCall.drawVehicleModNames = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    rageUiOperation.drawVehicleModNames = localValue42
   end
   -- Beginner: Draw a RageUI checkbox.
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Draw Headlight Debug"
-  arg3 = "Displays debug information for headlights"
-  arg4 = rageUiCall.drawHeadlightDebug
-  arg5 = {}
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Draw Headlight Debug"
+  localValue3 = "Displays debug information for headlights"
+  localValue4 = rageUiOperation.drawHeadlightDebug
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    rageUiCall.drawHeadlightDebug = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    rageUiOperation.drawHeadlightDebug = localValue42
   end
-  arg1(arg2, arg3, arg4, arg5, arg6)
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Draw Nearby Nodes"
-  arg3 = "Draws Nearby Nodes"
-  arg4 = rageUiCall.drawNearbyNodes
-  arg5 = {}
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Draw Nearby Nodes"
+  localValue3 = "Draws Nearby Nodes"
+  localValue4 = rageUiOperation.drawNearbyNodes
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    rageUiCall.drawNearbyNodes = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    rageUiOperation.drawNearbyNodes = localValue42
   end
   -- Beginner: Draw a RageUI checkbox.
-  arg1(arg2, arg3, arg4, arg5, arg6)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
 end
-rageUiCall2(textValue3, rageUiCall3)
-rageUiCall2 = _ENV
-textValue3 = "CMG"
-rageUiCall2 = rageUiCall2[textValue3]
-textValue3 = "registerDevMenuThread"
-rageUiCall2 = rageUiCall2[textValue3]
-textValue3 = "Garages"
+rageUiOperation2(text3, rageUiOperation3)
+rageUiOperation2 = _ENV
+text3 = "CMG"
+rageUiOperation2 = rageUiOperation2[text3]
+text3 = "registerDevMenuThread"
+rageUiOperation2 = rageUiOperation2[text3]
+text3 = "Garages"
 
--- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: none) ===
-function rageUiCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13, mathHelper, numberValue7, numberValue8, flag7, flag8, flag9
-  arg1 = rageUiCall.drawVehicleModNames
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: rageUiOperation3; parameters: none) ===
+function rageUiOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13, mathHelper, number7, number8, stateFlag7, stateFlag8, stateFlag9
+  localValue1 = rageUiOperation.drawVehicleModNames
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg1 = arg1()
-    if 0 ~= arg1 then
-      arg2 = rageUiCall8
-      arg3 = arg1
-      arg4 = true
-      arg2(arg3, arg4)
+    localValue1 = localValue1()
+    if 0 ~= localValue1 then
+      localValue2 = rageUiOperation8
+      localValue3 = localValue1
+      localValue4 = true
+      localValue2(localValue3, localValue4)
     end
   end
-  arg1 = rageUiCall.drawNearbyNodes
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.getPlayerCoords
+  localValue1 = rageUiOperation.drawNearbyNodes
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg1 = arg1()
-    arg2 = 1
-    arg3 = 50
-    arg4 = 1
-    for arg5 = arg2, arg3, arg4 do
-      arg6 = GetNthClosestVehicleNodeWithHeading
-      arg7 = arg1.x
-      iterator2 = arg1.y
-      tableHelper2 = arg1.z
-      dataTable25 = arg5
-      workValue2 = nil
-      dataTable = 0.0
+    localValue1 = localValue1()
+    localValue2 = 1
+    localValue3 = 50
+    localValue4 = 1
+    for localValue5 = localValue2, localValue3, localValue4 do
+      localValue6 = GetNthClosestVehicleNodeWithHeading
+      localValue7 = localValue1.x
+      iterator2 = localValue1.y
+      tableHelper2 = localValue1.z
+      dataCollection25 = localValue5
+      workingValue2 = nil
+      dataCollection = 0.0
       iterator = 0
       stringHelper = 1
-      workValue7 = 3.0
+      workingValue7 = 3.0
       stringHelper2 = 0.0
-      arg6, arg7, iterator2 = arg6(arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2)
-      if arg6 then
+      localValue6, localValue7, iterator2 = localValue6(localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2)
+      if localValue6 then
         tableHelper2 = vector3
-        dataTable25 = 0.0
-        workValue2 = 0.0
-        dataTable = 0.2
-        tableHelper2 = tableHelper2(dataTable25, workValue2, dataTable)
-        arg7 = arg7 + tableHelper2
+        dataCollection25 = 0.0
+        workingValue2 = 0.0
+        dataCollection = 0.2
+        tableHelper2 = tableHelper2(dataCollection25, workingValue2, dataCollection)
+        localValue7 = localValue7 + tableHelper2
         tableHelper2 = DrawMarker
-        dataTable25 = 28
-        workValue2 = arg7.x
-        dataTable = arg7.y
-        iterator = arg7.z
+        dataCollection25 = 28
+        workingValue2 = localValue7.x
+        dataCollection = localValue7.y
+        iterator = localValue7.z
         stringHelper = 0.0
-        workValue7 = 0.0
+        workingValue7 = 0.0
         stringHelper2 = 0.0
-        cmgCall3 = 0.0
+        cmgOperation3 = 0.0
         tableHelper = 0.0
-        workValue9 = 0.0
+        workingValue9 = 0.0
         heading = 1.5
-        workValue10 = 1.5
-        cmgCall5 = 1.5
-        numberValue5 = 255
+        workingValue10 = 1.5
+        cmgOperation5 = 1.5
+        number5 = 255
         vehicle = 0
         stringHelper3 = 0
-        numberValue6 = 100
-        workValue13 = false
+        number6 = 100
+        workingValue13 = false
         mathHelper = false
-        numberValue7 = 2
-        numberValue8 = false
-        flag7 = nil
-        flag8 = nil
-        flag9 = false
-        tableHelper2(dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper, workValue9, heading, workValue10, cmgCall5, numberValue5, vehicle, stringHelper3, numberValue6, workValue13, mathHelper, numberValue7, numberValue8, flag7, flag8, flag9)
+        number7 = 2
+        number8 = false
+        stateFlag7 = nil
+        stateFlag8 = nil
+        stateFlag9 = false
+        tableHelper2(dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper, workingValue9, heading, workingValue10, cmgOperation5, number5, vehicle, stringHelper3, number6, workingValue13, mathHelper, number7, number8, stateFlag7, stateFlag8, stateFlag9)
         tableHelper2 = CMG
         tableHelper2 = tableHelper2.drawHeadingFromPoint
-        dataTable25 = arg7
-        workValue2 = math
-        workValue2 = workValue2.rad
-        dataTable = iterator2
-        workValue2 = workValue2(dataTable)
-        dataTable = 5.0
-        tableHelper2(dataTable25, workValue2, dataTable)
+        dataCollection25 = localValue7
+        workingValue2 = math
+        workingValue2 = workingValue2.rad
+        dataCollection = iterator2
+        workingValue2 = workingValue2(dataCollection)
+        dataCollection = 5.0
+        tableHelper2(dataCollection25, workingValue2, dataCollection)
         tableHelper2 = CMG
         tableHelper2 = tableHelper2.DrawText3D
-        dataTable25 = arg7
-        workValue2 = tostring
-        dataTable = arg5
-        workValue2 = workValue2(dataTable)
-        dataTable = 0.5
-        tableHelper2(dataTable25, workValue2, dataTable)
+        dataCollection25 = localValue7
+        workingValue2 = tostring
+        dataCollection = localValue5
+        workingValue2 = workingValue2(dataCollection)
+        dataCollection = 0.5
+        tableHelper2(dataCollection25, workingValue2, dataCollection)
       end
     end
   end
 end
-rageUiCall2(textValue3, rageUiCall3)
-rageUiCall2 = 0
-textValue3 = false
+rageUiOperation2(text3, rageUiOperation3)
+rageUiOperation2 = 0
+text3 = false
 
--- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: none) ===
-function rageUiCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
-  arg1, arg2 = arg1()
-  if 0 == arg1 or not arg2 then
-    arg3 = false
-    textValue3 = arg3
+-- === HELPER FUNCTION (decompiler name: rageUiOperation3; parameters: none) ===
+function rageUiOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
+  localValue1, localValue2 = localValue1()
+  if 0 == localValue1 or not localValue2 then
+    localValue3 = false
+    text3 = localValue3
     return
   end
-  arg3 = GetVehicleLightsState
-  arg4 = arg1
-  arg3, arg4, arg5 = arg3(arg4)
-  if 1 == arg5 then
-    arg6 = true
-    if arg6 then
-      goto flow_label_20
-      arg5 = arg6 or arg5
+  localValue3 = GetVehicleLightsState
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5 = localValue3(localValue4)
+  if 1 == localValue5 then
+    localValue6 = true
+    if localValue6 then
+      goto continueAtStep20
+      localValue5 = localValue6 or localValue5
     end
   end
-  arg5 = false
-  ::flow_label_20::
-  arg6 = rageUiCall.drawHeadlightDebug
-  if arg6 then
-    arg6 = CMG
-    arg6 = arg6.drawDebugText
-    arg7 = "---------- Headlights Fix ----------"
-    arg6(arg7)
-    arg6 = CMG
-    arg6 = arg6.drawDebugText
-    arg7 = "Valid: %s On: %s Full Bean: %s"
-    iterator2 = arg3
-    tableHelper2 = arg4
-    dataTable25 = arg5
-    arg6(arg7, iterator2, tableHelper2, dataTable25)
-    arg6 = CMG
-    arg6 = arg6.drawDebugText
-    arg7 = "Stored Full Beam: %s"
-    iterator2 = textValue3
-    arg6(arg7, iterator2)
+  localValue5 = false
+  ::continueAtStep20::
+  localValue6 = rageUiOperation.drawHeadlightDebug
+  if localValue6 then
+    localValue6 = CMG
+    localValue6 = localValue6.drawDebugText
+    localValue7 = "---------- Headlights Fix ----------"
+    localValue6(localValue7)
+    localValue6 = CMG
+    localValue6 = localValue6.drawDebugText
+    localValue7 = "Valid: %s On: %s Full Bean: %s"
+    iterator2 = localValue3
+    tableHelper2 = localValue4
+    dataCollection25 = localValue5
+    localValue6(localValue7, iterator2, tableHelper2, dataCollection25)
+    localValue6 = CMG
+    localValue6 = localValue6.drawDebugText
+    localValue7 = "Stored Full Beam: %s"
+    iterator2 = text3
+    localValue6(localValue7, iterator2)
   end
-  arg6 = IsControlJustReleased
-  arg7 = 0
+  localValue6 = IsControlJustReleased
+  localValue7 = 0
   iterator2 = 74
-  arg6 = arg6(arg7, iterator2)
-  if arg6 then
-    arg6 = IsVehicleEngineOn
-    arg7 = arg1
-    arg6 = arg6(arg7)
-    if arg6 then
-      arg6 = GetFrameCount
-      arg6 = arg6()
-      rageUiCall2 = arg6
+  localValue6 = localValue6(localValue7, iterator2)
+  if localValue6 then
+    localValue6 = IsVehicleEngineOn
+    localValue7 = localValue1
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
+      localValue6 = GetFrameCount
+      localValue6 = localValue6()
+      rageUiOperation2 = localValue6
     end
   end
-  arg6 = textValue3
-  if arg6 ~= arg5 then
-    arg6 = rageUiCall2
-    arg7 = GetFrameCount
-    arg7 = arg7()
-    arg7 = arg7 - 1
-    if arg6 == arg7 then
-      textValue3 = arg5
-      if arg5 then
-        arg6 = SetVehicleFullbeam
-        arg7 = arg1
+  localValue6 = text3
+  if localValue6 ~= localValue5 then
+    localValue6 = rageUiOperation2
+    localValue7 = GetFrameCount
+    localValue7 = localValue7()
+    localValue7 = localValue7 - 1
+    if localValue6 == localValue7 then
+      text3 = localValue5
+      if localValue5 then
+        localValue6 = SetVehicleFullbeam
+        localValue7 = localValue1
         iterator2 = true
-        arg6(arg7, iterator2)
-        arg6 = SetVehicleLights
-        arg7 = arg1
+        localValue6(localValue7, iterator2)
+        localValue6 = SetVehicleLights
+        localValue7 = localValue1
         iterator2 = 3
-        arg6(arg7, iterator2)
+        localValue6(localValue7, iterator2)
       end
     end
   end
 end
-rageUiCall4 = _ENV
-cmgCall2 = "CMG"
-rageUiCall4 = rageUiCall4[cmgCall2]
-rageUiCall4 = rageUiCall4.createThreadOnTick
-cmgCall2 = rageUiCall3
-textValue5 = "Headlights Fix"
-rageUiCall4(cmgCall2, textValue5)
-rageUiCall4 = _ENV
-cmgCall2 = "Citizen"
-rageUiCall4 = rageUiCall4[cmgCall2]
-cmgCall2 = "CreateThread"
-rageUiCall4 = rageUiCall4[cmgCall2]
+rageUiOperation4 = _ENV
+cmgOperation2 = "CMG"
+rageUiOperation4 = rageUiOperation4[cmgOperation2]
+rageUiOperation4 = rageUiOperation4.createThreadOnTick
+cmgOperation2 = rageUiOperation3
+text5 = "Headlights Fix"
+rageUiOperation4(cmgOperation2, text5)
+rageUiOperation4 = _ENV
+cmgOperation2 = "Citizen"
+rageUiOperation4 = rageUiOperation4[cmgOperation2]
+cmgOperation2 = "CreateThread"
+rageUiOperation4 = rageUiOperation4[cmgOperation2]
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2
-  arg1 = Wait
-  arg2 = 1000
-  arg1(arg2)
-  arg1 = LoadResourceFile
-  arg2 = "CMGVeh"
-  arg3 = "ci/streamfiles.json"
-  arg1 = arg1(arg2, arg3)
-  if arg1 then
-    arg2 = json
-    arg2 = arg2.decode
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = {}
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2
+  localValue1 = Wait
+  localValue2 = 1000
+  localValue1(localValue2)
+  localValue1 = LoadResourceFile
+  localValue2 = "CMGVeh"
+  localValue3 = "ci/streamfiles.json"
+  localValue1 = localValue1(localValue2, localValue3)
+  if localValue1 then
+    localValue2 = json
+    localValue2 = localValue2.decode
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = {}
     end
-    arg3 = pairs
-    arg4 = arg2
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7 in arg3, arg4, arg5, arg6 do
+    localValue3 = pairs
+    localValue4 = localValue2
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7 in localValue3, localValue4, localValue5, localValue6 do
       iterator2 = CMG
       iterator2 = iterator2.setStreamFilePreActivatedClient
-      tableHelper2 = arg7
+      tableHelper2 = localValue7
       iterator2(tableHelper2)
     end
   end
 end
-rageUiCall4(cmgCall2)
-rageUiCall4 = _ENV
-cmgCall2 = "CMG"
-rageUiCall4 = rageUiCall4[cmgCall2]
-cmgCall2 = "registerStreamFileLoadedCallback"
-rageUiCall4 = rageUiCall4[cmgCall2]
+rageUiOperation4(cmgOperation2)
+rageUiOperation4 = _ENV
+cmgOperation2 = "CMG"
+rageUiOperation4 = rageUiOperation4[cmgOperation2]
+cmgOperation2 = "registerStreamFileLoadedCallback"
+rageUiOperation4 = rageUiOperation4[cmgOperation2]
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper
-  arg2 = pairs
-  arg3 = GetGamePool
-  arg4 = "CVehicle"
-  arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper = arg3(arg4)
-  arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, iterator2, tableHelper2, dataTable25, workValue2, dataTable, iterator, stringHelper, workValue7, stringHelper2, cmgCall3, tableHelper)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper
+  localValue2 = pairs
+  localValue3 = GetGamePool
+  localValue4 = "CVehicle"
+  localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper = localValue3(localValue4)
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, iterator2, tableHelper2, dataCollection25, workingValue2, dataCollection, iterator, stringHelper, workingValue7, stringHelper2, cmgOperation3, tableHelper)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
     iterator2 = 0
     tableHelper2 = 49
-    dataTable25 = 1
-    for workValue2 = iterator2, tableHelper2, dataTable25 do
-      dataTable = GetVehicleMod
-      iterator = arg7
-      stringHelper = workValue2
-      dataTable = dataTable(iterator, stringHelper)
-      if dataTable >= 0 then
+    dataCollection25 = 1
+    for workingValue2 = iterator2, tableHelper2, dataCollection25 do
+      dataCollection = GetVehicleMod
+      iterator = localValue7
+      stringHelper = workingValue2
+      dataCollection = dataCollection(iterator, stringHelper)
+      if dataCollection >= 0 then
         iterator = GetModTextLabel
-        stringHelper = arg7
-        workValue7 = workValue2
-        stringHelper2 = dataTable
-        iterator = iterator(stringHelper, workValue7, stringHelper2)
-        stringHelper = arg1[iterator]
+        stringHelper = localValue7
+        workingValue7 = workingValue2
+        stringHelper2 = dataCollection
+        iterator = iterator(stringHelper, workingValue7, stringHelper2)
+        stringHelper = localValue1[iterator]
         if stringHelper then
           stringHelper = SetVehicleMod
-          workValue7 = arg7
-          stringHelper2 = workValue2
-          cmgCall3 = -1
+          workingValue7 = localValue7
+          stringHelper2 = workingValue2
+          cmgOperation3 = -1
           tableHelper = false
-          stringHelper(workValue7, stringHelper2, cmgCall3, tableHelper)
+          stringHelper(workingValue7, stringHelper2, cmgOperation3, tableHelper)
           stringHelper = SetTimeout
-          workValue7 = 1000
+          workingValue7 = 1000
 
           -- === HELPER FUNCTION: stringHelper2() ===
           function stringHelper2()
-            local arg12, arg22, arg32, arg42, workValue18
-            arg12 = SetVehicleMod
-            arg22 = arg7
-            arg32 = workValue2
-            arg42 = dataTable
-            workValue18 = false
-            arg12(arg22, arg32, arg42, workValue18)
+            local localValue12, localValue22, localValue32, localValue42, workingValue18
+            localValue12 = SetVehicleMod
+            localValue22 = localValue7
+            localValue32 = workingValue2
+            localValue42 = dataCollection
+            workingValue18 = false
+            localValue12(localValue22, localValue32, localValue42, workingValue18)
           end
-          stringHelper(workValue7, stringHelper2)
+          stringHelper(workingValue7, stringHelper2)
         end
       end
     end
   end
 end
-rageUiCall4(cmgCall2)
+rageUiOperation4(cmgOperation2)

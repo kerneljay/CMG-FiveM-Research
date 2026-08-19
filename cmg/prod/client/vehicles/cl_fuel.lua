@@ -32,1332 +32,1332 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, threadCall, flag7, numberValue2, numberValue3, flag8, cmgCall3, cmgCall5, workValue5, threadCall2, dataTable, eventHandlerRegistration, textValue, cmgCall2, textValue2, textValue3, workValue, workValue2
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-threadCall = "cfg/cfg_fuel"
+local cmgOperation, backgroundThread, stateFlag7, number2, number3, stateFlag8, cmgOperation3, cmgOperation5, workingValue5, backgroundThread2, dataCollection, eventHandlerRegistration, text, cmgOperation2, text2, text3, workingValue, workingValue2
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+backgroundThread = "cfg/cfg_fuel"
 -- Beginner: result below is config.
-cmgCall = cmgCall(threadCall)
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+cmgOperation = cmgOperation(backgroundThread)
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: flag7; parameters: none) ===
-function flag7()
-  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2
-  arg1 = pairs
-  arg2 = cmgCall.stations
-  arg1, arg2, arg3, workValue3 = arg1(arg2)
-  for textValue4, numberValue4 in arg1, arg2, arg3, workValue3 do
-    cmgCall4 = tCMG
-    cmgCall4 = cmgCall4.addBlip
-    workValue4 = numberValue4.x
-    modelHash = numberValue4.y
-    workValue6 = numberValue4.z
+-- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: none) ===
+function stateFlag7()
+  local localValue1, localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2
+  localValue1 = pairs
+  localValue2 = cmgOperation.stations
+  localValue1, localValue2, localValue3, workingValue3 = localValue1(localValue2)
+  for text4, number4 in localValue1, localValue2, localValue3, workingValue3 do
+    cmgOperation4 = tCMG
+    cmgOperation4 = cmgOperation4.addBlip
+    workingValue4 = number4.x
+    modelHash = number4.y
+    workingValue6 = number4.z
     coords = 361
-    numberValue = 4
-    flag = "Petrol Station"
-    flag2 = 0.6
+    number = 4
+    stateFlag = "Petrol Station"
+    stateFlag2 = 0.6
     -- Beginner: Create a minimap blip.
-    cmgCall4(workValue4, modelHash, workValue6, coords, numberValue, flag, flag2)
+    cmgOperation4(workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(flag7)
-threadCall = 0
-flag7 = false
-numberValue2 = 0.0
-numberValue3 = 0.0
-flag8 = false
-cmgCall3 = CMG
+backgroundThread(stateFlag7)
+backgroundThread = 0
+stateFlag7 = false
+number2 = 0.0
+number3 = 0.0
+stateFlag8 = false
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2) ===
-function cmgCall5(arg1, arg2)
-  local arg3, workValue3, textValue4, numberValue4, cmgCall4
-  arg3 = type
-  workValue3 = arg2
-  arg3 = arg3(workValue3)
-  if "number" == arg3 and arg2 >= 0 and arg2 <= 100 then
-    arg3 = SetVehicleFuelLevel
-    workValue3 = arg1
-    textValue4 = arg2 + 0.0
-    arg3(workValue3, textValue4)
-    arg3 = DecorSetFloat
-    workValue3 = arg1
-    textValue4 = "145eb2f935"
-    numberValue4 = GetVehicleFuelLevel
-    cmgCall4 = arg1
-    numberValue4, cmgCall4 = numberValue4(cmgCall4)
-    arg3(workValue3, textValue4, numberValue4, cmgCall4)
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1, localValue2) ===
+function cmgOperation5(localValue1, localValue2)
+  local localValue3, workingValue3, text4, number4, cmgOperation4
+  localValue3 = type
+  workingValue3 = localValue2
+  localValue3 = localValue3(workingValue3)
+  if "number" == localValue3 and localValue2 >= 0 and localValue2 <= 100 then
+    localValue3 = SetVehicleFuelLevel
+    workingValue3 = localValue1
+    text4 = localValue2 + 0.0
+    localValue3(workingValue3, text4)
+    localValue3 = DecorSetFloat
+    workingValue3 = localValue1
+    text4 = "145eb2f935"
+    number4 = GetVehicleFuelLevel
+    cmgOperation4 = localValue1
+    number4, cmgOperation4 = number4(cmgOperation4)
+    localValue3(workingValue3, text4, number4, cmgOperation4)
   end
 end
-cmgCall3.setVehicleFuel = cmgCall5
-cmgCall3 = CMG
+cmgOperation3.setVehicleFuel = cmgOperation5
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
-function cmgCall5(arg1)
-  local arg2, arg3, workValue3, textValue4
-  arg2 = nil
-  if 0 ~= arg1 then
-    arg3 = DecorExistOn
-    workValue3 = arg1
-    textValue4 = "145eb2f935"
-    arg3 = arg3(workValue3, textValue4)
-    if arg3 then
-      arg3 = CMG
-      arg3 = arg3.getVehicleFuel
-      workValue3 = arg1
-      arg3 = arg3(workValue3)
-      arg2 = arg3
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1) ===
+function cmgOperation5(localValue1)
+  local localValue2, localValue3, workingValue3, text4
+  localValue2 = nil
+  if 0 ~= localValue1 then
+    localValue3 = DecorExistOn
+    workingValue3 = localValue1
+    text4 = "145eb2f935"
+    localValue3 = localValue3(workingValue3, text4)
+    if localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.getVehicleFuel
+      workingValue3 = localValue1
+      localValue3 = localValue3(workingValue3)
+      localValue2 = localValue3
     end
   end
-  arg3 = SetVehicleFixed
-  workValue3 = arg1
-  arg3(workValue3)
-  if arg2 then
-    arg3 = type
-    workValue3 = arg2
-    arg3 = arg3(workValue3)
-    if "number" == arg3 and arg2 == arg2 then
-      arg3 = math
-      arg3 = arg3.huge
-      if arg2 ~= arg3 then
-        arg3 = math
-        arg3 = arg3.huge
-        arg3 = -arg3
-        if arg2 ~= arg3 and arg2 >= 0 and arg2 <= 100 then
-          arg3 = CMG
-          arg3 = arg3.setVehicleFuel
-          workValue3 = arg1
-          textValue4 = arg2
-          arg3(workValue3, textValue4)
+  localValue3 = SetVehicleFixed
+  workingValue3 = localValue1
+  localValue3(workingValue3)
+  if localValue2 then
+    localValue3 = type
+    workingValue3 = localValue2
+    localValue3 = localValue3(workingValue3)
+    if "number" == localValue3 and localValue2 == localValue2 then
+      localValue3 = math
+      localValue3 = localValue3.huge
+      if localValue2 ~= localValue3 then
+        localValue3 = math
+        localValue3 = localValue3.huge
+        localValue3 = -localValue3
+        if localValue2 ~= localValue3 and localValue2 >= 0 and localValue2 <= 100 then
+          localValue3 = CMG
+          localValue3 = localValue3.setVehicleFuel
+          workingValue3 = localValue1
+          text4 = localValue2
+          localValue3(workingValue3, text4)
         end
       end
     end
   end
 end
-cmgCall3.setVehicleFixedPreservingFuel = cmgCall5
+cmgOperation3.setVehicleFixedPreservingFuel = cmgOperation5
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
-function cmgCall3(arg1, arg2)
-  local arg3, workValue3, textValue4
-  arg3 = arg2 or nil
-  if not arg2 then
-    arg3 = 0
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1, localValue2) ===
+function cmgOperation3(localValue1, localValue2)
+  local localValue3, workingValue3, text4
+  localValue3 = localValue2 or nil
+  if not localValue2 then
+    localValue3 = 0
   end
-  workValue3 = 10
-  arg3 = workValue3 ^ arg3
-  workValue3 = math
-  workValue3 = workValue3.floor
-  textValue4 = arg1 * arg3
-  textValue4 = textValue4 + 0.5
-  workValue3 = workValue3(textValue4)
-  workValue3 = workValue3 / arg3
-  return workValue3
+  workingValue3 = 10
+  localValue3 = workingValue3 ^ localValue3
+  workingValue3 = math
+  workingValue3 = workingValue3.floor
+  text4 = localValue1 * localValue3
+  text4 = text4 + 0.5
+  workingValue3 = workingValue3(text4)
+  workingValue3 = workingValue3 / localValue3
+  return workingValue3
 end
-cmgCall5 = CMG
+cmgOperation5 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, arg3, workValue3
-  arg2 = DecorGetFloat
-  arg3 = arg1
-  workValue3 = "145eb2f935"
-  return arg2(arg3, workValue3)
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local localValue2, localValue3, workingValue3
+  localValue2 = DecorGetFloat
+  localValue3 = localValue1
+  workingValue3 = "145eb2f935"
+  return localValue2(localValue3, workingValue3)
 end
-cmgCall5.getVehicleFuel = workValue5
+cmgOperation5.getVehicleFuel = workingValue5
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
-function cmgCall5()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.getClientDisplayMoney
-  arg1, arg2 = arg1()
-  arg3 = arg1 + arg2
-  return arg3
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: none) ===
+function cmgOperation5()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.getClientDisplayMoney
+  localValue1, localValue2 = localValue1()
+  localValue3 = localValue1 + localValue2
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4
-  arg2 = DecorExistOn
-  arg3 = arg1
-  workValue3 = "145eb2f935"
-  arg2 = arg2(arg3, workValue3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.setVehicleFuel
-    arg3 = arg1
-    workValue3 = math
-    workValue3 = workValue3.random
-    textValue4 = 200
-    numberValue4 = 800
-    workValue3 = workValue3(textValue4, numberValue4)
-    workValue3 = workValue3 / 10
-    arg2(arg3, workValue3)
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4
+  localValue2 = DecorExistOn
+  localValue3 = localValue1
+  workingValue3 = "145eb2f935"
+  localValue2 = localValue2(localValue3, workingValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.setVehicleFuel
+    localValue3 = localValue1
+    workingValue3 = math
+    workingValue3 = workingValue3.random
+    text4 = 200
+    number4 = 800
+    workingValue3 = workingValue3(text4, number4)
+    workingValue3 = workingValue3 / 10
+    localValue2(localValue3, workingValue3)
   else
-    arg2 = flag8
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.setVehicleFuel
-      arg3 = arg1
-      workValue3 = CMG
-      workValue3 = workValue3.getVehicleFuel
-      textValue4 = arg1
-      workValue3, textValue4, numberValue4, cmgCall4, workValue4 = workValue3(textValue4)
-      arg2(arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4)
-      arg2 = true
-      flag8 = arg2
+    localValue2 = stateFlag8
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.setVehicleFuel
+      localValue3 = localValue1
+      workingValue3 = CMG
+      workingValue3 = workingValue3.getVehicleFuel
+      text4 = localValue1
+      workingValue3, text4, number4, cmgOperation4, workingValue4 = workingValue3(text4)
+      localValue2(localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4)
+      localValue2 = true
+      stateFlag8 = localValue2
     end
   end
-  arg2 = GetIsVehicleEngineRunning
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = cmgCall.fuelUsage
-    arg3 = cmgCall3
-    workValue3 = GetVehicleCurrentRpm
-    textValue4 = arg1
-    workValue3 = workValue3(textValue4)
-    textValue4 = 1
-    arg3 = arg3(workValue3, textValue4)
-    arg2 = arg2[arg3]
-    if not arg2 then
-      arg2 = 1.0
+  localValue2 = GetIsVehicleEngineRunning
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = cmgOperation.fuelUsage
+    localValue3 = cmgOperation3
+    workingValue3 = GetVehicleCurrentRpm
+    text4 = localValue1
+    workingValue3 = workingValue3(text4)
+    text4 = 1
+    localValue3 = localValue3(workingValue3, text4)
+    localValue2 = localValue2[localValue3]
+    if not localValue2 then
+      localValue2 = 1.0
     end
-    arg3 = cmgCall.classes
-    workValue3 = GetVehicleClass
-    textValue4 = arg1
-    workValue3 = workValue3(textValue4)
-    arg3 = arg3[workValue3]
-    if not arg3 then
-      arg3 = 1.0
+    localValue3 = cmgOperation.classes
+    workingValue3 = GetVehicleClass
+    text4 = localValue1
+    workingValue3 = workingValue3(text4)
+    localValue3 = localValue3[workingValue3]
+    if not localValue3 then
+      localValue3 = 1.0
     end
-    arg3 = arg2 * arg3
-    arg3 = arg3 / 10
-    workValue3 = CMG
-    workValue3 = workValue3.getMechanicFuelUsageReductionPercent
-    workValue3 = workValue3()
-    textValue4 = workValue3 / 100
-    numberValue4 = 1
-    textValue4 = numberValue4 - textValue4
-    arg3 = arg3 * textValue4
-    textValue4 = CMG
-    textValue4 = textValue4.setVehicleFuel
-    numberValue4 = arg1
-    cmgCall4 = GetVehicleFuelLevel
-    workValue4 = arg1
-    cmgCall4 = cmgCall4(workValue4)
-    cmgCall4 = cmgCall4 - arg3
-    textValue4(numberValue4, cmgCall4)
+    localValue3 = localValue2 * localValue3
+    localValue3 = localValue3 / 10
+    workingValue3 = CMG
+    workingValue3 = workingValue3.getMechanicFuelUsageReductionPercent
+    workingValue3 = workingValue3()
+    text4 = workingValue3 / 100
+    number4 = 1
+    text4 = number4 - text4
+    localValue3 = localValue3 * text4
+    text4 = CMG
+    text4 = text4.setVehicleFuel
+    number4 = localValue1
+    cmgOperation4 = GetVehicleFuelLevel
+    workingValue4 = localValue1
+    cmgOperation4 = cmgOperation4(workingValue4)
+    cmgOperation4 = cmgOperation4 - localValue3
+    text4(number4, cmgOperation4)
   end
-  arg2 = CMG
-  arg2 = arg2.getVehicleFuel
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = type
-  workValue3 = arg2
-  arg3 = arg3(workValue3)
-  if "number" == arg3 and arg2 == arg2 then
-    arg3 = math
-    arg3 = arg3.huge
-    if arg2 ~= arg3 then
-      arg3 = math
-      arg3 = arg3.huge
-      arg3 = -arg3
-      if arg2 ~= arg3 then
-        goto flow_label_100
+  localValue2 = CMG
+  localValue2 = localValue2.getVehicleFuel
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = type
+  workingValue3 = localValue2
+  localValue3 = localValue3(workingValue3)
+  if "number" == localValue3 and localValue2 == localValue2 then
+    localValue3 = math
+    localValue3 = localValue3.huge
+    if localValue2 ~= localValue3 then
+      localValue3 = math
+      localValue3 = localValue3.huge
+      localValue3 = -localValue3
+      if localValue2 ~= localValue3 then
+        goto continueAtStep100
       end
     end
   end
-  arg2 = 0
-  ::flow_label_100::
-  arg3 = SendNUIMessage
-  workValue3 = {}
-  workValue3.showFuel = true
-  workValue3.fuel = arg2
+  localValue2 = 0
+  ::continueAtStep100::
+  localValue3 = SendNUIMessage
+  workingValue3 = {}
+  workingValue3.showFuel = true
+  workingValue3.fuel = localValue2
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg3(workValue3)
+  localValue3(workingValue3)
 end
-threadCall2 = Citizen
-threadCall2 = threadCall2.CreateThread
+backgroundThread2 = Citizen
+backgroundThread2 = backgroundThread2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-function dataTable()
-  local arg1, arg2, arg3, workValue3, textValue4
-  arg1 = DecorRegister
-  arg2 = "145eb2f935"
-  arg3 = 1
-  arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+function dataCollection()
+  local localValue1, localValue2, localValue3, workingValue3, text4
+  localValue1 = DecorRegister
+  localValue2 = "145eb2f935"
+  localValue3 = 1
+  localValue1(localValue2, localValue3)
   while true do
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 1000
-    arg1(arg2)
-    arg1 = PlayerPedId
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 1000
+    localValue1(localValue2)
+    localValue1 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = IsPedInAnyVehicle
-    arg3 = arg1
-    workValue3 = true
-    arg2 = arg2(arg3, workValue3)
-    if arg2 then
-      arg2 = CMG
-      arg2 = arg2.inEvent
-      arg2 = arg2()
-      if not arg2 then
-        arg2 = GetVehiclePedIsIn
-        arg3 = arg1
-        workValue3 = false
+    localValue1 = localValue1()
+    localValue2 = IsPedInAnyVehicle
+    localValue3 = localValue1
+    workingValue3 = true
+    localValue2 = localValue2(localValue3, workingValue3)
+    if localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.inEvent
+      localValue2 = localValue2()
+      if not localValue2 then
+        localValue2 = GetVehiclePedIsIn
+        localValue3 = localValue1
+        workingValue3 = false
         -- Beginner: result below is currentVehicle.
-        arg2 = arg2(arg3, workValue3)
-        arg3 = GetPedInVehicleSeat
-        workValue3 = arg2
-        textValue4 = -1
-        arg3 = arg3(workValue3, textValue4)
-        if arg3 == arg1 then
-          arg3 = workValue5
-          workValue3 = arg2
-          arg3(workValue3)
+        localValue2 = localValue2(localValue3, workingValue3)
+        localValue3 = GetPedInVehicleSeat
+        workingValue3 = localValue2
+        text4 = -1
+        localValue3 = localValue3(workingValue3, text4)
+        if localValue3 == localValue1 then
+          localValue3 = workingValue5
+          workingValue3 = localValue2
+          localValue3(workingValue3)
         end
     end
     else
-      arg2 = flag8
-      if arg2 then
-        arg2 = false
-        flag8 = arg2
+      localValue2 = stateFlag8
+      if localValue2 then
+        localValue2 = false
+        stateFlag8 = localValue2
       end
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall2(dataTable)
+backgroundThread2(dataCollection)
 
--- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
-function threadCall2()
-  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue
-  arg1 = GetEntityCoords
-  arg2 = PlayerPedId
-  arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue = arg2()
+-- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: none) ===
+function backgroundThread2()
+  local localValue1, localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number
+  localValue1 = GetEntityCoords
+  localValue2 = PlayerPedId
+  localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number = localValue2()
   -- Beginner: result below is entityCoords.
-  arg1 = arg1(arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue)
-  arg2 = {}
-  arg3 = ipairs
-  workValue3 = GetGamePool
-  textValue4 = "CObject"
-  workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue = workValue3(textValue4)
-  arg3, workValue3, textValue4, numberValue4 = arg3(workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue)
-  for cmgCall4, workValue4 in arg3, workValue3, textValue4, numberValue4 do
+  localValue1 = localValue1(localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number)
+  localValue2 = {}
+  localValue3 = ipairs
+  workingValue3 = GetGamePool
+  text4 = "CObject"
+  workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number = workingValue3(text4)
+  localValue3, workingValue3, text4, number4 = localValue3(workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number)
+  for cmgOperation4, workingValue4 in localValue3, workingValue3, text4, number4 do
     modelHash = GetEntityModel
-    workValue6 = workValue4
+    workingValue6 = workingValue4
     -- Beginner: result below is modelHash.
-    modelHash = modelHash(workValue6)
-    workValue6 = cmgCall.pumpModels
-    workValue6 = workValue6[modelHash]
-    if workValue6 then
-      workValue6 = table
-      workValue6 = workValue6.insert
-      coords = arg2
-      numberValue = workValue4
-      workValue6(coords, numberValue)
+    modelHash = modelHash(workingValue6)
+    workingValue6 = cmgOperation.pumpModels
+    workingValue6 = workingValue6[modelHash]
+    if workingValue6 then
+      workingValue6 = table
+      workingValue6 = workingValue6.insert
+      coords = localValue2
+      number = workingValue4
+      workingValue6(coords, number)
     end
   end
-  arg3 = 0
-  workValue3 = 1000
-  textValue4 = pairs
-  numberValue4 = arg2
-  textValue4, numberValue4, cmgCall4, workValue4 = textValue4(numberValue4)
-  for modelHash, workValue6 in textValue4, numberValue4, cmgCall4, workValue4 do
+  localValue3 = 0
+  workingValue3 = 1000
+  text4 = pairs
+  number4 = localValue2
+  text4, number4, cmgOperation4, workingValue4 = text4(number4)
+  for modelHash, workingValue6 in text4, number4, cmgOperation4, workingValue4 do
     coords = GetEntityCoords
-    numberValue = workValue6
+    number = workingValue6
     -- Beginner: result below is entityCoords.
-    coords = coords(numberValue)
-    coords = arg1 - coords
+    coords = coords(number)
+    coords = localValue1 - coords
     coords = #coords
-    if workValue3 > coords then
-      workValue3 = coords
-      arg3 = workValue6
+    if workingValue3 > coords then
+      workingValue3 = coords
+      localValue3 = workingValue6
     end
   end
-  textValue4 = arg3
-  numberValue4 = workValue3
-  return textValue4, numberValue4
+  text4 = localValue3
+  number4 = workingValue3
+  return text4, number4
 end
-dataTable = {}
+dataCollection = {}
 eventHandlerRegistration = Citizen
 eventHandlerRegistration = eventHandlerRegistration.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4, flag5, flag6
-  arg1 = pairs
-  arg2 = cmgCall.dynamicPumps
-  arg1, arg2, arg3, workValue3 = arg1(arg2)
-  for textValue4, numberValue4 in arg1, arg2, arg3, workValue3 do
-    cmgCall4 = CMG
-    cmgCall4 = cmgCall4.loadModel
-    workValue4 = numberValue4[1]
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6
+  localValue1 = pairs
+  localValue2 = cmgOperation.dynamicPumps
+  localValue1, localValue2, localValue3, workingValue3 = localValue1(localValue2)
+  for text4, number4 in localValue1, localValue2, localValue3, workingValue3 do
+    cmgOperation4 = CMG
+    cmgOperation4 = cmgOperation4.loadModel
+    workingValue4 = number4[1]
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    cmgCall4(workValue4)
-    cmgCall4 = numberValue4[2]
-    workValue4 = CreateObject
-    modelHash = numberValue4[1]
-    workValue6 = cmgCall4.x
-    coords = cmgCall4.y
-    numberValue = cmgCall4.z
-    flag = false
-    flag2 = false
-    flag3 = false
+    cmgOperation4(workingValue4)
+    cmgOperation4 = number4[2]
+    workingValue4 = CreateObject
+    modelHash = number4[1]
+    workingValue6 = cmgOperation4.x
+    coords = cmgOperation4.y
+    number = cmgOperation4.z
+    stateFlag = false
+    stateFlag2 = false
+    stateFlag3 = false
     -- Beginner: result below is objectEntity.
-    workValue4 = workValue4(modelHash, workValue6, coords, numberValue, flag, flag2, flag3)
+    workingValue4 = workingValue4(modelHash, workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3)
     modelHash = FreezeEntityPosition
-    workValue6 = workValue4
+    workingValue6 = workingValue4
     coords = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    modelHash(workValue6, coords)
+    modelHash(workingValue6, coords)
     modelHash = SetEntityCanBeDamaged
-    workValue6 = workValue4
+    workingValue6 = workingValue4
     coords = false
-    modelHash(workValue6, coords)
+    modelHash(workingValue6, coords)
     modelHash = SetEntityProofs
-    workValue6 = workValue4
+    workingValue6 = workingValue4
     coords = true
-    numberValue = true
-    flag = true
-    flag2 = true
-    flag3 = true
-    flag4 = true
-    flag5 = true
-    flag6 = true
-    modelHash(workValue6, coords, numberValue, flag, flag2, flag3, flag4, flag5, flag6)
+    number = true
+    stateFlag = true
+    stateFlag2 = true
+    stateFlag3 = true
+    stateFlag4 = true
+    stateFlag5 = true
+    stateFlag6 = true
+    modelHash(workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4, stateFlag5, stateFlag6)
     modelHash = SetModelAsNoLongerNeeded
-    workValue6 = numberValue4[1]
-    modelHash(workValue6)
+    workingValue6 = number4[1]
+    modelHash(workingValue6)
     modelHash = table
     modelHash = modelHash.insert
-    workValue6 = dataTable
-    coords = workValue4
-    modelHash(workValue6, coords)
+    workingValue6 = dataCollection
+    coords = workingValue4
+    modelHash(workingValue6, coords)
   end
   while true do
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 250
-    arg1(arg2)
-    arg1 = threadCall2
-    arg1, arg2 = arg1()
-    arg3 = 2.5
-    if arg2 < arg3 then
-      threadCall = arg1
-    elseif arg2 < 10.0 then
-      arg3 = 0
-      threadCall = arg3
-      arg3 = Citizen
-      arg3 = arg3.Wait
-      workValue3 = 500
-      arg3(workValue3)
-    elseif arg2 < 50.0 then
-      arg3 = 0
-      threadCall = arg3
-      arg3 = Citizen
-      arg3 = arg3.Wait
-      workValue3 = 2500
-      arg3(workValue3)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 250
+    localValue1(localValue2)
+    localValue1 = backgroundThread2
+    localValue1, localValue2 = localValue1()
+    localValue3 = 2.5
+    if localValue2 < localValue3 then
+      backgroundThread = localValue1
+    elseif localValue2 < 10.0 then
+      localValue3 = 0
+      backgroundThread = localValue3
+      localValue3 = Citizen
+      localValue3 = localValue3.Wait
+      workingValue3 = 500
+      localValue3(workingValue3)
+    elseif localValue2 < 50.0 then
+      localValue3 = 0
+      backgroundThread = localValue3
+      localValue3 = Citizen
+      localValue3 = localValue3.Wait
+      workingValue3 = 2500
+      localValue3(workingValue3)
     else
-      arg3 = 0
-      threadCall = arg3
-      arg3 = Citizen
-      arg3 = arg3.Wait
-      workValue3 = 5000
-      arg3(workValue3)
+      localValue3 = 0
+      backgroundThread = localValue3
+      localValue3 = Citizen
+      localValue3 = localValue3.Wait
+      workingValue3 = 5000
+      localValue3(workingValue3)
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-eventHandlerRegistration(textValue)
+eventHandlerRegistration(text)
 eventHandlerRegistration = AddEventHandler
-textValue = "onResourceStop"
+text = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg2 == arg1 then
-    arg2 = pairs
-    arg3 = dataTable
-    arg2, arg3, workValue3, textValue4 = arg2(arg3)
-    for numberValue4, cmgCall4 in arg2, arg3, workValue3, textValue4 do
-      workValue4 = DeleteEntity
-      modelHash = cmgCall4
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue2 == localValue1 then
+    localValue2 = pairs
+    localValue3 = dataCollection
+    localValue2, localValue3, workingValue3, text4 = localValue2(localValue3)
+    for number4, cmgOperation4 in localValue2, localValue3, workingValue3, text4 do
+      workingValue4 = DeleteEntity
+      modelHash = cmgOperation4
       -- Beginner: Delete a GTA entity.
-      workValue4(modelHash)
+      workingValue4(modelHash)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-eventHandlerRegistration(textValue, cmgCall2)
+eventHandlerRegistration(text, cmgOperation2)
 eventHandlerRegistration = AddEventHandler
-textValue = "fuel:startFuelUpTick"
+text = "fuel:startFuelUpTick"
 -- Beginner: this function runs when client event "fuel:startFuelUpTick" fires.
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2, arg3) ===
-function cmgCall2(arg1, arg2, arg3)
-  local workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2
-  workValue3 = GetVehicleFuelLevel
-  textValue4 = arg3
-  workValue3 = workValue3(textValue4)
-  numberValue2 = workValue3
-  workValue3 = GetVehicleClass
-  textValue4 = arg3
-  workValue3 = workValue3(textValue4)
-  workValue3 = 18 == workValue3
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation2(localValue1, localValue2, localValue3)
+  local workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2
+  workingValue3 = GetVehicleFuelLevel
+  text4 = localValue3
+  workingValue3 = workingValue3(text4)
+  number2 = workingValue3
+  workingValue3 = GetVehicleClass
+  text4 = localValue3
+  workingValue3 = workingValue3(text4)
+  workingValue3 = 18 == workingValue3
   while true do
-    textValue4 = flag7
-    if not textValue4 then
+    text4 = stateFlag7
+    if not text4 then
       break
     end
-    textValue4 = Citizen
-    textValue4 = textValue4.Wait
-    numberValue4 = 500
-    textValue4(numberValue4)
-    textValue4 = DecorGetFloat
-    numberValue4 = arg3
-    cmgCall4 = "145eb2f935"
-    textValue4 = textValue4(numberValue4, cmgCall4)
-    numberValue4 = math
-    numberValue4 = numberValue4.random
-    cmgCall4 = 10
-    workValue4 = 20
-    numberValue4 = numberValue4(cmgCall4, workValue4)
-    numberValue4 = numberValue4 / 10.0
-    cmgCall4 = numberValue4 * 10
-    if not arg1 then
-      workValue4 = GetAmmoInPedWeapon
-      modelHash = arg2
-      workValue6 = 883325847
-      workValue4 = workValue4(modelHash, workValue6)
-      modelHash = numberValue4 * 100
-      workValue4 = workValue4 - modelHash
-      if workValue4 >= 0 then
-        workValue4 = textValue4 + numberValue4
-        numberValue2 = workValue4
-        workValue4 = SetPedAmmo
-        modelHash = arg2
-        workValue6 = 883325847
+    text4 = Citizen
+    text4 = text4.Wait
+    number4 = 500
+    text4(number4)
+    text4 = DecorGetFloat
+    number4 = localValue3
+    cmgOperation4 = "145eb2f935"
+    text4 = text4(number4, cmgOperation4)
+    number4 = math
+    number4 = number4.random
+    cmgOperation4 = 10
+    workingValue4 = 20
+    number4 = number4(cmgOperation4, workingValue4)
+    number4 = number4 / 10.0
+    cmgOperation4 = number4 * 10
+    if not localValue1 then
+      workingValue4 = GetAmmoInPedWeapon
+      modelHash = localValue2
+      workingValue6 = 883325847
+      workingValue4 = workingValue4(modelHash, workingValue6)
+      modelHash = number4 * 100
+      workingValue4 = workingValue4 - modelHash
+      if workingValue4 >= 0 then
+        workingValue4 = text4 + number4
+        number2 = workingValue4
+        workingValue4 = SetPedAmmo
+        modelHash = localValue2
+        workingValue6 = 883325847
         coords = math
         coords = coords.floor
-        numberValue = GetAmmoInPedWeapon
-        flag = arg2
-        flag2 = 883325847
-        numberValue = numberValue(flag, flag2)
-        flag = numberValue4 * 100
-        numberValue = numberValue - flag
-        coords, numberValue, flag, flag2 = coords(numberValue)
-        workValue4(modelHash, workValue6, coords, numberValue, flag, flag2)
+        number = GetAmmoInPedWeapon
+        stateFlag = localValue2
+        stateFlag2 = 883325847
+        number = number(stateFlag, stateFlag2)
+        stateFlag = number4 * 100
+        number = number - stateFlag
+        coords, number, stateFlag, stateFlag2 = coords(number)
+        workingValue4(modelHash, workingValue6, coords, number, stateFlag, stateFlag2)
       else
-        workValue4 = false
-        flag7 = workValue4
+        workingValue4 = false
+        stateFlag7 = workingValue4
       end
     else
-      workValue4 = textValue4 + numberValue4
-      numberValue2 = workValue4
+      workingValue4 = text4 + number4
+      number2 = workingValue4
     end
-    workValue4 = numberValue2
-    if workValue4 > 100.0 then
-      workValue4 = 100.0
-      numberValue2 = workValue4
-      workValue4 = false
-      flag7 = workValue4
+    workingValue4 = number2
+    if workingValue4 > 100.0 then
+      workingValue4 = 100.0
+      number2 = workingValue4
+      workingValue4 = false
+      stateFlag7 = workingValue4
     end
-    if arg1 and not workValue3 then
-      workValue4 = CMG
-      workValue4 = workValue4.TriggerServerCallback
+    if localValue1 and not workingValue3 then
+      workingValue4 = CMG
+      workingValue4 = workingValue4.TriggerServerCallback
       modelHash = "49e51ddb66"
-      workValue6 = math
-      workValue6 = workValue6.floor
-      coords = cmgCall4
-      workValue6 = workValue6(coords)
+      workingValue6 = math
+      workingValue6 = workingValue6.floor
+      coords = cmgOperation4
+      workingValue6 = workingValue6(coords)
       coords = "fuel"
-      workValue4 = workValue4(modelHash, workValue6, coords)
-      if workValue4 then
-        modelHash = numberValue3
-        modelHash = modelHash + cmgCall4
-        numberValue3 = modelHash
+      workingValue4 = workingValue4(modelHash, workingValue6, coords)
+      if workingValue4 then
+        modelHash = number3
+        modelHash = modelHash + cmgOperation4
+        number3 = modelHash
         modelHash = CMG
         modelHash = modelHash.setVehicleFuel
-        workValue6 = arg3
-        coords = numberValue2
-        modelHash(workValue6, coords)
+        workingValue6 = localValue3
+        coords = number2
+        modelHash(workingValue6, coords)
       else
         modelHash = false
-        flag7 = modelHash
+        stateFlag7 = modelHash
       end
     else
-      workValue4 = numberValue3
-      workValue4 = workValue4 + cmgCall4
-      numberValue3 = workValue4
-      workValue4 = CMG
-      workValue4 = workValue4.setVehicleFuel
-      modelHash = arg3
-      workValue6 = numberValue2
-      workValue4(modelHash, workValue6)
+      workingValue4 = number3
+      workingValue4 = workingValue4 + cmgOperation4
+      number3 = workingValue4
+      workingValue4 = CMG
+      workingValue4 = workingValue4.setVehicleFuel
+      modelHash = localValue3
+      workingValue6 = number2
+      workingValue4(modelHash, workingValue6)
     end
-    workValue4 = CMG
-    workValue4 = workValue4.clearBlockingVehicleCounter
-    modelHash = arg3
-    workValue4(modelHash)
+    workingValue4 = CMG
+    workingValue4 = workingValue4.clearBlockingVehicleCounter
+    modelHash = localValue3
+    workingValue4(modelHash)
   end
-  textValue4 = DecorGetInt
-  numberValue4 = arg3
-  cmgCall4 = "0a6cf607ed"
-  textValue4 = textValue4(numberValue4, cmgCall4)
-  if textValue4 > 0 then
-    numberValue4 = CMG
-    numberValue4 = numberValue4.getVehicleFuel
-    cmgCall4 = arg3
-    numberValue4 = numberValue4(cmgCall4)
-    cmgCall4 = TriggerServerEvent
-    workValue4 = "486c23d750"
-    modelHash = textValue4
-    workValue6 = math
-    workValue6 = workValue6.floor
-    coords = numberValue4 * 1000
-    workValue6 = workValue6(coords)
-    workValue6 = workValue6 / 1000
+  text4 = DecorGetInt
+  number4 = localValue3
+  cmgOperation4 = "0a6cf607ed"
+  text4 = text4(number4, cmgOperation4)
+  if text4 > 0 then
+    number4 = CMG
+    number4 = number4.getVehicleFuel
+    cmgOperation4 = localValue3
+    number4 = number4(cmgOperation4)
+    cmgOperation4 = TriggerServerEvent
+    workingValue4 = "486c23d750"
+    modelHash = text4
+    workingValue6 = math
+    workingValue6 = workingValue6.floor
+    coords = number4 * 1000
+    workingValue6 = workingValue6(coords)
+    workingValue6 = workingValue6 / 1000
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "486c23d750".
-    cmgCall4(workValue4, modelHash, workValue6)
+    cmgOperation4(workingValue4, modelHash, workingValue6)
   end
-  numberValue4 = 0.0
-  numberValue3 = numberValue4
+  number4 = 0.0
+  number3 = number4
 end
 -- Beginner: Register a client-side event handler. Event/command: "fuel:startFuelUpTick".
-eventHandlerRegistration(textValue, cmgCall2)
+eventHandlerRegistration(text, cmgOperation2)
 eventHandlerRegistration = AddEventHandler
-textValue = "fuel:refuelFromPump"
+text = "fuel:refuelFromPump"
 -- Beginner: this function runs when client event "fuel:refuelFromPump" fires.
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2, arg3) ===
-function cmgCall2(arg1, arg2, arg3)
-  local workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4
-  workValue3 = TaskTurnPedToFaceEntity
-  textValue4 = arg2
-  numberValue4 = arg3
-  cmgCall4 = 1000
-  workValue3(textValue4, numberValue4, cmgCall4)
-  workValue3 = Citizen
-  workValue3 = workValue3.Wait
-  textValue4 = 1000
-  workValue3(textValue4)
-  workValue3 = SetCurrentPedWeapon
-  textValue4 = arg2
-  numberValue4 = -1569615261
-  cmgCall4 = true
-  workValue3(textValue4, numberValue4, cmgCall4)
-  workValue3 = CMG
-  workValue3 = workValue3.loadAnimDict
-  textValue4 = "timetable@gardener@filling_can"
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation2(localValue1, localValue2, localValue3)
+  local workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4
+  workingValue3 = TaskTurnPedToFaceEntity
+  text4 = localValue2
+  number4 = localValue3
+  cmgOperation4 = 1000
+  workingValue3(text4, number4, cmgOperation4)
+  workingValue3 = Citizen
+  workingValue3 = workingValue3.Wait
+  text4 = 1000
+  workingValue3(text4)
+  workingValue3 = SetCurrentPedWeapon
+  text4 = localValue2
+  number4 = -1569615261
+  cmgOperation4 = true
+  workingValue3(text4, number4, cmgOperation4)
+  workingValue3 = CMG
+  workingValue3 = workingValue3.loadAnimDict
+  text4 = "timetable@gardener@filling_can"
   -- Beginner: Load a GTA animation dictionary before using it.
-  workValue3(textValue4)
-  workValue3 = TaskPlayAnim
-  textValue4 = arg2
-  numberValue4 = "timetable@gardener@filling_can"
-  cmgCall4 = "gar_ig_5_filling_can"
-  workValue4 = 2.0
+  workingValue3(text4)
+  workingValue3 = TaskPlayAnim
+  text4 = localValue2
+  number4 = "timetable@gardener@filling_can"
+  cmgOperation4 = "gar_ig_5_filling_can"
+  workingValue4 = 2.0
   modelHash = 8.0
-  workValue6 = -1
+  workingValue6 = -1
   coords = 50
-  numberValue = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  number = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  workValue3(textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3)
-  workValue3 = TriggerEvent
-  textValue4 = "fuel:startFuelUpTick"
-  numberValue4 = arg1
-  cmgCall4 = arg2
-  workValue4 = arg3
+  workingValue3(text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3)
+  workingValue3 = TriggerEvent
+  text4 = "fuel:startFuelUpTick"
+  number4 = localValue1
+  cmgOperation4 = localValue2
+  workingValue4 = localValue3
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "fuel:startFuelUpTick".
-  workValue3(textValue4, numberValue4, cmgCall4, workValue4)
+  workingValue3(text4, number4, cmgOperation4, workingValue4)
   while true do
-    workValue3 = flag7
-    if not workValue3 then
+    workingValue3 = stateFlag7
+    if not workingValue3 then
       break
     end
-    workValue3 = Citizen
-    workValue3 = workValue3.Wait
-    textValue4 = 1
-    workValue3(textValue4)
-    workValue3 = pairs
-    textValue4 = cmgCall.disabledKeys
-    workValue3, textValue4, numberValue4, cmgCall4 = workValue3(textValue4)
-    for workValue4, modelHash in workValue3, textValue4, numberValue4, cmgCall4 do
-      workValue6 = DisableControlAction
+    workingValue3 = Citizen
+    workingValue3 = workingValue3.Wait
+    text4 = 1
+    workingValue3(text4)
+    workingValue3 = pairs
+    text4 = cmgOperation.disabledKeys
+    workingValue3, text4, number4, cmgOperation4 = workingValue3(text4)
+    for workingValue4, modelHash in workingValue3, text4, number4, cmgOperation4 do
+      workingValue6 = DisableControlAction
       coords = 0
-      numberValue = modelHash
-      flag = true
-      workValue6(coords, numberValue, flag)
+      number = modelHash
+      stateFlag = true
+      workingValue6(coords, number, stateFlag)
     end
-    workValue3 = GetEntityCoords
-    textValue4 = arg3
+    workingValue3 = GetEntityCoords
+    text4 = localValue3
     -- Beginner: result below is entityCoords.
-    workValue3 = workValue3(textValue4)
-    if arg1 then
-      textValue4 = GetEntityCoords
-      numberValue4 = arg1
+    workingValue3 = workingValue3(text4)
+    if localValue1 then
+      text4 = GetEntityCoords
+      number4 = localValue1
       -- Beginner: result below is entityCoords.
-      textValue4 = textValue4(numberValue4)
-      numberValue4 = ""
-      cmgCall4 = "\n"
-      workValue4 = cmgCall.translations
-      workValue4 = workValue4.TotalCost
+      text4 = text4(number4)
+      number4 = ""
+      cmgOperation4 = "\n"
+      workingValue4 = cmgOperation.translations
+      workingValue4 = workingValue4.TotalCost
       modelHash = ": ~g~\194\163"
-      workValue6 = getMoneyStringFormatted
+      workingValue6 = getMoneyStringFormatted
       coords = math
       coords = coords.floor
-      numberValue = cmgCall3
-      flag = numberValue3
-      flag2 = 1
-      numberValue, flag, flag2, flag3, flag4 = numberValue(flag, flag2)
-      coords, numberValue, flag, flag2, flag3, flag4 = coords(numberValue, flag, flag2, flag3, flag4)
-      workValue6 = workValue6(coords, numberValue, flag, flag2, flag3, flag4)
-      cmgCall4 = cmgCall4 .. workValue4 .. modelHash .. workValue6
-      numberValue4 = cmgCall4
-      cmgCall4 = CMG
-      cmgCall4 = cmgCall4.DrawText3D
-      workValue4 = textValue4
-      modelHash = cmgCall.translations
+      number = cmgOperation3
+      stateFlag = number3
+      stateFlag2 = 1
+      number, stateFlag, stateFlag2, stateFlag3, stateFlag4 = number(stateFlag, stateFlag2)
+      coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4 = coords(number, stateFlag, stateFlag2, stateFlag3, stateFlag4)
+      workingValue6 = workingValue6(coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4)
+      cmgOperation4 = cmgOperation4 .. workingValue4 .. modelHash .. workingValue6
+      number4 = cmgOperation4
+      cmgOperation4 = CMG
+      cmgOperation4 = cmgOperation4.DrawText3D
+      workingValue4 = text4
+      modelHash = cmgOperation.translations
       modelHash = modelHash.CancelFuelingPump
-      workValue6 = numberValue4
-      modelHash = modelHash .. workValue6
-      workValue6 = 0.35
+      workingValue6 = number4
+      modelHash = modelHash .. workingValue6
+      workingValue6 = 0.35
       coords = 4
-      cmgCall4(workValue4, modelHash, workValue6, coords)
-      cmgCall4 = CMG
-      cmgCall4 = cmgCall4.DrawText3D
-      workValue4 = vector3
+      cmgOperation4(workingValue4, modelHash, workingValue6, coords)
+      cmgOperation4 = CMG
+      cmgOperation4 = cmgOperation4.DrawText3D
+      workingValue4 = vector3
       modelHash = 0.0
-      workValue6 = 0.0
+      workingValue6 = 0.0
       coords = 0.5
-      workValue4 = workValue4(modelHash, workValue6, coords)
-      workValue4 = workValue3 + workValue4
-      modelHash = cmgCall3
-      workValue6 = numberValue2
+      workingValue4 = workingValue4(modelHash, workingValue6, coords)
+      workingValue4 = workingValue3 + workingValue4
+      modelHash = cmgOperation3
+      workingValue6 = number2
       coords = 1
-      modelHash = modelHash(workValue6, coords)
-      workValue6 = "%"
-      modelHash = modelHash .. workValue6
-      workValue6 = 0.35
+      modelHash = modelHash(workingValue6, coords)
+      workingValue6 = "%"
+      modelHash = modelHash .. workingValue6
+      workingValue6 = 0.35
       coords = 4
-      cmgCall4(workValue4, modelHash, workValue6, coords)
+      cmgOperation4(workingValue4, modelHash, workingValue6, coords)
     else
-      textValue4 = CMG
-      textValue4 = textValue4.DrawText3D
-      numberValue4 = vector3
-      cmgCall4 = 0.0
-      workValue4 = 0.0
+      text4 = CMG
+      text4 = text4.DrawText3D
+      number4 = vector3
+      cmgOperation4 = 0.0
+      workingValue4 = 0.0
       modelHash = 0.5
-      numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
-      numberValue4 = workValue3 + numberValue4
-      cmgCall4 = cmgCall.translations
-      cmgCall4 = cmgCall4.CancelFuelingJerryCan
-      workValue4 = [[
+      number4 = number4(cmgOperation4, workingValue4, modelHash)
+      number4 = workingValue3 + number4
+      cmgOperation4 = cmgOperation.translations
+      cmgOperation4 = cmgOperation4.CancelFuelingJerryCan
+      workingValue4 = [[
 
 Gas can: ~g~]]
-      modelHash = cmgCall3
-      workValue6 = GetAmmoInPedWeapon
-      coords = arg2
-      numberValue = 883325847
-      workValue6 = workValue6(coords, numberValue)
-      workValue6 = workValue6 / 4500
-      workValue6 = workValue6 * 100
+      modelHash = cmgOperation3
+      workingValue6 = GetAmmoInPedWeapon
+      coords = localValue2
+      number = 883325847
+      workingValue6 = workingValue6(coords, number)
+      workingValue6 = workingValue6 / 4500
+      workingValue6 = workingValue6 * 100
       coords = 1
-      modelHash = modelHash(workValue6, coords)
-      workValue6 = "% | Vehicle: "
-      coords = cmgCall3
-      numberValue = numberValue2
-      flag = 1
-      coords = coords(numberValue, flag)
-      numberValue = "%"
-      cmgCall4 = cmgCall4 .. workValue4 .. modelHash .. workValue6 .. coords .. numberValue
-      workValue4 = 0.35
+      modelHash = modelHash(workingValue6, coords)
+      workingValue6 = "% | Vehicle: "
+      coords = cmgOperation3
+      number = number2
+      stateFlag = 1
+      coords = coords(number, stateFlag)
+      number = "%"
+      cmgOperation4 = cmgOperation4 .. workingValue4 .. modelHash .. workingValue6 .. coords .. number
+      workingValue4 = 0.35
       modelHash = 4
-      textValue4(numberValue4, cmgCall4, workValue4, modelHash)
+      text4(number4, cmgOperation4, workingValue4, modelHash)
     end
-    textValue4 = IsEntityPlayingAnim
-    numberValue4 = arg2
-    cmgCall4 = "timetable@gardener@filling_can"
-    workValue4 = "gar_ig_5_filling_can"
+    text4 = IsEntityPlayingAnim
+    number4 = localValue2
+    cmgOperation4 = "timetable@gardener@filling_can"
+    workingValue4 = "gar_ig_5_filling_can"
     modelHash = 3
-    textValue4 = textValue4(numberValue4, cmgCall4, workValue4, modelHash)
-    if not textValue4 then
-      textValue4 = TaskPlayAnim
-      numberValue4 = arg2
-      cmgCall4 = "timetable@gardener@filling_can"
-      workValue4 = "gar_ig_5_filling_can"
+    text4 = text4(number4, cmgOperation4, workingValue4, modelHash)
+    if not text4 then
+      text4 = TaskPlayAnim
+      number4 = localValue2
+      cmgOperation4 = "timetable@gardener@filling_can"
+      workingValue4 = "gar_ig_5_filling_can"
       modelHash = 2.0
-      workValue6 = 8.0
+      workingValue6 = 8.0
       coords = -1
-      numberValue = 50
-      flag = 0
-      flag2 = false
-      flag3 = false
-      flag4 = false
+      number = 50
+      stateFlag = 0
+      stateFlag2 = false
+      stateFlag3 = false
+      stateFlag4 = false
       -- Beginner: Play an animation on a ped.
-      textValue4(numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4)
+      text4(number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4)
     end
-    textValue4 = IsControlJustReleased
-    numberValue4 = 0
-    cmgCall4 = 38
-    textValue4 = textValue4(numberValue4, cmgCall4)
-    if not textValue4 then
-      textValue4 = DoesEntityExist
-      numberValue4 = GetPedInVehicleSeat
-      cmgCall4 = arg3
-      workValue4 = -1
-      numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4 = numberValue4(cmgCall4, workValue4)
-      textValue4 = textValue4(numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4)
-      if not textValue4 then
-        textValue4 = threadCall
-        if 0 == textValue4 then
-          goto flow_label_188
+    text4 = IsControlJustReleased
+    number4 = 0
+    cmgOperation4 = 38
+    text4 = text4(number4, cmgOperation4)
+    if not text4 then
+      text4 = DoesEntityExist
+      number4 = GetPedInVehicleSeat
+      cmgOperation4 = localValue3
+      workingValue4 = -1
+      number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4 = number4(cmgOperation4, workingValue4)
+      text4 = text4(number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number, stateFlag, stateFlag2, stateFlag3, stateFlag4)
+      if not text4 then
+        text4 = backgroundThread
+        if 0 == text4 then
+          goto continueAtStep188
         end
-        textValue4 = GetEntityHealth
-        numberValue4 = arg1
+        text4 = GetEntityHealth
+        number4 = localValue1
         -- Beginner: result below is health.
-        textValue4 = textValue4(numberValue4)
-        if not (textValue4 <= 0) then
-          goto flow_label_188
+        text4 = text4(number4)
+        if not (text4 <= 0) then
+          goto continueAtStep188
         end
       end
     end
-    textValue4 = false
-    flag7 = textValue4
-    ::flow_label_188::
+    text4 = false
+    stateFlag7 = text4
+    ::continueAtStep188::
   end
-  workValue3 = ClearPedTasks
-  textValue4 = arg2
-  workValue3(textValue4)
-  workValue3 = RemoveAnimDict
-  textValue4 = "timetable@gardener@filling_can"
-  workValue3(textValue4)
+  workingValue3 = ClearPedTasks
+  text4 = localValue2
+  workingValue3(text4)
+  workingValue3 = RemoveAnimDict
+  text4 = "timetable@gardener@filling_can"
+  workingValue3(text4)
 end
 -- Beginner: Register a client-side event handler. Event/command: "fuel:refuelFromPump".
-eventHandlerRegistration(textValue, cmgCall2)
+eventHandlerRegistration(text, cmgOperation2)
 
--- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
-function eventHandlerRegistration(arg1)
-  local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash
-  arg2 = GetEntityModel
-  arg3 = arg1
+-- === HELPER FUNCTION: eventHandlerRegistration(localValue1) ===
+function eventHandlerRegistration(localValue1)
+  local localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash
+  localValue2 = GetEntityModel
+  localValue3 = localValue1
   -- Beginner: result below is modelHash.
-  arg2 = arg2(arg3)
-  arg3 = GetModelDimensions
-  workValue3 = arg2
-  arg3, workValue3 = arg3(workValue3)
-  textValue4 = vector3
-  numberValue4 = 0.0
-  cmgCall4 = 0.0
-  workValue4 = 0.0
-  textValue4 = textValue4(numberValue4, cmgCall4, workValue4)
-  textValue4 = textValue4 - arg3
-  textValue4 = #textValue4
-  numberValue4 = vector3
-  cmgCall4 = 0.0
-  workValue4 = 0.0
+  localValue2 = localValue2(localValue3)
+  localValue3 = GetModelDimensions
+  workingValue3 = localValue2
+  localValue3, workingValue3 = localValue3(workingValue3)
+  text4 = vector3
+  number4 = 0.0
+  cmgOperation4 = 0.0
+  workingValue4 = 0.0
+  text4 = text4(number4, cmgOperation4, workingValue4)
+  text4 = text4 - localValue3
+  text4 = #text4
+  number4 = vector3
+  cmgOperation4 = 0.0
+  workingValue4 = 0.0
   modelHash = 0.0
-  numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
-  numberValue4 = numberValue4 - workValue3
-  numberValue4 = #numberValue4
-  cmgCall4 = 2.5
-  if textValue4 > cmgCall4 and textValue4 < 20.0 then
-    return textValue4
+  number4 = number4(cmgOperation4, workingValue4, modelHash)
+  number4 = number4 - workingValue3
+  number4 = #number4
+  cmgOperation4 = 2.5
+  if text4 > cmgOperation4 and text4 < 20.0 then
+    return text4
   else
-    cmgCall4 = 2.5
-    if numberValue4 > cmgCall4 and numberValue4 < 20.0 then
-      return numberValue4
+    cmgOperation4 = 2.5
+    if number4 > cmgOperation4 and number4 < 20.0 then
+      return number4
     end
   end
-  cmgCall4 = 2.5
-  return cmgCall4
+  cmgOperation4 = 2.5
+  return cmgOperation4
 end
-textValue = Citizen
-textValue = textValue.CreateThread
+text = Citizen
+text = text.CreateThread
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, localValue3, workingValue3, text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number
   while true do
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 1
-    arg1(arg2)
-    arg1 = PlayerPedId
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 1
+    localValue1(localValue2)
+    localValue1 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = flag7
-    if not arg2 then
-      arg2 = threadCall
-      if 0 ~= arg2 then
-        arg2 = GetEntityHealth
-        arg3 = threadCall
+    localValue1 = localValue1()
+    localValue2 = stateFlag7
+    if not localValue2 then
+      localValue2 = backgroundThread
+      if 0 ~= localValue2 then
+        localValue2 = GetEntityHealth
+        localValue3 = backgroundThread
         -- Beginner: result below is health.
-        arg2 = arg2(arg3)
-        if arg2 > 0 then
-          goto flow_label_26
+        localValue2 = localValue2(localValue3)
+        if localValue2 > 0 then
+          goto continueAtStep26
         end
       end
-      arg2 = GetSelectedPedWeapon
-      arg3 = arg1
+      localValue2 = GetSelectedPedWeapon
+      localValue3 = localValue1
       -- Beginner: result below is weaponHash.
-      arg2 = arg2(arg3)
-      if 883325847 == arg2 then
-        arg2 = threadCall
-        if 0 == arg2 then
-          ::flow_label_26::
-          arg2 = IsPedInAnyVehicle
-          arg3 = arg1
-          workValue3 = true
-          arg2 = arg2(arg3, workValue3)
-          if arg2 then
-            arg2 = GetPedInVehicleSeat
-            arg3 = GetVehiclePedIsIn
-            workValue3 = arg1
-            textValue4 = false
+      localValue2 = localValue2(localValue3)
+      if 883325847 == localValue2 then
+        localValue2 = backgroundThread
+        if 0 == localValue2 then
+          ::continueAtStep26::
+          localValue2 = IsPedInAnyVehicle
+          localValue3 = localValue1
+          workingValue3 = true
+          localValue2 = localValue2(localValue3, workingValue3)
+          if localValue2 then
+            localValue2 = GetPedInVehicleSeat
+            localValue3 = GetVehiclePedIsIn
+            workingValue3 = localValue1
+            text4 = false
             -- Beginner: result below is currentVehicle.
-            arg3 = arg3(workValue3, textValue4)
-            workValue3 = -1
-            arg2 = arg2(arg3, workValue3)
-            if arg2 == arg1 then
-              arg2 = GetEntityCoords
-              arg3 = threadCall
+            localValue3 = localValue3(workingValue3, text4)
+            workingValue3 = -1
+            localValue2 = localValue2(localValue3, workingValue3)
+            if localValue2 == localValue1 then
+              localValue2 = GetEntityCoords
+              localValue3 = backgroundThread
               -- Beginner: result below is entityCoords.
-              arg2 = arg2(arg3)
-              arg3 = CMG
-              arg3 = arg3.DrawText3D
-              workValue3 = vector3
-              textValue4 = 0.0
-              numberValue4 = 0.0
-              cmgCall4 = 1.2
-              workValue3 = workValue3(textValue4, numberValue4, cmgCall4)
-              workValue3 = arg2 + workValue3
-              textValue4 = cmgCall.translations
-              textValue4 = textValue4.ExitVehicle
-              numberValue4 = 0.35
-              cmgCall4 = 4
-              arg3(workValue3, textValue4, numberValue4, cmgCall4)
+              localValue2 = localValue2(localValue3)
+              localValue3 = CMG
+              localValue3 = localValue3.DrawText3D
+              workingValue3 = vector3
+              text4 = 0.0
+              number4 = 0.0
+              cmgOperation4 = 1.2
+              workingValue3 = workingValue3(text4, number4, cmgOperation4)
+              workingValue3 = localValue2 + workingValue3
+              text4 = cmgOperation.translations
+              text4 = text4.ExitVehicle
+              number4 = 0.35
+              cmgOperation4 = 4
+              localValue3(workingValue3, text4, number4, cmgOperation4)
           end
           else
-            arg2 = GetPlayersLastVehicle
-            arg2 = arg2()
-            arg3 = GetEntityCoords
-            workValue3 = arg2
+            localValue2 = GetPlayersLastVehicle
+            localValue2 = localValue2()
+            localValue3 = GetEntityCoords
+            workingValue3 = localValue2
             -- Beginner: result below is entityCoords.
-            arg3 = arg3(workValue3)
-            workValue3 = DoesEntityExist
-            textValue4 = arg2
-            workValue3 = workValue3(textValue4)
-            if workValue3 then
-              workValue3 = GetEntityCoords
-              textValue4 = arg1
+            localValue3 = localValue3(workingValue3)
+            workingValue3 = DoesEntityExist
+            text4 = localValue2
+            workingValue3 = workingValue3(text4)
+            if workingValue3 then
+              workingValue3 = GetEntityCoords
+              text4 = localValue1
               -- Beginner: result below is entityCoords.
-              workValue3 = workValue3(textValue4)
-              workValue3 = workValue3 - arg3
-              workValue3 = #workValue3
-              textValue4 = eventHandlerRegistration
-              numberValue4 = arg2
-              textValue4 = textValue4(numberValue4)
-              if workValue3 < textValue4 then
-                workValue3 = DoesEntityExist
-                textValue4 = GetPedInVehicleSeat
-                numberValue4 = arg2
-                cmgCall4 = -1
-                textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue = textValue4(numberValue4, cmgCall4)
-                workValue3 = workValue3(textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue)
-                if not workValue3 then
-                  workValue3 = GetEntityCoords
-                  textValue4 = threadCall
+              workingValue3 = workingValue3(text4)
+              workingValue3 = workingValue3 - localValue3
+              workingValue3 = #workingValue3
+              text4 = eventHandlerRegistration
+              number4 = localValue2
+              text4 = text4(number4)
+              if workingValue3 < text4 then
+                workingValue3 = DoesEntityExist
+                text4 = GetPedInVehicleSeat
+                number4 = localValue2
+                cmgOperation4 = -1
+                text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number = text4(number4, cmgOperation4)
+                workingValue3 = workingValue3(text4, number4, cmgOperation4, workingValue4, modelHash, workingValue6, coords, number)
+                if not workingValue3 then
+                  workingValue3 = GetEntityCoords
+                  text4 = backgroundThread
                   -- Beginner: result below is entityCoords.
-                  workValue3 = workValue3(textValue4)
-                  textValue4 = true
-                  numberValue4 = GetSelectedPedWeapon
-                  cmgCall4 = arg1
+                  workingValue3 = workingValue3(text4)
+                  text4 = true
+                  number4 = GetSelectedPedWeapon
+                  cmgOperation4 = localValue1
                   -- Beginner: result below is weaponHash.
-                  numberValue4 = numberValue4(cmgCall4)
-                  if 883325847 == numberValue4 then
-                    workValue3 = arg3
-                    numberValue4 = GetAmmoInPedWeapon
-                    cmgCall4 = arg1
-                    workValue4 = 883325847
-                    numberValue4 = numberValue4(cmgCall4, workValue4)
-                    if numberValue4 < 100 then
-                      textValue4 = false
+                  number4 = number4(cmgOperation4)
+                  if 883325847 == number4 then
+                    workingValue3 = localValue3
+                    number4 = GetAmmoInPedWeapon
+                    cmgOperation4 = localValue1
+                    workingValue4 = 883325847
+                    number4 = number4(cmgOperation4, workingValue4)
+                    if number4 < 100 then
+                      text4 = false
                     end
                   end
-                  numberValue4 = GetVehicleFuelLevel
-                  cmgCall4 = arg2
-                  numberValue4 = numberValue4(cmgCall4)
-                  if numberValue4 < 95 and textValue4 then
-                    numberValue4 = cmgCall5
-                    numberValue4 = numberValue4()
-                    if numberValue4 > 0 then
-                      cmgCall4 = CMG
-                      cmgCall4 = cmgCall4.DrawText3D
-                      workValue4 = vector3
+                  number4 = GetVehicleFuelLevel
+                  cmgOperation4 = localValue2
+                  number4 = number4(cmgOperation4)
+                  if number4 < 95 and text4 then
+                    number4 = cmgOperation5
+                    number4 = number4()
+                    if number4 > 0 then
+                      cmgOperation4 = CMG
+                      cmgOperation4 = cmgOperation4.DrawText3D
+                      workingValue4 = vector3
                       modelHash = 0.0
-                      workValue6 = 0.0
+                      workingValue6 = 0.0
                       coords = 1.2
-                      workValue4 = workValue4(modelHash, workValue6, coords)
-                      workValue4 = workValue3 + workValue4
-                      modelHash = cmgCall.translations
+                      workingValue4 = workingValue4(modelHash, workingValue6, coords)
+                      workingValue4 = workingValue3 + workingValue4
+                      modelHash = cmgOperation.translations
                       modelHash = modelHash.EToRefuel
-                      workValue6 = 0.35
+                      workingValue6 = 0.35
                       coords = 4
-                      cmgCall4(workValue4, modelHash, workValue6, coords)
-                      cmgCall4 = IsControlJustReleased
-                      workValue4 = 0
+                      cmgOperation4(workingValue4, modelHash, workingValue6, coords)
+                      cmgOperation4 = IsControlJustReleased
+                      workingValue4 = 0
                       modelHash = 38
-                      cmgCall4 = cmgCall4(workValue4, modelHash)
-                      if cmgCall4 then
-                        cmgCall4 = true
-                        flag7 = cmgCall4
-                        cmgCall4 = TriggerEvent
-                        workValue4 = "fuel:refuelFromPump"
-                        modelHash = threadCall
-                        workValue6 = arg1
-                        coords = arg2
+                      cmgOperation4 = cmgOperation4(workingValue4, modelHash)
+                      if cmgOperation4 then
+                        cmgOperation4 = true
+                        stateFlag7 = cmgOperation4
+                        cmgOperation4 = TriggerEvent
+                        workingValue4 = "fuel:refuelFromPump"
+                        modelHash = backgroundThread
+                        workingValue6 = localValue1
+                        coords = localValue2
                         -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "fuel:refuelFromPump".
-                        cmgCall4(workValue4, modelHash, workValue6, coords)
+                        cmgOperation4(workingValue4, modelHash, workingValue6, coords)
                       end
                     else
-                      cmgCall4 = CMG
-                      cmgCall4 = cmgCall4.DrawText3D
-                      workValue4 = vector3
+                      cmgOperation4 = CMG
+                      cmgOperation4 = cmgOperation4.DrawText3D
+                      workingValue4 = vector3
                       modelHash = 0.0
-                      workValue6 = 0.0
+                      workingValue6 = 0.0
                       coords = 1.2
-                      workValue4 = workValue4(modelHash, workValue6, coords)
-                      workValue4 = workValue3 + workValue4
-                      modelHash = cmgCall.translations
+                      workingValue4 = workingValue4(modelHash, workingValue6, coords)
+                      workingValue4 = workingValue3 + workingValue4
+                      modelHash = cmgOperation.translations
                       modelHash = modelHash.NotEnoughCash
-                      workValue6 = 0.35
+                      workingValue6 = 0.35
                       coords = 4
-                      cmgCall4(workValue4, modelHash, workValue6, coords)
+                      cmgOperation4(workingValue4, modelHash, workingValue6, coords)
                     end
-                  elseif not textValue4 then
-                    numberValue4 = CMG
-                    numberValue4 = numberValue4.DrawText3D
-                    cmgCall4 = vector3
-                    workValue4 = 0.0
+                  elseif not text4 then
+                    number4 = CMG
+                    number4 = number4.DrawText3D
+                    cmgOperation4 = vector3
+                    workingValue4 = 0.0
                     modelHash = 0.0
-                    workValue6 = 1.2
-                    cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
-                    cmgCall4 = workValue3 + cmgCall4
-                    workValue4 = cmgCall.translations
-                    workValue4 = workValue4.JerryCanEmpty
+                    workingValue6 = 1.2
+                    cmgOperation4 = cmgOperation4(workingValue4, modelHash, workingValue6)
+                    cmgOperation4 = workingValue3 + cmgOperation4
+                    workingValue4 = cmgOperation.translations
+                    workingValue4 = workingValue4.JerryCanEmpty
                     modelHash = 0.35
-                    workValue6 = 4
-                    numberValue4(cmgCall4, workValue4, modelHash, workValue6)
+                    workingValue6 = 4
+                    number4(cmgOperation4, workingValue4, modelHash, workingValue6)
                   else
-                    numberValue4 = CMG
-                    numberValue4 = numberValue4.DrawText3D
-                    cmgCall4 = vector3
-                    workValue4 = 0.0
+                    number4 = CMG
+                    number4 = number4.DrawText3D
+                    cmgOperation4 = vector3
+                    workingValue4 = 0.0
                     modelHash = 0.0
-                    workValue6 = 1.2
-                    cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
-                    cmgCall4 = workValue3 + cmgCall4
-                    workValue4 = cmgCall.translations
-                    workValue4 = workValue4.FullTank
+                    workingValue6 = 1.2
+                    cmgOperation4 = cmgOperation4(workingValue4, modelHash, workingValue6)
+                    cmgOperation4 = workingValue3 + cmgOperation4
+                    workingValue4 = cmgOperation.translations
+                    workingValue4 = workingValue4.FullTank
                     modelHash = 0.35
-                    workValue6 = 4
-                    numberValue4(cmgCall4, workValue4, modelHash, workValue6)
+                    workingValue6 = 4
+                    number4(cmgOperation4, workingValue4, modelHash, workingValue6)
                   end
                 end
             end
             else
-              workValue3 = threadCall
-              if 0 ~= workValue3 then
-                workValue3 = GetEntityCoords
-                textValue4 = threadCall
+              workingValue3 = backgroundThread
+              if 0 ~= workingValue3 then
+                workingValue3 = GetEntityCoords
+                text4 = backgroundThread
                 -- Beginner: result below is entityCoords.
-                workValue3 = workValue3(textValue4)
-                textValue4 = cmgCall5
-                textValue4 = textValue4()
-                numberValue4 = cmgCall.jerryCanCost
-                if textValue4 >= numberValue4 then
-                  numberValue4 = HasPedGotWeapon
-                  cmgCall4 = arg1
-                  workValue4 = 883325847
+                workingValue3 = workingValue3(text4)
+                text4 = cmgOperation5
+                text4 = text4()
+                number4 = cmgOperation.jerryCanCost
+                if text4 >= number4 then
+                  number4 = HasPedGotWeapon
+                  cmgOperation4 = localValue1
+                  workingValue4 = 883325847
                   modelHash = false
-                  numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
-                  if not numberValue4 then
-                    numberValue4 = CMG
-                    numberValue4 = numberValue4.DrawText3D
-                    cmgCall4 = vector3
-                    workValue4 = 0.0
+                  number4 = number4(cmgOperation4, workingValue4, modelHash)
+                  if not number4 then
+                    number4 = CMG
+                    number4 = number4.DrawText3D
+                    cmgOperation4 = vector3
+                    workingValue4 = 0.0
                     modelHash = 0.0
-                    workValue6 = 1.2
-                    cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
-                    cmgCall4 = workValue3 + cmgCall4
-                    workValue4 = cmgCall.translations
-                    workValue4 = workValue4.PurchaseJerryCan
+                    workingValue6 = 1.2
+                    cmgOperation4 = cmgOperation4(workingValue4, modelHash, workingValue6)
+                    cmgOperation4 = workingValue3 + cmgOperation4
+                    workingValue4 = cmgOperation.translations
+                    workingValue4 = workingValue4.PurchaseJerryCan
                     modelHash = 0.35
-                    workValue6 = 4
-                    numberValue4(cmgCall4, workValue4, modelHash, workValue6)
-                    numberValue4 = IsControlJustReleased
-                    cmgCall4 = 0
-                    workValue4 = 38
-                    numberValue4 = numberValue4(cmgCall4, workValue4)
-                    if numberValue4 then
-                      numberValue4 = CMG
-                      numberValue4 = numberValue4.TriggerServerCallback
-                      cmgCall4 = "49e51ddb66"
-                      workValue4 = cmgCall.jerryCanCost
+                    workingValue6 = 4
+                    number4(cmgOperation4, workingValue4, modelHash, workingValue6)
+                    number4 = IsControlJustReleased
+                    cmgOperation4 = 0
+                    workingValue4 = 38
+                    number4 = number4(cmgOperation4, workingValue4)
+                    if number4 then
+                      number4 = CMG
+                      number4 = number4.TriggerServerCallback
+                      cmgOperation4 = "49e51ddb66"
+                      workingValue4 = cmgOperation.jerryCanCost
                       modelHash = "fuel"
-                      numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
-                      if numberValue4 then
-                        cmgCall4 = GiveWeaponToPed
-                        workValue4 = arg1
+                      number4 = number4(cmgOperation4, workingValue4, modelHash)
+                      if number4 then
+                        cmgOperation4 = GiveWeaponToPed
+                        workingValue4 = localValue1
                         modelHash = 883325847
-                        workValue6 = 4500
+                        workingValue6 = 4500
                         coords = false
-                        numberValue = true
-                        cmgCall4(workValue4, modelHash, workValue6, coords, numberValue)
+                        number = true
+                        cmgOperation4(workingValue4, modelHash, workingValue6, coords, number)
                       end
                     end
                   else
-                    numberValue4 = cmgCall3
-                    cmgCall4 = cmgCall.fuelCost
-                    workValue4 = GetAmmoInPedWeapon
-                    modelHash = arg1
-                    workValue6 = 883325847
-                    workValue4 = workValue4(modelHash, workValue6)
-                    workValue4 = workValue4 / 4500
+                    number4 = cmgOperation3
+                    cmgOperation4 = cmgOperation.fuelCost
+                    workingValue4 = GetAmmoInPedWeapon
+                    modelHash = localValue1
+                    workingValue6 = 883325847
+                    workingValue4 = workingValue4(modelHash, workingValue6)
+                    workingValue4 = workingValue4 / 4500
                     modelHash = 1
-                    workValue4 = modelHash - workValue4
-                    cmgCall4 = cmgCall4 * workValue4
-                    numberValue4 = numberValue4(cmgCall4)
-                    if numberValue4 > 0 then
-                      cmgCall4 = CMG
-                      cmgCall4 = cmgCall4.DrawText3D
-                      workValue4 = vector3
+                    workingValue4 = modelHash - workingValue4
+                    cmgOperation4 = cmgOperation4 * workingValue4
+                    number4 = number4(cmgOperation4)
+                    if number4 > 0 then
+                      cmgOperation4 = CMG
+                      cmgOperation4 = cmgOperation4.DrawText3D
+                      workingValue4 = vector3
                       modelHash = 0.0
-                      workValue6 = 0.0
+                      workingValue6 = 0.0
                       coords = 1.2
-                      workValue4 = workValue4(modelHash, workValue6, coords)
-                      workValue4 = workValue3 + workValue4
-                      modelHash = cmgCall.translations
+                      workingValue4 = workingValue4(modelHash, workingValue6, coords)
+                      workingValue4 = workingValue3 + workingValue4
+                      modelHash = cmgOperation.translations
                       modelHash = modelHash.RefillJerryCan
-                      workValue6 = numberValue4
-                      modelHash = modelHash .. workValue6
-                      workValue6 = 0.35
+                      workingValue6 = number4
+                      modelHash = modelHash .. workingValue6
+                      workingValue6 = 0.35
                       coords = 4
-                      cmgCall4(workValue4, modelHash, workValue6, coords)
-                      cmgCall4 = IsControlJustReleased
-                      workValue4 = 0
+                      cmgOperation4(workingValue4, modelHash, workingValue6, coords)
+                      cmgOperation4 = IsControlJustReleased
+                      workingValue4 = 0
                       modelHash = 38
-                      cmgCall4 = cmgCall4(workValue4, modelHash)
-                      if cmgCall4 then
-                        cmgCall4 = CMG
-                        cmgCall4 = cmgCall4.TriggerServerCallback
-                        workValue4 = "49e51ddb66"
+                      cmgOperation4 = cmgOperation4(workingValue4, modelHash)
+                      if cmgOperation4 then
+                        cmgOperation4 = CMG
+                        cmgOperation4 = cmgOperation4.TriggerServerCallback
+                        workingValue4 = "49e51ddb66"
                         modelHash = math
                         modelHash = modelHash.floor
-                        workValue6 = numberValue4
-                        modelHash = modelHash(workValue6)
-                        workValue6 = "fuel"
-                        cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
-                        if cmgCall4 then
-                          workValue4 = SetPedAmmo
-                          modelHash = arg1
-                          workValue6 = 883325847
+                        workingValue6 = number4
+                        modelHash = modelHash(workingValue6)
+                        workingValue6 = "fuel"
+                        cmgOperation4 = cmgOperation4(workingValue4, modelHash, workingValue6)
+                        if cmgOperation4 then
+                          workingValue4 = SetPedAmmo
+                          modelHash = localValue1
+                          workingValue6 = 883325847
                           coords = 4500
-                          workValue4(modelHash, workValue6, coords)
+                          workingValue4(modelHash, workingValue6, coords)
                         end
                       end
                     else
-                      cmgCall4 = CMG
-                      cmgCall4 = cmgCall4.DrawText3D
-                      workValue4 = vector3
+                      cmgOperation4 = CMG
+                      cmgOperation4 = cmgOperation4.DrawText3D
+                      workingValue4 = vector3
                       modelHash = 0.0
-                      workValue6 = 0.0
+                      workingValue6 = 0.0
                       coords = 1.2
-                      workValue4 = workValue4(modelHash, workValue6, coords)
-                      workValue4 = workValue3 + workValue4
-                      modelHash = cmgCall.translations
+                      workingValue4 = workingValue4(modelHash, workingValue6, coords)
+                      workingValue4 = workingValue3 + workingValue4
+                      modelHash = cmgOperation.translations
                       modelHash = modelHash.JerryCanFull
-                      workValue6 = 0.35
+                      workingValue6 = 0.35
                       coords = 4
-                      cmgCall4(workValue4, modelHash, workValue6, coords)
+                      cmgOperation4(workingValue4, modelHash, workingValue6, coords)
                     end
                   end
                 else
-                  numberValue4 = CMG
-                  numberValue4 = numberValue4.DrawText3D
-                  cmgCall4 = vector3
-                  workValue4 = 0.0
+                  number4 = CMG
+                  number4 = number4.DrawText3D
+                  cmgOperation4 = vector3
+                  workingValue4 = 0.0
                   modelHash = 0.0
-                  workValue6 = 1.2
-                  cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
-                  cmgCall4 = workValue3 + cmgCall4
-                  workValue4 = cmgCall.translations
-                  workValue4 = workValue4.NotEnoughCash
+                  workingValue6 = 1.2
+                  cmgOperation4 = cmgOperation4(workingValue4, modelHash, workingValue6)
+                  cmgOperation4 = workingValue3 + cmgOperation4
+                  workingValue4 = cmgOperation.translations
+                  workingValue4 = workingValue4.NotEnoughCash
                   modelHash = 0.35
-                  workValue6 = 4
-                  numberValue4(cmgCall4, workValue4, modelHash, workValue6)
+                  workingValue6 = 4
+                  number4(cmgOperation4, workingValue4, modelHash, workingValue6)
                 end
               else
-                workValue3 = Citizen
-                workValue3 = workValue3.Wait
-                textValue4 = 250
-                workValue3(textValue4)
+                workingValue3 = Citizen
+                workingValue3 = workingValue3.Wait
+                text4 = 250
+                workingValue3(text4)
               end
             end
           end
       end
     end
     else
-      arg2 = Citizen
-      arg2 = arg2.Wait
-      arg3 = 250
-      arg2(arg3)
+      localValue2 = Citizen
+      localValue2 = localValue2.Wait
+      localValue3 = 250
+      localValue2(localValue3)
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue(cmgCall2)
-textValue = Citizen
-textValue = textValue.CreateThread
+text(cmgOperation2)
+text = Citizen
+text = text.CreateThread
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2, arg3, workValue3, textValue4
-  arg1 = RequestStreamedTextureDict
-  arg2 = "regplates"
-  arg3 = false
-  arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2, localValue3, workingValue3, text4
+  localValue1 = RequestStreamedTextureDict
+  localValue2 = "regplates"
+  localValue3 = false
+  localValue1(localValue2, localValue3)
   while true do
-    arg1 = HasStreamedTextureDictLoaded
-    arg2 = "regplates"
-    arg1 = arg1(arg2)
-    if arg1 then
+    localValue1 = HasStreamedTextureDictLoaded
+    localValue2 = "regplates"
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
       break
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 1
-    arg1(arg2)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 1
+    localValue1(localValue2)
   end
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate01"
-  workValue3 = "regplates"
-  textValue4 = "plate01"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate01_n"
-  workValue3 = "regplates"
-  textValue4 = "plate01_n"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate02"
-  workValue3 = "regplates"
-  textValue4 = "plate02"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate02_n"
-  workValue3 = "regplates"
-  textValue4 = "plate02_n"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate03"
-  workValue3 = "regplates"
-  textValue4 = "plate03"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate03_n"
-  workValue3 = "regplates"
-  textValue4 = "plate03_n"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate04"
-  workValue3 = "regplates"
-  textValue4 = "plate04"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate04_n"
-  workValue3 = "regplates"
-  textValue4 = "plate04_n"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate05"
-  workValue3 = "regplates"
-  textValue4 = "plate05"
-  arg1(arg2, arg3, workValue3, textValue4)
-  arg1 = AddReplaceTexture
-  arg2 = "vehshare"
-  arg3 = "plate05_n"
-  workValue3 = "regplates"
-  textValue4 = "plate05_n"
-  arg1(arg2, arg3, workValue3, textValue4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate01"
+  workingValue3 = "regplates"
+  text4 = "plate01"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate01_n"
+  workingValue3 = "regplates"
+  text4 = "plate01_n"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate02"
+  workingValue3 = "regplates"
+  text4 = "plate02"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate02_n"
+  workingValue3 = "regplates"
+  text4 = "plate02_n"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate03"
+  workingValue3 = "regplates"
+  text4 = "plate03"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate03_n"
+  workingValue3 = "regplates"
+  text4 = "plate03_n"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate04"
+  workingValue3 = "regplates"
+  text4 = "plate04"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate04_n"
+  workingValue3 = "regplates"
+  text4 = "plate04_n"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate05"
+  workingValue3 = "regplates"
+  text4 = "plate05"
+  localValue1(localValue2, localValue3, workingValue3, text4)
+  localValue1 = AddReplaceTexture
+  localValue2 = "vehshare"
+  localValue3 = "plate05_n"
+  workingValue3 = "regplates"
+  text4 = "plate05_n"
+  localValue1(localValue2, localValue3, workingValue3, text4)
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue(cmgCall2)
+text(cmgOperation2)
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, workValue3, textValue4, numberValue4
-  arg2 = string
-  arg2 = arg2.format
-  arg3 = "Fuel Amount: %s%%"
-  workValue3 = math
-  workValue3 = workValue3.round
-  textValue4 = CMG
-  textValue4 = textValue4.getVehicleFuel
-  numberValue4 = arg1
-  textValue4 = textValue4(numberValue4)
-  numberValue4 = 1
-  workValue3, textValue4, numberValue4 = workValue3(textValue4, numberValue4)
-  return arg2(arg3, workValue3, textValue4, numberValue4)
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, workingValue3, text4, number4
+  localValue2 = string
+  localValue2 = localValue2.format
+  localValue3 = "Fuel Amount: %s%%"
+  workingValue3 = math
+  workingValue3 = workingValue3.round
+  text4 = CMG
+  text4 = text4.getVehicleFuel
+  number4 = localValue1
+  text4 = text4(number4)
+  number4 = 1
+  workingValue3, text4, number4 = workingValue3(text4, number4)
+  return localValue2(localValue3, workingValue3, text4, number4)
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.registerDevMenuEntityEditor
-textValue2 = "Fuel"
-textValue3 = "vehicle"
-workValue = textValue
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.registerDevMenuEntityEditor
+text2 = "Fuel"
+text3 = "vehicle"
+workingValue = text
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, localValue2
 end
-cmgCall2(textValue2, textValue3, workValue, workValue2)
+cmgOperation2(text2, text3, workingValue, workingValue2)

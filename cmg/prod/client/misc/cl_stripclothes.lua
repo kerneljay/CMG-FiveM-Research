@@ -32,516 +32,516 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local localEventCall, textValue, textValue2, textValue4
+local localEventCall, text, text2, text4
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeoffmask"
-textValue4 = "Take off your mask"
+text = "chat:addSuggestion"
+text2 = "/takeoffmask"
+text4 = "Take off your mask"
 -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeoffhat"
-textValue4 = "Take off your hat"
-localEventCall(textValue, textValue2, textValue4)
+text = "chat:addSuggestion"
+text2 = "/takeoffhat"
+text4 = "Take off your hat"
+localEventCall(text, text2, text4)
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeoffjacket"
-textValue4 = "Take off your jacket"
+text = "chat:addSuggestion"
+text2 = "/takeoffjacket"
+text4 = "Take off your jacket"
 -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeofftie"
-textValue4 = "Take off your tie"
-localEventCall(textValue, textValue2, textValue4)
+text = "chat:addSuggestion"
+text2 = "/takeofftie"
+text4 = "Take off your tie"
+localEventCall(text, text2, text4)
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeoffbracelet"
-textValue4 = "Take off your bracelet"
+text = "chat:addSuggestion"
+text2 = "/takeoffbracelet"
+text4 = "Take off your bracelet"
 -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeoffglasses"
-textValue4 = "Take off your glasses"
-localEventCall(textValue, textValue2, textValue4)
+text = "chat:addSuggestion"
+text2 = "/takeoffglasses"
+text4 = "Take off your glasses"
+localEventCall(text, text2, text4)
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeofftrousers"
-textValue4 = "Take off your trousers"
+text = "chat:addSuggestion"
+text2 = "/takeofftrousers"
+text4 = "Take off your trousers"
 -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = TriggerEvent
-textValue = "chat:addSuggestion"
-textValue2 = "/takeoffshoes"
-textValue4 = "Take off your shoes"
-localEventCall(textValue, textValue2, textValue4)
+text = "chat:addSuggestion"
+text2 = "/takeoffshoes"
+text4 = "Take off your shoes"
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeoffmask"
+text = "takeoffmask"
 -- Beginner: this function is the command handler for "takeoffmask".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue3 = "veh@bike@common@front@base"
+  cmgOperation = cmgOperation()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text3 = "veh@bike@common@front@base"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue3)
-  cmgCall2 = TaskPlayAnim
-  textValue3 = cmgCall
-  flag4 = "veh@bike@common@front@base"
-  textValue5 = "take_off_helmet_walk"
-  numberValue = 5.0
-  numberValue2 = 5.0
-  numberValue3 = -1
-  numberValue4 = 48
-  numberValue5 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  cmgOperation2(text3)
+  cmgOperation2 = TaskPlayAnim
+  text3 = cmgOperation
+  stateFlag4 = "veh@bike@common@front@base"
+  text5 = "take_off_helmet_walk"
+  number = 5.0
+  number2 = 5.0
+  number3 = -1
+  number4 = 48
+  number5 = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3)
-  cmgCall2 = RemoveAnimDict
-  textValue3 = "veh@bike@common@front@base"
-  cmgCall2(textValue3)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 700
-  cmgCall2(textValue3)
-  cmgCall2 = SetPedComponentVariation
-  textValue3 = cmgCall
-  flag4 = 1
-  textValue5 = 0
-  numberValue = 0
-  numberValue2 = 1
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
-  cmgCall2 = IsPedWearingHelmet
-  textValue3 = cmgCall
-  cmgCall2 = cmgCall2(textValue3)
-  if cmgCall2 then
-    cmgCall2 = RemovePedHelmet
-    textValue3 = cmgCall
-    flag4 = true
-    cmgCall2(textValue3, flag4)
+  cmgOperation2(text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3)
+  cmgOperation2 = RemoveAnimDict
+  text3 = "veh@bike@common@front@base"
+  cmgOperation2(text3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 700
+  cmgOperation2(text3)
+  cmgOperation2 = SetPedComponentVariation
+  text3 = cmgOperation
+  stateFlag4 = 1
+  text5 = 0
+  number = 0
+  number2 = 1
+  cmgOperation2(text3, stateFlag4, text5, number, number2)
+  cmgOperation2 = IsPedWearingHelmet
+  text3 = cmgOperation
+  cmgOperation2 = cmgOperation2(text3)
+  if cmgOperation2 then
+    cmgOperation2 = RemovePedHelmet
+    text3 = cmgOperation
+    stateFlag4 = true
+    cmgOperation2(text3, stateFlag4)
   end
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeoffmask".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeoffhat"
+text = "takeoffhat"
 -- Beginner: this function is the command handler for "takeoffhat".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue3 = "veh@bike@common@front@base"
+  cmgOperation = cmgOperation()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text3 = "veh@bike@common@front@base"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue3)
-  cmgCall2 = TaskPlayAnim
-  textValue3 = cmgCall
-  flag4 = "veh@bike@common@front@base"
-  textValue5 = "take_off_helmet_walk"
-  numberValue = 5.0
-  numberValue2 = 5.0
-  numberValue3 = -1
-  numberValue4 = 48
-  numberValue5 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  cmgOperation2(text3)
+  cmgOperation2 = TaskPlayAnim
+  text3 = cmgOperation
+  stateFlag4 = "veh@bike@common@front@base"
+  text5 = "take_off_helmet_walk"
+  number = 5.0
+  number2 = 5.0
+  number3 = -1
+  number4 = 48
+  number5 = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3)
-  cmgCall2 = RemoveAnimDict
-  textValue3 = "veh@bike@common@front@base"
-  cmgCall2(textValue3)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 700
-  cmgCall2(textValue3)
-  cmgCall2 = ClearPedProp
-  textValue3 = cmgCall
-  flag4 = 0
-  cmgCall2(textValue3, flag4)
-  cmgCall2 = IsPedWearingHelmet
-  textValue3 = cmgCall
-  cmgCall2 = cmgCall2(textValue3)
-  if cmgCall2 then
-    cmgCall2 = RemovePedHelmet
-    textValue3 = cmgCall
-    flag4 = true
-    cmgCall2(textValue3, flag4)
+  cmgOperation2(text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3)
+  cmgOperation2 = RemoveAnimDict
+  text3 = "veh@bike@common@front@base"
+  cmgOperation2(text3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 700
+  cmgOperation2(text3)
+  cmgOperation2 = ClearPedProp
+  text3 = cmgOperation
+  stateFlag4 = 0
+  cmgOperation2(text3, stateFlag4)
+  cmgOperation2 = IsPedWearingHelmet
+  text3 = cmgOperation
+  cmgOperation2 = cmgOperation2(text3)
+  if cmgOperation2 then
+    cmgOperation2 = RemovePedHelmet
+    text3 = cmgOperation
+    stateFlag4 = true
+    cmgOperation2(text3, stateFlag4)
   end
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeoffhat".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeoffjacket"
+text = "takeoffjacket"
 -- Beginner: this function is the command handler for "takeoffjacket".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue3 = "clothingtie"
+  cmgOperation = cmgOperation()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text3 = "clothingtie"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue3)
-  cmgCall2 = TaskPlayAnim
-  textValue3 = cmgCall
-  flag4 = "clothingtie"
-  textValue5 = "try_tie_positive_a"
-  numberValue = 5.0
-  numberValue2 = 5.0
-  numberValue3 = -1
-  numberValue4 = 48
-  numberValue5 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  cmgOperation2(text3)
+  cmgOperation2 = TaskPlayAnim
+  text3 = cmgOperation
+  stateFlag4 = "clothingtie"
+  text5 = "try_tie_positive_a"
+  number = 5.0
+  number2 = 5.0
+  number3 = -1
+  number4 = 48
+  number5 = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3)
-  cmgCall2 = RemoveAnimDict
-  textValue3 = "clothingtie"
-  cmgCall2(textValue3)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 3000
-  cmgCall2(textValue3)
-  cmgCall2 = SetPedComponentVariation
-  textValue3 = cmgCall
-  flag4 = 3
-  textValue5 = 15
-  numberValue = 0
-  numberValue2 = 0
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
-  cmgCall2 = SetPedComponentVariation
-  textValue3 = cmgCall
-  flag4 = 8
-  textValue5 = 0
-  numberValue = 240
-  numberValue2 = 0
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
-  cmgCall2 = GetEntityModel
-  textValue3 = cmgCall
+  cmgOperation2(text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3)
+  cmgOperation2 = RemoveAnimDict
+  text3 = "clothingtie"
+  cmgOperation2(text3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 3000
+  cmgOperation2(text3)
+  cmgOperation2 = SetPedComponentVariation
+  text3 = cmgOperation
+  stateFlag4 = 3
+  text5 = 15
+  number = 0
+  number2 = 0
+  cmgOperation2(text3, stateFlag4, text5, number, number2)
+  cmgOperation2 = SetPedComponentVariation
+  text3 = cmgOperation
+  stateFlag4 = 8
+  text5 = 0
+  number = 240
+  number2 = 0
+  cmgOperation2(text3, stateFlag4, text5, number, number2)
+  cmgOperation2 = GetEntityModel
+  text3 = cmgOperation
   -- Beginner: result below is modelHash.
-  cmgCall2 = cmgCall2(textValue3)
-  if -1667301416 == cmgCall2 then
-    cmgCall2 = SetPedComponentVariation
-    textValue3 = cmgCall
-    flag4 = 11
-    textValue5 = 18
-    numberValue = 0
-    numberValue2 = 0
-    cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
+  cmgOperation2 = cmgOperation2(text3)
+  if -1667301416 == cmgOperation2 then
+    cmgOperation2 = SetPedComponentVariation
+    text3 = cmgOperation
+    stateFlag4 = 11
+    text5 = 18
+    number = 0
+    number2 = 0
+    cmgOperation2(text3, stateFlag4, text5, number, number2)
   else
-    cmgCall2 = SetPedComponentVariation
-    textValue3 = cmgCall
-    flag4 = 11
-    textValue5 = 0
-    numberValue = 240
-    numberValue2 = 0
-    cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
+    cmgOperation2 = SetPedComponentVariation
+    text3 = cmgOperation
+    stateFlag4 = 11
+    text5 = 0
+    number = 240
+    number2 = 0
+    cmgOperation2(text3, stateFlag4, text5, number, number2)
   end
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeoffjacket".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeofftie"
+text = "takeofftie"
 -- Beginner: this function is the command handler for "takeofftie".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue3 = "clothingtie"
+  cmgOperation = cmgOperation()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text3 = "clothingtie"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue3)
-  cmgCall2 = TaskPlayAnim
-  textValue3 = cmgCall
-  flag4 = "clothingtie"
-  textValue5 = "try_tie_neutral_b"
-  numberValue = 5.0
-  numberValue2 = 5.0
-  numberValue3 = -1
-  numberValue4 = 48
-  numberValue5 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  cmgOperation2(text3)
+  cmgOperation2 = TaskPlayAnim
+  text3 = cmgOperation
+  stateFlag4 = "clothingtie"
+  text5 = "try_tie_neutral_b"
+  number = 5.0
+  number2 = 5.0
+  number3 = -1
+  number4 = 48
+  number5 = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3)
-  cmgCall2 = RemoveAnimDict
-  textValue3 = "clothingtie"
-  cmgCall2(textValue3)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 1200
-  cmgCall2(textValue3)
-  cmgCall2 = SetPedComponentVariation
-  textValue3 = cmgCall
-  flag4 = 7
-  textValue5 = 0
-  numberValue = 240
-  numberValue2 = 0
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
+  cmgOperation2(text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3)
+  cmgOperation2 = RemoveAnimDict
+  text3 = "clothingtie"
+  cmgOperation2(text3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 1200
+  cmgOperation2(text3)
+  cmgOperation2 = SetPedComponentVariation
+  text3 = cmgOperation
+  stateFlag4 = 7
+  text5 = 0
+  number = 240
+  number2 = 0
+  cmgOperation2(text3, stateFlag4, text5, number, number2)
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeofftie".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeoffbracelet"
+text = "takeoffbracelet"
 -- Beginner: this function is the command handler for "takeoffbracelet".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = ClearPedProp
-  textValue3 = cmgCall
-  flag4 = 6
-  cmgCall2(textValue3, flag4)
-  cmgCall2 = ClearPedProp
-  textValue3 = cmgCall
-  flag4 = 7
-  cmgCall2(textValue3, flag4)
+  cmgOperation = cmgOperation()
+  cmgOperation2 = ClearPedProp
+  text3 = cmgOperation
+  stateFlag4 = 6
+  cmgOperation2(text3, stateFlag4)
+  cmgOperation2 = ClearPedProp
+  text3 = cmgOperation
+  stateFlag4 = 7
+  cmgOperation2(text3, stateFlag4)
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeoffbracelet".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeoffglasses"
+text = "takeoffglasses"
 -- Beginner: this function is the command handler for "takeoffglasses".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue3 = "clothingspecs"
+  cmgOperation = cmgOperation()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text3 = "clothingspecs"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue3)
-  cmgCall2 = TaskPlayAnim
-  textValue3 = cmgCall
-  flag4 = "clothingspecs"
-  textValue5 = "try_glasses_positive_a"
-  numberValue = 5.0
-  numberValue2 = 5.0
-  numberValue3 = -1
-  numberValue4 = 48
-  numberValue5 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  cmgOperation2(text3)
+  cmgOperation2 = TaskPlayAnim
+  text3 = cmgOperation
+  stateFlag4 = "clothingspecs"
+  text5 = "try_glasses_positive_a"
+  number = 5.0
+  number2 = 5.0
+  number3 = -1
+  number4 = 48
+  number5 = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3)
-  cmgCall2 = RemoveAnimDict
-  textValue3 = "clothingspecs"
-  cmgCall2(textValue3)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 1800
-  cmgCall2(textValue3)
-  cmgCall2 = ClearPedProp
-  textValue3 = cmgCall
-  flag4 = 1
-  cmgCall2(textValue3, flag4)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 800
-  cmgCall2(textValue3)
-  cmgCall2 = ClearPedSecondaryTask
-  textValue3 = cmgCall
-  cmgCall2(textValue3)
+  cmgOperation2(text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3)
+  cmgOperation2 = RemoveAnimDict
+  text3 = "clothingspecs"
+  cmgOperation2(text3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 1800
+  cmgOperation2(text3)
+  cmgOperation2 = ClearPedProp
+  text3 = cmgOperation
+  stateFlag4 = 1
+  cmgOperation2(text3, stateFlag4)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 800
+  cmgOperation2(text3)
+  cmgOperation2 = ClearPedSecondaryTask
+  text3 = cmgOperation
+  cmgOperation2(text3)
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeoffglasses".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeofftrousers"
+text = "takeofftrousers"
 -- Beginner: this function is the command handler for "takeofftrousers".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue3 = "clothingshoes"
+  cmgOperation = cmgOperation()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text3 = "clothingshoes"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue3)
-  cmgCall2 = TaskPlayAnim
-  textValue3 = cmgCall
-  flag4 = "clothingshoes"
-  textValue5 = "try_shoes_positive_d"
-  numberValue = 5.0
-  numberValue2 = 5.0
-  numberValue3 = -1
-  numberValue4 = 48
-  numberValue5 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  cmgOperation2(text3)
+  cmgOperation2 = TaskPlayAnim
+  text3 = cmgOperation
+  stateFlag4 = "clothingshoes"
+  text5 = "try_shoes_positive_d"
+  number = 5.0
+  number2 = 5.0
+  number3 = -1
+  number4 = 48
+  number5 = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3)
-  cmgCall2 = RemoveAnimDict
-  textValue3 = "clothingshoes"
-  cmgCall2(textValue3)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 1800
-  cmgCall2(textValue3)
-  cmgCall2 = GetEntityModel
-  textValue3 = cmgCall
+  cmgOperation2(text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3)
+  cmgOperation2 = RemoveAnimDict
+  text3 = "clothingshoes"
+  cmgOperation2(text3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 1800
+  cmgOperation2(text3)
+  cmgOperation2 = GetEntityModel
+  text3 = cmgOperation
   -- Beginner: result below is modelHash.
-  cmgCall2 = cmgCall2(textValue3)
-  if -1667301416 == cmgCall2 then
-    cmgCall2 = SetPedComponentVariation
-    textValue3 = cmgCall
-    flag4 = 4
-    textValue5 = 14
-    numberValue = 0
-    numberValue2 = 2
-    cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
+  cmgOperation2 = cmgOperation2(text3)
+  if -1667301416 == cmgOperation2 then
+    cmgOperation2 = SetPedComponentVariation
+    text3 = cmgOperation
+    stateFlag4 = 4
+    text5 = 14
+    number = 0
+    number2 = 2
+    cmgOperation2(text3, stateFlag4, text5, number, number2)
   else
-    cmgCall2 = SetPedComponentVariation
-    textValue3 = cmgCall
-    flag4 = 4
-    textValue5 = 14
-    numberValue = 0
-    numberValue2 = 2
-    cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
+    cmgOperation2 = SetPedComponentVariation
+    text3 = cmgOperation
+    stateFlag4 = 4
+    text5 = 14
+    number = 0
+    number2 = 2
+    cmgOperation2(text3, stateFlag4, text5, number, number2)
   end
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 800
-  cmgCall2(textValue3)
-  cmgCall2 = ClearPedSecondaryTask
-  textValue3 = cmgCall
-  cmgCall2(textValue3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 800
+  cmgOperation2(text3)
+  cmgOperation2 = ClearPedSecondaryTask
+  text3 = cmgOperation
+  cmgOperation2(text3)
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeofftrousers".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)
 localEventCall = RegisterCommand
-textValue = "takeoffshoes"
+text = "takeoffshoes"
 -- Beginner: this function is the command handler for "takeoffshoes".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local cmgOperation, cmgOperation2, text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue3 = "clothingshoes"
+  cmgOperation = cmgOperation()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text3 = "clothingshoes"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue3)
-  cmgCall2 = TaskPlayAnim
-  textValue3 = cmgCall
-  flag4 = "clothingshoes"
-  textValue5 = "try_shoes_positive_d"
-  numberValue = 5.0
-  numberValue2 = 5.0
-  numberValue3 = -1
-  numberValue4 = 48
-  numberValue5 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
+  cmgOperation2(text3)
+  cmgOperation2 = TaskPlayAnim
+  text3 = cmgOperation
+  stateFlag4 = "clothingshoes"
+  text5 = "try_shoes_positive_d"
+  number = 5.0
+  number2 = 5.0
+  number3 = -1
+  number4 = 48
+  number5 = 0
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3)
-  cmgCall2 = RemoveAnimDict
-  textValue3 = "clothingshoes"
-  cmgCall2(textValue3)
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 1800
-  cmgCall2(textValue3)
-  cmgCall2 = GetEntityModel
-  textValue3 = cmgCall
+  cmgOperation2(text3, stateFlag4, text5, number, number2, number3, number4, number5, stateFlag, stateFlag2, stateFlag3)
+  cmgOperation2 = RemoveAnimDict
+  text3 = "clothingshoes"
+  cmgOperation2(text3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 1800
+  cmgOperation2(text3)
+  cmgOperation2 = GetEntityModel
+  text3 = cmgOperation
   -- Beginner: result below is modelHash.
-  cmgCall2 = cmgCall2(textValue3)
-  if -1667301416 == cmgCall2 then
-    cmgCall2 = SetPedComponentVariation
-    textValue3 = cmgCall
-    flag4 = 6
-    textValue5 = 35
-    numberValue = 0
-    numberValue2 = 2
-    cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
+  cmgOperation2 = cmgOperation2(text3)
+  if -1667301416 == cmgOperation2 then
+    cmgOperation2 = SetPedComponentVariation
+    text3 = cmgOperation
+    stateFlag4 = 6
+    text5 = 35
+    number = 0
+    number2 = 2
+    cmgOperation2(text3, stateFlag4, text5, number, number2)
   else
-    cmgCall2 = SetPedComponentVariation
-    textValue3 = cmgCall
-    flag4 = 6
-    textValue5 = 34
-    numberValue = 0
-    numberValue2 = 2
-    cmgCall2(textValue3, flag4, textValue5, numberValue, numberValue2)
+    cmgOperation2 = SetPedComponentVariation
+    text3 = cmgOperation
+    stateFlag4 = 6
+    text5 = 34
+    number = 0
+    number2 = 2
+    cmgOperation2(text3, stateFlag4, text5, number, number2)
   end
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.Wait
-  textValue3 = 800
-  cmgCall2(textValue3)
-  cmgCall2 = ClearPedSecondaryTask
-  textValue3 = cmgCall
-  cmgCall2(textValue3)
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.Wait
+  text3 = 800
+  cmgOperation2(text3)
+  cmgOperation2 = ClearPedSecondaryTask
+  text3 = cmgOperation
+  cmgOperation2(text3)
 end
-textValue4 = false
+text4 = false
 -- Beginner: Register a chat/console command. Event/command: "takeoffshoes".
-localEventCall(textValue, textValue2, textValue4)
+localEventCall(text, text2, text4)

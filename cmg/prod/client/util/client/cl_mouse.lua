@@ -65,7 +65,7 @@ local cursorY = 0.0
 
 local inGui = false
 
--- This flag was always false inside the decompiled file. It controls whether
+-- This stateFlag was always false inside the decompiled file. It controls whether
 -- camera-look controls 1 and 2 are additionally disabled while in a GUI.
 local allowCameraLookInGui = false
 

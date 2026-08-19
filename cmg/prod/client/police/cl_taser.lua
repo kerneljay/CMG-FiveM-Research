@@ -1,3 +1,22 @@
+--[[
+    BEGINNER READABILITY PASS
+    =========================
+    This Lua file has been reviewed by the automated readability pass.
+    Decompiled temporary identifiers were normalized into clearer role names.
+    Runtime strings (events, exports, keys, labels, hashes, etc.) were preserved.
+
+    Common fallback names:
+      localValue#       = short-lived local value
+      workingValue#     = temporary value/function
+      dataCollection#   = table/list/object-like data
+      text#             = text value
+      number#           = numeric value
+      stateFlag#        = true/false state
+      cmgOperation#     = temporary CMG function/value
+      rageUiOperation#  = temporary RageUI function/value
+      eventHandler#     = event registration/handler
+      backgroundThread# = thread/CreateThread reference
+]]
 local TASER_RELOAD_ANIM_DICT = "weapons@pistol@ap_pistol_str"
 local TASER_RELOAD_ANIM_NAME = "reload_aim"
 local TASER_HASHES = { 911657153, 1843015545 }

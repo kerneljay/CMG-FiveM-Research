@@ -32,791 +32,791 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable2, vector3Builder, cmgCall2, textValue6, textValue9, rageUiCall3, cmgCall4, rageUiCall5, rageUiCall6, rageUiCall, rageUiCall2, textValue, textValue2
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable2 = "cfg/homes"
+local cmgOperation, dataCollection2, createVector3, cmgOperation2, text6, text9, rageUiOperation3, cmgOperation4, rageUiOperation5, rageUiOperation6, rageUiOperation, rageUiOperation2, text, text2
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection2 = "cfg/homes"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable2)
-dataTable2 = {}
-dataTable2.onJob = false
-vector3Builder = vector3
-cmgCall2 = -17.703647613525
-textValue6 = -696.84149169922
-textValue9 = 32.344856262207
-vector3Builder = vector3Builder(cmgCall2, textValue6, textValue9)
-dataTable2.spawnVehicleVector = vector3Builder
-vector3Builder = vector3
-cmgCall2 = -19.447393417358
-textValue6 = -705.32580566406
-textValue9 = 32.338104248046
-vector3Builder = vector3Builder(cmgCall2, textValue6, textValue9)
-dataTable2.startVector = vector3Builder
-dataTable2.tempMarker = 0
-dataTable2.tempBlip = 0
-dataTable2.tempVehicle = 0
-dataTable2.tempObject = 0
-dataTable2.cashEarned = 0
-dataTable2.stopNumber = 0
-vector3Builder = 15
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.registerHudTimerBarProvider
-textValue6 = "royalMailJob"
+cmgOperation = cmgOperation(dataCollection2)
+dataCollection2 = {}
+dataCollection2.onJob = false
+createVector3 = vector3
+cmgOperation2 = -17.703647613525
+text6 = -696.84149169922
+text9 = 32.344856262207
+createVector3 = createVector3(cmgOperation2, text6, text9)
+dataCollection2.spawnVehicleVector = createVector3
+createVector3 = vector3
+cmgOperation2 = -19.447393417358
+text6 = -705.32580566406
+text9 = 32.338104248046
+createVector3 = createVector3(cmgOperation2, text6, text9)
+dataCollection2.startVector = createVector3
+dataCollection2.tempMarker = 0
+dataCollection2.tempBlip = 0
+dataCollection2.tempVehicle = 0
+dataCollection2.tempObject = 0
+dataCollection2.cashEarned = 0
+dataCollection2.stopNumber = 0
+createVector3 = 15
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.registerHudTimerBarProvider
+text6 = "royalMailJob"
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: arg1) ===
-function textValue9(arg1)
-  local arg2, textValue3, textValue5, textValue7, numberValue6
-  arg2 = dataTable2.onJob
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: text9; parameters: localValue1) ===
+function text9(localValue1)
+  local localValue2, text3, text5, text7, number6
+  localValue2 = dataCollection2.onJob
+  if not localValue2 then
     return
   end
-  arg2 = arg1.push
-  textValue3 = "~g~EARNED:"
-  textValue5 = "\194\163"
-  textValue7 = getMoneyStringFormatted
-  numberValue6 = dataTable2.cashEarned
-  textValue7 = textValue7(numberValue6)
-  textValue5 = textValue5 .. textValue7
-  arg2(textValue3, textValue5)
-  arg2 = arg1.push
-  textValue3 = "PACKAGES:"
-  textValue5 = dataTable2.stopNumber
-  textValue7 = "/"
-  numberValue6 = vector3Builder
-  textValue5 = textValue5 .. textValue7 .. numberValue6
-  arg2(textValue3, textValue5)
+  localValue2 = localValue1.push
+  text3 = "~g~EARNED:"
+  text5 = "\194\163"
+  text7 = getMoneyStringFormatted
+  number6 = dataCollection2.cashEarned
+  text7 = text7(number6)
+  text5 = text5 .. text7
+  localValue2(text3, text5)
+  localValue2 = localValue1.push
+  text3 = "PACKAGES:"
+  text5 = dataCollection2.stopNumber
+  text7 = "/"
+  number6 = createVector3
+  text5 = text5 .. text7 .. number6
+  localValue2(text3, text5)
 end
-cmgCall2(textValue6, textValue9)
-cmgCall2 = RegisterNetEvent
-textValue6 = "206b328a55"
+cmgOperation2(text6, text9)
+cmgOperation2 = RegisterNetEvent
+text6 = "206b328a55"
 -- Beginner: this function handles network event "206b328a55".
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
-function textValue9()
-  local arg1, arg2, textValue3, textValue5, textValue7, numberValue6, flag10, flag11, flag12
-  arg1 = CMG
-  arg1 = arg1.requestEntitySpawn
-  arg2 = "royalmail"
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.spawnVehicle
-  arg2 = "boxville2"
-  textValue3 = dataTable2.spawnVehicleVector
-  textValue3 = textValue3.x
-  textValue5 = dataTable2.spawnVehicleVector
-  textValue5 = textValue5.y
-  textValue7 = dataTable2.spawnVehicleVector
-  textValue7 = textValue7.z
-  numberValue6 = 343
-  flag10 = true
-  flag11 = true
-  flag12 = true
-  arg1 = arg1(arg2, textValue3, textValue5, textValue7, numberValue6, flag10, flag11, flag12)
-  dataTable2.tempVehicle = arg1
-  dataTable2.onJob = true
-  arg1 = CMG
-  arg1 = arg1.setHudTimerBarProviderActive
-  arg2 = "royalMailJob"
-  textValue3 = true
-  arg1(arg2, textValue3)
-  arg1 = tCMG
-  arg1 = arg1.notify
-  arg2 = "~g~Postal Service Job started, exit the car park on your left and head to your first drop off point."
+-- === HELPER FUNCTION (decompiler name: text9; parameters: none) ===
+function text9()
+  local localValue1, localValue2, text3, text5, text7, number6, stateFlag10, stateFlag11, stateFlag12
+  localValue1 = CMG
+  localValue1 = localValue1.requestEntitySpawn
+  localValue2 = "royalmail"
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.spawnVehicle
+  localValue2 = "boxville2"
+  text3 = dataCollection2.spawnVehicleVector
+  text3 = text3.x
+  text5 = dataCollection2.spawnVehicleVector
+  text5 = text5.y
+  text7 = dataCollection2.spawnVehicleVector
+  text7 = text7.z
+  number6 = 343
+  stateFlag10 = true
+  stateFlag11 = true
+  stateFlag12 = true
+  localValue1 = localValue1(localValue2, text3, text5, text7, number6, stateFlag10, stateFlag11, stateFlag12)
+  dataCollection2.tempVehicle = localValue1
+  dataCollection2.onJob = true
+  localValue1 = CMG
+  localValue1 = localValue1.setHudTimerBarProviderActive
+  localValue2 = "royalMailJob"
+  text3 = true
+  localValue1(localValue2, text3)
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  localValue2 = "~g~Postal Service Job started, exit the car park on your left and head to your first drop off point."
   -- Beginner: Show a notification to the player.
-  arg1(arg2)
+  localValue1(localValue2)
   while true do
-    arg1 = dataTable2.onJob
-    if not arg1 then
+    localValue1 = dataCollection2.onJob
+    if not localValue1 then
       break
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
-  arg1 = CMG
-  arg1 = arg1.setHudTimerBarProviderActive
-  arg2 = "royalMailJob"
-  textValue3 = false
-  arg1(arg2, textValue3)
+  localValue1 = CMG
+  localValue1 = localValue1.setHudTimerBarProviderActive
+  localValue2 = "royalMailJob"
+  text3 = false
+  localValue1(localValue2, text3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "206b328a55".
-cmgCall2(textValue6, textValue9)
-cmgCall2 = RegisterNetEvent
-textValue6 = "4c5794cec0"
+cmgOperation2(text6, text9)
+cmgOperation2 = RegisterNetEvent
+text6 = "4c5794cec0"
 -- Beginner: this function handles network event "4c5794cec0".
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
-function textValue9()
-  local arg1, arg2, textValue3, textValue5
-  arg1 = tCMG
-  arg1 = arg1.notify
-  arg2 = "~g~Shift complete."
+-- === HELPER FUNCTION (decompiler name: text9; parameters: none) ===
+function text9()
+  local localValue1, localValue2, text3, text5
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  localValue2 = "~g~Shift complete."
   -- Beginner: Show a notification to the player.
-  arg1(arg2)
-  arg1 = DeleteVehicle
-  arg2 = GetVehiclePedIsIn
-  textValue3 = CMG
-  textValue3 = textValue3.getPlayerPed
+  localValue1(localValue2)
+  localValue1 = DeleteVehicle
+  localValue2 = GetVehiclePedIsIn
+  text3 = CMG
+  text3 = text3.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  textValue3 = textValue3()
-  textValue5 = false
-  arg2, textValue3, textValue5 = arg2(textValue3, textValue5)
-  arg1(arg2, textValue3, textValue5)
-  arg1 = DeleteVehicle
-  arg2 = dataTable2.tempVehicle
-  arg1(arg2)
-  dataTable2.onJob = false
-  dataTable2.tempMarker = 0
-  dataTable2.tempBlip = 0
-  dataTable2.tempVehicle = 0
-  dataTable2.tempObject = 0
-  dataTable2.cashEarned = 0
-  dataTable2.stopNumber = 0
+  text3 = text3()
+  text5 = false
+  localValue2, text3, text5 = localValue2(text3, text5)
+  localValue1(localValue2, text3, text5)
+  localValue1 = DeleteVehicle
+  localValue2 = dataCollection2.tempVehicle
+  localValue1(localValue2)
+  dataCollection2.onJob = false
+  dataCollection2.tempMarker = 0
+  dataCollection2.tempBlip = 0
+  dataCollection2.tempVehicle = 0
+  dataCollection2.tempObject = 0
+  dataCollection2.cashEarned = 0
+  dataCollection2.stopNumber = 0
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4c5794cec0".
-cmgCall2(textValue6, textValue9)
-cmgCall2 = RegisterNetEvent
-textValue6 = "6d6033a0ac"
+cmgOperation2(text6, text9)
+cmgOperation2 = RegisterNetEvent
+text6 = "6d6033a0ac"
 -- Beginner: this function handles network event "6d6033a0ac".
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: arg1, arg2) ===
-function textValue9(arg1, arg2)
-  local textValue3, textValue5, textValue7, numberValue6, flag10, flag11, flag12, flag13, flag, flag3
-  textValue3 = dataTable2.tempVehicle
-  textValue5 = dataTable2.stopNumber
-  textValue5 = textValue5 + 1
-  dataTable2.stopNumber = textValue5
-  if arg2 then
-    textValue5 = dataTable2.cashEarned
-    textValue5 = textValue5 + arg2
-    dataTable2.cashEarned = textValue5
+-- === HELPER FUNCTION (decompiler name: text9; parameters: localValue1, localValue2) ===
+function text9(localValue1, localValue2)
+  local text3, text5, text7, number6, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3
+  text3 = dataCollection2.tempVehicle
+  text5 = dataCollection2.stopNumber
+  text5 = text5 + 1
+  dataCollection2.stopNumber = text5
+  if localValue2 then
+    text5 = dataCollection2.cashEarned
+    text5 = text5 + localValue2
+    dataCollection2.cashEarned = text5
   end
-  textValue5 = Citizen
-  textValue5 = textValue5.CreateThread
+  text5 = Citizen
+  text5 = text5.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-  function textValue7()
-    local arg12, arg22, flag7, flag8, flag9
+  -- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+  function text7()
+    local localValue12, localValue22, stateFlag7, stateFlag8, stateFlag9
     while true do
-      arg12 = textValue3
-      if 0 == arg12 then
+      localValue12 = text3
+      if 0 == localValue12 then
         break
       end
-      arg12 = SetVehicleEngineOn
-      arg22 = textValue3
-      flag7 = false
-      flag8 = true
-      flag9 = false
-      arg12(arg22, flag7, flag8, flag9)
-      arg12 = Wait
-      arg22 = 0
-      arg12(arg22)
+      localValue12 = SetVehicleEngineOn
+      localValue22 = text3
+      stateFlag7 = false
+      stateFlag8 = true
+      stateFlag9 = false
+      localValue12(localValue22, stateFlag7, stateFlag8, stateFlag9)
+      localValue12 = Wait
+      localValue22 = 0
+      localValue12(localValue22)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  textValue5(textValue7)
-  textValue5 = dataTable2.tempMarker
-  if textValue5 then
-    textValue5 = tCMG
-    textValue5 = textValue5.removeMarker
-    textValue7 = dataTable2.tempMarker
-    textValue5(textValue7)
+  text5(text7)
+  text5 = dataCollection2.tempMarker
+  if text5 then
+    text5 = tCMG
+    text5 = text5.removeMarker
+    text7 = dataCollection2.tempMarker
+    text5(text7)
   end
-  textValue5 = SetVehicleDoorOpen
-  textValue7 = textValue3
-  numberValue6 = 2
-  flag10 = false
-  flag11 = false
-  textValue5(textValue7, numberValue6, flag10, flag11)
-  textValue5 = SetVehicleDoorOpen
-  textValue7 = textValue3
-  numberValue6 = 3
-  flag10 = false
-  flag11 = false
-  textValue5(textValue7, numberValue6, flag10, flag11)
-  textValue5 = DoesEntityExist
-  textValue7 = dataTable2.tempObject
-  textValue5 = textValue5(textValue7)
-  if textValue5 then
-    textValue5 = DeleteObject
-    textValue7 = dataTable2.tempObject
-    textValue5(textValue7)
+  text5 = SetVehicleDoorOpen
+  text7 = text3
+  number6 = 2
+  stateFlag10 = false
+  stateFlag11 = false
+  text5(text7, number6, stateFlag10, stateFlag11)
+  text5 = SetVehicleDoorOpen
+  text7 = text3
+  number6 = 3
+  stateFlag10 = false
+  stateFlag11 = false
+  text5(text7, number6, stateFlag10, stateFlag11)
+  text5 = DoesEntityExist
+  text7 = dataCollection2.tempObject
+  text5 = text5(text7)
+  if text5 then
+    text5 = DeleteObject
+    text7 = dataCollection2.tempObject
+    text5(text7)
   end
-  textValue5 = CMG
-  textValue5 = textValue5.loadModel
-  textValue7 = "prop_drug_package"
-  textValue5 = textValue5(textValue7)
-  textValue7 = CreateObject
-  numberValue6 = textValue5
-  flag10 = arg1.x
-  flag11 = arg1.y
-  flag12 = arg1.z
-  flag13 = false
-  flag = false
-  flag3 = true
+  text5 = CMG
+  text5 = text5.loadModel
+  text7 = "prop_drug_package"
+  text5 = text5(text7)
+  text7 = CreateObject
+  number6 = text5
+  stateFlag10 = localValue1.x
+  stateFlag11 = localValue1.y
+  stateFlag12 = localValue1.z
+  stateFlag13 = false
+  stateFlag = false
+  stateFlag3 = true
   -- Beginner: result below is objectEntity.
-  textValue7 = textValue7(numberValue6, flag10, flag11, flag12, flag13, flag, flag3)
-  dataTable2.tempObject = textValue7
-  textValue7 = PlaceObjectOnGroundProperly
-  numberValue6 = dataTable2.tempObject
-  textValue7(numberValue6)
-  textValue7 = SetModelAsNoLongerNeeded
-  numberValue6 = textValue5
-  textValue7(numberValue6)
-  textValue7 = RemoveBlip
-  numberValue6 = dataTable2.tempBlip
-  textValue7(numberValue6)
-  textValue7 = SetTimeout
-  numberValue6 = 2500
+  text7 = text7(number6, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3)
+  dataCollection2.tempObject = text7
+  text7 = PlaceObjectOnGroundProperly
+  number6 = dataCollection2.tempObject
+  text7(number6)
+  text7 = SetModelAsNoLongerNeeded
+  number6 = text5
+  text7(number6)
+  text7 = RemoveBlip
+  number6 = dataCollection2.tempBlip
+  text7(number6)
+  text7 = SetTimeout
+  number6 = 2500
 
-  -- === HELPER FUNCTION (decompiler name: flag10; parameters: none) ===
-  function flag10()
-    local arg12, arg22, flag7, flag8
-    arg12 = SetVehicleDoorShut
-    arg22 = textValue3
-    flag7 = 2
-    flag8 = false
-    arg12(arg22, flag7, flag8)
-    arg12 = SetVehicleDoorShut
-    arg22 = textValue3
-    flag7 = 3
-    flag8 = false
-    arg12(arg22, flag7, flag8)
-    arg12 = 0
-    textValue3 = arg12
+  -- === HELPER FUNCTION (decompiler name: stateFlag10; parameters: none) ===
+  function stateFlag10()
+    local localValue12, localValue22, stateFlag7, stateFlag8
+    localValue12 = SetVehicleDoorShut
+    localValue22 = text3
+    stateFlag7 = 2
+    stateFlag8 = false
+    localValue12(localValue22, stateFlag7, stateFlag8)
+    localValue12 = SetVehicleDoorShut
+    localValue22 = text3
+    stateFlag7 = 3
+    stateFlag8 = false
+    localValue12(localValue22, stateFlag7, stateFlag8)
+    localValue12 = 0
+    text3 = localValue12
   end
-  textValue7(numberValue6, flag10)
+  text7(number6, stateFlag10)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6d6033a0ac".
-cmgCall2(textValue6, textValue9)
-cmgCall2 = RegisterNetEvent
-textValue6 = "c179928962"
+cmgOperation2(text6, text9)
+cmgOperation2 = RegisterNetEvent
+text6 = "c179928962"
 -- Beginner: this function handles network event "c179928962".
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: arg1) ===
-function textValue9(arg1)
-  local arg2, textValue3, textValue5, textValue7, numberValue6, flag10, flag11, flag12, flag13, flag, flag3, numberValue
-  arg2 = AddBlipForCoord
-  textValue3 = arg1.x
-  textValue5 = arg1.y
-  textValue7 = arg1.z
+-- === HELPER FUNCTION (decompiler name: text9; parameters: localValue1) ===
+function text9(localValue1)
+  local localValue2, text3, text5, text7, number6, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3, number
+  localValue2 = AddBlipForCoord
+  text3 = localValue1.x
+  text5 = localValue1.y
+  text7 = localValue1.z
   -- Beginner: result below is blipHandle.
-  arg2 = arg2(textValue3, textValue5, textValue7)
-  dataTable2.tempBlip = arg2
-  arg2 = SetBlipSprite
-  textValue3 = dataTable2.tempBlip
-  textValue5 = 1
-  arg2(textValue3, textValue5)
-  arg2 = SetBlipRoute
-  textValue3 = dataTable2.tempBlip
-  textValue5 = true
-  arg2(textValue3, textValue5)
-  arg2 = tCMG
-  arg2 = arg2.addMarker
-  textValue3 = arg1.x
-  textValue5 = arg1.y
-  textValue7 = arg1.z
-  textValue7 = textValue7 - 1
-  numberValue6 = 2.0
-  flag10 = 2.0
-  flag11 = 1.0
-  flag12 = 200
-  flag13 = 20
-  flag = 0
-  flag3 = 50
-  numberValue = 50
-  arg2 = arg2(textValue3, textValue5, textValue7, numberValue6, flag10, flag11, flag12, flag13, flag, flag3, numberValue)
-  dataTable2.tempMarker = arg2
+  localValue2 = localValue2(text3, text5, text7)
+  dataCollection2.tempBlip = localValue2
+  localValue2 = SetBlipSprite
+  text3 = dataCollection2.tempBlip
+  text5 = 1
+  localValue2(text3, text5)
+  localValue2 = SetBlipRoute
+  text3 = dataCollection2.tempBlip
+  text5 = true
+  localValue2(text3, text5)
+  localValue2 = tCMG
+  localValue2 = localValue2.addMarker
+  text3 = localValue1.x
+  text5 = localValue1.y
+  text7 = localValue1.z
+  text7 = text7 - 1
+  number6 = 2.0
+  stateFlag10 = 2.0
+  stateFlag11 = 1.0
+  stateFlag12 = 200
+  stateFlag13 = 20
+  stateFlag = 0
+  stateFlag3 = 50
+  number = 50
+  localValue2 = localValue2(text3, text5, text7, number6, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3, number)
+  dataCollection2.tempMarker = localValue2
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c179928962".
-cmgCall2(textValue6, textValue9)
-cmgCall2 = AddEventHandler
-textValue6 = "CMG:onClientSpawn"
+cmgOperation2(text6, text9)
+cmgOperation2 = AddEventHandler
+text6 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: arg1, arg2) ===
-function textValue9(arg1, arg2)
-  local textValue3, textValue5, textValue7, numberValue6, flag10, flag11, flag12, flag13, flag, flag3, numberValue, dataTable, numberValue2, numberValue3, numberValue4, numberValue5, flag4, flag5, flag6
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: text9; parameters: localValue1, localValue2) ===
+function text9(localValue1, localValue2)
+  local text3, text5, text7, number6, stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3, number, dataCollection, number2, number3, number4, number5, stateFlag4, stateFlag5, stateFlag6
+  if localValue2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-    function textValue3()
-      local arg12, arg22
-      arg12 = drawNativeNotification
-      arg22 = "Press ~INPUT_PICKUP~ to start your Postal Service job"
+    -- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+    function text3()
+      local localValue12, localValue22
+      localValue12 = drawNativeNotification
+      localValue22 = "Press ~INPUT_PICKUP~ to start your Postal Service job"
       -- Beginner: Show a GTA-style notification/help prompt.
-      arg12(arg22)
+      localValue12(localValue22)
     end
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-    function textValue5()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+    function text5()
+      local localValue12, localValue22
     end
 
-    -- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-    function textValue7()
-      local arg12, arg22, flag7
-      arg12 = IsControlJustReleased
-      arg22 = 1
-      flag7 = 38
-      arg12 = arg12(arg22, flag7)
-      if arg12 then
-        arg12 = dataTable2.onJob
-        if not arg12 then
-          arg12 = TriggerServerEvent
-          arg22 = "3afd3b06f0"
+    -- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+    function text7()
+      local localValue12, localValue22, stateFlag7
+      localValue12 = IsControlJustReleased
+      localValue22 = 1
+      stateFlag7 = 38
+      localValue12 = localValue12(localValue22, stateFlag7)
+      if localValue12 then
+        localValue12 = dataCollection2.onJob
+        if not localValue12 then
+          localValue12 = TriggerServerEvent
+          localValue22 = "3afd3b06f0"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3afd3b06f0".
-          arg12(arg22)
+          localValue12(localValue22)
         end
       end
     end
-    numberValue6 = tCMG
-    numberValue6 = numberValue6.addBlip
-    flag10 = dataTable2.startVector
-    flag10 = flag10.x
-    flag11 = dataTable2.startVector
-    flag11 = flag11.y
-    flag12 = dataTable2.startVector
-    flag12 = flag12.z
-    flag13 = 67
-    flag = 1
-    flag3 = "Postal Service Job"
+    number6 = tCMG
+    number6 = number6.addBlip
+    stateFlag10 = dataCollection2.startVector
+    stateFlag10 = stateFlag10.x
+    stateFlag11 = dataCollection2.startVector
+    stateFlag11 = stateFlag11.y
+    stateFlag12 = dataCollection2.startVector
+    stateFlag12 = stateFlag12.z
+    stateFlag13 = 67
+    stateFlag = 1
+    stateFlag3 = "Postal Service Job"
     -- Beginner: Create a minimap blip.
-    numberValue6(flag10, flag11, flag12, flag13, flag, flag3)
-    numberValue6 = tCMG
-    numberValue6 = numberValue6.addMarker
-    flag10 = dataTable2.startVector
-    flag10 = flag10.x
-    flag11 = dataTable2.startVector
-    flag11 = flag11.y
-    flag12 = dataTable2.startVector
-    flag12 = flag12.z
-    flag13 = 1.0
-    flag = 1.0
-    flag3 = 1.0
-    numberValue = 255
-    dataTable = 0
-    numberValue2 = 0
-    numberValue3 = 70
-    numberValue4 = 50
-    numberValue5 = 39
-    flag4 = false
-    flag5 = false
-    flag6 = true
+    number6(stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3)
+    number6 = tCMG
+    number6 = number6.addMarker
+    stateFlag10 = dataCollection2.startVector
+    stateFlag10 = stateFlag10.x
+    stateFlag11 = dataCollection2.startVector
+    stateFlag11 = stateFlag11.y
+    stateFlag12 = dataCollection2.startVector
+    stateFlag12 = stateFlag12.z
+    stateFlag13 = 1.0
+    stateFlag = 1.0
+    stateFlag3 = 1.0
+    number = 255
+    dataCollection = 0
+    number2 = 0
+    number3 = 70
+    number4 = 50
+    number5 = 39
+    stateFlag4 = false
+    stateFlag5 = false
+    stateFlag6 = true
     -- Beginner: Create a world marker.
-    numberValue6(flag10, flag11, flag12, flag13, flag, flag3, numberValue, dataTable, numberValue2, numberValue3, numberValue4, numberValue5, flag4, flag5, flag6)
-    numberValue6 = CMG
-    numberValue6 = numberValue6.createArea
-    flag10 = "royalmail"
-    flag11 = dataTable2.startVector
-    flag12 = 1.5
-    flag13 = 6
-    flag = textValue3
-    flag3 = textValue5
-    numberValue = textValue7
-    dataTable = {}
+    number6(stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3, number, dataCollection, number2, number3, number4, number5, stateFlag4, stateFlag5, stateFlag6)
+    number6 = CMG
+    number6 = number6.createArea
+    stateFlag10 = "royalmail"
+    stateFlag11 = dataCollection2.startVector
+    stateFlag12 = 1.5
+    stateFlag13 = 6
+    stateFlag = text3
+    stateFlag3 = text5
+    number = text7
+    dataCollection = {}
     -- Beginner: Create an interaction area around a world position.
-    numberValue6(flag10, flag11, flag12, flag13, flag, flag3, numberValue, dataTable)
+    number6(stateFlag10, stateFlag11, stateFlag12, stateFlag13, stateFlag, stateFlag3, number, dataCollection)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-cmgCall2(textValue6, textValue9)
-cmgCall2 = RMenu
-cmgCall2 = cmgCall2.Add
-textValue6 = "cmgmail"
-textValue9 = "write"
-rageUiCall3 = RageUI
-rageUiCall3 = rageUiCall3.CreateMenu
-cmgCall4 = "CMG Mail Service"
-rageUiCall5 = "~b~CMG Mail Service"
-rageUiCall6 = CMG
-rageUiCall6 = rageUiCall6.getRageUIMenuWidth
-rageUiCall6 = rageUiCall6()
-rageUiCall = CMG
-rageUiCall = rageUiCall.getRageUIMenuHeight
-rageUiCall, rageUiCall2, textValue, textValue2 = rageUiCall()
-rageUiCall3, cmgCall4, rageUiCall5, rageUiCall6, rageUiCall, rageUiCall2, textValue, textValue2 = rageUiCall3(cmgCall4, rageUiCall5, rageUiCall6, rageUiCall, rageUiCall2, textValue, textValue2)
-cmgCall2(textValue6, textValue9, rageUiCall3, cmgCall4, rageUiCall5, rageUiCall6, rageUiCall, rageUiCall2, textValue, textValue2)
-cmgCall2 = RMenu
-cmgCall2 = cmgCall2.Add
-textValue6 = "cmgmail"
-textValue9 = "address"
-rageUiCall3 = RageUI
-rageUiCall3 = rageUiCall3.CreateSubMenu
-cmgCall4 = RMenu
-rageUiCall5 = cmgCall4
-cmgCall4 = cmgCall4.Get
-rageUiCall6 = "cmgmail"
-rageUiCall = "write"
+cmgOperation2(text6, text9)
+cmgOperation2 = RMenu
+cmgOperation2 = cmgOperation2.Add
+text6 = "cmgmail"
+text9 = "write"
+rageUiOperation3 = RageUI
+rageUiOperation3 = rageUiOperation3.CreateMenu
+cmgOperation4 = "CMG Mail Service"
+rageUiOperation5 = "~b~CMG Mail Service"
+rageUiOperation6 = CMG
+rageUiOperation6 = rageUiOperation6.getRageUIMenuWidth
+rageUiOperation6 = rageUiOperation6()
+rageUiOperation = CMG
+rageUiOperation = rageUiOperation.getRageUIMenuHeight
+rageUiOperation, rageUiOperation2, text, text2 = rageUiOperation()
+rageUiOperation3, cmgOperation4, rageUiOperation5, rageUiOperation6, rageUiOperation, rageUiOperation2, text, text2 = rageUiOperation3(cmgOperation4, rageUiOperation5, rageUiOperation6, rageUiOperation, rageUiOperation2, text, text2)
+cmgOperation2(text6, text9, rageUiOperation3, cmgOperation4, rageUiOperation5, rageUiOperation6, rageUiOperation, rageUiOperation2, text, text2)
+cmgOperation2 = RMenu
+cmgOperation2 = cmgOperation2.Add
+text6 = "cmgmail"
+text9 = "address"
+rageUiOperation3 = RageUI
+rageUiOperation3 = rageUiOperation3.CreateSubMenu
+cmgOperation4 = RMenu
+rageUiOperation5 = cmgOperation4
+cmgOperation4 = cmgOperation4.Get
+rageUiOperation6 = "cmgmail"
+rageUiOperation = "write"
 -- Beginner: result below is menu.
-cmgCall4 = cmgCall4(rageUiCall5, rageUiCall6, rageUiCall)
-rageUiCall5 = "CMG Mail Service"
-rageUiCall6 = "~b~CMG Mail Service"
-rageUiCall = CMG
-rageUiCall = rageUiCall.getRageUIMenuWidth
-rageUiCall = rageUiCall()
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuHeight
-rageUiCall2, textValue, textValue2 = rageUiCall2()
-rageUiCall3, cmgCall4, rageUiCall5, rageUiCall6, rageUiCall, rageUiCall2, textValue, textValue2 = rageUiCall3(cmgCall4, rageUiCall5, rageUiCall6, rageUiCall, rageUiCall2, textValue, textValue2)
-cmgCall2(textValue6, textValue9, rageUiCall3, cmgCall4, rageUiCall5, rageUiCall6, rageUiCall, rageUiCall2, textValue, textValue2)
-cmgCall2 = ""
-textValue6 = ""
-textValue9 = ""
-rageUiCall3 = ""
+cmgOperation4 = cmgOperation4(rageUiOperation5, rageUiOperation6, rageUiOperation)
+rageUiOperation5 = "CMG Mail Service"
+rageUiOperation6 = "~b~CMG Mail Service"
+rageUiOperation = CMG
+rageUiOperation = rageUiOperation.getRageUIMenuWidth
+rageUiOperation = rageUiOperation()
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuHeight
+rageUiOperation2, text, text2 = rageUiOperation2()
+rageUiOperation3, cmgOperation4, rageUiOperation5, rageUiOperation6, rageUiOperation, rageUiOperation2, text, text2 = rageUiOperation3(cmgOperation4, rageUiOperation5, rageUiOperation6, rageUiOperation, rageUiOperation2, text, text2)
+cmgOperation2(text6, text9, rageUiOperation3, cmgOperation4, rageUiOperation5, rageUiOperation6, rageUiOperation, rageUiOperation2, text, text2)
+cmgOperation2 = ""
+text6 = ""
+text9 = ""
+rageUiOperation3 = ""
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, textValue3, textValue5, textValue7, numberValue6, flag10, flag11, flag12, flag13
-  arg1 = {}
-  arg2 = pairs
-  textValue3 = cmgCall.homes
-  arg2, textValue3, textValue5, textValue7 = arg2(textValue3)
-  for numberValue6 in arg2, textValue3, textValue5, textValue7 do
-    flag10 = rageUiCall3
-    if "" ~= flag10 then
-      flag10 = string
-      flag10 = flag10.match
-      flag11 = string
-      flag11 = flag11.lower
-      flag12 = numberValue6
-      flag11 = flag11(flag12)
-      flag12 = string
-      flag12 = flag12.lower
-      flag13 = rageUiCall3
-      flag12, flag13 = flag12(flag13)
-      flag10 = flag10(flag11, flag12, flag13)
-      if not flag10 then
-        goto flow_label_28
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, text3, text5, text7, number6, stateFlag10, stateFlag11, stateFlag12, stateFlag13
+  localValue1 = {}
+  localValue2 = pairs
+  text3 = cmgOperation.homes
+  localValue2, text3, text5, text7 = localValue2(text3)
+  for number6 in localValue2, text3, text5, text7 do
+    stateFlag10 = rageUiOperation3
+    if "" ~= stateFlag10 then
+      stateFlag10 = string
+      stateFlag10 = stateFlag10.match
+      stateFlag11 = string
+      stateFlag11 = stateFlag11.lower
+      stateFlag12 = number6
+      stateFlag11 = stateFlag11(stateFlag12)
+      stateFlag12 = string
+      stateFlag12 = stateFlag12.lower
+      stateFlag13 = rageUiOperation3
+      stateFlag12, stateFlag13 = stateFlag12(stateFlag13)
+      stateFlag10 = stateFlag10(stateFlag11, stateFlag12, stateFlag13)
+      if not stateFlag10 then
+        goto continueAtStep28
       end
     end
-    flag10 = table
-    flag10 = flag10.insert
-    flag11 = arg1
-    flag12 = numberValue6
-    flag10(flag11, flag12)
-    ::flow_label_28::
+    stateFlag10 = table
+    stateFlag10 = stateFlag10.insert
+    stateFlag11 = localValue1
+    stateFlag12 = number6
+    stateFlag10(stateFlag11, stateFlag12)
+    ::continueAtStep28::
   end
-  arg2 = table
-  arg2 = arg2.sort
-  textValue3 = arg1
+  localValue2 = table
+  localValue2 = localValue2.sort
+  text3 = localValue1
 
-  -- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg12, arg22) ===
-  function textValue5(arg12, arg22)
-    local flag7
-    flag7 = arg12 < arg22
-    return flag7
+  -- === HELPER FUNCTION (decompiler name: text5; parameters: localValue12, localValue22) ===
+  function text5(localValue12, localValue22)
+    local stateFlag7
+    stateFlag7 = localValue12 < localValue22
+    return stateFlag7
   end
-  arg2(textValue3, textValue5)
-  return arg1
+  localValue2(text3, text5)
+  return localValue1
 end
-rageUiCall5 = RageUI
-rageUiCall5 = rageUiCall5.CreateWhile
-rageUiCall6 = 1.0
-rageUiCall = RMenu
-rageUiCall2 = rageUiCall
-rageUiCall = rageUiCall.Get
-textValue = "cmgmail"
-textValue2 = "write"
+rageUiOperation5 = RageUI
+rageUiOperation5 = rageUiOperation5.CreateWhile
+rageUiOperation6 = 1.0
+rageUiOperation = RMenu
+rageUiOperation2 = rageUiOperation
+rageUiOperation = rageUiOperation.Get
+text = "cmgmail"
+text2 = "write"
 -- Beginner: result below is menu.
-rageUiCall = rageUiCall(rageUiCall2, textValue, textValue2)
-rageUiCall2 = nil
+rageUiOperation = rageUiOperation(rageUiOperation2, text, text2)
+rageUiOperation2 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, textValue3, textValue5, textValue7, numberValue6
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  textValue3 = arg2
-  arg2 = arg2.Get
-  textValue5 = "cmgmail"
-  textValue7 = "write"
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, text3, text5, text7, number6
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  text3 = localValue2
+  localValue2 = localValue2.Get
+  text5 = "cmgmail"
+  text7 = "write"
   -- Beginner: result below is menu.
-  arg2 = arg2(textValue3, textValue5, textValue7)
-  textValue3 = true
-  textValue5 = false
-  textValue7 = true
+  localValue2 = localValue2(text3, text5, text7)
+  text3 = true
+  text5 = false
+  text7 = true
 
-  -- === HELPER FUNCTION (decompiler name: numberValue6; parameters: none) ===
-  function numberValue6()
-    local arg12, arg22, flag7, flag8, flag9, workValue3, rageUiCall4, workValue5, textValue11, dataTable3
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "Signed by "
-    flag7 = textValue6
-    arg22 = arg22 .. flag7
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "Delivery Address is "
-    flag7 = textValue9
-    arg22 = arg22 .. flag7
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~y~Edit Message"
-    flag7 = cmgCall2
-    flag8 = {}
-    flag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag9 = true
+  -- === HELPER FUNCTION (decompiler name: number6; parameters: none) ===
+  function number6()
+    local localValue12, localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3, rageUiOperation4, workingValue5, text11, dataCollection3
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "Signed by "
+    stateFlag7 = text6
+    localValue22 = localValue22 .. stateFlag7
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "Delivery Address is "
+    stateFlag7 = text9
+    localValue22 = localValue22 .. stateFlag7
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~y~Edit Message"
+    stateFlag7 = cmgOperation2
+    stateFlag8 = {}
+    stateFlag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag9 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg13, arg23, arg3) ===
-    function workValue3(arg13, arg23, arg3)
-      local cmgCall3, textValue8, textValue10, workValue4
-      if arg3 then
-        cmgCall3 = CMG
-        cmgCall3 = cmgCall3.clientPrompt
-        textValue8 = "Edit Message"
-        textValue10 = ""
+    -- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue13, localValue23, localValue3) ===
+    function workingValue3(localValue13, localValue23, localValue3)
+      local cmgOperation3, text8, text10, workingValue4
+      if localValue3 then
+        cmgOperation3 = CMG
+        cmgOperation3 = cmgOperation3.clientPrompt
+        text8 = "Edit Message"
+        text10 = ""
 
-        -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg14) ===
-        function workValue4(arg14)
-          local workValue2, textValue4
-          workValue2 = #arg14
-          if not (workValue2 < 3) then
-            workValue2 = #arg14
-            textValue4 = 500
-            if not (workValue2 > textValue4) then
-              goto flow_label_12
+        -- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue14) ===
+        function workingValue4(localValue14)
+          local workingValue2, text4
+          workingValue2 = #localValue14
+          if not (workingValue2 < 3) then
+            workingValue2 = #localValue14
+            text4 = 500
+            if not (workingValue2 > text4) then
+              goto continueAtStep12
             end
           end
-          workValue2 = notify
-          textValue4 = "~r~The message must be between 3 and 500 characters."
+          workingValue2 = notify
+          text4 = "~r~The message must be between 3 and 500 characters."
           -- Beginner: Show a notification to the player.
-          workValue2(textValue4)
-          goto flow_label_13
-          ::flow_label_12::
-          cmgCall2 = arg14
-          ::flow_label_13::
+          workingValue2(text4)
+          goto continueAtStep13
+          ::continueAtStep12::
+          cmgOperation2 = localValue14
+          ::continueAtStep13::
         end
-        cmgCall3(textValue8, textValue10, workValue4)
+        cmgOperation3(text8, text10, workingValue4)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, flag7, flag8, flag9, workValue3)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~y~Edit Signature"
-    flag7 = cmgCall2
-    flag8 = {}
-    flag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag9 = true
+    localValue12(localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~y~Edit Signature"
+    stateFlag7 = cmgOperation2
+    stateFlag8 = {}
+    stateFlag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag9 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg13, arg23, arg3) ===
-    function workValue3(arg13, arg23, arg3)
-      local cmgCall3, textValue8, textValue10, workValue4
-      if arg3 then
-        cmgCall3 = CMG
-        cmgCall3 = cmgCall3.clientPrompt
-        textValue8 = "Edit Signature"
-        textValue10 = ""
+    -- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue13, localValue23, localValue3) ===
+    function workingValue3(localValue13, localValue23, localValue3)
+      local cmgOperation3, text8, text10, workingValue4
+      if localValue3 then
+        cmgOperation3 = CMG
+        cmgOperation3 = cmgOperation3.clientPrompt
+        text8 = "Edit Signature"
+        text10 = ""
 
-        -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg14) ===
-        function workValue4(arg14)
-          local workValue2, textValue4
-          workValue2 = #arg14
-          if 0 == workValue2 then
-            workValue2 = CMG
-            workValue2 = workValue2.getPlayerName
-            textValue4 = PlayerId
+        -- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue14) ===
+        function workingValue4(localValue14)
+          local workingValue2, text4
+          workingValue2 = #localValue14
+          if 0 == workingValue2 then
+            workingValue2 = CMG
+            workingValue2 = workingValue2.getPlayerName
+            text4 = PlayerId
             -- Beginner: result below is localPlayerIndex.
-            textValue4 = textValue4()
-            workValue2 = workValue2(textValue4)
-            textValue6 = workValue2
+            text4 = text4()
+            workingValue2 = workingValue2(text4)
+            text6 = workingValue2
           else
-            workValue2 = #arg14
-            if workValue2 > 20 then
-              workValue2 = notify
-              textValue4 = "~r~The signature must be between 1 and 20 characters."
+            workingValue2 = #localValue14
+            if workingValue2 > 20 then
+              workingValue2 = notify
+              text4 = "~r~The signature must be between 1 and 20 characters."
               -- Beginner: Show a notification to the player.
-              workValue2(textValue4)
+              workingValue2(text4)
             else
-              textValue6 = arg14
+              text6 = localValue14
             end
           end
         end
-        cmgCall3(textValue8, textValue10, workValue4)
+        cmgOperation3(text8, text10, workingValue4)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, flag7, flag8, flag9, workValue3)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~y~Select Address"
-    flag7 = cmgCall2
-    flag8 = {}
-    flag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag9 = true
+    localValue12(localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~y~Select Address"
+    stateFlag7 = cmgOperation2
+    stateFlag8 = {}
+    stateFlag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag9 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-    function workValue3()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+    function workingValue3()
+      local localValue13, localValue23
     end
-    rageUiCall4 = RMenu
-    workValue5 = rageUiCall4
-    rageUiCall4 = rageUiCall4.Get
-    textValue11 = "cmgmail"
-    dataTable3 = "address"
-    rageUiCall4, workValue5, textValue11, dataTable3 = rageUiCall4(workValue5, textValue11, dataTable3)
-    arg12(arg22, flag7, flag8, flag9, workValue3, rageUiCall4, workValue5, textValue11, dataTable3)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~g~Submit Letter"
-    flag7 = cmgCall2
-    flag8 = {}
-    flag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag9 = true
+    rageUiOperation4 = RMenu
+    workingValue5 = rageUiOperation4
+    rageUiOperation4 = rageUiOperation4.Get
+    text11 = "cmgmail"
+    dataCollection3 = "address"
+    rageUiOperation4, workingValue5, text11, dataCollection3 = rageUiOperation4(workingValue5, text11, dataCollection3)
+    localValue12(localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3, rageUiOperation4, workingValue5, text11, dataCollection3)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~g~Submit Letter"
+    stateFlag7 = cmgOperation2
+    stateFlag8 = {}
+    stateFlag8.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag9 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg13, arg23, arg3) ===
-    function workValue3(arg13, arg23, arg3)
-      local cmgCall3, textValue8, textValue10, workValue4, workValue6
-      if arg3 then
-        cmgCall3 = cmgCall.homes
-        textValue8 = textValue9
-        cmgCall3 = cmgCall3[textValue8]
-        if not cmgCall3 then
-          cmgCall3 = notify
-          textValue8 = "~r~You must select a house address to send to."
+    -- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue13, localValue23, localValue3) ===
+    function workingValue3(localValue13, localValue23, localValue3)
+      local cmgOperation3, text8, text10, workingValue4, workingValue6
+      if localValue3 then
+        cmgOperation3 = cmgOperation.homes
+        text8 = text9
+        cmgOperation3 = cmgOperation3[text8]
+        if not cmgOperation3 then
+          cmgOperation3 = notify
+          text8 = "~r~You must select a house address to send to."
           -- Beginner: Show a notification to the player.
-          cmgCall3(textValue8)
+          cmgOperation3(text8)
         else
-          cmgCall3 = TriggerServerEvent
-          textValue8 = "a9f5519239"
-          textValue10 = cmgCall2
-          workValue4 = textValue6
-          workValue6 = textValue9
+          cmgOperation3 = TriggerServerEvent
+          text8 = "a9f5519239"
+          text10 = cmgOperation2
+          workingValue4 = text6
+          workingValue6 = text9
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a9f5519239".
-          cmgCall3(textValue8, textValue10, workValue4, workValue6)
+          cmgOperation3(text8, text10, workingValue4, workingValue6)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, flag7, flag8, flag9, workValue3)
+    localValue12(localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3)
   end
-  arg1(arg2, textValue3, textValue5, textValue7, numberValue6)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  textValue3 = arg2
-  arg2 = arg2.Get
-  textValue5 = "cmgmail"
-  textValue7 = "address"
+  localValue1(localValue2, text3, text5, text7, number6)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  text3 = localValue2
+  localValue2 = localValue2.Get
+  text5 = "cmgmail"
+  text7 = "address"
   -- Beginner: result below is menu.
-  arg2 = arg2(textValue3, textValue5, textValue7)
-  textValue3 = true
-  textValue5 = false
-  textValue7 = true
+  localValue2 = localValue2(text3, text5, text7)
+  text3 = true
+  text5 = false
+  text7 = true
 
-  -- === HELPER FUNCTION (decompiler name: numberValue6; parameters: none) ===
-  function numberValue6()
-    local arg12, arg22, flag7, flag8, flag9, workValue3, rageUiCall4, workValue5, textValue11, dataTable3, flag2, workValue
-    arg12 = drawNativeNotification
-    arg22 = "Press ~INPUT_FRONTEND_X~ to search for an address."
+  -- === HELPER FUNCTION (decompiler name: number6; parameters: none) ===
+  function number6()
+    local localValue12, localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3, rageUiOperation4, workingValue5, text11, dataCollection3, stateFlag2, workingValue
+    localValue12 = drawNativeNotification
+    localValue22 = "Press ~INPUT_FRONTEND_X~ to search for an address."
     -- Beginner: Show a GTA-style notification/help prompt.
-    arg12(arg22)
-    arg12 = IsControlJustPressed
-    arg22 = 0
-    flag7 = 203
-    arg12 = arg12(arg22, flag7)
-    if arg12 then
-      arg12 = CMG
-      arg12 = arg12.clientPrompt
-      arg22 = "House Name"
-      flag7 = ""
+    localValue12(localValue22)
+    localValue12 = IsControlJustPressed
+    localValue22 = 0
+    stateFlag7 = 203
+    localValue12 = localValue12(localValue22, stateFlag7)
+    if localValue12 then
+      localValue12 = CMG
+      localValue12 = localValue12.clientPrompt
+      localValue22 = "House Name"
+      stateFlag7 = ""
 
-      -- === HELPER FUNCTION (decompiler name: flag8; parameters: arg13) ===
-      function flag8(arg13)
-        local arg23
-        rageUiCall3 = arg13
+      -- === HELPER FUNCTION (decompiler name: stateFlag8; parameters: localValue13) ===
+      function stateFlag8(localValue13)
+        local localValue23
+        rageUiOperation3 = localValue13
       end
-      arg12(arg22, flag7, flag8)
+      localValue12(localValue22, stateFlag7, stateFlag8)
     end
-    arg12 = pairs
-    arg22 = cmgCall4
-    arg22, flag7, flag8, flag9, workValue3, rageUiCall4, workValue5, textValue11, dataTable3, flag2, workValue = arg22()
-    arg12, arg22, flag7, flag8 = arg12(arg22, flag7, flag8, flag9, workValue3, rageUiCall4, workValue5, textValue11, dataTable3, flag2, workValue)
-    for flag9, workValue3 in arg12, arg22, flag7, flag8 do
-      rageUiCall4 = RageUI
-      rageUiCall4 = rageUiCall4.ButtonWithStyle
-      workValue5 = workValue3
-      textValue11 = ""
-      dataTable3 = {}
-      dataTable3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag2 = true
+    localValue12 = pairs
+    localValue22 = cmgOperation4
+    localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3, rageUiOperation4, workingValue5, text11, dataCollection3, stateFlag2, workingValue = localValue22()
+    localValue12, localValue22, stateFlag7, stateFlag8 = localValue12(localValue22, stateFlag7, stateFlag8, stateFlag9, workingValue3, rageUiOperation4, workingValue5, text11, dataCollection3, stateFlag2, workingValue)
+    for stateFlag9, workingValue3 in localValue12, localValue22, stateFlag7, stateFlag8 do
+      rageUiOperation4 = RageUI
+      rageUiOperation4 = rageUiOperation4.ButtonWithStyle
+      workingValue5 = workingValue3
+      text11 = ""
+      dataCollection3 = {}
+      dataCollection3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag2 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg13, arg23, arg3) ===
-      function workValue(arg13, arg23, arg3)
-        local cmgCall3
-        if arg3 then
-          cmgCall3 = workValue3
-          textValue9 = cmgCall3
-          cmgCall3 = RageUI
-          cmgCall3 = cmgCall3.GoBack
-          cmgCall3()
+      -- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue13, localValue23, localValue3) ===
+      function workingValue(localValue13, localValue23, localValue3)
+        local cmgOperation3
+        if localValue3 then
+          cmgOperation3 = workingValue3
+          text9 = cmgOperation3
+          cmgOperation3 = RageUI
+          cmgOperation3 = cmgOperation3.GoBack
+          cmgOperation3()
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      rageUiCall4(workValue5, textValue11, dataTable3, flag2, workValue)
+      rageUiOperation4(workingValue5, text11, dataCollection3, stateFlag2, workingValue)
     end
   end
-  arg1(arg2, textValue3, textValue5, textValue7, numberValue6)
+  localValue1(localValue2, text3, text5, text7, number6)
 end
-rageUiCall5(rageUiCall6, rageUiCall, rageUiCall2, textValue)
-rageUiCall5 = RegisterNetEvent
-rageUiCall6 = "5a1808605d"
+rageUiOperation5(rageUiOperation6, rageUiOperation, rageUiOperation2, text)
+rageUiOperation5 = RegisterNetEvent
+rageUiOperation6 = "5a1808605d"
 -- Beginner: this function handles network event "5a1808605d".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
-function rageUiCall()
-  local arg1, arg2, textValue3, textValue5, textValue7
-  arg1 = cmgCall2
-  if "" ~= arg1 then
-    arg1 = notify
-    arg2 = "~y~This letter is using saved information from the last write."
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: none) ===
+function rageUiOperation()
+  local localValue1, localValue2, text3, text5, text7
+  localValue1 = cmgOperation2
+  if "" ~= localValue1 then
+    localValue1 = notify
+    localValue2 = "~y~This letter is using saved information from the last write."
     -- Beginner: Show a notification to the player.
-    arg1(arg2)
+    localValue1(localValue2)
   else
-    arg1 = CMG
-    arg1 = arg1.getPlayerName
-    arg2 = PlayerId
-    arg2, textValue3, textValue5, textValue7 = arg2()
-    arg1 = arg1(arg2, textValue3, textValue5, textValue7)
-    textValue6 = arg1
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerName
+    localValue2 = PlayerId
+    localValue2, text3, text5, text7 = localValue2()
+    localValue1 = localValue1(localValue2, text3, text5, text7)
+    text6 = localValue1
   end
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  textValue3 = arg2
-  arg2 = arg2.Get
-  textValue5 = "cmgmail"
-  textValue7 = "write"
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  text3 = localValue2
+  localValue2 = localValue2.Get
+  text5 = "cmgmail"
+  text7 = "write"
   -- Beginner: result below is menu.
-  arg2 = arg2(textValue3, textValue5, textValue7)
-  textValue3 = true
-  arg1(arg2, textValue3)
+  localValue2 = localValue2(text3, text5, text7)
+  text3 = true
+  localValue1(localValue2, text3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5a1808605d".
-rageUiCall5(rageUiCall6, rageUiCall)
+rageUiOperation5(rageUiOperation6, rageUiOperation)

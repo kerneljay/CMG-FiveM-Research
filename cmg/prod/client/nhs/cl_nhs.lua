@@ -32,354 +32,354 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local localEventCall, textValue4, eventRegistration3, rageUiCall, textValue7, cmgCall3, rageUiCall2, rageUiCall3, numberValue10, textValue11, numberValue, workValue2, workValue3, cmgCall, textValue2, textValue3, workValue4, workValue5, workValue6, workValue7, eventRegistration, textValue5, eventRegistration2, textValue6, workValue9
+local localEventCall, text4, eventHandler3, rageUiOperation, text7, cmgOperation3, rageUiOperation2, rageUiOperation3, number10, text11, number, workingValue2, workingValue3, cmgOperation, text2, text3, workingValue4, workingValue5, workingValue6, workingValue7, eventHandler, text5, eventHandler2, text6, workingValue9
 localEventCall = RMenu
 localEventCall = localEventCall.Add
-textValue4 = "nhs"
-eventRegistration3 = "main"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue7 = "NHS"
-cmgCall3 = "Status: ~b~Available"
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3, numberValue10, textValue11, numberValue, workValue2, workValue3, cmgCall, textValue2, textValue3, workValue4, workValue5, workValue6, workValue7, eventRegistration, textValue5, eventRegistration2, textValue6, workValue9 = rageUiCall3()
-rageUiCall, textValue7, cmgCall3, rageUiCall2, rageUiCall3, numberValue10, textValue11, numberValue, workValue2, workValue3, cmgCall, textValue2, textValue3, workValue4, workValue5, workValue6, workValue7, eventRegistration, textValue5, eventRegistration2, textValue6, workValue9 = rageUiCall(textValue7, cmgCall3, rageUiCall2, rageUiCall3, numberValue10, textValue11, numberValue, workValue2, workValue3, cmgCall, textValue2, textValue3, workValue4, workValue5, workValue6, workValue7, eventRegistration, textValue5, eventRegistration2, textValue6, workValue9)
-localEventCall(textValue4, eventRegistration3, rageUiCall, textValue7, cmgCall3, rageUiCall2, rageUiCall3, numberValue10, textValue11, numberValue, workValue2, workValue3, cmgCall, textValue2, textValue3, workValue4, workValue5, workValue6, workValue7, eventRegistration, textValue5, eventRegistration2, textValue6, workValue9)
+text4 = "nhs"
+eventHandler3 = "main"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text7 = "NHS"
+cmgOperation3 = "Status: ~b~Available"
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3, number10, text11, number, workingValue2, workingValue3, cmgOperation, text2, text3, workingValue4, workingValue5, workingValue6, workingValue7, eventHandler, text5, eventHandler2, text6, workingValue9 = rageUiOperation3()
+rageUiOperation, text7, cmgOperation3, rageUiOperation2, rageUiOperation3, number10, text11, number, workingValue2, workingValue3, cmgOperation, text2, text3, workingValue4, workingValue5, workingValue6, workingValue7, eventHandler, text5, eventHandler2, text6, workingValue9 = rageUiOperation(text7, cmgOperation3, rageUiOperation2, rageUiOperation3, number10, text11, number, workingValue2, workingValue3, cmgOperation, text2, text3, workingValue4, workingValue5, workingValue6, workingValue7, eventHandler, text5, eventHandler2, text6, workingValue9)
+localEventCall(text4, eventHandler3, rageUiOperation, text7, cmgOperation3, rageUiOperation2, rageUiOperation3, number10, text11, number, workingValue2, workingValue3, cmgOperation, text2, text3, workingValue4, workingValue5, workingValue6, workingValue7, eventHandler, text5, eventHandler2, text6, workingValue9)
 localEventCall = RegisterKeyMapping
-textValue4 = "nhs"
-eventRegistration3 = "NHS Menu"
-rageUiCall = "keyboard"
-textValue7 = "U"
+text4 = "nhs"
+eventHandler3 = "NHS Menu"
+rageUiOperation = "keyboard"
+text7 = "U"
 -- Beginner: Bind a command to a keyboard/controller key.
-localEventCall(textValue4, eventRegistration3, rageUiCall, textValue7)
+localEventCall(text4, eventHandler3, rageUiOperation, text7)
 localEventCall = TriggerEvent
-textValue4 = "chat:addSuggestion"
-eventRegistration3 = "/nhs"
-rageUiCall = "Toggle the NHS Menu"
+text4 = "chat:addSuggestion"
+eventHandler3 = "/nhs"
+rageUiOperation = "Toggle the NHS Menu"
 -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-localEventCall(textValue4, eventRegistration3, rageUiCall)
+localEventCall(text4, eventHandler3, rageUiOperation)
 localEventCall = 0
-textValue4 = 0
-eventRegistration3 = RegisterNetEvent
-rageUiCall = "ae21bf16d8"
+text4 = 0
+eventHandler3 = RegisterNetEvent
+rageUiOperation = "ae21bf16d8"
 -- Beginner: this function handles network event "ae21bf16d8".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1, arg2) ===
-function textValue7(arg1, arg2)
-  local coords, cmgCall2, textValue8, dataTable
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1, localValue2) ===
+function text7(localValue1, localValue2)
+  local coords, cmgOperation2, text8, dataCollection
   coords = GetEntityCoords
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.getPlayerPed
-  cmgCall2, textValue8, dataTable = cmgCall2()
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.getPlayerPed
+  cmgOperation2, text8, dataCollection = cmgOperation2()
   -- Beginner: result below is entityCoords.
-  coords = coords(cmgCall2, textValue8, dataTable)
-  cmgCall2 = coords - arg1
-  cmgCall2 = #cmgCall2
-  if cmgCall2 <= 15 then
-    textValue8 = SendNUIMessage
-    dataTable = {}
-    dataTable.transactionType = arg2
+  coords = coords(cmgOperation2, text8, dataCollection)
+  cmgOperation2 = coords - localValue1
+  cmgOperation2 = #cmgOperation2
+  if cmgOperation2 <= 15 then
+    text8 = SendNUIMessage
+    dataCollection = {}
+    dataCollection.transactionType = localValue2
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    textValue8(dataTable)
+    text8(dataCollection)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ae21bf16d8".
-eventRegistration3(rageUiCall, textValue7)
-eventRegistration3 = RegisterCommand
-rageUiCall = "nhs"
+eventHandler3(rageUiOperation, text7)
+eventHandler3 = RegisterCommand
+rageUiOperation = "nhs"
 -- Beginner: this function is the command handler for "nhs".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, coords, cmgCall2, textValue8, dataTable, flag5
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "nhs.onduty.permission"
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = CMG
-    arg1 = arg1.hasClientPermission
-    arg2 = "lfb.onduty.permission"
-    arg1 = arg1(arg2)
-    if not arg1 then
-      goto flow_label_40
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "nhs.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.hasClientPermission
+    localValue2 = "lfb.onduty.permission"
+    localValue1 = localValue1(localValue2)
+    if not localValue1 then
+      goto continueAtStep40
     end
   end
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  coords = arg2
-  arg2 = arg2.Get
-  cmgCall2 = "nhs"
-  textValue8 = "main"
-  arg2, coords, cmgCall2, textValue8, dataTable, flag5 = arg2(coords, cmgCall2, textValue8)
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  coords = localValue2
+  localValue2 = localValue2.Get
+  cmgOperation2 = "nhs"
+  text8 = "main"
+  localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5 = localValue2(coords, cmgOperation2, text8)
   -- Beginner: result below is menuVisible.
-  arg1 = arg1(arg2, coords, cmgCall2, textValue8, dataTable, flag5)
-  if not arg1 then
-    arg1 = RageUI
-    arg1 = arg1.Visible
-    arg2 = RMenu
-    coords = arg2
-    arg2 = arg2.Get
-    cmgCall2 = "nhs"
-    textValue8 = "main"
+  localValue1 = localValue1(localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5)
+  if not localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.Visible
+    localValue2 = RMenu
+    coords = localValue2
+    localValue2 = localValue2.Get
+    cmgOperation2 = "nhs"
+    text8 = "main"
     -- Beginner: result below is menu.
-    arg2 = arg2(coords, cmgCall2, textValue8)
+    localValue2 = localValue2(coords, cmgOperation2, text8)
     coords = RageUI
     coords = coords.Visible
-    cmgCall2 = RMenu
-    textValue8 = cmgCall2
-    cmgCall2 = cmgCall2.Get
-    dataTable = "nhs"
-    flag5 = "main"
-    cmgCall2, textValue8, dataTable, flag5 = cmgCall2(textValue8, dataTable, flag5)
+    cmgOperation2 = RMenu
+    text8 = cmgOperation2
+    cmgOperation2 = cmgOperation2.Get
+    dataCollection = "nhs"
+    stateFlag5 = "main"
+    cmgOperation2, text8, dataCollection, stateFlag5 = cmgOperation2(text8, dataCollection, stateFlag5)
     -- Beginner: result below is menuVisible.
-    coords = coords(cmgCall2, textValue8, dataTable, flag5)
+    coords = coords(cmgOperation2, text8, dataCollection, stateFlag5)
     coords = not coords
-    arg1(arg2, coords)
+    localValue1(localValue2, coords)
   end
-  ::flow_label_40::
+  ::continueAtStep40::
 end
-cmgCall3 = false
+cmgOperation3 = false
 -- Beginner: Register a chat/console command. Event/command: "nhs".
-eventRegistration3(rageUiCall, textValue7, cmgCall3)
-eventRegistration3 = {}
-rageUiCall = 126349499
-eventRegistration3[rageUiCall] = true
-rageUiCall = -1554970529
-eventRegistration3[rageUiCall] = true
-rageUiCall = -243142012
-eventRegistration3[rageUiCall] = true
-rageUiCall = 883325847
-eventRegistration3[rageUiCall] = true
-rageUiCall = 101631238
-eventRegistration3[rageUiCall] = true
-rageUiCall = -72657034
-eventRegistration3[rageUiCall] = true
-rageUiCall = 1953687840
-eventRegistration3[rageUiCall] = true
-rageUiCall = 898258641
-eventRegistration3[rageUiCall] = true
-rageUiCall = false
+eventHandler3(rageUiOperation, text7, cmgOperation3)
+eventHandler3 = {}
+rageUiOperation = 126349499
+eventHandler3[rageUiOperation] = true
+rageUiOperation = -1554970529
+eventHandler3[rageUiOperation] = true
+rageUiOperation = -243142012
+eventHandler3[rageUiOperation] = true
+rageUiOperation = 883325847
+eventHandler3[rageUiOperation] = true
+rageUiOperation = 101631238
+eventHandler3[rageUiOperation] = true
+rageUiOperation = -72657034
+eventHandler3[rageUiOperation] = true
+rageUiOperation = 1953687840
+eventHandler3[rageUiOperation] = true
+rageUiOperation = 898258641
+eventHandler3[rageUiOperation] = true
+rageUiOperation = false
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "nhs.onduty.permission"
-  arg1 = arg1(arg2)
-  arg2 = CMG
-  arg2 = arg2.isDevMode
-  arg2 = arg2()
-  if not arg2 then
-    if not arg1 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "nhs.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  localValue2 = CMG
+  localValue2 = localValue2.isDevMode
+  localValue2 = localValue2()
+  if not localValue2 then
+    if not localValue1 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
       coords = "lfb.onduty.permission"
-      arg2 = arg2(coords)
-      if not arg2 then
-        arg2 = CMG
-        arg2 = arg2.hasClientPermission
+      localValue2 = localValue2(coords)
+      if not localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.hasClientPermission
         coords = "aa.onduty.permission"
-        arg2 = arg2(coords)
-        if not arg2 then
-          arg2 = CMG
-          arg2 = arg2.isWorkingInBusiness
-          arg2 = arg2()
-          if not arg2 then
-            goto flow_label_72
+        localValue2 = localValue2(coords)
+        if not localValue2 then
+          localValue2 = CMG
+          localValue2 = localValue2.isWorkingInBusiness
+          localValue2 = localValue2()
+          if not localValue2 then
+            goto continueAtStep72
           end
         end
       end
     end
-    arg2 = rageUiCall
-    if arg2 then
-      arg2 = DrawAdvancedText
+    localValue2 = rageUiOperation
+    if localValue2 then
+      localValue2 = DrawAdvancedText
       coords = 0.971
-      cmgCall2 = 0.914
-      textValue8 = 0.005
-      dataTable = 0.0028
-      flag5 = 0.6
-      textValue9 = "You are off duty"
-      textValue10 = 255
+      cmgOperation2 = 0.914
+      text8 = 0.005
+      dataCollection = 0.0028
+      stateFlag5 = 0.6
+      text9 = "You are off duty"
+      text10 = 255
       mathHelper = 51
-      textValue = 51
-      numberValue2 = 255
-      numberValue3 = 2
-      numberValue4 = 0
-      arg2(coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4)
+      text = 51
+      number2 = 255
+      number3 = 2
+      number4 = 0
+      localValue2(coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4)
     end
-    arg2 = PlayerPedId
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
+    localValue2 = localValue2()
     coords = GetSelectedPedWeapon
-    cmgCall2 = arg2
+    cmgOperation2 = localValue2
     -- Beginner: result below is weaponHash.
-    coords = coords(cmgCall2)
+    coords = coords(cmgOperation2)
     if -1569615261 ~= coords then
-      cmgCall2 = eventRegistration3
-      cmgCall2 = cmgCall2[coords]
-      if not cmgCall2 then
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.hasClientPermission
-        textValue8 = "aa.onduty.permission"
-        cmgCall2 = cmgCall2(textValue8)
-        if cmgCall2 then
-          cmgCall2 = notify
-          textValue8 = "~r~You can not equip a weapon whilst on the Mechanic Job"
+      cmgOperation2 = eventHandler3
+      cmgOperation2 = cmgOperation2[coords]
+      if not cmgOperation2 then
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.hasClientPermission
+        text8 = "aa.onduty.permission"
+        cmgOperation2 = cmgOperation2(text8)
+        if cmgOperation2 then
+          cmgOperation2 = notify
+          text8 = "~r~You can not equip a weapon whilst on the Mechanic Job"
           -- Beginner: Show a notification to the player.
-          cmgCall2(textValue8)
+          cmgOperation2(text8)
         end
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.setWeapon
-        textValue8 = arg2
-        dataTable = -1569615261
-        flag5 = true
-        cmgCall2(textValue8, dataTable, flag5)
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.setWeapon
+        text8 = localValue2
+        dataCollection = -1569615261
+        stateFlag5 = true
+        cmgOperation2(text8, dataCollection, stateFlag5)
       end
     end
   end
-  ::flow_label_72::
-  if arg1 then
-    arg2 = localEventCall
-    if arg2 > 0 then
-      arg2 = localEventCall
+  ::continueAtStep72::
+  if localValue1 then
+    localValue2 = localEventCall
+    if localValue2 > 0 then
+      localValue2 = localEventCall
       coords = GetGameTimer
       -- Beginner: result below is gameTimeMs.
       coords = coords()
-      arg2 = arg2 - coords
-      if arg2 > 0 then
+      localValue2 = localValue2 - coords
+      if localValue2 > 0 then
         coords = DrawAdvancedText
-        cmgCall2 = 0.985
-        textValue8 = 0.805
-        dataTable = 0.005
-        flag5 = 0.0028
-        textValue9 = 0.467
-        textValue10 = "REVIVE COOLDOWN: "
+        cmgOperation2 = 0.985
+        text8 = 0.805
+        dataCollection = 0.005
+        stateFlag5 = 0.0028
+        text9 = 0.467
+        text10 = "REVIVE COOLDOWN: "
         mathHelper = math
         mathHelper = mathHelper.floor
-        textValue = arg2 / 1000
-        mathHelper = mathHelper(textValue)
-        textValue = " seconds"
-        textValue10 = textValue10 .. mathHelper .. textValue
+        text = localValue2 / 1000
+        mathHelper = mathHelper(text)
+        text = " seconds"
+        text10 = text10 .. mathHelper .. text
         mathHelper = 51
-        textValue = 255
-        numberValue2 = 51
-        numberValue3 = 255
-        numberValue4 = 7
-        flag = 0
-        coords(cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag)
+        text = 255
+        number2 = 51
+        number3 = 255
+        number4 = 7
+        stateFlag = 0
+        coords(cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag)
       else
         coords = 0
         localEventCall = coords
       end
     end
-    arg2 = textValue4
-    if arg2 > 0 then
-      arg2 = textValue4
+    localValue2 = text4
+    if localValue2 > 0 then
+      localValue2 = text4
       coords = GetGameTimer
       -- Beginner: result below is gameTimeMs.
       coords = coords()
-      arg2 = arg2 - coords
-      if arg2 > 0 then
+      localValue2 = localValue2 - coords
+      if localValue2 > 0 then
         coords = DrawAdvancedText
-        cmgCall2 = 0.985
-        textValue8 = 0.845
-        dataTable = 0.005
-        flag5 = 0.0028
-        textValue9 = 0.467
-        textValue10 = "BODYBAG COOLDOWN: "
+        cmgOperation2 = 0.985
+        text8 = 0.845
+        dataCollection = 0.005
+        stateFlag5 = 0.0028
+        text9 = 0.467
+        text10 = "BODYBAG COOLDOWN: "
         mathHelper = math
         mathHelper = mathHelper.floor
-        textValue = arg2 / 1000
-        mathHelper = mathHelper(textValue)
-        textValue = " seconds"
-        textValue10 = textValue10 .. mathHelper .. textValue
+        text = localValue2 / 1000
+        mathHelper = mathHelper(text)
+        text = " seconds"
+        text10 = text10 .. mathHelper .. text
         mathHelper = 51
-        textValue = 255
-        numberValue2 = 51
-        numberValue3 = 255
-        numberValue4 = 7
-        flag = 0
-        coords(cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag)
+        text = 255
+        number2 = 51
+        number3 = 255
+        number4 = 7
+        stateFlag = 0
+        coords(cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag)
       else
         coords = 0
-        textValue4 = coords
+        text4 = coords
       end
     end
   end
 end
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.createThreadOnTick
-rageUiCall2 = textValue7
-rageUiCall3 = "NHS Weapon Whitelisting"
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.createThreadOnTick
+rageUiOperation2 = text7
+rageUiOperation3 = "NHS Weapon Whitelisting"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall3(rageUiCall2, rageUiCall3)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.loadModule
-rageUiCall2 = "cfg/cfg_garages"
+cmgOperation3(rageUiOperation2, rageUiOperation3)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.loadModule
+rageUiOperation2 = "cfg/cfg_garages"
 -- Beginner: result below is config.
-cmgCall3 = cmgCall3(rageUiCall2)
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.loadModule
-rageUiCall3 = "cfg/cfg_stretcher"
+cmgOperation3 = cmgOperation3(rageUiOperation2)
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.loadModule
+rageUiOperation3 = "cfg/cfg_stretcher"
 -- Beginner: result below is config.
-rageUiCall2 = rageUiCall2(rageUiCall3)
-if not rageUiCall2 then
-  rageUiCall2 = {}
+rageUiOperation2 = rageUiOperation2(rageUiOperation3)
+if not rageUiOperation2 then
+  rageUiOperation2 = {}
 end
 
--- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: arg1) ===
-function rageUiCall3(arg1)
-  local arg2, coords, cmgCall2
-  if 0 ~= arg1 then
-    arg2 = IsEntityAVehicle
-    coords = arg1
-    arg2 = arg2(coords)
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: rageUiOperation3; parameters: localValue1) ===
+function rageUiOperation3(localValue1)
+  local localValue2, coords, cmgOperation2
+  if 0 ~= localValue1 then
+    localValue2 = IsEntityAVehicle
+    coords = localValue1
+    localValue2 = localValue2(coords)
+    if localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_10::
-  arg2 = GetEntityModel
-  coords = arg1
+  localValue2 = false
+  return localValue2
+  ::continueAtStep10::
+  localValue2 = GetEntityModel
+  coords = localValue1
   -- Beginner: result below is modelHash.
-  arg2 = arg2(coords)
-  if -956048545 == arg2 then
+  localValue2 = localValue2(coords)
+  if -956048545 == localValue2 then
     coords = true
     return coords
   end
-  coords = rageUiCall2.stretcherModels
+  coords = rageUiOperation2.stretcherModels
   if coords then
-    coords = rageUiCall2.stretcherModels
-    coords = coords[arg2]
+    coords = rageUiOperation2.stretcherModels
+    coords = coords[localValue2]
     if coords then
       coords = true
       return coords
@@ -387,1920 +387,1920 @@ function rageUiCall3(arg1)
   end
   coords = CMG
   coords = coords.getVehicleIdFromModel
-  cmgCall2 = arg2
-  coords = coords(cmgCall2)
+  cmgOperation2 = localValue2
+  coords = coords(cmgOperation2)
   if coords then
-    cmgCall2 = cmgCall3.garages
-    if cmgCall2 then
-      cmgCall2 = cmgCall3.garages
-      cmgCall2 = cmgCall2["Health Service Vehicles"]
-      if cmgCall2 then
-        cmgCall2 = cmgCall3.garages
-        cmgCall2 = cmgCall2["Health Service Vehicles"]
-        cmgCall2 = cmgCall2[coords]
-        if cmgCall2 then
-          cmgCall2 = true
-          return cmgCall2
+    cmgOperation2 = cmgOperation3.garages
+    if cmgOperation2 then
+      cmgOperation2 = cmgOperation3.garages
+      cmgOperation2 = cmgOperation2["Health Service Vehicles"]
+      if cmgOperation2 then
+        cmgOperation2 = cmgOperation3.garages
+        cmgOperation2 = cmgOperation2["Health Service Vehicles"]
+        cmgOperation2 = cmgOperation2[coords]
+        if cmgOperation2 then
+          cmgOperation2 = true
+          return cmgOperation2
         end
       end
-      cmgCall2 = cmgCall3.garages
-      cmgCall2 = cmgCall2["Health Service Helicopters"]
-      if cmgCall2 then
-        cmgCall2 = cmgCall3.garages
-        cmgCall2 = cmgCall2["Health Service Helicopters"]
-        cmgCall2 = cmgCall2[coords]
-        if cmgCall2 then
-          cmgCall2 = true
-          return cmgCall2
+      cmgOperation2 = cmgOperation3.garages
+      cmgOperation2 = cmgOperation2["Health Service Helicopters"]
+      if cmgOperation2 then
+        cmgOperation2 = cmgOperation3.garages
+        cmgOperation2 = cmgOperation2["Health Service Helicopters"]
+        cmgOperation2 = cmgOperation2[coords]
+        if cmgOperation2 then
+          cmgOperation2 = true
+          return cmgOperation2
         end
       end
     end
   end
-  cmgCall2 = false
-  return cmgCall2
+  cmgOperation2 = false
+  return cmgOperation2
 end
-numberValue10 = 0
-textValue11 = "~r~You can only use HS vehicles whilst clocked on."
-numberValue = 0
+number10 = 0
+text11 = "~r~You can only use HS vehicles whilst clocked on."
+number = 0
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
-function workValue2(arg1)
-  local arg2, coords, cmgCall2, textValue8
-  if 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    coords = arg1
-    arg2 = arg2(coords)
-    if arg2 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1) ===
+function workingValue2(localValue1)
+  local localValue2, coords, cmgOperation2, text8
+  if 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    coords = localValue1
+    localValue2 = localValue2(coords)
+    if localValue2 then
+      goto continueAtStep9
     end
   end
   return
-  ::flow_label_9::
-  arg2 = NetworkRequestControlOfEntity
-  coords = arg1
-  arg2(coords)
-  arg2 = NetworkHasControlOfEntity
-  coords = arg1
-  arg2 = arg2(coords)
-  if arg2 then
-    arg2 = SetEntityAsMissionEntity
-    coords = arg1
-    cmgCall2 = true
-    textValue8 = true
-    arg2(coords, cmgCall2, textValue8)
-    arg2 = DeleteEntity
-    coords = arg1
+  ::continueAtStep9::
+  localValue2 = NetworkRequestControlOfEntity
+  coords = localValue1
+  localValue2(coords)
+  localValue2 = NetworkHasControlOfEntity
+  coords = localValue1
+  localValue2 = localValue2(coords)
+  if localValue2 then
+    localValue2 = SetEntityAsMissionEntity
+    coords = localValue1
+    cmgOperation2 = true
+    text8 = true
+    localValue2(coords, cmgOperation2, text8)
+    localValue2 = DeleteEntity
+    coords = localValue1
     -- Beginner: Delete a GTA entity.
-    arg2(coords)
+    localValue2(coords)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-function workValue3()
-  local arg1, arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2
-  arg1 = numberValue
-  if 0 ~= arg1 then
-    arg1 = numberValue
-    arg2 = DoesEntityExist
-    coords = arg1
-    arg2 = arg2(coords)
-    if not arg2 then
-      arg2 = 0
-      numberValue = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+function workingValue3()
+  local localValue1, localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2
+  localValue1 = number
+  if 0 ~= localValue1 then
+    localValue1 = number
+    localValue2 = DoesEntityExist
+    coords = localValue1
+    localValue2 = localValue2(coords)
+    if not localValue2 then
+      localValue2 = 0
+      number = localValue2
     else
-      arg2 = workValue2
-      coords = arg1
-      arg2(coords)
-      arg2 = DoesEntityExist
-      coords = arg1
-      arg2 = arg2(coords)
-      if not arg2 then
-        arg2 = 0
-        numberValue = arg2
+      localValue2 = workingValue2
+      coords = localValue1
+      localValue2(coords)
+      localValue2 = DoesEntityExist
+      coords = localValue1
+      localValue2 = localValue2(coords)
+      if not localValue2 then
+        localValue2 = 0
+        number = localValue2
       end
     end
   end
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "nhs.onduty.permission"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.hasClientPermission
-    arg2 = "doctor.permission"
-    arg1 = arg1(arg2)
-    if not arg1 then
-      goto flow_label_36
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "nhs.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.hasClientPermission
+    localValue2 = "doctor.permission"
+    localValue1 = localValue1(localValue2)
+    if not localValue1 then
+      goto continueAtStep36
     end
   end
   return
-  ::flow_label_36::
-  arg1 = CMG
-  arg1 = arg1.isJobTutorialRunning
-  arg1 = arg1()
-  if arg1 then
+  ::continueAtStep36::
+  localValue1 = CMG
+  localValue1 = localValue1.isJobTutorialRunning
+  localValue1 = localValue1()
+  if localValue1 then
     return
   end
-  arg1 = PlayerPedId
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetVehiclePedIsEntering
-  coords = arg1
-  arg2 = arg2(coords)
-  if 0 ~= arg2 then
-    coords = rageUiCall3
-    cmgCall2 = arg2
-    coords = coords(cmgCall2)
+  localValue1 = localValue1()
+  localValue2 = GetVehiclePedIsEntering
+  coords = localValue1
+  localValue2 = localValue2(coords)
+  if 0 ~= localValue2 then
+    coords = rageUiOperation3
+    cmgOperation2 = localValue2
+    coords = coords(cmgOperation2)
     if not coords then
       coords = ClearPedTasks
-      cmgCall2 = arg1
-      coords(cmgCall2)
+      cmgOperation2 = localValue1
+      coords(cmgOperation2)
       coords = notify
-      cmgCall2 = textValue11
+      cmgOperation2 = text11
       -- Beginner: Show a notification to the player.
-      coords(cmgCall2)
+      coords(cmgOperation2)
     end
   end
   coords = GetVehiclePedIsIn
-  cmgCall2 = arg1
-  textValue8 = false
+  cmgOperation2 = localValue1
+  text8 = false
   -- Beginner: result below is currentVehicle.
-  coords = coords(cmgCall2, textValue8)
+  coords = coords(cmgOperation2, text8)
   if 0 ~= coords then
-    cmgCall2 = rageUiCall3
-    textValue8 = coords
-    cmgCall2 = cmgCall2(textValue8)
-    if not cmgCall2 then
-      cmgCall2 = GetPedInVehicleSeat
-      textValue8 = coords
-      dataTable = -1
-      cmgCall2 = cmgCall2(textValue8, dataTable)
-      cmgCall2 = cmgCall2 == arg1
-      textValue8 = GetOffsetFromEntityInWorldCoords
-      dataTable = coords
-      flag5 = 1.8
-      textValue9 = 0.0
-      textValue10 = 0.3
-      textValue8 = textValue8(dataTable, flag5, textValue9, textValue10)
-      dataTable = GetGroundZFor_3dCoord
-      flag5 = textValue8.x
-      textValue9 = textValue8.y
-      textValue10 = textValue8.z
-      textValue10 = textValue10 + 1.0
+    cmgOperation2 = rageUiOperation3
+    text8 = coords
+    cmgOperation2 = cmgOperation2(text8)
+    if not cmgOperation2 then
+      cmgOperation2 = GetPedInVehicleSeat
+      text8 = coords
+      dataCollection = -1
+      cmgOperation2 = cmgOperation2(text8, dataCollection)
+      cmgOperation2 = cmgOperation2 == localValue1
+      text8 = GetOffsetFromEntityInWorldCoords
+      dataCollection = coords
+      stateFlag5 = 1.8
+      text9 = 0.0
+      text10 = 0.3
+      text8 = text8(dataCollection, stateFlag5, text9, text10)
+      dataCollection = GetGroundZFor_3dCoord
+      stateFlag5 = text8.x
+      text9 = text8.y
+      text10 = text8.z
+      text10 = text10 + 1.0
       mathHelper = 0
-      textValue = false
-      dataTable, flag5 = dataTable(flag5, textValue9, textValue10, mathHelper, textValue)
-      if dataTable and flag5 > 0.0 then
-        textValue9 = flag5 + 0.5
-        if textValue9 then
-          goto flow_label_105
+      text = false
+      dataCollection, stateFlag5 = dataCollection(stateFlag5, text9, text10, mathHelper, text)
+      if dataCollection and stateFlag5 > 0.0 then
+        text9 = stateFlag5 + 0.5
+        if text9 then
+          goto continueAtStep105
         end
       end
-      textValue9 = textValue8.z
-      textValue9 = textValue9 + 0.5
-      ::flow_label_105::
-      textValue10 = SetEntityCoordsNoOffset
-      mathHelper = arg1
-      textValue = textValue8.x
-      numberValue2 = textValue8.y
-      numberValue3 = textValue9
-      numberValue4 = false
-      flag = false
-      flag2 = false
+      text9 = text8.z
+      text9 = text9 + 0.5
+      ::continueAtStep105::
+      text10 = SetEntityCoordsNoOffset
+      mathHelper = localValue1
+      text = text8.x
+      number2 = text8.y
+      number3 = text9
+      number4 = false
+      stateFlag = false
+      stateFlag2 = false
       -- Beginner: Move/teleport an entity to new coordinates.
-      textValue10(mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2)
-      textValue10 = ClearPedTasksImmediately
-      mathHelper = arg1
-      textValue10(mathHelper)
-      if cmgCall2 then
-        numberValue = coords
-        textValue10 = workValue2
+      text10(mathHelper, text, number2, number3, number4, stateFlag, stateFlag2)
+      text10 = ClearPedTasksImmediately
+      mathHelper = localValue1
+      text10(mathHelper)
+      if cmgOperation2 then
+        number = coords
+        text10 = workingValue2
         mathHelper = coords
-        textValue10(mathHelper)
-        textValue10 = DoesEntityExist
+        text10(mathHelper)
+        text10 = DoesEntityExist
         mathHelper = coords
-        textValue10 = textValue10(mathHelper)
-        if not textValue10 then
-          textValue10 = 0
-          numberValue = textValue10
+        text10 = text10(mathHelper)
+        if not text10 then
+          text10 = 0
+          number = text10
         end
       end
-      textValue10 = GetGameTimer
+      text10 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      textValue10 = textValue10()
-      mathHelper = numberValue10
-      if textValue10 >= mathHelper then
-        mathHelper = textValue10 + 4000
-        numberValue10 = mathHelper
+      text10 = text10()
+      mathHelper = number10
+      if text10 >= mathHelper then
+        mathHelper = text10 + 4000
+        number10 = mathHelper
         mathHelper = notify
-        textValue = textValue11
+        text = text11
         -- Beginner: Show a notification to the player.
-        mathHelper(textValue)
+        mathHelper(text)
       end
     end
   end
 end
-cmgCall = CMG
-cmgCall = cmgCall.createThreadOnTick
-textValue2 = workValue3
-textValue3 = "NHS Vehicle Restrict"
+cmgOperation = CMG
+cmgOperation = cmgOperation.createThreadOnTick
+text2 = workingValue3
+text3 = "NHS Vehicle Restrict"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall(textValue2, textValue3)
-cmgCall = RegisterNetEvent
-textValue2 = "767e50aac4"
+cmgOperation(text2, text3)
+cmgOperation = RegisterNetEvent
+text2 = "767e50aac4"
 -- Beginner: this function handles network event "767e50aac4".
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2
-  rageUiCall = arg1
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2
+  rageUiOperation = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "767e50aac4".
-cmgCall(textValue2, textValue3)
-cmgCall = {}
-cmgCall.running = false
-cmgCall.cancelled = false
+cmgOperation(text2, text3)
+cmgOperation = {}
+cmgOperation.running = false
+cmgOperation.cancelled = false
 -- Beginner: this function handles network event "767e50aac4".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2
-  arg2 = arg1.isMedicTrained
-  if arg2 then
-    arg2 = "mini@cpr@char_b@cpr_def"
-    if arg2 then
-      goto flow_label_8
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2
+  localValue2 = localValue1.isMedicTrained
+  if localValue2 then
+    localValue2 = "mini@cpr@char_b@cpr_def"
+    if localValue2 then
+      goto continueAtStep8
     end
   end
-  arg2 = "mini@cpr@char_b@cpr_str"
-  ::flow_label_8::
-  coords = arg1.isMedicTrained
+  localValue2 = "mini@cpr@char_b@cpr_str"
+  ::continueAtStep8::
+  coords = localValue1.isMedicTrained
   if coords then
     coords = "cpr_intro"
     if coords then
-      goto flow_label_15
+      goto continueAtStep15
     end
   end
   coords = "cpr_pumpchest"
-  ::flow_label_15::
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue8 = arg2
+  ::continueAtStep15::
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text8 = localValue2
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue8)
-  cmgCall2 = arg1.sceneX
-  textValue8 = arg1.sceneY
-  dataTable = GetAnimInitialOffsetPosition
-  flag5 = arg2
-  textValue9 = coords
-  textValue10 = cmgCall2
-  mathHelper = textValue8
-  textValue = arg1.sceneZ
-  numberValue2 = 0.0
-  numberValue3 = 0.0
-  numberValue4 = arg1.sceneHeading
-  flag = 2
-  flag2 = 2
-  dataTable = dataTable(flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2)
-  flag5 = dataTable.x
-  flag5 = flag5 - cmgCall2
-  flag5 = cmgCall2 - flag5
-  arg1.sceneX = flag5
-  flag5 = dataTable.y
-  flag5 = flag5 - textValue8
-  flag5 = textValue8 - flag5
-  arg1.sceneY = flag5
+  cmgOperation2(text8)
+  cmgOperation2 = localValue1.sceneX
+  text8 = localValue1.sceneY
+  dataCollection = GetAnimInitialOffsetPosition
+  stateFlag5 = localValue2
+  text9 = coords
+  text10 = cmgOperation2
+  mathHelper = text8
+  text = localValue1.sceneZ
+  number2 = 0.0
+  number3 = 0.0
+  number4 = localValue1.sceneHeading
+  stateFlag = 2
+  stateFlag2 = 2
+  dataCollection = dataCollection(stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2)
+  stateFlag5 = dataCollection.x
+  stateFlag5 = stateFlag5 - cmgOperation2
+  stateFlag5 = cmgOperation2 - stateFlag5
+  localValue1.sceneX = stateFlag5
+  stateFlag5 = dataCollection.y
+  stateFlag5 = stateFlag5 - text8
+  stateFlag5 = text8 - stateFlag5
+  localValue1.sceneY = stateFlag5
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2
-  arg2 = true
-  coords = arg1.holdLastFrame
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2
+  localValue2 = true
+  coords = localValue1.holdLastFrame
   if false == coords then
-    arg2 = false
+    localValue2 = false
   end
-  coords = arg1.speed
+  coords = localValue1.speed
   if not coords then
     coords = 1.0
   end
-  cmgCall2 = NetworkCreateSynchronisedScene
-  textValue8 = arg1.x
-  dataTable = arg1.y
-  flag5 = arg1.z
-  textValue9 = 0.0
-  textValue10 = 0.0
-  mathHelper = arg1.heading
-  textValue = 2
-  numberValue2 = arg2
-  numberValue3 = false
-  numberValue4 = 1065353216
-  flag = 0
-  flag2 = coords
-  cmgCall2 = cmgCall2(textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2)
-  textValue8 = NetworkAddPedToSynchronisedScene
-  dataTable = arg1.ped
-  flag5 = cmgCall2
-  textValue9 = arg1.animDict
-  textValue10 = arg1.anim
+  cmgOperation2 = NetworkCreateSynchronisedScene
+  text8 = localValue1.x
+  dataCollection = localValue1.y
+  stateFlag5 = localValue1.z
+  text9 = 0.0
+  text10 = 0.0
+  mathHelper = localValue1.heading
+  text = 2
+  number2 = localValue2
+  number3 = false
+  number4 = 1065353216
+  stateFlag = 0
+  stateFlag2 = coords
+  cmgOperation2 = cmgOperation2(text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2)
+  text8 = NetworkAddPedToSynchronisedScene
+  dataCollection = localValue1.ped
+  stateFlag5 = cmgOperation2
+  text9 = localValue1.animDict
+  text10 = localValue1.anim
   mathHelper = 8.0
-  textValue = -8.0
-  numberValue2 = 0
-  numberValue3 = 0
-  numberValue4 = 1000.0
-  flag = 0
-  textValue8(dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag)
-  textValue8 = NetworkStartSynchronisedScene
-  dataTable = cmgCall2
-  textValue8(dataTable)
-  textValue8 = arg1.endEarlyMs
-  if textValue8 then
-    textValue8 = math
-    textValue8 = textValue8.floor
-    dataTable = GetAnimDuration
-    flag5 = arg1.animDict
-    textValue9 = arg1.anim
-    dataTable = dataTable(flag5, textValue9)
-    dataTable = dataTable * 1000
-    textValue8 = textValue8(dataTable)
-    dataTable = arg1.endEarlyMs
-    dataTable = textValue8 - dataTable
-    if dataTable < 0 then
-      dataTable = 0
+  text = -8.0
+  number2 = 0
+  number3 = 0
+  number4 = 1000.0
+  stateFlag = 0
+  text8(dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag)
+  text8 = NetworkStartSynchronisedScene
+  dataCollection = cmgOperation2
+  text8(dataCollection)
+  text8 = localValue1.endEarlyMs
+  if text8 then
+    text8 = math
+    text8 = text8.floor
+    dataCollection = GetAnimDuration
+    stateFlag5 = localValue1.animDict
+    text9 = localValue1.anim
+    dataCollection = dataCollection(stateFlag5, text9)
+    dataCollection = dataCollection * 1000
+    text8 = text8(dataCollection)
+    dataCollection = localValue1.endEarlyMs
+    dataCollection = text8 - dataCollection
+    if dataCollection < 0 then
+      dataCollection = 0
     end
-    flag5 = 0
-    while dataTable > flag5 do
-      textValue9 = cmgCall.cancelled
-      if textValue9 then
+    stateFlag5 = 0
+    while dataCollection > stateFlag5 do
+      text9 = cmgOperation.cancelled
+      if text9 then
         break
       end
-      textValue9 = math
-      textValue9 = textValue9.min
-      textValue10 = 100
-      mathHelper = dataTable - flag5
-      textValue9 = textValue9(textValue10, mathHelper)
-      textValue10 = Wait
-      mathHelper = textValue9
-      textValue10(mathHelper)
-      flag5 = flag5 + textValue9
+      text9 = math
+      text9 = text9.min
+      text10 = 100
+      mathHelper = dataCollection - stateFlag5
+      text9 = text9(text10, mathHelper)
+      text10 = Wait
+      mathHelper = text9
+      text10(mathHelper)
+      stateFlag5 = stateFlag5 + text9
     end
-    return cmgCall2
+    return cmgOperation2
   end
-  textValue8 = arg1.chainPhase
-  if not textValue8 then
-    textValue8 = 0.92
+  text8 = localValue1.chainPhase
+  if not text8 then
+    text8 = 0.92
   end
-  dataTable = GetGameTimer
+  dataCollection = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  dataTable = dataTable()
-  flag5 = math
-  flag5 = flag5.floor
-  textValue9 = GetAnimDuration
-  textValue10 = arg1.animDict
-  mathHelper = arg1.anim
-  textValue9 = textValue9(textValue10, mathHelper)
-  textValue9 = textValue9 * 1000
-  textValue9 = textValue9 + 250
-  flag5 = flag5(textValue9)
-  dataTable = dataTable + flag5
+  dataCollection = dataCollection()
+  stateFlag5 = math
+  stateFlag5 = stateFlag5.floor
+  text9 = GetAnimDuration
+  text10 = localValue1.animDict
+  mathHelper = localValue1.anim
+  text9 = text9(text10, mathHelper)
+  text9 = text9 * 1000
+  text9 = text9 + 250
+  stateFlag5 = stateFlag5(text9)
+  dataCollection = dataCollection + stateFlag5
   while true do
-    flag5 = GetGameTimer
+    stateFlag5 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    flag5 = flag5()
-    if not (dataTable > flag5) then
+    stateFlag5 = stateFlag5()
+    if not (dataCollection > stateFlag5) then
       break
     end
-    flag5 = cmgCall.cancelled
-    if flag5 then
+    stateFlag5 = cmgOperation.cancelled
+    if stateFlag5 then
       break
     end
-    flag5 = NetworkGetLocalSceneFromNetworkId
-    textValue9 = cmgCall2
-    flag5 = flag5(textValue9)
-    if -1 ~= flag5 then
-      textValue9 = GetSynchronizedScenePhase
-      textValue10 = flag5
-      textValue9 = textValue9(textValue10)
-      if textValue8 <= textValue9 then
+    stateFlag5 = NetworkGetLocalSceneFromNetworkId
+    text9 = cmgOperation2
+    stateFlag5 = stateFlag5(text9)
+    if -1 ~= stateFlag5 then
+      text9 = GetSynchronizedScenePhase
+      text10 = stateFlag5
+      text9 = text9(text10)
+      if text8 <= text9 then
         break
       end
     end
-    textValue9 = Wait
-    textValue10 = 0
-    textValue9(textValue10)
+    text9 = Wait
+    text10 = 0
+    text9(text10)
   end
-  return cmgCall2
+  return cmgOperation2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag
   coords = PlayerPedId
   -- Beginner: result below is localPlayerPed.
   coords = coords()
-  cmgCall2 = math
-  cmgCall2 = cmgCall2.max
-  textValue8 = 0
-  dataTable = math
-  dataTable = dataTable.min
-  flag5 = 3
-  textValue9 = arg1.cprPumpReduction
-  if not textValue9 then
-    textValue9 = 0
+  cmgOperation2 = math
+  cmgOperation2 = cmgOperation2.max
+  text8 = 0
+  dataCollection = math
+  dataCollection = dataCollection.min
+  stateFlag5 = 3
+  text9 = localValue1.cprPumpReduction
+  if not text9 then
+    text9 = 0
   end
-  dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag = dataTable(flag5, textValue9)
-  cmgCall2 = cmgCall2(textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag)
-  textValue8 = math
-  textValue8 = textValue8.max
-  dataTable = 1
-  flag5 = arg1.isMedicTrained
-  if flag5 then
-    flag5 = 8
-    if flag5 then
-      goto flow_label_25
+  dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag = dataCollection(stateFlag5, text9)
+  cmgOperation2 = cmgOperation2(text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag)
+  text8 = math
+  text8 = text8.max
+  dataCollection = 1
+  stateFlag5 = localValue1.isMedicTrained
+  if stateFlag5 then
+    stateFlag5 = 8
+    if stateFlag5 then
+      goto continueAtStep25
     end
   end
-  flag5 = 16
-  ::flow_label_25::
-  flag5 = flag5 - cmgCall2
-  textValue8 = textValue8(dataTable, flag5)
-  dataTable = CMG
-  dataTable = dataTable.loadAnimDict
-  flag5 = "mini@cpr@char_a@cpr_def"
+  stateFlag5 = 16
+  ::continueAtStep25::
+  stateFlag5 = stateFlag5 - cmgOperation2
+  text8 = text8(dataCollection, stateFlag5)
+  dataCollection = CMG
+  dataCollection = dataCollection.loadAnimDict
+  stateFlag5 = "mini@cpr@char_a@cpr_def"
   -- Beginner: Load a GTA animation dictionary before using it.
-  dataTable(flag5)
-  dataTable = CMG
-  dataTable = dataTable.loadAnimDict
-  flag5 = "mini@cpr@char_a@cpr_str"
-  dataTable(flag5)
-  dataTable = ClearPedTasksImmediately
-  flag5 = coords
-  dataTable(flag5)
-  dataTable = FreezeEntityPosition
-  flag5 = coords
-  textValue9 = true
+  dataCollection(stateFlag5)
+  dataCollection = CMG
+  dataCollection = dataCollection.loadAnimDict
+  stateFlag5 = "mini@cpr@char_a@cpr_str"
+  dataCollection(stateFlag5)
+  dataCollection = ClearPedTasksImmediately
+  stateFlag5 = coords
+  dataCollection(stateFlag5)
+  dataCollection = FreezeEntityPosition
+  stateFlag5 = coords
+  text9 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  dataTable(flag5, textValue9)
-  dataTable = nil
-  flag5 = arg1.isMedicTrained
-  if flag5 then
-    flag5 = CMG
-    flag5 = flag5.requestEntitySpawn
-    textValue9 = "cpr_medicbag"
-    flag5(textValue9)
-    flag5 = GetOffsetFromEntityInWorldCoords
-    textValue9 = coords
-    textValue10 = 0.5
+  dataCollection(stateFlag5, text9)
+  dataCollection = nil
+  stateFlag5 = localValue1.isMedicTrained
+  if stateFlag5 then
+    stateFlag5 = CMG
+    stateFlag5 = stateFlag5.requestEntitySpawn
+    text9 = "cpr_medicbag"
+    stateFlag5(text9)
+    stateFlag5 = GetOffsetFromEntityInWorldCoords
+    text9 = coords
+    text10 = 0.5
     mathHelper = 0.5
-    textValue = 0.0
-    flag5 = flag5(textValue9, textValue10, mathHelper, textValue)
-    textValue9 = CMG
-    textValue9 = textValue9.loadModel
-    textValue10 = -2140074399
+    text = 0.0
+    stateFlag5 = stateFlag5(text9, text10, mathHelper, text)
+    text9 = CMG
+    text9 = text9.loadModel
+    text10 = -2140074399
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    textValue9(textValue10)
-    textValue9 = CreateObject
-    textValue10 = -2140074399
-    mathHelper = flag5.x
-    textValue = flag5.y
-    numberValue2 = flag5.z
-    numberValue3 = true
-    numberValue4 = true
-    flag = false
+    text9(text10)
+    text9 = CreateObject
+    text10 = -2140074399
+    mathHelper = stateFlag5.x
+    text = stateFlag5.y
+    number2 = stateFlag5.z
+    number3 = true
+    number4 = true
+    stateFlag = false
     -- Beginner: result below is objectEntity.
-    textValue9 = textValue9(textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag)
-    dataTable = textValue9
-    textValue9 = PlaceObjectOnGroundProperly
-    textValue10 = dataTable
-    textValue9(textValue10)
-    textValue9 = SetModelAsNoLongerNeeded
-    textValue10 = -2140074399
-    textValue9(textValue10)
+    text9 = text9(text10, mathHelper, text, number2, number3, number4, stateFlag)
+    dataCollection = text9
+    text9 = PlaceObjectOnGroundProperly
+    text10 = dataCollection
+    text9(text10)
+    text9 = SetModelAsNoLongerNeeded
+    text10 = -2140074399
+    text9(text10)
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag5; parameters: none) ===
-  function flag5()
-    local workValue, workValue8
-    workValue = cmgCall.cancelled
-    if workValue then
-      workValue = dataTable
-      if workValue then
-        workValue = DoesEntityExist
-        workValue8 = dataTable
-        workValue = workValue(workValue8)
-        if workValue then
-          workValue = DeleteEntity
-          workValue8 = dataTable
+  -- === HELPER FUNCTION (decompiler name: stateFlag5; parameters: none) ===
+  function stateFlag5()
+    local workingValue, workingValue8
+    workingValue = cmgOperation.cancelled
+    if workingValue then
+      workingValue = dataCollection
+      if workingValue then
+        workingValue = DoesEntityExist
+        workingValue8 = dataCollection
+        workingValue = workingValue(workingValue8)
+        if workingValue then
+          workingValue = DeleteEntity
+          workingValue8 = dataCollection
           -- Beginner: Delete a GTA entity.
-          workValue(workValue8)
+          workingValue(workingValue8)
         end
       end
-      workValue = true
-      return workValue
+      workingValue = true
+      return workingValue
     end
-    workValue = false
-    return workValue
+    workingValue = false
+    return workingValue
   end
-  textValue9 = arg1.isMedicTrained
-  if textValue9 then
-    textValue9 = textValue3
-    textValue10 = {}
-    textValue10.ped = coords
-    mathHelper = arg1.sceneX
-    textValue10.x = mathHelper
-    mathHelper = arg1.sceneY
-    textValue10.y = mathHelper
-    mathHelper = arg1.sceneZ
-    textValue10.z = mathHelper
-    mathHelper = arg1.sceneHeading
-    textValue10.heading = mathHelper
-    textValue10.animDict = "mini@cpr@char_a@cpr_def"
-    textValue10.anim = "cpr_intro"
-    textValue10.chainPhase = 0.98
-    textValue10.holdLastFrame = true
-    textValue9(textValue10)
-    textValue9 = flag5
-    textValue9 = textValue9()
-    if textValue9 then
+  text9 = localValue1.isMedicTrained
+  if text9 then
+    text9 = text3
+    text10 = {}
+    text10.ped = coords
+    mathHelper = localValue1.sceneX
+    text10.x = mathHelper
+    mathHelper = localValue1.sceneY
+    text10.y = mathHelper
+    mathHelper = localValue1.sceneZ
+    text10.z = mathHelper
+    mathHelper = localValue1.sceneHeading
+    text10.heading = mathHelper
+    text10.animDict = "mini@cpr@char_a@cpr_def"
+    text10.anim = "cpr_intro"
+    text10.chainPhase = 0.98
+    text10.holdLastFrame = true
+    text9(text10)
+    text9 = stateFlag5
+    text9 = text9()
+    if text9 then
       return
     end
-    textValue9 = 1
-    textValue10 = textValue8
+    text9 = 1
+    text10 = text8
     mathHelper = 1
-    for textValue = textValue9, textValue10, mathHelper do
-      numberValue2 = textValue3
-      numberValue3 = {}
-      numberValue3.ped = coords
-      numberValue4 = arg1.sceneX
-      numberValue3.x = numberValue4
-      numberValue4 = arg1.sceneY
-      numberValue3.y = numberValue4
-      numberValue4 = arg1.sceneZ
-      numberValue3.z = numberValue4
-      numberValue4 = arg1.sceneHeading
-      numberValue3.heading = numberValue4
-      numberValue3.animDict = "mini@cpr@char_a@cpr_str"
-      numberValue3.anim = "cpr_pumpchest"
-      numberValue3.chainPhase = 0.9
-      numberValue3.holdLastFrame = true
-      numberValue2(numberValue3)
-      numberValue2 = flag5
-      numberValue2 = numberValue2()
-      if numberValue2 then
+    for text = text9, text10, mathHelper do
+      number2 = text3
+      number3 = {}
+      number3.ped = coords
+      number4 = localValue1.sceneX
+      number3.x = number4
+      number4 = localValue1.sceneY
+      number3.y = number4
+      number4 = localValue1.sceneZ
+      number3.z = number4
+      number4 = localValue1.sceneHeading
+      number3.heading = number4
+      number3.animDict = "mini@cpr@char_a@cpr_str"
+      number3.anim = "cpr_pumpchest"
+      number3.chainPhase = 0.9
+      number3.holdLastFrame = true
+      number2(number3)
+      number2 = stateFlag5
+      number2 = number2()
+      if number2 then
         return
       end
     end
-    textValue9 = textValue3
-    textValue10 = {}
-    textValue10.ped = coords
-    mathHelper = arg1.sceneX
-    textValue10.x = mathHelper
-    mathHelper = arg1.sceneY
-    textValue10.y = mathHelper
-    mathHelper = arg1.sceneZ
-    textValue10.z = mathHelper
-    mathHelper = arg1.sceneHeading
-    textValue10.heading = mathHelper
-    textValue10.animDict = "mini@cpr@char_a@cpr_str"
-    textValue10.anim = "cpr_cpr_to_kol"
-    textValue10.chainPhase = 0.98
-    textValue10.holdLastFrame = true
-    textValue9(textValue10)
-    textValue9 = flag5
-    textValue9 = textValue9()
-    if textValue9 then
+    text9 = text3
+    text10 = {}
+    text10.ped = coords
+    mathHelper = localValue1.sceneX
+    text10.x = mathHelper
+    mathHelper = localValue1.sceneY
+    text10.y = mathHelper
+    mathHelper = localValue1.sceneZ
+    text10.z = mathHelper
+    mathHelper = localValue1.sceneHeading
+    text10.heading = mathHelper
+    text10.animDict = "mini@cpr@char_a@cpr_str"
+    text10.anim = "cpr_cpr_to_kol"
+    text10.chainPhase = 0.98
+    text10.holdLastFrame = true
+    text9(text10)
+    text9 = stateFlag5
+    text9 = text9()
+    if text9 then
       return
     end
-    textValue9 = textValue3
-    textValue10 = {}
-    textValue10.ped = coords
-    mathHelper = arg1.sceneX
-    textValue10.x = mathHelper
-    mathHelper = arg1.sceneY
-    textValue10.y = mathHelper
-    mathHelper = arg1.sceneZ
-    textValue10.z = mathHelper
-    mathHelper = arg1.sceneHeading
-    textValue10.heading = mathHelper
-    textValue10.animDict = "mini@cpr@char_a@cpr_str"
-    textValue10.anim = "cpr_kol"
-    textValue10.chainPhase = 0.95
-    textValue10.holdLastFrame = true
-    textValue9(textValue10)
-    textValue9 = flag5
-    textValue9 = textValue9()
-    if textValue9 then
+    text9 = text3
+    text10 = {}
+    text10.ped = coords
+    mathHelper = localValue1.sceneX
+    text10.x = mathHelper
+    mathHelper = localValue1.sceneY
+    text10.y = mathHelper
+    mathHelper = localValue1.sceneZ
+    text10.z = mathHelper
+    mathHelper = localValue1.sceneHeading
+    text10.heading = mathHelper
+    text10.animDict = "mini@cpr@char_a@cpr_str"
+    text10.anim = "cpr_kol"
+    text10.chainPhase = 0.95
+    text10.holdLastFrame = true
+    text9(text10)
+    text9 = stateFlag5
+    text9 = text9()
+    if text9 then
       return
     end
-    textValue9 = textValue3
-    textValue10 = {}
-    textValue10.ped = coords
-    mathHelper = arg1.sceneX
-    textValue10.x = mathHelper
-    mathHelper = arg1.sceneY
-    textValue10.y = mathHelper
-    mathHelper = arg1.sceneZ
-    textValue10.z = mathHelper
-    mathHelper = arg1.sceneHeading
-    textValue10.heading = mathHelper
-    textValue10.animDict = "mini@cpr@char_a@cpr_str"
-    textValue10.anim = "cpr_kol_to_cpr"
-    textValue10.chainPhase = 0.98
-    textValue10.holdLastFrame = true
-    textValue9(textValue10)
-    textValue9 = flag5
-    textValue9 = textValue9()
-    if textValue9 then
+    text9 = text3
+    text10 = {}
+    text10.ped = coords
+    mathHelper = localValue1.sceneX
+    text10.x = mathHelper
+    mathHelper = localValue1.sceneY
+    text10.y = mathHelper
+    mathHelper = localValue1.sceneZ
+    text10.z = mathHelper
+    mathHelper = localValue1.sceneHeading
+    text10.heading = mathHelper
+    text10.animDict = "mini@cpr@char_a@cpr_str"
+    text10.anim = "cpr_kol_to_cpr"
+    text10.chainPhase = 0.98
+    text10.holdLastFrame = true
+    text9(text10)
+    text9 = stateFlag5
+    text9 = text9()
+    if text9 then
       return
     end
-    textValue9 = 1
-    textValue10 = textValue8
+    text9 = 1
+    text10 = text8
     mathHelper = 1
-    for textValue = textValue9, textValue10, mathHelper do
-      numberValue2 = textValue3
-      numberValue3 = {}
-      numberValue3.ped = coords
-      numberValue4 = arg1.sceneX
-      numberValue3.x = numberValue4
-      numberValue4 = arg1.sceneY
-      numberValue3.y = numberValue4
-      numberValue4 = arg1.sceneZ
-      numberValue3.z = numberValue4
-      numberValue4 = arg1.sceneHeading
-      numberValue3.heading = numberValue4
-      numberValue3.animDict = "mini@cpr@char_a@cpr_str"
-      numberValue3.anim = "cpr_pumpchest"
-      numberValue3.chainPhase = 0.9
-      numberValue3.holdLastFrame = true
-      numberValue2(numberValue3)
-      numberValue2 = flag5
-      numberValue2 = numberValue2()
-      if numberValue2 then
+    for text = text9, text10, mathHelper do
+      number2 = text3
+      number3 = {}
+      number3.ped = coords
+      number4 = localValue1.sceneX
+      number3.x = number4
+      number4 = localValue1.sceneY
+      number3.y = number4
+      number4 = localValue1.sceneZ
+      number3.z = number4
+      number4 = localValue1.sceneHeading
+      number3.heading = number4
+      number3.animDict = "mini@cpr@char_a@cpr_str"
+      number3.anim = "cpr_pumpchest"
+      number3.chainPhase = 0.9
+      number3.holdLastFrame = true
+      number2(number3)
+      number2 = stateFlag5
+      number2 = number2()
+      if number2 then
         return
       end
     end
   else
-    textValue9 = 1
-    textValue10 = textValue8
+    text9 = 1
+    text10 = text8
     mathHelper = 1
-    for textValue = textValue9, textValue10, mathHelper do
-      numberValue2 = textValue3
-      numberValue3 = {}
-      numberValue3.ped = coords
-      numberValue4 = arg1.sceneX
-      numberValue3.x = numberValue4
-      numberValue4 = arg1.sceneY
-      numberValue3.y = numberValue4
-      numberValue4 = arg1.sceneZ
-      numberValue3.z = numberValue4
-      numberValue4 = arg1.sceneHeading
-      numberValue3.heading = numberValue4
-      numberValue3.animDict = "mini@cpr@char_a@cpr_str"
-      numberValue3.anim = "cpr_pumpchest"
-      numberValue3.chainPhase = 0.9
-      numberValue3.holdLastFrame = true
-      numberValue2(numberValue3)
-      numberValue2 = flag5
-      numberValue2 = numberValue2()
-      if numberValue2 then
+    for text = text9, text10, mathHelper do
+      number2 = text3
+      number3 = {}
+      number3.ped = coords
+      number4 = localValue1.sceneX
+      number3.x = number4
+      number4 = localValue1.sceneY
+      number3.y = number4
+      number4 = localValue1.sceneZ
+      number3.z = number4
+      number4 = localValue1.sceneHeading
+      number3.heading = number4
+      number3.animDict = "mini@cpr@char_a@cpr_str"
+      number3.anim = "cpr_pumpchest"
+      number3.chainPhase = 0.9
+      number3.holdLastFrame = true
+      number2(number3)
+      number2 = stateFlag5
+      number2 = number2()
+      if number2 then
         return
       end
     end
   end
-  textValue9 = flag5
-  textValue9 = textValue9()
-  if textValue9 then
+  text9 = stateFlag5
+  text9 = text9()
+  if text9 then
     return
   end
-  if "success" == arg2 then
-    textValue9 = textValue3
-    textValue10 = {}
-    textValue10.ped = coords
-    mathHelper = arg1.sceneX
-    textValue10.x = mathHelper
-    mathHelper = arg1.sceneY
-    textValue10.y = mathHelper
-    mathHelper = arg1.sceneZ
-    textValue10.z = mathHelper
-    mathHelper = arg1.sceneHeading
-    textValue10.heading = mathHelper
-    textValue10.animDict = "mini@cpr@char_a@cpr_str"
-    textValue10.anim = "cpr_success"
-    textValue10.holdLastFrame = false
-    textValue10.endEarlyMs = 13500
-    textValue10.speed = 1.5
-    textValue9(textValue10)
-    textValue9 = flag5
-    textValue9 = textValue9()
-    if textValue9 then
+  if "success" == localValue2 then
+    text9 = text3
+    text10 = {}
+    text10.ped = coords
+    mathHelper = localValue1.sceneX
+    text10.x = mathHelper
+    mathHelper = localValue1.sceneY
+    text10.y = mathHelper
+    mathHelper = localValue1.sceneZ
+    text10.z = mathHelper
+    mathHelper = localValue1.sceneHeading
+    text10.heading = mathHelper
+    text10.animDict = "mini@cpr@char_a@cpr_str"
+    text10.anim = "cpr_success"
+    text10.holdLastFrame = false
+    text10.endEarlyMs = 13500
+    text10.speed = 1.5
+    text9(text10)
+    text9 = stateFlag5
+    text9 = text9()
+    if text9 then
       return
     end
-  elseif "fail" == arg2 then
-    textValue9 = textValue3
-    textValue10 = {}
-    textValue10.ped = coords
-    mathHelper = arg1.sceneX
-    textValue10.x = mathHelper
-    mathHelper = arg1.sceneY
-    textValue10.y = mathHelper
-    mathHelper = arg1.sceneZ
-    textValue10.z = mathHelper
-    mathHelper = arg1.sceneHeading
-    textValue10.heading = mathHelper
-    textValue10.animDict = "mini@cpr@char_a@cpr_str"
-    textValue10.anim = "cpr_fail"
-    textValue10.holdLastFrame = false
-    textValue10.endEarlyMs = 21000
-    textValue10.speed = 1.5
-    textValue9(textValue10)
-    textValue9 = flag5
-    textValue9 = textValue9()
-    if textValue9 then
+  elseif "fail" == localValue2 then
+    text9 = text3
+    text10 = {}
+    text10.ped = coords
+    mathHelper = localValue1.sceneX
+    text10.x = mathHelper
+    mathHelper = localValue1.sceneY
+    text10.y = mathHelper
+    mathHelper = localValue1.sceneZ
+    text10.z = mathHelper
+    mathHelper = localValue1.sceneHeading
+    text10.heading = mathHelper
+    text10.animDict = "mini@cpr@char_a@cpr_str"
+    text10.anim = "cpr_fail"
+    text10.holdLastFrame = false
+    text10.endEarlyMs = 21000
+    text10.speed = 1.5
+    text9(text10)
+    text9 = stateFlag5
+    text9 = text9()
+    if text9 then
       return
     end
   end
-  if dataTable then
-    textValue9 = DoesEntityExist
-    textValue10 = dataTable
-    textValue9 = textValue9(textValue10)
-    if textValue9 then
-      textValue9 = DeleteEntity
-      textValue10 = dataTable
+  if dataCollection then
+    text9 = DoesEntityExist
+    text10 = dataCollection
+    text9 = text9(text10)
+    if text9 then
+      text9 = DeleteEntity
+      text10 = dataCollection
       -- Beginner: Delete a GTA entity.
-      textValue9(textValue10)
+      text9(text10)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3
   coords = PlayerPedId
   -- Beginner: result below is localPlayerPed.
   coords = coords()
-  cmgCall2 = math
-  cmgCall2 = cmgCall2.max
-  textValue8 = 0
-  dataTable = math
-  dataTable = dataTable.min
-  flag5 = 3
-  textValue9 = arg1.cprPumpReduction
-  if not textValue9 then
-    textValue9 = 0
+  cmgOperation2 = math
+  cmgOperation2 = cmgOperation2.max
+  text8 = 0
+  dataCollection = math
+  dataCollection = dataCollection.min
+  stateFlag5 = 3
+  text9 = localValue1.cprPumpReduction
+  if not text9 then
+    text9 = 0
   end
-  dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3 = dataTable(flag5, textValue9)
-  cmgCall2 = cmgCall2(textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3)
-  textValue8 = math
-  textValue8 = textValue8.max
-  dataTable = 1
-  flag5 = arg1.isMedicTrained
-  if flag5 then
-    flag5 = 8
-    if flag5 then
-      goto flow_label_25
+  dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3 = dataCollection(stateFlag5, text9)
+  cmgOperation2 = cmgOperation2(text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3)
+  text8 = math
+  text8 = text8.max
+  dataCollection = 1
+  stateFlag5 = localValue1.isMedicTrained
+  if stateFlag5 then
+    stateFlag5 = 8
+    if stateFlag5 then
+      goto continueAtStep25
     end
   end
-  flag5 = 16
-  ::flow_label_25::
-  flag5 = flag5 - cmgCall2
-  textValue8 = textValue8(dataTable, flag5)
-  dataTable = CMG
-  dataTable = dataTable.loadAnimDict
-  flag5 = "mini@cpr@char_b@cpr_def"
+  stateFlag5 = 16
+  ::continueAtStep25::
+  stateFlag5 = stateFlag5 - cmgOperation2
+  text8 = text8(dataCollection, stateFlag5)
+  dataCollection = CMG
+  dataCollection = dataCollection.loadAnimDict
+  stateFlag5 = "mini@cpr@char_b@cpr_def"
   -- Beginner: Load a GTA animation dictionary before using it.
-  dataTable(flag5)
-  dataTable = CMG
-  dataTable = dataTable.loadAnimDict
-  flag5 = "mini@cpr@char_b@cpr_str"
-  dataTable(flag5)
-  dataTable = FreezeEntityPosition
-  flag5 = coords
-  textValue9 = true
+  dataCollection(stateFlag5)
+  dataCollection = CMG
+  dataCollection = dataCollection.loadAnimDict
+  stateFlag5 = "mini@cpr@char_b@cpr_str"
+  dataCollection(stateFlag5)
+  dataCollection = FreezeEntityPosition
+  stateFlag5 = coords
+  text9 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  dataTable(flag5, textValue9)
+  dataCollection(stateFlag5, text9)
 
-  -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-  function dataTable()
-    local workValue, workValue8
-    workValue = cmgCall.cancelled
-    return workValue
+  -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+  function dataCollection()
+    local workingValue, workingValue8
+    workingValue = cmgOperation.cancelled
+    return workingValue
   end
-  flag5 = arg1.isMedicTrained
-  if flag5 then
-    flag5 = textValue3
-    textValue9 = {}
-    textValue9.ped = coords
-    textValue10 = arg1.sceneX
-    textValue9.x = textValue10
-    textValue10 = arg1.sceneY
-    textValue9.y = textValue10
-    textValue10 = arg1.sceneZ
-    textValue9.z = textValue10
-    textValue10 = arg1.sceneHeading
-    textValue9.heading = textValue10
-    textValue9.animDict = "mini@cpr@char_b@cpr_def"
-    textValue9.anim = "cpr_intro"
-    textValue9.chainPhase = 0.98
-    textValue9.holdLastFrame = true
-    flag5(textValue9)
-    flag5 = dataTable
-    flag5 = flag5()
-    if flag5 then
+  stateFlag5 = localValue1.isMedicTrained
+  if stateFlag5 then
+    stateFlag5 = text3
+    text9 = {}
+    text9.ped = coords
+    text10 = localValue1.sceneX
+    text9.x = text10
+    text10 = localValue1.sceneY
+    text9.y = text10
+    text10 = localValue1.sceneZ
+    text9.z = text10
+    text10 = localValue1.sceneHeading
+    text9.heading = text10
+    text9.animDict = "mini@cpr@char_b@cpr_def"
+    text9.anim = "cpr_intro"
+    text9.chainPhase = 0.98
+    text9.holdLastFrame = true
+    stateFlag5(text9)
+    stateFlag5 = dataCollection
+    stateFlag5 = stateFlag5()
+    if stateFlag5 then
       return
     end
-    flag5 = 1
-    textValue9 = textValue8
-    textValue10 = 1
-    for mathHelper = flag5, textValue9, textValue10 do
-      textValue = textValue3
-      numberValue2 = {}
-      numberValue2.ped = coords
-      numberValue3 = arg1.sceneX
-      numberValue2.x = numberValue3
-      numberValue3 = arg1.sceneY
-      numberValue2.y = numberValue3
-      numberValue3 = arg1.sceneZ
-      numberValue2.z = numberValue3
-      numberValue3 = arg1.sceneHeading
-      numberValue2.heading = numberValue3
-      numberValue2.animDict = "mini@cpr@char_b@cpr_str"
-      numberValue2.anim = "cpr_pumpchest"
-      numberValue2.chainPhase = 0.9
-      numberValue2.holdLastFrame = true
-      textValue(numberValue2)
-      textValue = dataTable
-      textValue = textValue()
-      if textValue then
+    stateFlag5 = 1
+    text9 = text8
+    text10 = 1
+    for mathHelper = stateFlag5, text9, text10 do
+      text = text3
+      number2 = {}
+      number2.ped = coords
+      number3 = localValue1.sceneX
+      number2.x = number3
+      number3 = localValue1.sceneY
+      number2.y = number3
+      number3 = localValue1.sceneZ
+      number2.z = number3
+      number3 = localValue1.sceneHeading
+      number2.heading = number3
+      number2.animDict = "mini@cpr@char_b@cpr_str"
+      number2.anim = "cpr_pumpchest"
+      number2.chainPhase = 0.9
+      number2.holdLastFrame = true
+      text(number2)
+      text = dataCollection
+      text = text()
+      if text then
         return
       end
     end
-    flag5 = textValue3
-    textValue9 = {}
-    textValue9.ped = coords
-    textValue10 = arg1.sceneX
-    textValue9.x = textValue10
-    textValue10 = arg1.sceneY
-    textValue9.y = textValue10
-    textValue10 = arg1.sceneZ
-    textValue9.z = textValue10
-    textValue10 = arg1.sceneHeading
-    textValue9.heading = textValue10
-    textValue9.animDict = "mini@cpr@char_b@cpr_str"
-    textValue9.anim = "cpr_cpr_to_kol"
-    textValue9.chainPhase = 0.98
-    textValue9.holdLastFrame = true
-    flag5(textValue9)
-    flag5 = dataTable
-    flag5 = flag5()
-    if flag5 then
+    stateFlag5 = text3
+    text9 = {}
+    text9.ped = coords
+    text10 = localValue1.sceneX
+    text9.x = text10
+    text10 = localValue1.sceneY
+    text9.y = text10
+    text10 = localValue1.sceneZ
+    text9.z = text10
+    text10 = localValue1.sceneHeading
+    text9.heading = text10
+    text9.animDict = "mini@cpr@char_b@cpr_str"
+    text9.anim = "cpr_cpr_to_kol"
+    text9.chainPhase = 0.98
+    text9.holdLastFrame = true
+    stateFlag5(text9)
+    stateFlag5 = dataCollection
+    stateFlag5 = stateFlag5()
+    if stateFlag5 then
       return
     end
-    flag5 = textValue3
-    textValue9 = {}
-    textValue9.ped = coords
-    textValue10 = arg1.sceneX
-    textValue9.x = textValue10
-    textValue10 = arg1.sceneY
-    textValue9.y = textValue10
-    textValue10 = arg1.sceneZ
-    textValue9.z = textValue10
-    textValue10 = arg1.sceneHeading
-    textValue9.heading = textValue10
-    textValue9.animDict = "mini@cpr@char_b@cpr_str"
-    textValue9.anim = "cpr_kol"
-    textValue9.chainPhase = 0.95
-    textValue9.holdLastFrame = true
-    flag5(textValue9)
-    flag5 = dataTable
-    flag5 = flag5()
-    if flag5 then
+    stateFlag5 = text3
+    text9 = {}
+    text9.ped = coords
+    text10 = localValue1.sceneX
+    text9.x = text10
+    text10 = localValue1.sceneY
+    text9.y = text10
+    text10 = localValue1.sceneZ
+    text9.z = text10
+    text10 = localValue1.sceneHeading
+    text9.heading = text10
+    text9.animDict = "mini@cpr@char_b@cpr_str"
+    text9.anim = "cpr_kol"
+    text9.chainPhase = 0.95
+    text9.holdLastFrame = true
+    stateFlag5(text9)
+    stateFlag5 = dataCollection
+    stateFlag5 = stateFlag5()
+    if stateFlag5 then
       return
     end
-    flag5 = textValue3
-    textValue9 = {}
-    textValue9.ped = coords
-    textValue10 = arg1.sceneX
-    textValue9.x = textValue10
-    textValue10 = arg1.sceneY
-    textValue9.y = textValue10
-    textValue10 = arg1.sceneZ
-    textValue9.z = textValue10
-    textValue10 = arg1.sceneHeading
-    textValue9.heading = textValue10
-    textValue9.animDict = "mini@cpr@char_b@cpr_str"
-    textValue9.anim = "cpr_kol_to_cpr"
-    textValue9.chainPhase = 0.98
-    textValue9.holdLastFrame = true
-    flag5(textValue9)
-    flag5 = dataTable
-    flag5 = flag5()
-    if flag5 then
+    stateFlag5 = text3
+    text9 = {}
+    text9.ped = coords
+    text10 = localValue1.sceneX
+    text9.x = text10
+    text10 = localValue1.sceneY
+    text9.y = text10
+    text10 = localValue1.sceneZ
+    text9.z = text10
+    text10 = localValue1.sceneHeading
+    text9.heading = text10
+    text9.animDict = "mini@cpr@char_b@cpr_str"
+    text9.anim = "cpr_kol_to_cpr"
+    text9.chainPhase = 0.98
+    text9.holdLastFrame = true
+    stateFlag5(text9)
+    stateFlag5 = dataCollection
+    stateFlag5 = stateFlag5()
+    if stateFlag5 then
       return
     end
-    flag5 = 1
-    textValue9 = textValue8
-    textValue10 = 1
-    for mathHelper = flag5, textValue9, textValue10 do
-      textValue = textValue3
-      numberValue2 = {}
-      numberValue2.ped = coords
-      numberValue3 = arg1.sceneX
-      numberValue2.x = numberValue3
-      numberValue3 = arg1.sceneY
-      numberValue2.y = numberValue3
-      numberValue3 = arg1.sceneZ
-      numberValue2.z = numberValue3
-      numberValue3 = arg1.sceneHeading
-      numberValue2.heading = numberValue3
-      numberValue2.animDict = "mini@cpr@char_b@cpr_str"
-      numberValue2.anim = "cpr_pumpchest"
-      numberValue2.chainPhase = 0.9
-      numberValue2.holdLastFrame = true
-      textValue(numberValue2)
-      textValue = dataTable
-      textValue = textValue()
-      if textValue then
+    stateFlag5 = 1
+    text9 = text8
+    text10 = 1
+    for mathHelper = stateFlag5, text9, text10 do
+      text = text3
+      number2 = {}
+      number2.ped = coords
+      number3 = localValue1.sceneX
+      number2.x = number3
+      number3 = localValue1.sceneY
+      number2.y = number3
+      number3 = localValue1.sceneZ
+      number2.z = number3
+      number3 = localValue1.sceneHeading
+      number2.heading = number3
+      number2.animDict = "mini@cpr@char_b@cpr_str"
+      number2.anim = "cpr_pumpchest"
+      number2.chainPhase = 0.9
+      number2.holdLastFrame = true
+      text(number2)
+      text = dataCollection
+      text = text()
+      if text then
         return
       end
     end
   else
-    flag5 = 1
-    textValue9 = textValue8
-    textValue10 = 1
-    for mathHelper = flag5, textValue9, textValue10 do
-      textValue = textValue3
-      numberValue2 = {}
-      numberValue2.ped = coords
-      numberValue3 = arg1.sceneX
-      numberValue2.x = numberValue3
-      numberValue3 = arg1.sceneY
-      numberValue2.y = numberValue3
-      numberValue3 = arg1.sceneZ
-      numberValue2.z = numberValue3
-      numberValue3 = arg1.sceneHeading
-      numberValue2.heading = numberValue3
-      numberValue2.animDict = "mini@cpr@char_b@cpr_str"
-      numberValue2.anim = "cpr_pumpchest"
-      numberValue2.chainPhase = 0.9
-      numberValue2.holdLastFrame = true
-      textValue(numberValue2)
+    stateFlag5 = 1
+    text9 = text8
+    text10 = 1
+    for mathHelper = stateFlag5, text9, text10 do
+      text = text3
+      number2 = {}
+      number2.ped = coords
+      number3 = localValue1.sceneX
+      number2.x = number3
+      number3 = localValue1.sceneY
+      number2.y = number3
+      number3 = localValue1.sceneZ
+      number2.z = number3
+      number3 = localValue1.sceneHeading
+      number2.heading = number3
+      number2.animDict = "mini@cpr@char_b@cpr_str"
+      number2.anim = "cpr_pumpchest"
+      number2.chainPhase = 0.9
+      number2.holdLastFrame = true
+      text(number2)
     end
   end
-  if "success" == arg2 then
-    flag5 = textValue3
-    textValue9 = {}
-    textValue9.ped = coords
-    textValue10 = arg1.sceneX
-    textValue9.x = textValue10
-    textValue10 = arg1.sceneY
-    textValue9.y = textValue10
-    textValue10 = arg1.sceneZ
-    textValue9.z = textValue10
-    textValue10 = arg1.sceneHeading
-    textValue9.heading = textValue10
-    textValue9.animDict = "mini@cpr@char_b@cpr_str"
-    textValue9.anim = "cpr_success"
-    textValue9.holdLastFrame = false
-    textValue9.endEarlyMs = 13500
-    textValue9.speed = 1.5
-    flag5(textValue9)
-    flag5 = dataTable
-    flag5 = flag5()
-    if flag5 then
+  if "success" == localValue2 then
+    stateFlag5 = text3
+    text9 = {}
+    text9.ped = coords
+    text10 = localValue1.sceneX
+    text9.x = text10
+    text10 = localValue1.sceneY
+    text9.y = text10
+    text10 = localValue1.sceneZ
+    text9.z = text10
+    text10 = localValue1.sceneHeading
+    text9.heading = text10
+    text9.animDict = "mini@cpr@char_b@cpr_str"
+    text9.anim = "cpr_success"
+    text9.holdLastFrame = false
+    text9.endEarlyMs = 13500
+    text9.speed = 1.5
+    stateFlag5(text9)
+    stateFlag5 = dataCollection
+    stateFlag5 = stateFlag5()
+    if stateFlag5 then
       return
     end
-  elseif "fail" == arg2 then
-    flag5 = textValue3
-    textValue9 = {}
-    textValue9.ped = coords
-    textValue10 = arg1.sceneX
-    textValue9.x = textValue10
-    textValue10 = arg1.sceneY
-    textValue9.y = textValue10
-    textValue10 = arg1.sceneZ
-    textValue9.z = textValue10
-    textValue10 = arg1.sceneHeading
-    textValue9.heading = textValue10
-    textValue9.animDict = "mini@cpr@char_b@cpr_str"
-    textValue9.anim = "cpr_fail"
-    textValue9.holdLastFrame = false
-    textValue9.endEarlyMs = 21000
-    textValue9.speed = 1.5
-    flag5(textValue9)
-    flag5 = dataTable
-    flag5 = flag5()
-    if flag5 then
+  elseif "fail" == localValue2 then
+    stateFlag5 = text3
+    text9 = {}
+    text9.ped = coords
+    text10 = localValue1.sceneX
+    text9.x = text10
+    text10 = localValue1.sceneY
+    text9.y = text10
+    text10 = localValue1.sceneZ
+    text9.z = text10
+    text10 = localValue1.sceneHeading
+    text9.heading = text10
+    text9.animDict = "mini@cpr@char_b@cpr_str"
+    text9.anim = "cpr_fail"
+    text9.holdLastFrame = false
+    text9.endEarlyMs = 21000
+    text9.speed = 1.5
+    stateFlag5(text9)
+    stateFlag5 = dataCollection
+    stateFlag5 = stateFlag5()
+    if stateFlag5 then
       return
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
-function workValue6(arg1)
-  local arg2, coords, cmgCall2, textValue8, dataTable
-  arg2 = cmgCall.running
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue1) ===
+function workingValue6(localValue1)
+  local localValue2, coords, cmgOperation2, text8, dataCollection
+  localValue2 = cmgOperation.running
+  if localValue2 then
     return
   end
-  cmgCall.running = true
-  cmgCall.cancelled = false
-  cmgCall.isMedic = true
-  arg2 = tCMG
-  arg2 = arg2.setCanAnim
+  cmgOperation.running = true
+  cmgOperation.cancelled = false
+  cmgOperation.isMedic = true
+  localValue2 = tCMG
+  localValue2 = localValue2.setCanAnim
   coords = false
-  arg2(coords)
-  arg2 = textValue2
-  coords = arg1
-  arg2(coords)
-  arg2 = workValue4
-  coords = arg1
-  cmgCall2 = arg1.ending
-  arg2(coords, cmgCall2)
-  arg2 = PlayerPedId
+  localValue2(coords)
+  localValue2 = text2
+  coords = localValue1
+  localValue2(coords)
+  localValue2 = workingValue4
+  coords = localValue1
+  cmgOperation2 = localValue1.ending
+  localValue2(coords, cmgOperation2)
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
+  localValue2 = localValue2()
   coords = ClearPedTasksImmediately
-  cmgCall2 = arg2
-  coords(cmgCall2)
+  cmgOperation2 = localValue2
+  coords(cmgOperation2)
   coords = FreezeEntityPosition
-  cmgCall2 = arg2
-  textValue8 = false
+  cmgOperation2 = localValue2
+  text8 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  coords(cmgCall2, textValue8)
+  coords(cmgOperation2, text8)
   coords = tCMG
   coords = coords.setCanAnim
-  cmgCall2 = true
-  coords(cmgCall2)
-  cmgCall.running = false
-  cmgCall.isMedic = false
-  coords = cmgCall.cancelled
+  cmgOperation2 = true
+  coords(cmgOperation2)
+  cmgOperation.running = false
+  cmgOperation.isMedic = false
+  coords = cmgOperation.cancelled
   if coords then
     coords = TriggerServerEvent
-    cmgCall2 = "8fb0826fdf"
+    cmgOperation2 = "8fb0826fdf"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8fb0826fdf".
-    coords(cmgCall2)
+    coords(cmgOperation2)
   else
-    coords = arg1.targetServerId
+    coords = localValue1.targetServerId
     if nil ~= coords then
       coords = TriggerServerEvent
-      cmgCall2 = "d25660a87c"
-      textValue8 = arg1.targetServerId
-      dataTable = arg1.ending
-      coords(cmgCall2, textValue8, dataTable)
+      cmgOperation2 = "d25660a87c"
+      text8 = localValue1.targetServerId
+      dataCollection = localValue1.ending
+      coords(cmgOperation2, text8, dataCollection)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2
-  arg2 = cmgCall.running
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1) ===
+function workingValue7(localValue1)
+  local localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2
+  localValue2 = cmgOperation.running
+  if localValue2 then
     return
   end
-  arg2 = TriggerEvent
+  localValue2 = TriggerEvent
   coords = "505e07e36a"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "505e07e36a".
-  arg2(coords)
-  cmgCall.running = true
-  cmgCall.cancelled = false
-  arg2 = tCMG
-  arg2 = arg2.setCanAnim
+  localValue2(coords)
+  cmgOperation.running = true
+  cmgOperation.cancelled = false
+  localValue2 = tCMG
+  localValue2 = localValue2.setCanAnim
   coords = false
-  arg2(coords)
-  arg2 = PlayerPedId
+  localValue2(coords)
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
+  localValue2 = localValue2()
   coords = GetEntityCoords
-  cmgCall2 = arg2
-  textValue8 = true
+  cmgOperation2 = localValue2
+  text8 = true
   -- Beginner: result below is entityCoords.
-  coords = coords(cmgCall2, textValue8)
-  cmgCall2 = coords.x
-  arg1.sceneX = cmgCall2
-  cmgCall2 = coords.y
-  arg1.sceneY = cmgCall2
-  cmgCall2 = textValue2
-  textValue8 = arg1
-  cmgCall2(textValue8)
-  cmgCall2 = IsEntityDead
-  textValue8 = arg2
-  cmgCall2 = cmgCall2(textValue8)
-  if not cmgCall2 then
-    cmgCall2 = GetEntityHealth
-    textValue8 = arg2
+  coords = coords(cmgOperation2, text8)
+  cmgOperation2 = coords.x
+  localValue1.sceneX = cmgOperation2
+  cmgOperation2 = coords.y
+  localValue1.sceneY = cmgOperation2
+  cmgOperation2 = text2
+  text8 = localValue1
+  cmgOperation2(text8)
+  cmgOperation2 = IsEntityDead
+  text8 = localValue2
+  cmgOperation2 = cmgOperation2(text8)
+  if not cmgOperation2 then
+    cmgOperation2 = GetEntityHealth
+    text8 = localValue2
     -- Beginner: result below is health.
-    cmgCall2 = cmgCall2(textValue8)
-    if not (cmgCall2 <= 100) then
-      goto flow_label_44
+    cmgOperation2 = cmgOperation2(text8)
+    if not (cmgOperation2 <= 100) then
+      goto continueAtStep44
     end
   end
-  cmgCall2 = SetEntityHealth
-  textValue8 = arg2
-  dataTable = 102
-  cmgCall2(textValue8, dataTable)
-  cmgCall2 = ClearPedTasksImmediately
-  textValue8 = arg2
-  cmgCall2(textValue8)
-  ::flow_label_44::
-  cmgCall2 = workValue5
-  textValue8 = arg1
-  dataTable = arg1.ending
-  cmgCall2(textValue8, dataTable)
-  cmgCall2 = tCMG
-  cmgCall2 = cmgCall2.isInComa
-  cmgCall2 = cmgCall2()
-  if cmgCall2 then
-    cmgCall2 = GetEntityHealth
-    textValue8 = arg2
+  cmgOperation2 = SetEntityHealth
+  text8 = localValue2
+  dataCollection = 102
+  cmgOperation2(text8, dataCollection)
+  cmgOperation2 = ClearPedTasksImmediately
+  text8 = localValue2
+  cmgOperation2(text8)
+  ::continueAtStep44::
+  cmgOperation2 = workingValue5
+  text8 = localValue1
+  dataCollection = localValue1.ending
+  cmgOperation2(text8, dataCollection)
+  cmgOperation2 = tCMG
+  cmgOperation2 = cmgOperation2.isInComa
+  cmgOperation2 = cmgOperation2()
+  if cmgOperation2 then
+    cmgOperation2 = GetEntityHealth
+    text8 = localValue2
     -- Beginner: result below is health.
-    cmgCall2 = cmgCall2(textValue8)
-    cmgCall2 = cmgCall2 <= 102
+    cmgOperation2 = cmgOperation2(text8)
+    cmgOperation2 = cmgOperation2 <= 102
   end
-  if not cmgCall2 then
-    textValue8 = ClearPedTasksImmediately
-    dataTable = arg2
-    textValue8(dataTable)
-    textValue8 = FreezeEntityPosition
-    dataTable = arg2
-    flag5 = false
+  if not cmgOperation2 then
+    text8 = ClearPedTasksImmediately
+    dataCollection = localValue2
+    text8(dataCollection)
+    text8 = FreezeEntityPosition
+    dataCollection = localValue2
+    stateFlag5 = false
     -- Beginner: Freeze or unfreeze an entity in place.
-    textValue8(dataTable, flag5)
-    textValue8 = Wait
-    dataTable = 150
-    textValue8(dataTable)
-    textValue8 = tCMG
-    textValue8 = textValue8.setCanAnim
-    dataTable = true
-    textValue8(dataTable)
-    cmgCall.running = false
-    textValue8 = TriggerEvent
-    dataTable = "43128b61c1"
+    text8(dataCollection, stateFlag5)
+    text8 = Wait
+    dataCollection = 150
+    text8(dataCollection)
+    text8 = tCMG
+    text8 = text8.setCanAnim
+    dataCollection = true
+    text8(dataCollection)
+    cmgOperation.running = false
+    text8 = TriggerEvent
+    dataCollection = "43128b61c1"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "43128b61c1".
-    textValue8(dataTable)
+    text8(dataCollection)
     return
   end
-  textValue8 = cmgCall.cancelled
-  if textValue8 then
-    textValue8 = ClearPedTasksImmediately
-    dataTable = arg2
-    textValue8(dataTable)
-    textValue8 = SetEntityCollision
-    dataTable = arg2
-    flag5 = true
-    textValue9 = true
-    textValue8(dataTable, flag5, textValue9)
-    textValue8 = SetEntityVisible
-    dataTable = arg2
-    flag5 = true
-    textValue9 = true
-    textValue8(dataTable, flag5, textValue9)
-    textValue8 = SetEntityHealth
-    dataTable = arg2
-    flag5 = 102
-    textValue8(dataTable, flag5)
-    textValue8 = SetEntityInvincible
-    dataTable = arg2
-    flag5 = true
-    textValue8(dataTable, flag5)
-    textValue8 = FreezeEntityPosition
-    dataTable = arg2
-    flag5 = false
+  text8 = cmgOperation.cancelled
+  if text8 then
+    text8 = ClearPedTasksImmediately
+    dataCollection = localValue2
+    text8(dataCollection)
+    text8 = SetEntityCollision
+    dataCollection = localValue2
+    stateFlag5 = true
+    text9 = true
+    text8(dataCollection, stateFlag5, text9)
+    text8 = SetEntityVisible
+    dataCollection = localValue2
+    stateFlag5 = true
+    text9 = true
+    text8(dataCollection, stateFlag5, text9)
+    text8 = SetEntityHealth
+    dataCollection = localValue2
+    stateFlag5 = 102
+    text8(dataCollection, stateFlag5)
+    text8 = SetEntityInvincible
+    dataCollection = localValue2
+    stateFlag5 = true
+    text8(dataCollection, stateFlag5)
+    text8 = FreezeEntityPosition
+    dataCollection = localValue2
+    stateFlag5 = false
     -- Beginner: Freeze or unfreeze an entity in place.
-    textValue8(dataTable, flag5)
-    textValue8 = CMG
-    textValue8 = textValue8.loadAnimDict
-    dataTable = "misslamar1dead_body"
+    text8(dataCollection, stateFlag5)
+    text8 = CMG
+    text8 = text8.loadAnimDict
+    dataCollection = "misslamar1dead_body"
     -- Beginner: Load a GTA animation dictionary before using it.
-    textValue8(dataTable)
-    textValue8 = TaskPlayAnim
-    dataTable = arg2
-    flag5 = "misslamar1dead_body"
-    textValue9 = "dead_idle"
-    textValue10 = 3.0
+    text8(dataCollection)
+    text8 = TaskPlayAnim
+    dataCollection = localValue2
+    stateFlag5 = "misslamar1dead_body"
+    text9 = "dead_idle"
+    text10 = 3.0
     mathHelper = 1.0
-    textValue = -1
-    numberValue2 = 1
-    numberValue3 = 0
-    numberValue4 = false
-    flag = false
-    flag2 = false
+    text = -1
+    number2 = 1
+    number3 = 0
+    number4 = false
+    stateFlag = false
+    stateFlag2 = false
     -- Beginner: Play an animation on a ped.
-    textValue8(dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2)
-    textValue8 = RemoveAnimDict
-    dataTable = "misslamar1dead_body"
-    textValue8(dataTable)
-    textValue8 = TriggerEvent
-    dataTable = "43128b61c1"
+    text8(dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2)
+    text8 = RemoveAnimDict
+    dataCollection = "misslamar1dead_body"
+    text8(dataCollection)
+    text8 = TriggerEvent
+    dataCollection = "43128b61c1"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "43128b61c1".
-    textValue8(dataTable)
+    text8(dataCollection)
   else
-    textValue8 = arg1.ending
-    if "success" == textValue8 then
-      textValue8 = ClearPedTasksImmediately
-      dataTable = arg2
-      textValue8(dataTable)
-      textValue8 = FreezeEntityPosition
-      dataTable = arg2
-      flag5 = false
+    text8 = localValue1.ending
+    if "success" == text8 then
+      text8 = ClearPedTasksImmediately
+      dataCollection = localValue2
+      text8(dataCollection)
+      text8 = FreezeEntityPosition
+      dataCollection = localValue2
+      stateFlag5 = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      textValue8(dataTable, flag5)
+      text8(dataCollection, stateFlag5)
     else
-      textValue8 = SetEntityCollision
-      dataTable = arg2
-      flag5 = true
-      textValue9 = true
-      textValue8(dataTable, flag5, textValue9)
-      textValue8 = SetEntityVisible
-      dataTable = arg2
-      flag5 = true
-      textValue9 = true
-      textValue8(dataTable, flag5, textValue9)
-      textValue8 = SetEntityHealth
-      dataTable = arg2
-      flag5 = 102
-      textValue8(dataTable, flag5)
-      textValue8 = SetEntityInvincible
-      dataTable = arg2
-      flag5 = true
-      textValue8(dataTable, flag5)
-      textValue8 = FreezeEntityPosition
-      dataTable = arg2
-      flag5 = false
+      text8 = SetEntityCollision
+      dataCollection = localValue2
+      stateFlag5 = true
+      text9 = true
+      text8(dataCollection, stateFlag5, text9)
+      text8 = SetEntityVisible
+      dataCollection = localValue2
+      stateFlag5 = true
+      text9 = true
+      text8(dataCollection, stateFlag5, text9)
+      text8 = SetEntityHealth
+      dataCollection = localValue2
+      stateFlag5 = 102
+      text8(dataCollection, stateFlag5)
+      text8 = SetEntityInvincible
+      dataCollection = localValue2
+      stateFlag5 = true
+      text8(dataCollection, stateFlag5)
+      text8 = FreezeEntityPosition
+      dataCollection = localValue2
+      stateFlag5 = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      textValue8(dataTable, flag5)
-      textValue8 = CMG
-      textValue8 = textValue8.loadAnimDict
-      dataTable = "misslamar1dead_body"
+      text8(dataCollection, stateFlag5)
+      text8 = CMG
+      text8 = text8.loadAnimDict
+      dataCollection = "misslamar1dead_body"
       -- Beginner: Load a GTA animation dictionary before using it.
-      textValue8(dataTable)
-      textValue8 = TaskPlayAnim
-      dataTable = arg2
-      flag5 = "misslamar1dead_body"
-      textValue9 = "dead_idle"
-      textValue10 = 3.0
+      text8(dataCollection)
+      text8 = TaskPlayAnim
+      dataCollection = localValue2
+      stateFlag5 = "misslamar1dead_body"
+      text9 = "dead_idle"
+      text10 = 3.0
       mathHelper = 1.0
-      textValue = -1
-      numberValue2 = 1
-      numberValue3 = 0
-      numberValue4 = false
-      flag = false
-      flag2 = false
+      text = -1
+      number2 = 1
+      number3 = 0
+      number4 = false
+      stateFlag = false
+      stateFlag2 = false
       -- Beginner: Play an animation on a ped.
-      textValue8(dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2)
-      textValue8 = RemoveAnimDict
-      dataTable = "misslamar1dead_body"
-      textValue8(dataTable)
+      text8(dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2)
+      text8 = RemoveAnimDict
+      dataCollection = "misslamar1dead_body"
+      text8(dataCollection)
     end
   end
-  textValue8 = Wait
-  dataTable = 150
-  textValue8(dataTable)
-  textValue8 = tCMG
-  textValue8 = textValue8.setCanAnim
-  dataTable = true
-  textValue8(dataTable)
-  cmgCall.running = false
-  textValue8 = arg1.ending
-  if "success" ~= textValue8 then
-    textValue8 = cmgCall.cancelled
-    if not textValue8 then
-      textValue8 = TriggerEvent
-      dataTable = "43128b61c1"
+  text8 = Wait
+  dataCollection = 150
+  text8(dataCollection)
+  text8 = tCMG
+  text8 = text8.setCanAnim
+  dataCollection = true
+  text8(dataCollection)
+  cmgOperation.running = false
+  text8 = localValue1.ending
+  if "success" ~= text8 then
+    text8 = cmgOperation.cancelled
+    if not text8 then
+      text8 = TriggerEvent
+      dataCollection = "43128b61c1"
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "43128b61c1".
-      textValue8(dataTable)
+      text8(dataCollection)
     end
   end
 end
-eventRegistration = RegisterNetEvent
-textValue5 = "2114f6e305"
+eventHandler = RegisterNetEvent
+text5 = "2114f6e305"
 -- Beginner: this function handles network event "2114f6e305".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2, coords
-  arg2 = workValue6
-  coords = arg1
-  arg2(coords)
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2, coords
+  localValue2 = workingValue6
+  coords = localValue1
+  localValue2(coords)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2114f6e305".
-eventRegistration(textValue5, eventRegistration2)
-eventRegistration = RegisterNetEvent
-textValue5 = "505e07e36a"
+eventHandler(text5, eventHandler2)
+eventHandler = RegisterNetEvent
+text5 = "505e07e36a"
 -- Beginner: this function handles network event "505e07e36a".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
-function eventRegistration2(arg1)
-  local arg2, coords
-  if arg1 then
-    arg2 = workValue7
-    coords = arg1
-    arg2(coords)
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1) ===
+function eventHandler2(localValue1)
+  local localValue2, coords
+  if localValue1 then
+    localValue2 = workingValue7
+    coords = localValue1
+    localValue2(coords)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "505e07e36a".
-eventRegistration(textValue5, eventRegistration2)
-eventRegistration = RegisterNetEvent
-textValue5 = "a23fad560e"
+eventHandler(text5, eventHandler2)
+eventHandler = RegisterNetEvent
+text5 = "a23fad560e"
 -- Beginner: this function handles network event "a23fad560e".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2
-  cmgCall.cancelled = true
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2
+  cmgOperation.cancelled = true
 end
-eventRegistration(textValue5, eventRegistration2)
-eventRegistration = RegisterNetEvent
-textValue5 = "4935c71079"
+eventHandler(text5, eventHandler2)
+eventHandler = RegisterNetEvent
+text5 = "4935c71079"
 -- Beginner: this function handles network event "4935c71079".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2
-  cmgCall.cancelled = true
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2
+  cmgOperation.cancelled = true
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4935c71079".
-eventRegistration(textValue5, eventRegistration2)
+eventHandler(text5, eventHandler2)
 -- Beginner: this function handles network event "4935c71079".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, coords, cmgCall2, textValue8
-  arg1 = BeginTextCommandDisplayHelp
-  arg2 = "STRING"
-  arg1(arg2)
-  arg1 = AddTextEntry
-  arg2 = "CPR_CANCEL_HELP"
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, coords, cmgOperation2, text8
+  localValue1 = BeginTextCommandDisplayHelp
+  localValue2 = "STRING"
+  localValue1(localValue2)
+  localValue1 = AddTextEntry
+  localValue2 = "CPR_CANCEL_HELP"
   coords = "~INPUT_CELLPHONE_CANCEL~ Cancel CPR"
-  arg1(arg2, coords)
-  arg1 = AddTextComponentSubstringTextLabel
-  arg2 = "CPR_CANCEL_HELP"
-  arg1(arg2)
-  arg1 = EndTextCommandDisplayHelp
-  arg2 = 0
+  localValue1(localValue2, coords)
+  localValue1 = AddTextComponentSubstringTextLabel
+  localValue2 = "CPR_CANCEL_HELP"
+  localValue1(localValue2)
+  localValue1 = EndTextCommandDisplayHelp
+  localValue2 = 0
   coords = false
-  cmgCall2 = false
-  textValue8 = 0
-  arg1(arg2, coords, cmgCall2, textValue8)
+  cmgOperation2 = false
+  text8 = 0
+  localValue1(localValue2, coords, cmgOperation2, text8)
 end
-textValue5 = CMG
-textValue5 = textValue5.createThreadOnTick
+text5 = CMG
+text5 = text5.createThreadOnTick
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2, coords
-  arg1 = cmgCall.running
-  if arg1 then
-    arg1 = cmgCall.isMedic
-    if arg1 then
-      arg1 = eventRegistration
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2, coords
+  localValue1 = cmgOperation.running
+  if localValue1 then
+    localValue1 = cmgOperation.isMedic
+    if localValue1 then
+      localValue1 = eventHandler
       -- Beginner: Register a network event handler that the server/other clients can trigger.
-      arg1()
-      arg1 = IsControlJustPressed
-      arg2 = 0
+      localValue1()
+      localValue1 = IsControlJustPressed
+      localValue2 = 0
       coords = 202
-      arg1 = arg1(arg2, coords)
-      if not arg1 then
-        arg1 = IsDisabledControlJustPressed
-        arg2 = 0
+      localValue1 = localValue1(localValue2, coords)
+      if not localValue1 then
+        localValue1 = IsDisabledControlJustPressed
+        localValue2 = 0
         coords = 177
-        arg1 = arg1(arg2, coords)
-        if not arg1 then
-          goto flow_label_23
+        localValue1 = localValue1(localValue2, coords)
+        if not localValue1 then
+          goto continueAtStep23
         end
       end
-      cmgCall.cancelled = true
-      goto flow_label_30
-      ::flow_label_23::
-      arg1 = IsEntityDead
-      arg2 = PlayerPedId
-      arg2, coords = arg2()
-      arg1 = arg1(arg2, coords)
-      if arg1 then
-        cmgCall.cancelled = true
+      cmgOperation.cancelled = true
+      goto continueAtStep30
+      ::continueAtStep23::
+      localValue1 = IsEntityDead
+      localValue2 = PlayerPedId
+      localValue2, coords = localValue2()
+      localValue1 = localValue1(localValue2, coords)
+      if localValue1 then
+        cmgOperation.cancelled = true
       end
     end
   end
-  ::flow_label_30::
+  ::continueAtStep30::
 end
-textValue6 = "CPR Cancel Tick"
+text6 = "CPR Cancel Tick"
 -- Beginner: Run a helper every game frame while this script is active.
-textValue5(eventRegistration2, textValue6)
-textValue5 = CMG
-textValue5 = textValue5.RegisterClientCallback
-eventRegistration2 = "9f2bde707e"
+text5(eventHandler2, text6)
+text5 = CMG
+text5 = text5.RegisterClientCallback
+eventHandler2 = "9f2bde707e"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 == arg1 then
-    arg2 = nil
-    return arg2
+  localValue1 = localValue1()
+  if 0 == localValue1 then
+    localValue2 = nil
+    return localValue2
   end
-  arg2 = GetEntityCoords
-  coords = arg1
+  localValue2 = GetEntityCoords
+  coords = localValue1
   -- Beginner: result below is entityCoords.
-  arg2 = arg2(coords)
+  localValue2 = localValue2(coords)
   coords = GetEntityHeading
-  cmgCall2 = arg1
+  cmgOperation2 = localValue1
   -- Beginner: result below is heading.
-  coords = coords(cmgCall2)
-  cmgCall2 = GetGroundZFor_3dCoord
-  textValue8 = arg2.x
-  dataTable = arg2.y
-  flag5 = arg2.z
-  flag5 = flag5 + 2.0
-  textValue9 = 0
-  textValue10 = false
-  cmgCall2, textValue8 = cmgCall2(textValue8, dataTable, flag5, textValue9, textValue10)
-  if cmgCall2 then
-    dataTable = type
-    flag5 = textValue8
-    dataTable = dataTable(flag5)
-    if "number" == dataTable then
-      goto flow_label_30
+  coords = coords(cmgOperation2)
+  cmgOperation2 = GetGroundZFor_3dCoord
+  text8 = localValue2.x
+  dataCollection = localValue2.y
+  stateFlag5 = localValue2.z
+  stateFlag5 = stateFlag5 + 2.0
+  text9 = 0
+  text10 = false
+  cmgOperation2, text8 = cmgOperation2(text8, dataCollection, stateFlag5, text9, text10)
+  if cmgOperation2 then
+    dataCollection = type
+    stateFlag5 = text8
+    dataCollection = dataCollection(stateFlag5)
+    if "number" == dataCollection then
+      goto continueAtStep30
     end
   end
-  textValue8 = arg2.z
-  ::flow_label_30::
-  dataTable = {}
-  flag5 = arg2.x
-  dataTable.x = flag5
-  flag5 = arg2.y
-  dataTable.y = flag5
-  flag5 = arg2.z
-  dataTable.z = flag5
-  dataTable.heading = coords
-  dataTable.groundZ = textValue8
-  return dataTable
+  text8 = localValue2.z
+  ::continueAtStep30::
+  dataCollection = {}
+  stateFlag5 = localValue2.x
+  dataCollection.x = stateFlag5
+  stateFlag5 = localValue2.y
+  dataCollection.y = stateFlag5
+  stateFlag5 = localValue2.z
+  dataCollection.z = stateFlag5
+  dataCollection.heading = coords
+  dataCollection.groundZ = text8
+  return dataCollection
 end
-textValue5(eventRegistration2, textValue6)
-textValue5 = false
-eventRegistration2 = RegisterNetEvent
-textValue6 = "676d7f86f9"
+text5(eventHandler2, text6)
+text5 = false
+eventHandler2 = RegisterNetEvent
+text6 = "676d7f86f9"
 -- Beginner: this function handles network event "676d7f86f9".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4
-  arg1 = CMG
-  arg1 = arg1.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: none) ===
+function workingValue9()
+  local localValue1, localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg1 = arg1()
-  arg2 = textValue5
-  if arg2 then
-    arg2 = notify
+  localValue1 = localValue1()
+  localValue2 = text5
+  if localValue2 then
+    localValue2 = notify
     coords = "~r~You are using morphine currently. Please try again later."
     -- Beginner: Show a notification to the player.
-    arg2(coords)
+    localValue2(coords)
     return
   end
-  arg2 = CMG
-  arg2 = arg2.getPlayerVehicle
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2()
-  if 0 ~= arg2 then
-    arg2 = notify
+  localValue2 = localValue2()
+  if 0 ~= localValue2 then
+    localValue2 = notify
     coords = "~r~You can not do this whilst in a vehicle."
-    arg2(coords)
+    localValue2(coords)
     return
   end
-  arg2 = -1
+  localValue2 = -1
   coords = 0
-  cmgCall2 = 3.0
-  textValue8 = pairs
-  dataTable = GetActivePlayers
-  dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4 = dataTable()
-  textValue8, dataTable, flag5, textValue9 = textValue8(dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4)
-  for textValue10, mathHelper in textValue8, dataTable, flag5, textValue9 do
-    textValue = GetPlayerPed
-    numberValue2 = mathHelper
+  cmgOperation2 = 3.0
+  text8 = pairs
+  dataCollection = GetActivePlayers
+  dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4 = dataCollection()
+  text8, dataCollection, stateFlag5, text9 = text8(dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4)
+  for text10, mathHelper in text8, dataCollection, stateFlag5, text9 do
+    text = GetPlayerPed
+    number2 = mathHelper
     -- Beginner: result below is playerPed.
-    textValue = textValue(numberValue2)
-    if 0 ~= textValue then
-      numberValue2 = PlayerPedId
+    text = text(number2)
+    if 0 ~= text then
+      number2 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      numberValue2 = numberValue2()
-      if textValue ~= numberValue2 then
-        numberValue2 = GetEntityCoords
-        numberValue3 = textValue
-        numberValue4 = true
+      number2 = number2()
+      if text ~= number2 then
+        number2 = GetEntityCoords
+        number3 = text
+        number4 = true
         -- Beginner: result below is entityCoords.
-        numberValue2 = numberValue2(numberValue3, numberValue4)
-        numberValue2 = numberValue2 - arg1
-        numberValue2 = #numberValue2
-        if cmgCall2 > numberValue2 then
-          arg2 = mathHelper
-          coords = textValue
-          cmgCall2 = numberValue2
+        number2 = number2(number3, number4)
+        number2 = number2 - localValue1
+        number2 = #number2
+        if cmgOperation2 > number2 then
+          localValue2 = mathHelper
+          coords = text
+          cmgOperation2 = number2
         end
       end
     end
   end
-  if -1 == arg2 then
-    textValue8 = notify
-    dataTable = "~r~No nearby player found."
+  if -1 == localValue2 then
+    text8 = notify
+    dataCollection = "~r~No nearby player found."
     -- Beginner: Show a notification to the player.
-    textValue8(dataTable)
+    text8(dataCollection)
     return
   end
-  textValue8 = GetEntityHealth
-  dataTable = coords
+  text8 = GetEntityHealth
+  dataCollection = coords
   -- Beginner: result below is health.
-  textValue8 = textValue8(dataTable)
-  if textValue8 <= 102 then
-    dataTable = notify
-    flag5 = "~r~This player is dead and can not have morphine injected."
-    dataTable(flag5)
+  text8 = text8(dataCollection)
+  if text8 <= 102 then
+    dataCollection = notify
+    stateFlag5 = "~r~This player is dead and can not have morphine injected."
+    dataCollection(stateFlag5)
   else
-    dataTable = 200
-    if textValue8 >= dataTable then
-      dataTable = notify
-      flag5 = "~r~This player is healthy and does not require morphine."
+    dataCollection = 200
+    if text8 >= dataCollection then
+      dataCollection = notify
+      stateFlag5 = "~r~This player is healthy and does not require morphine."
       -- Beginner: Show a notification to the player.
-      dataTable(flag5)
+      dataCollection(stateFlag5)
     else
-      dataTable = GetPlayerServerId
-      flag5 = arg2
+      dataCollection = GetPlayerServerId
+      stateFlag5 = localValue2
       -- Beginner: result below is serverId.
-      dataTable = dataTable(flag5)
-      if dataTable > 0 then
-        flag5 = TriggerServerEvent
-        textValue9 = "a00a7ed7df"
-        textValue10 = dataTable
+      dataCollection = dataCollection(stateFlag5)
+      if dataCollection > 0 then
+        stateFlag5 = TriggerServerEvent
+        text9 = "a00a7ed7df"
+        text10 = dataCollection
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a00a7ed7df".
-        flag5(textValue9, textValue10)
+        stateFlag5(text9, text10)
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "676d7f86f9".
-eventRegistration2(textValue6, workValue9)
-eventRegistration2 = RegisterNetEvent
-textValue6 = "73be4abad8"
+eventHandler2(text6, workingValue9)
+eventHandler2 = RegisterNetEvent
+text6 = "73be4abad8"
 -- Beginner: this function handles network event "73be4abad8".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4
-  arg2 = textValue5
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4
+  localValue2 = text5
+  if localValue2 then
     return
   end
-  arg2 = CMG
-  arg2 = arg2.getPlayerVehicle
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2()
-  if 0 ~= arg2 then
+  localValue2 = localValue2()
+  if 0 ~= localValue2 then
     return
   end
-  arg2 = GetPlayerFromServerId
-  coords = arg1
+  localValue2 = GetPlayerFromServerId
+  coords = localValue1
   -- Beginner: result below is playerIndex.
-  arg2 = arg2(coords)
-  if -1 == arg2 then
+  localValue2 = localValue2(coords)
+  if -1 == localValue2 then
     return
   end
   coords = GetPlayerPed
-  cmgCall2 = arg2
+  cmgOperation2 = localValue2
   -- Beginner: result below is playerPed.
-  coords = coords(cmgCall2)
+  coords = coords(cmgOperation2)
   if 0 == coords then
     return
   end
-  cmgCall2 = notify
-  textValue8 = "~g~Injecting morphine into player..."
+  cmgOperation2 = notify
+  text8 = "~g~Injecting morphine into player..."
   -- Beginner: Show a notification to the player.
-  cmgCall2(textValue8)
-  cmgCall2 = true
-  textValue5 = cmgCall2
-  cmgCall2 = tCMG
-  cmgCall2 = cmgCall2.setCanAnim
-  textValue8 = false
-  cmgCall2(textValue8)
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadClipSet
-  textValue8 = "move_ped_crouched"
-  cmgCall2(textValue8)
-  cmgCall2 = PlayerPedId
+  cmgOperation2(text8)
+  cmgOperation2 = true
+  text5 = cmgOperation2
+  cmgOperation2 = tCMG
+  cmgOperation2 = cmgOperation2.setCanAnim
+  text8 = false
+  cmgOperation2(text8)
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadClipSet
+  text8 = "move_ped_crouched"
+  cmgOperation2(text8)
+  cmgOperation2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  cmgCall2 = cmgCall2()
-  textValue8 = GetEntityCoords
-  dataTable = coords
-  flag5 = true
+  cmgOperation2 = cmgOperation2()
+  text8 = GetEntityCoords
+  dataCollection = coords
+  stateFlag5 = true
   -- Beginner: result below is entityCoords.
-  textValue8 = textValue8(dataTable, flag5)
-  dataTable = GetEntityForwardVector
-  flag5 = coords
-  dataTable = dataTable(flag5)
-  dataTable = dataTable * 0.75
-  textValue8 = textValue8 + dataTable
-  dataTable = vector3
-  flag5 = 0.0
-  textValue9 = 0.0
-  textValue10 = -0.5
-  dataTable = dataTable(flag5, textValue9, textValue10)
-  textValue8 = textValue8 + dataTable
-  dataTable = SetEntityCoords
-  flag5 = cmgCall2
-  textValue9 = textValue8.x
-  textValue10 = textValue8.y
-  mathHelper = textValue8.z
-  textValue = true
-  numberValue2 = false
-  numberValue3 = false
-  numberValue4 = false
+  text8 = text8(dataCollection, stateFlag5)
+  dataCollection = GetEntityForwardVector
+  stateFlag5 = coords
+  dataCollection = dataCollection(stateFlag5)
+  dataCollection = dataCollection * 0.75
+  text8 = text8 + dataCollection
+  dataCollection = vector3
+  stateFlag5 = 0.0
+  text9 = 0.0
+  text10 = -0.5
+  dataCollection = dataCollection(stateFlag5, text9, text10)
+  text8 = text8 + dataCollection
+  dataCollection = SetEntityCoords
+  stateFlag5 = cmgOperation2
+  text9 = text8.x
+  text10 = text8.y
+  mathHelper = text8.z
+  text = true
+  number2 = false
+  number3 = false
+  number4 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  dataTable(flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4)
-  dataTable = SetEntityHeading
-  flag5 = cmgCall2
-  textValue9 = GetEntityHeading
-  textValue10 = coords
+  dataCollection(stateFlag5, text9, text10, mathHelper, text, number2, number3, number4)
+  dataCollection = SetEntityHeading
+  stateFlag5 = cmgOperation2
+  text9 = GetEntityHeading
+  text10 = coords
   -- Beginner: result below is heading.
-  textValue9 = textValue9(textValue10)
-  textValue9 = textValue9 + 180.0
+  text9 = text9(text10)
+  text9 = text9 + 180.0
   -- Beginner: Change the direction an entity is facing.
-  dataTable(flag5, textValue9)
-  dataTable = true
-  flag5 = GetGameTimer
+  dataCollection(stateFlag5, text9)
+  dataCollection = true
+  stateFlag5 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  flag5 = flag5()
+  stateFlag5 = stateFlag5()
   while true do
-    textValue9 = GetGameTimer
+    text9 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    textValue9 = textValue9()
-    textValue9 = textValue9 - flag5
-    textValue10 = 5000
-    if not (textValue9 < textValue10) then
+    text9 = text9()
+    text9 = text9 - stateFlag5
+    text10 = 5000
+    if not (text9 < text10) then
       break
     end
-    textValue9 = GetEntityHealth
-    textValue10 = cmgCall2
+    text9 = GetEntityHealth
+    text10 = cmgOperation2
     -- Beginner: result below is health.
-    textValue9 = textValue9(textValue10)
-    if not (textValue9 < 102) then
-      textValue9 = IsEntityDead
-      textValue10 = cmgCall2
-      textValue9 = textValue9(textValue10)
-      if not textValue9 then
-        goto flow_label_96
+    text9 = text9(text10)
+    if not (text9 < 102) then
+      text9 = IsEntityDead
+      text10 = cmgOperation2
+      text9 = text9(text10)
+      if not text9 then
+        goto continueAtStep96
       end
     end
-    dataTable = false
+    dataCollection = false
     do break end
-    ::flow_label_96::
-    textValue9 = SetPedMovementClipset
-    textValue10 = cmgCall2
+    ::continueAtStep96::
+    text9 = SetPedMovementClipset
+    text10 = cmgOperation2
     mathHelper = "move_ped_crouched"
-    textValue = 0.6
-    textValue9(textValue10, mathHelper, textValue)
-    textValue9 = SetPedStrafeClipset
-    textValue10 = cmgCall2
+    text = 0.6
+    text9(text10, mathHelper, text)
+    text9 = SetPedStrafeClipset
+    text10 = cmgOperation2
     mathHelper = "move_ped_crouched_strafing"
-    textValue9(textValue10, mathHelper)
-    textValue9 = Citizen
-    textValue9 = textValue9.Wait
-    textValue10 = 5000
-    textValue9(textValue10)
+    text9(text10, mathHelper)
+    text9 = Citizen
+    text9 = text9.Wait
+    text10 = 5000
+    text9(text10)
   end
-  if dataTable then
-    textValue9 = ResetPedStrafeClipset
-    textValue10 = cmgCall2
-    textValue9(textValue10)
-    textValue9 = ResetPedMovementClipset
-    textValue10 = cmgCall2
+  if dataCollection then
+    text9 = ResetPedStrafeClipset
+    text10 = cmgOperation2
+    text9(text10)
+    text9 = ResetPedMovementClipset
+    text10 = cmgOperation2
     mathHelper = 0.5
-    textValue9(textValue10, mathHelper)
+    text9(text10, mathHelper)
   end
-  textValue9 = RemoveAnimSet
-  textValue10 = "move_ped_crouched"
-  textValue9(textValue10)
-  textValue9 = tCMG
-  textValue9 = textValue9.setCanAnim
-  textValue10 = true
-  textValue9(textValue10)
-  textValue9 = false
-  textValue5 = textValue9
+  text9 = RemoveAnimSet
+  text10 = "move_ped_crouched"
+  text9(text10)
+  text9 = tCMG
+  text9 = text9.setCanAnim
+  text10 = true
+  text9(text10)
+  text9 = false
+  text5 = text9
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "73be4abad8".
-eventRegistration2(textValue6, workValue9)
-eventRegistration2 = RegisterNetEvent
-textValue6 = "da84b34be7"
+eventHandler2(text6, workingValue9)
+eventHandler2 = RegisterNetEvent
+text6 = "da84b34be7"
 -- Beginner: this function handles network event "da84b34be7".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, coords, cmgCall2, textValue8, dataTable, flag5, textValue9, textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2, heading, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, flag3, flag4
-  arg2 = textValue5
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, coords, cmgOperation2, text8, dataCollection, stateFlag5, text9, text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2, heading, number5, number6, number7, number8, number9, stateFlag3, stateFlag4
+  localValue2 = text5
+  if localValue2 then
     return
   end
-  arg2 = CMG
-  arg2 = arg2.getPlayerVehicle
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2()
-  if 0 ~= arg2 then
+  localValue2 = localValue2()
+  if 0 ~= localValue2 then
     return
   end
-  arg2 = GetPlayerFromServerId
-  coords = arg1
+  localValue2 = GetPlayerFromServerId
+  coords = localValue1
   -- Beginner: result below is playerIndex.
-  arg2 = arg2(coords)
-  if -1 == arg2 then
+  localValue2 = localValue2(coords)
+  if -1 == localValue2 then
     return
   end
   coords = GetPlayerPed
-  cmgCall2 = arg2
+  cmgOperation2 = localValue2
   -- Beginner: result below is playerPed.
-  coords = coords(cmgCall2)
+  coords = coords(cmgOperation2)
   if 0 == coords then
     return
   end
-  cmgCall2 = notify
-  textValue8 = "~g~Waiting for morphine to be injected..."
+  cmgOperation2 = notify
+  text8 = "~g~Waiting for morphine to be injected..."
   -- Beginner: Show a notification to the player.
-  cmgCall2(textValue8)
-  cmgCall2 = true
-  textValue5 = cmgCall2
-  cmgCall2 = tCMG
-  cmgCall2 = cmgCall2.setCanAnim
-  textValue8 = false
-  cmgCall2(textValue8)
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.loadAnimDict
-  textValue8 = "timetable@tracy@ig_14@"
+  cmgOperation2(text8)
+  cmgOperation2 = true
+  text5 = cmgOperation2
+  cmgOperation2 = tCMG
+  cmgOperation2 = cmgOperation2.setCanAnim
+  text8 = false
+  cmgOperation2(text8)
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.loadAnimDict
+  text8 = "timetable@tracy@ig_14@"
   -- Beginner: Load a GTA animation dictionary before using it.
-  cmgCall2(textValue8)
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.getPlayerCoords
+  cmgOperation2(text8)
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  cmgCall2 = cmgCall2()
-  textValue8 = vector3
-  dataTable = 0.0
-  flag5 = 0.0
-  textValue9 = -0.2
-  textValue8 = textValue8(dataTable, flag5, textValue9)
-  cmgCall2 = cmgCall2 + textValue8
-  textValue8 = true
-  dataTable = PlayerPedId
+  cmgOperation2 = cmgOperation2()
+  text8 = vector3
+  dataCollection = 0.0
+  stateFlag5 = 0.0
+  text9 = -0.2
+  text8 = text8(dataCollection, stateFlag5, text9)
+  cmgOperation2 = cmgOperation2 + text8
+  text8 = true
+  dataCollection = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  dataTable = dataTable()
-  flag5 = GetGameTimer
+  dataCollection = dataCollection()
+  stateFlag5 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  flag5 = flag5()
+  stateFlag5 = stateFlag5()
   while true do
-    textValue9 = GetGameTimer
+    text9 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    textValue9 = textValue9()
-    textValue9 = textValue9 - flag5
-    textValue10 = 5000
-    if not (textValue9 < textValue10) then
+    text9 = text9()
+    text9 = text9 - stateFlag5
+    text10 = 5000
+    if not (text9 < text10) then
       break
     end
-    textValue9 = GetEntityHealth
-    textValue10 = dataTable
+    text9 = GetEntityHealth
+    text10 = dataCollection
     -- Beginner: result below is health.
-    textValue9 = textValue9(textValue10)
-    if not (textValue9 < 102) then
-      textValue9 = IsEntityDead
-      textValue10 = dataTable
-      textValue9 = textValue9(textValue10)
-      if not textValue9 then
-        goto flow_label_70
+    text9 = text9(text10)
+    if not (text9 < 102) then
+      text9 = IsEntityDead
+      text10 = dataCollection
+      text9 = text9(text10)
+      if not text9 then
+        goto continueAtStep70
       end
     end
-    textValue8 = false
+    text8 = false
     do break end
-    ::flow_label_70::
-    textValue9 = IsEntityPlayingAnim
-    textValue10 = dataTable
+    ::continueAtStep70::
+    text9 = IsEntityPlayingAnim
+    text10 = dataCollection
     mathHelper = "timetable@tracy@ig_14@"
-    textValue = "ig_14_base_tracy"
-    numberValue2 = 3
-    textValue9 = textValue9(textValue10, mathHelper, textValue, numberValue2)
-    if not textValue9 then
-      textValue9 = FreezeEntityPosition
-      textValue10 = dataTable
+    text = "ig_14_base_tracy"
+    number2 = 3
+    text9 = text9(text10, mathHelper, text, number2)
+    if not text9 then
+      text9 = FreezeEntityPosition
+      text10 = dataCollection
       mathHelper = true
       -- Beginner: Freeze or unfreeze an entity in place.
-      textValue9(textValue10, mathHelper)
-      textValue9 = TaskPlayAnimAdvanced
-      textValue10 = dataTable
+      text9(text10, mathHelper)
+      text9 = TaskPlayAnimAdvanced
+      text10 = dataCollection
       mathHelper = "timetable@tracy@ig_14@"
-      textValue = "ig_14_base_tracy"
-      numberValue2 = cmgCall2.x
-      numberValue3 = cmgCall2.y
-      numberValue4 = cmgCall2.z
-      flag = 0.0
-      flag2 = 0.0
+      text = "ig_14_base_tracy"
+      number2 = cmgOperation2.x
+      number3 = cmgOperation2.y
+      number4 = cmgOperation2.z
+      stateFlag = 0.0
+      stateFlag2 = 0.0
       heading = GetEntityHeading
-      numberValue5 = dataTable
+      number5 = dataCollection
       -- Beginner: result below is heading.
-      heading = heading(numberValue5)
-      numberValue5 = 8.0
-      numberValue6 = 8.0
-      numberValue7 = -1
-      numberValue8 = 1
-      numberValue9 = 1.0
-      flag3 = false
-      flag4 = false
-      textValue9(textValue10, mathHelper, textValue, numberValue2, numberValue3, numberValue4, flag, flag2, heading, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, flag3, flag4)
+      heading = heading(number5)
+      number5 = 8.0
+      number6 = 8.0
+      number7 = -1
+      number8 = 1
+      number9 = 1.0
+      stateFlag3 = false
+      stateFlag4 = false
+      text9(text10, mathHelper, text, number2, number3, number4, stateFlag, stateFlag2, heading, number5, number6, number7, number8, number9, stateFlag3, stateFlag4)
     end
-    textValue9 = Citizen
-    textValue9 = textValue9.Wait
-    textValue10 = 0
-    textValue9(textValue10)
+    text9 = Citizen
+    text9 = text9.Wait
+    text10 = 0
+    text9(text10)
   end
-  textValue9 = FreezeEntityPosition
-  textValue10 = dataTable
+  text9 = FreezeEntityPosition
+  text10 = dataCollection
   mathHelper = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  textValue9(textValue10, mathHelper)
-  if textValue8 then
-    textValue9 = StopAnimTask
-    textValue10 = dataTable
+  text9(text10, mathHelper)
+  if text8 then
+    text9 = StopAnimTask
+    text10 = dataCollection
     mathHelper = "timetable@tracy@ig_14@"
-    textValue = "ig_14_base_tracy"
-    numberValue2 = 1.0
-    textValue9(textValue10, mathHelper, textValue, numberValue2)
-    textValue9 = GetEntityHealth
-    textValue10 = dataTable
+    text = "ig_14_base_tracy"
+    number2 = 1.0
+    text9(text10, mathHelper, text, number2)
+    text9 = GetEntityHealth
+    text10 = dataCollection
     -- Beginner: result below is health.
-    textValue9 = textValue9(textValue10)
-    if textValue9 > 102 then
-      textValue10 = 200
-      if textValue9 < textValue10 then
-        textValue10 = SetEntityHealth
-        mathHelper = dataTable
-        textValue = 200
-        textValue10(mathHelper, textValue)
-        textValue10 = notify
+    text9 = text9(text10)
+    if text9 > 102 then
+      text10 = 200
+      if text9 < text10 then
+        text10 = SetEntityHealth
+        mathHelper = dataCollection
+        text = 200
+        text10(mathHelper, text)
+        text10 = notify
         mathHelper = "~g~Morphine applied free of charge by the NHS!"
         -- Beginner: Show a notification to the player.
-        textValue10(mathHelper)
-        textValue10 = TriggerEvent
+        text10(mathHelper)
+        text10 = TriggerEvent
         mathHelper = "TriggerTazer"
         -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "TriggerTazer".
-        textValue10(mathHelper)
+        text10(mathHelper)
     end
     else
-      textValue10 = notify
+      text10 = notify
       mathHelper = "~r~The morphine had no affect on you."
       -- Beginner: Show a notification to the player.
-      textValue10(mathHelper)
+      text10(mathHelper)
     end
   end
-  textValue9 = RemoveAnimDict
-  textValue10 = "timetable@tracy@ig_14@"
-  textValue9(textValue10)
-  textValue9 = tCMG
-  textValue9 = textValue9.setCanAnim
-  textValue10 = true
-  textValue9(textValue10)
-  textValue9 = false
-  textValue5 = textValue9
+  text9 = RemoveAnimDict
+  text10 = "timetable@tracy@ig_14@"
+  text9(text10)
+  text9 = tCMG
+  text9 = text9.setCanAnim
+  text10 = true
+  text9(text10)
+  text9 = false
+  text5 = text9
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "da84b34be7".
-eventRegistration2(textValue6, workValue9)
-eventRegistration2 = RegisterNetEvent
-textValue6 = "cefef09c49"
+eventHandler2(text6, workingValue9)
+eventHandler2 = RegisterNetEvent
+text6 = "cefef09c49"
 -- Beginner: this function handles network event "cefef09c49".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2
-  if 0 == arg1 then
-    arg2 = 0
-    localEventCall = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2
+  if 0 == localValue1 then
+    localValue2 = 0
+    localEventCall = localValue2
   else
-    arg2 = GetGameTimer
+    localValue2 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg2 = arg2()
-    arg2 = arg2 + arg1
-    localEventCall = arg2
+    localValue2 = localValue2()
+    localValue2 = localValue2 + localValue1
+    localEventCall = localValue2
   end
 end
-eventRegistration2(textValue6, workValue9)
-eventRegistration2 = RegisterNetEvent
-textValue6 = "3ea9b56577"
+eventHandler2(text6, workingValue9)
+eventHandler2 = RegisterNetEvent
+text6 = "3ea9b56577"
 -- Beginner: this function handles network event "3ea9b56577".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2
-  if 0 == arg1 then
-    arg2 = 0
-    textValue4 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2
+  if 0 == localValue1 then
+    localValue2 = 0
+    text4 = localValue2
   else
-    arg2 = GetGameTimer
+    localValue2 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg2 = arg2()
-    arg2 = arg2 + arg1
-    textValue4 = arg2
+    localValue2 = localValue2()
+    localValue2 = localValue2 + localValue1
+    text4 = localValue2
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3ea9b56577".
-eventRegistration2(textValue6, workValue9)
+eventHandler2(text6, workingValue9)

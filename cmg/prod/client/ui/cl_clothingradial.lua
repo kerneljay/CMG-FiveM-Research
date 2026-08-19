@@ -506,7 +506,7 @@ local function playClothingAnimation(animation, callback)
         Wait(100)
     end
 
-    -- The original script changes the movement flag while inside a vehicle.
+    -- The original script changes the movement stateFlag while inside a vehicle.
     if IsPedInAnyVehicle(ped, true) then
         animation.Move = 51
     end

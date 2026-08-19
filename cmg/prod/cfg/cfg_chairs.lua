@@ -32,9 +32,9 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like temporaryValue12, temporaryText4, temporaryTable7, flag3, temporaryCmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like temporaryValue12, temporaryText4, temporaryTable7, stateFlag3, temporaryCmgCall2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
@@ -44,9 +44,9 @@
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
@@ -177,7 +177,7 @@ Config.SitTypes = {
         scenarios = {
             [1] = { name = "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER", offset = vector4(0.0, 0.0, 0.0, 0.0) }
         }
-        -- animation = { dict = "timetable@jimmy@mics3_ig_15@", name = "idle_a_jimmy", offset = vector4(0.0, 0.0, 0.0, 0.0), flag = 1 }
+        -- animation = { dict = "timetable@jimmy@mics3_ig_15@", name = "idle_a_jimmy", offset = vector4(0.0, 0.0, 0.0, 0.0), stateFlag = 1 }
     },
     ['chair'] = {
         scenarios = {
@@ -422,7 +422,7 @@ local Models = {
     [28672923] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, 0.7, 180.0)} } }, -- hei_prop_yah_seat_01
     [-294499241] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, -0.1, 0.5, 180.0)} } }, -- prop_yacht_seat_01
     [-1005619310] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, 0.7, 180.0)} } }, -- prop_yacht_seat_03
-    [`prop_yaught_chair_01`] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, -0.05, 0.0, 180.0)} } }, -- Does not have the DYNAMIC flag
+    [`prop_yaught_chair_01`] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, -0.05, 0.0, 180.0)} } }, -- Does not have the DYNAMIC stateFlag
     [603897027] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} } }, -- v_club_stagechair
     [725259233] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, 0.525, 180.0)} } }, -- prop_chair_02
     [558578166] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, 0.0, 180.0)} } }, -- prop_gc_chair02
@@ -485,12 +485,12 @@ local Models = {
     [-296249014] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.78, 180.0)} } }, -- prop_chair_pile_01
     [688581443] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.06, 0.03, 180.0)} } }, -- h4_prop_h4_chair_01a
     [-1200941518] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.01, 0.51, 180.0)} } }, -- v_res_trev_framechair
-    [803221323] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- v_res_study_chair - (Does not have the DYNAMIC flag)
+    [803221323] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- v_res_study_chair - (Does not have the DYNAMIC stateFlag)
     [-1061363766] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} } }, -- v_res_fh_barcchair
     [-1394425261] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} } }, -- v_res_fh_easychair
     [-108069875] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, -0.25, 0.05, 180.0)} } }, -- v_res_fh_singleseat
-    [-5124212] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.05, 0.48, 180.0)} } }, -- v_res_j_stool - (Does not have the DYNAMIC flag)
-    [`v_res_j_dinechair`] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.05, 0.48, 180.0)} } }, -- Does not have the DYNAMIC flag
+    [-5124212] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.05, 0.48, 180.0)} } }, -- v_res_j_stool - (Does not have the DYNAMIC stateFlag)
+    [`v_res_j_dinechair`] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.05, 0.48, 180.0)} } }, -- Does not have the DYNAMIC stateFlag
     [-474978775] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} } }, -- v_res_m_dinechair
     [1789936288] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.075, 180.0)} } }, -- v_res_tre_chair
     [810899590] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.05, 180.0)} } }, -- v_res_tre_officechair
@@ -528,7 +528,7 @@ local Models = {
     [1488091809] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.08, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_02
     [-393569709] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.02, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_03
     [-999534061] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_04
-    [-689899780] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_05 - (Does not have the DYNAMIC flag)
+    [-689899780] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_05 - (Does not have the DYNAMIC stateFlag)
     [233628951] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_06
     [-1608185467] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_07
     [1740052654] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} } }, -- apa_mp_h_stn_chairstrip_08
@@ -548,15 +548,15 @@ local Models = {
     [533585188] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- hei_heist_din_chair_06
     [1667818593] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- hei_heist_din_chair_08
     [46768928] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- hei_heist_din_chair_09
-    [-930879665] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} } }, -- prop_toilet_01 - (Usually it doesn't have the DYNAMIC flag)
+    [-930879665] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} } }, -- prop_toilet_01 - (Usually it doesn't have the DYNAMIC stateFlag)
     [`prop_toilet_02`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, 0.56, 180.0)} } },
     [`xm_prop_x17_avengerchair`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, -0.08, 180.0)} } },
     [1085033290] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.07, -0.06, 180.0)} } }, -- xm_prop_x17_avengerchair_02
-    [1264966695] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.10, 0.52, 180.0)} } }, -- v_corp_sidechair - (Does not have the DYNAMIC flag)
+    [1264966695] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.10, 0.52, 180.0)} } }, -- v_corp_sidechair - (Does not have the DYNAMIC stateFlag)
     [`v_corp_sidechairfd`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.52, 180.0)} } },
-    [1546354612] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.10, 0.48, 180.0)} } }, -- v_ret_ps_chair - (Does not have the DYNAMIC flag)
-    [559624133] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.10, 0.13, 180.0)} } }, -- v_corp_bk_chair1 - (Does not have the DYNAMIC flag)
-    [-274707376] = { sit = { type = 'chair', seats = {[1] = vector4(-0.04, 0.05, 0.03, 180.0)} } }, -- v_corp_bk_chair2 - (Does not have the DYNAMIC flag)
+    [1546354612] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.10, 0.48, 180.0)} } }, -- v_ret_ps_chair - (Does not have the DYNAMIC stateFlag)
+    [559624133] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.10, 0.13, 180.0)} } }, -- v_corp_bk_chair1 - (Does not have the DYNAMIC stateFlag)
+    [-274707376] = { sit = { type = 'chair', seats = {[1] = vector4(-0.04, 0.05, 0.03, 180.0)} } }, -- v_corp_bk_chair2 - (Does not have the DYNAMIC stateFlag)
     [1056357185] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, 0.55, 180.0)} } }, -- prop_chair_07
     [-1301503129] =  { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.01, -0.125, 180.0)} } }, -- sm_prop_offchair_smug_01
     [-188612674] = { sit = { type = 'chair', seats = {[1] = vector4(0.75, -0.2, 0.5, 180.0)} } }, -- bkr_prop_clubhouse_armchair_01a
@@ -599,7 +599,7 @@ local Models = {
     [`bkr_prop_clubhouse_offchair_01a`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, -0.1, 180.0)} } },
     [`sm_prop_smug_offchair_01a`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, -0.1, 180.0)} } },
     [`h4_prop_battle_club_chair_03`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, -0.1, 180.0)} } },
-    [`tr_prop_tr_chair_01a`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, -0.1, 180.0)} } }, -- Does not have the DYNAMIC flag
+    [`tr_prop_tr_chair_01a`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, -0.1, 180.0)} } }, -- Does not have the DYNAMIC stateFlag
     [`xm_mp_h_stn_chairarm_13`] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, -0.45, 0.5, 180.0)} } },
     [`gr_prop_gr_chair02_ped`] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.1, 0.0, 180.0)} } },
     [`bkr_prop_clubhouse_chair_01`] = { sit = { type = 'chair2', seats = {[1] = vector4(0.0, 0.0, -0.08, 180.0)} } },
@@ -668,14 +668,14 @@ local Models = {
     [937222680] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.1, 0.08, 180.0)} } }, -- v_res_tre_stool
     [1560277278] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.1, 0.08, 180.0)} } }, -- v_res_tre_stool_leather
     [891849380] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.1, 0.08, 180.0)} } }, -- v_res_tre_stool_scuz
-    [1170592309] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.1, 0.6, 180.0)} } }, -- apa_mp_h_yacht_stool_01 - (Does not have the DYNAMIC flag)
+    [1170592309] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.1, 0.6, 180.0)} } }, -- apa_mp_h_yacht_stool_01 - (Does not have the DYNAMIC stateFlag)
     [-677582063] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.1, 0.48, 180.0)} } }, -- apa_mp_h_stn_chairstool_12
     [682082323] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.1, 0.8, 180.0)} } }, -- apa_mp_h_yacht_barstool_01
     [-1190156817] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.2, 0.9, 180.0)} } }, -- v_ilev_fh_kitchenstool
     [196301499] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.15, 0.85, 180.0)} } }, -- ex_mp_h_din_stool_04
     [1378851084] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.2, 0.8, 180.0)} } }, -- ba_prop_int_stool_low
     [`h4_prop_int_stool_low`] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.2, 0.8, 180.0)} } },
-    [-1126331894] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.08, 0.8, 180.0)} } }, -- bkr_prop_biker_barstool_02 - (Does not have the DYNAMIC flag)
+    [-1126331894] = { sit = { type = 'stool', seats = {[1] = vector4(0.0, 0.08, 0.8, 180.0)} } }, -- bkr_prop_biker_barstool_02 - (Does not have the DYNAMIC stateFlag)
     [463039275] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.15, 0.25, 180.0)} } }, -- prop_ven_market_stool
     [1850701663] = { sit = { type = 'chair', seats = {[1] = vector4(0.1, 0.0, 0.80, 90.0)} } }, -- ch_prop_casino_stool_02a
     [`vw_prop_casino_stool_02a`] = { sit = { type = 'chair', seats = {[1] = vector4(0.2, 0.0, 0.80, 90.0)} } },
@@ -766,7 +766,7 @@ local Models = {
     [-1795175708] = {
         sit = { type = 'chair', teleportIn = true, seats = {[1] = vector4(-0.4, -0.6, 0.5, 0.0), [2] = vector4(0.4, -0.6, 0.5, 0.0), [3] = vector4(-0.4, 0.6, 0.5, 180.0), [4] = vector4(0.4, 0.6, 0.5, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, 0.1, 0.85, 180.0)} }
-    }, -- prop_picnictable_02 - (Does not have the DYNAMIC flag)
+    }, -- prop_picnictable_02 - (Does not have the DYNAMIC stateFlag)
     [`prop_table_para_comb_05`] = {
         sit = { type = 'chair', teleportIn = true, seats = {[1] = vector4(-0.4, -0.6, -0.01, 0.0), [2] = vector4(0.4, -0.6, -0.01, 0.0), [3] = vector4(-0.4, 0.6, -0.01, 180.0), [4] = vector4(0.4, 0.6, -0.01, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, -0.5, -0.1, 180.0), [2] = vector4(0.0, 0.5, -0.1, 0.0)} }
@@ -780,11 +780,11 @@ local Models = {
         sit = { type = 'chair2', seats = {[1] = vector4(0.0, -1.08, 0.07, 270.0), [2] = vector4(0.0, -0.375, 0.07, 270.0), [3] = vector4(0.0, 0.375, 0.07, 270.0), [4] = vector4(0.0, 1.08, 0.07, 270.0)} }
     }, -- v_med_hospseating1
     [`ch1_01_bench_for_chris`] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.7, -0.05, -0.1, 190.0), [2] = vector4(0.7, 0.15, -0.1, 190.0)} } }, -- Rest in peace!
-    [`prop_air_bench_01`] = { sit = { type = 'chair2', seats = {[1] = vector4(-1.2, 0.0, 0.5, 0.0), [2] = vector4(-0.4, 0.0, 0.5, 0.0), [3] = vector4(0.4, 0.0, 0.5, 0.0), [4] = vector4(1.2, 0.0, 0.5, 0.0)} } }, -- Does not have the DYNAMIC flag
+    [`prop_air_bench_01`] = { sit = { type = 'chair2', seats = {[1] = vector4(-1.2, 0.0, 0.5, 0.0), [2] = vector4(-0.4, 0.0, 0.5, 0.0), [3] = vector4(0.4, 0.0, 0.5, 0.0), [4] = vector4(1.2, 0.0, 0.5, 0.0)} } }, -- Does not have the DYNAMIC stateFlag
     [`prop_air_bench_02`] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-0.8, 0.0, 0.6, 180.0), [2] = vector4(0.0, 0.0, 0.6, 180.0), [3] = vector4(0.8, 0.0, 0.6, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, 0.0, 0.6, 180.0)} }
-    }, -- Does not have the DYNAMIC flag
+    }, -- Does not have the DYNAMIC stateFlag
     [`v_ind_meatbench`] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-0.8, 0.08, 0.5, 180.0), [2] = vector4(0.0, 0.08, 0.5, 180.0), [3] = vector4(0.8, 0.08, 0.5, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, 0.08, 0.5, 180.0)} }
@@ -804,7 +804,7 @@ local Models = {
     [`v_ilev_ph_bench`] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-1.25, 0.1, 0.5, 180.0), [2] = vector4(-0.6, 0.1, 0.5, 180.0), [3] = vector4(0.0, 0.1, 0.5, 180.0), [4] = vector4(0.6, 0.1, 0.5, 180.0), [5] = vector4(1.25, 0.1, 0.5, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} }
-    }, -- Does not have the DYNAMIC flag
+    }, -- Does not have the DYNAMIC stateFlag
     [`v_res_fh_benchlong`] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-1.0, 0.0, 0.3, 180.0), [2] = vector4(0.0, 0.0, 0.3, 180.0), [3] = vector4(1.0, 0.0, 0.3, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, 0.1, 0.3, 180.0)} }
@@ -835,7 +835,7 @@ local Models = {
     [376180694] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.35, -0.1, 0.6, 180.0), [2] = vector4(0.35, -0.1, 0.6, 180.0)} } }, -- gr_dlc_gr_yacht_props_seat_03
     [-1320300017] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.35, -0.1, 0.6, 180.0), [2] = vector4(0.35, -0.1, 0.6, 180.0)} } }, -- prop_yacht_seat_02
     [1532110050] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.35, -0.1, 0.6, 180.0), [2] = vector4(0.35, -0.1, 0.6, 180.0)} } }, -- p_yacht_sofa_01_s
-    [`prop_yaught_sofa_01`] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.35, -0.05, 0.0, 180.0), [2] = vector4(0.35, -0.05, 0.0, 180.0)} } }, -- Does not have the DYNAMIC flag
+    [`prop_yaught_sofa_01`] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.35, -0.05, 0.0, 180.0), [2] = vector4(0.35, -0.05, 0.0, 180.0)} } }, -- Does not have the DYNAMIC stateFlag
     [-957463636] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-1.30, -0.25, 0.5, 180.0), [2] = vector4(-0.45, -0.25, 0.5, 180.0), [3] = vector4(0.45, -0.25, 0.5, 180.0), [4] = vector4(1.30, -0.25, 0.5, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(-1.0, -0.25, 0.5, 180.0), [2] = vector4(1.0, -0.25, 0.5, 180.0)} }
@@ -903,7 +903,7 @@ local Models = {
         sit = { type = 'chair2', seats = {[1] = vector4(-0.45, -0.2, 0.6, 180.0), [2] = vector4(0.45, -0.2, 0.6, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(-0.05, -0.05, 0.65, 180.0)} }
     }, -- v_res_r_sofa
-    [1677810564] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.35, 0.07, 0.5, 180.0), [2] = vector4(0.35, 0.07, 0.5, 180.0)} } }, -- v_corp_cd_recseat - (Does not have the DYNAMIC flag)
+    [1677810564] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.35, 0.07, 0.5, 180.0), [2] = vector4(0.35, 0.07, 0.5, 180.0)} } }, -- v_corp_cd_recseat - (Does not have the DYNAMIC stateFlag)
     [`hei_heist_stn_sofa3seat_01`] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.75, -0.10, 0.5, 180.0), [2] = vector4(0.0, -0.10, 0.5, 180.0), [3] = vector4(0.75, -0.10, 0.5, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, -0.15, 0.5, 180.0)} }
@@ -911,7 +911,7 @@ local Models = {
     [`hei_heist_stn_sofa3seat_02`] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.80, -0.1, 0.5, 180.0), [2] = vector4(0.0, -0.1, 0.5, 180.0), [3] = vector4(0.80, -0.1, 0.5, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} }
-    }, -- Does not have the DYNAMIC flag
+    }, -- Does not have the DYNAMIC stateFlag
     [`hei_heist_stn_sofa3seat_06`] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.85, -0.10, 0.5, 180.0), [2] = vector4(0.0, -0.10, 0.5, 180.0), [3] = vector4(0.85, -0.10, 0.5, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} }
@@ -931,11 +931,11 @@ local Models = {
     [`ex_mp_h_off_sofa_02`] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-0.80, 0.0, 0.5, 180.0), [2] = vector4(0.0, 0.0, 0.5, 180.0), [3] = vector4(0.80, 0.0, 0.5, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} }
-    }, -- Does not have the DYNAMIC flag
+    }, -- Does not have the DYNAMIC stateFlag
     [`ex_mp_h_off_sofa_003`] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.75, 0.0, 0.5, 180.0), [2] = vector4(0.0, 0.0, 0.5, 180.0), [3] = vector4(0.75, 0.0, 0.5, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} }
-    }, -- Does not have the DYNAMIC flag
+    }, -- Does not have the DYNAMIC stateFlag
     [`apa_mp_h_yacht_sofa_02`] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.6, -0.10, 0.5, 180.0), [2] = vector4(0.6, -0.10, 0.5, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, -0.10, 0.5, 180.0)} }
@@ -1103,7 +1103,7 @@ local Models = {
     [-1661146321] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-0.70, -0.09, 0.48, 180.0), [2] = vector4(0.0, -0.09, 0.48, 180.0), [3] = vector4(0.70, -0.09, 0.48, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, -0.1, 0.5, 180.0)} }
-    }, -- v_club_officesofa - (Does not have the DYNAMIC flag)
+    }, -- v_club_officesofa - (Does not have the DYNAMIC stateFlag)
     [-1726933877] = {
         sit = { type = 'chair2', seats = {[1] = vector4(-0.5, -0.1, 0.48, 180.0), [2] = vector4(0.5, -0.1, 0.48, 180.0)} },
         lay = { type = 'layside', teleportIn = true, seats = {[1] = vector4(0.0, -0.1, 0.5, 180.0)} }
@@ -1124,7 +1124,7 @@ local Models = {
     [-1969563019] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.75, -0.15, 0.5, 180.0), [2] = vector4(0.0, -0.15, 0.5, 180.0), [3] = vector4(0.75, -0.15, 0.5, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, -0.20, 0.5, 180.0)} }
-    }, -- bkr_prop_clubhouse_sofa_01a - (Does not have the DYNAMIC flag)
+    }, -- bkr_prop_clubhouse_sofa_01a - (Does not have the DYNAMIC stateFlag)
     [`v_res_d_bed`] = {
         sit = { type = 'chair2', teleportIn = true, seats = {[1] = vector4(-0.7, 0.0, -0.25, 90.0), [2] = vector4(0.7, 0.0, -0.25, 270.0)} },
         lay = { type = 'bed', teleportIn = true, seats = {[1] = vector4(0.0, 0.0, -0.25, 180.0)} }
@@ -1349,7 +1349,7 @@ local Models = {
         lay = { type = 'bed', teleportIn = true, teleportOut = true, seats = {[1] = vector4(0.0, 0.20, 0.3, 180.0)} }
     }, -- prop_homeles_shelter_02
     [272384846] = { lay = { type = 'lay', seats = {[1] = vector4(0.05, 0.0, 0.3, 90.0)} } }, -- prop_carcreeper
-    [`prop_hottub2`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.75, 0.6, 0.0), [2] = vector4(0.70, 0.35, 0.6, 120.0), [3] = vector4(-0.70, 0.35, 0.6, 240.0)} } }, -- Does not have the DYNAMIC flag
+    [`prop_hottub2`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.75, 0.6, 0.0), [2] = vector4(0.70, 0.35, 0.6, 120.0), [3] = vector4(-0.70, 0.35, 0.6, 240.0)} } }, -- Does not have the DYNAMIC stateFlag
     [`apa_mp_h_bathtub_01`] = { sit = { type = 'sitground', seats = {[1] = vector4(0.0, -0.6, 0.5, 0.0)} } },
     [`prop_rub_matress_01`] = {
         sit = { type = 'sitground', seats = {[1] = vector4(0.5, 0.15, 0.1, 180.0), [2] = vector4(-0.5, 0.15, 0.1, 180.0)} },
@@ -1524,7 +1524,7 @@ local Models = {
     [1984649941] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.075, 0.5, 180.0)} } }, -- gabz_koi_chair_1
 
     -- Cat Cafe
-    [`denis3d_catcafe_armchair`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.08, 0.5, 180.0)} } }, -- (Does not have the DYNAMIC flag)
+    [`denis3d_catcafe_armchair`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.08, 0.5, 180.0)} } }, -- (Does not have the DYNAMIC stateFlag)
 
     -- Tattoo
     [`gabz_tattoo_lounge_chair`] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.0, 0.5, 180.0)} } },
@@ -1542,11 +1542,11 @@ local Models = {
     [-1638029607] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.58, 0.05, 0.3, 180.0), [2] = vector4(0.0, 0.05, 0.3, 180.0), [3] = vector4(0.58, 0.05, 0.3, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, -0.03, 0.3, 180.0)} }
-    }, -- gn_clinic_seat_x3_prop - (Does not have the DYNAMIC flag)
+    }, -- gn_clinic_seat_x3_prop - (Does not have the DYNAMIC stateFlag)
     [144514494] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.30, 0.05, 0.3, 180.0), [2] = vector4(0.30, 0.05, 0.3, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, 0.0, 0.3, 180.0)} }
-    }, -- gn_clinic_seat_x2_prop - (Does not have the DYNAMIC flag)
+    }, -- gn_clinic_seat_x2_prop - (Does not have the DYNAMIC stateFlag)
     [1199227581] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.58, 0.05, 0.3, 180.0), [2] = vector4(0.0, 0.05, 0.3, 180.0), [3] = vector4(0.58, 0.05, 0.3, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, -0.03, 0.3, 180.0)} }
@@ -1603,26 +1603,26 @@ local Models = {
     [655249423] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.05, -0.55, 0.5, 270.0), [2] = vector4(-0.05, 0.6, 0.5, 270.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(-0.05, 0.0, 0.5, 270.0)} }
-    }, -- prop_gn_fire_recept_bench_01 - (Does not have the DYNAMIC flag)
+    }, -- prop_gn_fire_recept_bench_01 - (Does not have the DYNAMIC stateFlag)
     [-1402643817] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.05, -0.35, 0.5, 270.0), [2] = vector4(-0.05, 0.35, 0.5, 270.0)} }
-    }, -- prop_gn_fire_recept_bench_02 - (Does not have the DYNAMIC flag)
+    }, -- prop_gn_fire_recept_bench_02 - (Does not have the DYNAMIC stateFlag)
     [-405256435] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.05, 0.85, 0.5, 90.0), [2] = vector4(-0.05, 0.0, 0.5, 90.0), [3] = vector4(-0.05, -0.85, 0.5, 90.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(-0.05, 0.0, 0.5, 90.0)} }
-    }, -- prop_gn_fire_sofa_01 - (Does not have the DYNAMIC flag)
+    }, -- prop_gn_fire_sofa_01 - (Does not have the DYNAMIC stateFlag)
     [-1107497125] = {
         sit = { type = 'chair', seats = {[1] = vector4(0.05, 0.85, 0.5, 90.0), [2] = vector4(0.05, 0.0, 0.5, 90.0), [3] = vector4(0.05, -0.85, 0.5, 90.0)} },
         lay = { type = 'lay', seats = {[1] = vector4(0.1, 0.0, 0.5, 90.0)} }
-    }, -- prop_gn_fire_locker_bench_01 - (Does not have the DYNAMIC flag)
+    }, -- prop_gn_fire_locker_bench_01 - (Does not have the DYNAMIC stateFlag)
     [-1466759116] = { lay = { type = 'bed', seats = {[1] = vector4(0.0, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_bed_01
     [2147399432] = { lay = { type = 'bed', seats = {[1] = vector4(0.0, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_bed_02
-    [1977400807] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- prop_gn_fire_chair_02_b - (Does not have the DYNAMIC flag)
-    [942719624] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- prop_gn_fire_chair_02_r - (Does not have the DYNAMIC flag)
-    [1616760401] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_01 - (Does not have the DYNAMIC flag)
-    [-1911051836] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_02 - (Does not have the DYNAMIC flag)
-    [-2067687656] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_03 - (Does not have the DYNAMIC flag)
-    [-1299942755] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_04 - (Does not have the DYNAMIC flag)
+    [1977400807] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- prop_gn_fire_chair_02_b - (Does not have the DYNAMIC stateFlag)
+    [942719624] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.05, 0.5, 180.0)} } }, -- prop_gn_fire_chair_02_r - (Does not have the DYNAMIC stateFlag)
+    [1616760401] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_01 - (Does not have the DYNAMIC stateFlag)
+    [-1911051836] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_02 - (Does not have the DYNAMIC stateFlag)
+    [-2067687656] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_03 - (Does not have the DYNAMIC stateFlag)
+    [-1299942755] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_fire_chair_dirt_04 - (Does not have the DYNAMIC stateFlag)
 
     -- Resturants
     [-1343339408] = {
@@ -1640,31 +1640,31 @@ local Models = {
         lay = { type = 'layside', seats = {[1] = vector4(-0.05, -0.05, 0.5, 180.0)} }
     }, -- gn_upnatom_vw_bench
     [1393531226] = { sit = { type = 'chair', seats = {[1] = vector4(-0.75, -0.35, 0.5, 270.0), [2] = vector4(-0.75, 0.35, 0.5, 270.0), [3] = vector4(0.75, 0.35, 0.5, 90.0), [4] = vector4(0.75, -0.35, 0.5, 90.0)} } }, -- gn_upnatom_vw_table_chair
-    [1116202530] = { sit = { type = 'barstool', seats = {[1] = vector4(0.0, 0.15, 0.8, 180.0)} } }, -- gn_cluckin_stool - (Does not have the DYNAMIC flag)
-    [-1047006540] = { sit = { type = 'chair', seats = {[1] = vector4(-0.75, -0.35, 0.5, 270.0), [2] = vector4(-0.75, 0.35, 0.5, 270.0), [3] = vector4(0.75, 0.35, 0.5, 90.0), [4] = vector4(0.75, -0.35, 0.5, 90.0)} } }, -- gn_cluckin_table_chair4 - (Does not have the DYNAMIC flag)
-    [-1641927735] = { sit = { type = 'chair', seats = {[1] = vector4(-0.75, -0.35, 0.5, 270.0), [2] = vector4(0.75, -0.35, 0.5, 90.0)} } }, -- gn_cluckin_table_chair2 - (Does not have the DYNAMIC flag)
+    [1116202530] = { sit = { type = 'barstool', seats = {[1] = vector4(0.0, 0.15, 0.8, 180.0)} } }, -- gn_cluckin_stool - (Does not have the DYNAMIC stateFlag)
+    [-1047006540] = { sit = { type = 'chair', seats = {[1] = vector4(-0.75, -0.35, 0.5, 270.0), [2] = vector4(-0.75, 0.35, 0.5, 270.0), [3] = vector4(0.75, 0.35, 0.5, 90.0), [4] = vector4(0.75, -0.35, 0.5, 90.0)} } }, -- gn_cluckin_table_chair4 - (Does not have the DYNAMIC stateFlag)
+    [-1641927735] = { sit = { type = 'chair', seats = {[1] = vector4(-0.75, -0.35, 0.5, 270.0), [2] = vector4(0.75, -0.35, 0.5, 90.0)} } }, -- gn_cluckin_table_chair2 - (Does not have the DYNAMIC stateFlag)
 
     -- Hotels
     [1408218968] = { sit = { type = 'chair', seats = {[1] = vector4(-0.45, -0.05, 0.5, 180.0), [2] = vector4(0.45, -0.05, 0.5, 180.0)} } }, -- gn_vonpack_chefield02
-    [718987946] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.3, 0.0)} } }, -- gn_vonpack_bench - (Does not have the DYNAMIC flag)
+    [718987946] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.3, 0.0)} } }, -- gn_vonpack_bench - (Does not have the DYNAMIC stateFlag)
     [-233855005] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.45, 0.05, 0.3, 180.0), [2] = vector4(0.45, 0.05, 0.3, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, 0.10, 0.3, 180.0)} }
-    }, -- gn_vonpack_bench_room - (Does not have the DYNAMIC flag)
+    }, -- gn_vonpack_bench_room - (Does not have the DYNAMIC stateFlag)
     [-1011727828] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.85, -0.55, 0.0, 90.0), [2] = vector4(0.85, -0.55, 0.0, 270.0)} },
         lay = { type = 'bed', seats = {[1] = vector4(-0.60, -0.55, 0.0, 180.0), [2] = vector4(0.60, -0.55, 0.0, 180.0)} }
-    }, -- gn_vonpack_bed - (Does not have the DYNAMIC flag)
+    }, -- gn_vonpack_bed - (Does not have the DYNAMIC stateFlag)
     [-607146122] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.85, -0.55, -0.5, 90.0), [2] = vector4(0.85, -0.55, -0.5, 270.0)} },
         lay = { type = 'bed', seats = {[1] = vector4(-0.60, -0.35, -0.5, 180.0), [2] = vector4(0.60, -0.35, -0.5, 180.0)} }
-    }, -- gn_hot_bed - (Does not have the DYNAMIC flag)
+    }, -- gn_hot_bed - (Does not have the DYNAMIC stateFlag)
     [1177011685] = {
         sit = { type = 'chair', seats = {[1] = vector4(-0.45, 0.05, 0.3, 180.0), [2] = vector4(0.45, 0.05, 0.3, 180.0)} },
         lay = { type = 'layside', seats = {[1] = vector4(0.0, 0.10, 0.3, 180.0)} }
-    }, -- gn_hot_bed_sofa - (Does not have the DYNAMIC flag)
-    [1094072508] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.25, 0.0, 180.0)} } }, -- gn_hot_chair - (Does not have the DYNAMIC flag)
-    [-427729608] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.28, 0.0)} } }, -- gn_hot_chair_footrest - (Does not have the DYNAMIC flag)
+    }, -- gn_hot_bed_sofa - (Does not have the DYNAMIC stateFlag)
+    [1094072508] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.25, 0.0, 180.0)} } }, -- gn_hot_chair - (Does not have the DYNAMIC stateFlag)
+    [-427729608] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.28, 0.0)} } }, -- gn_hot_chair_footrest - (Does not have the DYNAMIC stateFlag)
 
     -- Sandy Shores Motel
     [1655600315] = { sit = { type = 'chair', seats = {[1] = vector4(0.10, 0.0, 0.5, 90.0)} } }, -- prop_gn_sm_old_chair_01
@@ -1678,7 +1678,7 @@ local Models = {
     }, -- prop_gn_sm_clean_bed_m_01
 
     -- Black Wood Saloon
-    [-1815425479] = { sit = { type = 'barstool', seats = {[1] = vector4(0.0, 0.15, 0.8, 180.0)} } }, -- gn_hh_tabouret - (Does not have the DYNAMIC flag)
+    [-1815425479] = { sit = { type = 'barstool', seats = {[1] = vector4(0.0, 0.15, 0.8, 180.0)} } }, -- gn_hh_tabouret - (Does not have the DYNAMIC stateFlag)
     [-733422471] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.15, 0.30, 0.0)} } }, -- gn_hh_tabouret02
     [93962010] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.15, 0.55, 0.0)} } }, -- gn_hh_tabouret03
 
@@ -1686,7 +1686,7 @@ local Models = {
     [-875471031] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, 0.07, 0.5, 270.0)} } }, -- gn_collection_wc_a
     [-528742781] = { sit = { type = 'chair2', seats = {[1] = vector4(-0.30, 0.0, 0.5, 90.0)} } }, -- gn_collec_wc_b
     [203943172] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 180.0)} } }, -- gn_folding_chair_01a
-    [1252116297] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 90.0)} } }, -- prop_gn_chair_01 - (Does not have the DYNAMIC flag)
+    [1252116297] = { sit = { type = 'chair', seats = {[1] = vector4(0.0, -0.05, 0.5, 90.0)} } }, -- prop_gn_chair_01 - (Does not have the DYNAMIC stateFlag)
 
     -------------------
     -- Nopixel Props --

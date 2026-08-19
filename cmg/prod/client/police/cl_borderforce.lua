@@ -32,1344 +32,1344 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, dataTable2, vector3Builder, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, flag9, cmgCall6, cmgCall, workValue, textValue2
-dataTable = {}
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 1307.67163
-numberValue3 = 575.666138
-numberValue4 = 80.11085
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 131.0
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = 1305.7927246094
-numberValue3 = 581.07287597656
-numberValue4 = 80.081733703613
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 226.0
-dataTable2.rotation = 133.46
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[1] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 1336.73181
-numberValue3 = 602.823364
-numberValue4 = 80.15877
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-dataTable2.gateRotation = nil
-vector3Builder = vector3
-numberValue2 = 1330.9665527344
-numberValue3 = 604.69061279297
-numberValue4 = 80.189002990723
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 226.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[2] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 1313.71228
-numberValue3 = 628.0808
-numberValue4 = 80.1978455
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 311.0
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = 1312.9809570313
-numberValue3 = 623.81829833984
-numberValue4 = 80.197242736816
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 41.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[3] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 1283.63123
-numberValue3 = 600.256348
-numberValue4 = 80.0751
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 311.0
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = 1288.6761474609
-numberValue3 = 598.40759277344
-numberValue4 = 80.098342895508
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 41.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[4] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 2436.67236
-numberValue3 = -221.798569
-numberValue4 = 86.0626144
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 155.0
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = 2432.5932617188
-numberValue3 = -217.69305419922
-numberValue4 = 86.343444824219
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 240.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[5] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 2454.306
-numberValue3 = -186.302841
-numberValue4 = 87.8461151
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 155.0
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = 2447.4279785156
-numberValue3 = -187.01138305664
-numberValue4 = 87.809188842773
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 240.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[6] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 2423.53882
-numberValue3 = -171.105515
-numberValue4 = 87.77565
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 333.0
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = 2426.1889648438
-numberValue3 = -175.99674987793
-numberValue4 = 87.734436035156
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 68.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[7] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = 2405.56372
-numberValue3 = -208.031891
-numberValue4 = 86.09489
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 333.0
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = 2411.3996582031
-numberValue3 = -207.52787780762
-numberValue4 = 86.227264404297
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 68.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[8] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = -2401.57422
-numberValue3 = -235.169571
-numberValue4 = 15.5775642
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 242.5
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = -2406.2575683594
-numberValue3 = -239.23776245117
-numberValue4 = 15.476901054382
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 330.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[9] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = -2436.278
-numberValue3 = -216.735123
-numberValue4 = 16.4167013
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 242.5
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = -2434.2758789063
-numberValue3 = -224.33985900879
-numberValue4 = 16.358936309814
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 330.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[10] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = -2452.826
-numberValue3 = -245.910721
-numberValue4 = 16.44616
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 60
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = -2444.1645507813
-numberValue3 = -244.25773620605
-numberValue4 = 16.33381652832
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 150.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[11] = dataTable2
-dataTable2 = {}
-dataTable2.prop = "cmg_prop_gate_military_01"
-dataTable2.prop_frame = "cmg_prop_gate_frame_02"
-dataTable2.prop_controller = "prop_rail_controller"
-vector3Builder = vector3
-numberValue2 = -2416.83057
-numberValue3 = -264.836578
-numberValue4 = 15.4028273
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.position = vector3Builder
-vector3Builder = vector3
-numberValue2 = 0.0
-numberValue3 = 0.0
-numberValue4 = 60
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.gateRotation = vector3Builder
-vector3Builder = vector3
-numberValue2 = -2416.6555175781
-numberValue3 = -259.09844970703
-numberValue4 = 15.234084701538
-vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
-dataTable2.controllerPos = vector3Builder
-dataTable2.controllerRotation = 150.0
-dataTable2.rotation = 131.69
-vector3Builder = {}
-dataTable2.propObjHandlers = vector3Builder
-dataTable2.propFrameObjHandler = 0
-dataTable2.propControllerHandler = 0
-dataTable2.open = false
-dataTable2.instruction = "none"
-dataTable[12] = dataTable2
-dataTable2 = {}
-vector3Builder = {}
-vector3Builder.name = "Los Santos"
-numberValue2 = vector4
-numberValue3 = 1312.8000488281
-numberValue4 = 603.81097412109
-numberValue5 = 80.317993164062
-numberValue6 = 131.81103515625
-numberValue2 = numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
-vector3Builder.position = numberValue2
-numberValue2 = {}
-numberValue3 = 1
-numberValue4 = 2
-numberValue5 = 3
-numberValue6 = 4
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue2[4] = numberValue6
-vector3Builder.opens = numberValue2
-dataTable2[1] = vector3Builder
-vector3Builder = {}
-vector3Builder.name = "Olympic"
-numberValue2 = vector4
-numberValue3 = 2432.6638183594
-numberValue4 = -192.52746582031
-numberValue5 = 87.428588867188
-numberValue6 = 153.07086181641
-numberValue2 = numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
-vector3Builder.position = numberValue2
-numberValue2 = {}
-numberValue3 = 5
-numberValue4 = 6
-numberValue5 = 7
-numberValue6 = 8
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue2[4] = numberValue6
-vector3Builder.opens = numberValue2
-dataTable2[2] = vector3Builder
-vector3Builder = {}
-vector3Builder.name = "Great Ocean"
-numberValue2 = vector4
-numberValue3 = -2431.2526855469
-numberValue4 = -237.65274047852
-numberValue5 = 16.305541992188
-numberValue6 = 249.44882202148
-numberValue2 = numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
-vector3Builder.position = numberValue2
-numberValue2 = {}
-numberValue3 = 9
-numberValue4 = 10
-numberValue5 = 11
-numberValue6 = 12
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue2[4] = numberValue6
-vector3Builder.opens = numberValue2
-dataTable2[3] = vector3Builder
-vector3Builder = {}
+local dataCollection, dataCollection2, createVector3, number2, number3, number4, number5, number6, stateFlag9, cmgOperation6, cmgOperation, workingValue, text2
+dataCollection = {}
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 1307.67163
+number3 = 575.666138
+number4 = 80.11085
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 131.0
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = 1305.7927246094
+number3 = 581.07287597656
+number4 = 80.081733703613
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 226.0
+dataCollection2.rotation = 133.46
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[1] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 1336.73181
+number3 = 602.823364
+number4 = 80.15877
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+dataCollection2.gateRotation = nil
+createVector3 = vector3
+number2 = 1330.9665527344
+number3 = 604.69061279297
+number4 = 80.189002990723
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 226.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[2] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 1313.71228
+number3 = 628.0808
+number4 = 80.1978455
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 311.0
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = 1312.9809570313
+number3 = 623.81829833984
+number4 = 80.197242736816
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 41.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[3] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 1283.63123
+number3 = 600.256348
+number4 = 80.0751
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 311.0
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = 1288.6761474609
+number3 = 598.40759277344
+number4 = 80.098342895508
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 41.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[4] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 2436.67236
+number3 = -221.798569
+number4 = 86.0626144
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 155.0
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = 2432.5932617188
+number3 = -217.69305419922
+number4 = 86.343444824219
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 240.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[5] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 2454.306
+number3 = -186.302841
+number4 = 87.8461151
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 155.0
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = 2447.4279785156
+number3 = -187.01138305664
+number4 = 87.809188842773
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 240.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[6] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 2423.53882
+number3 = -171.105515
+number4 = 87.77565
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 333.0
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = 2426.1889648438
+number3 = -175.99674987793
+number4 = 87.734436035156
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 68.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[7] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = 2405.56372
+number3 = -208.031891
+number4 = 86.09489
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 333.0
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = 2411.3996582031
+number3 = -207.52787780762
+number4 = 86.227264404297
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 68.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[8] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = -2401.57422
+number3 = -235.169571
+number4 = 15.5775642
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 242.5
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = -2406.2575683594
+number3 = -239.23776245117
+number4 = 15.476901054382
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 330.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[9] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = -2436.278
+number3 = -216.735123
+number4 = 16.4167013
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 242.5
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = -2434.2758789063
+number3 = -224.33985900879
+number4 = 16.358936309814
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 330.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[10] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = -2452.826
+number3 = -245.910721
+number4 = 16.44616
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 60
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = -2444.1645507813
+number3 = -244.25773620605
+number4 = 16.33381652832
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 150.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[11] = dataCollection2
+dataCollection2 = {}
+dataCollection2.prop = "cmg_prop_gate_military_01"
+dataCollection2.prop_frame = "cmg_prop_gate_frame_02"
+dataCollection2.prop_controller = "prop_rail_controller"
+createVector3 = vector3
+number2 = -2416.83057
+number3 = -264.836578
+number4 = 15.4028273
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.position = createVector3
+createVector3 = vector3
+number2 = 0.0
+number3 = 0.0
+number4 = 60
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.gateRotation = createVector3
+createVector3 = vector3
+number2 = -2416.6555175781
+number3 = -259.09844970703
+number4 = 15.234084701538
+createVector3 = createVector3(number2, number3, number4)
+dataCollection2.controllerPos = createVector3
+dataCollection2.controllerRotation = 150.0
+dataCollection2.rotation = 131.69
+createVector3 = {}
+dataCollection2.propObjHandlers = createVector3
+dataCollection2.propFrameObjHandler = 0
+dataCollection2.propControllerHandler = 0
+dataCollection2.open = false
+dataCollection2.instruction = "none"
+dataCollection[12] = dataCollection2
+dataCollection2 = {}
+createVector3 = {}
+createVector3.name = "Los Santos"
+number2 = vector4
+number3 = 1312.8000488281
+number4 = 603.81097412109
+number5 = 80.317993164062
+number6 = 131.81103515625
+number2 = number2(number3, number4, number5, number6)
+createVector3.position = number2
+number2 = {}
+number3 = 1
+number4 = 2
+number5 = 3
+number6 = 4
+number2[1] = number3
+number2[2] = number4
+number2[3] = number5
+number2[4] = number6
+createVector3.opens = number2
+dataCollection2[1] = createVector3
+createVector3 = {}
+createVector3.name = "Olympic"
+number2 = vector4
+number3 = 2432.6638183594
+number4 = -192.52746582031
+number5 = 87.428588867188
+number6 = 153.07086181641
+number2 = number2(number3, number4, number5, number6)
+createVector3.position = number2
+number2 = {}
+number3 = 5
+number4 = 6
+number5 = 7
+number6 = 8
+number2[1] = number3
+number2[2] = number4
+number2[3] = number5
+number2[4] = number6
+createVector3.opens = number2
+dataCollection2[2] = createVector3
+createVector3 = {}
+createVector3.name = "Great Ocean"
+number2 = vector4
+number3 = -2431.2526855469
+number4 = -237.65274047852
+number5 = 16.305541992188
+number6 = 249.44882202148
+number2 = number2(number3, number4, number5, number6)
+createVector3.position = number2
+number2 = {}
+number3 = 9
+number4 = 10
+number5 = 11
+number6 = 12
+number2[1] = number3
+number2[2] = number4
+number2[3] = number5
+number2[4] = number6
+createVector3.opens = number2
+dataCollection2[3] = createVector3
+createVector3 = {}
 
--- === HELPER FUNCTION (decompiler name: numberValue2; parameters: arg1) ===
-function numberValue2(arg1)
-  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  cmgCall3 = "borderforce.onduty.permission"
-  arg2 = arg2(cmgCall3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.isStaffedOnClient
-    arg2 = arg2()
-    if not arg2 then
-      goto flow_label_88
+-- === HELPER FUNCTION (decompiler name: number2; parameters: localValue1) ===
+function number2(localValue1)
+  local localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  cmgOperation3 = "borderforce.onduty.permission"
+  localValue2 = localValue2(cmgOperation3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.isStaffedOnClient
+    localValue2 = localValue2()
+    if not localValue2 then
+      goto continueAtStep88
     end
   end
-  arg2 = false
-  cmgCall3 = pairs
-  position3 = arg1.opens
-  cmgCall3, position3, textValue5, iterator = cmgCall3(position3)
-  for cmgCall4, cmgCall5 in cmgCall3, position3, textValue5, iterator do
-    serverEventCall = dataTable
-    serverEventCall = serverEventCall[cmgCall5]
+  localValue2 = false
+  cmgOperation3 = pairs
+  position3 = localValue1.opens
+  cmgOperation3, position3, text5, iterator = cmgOperation3(position3)
+  for cmgOperation4, cmgOperation5 in cmgOperation3, position3, text5, iterator do
+    serverEventCall = dataCollection
+    serverEventCall = serverEventCall[cmgOperation5]
     serverEventCall = serverEventCall.open
     if serverEventCall then
-      arg2 = true
+      localValue2 = true
       break
     end
   end
-  if arg2 then
-    cmgCall3 = CMG
-    cmgCall3 = cmgCall3.DrawText3D
-    position3 = arg1.position
+  if localValue2 then
+    cmgOperation3 = CMG
+    cmgOperation3 = cmgOperation3.DrawText3D
+    position3 = localValue1.position
     position3 = position3.xyz
-    textValue5 = "Press [E] to close gates"
+    text5 = "Press [E] to close gates"
     iterator = 0.35
-    cmgCall3(position3, textValue5, iterator)
-    cmgCall3 = IsControlJustPressed
+    cmgOperation3(position3, text5, iterator)
+    cmgOperation3 = IsControlJustPressed
     position3 = 0
-    textValue5 = 38
-    cmgCall3 = cmgCall3(position3, textValue5)
-    if cmgCall3 then
-      cmgCall3 = tCMG
-      cmgCall3 = cmgCall3.notify
+    text5 = 38
+    cmgOperation3 = cmgOperation3(position3, text5)
+    if cmgOperation3 then
+      cmgOperation3 = tCMG
+      cmgOperation3 = cmgOperation3.notify
       position3 = "~g~Gate closing..."
       -- Beginner: Show a notification to the player.
-      cmgCall3(position3)
-      cmgCall3 = pairs
-      position3 = arg1.opens
-      cmgCall3, position3, textValue5, iterator = cmgCall3(position3)
-      for cmgCall4, cmgCall5 in cmgCall3, position3, textValue5, iterator do
+      cmgOperation3(position3)
+      cmgOperation3 = pairs
+      position3 = localValue1.opens
+      cmgOperation3, position3, text5, iterator = cmgOperation3(position3)
+      for cmgOperation4, cmgOperation5 in cmgOperation3, position3, text5, iterator do
         serverEventCall = TriggerServerEvent
-        textValue8 = "bfb85eb237"
-        tableHelper = cmgCall5
-        textValue = "close"
+        text8 = "bfb85eb237"
+        tableHelper = cmgOperation5
+        text = "close"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
-        serverEventCall(textValue8, tableHelper, textValue)
+        serverEventCall(text8, tableHelper, text)
       end
     end
   else
-    cmgCall3 = CMG
-    cmgCall3 = cmgCall3.DrawText3D
-    position3 = arg1.position
+    cmgOperation3 = CMG
+    cmgOperation3 = cmgOperation3.DrawText3D
+    position3 = localValue1.position
     position3 = position3.xyz
-    textValue5 = "Press [E] to open gates"
+    text5 = "Press [E] to open gates"
     iterator = 0.35
-    cmgCall3(position3, textValue5, iterator)
-    cmgCall3 = IsControlJustPressed
+    cmgOperation3(position3, text5, iterator)
+    cmgOperation3 = IsControlJustPressed
     position3 = 0
-    textValue5 = 38
-    cmgCall3 = cmgCall3(position3, textValue5)
-    if cmgCall3 then
-      cmgCall3 = tCMG
-      cmgCall3 = cmgCall3.notify
+    text5 = 38
+    cmgOperation3 = cmgOperation3(position3, text5)
+    if cmgOperation3 then
+      cmgOperation3 = tCMG
+      cmgOperation3 = cmgOperation3.notify
       position3 = "~g~Gate opening..."
       -- Beginner: Show a notification to the player.
-      cmgCall3(position3)
-      cmgCall3 = pairs
-      position3 = arg1.opens
-      cmgCall3, position3, textValue5, iterator = cmgCall3(position3)
-      for cmgCall4, cmgCall5 in cmgCall3, position3, textValue5, iterator do
+      cmgOperation3(position3)
+      cmgOperation3 = pairs
+      position3 = localValue1.opens
+      cmgOperation3, position3, text5, iterator = cmgOperation3(position3)
+      for cmgOperation4, cmgOperation5 in cmgOperation3, position3, text5, iterator do
         serverEventCall = TriggerServerEvent
-        textValue8 = "bfb85eb237"
-        tableHelper = cmgCall5
-        textValue = "open"
+        text8 = "bfb85eb237"
+        tableHelper = cmgOperation5
+        text = "open"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
-        serverEventCall(textValue8, tableHelper, textValue)
+        serverEventCall(text8, tableHelper, text)
       end
     end
   end
-  ::flow_label_88::
+  ::continueAtStep88::
 end
-numberValue3 = Citizen
-numberValue3 = numberValue3.CreateThread
+number3 = Citizen
+number3 = number3.CreateThread
 
--- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-function numberValue4()
-  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2, flag3, flag4, workValue2, workValue3, flag5, flag6, flag7, numberValue, flag8
-  arg1 = pairs
-  arg2 = dataTable
-  arg1, arg2, cmgCall3, position3 = arg1(arg2)
-  for textValue5, iterator in arg1, arg2, cmgCall3, position3 do
-    cmgCall4 = CMG
-    cmgCall4 = cmgCall4.loadModel
-    cmgCall5 = iterator.prop
-    cmgCall4 = cmgCall4(cmgCall5)
-    if not cmgCall4 then
+-- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+function number4()
+  local localValue1, localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text, position, position2, stateFlag, stateFlag2, stateFlag3, stateFlag4, workingValue2, workingValue3, stateFlag5, stateFlag6, stateFlag7, number, stateFlag8
+  localValue1 = pairs
+  localValue2 = dataCollection
+  localValue1, localValue2, cmgOperation3, position3 = localValue1(localValue2)
+  for text5, iterator in localValue1, localValue2, cmgOperation3, position3 do
+    cmgOperation4 = CMG
+    cmgOperation4 = cmgOperation4.loadModel
+    cmgOperation5 = iterator.prop
+    cmgOperation4 = cmgOperation4(cmgOperation5)
+    if not cmgOperation4 then
       return
     end
-    cmgCall5 = CMG
-    cmgCall5 = cmgCall5.loadModel
+    cmgOperation5 = CMG
+    cmgOperation5 = cmgOperation5.loadModel
     serverEventCall = iterator.prop_frame
-    cmgCall5 = cmgCall5(serverEventCall)
+    cmgOperation5 = cmgOperation5(serverEventCall)
     serverEventCall = CMG
     serverEventCall = serverEventCall.loadModel
-    textValue8 = iterator.prop_controller
-    serverEventCall = serverEventCall(textValue8)
-    textValue8 = CreateObjectNoOffset
-    tableHelper = cmgCall4
-    textValue = iterator.position
-    textValue = textValue.x
+    text8 = iterator.prop_controller
+    serverEventCall = serverEventCall(text8)
+    text8 = CreateObjectNoOffset
+    tableHelper = cmgOperation4
+    text = iterator.position
+    text = text.x
     position = iterator.position
     position = position.y
     position2 = iterator.position
     position2 = position2.z
     position2 = position2 - 1
-    flag = false
-    flag2 = false
-    flag3 = true
+    stateFlag = false
+    stateFlag2 = false
+    stateFlag3 = true
     -- Beginner: result below is objectEntity.
-    textValue8 = textValue8(tableHelper, textValue, position, position2, flag, flag2, flag3)
+    text8 = text8(tableHelper, text, position, position2, stateFlag, stateFlag2, stateFlag3)
     tableHelper = table
     tableHelper = tableHelper.insert
-    textValue = dataTable
-    textValue = textValue[textValue5]
-    textValue = textValue.propObjHandlers
-    position = textValue8
-    tableHelper(textValue, position)
+    text = dataCollection
+    text = text[text5]
+    text = text.propObjHandlers
+    position = text8
+    tableHelper(text, position)
     tableHelper = CreateObjectNoOffset
-    textValue = cmgCall4
+    text = cmgOperation4
     position = iterator.position
     position = position.x
     position2 = iterator.position
     position2 = position2.y
-    flag = iterator.position
-    flag = flag.z
-    flag = flag - 1
-    flag2 = false
-    flag3 = false
-    flag4 = true
+    stateFlag = iterator.position
+    stateFlag = stateFlag.z
+    stateFlag = stateFlag - 1
+    stateFlag2 = false
+    stateFlag3 = false
+    stateFlag4 = true
     -- Beginner: result below is objectEntity.
-    tableHelper = tableHelper(textValue, position, position2, flag, flag2, flag3, flag4)
-    textValue = table
-    textValue = textValue.insert
-    position = dataTable
-    position = position[textValue5]
+    tableHelper = tableHelper(text, position, position2, stateFlag, stateFlag2, stateFlag3, stateFlag4)
+    text = table
+    text = text.insert
+    position = dataCollection
+    position = position[text5]
     position = position.propObjHandlers
     position2 = tableHelper
-    textValue(position, position2)
-    textValue = pairs
-    position = dataTable
-    position = position[textValue5]
+    text(position, position2)
+    text = pairs
+    position = dataCollection
+    position = position[text5]
     position = position.propObjHandlers
-    textValue, position, position2, flag = textValue(position)
-    for flag2, flag3 in textValue, position, position2, flag do
-      flag4 = SetEntityHeading
-      workValue2 = flag3
-      workValue3 = dataTable
-      workValue3 = workValue3[textValue5]
-      workValue3 = workValue3.rotation
+    text, position, position2, stateFlag = text(position)
+    for stateFlag2, stateFlag3 in text, position, position2, stateFlag do
+      stateFlag4 = SetEntityHeading
+      workingValue2 = stateFlag3
+      workingValue3 = dataCollection
+      workingValue3 = workingValue3[text5]
+      workingValue3 = workingValue3.rotation
       -- Beginner: Change the direction an entity is facing.
-      flag4(workValue2, workValue3)
-      flag4 = SetEntityInvincible
-      workValue2 = flag3
-      workValue3 = true
-      flag4(workValue2, workValue3)
-      flag4 = FreezeEntityPosition
-      workValue2 = flag3
-      workValue3 = true
+      stateFlag4(workingValue2, workingValue3)
+      stateFlag4 = SetEntityInvincible
+      workingValue2 = stateFlag3
+      workingValue3 = true
+      stateFlag4(workingValue2, workingValue3)
+      stateFlag4 = FreezeEntityPosition
+      workingValue2 = stateFlag3
+      workingValue3 = true
       -- Beginner: Freeze or unfreeze an entity in place.
-      flag4(workValue2, workValue3)
-      flag4 = dataTable
-      flag4 = flag4[textValue5]
-      flag4 = flag4.gateRotation
-      if nil ~= flag4 then
-        workValue2 = SetEntityRotation
-        workValue3 = flag3
-        flag5 = flag4.x
-        flag6 = flag4.y
-        flag7 = flag4.z
-        numberValue = 2
-        flag8 = false
-        workValue2(workValue3, flag5, flag6, flag7, numberValue, flag8)
+      stateFlag4(workingValue2, workingValue3)
+      stateFlag4 = dataCollection
+      stateFlag4 = stateFlag4[text5]
+      stateFlag4 = stateFlag4.gateRotation
+      if nil ~= stateFlag4 then
+        workingValue2 = SetEntityRotation
+        workingValue3 = stateFlag3
+        stateFlag5 = stateFlag4.x
+        stateFlag6 = stateFlag4.y
+        stateFlag7 = stateFlag4.z
+        number = 2
+        stateFlag8 = false
+        workingValue2(workingValue3, stateFlag5, stateFlag6, stateFlag7, number, stateFlag8)
       end
     end
-    textValue = CreateObjectNoOffset
-    position = cmgCall5
+    text = CreateObjectNoOffset
+    position = cmgOperation5
     position2 = iterator.position
     position2 = position2.x
-    flag = iterator.position
-    flag = flag.y
-    flag2 = iterator.position
-    flag2 = flag2.z
-    flag2 = flag2 - 1.0
-    flag3 = false
-    flag4 = true
-    workValue2 = false
+    stateFlag = iterator.position
+    stateFlag = stateFlag.y
+    stateFlag2 = iterator.position
+    stateFlag2 = stateFlag2.z
+    stateFlag2 = stateFlag2 - 1.0
+    stateFlag3 = false
+    stateFlag4 = true
+    workingValue2 = false
     -- Beginner: result below is objectEntity.
-    textValue = textValue(position, position2, flag, flag2, flag3, flag4, workValue2)
-    position = dataTable
-    position = position[textValue5]
-    position.propFrameObjHandler = textValue
+    text = text(position, position2, stateFlag, stateFlag2, stateFlag3, stateFlag4, workingValue2)
+    position = dataCollection
+    position = position[text5]
+    position.propFrameObjHandler = text
     position = SetEntityHeading
-    position2 = dataTable
-    position2 = position2[textValue5]
+    position2 = dataCollection
+    position2 = position2[text5]
     position2 = position2.propFrameObjHandler
-    flag = dataTable
-    flag = flag[textValue5]
-    flag = flag.rotation
+    stateFlag = dataCollection
+    stateFlag = stateFlag[text5]
+    stateFlag = stateFlag.rotation
     -- Beginner: Change the direction an entity is facing.
-    position(position2, flag)
+    position(position2, stateFlag)
     position = SetEntityInvincible
-    position2 = dataTable
-    position2 = position2[textValue5]
+    position2 = dataCollection
+    position2 = position2[text5]
     position2 = position2.propFrameObjHandler
-    flag = true
-    position(position2, flag)
+    stateFlag = true
+    position(position2, stateFlag)
     position = FreezeEntityPosition
-    position2 = dataTable
-    position2 = position2[textValue5]
+    position2 = dataCollection
+    position2 = position2[text5]
     position2 = position2.propFrameObjHandler
-    flag = true
+    stateFlag = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    position(position2, flag)
-    position = dataTable
-    position = position[textValue5]
+    position(position2, stateFlag)
+    position = dataCollection
+    position = position[text5]
     position = position.gateRotation
     if nil ~= position then
       position2 = SetEntityRotation
-      flag = dataTable
-      flag = flag[textValue5]
-      flag = flag.propFrameObjHandler
-      flag2 = position.x
-      flag3 = position.y
-      flag4 = position.z
-      workValue2 = 2
-      workValue3 = false
-      position2(flag, flag2, flag3, flag4, workValue2, workValue3)
+      stateFlag = dataCollection
+      stateFlag = stateFlag[text5]
+      stateFlag = stateFlag.propFrameObjHandler
+      stateFlag2 = position.x
+      stateFlag3 = position.y
+      stateFlag4 = position.z
+      workingValue2 = 2
+      workingValue3 = false
+      position2(stateFlag, stateFlag2, stateFlag3, stateFlag4, workingValue2, workingValue3)
     end
     position2 = CreateObjectNoOffset
-    flag = serverEventCall
-    flag2 = iterator.controllerPos
-    flag2 = flag2.x
-    flag3 = iterator.controllerPos
-    flag3 = flag3.y
-    flag4 = iterator.controllerPos
-    flag4 = flag4.z
-    flag4 = flag4 - 1
-    workValue2 = false
-    workValue3 = false
-    flag5 = true
+    stateFlag = serverEventCall
+    stateFlag2 = iterator.controllerPos
+    stateFlag2 = stateFlag2.x
+    stateFlag3 = iterator.controllerPos
+    stateFlag3 = stateFlag3.y
+    stateFlag4 = iterator.controllerPos
+    stateFlag4 = stateFlag4.z
+    stateFlag4 = stateFlag4 - 1
+    workingValue2 = false
+    workingValue3 = false
+    stateFlag5 = true
     -- Beginner: result below is objectEntity.
-    position2 = position2(flag, flag2, flag3, flag4, workValue2, workValue3, flag5)
-    flag = dataTable
-    flag = flag[textValue5]
-    flag.propControllerHandler = position2
-    flag = SetEntityHeading
-    flag2 = position2
-    flag3 = dataTable
-    flag3 = flag3[textValue5]
-    flag3 = flag3.controllerRotation
+    position2 = position2(stateFlag, stateFlag2, stateFlag3, stateFlag4, workingValue2, workingValue3, stateFlag5)
+    stateFlag = dataCollection
+    stateFlag = stateFlag[text5]
+    stateFlag.propControllerHandler = position2
+    stateFlag = SetEntityHeading
+    stateFlag2 = position2
+    stateFlag3 = dataCollection
+    stateFlag3 = stateFlag3[text5]
+    stateFlag3 = stateFlag3.controllerRotation
     -- Beginner: Change the direction an entity is facing.
-    flag(flag2, flag3)
-    flag = SetEntityInvincible
-    flag2 = position2
-    flag3 = true
-    flag(flag2, flag3)
-    flag = FreezeEntityPosition
-    flag2 = position2
-    flag3 = true
+    stateFlag(stateFlag2, stateFlag3)
+    stateFlag = SetEntityInvincible
+    stateFlag2 = position2
+    stateFlag3 = true
+    stateFlag(stateFlag2, stateFlag3)
+    stateFlag = FreezeEntityPosition
+    stateFlag2 = position2
+    stateFlag3 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    flag(flag2, flag3)
-    flag = SetModelAsNoLongerNeeded
-    flag2 = cmgCall4
-    flag(flag2)
-    flag = SetModelAsNoLongerNeeded
-    flag2 = cmgCall5
-    flag(flag2)
-    flag = SetModelAsNoLongerNeeded
-    flag2 = serverEventCall
-    flag(flag2)
+    stateFlag(stateFlag2, stateFlag3)
+    stateFlag = SetModelAsNoLongerNeeded
+    stateFlag2 = cmgOperation4
+    stateFlag(stateFlag2)
+    stateFlag = SetModelAsNoLongerNeeded
+    stateFlag2 = cmgOperation5
+    stateFlag(stateFlag2)
+    stateFlag = SetModelAsNoLongerNeeded
+    stateFlag2 = serverEventCall
+    stateFlag(stateFlag2)
   end
-  arg1 = pairs
-  arg2 = dataTable2
-  arg1, arg2, cmgCall3, position3 = arg1(arg2)
-  for textValue5, iterator in arg1, arg2, cmgCall3, position3 do
-    cmgCall4 = CreateObjectNoOffset
-    cmgCall5 = -257022130
+  localValue1 = pairs
+  localValue2 = dataCollection2
+  localValue1, localValue2, cmgOperation3, position3 = localValue1(localValue2)
+  for text5, iterator in localValue1, localValue2, cmgOperation3, position3 do
+    cmgOperation4 = CreateObjectNoOffset
+    cmgOperation5 = -257022130
     serverEventCall = iterator.position
     serverEventCall = serverEventCall.x
-    textValue8 = iterator.position
-    textValue8 = textValue8.y
+    text8 = iterator.position
+    text8 = text8.y
     tableHelper = iterator.position
     tableHelper = tableHelper.z
     tableHelper = tableHelper - 1.0
-    textValue = false
+    text = false
     position = false
     position2 = true
     -- Beginner: result below is objectEntity.
-    cmgCall4 = cmgCall4(cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2)
-    cmgCall5 = SetEntityHeading
-    serverEventCall = cmgCall4
-    textValue8 = iterator.position
-    textValue8 = textValue8.w
+    cmgOperation4 = cmgOperation4(cmgOperation5, serverEventCall, text8, tableHelper, text, position, position2)
+    cmgOperation5 = SetEntityHeading
+    serverEventCall = cmgOperation4
+    text8 = iterator.position
+    text8 = text8.w
     -- Beginner: Change the direction an entity is facing.
-    cmgCall5(serverEventCall, textValue8)
-    cmgCall5 = table
-    cmgCall5 = cmgCall5.insert
-    serverEventCall = vector3Builder
-    textValue8 = cmgCall4
-    cmgCall5(serverEventCall, textValue8)
-    cmgCall5 = CMG
-    cmgCall5 = cmgCall5.createArea
+    cmgOperation5(serverEventCall, text8)
+    cmgOperation5 = table
+    cmgOperation5 = cmgOperation5.insert
+    serverEventCall = createVector3
+    text8 = cmgOperation4
+    cmgOperation5(serverEventCall, text8)
+    cmgOperation5 = CMG
+    cmgOperation5 = cmgOperation5.createArea
     serverEventCall = "bordercloseall_"
-    textValue8 = tostring
-    tableHelper = textValue5
-    textValue8 = textValue8(tableHelper)
-    serverEventCall = serverEventCall .. textValue8
-    textValue8 = iterator.position
-    textValue8 = textValue8.xyz
+    text8 = tostring
+    tableHelper = text5
+    text8 = text8(tableHelper)
+    serverEventCall = serverEventCall .. text8
+    text8 = iterator.position
+    text8 = text8.xyz
     tableHelper = 1.5
-    textValue = 6.0
+    text = 6.0
 
     -- === HELPER FUNCTION: position() ===
     function position()
-      local arg12, cmgCall2
+      local localValue12, cmgOperation2
     end
 
     -- === HELPER FUNCTION: position2() ===
     function position2()
-      local arg12, cmgCall2
+      local localValue12, cmgOperation2
     end
-    flag = numberValue2
-    flag2 = iterator
+    stateFlag = number2
+    stateFlag2 = iterator
     -- Beginner: Create an interaction area around a world position.
-    cmgCall5(serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2)
+    cmgOperation5(serverEventCall, text8, tableHelper, text, position, position2, stateFlag, stateFlag2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-numberValue3(numberValue4)
-numberValue3 = 10000
+number3(number4)
+number3 = 10000
 
--- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-function numberValue4()
-  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2, flag3, flag4, workValue2, workValue3, flag5, flag6, flag7
-  arg1 = pairs
-  arg2 = dataTable
-  arg1, arg2, cmgCall3, position3 = arg1(arg2)
-  for textValue5, iterator in arg1, arg2, cmgCall3, position3 do
-    cmgCall4 = iterator.instruction
-    if "open" == cmgCall4 then
-      cmgCall4 = pairs
-      cmgCall5 = dataTable
-      cmgCall5 = cmgCall5[textValue5]
-      cmgCall5 = cmgCall5.propObjHandlers
-      cmgCall4, cmgCall5, serverEventCall, textValue8 = cmgCall4(cmgCall5)
-      for tableHelper, textValue in cmgCall4, cmgCall5, serverEventCall, textValue8 do
+-- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+function number4()
+  local localValue1, localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text, position, position2, stateFlag, stateFlag2, stateFlag3, stateFlag4, workingValue2, workingValue3, stateFlag5, stateFlag6, stateFlag7
+  localValue1 = pairs
+  localValue2 = dataCollection
+  localValue1, localValue2, cmgOperation3, position3 = localValue1(localValue2)
+  for text5, iterator in localValue1, localValue2, cmgOperation3, position3 do
+    cmgOperation4 = iterator.instruction
+    if "open" == cmgOperation4 then
+      cmgOperation4 = pairs
+      cmgOperation5 = dataCollection
+      cmgOperation5 = cmgOperation5[text5]
+      cmgOperation5 = cmgOperation5.propObjHandlers
+      cmgOperation4, cmgOperation5, serverEventCall, text8 = cmgOperation4(cmgOperation5)
+      for tableHelper, text in cmgOperation4, cmgOperation5, serverEventCall, text8 do
         position = GetEntityCoords
-        position2 = textValue
+        position2 = text
         -- Beginner: result below is entityCoords.
         position = position(position2)
         position2 = GetOffsetFromEntityInWorldCoords
-        flag = dataTable
-        flag = flag[textValue5]
-        flag = flag.propFrameObjHandler
-        flag2 = tableHelper * 5.0
-        flag3 = 0.0
-        flag4 = 0.0
-        position2 = position2(flag, flag2, flag3, flag4)
-        flag = position.xy
-        flag2 = iterator.position
-        flag2 = flag2.xy
-        flag = flag - flag2
-        flag = #flag
-        flag2 = 0.1
-        if flag < flag2 then
-          flag = dataTable
-          flag = flag[textValue5]
-          flag.instruction = "none"
+        stateFlag = dataCollection
+        stateFlag = stateFlag[text5]
+        stateFlag = stateFlag.propFrameObjHandler
+        stateFlag2 = tableHelper * 5.0
+        stateFlag3 = 0.0
+        stateFlag4 = 0.0
+        position2 = position2(stateFlag, stateFlag2, stateFlag3, stateFlag4)
+        stateFlag = position.xy
+        stateFlag2 = iterator.position
+        stateFlag2 = stateFlag2.xy
+        stateFlag = stateFlag - stateFlag2
+        stateFlag = #stateFlag
+        stateFlag2 = 0.1
+        if stateFlag < stateFlag2 then
+          stateFlag = dataCollection
+          stateFlag = stateFlag[text5]
+          stateFlag.instruction = "none"
         end
-        flag = numberValue3
-        flag2 = GetFrameTime
-        flag2 = flag2()
-        flag = flag * flag2
-        flag2 = SetEntityCoordsNoOffset
-        flag3 = textValue
-        flag4 = position.x
-        workValue2 = iterator.position
-        workValue2 = workValue2.x
-        workValue3 = position2.x
-        workValue2 = workValue2 - workValue3
-        workValue2 = workValue2 / flag
-        flag4 = flag4 + workValue2
-        workValue2 = position.y
-        workValue3 = iterator.position
-        workValue3 = workValue3.y
-        flag5 = position2.y
-        workValue3 = workValue3 - flag5
-        workValue3 = workValue3 / flag
-        workValue2 = workValue2 + workValue3
-        workValue3 = position.z
-        flag5 = false
-        flag6 = false
-        flag7 = false
+        stateFlag = number3
+        stateFlag2 = GetFrameTime
+        stateFlag2 = stateFlag2()
+        stateFlag = stateFlag * stateFlag2
+        stateFlag2 = SetEntityCoordsNoOffset
+        stateFlag3 = text
+        stateFlag4 = position.x
+        workingValue2 = iterator.position
+        workingValue2 = workingValue2.x
+        workingValue3 = position2.x
+        workingValue2 = workingValue2 - workingValue3
+        workingValue2 = workingValue2 / stateFlag
+        stateFlag4 = stateFlag4 + workingValue2
+        workingValue2 = position.y
+        workingValue3 = iterator.position
+        workingValue3 = workingValue3.y
+        stateFlag5 = position2.y
+        workingValue3 = workingValue3 - stateFlag5
+        workingValue3 = workingValue3 / stateFlag
+        workingValue2 = workingValue2 + workingValue3
+        workingValue3 = position.z
+        stateFlag5 = false
+        stateFlag6 = false
+        stateFlag7 = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        flag2(flag3, flag4, workValue2, workValue3, flag5, flag6, flag7)
+        stateFlag2(stateFlag3, stateFlag4, workingValue2, workingValue3, stateFlag5, stateFlag6, stateFlag7)
       end
     end
-    cmgCall4 = iterator.instruction
-    if "close" == cmgCall4 then
-      cmgCall4 = pairs
-      cmgCall5 = dataTable
-      cmgCall5 = cmgCall5[textValue5]
-      cmgCall5 = cmgCall5.propObjHandlers
-      cmgCall4, cmgCall5, serverEventCall, textValue8 = cmgCall4(cmgCall5)
-      for tableHelper, textValue in cmgCall4, cmgCall5, serverEventCall, textValue8 do
+    cmgOperation4 = iterator.instruction
+    if "close" == cmgOperation4 then
+      cmgOperation4 = pairs
+      cmgOperation5 = dataCollection
+      cmgOperation5 = cmgOperation5[text5]
+      cmgOperation5 = cmgOperation5.propObjHandlers
+      cmgOperation4, cmgOperation5, serverEventCall, text8 = cmgOperation4(cmgOperation5)
+      for tableHelper, text in cmgOperation4, cmgOperation5, serverEventCall, text8 do
         position = GetEntityCoords
-        position2 = textValue
+        position2 = text
         -- Beginner: result below is entityCoords.
         position = position(position2)
         position2 = GetOffsetFromEntityInWorldCoords
-        flag = dataTable
-        flag = flag[textValue5]
-        flag = flag.propFrameObjHandler
-        flag2 = tableHelper * 5.0
-        flag3 = 0.0
-        flag4 = 0.0
-        position2 = position2(flag, flag2, flag3, flag4)
-        flag = position - position2
-        flag = #flag
-        flag2 = 0.1
-        if flag < flag2 then
-          flag = dataTable
-          flag = flag[textValue5]
-          flag.instruction = "none"
+        stateFlag = dataCollection
+        stateFlag = stateFlag[text5]
+        stateFlag = stateFlag.propFrameObjHandler
+        stateFlag2 = tableHelper * 5.0
+        stateFlag3 = 0.0
+        stateFlag4 = 0.0
+        position2 = position2(stateFlag, stateFlag2, stateFlag3, stateFlag4)
+        stateFlag = position - position2
+        stateFlag = #stateFlag
+        stateFlag2 = 0.1
+        if stateFlag < stateFlag2 then
+          stateFlag = dataCollection
+          stateFlag = stateFlag[text5]
+          stateFlag.instruction = "none"
         end
-        flag = numberValue3
-        flag2 = GetFrameTime
-        flag2 = flag2()
-        flag = flag * flag2
-        flag2 = SetEntityCoordsNoOffset
-        flag3 = textValue
-        flag4 = position.x
-        workValue2 = position2.x
-        workValue3 = iterator.position
-        workValue3 = workValue3.x
-        workValue2 = workValue2 - workValue3
-        workValue2 = workValue2 / flag
-        flag4 = flag4 + workValue2
-        workValue2 = position.y
-        workValue3 = position2.y
-        flag5 = iterator.position
-        flag5 = flag5.y
-        workValue3 = workValue3 - flag5
-        workValue3 = workValue3 / flag
-        workValue2 = workValue2 + workValue3
-        workValue3 = position.z
-        flag5 = false
-        flag6 = false
-        flag7 = false
-        flag2(flag3, flag4, workValue2, workValue3, flag5, flag6, flag7)
+        stateFlag = number3
+        stateFlag2 = GetFrameTime
+        stateFlag2 = stateFlag2()
+        stateFlag = stateFlag * stateFlag2
+        stateFlag2 = SetEntityCoordsNoOffset
+        stateFlag3 = text
+        stateFlag4 = position.x
+        workingValue2 = position2.x
+        workingValue3 = iterator.position
+        workingValue3 = workingValue3.x
+        workingValue2 = workingValue2 - workingValue3
+        workingValue2 = workingValue2 / stateFlag
+        stateFlag4 = stateFlag4 + workingValue2
+        workingValue2 = position.y
+        workingValue3 = position2.y
+        stateFlag5 = iterator.position
+        stateFlag5 = stateFlag5.y
+        workingValue3 = workingValue3 - stateFlag5
+        workingValue3 = workingValue3 / stateFlag
+        workingValue2 = workingValue2 + workingValue3
+        workingValue3 = position.z
+        stateFlag5 = false
+        stateFlag6 = false
+        stateFlag7 = false
+        stateFlag2(stateFlag3, stateFlag4, workingValue2, workingValue3, stateFlag5, stateFlag6, stateFlag7)
       end
     end
   end
 end
-numberValue5 = CMG
-numberValue5 = numberValue5.createThreadOnTick
-numberValue6 = numberValue4
-flag9 = "Border Force"
+number5 = CMG
+number5 = number5.createThreadOnTick
+number6 = number4
+stateFlag9 = "Border Force"
 -- Beginner: Run a helper every game frame while this script is active.
-numberValue5(numberValue6, flag9)
-numberValue5 = AddEventHandler
-numberValue6 = "CMG:onClientSpawn"
+number5(number6, stateFlag9)
+number5 = AddEventHandler
+number6 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1, arg2) ===
-function flag9(arg1, arg2)
-  local cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2, flag3, flag4, workValue2, workValue3
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: stateFlag9; parameters: localValue1, localValue2) ===
+function stateFlag9(localValue1, localValue2)
+  local cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text, position, position2, stateFlag, stateFlag2, stateFlag3, stateFlag4, workingValue2, workingValue3
+  if localValue2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-    function cmgCall3()
-      local arg12, cmgCall2
+    -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+    function cmgOperation3()
+      local localValue12, cmgOperation2
     end
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
     -- === HELPER FUNCTION: position3() ===
     function position3()
-      local arg12, cmgCall2
+      local localValue12, cmgOperation2
     end
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg12) ===
-    function textValue5(arg12)
-      local cmgCall2, textValue3, textValue4, textValue6, textValue7
-      cmgCall2 = CMG
-      cmgCall2 = cmgCall2.hasClientPermission
-      textValue3 = "borderforce.onduty.permission"
-      cmgCall2 = cmgCall2(textValue3)
-      if not cmgCall2 then
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.isStaffedOnClient
-        cmgCall2 = cmgCall2()
-        if not cmgCall2 then
-          goto flow_label_65
+    -- === HELPER FUNCTION (decompiler name: text5; parameters: localValue12) ===
+    function text5(localValue12)
+      local cmgOperation2, text3, text4, text6, text7
+      cmgOperation2 = CMG
+      cmgOperation2 = cmgOperation2.hasClientPermission
+      text3 = "borderforce.onduty.permission"
+      cmgOperation2 = cmgOperation2(text3)
+      if not cmgOperation2 then
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.isStaffedOnClient
+        cmgOperation2 = cmgOperation2()
+        if not cmgOperation2 then
+          goto continueAtStep65
         end
       end
-      cmgCall2 = arg12.objectId
-      textValue3 = dataTable
-      textValue3 = textValue3[cmgCall2]
-      textValue3 = textValue3.open
-      if textValue3 then
-        textValue3 = IsControlJustPressed
-        textValue4 = 0
-        textValue6 = 38
-        textValue3 = textValue3(textValue4, textValue6)
-        if textValue3 then
-          textValue3 = tCMG
-          textValue3 = textValue3.notify
-          textValue4 = "~g~Gate closing..."
+      cmgOperation2 = localValue12.objectId
+      text3 = dataCollection
+      text3 = text3[cmgOperation2]
+      text3 = text3.open
+      if text3 then
+        text3 = IsControlJustPressed
+        text4 = 0
+        text6 = 38
+        text3 = text3(text4, text6)
+        if text3 then
+          text3 = tCMG
+          text3 = text3.notify
+          text4 = "~g~Gate closing..."
           -- Beginner: Show a notification to the player.
-          textValue3(textValue4)
-          textValue3 = TriggerServerEvent
-          textValue4 = "bfb85eb237"
-          textValue6 = cmgCall2
-          textValue7 = "close"
+          text3(text4)
+          text3 = TriggerServerEvent
+          text4 = "bfb85eb237"
+          text6 = cmgOperation2
+          text7 = "close"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
-          textValue3(textValue4, textValue6, textValue7)
+          text3(text4, text6, text7)
         end
-        textValue3 = CMG
-        textValue3 = textValue3.DrawText3D
-        textValue4 = dataTable
-        textValue4 = textValue4[cmgCall2]
-        textValue4 = textValue4.controllerPos
-        textValue6 = "Press [E] to close gate"
-        textValue7 = 0.35
-        textValue3(textValue4, textValue6, textValue7)
+        text3 = CMG
+        text3 = text3.DrawText3D
+        text4 = dataCollection
+        text4 = text4[cmgOperation2]
+        text4 = text4.controllerPos
+        text6 = "Press [E] to close gate"
+        text7 = 0.35
+        text3(text4, text6, text7)
       else
-        textValue3 = CMG
-        textValue3 = textValue3.DrawText3D
-        textValue4 = dataTable
-        textValue4 = textValue4[cmgCall2]
-        textValue4 = textValue4.controllerPos
-        textValue6 = "Press [E] to open gate"
-        textValue7 = 0.35
-        textValue3(textValue4, textValue6, textValue7)
-        textValue3 = IsControlJustPressed
-        textValue4 = 0
-        textValue6 = 38
-        textValue3 = textValue3(textValue4, textValue6)
-        if textValue3 then
-          textValue3 = tCMG
-          textValue3 = textValue3.notify
-          textValue4 = "~g~Gate opening..."
+        text3 = CMG
+        text3 = text3.DrawText3D
+        text4 = dataCollection
+        text4 = text4[cmgOperation2]
+        text4 = text4.controllerPos
+        text6 = "Press [E] to open gate"
+        text7 = 0.35
+        text3(text4, text6, text7)
+        text3 = IsControlJustPressed
+        text4 = 0
+        text6 = 38
+        text3 = text3(text4, text6)
+        if text3 then
+          text3 = tCMG
+          text3 = text3.notify
+          text4 = "~g~Gate opening..."
           -- Beginner: Show a notification to the player.
-          textValue3(textValue4)
-          textValue3 = TriggerServerEvent
-          textValue4 = "bfb85eb237"
-          textValue6 = cmgCall2
-          textValue7 = "open"
+          text3(text4)
+          text3 = TriggerServerEvent
+          text4 = "bfb85eb237"
+          text6 = cmgOperation2
+          text7 = "open"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
-          textValue3(textValue4, textValue6, textValue7)
+          text3(text4, text6, text7)
         end
       end
-      ::flow_label_65::
+      ::continueAtStep65::
     end
     iterator = pairs
-    cmgCall4 = dataTable
-    iterator, cmgCall4, cmgCall5, serverEventCall = iterator(cmgCall4)
-    for textValue8, tableHelper in iterator, cmgCall4, cmgCall5, serverEventCall do
-      textValue = CMG
-      textValue = textValue.createArea
+    cmgOperation4 = dataCollection
+    iterator, cmgOperation4, cmgOperation5, serverEventCall = iterator(cmgOperation4)
+    for text8, tableHelper in iterator, cmgOperation4, cmgOperation5, serverEventCall do
+      text = CMG
+      text = text.createArea
       position = "border_"
-      position2 = textValue8
+      position2 = text8
       position = position .. position2
       position2 = tableHelper.controllerPos
-      flag = 1.5
-      flag2 = 6
-      flag3 = cmgCall3
-      flag4 = position3
-      workValue2 = textValue5
-      workValue3 = {}
-      workValue3.objectId = textValue8
+      stateFlag = 1.5
+      stateFlag2 = 6
+      stateFlag3 = cmgOperation3
+      stateFlag4 = position3
+      workingValue2 = text5
+      workingValue3 = {}
+      workingValue3.objectId = text8
       -- Beginner: Create an interaction area around a world position.
-      textValue(position, position2, flag, flag2, flag3, flag4, workValue2, workValue3)
+      text(position, position2, stateFlag, stateFlag2, stateFlag3, stateFlag4, workingValue2, workingValue3)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-numberValue5(numberValue6, flag9)
-numberValue5 = AddEventHandler
-numberValue6 = "onResourceStop"
+number5(number6, stateFlag9)
+number5 = AddEventHandler
+number6 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1) ===
-function flag9(arg1)
-  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg1 == arg2 then
-    arg2 = pairs
-    cmgCall3 = dataTable
-    arg2, cmgCall3, position3, textValue5 = arg2(cmgCall3)
-    for iterator in arg2, cmgCall3, position3, textValue5 do
-      cmgCall4 = pairs
-      cmgCall5 = dataTable
-      cmgCall5 = cmgCall5[iterator]
-      cmgCall5 = cmgCall5.propObjHandlers
-      cmgCall4, cmgCall5, serverEventCall, textValue8 = cmgCall4(cmgCall5)
-      for tableHelper, textValue in cmgCall4, cmgCall5, serverEventCall, textValue8 do
+-- === HELPER FUNCTION (decompiler name: stateFlag9; parameters: localValue1) ===
+function stateFlag9(localValue1)
+  local localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text, position, position2
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue1 == localValue2 then
+    localValue2 = pairs
+    cmgOperation3 = dataCollection
+    localValue2, cmgOperation3, position3, text5 = localValue2(cmgOperation3)
+    for iterator in localValue2, cmgOperation3, position3, text5 do
+      cmgOperation4 = pairs
+      cmgOperation5 = dataCollection
+      cmgOperation5 = cmgOperation5[iterator]
+      cmgOperation5 = cmgOperation5.propObjHandlers
+      cmgOperation4, cmgOperation5, serverEventCall, text8 = cmgOperation4(cmgOperation5)
+      for tableHelper, text in cmgOperation4, cmgOperation5, serverEventCall, text8 do
         position = DeleteObject
-        position2 = textValue
+        position2 = text
         position(position2)
       end
-      cmgCall4 = DeleteObject
-      cmgCall5 = dataTable
-      cmgCall5 = cmgCall5[iterator]
-      cmgCall5 = cmgCall5.propFrameObjHandler
-      cmgCall4(cmgCall5)
-      cmgCall4 = DeleteObject
-      cmgCall5 = dataTable
-      cmgCall5 = cmgCall5[iterator]
-      cmgCall5 = cmgCall5.propControllerHandler
-      cmgCall4(cmgCall5)
+      cmgOperation4 = DeleteObject
+      cmgOperation5 = dataCollection
+      cmgOperation5 = cmgOperation5[iterator]
+      cmgOperation5 = cmgOperation5.propFrameObjHandler
+      cmgOperation4(cmgOperation5)
+      cmgOperation4 = DeleteObject
+      cmgOperation5 = dataCollection
+      cmgOperation5 = cmgOperation5[iterator]
+      cmgOperation5 = cmgOperation5.propControllerHandler
+      cmgOperation4(cmgOperation5)
     end
-    arg2 = pairs
-    cmgCall3 = vector3Builder
-    arg2, cmgCall3, position3, textValue5 = arg2(cmgCall3)
-    for iterator, cmgCall4 in arg2, cmgCall3, position3, textValue5 do
-      cmgCall5 = DeleteEntity
-      serverEventCall = cmgCall4
+    localValue2 = pairs
+    cmgOperation3 = createVector3
+    localValue2, cmgOperation3, position3, text5 = localValue2(cmgOperation3)
+    for iterator, cmgOperation4 in localValue2, cmgOperation3, position3, text5 do
+      cmgOperation5 = DeleteEntity
+      serverEventCall = cmgOperation4
       -- Beginner: Delete a GTA entity.
-      cmgCall5(serverEventCall)
+      cmgOperation5(serverEventCall)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-numberValue5(numberValue6, flag9)
-numberValue5 = RegisterNetEvent
-numberValue6 = "03e141ef40"
+number5(number6, stateFlag9)
+number5 = RegisterNetEvent
+number6 = "03e141ef40"
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "03e141ef40".
-numberValue5(numberValue6)
-numberValue5 = AddEventHandler
-numberValue6 = "03e141ef40"
+number5(number6)
+number5 = AddEventHandler
+number6 = "03e141ef40"
 -- Beginner: this function runs when client event "03e141ef40" fires.
 
--- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1, arg2) ===
-function flag9(arg1, arg2)
-  local cmgCall3
-  cmgCall3 = dataTable
-  cmgCall3 = cmgCall3[arg1]
-  cmgCall3.instruction = arg2
-  if "open" == arg2 then
-    cmgCall3 = dataTable
-    cmgCall3 = cmgCall3[arg1]
-    cmgCall3.open = true
-  elseif "close" == arg2 then
-    cmgCall3 = dataTable
-    cmgCall3 = cmgCall3[arg1]
-    cmgCall3.open = false
+-- === HELPER FUNCTION (decompiler name: stateFlag9; parameters: localValue1, localValue2) ===
+function stateFlag9(localValue1, localValue2)
+  local cmgOperation3
+  cmgOperation3 = dataCollection
+  cmgOperation3 = cmgOperation3[localValue1]
+  cmgOperation3.instruction = localValue2
+  if "open" == localValue2 then
+    cmgOperation3 = dataCollection
+    cmgOperation3 = cmgOperation3[localValue1]
+    cmgOperation3.open = true
+  elseif "close" == localValue2 then
+    cmgOperation3 = dataCollection
+    cmgOperation3 = cmgOperation3[localValue1]
+    cmgOperation3.open = false
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "03e141ef40".
-numberValue5(numberValue6, flag9)
-numberValue5 = RegisterNetEvent
-numberValue6 = "46592aad2d"
+number5(number6, stateFlag9)
+number5 = RegisterNetEvent
+number6 = "46592aad2d"
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "46592aad2d".
-numberValue5(numberValue6)
-numberValue5 = AddEventHandler
-numberValue6 = "46592aad2d"
+number5(number6)
+number5 = AddEventHandler
+number6 = "46592aad2d"
 -- Beginner: this function runs when client event "46592aad2d" fires.
 
--- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1) ===
-function flag9(arg1)
-  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5
-  arg2 = pairs
-  cmgCall3 = arg1
-  arg2, cmgCall3, position3, textValue5 = arg2(cmgCall3)
-  for iterator, cmgCall4 in arg2, cmgCall3, position3, textValue5 do
-    cmgCall5 = cmgCall4.open
-    if cmgCall5 then
-      cmgCall5 = dataTable
-      cmgCall5 = cmgCall5[iterator]
-      cmgCall5 = cmgCall5.open
-      if not cmgCall5 then
-        cmgCall5 = dataTable
-        cmgCall5 = cmgCall5[iterator]
-        cmgCall5.instruction = "open"
-        cmgCall5 = dataTable
-        cmgCall5 = cmgCall5[iterator]
-        cmgCall5.open = true
+-- === HELPER FUNCTION (decompiler name: stateFlag9; parameters: localValue1) ===
+function stateFlag9(localValue1)
+  local localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5
+  localValue2 = pairs
+  cmgOperation3 = localValue1
+  localValue2, cmgOperation3, position3, text5 = localValue2(cmgOperation3)
+  for iterator, cmgOperation4 in localValue2, cmgOperation3, position3, text5 do
+    cmgOperation5 = cmgOperation4.open
+    if cmgOperation5 then
+      cmgOperation5 = dataCollection
+      cmgOperation5 = cmgOperation5[iterator]
+      cmgOperation5 = cmgOperation5.open
+      if not cmgOperation5 then
+        cmgOperation5 = dataCollection
+        cmgOperation5 = cmgOperation5[iterator]
+        cmgOperation5.instruction = "open"
+        cmgOperation5 = dataCollection
+        cmgOperation5 = cmgOperation5[iterator]
+        cmgOperation5.open = true
       end
     end
-    cmgCall5 = cmgCall4.open
-    if not cmgCall5 then
-      cmgCall5 = dataTable
-      cmgCall5 = cmgCall5[iterator]
-      cmgCall5 = cmgCall5.open
-      if not cmgCall5 then
-        cmgCall5 = dataTable
-        cmgCall5 = cmgCall5[iterator]
-        cmgCall5.instruction = "close"
-        cmgCall5 = dataTable
-        cmgCall5 = cmgCall5[iterator]
-        cmgCall5.open = false
+    cmgOperation5 = cmgOperation4.open
+    if not cmgOperation5 then
+      cmgOperation5 = dataCollection
+      cmgOperation5 = cmgOperation5[iterator]
+      cmgOperation5 = cmgOperation5.open
+      if not cmgOperation5 then
+        cmgOperation5 = dataCollection
+        cmgOperation5 = cmgOperation5[iterator]
+        cmgOperation5.instruction = "close"
+        cmgOperation5 = dataCollection
+        cmgOperation5 = cmgOperation5[iterator]
+        cmgOperation5.open = false
       end
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "46592aad2d".
-numberValue5(numberValue6, flag9)
-numberValue5 = AddEventHandler
-numberValue6 = "CMG:onClientSpawn"
+number5(number6, stateFlag9)
+number5 = AddEventHandler
+number6 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1, arg2) ===
-function flag9(arg1, arg2)
-  local cmgCall3, position3
-  if arg2 then
-    cmgCall3 = TriggerServerEvent
+-- === HELPER FUNCTION (decompiler name: stateFlag9; parameters: localValue1, localValue2) ===
+function stateFlag9(localValue1, localValue2)
+  local cmgOperation3, position3
+  if localValue2 then
+    cmgOperation3 = TriggerServerEvent
     position3 = "923b558511"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "923b558511".
-    cmgCall3(position3)
+    cmgOperation3(position3)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-numberValue5(numberValue6, flag9)
-numberValue5 = RegisterNetEvent
-numberValue6 = "9da3977b15"
+number5(number6, stateFlag9)
+number5 = RegisterNetEvent
+number6 = "9da3977b15"
 -- Beginner: this function handles network event "9da3977b15".
 
--- === HELPER FUNCTION (decompiler name: flag9; parameters: none) ===
-function flag9()
-  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position
-  arg1 = nil
-  arg2 = 75.0
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: stateFlag9; parameters: none) ===
+function stateFlag9()
+  local localValue1, localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text, position
+  localValue1 = nil
+  localValue2 = 75.0
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  cmgCall3 = cmgCall3()
+  cmgOperation3 = cmgOperation3()
   position3 = pairs
-  textValue5 = dataTable2
-  position3, textValue5, iterator, cmgCall4 = position3(textValue5)
-  for cmgCall5, serverEventCall in position3, textValue5, iterator, cmgCall4 do
-    textValue8 = serverEventCall.position
-    textValue8 = textValue8.xyz
-    textValue8 = cmgCall3 - textValue8
-    textValue8 = #textValue8
-    if arg2 > textValue8 then
-      arg1 = serverEventCall
-      arg2 = textValue8
+  text5 = dataCollection2
+  position3, text5, iterator, cmgOperation4 = position3(text5)
+  for cmgOperation5, serverEventCall in position3, text5, iterator, cmgOperation4 do
+    text8 = serverEventCall.position
+    text8 = text8.xyz
+    text8 = cmgOperation3 - text8
+    text8 = #text8
+    if localValue2 > text8 then
+      localValue1 = serverEventCall
+      localValue2 = text8
     end
   end
-  if arg1 then
+  if localValue1 then
     position3 = TriggerServerEvent
-    textValue5 = "d95fd9b2cd"
-    iterator = arg1.name
+    text5 = "d95fd9b2cd"
+    iterator = localValue1.name
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d95fd9b2cd".
-    position3(textValue5, iterator)
+    position3(text5, iterator)
     position3 = pairs
-    textValue5 = arg1.opens
-    position3, textValue5, iterator, cmgCall4 = position3(textValue5)
-    for cmgCall5, serverEventCall in position3, textValue5, iterator, cmgCall4 do
-      textValue8 = TriggerServerEvent
+    text5 = localValue1.opens
+    position3, text5, iterator, cmgOperation4 = position3(text5)
+    for cmgOperation5, serverEventCall in position3, text5, iterator, cmgOperation4 do
+      text8 = TriggerServerEvent
       tableHelper = "bfb85eb237"
-      textValue = serverEventCall
+      text = serverEventCall
       position = "close"
-      textValue8(tableHelper, textValue, position)
+      text8(tableHelper, text, position)
     end
   else
     position3 = notify
-    textValue5 = "~r~No nearby border to lockdown"
+    text5 = "~r~No nearby border to lockdown"
     -- Beginner: Show a notification to the player.
-    position3(textValue5)
+    position3(text5)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9da3977b15".
-numberValue5(numberValue6, flag9)
-numberValue5 = RegisterNetEvent
-numberValue6 = "d95fd9b2cd"
+number5(number6, stateFlag9)
+number5 = RegisterNetEvent
+number6 = "d95fd9b2cd"
 -- Beginner: this function handles network event "d95fd9b2cd".
 
--- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1) ===
-function flag9(arg1)
-  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall
-  arg2 = CMG
-  arg2 = arg2.notifyPicture
-  cmgCall3 = "polnotification"
+-- === HELPER FUNCTION (decompiler name: stateFlag9; parameters: localValue1) ===
+function stateFlag9(localValue1)
+  local localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall
+  localValue2 = CMG
+  localValue2 = localValue2.notifyPicture
+  cmgOperation3 = "polnotification"
   position3 = "notification"
-  textValue5 = "~r~Lockdown triggered at the "
-  iterator = arg1
-  cmgCall4 = " border!"
-  textValue5 = textValue5 .. iterator .. cmgCall4
+  text5 = "~r~Lockdown triggered at the "
+  iterator = localValue1
+  cmgOperation4 = " border!"
+  text5 = text5 .. iterator .. cmgOperation4
   iterator = "Border Force"
-  cmgCall4 = arg1
-  cmgCall5 = nil
+  cmgOperation4 = localValue1
+  cmgOperation5 = nil
   serverEventCall = nil
-  arg2(cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall)
+  localValue2(cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d95fd9b2cd".
-numberValue5(numberValue6, flag9)
-numberValue5 = ""
-numberValue6 = ""
-flag9 = false
-cmgCall6 = RegisterNetEvent
-cmgCall = "5e416b2e9c"
+number5(number6, stateFlag9)
+number5 = ""
+number6 = ""
+stateFlag9 = false
+cmgOperation6 = RegisterNetEvent
+cmgOperation = "5e416b2e9c"
 -- Beginner: this function handles network event "5e416b2e9c".
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
-function workValue(arg1, arg2)
-  local cmgCall3
-  numberValue5 = arg2
-  numberValue6 = arg1
-  cmgCall3 = true
-  flag9 = cmgCall3
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2) ===
+function workingValue(localValue1, localValue2)
+  local cmgOperation3
+  number5 = localValue2
+  number6 = localValue1
+  cmgOperation3 = true
+  stateFlag9 = cmgOperation3
 end
-cmgCall6(cmgCall, workValue)
-cmgCall6 = CMG
+cmgOperation6(cmgOperation, workingValue)
+cmgOperation6 = CMG
 -- Beginner: this function handles network event "5e416b2e9c".
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = numberValue6
-  return arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = number6
+  return localValue1
 end
-cmgCall6.getBorderForceCallsign = cmgCall
-cmgCall6 = CMG
+cmgOperation6.getBorderForceCallsign = cmgOperation
+cmgOperation6 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = numberValue5
-  return arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = number5
+  return localValue1
 end
-cmgCall6.getBorderForceRank = cmgCall
-cmgCall6 = CMG
+cmgOperation6.getBorderForceRank = cmgOperation
+cmgOperation6 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = flag9
-  return arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = stateFlag9
+  return localValue1
 end
-cmgCall6.hasBorderForceCallsign = cmgCall
+cmgOperation6.hasBorderForceCallsign = cmgOperation
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-function cmgCall6()
-  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position
-  arg1 = numberValue6
-  if "" ~= arg1 then
-    arg1 = CMG
-    arg1 = arg1.hasClientPermission
-    arg2 = "borderforce.onduty.permission"
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = DrawAdvancedText
-      arg2 = 1.064
-      cmgCall3 = 0.972
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+function cmgOperation6()
+  local localValue1, localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text, position
+  localValue1 = number6
+  if "" ~= localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.hasClientPermission
+    localValue2 = "borderforce.onduty.permission"
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = DrawAdvancedText
+      localValue2 = 1.064
+      cmgOperation3 = 0.972
       position3 = 0.005
-      textValue5 = 0.0028
+      text5 = 0.0028
       iterator = 0.4
-      cmgCall4 = numberValue6
-      cmgCall5 = 255
+      cmgOperation4 = number6
+      cmgOperation5 = 255
       serverEventCall = 255
-      textValue8 = 255
+      text8 = 255
       tableHelper = 255
-      textValue = 0
+      text = 0
       position = 0
-      arg1(arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position)
+      localValue1(localValue2, cmgOperation3, position3, text5, iterator, cmgOperation4, cmgOperation5, serverEventCall, text8, tableHelper, text, position)
     end
   end
 end
-cmgCall = CMG
-cmgCall = cmgCall.createThreadOnTick
-workValue = cmgCall6
-textValue2 = "Border Force Callsign"
+cmgOperation = CMG
+cmgOperation = cmgOperation.createThreadOnTick
+workingValue = cmgOperation6
+text2 = "Border Force Callsign"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall(workValue, textValue2)
+cmgOperation(workingValue, text2)

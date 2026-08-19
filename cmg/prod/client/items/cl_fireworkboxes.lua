@@ -32,95 +32,95 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local textValue, numberValue2, flag9, cmgCall, eventRegistration2, flag11, textValue4, workValue7, workValue8, workValue9, workValue2, workValue3, dataTable, vector3Builder, eventRegistration, vector3Builder2, vector3Builder3, vector3Builder4, vector3Builder5, vector3Builder6, vector3Builder7, vector3Builder8, vector3Builder9, numberValue5, numberValue6, numberValue7
-textValue = "anim@mp_fireworks"
-numberValue2 = -1118757580
-flag9 = false
-cmgCall = TriggerEvent
-eventRegistration2 = "chat:addSuggestion"
-flag11 = "/firework"
-textValue4 = "Lights a firework box"
+local text, number2, stateFlag9, cmgOperation, eventHandler2, stateFlag11, text4, workingValue7, workingValue8, workingValue9, workingValue2, workingValue3, dataCollection, createVector3, eventHandler, createVector32, createVector33, createVector34, createVector35, createVector36, createVector37, createVector38, createVector39, number5, number6, number7
+text = "anim@mp_fireworks"
+number2 = -1118757580
+stateFlag9 = false
+cmgOperation = TriggerEvent
+eventHandler2 = "chat:addSuggestion"
+stateFlag11 = "/firework"
+text4 = "Lights a firework box"
 -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-cmgCall(eventRegistration2, flag11, textValue4)
-cmgCall = RegisterNetEvent
-eventRegistration2 = "9e8cc9d4c6"
+cmgOperation(eventHandler2, stateFlag11, text4)
+cmgOperation = RegisterNetEvent
+eventHandler2 = "9e8cc9d4c6"
 -- Beginner: this function handles network event "9e8cc9d4c6".
 
--- === HELPER FUNCTION (decompiler name: flag11; parameters: none) ===
-function flag11()
-  local arg1, arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: none) ===
+function stateFlag11()
+  local localValue1, localValue2, localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg1 = arg1()
-  if 0 == arg1 then
-    arg1 = GetEntityHealth
-    arg2 = CMG
-    arg2 = arg2.getPlayerPed
-    arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5 = arg2()
+  localValue1 = localValue1()
+  if 0 == localValue1 then
+    localValue1 = GetEntityHealth
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerPed
+    localValue2, localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5 = localValue2()
     -- Beginner: result below is health.
-    arg1 = arg1(arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5)
-    if arg1 > 102 then
-      arg1 = flag9
-      if not arg1 then
-        arg1 = true
-        flag9 = arg1
-        arg1 = CMG
-        arg1 = arg1.loadAnimDict
-        arg2 = "anim@mp_fireworks"
+    localValue1 = localValue1(localValue2, localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5)
+    if localValue1 > 102 then
+      localValue1 = stateFlag9
+      if not localValue1 then
+        localValue1 = true
+        stateFlag9 = localValue1
+        localValue1 = CMG
+        localValue1 = localValue1.loadAnimDict
+        localValue2 = "anim@mp_fireworks"
         -- Beginner: Load a GTA animation dictionary before using it.
-        arg1(arg2)
-        arg1 = CMG
-        arg1 = arg1.loadModel
-        arg2 = numberValue2
+        localValue1(localValue2)
+        localValue1 = CMG
+        localValue1 = localValue1.loadModel
+        localValue2 = number2
         -- Beginner: Request/load a GTA model before spawning or applying it.
-        arg1(arg2)
-        arg1 = GetOffsetFromEntityInWorldCoords
-        arg2 = CMG
-        arg2 = arg2.getPlayerPed
+        localValue1(localValue2)
+        localValue1 = GetOffsetFromEntityInWorldCoords
+        localValue2 = CMG
+        localValue2 = localValue2.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        arg2 = arg2()
-        arg3 = 0.0
-        cmgCall2 = 0.5
-        numberValue9 = 0.0
-        arg1 = arg1(arg2, arg3, cmgCall2, numberValue9)
-        arg2 = GetOffsetFromEntityInWorldCoords
-        arg3 = CMG
-        arg3 = arg3.getPlayerPed
+        localValue2 = localValue2()
+        localValue3 = 0.0
+        cmgOperation2 = 0.5
+        number9 = 0.0
+        localValue1 = localValue1(localValue2, localValue3, cmgOperation2, number9)
+        localValue2 = GetOffsetFromEntityInWorldCoords
+        localValue3 = CMG
+        localValue3 = localValue3.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        arg3 = arg3()
-        cmgCall2 = 0.0
-        numberValue9 = 0.5
-        textValue3 = -2.5
-        arg2 = arg2(arg3, cmgCall2, numberValue9, textValue3)
-        arg3 = TaskPlayAnim
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.getPlayerPed
+        localValue3 = localValue3()
+        cmgOperation2 = 0.0
+        number9 = 0.5
+        text3 = -2.5
+        localValue2 = localValue2(localValue3, cmgOperation2, number9, text3)
+        localValue3 = TaskPlayAnim
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        cmgCall2 = cmgCall2()
-        numberValue9 = textValue
-        textValue3 = "place_firework_3_box"
-        numberValue11 = -1
+        cmgOperation2 = cmgOperation2()
+        number9 = text
+        text3 = "place_firework_3_box"
+        number11 = -1
         mathHelper6 = -8.0
         mathHelper7 = 3000
         mathHelper8 = 0
@@ -129,87 +129,87 @@ function flag11()
         mathHelper4 = false
         mathHelper5 = false
         -- Beginner: Play an animation on a ped.
-        arg3(cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5)
-        arg3 = RemoveAnimDict
-        cmgCall2 = "anim@mp_fireworks"
-        arg3(cmgCall2)
-        arg3 = Wait
-        cmgCall2 = 1000
-        arg3(cmgCall2)
-        arg3 = CMG
-        arg3 = arg3.requestEntitySpawn
-        cmgCall2 = "firework_box_object"
-        arg3(cmgCall2)
-        arg3 = CreateObject
-        cmgCall2 = numberValue2
-        numberValue9 = arg1.x
-        textValue3 = arg1.y
-        numberValue11 = arg1.z
+        localValue3(cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5)
+        localValue3 = RemoveAnimDict
+        cmgOperation2 = "anim@mp_fireworks"
+        localValue3(cmgOperation2)
+        localValue3 = Wait
+        cmgOperation2 = 1000
+        localValue3(cmgOperation2)
+        localValue3 = CMG
+        localValue3 = localValue3.requestEntitySpawn
+        cmgOperation2 = "firework_box_object"
+        localValue3(cmgOperation2)
+        localValue3 = CreateObject
+        cmgOperation2 = number2
+        number9 = localValue1.x
+        text3 = localValue1.y
+        number11 = localValue1.z
         mathHelper6 = true
         mathHelper7 = false
         mathHelper8 = false
         -- Beginner: result below is objectEntity.
-        arg3 = arg3(cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8)
-        cmgCall2 = PlaceObjectOnGroundProperly
-        numberValue9 = arg3
-        cmgCall2(numberValue9)
-        cmgCall2 = FreezeEntityPosition
-        numberValue9 = arg3
-        textValue3 = true
+        localValue3 = localValue3(cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8)
+        cmgOperation2 = PlaceObjectOnGroundProperly
+        number9 = localValue3
+        cmgOperation2(number9)
+        cmgOperation2 = FreezeEntityPosition
+        number9 = localValue3
+        text3 = true
         -- Beginner: Freeze or unfreeze an entity in place.
-        cmgCall2(numberValue9, textValue3)
-        cmgCall2 = SetModelAsNoLongerNeeded
-        numberValue9 = numberValue2
-        cmgCall2(numberValue9)
-        cmgCall2 = Wait
-        numberValue9 = 3000
-        cmgCall2(numberValue9)
-        cmgCall2 = TriggerServerEvent
-        numberValue9 = "656f5e70a8"
-        textValue3 = arg2
+        cmgOperation2(number9, text3)
+        cmgOperation2 = SetModelAsNoLongerNeeded
+        number9 = number2
+        cmgOperation2(number9)
+        cmgOperation2 = Wait
+        number9 = 3000
+        cmgOperation2(number9)
+        cmgOperation2 = TriggerServerEvent
+        number9 = "656f5e70a8"
+        text3 = localValue2
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "656f5e70a8".
-        cmgCall2(numberValue9, textValue3)
-        cmgCall2 = Wait
-        numberValue9 = 10000
-        cmgCall2(numberValue9)
-        cmgCall2 = DeleteEntity
-        numberValue9 = arg3
+        cmgOperation2(number9, text3)
+        cmgOperation2 = Wait
+        number9 = 10000
+        cmgOperation2(number9)
+        cmgOperation2 = DeleteEntity
+        number9 = localValue3
         -- Beginner: Delete a GTA entity.
-        cmgCall2(numberValue9)
-        cmgCall2 = false
-        flag9 = cmgCall2
+        cmgOperation2(number9)
+        cmgOperation2 = false
+        stateFlag9 = cmgOperation2
     end
   end
   else
-    arg1 = tCMG
-    arg1 = arg1.notify
-    arg2 = "You are ~r~not able ~w~to use a ~r~firework box ~w~right now."
+    localValue1 = tCMG
+    localValue1 = localValue1.notify
+    localValue2 = "You are ~r~not able ~w~to use a ~r~firework box ~w~right now."
     -- Beginner: Show a notification to the player.
-    arg1(arg2)
+    localValue1(localValue2)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9e8cc9d4c6".
-cmgCall(eventRegistration2, flag11)
-cmgCall = CMG
+cmgOperation(eventHandler2, stateFlag11)
+cmgOperation = CMG
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1, arg2) ===
-function eventRegistration2(arg1, arg2)
-  local arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8
-  arg3 = CMG
-  arg3 = arg3.loadPtfx
-  cmgCall2 = "scr_indep_fireworks"
-  arg3(cmgCall2)
-  arg3 = UseParticleFxAsset
-  cmgCall2 = "scr_indep_fireworks"
-  arg3(cmgCall2)
-  arg3 = 100
-  if arg2 then
-    arg3 = arg2
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1, localValue2) ===
+function eventHandler2(localValue1, localValue2)
+  local localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, text2, workingValue4, workingValue5, stateFlag4, stateFlag5, number, number3, number4, stateFlag6, stateFlag7, stateFlag8
+  localValue3 = CMG
+  localValue3 = localValue3.loadPtfx
+  cmgOperation2 = "scr_indep_fireworks"
+  localValue3(cmgOperation2)
+  localValue3 = UseParticleFxAsset
+  cmgOperation2 = "scr_indep_fireworks"
+  localValue3(cmgOperation2)
+  localValue3 = 100
+  if localValue2 then
+    localValue3 = localValue2
   end
-  cmgCall2 = 1
-  numberValue9 = arg3
-  textValue3 = 1
-  for numberValue11 = cmgCall2, numberValue9, textValue3 do
+  cmgOperation2 = 1
+  number9 = localValue3
+  text3 = 1
+  for number11 = cmgOperation2, number9, text3 do
     mathHelper6 = math
     mathHelper6 = mathHelper6.random
     mathHelper6 = mathHelper6()
@@ -240,439 +240,439 @@ function eventRegistration2(arg1, arg2)
     mathHelper4 = math
     mathHelper4 = mathHelper4.random
     mathHelper5 = 5
-    textValue2 = 25
-    mathHelper4 = mathHelper4(mathHelper5, textValue2)
+    text2 = 25
+    mathHelper4 = mathHelper4(mathHelper5, text2)
     mathHelper5 = math
     mathHelper5 = mathHelper5.random
     mathHelper5 = mathHelper5()
     mathHelper4 = mathHelper4 + mathHelper5
     mathHelper5 = UseParticleFxAsset
-    textValue2 = "scr_indep_fireworks"
-    mathHelper5(textValue2)
+    text2 = "scr_indep_fireworks"
+    mathHelper5(text2)
     mathHelper5 = StartNetworkedParticleFxNonLoopedAtCoord
-    textValue2 = "scr_indep_firework_trailburst"
-    workValue4 = arg1.x
-    workValue4 = workValue4 + mathHelper
-    workValue5 = arg1.y
-    workValue5 = workValue5 + mathHelper3
-    flag4 = arg1.z
-    flag4 = flag4 + mathHelper4
-    flag5 = 0.0
-    numberValue = 0.0
-    numberValue3 = 0.0
-    numberValue4 = 1.0
-    flag6 = false
-    flag7 = false
-    flag8 = false
-    mathHelper5(textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8)
+    text2 = "scr_indep_firework_trailburst"
+    workingValue4 = localValue1.x
+    workingValue4 = workingValue4 + mathHelper
+    workingValue5 = localValue1.y
+    workingValue5 = workingValue5 + mathHelper3
+    stateFlag4 = localValue1.z
+    stateFlag4 = stateFlag4 + mathHelper4
+    stateFlag5 = 0.0
+    number = 0.0
+    number3 = 0.0
+    number4 = 1.0
+    stateFlag6 = false
+    stateFlag7 = false
+    stateFlag8 = false
+    mathHelper5(text2, workingValue4, workingValue5, stateFlag4, stateFlag5, number, number3, number4, stateFlag6, stateFlag7, stateFlag8)
     mathHelper5 = SetParticleFxNonLoopedColour
-    textValue2 = mathHelper6
-    workValue4 = mathHelper7
-    workValue5 = mathHelper8
-    mathHelper5(textValue2, workValue4, workValue5)
+    text2 = mathHelper6
+    workingValue4 = mathHelper7
+    workingValue5 = mathHelper8
+    mathHelper5(text2, workingValue4, workingValue5)
     mathHelper5 = Wait
-    textValue2 = math
-    textValue2 = textValue2.random
-    workValue4 = 150
-    workValue5 = 300
-    textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8 = textValue2(workValue4, workValue5)
-    mathHelper5(textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8)
+    text2 = math
+    text2 = text2.random
+    workingValue4 = 150
+    workingValue5 = 300
+    text2, workingValue4, workingValue5, stateFlag4, stateFlag5, number, number3, number4, stateFlag6, stateFlag7, stateFlag8 = text2(workingValue4, workingValue5)
+    mathHelper5(text2, workingValue4, workingValue5, stateFlag4, stateFlag5, number, number3, number4, stateFlag6, stateFlag7, stateFlag8)
   end
-  cmgCall2 = RemoveNamedPtfxAsset
-  numberValue9 = "scr_indep_fireworks"
-  cmgCall2(numberValue9)
+  cmgOperation2 = RemoveNamedPtfxAsset
+  number9 = "scr_indep_fireworks"
+  cmgOperation2(number9)
 end
-cmgCall.startFireworksAtCoord = eventRegistration2
-cmgCall = RegisterNetEvent
-eventRegistration2 = "9078dfe5bb"
+cmgOperation.startFireworksAtCoord = eventHandler2
+cmgOperation = RegisterNetEvent
+eventHandler2 = "9078dfe5bb"
 -- Beginner: this function handles network event "9078dfe5bb".
 
--- === HELPER FUNCTION (decompiler name: flag11; parameters: arg1) ===
-function flag11(arg1)
-  local arg2, arg3
-  arg2 = CMG
-  arg2 = arg2.startFireworksAtCoord
-  arg3 = arg1
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: stateFlag11; parameters: localValue1) ===
+function stateFlag11(localValue1)
+  local localValue2, localValue3
+  localValue2 = CMG
+  localValue2 = localValue2.startFireworksAtCoord
+  localValue3 = localValue1
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9078dfe5bb".
-cmgCall(eventRegistration2, flag11)
-cmgCall = nil
-eventRegistration2 = RegisterNetEvent
-flag11 = "4e630ebd93"
+cmgOperation(eventHandler2, stateFlag11)
+cmgOperation = nil
+eventHandler2 = RegisterNetEvent
+stateFlag11 = "4e630ebd93"
 -- Beginner: this function handles network event "4e630ebd93".
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8
-  if arg1 then
-    arg2 = tCMG
-    arg2 = arg2.addBlip
-    arg3 = -407.36
-    cmgCall2 = 1189.33
-    numberValue9 = 325.62
-    textValue3 = 0
-    numberValue11 = 27
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8
+  if localValue1 then
+    localValue2 = tCMG
+    localValue2 = localValue2.addBlip
+    localValue3 = -407.36
+    cmgOperation2 = 1189.33
+    number9 = 325.62
+    text3 = 0
+    number11 = 27
     mathHelper6 = nil
     mathHelper7 = 1.0
     mathHelper8 = false
-    arg2 = arg2(arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8)
-    cmgCall = arg2
-    arg2 = SetBlipRoute
-    arg3 = cmgCall
-    cmgCall2 = true
-    arg2(arg3, cmgCall2)
+    localValue2 = localValue2(localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8)
+    cmgOperation = localValue2
+    localValue2 = SetBlipRoute
+    localValue3 = cmgOperation
+    cmgOperation2 = true
+    localValue2(localValue3, cmgOperation2)
   else
-    arg2 = cmgCall
-    if arg2 then
-      arg2 = tCMG
-      arg2 = arg2.removeBlip
-      arg3 = cmgCall
-      arg2(arg3)
-      arg2 = nil
-      cmgCall = arg2
+    localValue2 = cmgOperation
+    if localValue2 then
+      localValue2 = tCMG
+      localValue2 = localValue2.removeBlip
+      localValue3 = cmgOperation
+      localValue2(localValue3)
+      localValue2 = nil
+      cmgOperation = localValue2
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4e630ebd93".
-eventRegistration2(flag11, textValue4)
-eventRegistration2 = nil
-flag11 = false
-textValue4 = 0
+eventHandler2(stateFlag11, text4)
+eventHandler2 = nil
+stateFlag11 = false
+text4 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
-function workValue7(arg1, arg2)
-  local arg3, cmgCall2
-  arg3 = Citizen
-  arg3 = arg3.CreateThreadNow
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1, localValue2) ===
+function workingValue7(localValue1, localValue2)
+  local localValue3, cmgOperation2
+  localValue3 = Citizen
+  localValue3 = localValue3.CreateThreadNow
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-  function cmgCall2()
-    local workValue, workValue6, waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3
-    workValue = textValue4
+  -- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+  function cmgOperation2()
+    local workingValue, workingValue6, waitCall, number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3
+    workingValue = text4
     while true do
-      workValue6 = eventRegistration2
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      if not workingValue6 then
         break
       end
-      workValue6 = eventRegistration2
-      workValue6 = workValue6[workValue]
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      workingValue6 = workingValue6[workingValue]
+      if not workingValue6 then
         break
       end
-      workValue6 = UseParticleFxAsset
+      workingValue6 = UseParticleFxAsset
       waitCall = "scr_indep_fireworks"
-      workValue6(waitCall)
-      workValue6 = StartParticleFxLoopedAtCoord
+      workingValue6(waitCall)
+      workingValue6 = StartParticleFxLoopedAtCoord
       waitCall = "scr_indep_firework_fountain"
-      numberValue8 = arg1.x
-      flag10 = arg1.y
-      numberValue10 = arg1.z
-      numberValue12 = 0.0
-      numberValue13 = 0.0
-      numberValue14 = 0.0
-      workValue10 = arg2
+      number8 = localValue1.x
+      stateFlag10 = localValue1.y
+      number10 = localValue1.z
+      number12 = 0.0
+      number13 = 0.0
+      number14 = 0.0
+      workingValue10 = localValue2
       mathHelper2 = false
-      flag = false
-      flag2 = false
-      flag3 = false
-      workValue6 = workValue6(waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      stateFlag = false
+      stateFlag2 = false
+      stateFlag3 = false
+      workingValue6 = workingValue6(waitCall, number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3)
       waitCall = Citizen
       waitCall = waitCall.Wait
-      numberValue8 = 5000
-      waitCall(numberValue8)
+      number8 = 5000
+      waitCall(number8)
       waitCall = StopParticleFxLooped
-      numberValue8 = workValue6
-      flag10 = false
-      waitCall(numberValue8, flag10)
+      number8 = workingValue6
+      stateFlag10 = false
+      waitCall(number8, stateFlag10)
     end
   end
-  arg3(cmgCall2)
+  localValue3(cmgOperation2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1, arg2) ===
-function workValue8(arg1, arg2)
-  local arg3, cmgCall2
-  arg3 = Citizen
-  arg3 = arg3.CreateThreadNow
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1, localValue2) ===
+function workingValue8(localValue1, localValue2)
+  local localValue3, cmgOperation2
+  localValue3 = Citizen
+  localValue3 = localValue3.CreateThreadNow
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-  function cmgCall2()
-    local workValue, workValue6, waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3
-    workValue = textValue4
+  -- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+  function cmgOperation2()
+    local workingValue, workingValue6, waitCall, number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3
+    workingValue = text4
     while true do
-      workValue6 = eventRegistration2
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      if not workingValue6 then
         break
       end
-      workValue6 = eventRegistration2
-      workValue6 = workValue6[workValue]
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      workingValue6 = workingValue6[workingValue]
+      if not workingValue6 then
         break
       end
-      workValue6 = UseParticleFxAsset
+      workingValue6 = UseParticleFxAsset
       waitCall = "scr_indep_fireworks"
-      workValue6(waitCall)
-      workValue6 = StartParticleFxLoopedAtCoord
+      workingValue6(waitCall)
+      workingValue6 = StartParticleFxLoopedAtCoord
       waitCall = "scr_indep_firework_starburst"
-      numberValue8 = arg1.x
-      flag10 = arg1.y
-      numberValue10 = arg1.z
-      numberValue12 = 0.0
-      numberValue13 = 0.0
-      numberValue14 = 0.0
-      workValue10 = arg2
+      number8 = localValue1.x
+      stateFlag10 = localValue1.y
+      number10 = localValue1.z
+      number12 = 0.0
+      number13 = 0.0
+      number14 = 0.0
+      workingValue10 = localValue2
       mathHelper2 = math
       mathHelper2 = mathHelper2.random
       mathHelper2 = mathHelper2()
       mathHelper2 = mathHelper2 * 2.0
-      workValue10 = workValue10 * mathHelper2
+      workingValue10 = workingValue10 * mathHelper2
       mathHelper2 = false
-      flag = false
-      flag2 = false
-      flag3 = false
-      workValue6 = workValue6(waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      stateFlag = false
+      stateFlag2 = false
+      stateFlag3 = false
+      workingValue6 = workingValue6(waitCall, number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3)
       waitCall = Citizen
       waitCall = waitCall.Wait
-      numberValue8 = math
-      numberValue8 = numberValue8.random
-      flag10 = 500
-      numberValue10 = 2500
-      numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3 = numberValue8(flag10, numberValue10)
-      waitCall(numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      number8 = math
+      number8 = number8.random
+      stateFlag10 = 500
+      number10 = 2500
+      number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3 = number8(stateFlag10, number10)
+      waitCall(number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3)
       waitCall = StopParticleFxLooped
-      numberValue8 = workValue6
-      flag10 = false
-      waitCall(numberValue8, flag10)
+      number8 = workingValue6
+      stateFlag10 = false
+      waitCall(number8, stateFlag10)
     end
   end
-  arg3(cmgCall2)
+  localValue3(cmgOperation2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2) ===
-function workValue9(arg1, arg2)
-  local arg3, cmgCall2
-  arg3 = Citizen
-  arg3 = arg3.CreateThreadNow
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2) ===
+function workingValue9(localValue1, localValue2)
+  local localValue3, cmgOperation2
+  localValue3 = Citizen
+  localValue3 = localValue3.CreateThreadNow
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-  function cmgCall2()
-    local workValue, workValue6, waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3
-    workValue = textValue4
+  -- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+  function cmgOperation2()
+    local workingValue, workingValue6, waitCall, number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3
+    workingValue = text4
     while true do
-      workValue6 = eventRegistration2
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      if not workingValue6 then
         break
       end
-      workValue6 = eventRegistration2
-      workValue6 = workValue6[workValue]
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      workingValue6 = workingValue6[workingValue]
+      if not workingValue6 then
         break
       end
-      workValue6 = UseParticleFxAsset
+      workingValue6 = UseParticleFxAsset
       waitCall = "scr_indep_fireworks"
-      workValue6(waitCall)
-      workValue6 = StartParticleFxLoopedAtCoord
+      workingValue6(waitCall)
+      workingValue6 = StartParticleFxLoopedAtCoord
       waitCall = "scr_indep_firework_trailburst"
-      numberValue8 = arg1.x
-      flag10 = arg1.y
-      numberValue10 = arg1.z
-      numberValue12 = 0.0
-      numberValue13 = 0.0
-      numberValue14 = 0.0
-      workValue10 = arg2
+      number8 = localValue1.x
+      stateFlag10 = localValue1.y
+      number10 = localValue1.z
+      number12 = 0.0
+      number13 = 0.0
+      number14 = 0.0
+      workingValue10 = localValue2
       mathHelper2 = math
       mathHelper2 = mathHelper2.random
       mathHelper2 = mathHelper2()
       mathHelper2 = mathHelper2 * 2.0
-      workValue10 = workValue10 * mathHelper2
+      workingValue10 = workingValue10 * mathHelper2
       mathHelper2 = false
-      flag = false
-      flag2 = false
-      flag3 = false
-      workValue6 = workValue6(waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      stateFlag = false
+      stateFlag2 = false
+      stateFlag3 = false
+      workingValue6 = workingValue6(waitCall, number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3)
       waitCall = Citizen
       waitCall = waitCall.Wait
-      numberValue8 = math
-      numberValue8 = numberValue8.random
-      flag10 = 500
-      numberValue10 = 2500
-      numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3 = numberValue8(flag10, numberValue10)
-      waitCall(numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      number8 = math
+      number8 = number8.random
+      stateFlag10 = 500
+      number10 = 2500
+      number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3 = number8(stateFlag10, number10)
+      waitCall(number8, stateFlag10, number10, number12, number13, number14, workingValue10, mathHelper2, stateFlag, stateFlag2, stateFlag3)
       waitCall = StopParticleFxLooped
-      numberValue8 = workValue6
-      flag10 = false
-      waitCall(numberValue8, flag10)
+      number8 = workingValue6
+      stateFlag10 = false
+      waitCall(number8, stateFlag10)
     end
   end
-  arg3(cmgCall2)
+  localValue3(cmgOperation2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
-function workValue2(arg1, arg2)
-  local arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4, workValue5, flag4, flag5, numberValue
-  arg3 = math
-  arg3 = arg3.random
-  arg3 = arg3()
-  arg3 = arg3 - 0.5
-  arg3 = arg3 * arg2
-  arg3 = arg3 * 2
-  cmgCall2 = math
-  cmgCall2 = cmgCall2.random
-  cmgCall2 = cmgCall2()
-  cmgCall2 = cmgCall2 - 0.5
-  cmgCall2 = cmgCall2 * arg2
-  cmgCall2 = cmgCall2 * 2
-  numberValue9 = math
-  numberValue9 = numberValue9.random
-  numberValue9 = numberValue9()
-  numberValue9 = numberValue9 * 75.0
-  textValue3 = vector3
-  numberValue11 = arg1.x
-  numberValue11 = numberValue11 + arg3
-  mathHelper6 = arg1.y
-  mathHelper6 = mathHelper6 + cmgCall2
-  mathHelper7 = arg1.z
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, localValue2) ===
+function workingValue2(localValue1, localValue2)
+  local localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, text2, workingValue4, workingValue5, stateFlag4, stateFlag5, number
+  localValue3 = math
+  localValue3 = localValue3.random
+  localValue3 = localValue3()
+  localValue3 = localValue3 - 0.5
+  localValue3 = localValue3 * localValue2
+  localValue3 = localValue3 * 2
+  cmgOperation2 = math
+  cmgOperation2 = cmgOperation2.random
+  cmgOperation2 = cmgOperation2()
+  cmgOperation2 = cmgOperation2 - 0.5
+  cmgOperation2 = cmgOperation2 * localValue2
+  cmgOperation2 = cmgOperation2 * 2
+  number9 = math
+  number9 = number9.random
+  number9 = number9()
+  number9 = number9 * 75.0
+  text3 = vector3
+  number11 = localValue1.x
+  number11 = number11 + localValue3
+  mathHelper6 = localValue1.y
+  mathHelper6 = mathHelper6 + cmgOperation2
+  mathHelper7 = localValue1.z
   mathHelper7 = mathHelper7 + 25.0
-  mathHelper7 = mathHelper7 + numberValue9
-  textValue3 = textValue3(numberValue11, mathHelper6, mathHelper7)
-  textValue3 = arg1 - textValue3
-  textValue3 = #textValue3
-  numberValue11 = ShootSingleBulletBetweenCoords
-  mathHelper6 = arg1.x
-  mathHelper7 = arg1.y
-  mathHelper8 = arg1.z
-  mathHelper = arg1.x
-  mathHelper = mathHelper + arg3
-  mathHelper3 = arg1.y
-  mathHelper3 = mathHelper3 + cmgCall2
-  mathHelper4 = arg1.z
-  mathHelper4 = mathHelper4 + numberValue9
+  mathHelper7 = mathHelper7 + number9
+  text3 = text3(number11, mathHelper6, mathHelper7)
+  text3 = localValue1 - text3
+  text3 = #text3
+  number11 = ShootSingleBulletBetweenCoords
+  mathHelper6 = localValue1.x
+  mathHelper7 = localValue1.y
+  mathHelper8 = localValue1.z
+  mathHelper = localValue1.x
+  mathHelper = mathHelper + localValue3
+  mathHelper3 = localValue1.y
+  mathHelper3 = mathHelper3 + cmgOperation2
+  mathHelper4 = localValue1.z
+  mathHelper4 = mathHelper4 + number9
   mathHelper4 = mathHelper4 + 25.0
   mathHelper5 = 10
-  textValue2 = true
-  workValue4 = 2138347493
-  workValue5 = 0
-  flag4 = true
-  flag5 = false
-  numberValue = textValue3 * 2.0
-  numberValue11(mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4, workValue5, flag4, flag5, numberValue)
+  text2 = true
+  workingValue4 = 2138347493
+  workingValue5 = 0
+  stateFlag4 = true
+  stateFlag5 = false
+  number = text3 * 2.0
+  number11(mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, text2, workingValue4, workingValue5, stateFlag4, stateFlag5, number)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2, arg3) ===
-function workValue3(arg1, arg2, arg3)
-  local cmgCall2, numberValue9
-  cmgCall2 = Citizen
-  cmgCall2 = cmgCall2.CreateThreadNow
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1, localValue2, localValue3) ===
+function workingValue3(localValue1, localValue2, localValue3)
+  local cmgOperation2, number9
+  cmgOperation2 = Citizen
+  cmgOperation2 = cmgOperation2.CreateThreadNow
 
-  -- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
-  function numberValue9()
-    local workValue, workValue6, waitCall, numberValue8
-    workValue = textValue4
+  -- === HELPER FUNCTION (decompiler name: number9; parameters: none) ===
+  function number9()
+    local workingValue, workingValue6, waitCall, number8
+    workingValue = text4
     while true do
-      workValue6 = eventRegistration2
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      if not workingValue6 then
         break
       end
-      workValue6 = eventRegistration2
-      workValue6 = workValue6[workValue]
-      if not workValue6 then
+      workingValue6 = eventHandler2
+      workingValue6 = workingValue6[workingValue]
+      if not workingValue6 then
         break
       end
-      workValue6 = workValue2
-      waitCall = arg1
-      numberValue8 = arg2
-      workValue6(waitCall, numberValue8)
-      workValue6 = Citizen
-      workValue6 = workValue6.Wait
-      waitCall = arg3
-      workValue6(waitCall)
+      workingValue6 = workingValue2
+      waitCall = localValue1
+      number8 = localValue2
+      workingValue6(waitCall, number8)
+      workingValue6 = Citizen
+      workingValue6 = workingValue6.Wait
+      waitCall = localValue3
+      workingValue6(waitCall)
     end
   end
-  cmgCall2(numberValue9)
+  cmgOperation2(number9)
 end
-dataTable = {}
-vector3Builder = vector3
-eventRegistration = -421.4
-vector3Builder2 = 1108.81
-vector3Builder3 = 332.53
-vector3Builder = vector3Builder(eventRegistration, vector3Builder2, vector3Builder3)
-eventRegistration = vector3
-vector3Builder2 = -436.92
-vector3Builder3 = 1112.98
-vector3Builder4 = 332.54
-eventRegistration = eventRegistration(vector3Builder2, vector3Builder3, vector3Builder4)
-vector3Builder2 = vector3
-vector3Builder3 = -401.12
-vector3Builder4 = 1100.29
-vector3Builder5 = 332.53
-vector3Builder2 = vector3Builder2(vector3Builder3, vector3Builder4, vector3Builder5)
-vector3Builder3 = vector3
-vector3Builder4 = -458.45
-vector3Builder5 = 1115.95
-vector3Builder6 = 332.55
-vector3Builder3 = vector3Builder3(vector3Builder4, vector3Builder5, vector3Builder6)
-vector3Builder4 = vector3
-vector3Builder5 = -413.05
-vector3Builder6 = 1097.44
-vector3Builder7 = 332.53
-vector3Builder4 = vector3Builder4(vector3Builder5, vector3Builder6, vector3Builder7)
-vector3Builder5 = vector3
-vector3Builder6 = -449.77
-vector3Builder7 = 1107.41
-vector3Builder8 = 332.53
-vector3Builder5 = vector3Builder5(vector3Builder6, vector3Builder7, vector3Builder8)
-vector3Builder6 = vector3
-vector3Builder7 = -431.66
-vector3Builder8 = 1101.79
-vector3Builder9 = 340.52
-vector3Builder6 = vector3Builder6(vector3Builder7, vector3Builder8, vector3Builder9)
-vector3Builder7 = vector3
-vector3Builder8 = -401.41
-vector3Builder9 = 1092.78
-numberValue5 = 343.85
-vector3Builder7 = vector3Builder7(vector3Builder8, vector3Builder9, numberValue5)
-vector3Builder8 = vector3
-vector3Builder9 = -439.14
-numberValue5 = 1075.14
-numberValue6 = 352.42
-vector3Builder8 = vector3Builder8(vector3Builder9, numberValue5, numberValue6)
-vector3Builder9 = vector3
-numberValue5 = -462.21
-numberValue6 = 1109.73
-numberValue7 = 343.85
-vector3Builder9, numberValue5, numberValue6, numberValue7 = vector3Builder9(numberValue5, numberValue6, numberValue7)
-dataTable[1] = vector3Builder
-dataTable[2] = eventRegistration
-dataTable[3] = vector3Builder2
-dataTable[4] = vector3Builder3
-dataTable[5] = vector3Builder4
-dataTable[6] = vector3Builder5
-dataTable[7] = vector3Builder6
-dataTable[8] = vector3Builder7
-dataTable[9] = vector3Builder8
-dataTable[10] = vector3Builder9
-dataTable[11] = numberValue5
-dataTable[12] = numberValue6
-dataTable[13] = numberValue7
+dataCollection = {}
+createVector3 = vector3
+eventHandler = -421.4
+createVector32 = 1108.81
+createVector33 = 332.53
+createVector3 = createVector3(eventHandler, createVector32, createVector33)
+eventHandler = vector3
+createVector32 = -436.92
+createVector33 = 1112.98
+createVector34 = 332.54
+eventHandler = eventHandler(createVector32, createVector33, createVector34)
+createVector32 = vector3
+createVector33 = -401.12
+createVector34 = 1100.29
+createVector35 = 332.53
+createVector32 = createVector32(createVector33, createVector34, createVector35)
+createVector33 = vector3
+createVector34 = -458.45
+createVector35 = 1115.95
+createVector36 = 332.55
+createVector33 = createVector33(createVector34, createVector35, createVector36)
+createVector34 = vector3
+createVector35 = -413.05
+createVector36 = 1097.44
+createVector37 = 332.53
+createVector34 = createVector34(createVector35, createVector36, createVector37)
+createVector35 = vector3
+createVector36 = -449.77
+createVector37 = 1107.41
+createVector38 = 332.53
+createVector35 = createVector35(createVector36, createVector37, createVector38)
+createVector36 = vector3
+createVector37 = -431.66
+createVector38 = 1101.79
+createVector39 = 340.52
+createVector36 = createVector36(createVector37, createVector38, createVector39)
+createVector37 = vector3
+createVector38 = -401.41
+createVector39 = 1092.78
+number5 = 343.85
+createVector37 = createVector37(createVector38, createVector39, number5)
+createVector38 = vector3
+createVector39 = -439.14
+number5 = 1075.14
+number6 = 352.42
+createVector38 = createVector38(createVector39, number5, number6)
+createVector39 = vector3
+number5 = -462.21
+number6 = 1109.73
+number7 = 343.85
+createVector39, number5, number6, number7 = createVector39(number5, number6, number7)
+dataCollection[1] = createVector3
+dataCollection[2] = eventHandler
+dataCollection[3] = createVector32
+dataCollection[4] = createVector33
+dataCollection[5] = createVector34
+dataCollection[6] = createVector35
+dataCollection[7] = createVector36
+dataCollection[8] = createVector37
+dataCollection[9] = createVector38
+dataCollection[10] = createVector39
+dataCollection[11] = number5
+dataCollection[12] = number6
+dataCollection[13] = number7
 
--- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: none) ===
-function vector3Builder()
-  local arg1, arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4
+-- === HELPER FUNCTION (decompiler name: createVector3; parameters: none) ===
+function createVector3()
+  local localValue1, localValue2, localValue3, cmgOperation2, number9, text3, number11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, text2, workingValue4
   while true do
-    arg1 = flag11
-    if not arg1 then
+    localValue1 = stateFlag11
+    if not localValue1 then
       break
     end
-    arg1 = CMG
-    arg1 = arg1.getPlayerCoords
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg1 = arg1()
-    arg2 = ipairs
-    arg3 = dataTable
-    arg2, arg3, cmgCall2, numberValue9 = arg2(arg3)
-    for textValue3, numberValue11 in arg2, arg3, cmgCall2, numberValue9 do
-      mathHelper6 = arg1 - numberValue11
+    localValue1 = localValue1()
+    localValue2 = ipairs
+    localValue3 = dataCollection
+    localValue2, localValue3, cmgOperation2, number9 = localValue2(localValue3)
+    for text3, number11 in localValue2, localValue3, cmgOperation2, number9 do
+      mathHelper6 = localValue1 - number11
       mathHelper6 = #mathHelper6
       if mathHelper6 < 10.0 then
         mathHelper6 = SetEntityCoords
@@ -685,549 +685,549 @@ function vector3Builder()
         mathHelper3 = 325.59
         mathHelper4 = false
         mathHelper5 = false
-        textValue2 = false
-        workValue4 = false
+        text2 = false
+        workingValue4 = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        mathHelper6(mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4)
+        mathHelper6(mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, text2, workingValue4)
         break
       end
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 0
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 0
+    localValue2(localValue3)
   end
 end
-eventRegistration = RegisterNetEvent
-vector3Builder2 = "698a9bf67f"
+eventHandler = RegisterNetEvent
+createVector32 = "698a9bf67f"
 -- Beginner: this function handles network event "698a9bf67f".
 
--- === HELPER FUNCTION (decompiler name: vector3Builder3; parameters: arg1) ===
-function vector3Builder3(arg1)
-  local arg2, arg3, cmgCall2, numberValue9, textValue3
-  arg2 = CMG
-  arg2 = arg2.loadPtfx
-  arg3 = "scr_indep_fireworks"
-  arg2(arg3)
-  arg2 = CMG
-  arg2 = arg2.loadWeaponAsset
-  arg3 = "weapon_firework"
-  arg2(arg3)
-  arg2 = eventRegistration2
-  if not arg2 then
-    arg2 = {}
-    eventRegistration2 = arg2
+-- === HELPER FUNCTION (decompiler name: createVector33; parameters: localValue1) ===
+function createVector33(localValue1)
+  local localValue2, localValue3, cmgOperation2, number9, text3
+  localValue2 = CMG
+  localValue2 = localValue2.loadPtfx
+  localValue3 = "scr_indep_fireworks"
+  localValue2(localValue3)
+  localValue2 = CMG
+  localValue2 = localValue2.loadWeaponAsset
+  localValue3 = "weapon_firework"
+  localValue2(localValue3)
+  localValue2 = eventHandler2
+  if not localValue2 then
+    localValue2 = {}
+    eventHandler2 = localValue2
   end
-  arg2 = eventRegistration2
-  arg2 = arg2[arg1]
-  if not arg2 then
-    arg2 = eventRegistration2
-    arg3 = {}
-    arg2[arg1] = arg3
+  localValue2 = eventHandler2
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
+    localValue2 = eventHandler2
+    localValue3 = {}
+    localValue2[localValue1] = localValue3
   end
-  textValue4 = arg1
-  arg2 = flag11
-  if not arg2 then
-    arg2 = true
-    flag11 = arg2
-    arg2 = Citizen
-    arg2 = arg2.CreateThreadNow
-    arg3 = vector3Builder
-    arg2(arg3)
+  text4 = localValue1
+  localValue2 = stateFlag11
+  if not localValue2 then
+    localValue2 = true
+    stateFlag11 = localValue2
+    localValue2 = Citizen
+    localValue2 = localValue2.CreateThreadNow
+    localValue3 = createVector3
+    localValue2(localValue3)
   end
-  if 1 == arg1 then
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -421.4
-    numberValue9 = 1108.81
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -436.92
-    numberValue9 = 1112.98
-    textValue3 = 332.54
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -401.12
-    numberValue9 = 1100.29
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -458.45
-    numberValue9 = 1115.95
-    textValue3 = 332.55
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-  elseif 2 == arg1 then
-    arg2 = eventRegistration2
-    arg2[1] = nil
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -413.05
-    numberValue9 = 1097.44
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 25.0
-    numberValue9 = 1000
-    arg2(arg3, cmgCall2, numberValue9)
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -449.77
-    numberValue9 = 1107.41
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 25.0
-    numberValue9 = 1000
-    arg2(arg3, cmgCall2, numberValue9)
-  elseif 3 == arg1 then
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -431.66
-    numberValue9 = 1101.79
-    textValue3 = 340.52
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -401.41
-    numberValue9 = 1092.78
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -439.14
-    numberValue9 = 1075.14
-    textValue3 = 352.42
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -462.21
-    numberValue9 = 1109.73
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-  elseif 4 == arg1 then
-    arg2 = eventRegistration2
-    arg2[2] = nil
-    arg2 = eventRegistration2
-    arg2[3] = nil
-  elseif 5 == arg1 then
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -431.66
-    numberValue9 = 1101.79
-    textValue3 = 340.52
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -401.41
-    numberValue9 = 1092.78
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -439.14
-    numberValue9 = 1075.14
-    textValue3 = 352.42
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -462.21
-    numberValue9 = 1109.73
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-  elseif 6 == arg1 then
-    arg2 = eventRegistration2
-    arg2[5] = nil
-  elseif 7 == arg1 then
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -413.05
-    numberValue9 = 1097.44
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 1.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -449.77
-    numberValue9 = 1107.41
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 1.0
-    arg2(arg3, cmgCall2)
-  elseif 8 == arg1 then
-    arg2 = eventRegistration2
-    arg2[7] = nil
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -401.41
-    numberValue9 = 1092.78
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 100.0
-    numberValue9 = 400
-    arg2(arg3, cmgCall2, numberValue9)
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -439.14
-    numberValue9 = 1075.14
-    textValue3 = 352.42
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 100.0
-    numberValue9 = 400
-    arg2(arg3, cmgCall2, numberValue9)
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -462.21
-    numberValue9 = 1109.73
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 100.0
-    numberValue9 = 400
-    arg2(arg3, cmgCall2, numberValue9)
-  elseif 9 == arg1 then
-    arg2 = eventRegistration2
-    arg2[8] = nil
-  elseif 10 == arg1 then
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -431.66
-    numberValue9 = 1101.79
-    textValue3 = 340.52
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -401.41
-    numberValue9 = 1092.78
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -439.14
-    numberValue9 = 1075.14
-    textValue3 = 352.42
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue8
-    arg3 = vector3
-    cmgCall2 = -462.21
-    numberValue9 = 1109.73
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-  elseif 11 == arg1 then
-    arg2 = eventRegistration2
-    arg2[10] = nil
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -421.4
-    numberValue9 = 1108.81
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -436.92
-    numberValue9 = 1112.98
-    textValue3 = 332.54
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -401.12
-    numberValue9 = 1100.29
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -458.45
-    numberValue9 = 1115.95
-    textValue3 = 332.55
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -431.66
-    numberValue9 = 1101.79
-    textValue3 = 340.52
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -401.41
-    numberValue9 = 1092.78
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -439.14
-    numberValue9 = 1075.14
-    textValue3 = 352.42
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -462.21
-    numberValue9 = 1109.73
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-  elseif 12 == arg1 then
-    arg2 = eventRegistration2
-    arg2[11] = nil
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -421.4
-    numberValue9 = 1108.81
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -436.92
-    numberValue9 = 1112.98
-    textValue3 = 332.54
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -401.12
-    numberValue9 = 1100.29
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -458.45
-    numberValue9 = 1115.95
-    textValue3 = 332.55
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -413.05
-    numberValue9 = 1097.44
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 25.0
-    numberValue9 = 1000
-    arg2(arg3, cmgCall2, numberValue9)
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -449.77
-    numberValue9 = 1107.41
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 25.0
-    numberValue9 = 1000
-    arg2(arg3, cmgCall2, numberValue9)
-  elseif 13 == arg1 then
-    arg2 = eventRegistration2
-    arg2[12] = nil
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -413.05
-    numberValue9 = 1097.44
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 1.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -449.77
-    numberValue9 = 1107.41
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 1.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -431.66
-    numberValue9 = 1101.79
-    textValue3 = 340.52
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -401.41
-    numberValue9 = 1092.78
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -439.14
-    numberValue9 = 1075.14
-    textValue3 = 352.42
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue9
-    arg3 = vector3
-    cmgCall2 = -462.21
-    numberValue9 = 1109.73
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 4.0
-    arg2(arg3, cmgCall2)
-  elseif 14 == arg1 then
-    arg2 = eventRegistration2
-    arg2[13] = nil
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -401.41
-    numberValue9 = 1092.78
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 100.0
-    numberValue9 = 400
-    arg2(arg3, cmgCall2, numberValue9)
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -439.14
-    numberValue9 = 1075.14
-    textValue3 = 352.42
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 100.0
-    numberValue9 = 400
-    arg2(arg3, cmgCall2, numberValue9)
-    arg2 = workValue3
-    arg3 = vector3
-    cmgCall2 = -462.21
-    numberValue9 = 1109.73
-    textValue3 = 343.85
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 100.0
-    numberValue9 = 400
-    arg2(arg3, cmgCall2, numberValue9)
-  elseif 15 == arg1 then
-    arg2 = eventRegistration2
-    arg2[14] = nil
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -413.05
-    numberValue9 = 1097.44
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -449.77
-    numberValue9 = 1107.41
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -421.4
-    numberValue9 = 1108.81
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -436.92
-    numberValue9 = 1112.98
-    textValue3 = 332.54
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -401.12
-    numberValue9 = 1100.29
-    textValue3 = 332.53
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -458.45
-    numberValue9 = 1115.95
-    textValue3 = 332.55
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -383.67
-    numberValue9 = 1185.89
-    textValue3 = 325.79
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-    arg2 = workValue7
-    arg3 = vector3
-    cmgCall2 = -430.62
-    numberValue9 = 1197.46
-    textValue3 = 325.64
-    arg3 = arg3(cmgCall2, numberValue9, textValue3)
-    cmgCall2 = 2.0
-    arg2(arg3, cmgCall2)
-  elseif 16 == arg1 then
-    arg2 = eventRegistration2
-    arg2[15] = nil
-    arg2 = false
-    flag11 = arg2
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 5000
-    arg2(arg3)
-    arg2 = nil
-    eventRegistration2 = arg2
-    arg2 = 0
-    textValue4 = arg2
+  if 1 == localValue1 then
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -421.4
+    number9 = 1108.81
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -436.92
+    number9 = 1112.98
+    text3 = 332.54
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -401.12
+    number9 = 1100.29
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -458.45
+    number9 = 1115.95
+    text3 = 332.55
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 2 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[1] = nil
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -413.05
+    number9 = 1097.44
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 25.0
+    number9 = 1000
+    localValue2(localValue3, cmgOperation2, number9)
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -449.77
+    number9 = 1107.41
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 25.0
+    number9 = 1000
+    localValue2(localValue3, cmgOperation2, number9)
+  elseif 3 == localValue1 then
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -431.66
+    number9 = 1101.79
+    text3 = 340.52
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -401.41
+    number9 = 1092.78
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -439.14
+    number9 = 1075.14
+    text3 = 352.42
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -462.21
+    number9 = 1109.73
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 4 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[2] = nil
+    localValue2 = eventHandler2
+    localValue2[3] = nil
+  elseif 5 == localValue1 then
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -431.66
+    number9 = 1101.79
+    text3 = 340.52
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -401.41
+    number9 = 1092.78
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -439.14
+    number9 = 1075.14
+    text3 = 352.42
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -462.21
+    number9 = 1109.73
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 6 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[5] = nil
+  elseif 7 == localValue1 then
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -413.05
+    number9 = 1097.44
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 1.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -449.77
+    number9 = 1107.41
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 1.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 8 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[7] = nil
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -401.41
+    number9 = 1092.78
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 100.0
+    number9 = 400
+    localValue2(localValue3, cmgOperation2, number9)
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -439.14
+    number9 = 1075.14
+    text3 = 352.42
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 100.0
+    number9 = 400
+    localValue2(localValue3, cmgOperation2, number9)
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -462.21
+    number9 = 1109.73
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 100.0
+    number9 = 400
+    localValue2(localValue3, cmgOperation2, number9)
+  elseif 9 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[8] = nil
+  elseif 10 == localValue1 then
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -431.66
+    number9 = 1101.79
+    text3 = 340.52
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -401.41
+    number9 = 1092.78
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -439.14
+    number9 = 1075.14
+    text3 = 352.42
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue8
+    localValue3 = vector3
+    cmgOperation2 = -462.21
+    number9 = 1109.73
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 11 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[10] = nil
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -421.4
+    number9 = 1108.81
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -436.92
+    number9 = 1112.98
+    text3 = 332.54
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -401.12
+    number9 = 1100.29
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -458.45
+    number9 = 1115.95
+    text3 = 332.55
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -431.66
+    number9 = 1101.79
+    text3 = 340.52
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -401.41
+    number9 = 1092.78
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -439.14
+    number9 = 1075.14
+    text3 = 352.42
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -462.21
+    number9 = 1109.73
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 12 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[11] = nil
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -421.4
+    number9 = 1108.81
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -436.92
+    number9 = 1112.98
+    text3 = 332.54
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -401.12
+    number9 = 1100.29
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -458.45
+    number9 = 1115.95
+    text3 = 332.55
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -413.05
+    number9 = 1097.44
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 25.0
+    number9 = 1000
+    localValue2(localValue3, cmgOperation2, number9)
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -449.77
+    number9 = 1107.41
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 25.0
+    number9 = 1000
+    localValue2(localValue3, cmgOperation2, number9)
+  elseif 13 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[12] = nil
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -413.05
+    number9 = 1097.44
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 1.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -449.77
+    number9 = 1107.41
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 1.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -431.66
+    number9 = 1101.79
+    text3 = 340.52
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -401.41
+    number9 = 1092.78
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -439.14
+    number9 = 1075.14
+    text3 = 352.42
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue9
+    localValue3 = vector3
+    cmgOperation2 = -462.21
+    number9 = 1109.73
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 4.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 14 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[13] = nil
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -401.41
+    number9 = 1092.78
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 100.0
+    number9 = 400
+    localValue2(localValue3, cmgOperation2, number9)
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -439.14
+    number9 = 1075.14
+    text3 = 352.42
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 100.0
+    number9 = 400
+    localValue2(localValue3, cmgOperation2, number9)
+    localValue2 = workingValue3
+    localValue3 = vector3
+    cmgOperation2 = -462.21
+    number9 = 1109.73
+    text3 = 343.85
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 100.0
+    number9 = 400
+    localValue2(localValue3, cmgOperation2, number9)
+  elseif 15 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[14] = nil
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -413.05
+    number9 = 1097.44
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -449.77
+    number9 = 1107.41
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -421.4
+    number9 = 1108.81
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -436.92
+    number9 = 1112.98
+    text3 = 332.54
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -401.12
+    number9 = 1100.29
+    text3 = 332.53
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -458.45
+    number9 = 1115.95
+    text3 = 332.55
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -383.67
+    number9 = 1185.89
+    text3 = 325.79
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+    localValue2 = workingValue7
+    localValue3 = vector3
+    cmgOperation2 = -430.62
+    number9 = 1197.46
+    text3 = 325.64
+    localValue3 = localValue3(cmgOperation2, number9, text3)
+    cmgOperation2 = 2.0
+    localValue2(localValue3, cmgOperation2)
+  elseif 16 == localValue1 then
+    localValue2 = eventHandler2
+    localValue2[15] = nil
+    localValue2 = false
+    stateFlag11 = localValue2
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 5000
+    localValue2(localValue3)
+    localValue2 = nil
+    eventHandler2 = localValue2
+    localValue2 = 0
+    text4 = localValue2
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "698a9bf67f".
-eventRegistration(vector3Builder2, vector3Builder3)
+eventHandler(createVector32, createVector33)

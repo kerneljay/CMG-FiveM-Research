@@ -32,849 +32,849 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local flag, dataTable, dataTable2, numberValue2, dataTable3, dataTable4, flag4, flag5, flag6, workValue26, workValue, workValue3, workValue5, workValue6, eventRegistration, textValue, cmgCall, serverId, eventRegistration2, textValue2, workValue14
-flag = false
-dataTable = {}
-dataTable2 = {}
-numberValue2 = 0
-dataTable3 = {}
-dataTable4 = {}
-flag4 = false
-flag5 = false
-flag6 = false
+local stateFlag, dataCollection, dataCollection2, number2, dataCollection3, dataCollection4, stateFlag4, stateFlag5, stateFlag6, workingValue26, workingValue, workingValue3, workingValue5, workingValue6, eventHandler, text, cmgOperation, serverId, eventHandler2, text2, workingValue14
+stateFlag = false
+dataCollection = {}
+dataCollection2 = {}
+number2 = 0
+dataCollection3 = {}
+dataCollection4 = {}
+stateFlag4 = false
+stateFlag5 = false
+stateFlag6 = false
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: none) ===
-function workValue26()
-  local arg1, arg2, arg3, arg4, arg5, arg6, workValue23, workValue24
-  arg1 = pairs
-  arg2 = dataTable
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    workValue23 = DoesBlipExist
-    workValue24 = arg6
-    workValue23 = workValue23(workValue24)
-    if workValue23 then
-      workValue23 = RemoveBlip
-      workValue24 = arg6
-      workValue23(workValue24)
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: none) ===
+function workingValue26()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, workingValue23, workingValue24
+  localValue1 = pairs
+  localValue2 = dataCollection
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    workingValue23 = DoesBlipExist
+    workingValue24 = localValue6
+    workingValue23 = workingValue23(workingValue24)
+    if workingValue23 then
+      workingValue23 = RemoveBlip
+      workingValue24 = localValue6
+      workingValue23(workingValue24)
     end
   end
-  arg1 = {}
-  dataTable = arg1
+  localValue1 = {}
+  dataCollection = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8
-  if arg1 then
-    arg2 = dataTable2
-    arg2 = arg2[arg1]
-    if arg2 then
-      arg2 = pairs
-      arg3 = dataTable2
-      arg3 = arg3[arg1]
-      arg2, arg3, arg4, arg5 = arg2(arg3)
-      for arg6, workValue23 in arg2, arg3, arg4, arg5 do
-        workValue24 = DoesBlipExist
-        workValue25 = workValue23
-        workValue24 = workValue24(workValue25)
-        if workValue24 then
-          workValue24 = RemoveBlip
-          workValue25 = workValue23
-          workValue24(workValue25)
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, workingValue23, workingValue24, workingValue25, number3, workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8
+  if localValue1 then
+    localValue2 = dataCollection2
+    localValue2 = localValue2[localValue1]
+    if localValue2 then
+      localValue2 = pairs
+      localValue3 = dataCollection2
+      localValue3 = localValue3[localValue1]
+      localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+      for localValue6, workingValue23 in localValue2, localValue3, localValue4, localValue5 do
+        workingValue24 = DoesBlipExist
+        workingValue25 = workingValue23
+        workingValue24 = workingValue24(workingValue25)
+        if workingValue24 then
+          workingValue24 = RemoveBlip
+          workingValue25 = workingValue23
+          workingValue24(workingValue25)
         end
       end
     end
-    arg2 = dataTable2
-    arg2[arg1] = nil
+    localValue2 = dataCollection2
+    localValue2[localValue1] = nil
   else
-    arg2 = pairs
-    arg3 = dataTable2
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, workValue23 in arg2, arg3, arg4, arg5 do
-      workValue24 = pairs
-      workValue25 = workValue23
-      workValue24, workValue25, numberValue3, workValue2 = workValue24(workValue25)
-      for workValue4, flag3 in workValue24, workValue25, numberValue3, workValue2 do
-        workValue7 = DoesBlipExist
-        workValue8 = flag3
-        workValue7 = workValue7(workValue8)
-        if workValue7 then
-          workValue7 = RemoveBlip
-          workValue8 = flag3
-          workValue7(workValue8)
+    localValue2 = pairs
+    localValue3 = dataCollection2
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, workingValue23 in localValue2, localValue3, localValue4, localValue5 do
+      workingValue24 = pairs
+      workingValue25 = workingValue23
+      workingValue24, workingValue25, number3, workingValue2 = workingValue24(workingValue25)
+      for workingValue4, stateFlag3 in workingValue24, workingValue25, number3, workingValue2 do
+        workingValue7 = DoesBlipExist
+        workingValue8 = stateFlag3
+        workingValue7 = workingValue7(workingValue8)
+        if workingValue7 then
+          workingValue7 = RemoveBlip
+          workingValue8 = stateFlag3
+          workingValue7(workingValue8)
         end
       end
     end
-    arg2 = {}
-    dataTable2 = arg2
+    localValue2 = {}
+    dataCollection2 = localValue2
   end
-  arg2 = {}
-  dataTable3 = arg2
+  localValue2 = {}
+  dataCollection3 = localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
-function workValue3(arg1, arg2, arg3, arg4, arg5, arg6)
-  local workValue23, workValue24, workValue25, numberValue3
-  workValue23 = DoesBlipExist
-  workValue24 = arg1
-  workValue23 = workValue23(workValue24)
-  if not workValue23 then
-    workValue23 = AddBlipForEntity
-    workValue24 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6) ===
+function workingValue3(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6)
+  local workingValue23, workingValue24, workingValue25, number3
+  workingValue23 = DoesBlipExist
+  workingValue24 = localValue1
+  workingValue23 = workingValue23(workingValue24)
+  if not workingValue23 then
+    workingValue23 = AddBlipForEntity
+    workingValue24 = localValue2
     -- Beginner: result below is blipHandle.
-    workValue23 = workValue23(workValue24)
-    workValue24 = table
-    workValue24 = workValue24.insert
-    workValue25 = dataTable
-    numberValue3 = workValue23
-    workValue24(workValue25, numberValue3)
-    workValue24 = SetBlipSprite
-    workValue25 = workValue23
-    numberValue3 = arg5 or numberValue3
-    if not arg5 then
-      numberValue3 = 1
+    workingValue23 = workingValue23(workingValue24)
+    workingValue24 = table
+    workingValue24 = workingValue24.insert
+    workingValue25 = dataCollection
+    number3 = workingValue23
+    workingValue24(workingValue25, number3)
+    workingValue24 = SetBlipSprite
+    workingValue25 = workingValue23
+    number3 = localValue5 or number3
+    if not localValue5 then
+      number3 = 1
     end
-    workValue24(workValue25, numberValue3)
-    workValue24 = SetBlipScale
-    workValue25 = workValue23
-    numberValue3 = 0.85
-    workValue24(workValue25, numberValue3)
-    workValue24 = SetBlipAlpha
-    workValue25 = workValue23
-    numberValue3 = 255
-    workValue24(workValue25, numberValue3)
-    workValue24 = SetBlipColour
-    workValue25 = workValue23
-    numberValue3 = arg3
-    workValue24(workValue25, numberValue3)
-    workValue24 = ShowHeadingIndicatorOnBlip
-    workValue25 = workValue23
-    numberValue3 = true
-    workValue24(workValue25, numberValue3)
+    workingValue24(workingValue25, number3)
+    workingValue24 = SetBlipScale
+    workingValue25 = workingValue23
+    number3 = 0.85
+    workingValue24(workingValue25, number3)
+    workingValue24 = SetBlipAlpha
+    workingValue25 = workingValue23
+    number3 = 255
+    workingValue24(workingValue25, number3)
+    workingValue24 = SetBlipColour
+    workingValue25 = workingValue23
+    number3 = localValue3
+    workingValue24(workingValue25, number3)
+    workingValue24 = ShowHeadingIndicatorOnBlip
+    workingValue25 = workingValue23
+    number3 = true
+    workingValue24(workingValue25, number3)
   else
-    workValue23 = GetEntityHealth
-    workValue24 = arg2
+    workingValue23 = GetEntityHealth
+    workingValue24 = localValue2
     -- Beginner: result below is health.
-    workValue23 = workValue23(workValue24)
-    if workValue23 > 102 then
-      workValue23 = SetBlipSprite
-      workValue24 = arg1
-      workValue25 = arg5 or workValue25
-      if not arg5 then
-        workValue25 = 1
+    workingValue23 = workingValue23(workingValue24)
+    if workingValue23 > 102 then
+      workingValue23 = SetBlipSprite
+      workingValue24 = localValue1
+      workingValue25 = localValue5 or workingValue25
+      if not localValue5 then
+        workingValue25 = 1
       end
-      workValue23(workValue24, workValue25)
+      workingValue23(workingValue24, workingValue25)
     else
-      workValue23 = SetBlipSprite
-      workValue24 = arg1
-      workValue25 = arg5 or workValue25
-      if not arg5 then
-        workValue25 = 274
+      workingValue23 = SetBlipSprite
+      workingValue24 = localValue1
+      workingValue25 = localValue5 or workingValue25
+      if not localValue5 then
+        workingValue25 = 274
       end
-      workValue23(workValue24, workValue25)
+      workingValue23(workingValue24, workingValue25)
     end
-    workValue23 = SetBlipScale
-    workValue24 = arg1
-    workValue25 = 0.85
-    workValue23(workValue24, workValue25)
-    workValue23 = SetBlipAlpha
-    workValue24 = arg1
-    workValue25 = 255
-    workValue23(workValue24, workValue25)
-    workValue23 = SetBlipColour
-    workValue24 = arg1
-    workValue25 = arg3
-    workValue23(workValue24, workValue25)
-    workValue23 = ShowHeadingIndicatorOnBlip
-    workValue24 = arg1
-    workValue25 = true
-    workValue23(workValue24, workValue25)
-    workValue23 = flag4
-    if workValue23 then
-      workValue23 = SetBlipCategory
-      workValue24 = arg1
-      workValue25 = 7
-      workValue23(workValue24, workValue25)
-      workValue23 = BeginTextCommandSetBlipName
-      workValue24 = "STRING"
-      workValue23(workValue24)
-      workValue23 = AddTextComponentSubstringPlayerName
-      workValue24 = arg6 or workValue24
-      if not arg6 then
-        workValue24 = CMG
-        workValue24 = workValue24.getPlayerName
-        workValue25 = arg4
-        workValue24 = workValue24(workValue25)
+    workingValue23 = SetBlipScale
+    workingValue24 = localValue1
+    workingValue25 = 0.85
+    workingValue23(workingValue24, workingValue25)
+    workingValue23 = SetBlipAlpha
+    workingValue24 = localValue1
+    workingValue25 = 255
+    workingValue23(workingValue24, workingValue25)
+    workingValue23 = SetBlipColour
+    workingValue24 = localValue1
+    workingValue25 = localValue3
+    workingValue23(workingValue24, workingValue25)
+    workingValue23 = ShowHeadingIndicatorOnBlip
+    workingValue24 = localValue1
+    workingValue25 = true
+    workingValue23(workingValue24, workingValue25)
+    workingValue23 = stateFlag4
+    if workingValue23 then
+      workingValue23 = SetBlipCategory
+      workingValue24 = localValue1
+      workingValue25 = 7
+      workingValue23(workingValue24, workingValue25)
+      workingValue23 = BeginTextCommandSetBlipName
+      workingValue24 = "STRING"
+      workingValue23(workingValue24)
+      workingValue23 = AddTextComponentSubstringPlayerName
+      workingValue24 = localValue6 or workingValue24
+      if not localValue6 then
+        workingValue24 = CMG
+        workingValue24 = workingValue24.getPlayerName
+        workingValue25 = localValue4
+        workingValue24 = workingValue24(workingValue25)
       end
-      workValue23(workValue24)
-      workValue23 = EndTextCommandSetBlipName
-      workValue24 = arg1
-      workValue23(workValue24)
+      workingValue23(workingValue24)
+      workingValue23 = EndTextCommandSetBlipName
+      workingValue24 = localValue1
+      workingValue23(workingValue24)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local arg3, arg4
-  arg3 = CMG
-  arg3 = arg3.isStaffRankShowingForPlayer
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = false
-    return arg3
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = CMG
+  localValue3 = localValue3.isStaffRankShowingForPlayer
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = false
+    return localValue3
   end
-  arg3 = IsEntityVisible
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = CMG
-    arg3 = arg3.clientGetPlayerIsStaff
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    arg3 = not arg3
+  localValue3 = IsEntityVisible
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.clientGetPlayerIsStaff
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    localValue3 = not localValue3
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
-function workValue6(arg1, arg2, arg3, arg4, arg5, arg6)
-  local workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4
-  workValue23 = arg5 or nil
-  if arg5 then
-    workValue23 = dataTable4
-    workValue23 = workValue23[arg5]
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6) ===
+function workingValue6(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6)
+  local workingValue23, workingValue24, workingValue25, number3, workingValue2, workingValue4
+  workingValue23 = localValue5 or nil
+  if localValue5 then
+    workingValue23 = dataCollection4
+    workingValue23 = workingValue23[localValue5]
   end
-  if arg5 then
-    workValue24 = dataTable4
-    workValue24[arg5] = arg1
+  if localValue5 then
+    workingValue24 = dataCollection4
+    workingValue24[localValue5] = localValue1
   end
-  workValue24 = AddBlipForCoord
-  workValue25 = arg1.x
-  numberValue3 = arg1.y
-  workValue2 = arg1.z
+  workingValue24 = AddBlipForCoord
+  workingValue25 = localValue1.x
+  number3 = localValue1.y
+  workingValue2 = localValue1.z
   -- Beginner: result below is blipHandle.
-  workValue24 = workValue24(workValue25, numberValue3, workValue2)
-  if workValue23 then
-    workValue25 = dataTable3
-    numberValue3 = arg1 - workValue23
-    workValue25[workValue24] = numberValue3
+  workingValue24 = workingValue24(workingValue25, number3, workingValue2)
+  if workingValue23 then
+    workingValue25 = dataCollection3
+    number3 = localValue1 - workingValue23
+    workingValue25[workingValue24] = number3
   end
-  workValue25 = dataTable2
-  workValue25 = workValue25[arg6]
-  if not workValue25 then
-    workValue25 = dataTable2
-    numberValue3 = {}
-    workValue25[arg6] = numberValue3
+  workingValue25 = dataCollection2
+  workingValue25 = workingValue25[localValue6]
+  if not workingValue25 then
+    workingValue25 = dataCollection2
+    number3 = {}
+    workingValue25[localValue6] = number3
   end
-  workValue25 = table
-  workValue25 = workValue25.insert
-  numberValue3 = dataTable2
-  numberValue3 = numberValue3[arg6]
-  workValue2 = workValue24
-  workValue25(numberValue3, workValue2)
-  if 0 == arg3 then
-    workValue25 = 1
-    if "taggedprisoners" == arg6 then
-      workValue25 = 280
-    elseif "vigilante" == arg6 then
-      workValue25 = 774
-    elseif 5 == arg4 then
-      workValue25 = 15
+  workingValue25 = table
+  workingValue25 = workingValue25.insert
+  number3 = dataCollection2
+  number3 = number3[localValue6]
+  workingValue2 = workingValue24
+  workingValue25(number3, workingValue2)
+  if 0 == localValue3 then
+    workingValue25 = 1
+    if "taggedprisoners" == localValue6 then
+      workingValue25 = 280
+    elseif "vigilante" == localValue6 then
+      workingValue25 = 774
+    elseif 5 == localValue4 then
+      workingValue25 = 15
     end
-    numberValue3 = SetBlipSprite
-    workValue2 = workValue24
-    workValue4 = workValue25
-    numberValue3(workValue2, workValue4)
+    number3 = SetBlipSprite
+    workingValue2 = workingValue24
+    workingValue4 = workingValue25
+    number3(workingValue2, workingValue4)
   else
-    workValue25 = SetBlipSprite
-    numberValue3 = workValue24
-    workValue2 = 274
-    workValue25(numberValue3, workValue2)
+    workingValue25 = SetBlipSprite
+    number3 = workingValue24
+    workingValue2 = 274
+    workingValue25(number3, workingValue2)
   end
-  workValue25 = SetBlipScale
-  numberValue3 = workValue24
-  workValue2 = 0.85
-  workValue25(numberValue3, workValue2)
-  workValue25 = SetBlipAlpha
-  numberValue3 = workValue24
-  workValue2 = 255
-  workValue25(numberValue3, workValue2)
-  workValue25 = SetBlipColour
-  numberValue3 = workValue24
-  workValue2 = arg4
-  workValue25(numberValue3, workValue2)
-  workValue25 = SetBlipRotation
-  numberValue3 = workValue24
-  workValue2 = math
-  workValue2 = workValue2.floor
-  workValue4 = arg2
-  workValue2, workValue4 = workValue2(workValue4)
-  workValue25(numberValue3, workValue2, workValue4)
-  workValue25 = ShowHeadingIndicatorOnBlip
-  numberValue3 = workValue24
-  workValue2 = true
-  workValue25(numberValue3, workValue2)
+  workingValue25 = SetBlipScale
+  number3 = workingValue24
+  workingValue2 = 0.85
+  workingValue25(number3, workingValue2)
+  workingValue25 = SetBlipAlpha
+  number3 = workingValue24
+  workingValue2 = 255
+  workingValue25(number3, workingValue2)
+  workingValue25 = SetBlipColour
+  number3 = workingValue24
+  workingValue2 = localValue4
+  workingValue25(number3, workingValue2)
+  workingValue25 = SetBlipRotation
+  number3 = workingValue24
+  workingValue2 = math
+  workingValue2 = workingValue2.floor
+  workingValue4 = localValue2
+  workingValue2, workingValue4 = workingValue2(workingValue4)
+  workingValue25(number3, workingValue2, workingValue4)
+  workingValue25 = ShowHeadingIndicatorOnBlip
+  number3 = workingValue24
+  workingValue2 = true
+  workingValue25(number3, workingValue2)
 end
-eventRegistration = RegisterCommand
-textValue = "blipson"
+eventHandler = RegisterCommand
+text = "blipson"
 -- Beginner: this function is the command handler for "blipson".
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.isEmergencyService
-  arg1 = arg1()
-  if arg1 then
-    arg1 = true
-    flag = arg1
-    arg1 = CMG
-    arg1 = arg1.areBlipPlayerNamesEnabled
-    arg1 = arg1()
-    if arg1 then
-      arg1 = DisplayPlayerNameTagsOnBlips
-      arg2 = true
-      arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.isEmergencyService
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = true
+    stateFlag = localValue1
+    localValue1 = CMG
+    localValue1 = localValue1.areBlipPlayerNamesEnabled
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = DisplayPlayerNameTagsOnBlips
+      localValue2 = true
+      localValue1(localValue2)
     end
   end
 end
 serverId = false
 -- Beginner: Register a chat/console command. Event/command: "blipson".
-eventRegistration(textValue, cmgCall, serverId)
-eventRegistration = RegisterCommand
-textValue = "blipsoff"
+eventHandler(text, cmgOperation, serverId)
+eventHandler = RegisterCommand
+text = "blipsoff"
 -- Beginner: this function is the command handler for "blipsoff".
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = flag
-  if arg1 then
-    arg1 = false
-    flag = arg1
-    arg1 = CMG
-    arg1 = arg1.areBlipPlayerNamesEnabled
-    arg1 = arg1()
-    if arg1 then
-      arg1 = DisplayPlayerNameTagsOnBlips
-      arg2 = false
-      arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  if localValue1 then
+    localValue1 = false
+    stateFlag = localValue1
+    localValue1 = CMG
+    localValue1 = localValue1.areBlipPlayerNamesEnabled
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = DisplayPlayerNameTagsOnBlips
+      localValue2 = false
+      localValue1(localValue2)
     end
-    arg1 = workValue26
-    arg1()
+    localValue1 = workingValue26
+    localValue1()
   end
 end
 serverId = false
 -- Beginner: Register a chat/console command. Event/command: "blipsoff".
-eventRegistration(textValue, cmgCall, serverId)
-eventRegistration = RegisterNetEvent
-textValue = "14f010530c"
+eventHandler(text, cmgOperation, serverId)
+eventHandler = RegisterNetEvent
+text = "14f010530c"
 -- Beginner: this function handles network event "14f010530c".
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = flag
-  if arg1 then
-    arg1 = false
-    flag = arg1
-    arg1 = CMG
-    arg1 = arg1.areBlipPlayerNamesEnabled
-    arg1 = arg1()
-    if arg1 then
-      arg1 = DisplayPlayerNameTagsOnBlips
-      arg2 = false
-      arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  if localValue1 then
+    localValue1 = false
+    stateFlag = localValue1
+    localValue1 = CMG
+    localValue1 = localValue1.areBlipPlayerNamesEnabled
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = DisplayPlayerNameTagsOnBlips
+      localValue2 = false
+      localValue1(localValue2)
     end
-    arg1 = workValue26
-    arg1()
-    arg1 = workValue
-    arg2 = nil
-    arg1(arg2)
+    localValue1 = workingValue26
+    localValue1()
+    localValue1 = workingValue
+    localValue2 = nil
+    localValue1(localValue2)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "14f010530c".
-eventRegistration(textValue, cmgCall)
-eventRegistration = AddEventHandler
-textValue = "e713d91b70"
+eventHandler(text, cmgOperation)
+eventHandler = AddEventHandler
+text = "e713d91b70"
 -- Beginner: this function runs when client event "e713d91b70" fires.
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-function cmgCall()
-  local arg1, arg2
-  arg1 = workValue26
-  arg1()
-  arg1 = workValue
-  arg2 = nil
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+function cmgOperation()
+  local localValue1, localValue2
+  localValue1 = workingValue26
+  localValue1()
+  localValue1 = workingValue
+  localValue2 = nil
+  localValue1(localValue2)
 end
 -- Beginner: Register a client-side event handler. Event/command: "e713d91b70".
-eventRegistration(textValue, cmgCall)
+eventHandler(text, cmgOperation)
 -- Beginner: this function runs when client event "e713d91b70" fires.
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, arg3, arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9, workValue10, workValue11, cmgCall2, workValue12, workValue15, workValue16, workValue17
-  arg1 = table
-  arg1 = arg1.count
-  arg2 = dataTable2
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, workingValue23, workingValue24, workingValue25, number3, workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, cmgOperation2, workingValue12, workingValue15, workingValue16, workingValue17
+  localValue1 = table
+  localValue1 = localValue1.count
+  localValue2 = dataCollection2
   -- Beginner: result below is count.
-  arg1 = arg1(arg2)
-  if arg1 > 0 then
-    arg1 = GetGameTimer
+  localValue1 = localValue1(localValue2)
+  if localValue1 > 0 then
+    localValue1 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg1 = arg1()
-    arg2 = numberValue2
-    arg2 = arg1 - arg2
-    arg2 = arg2 / 1000.0
-    if arg2 < 1.0 then
-      arg3 = pairs
-      arg4 = dataTable2
-      arg3, arg4, arg5, arg6 = arg3(arg4)
-      for workValue23, workValue24 in arg3, arg4, arg5, arg6 do
-        workValue25 = pairs
-        numberValue3 = workValue24
-        workValue25, numberValue3, workValue2, workValue4 = workValue25(numberValue3)
-        for flag3, workValue7 in workValue25, numberValue3, workValue2, workValue4 do
-          workValue8 = dataTable3
-          workValue8 = workValue8[workValue7]
-          if workValue8 then
-            workValue9 = GetBlipCoords
-            workValue10 = workValue7
-            workValue9 = workValue9(workValue10)
-            workValue10 = workValue8 * arg2
-            workValue11 = SetBlipCoords
-            cmgCall2 = workValue7
-            workValue12 = workValue9.x
-            workValue15 = workValue10.x
-            workValue12 = workValue12 + workValue15
-            workValue15 = workValue9.y
-            workValue16 = workValue10.y
-            workValue15 = workValue15 + workValue16
-            workValue16 = workValue9.z
-            workValue17 = workValue10.z
-            workValue16 = workValue16 + workValue17
-            workValue11(cmgCall2, workValue12, workValue15, workValue16)
+    localValue1 = localValue1()
+    localValue2 = number2
+    localValue2 = localValue1 - localValue2
+    localValue2 = localValue2 / 1000.0
+    if localValue2 < 1.0 then
+      localValue3 = pairs
+      localValue4 = dataCollection2
+      localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+      for workingValue23, workingValue24 in localValue3, localValue4, localValue5, localValue6 do
+        workingValue25 = pairs
+        number3 = workingValue24
+        workingValue25, number3, workingValue2, workingValue4 = workingValue25(number3)
+        for stateFlag3, workingValue7 in workingValue25, number3, workingValue2, workingValue4 do
+          workingValue8 = dataCollection3
+          workingValue8 = workingValue8[workingValue7]
+          if workingValue8 then
+            workingValue9 = GetBlipCoords
+            workingValue10 = workingValue7
+            workingValue9 = workingValue9(workingValue10)
+            workingValue10 = workingValue8 * localValue2
+            workingValue11 = SetBlipCoords
+            cmgOperation2 = workingValue7
+            workingValue12 = workingValue9.x
+            workingValue15 = workingValue10.x
+            workingValue12 = workingValue12 + workingValue15
+            workingValue15 = workingValue9.y
+            workingValue16 = workingValue10.y
+            workingValue15 = workingValue15 + workingValue16
+            workingValue16 = workingValue9.z
+            workingValue17 = workingValue10.z
+            workingValue16 = workingValue16 + workingValue17
+            workingValue11(cmgOperation2, workingValue12, workingValue15, workingValue16)
           end
         end
       end
     end
-    numberValue2 = arg1
+    number2 = localValue1
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = CMG
-  arg2 = arg2.doesPlayerHaveRadioItem
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = flag5
-    if not arg2 then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = CMG
+  localValue2 = localValue2.doesPlayerHaveRadioItem
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = stateFlag5
+    if not localValue2 then
+      goto continueAtStep12
     end
   end
-  arg2 = true
-  return arg2
-  ::flow_label_12::
-  arg2 = CMG
-  arg2 = arg2.clientGetUserIdFromSource
-  arg3 = arg1
+  localValue2 = true
+  return localValue2
+  ::continueAtStep12::
+  localValue2 = CMG
+  localValue2 = localValue2.clientGetUserIdFromSource
+  localValue3 = localValue1
   -- Beginner: result below is userId.
-  arg2 = arg2(arg3)
-  arg3 = CMG
-  arg3 = arg3.getJobType
-  arg4 = arg2
-  arg3, arg4 = arg3(arg4)
-  arg5 = "Vigilante" == arg4
-  return arg5
+  localValue2 = localValue2(localValue3)
+  localValue3 = CMG
+  localValue3 = localValue3.getJobType
+  localValue4 = localValue2
+  localValue3, localValue4 = localValue3(localValue4)
+  localValue5 = "Vigilante" == localValue4
+  return localValue5
 end
-cmgCall = Citizen
-cmgCall = cmgCall.CreateThread
+cmgOperation = Citizen
+cmgOperation = cmgOperation.CreateThread
 
 -- === HELPER FUNCTION: serverId() ===
 function serverId()
-  local arg1, arg2, arg3, arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9, workValue10, workValue11, cmgCall2, workValue12, workValue15, workValue16, workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, workingValue23, workingValue24, workingValue25, number3, workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, cmgOperation2, workingValue12, workingValue15, workingValue16, workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21, workingValue22
   while true do
-    arg1 = flag
-    if not arg1 then
-      arg1 = tCMG
-      arg1 = arg1.isInComa
-      arg1 = arg1()
-      if not arg1 then
-        arg1 = CMG
-        arg1 = arg1.hasGangBlipsEnabled
-        arg1 = arg1()
-        if not arg1 then
-          arg1 = flag5
-          if not arg1 then
-            arg1 = CMG
-            arg1 = arg1.hasClientGroup
-            arg2 = "Vigilante"
-            arg1 = arg1(arg2)
-            if not arg1 then
-              goto flow_label_422
+    localValue1 = stateFlag
+    if not localValue1 then
+      localValue1 = tCMG
+      localValue1 = localValue1.isInComa
+      localValue1 = localValue1()
+      if not localValue1 then
+        localValue1 = CMG
+        localValue1 = localValue1.hasGangBlipsEnabled
+        localValue1 = localValue1()
+        if not localValue1 then
+          localValue1 = stateFlag5
+          if not localValue1 then
+            localValue1 = CMG
+            localValue1 = localValue1.hasClientGroup
+            localValue2 = "Vigilante"
+            localValue1 = localValue1(localValue2)
+            if not localValue1 then
+              goto continueAtStep422
             end
           end
         end
       end
     end
-    arg1 = CMG
-    arg1 = arg1.inArena
-    arg1 = arg1()
-    if not arg1 then
-      arg1 = CMG
-      arg1 = arg1.areBlipPlayerNamesEnabled
-      arg1 = arg1()
-      flag4 = arg1
-      arg1 = CMG
-      arg1 = arg1.hasGangBlipsEnabled
-      arg1 = arg1()
-      arg2 = CMG
-      arg2 = arg2.isEmergencyService
-      arg2 = arg2()
-      arg3 = CMG
-      arg3 = arg3.getPlayerPed
+    localValue1 = CMG
+    localValue1 = localValue1.inArena
+    localValue1 = localValue1()
+    if not localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.areBlipPlayerNamesEnabled
+      localValue1 = localValue1()
+      stateFlag4 = localValue1
+      localValue1 = CMG
+      localValue1 = localValue1.hasGangBlipsEnabled
+      localValue1 = localValue1()
+      localValue2 = CMG
+      localValue2 = localValue2.isEmergencyService
+      localValue2 = localValue2()
+      localValue3 = CMG
+      localValue3 = localValue3.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg3 = arg3()
-      arg4 = ipairs
-      arg5 = GetActivePlayers
-      arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9, workValue10, workValue11, cmgCall2, workValue12, workValue15, workValue16, workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22 = arg5()
-      arg4, arg5, arg6, workValue23 = arg4(arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9, workValue10, workValue11, cmgCall2, workValue12, workValue15, workValue16, workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22)
-      for workValue24, workValue25 in arg4, arg5, arg6, workValue23 do
-        numberValue3 = GetPlayerPed
-        workValue2 = workValue25
+      localValue3 = localValue3()
+      localValue4 = ipairs
+      localValue5 = GetActivePlayers
+      localValue5, localValue6, workingValue23, workingValue24, workingValue25, number3, workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, cmgOperation2, workingValue12, workingValue15, workingValue16, workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21, workingValue22 = localValue5()
+      localValue4, localValue5, localValue6, workingValue23 = localValue4(localValue5, localValue6, workingValue23, workingValue24, workingValue25, number3, workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, cmgOperation2, workingValue12, workingValue15, workingValue16, workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21, workingValue22)
+      for workingValue24, workingValue25 in localValue4, localValue5, localValue6, workingValue23 do
+        number3 = GetPlayerPed
+        workingValue2 = workingValue25
         -- Beginner: result below is playerPed.
-        numberValue3 = numberValue3(workValue2)
-        if numberValue3 ~= arg3 then
-          workValue2 = GetVehiclePedIsIn
-          workValue4 = numberValue3
-          flag3 = false
+        number3 = number3(workingValue2)
+        if number3 ~= localValue3 then
+          workingValue2 = GetVehiclePedIsIn
+          workingValue4 = number3
+          stateFlag3 = false
           -- Beginner: result below is currentVehicle.
-          workValue2 = workValue2(workValue4, flag3)
-          workValue4 = GetBlipFromEntity
-          flag3 = numberValue3
-          workValue4 = workValue4(flag3)
-          if 0 ~= workValue2 then
-            flag3 = GetBlipFromEntity
-            workValue7 = workValue2
-            flag3 = flag3(workValue7)
-            if flag3 then
-              goto flow_label_66
+          workingValue2 = workingValue2(workingValue4, stateFlag3)
+          workingValue4 = GetBlipFromEntity
+          stateFlag3 = number3
+          workingValue4 = workingValue4(stateFlag3)
+          if 0 ~= workingValue2 then
+            stateFlag3 = GetBlipFromEntity
+            workingValue7 = workingValue2
+            stateFlag3 = stateFlag3(workingValue7)
+            if stateFlag3 then
+              goto continueAtStep66
             end
           end
-          flag3 = 0
-          ::flow_label_66::
-          workValue7 = workValue4 or workValue7
-          workValue7 = flag3 or workValue7
-          if (0 == workValue4 or not workValue4) and (0 == flag3 or not flag3) then
-            workValue7 = 0
+          stateFlag3 = 0
+          ::continueAtStep66::
+          workingValue7 = workingValue4 or workingValue7
+          workingValue7 = stateFlag3 or workingValue7
+          if (0 == workingValue4 or not workingValue4) and (0 == stateFlag3 or not stateFlag3) then
+            workingValue7 = 0
           end
-          workValue8 = CMG
-          workValue8 = workValue8.getPlayerServerId
-          workValue9 = workValue25
-          workValue8 = workValue8(workValue9)
-          if workValue8 and workValue8 > 0 then
-            workValue9 = textValue
-            workValue10 = workValue8
-            workValue9 = workValue9(workValue10)
-            if workValue9 then
-              workValue9 = CMG
-              workValue9 = workValue9.clientGetUserIdFromSource
-              workValue10 = workValue8
+          workingValue8 = CMG
+          workingValue8 = workingValue8.getPlayerServerId
+          workingValue9 = workingValue25
+          workingValue8 = workingValue8(workingValue9)
+          if workingValue8 and workingValue8 > 0 then
+            workingValue9 = text
+            workingValue10 = workingValue8
+            workingValue9 = workingValue9(workingValue10)
+            if workingValue9 then
+              workingValue9 = CMG
+              workingValue9 = workingValue9.clientGetUserIdFromSource
+              workingValue10 = workingValue8
               -- Beginner: result below is userId.
-              workValue9 = workValue9(workValue10)
-              workValue10 = CMG
-              workValue10 = workValue10.getJobType
-              workValue11 = workValue9
-              workValue10, workValue11 = workValue10(workValue11)
-              cmgCall2 = CMG
-              cmgCall2 = cmgCall2.getClientUserId
+              workingValue9 = workingValue9(workingValue10)
+              workingValue10 = CMG
+              workingValue10 = workingValue10.getJobType
+              workingValue11 = workingValue9
+              workingValue10, workingValue11 = workingValue10(workingValue11)
+              cmgOperation2 = CMG
+              cmgOperation2 = cmgOperation2.getClientUserId
               -- Beginner: result below is userId.
-              cmgCall2 = cmgCall2()
-              if workValue9 ~= cmgCall2 then
-                cmgCall2 = false
-                workValue12 = workValue5
-                workValue15 = numberValue3
-                workValue16 = workValue8
-                workValue12 = workValue12(workValue15, workValue16)
-                if workValue12 then
-                  workValue12 = flag
-                  if workValue12 then
-                    workValue12 = CMG
-                    workValue12 = workValue12.hasRadioItem
-                    workValue12 = workValue12()
-                    if workValue12 and arg2 then
-                      if 0 ~= workValue2 then
-                        workValue12 = 56
-                        workValue15 = IsThisModelAHeli
-                        workValue16 = GetEntityModel
-                        workValue17 = workValue2
-                        workValue16, workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22 = workValue16(workValue17)
-                        workValue15 = workValue15(workValue16, workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22)
-                        if workValue15 then
-                          workValue12 = 15
+              cmgOperation2 = cmgOperation2()
+              if workingValue9 ~= cmgOperation2 then
+                cmgOperation2 = false
+                workingValue12 = workingValue5
+                workingValue15 = number3
+                workingValue16 = workingValue8
+                workingValue12 = workingValue12(workingValue15, workingValue16)
+                if workingValue12 then
+                  workingValue12 = stateFlag
+                  if workingValue12 then
+                    workingValue12 = CMG
+                    workingValue12 = workingValue12.hasRadioItem
+                    workingValue12 = workingValue12()
+                    if workingValue12 and localValue2 then
+                      if 0 ~= workingValue2 then
+                        workingValue12 = 56
+                        workingValue15 = IsThisModelAHeli
+                        workingValue16 = GetEntityModel
+                        workingValue17 = workingValue2
+                        workingValue16, workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21, workingValue22 = workingValue16(workingValue17)
+                        workingValue15 = workingValue15(workingValue16, workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21, workingValue22)
+                        if workingValue15 then
+                          workingValue12 = 15
                         end
-                        workValue15 = flag3 or workValue15
-                        workValue15 = workValue4 or workValue15
-                        if (0 == flag3 or not flag3) and (0 == workValue4 or not workValue4) then
-                          workValue15 = 0
+                        workingValue15 = stateFlag3 or workingValue15
+                        workingValue15 = workingValue4 or workingValue15
+                        if (0 == stateFlag3 or not stateFlag3) and (0 == workingValue4 or not workingValue4) then
+                          workingValue15 = 0
                         end
-                        if 0 ~= workValue4 and 0 ~= flag3 and workValue4 ~= flag3 then
-                          workValue16 = RemoveBlip
-                          workValue17 = workValue4
-                          workValue16(workValue17)
-                          workValue15 = flag3
+                        if 0 ~= workingValue4 and 0 ~= stateFlag3 and workingValue4 ~= stateFlag3 then
+                          workingValue16 = RemoveBlip
+                          workingValue17 = workingValue4
+                          workingValue16(workingValue17)
+                          workingValue15 = stateFlag3
                         end
-                        if "metpd" == workValue10 and "NPAS" == workValue11 then
-                          workValue16 = workValue3
-                          workValue17 = workValue15
-                          workValue18 = workValue2
-                          numberValue = 5
-                          workValue19 = workValue25
-                          workValue20 = workValue12
-                          workValue21 = Player
-                          workValue22 = workValue8
-                          workValue21 = workValue21(workValue22)
-                          workValue21 = workValue21.state
-                          workValue21 = workValue21.blipName
-                          workValue16(workValue17, workValue18, numberValue, workValue19, workValue20, workValue21)
-                          cmgCall2 = true
-                        elseif "metpd" == workValue10 then
-                          workValue16 = workValue3
-                          workValue17 = workValue15
-                          workValue18 = workValue2
-                          numberValue = 3
-                          workValue19 = workValue25
-                          workValue20 = workValue12
-                          workValue21 = Player
-                          workValue22 = workValue8
-                          workValue21 = workValue21(workValue22)
-                          workValue21 = workValue21.state
-                          workValue21 = workValue21.blipName
-                          workValue16(workValue17, workValue18, numberValue, workValue19, workValue20, workValue21)
-                          cmgCall2 = true
-                        elseif "nhs" == workValue10 and "HEMS" == workValue11 then
-                          workValue16 = workValue3
-                          workValue17 = workValue7
-                          workValue18 = workValue2
-                          numberValue = 44
-                          workValue19 = workValue25
-                          workValue20 = workValue12
-                          workValue16(workValue17, workValue18, numberValue, workValue19, workValue20)
-                          cmgCall2 = true
-                        elseif "nhs" == workValue10 then
-                          workValue16 = workValue3
-                          workValue17 = workValue7
-                          workValue18 = workValue2
-                          numberValue = 2
-                          workValue19 = workValue25
-                          workValue20 = workValue12
-                          workValue16(workValue17, workValue18, numberValue, workValue19, workValue20)
-                          cmgCall2 = true
+                        if "metpd" == workingValue10 and "NPAS" == workingValue11 then
+                          workingValue16 = workingValue3
+                          workingValue17 = workingValue15
+                          workingValue18 = workingValue2
+                          number = 5
+                          workingValue19 = workingValue25
+                          workingValue20 = workingValue12
+                          workingValue21 = Player
+                          workingValue22 = workingValue8
+                          workingValue21 = workingValue21(workingValue22)
+                          workingValue21 = workingValue21.state
+                          workingValue21 = workingValue21.blipName
+                          workingValue16(workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21)
+                          cmgOperation2 = true
+                        elseif "metpd" == workingValue10 then
+                          workingValue16 = workingValue3
+                          workingValue17 = workingValue15
+                          workingValue18 = workingValue2
+                          number = 3
+                          workingValue19 = workingValue25
+                          workingValue20 = workingValue12
+                          workingValue21 = Player
+                          workingValue22 = workingValue8
+                          workingValue21 = workingValue21(workingValue22)
+                          workingValue21 = workingValue21.state
+                          workingValue21 = workingValue21.blipName
+                          workingValue16(workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21)
+                          cmgOperation2 = true
+                        elseif "nhs" == workingValue10 and "HEMS" == workingValue11 then
+                          workingValue16 = workingValue3
+                          workingValue17 = workingValue7
+                          workingValue18 = workingValue2
+                          number = 44
+                          workingValue19 = workingValue25
+                          workingValue20 = workingValue12
+                          workingValue16(workingValue17, workingValue18, number, workingValue19, workingValue20)
+                          cmgOperation2 = true
+                        elseif "nhs" == workingValue10 then
+                          workingValue16 = workingValue3
+                          workingValue17 = workingValue7
+                          workingValue18 = workingValue2
+                          number = 2
+                          workingValue19 = workingValue25
+                          workingValue20 = workingValue12
+                          workingValue16(workingValue17, workingValue18, number, workingValue19, workingValue20)
+                          cmgOperation2 = true
                         end
-                      elseif "metpd" == workValue10 and ("CID" == workValue11 or "Trident" == workValue11) then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 8
-                        workValue18 = workValue25
-                        numberValue = nil
-                        workValue19 = Player
-                        workValue20 = workValue8
-                        workValue19 = workValue19(workValue20)
-                        workValue19 = workValue19.state
-                        workValue19 = workValue19.blipName
-                        workValue12(workValue15, workValue16, workValue17, workValue18, numberValue, workValue19)
-                        cmgCall2 = true
-                      elseif "metpd" == workValue10 and "NPAS" == workValue11 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 5
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "metpd" == workValue10 and "CTSFO" == workValue11 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 40
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "metpd" == workValue10 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 3
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "hmp" == workValue10 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 29
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "lfb" == workValue10 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 1
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "nhs" == workValue10 and "HEMS" == workValue11 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 44
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "nhs" == workValue10 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 2
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "borderforce" == workValue10 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 83
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
-                      elseif "Vigilante" == workValue11 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 40
-                        workValue18 = workValue25
-                        numberValue = 774
-                        workValue12(workValue15, workValue16, workValue17, workValue18, numberValue)
-                        cmgCall2 = true
+                      elseif "metpd" == workingValue10 and ("CID" == workingValue11 or "Trident" == workingValue11) then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 8
+                        workingValue18 = workingValue25
+                        number = nil
+                        workingValue19 = Player
+                        workingValue20 = workingValue8
+                        workingValue19 = workingValue19(workingValue20)
+                        workingValue19 = workingValue19.state
+                        workingValue19 = workingValue19.blipName
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18, number, workingValue19)
+                        cmgOperation2 = true
+                      elseif "metpd" == workingValue10 and "NPAS" == workingValue11 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 5
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "metpd" == workingValue10 and "CTSFO" == workingValue11 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 40
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "metpd" == workingValue10 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 3
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "hmp" == workingValue10 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 29
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "lfb" == workingValue10 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 1
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "nhs" == workingValue10 and "HEMS" == workingValue11 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 44
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "nhs" == workingValue10 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 2
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "borderforce" == workingValue10 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 83
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
+                      elseif "Vigilante" == workingValue11 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 40
+                        workingValue18 = workingValue25
+                        number = 774
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18, number)
+                        cmgOperation2 = true
                       end
                   end
                   else
-                    workValue12 = tCMG
-                    workValue12 = workValue12.isInComa
-                    workValue12 = workValue12()
-                    if workValue12 then
-                      if "nhs" == workValue10 then
-                        workValue12 = workValue3
-                        workValue15 = workValue7
-                        workValue16 = numberValue3
-                        workValue17 = 2
-                        workValue18 = workValue25
-                        workValue12(workValue15, workValue16, workValue17, workValue18)
-                        cmgCall2 = true
+                    workingValue12 = tCMG
+                    workingValue12 = workingValue12.isInComa
+                    workingValue12 = workingValue12()
+                    if workingValue12 then
+                      if "nhs" == workingValue10 then
+                        workingValue12 = workingValue3
+                        workingValue15 = workingValue7
+                        workingValue16 = number3
+                        workingValue17 = 2
+                        workingValue18 = workingValue25
+                        workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                        cmgOperation2 = true
                       end
-                    elseif arg1 and not arg2 then
-                      workValue12 = CMG
-                      workValue12 = workValue12.isPlayerInSelectedGang
-                      workValue15 = workValue8
-                      workValue12, workValue15 = workValue12(workValue15)
-                      if workValue12 and "" == workValue10 then
-                        workValue16 = CMG
-                        workValue16 = workValue16.isGangBlipsPinnedOnly
-                        workValue16 = workValue16()
-                        if workValue16 then
-                          workValue16 = CMG
-                          workValue16 = workValue16.isPlayerPinnedInGang
-                          workValue17 = CMG
-                          workValue17 = workValue17.clientGetUserIdFromSource
-                          workValue18 = workValue8
-                          workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22 = workValue17(workValue18)
-                          workValue16 = workValue16(workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22)
-                          if not workValue16 then
-                            goto flow_label_371
+                    elseif localValue1 and not localValue2 then
+                      workingValue12 = CMG
+                      workingValue12 = workingValue12.isPlayerInSelectedGang
+                      workingValue15 = workingValue8
+                      workingValue12, workingValue15 = workingValue12(workingValue15)
+                      if workingValue12 and "" == workingValue10 then
+                        workingValue16 = CMG
+                        workingValue16 = workingValue16.isGangBlipsPinnedOnly
+                        workingValue16 = workingValue16()
+                        if workingValue16 then
+                          workingValue16 = CMG
+                          workingValue16 = workingValue16.isPlayerPinnedInGang
+                          workingValue17 = CMG
+                          workingValue17 = workingValue17.clientGetUserIdFromSource
+                          workingValue18 = workingValue8
+                          workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21, workingValue22 = workingValue17(workingValue18)
+                          workingValue16 = workingValue16(workingValue17, workingValue18, number, workingValue19, workingValue20, workingValue21, workingValue22)
+                          if not workingValue16 then
+                            goto continueAtStep371
                           end
                         end
-                        workValue16 = workValue3
-                        workValue17 = workValue7
-                        workValue18 = numberValue3
-                        numberValue = workValue15.blip
-                        workValue19 = workValue25
-                        workValue16(workValue17, workValue18, numberValue, workValue19)
-                        cmgCall2 = true
+                        workingValue16 = workingValue3
+                        workingValue17 = workingValue7
+                        workingValue18 = number3
+                        number = workingValue15.blip
+                        workingValue19 = workingValue25
+                        workingValue16(workingValue17, workingValue18, number, workingValue19)
+                        cmgOperation2 = true
                       end
                     end
                   end
-                  ::flow_label_371::
-                  workValue12 = CMG
-                  workValue12 = workValue12.hasClientGroup
-                  workValue15 = "Vigilante"
-                  workValue12 = workValue12(workValue15)
-                  if workValue12 and "Vigilante" == workValue11 then
-                    workValue12 = workValue3
-                    workValue15 = workValue7
-                    workValue16 = numberValue3
-                    workValue17 = 40
-                    workValue18 = workValue25
-                    numberValue = 774
-                    workValue12(workValue15, workValue16, workValue17, workValue18, numberValue)
-                    cmgCall2 = true
+                  ::continueAtStep371::
+                  workingValue12 = CMG
+                  workingValue12 = workingValue12.hasClientGroup
+                  workingValue15 = "Vigilante"
+                  workingValue12 = workingValue12(workingValue15)
+                  if workingValue12 and "Vigilante" == workingValue11 then
+                    workingValue12 = workingValue3
+                    workingValue15 = workingValue7
+                    workingValue16 = number3
+                    workingValue17 = 40
+                    workingValue18 = workingValue25
+                    number = 774
+                    workingValue12(workingValue15, workingValue16, workingValue17, workingValue18, number)
+                    cmgOperation2 = true
                   end
-                  workValue12 = flag5
-                  if workValue12 and "aa" == workValue10 then
-                    workValue12 = workValue3
-                    workValue15 = workValue7
-                    workValue16 = numberValue3
-                    workValue17 = 5
-                    workValue18 = workValue25
-                    workValue12(workValue15, workValue16, workValue17, workValue18)
-                    cmgCall2 = true
+                  workingValue12 = stateFlag5
+                  if workingValue12 and "aa" == workingValue10 then
+                    workingValue12 = workingValue3
+                    workingValue15 = workingValue7
+                    workingValue16 = number3
+                    workingValue17 = 5
+                    workingValue18 = workingValue25
+                    workingValue12(workingValue15, workingValue16, workingValue17, workingValue18)
+                    cmgOperation2 = true
                   end
                 end
-                if not cmgCall2 then
-                  workValue12 = GetBlipFromEntity
-                  workValue15 = numberValue3
-                  workValue12 = workValue12(workValue15)
-                  if 0 ~= workValue12 then
-                    workValue15 = RemoveBlip
-                    workValue16 = workValue12
-                    workValue15(workValue16)
+                if not cmgOperation2 then
+                  workingValue12 = GetBlipFromEntity
+                  workingValue15 = number3
+                  workingValue12 = workingValue12(workingValue15)
+                  if 0 ~= workingValue12 then
+                    workingValue15 = RemoveBlip
+                    workingValue16 = workingValue12
+                    workingValue15(workingValue16)
                   end
-                  if 0 ~= workValue2 then
-                    workValue15 = GetBlipFromEntity
-                    workValue16 = workValue2
-                    workValue15 = workValue15(workValue16)
-                    if 0 ~= workValue15 then
-                      workValue16 = RemoveBlip
-                      workValue17 = workValue15
-                      workValue16(workValue17)
+                  if 0 ~= workingValue2 then
+                    workingValue15 = GetBlipFromEntity
+                    workingValue16 = workingValue2
+                    workingValue15 = workingValue15(workingValue16)
+                    if 0 ~= workingValue15 then
+                      workingValue16 = RemoveBlip
+                      workingValue17 = workingValue15
+                      workingValue16(workingValue17)
                     end
                   end
                 end
@@ -884,224 +884,224 @@ function serverId()
         end
       end
     end
-    ::flow_label_422::
-    arg1 = CMG
-    arg1 = arg1.getPlayerVehicle
+    ::continueAtStep422::
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg1 = arg1()
-    arg1 = IsBigmapActive
-    arg1 = arg1()
-    if not arg1 then
-      arg1 = IsPauseMenuActive
-      arg1 = arg1()
-      if not arg1 then
-        arg1 = CMG
-        arg1 = arg1.isCallManagerOpen
-        arg1 = 0 ~= arg1 or arg1
+    localValue1 = localValue1()
+    localValue1 = IsBigmapActive
+    localValue1 = localValue1()
+    if not localValue1 then
+      localValue1 = IsPauseMenuActive
+      localValue1 = localValue1()
+      if not localValue1 then
+        localValue1 = CMG
+        localValue1 = localValue1.isCallManagerOpen
+        localValue1 = 0 ~= localValue1 or localValue1
       end
     end
-    if arg1 then
-      arg2 = flag6
-      if not arg2 then
-        arg2 = TriggerServerEvent
-        arg3 = "62f7fcbe38"
-        arg4 = true
+    if localValue1 then
+      localValue2 = stateFlag6
+      if not localValue2 then
+        localValue2 = TriggerServerEvent
+        localValue3 = "62f7fcbe38"
+        localValue4 = true
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "62f7fcbe38".
-        arg2(arg3, arg4)
-        arg2 = true
-        flag6 = arg2
+        localValue2(localValue3, localValue4)
+        localValue2 = true
+        stateFlag6 = localValue2
       end
     else
-      arg2 = flag6
-      if arg2 then
-        arg2 = TriggerServerEvent
-        arg3 = "62f7fcbe38"
-        arg4 = false
-        arg2(arg3, arg4)
-        arg2 = false
-        flag6 = arg2
+      localValue2 = stateFlag6
+      if localValue2 then
+        localValue2 = TriggerServerEvent
+        localValue3 = "62f7fcbe38"
+        localValue4 = false
+        localValue2(localValue3, localValue4)
+        localValue2 = false
+        stateFlag6 = localValue2
       end
     end
-    arg2 = Wait
-    arg3 = 100
-    arg2(arg3)
+    localValue2 = Wait
+    localValue3 = 100
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall(serverId)
-cmgCall = CMG
-cmgCall = cmgCall.createThreadOnTick
-serverId = eventRegistration
-eventRegistration2 = "Blips Extrapolation"
+cmgOperation(serverId)
+cmgOperation = CMG
+cmgOperation = cmgOperation.createThreadOnTick
+serverId = eventHandler
+eventHandler2 = "Blips Extrapolation"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall(serverId, eventRegistration2)
-cmgCall = true
+cmgOperation(serverId, eventHandler2)
+cmgOperation = true
 serverId = GetPlayerServerId
-eventRegistration2 = PlayerId
-eventRegistration2, textValue2, workValue14 = eventRegistration2()
+eventHandler2 = PlayerId
+eventHandler2, text2, workingValue14 = eventHandler2()
 -- Beginner: result below is serverId.
-serverId = serverId(eventRegistration2, textValue2, workValue14)
-eventRegistration2 = CreateThread
+serverId = serverId(eventHandler2, text2, workingValue14)
+eventHandler2 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2
-  arg1 = Wait
-  arg2 = 20000
-  arg1(arg2)
-  arg1 = false
-  cmgCall = arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2
+  localValue1 = Wait
+  localValue2 = 20000
+  localValue1(localValue2)
+  localValue1 = false
+  cmgOperation = localValue1
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-eventRegistration2(textValue2)
-eventRegistration2 = RegisterNetEvent
-textValue2 = "00e0b9aa86"
+eventHandler2(text2)
+eventHandler2 = RegisterNetEvent
+text2 = "00e0b9aa86"
 -- Beginner: this function handles network event "00e0b9aa86".
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1, arg2, arg3) ===
-function workValue14(arg1, arg2, arg3)
-  local arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9
-  arg4 = cmgCall
-  if not arg4 then
-    arg4 = workValue
-    arg5 = arg3
-    arg4(arg5)
-    if arg2 then
-      arg4 = true
-      flag = arg4
-      arg4 = CMG
-      arg4 = arg4.areBlipPlayerNamesEnabled
-      arg4 = arg4()
-      if arg4 then
-        arg4 = DisplayPlayerNameTagsOnBlips
-        arg5 = true
-        arg4(arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: localValue1, localValue2, localValue3) ===
+function workingValue14(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, workingValue23, workingValue24, workingValue25, number3, workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9
+  localValue4 = cmgOperation
+  if not localValue4 then
+    localValue4 = workingValue
+    localValue5 = localValue3
+    localValue4(localValue5)
+    if localValue2 then
+      localValue4 = true
+      stateFlag = localValue4
+      localValue4 = CMG
+      localValue4 = localValue4.areBlipPlayerNamesEnabled
+      localValue4 = localValue4()
+      if localValue4 then
+        localValue4 = DisplayPlayerNameTagsOnBlips
+        localValue5 = true
+        localValue4(localValue5)
       end
     else
-      arg4 = CMG
-      arg4 = arg4.isEmergencyService
-      arg4 = arg4()
-      if not arg4 then
-        arg4 = CMG
-        arg4 = arg4.hasGangBlipsEnabled
-        arg4 = arg4()
-        if arg4 then
-          goto flow_label_31
+      localValue4 = CMG
+      localValue4 = localValue4.isEmergencyService
+      localValue4 = localValue4()
+      if not localValue4 then
+        localValue4 = CMG
+        localValue4 = localValue4.hasGangBlipsEnabled
+        localValue4 = localValue4()
+        if localValue4 then
+          goto continueAtStep31
         end
       end
       return
     end
-    ::flow_label_31::
-    arg4 = CMG
-    arg4 = arg4.hasRadioItem
-    arg4 = arg4()
-    if arg4 then
-      arg4 = pairs
-      arg5 = arg1
-      arg4, arg5, arg6, workValue23 = arg4(arg5)
-      for workValue24, workValue25 in arg4, arg5, arg6, workValue23 do
-        numberValue3 = workValue25[1]
-        if numberValue3 then
-          numberValue3 = workValue25[1]
-          workValue2 = serverId
-          if numberValue3 == workValue2 then
-            goto flow_label_82
+    ::continueAtStep31::
+    localValue4 = CMG
+    localValue4 = localValue4.hasRadioItem
+    localValue4 = localValue4()
+    if localValue4 then
+      localValue4 = pairs
+      localValue5 = localValue1
+      localValue4, localValue5, localValue6, workingValue23 = localValue4(localValue5)
+      for workingValue24, workingValue25 in localValue4, localValue5, localValue6, workingValue23 do
+        number3 = workingValue25[1]
+        if number3 then
+          number3 = workingValue25[1]
+          workingValue2 = serverId
+          if number3 == workingValue2 then
+            goto continueAtStep82
           end
-          numberValue3 = GetPlayerFromServerId
-          workValue2 = workValue25[1]
+          number3 = GetPlayerFromServerId
+          workingValue2 = workingValue25[1]
           -- Beginner: result below is playerIndex.
-          numberValue3 = numberValue3(workValue2)
-          if -1 ~= numberValue3 then
-            goto flow_label_82
+          number3 = number3(workingValue2)
+          if -1 ~= number3 then
+            goto continueAtStep82
           end
         end
-        numberValue3 = workValue25[6]
-        workValue2 = CMG
-        workValue2 = workValue2.getPlayerBucket
-        workValue2 = workValue2()
-        if numberValue3 == workValue2 then
-          if "gang" == arg3 then
-            numberValue3 = CMG
-            numberValue3 = numberValue3.isGangBlipsPinnedOnly
-            numberValue3 = numberValue3()
-            if numberValue3 then
-              numberValue3 = CMG
-              numberValue3 = numberValue3.isPlayerPinnedInGang
-              workValue2 = CMG
-              workValue2 = workValue2.clientGetUserIdFromSource
-              workValue4 = workValue25[1]
-              workValue2, workValue4, flag3, workValue7, workValue8, workValue9 = workValue2(workValue4)
-              numberValue3 = numberValue3(workValue2, workValue4, flag3, workValue7, workValue8, workValue9)
-              if not numberValue3 then
-                goto flow_label_82
+        number3 = workingValue25[6]
+        workingValue2 = CMG
+        workingValue2 = workingValue2.getPlayerBucket
+        workingValue2 = workingValue2()
+        if number3 == workingValue2 then
+          if "gang" == localValue3 then
+            number3 = CMG
+            number3 = number3.isGangBlipsPinnedOnly
+            number3 = number3()
+            if number3 then
+              number3 = CMG
+              number3 = number3.isPlayerPinnedInGang
+              workingValue2 = CMG
+              workingValue2 = workingValue2.clientGetUserIdFromSource
+              workingValue4 = workingValue25[1]
+              workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9 = workingValue2(workingValue4)
+              number3 = number3(workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9)
+              if not number3 then
+                goto continueAtStep82
               end
             end
           end
-          numberValue3 = workValue6
-          workValue2 = workValue25[2]
-          workValue4 = workValue25[3]
-          flag3 = workValue25[4]
-          workValue7 = workValue25[5]
-          workValue8 = workValue25[1]
-          workValue9 = arg3
-          numberValue3(workValue2, workValue4, flag3, workValue7, workValue8, workValue9)
+          number3 = workingValue6
+          workingValue2 = workingValue25[2]
+          workingValue4 = workingValue25[3]
+          stateFlag3 = workingValue25[4]
+          workingValue7 = workingValue25[5]
+          workingValue8 = workingValue25[1]
+          workingValue9 = localValue3
+          number3(workingValue2, workingValue4, stateFlag3, workingValue7, workingValue8, workingValue9)
         end
-        ::flow_label_82::
+        ::continueAtStep82::
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "00e0b9aa86".
-eventRegistration2(textValue2, workValue14)
-eventRegistration2 = RegisterNetEvent
-textValue2 = "193ee4e15e"
+eventHandler2(text2, workingValue14)
+eventHandler2 = RegisterNetEvent
+text2 = "193ee4e15e"
 -- Beginner: this function handles network event "193ee4e15e".
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2
-  arg1 = flag
-  if not arg1 then
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 1000
-    arg1(arg2)
-    arg1 = workValue26
-    arg1()
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  if not localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 1000
+    localValue1(localValue2)
+    localValue1 = workingValue26
+    localValue1()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "193ee4e15e".
-eventRegistration2(textValue2, workValue14)
-eventRegistration2 = CMG
+eventHandler2(text2, workingValue14)
+eventHandler2 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2
-  arg1 = flag
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  return localValue1
 end
-eventRegistration2.isEmergencyBlipsEnabled = textValue2
-eventRegistration2 = RegisterNetEvent
-textValue2 = "dd39aa0311"
+eventHandler2.isEmergencyBlipsEnabled = text2
+eventHandler2 = RegisterNetEvent
+text2 = "dd39aa0311"
 -- Beginner: this function handles network event "dd39aa0311".
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2, arg3
-  arg1 = true
-  flag5 = arg1
-  arg1 = SetTimeout
-  arg2 = 300000
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2, localValue3
+  localValue1 = true
+  stateFlag5 = localValue1
+  localValue1 = SetTimeout
+  localValue2 = 300000
   -- Beginner: this function handles network event "dd39aa0311".
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local flag2, workValue13
-    flag2 = false
-    flag5 = flag2
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local stateFlag2, workingValue13
+    stateFlag2 = false
+    stateFlag5 = stateFlag2
   end
-  arg1(arg2, arg3)
+  localValue1(localValue2, localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "dd39aa0311".
-eventRegistration2(textValue2, workValue14)
+eventHandler2(text2, workingValue14)

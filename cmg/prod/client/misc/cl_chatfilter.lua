@@ -43,7 +43,7 @@
     Event 17b65bec14(durationSeconds, message)
       Shows a large red "~r~WARNING" Scaleform message.
 
-    The original client toggles an internal display flag each time the event
+    The original client toggles an internal display stateFlag each time the event
     fires and keeps a tiny call counter capped at 2. That behaviour is
     preserved because the server may intentionally fire the event twice.
 ]]

@@ -32,1523 +32,1523 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, cmgCall3, eventRegistration, textValue5, numberValue12, numberValue13, numberValue14, numberValue17, numberValue18, numberValue19, workValue11, workValue16, flag3, dataTable, workValue18, workValue19, numberValue, dataTable2, dataTable3, numberValue2, workValue20, workValue21, textValue2, textValue3, workValue22, numberValue4, numberValue5, numberValue6, numberValue8, tableHelper, textValue4, workValue23, numberValue10, workValue24, workValue25, workValue26, workValue27, workValue28, workValue29, workValue30, workValue31, workValue32, cmgCall4, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, workValue43, threadCall, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, workValue51, workValue52, workValue53, workValue54, workValue55, workValue56, workValue57, workValue58, eventRegistration2, textValue7, workValue59, workValue60, threadCall2, textValue8, workValue61, numberValue15, textValue9, numberValue16, workValue64, workValue65, cmgCall6, dataTable4, dataTable5, dataTable6, dataTable7, textValue10, textValue11, textValue12, textValue13, workValue67, workValue68, workValue69, workValue70, workValue71, workValue72, workValue73, workValue74, workValue75, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue13, workValue14, cmgCall2, textValue, workValue15
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-cmgCall3 = "cfg/cfg_mechanic"
+local cmgOperation, cmgOperation3, eventHandler, text5, number12, number13, number14, number17, number18, number19, workingValue11, workingValue16, stateFlag3, dataCollection, workingValue18, workingValue19, number, dataCollection2, dataCollection3, number2, workingValue20, workingValue21, text2, text3, workingValue22, number4, number5, number6, number8, tableHelper, text4, workingValue23, number10, workingValue24, workingValue25, workingValue26, workingValue27, workingValue28, workingValue29, workingValue30, workingValue31, workingValue32, cmgOperation4, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue42, workingValue43, backgroundThread, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, workingValue51, workingValue52, workingValue53, workingValue54, workingValue55, workingValue56, workingValue57, workingValue58, eventHandler2, text7, workingValue59, workingValue60, backgroundThread2, text8, workingValue61, number15, text9, number16, workingValue64, workingValue65, cmgOperation6, dataCollection4, dataCollection5, dataCollection6, dataCollection7, text10, text11, text12, text13, workingValue67, workingValue68, workingValue69, workingValue70, workingValue71, workingValue72, workingValue73, workingValue74, workingValue75, workingValue, workingValue2, workingValue3, workingValue4, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue13, workingValue14, cmgOperation2, text, workingValue15
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+cmgOperation3 = "cfg/cfg_mechanic"
 -- Beginner: result below is config.
-cmgCall = cmgCall(cmgCall3)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.loadModule
-eventRegistration = "cfg/cfg_garages"
+cmgOperation = cmgOperation(cmgOperation3)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.loadModule
+eventHandler = "cfg/cfg_garages"
 -- Beginner: result below is config.
-cmgCall3 = cmgCall3(eventRegistration)
-eventRegistration = RegisterNetEvent
-textValue5 = "579a73060c"
+cmgOperation3 = cmgOperation3(eventHandler)
+eventHandler = RegisterNetEvent
+text5 = "579a73060c"
 -- Beginner: this function handles network event "579a73060c".
 
--- === HELPER FUNCTION (decompiler name: numberValue12; parameters: none) ===
-function numberValue12()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.getModelGender
-  arg1 = arg1()
-  if "male" == arg1 then
-    arg1 = CMG
-    arg1 = arg1.loadCustomisationPreset
-    arg2 = "MechanicMale"
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: number12; parameters: none) ===
+function number12()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.getModelGender
+  localValue1 = localValue1()
+  if "male" == localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.loadCustomisationPreset
+    localValue2 = "MechanicMale"
+    localValue1(localValue2)
   else
-    arg1 = CMG
-    arg1 = arg1.loadCustomisationPreset
-    arg2 = "MechanicFemale"
-    arg1(arg2)
+    localValue1 = CMG
+    localValue1 = localValue1.loadCustomisationPreset
+    localValue2 = "MechanicFemale"
+    localValue1(localValue2)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "579a73060c".
-eventRegistration(textValue5, numberValue12)
-eventRegistration = cmgCall.impoundDropoff
-if not eventRegistration then
-  eventRegistration = vector3
-  textValue5 = 389.40829467773
-  numberValue12 = -1622.1922607422
-  numberValue13 = 29.28772354126
-  eventRegistration = eventRegistration(textValue5, numberValue12, numberValue13)
+eventHandler(text5, number12)
+eventHandler = cmgOperation.impoundDropoff
+if not eventHandler then
+  eventHandler = vector3
+  text5 = 389.40829467773
+  number12 = -1622.1922607422
+  number13 = 29.28772354126
+  eventHandler = eventHandler(text5, number12, number13)
 end
-textValue5 = 0.78
-numberValue12 = 920.0
-numberValue13 = 14.0
-numberValue14 = 5.0
-numberValue17 = 16.0
-numberValue18 = 5.5
-numberValue19 = 34.0
-workValue11 = cmgCall.mechanicFlatbedModelHashes
-workValue16 = cmgCall.mechanicTowTruckModelHashes
-flag3 = false
-dataTable = {}
-workValue18 = nil
-workValue19 = nil
-numberValue = 0
-dataTable2 = {}
-dataTable3 = {}
-numberValue2 = 0
-workValue20 = nil
-workValue21 = nil
-textValue2 = "anim@heists@box_carry@"
-textValue3 = "idle"
-workValue22 = nil
-numberValue4 = 0
-numberValue5 = 1302435108
-numberValue6 = 0
-numberValue8 = 242383520
+text5 = 0.78
+number12 = 920.0
+number13 = 14.0
+number14 = 5.0
+number17 = 16.0
+number18 = 5.5
+number19 = 34.0
+workingValue11 = cmgOperation.mechanicFlatbedModelHashes
+workingValue16 = cmgOperation.mechanicTowTruckModelHashes
+stateFlag3 = false
+dataCollection = {}
+workingValue18 = nil
+workingValue19 = nil
+number = 0
+dataCollection2 = {}
+dataCollection3 = {}
+number2 = 0
+workingValue20 = nil
+workingValue21 = nil
+text2 = "anim@heists@box_carry@"
+text3 = "idle"
+workingValue22 = nil
+number4 = 0
+number5 = 1302435108
+number6 = 0
+number8 = 242383520
 tableHelper = "timetable@gardener@filling_can"
-textValue4 = "gar_ig_5_filling_can"
-workValue23 = nil
-numberValue10 = 0
+text4 = "gar_ig_5_filling_can"
+workingValue23 = nil
+number10 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue24; parameters: none) ===
-function workValue24()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue24; parameters: none) ===
+function workingValue24()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = StopAnimTask
-    arg3 = arg1
-    arg4 = tableHelper
-    arg5 = textValue4
-    arg6 = 1.0
-    arg2(arg3, arg4, arg5, arg6)
-    arg2 = ClearPedSecondaryTask
-    arg3 = arg1
-    arg2(arg3)
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = StopAnimTask
+    localValue3 = localValue1
+    localValue4 = tableHelper
+    localValue5 = text4
+    localValue6 = 1.0
+    localValue2(localValue3, localValue4, localValue5, localValue6)
+    localValue2 = ClearPedSecondaryTask
+    localValue3 = localValue1
+    localValue2(localValue3)
   end
-  arg2 = numberValue6
-  if 0 ~= arg2 then
-    arg2 = DoesEntityExist
-    arg3 = numberValue6
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg2 = DetachEntity
-      arg3 = numberValue6
-      arg4 = true
-      arg5 = true
-      arg2(arg3, arg4, arg5)
-      arg2 = SetEntityAsMissionEntity
-      arg3 = numberValue6
-      arg4 = true
-      arg5 = true
-      arg2(arg3, arg4, arg5)
-      arg2 = DeleteObject
-      arg3 = numberValue6
-      arg2(arg3)
+  localValue2 = number6
+  if 0 ~= localValue2 then
+    localValue2 = DoesEntityExist
+    localValue3 = number6
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue2 = DetachEntity
+      localValue3 = number6
+      localValue4 = true
+      localValue5 = true
+      localValue2(localValue3, localValue4, localValue5)
+      localValue2 = SetEntityAsMissionEntity
+      localValue3 = number6
+      localValue4 = true
+      localValue5 = true
+      localValue2(localValue3, localValue4, localValue5)
+      localValue2 = DeleteObject
+      localValue3 = number6
+      localValue2(localValue3)
     end
   end
-  arg2 = 0
-  numberValue6 = arg2
-  arg2 = nil
-  workValue23 = arg2
-  arg2 = 0
-  numberValue10 = arg2
+  localValue2 = 0
+  number6 = localValue2
+  localValue2 = nil
+  workingValue23 = localValue2
+  localValue2 = 0
+  number10 = localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue25; parameters: arg1) ===
-function workValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11
-  arg2 = tonumber
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg1 = arg2
-  if arg1 then
-    arg2 = NetworkDoesNetworkIdExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_13
+-- === HELPER FUNCTION (decompiler name: workingValue25; parameters: localValue1) ===
+function workingValue25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11
+  localValue2 = tonumber
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue1 = localValue2
+  if localValue1 then
+    localValue2 = NetworkDoesNetworkIdExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep13
     end
   end
   return
-  ::flow_label_13::
-  arg2 = NetworkGetEntityFromNetworkId
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = CMG
-  arg3 = arg3.getPlayerPed
+  ::continueAtStep13::
+  localValue2 = NetworkGetEntityFromNetworkId
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  if 0 ~= arg2 then
-    arg4 = DoesEntityExist
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    if arg4 and 0 ~= arg3 then
-      goto flow_label_29
+  localValue3 = localValue3()
+  if 0 ~= localValue2 then
+    localValue4 = DoesEntityExist
+    localValue5 = localValue2
+    localValue4 = localValue4(localValue5)
+    if localValue4 and 0 ~= localValue3 then
+      goto continueAtStep29
     end
   end
   return
-  ::flow_label_29::
-  arg4 = workValue24
-  arg4()
-  arg4 = CMG
-  arg4 = arg4.loadModel
-  arg5 = numberValue8
+  ::continueAtStep29::
+  localValue4 = workingValue24
+  localValue4()
+  localValue4 = CMG
+  localValue4 = localValue4.loadModel
+  localValue5 = number8
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  arg4(arg5)
-  arg4 = GetEntityCoords
-  arg5 = arg3
-  arg6 = true
+  localValue4(localValue5)
+  localValue4 = GetEntityCoords
+  localValue5 = localValue3
+  localValue6 = true
   -- Beginner: result below is entityCoords.
-  arg4 = arg4(arg5, arg6)
-  arg5 = CreateObject
-  arg6 = numberValue8
-  arg7 = arg4.x
-  workValue62 = arg4.y
-  workValue66 = arg4.z
-  workValue66 = workValue66 + 0.2
-  flag25 = false
-  flag = false
-  flag2 = false
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = CreateObject
+  localValue6 = number8
+  localValue7 = localValue4.x
+  workingValue62 = localValue4.y
+  workingValue66 = localValue4.z
+  workingValue66 = workingValue66 + 0.2
+  stateFlag25 = false
+  stateFlag = false
+  stateFlag2 = false
   -- Beginner: result below is objectEntity.
-  arg5 = arg5(arg6, arg7, workValue62, workValue66, flag25, flag, flag2)
-  if 0 ~= arg5 then
-    arg6 = DoesEntityExist
-    arg7 = arg5
-    arg6 = arg6(arg7)
-    if arg6 then
-      arg6 = AttachEntityToEntity
-      arg7 = arg5
-      workValue62 = arg3
-      workValue66 = GetPedBoneIndex
-      flag25 = arg3
-      flag = 60309
-      workValue66 = workValue66(flag25, flag)
-      flag25 = 0.12
-      flag = 0.02
-      flag2 = -0.02
-      flag4 = 80.0
-      flag5 = 170.0
-      flag6 = 90.0
-      flag7 = true
-      flag8 = true
-      flag9 = false
-      flag10 = true
-      numberValue3 = 1
-      flag11 = true
+  localValue5 = localValue5(localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2)
+  if 0 ~= localValue5 then
+    localValue6 = DoesEntityExist
+    localValue7 = localValue5
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
+      localValue6 = AttachEntityToEntity
+      localValue7 = localValue5
+      workingValue62 = localValue3
+      workingValue66 = GetPedBoneIndex
+      stateFlag25 = localValue3
+      stateFlag = 60309
+      workingValue66 = workingValue66(stateFlag25, stateFlag)
+      stateFlag25 = 0.12
+      stateFlag = 0.02
+      stateFlag2 = -0.02
+      stateFlag4 = 80.0
+      stateFlag5 = 170.0
+      stateFlag6 = 90.0
+      stateFlag7 = true
+      stateFlag8 = true
+      stateFlag9 = false
+      stateFlag10 = true
+      number3 = 1
+      stateFlag11 = true
       -- Beginner: Attach one entity to another entity.
-      arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11)
-      numberValue6 = arg5
+      localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11)
+      number6 = localValue5
     end
   end
-  arg6 = SetModelAsNoLongerNeeded
-  arg7 = numberValue8
-  arg6(arg7)
-  workValue23 = arg1
-  arg6 = GetGameTimer
+  localValue6 = SetModelAsNoLongerNeeded
+  localValue7 = number8
+  localValue6(localValue7)
+  workingValue23 = localValue1
+  localValue6 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg6 = arg6()
-  arg6 = arg6 + 6500
-  numberValue10 = arg6
+  localValue6 = localValue6()
+  localValue6 = localValue6 + 6500
+  number10 = localValue6
 end
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: none) ===
-function workValue26()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: none) ===
+function workingValue26()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = StopAnimTask
-    arg3 = arg1
-    arg4 = textValue2
-    arg5 = textValue3
-    arg6 = 1.0
-    arg2(arg3, arg4, arg5, arg6)
-    arg2 = ClearPedSecondaryTask
-    arg3 = arg1
-    arg2(arg3)
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = StopAnimTask
+    localValue3 = localValue1
+    localValue4 = text2
+    localValue5 = text3
+    localValue6 = 1.0
+    localValue2(localValue3, localValue4, localValue5, localValue6)
+    localValue2 = ClearPedSecondaryTask
+    localValue3 = localValue1
+    localValue2(localValue3)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue27; parameters: none) ===
-function workValue27()
-  local arg1, arg2, arg3, arg4
-  arg1 = numberValue4
-  if 0 ~= arg1 then
-    arg1 = workValue26
-    arg1()
-    arg1 = DoesEntityExist
-    arg2 = numberValue4
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = DetachEntity
-      arg2 = numberValue4
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = SetEntityAsMissionEntity
-      arg2 = numberValue4
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = DeleteObject
-      arg2 = numberValue4
-      arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue27; parameters: none) ===
+function workingValue27()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = number4
+  if 0 ~= localValue1 then
+    localValue1 = workingValue26
+    localValue1()
+    localValue1 = DoesEntityExist
+    localValue2 = number4
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = DetachEntity
+      localValue2 = number4
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = SetEntityAsMissionEntity
+      localValue2 = number4
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = DeleteObject
+      localValue2 = number4
+      localValue1(localValue2)
     end
-    arg1 = 0
-    numberValue4 = arg1
+    localValue1 = 0
+    number4 = localValue1
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue28; parameters: arg1) ===
-function workValue28(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11
-  if arg1 then
-    arg2 = tonumber
-    arg3 = arg1.stage
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: workingValue28; parameters: localValue1) ===
+function workingValue28(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11
+  if localValue1 then
+    localValue2 = tonumber
+    localValue3 = localValue1.stage
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep9
     end
   end
-  arg2 = 1
-  ::flow_label_9::
-  if arg1 then
-    arg3 = arg1.type
-    if "parts_run" == arg3 and (2 == arg2 or 4 == arg2) then
-      goto flow_label_21
+  localValue2 = 1
+  ::continueAtStep9::
+  if localValue1 then
+    localValue3 = localValue1.type
+    if "parts_run" == localValue3 and (2 == localValue2 or 4 == localValue2) then
+      goto continueAtStep21
     end
   end
-  arg3 = workValue27
-  arg3()
+  localValue3 = workingValue27
+  localValue3()
   return
-  ::flow_label_21::
-  arg3 = CMG
-  arg3 = arg3.getPlayerPed
+  ::continueAtStep21::
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  if 0 == arg3 then
-    arg4 = workValue27
-    arg4()
+  localValue3 = localValue3()
+  if 0 == localValue3 then
+    localValue4 = workingValue27
+    localValue4()
     return
   end
-  arg4 = numberValue4
-  if 0 ~= arg4 then
-    arg4 = DoesEntityExist
-    arg5 = numberValue4
-    arg4 = arg4(arg5)
-    if arg4 then
-      goto flow_label_87
+  localValue4 = number4
+  if 0 ~= localValue4 then
+    localValue4 = DoesEntityExist
+    localValue5 = number4
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      goto continueAtStep87
     end
   end
-  arg4 = CMG
-  arg4 = arg4.loadModel
-  arg5 = numberValue5
+  localValue4 = CMG
+  localValue4 = localValue4.loadModel
+  localValue5 = number5
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  arg4(arg5)
-  arg4 = GetEntityCoords
-  arg5 = arg3
-  arg6 = true
+  localValue4(localValue5)
+  localValue4 = GetEntityCoords
+  localValue5 = localValue3
+  localValue6 = true
   -- Beginner: result below is entityCoords.
-  arg4 = arg4(arg5, arg6)
-  arg5 = CreateObject
-  arg6 = numberValue5
-  arg7 = arg4.x
-  workValue62 = arg4.y
-  workValue66 = arg4.z
-  workValue66 = workValue66 + 0.2
-  flag25 = false
-  flag = false
-  flag2 = false
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = CreateObject
+  localValue6 = number5
+  localValue7 = localValue4.x
+  workingValue62 = localValue4.y
+  workingValue66 = localValue4.z
+  workingValue66 = workingValue66 + 0.2
+  stateFlag25 = false
+  stateFlag = false
+  stateFlag2 = false
   -- Beginner: result below is objectEntity.
-  arg5 = arg5(arg6, arg7, workValue62, workValue66, flag25, flag, flag2)
-  if 0 ~= arg5 then
-    arg6 = DoesEntityExist
-    arg7 = arg5
-    arg6 = arg6(arg7)
-    if arg6 then
-      arg6 = AttachEntityToEntity
-      arg7 = arg5
-      workValue62 = arg3
-      workValue66 = GetPedBoneIndex
-      flag25 = arg3
-      flag = 60309
-      workValue66 = workValue66(flag25, flag)
-      flag25 = 0.025
-      flag = 0.08
-      flag2 = 0.255
-      flag4 = -145.0
-      flag5 = 290.0
-      flag6 = 0.0
-      flag7 = true
-      flag8 = true
-      flag9 = false
-      flag10 = true
-      numberValue3 = 1
-      flag11 = true
+  localValue5 = localValue5(localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2)
+  if 0 ~= localValue5 then
+    localValue6 = DoesEntityExist
+    localValue7 = localValue5
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
+      localValue6 = AttachEntityToEntity
+      localValue7 = localValue5
+      workingValue62 = localValue3
+      workingValue66 = GetPedBoneIndex
+      stateFlag25 = localValue3
+      stateFlag = 60309
+      workingValue66 = workingValue66(stateFlag25, stateFlag)
+      stateFlag25 = 0.025
+      stateFlag = 0.08
+      stateFlag2 = 0.255
+      stateFlag4 = -145.0
+      stateFlag5 = 290.0
+      stateFlag6 = 0.0
+      stateFlag7 = true
+      stateFlag8 = true
+      stateFlag9 = false
+      stateFlag10 = true
+      number3 = 1
+      stateFlag11 = true
       -- Beginner: Attach one entity to another entity.
-      arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11)
-      numberValue4 = arg5
+      localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11)
+      number4 = localValue5
     end
   end
-  arg6 = SetModelAsNoLongerNeeded
-  arg7 = numberValue5
-  arg6(arg7)
-  ::flow_label_87::
-  arg4 = GetVehiclePedIsIn
-  arg5 = arg3
-  arg6 = false
+  localValue6 = SetModelAsNoLongerNeeded
+  localValue7 = number5
+  localValue6(localValue7)
+  ::continueAtStep87::
+  localValue4 = GetVehiclePedIsIn
+  localValue5 = localValue3
+  localValue6 = false
   -- Beginner: result below is currentVehicle.
-  arg4 = arg4(arg5, arg6)
-  if 0 ~= arg4 then
+  localValue4 = localValue4(localValue5, localValue6)
+  if 0 ~= localValue4 then
     return
   end
-  arg4 = CMG
-  arg4 = arg4.loadAnimDict
-  arg5 = textValue2
+  localValue4 = CMG
+  localValue4 = localValue4.loadAnimDict
+  localValue5 = text2
   -- Beginner: Load a GTA animation dictionary before using it.
-  arg4(arg5)
-  arg4 = IsEntityPlayingAnim
-  arg5 = arg3
-  arg6 = textValue2
-  arg7 = textValue3
-  workValue62 = 3
-  arg4 = arg4(arg5, arg6, arg7, workValue62)
-  if not arg4 then
-    arg4 = TaskPlayAnim
-    arg5 = arg3
-    arg6 = textValue2
-    arg7 = textValue3
-    workValue62 = 8.0
-    workValue66 = 8.0
-    flag25 = -1
-    flag = 49
-    flag2 = 0.0
-    flag4 = false
-    flag5 = false
-    flag6 = false
+  localValue4(localValue5)
+  localValue4 = IsEntityPlayingAnim
+  localValue5 = localValue3
+  localValue6 = text2
+  localValue7 = text3
+  workingValue62 = 3
+  localValue4 = localValue4(localValue5, localValue6, localValue7, workingValue62)
+  if not localValue4 then
+    localValue4 = TaskPlayAnim
+    localValue5 = localValue3
+    localValue6 = text2
+    localValue7 = text3
+    workingValue62 = 8.0
+    workingValue66 = 8.0
+    stateFlag25 = -1
+    stateFlag = 49
+    stateFlag2 = 0.0
+    stateFlag4 = false
+    stateFlag5 = false
+    stateFlag6 = false
     -- Beginner: Play an animation on a ped.
-    arg4(arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6)
+    localValue4(localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue29; parameters: none) ===
-function workValue29()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue29; parameters: none) ===
+function workingValue29()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = StopAnimTask
-    arg3 = arg1
-    arg4 = textValue2
-    arg5 = textValue3
-    arg6 = 1.0
-    arg2(arg3, arg4, arg5, arg6)
-    arg2 = ClearPedSecondaryTask
-    arg3 = arg1
-    arg2(arg3)
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = StopAnimTask
+    localValue3 = localValue1
+    localValue4 = text2
+    localValue5 = text3
+    localValue6 = 1.0
+    localValue2(localValue3, localValue4, localValue5, localValue6)
+    localValue2 = ClearPedSecondaryTask
+    localValue3 = localValue1
+    localValue2(localValue3)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue30; parameters: none) ===
-function workValue30()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue30; parameters: none) ===
+function workingValue30()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = numberValue2
-    if 0 ~= arg2 then
-      arg2 = DoesEntityExist
-      arg3 = numberValue2
-      arg2 = arg2(arg3)
-      if arg2 then
-        goto flow_label_15
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = number2
+    if 0 ~= localValue2 then
+      localValue2 = DoesEntityExist
+      localValue3 = number2
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        goto continueAtStep15
       end
     end
   end
   return
-  ::flow_label_15::
-  arg2 = GetVehiclePedIsIn
-  arg3 = arg1
-  arg4 = false
+  ::continueAtStep15::
+  localValue2 = GetVehiclePedIsIn
+  localValue3 = localValue1
+  localValue4 = false
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
+  localValue2 = localValue2(localValue3, localValue4)
+  if 0 ~= localValue2 then
     return
   end
-  arg2 = CMG
-  arg2 = arg2.loadAnimDict
-  arg3 = textValue2
+  localValue2 = CMG
+  localValue2 = localValue2.loadAnimDict
+  localValue3 = text2
   -- Beginner: Load a GTA animation dictionary before using it.
-  arg2(arg3)
-  arg2 = IsEntityPlayingAnim
-  arg3 = arg1
-  arg4 = textValue2
-  arg5 = textValue3
-  arg6 = 3
-  arg2 = arg2(arg3, arg4, arg5, arg6)
-  if not arg2 then
-    arg2 = TaskPlayAnim
-    arg3 = arg1
-    arg4 = textValue2
-    arg5 = textValue3
-    arg6 = 8.0
-    arg7 = 8.0
-    workValue62 = -1
-    workValue66 = 49
-    flag25 = 0.0
-    flag = false
-    flag2 = false
-    flag4 = false
+  localValue2(localValue3)
+  localValue2 = IsEntityPlayingAnim
+  localValue3 = localValue1
+  localValue4 = text2
+  localValue5 = text3
+  localValue6 = 3
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+  if not localValue2 then
+    localValue2 = TaskPlayAnim
+    localValue3 = localValue1
+    localValue4 = text2
+    localValue5 = text3
+    localValue6 = 8.0
+    localValue7 = 8.0
+    workingValue62 = -1
+    workingValue66 = 49
+    stateFlag25 = 0.0
+    stateFlag = false
+    stateFlag2 = false
+    stateFlag4 = false
     -- Beginner: Play an animation on a ped.
-    arg2(arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4)
+    localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue31; parameters: arg1) ===
-function workValue31(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = BeginTextCommandDisplayHelp
-  arg3 = "STRING"
-  arg2(arg3)
-  arg2 = AddTextComponentSubstringPlayerName
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = EndTextCommandDisplayHelp
-  arg3 = 0
-  arg4 = false
-  arg5 = true
-  arg6 = -1
-  arg2(arg3, arg4, arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue31; parameters: localValue1) ===
+function workingValue31(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = BeginTextCommandDisplayHelp
+  localValue3 = "STRING"
+  localValue2(localValue3)
+  localValue2 = AddTextComponentSubstringPlayerName
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = EndTextCommandDisplayHelp
+  localValue3 = 0
+  localValue4 = false
+  localValue5 = true
+  localValue6 = -1
+  localValue2(localValue3, localValue4, localValue5, localValue6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue32; parameters: none) ===
-function workValue32()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25
-  arg1 = workValue29
-  arg1()
-  arg1 = numberValue2
-  if 0 ~= arg1 then
-    arg1 = DoesEntityExist
-    arg2 = numberValue2
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = DetachEntity
-      arg2 = numberValue2
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = SetEntityAsMissionEntity
-      arg2 = numberValue2
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = DeleteObject
-      arg2 = numberValue2
-      arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue32; parameters: none) ===
+function workingValue32()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue1 = workingValue29
+  localValue1()
+  localValue1 = number2
+  if 0 ~= localValue1 then
+    localValue1 = DoesEntityExist
+    localValue2 = number2
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = DetachEntity
+      localValue2 = number2
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = SetEntityAsMissionEntity
+      localValue2 = number2
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = DeleteObject
+      localValue2 = number2
+      localValue1(localValue2)
     end
   end
-  arg1 = 0
-  numberValue2 = arg1
-  arg1 = nil
-  workValue21 = arg1
-  arg1 = numberValue
-  if 0 ~= arg1 then
-    arg1 = DoesEntityExist
-    arg2 = numberValue
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = DetachEntity
-      arg2 = numberValue
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = SetEntityAsMissionEntity
-      arg2 = numberValue
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = DeleteObject
-      arg2 = numberValue
-      arg1(arg2)
+  localValue1 = 0
+  number2 = localValue1
+  localValue1 = nil
+  workingValue21 = localValue1
+  localValue1 = number
+  if 0 ~= localValue1 then
+    localValue1 = DoesEntityExist
+    localValue2 = number
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = DetachEntity
+      localValue2 = number
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = SetEntityAsMissionEntity
+      localValue2 = number
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = DeleteObject
+      localValue2 = number
+      localValue1(localValue2)
     end
   end
-  arg1 = 0
-  numberValue = arg1
-  arg1 = pairs
-  arg2 = dataTable2
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    if arg6 and 0 ~= arg6 then
-      arg7 = DoesEntityExist
-      workValue62 = arg6
-      arg7 = arg7(workValue62)
-      if arg7 then
-        arg7 = SetEntityAsMissionEntity
-        workValue62 = arg6
-        workValue66 = true
-        flag25 = true
-        arg7(workValue62, workValue66, flag25)
-        arg7 = DeleteObject
-        workValue62 = arg6
-        arg7(workValue62)
+  localValue1 = 0
+  number = localValue1
+  localValue1 = pairs
+  localValue2 = dataCollection2
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    if localValue6 and 0 ~= localValue6 then
+      localValue7 = DoesEntityExist
+      workingValue62 = localValue6
+      localValue7 = localValue7(workingValue62)
+      if localValue7 then
+        localValue7 = SetEntityAsMissionEntity
+        workingValue62 = localValue6
+        workingValue66 = true
+        stateFlag25 = true
+        localValue7(workingValue62, workingValue66, stateFlag25)
+        localValue7 = DeleteObject
+        workingValue62 = localValue6
+        localValue7(workingValue62)
       end
     end
   end
-  arg1 = {}
-  dataTable2 = arg1
-  arg1 = pairs
-  arg2 = dataTable3
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    if arg6 and 0 ~= arg6 then
-      arg7 = DoesEntityExist
-      workValue62 = arg6
-      arg7 = arg7(workValue62)
-      if arg7 then
-        arg7 = DetachEntity
-        workValue62 = arg6
-        workValue66 = true
-        flag25 = true
-        arg7(workValue62, workValue66, flag25)
-        arg7 = SetEntityAsMissionEntity
-        workValue62 = arg6
-        workValue66 = true
-        flag25 = true
-        arg7(workValue62, workValue66, flag25)
-        arg7 = DeleteObject
-        workValue62 = arg6
-        arg7(workValue62)
+  localValue1 = {}
+  dataCollection2 = localValue1
+  localValue1 = pairs
+  localValue2 = dataCollection3
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    if localValue6 and 0 ~= localValue6 then
+      localValue7 = DoesEntityExist
+      workingValue62 = localValue6
+      localValue7 = localValue7(workingValue62)
+      if localValue7 then
+        localValue7 = DetachEntity
+        workingValue62 = localValue6
+        workingValue66 = true
+        stateFlag25 = true
+        localValue7(workingValue62, workingValue66, stateFlag25)
+        localValue7 = SetEntityAsMissionEntity
+        workingValue62 = localValue6
+        workingValue66 = true
+        stateFlag25 = true
+        localValue7(workingValue62, workingValue66, stateFlag25)
+        localValue7 = DeleteObject
+        workingValue62 = localValue6
+        localValue7(workingValue62)
       end
     end
   end
-  arg1 = {}
-  dataTable3 = arg1
-  arg1 = nil
-  workValue20 = arg1
+  localValue1 = {}
+  dataCollection3 = localValue1
+  localValue1 = nil
+  workingValue20 = localValue1
 end
-cmgCall4 = CMG
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue33; parameters: none) ===
-function workValue33()
-  local arg1, arg2
-  arg1 = numberValue2
-  arg1 = DoesEntityExist
-  arg2 = numberValue2
-  arg1 = 0 ~= arg1 and arg1
-  return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue33; parameters: none) ===
+function workingValue33()
+  local localValue1, localValue2
+  localValue1 = number2
+  localValue1 = DoesEntityExist
+  localValue2 = number2
+  localValue1 = 0 ~= localValue1 and localValue1
+  return localValue1
 end
-cmgCall4.isMechanicDebrisCarryingScrap = workValue33
+cmgOperation4.isMechanicDebrisCarryingScrap = workingValue33
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2) ===
-function cmgCall4(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = arg1.secondaryCleared
-  arg4 = type
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if "table" ~= arg4 then
-    arg4 = false
-    return arg4
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2) ===
+function cmgOperation4(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = localValue1.secondaryCleared
+  localValue4 = type
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if "table" ~= localValue4 then
+    localValue4 = false
+    return localValue4
   end
-  arg4 = arg3[arg2]
-  if not arg4 then
-    arg4 = tostring
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    arg4 = arg3[arg4]
+  localValue4 = localValue3[localValue2]
+  if not localValue4 then
+    localValue4 = tostring
+    localValue5 = localValue2
+    localValue4 = localValue4(localValue5)
+    localValue4 = localValue3[localValue4]
   end
-  arg5 = true == arg4
-  return arg5
+  localValue5 = true == localValue4
+  return localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1, arg2) ===
-function workValue33(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25
-  arg3 = type
-  arg4 = arg1.secondary
-  arg3 = arg3(arg4)
-  if "table" ~= arg3 then
-    arg3 = nil
-    return arg3
+-- === HELPER FUNCTION (decompiler name: workingValue33; parameters: localValue1, localValue2) ===
+function workingValue33(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue3 = type
+  localValue4 = localValue1.secondary
+  localValue3 = localValue3(localValue4)
+  if "table" ~= localValue3 then
+    localValue3 = nil
+    return localValue3
   end
-  arg3 = ipairs
-  arg4 = arg1.secondary
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, workValue62 in arg3, arg4, arg5, arg6 do
-    workValue66 = tonumber
-    flag25 = workValue62.slot
-    workValue66 = workValue66(flag25)
-    if workValue66 == arg2 then
-      workValue66 = type
-      flag25 = workValue62.model
-      workValue66 = workValue66(flag25)
-      if "string" == workValue66 then
-        workValue66 = workValue62.model
-        return workValue66
+  localValue3 = ipairs
+  localValue4 = localValue1.secondary
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, workingValue62 in localValue3, localValue4, localValue5, localValue6 do
+    workingValue66 = tonumber
+    stateFlag25 = workingValue62.slot
+    workingValue66 = workingValue66(stateFlag25)
+    if workingValue66 == localValue2 then
+      workingValue66 = type
+      stateFlag25 = workingValue62.model
+      workingValue66 = workingValue66(stateFlag25)
+      if "string" == workingValue66 then
+        workingValue66 = workingValue62.model
+        return workingValue66
       end
     end
   end
-  arg3 = nil
-  return arg3
+  localValue3 = nil
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue34; parameters: arg1) ===
-function workValue34(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag
-  arg2 = type
-  arg3 = arg1.secondary
-  arg2 = arg2(arg3)
-  if "table" == arg2 then
-    arg2 = arg1.secondary
-    arg2 = #arg2
-    if not (arg2 < 1) then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: workingValue34; parameters: localValue1) ===
+function workingValue34(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag
+  localValue2 = type
+  localValue3 = localValue1.secondary
+  localValue2 = localValue2(localValue3)
+  if "table" == localValue2 then
+    localValue2 = localValue1.secondary
+    localValue2 = #localValue2
+    if not (localValue2 < 1) then
+      goto continueAtStep12
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_12::
-  arg2 = ipairs
-  arg3 = arg1.secondary
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    workValue62 = tonumber
-    workValue66 = arg7.slot
-    workValue62 = workValue62(workValue66)
-    if workValue62 then
-      workValue66 = cmgCall4
-      flag25 = arg1
-      flag = workValue62
-      workValue66 = workValue66(flag25, flag)
-      if not workValue66 then
-        workValue66 = false
-        return workValue66
+  localValue2 = false
+  return localValue2
+  ::continueAtStep12::
+  localValue2 = ipairs
+  localValue3 = localValue1.secondary
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    workingValue62 = tonumber
+    workingValue66 = localValue7.slot
+    workingValue62 = workingValue62(workingValue66)
+    if workingValue62 then
+      workingValue66 = cmgOperation4
+      stateFlag25 = localValue1
+      stateFlag = workingValue62
+      workingValue66 = workingValue66(stateFlag25, stateFlag)
+      if not workingValue66 then
+        workingValue66 = false
+        return workingValue66
       end
     end
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue35; parameters: arg1, arg2, arg3) ===
-function workValue35(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, workValue62, workValue66
-  arg4 = math
-  arg4 = arg4.rad
-  arg5 = arg3 + 0.0
-  arg4 = arg4(arg5)
-  arg5 = math
-  arg5 = arg5.cos
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  arg6 = math
-  arg6 = arg6.sin
-  arg7 = arg4
-  arg6 = arg6(arg7)
-  arg7 = arg1 * arg5
-  workValue62 = arg2 * arg6
-  arg7 = arg7 - workValue62
-  workValue62 = arg1 * arg6
-  workValue66 = arg2 * arg5
-  workValue62 = workValue62 + workValue66
-  return arg7, workValue62
+-- === HELPER FUNCTION (decompiler name: workingValue35; parameters: localValue1, localValue2, localValue3) ===
+function workingValue35(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66
+  localValue4 = math
+  localValue4 = localValue4.rad
+  localValue5 = localValue3 + 0.0
+  localValue4 = localValue4(localValue5)
+  localValue5 = math
+  localValue5 = localValue5.cos
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  localValue6 = math
+  localValue6 = localValue6.sin
+  localValue7 = localValue4
+  localValue6 = localValue6(localValue7)
+  localValue7 = localValue1 * localValue5
+  workingValue62 = localValue2 * localValue6
+  localValue7 = localValue7 - workingValue62
+  workingValue62 = localValue1 * localValue6
+  workingValue66 = localValue2 * localValue5
+  workingValue62 = workingValue62 + workingValue66
+  return localValue7, workingValue62
 end
 
--- === HELPER FUNCTION (decompiler name: workValue36; parameters: arg1, arg2, arg3) ===
-function workValue36(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, workValue62, workValue66, flag25
-  arg4 = cmgCall.debrisLayoutGroups
-  arg5 = type
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  if "table" == arg5 then
-    arg5 = arg2 or arg5
-    if not arg2 then
-      arg5 = ""
+-- === HELPER FUNCTION (decompiler name: workingValue36; parameters: localValue1, localValue2, localValue3) ===
+function workingValue36(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue4 = cmgOperation.debrisLayoutGroups
+  localValue5 = type
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  if "table" == localValue5 then
+    localValue5 = localValue2 or localValue5
+    if not localValue2 then
+      localValue5 = ""
     end
-    arg5 = arg4[arg5]
-    if arg5 then
-      goto flow_label_14
-    end
-  end
-  arg5 = nil
-  ::flow_label_14::
-  arg6 = type
-  arg7 = arg5
-  arg6 = arg6(arg7)
-  if "table" == arg6 then
-    arg6 = arg5.secondaryOffsets
-    if arg6 then
-      goto flow_label_23
+    localValue5 = localValue4[localValue5]
+    if localValue5 then
+      goto continueAtStep14
     end
   end
-  arg6 = nil
-  ::flow_label_23::
-  arg7 = type
-  workValue62 = arg6
-  arg7 = arg7(workValue62)
-  if "table" == arg7 then
-    arg7 = type
-    workValue62 = arg1
-    arg7 = arg7(workValue62)
-    if "string" == arg7 and "" ~= arg1 then
-      arg7 = arg6[arg1]
-      workValue62 = type
-      workValue66 = arg7
-      workValue62 = workValue62(workValue66)
-      if "table" == workValue62 then
-        workValue62 = {}
-        workValue66 = tonumber
-        flag25 = arg7.dx
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+  localValue5 = nil
+  ::continueAtStep14::
+  localValue6 = type
+  localValue7 = localValue5
+  localValue6 = localValue6(localValue7)
+  if "table" == localValue6 then
+    localValue6 = localValue5.secondaryOffsets
+    if localValue6 then
+      goto continueAtStep23
+    end
+  end
+  localValue6 = nil
+  ::continueAtStep23::
+  localValue7 = type
+  workingValue62 = localValue6
+  localValue7 = localValue7(workingValue62)
+  if "table" == localValue7 then
+    localValue7 = type
+    workingValue62 = localValue1
+    localValue7 = localValue7(workingValue62)
+    if "string" == localValue7 and "" ~= localValue1 then
+      localValue7 = localValue6[localValue1]
+      workingValue62 = type
+      workingValue66 = localValue7
+      workingValue62 = workingValue62(workingValue66)
+      if "table" == workingValue62 then
+        workingValue62 = {}
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.dx
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.dx = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.dy
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+        workingValue62.dx = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.dy
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.dy = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.dz
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+        workingValue62.dy = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.dz
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.dz = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.h
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+        workingValue62.dz = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.h
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.h = workValue66
-        return workValue62
+        workingValue62.h = workingValue66
+        return workingValue62
       end
     end
   end
-  arg7 = {}
-  arg7.dx = 0.0
-  workValue62 = arg3 * 0.35
-  workValue62 = 2.0 + workValue62
-  arg7.dy = workValue62
-  arg7.dz = 0.0
-  arg7.h = 0.0
-  return arg7
+  localValue7 = {}
+  localValue7.dx = 0.0
+  workingValue62 = localValue3 * 0.35
+  workingValue62 = 2.0 + workingValue62
+  localValue7.dy = workingValue62
+  localValue7.dz = 0.0
+  localValue7.h = 0.0
+  return localValue7
 end
 
--- === HELPER FUNCTION (decompiler name: workValue37; parameters: arg1, arg2, arg3) ===
-function workValue37(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, workValue62, workValue66, flag25
-  arg4 = cmgCall.debrisLayoutGroups
-  arg5 = type
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  if "table" == arg5 then
-    arg5 = arg2 or arg5
-    if not arg2 then
-      arg5 = ""
+-- === HELPER FUNCTION (decompiler name: workingValue37; parameters: localValue1, localValue2, localValue3) ===
+function workingValue37(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue4 = cmgOperation.debrisLayoutGroups
+  localValue5 = type
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  if "table" == localValue5 then
+    localValue5 = localValue2 or localValue5
+    if not localValue2 then
+      localValue5 = ""
     end
-    arg5 = arg4[arg5]
-    if arg5 then
-      goto flow_label_14
-    end
-  end
-  arg5 = nil
-  ::flow_label_14::
-  arg6 = type
-  arg7 = arg5
-  arg6 = arg6(arg7)
-  if "table" == arg6 then
-    arg6 = arg5.secondaryFlatbedAttach
-    if arg6 then
-      goto flow_label_23
+    localValue5 = localValue4[localValue5]
+    if localValue5 then
+      goto continueAtStep14
     end
   end
-  arg6 = nil
-  ::flow_label_23::
-  arg7 = type
-  workValue62 = arg6
-  arg7 = arg7(workValue62)
-  if "table" == arg7 then
-    arg7 = type
-    workValue62 = arg1
-    arg7 = arg7(workValue62)
-    if "string" == arg7 and "" ~= arg1 then
-      arg7 = arg6[arg1]
-      workValue62 = type
-      workValue66 = arg7
-      workValue62 = workValue62(workValue66)
-      if "table" == workValue62 then
-        workValue62 = {}
-        workValue66 = tonumber
-        flag25 = arg7.ox
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+  localValue5 = nil
+  ::continueAtStep14::
+  localValue6 = type
+  localValue7 = localValue5
+  localValue6 = localValue6(localValue7)
+  if "table" == localValue6 then
+    localValue6 = localValue5.secondaryFlatbedAttach
+    if localValue6 then
+      goto continueAtStep23
+    end
+  end
+  localValue6 = nil
+  ::continueAtStep23::
+  localValue7 = type
+  workingValue62 = localValue6
+  localValue7 = localValue7(workingValue62)
+  if "table" == localValue7 then
+    localValue7 = type
+    workingValue62 = localValue1
+    localValue7 = localValue7(workingValue62)
+    if "string" == localValue7 and "" ~= localValue1 then
+      localValue7 = localValue6[localValue1]
+      workingValue62 = type
+      workingValue66 = localValue7
+      workingValue62 = workingValue62(workingValue66)
+      if "table" == workingValue62 then
+        workingValue62 = {}
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.ox
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.ox = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.oy
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+        workingValue62.ox = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.oy
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.oy = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.oz
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.55
+        workingValue62.oy = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.oz
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.55
         end
-        workValue62.oz = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.rx
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+        workingValue62.oz = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.rx
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.rx = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.ry
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+        workingValue62.rx = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.ry
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.ry = workValue66
-        workValue66 = tonumber
-        flag25 = arg7.rz
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0.0
+        workingValue62.ry = workingValue66
+        workingValue66 = tonumber
+        stateFlag25 = localValue7.rz
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0.0
         end
-        workValue62.rz = workValue66
-        return workValue62
+        workingValue62.rz = workingValue66
+        return workingValue62
       end
     end
   end
-  arg7 = {}
-  arg7.ox = 0.0
-  workValue62 = arg3 * 0.2
-  workValue66 = -3.0
-  workValue62 = workValue66 - workValue62
-  arg7.oy = workValue62
-  arg7.oz = 0.55
-  arg7.rx = 0.0
-  arg7.ry = 0.0
-  arg7.rz = 0.0
-  return arg7
+  localValue7 = {}
+  localValue7.ox = 0.0
+  workingValue62 = localValue3 * 0.2
+  workingValue66 = -3.0
+  workingValue62 = workingValue66 - workingValue62
+  localValue7.oy = workingValue62
+  localValue7.oz = 0.55
+  localValue7.rx = 0.0
+  localValue7.ry = 0.0
+  localValue7.rz = 0.0
+  return localValue7
 end
 
--- === HELPER FUNCTION (decompiler name: workValue38; parameters: arg1) ===
-function workValue38(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = cmgCall.debrisMainFlatbedAttach
-  if not arg2 then
-    arg2 = {}
+-- === HELPER FUNCTION (decompiler name: workingValue38; parameters: localValue1) ===
+function workingValue38(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = cmgOperation.debrisMainFlatbedAttach
+  if not localValue2 then
+    localValue2 = {}
   end
-  arg3 = {}
-  arg4 = tonumber
-  arg5 = arg2.ox
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = 0.0
+  localValue3 = {}
+  localValue4 = tonumber
+  localValue5 = localValue2.ox
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = 0.0
   end
-  arg3.ox = arg4
-  arg4 = tonumber
-  arg5 = arg2.oy
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = 0.0
+  localValue3.ox = localValue4
+  localValue4 = tonumber
+  localValue5 = localValue2.oy
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = 0.0
   end
-  arg3.oy = arg4
-  arg4 = tonumber
-  arg5 = arg2.oz
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = 0.0
+  localValue3.oy = localValue4
+  localValue4 = tonumber
+  localValue5 = localValue2.oz
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = 0.0
   end
-  arg3.oz = arg4
-  arg4 = tonumber
-  arg5 = arg2.rx
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = 0.0
+  localValue3.oz = localValue4
+  localValue4 = tonumber
+  localValue5 = localValue2.rx
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = 0.0
   end
-  arg3.rx = arg4
-  arg4 = tonumber
-  arg5 = arg2.ry
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = 0.0
+  localValue3.rx = localValue4
+  localValue4 = tonumber
+  localValue5 = localValue2.ry
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = 0.0
   end
-  arg3.ry = arg4
-  arg4 = tonumber
-  arg5 = arg2.rz
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = 0.0
+  localValue3.ry = localValue4
+  localValue4 = tonumber
+  localValue5 = localValue2.rz
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = 0.0
   end
-  arg3.rz = arg4
-  return arg3
+  localValue3.rz = localValue4
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue39; parameters: arg1, arg2) ===
-function workValue39(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18
-  if 0 ~= arg1 then
-    arg3 = DoesEntityExist
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = numberValue2
-      if 0 ~= arg3 then
-        arg3 = DoesEntityExist
-        arg4 = numberValue2
-        arg3 = arg3(arg4)
-        if arg3 then
-          goto flow_label_18
+-- === HELPER FUNCTION (decompiler name: workingValue39; parameters: localValue1, localValue2) ===
+function workingValue39(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18
+  if 0 ~= localValue1 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = number2
+      if 0 ~= localValue3 then
+        localValue3 = DoesEntityExist
+        localValue4 = number2
+        localValue3 = localValue3(localValue4)
+        if localValue3 then
+          goto continueAtStep18
         end
       end
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_18::
-  arg3 = tonumber
-  arg4 = cmgCall.debrisSecondaryFlatbedBone
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = tonumber
-    arg4 = cmgCall.debrisMainFlatbedBone
-    arg3 = arg3(arg4)
-    if not arg3 then
-      arg3 = 20
+  localValue3 = false
+  return localValue3
+  ::continueAtStep18::
+  localValue3 = tonumber
+  localValue4 = cmgOperation.debrisSecondaryFlatbedBone
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = tonumber
+    localValue4 = cmgOperation.debrisMainFlatbedBone
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
+      localValue3 = 20
     end
   end
-  arg4 = workValue19
-  if arg4 then
-    arg5 = workValue33
-    arg6 = arg4
-    arg7 = arg2
-    arg5 = arg5(arg6, arg7)
-    if arg5 then
-      goto flow_label_39
+  localValue4 = workingValue19
+  if localValue4 then
+    localValue5 = workingValue33
+    localValue6 = localValue4
+    localValue7 = localValue2
+    localValue5 = localValue5(localValue6, localValue7)
+    if localValue5 then
+      goto continueAtStep39
     end
   end
-  arg5 = nil
-  ::flow_label_39::
-  if arg4 then
-    arg6 = arg4.mainModel
-    if arg6 then
-      goto flow_label_45
+  localValue5 = nil
+  ::continueAtStep39::
+  if localValue4 then
+    localValue6 = localValue4.mainModel
+    if localValue6 then
+      goto continueAtStep45
     end
   end
-  arg6 = nil
-  ::flow_label_45::
-  arg7 = workValue37
-  workValue62 = arg5
-  workValue66 = arg6
-  flag25 = arg2
-  arg7 = arg7(workValue62, workValue66, flag25)
-  workValue62 = DetachEntity
-  workValue66 = numberValue2
-  flag25 = true
-  flag = true
-  workValue62(workValue66, flag25, flag)
-  workValue62 = FreezeEntityPosition
-  workValue66 = numberValue2
-  flag25 = false
+  localValue6 = nil
+  ::continueAtStep45::
+  localValue7 = workingValue37
+  workingValue62 = localValue5
+  workingValue66 = localValue6
+  stateFlag25 = localValue2
+  localValue7 = localValue7(workingValue62, workingValue66, stateFlag25)
+  workingValue62 = DetachEntity
+  workingValue66 = number2
+  stateFlag25 = true
+  stateFlag = true
+  workingValue62(workingValue66, stateFlag25, stateFlag)
+  workingValue62 = FreezeEntityPosition
+  workingValue66 = number2
+  stateFlag25 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  workValue62(workValue66, flag25)
-  workValue62 = tonumber
-  workValue66 = arg7.ox
-  workValue62 = workValue62(workValue66)
-  if not workValue62 then
-    workValue62 = 0.0
+  workingValue62(workingValue66, stateFlag25)
+  workingValue62 = tonumber
+  workingValue66 = localValue7.ox
+  workingValue62 = workingValue62(workingValue66)
+  if not workingValue62 then
+    workingValue62 = 0.0
   end
-  workValue66 = tonumber
-  flag25 = arg7.oy
-  workValue66 = workValue66(flag25)
-  if not workValue66 then
-    workValue66 = 0.0
+  workingValue66 = tonumber
+  stateFlag25 = localValue7.oy
+  workingValue66 = workingValue66(stateFlag25)
+  if not workingValue66 then
+    workingValue66 = 0.0
   end
-  flag25 = tonumber
-  flag = arg7.oz
-  flag25 = flag25(flag)
-  if not flag25 then
-    flag25 = 0.55
+  stateFlag25 = tonumber
+  stateFlag = localValue7.oz
+  stateFlag25 = stateFlag25(stateFlag)
+  if not stateFlag25 then
+    stateFlag25 = 0.55
   end
-  flag = tonumber
-  flag2 = arg7.rx
-  flag = flag(flag2)
-  if not flag then
-    flag = 0.0
+  stateFlag = tonumber
+  stateFlag2 = localValue7.rx
+  stateFlag = stateFlag(stateFlag2)
+  if not stateFlag then
+    stateFlag = 0.0
   end
-  flag2 = tonumber
-  flag4 = arg7.ry
-  flag2 = flag2(flag4)
-  if not flag2 then
-    flag2 = 0.0
+  stateFlag2 = tonumber
+  stateFlag4 = localValue7.ry
+  stateFlag2 = stateFlag2(stateFlag4)
+  if not stateFlag2 then
+    stateFlag2 = 0.0
   end
-  flag4 = tonumber
-  flag5 = arg7.rz
-  flag4 = flag4(flag5)
-  if not flag4 then
-    flag4 = 0.0
+  stateFlag4 = tonumber
+  stateFlag5 = localValue7.rz
+  stateFlag4 = stateFlag4(stateFlag5)
+  if not stateFlag4 then
+    stateFlag4 = 0.0
   end
-  flag5 = AttachEntityToEntity
-  flag6 = numberValue2
-  flag7 = arg1
-  flag8 = arg3
-  flag9 = workValue62
-  flag10 = workValue66
-  numberValue3 = flag25
-  flag11 = flag
-  flag12 = flag2
-  flag13 = flag4
-  flag14 = false
-  flag15 = false
-  flag16 = false
-  flag17 = false
-  numberValue7 = 2
-  flag18 = true
+  stateFlag5 = AttachEntityToEntity
+  stateFlag6 = number2
+  stateFlag7 = localValue1
+  stateFlag8 = localValue3
+  stateFlag9 = workingValue62
+  stateFlag10 = workingValue66
+  number3 = stateFlag25
+  stateFlag11 = stateFlag
+  stateFlag12 = stateFlag2
+  stateFlag13 = stateFlag4
+  stateFlag14 = false
+  stateFlag15 = false
+  stateFlag16 = false
+  stateFlag17 = false
+  number7 = 2
+  stateFlag18 = true
   -- Beginner: Attach one entity to another entity.
-  flag5(flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18)
-  flag5 = SetEntityCollision
-  flag6 = numberValue2
-  flag7 = true
-  flag8 = true
-  flag5(flag6, flag7, flag8)
-  flag5 = dataTable3
-  flag6 = numberValue2
-  flag5[arg2] = flag6
-  flag5 = 0
-  numberValue2 = flag5
-  flag5 = nil
-  workValue21 = flag5
-  flag5 = workValue29
-  flag5()
-  flag5 = true
-  return flag5
+  stateFlag5(stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18)
+  stateFlag5 = SetEntityCollision
+  stateFlag6 = number2
+  stateFlag7 = true
+  stateFlag8 = true
+  stateFlag5(stateFlag6, stateFlag7, stateFlag8)
+  stateFlag5 = dataCollection3
+  stateFlag6 = number2
+  stateFlag5[localValue2] = stateFlag6
+  stateFlag5 = 0
+  number2 = stateFlag5
+  stateFlag5 = nil
+  workingValue21 = stateFlag5
+  stateFlag5 = workingValue29
+  stateFlag5()
+  stateFlag5 = true
+  return stateFlag5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue40; parameters: arg1) ===
-function workValue40(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15
-  arg2 = tonumber
-  arg3 = arg1.carryingSecondarySlot
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg3 = workValue29
-    arg3()
-    arg3 = numberValue2
-    if 0 ~= arg3 then
-      arg3 = DoesEntityExist
-      arg4 = numberValue2
-      arg3 = arg3(arg4)
-      if arg3 then
-        arg3 = DetachEntity
-        arg4 = numberValue2
-        arg5 = true
-        arg6 = true
-        arg3(arg4, arg5, arg6)
-        arg3 = SetEntityAsMissionEntity
-        arg4 = numberValue2
-        arg5 = true
-        arg6 = true
-        arg3(arg4, arg5, arg6)
-        arg3 = DeleteObject
-        arg4 = numberValue2
-        arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue40; parameters: localValue1) ===
+function workingValue40(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15
+  localValue2 = tonumber
+  localValue3 = localValue1.carryingSecondarySlot
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue3 = workingValue29
+    localValue3()
+    localValue3 = number2
+    if 0 ~= localValue3 then
+      localValue3 = DoesEntityExist
+      localValue4 = number2
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        localValue3 = DetachEntity
+        localValue4 = number2
+        localValue5 = true
+        localValue6 = true
+        localValue3(localValue4, localValue5, localValue6)
+        localValue3 = SetEntityAsMissionEntity
+        localValue4 = number2
+        localValue5 = true
+        localValue6 = true
+        localValue3(localValue4, localValue5, localValue6)
+        localValue3 = DeleteObject
+        localValue4 = number2
+        localValue3(localValue4)
       end
     end
-    arg3 = 0
-    numberValue2 = arg3
-    arg3 = nil
-    workValue21 = arg3
+    localValue3 = 0
+    number2 = localValue3
+    localValue3 = nil
+    workingValue21 = localValue3
     return
   end
-  arg3 = workValue33
-  arg4 = arg1
-  arg5 = arg2
-  arg3 = arg3(arg4, arg5)
-  if not arg3 then
+  localValue3 = workingValue33
+  localValue4 = localValue1
+  localValue5 = localValue2
+  localValue3 = localValue3(localValue4, localValue5)
+  if not localValue3 then
     return
   end
-  arg4 = workValue21
-  if arg4 == arg2 then
-    arg4 = numberValue2
-    if 0 ~= arg4 then
-      arg4 = DoesEntityExist
-      arg5 = numberValue2
-      arg4 = arg4(arg5)
-      if arg4 then
+  localValue4 = workingValue21
+  if localValue4 == localValue2 then
+    localValue4 = number2
+    if 0 ~= localValue4 then
+      localValue4 = DoesEntityExist
+      localValue5 = number2
+      localValue4 = localValue4(localValue5)
+      if localValue4 then
         return
       end
     end
   end
-  arg4 = dataTable2
-  arg4 = arg4[arg2]
-  if arg4 and 0 ~= arg4 then
-    arg5 = DoesEntityExist
-    arg6 = arg4
-    arg5 = arg5(arg6)
-    if arg5 then
-      arg5 = SetEntityAsMissionEntity
-      arg6 = arg4
-      arg7 = true
-      workValue62 = true
-      arg5(arg6, arg7, workValue62)
-      arg5 = DeleteObject
-      arg6 = arg4
-      arg5(arg6)
+  localValue4 = dataCollection2
+  localValue4 = localValue4[localValue2]
+  if localValue4 and 0 ~= localValue4 then
+    localValue5 = DoesEntityExist
+    localValue6 = localValue4
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      localValue5 = SetEntityAsMissionEntity
+      localValue6 = localValue4
+      localValue7 = true
+      workingValue62 = true
+      localValue5(localValue6, localValue7, workingValue62)
+      localValue5 = DeleteObject
+      localValue6 = localValue4
+      localValue5(localValue6)
     end
   end
-  arg5 = dataTable2
-  arg5[arg2] = nil
-  arg5 = numberValue2
-  if 0 ~= arg5 then
-    arg5 = DoesEntityExist
-    arg6 = numberValue2
-    arg5 = arg5(arg6)
-    if arg5 then
-      arg5 = workValue29
-      arg5()
-      arg5 = DetachEntity
-      arg6 = numberValue2
-      arg7 = true
-      workValue62 = true
-      arg5(arg6, arg7, workValue62)
-      arg5 = SetEntityAsMissionEntity
-      arg6 = numberValue2
-      arg7 = true
-      workValue62 = true
-      arg5(arg6, arg7, workValue62)
-      arg5 = DeleteObject
-      arg6 = numberValue2
-      arg5(arg6)
+  localValue5 = dataCollection2
+  localValue5[localValue2] = nil
+  localValue5 = number2
+  if 0 ~= localValue5 then
+    localValue5 = DoesEntityExist
+    localValue6 = number2
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      localValue5 = workingValue29
+      localValue5()
+      localValue5 = DetachEntity
+      localValue6 = number2
+      localValue7 = true
+      workingValue62 = true
+      localValue5(localValue6, localValue7, workingValue62)
+      localValue5 = SetEntityAsMissionEntity
+      localValue6 = number2
+      localValue7 = true
+      workingValue62 = true
+      localValue5(localValue6, localValue7, workingValue62)
+      localValue5 = DeleteObject
+      localValue6 = number2
+      localValue5(localValue6)
     end
   end
-  arg5 = 0
-  numberValue2 = arg5
-  arg5 = GetHashKey
-  arg6 = arg3
+  localValue5 = 0
+  number2 = localValue5
+  localValue5 = GetHashKey
+  localValue6 = localValue3
   -- Beginner: result below is hash.
-  arg5 = arg5(arg6)
-  if not arg5 or 0 == arg5 then
+  localValue5 = localValue5(localValue6)
+  if not localValue5 or 0 == localValue5 then
     return
   end
-  arg6 = CMG
-  arg6 = arg6.loadModel
-  arg7 = arg5
+  localValue6 = CMG
+  localValue6 = localValue6.loadModel
+  localValue7 = localValue5
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  arg6(arg7)
-  arg6 = CMG
-  arg6 = arg6.getPlayerPed
+  localValue6(localValue7)
+  localValue6 = CMG
+  localValue6 = localValue6.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg6 = arg6()
-  arg7 = GetEntityCoords
-  workValue62 = arg6
-  workValue66 = true
+  localValue6 = localValue6()
+  localValue7 = GetEntityCoords
+  workingValue62 = localValue6
+  workingValue66 = true
   -- Beginner: result below is entityCoords.
-  arg7 = arg7(workValue62, workValue66)
-  workValue62 = CreateObject
-  workValue66 = arg5
-  flag25 = arg7.x
-  flag = arg7.y
-  flag2 = arg7.z
-  flag2 = flag2 + 0.2
-  flag4 = false
-  flag5 = false
-  flag6 = false
+  localValue7 = localValue7(workingValue62, workingValue66)
+  workingValue62 = CreateObject
+  workingValue66 = localValue5
+  stateFlag25 = localValue7.x
+  stateFlag = localValue7.y
+  stateFlag2 = localValue7.z
+  stateFlag2 = stateFlag2 + 0.2
+  stateFlag4 = false
+  stateFlag5 = false
+  stateFlag6 = false
   -- Beginner: result below is objectEntity.
-  workValue62 = workValue62(workValue66, flag25, flag, flag2, flag4, flag5, flag6)
-  if workValue62 and 0 ~= workValue62 then
-    workValue66 = DoesEntityExist
-    flag25 = workValue62
-    workValue66 = workValue66(flag25)
-    if workValue66 then
-      workValue66 = GetPedBoneIndex
-      flag25 = arg6
-      flag = 60309
-      workValue66 = workValue66(flag25, flag)
-      flag25 = AttachEntityToEntity
-      flag = workValue62
-      flag2 = arg6
-      flag4 = workValue66
-      flag5 = 0.025
-      flag6 = 0.08
-      flag7 = 0.255
-      flag8 = -145.0
-      flag9 = 290.0
-      flag10 = 0.0
-      numberValue3 = true
-      flag11 = true
-      flag12 = false
-      flag13 = true
-      flag14 = 1
-      flag15 = true
+  workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
+  if workingValue62 and 0 ~= workingValue62 then
+    workingValue66 = DoesEntityExist
+    stateFlag25 = workingValue62
+    workingValue66 = workingValue66(stateFlag25)
+    if workingValue66 then
+      workingValue66 = GetPedBoneIndex
+      stateFlag25 = localValue6
+      stateFlag = 60309
+      workingValue66 = workingValue66(stateFlag25, stateFlag)
+      stateFlag25 = AttachEntityToEntity
+      stateFlag = workingValue62
+      stateFlag2 = localValue6
+      stateFlag4 = workingValue66
+      stateFlag5 = 0.025
+      stateFlag6 = 0.08
+      stateFlag7 = 0.255
+      stateFlag8 = -145.0
+      stateFlag9 = 290.0
+      stateFlag10 = 0.0
+      number3 = true
+      stateFlag11 = true
+      stateFlag12 = false
+      stateFlag13 = true
+      stateFlag14 = 1
+      stateFlag15 = true
       -- Beginner: Attach one entity to another entity.
-      flag25(flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15)
-      numberValue2 = workValue62
-      workValue21 = arg2
-      flag25 = workValue30
-      flag25()
+      stateFlag25(stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15)
+      number2 = workingValue62
+      workingValue21 = localValue2
+      stateFlag25 = workingValue30
+      stateFlag25()
     end
   end
-  workValue66 = SetModelAsNoLongerNeeded
-  flag25 = arg5
-  workValue66(flag25)
+  workingValue66 = SetModelAsNoLongerNeeded
+  stateFlag25 = localValue5
+  workingValue66(stateFlag25)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue41; parameters: none) ===
-function workValue41()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25
-  arg1 = numberValue
-  if 0 ~= arg1 then
-    arg1 = DoesEntityExist
-    arg2 = numberValue
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = DetachEntity
-      arg2 = numberValue
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = SetEntityAsMissionEntity
-      arg2 = numberValue
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = DeleteObject
-      arg2 = numberValue
-      arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue41; parameters: none) ===
+function workingValue41()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue1 = number
+  if 0 ~= localValue1 then
+    localValue1 = DoesEntityExist
+    localValue2 = number
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = DetachEntity
+      localValue2 = number
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = SetEntityAsMissionEntity
+      localValue2 = number
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = DeleteObject
+      localValue2 = number
+      localValue1(localValue2)
     end
   end
-  arg1 = 0
-  numberValue = arg1
-  arg1 = pairs
-  arg2 = dataTable2
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    if arg6 and 0 ~= arg6 then
-      arg7 = DoesEntityExist
-      workValue62 = arg6
-      arg7 = arg7(workValue62)
-      if arg7 then
-        arg7 = SetEntityAsMissionEntity
-        workValue62 = arg6
-        workValue66 = true
-        flag25 = true
-        arg7(workValue62, workValue66, flag25)
-        arg7 = DeleteObject
-        workValue62 = arg6
-        arg7(workValue62)
+  localValue1 = 0
+  number = localValue1
+  localValue1 = pairs
+  localValue2 = dataCollection2
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    if localValue6 and 0 ~= localValue6 then
+      localValue7 = DoesEntityExist
+      workingValue62 = localValue6
+      localValue7 = localValue7(workingValue62)
+      if localValue7 then
+        localValue7 = SetEntityAsMissionEntity
+        workingValue62 = localValue6
+        workingValue66 = true
+        stateFlag25 = true
+        localValue7(workingValue62, workingValue66, stateFlag25)
+        localValue7 = DeleteObject
+        workingValue62 = localValue6
+        localValue7(workingValue62)
       end
     end
   end
-  arg1 = {}
-  dataTable2 = arg1
+  localValue1 = {}
+  dataCollection2 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue42; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue42(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20
-  arg6 = workValue41
-  arg6()
-  arg6 = arg1.mainModel
-  arg7 = type
-  workValue62 = arg6
-  arg7 = arg7(workValue62)
-  if "string" == arg7 and "" ~= arg6 then
-    arg7 = GetHashKey
-    workValue62 = arg6
+-- === HELPER FUNCTION (decompiler name: workingValue42; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue42(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20
+  localValue6 = workingValue41
+  localValue6()
+  localValue6 = localValue1.mainModel
+  localValue7 = type
+  workingValue62 = localValue6
+  localValue7 = localValue7(workingValue62)
+  if "string" == localValue7 and "" ~= localValue6 then
+    localValue7 = GetHashKey
+    workingValue62 = localValue6
     -- Beginner: result below is hash.
-    arg7 = arg7(workValue62)
-    if arg7 and 0 ~= arg7 then
-      workValue62 = CMG
-      workValue62 = workValue62.loadModel
-      workValue66 = arg7
+    localValue7 = localValue7(workingValue62)
+    if localValue7 and 0 ~= localValue7 then
+      workingValue62 = CMG
+      workingValue62 = workingValue62.loadModel
+      workingValue66 = localValue7
       -- Beginner: Request/load a GTA model before spawning or applying it.
-      workValue62(workValue66)
-      workValue62 = CreateObject
-      workValue66 = arg7
-      flag25 = arg2
-      flag = arg3
-      flag2 = arg4 + 0.05
-      flag4 = false
-      flag5 = false
-      flag6 = false
+      workingValue62(workingValue66)
+      workingValue62 = CreateObject
+      workingValue66 = localValue7
+      stateFlag25 = localValue2
+      stateFlag = localValue3
+      stateFlag2 = localValue4 + 0.05
+      stateFlag4 = false
+      stateFlag5 = false
+      stateFlag6 = false
       -- Beginner: result below is objectEntity.
-      workValue62 = workValue62(workValue66, flag25, flag, flag2, flag4, flag5, flag6)
-      if workValue62 and 0 ~= workValue62 then
-        workValue66 = DoesEntityExist
-        flag25 = workValue62
-        workValue66 = workValue66(flag25)
-        if workValue66 then
-          workValue66 = SetEntityHeading
-          flag25 = workValue62
-          flag = arg5 + 0.0
+      workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
+      if workingValue62 and 0 ~= workingValue62 then
+        workingValue66 = DoesEntityExist
+        stateFlag25 = workingValue62
+        workingValue66 = workingValue66(stateFlag25)
+        if workingValue66 then
+          workingValue66 = SetEntityHeading
+          stateFlag25 = workingValue62
+          stateFlag = localValue5 + 0.0
           -- Beginner: Change the direction an entity is facing.
-          workValue66(flag25, flag)
-          workValue66 = PlaceObjectOnGroundProperly
-          flag25 = workValue62
-          workValue66(flag25)
-          workValue66 = FreezeEntityPosition
-          flag25 = workValue62
-          flag = true
+          workingValue66(stateFlag25, stateFlag)
+          workingValue66 = PlaceObjectOnGroundProperly
+          stateFlag25 = workingValue62
+          workingValue66(stateFlag25)
+          workingValue66 = FreezeEntityPosition
+          stateFlag25 = workingValue62
+          stateFlag = true
           -- Beginner: Freeze or unfreeze an entity in place.
-          workValue66(flag25, flag)
-          workValue66 = SetEntityCollision
-          flag25 = workValue62
-          flag = true
-          flag2 = true
-          workValue66(flag25, flag, flag2)
-          numberValue = workValue62
+          workingValue66(stateFlag25, stateFlag)
+          workingValue66 = SetEntityCollision
+          stateFlag25 = workingValue62
+          stateFlag = true
+          stateFlag2 = true
+          workingValue66(stateFlag25, stateFlag, stateFlag2)
+          number = workingValue62
         end
       end
-      workValue66 = SetModelAsNoLongerNeeded
-      flag25 = arg7
-      workValue66(flag25)
+      workingValue66 = SetModelAsNoLongerNeeded
+      stateFlag25 = localValue7
+      workingValue66(stateFlag25)
     end
   end
-  arg7 = type
-  workValue62 = arg1.secondary
-  arg7 = arg7(workValue62)
-  if "table" == arg7 then
-    arg7 = ipairs
-    workValue62 = arg1.secondary
-    arg7, workValue62, workValue66, flag25 = arg7(workValue62)
-    for flag, flag2 in arg7, workValue62, workValue66, flag25 do
-      flag4 = tonumber
-      flag5 = flag2.slot
-      flag4 = flag4(flag5)
-      if flag4 then
-        flag5 = cmgCall4
-        flag6 = arg1
-        flag7 = flag4
-        flag5 = flag5(flag6, flag7)
-        if not flag5 then
-          flag5 = tonumber
-          flag6 = arg1.carryingSecondarySlot
-          flag5 = flag5(flag6)
-          if flag5 ~= flag4 then
-            flag5 = flag2.model
-            flag6 = type
-            flag7 = flag5
-            flag6 = flag6(flag7)
-            if "string" == flag6 and "" ~= flag5 then
-              flag6 = tonumber
-              flag7 = flag2.dx
-              flag6 = flag6(flag7)
-              if not flag6 then
-                flag6 = 0.0
+  localValue7 = type
+  workingValue62 = localValue1.secondary
+  localValue7 = localValue7(workingValue62)
+  if "table" == localValue7 then
+    localValue7 = ipairs
+    workingValue62 = localValue1.secondary
+    localValue7, workingValue62, workingValue66, stateFlag25 = localValue7(workingValue62)
+    for stateFlag, stateFlag2 in localValue7, workingValue62, workingValue66, stateFlag25 do
+      stateFlag4 = tonumber
+      stateFlag5 = stateFlag2.slot
+      stateFlag4 = stateFlag4(stateFlag5)
+      if stateFlag4 then
+        stateFlag5 = cmgOperation4
+        stateFlag6 = localValue1
+        stateFlag7 = stateFlag4
+        stateFlag5 = stateFlag5(stateFlag6, stateFlag7)
+        if not stateFlag5 then
+          stateFlag5 = tonumber
+          stateFlag6 = localValue1.carryingSecondarySlot
+          stateFlag5 = stateFlag5(stateFlag6)
+          if stateFlag5 ~= stateFlag4 then
+            stateFlag5 = stateFlag2.model
+            stateFlag6 = type
+            stateFlag7 = stateFlag5
+            stateFlag6 = stateFlag6(stateFlag7)
+            if "string" == stateFlag6 and "" ~= stateFlag5 then
+              stateFlag6 = tonumber
+              stateFlag7 = stateFlag2.dx
+              stateFlag6 = stateFlag6(stateFlag7)
+              if not stateFlag6 then
+                stateFlag6 = 0.0
               end
-              flag7 = tonumber
-              flag8 = flag2.dy
-              flag7 = flag7(flag8)
-              if not flag7 then
-                flag7 = 0.0
+              stateFlag7 = tonumber
+              stateFlag8 = stateFlag2.dy
+              stateFlag7 = stateFlag7(stateFlag8)
+              if not stateFlag7 then
+                stateFlag7 = 0.0
               end
-              flag8 = tonumber
-              flag9 = flag2.dz
-              flag8 = flag8(flag9)
-              if not flag8 then
-                flag8 = 0.0
+              stateFlag8 = tonumber
+              stateFlag9 = stateFlag2.dz
+              stateFlag8 = stateFlag8(stateFlag9)
+              if not stateFlag8 then
+                stateFlag8 = 0.0
               end
-              flag9 = workValue35
-              flag10 = flag6
-              numberValue3 = flag7
-              flag11 = arg5
-              flag9, flag10 = flag9(flag10, numberValue3, flag11)
-              numberValue3 = GetHashKey
-              flag11 = flag5
+              stateFlag9 = workingValue35
+              stateFlag10 = stateFlag6
+              number3 = stateFlag7
+              stateFlag11 = localValue5
+              stateFlag9, stateFlag10 = stateFlag9(stateFlag10, number3, stateFlag11)
+              number3 = GetHashKey
+              stateFlag11 = stateFlag5
               -- Beginner: result below is hash.
-              numberValue3 = numberValue3(flag11)
-              if numberValue3 and 0 ~= numberValue3 then
-                flag11 = CMG
-                flag11 = flag11.loadModel
-                flag12 = numberValue3
+              number3 = number3(stateFlag11)
+              if number3 and 0 ~= number3 then
+                stateFlag11 = CMG
+                stateFlag11 = stateFlag11.loadModel
+                stateFlag12 = number3
                 -- Beginner: Request/load a GTA model before spawning or applying it.
-                flag11(flag12)
-                flag11 = arg2 + flag9
-                flag12 = arg3 + flag10
-                flag13 = arg4 + flag8
-                flag14 = CreateObject
-                flag15 = numberValue3
-                flag16 = flag11
-                flag17 = flag12
-                numberValue7 = flag13
-                flag18 = false
-                flag19 = false
-                flag20 = false
+                stateFlag11(stateFlag12)
+                stateFlag11 = localValue2 + stateFlag9
+                stateFlag12 = localValue3 + stateFlag10
+                stateFlag13 = localValue4 + stateFlag8
+                stateFlag14 = CreateObject
+                stateFlag15 = number3
+                stateFlag16 = stateFlag11
+                stateFlag17 = stateFlag12
+                number7 = stateFlag13
+                stateFlag18 = false
+                stateFlag19 = false
+                stateFlag20 = false
                 -- Beginner: result below is objectEntity.
-                flag14 = flag14(flag15, flag16, flag17, numberValue7, flag18, flag19, flag20)
-                if flag14 and 0 ~= flag14 then
-                  flag15 = DoesEntityExist
-                  flag16 = flag14
-                  flag15 = flag15(flag16)
-                  if flag15 then
-                    flag15 = SetEntityHeading
-                    flag16 = flag14
-                    flag17 = tonumber
-                    numberValue7 = flag2.h
-                    flag17 = flag17(numberValue7)
-                    if not flag17 then
-                      flag17 = 0.0
+                stateFlag14 = stateFlag14(stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20)
+                if stateFlag14 and 0 ~= stateFlag14 then
+                  stateFlag15 = DoesEntityExist
+                  stateFlag16 = stateFlag14
+                  stateFlag15 = stateFlag15(stateFlag16)
+                  if stateFlag15 then
+                    stateFlag15 = SetEntityHeading
+                    stateFlag16 = stateFlag14
+                    stateFlag17 = tonumber
+                    number7 = stateFlag2.h
+                    stateFlag17 = stateFlag17(number7)
+                    if not stateFlag17 then
+                      stateFlag17 = 0.0
                     end
-                    flag17 = flag17 + arg5
+                    stateFlag17 = stateFlag17 + localValue5
                     -- Beginner: Change the direction an entity is facing.
-                    flag15(flag16, flag17)
-                    flag15 = PlaceObjectOnGroundProperly
-                    flag16 = flag14
-                    flag15(flag16)
-                    flag15 = FreezeEntityPosition
-                    flag16 = flag14
-                    flag17 = true
+                    stateFlag15(stateFlag16, stateFlag17)
+                    stateFlag15 = PlaceObjectOnGroundProperly
+                    stateFlag16 = stateFlag14
+                    stateFlag15(stateFlag16)
+                    stateFlag15 = FreezeEntityPosition
+                    stateFlag16 = stateFlag14
+                    stateFlag17 = true
                     -- Beginner: Freeze or unfreeze an entity in place.
-                    flag15(flag16, flag17)
-                    flag15 = SetEntityCollision
-                    flag16 = flag14
-                    flag17 = true
-                    numberValue7 = true
-                    flag15(flag16, flag17, numberValue7)
-                    flag15 = dataTable2
-                    flag15[flag4] = flag14
+                    stateFlag15(stateFlag16, stateFlag17)
+                    stateFlag15 = SetEntityCollision
+                    stateFlag16 = stateFlag14
+                    stateFlag17 = true
+                    number7 = true
+                    stateFlag15(stateFlag16, stateFlag17, number7)
+                    stateFlag15 = dataCollection2
+                    stateFlag15[stateFlag4] = stateFlag14
                   end
                 end
-                flag15 = SetModelAsNoLongerNeeded
-                flag16 = numberValue3
-                flag15(flag16)
+                stateFlag15 = SetModelAsNoLongerNeeded
+                stateFlag16 = number3
+                stateFlag15(stateFlag16)
               end
             end
           end
@@ -1558,220 +1558,220 @@ function workValue42(arg1, arg2, arg3, arg4, arg5)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue43; parameters: none) ===
-function workValue43()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15
-  arg1 = workValue19
-  arg2 = tonumber
-  arg3 = cmgCall.debrisPropSpawnNearMeters
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = 95.0
+-- === HELPER FUNCTION (decompiler name: workingValue43; parameters: none) ===
+function workingValue43()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15
+  localValue1 = workingValue19
+  localValue2 = tonumber
+  localValue3 = cmgOperation.debrisPropSpawnNearMeters
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = 95.0
   end
-  arg3 = 32.0
-  if arg1 then
-    arg4 = arg1.type
-    if "debris" == arg4 then
-      arg4 = type
-      arg5 = arg1.anchor
-      arg4 = arg4(arg5)
-      if "table" == arg4 then
-        arg4 = type
-        arg5 = arg1.anchor
-        arg5 = arg5.x
-        arg4 = arg4(arg5)
-        if "number" == arg4 then
-          goto flow_label_31
+  localValue3 = 32.0
+  if localValue1 then
+    localValue4 = localValue1.type
+    if "debris" == localValue4 then
+      localValue4 = type
+      localValue5 = localValue1.anchor
+      localValue4 = localValue4(localValue5)
+      if "table" == localValue4 then
+        localValue4 = type
+        localValue5 = localValue1.anchor
+        localValue5 = localValue5.x
+        localValue4 = localValue4(localValue5)
+        if "number" == localValue4 then
+          goto continueAtStep31
         end
       end
     end
   end
-  arg4 = workValue20
-  if arg4 then
-    arg4 = workValue32
-    arg4()
+  localValue4 = workingValue20
+  if localValue4 then
+    localValue4 = workingValue32
+    localValue4()
   end
   return
-  ::flow_label_31::
-  arg4 = workValue40
-  arg5 = arg1
-  arg4(arg5)
-  arg4 = arg1.mainSecured
-  if arg4 then
+  ::continueAtStep31::
+  localValue4 = workingValue40
+  localValue5 = localValue1
+  localValue4(localValue5)
+  localValue4 = localValue1.mainSecured
+  if localValue4 then
     return
   end
-  arg4 = arg1.anchor
-  arg4 = arg4.x
-  arg4 = arg4 + 0.0
-  arg5 = arg1.anchor
-  arg5 = arg5.y
-  arg5 = arg5 + 0.0
-  arg6 = arg1.anchor
-  arg6 = arg6.z
-  arg6 = arg6 + 0.0
-  arg7 = tostring
-  workValue62 = arg1.contractId
-  if not workValue62 then
-    workValue62 = ""
+  localValue4 = localValue1.anchor
+  localValue4 = localValue4.x
+  localValue4 = localValue4 + 0.0
+  localValue5 = localValue1.anchor
+  localValue5 = localValue5.y
+  localValue5 = localValue5 + 0.0
+  localValue6 = localValue1.anchor
+  localValue6 = localValue6.z
+  localValue6 = localValue6 + 0.0
+  localValue7 = tostring
+  workingValue62 = localValue1.contractId
+  if not workingValue62 then
+    workingValue62 = ""
   end
-  arg7 = arg7(workValue62)
-  workValue62 = "_"
-  workValue66 = tostring
-  flag25 = arg1.mainModel
-  if not flag25 then
-    flag25 = ""
+  localValue7 = localValue7(workingValue62)
+  workingValue62 = "_"
+  workingValue66 = tostring
+  stateFlag25 = localValue1.mainModel
+  if not stateFlag25 then
+    stateFlag25 = ""
   end
-  workValue66 = workValue66(flag25)
-  arg7 = arg7 .. workValue62 .. workValue66
-  workValue62 = PlayerPedId
+  workingValue66 = workingValue66(stateFlag25)
+  localValue7 = localValue7 .. workingValue62 .. workingValue66
+  workingValue62 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  workValue62 = workValue62()
-  workValue66 = GetEntityCoords
-  flag25 = workValue62
-  flag = true
+  workingValue62 = workingValue62()
+  workingValue66 = GetEntityCoords
+  stateFlag25 = workingValue62
+  stateFlag = true
   -- Beginner: result below is entityCoords.
-  workValue66 = workValue66(flag25, flag)
-  flag25 = vector3
-  flag = arg4
-  flag2 = arg5
-  flag4 = arg6
-  flag25 = flag25(flag, flag2, flag4)
-  flag25 = workValue66 - flag25
-  flag25 = #flag25
-  flag = arg2 + arg3
-  if flag25 > flag then
-    flag = workValue20
-    if flag then
-      flag = false
-      flag2 = numberValue
-      if 0 ~= flag2 then
-        flag2 = DoesEntityExist
-        flag4 = numberValue
-        flag2 = flag2(flag4)
-        if flag2 then
-          flag2 = GetEntityAttachedTo
-          flag4 = numberValue
-          flag2 = flag2(flag4)
-          if 0 ~= flag2 then
-            flag4 = DoesEntityExist
-            flag5 = flag2
-            flag4 = flag4(flag5)
-            if flag4 then
-              flag4 = IsEntityAVehicle
-              flag5 = flag2
-              flag4 = flag4(flag5)
-              if flag4 then
-                flag = true
+  workingValue66 = workingValue66(stateFlag25, stateFlag)
+  stateFlag25 = vector3
+  stateFlag = localValue4
+  stateFlag2 = localValue5
+  stateFlag4 = localValue6
+  stateFlag25 = stateFlag25(stateFlag, stateFlag2, stateFlag4)
+  stateFlag25 = workingValue66 - stateFlag25
+  stateFlag25 = #stateFlag25
+  stateFlag = localValue2 + localValue3
+  if stateFlag25 > stateFlag then
+    stateFlag = workingValue20
+    if stateFlag then
+      stateFlag = false
+      stateFlag2 = number
+      if 0 ~= stateFlag2 then
+        stateFlag2 = DoesEntityExist
+        stateFlag4 = number
+        stateFlag2 = stateFlag2(stateFlag4)
+        if stateFlag2 then
+          stateFlag2 = GetEntityAttachedTo
+          stateFlag4 = number
+          stateFlag2 = stateFlag2(stateFlag4)
+          if 0 ~= stateFlag2 then
+            stateFlag4 = DoesEntityExist
+            stateFlag5 = stateFlag2
+            stateFlag4 = stateFlag4(stateFlag5)
+            if stateFlag4 then
+              stateFlag4 = IsEntityAVehicle
+              stateFlag5 = stateFlag2
+              stateFlag4 = stateFlag4(stateFlag5)
+              if stateFlag4 then
+                stateFlag = true
               end
             end
           end
         end
       end
-      if flag then
-        flag2 = pairs
-        flag4 = dataTable2
-        flag2, flag4, flag5, flag6 = flag2(flag4)
-        for flag7, flag8 in flag2, flag4, flag5, flag6 do
-          if flag8 and 0 ~= flag8 then
-            flag9 = DoesEntityExist
-            flag10 = flag8
-            flag9 = flag9(flag10)
-            if flag9 then
-              flag9 = SetEntityAsMissionEntity
-              flag10 = flag8
-              numberValue3 = true
-              flag11 = true
-              flag9(flag10, numberValue3, flag11)
-              flag9 = DeleteObject
-              flag10 = flag8
-              flag9(flag10)
+      if stateFlag then
+        stateFlag2 = pairs
+        stateFlag4 = dataCollection2
+        stateFlag2, stateFlag4, stateFlag5, stateFlag6 = stateFlag2(stateFlag4)
+        for stateFlag7, stateFlag8 in stateFlag2, stateFlag4, stateFlag5, stateFlag6 do
+          if stateFlag8 and 0 ~= stateFlag8 then
+            stateFlag9 = DoesEntityExist
+            stateFlag10 = stateFlag8
+            stateFlag9 = stateFlag9(stateFlag10)
+            if stateFlag9 then
+              stateFlag9 = SetEntityAsMissionEntity
+              stateFlag10 = stateFlag8
+              number3 = true
+              stateFlag11 = true
+              stateFlag9(stateFlag10, number3, stateFlag11)
+              stateFlag9 = DeleteObject
+              stateFlag10 = stateFlag8
+              stateFlag9(stateFlag10)
             end
           end
         end
-        flag2 = {}
-        dataTable2 = flag2
+        stateFlag2 = {}
+        dataCollection2 = stateFlag2
       else
-        flag2 = workValue41
-        flag2()
+        stateFlag2 = workingValue41
+        stateFlag2()
       end
-      flag2 = nil
-      workValue20 = flag2
+      stateFlag2 = nil
+      workingValue20 = stateFlag2
     end
     return
   end
-  flag = GetGroundZFor_3dCoord
-  flag2 = arg4
-  flag4 = arg5
-  flag5 = arg6 + 50.0
-  flag6 = 0.0
-  flag7 = false
-  flag, flag2 = flag(flag2, flag4, flag5, flag6, flag7)
-  if flag2 and flag2 > 0.0 then
-    flag4 = flag2 + 0.05
-    if flag4 then
-      goto flow_label_162
+  stateFlag = GetGroundZFor_3dCoord
+  stateFlag2 = localValue4
+  stateFlag4 = localValue5
+  stateFlag5 = localValue6 + 50.0
+  stateFlag6 = 0.0
+  stateFlag7 = false
+  stateFlag, stateFlag2 = stateFlag(stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+  if stateFlag2 and stateFlag2 > 0.0 then
+    stateFlag4 = stateFlag2 + 0.05
+    if stateFlag4 then
+      goto continueAtStep162
     end
   end
-  flag4 = arg6
-  ::flow_label_162::
-  flag5 = tonumber
-  flag6 = arg1.mainHeading
-  flag5 = flag5(flag6)
-  if not flag5 then
-    flag5 = 0.0
+  stateFlag4 = localValue6
+  ::continueAtStep162::
+  stateFlag5 = tonumber
+  stateFlag6 = localValue1.mainHeading
+  stateFlag5 = stateFlag5(stateFlag6)
+  if not stateFlag5 then
+    stateFlag5 = 0.0
   end
-  if arg2 >= flag25 then
-    flag6 = workValue20
-    if flag6 ~= arg7 then
-      flag6 = workValue42
-      flag7 = arg1
-      flag8 = arg4
-      flag9 = arg5
-      flag10 = flag4
-      numberValue3 = flag5
-      flag6(flag7, flag8, flag9, flag10, numberValue3)
-      workValue20 = arg7
+  if localValue2 >= stateFlag25 then
+    stateFlag6 = workingValue20
+    if stateFlag6 ~= localValue7 then
+      stateFlag6 = workingValue42
+      stateFlag7 = localValue1
+      stateFlag8 = localValue4
+      stateFlag9 = localValue5
+      stateFlag10 = stateFlag4
+      number3 = stateFlag5
+      stateFlag6(stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+      workingValue20 = localValue7
   end
   else
-    flag6 = workValue20
-    if flag6 == arg7 then
-      flag6 = type
-      flag7 = arg1.secondary
-      flag6 = flag6(flag7)
-      if "table" == flag6 then
-        flag6 = ipairs
-        flag7 = arg1.secondary
-        flag6, flag7, flag8, flag9 = flag6(flag7)
-        for flag10, numberValue3 in flag6, flag7, flag8, flag9 do
-          flag11 = tonumber
-          flag12 = numberValue3.slot
-          flag11 = flag11(flag12)
-          if flag11 then
-            flag12 = cmgCall4
-            flag13 = arg1
-            flag14 = flag11
-            flag12 = flag12(flag13, flag14)
-            if flag12 then
-              flag12 = dataTable2
-              flag12 = flag12[flag11]
-              if flag12 then
-                flag12 = DoesEntityExist
-                flag13 = dataTable2
-                flag13 = flag13[flag11]
-                flag12 = flag12(flag13)
-                if flag12 then
-                  flag12 = SetEntityAsMissionEntity
-                  flag13 = dataTable2
-                  flag13 = flag13[flag11]
-                  flag14 = true
-                  flag15 = true
-                  flag12(flag13, flag14, flag15)
-                  flag12 = DeleteObject
-                  flag13 = dataTable2
-                  flag13 = flag13[flag11]
-                  flag12(flag13)
-                  flag12 = dataTable2
-                  flag12[flag11] = nil
+    stateFlag6 = workingValue20
+    if stateFlag6 == localValue7 then
+      stateFlag6 = type
+      stateFlag7 = localValue1.secondary
+      stateFlag6 = stateFlag6(stateFlag7)
+      if "table" == stateFlag6 then
+        stateFlag6 = ipairs
+        stateFlag7 = localValue1.secondary
+        stateFlag6, stateFlag7, stateFlag8, stateFlag9 = stateFlag6(stateFlag7)
+        for stateFlag10, number3 in stateFlag6, stateFlag7, stateFlag8, stateFlag9 do
+          stateFlag11 = tonumber
+          stateFlag12 = number3.slot
+          stateFlag11 = stateFlag11(stateFlag12)
+          if stateFlag11 then
+            stateFlag12 = cmgOperation4
+            stateFlag13 = localValue1
+            stateFlag14 = stateFlag11
+            stateFlag12 = stateFlag12(stateFlag13, stateFlag14)
+            if stateFlag12 then
+              stateFlag12 = dataCollection2
+              stateFlag12 = stateFlag12[stateFlag11]
+              if stateFlag12 then
+                stateFlag12 = DoesEntityExist
+                stateFlag13 = dataCollection2
+                stateFlag13 = stateFlag13[stateFlag11]
+                stateFlag12 = stateFlag12(stateFlag13)
+                if stateFlag12 then
+                  stateFlag12 = SetEntityAsMissionEntity
+                  stateFlag13 = dataCollection2
+                  stateFlag13 = stateFlag13[stateFlag11]
+                  stateFlag14 = true
+                  stateFlag15 = true
+                  stateFlag12(stateFlag13, stateFlag14, stateFlag15)
+                  stateFlag12 = DeleteObject
+                  stateFlag13 = dataCollection2
+                  stateFlag13 = stateFlag13[stateFlag11]
+                  stateFlag12(stateFlag13)
+                  stateFlag12 = dataCollection2
+                  stateFlag12[stateFlag11] = nil
                 end
               end
             end
@@ -1781,766 +1781,766 @@ function workValue43()
     end
   end
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue44; parameters: none) ===
-function workValue44()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: workingValue44; parameters: none) ===
+function workingValue44()
+  local localValue1, localValue2
   while true do
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 400
-    arg1(arg2)
-    arg1 = workValue43
-    arg1()
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 400
+    localValue1(localValue2)
+    localValue1 = workingValue43
+    localValue1()
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(workValue44)
+backgroundThread(workingValue44)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
-function threadCall()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62
-  arg1 = pairs
-  arg2 = dataTable
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    if arg6 and 0 ~= arg6 then
-      arg7 = RemoveBlip
-      workValue62 = arg6
-      arg7(workValue62)
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: none) ===
+function backgroundThread()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62
+  localValue1 = pairs
+  localValue2 = dataCollection
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    if localValue6 and 0 ~= localValue6 then
+      localValue7 = RemoveBlip
+      workingValue62 = localValue6
+      localValue7(workingValue62)
     end
   end
-  arg1 = {}
-  dataTable = arg1
+  localValue1 = {}
+  dataCollection = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue44; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function workValue44(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local workValue62, workValue66, flag25, flag, flag2
-  workValue62 = AddBlipForCoord
-  workValue66 = arg1 + 0.0
-  flag25 = arg2 + 0.0
-  flag = arg3 + 0.0
+-- === HELPER FUNCTION (decompiler name: workingValue44; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function workingValue44(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2
+  workingValue62 = AddBlipForCoord
+  workingValue66 = localValue1 + 0.0
+  stateFlag25 = localValue2 + 0.0
+  stateFlag = localValue3 + 0.0
   -- Beginner: result below is blipHandle.
-  workValue62 = workValue62(workValue66, flag25, flag)
-  workValue66 = SetBlipSprite
-  flag25 = workValue62
-  flag = arg4 or flag
-  if not arg4 then
-    flag = 402
+  workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag)
+  workingValue66 = SetBlipSprite
+  stateFlag25 = workingValue62
+  stateFlag = localValue4 or stateFlag
+  if not localValue4 then
+    stateFlag = 402
   end
-  workValue66(flag25, flag)
-  workValue66 = SetBlipColour
-  flag25 = workValue62
-  flag = arg5 or flag
-  if not arg5 then
-    flag = 5
+  workingValue66(stateFlag25, stateFlag)
+  workingValue66 = SetBlipColour
+  stateFlag25 = workingValue62
+  stateFlag = localValue5 or stateFlag
+  if not localValue5 then
+    stateFlag = 5
   end
-  workValue66(flag25, flag)
-  workValue66 = SetBlipAsShortRange
-  flag25 = workValue62
-  flag = false
-  workValue66(flag25, flag)
-  workValue66 = tonumber
-  flag25 = arg7
-  workValue66 = workValue66(flag25)
-  if workValue66 and workValue66 > 0.0 then
-    flag25 = SetBlipScale
-    flag = workValue62
-    flag2 = workValue66
-    flag25(flag, flag2)
+  workingValue66(stateFlag25, stateFlag)
+  workingValue66 = SetBlipAsShortRange
+  stateFlag25 = workingValue62
+  stateFlag = false
+  workingValue66(stateFlag25, stateFlag)
+  workingValue66 = tonumber
+  stateFlag25 = localValue7
+  workingValue66 = workingValue66(stateFlag25)
+  if workingValue66 and workingValue66 > 0.0 then
+    stateFlag25 = SetBlipScale
+    stateFlag = workingValue62
+    stateFlag2 = workingValue66
+    stateFlag25(stateFlag, stateFlag2)
   end
-  flag25 = BeginTextCommandSetBlipName
-  flag = "STRING"
-  flag25(flag)
-  flag25 = AddTextComponentSubstringPlayerName
-  flag = arg6 or flag
-  if not arg6 then
-    flag = "Job"
+  stateFlag25 = BeginTextCommandSetBlipName
+  stateFlag = "STRING"
+  stateFlag25(stateFlag)
+  stateFlag25 = AddTextComponentSubstringPlayerName
+  stateFlag = localValue6 or stateFlag
+  if not localValue6 then
+    stateFlag = "Job"
   end
-  flag25(flag)
-  flag25 = EndTextCommandSetBlipName
-  flag = workValue62
-  flag25(flag)
-  flag25 = dataTable
-  flag25 = #flag25
-  flag = flag25 + 1
-  flag25 = dataTable
-  flag25[flag] = workValue62
-  return workValue62
+  stateFlag25(stateFlag)
+  stateFlag25 = EndTextCommandSetBlipName
+  stateFlag = workingValue62
+  stateFlag25(stateFlag)
+  stateFlag25 = dataCollection
+  stateFlag25 = #stateFlag25
+  stateFlag = stateFlag25 + 1
+  stateFlag25 = dataCollection
+  stateFlag25[stateFlag] = workingValue62
+  return workingValue62
 end
 
--- === HELPER FUNCTION (decompiler name: workValue45; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue45(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, workValue62, workValue66, flag25
-  arg6 = AddBlipForEntity
-  arg7 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue45; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue45(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue6 = AddBlipForEntity
+  localValue7 = localValue1
   -- Beginner: result below is blipHandle.
-  arg6 = arg6(arg7)
-  arg7 = SetBlipSprite
-  workValue62 = arg6
-  workValue66 = arg2 or workValue66
-  if not arg2 then
-    workValue66 = 402
+  localValue6 = localValue6(localValue7)
+  localValue7 = SetBlipSprite
+  workingValue62 = localValue6
+  workingValue66 = localValue2 or workingValue66
+  if not localValue2 then
+    workingValue66 = 402
   end
-  arg7(workValue62, workValue66)
-  arg7 = SetBlipColour
-  workValue62 = arg6
-  workValue66 = arg3 or workValue66
-  if not arg3 then
-    workValue66 = 5
+  localValue7(workingValue62, workingValue66)
+  localValue7 = SetBlipColour
+  workingValue62 = localValue6
+  workingValue66 = localValue3 or workingValue66
+  if not localValue3 then
+    workingValue66 = 5
   end
-  arg7(workValue62, workValue66)
-  arg7 = SetBlipAsShortRange
-  workValue62 = arg6
-  workValue66 = false
-  arg7(workValue62, workValue66)
-  arg7 = tonumber
-  workValue62 = arg5
-  arg7 = arg7(workValue62)
-  if arg7 and arg7 > 0.0 then
-    workValue62 = SetBlipScale
-    workValue66 = arg6
-    flag25 = arg7
-    workValue62(workValue66, flag25)
+  localValue7(workingValue62, workingValue66)
+  localValue7 = SetBlipAsShortRange
+  workingValue62 = localValue6
+  workingValue66 = false
+  localValue7(workingValue62, workingValue66)
+  localValue7 = tonumber
+  workingValue62 = localValue5
+  localValue7 = localValue7(workingValue62)
+  if localValue7 and localValue7 > 0.0 then
+    workingValue62 = SetBlipScale
+    workingValue66 = localValue6
+    stateFlag25 = localValue7
+    workingValue62(workingValue66, stateFlag25)
   end
-  workValue62 = BeginTextCommandSetBlipName
-  workValue66 = "STRING"
-  workValue62(workValue66)
-  workValue62 = AddTextComponentSubstringPlayerName
-  workValue66 = arg4 or workValue66
-  if not arg4 then
-    workValue66 = "Job"
+  workingValue62 = BeginTextCommandSetBlipName
+  workingValue66 = "STRING"
+  workingValue62(workingValue66)
+  workingValue62 = AddTextComponentSubstringPlayerName
+  workingValue66 = localValue4 or workingValue66
+  if not localValue4 then
+    workingValue66 = "Job"
   end
-  workValue62(workValue66)
-  workValue62 = EndTextCommandSetBlipName
-  workValue66 = arg6
-  workValue62(workValue66)
-  workValue62 = dataTable
-  workValue62 = #workValue62
-  workValue66 = workValue62 + 1
-  workValue62 = dataTable
-  workValue62[workValue66] = arg6
-  return arg6
+  workingValue62(workingValue66)
+  workingValue62 = EndTextCommandSetBlipName
+  workingValue66 = localValue6
+  workingValue62(workingValue66)
+  workingValue62 = dataCollection
+  workingValue62 = #workingValue62
+  workingValue66 = workingValue62 + 1
+  workingValue62 = dataCollection
+  workingValue62[workingValue66] = localValue6
+  return localValue6
 end
-workValue46 = nil
+workingValue46 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue47; parameters: arg1, arg2) ===
-function workValue47(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = SetNewWaypoint
-  arg4 = arg1 + 0.0
-  arg5 = arg2 + 0.0
-  arg3(arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue47; parameters: localValue1, localValue2) ===
+function workingValue47(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = SetNewWaypoint
+  localValue4 = localValue1 + 0.0
+  localValue5 = localValue2 + 0.0
+  localValue3(localValue4, localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue48; parameters: arg1, arg2, arg3) ===
-function workValue48(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, workValue62
-  if arg1 then
-    arg4 = arg1.targetNetId
-    if nil ~= arg4 then
-      arg4 = arg1.targetNetId
-      if 0 ~= arg4 then
-        goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: workingValue48; parameters: localValue1, localValue2, localValue3) ===
+function workingValue48(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, workingValue62
+  if localValue1 then
+    localValue4 = localValue1.targetNetId
+    if nil ~= localValue4 then
+      localValue4 = localValue1.targetNetId
+      if 0 ~= localValue4 then
+        goto continueAtStep11
       end
     end
   end
-  arg4 = false
-  return arg4
-  ::flow_label_11::
-  arg4 = tonumber
-  arg5 = arg1.targetNetId
-  arg4 = arg4(arg5)
-  if not arg4 or 0 == arg4 then
-    arg5 = false
-    return arg5
+  localValue4 = false
+  return localValue4
+  ::continueAtStep11::
+  localValue4 = tonumber
+  localValue5 = localValue1.targetNetId
+  localValue4 = localValue4(localValue5)
+  if not localValue4 or 0 == localValue4 then
+    localValue5 = false
+    return localValue5
   end
-  arg5 = tonumber
-  arg6 = arg3
-  arg5 = arg5(arg6)
-  if arg5 and arg4 == arg5 then
-    arg6 = true
-    return arg6
+  localValue5 = tonumber
+  localValue6 = localValue3
+  localValue5 = localValue5(localValue6)
+  if localValue5 and localValue4 == localValue5 then
+    localValue6 = true
+    return localValue6
   end
-  if 0 ~= arg2 then
-    arg6 = DoesEntityExist
-    arg7 = arg2
-    arg6 = arg6(arg7)
-    if arg6 then
-      arg6 = NetworkGetNetworkIdFromEntity
-      arg7 = arg2
-      arg6 = arg6(arg7)
-      if arg6 and 0 ~= arg6 then
-        arg7 = tonumber
-        workValue62 = arg6
-        arg7 = arg7(workValue62)
-        if arg4 == arg7 then
-          arg7 = true
-          return arg7
+  if 0 ~= localValue2 then
+    localValue6 = DoesEntityExist
+    localValue7 = localValue2
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
+      localValue6 = NetworkGetNetworkIdFromEntity
+      localValue7 = localValue2
+      localValue6 = localValue6(localValue7)
+      if localValue6 and 0 ~= localValue6 then
+        localValue7 = tonumber
+        workingValue62 = localValue6
+        localValue7 = localValue7(workingValue62)
+        if localValue4 == localValue7 then
+          localValue7 = true
+          return localValue7
         end
       end
     end
   end
-  arg6 = false
-  return arg6
+  localValue6 = false
+  return localValue6
 end
 
--- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg1, arg2) ===
-function workValue49(arg1, arg2)
-  local arg3, arg4, arg5
-  if 0 ~= arg1 and arg1 ~= arg2 then
-    arg3 = DoesEntityExist
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = IsEntityAVehicle
-      arg4 = arg1
-      arg3 = arg3(arg4)
-      if arg3 then
-        goto flow_label_17
+-- === HELPER FUNCTION (decompiler name: workingValue49; parameters: localValue1, localValue2) ===
+function workingValue49(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  if 0 ~= localValue1 and localValue1 ~= localValue2 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = IsEntityAVehicle
+      localValue4 = localValue1
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        goto continueAtStep17
       end
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_17::
-  arg3 = DoesEntityExist
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = IsEntityAVehicle
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      goto flow_label_29
+  localValue3 = false
+  return localValue3
+  ::continueAtStep17::
+  localValue3 = DoesEntityExist
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = IsEntityAVehicle
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      goto continueAtStep29
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_29::
-  arg3 = IsVehicleAttachedToTowTruck
-  arg4 = arg1
-  arg5 = arg2
-  return arg3(arg4, arg5)
+  localValue3 = false
+  return localValue3
+  ::continueAtStep29::
+  localValue3 = IsVehicleAttachedToTowTruck
+  localValue4 = localValue1
+  localValue5 = localValue2
+  return localValue3(localValue4, localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue50; parameters: arg1, arg2) ===
-function workValue50(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8
-  if 0 ~= arg1 then
-    arg3 = DoesEntityExist
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = IsEntityAVehicle
-      arg4 = arg1
-      arg3 = arg3(arg4)
-      if arg3 then
-        goto flow_label_15
+-- === HELPER FUNCTION (decompiler name: workingValue50; parameters: localValue1, localValue2) ===
+function workingValue50(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8
+  if 0 ~= localValue1 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = IsEntityAVehicle
+      localValue4 = localValue1
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        goto continueAtStep15
       end
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_15::
-  arg3 = GetEntityAttachedTo
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if 0 ~= arg3 then
-    arg4 = DoesEntityExist
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = IsEntityAVehicle
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      if arg4 then
-        arg4 = GetEntityModel
-        arg5 = arg3
+  localValue3 = false
+  return localValue3
+  ::continueAtStep15::
+  localValue3 = GetEntityAttachedTo
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if 0 ~= localValue3 then
+    localValue4 = DoesEntityExist
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = IsEntityAVehicle
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      if localValue4 then
+        localValue4 = GetEntityModel
+        localValue5 = localValue3
         -- Beginner: result below is modelHash.
-        arg4 = arg4(arg5)
-        arg5 = workValue11
-        arg4 = arg5[arg4]
-        if arg4 then
-          arg4 = true
-          return arg4
+        localValue4 = localValue4(localValue5)
+        localValue5 = workingValue11
+        localValue4 = localValue5[localValue4]
+        if localValue4 then
+          localValue4 = true
+          return localValue4
         end
       end
     end
   end
-  arg4 = tonumber
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg5 = false
-    return arg5
+  localValue4 = tonumber
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue5 = false
+    return localValue5
   end
-  arg5 = CMG
-  arg5 = arg5.getPlayerPed
+  localValue5 = CMG
+  localValue5 = localValue5.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg5 = arg5()
-  arg6 = GetVehiclePedIsIn
-  arg7 = arg5
-  workValue62 = false
+  localValue5 = localValue5()
+  localValue6 = GetVehiclePedIsIn
+  localValue7 = localValue5
+  workingValue62 = false
   -- Beginner: result below is currentVehicle.
-  arg6 = arg6(arg7, workValue62)
-  arg7 = GetVehiclePedIsIn
-  workValue62 = arg5
-  workValue66 = true
+  localValue6 = localValue6(localValue7, workingValue62)
+  localValue7 = GetVehiclePedIsIn
+  workingValue62 = localValue5
+  workingValue66 = true
   -- Beginner: result below is currentVehicle.
-  arg7 = arg7(workValue62, workValue66)
-  workValue62 = ipairs
-  workValue66 = {}
-  flag25 = arg6
-  flag = arg7
-  workValue66[1] = flag25
-  workValue66[2] = flag
-  workValue62, workValue66, flag25, flag = workValue62(workValue66)
-  for flag2, flag4 in workValue62, workValue66, flag25, flag do
-    if 0 ~= flag4 and flag4 ~= arg1 then
-      flag5 = DoesEntityExist
-      flag6 = flag4
-      flag5 = flag5(flag6)
-      if flag5 then
-        flag5 = IsEntityAVehicle
-        flag6 = flag4
-        flag5 = flag5(flag6)
-        if flag5 then
-          flag5 = workValue49
-          flag6 = flag4
-          flag7 = arg1
-          flag5 = flag5(flag6, flag7)
-          if flag5 then
-            flag5 = true
-            return flag5
+  localValue7 = localValue7(workingValue62, workingValue66)
+  workingValue62 = ipairs
+  workingValue66 = {}
+  stateFlag25 = localValue6
+  stateFlag = localValue7
+  workingValue66[1] = stateFlag25
+  workingValue66[2] = stateFlag
+  workingValue62, workingValue66, stateFlag25, stateFlag = workingValue62(workingValue66)
+  for stateFlag2, stateFlag4 in workingValue62, workingValue66, stateFlag25, stateFlag do
+    if 0 ~= stateFlag4 and stateFlag4 ~= localValue1 then
+      stateFlag5 = DoesEntityExist
+      stateFlag6 = stateFlag4
+      stateFlag5 = stateFlag5(stateFlag6)
+      if stateFlag5 then
+        stateFlag5 = IsEntityAVehicle
+        stateFlag6 = stateFlag4
+        stateFlag5 = stateFlag5(stateFlag6)
+        if stateFlag5 then
+          stateFlag5 = workingValue49
+          stateFlag6 = stateFlag4
+          stateFlag7 = localValue1
+          stateFlag5 = stateFlag5(stateFlag6, stateFlag7)
+          if stateFlag5 then
+            stateFlag5 = true
+            return stateFlag5
           end
-          flag5 = workValue48
-          flag6 = Entity
-          flag7 = flag4
-          flag6 = flag6(flag7)
-          flag6 = flag6.state
-          flag6 = flag6.towVehicle
-          flag7 = arg1
-          flag8 = arg4
-          flag5 = flag5(flag6, flag7, flag8)
-          if flag5 then
-            flag5 = true
-            return flag5
+          stateFlag5 = workingValue48
+          stateFlag6 = Entity
+          stateFlag7 = stateFlag4
+          stateFlag6 = stateFlag6(stateFlag7)
+          stateFlag6 = stateFlag6.state
+          stateFlag6 = stateFlag6.towVehicle
+          stateFlag7 = localValue1
+          stateFlag8 = localValue4
+          stateFlag5 = stateFlag5(stateFlag6, stateFlag7, stateFlag8)
+          if stateFlag5 then
+            stateFlag5 = true
+            return stateFlag5
           end
         end
       end
     end
   end
-  workValue62 = pairs
-  workValue66 = GetGamePool
-  flag25 = "CVehicle"
-  workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8 = workValue66(flag25)
-  workValue62, workValue66, flag25, flag = workValue62(workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8)
-  for flag2, flag4 in workValue62, workValue66, flag25, flag do
-    if flag4 ~= arg1 then
-      flag5 = DoesEntityExist
-      flag6 = flag4
-      flag5 = flag5(flag6)
-      if flag5 then
-        flag5 = IsEntityAVehicle
-        flag6 = flag4
-        flag5 = flag5(flag6)
-        if flag5 then
-          flag5 = workValue49
-          flag6 = flag4
-          flag7 = arg1
-          flag5 = flag5(flag6, flag7)
-          if flag5 then
-            flag5 = true
-            return flag5
+  workingValue62 = pairs
+  workingValue66 = GetGamePool
+  stateFlag25 = "CVehicle"
+  workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8 = workingValue66(stateFlag25)
+  workingValue62, workingValue66, stateFlag25, stateFlag = workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8)
+  for stateFlag2, stateFlag4 in workingValue62, workingValue66, stateFlag25, stateFlag do
+    if stateFlag4 ~= localValue1 then
+      stateFlag5 = DoesEntityExist
+      stateFlag6 = stateFlag4
+      stateFlag5 = stateFlag5(stateFlag6)
+      if stateFlag5 then
+        stateFlag5 = IsEntityAVehicle
+        stateFlag6 = stateFlag4
+        stateFlag5 = stateFlag5(stateFlag6)
+        if stateFlag5 then
+          stateFlag5 = workingValue49
+          stateFlag6 = stateFlag4
+          stateFlag7 = localValue1
+          stateFlag5 = stateFlag5(stateFlag6, stateFlag7)
+          if stateFlag5 then
+            stateFlag5 = true
+            return stateFlag5
           end
-          flag5 = workValue48
-          flag6 = Entity
-          flag7 = flag4
-          flag6 = flag6(flag7)
-          flag6 = flag6.state
-          flag6 = flag6.towVehicle
-          flag7 = arg1
-          flag8 = arg4
-          flag5 = flag5(flag6, flag7, flag8)
-          if flag5 then
-            flag5 = true
-            return flag5
+          stateFlag5 = workingValue48
+          stateFlag6 = Entity
+          stateFlag7 = stateFlag4
+          stateFlag6 = stateFlag6(stateFlag7)
+          stateFlag6 = stateFlag6.state
+          stateFlag6 = stateFlag6.towVehicle
+          stateFlag7 = localValue1
+          stateFlag8 = localValue4
+          stateFlag5 = stateFlag5(stateFlag6, stateFlag7, stateFlag8)
+          if stateFlag5 then
+            stateFlag5 = true
+            return stateFlag5
           end
         end
       end
     end
   end
-  workValue62 = false
-  return workValue62
+  workingValue62 = false
+  return workingValue62
 end
 
--- === HELPER FUNCTION (decompiler name: workValue51; parameters: arg1) ===
-function workValue51(arg1)
-  local arg2, arg3, arg4, arg5
-  if arg1 then
-    arg2 = arg1.type
-    if "breakdown" == arg2 then
-      goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: workingValue51; parameters: localValue1) ===
+function workingValue51(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  if localValue1 then
+    localValue2 = localValue1.type
+    if "breakdown" == localValue2 then
+      goto continueAtStep11
     end
-    arg2 = arg1.type
-    if "equipment" == arg2 then
-      goto flow_label_11
+    localValue2 = localValue1.type
+    if "equipment" == localValue2 then
+      goto continueAtStep11
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_11::
-  arg2 = arg1.vehicleNetId
-  if arg2 then
-    arg2 = tonumber
-    arg3 = arg1.vehicleNetId
-    arg2 = arg2(arg3)
+  localValue2 = false
+  return localValue2
+  ::continueAtStep11::
+  localValue2 = localValue1.vehicleNetId
+  if localValue2 then
+    localValue2 = tonumber
+    localValue3 = localValue1.vehicleNetId
+    localValue2 = localValue2(localValue3)
   end
-  if arg2 then
-    arg3 = NetworkDoesNetworkIdExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = NetworkDoesEntityExistWithNetworkId
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      if arg3 then
-        goto flow_label_31
+  if localValue2 then
+    localValue3 = NetworkDoesNetworkIdExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = NetworkDoesEntityExistWithNetworkId
+      localValue4 = localValue2
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        goto continueAtStep31
       end
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_31::
-  arg3 = NetworkGetEntityFromNetworkId
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  arg4 = DoesEntityExist
-  arg5 = arg3
-  arg4 = 0 ~= arg3 and arg4
-  return arg4
+  localValue3 = false
+  return localValue3
+  ::continueAtStep31::
+  localValue3 = NetworkGetEntityFromNetworkId
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  localValue4 = DoesEntityExist
+  localValue5 = localValue3
+  localValue4 = 0 ~= localValue3 and localValue4
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue52; parameters: arg1) ===
-function workValue52(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  if arg1 then
-    arg2 = arg1.type
-    if "breakdown" == arg2 then
-      goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: workingValue52; parameters: localValue1) ===
+function workingValue52(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  if localValue1 then
+    localValue2 = localValue1.type
+    if "breakdown" == localValue2 then
+      goto continueAtStep11
     end
-    arg2 = arg1.type
-    if "equipment" == arg2 then
-      goto flow_label_11
+    localValue2 = localValue1.type
+    if "equipment" == localValue2 then
+      goto continueAtStep11
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_11::
-  arg2 = arg1.vehicleNetId
-  if arg2 then
-    arg2 = tonumber
-    arg3 = arg1.vehicleNetId
-    arg2 = arg2(arg3)
+  localValue2 = false
+  return localValue2
+  ::continueAtStep11::
+  localValue2 = localValue1.vehicleNetId
+  if localValue2 then
+    localValue2 = tonumber
+    localValue3 = localValue1.vehicleNetId
+    localValue2 = localValue2(localValue3)
   end
-  if arg2 then
-    arg3 = NetworkDoesNetworkIdExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = NetworkDoesEntityExistWithNetworkId
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      if arg3 then
-        goto flow_label_31
+  if localValue2 then
+    localValue3 = NetworkDoesNetworkIdExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = NetworkDoesEntityExistWithNetworkId
+      localValue4 = localValue2
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        goto continueAtStep31
       end
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_31::
-  arg3 = NetworkGetEntityFromNetworkId
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if 0 ~= arg3 then
-    arg4 = DoesEntityExist
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      goto flow_label_43
+  localValue3 = false
+  return localValue3
+  ::continueAtStep31::
+  localValue3 = NetworkGetEntityFromNetworkId
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if 0 ~= localValue3 then
+    localValue4 = DoesEntityExist
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      goto continueAtStep43
     end
   end
-  arg4 = false
-  return arg4
-  ::flow_label_43::
-  arg4 = workValue50
-  arg5 = arg3
-  arg6 = arg2
-  return arg4(arg5, arg6)
+  localValue4 = false
+  return localValue4
+  ::continueAtStep43::
+  localValue4 = workingValue50
+  localValue5 = localValue3
+  localValue6 = localValue2
+  return localValue4(localValue5, localValue6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue53; parameters: none) ===
-function workValue53()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue53; parameters: none) ===
+function workingValue53()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  if 0 == arg1 then
-    arg2 = nil
-    return arg2
+  localValue1 = localValue1()
+  if 0 == localValue1 then
+    localValue2 = nil
+    return localValue2
   end
-  arg2 = GetVehiclePedIsIn
-  arg3 = arg1
-  arg4 = false
+  localValue2 = GetVehiclePedIsIn
+  localValue3 = localValue1
+  localValue4 = false
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
-    arg3 = GetPedInVehicleSeat
-    arg4 = arg2
-    arg5 = -1
-    arg3 = arg3(arg4, arg5)
-    if arg3 == arg1 then
-      arg3 = GetEntityModel
-      arg4 = arg2
+  localValue2 = localValue2(localValue3, localValue4)
+  if 0 ~= localValue2 then
+    localValue3 = GetPedInVehicleSeat
+    localValue4 = localValue2
+    localValue5 = -1
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 == localValue1 then
+      localValue3 = GetEntityModel
+      localValue4 = localValue2
       -- Beginner: result below is modelHash.
-      arg3 = arg3(arg4)
-      arg4 = workValue11
-      arg4 = arg4[arg3]
-      if arg4 then
-        arg4 = "flatbed"
-        return arg4
+      localValue3 = localValue3(localValue4)
+      localValue4 = workingValue11
+      localValue4 = localValue4[localValue3]
+      if localValue4 then
+        localValue4 = "flatbed"
+        return localValue4
       end
-      arg4 = workValue16
-      arg4 = arg4[arg3]
-      if arg4 then
-        arg4 = "tow"
-        return arg4
+      localValue4 = workingValue16
+      localValue4 = localValue4[localValue3]
+      if localValue4 then
+        localValue4 = "tow"
+        return localValue4
       end
-      arg4 = nil
-      return arg4
+      localValue4 = nil
+      return localValue4
     end
   end
-  arg3 = GetEntityCoords
-  arg4 = arg1
-  arg5 = true
+  localValue3 = GetEntityCoords
+  localValue4 = localValue1
+  localValue5 = true
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(arg4, arg5)
-  arg4 = nil
-  arg5 = 38.0
-  arg6 = pairs
-  arg7 = GetGamePool
-  workValue62 = "CVehicle"
-  arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7 = arg7(workValue62)
-  arg6, arg7, workValue62, workValue66 = arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7)
-  for flag25, flag in arg6, arg7, workValue62, workValue66 do
-    if 0 ~= flag then
-      flag2 = DoesEntityExist
-      flag4 = flag
-      flag2 = flag2(flag4)
-      if flag2 then
-        flag2 = IsEntityAVehicle
-        flag4 = flag
-        flag2 = flag2(flag4)
-        if flag2 then
-          flag2 = GetEntityModel
-          flag4 = flag
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = nil
+  localValue5 = 38.0
+  localValue6 = pairs
+  localValue7 = GetGamePool
+  workingValue62 = "CVehicle"
+  localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7 = localValue7(workingValue62)
+  localValue6, localValue7, workingValue62, workingValue66 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+  for stateFlag25, stateFlag in localValue6, localValue7, workingValue62, workingValue66 do
+    if 0 ~= stateFlag then
+      stateFlag2 = DoesEntityExist
+      stateFlag4 = stateFlag
+      stateFlag2 = stateFlag2(stateFlag4)
+      if stateFlag2 then
+        stateFlag2 = IsEntityAVehicle
+        stateFlag4 = stateFlag
+        stateFlag2 = stateFlag2(stateFlag4)
+        if stateFlag2 then
+          stateFlag2 = GetEntityModel
+          stateFlag4 = stateFlag
           -- Beginner: result below is modelHash.
-          flag2 = flag2(flag4)
-          flag4 = workValue11
-          flag4 = flag4[flag2]
-          if flag4 then
-            flag4 = "flatbed"
-            if flag4 then
-              goto flow_label_79
+          stateFlag2 = stateFlag2(stateFlag4)
+          stateFlag4 = workingValue11
+          stateFlag4 = stateFlag4[stateFlag2]
+          if stateFlag4 then
+            stateFlag4 = "flatbed"
+            if stateFlag4 then
+              goto continueAtStep79
             end
           end
-          flag4 = workValue16
-          flag4 = flag4[flag2]
-          if flag4 then
-            flag4 = "tow"
-            if flag4 then
-              goto flow_label_79
+          stateFlag4 = workingValue16
+          stateFlag4 = stateFlag4[stateFlag2]
+          if stateFlag4 then
+            stateFlag4 = "tow"
+            if stateFlag4 then
+              goto continueAtStep79
             end
           end
-          flag4 = nil
-          ::flow_label_79::
-          if flag4 then
-            flag5 = GetEntityCoords
-            flag6 = flag
-            flag7 = true
+          stateFlag4 = nil
+          ::continueAtStep79::
+          if stateFlag4 then
+            stateFlag5 = GetEntityCoords
+            stateFlag6 = stateFlag
+            stateFlag7 = true
             -- Beginner: result below is entityCoords.
-            flag5 = flag5(flag6, flag7)
-            flag5 = flag5 - arg3
-            flag5 = #flag5
-            if arg5 > flag5 then
-              arg5 = flag5
-              arg4 = flag4
+            stateFlag5 = stateFlag5(stateFlag6, stateFlag7)
+            stateFlag5 = stateFlag5 - localValue3
+            stateFlag5 = #stateFlag5
+            if localValue5 > stateFlag5 then
+              localValue5 = stateFlag5
+              localValue4 = stateFlag4
             end
           end
         end
       end
     end
   end
-  return arg4
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue54; parameters: arg1) ===
-function workValue54(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4
-  arg2 = arg1.vehicleNetId
-  if arg2 then
-    arg2 = tonumber
-    arg3 = arg1.vehicleNetId
-    arg2 = arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue54; parameters: localValue1) ===
+function workingValue54(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4
+  localValue2 = localValue1.vehicleNetId
+  if localValue2 then
+    localValue2 = tonumber
+    localValue3 = localValue1.vehicleNetId
+    localValue2 = localValue2(localValue3)
   end
-  if arg2 then
-    arg3 = NetworkDoesNetworkIdExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = NetworkDoesEntityExistWithNetworkId
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      if arg3 then
-        goto flow_label_21
+  if localValue2 then
+    localValue3 = NetworkDoesNetworkIdExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = NetworkDoesEntityExistWithNetworkId
+      localValue4 = localValue2
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        goto continueAtStep21
       end
     end
   end
-  arg3 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
-  return arg3
-  ::flow_label_21::
-  arg3 = NetworkGetEntityFromNetworkId
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if 0 ~= arg3 then
-    arg4 = DoesEntityExist
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      goto flow_label_33
+  localValue3 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
+  return localValue3
+  ::continueAtStep21::
+  localValue3 = NetworkGetEntityFromNetworkId
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if 0 ~= localValue3 then
+    localValue4 = DoesEntityExist
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      goto continueAtStep33
     end
   end
-  arg4 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
-  return arg4
-  ::flow_label_33::
-  arg4 = GetEntityAttachedTo
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if 0 ~= arg4 then
-    arg5 = DoesEntityExist
-    arg6 = arg4
-    arg5 = arg5(arg6)
-    if arg5 then
-      arg5 = IsEntityAVehicle
-      arg6 = arg4
-      arg5 = arg5(arg6)
-      if arg5 then
-        arg5 = GetEntityModel
-        arg6 = arg4
+  localValue4 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
+  return localValue4
+  ::continueAtStep33::
+  localValue4 = GetEntityAttachedTo
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if 0 ~= localValue4 then
+    localValue5 = DoesEntityExist
+    localValue6 = localValue4
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      localValue5 = IsEntityAVehicle
+      localValue6 = localValue4
+      localValue5 = localValue5(localValue6)
+      if localValue5 then
+        localValue5 = GetEntityModel
+        localValue6 = localValue4
         -- Beginner: result below is modelHash.
-        arg5 = arg5(arg6)
-        arg6 = workValue11
-        arg5 = arg6[arg5]
-        if arg5 then
-          arg5 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
-          return arg5
+        localValue5 = localValue5(localValue6)
+        localValue6 = workingValue11
+        localValue5 = localValue6[localValue5]
+        if localValue5 then
+          localValue5 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
+          return localValue5
         end
       end
     end
   end
-  arg5 = pairs
-  arg6 = GetGamePool
-  arg7 = "CVehicle"
-  arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4 = arg6(arg7)
-  arg5, arg6, arg7, workValue62 = arg5(arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4)
-  for workValue66, flag25 in arg5, arg6, arg7, workValue62 do
-    if flag25 ~= arg3 and 0 ~= flag25 then
-      flag = DoesEntityExist
-      flag2 = flag25
-      flag = flag(flag2)
-      if flag then
-        flag = workValue49
-        flag2 = flag25
-        flag4 = arg3
-        flag = flag(flag2, flag4)
-        if flag then
-          flag = "Drive into the depot, then hold ~INPUT_VEH_HEADLIGHT~ in your tow truck to detach the vehicle"
-          return flag
+  localValue5 = pairs
+  localValue6 = GetGamePool
+  localValue7 = "CVehicle"
+  localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4 = localValue6(localValue7)
+  localValue5, localValue6, localValue7, workingValue62 = localValue5(localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  for workingValue66, stateFlag25 in localValue5, localValue6, localValue7, workingValue62 do
+    if stateFlag25 ~= localValue3 and 0 ~= stateFlag25 then
+      stateFlag = DoesEntityExist
+      stateFlag2 = stateFlag25
+      stateFlag = stateFlag(stateFlag2)
+      if stateFlag then
+        stateFlag = workingValue49
+        stateFlag2 = stateFlag25
+        stateFlag4 = localValue3
+        stateFlag = stateFlag(stateFlag2, stateFlag4)
+        if stateFlag then
+          stateFlag = "Drive into the depot, then hold ~INPUT_VEH_HEADLIGHT~ in your tow truck to detach the vehicle"
+          return stateFlag
         end
       end
     end
   end
-  arg5 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
-  return arg5
+  localValue5 = "Drive into the depot, then press ~INPUT_CONTEXT~ on your flatbed to detach the vehicle"
+  return localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue55; parameters: none) ===
-function workValue55()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66
-  arg1 = workValue19
-  if arg1 then
-    arg2 = arg1.type
-    if "breakdown" == arg2 then
-      goto flow_label_13
+-- === HELPER FUNCTION (decompiler name: workingValue55; parameters: none) ===
+function workingValue55()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66
+  localValue1 = workingValue19
+  if localValue1 then
+    localValue2 = localValue1.type
+    if "breakdown" == localValue2 then
+      goto continueAtStep13
     end
-    arg2 = arg1.type
-    if "equipment" == arg2 then
-      goto flow_label_13
+    localValue2 = localValue1.type
+    if "equipment" == localValue2 then
+      goto continueAtStep13
     end
   end
-  arg2 = false
-  flag3 = arg2
+  localValue2 = false
+  stateFlag3 = localValue2
   return
-  ::flow_label_13::
-  arg2 = workValue52
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = flag3
-  if arg2 ~= arg3 then
-    arg3 = flag3
-    flag3 = arg2
-    arg4 = workValue46
-    arg5 = arg1
-    arg4(arg5)
-    if arg3 and not arg2 then
-      arg4 = arg1.vehicleNetId
-      if arg4 then
-        arg4 = tonumber
-        arg5 = arg1.vehicleNetId
-        arg4 = arg4(arg5)
+  ::continueAtStep13::
+  localValue2 = workingValue52
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = stateFlag3
+  if localValue2 ~= localValue3 then
+    localValue3 = stateFlag3
+    stateFlag3 = localValue2
+    localValue4 = workingValue46
+    localValue5 = localValue1
+    localValue4(localValue5)
+    if localValue3 and not localValue2 then
+      localValue4 = localValue1.vehicleNetId
+      if localValue4 then
+        localValue4 = tonumber
+        localValue5 = localValue1.vehicleNetId
+        localValue4 = localValue4(localValue5)
       end
-      if arg4 then
-        arg5 = NetworkDoesNetworkIdExist
-        arg6 = arg4
-        arg5 = arg5(arg6)
-        if arg5 then
-          arg5 = NetworkGetEntityFromNetworkId
-          arg6 = arg4
-          arg5 = arg5(arg6)
-          if 0 ~= arg5 then
-            arg6 = DoesEntityExist
-            arg7 = arg5
-            arg6 = arg6(arg7)
-            if arg6 then
-              arg6 = GetEntityCoords
-              arg7 = arg5
-              workValue62 = true
+      if localValue4 then
+        localValue5 = NetworkDoesNetworkIdExist
+        localValue6 = localValue4
+        localValue5 = localValue5(localValue6)
+        if localValue5 then
+          localValue5 = NetworkGetEntityFromNetworkId
+          localValue6 = localValue4
+          localValue5 = localValue5(localValue6)
+          if 0 ~= localValue5 then
+            localValue6 = DoesEntityExist
+            localValue7 = localValue5
+            localValue6 = localValue6(localValue7)
+            if localValue6 then
+              localValue6 = GetEntityCoords
+              localValue7 = localValue5
+              workingValue62 = true
               -- Beginner: result below is entityCoords.
-              arg6 = arg6(arg7, workValue62)
-              arg7 = eventRegistration
-              arg7 = arg6 - arg7
-              arg7 = #arg7
-              if arg7 < 35.0 then
-                arg7 = TriggerServerEvent
-                workValue62 = "9053b9a3f5"
-                workValue66 = arg4
+              localValue6 = localValue6(localValue7, workingValue62)
+              localValue7 = eventHandler
+              localValue7 = localValue6 - localValue7
+              localValue7 = #localValue7
+              if localValue7 < 35.0 then
+                localValue7 = TriggerServerEvent
+                workingValue62 = "9053b9a3f5"
+                workingValue66 = localValue4
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9053b9a3f5".
-                arg7(workValue62, workValue66)
+                localValue7(workingValue62, workingValue66)
               end
             end
           end
@@ -2550,1036 +2550,1036 @@ function workValue55()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue56; parameters: arg1) ===
-function workValue56(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  if arg1 then
-    arg2 = type
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if "table" == arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue56; parameters: localValue1) ===
+function workingValue56(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  if localValue1 then
+    localValue2 = type
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if "table" == localValue2 then
+      goto continueAtStep10
     end
   end
-  arg2 = nil
-  arg3 = nil
-  return arg2, arg3
-  ::flow_label_10::
-  arg2 = arg1.type
-  if "debris" == arg2 then
-    arg2 = type
-    arg3 = arg1.anchor
-    arg2 = arg2(arg3)
-    if "table" == arg2 then
-      arg2 = type
-      arg3 = arg1.anchor
-      arg3 = arg3.x
-      arg2 = arg2(arg3)
-      if "number" == arg2 then
-        arg2 = arg1.mainSecured
-        if arg2 then
-          arg2 = arg1.debrisDepotComplete
-          if true ~= arg2 then
-            arg2 = eventRegistration.x
-            arg2 = arg2 + 0.0
-            arg3 = eventRegistration.y
-            arg3 = arg3 + 0.0
-            return arg2, arg3
+  localValue2 = nil
+  localValue3 = nil
+  return localValue2, localValue3
+  ::continueAtStep10::
+  localValue2 = localValue1.type
+  if "debris" == localValue2 then
+    localValue2 = type
+    localValue3 = localValue1.anchor
+    localValue2 = localValue2(localValue3)
+    if "table" == localValue2 then
+      localValue2 = type
+      localValue3 = localValue1.anchor
+      localValue3 = localValue3.x
+      localValue2 = localValue2(localValue3)
+      if "number" == localValue2 then
+        localValue2 = localValue1.mainSecured
+        if localValue2 then
+          localValue2 = localValue1.debrisDepotComplete
+          if true ~= localValue2 then
+            localValue2 = eventHandler.x
+            localValue2 = localValue2 + 0.0
+            localValue3 = eventHandler.y
+            localValue3 = localValue3 + 0.0
+            return localValue2, localValue3
           end
         end
-        arg2 = arg1.anchor
-        arg2 = arg2.x
-        arg2 = arg2 + 0.0
-        arg3 = arg1.anchor
-        arg3 = arg3.y
-        arg3 = arg3 + 0.0
-        return arg2, arg3
+        localValue2 = localValue1.anchor
+        localValue2 = localValue2.x
+        localValue2 = localValue2 + 0.0
+        localValue3 = localValue1.anchor
+        localValue3 = localValue3.y
+        localValue3 = localValue3 + 0.0
+        return localValue2, localValue3
     end
   end
   else
-    arg2 = arg1.type
-    if "parts_run" == arg2 then
-      arg2 = tonumber
-      arg3 = arg1.stage
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = 1
+    localValue2 = localValue1.type
+    if "parts_run" == localValue2 then
+      localValue2 = tonumber
+      localValue3 = localValue1.stage
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = 1
       end
-      if 1 == arg2 or 2 == arg2 then
-        arg3 = arg1.pickup
-        if arg3 then
-          goto flow_label_64
+      if 1 == localValue2 or 2 == localValue2 then
+        localValue3 = localValue1.pickup
+        if localValue3 then
+          goto continueAtStep64
         end
       end
-      arg3 = arg1.dropoff
-      ::flow_label_64::
-      if arg3 then
-        arg4 = arg3.x
-        if arg4 then
-          arg4 = arg3.x
-          arg4 = arg4 + 0.0
-          arg5 = arg3.y
-          arg5 = arg5 + 0.0
-          return arg4, arg5
+      localValue3 = localValue1.dropoff
+      ::continueAtStep64::
+      if localValue3 then
+        localValue4 = localValue3.x
+        if localValue4 then
+          localValue4 = localValue3.x
+          localValue4 = localValue4 + 0.0
+          localValue5 = localValue3.y
+          localValue5 = localValue5 + 0.0
+          return localValue4, localValue5
         end
       end
     else
-      arg2 = arg1.type
-      if "breakdown" ~= arg2 then
-        arg2 = arg1.type
-        if "equipment" ~= arg2 then
-          arg2 = arg1.type
-          if "fuel_runout" ~= arg2 then
-            goto flow_label_149
+      localValue2 = localValue1.type
+      if "breakdown" ~= localValue2 then
+        localValue2 = localValue1.type
+        if "equipment" ~= localValue2 then
+          localValue2 = localValue1.type
+          if "fuel_runout" ~= localValue2 then
+            goto continueAtStep149
           end
         end
       end
-      arg2 = arg1.type
-      if "breakdown" ~= arg2 then
-        arg2 = arg1.type
-        if "equipment" ~= arg2 then
-          goto flow_label_104
+      localValue2 = localValue1.type
+      if "breakdown" ~= localValue2 then
+        localValue2 = localValue1.type
+        if "equipment" ~= localValue2 then
+          goto continueAtStep104
         end
       end
-      arg2 = workValue52
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if arg2 then
-        arg2 = eventRegistration.x
-        arg2 = arg2 + 0.0
-        arg3 = eventRegistration.y
-        arg3 = arg3 + 0.0
-        return arg2, arg3
+      localValue2 = workingValue52
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        localValue2 = eventHandler.x
+        localValue2 = localValue2 + 0.0
+        localValue3 = eventHandler.y
+        localValue3 = localValue3 + 0.0
+        return localValue2, localValue3
       end
-      ::flow_label_104::
-      arg2 = arg1.vehicleNetId
-      if arg2 then
-        arg2 = tonumber
-        arg3 = arg1.vehicleNetId
-        arg2 = arg2(arg3)
+      ::continueAtStep104::
+      localValue2 = localValue1.vehicleNetId
+      if localValue2 then
+        localValue2 = tonumber
+        localValue3 = localValue1.vehicleNetId
+        localValue2 = localValue2(localValue3)
       end
-      if arg2 then
-        arg3 = NetworkDoesNetworkIdExist
-        arg4 = arg2
-        arg3 = arg3(arg4)
-        if arg3 then
-          arg3 = NetworkDoesEntityExistWithNetworkId
-          arg4 = arg2
-          arg3 = arg3(arg4)
-          if arg3 then
-            arg3 = NetworkGetEntityFromNetworkId
-            arg4 = arg2
-            arg3 = arg3(arg4)
-            if 0 ~= arg3 then
-              arg4 = DoesEntityExist
-              arg5 = arg3
-              arg4 = arg4(arg5)
-              if arg4 then
-                arg4 = GetEntityCoords
-                arg5 = arg3
-                arg6 = true
+      if localValue2 then
+        localValue3 = NetworkDoesNetworkIdExist
+        localValue4 = localValue2
+        localValue3 = localValue3(localValue4)
+        if localValue3 then
+          localValue3 = NetworkDoesEntityExistWithNetworkId
+          localValue4 = localValue2
+          localValue3 = localValue3(localValue4)
+          if localValue3 then
+            localValue3 = NetworkGetEntityFromNetworkId
+            localValue4 = localValue2
+            localValue3 = localValue3(localValue4)
+            if 0 ~= localValue3 then
+              localValue4 = DoesEntityExist
+              localValue5 = localValue3
+              localValue4 = localValue4(localValue5)
+              if localValue4 then
+                localValue4 = GetEntityCoords
+                localValue5 = localValue3
+                localValue6 = true
                 -- Beginner: result below is entityCoords.
-                arg4 = arg4(arg5, arg6)
-                arg5 = arg4.x
-                arg6 = arg4.y
-                return arg5, arg6
+                localValue4 = localValue4(localValue5, localValue6)
+                localValue5 = localValue4.x
+                localValue6 = localValue4.y
+                return localValue5, localValue6
               end
             end
           end
         end
       end
-      arg3 = arg1.spawnX
-      if arg3 then
-        arg3 = arg1.spawnX
-        arg3 = arg3 + 0.0
-        arg4 = arg1.spawnY
-        arg4 = arg4 + 0.0
-        return arg3, arg4
+      localValue3 = localValue1.spawnX
+      if localValue3 then
+        localValue3 = localValue1.spawnX
+        localValue3 = localValue3 + 0.0
+        localValue4 = localValue1.spawnY
+        localValue4 = localValue4 + 0.0
+        return localValue3, localValue4
       end
     end
   end
-  ::flow_label_149::
-  arg2 = nil
-  arg3 = nil
-  return arg2, arg3
+  ::continueAtStep149::
+  localValue2 = nil
+  localValue3 = nil
+  return localValue2, localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue57; parameters: none) ===
-function workValue57()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = workValue19
-  arg2 = workValue56
-  arg3 = arg1
-  arg2, arg3 = arg2(arg3)
-  if arg2 and arg3 then
-    arg4 = workValue47
-    arg5 = arg2
-    arg6 = arg3
-    arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue57; parameters: none) ===
+function workingValue57()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = workingValue19
+  localValue2 = workingValue56
+  localValue3 = localValue1
+  localValue2, localValue3 = localValue2(localValue3)
+  if localValue2 and localValue3 then
+    localValue4 = workingValue47
+    localValue5 = localValue2
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   end
-  arg4 = workValue46
-  arg5 = arg1
-  arg4(arg5)
+  localValue4 = workingValue46
+  localValue5 = localValue1
+  localValue4(localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue58; parameters: arg1) ===
-function workValue58(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag
-  arg2 = threadCall
+-- === HELPER FUNCTION (decompiler name: workingValue58; parameters: localValue1) ===
+function workingValue58(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag
+  localValue2 = backgroundThread
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2()
-  if arg1 then
-    arg2 = type
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if "table" == arg2 then
-      goto flow_label_11
+  localValue2()
+  if localValue1 then
+    localValue2 = type
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if "table" == localValue2 then
+      goto continueAtStep11
     end
   end
   return
-  ::flow_label_11::
-  arg2 = arg1.type
-  if "debris" == arg2 then
-    arg2 = type
-    arg3 = arg1.anchor
-    arg2 = arg2(arg3)
-    if "table" == arg2 then
-      arg2 = type
-      arg3 = arg1.anchor
-      arg3 = arg3.x
-      arg2 = arg2(arg3)
-      if "number" == arg2 then
-        arg2 = arg1.mainSecured
-        if arg2 then
-          arg2 = arg1.debrisDepotComplete
-          if true ~= arg2 then
-            arg2 = workValue44
-            arg3 = eventRegistration.x
-            arg4 = eventRegistration.y
-            arg5 = eventRegistration.z
-            arg6 = 50
-            arg7 = 2
-            workValue62 = "Depot"
-            workValue66 = textValue5
-            arg2(arg3, arg4, arg5, arg6, arg7, workValue62, workValue66)
-            arg2 = workValue47
-            arg3 = eventRegistration.x
-            arg4 = eventRegistration.y
-            arg2(arg3, arg4)
+  ::continueAtStep11::
+  localValue2 = localValue1.type
+  if "debris" == localValue2 then
+    localValue2 = type
+    localValue3 = localValue1.anchor
+    localValue2 = localValue2(localValue3)
+    if "table" == localValue2 then
+      localValue2 = type
+      localValue3 = localValue1.anchor
+      localValue3 = localValue3.x
+      localValue2 = localValue2(localValue3)
+      if "number" == localValue2 then
+        localValue2 = localValue1.mainSecured
+        if localValue2 then
+          localValue2 = localValue1.debrisDepotComplete
+          if true ~= localValue2 then
+            localValue2 = workingValue44
+            localValue3 = eventHandler.x
+            localValue4 = eventHandler.y
+            localValue5 = eventHandler.z
+            localValue6 = 50
+            localValue7 = 2
+            workingValue62 = "Depot"
+            workingValue66 = text5
+            localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66)
+            localValue2 = workingValue47
+            localValue3 = eventHandler.x
+            localValue4 = eventHandler.y
+            localValue2(localValue3, localValue4)
             return
           end
         end
-        arg2 = workValue44
-        arg3 = arg1.anchor
-        arg3 = arg3.x
-        arg4 = arg1.anchor
-        arg4 = arg4.y
-        arg5 = arg1.anchor
-        arg5 = arg5.z
-        arg6 = 318
-        arg7 = 5
-        workValue62 = "Clear-up"
-        workValue66 = textValue5
-        arg2(arg3, arg4, arg5, arg6, arg7, workValue62, workValue66)
-        arg2 = workValue47
-        arg3 = arg1.anchor
-        arg3 = arg3.x
-        arg4 = arg1.anchor
-        arg4 = arg4.y
-        arg2(arg3, arg4)
+        localValue2 = workingValue44
+        localValue3 = localValue1.anchor
+        localValue3 = localValue3.x
+        localValue4 = localValue1.anchor
+        localValue4 = localValue4.y
+        localValue5 = localValue1.anchor
+        localValue5 = localValue5.z
+        localValue6 = 318
+        localValue7 = 5
+        workingValue62 = "Clear-up"
+        workingValue66 = text5
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66)
+        localValue2 = workingValue47
+        localValue3 = localValue1.anchor
+        localValue3 = localValue3.x
+        localValue4 = localValue1.anchor
+        localValue4 = localValue4.y
+        localValue2(localValue3, localValue4)
     end
   end
   else
-    arg2 = arg1.type
-    if "parts_run" == arg2 then
-      arg2 = tonumber
-      arg3 = arg1.stage
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = 1
+    localValue2 = localValue1.type
+    if "parts_run" == localValue2 then
+      localValue2 = tonumber
+      localValue3 = localValue1.stage
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = 1
       end
-      if 1 == arg2 or 2 == arg2 then
-        arg3 = arg1.pickup
-        if arg3 then
-          arg3 = workValue44
-          arg4 = arg1.pickup
-          arg4 = arg4.x
-          arg5 = arg1.pickup
-          arg5 = arg5.y
-          arg6 = arg1.pickup
-          arg6 = arg6.z
-          arg7 = 478
-          workValue62 = 2
-          workValue66 = "Supplier"
-          flag25 = textValue5
-          arg3(arg4, arg5, arg6, arg7, workValue62, workValue66, flag25)
-          arg3 = workValue47
-          arg4 = arg1.pickup
-          arg4 = arg4.x
-          arg5 = arg1.pickup
-          arg5 = arg5.y
-          arg3(arg4, arg5)
+      if 1 == localValue2 or 2 == localValue2 then
+        localValue3 = localValue1.pickup
+        if localValue3 then
+          localValue3 = workingValue44
+          localValue4 = localValue1.pickup
+          localValue4 = localValue4.x
+          localValue5 = localValue1.pickup
+          localValue5 = localValue5.y
+          localValue6 = localValue1.pickup
+          localValue6 = localValue6.z
+          localValue7 = 478
+          workingValue62 = 2
+          workingValue66 = "Supplier"
+          stateFlag25 = text5
+          localValue3(localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25)
+          localValue3 = workingValue47
+          localValue4 = localValue1.pickup
+          localValue4 = localValue4.x
+          localValue5 = localValue1.pickup
+          localValue5 = localValue5.y
+          localValue3(localValue4, localValue5)
       end
-      elseif 3 == arg2 or 4 == arg2 then
-        arg3 = arg1.dropoff
-        if arg3 then
-          arg3 = workValue44
-          arg4 = arg1.dropoff
-          arg4 = arg4.x
-          arg5 = arg1.dropoff
-          arg5 = arg5.y
-          arg6 = arg1.dropoff
-          arg6 = arg6.z
-          arg7 = 478
-          workValue62 = 2
-          workValue66 = "Drop-off"
-          flag25 = textValue5
-          arg3(arg4, arg5, arg6, arg7, workValue62, workValue66, flag25)
-          arg3 = workValue47
-          arg4 = arg1.dropoff
-          arg4 = arg4.x
-          arg5 = arg1.dropoff
-          arg5 = arg5.y
-          arg3(arg4, arg5)
+      elseif 3 == localValue2 or 4 == localValue2 then
+        localValue3 = localValue1.dropoff
+        if localValue3 then
+          localValue3 = workingValue44
+          localValue4 = localValue1.dropoff
+          localValue4 = localValue4.x
+          localValue5 = localValue1.dropoff
+          localValue5 = localValue5.y
+          localValue6 = localValue1.dropoff
+          localValue6 = localValue6.z
+          localValue7 = 478
+          workingValue62 = 2
+          workingValue66 = "Drop-off"
+          stateFlag25 = text5
+          localValue3(localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25)
+          localValue3 = workingValue47
+          localValue4 = localValue1.dropoff
+          localValue4 = localValue4.x
+          localValue5 = localValue1.dropoff
+          localValue5 = localValue5.y
+          localValue3(localValue4, localValue5)
         end
       end
     else
-      arg2 = arg1.type
-      if "breakdown" ~= arg2 then
-        arg2 = arg1.type
-        if "equipment" ~= arg2 then
-          arg2 = arg1.type
-          if "fuel_runout" ~= arg2 then
-            goto flow_label_236
+      localValue2 = localValue1.type
+      if "breakdown" ~= localValue2 then
+        localValue2 = localValue1.type
+        if "equipment" ~= localValue2 then
+          localValue2 = localValue1.type
+          if "fuel_runout" ~= localValue2 then
+            goto continueAtStep236
           end
         end
       end
-      arg2 = arg1.vehicleNetId
-      if arg2 then
-        arg2 = tonumber
-        arg3 = arg1.vehicleNetId
-        arg2 = arg2(arg3)
+      localValue2 = localValue1.vehicleNetId
+      if localValue2 then
+        localValue2 = tonumber
+        localValue3 = localValue1.vehicleNetId
+        localValue2 = localValue2(localValue3)
       end
-      if arg2 then
-        arg3 = NetworkDoesNetworkIdExist
-        arg4 = arg2
-        arg3 = arg3(arg4)
-        if arg3 then
-          arg3 = NetworkDoesEntityExistWithNetworkId
-          arg4 = arg2
-          arg3 = arg3(arg4)
-          if arg3 then
-            arg3 = NetworkGetEntityFromNetworkId
-            arg4 = arg2
-            arg3 = arg3(arg4)
-            if 0 == arg3 then
-              goto flow_label_236
+      if localValue2 then
+        localValue3 = NetworkDoesNetworkIdExist
+        localValue4 = localValue2
+        localValue3 = localValue3(localValue4)
+        if localValue3 then
+          localValue3 = NetworkDoesEntityExistWithNetworkId
+          localValue4 = localValue2
+          localValue3 = localValue3(localValue4)
+          if localValue3 then
+            localValue3 = NetworkGetEntityFromNetworkId
+            localValue4 = localValue2
+            localValue3 = localValue3(localValue4)
+            if 0 == localValue3 then
+              goto continueAtStep236
             end
-            arg4 = DoesEntityExist
-            arg5 = arg3
-            arg4 = arg4(arg5)
-            if not arg4 then
-              goto flow_label_236
+            localValue4 = DoesEntityExist
+            localValue5 = localValue3
+            localValue4 = localValue4(localValue5)
+            if not localValue4 then
+              goto continueAtStep236
             end
-            arg4 = arg1.type
-            if "breakdown" ~= arg4 then
-              arg4 = arg1.type
-              if "equipment" ~= arg4 then
-                goto flow_label_187
+            localValue4 = localValue1.type
+            if "breakdown" ~= localValue4 then
+              localValue4 = localValue1.type
+              if "equipment" ~= localValue4 then
+                goto continueAtStep187
               end
             end
-            arg4 = workValue52
-            arg5 = arg1
-            arg4 = arg4(arg5)
-            if arg4 then
-              arg4 = workValue44
-              arg5 = eventRegistration.x
-              arg6 = eventRegistration.y
-              arg7 = eventRegistration.z
-              workValue62 = 50
-              workValue66 = 2
-              flag25 = "Yard"
-              flag = textValue5
-              arg4(arg5, arg6, arg7, workValue62, workValue66, flag25, flag)
-              arg4 = workValue47
-              arg5 = eventRegistration.x
-              arg6 = eventRegistration.y
-              arg4(arg5, arg6)
+            localValue4 = workingValue52
+            localValue5 = localValue1
+            localValue4 = localValue4(localValue5)
+            if localValue4 then
+              localValue4 = workingValue44
+              localValue5 = eventHandler.x
+              localValue6 = eventHandler.y
+              localValue7 = eventHandler.z
+              workingValue62 = 50
+              workingValue66 = 2
+              stateFlag25 = "Yard"
+              stateFlag = text5
+              localValue4(localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag)
+              localValue4 = workingValue47
+              localValue5 = eventHandler.x
+              localValue6 = eventHandler.y
+              localValue4(localValue5, localValue6)
               return
             end
-            ::flow_label_187::
-            arg4 = workValue45
-            arg5 = arg3
-            arg6 = 402
-            arg7 = 5
-            workValue62 = "Callout"
-            workValue66 = textValue5
-            arg4(arg5, arg6, arg7, workValue62, workValue66)
-            arg4 = arg1.type
-            if "breakdown" ~= arg4 then
-              arg4 = arg1.type
-              if "equipment" ~= arg4 then
-                goto flow_label_211
+            ::continueAtStep187::
+            localValue4 = workingValue45
+            localValue5 = localValue3
+            localValue6 = 402
+            localValue7 = 5
+            workingValue62 = "Callout"
+            workingValue66 = text5
+            localValue4(localValue5, localValue6, localValue7, workingValue62, workingValue66)
+            localValue4 = localValue1.type
+            if "breakdown" ~= localValue4 then
+              localValue4 = localValue1.type
+              if "equipment" ~= localValue4 then
+                goto continueAtStep211
               end
             end
-            arg4 = workValue44
-            arg5 = eventRegistration.x
-            arg6 = eventRegistration.y
-            arg7 = eventRegistration.z
-            workValue62 = 50
-            workValue66 = 2
-            flag25 = "Depot yard"
-            flag = textValue5
-            flag = flag * 0.92
-            arg4(arg5, arg6, arg7, workValue62, workValue66, flag25, flag)
-            ::flow_label_211::
-            arg4 = GetEntityCoords
-            arg5 = arg3
-            arg6 = true
+            localValue4 = workingValue44
+            localValue5 = eventHandler.x
+            localValue6 = eventHandler.y
+            localValue7 = eventHandler.z
+            workingValue62 = 50
+            workingValue66 = 2
+            stateFlag25 = "Depot yard"
+            stateFlag = text5
+            stateFlag = stateFlag * 0.92
+            localValue4(localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag)
+            ::continueAtStep211::
+            localValue4 = GetEntityCoords
+            localValue5 = localValue3
+            localValue6 = true
             -- Beginner: result below is entityCoords.
-            arg4 = arg4(arg5, arg6)
-            arg5 = workValue47
-            arg6 = arg4.x
-            arg7 = arg4.y
-            arg5(arg6, arg7)
+            localValue4 = localValue4(localValue5, localValue6)
+            localValue5 = workingValue47
+            localValue6 = localValue4.x
+            localValue7 = localValue4.y
+            localValue5(localValue6, localValue7)
         end
       end
       else
-        arg3 = arg1.spawnX
-        if arg3 then
-          arg3 = workValue44
-          arg4 = arg1.spawnX
-          arg5 = arg1.spawnY
-          arg6 = arg1.spawnZ
-          arg7 = 402
-          workValue62 = 5
-          workValue66 = "Callout"
-          flag25 = textValue5
-          arg3(arg4, arg5, arg6, arg7, workValue62, workValue66, flag25)
-          arg3 = workValue47
-          arg4 = arg1.spawnX
-          arg5 = arg1.spawnY
-          arg3(arg4, arg5)
+        localValue3 = localValue1.spawnX
+        if localValue3 then
+          localValue3 = workingValue44
+          localValue4 = localValue1.spawnX
+          localValue5 = localValue1.spawnY
+          localValue6 = localValue1.spawnZ
+          localValue7 = 402
+          workingValue62 = 5
+          workingValue66 = "Callout"
+          stateFlag25 = text5
+          localValue3(localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25)
+          localValue3 = workingValue47
+          localValue4 = localValue1.spawnX
+          localValue5 = localValue1.spawnY
+          localValue3(localValue4, localValue5)
         end
       end
     end
   end
-  ::flow_label_236::
+  ::continueAtStep236::
 end
-workValue46 = workValue58
-workValue58 = AddStateBagChangeHandler
-eventRegistration2 = "towVehicle"
-textValue7 = nil
+workingValue46 = workingValue58
+workingValue58 = AddStateBagChangeHandler
+eventHandler2 = "towVehicle"
+text7 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: arg1, arg2, arg3) ===
-function workValue59(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = workValue19
-  if not arg4 then
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: localValue1, localValue2, localValue3) ===
+function workingValue59(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = workingValue19
+  if not localValue4 then
     return
   end
-  arg5 = arg4.type
-  if "breakdown" ~= arg5 then
-    arg5 = arg4.type
-    if "equipment" ~= arg5 then
+  localValue5 = localValue4.type
+  if "breakdown" ~= localValue5 then
+    localValue5 = localValue4.type
+    if "equipment" ~= localValue5 then
       return
     end
   end
-  arg5 = tonumber
-  arg6 = arg4.vehicleNetId
-  arg5 = arg5(arg6)
-  if not arg5 then
+  localValue5 = tonumber
+  localValue6 = localValue4.vehicleNetId
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
     return
   end
-  if arg3 then
-    arg6 = tonumber
-    arg7 = arg3.targetNetId
-    arg6 = arg6(arg7)
-    if arg6 == arg5 then
-      arg6 = flag3
-      if not arg6 then
-        arg6 = true
-        flag3 = arg6
-        arg6 = workValue46
-        arg7 = arg4
-        arg6(arg7)
+  if localValue3 then
+    localValue6 = tonumber
+    localValue7 = localValue3.targetNetId
+    localValue6 = localValue6(localValue7)
+    if localValue6 == localValue5 then
+      localValue6 = stateFlag3
+      if not localValue6 then
+        localValue6 = true
+        stateFlag3 = localValue6
+        localValue6 = workingValue46
+        localValue7 = localValue4
+        localValue6(localValue7)
       end
     end
   end
 end
-workValue58(eventRegistration2, textValue7, workValue59)
+workingValue58(eventHandler2, text7, workingValue59)
 
--- === HELPER FUNCTION (decompiler name: workValue58; parameters: arg1) ===
-function workValue58(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  if arg1 then
-    arg2 = type
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if "table" == arg2 then
-      goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: workingValue58; parameters: localValue1) ===
+function workingValue58(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  if localValue1 then
+    localValue2 = type
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if "table" == localValue2 then
+      goto continueAtStep11
     end
   end
-  arg2 = nil
-  workValue18 = arg2
+  localValue2 = nil
+  workingValue18 = localValue2
   return
-  ::flow_label_11::
-  arg2 = arg1.vehicleNetId
-  if arg2 then
-    arg2 = nil
-    workValue18 = arg2
+  ::continueAtStep11::
+  localValue2 = localValue1.vehicleNetId
+  if localValue2 then
+    localValue2 = nil
+    workingValue18 = localValue2
     return
   end
-  arg2 = arg1.type
-  if "breakdown" ~= arg2 then
-    arg2 = arg1.type
-    if "equipment" ~= arg2 then
-      arg2 = arg1.type
-      if "fuel_runout" ~= arg2 then
-        goto flow_label_109
+  localValue2 = localValue1.type
+  if "breakdown" ~= localValue2 then
+    localValue2 = localValue1.type
+    if "equipment" ~= localValue2 then
+      localValue2 = localValue1.type
+      if "fuel_runout" ~= localValue2 then
+        goto continueAtStep109
       end
     end
   end
-  arg2 = arg1.spawnX
-  if arg2 then
-    arg2 = arg1.contractId
-    if arg2 then
-      arg2 = arg1.modelName
-      if arg2 then
-        arg2 = nil
-        arg3 = nil
-        arg4 = arg1.type
-        if "breakdown" == arg4 then
-          arg4 = tonumber
-          arg5 = cmgCall.missionVehicleEngineHealth
-          arg4 = arg4(arg5)
-          arg2 = arg4 or arg2
-          if not arg4 then
-            arg2 = 150.0
+  localValue2 = localValue1.spawnX
+  if localValue2 then
+    localValue2 = localValue1.contractId
+    if localValue2 then
+      localValue2 = localValue1.modelName
+      if localValue2 then
+        localValue2 = nil
+        localValue3 = nil
+        localValue4 = localValue1.type
+        if "breakdown" == localValue4 then
+          localValue4 = tonumber
+          localValue5 = cmgOperation.missionVehicleEngineHealth
+          localValue4 = localValue4(localValue5)
+          localValue2 = localValue4 or localValue2
+          if not localValue4 then
+            localValue2 = 150.0
           end
-          arg4 = tonumber
-          arg5 = cmgCall.missionVehicleBodyHealth
-          arg4 = arg4(arg5)
-          arg3 = arg4 or arg3
-          if not arg4 then
-            arg3 = 250.0
+          localValue4 = tonumber
+          localValue5 = cmgOperation.missionVehicleBodyHealth
+          localValue4 = localValue4(localValue5)
+          localValue3 = localValue4 or localValue3
+          if not localValue4 then
+            localValue3 = 250.0
           end
         else
-          arg4 = arg1.type
-          if "equipment" == arg4 then
-            arg4 = tonumber
-            arg5 = cmgCall.missionVehicleEngineHealth
-            arg4 = arg4(arg5)
-            arg2 = arg4 or arg2
-            if not arg4 then
-              arg2 = 150.0
+          localValue4 = localValue1.type
+          if "equipment" == localValue4 then
+            localValue4 = tonumber
+            localValue5 = cmgOperation.missionVehicleEngineHealth
+            localValue4 = localValue4(localValue5)
+            localValue2 = localValue4 or localValue2
+            if not localValue4 then
+              localValue2 = 150.0
             end
-            arg4 = tonumber
-            arg5 = cmgCall.missionVehicleBodyHealth
-            arg4 = arg4(arg5)
-            arg3 = arg4 or arg3
-            if not arg4 then
-              arg3 = 250.0
+            localValue4 = tonumber
+            localValue5 = cmgOperation.missionVehicleBodyHealth
+            localValue4 = localValue4(localValue5)
+            localValue3 = localValue4 or localValue3
+            if not localValue4 then
+              localValue3 = 250.0
             end
           else
-            arg4 = tonumber
-            arg5 = cmgCall.fuelMissionEngineHealth
-            arg4 = arg4(arg5)
-            arg2 = arg4 or arg2
-            if not arg4 then
-              arg2 = 900.0
+            localValue4 = tonumber
+            localValue5 = cmgOperation.fuelMissionEngineHealth
+            localValue4 = localValue4(localValue5)
+            localValue2 = localValue4 or localValue2
+            if not localValue4 then
+              localValue2 = 900.0
             end
-            arg4 = tonumber
-            arg5 = cmgCall.fuelMissionBodyHealth
-            arg4 = arg4(arg5)
-            arg3 = arg4 or arg3
-            if not arg4 then
-              arg3 = 950.0
+            localValue4 = tonumber
+            localValue5 = cmgOperation.fuelMissionBodyHealth
+            localValue4 = localValue4(localValue5)
+            localValue3 = localValue4 or localValue3
+            if not localValue4 then
+              localValue3 = 950.0
             end
           end
         end
-        arg4 = {}
-        arg5 = arg1.contractId
-        arg4.contractId = arg5
-        arg5 = arg1.modelName
-        arg4.modelName = arg5
-        arg5 = arg1.spawnX
-        arg4.x = arg5
-        arg5 = arg1.spawnY
-        arg4.y = arg5
-        arg5 = arg1.spawnZ
-        arg4.z = arg5
-        arg5 = arg1.spawnW
-        if not arg5 then
-          arg5 = 0.0
+        localValue4 = {}
+        localValue5 = localValue1.contractId
+        localValue4.contractId = localValue5
+        localValue5 = localValue1.modelName
+        localValue4.modelName = localValue5
+        localValue5 = localValue1.spawnX
+        localValue4.x = localValue5
+        localValue5 = localValue1.spawnY
+        localValue4.y = localValue5
+        localValue5 = localValue1.spawnZ
+        localValue4.z = localValue5
+        localValue5 = localValue1.spawnW
+        if not localValue5 then
+          localValue5 = 0.0
         end
-        arg4.w = arg5
-        arg4.engineHealth = arg2
-        arg4.bodyHealth = arg3
-        arg5 = tonumber
-        arg6 = cmgCall.vehicleSpawnNearMeters
-        arg5 = arg5(arg6)
-        if not arg5 then
-          arg5 = 110.0
+        localValue4.w = localValue5
+        localValue4.engineHealth = localValue2
+        localValue4.bodyHealth = localValue3
+        localValue5 = tonumber
+        localValue6 = cmgOperation.vehicleSpawnNearMeters
+        localValue5 = localValue5(localValue6)
+        if not localValue5 then
+          localValue5 = 110.0
         end
-        arg4.spawnNearMeters = arg5
-        arg5 = arg1.type
-        arg4.jobKind = arg5
-        workValue18 = arg4
+        localValue4.spawnNearMeters = localValue5
+        localValue5 = localValue1.type
+        localValue4.jobKind = localValue5
+        workingValue18 = localValue4
       end
     end
   end
-  ::flow_label_109::
+  ::continueAtStep109::
 end
-eventRegistration2 = RegisterNetEvent
-textValue7 = "35ef91c369"
+eventHandler2 = RegisterNetEvent
+text7 = "35ef91c369"
 -- Beginner: this function handles network event "35ef91c369".
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: arg1) ===
-function workValue59(arg1)
-  local arg2, arg3, arg4
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "table" == arg2 then
-    arg2 = arg1.contract
-    workValue19 = arg2
-    arg2 = workValue19
-    if arg2 then
-      arg2 = workValue19.type
-      if "debris" == arg2 then
-        goto flow_label_16
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: localValue1) ===
+function workingValue59(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "table" == localValue2 then
+    localValue2 = localValue1.contract
+    workingValue19 = localValue2
+    localValue2 = workingValue19
+    if localValue2 then
+      localValue2 = workingValue19.type
+      if "debris" == localValue2 then
+        goto continueAtStep16
       end
     end
-    arg2 = workValue32
-    arg2()
-    ::flow_label_16::
-    arg2 = workValue46
-    arg3 = workValue19
-    arg2(arg3)
-    arg2 = workValue19
-    if arg2 then
-      arg2 = workValue19.vehicleNetId
-      if not arg2 then
-        arg2 = workValue58
-        arg3 = workValue19
-        arg2(arg3)
+    localValue2 = workingValue32
+    localValue2()
+    ::continueAtStep16::
+    localValue2 = workingValue46
+    localValue3 = workingValue19
+    localValue2(localValue3)
+    localValue2 = workingValue19
+    if localValue2 then
+      localValue2 = workingValue19.vehicleNetId
+      if not localValue2 then
+        localValue2 = workingValue58
+        localValue3 = workingValue19
+        localValue2(localValue3)
     end
     else
-      arg2 = workValue19
-      if arg2 then
-        arg2 = workValue19.vehicleNetId
-        if arg2 then
-          arg2 = nil
-          workValue18 = arg2
+      localValue2 = workingValue19
+      if localValue2 then
+        localValue2 = workingValue19.vehicleNetId
+        if localValue2 then
+          localValue2 = nil
+          workingValue18 = localValue2
       end
       else
-        arg2 = workValue19
-        if not arg2 then
-          arg2 = nil
-          workValue18 = arg2
+        localValue2 = workingValue19
+        if not localValue2 then
+          localValue2 = nil
+          workingValue18 = localValue2
         end
       end
     end
   end
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
-  arg3 = {}
-  arg3.type = "MECHANIC_SYNC"
-  arg4 = arg1 or arg4
-  if not arg1 then
-    arg4 = {}
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
+  localValue3 = {}
+  localValue3.type = "MECHANIC_SYNC"
+  localValue4 = localValue1 or localValue4
+  if not localValue1 then
+    localValue4 = {}
   end
-  arg3.payload = arg4
-  arg2(arg3)
+  localValue3.payload = localValue4
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "35ef91c369".
-eventRegistration2(textValue7, workValue59)
-eventRegistration2 = RegisterNetEvent
-textValue7 = "31a7475ed5"
+eventHandler2(text7, workingValue59)
+eventHandler2 = RegisterNetEvent
+text7 = "31a7475ed5"
 -- Beginner: this function handles network event "31a7475ed5".
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: arg1) ===
-function workValue59(arg1)
-  local arg2, arg3, arg4
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "table" == arg2 then
-    arg2 = arg1.modelName
-    if arg2 then
-      arg2 = arg1.contractId
-      if arg2 then
-        goto flow_label_13
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: localValue1) ===
+function workingValue59(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "table" == localValue2 then
+    localValue2 = localValue1.modelName
+    if localValue2 then
+      localValue2 = localValue1.contractId
+      if localValue2 then
+        goto continueAtStep13
       end
     end
   end
   return
-  ::flow_label_13::
-  workValue18 = arg1
-  arg2 = arg1.x
-  if arg2 then
-    arg2 = arg1.y
-    if arg2 then
-      arg2 = workValue47
-      arg3 = arg1.x
-      arg4 = arg1.y
-      arg2(arg3, arg4)
+  ::continueAtStep13::
+  workingValue18 = localValue1
+  localValue2 = localValue1.x
+  if localValue2 then
+    localValue2 = localValue1.y
+    if localValue2 then
+      localValue2 = workingValue47
+      localValue3 = localValue1.x
+      localValue4 = localValue1.y
+      localValue2(localValue3, localValue4)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "31a7475ed5".
-eventRegistration2(textValue7, workValue59)
+eventHandler2(text7, workingValue59)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: none) ===
-function eventRegistration2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25
-  arg1 = workValue18
-  if arg1 then
-    arg2 = arg1.contractId
-    if arg2 then
-      arg2 = arg1.modelName
-      if arg2 then
-        goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: none) ===
+function eventHandler2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue1 = workingValue18
+  if localValue1 then
+    localValue2 = localValue1.contractId
+    if localValue2 then
+      localValue2 = localValue1.modelName
+      if localValue2 then
+        goto continueAtStep11
       end
     end
   end
   return
-  ::flow_label_11::
-  arg2 = CMG
-  arg2 = arg2.requestEntitySpawn
-  arg3 = "mechanic_contract_vehicle"
-  arg2(arg3)
-  arg2 = CMG
-  arg2 = arg2.spawnVehicle
-  arg3 = arg1.modelName
-  arg4 = arg1.x
-  arg5 = arg1.y
-  arg6 = arg1.z
-  arg7 = arg1.w
-  if not arg7 then
-    arg7 = 0.0
+  ::continueAtStep11::
+  localValue2 = CMG
+  localValue2 = localValue2.requestEntitySpawn
+  localValue3 = "mechanic_contract_vehicle"
+  localValue2(localValue3)
+  localValue2 = CMG
+  localValue2 = localValue2.spawnVehicle
+  localValue3 = localValue1.modelName
+  localValue4 = localValue1.x
+  localValue5 = localValue1.y
+  localValue6 = localValue1.z
+  localValue7 = localValue1.w
+  if not localValue7 then
+    localValue7 = 0.0
   end
-  workValue62 = false
-  workValue66 = true
-  flag25 = true
-  arg2 = arg2(arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25)
-  if arg2 and 0 ~= arg2 then
-    arg3 = DoesEntityExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      goto flow_label_44
+  workingValue62 = false
+  workingValue66 = true
+  stateFlag25 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25)
+  if localValue2 and 0 ~= localValue2 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      goto continueAtStep44
     end
   end
-  arg3 = TriggerServerEvent
-  arg4 = "516e22ccad"
+  localValue3 = TriggerServerEvent
+  localValue4 = "516e22ccad"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "516e22ccad".
-  arg3(arg4)
-  arg3 = nil
-  workValue18 = arg3
+  localValue3(localValue4)
+  localValue3 = nil
+  workingValue18 = localValue3
   return
-  ::flow_label_44::
-  arg3 = SetEntityHeading
-  arg4 = arg2
-  arg5 = arg1.w
-  if not arg5 then
-    arg5 = 0.0
+  ::continueAtStep44::
+  localValue3 = SetEntityHeading
+  localValue4 = localValue2
+  localValue5 = localValue1.w
+  if not localValue5 then
+    localValue5 = 0.0
   end
   -- Beginner: Change the direction an entity is facing.
-  arg3(arg4, arg5)
-  arg3 = tonumber
-  arg4 = arg1.engineHealth
-  arg3 = arg3(arg4)
-  arg4 = tonumber
-  arg5 = arg1.bodyHealth
-  arg4 = arg4(arg5)
-  if arg3 then
-    arg5 = SetVehicleEngineHealth
-    arg6 = arg2
-    arg7 = arg3 + 0.0
-    arg5(arg6, arg7)
+  localValue3(localValue4, localValue5)
+  localValue3 = tonumber
+  localValue4 = localValue1.engineHealth
+  localValue3 = localValue3(localValue4)
+  localValue4 = tonumber
+  localValue5 = localValue1.bodyHealth
+  localValue4 = localValue4(localValue5)
+  if localValue3 then
+    localValue5 = SetVehicleEngineHealth
+    localValue6 = localValue2
+    localValue7 = localValue3 + 0.0
+    localValue5(localValue6, localValue7)
   end
-  if arg4 then
-    arg5 = SetVehicleBodyHealth
-    arg6 = arg2
-    arg7 = arg4 + 0.0
-    arg5(arg6, arg7)
+  if localValue4 then
+    localValue5 = SetVehicleBodyHealth
+    localValue6 = localValue2
+    localValue7 = localValue4 + 0.0
+    localValue5(localValue6, localValue7)
   end
-  arg5 = SetVehiclePetrolTankHealth
-  arg6 = arg2
-  arg7 = 400.0
-  arg5(arg6, arg7)
-  arg5 = arg1.jobKind
-  if "fuel_runout" == arg5 then
-    arg5 = CMG
-    arg5 = arg5.setVehicleFuel
-    if arg5 then
-      arg5 = CMG
-      arg5 = arg5.setVehicleFuel
-      arg6 = arg2
-      arg7 = 3.0
-      arg5(arg6, arg7)
+  localValue5 = SetVehiclePetrolTankHealth
+  localValue6 = localValue2
+  localValue7 = 400.0
+  localValue5(localValue6, localValue7)
+  localValue5 = localValue1.jobKind
+  if "fuel_runout" == localValue5 then
+    localValue5 = CMG
+    localValue5 = localValue5.setVehicleFuel
+    if localValue5 then
+      localValue5 = CMG
+      localValue5 = localValue5.setVehicleFuel
+      localValue6 = localValue2
+      localValue7 = 3.0
+      localValue5(localValue6, localValue7)
     else
-      arg5 = SetVehicleFuelLevel
-      arg6 = arg2
-      arg7 = 3.0
-      arg5(arg6, arg7)
+      localValue5 = SetVehicleFuelLevel
+      localValue6 = localValue2
+      localValue7 = 3.0
+      localValue5(localValue6, localValue7)
     end
   end
-  arg5 = NetworkGetNetworkIdFromEntity
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  arg6 = TriggerServerEvent
-  arg7 = "65a26e05a8"
-  workValue62 = arg5
-  workValue66 = arg1.contractId
+  localValue5 = NetworkGetNetworkIdFromEntity
+  localValue6 = localValue2
+  localValue5 = localValue5(localValue6)
+  localValue6 = TriggerServerEvent
+  localValue7 = "65a26e05a8"
+  workingValue62 = localValue5
+  workingValue66 = localValue1.contractId
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "65a26e05a8".
-  arg6(arg7, workValue62, workValue66)
-  arg6 = nil
-  workValue18 = arg6
-  arg6 = threadCall
+  localValue6(localValue7, workingValue62, workingValue66)
+  localValue6 = nil
+  workingValue18 = localValue6
+  localValue6 = backgroundThread
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg6()
+  localValue6()
 end
-textValue7 = Citizen
-textValue7 = textValue7.CreateThread
+text7 = Citizen
+text7 = text7.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: none) ===
-function workValue59()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: none) ===
+function workingValue59()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62
   while true do
-    arg1 = 1500
-    arg2 = workValue18
-    if arg2 then
-      arg2 = workValue18.x
-      if arg2 then
-        arg1 = 400
-        arg2 = PlayerPedId
+    localValue1 = 1500
+    localValue2 = workingValue18
+    if localValue2 then
+      localValue2 = workingValue18.x
+      if localValue2 then
+        localValue1 = 400
+        localValue2 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        arg2 = arg2()
-        arg3 = GetEntityCoords
-        arg4 = arg2
-        arg5 = true
+        localValue2 = localValue2()
+        localValue3 = GetEntityCoords
+        localValue4 = localValue2
+        localValue5 = true
         -- Beginner: result below is entityCoords.
-        arg3 = arg3(arg4, arg5)
-        arg4 = tonumber
-        arg5 = workValue18.spawnNearMeters
-        arg4 = arg4(arg5)
-        if not arg4 then
-          arg4 = 110.0
+        localValue3 = localValue3(localValue4, localValue5)
+        localValue4 = tonumber
+        localValue5 = workingValue18.spawnNearMeters
+        localValue4 = localValue4(localValue5)
+        if not localValue4 then
+          localValue4 = 110.0
         end
-        arg5 = vector3
-        arg6 = workValue18.x
-        arg6 = arg6 + 0.0
-        arg7 = workValue18.y
-        arg7 = arg7 + 0.0
-        workValue62 = workValue18.z
-        workValue62 = workValue62 + 0.0
-        arg5 = arg5(arg6, arg7, workValue62)
-        arg5 = arg3 - arg5
-        arg5 = #arg5
-        if arg4 >= arg5 then
-          arg5 = eventRegistration2
+        localValue5 = vector3
+        localValue6 = workingValue18.x
+        localValue6 = localValue6 + 0.0
+        localValue7 = workingValue18.y
+        localValue7 = localValue7 + 0.0
+        workingValue62 = workingValue18.z
+        workingValue62 = workingValue62 + 0.0
+        localValue5 = localValue5(localValue6, localValue7, workingValue62)
+        localValue5 = localValue3 - localValue5
+        localValue5 = #localValue5
+        if localValue4 >= localValue5 then
+          localValue5 = eventHandler2
           -- Beginner: Register a network event handler that the server/other clients can trigger.
-          arg5()
+          localValue5()
         end
       end
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = arg1
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = localValue1
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue7(workValue59)
-textValue7 = Citizen
-textValue7 = textValue7.CreateThread
+text7(workingValue59)
+text7 = Citizen
+text7 = text7.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: none) ===
-function workValue59()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: none) ===
+function workingValue59()
+  local localValue1, localValue2
   while true do
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 400
-    arg1(arg2)
-    arg1 = workValue55
-    arg1()
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 400
+    localValue1(localValue2)
+    localValue1 = workingValue55
+    localValue1()
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue7(workValue59)
-textValue7 = Citizen
-textValue7 = textValue7.CreateThread
+text7(workingValue59)
+text7 = Citizen
+text7 = text7.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: none) ===
-function workValue59()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: none) ===
+function workingValue59()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21
   while true do
-    arg1 = workValue19
-    arg2 = 1500
-    if arg1 then
-      arg3 = CMG
-      arg3 = arg3.hasClientPermission
-      arg4 = "aa.onduty.permission"
-      arg3 = arg3(arg4)
-      if arg3 then
-        arg3 = nil
-        arg4 = nil
-        arg5 = nil
-        arg6 = arg1.type
-        if "breakdown" ~= arg6 then
-          arg6 = arg1.type
-          if "equipment" ~= arg6 then
-            arg6 = arg1.type
-            if "fuel_runout" ~= arg6 then
-              goto flow_label_87
+    localValue1 = workingValue19
+    localValue2 = 1500
+    if localValue1 then
+      localValue3 = CMG
+      localValue3 = localValue3.hasClientPermission
+      localValue4 = "aa.onduty.permission"
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        localValue3 = nil
+        localValue4 = nil
+        localValue5 = nil
+        localValue6 = localValue1.type
+        if "breakdown" ~= localValue6 then
+          localValue6 = localValue1.type
+          if "equipment" ~= localValue6 then
+            localValue6 = localValue1.type
+            if "fuel_runout" ~= localValue6 then
+              goto continueAtStep87
             end
           end
         end
-        arg6 = arg1.vehicleNetId
-        if arg6 then
-          arg6 = tonumber
-          arg7 = arg1.vehicleNetId
-          arg6 = arg6(arg7)
+        localValue6 = localValue1.vehicleNetId
+        if localValue6 then
+          localValue6 = tonumber
+          localValue7 = localValue1.vehicleNetId
+          localValue6 = localValue6(localValue7)
         end
-        if arg6 then
-          arg7 = NetworkDoesNetworkIdExist
-          workValue62 = arg6
-          arg7 = arg7(workValue62)
-          if arg7 then
-            arg7 = NetworkDoesEntityExistWithNetworkId
-            workValue62 = arg6
-            arg7 = arg7(workValue62)
-            if arg7 then
-              arg7 = NetworkGetEntityFromNetworkId
-              workValue62 = arg6
-              arg7 = arg7(workValue62)
-              if 0 == arg7 then
-                goto flow_label_87
+        if localValue6 then
+          localValue7 = NetworkDoesNetworkIdExist
+          workingValue62 = localValue6
+          localValue7 = localValue7(workingValue62)
+          if localValue7 then
+            localValue7 = NetworkDoesEntityExistWithNetworkId
+            workingValue62 = localValue6
+            localValue7 = localValue7(workingValue62)
+            if localValue7 then
+              localValue7 = NetworkGetEntityFromNetworkId
+              workingValue62 = localValue6
+              localValue7 = localValue7(workingValue62)
+              if 0 == localValue7 then
+                goto continueAtStep87
               end
-              workValue62 = DoesEntityExist
-              workValue66 = arg7
-              workValue62 = workValue62(workValue66)
-              if not workValue62 then
-                goto flow_label_87
+              workingValue62 = DoesEntityExist
+              workingValue66 = localValue7
+              workingValue62 = workingValue62(workingValue66)
+              if not workingValue62 then
+                goto continueAtStep87
               end
-              workValue62 = arg1.type
-              if "breakdown" ~= workValue62 then
-                workValue62 = arg1.type
-                if "equipment" ~= workValue62 then
-                  goto flow_label_65
+              workingValue62 = localValue1.type
+              if "breakdown" ~= workingValue62 then
+                workingValue62 = localValue1.type
+                if "equipment" ~= workingValue62 then
+                  goto continueAtStep65
                 end
               end
-              workValue62 = workValue52
-              workValue66 = arg1
-              workValue62 = workValue62(workValue66)
-              if workValue62 then
-                workValue62 = nil
-                workValue66 = nil
-                arg5 = nil
-                arg4 = workValue66
-                arg3 = workValue62
+              workingValue62 = workingValue52
+              workingValue66 = localValue1
+              workingValue62 = workingValue62(workingValue66)
+              if workingValue62 then
+                workingValue62 = nil
+                workingValue66 = nil
+                localValue5 = nil
+                localValue4 = workingValue66
+                localValue3 = workingValue62
               else
-                ::flow_label_65::
-                workValue62 = GetEntityCoords
-                workValue66 = arg7
-                flag25 = true
+                ::continueAtStep65::
+                workingValue62 = GetEntityCoords
+                workingValue66 = localValue7
+                stateFlag25 = true
                 -- Beginner: result below is entityCoords.
-                workValue62 = workValue62(workValue66, flag25)
-                workValue66 = workValue62.x
-                flag25 = workValue62.y
-                arg5 = workValue62.z
-                arg4 = flag25
-                arg3 = workValue66
+                workingValue62 = workingValue62(workingValue66, stateFlag25)
+                workingValue66 = workingValue62.x
+                stateFlag25 = workingValue62.y
+                localValue5 = workingValue62.z
+                localValue4 = stateFlag25
+                localValue3 = workingValue66
               end
           end
         end
         else
-          arg7 = arg1.spawnX
-          if arg7 then
-            arg7 = arg1.spawnX
-            arg3 = arg7 + 0.0
-            arg7 = arg1.spawnY
-            arg4 = arg7 + 0.0
-            arg7 = arg1.spawnZ
-            arg5 = arg7 + 0.0
+          localValue7 = localValue1.spawnX
+          if localValue7 then
+            localValue7 = localValue1.spawnX
+            localValue3 = localValue7 + 0.0
+            localValue7 = localValue1.spawnY
+            localValue4 = localValue7 + 0.0
+            localValue7 = localValue1.spawnZ
+            localValue5 = localValue7 + 0.0
           end
         end
-        ::flow_label_87::
-        if arg3 then
-          arg6 = PlayerPedId
+        ::continueAtStep87::
+        if localValue3 then
+          localValue6 = PlayerPedId
           -- Beginner: result below is localPlayerPed.
-          arg6 = arg6()
-          arg7 = GetEntityCoords
-          workValue62 = arg6
-          workValue66 = true
+          localValue6 = localValue6()
+          localValue7 = GetEntityCoords
+          workingValue62 = localValue6
+          workingValue66 = true
           -- Beginner: result below is entityCoords.
-          arg7 = arg7(workValue62, workValue66)
-          workValue62 = vector3
-          workValue66 = arg3 + 0.0
-          flag25 = arg4 + 0.0
-          flag = arg5 + 0.0
-          workValue62 = workValue62(workValue66, flag25, flag)
-          workValue62 = arg7 - workValue62
-          workValue62 = #workValue62
-          workValue66 = numberValue12
-          if workValue62 < workValue66 then
-            arg2 = 0
-            workValue66 = DrawMarker
-            flag25 = 1
-            flag = arg3 + 0.0
-            flag2 = arg4 + 0.0
-            flag4 = arg5 - 1.0
-            flag5 = 0.0
-            flag6 = 0.0
-            flag7 = 0.0
-            flag8 = 0.0
-            flag9 = 0.0
-            flag10 = 0.0
-            numberValue3 = numberValue13
-            flag11 = numberValue13
-            flag12 = numberValue14
-            flag13 = 255
-            flag14 = 210
-            flag15 = 72
-            flag16 = 150
-            flag17 = false
-            numberValue7 = false
-            flag18 = 2
-            flag19 = false
-            flag20 = nil
-            numberValue9 = nil
-            flag21 = false
-            workValue66(flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21)
-            if workValue62 < 22.0 then
-              workValue66 = arg1.type
-              if "breakdown" ~= workValue66 then
-                workValue66 = arg1.type
-                if "equipment" ~= workValue66 then
-                  goto flow_label_168
+          localValue7 = localValue7(workingValue62, workingValue66)
+          workingValue62 = vector3
+          workingValue66 = localValue3 + 0.0
+          stateFlag25 = localValue4 + 0.0
+          stateFlag = localValue5 + 0.0
+          workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag)
+          workingValue62 = localValue7 - workingValue62
+          workingValue62 = #workingValue62
+          workingValue66 = number12
+          if workingValue62 < workingValue66 then
+            localValue2 = 0
+            workingValue66 = DrawMarker
+            stateFlag25 = 1
+            stateFlag = localValue3 + 0.0
+            stateFlag2 = localValue4 + 0.0
+            stateFlag4 = localValue5 - 1.0
+            stateFlag5 = 0.0
+            stateFlag6 = 0.0
+            stateFlag7 = 0.0
+            stateFlag8 = 0.0
+            stateFlag9 = 0.0
+            stateFlag10 = 0.0
+            number3 = number13
+            stateFlag11 = number13
+            stateFlag12 = number14
+            stateFlag13 = 255
+            stateFlag14 = 210
+            stateFlag15 = 72
+            stateFlag16 = 150
+            stateFlag17 = false
+            number7 = false
+            stateFlag18 = 2
+            stateFlag19 = false
+            stateFlag20 = nil
+            number9 = nil
+            stateFlag21 = false
+            workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21)
+            if workingValue62 < 22.0 then
+              workingValue66 = localValue1.type
+              if "breakdown" ~= workingValue66 then
+                workingValue66 = localValue1.type
+                if "equipment" ~= workingValue66 then
+                  goto continueAtStep168
                 end
               end
-              workValue66 = workValue52
-              flag25 = arg1
-              workValue66 = workValue66(flag25)
-              if not workValue66 then
-                workValue66 = workValue53
-                workValue66 = workValue66()
-                if "tow" == workValue66 then
-                  flag25 = workValue31
-                  flag = "Use ~INPUT_VEH_FLY_PITCH_DOWN_ONLY~ to lower the tow hook, ~INPUT_VEH_FLY_PITCH_UP_ONLY~ to raise."
-                  flag25(flag)
-                elseif "flatbed" == workValue66 then
-                  flag25 = workValue31
-                  flag = "Press ~INPUT_CONTEXT~ on the target vehicle to attach it to your flatbed"
-                  flag25(flag)
+              workingValue66 = workingValue52
+              stateFlag25 = localValue1
+              workingValue66 = workingValue66(stateFlag25)
+              if not workingValue66 then
+                workingValue66 = workingValue53
+                workingValue66 = workingValue66()
+                if "tow" == workingValue66 then
+                  stateFlag25 = workingValue31
+                  stateFlag = "Use ~INPUT_VEH_FLY_PITCH_DOWN_ONLY~ to lower the tow hook, ~INPUT_VEH_FLY_PITCH_UP_ONLY~ to raise."
+                  stateFlag25(stateFlag)
+                elseif "flatbed" == workingValue66 then
+                  stateFlag25 = workingValue31
+                  stateFlag = "Press ~INPUT_CONTEXT~ on the target vehicle to attach it to your flatbed"
+                  stateFlag25(stateFlag)
                 else
-                  flag25 = workValue31
-                  flag = "~y~Flatbed:~w~ ~INPUT_CONTEXT~ on the vehicle. ~y~Tow truck:~w~ ~INPUT_VEH_FLY_PITCH_DOWN_ONLY~ / ~INPUT_VEH_FLY_PITCH_UP_ONLY~ for the hook, then reverse to attach"
-                  flag25(flag)
+                  stateFlag25 = workingValue31
+                  stateFlag = "~y~Flatbed:~w~ ~INPUT_CONTEXT~ on the vehicle. ~y~Tow truck:~w~ ~INPUT_VEH_FLY_PITCH_DOWN_ONLY~ / ~INPUT_VEH_FLY_PITCH_UP_ONLY~ for the hook, then reverse to attach"
+                  stateFlag25(stateFlag)
                 end
               end
             end
@@ -3587,698 +3587,698 @@ function workValue59()
         end
       end
     end
-    ::flow_label_168::
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = arg2
-    arg3(arg4)
+    ::continueAtStep168::
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = localValue2
+    localValue3(localValue4)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue7(workValue59)
-textValue7 = Citizen
-textValue7 = textValue7.CreateThread
+text7(workingValue59)
+text7 = Citizen
+text7 = text7.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: none) ===
-function workValue59()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: none) ===
+function workingValue59()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23
   while true do
-    arg1 = workValue19
-    arg2 = 1200
-    if arg1 then
-      arg3 = CMG
-      arg3 = arg3.hasClientPermission
-      arg4 = "aa.onduty.permission"
-      arg3 = arg3(arg4)
-      if arg3 then
-        arg3 = workValue51
-        arg4 = arg1
-        arg3 = arg3(arg4)
-        if arg3 then
-          arg3 = eventRegistration.x
-          arg3 = arg3 + 0.0
-          arg4 = eventRegistration.y
-          arg4 = arg4 + 0.0
-          arg5 = eventRegistration.z
-          arg5 = arg5 + 0.0
-          arg6 = PlayerPedId
+    localValue1 = workingValue19
+    localValue2 = 1200
+    if localValue1 then
+      localValue3 = CMG
+      localValue3 = localValue3.hasClientPermission
+      localValue4 = "aa.onduty.permission"
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        localValue3 = workingValue51
+        localValue4 = localValue1
+        localValue3 = localValue3(localValue4)
+        if localValue3 then
+          localValue3 = eventHandler.x
+          localValue3 = localValue3 + 0.0
+          localValue4 = eventHandler.y
+          localValue4 = localValue4 + 0.0
+          localValue5 = eventHandler.z
+          localValue5 = localValue5 + 0.0
+          localValue6 = PlayerPedId
           -- Beginner: result below is localPlayerPed.
-          arg6 = arg6()
-          arg7 = GetEntityCoords
-          workValue62 = arg6
-          workValue66 = true
+          localValue6 = localValue6()
+          localValue7 = GetEntityCoords
+          workingValue62 = localValue6
+          workingValue66 = true
           -- Beginner: result below is entityCoords.
-          arg7 = arg7(workValue62, workValue66)
-          workValue62 = GetGroundZFor_3dCoord
-          workValue66 = arg3
-          flag25 = arg4
-          flag = arg5 + 80.0
-          flag2 = 0.0
-          flag4 = false
-          workValue62, workValue66 = workValue62(workValue66, flag25, flag, flag2, flag4)
-          if workValue66 and workValue66 > 0.0 then
-            flag25 = workValue66 + 0.12
-            if flag25 then
-              goto flow_label_48
+          localValue7 = localValue7(workingValue62, workingValue66)
+          workingValue62 = GetGroundZFor_3dCoord
+          workingValue66 = localValue3
+          stateFlag25 = localValue4
+          stateFlag = localValue5 + 80.0
+          stateFlag2 = 0.0
+          stateFlag4 = false
+          workingValue62, workingValue66 = workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4)
+          if workingValue66 and workingValue66 > 0.0 then
+            stateFlag25 = workingValue66 + 0.12
+            if stateFlag25 then
+              goto continueAtStep48
             end
           end
-          flag25 = arg5
-          ::flow_label_48::
-          flag = vector3
-          flag2 = arg3
-          flag4 = arg4
-          flag5 = flag25
-          flag = flag(flag2, flag4, flag5)
-          flag = arg7 - flag
-          flag = #flag
-          flag2 = numberValue12
-          if flag < flag2 then
-            arg2 = 0
-            flag2 = DrawMarker
-            flag4 = 1
-            flag5 = arg3
-            flag6 = arg4
-            flag7 = flag25 - 0.35
-            flag8 = 0.0
-            flag9 = 0.0
-            flag10 = 0.0
-            numberValue3 = 0.0
-            flag11 = 0.0
-            flag12 = 0.0
-            flag13 = numberValue17
-            flag14 = numberValue17
-            flag15 = numberValue18
-            flag16 = 72
-            flag17 = 255
-            numberValue7 = 140
-            flag18 = 195
-            flag19 = false
-            flag20 = false
-            numberValue9 = 2
-            flag21 = false
-            flag22 = nil
-            numberValue11 = nil
-            flag23 = false
-            flag2(flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23)
+          stateFlag25 = localValue5
+          ::continueAtStep48::
+          stateFlag = vector3
+          stateFlag2 = localValue3
+          stateFlag4 = localValue4
+          stateFlag5 = stateFlag25
+          stateFlag = stateFlag(stateFlag2, stateFlag4, stateFlag5)
+          stateFlag = localValue7 - stateFlag
+          stateFlag = #stateFlag
+          stateFlag2 = number12
+          if stateFlag < stateFlag2 then
+            localValue2 = 0
+            stateFlag2 = DrawMarker
+            stateFlag4 = 1
+            stateFlag5 = localValue3
+            stateFlag6 = localValue4
+            stateFlag7 = stateFlag25 - 0.35
+            stateFlag8 = 0.0
+            stateFlag9 = 0.0
+            stateFlag10 = 0.0
+            number3 = 0.0
+            stateFlag11 = 0.0
+            stateFlag12 = 0.0
+            stateFlag13 = number17
+            stateFlag14 = number17
+            stateFlag15 = number18
+            stateFlag16 = 72
+            stateFlag17 = 255
+            number7 = 140
+            stateFlag18 = 195
+            stateFlag19 = false
+            stateFlag20 = false
+            number9 = 2
+            stateFlag21 = false
+            stateFlag22 = nil
+            number11 = nil
+            stateFlag23 = false
+            stateFlag2(stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23)
           end
-          flag2 = workValue52
-          flag4 = arg1
-          flag2 = flag2(flag4)
-          if flag2 then
-            flag2 = numberValue19
-            if flag < flag2 then
-              arg2 = 0
-              flag2 = workValue31
-              flag4 = workValue54
-              flag5 = arg1
-              flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23 = flag4(flag5)
-              flag2(flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23)
+          stateFlag2 = workingValue52
+          stateFlag4 = localValue1
+          stateFlag2 = stateFlag2(stateFlag4)
+          if stateFlag2 then
+            stateFlag2 = number19
+            if stateFlag < stateFlag2 then
+              localValue2 = 0
+              stateFlag2 = workingValue31
+              stateFlag4 = workingValue54
+              stateFlag5 = localValue1
+              stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23 = stateFlag4(stateFlag5)
+              stateFlag2(stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23)
             end
           end
         end
       end
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = arg2
-    arg3(arg4)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = localValue2
+    localValue3(localValue4)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue7(workValue59)
-textValue7 = Citizen
-textValue7 = textValue7.CreateThread
+text7(workingValue59)
+text7 = Citizen
+text7 = text7.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: none) ===
-function workValue59()
-  local arg1, arg2, arg3
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: none) ===
+function workingValue59()
+  local localValue1, localValue2, localValue3
   while true do
-    arg1 = workValue19
-    if arg1 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "aa.onduty.permission"
-      arg2 = arg2(arg3)
-      if arg2 then
-        arg2 = workValue28
-        arg3 = arg1
-        arg2(arg3)
-        arg2 = Citizen
-        arg2 = arg2.Wait
-        arg3 = 0
-        arg2(arg3)
+    localValue1 = workingValue19
+    if localValue1 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "aa.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        localValue2 = workingValue28
+        localValue3 = localValue1
+        localValue2(localValue3)
+        localValue2 = Citizen
+        localValue2 = localValue2.Wait
+        localValue3 = 0
+        localValue2(localValue3)
     end
     else
-      arg2 = workValue27
-      arg2()
-      arg2 = Citizen
-      arg2 = arg2.Wait
-      arg3 = 1200
-      arg2(arg3)
+      localValue2 = workingValue27
+      localValue2()
+      localValue2 = Citizen
+      localValue2 = localValue2.Wait
+      localValue3 = 1200
+      localValue2(localValue3)
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue7(workValue59)
+text7(workingValue59)
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetVehiclePedIsIn
-  arg3 = arg1
-  arg4 = false
+  localValue1 = localValue1()
+  localValue2 = GetVehiclePedIsIn
+  localValue3 = localValue1
+  localValue4 = false
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
-    arg3 = GetPedInVehicleSeat
-    arg4 = arg2
-    arg5 = -1
-    arg3 = arg3(arg4, arg5)
-    if arg3 == arg1 then
-      arg3 = GetEntityModel
-      arg4 = arg2
+  localValue2 = localValue2(localValue3, localValue4)
+  if 0 ~= localValue2 then
+    localValue3 = GetPedInVehicleSeat
+    localValue4 = localValue2
+    localValue5 = -1
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 == localValue1 then
+      localValue3 = GetEntityModel
+      localValue4 = localValue2
       -- Beginner: result below is modelHash.
-      arg3 = arg3(arg4)
-      arg4 = workValue11
-      arg3 = arg4[arg3]
-      if arg3 then
-        return arg2
+      localValue3 = localValue3(localValue4)
+      localValue4 = workingValue11
+      localValue3 = localValue4[localValue3]
+      if localValue3 then
+        return localValue2
       end
     end
   end
-  arg3 = 0
-  return arg3
+  localValue3 = 0
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue59; parameters: arg1) ===
-function workValue59(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue59; parameters: localValue1) ===
+function workingValue59(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = GetEntityCoords
-  arg4 = arg2
-  arg5 = true
+  localValue2 = localValue2()
+  localValue3 = GetEntityCoords
+  localValue4 = localValue2
+  localValue5 = true
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(arg4, arg5)
-  arg4 = 0
-  arg5 = arg1 + 0.01
-  arg6 = pairs
-  arg7 = GetGamePool
-  workValue62 = "CVehicle"
-  arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7 = arg7(workValue62)
-  arg6, arg7, workValue62, workValue66 = arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7)
-  for flag25, flag in arg6, arg7, workValue62, workValue66 do
-    if 0 ~= flag then
-      flag2 = DoesEntityExist
-      flag4 = flag
-      flag2 = flag2(flag4)
-      if flag2 then
-        flag2 = GetEntityModel
-        flag4 = flag
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = 0
+  localValue5 = localValue1 + 0.01
+  localValue6 = pairs
+  localValue7 = GetGamePool
+  workingValue62 = "CVehicle"
+  localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7 = localValue7(workingValue62)
+  localValue6, localValue7, workingValue62, workingValue66 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+  for stateFlag25, stateFlag in localValue6, localValue7, workingValue62, workingValue66 do
+    if 0 ~= stateFlag then
+      stateFlag2 = DoesEntityExist
+      stateFlag4 = stateFlag
+      stateFlag2 = stateFlag2(stateFlag4)
+      if stateFlag2 then
+        stateFlag2 = GetEntityModel
+        stateFlag4 = stateFlag
         -- Beginner: result below is modelHash.
-        flag2 = flag2(flag4)
-        flag4 = workValue11
-        flag2 = flag4[flag2]
-        if flag2 then
-          flag2 = GetOffsetFromEntityInWorldCoords
-          flag4 = flag
-          flag5 = 0.0
-          flag6 = -3.85
-          flag7 = 0.55
-          flag2 = flag2(flag4, flag5, flag6, flag7)
-          flag4 = arg3 - flag2
-          flag4 = #flag4
-          if arg5 > flag4 then
-            arg5 = flag4
-            arg4 = flag
+        stateFlag2 = stateFlag2(stateFlag4)
+        stateFlag4 = workingValue11
+        stateFlag2 = stateFlag4[stateFlag2]
+        if stateFlag2 then
+          stateFlag2 = GetOffsetFromEntityInWorldCoords
+          stateFlag4 = stateFlag
+          stateFlag5 = 0.0
+          stateFlag6 = -3.85
+          stateFlag7 = 0.55
+          stateFlag2 = stateFlag2(stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+          stateFlag4 = localValue3 - stateFlag2
+          stateFlag4 = #stateFlag4
+          if localValue5 > stateFlag4 then
+            localValue5 = stateFlag4
+            localValue4 = stateFlag
           end
         end
       end
     end
   end
-  arg6 = arg4
-  arg7 = arg5
-  return arg6, arg7
+  localValue6 = localValue4
+  localValue7 = localValue5
+  return localValue6, localValue7
 end
 
--- === HELPER FUNCTION (decompiler name: workValue60; parameters: arg1) ===
-function workValue60(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue60; parameters: localValue1) ===
+function workingValue60(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = GetEntityCoords
-  arg4 = arg2
-  arg5 = true
+  localValue2 = localValue2()
+  localValue3 = GetEntityCoords
+  localValue4 = localValue2
+  localValue5 = true
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(arg4, arg5)
-  arg4 = 0
-  arg5 = arg1 + 0.01
-  arg6 = pairs
-  arg7 = GetGamePool
-  workValue62 = "CVehicle"
-  arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7 = arg7(workValue62)
-  arg6, arg7, workValue62, workValue66 = arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7)
-  for flag25, flag in arg6, arg7, workValue62, workValue66 do
-    if 0 ~= flag then
-      flag2 = DoesEntityExist
-      flag4 = flag
-      flag2 = flag2(flag4)
-      if flag2 then
-        flag2 = IsEntityAVehicle
-        flag4 = flag
-        flag2 = flag2(flag4)
-        if flag2 then
-          flag2 = GetOffsetFromEntityInWorldCoords
-          flag4 = flag
-          flag5 = 0.0
-          flag6 = -3.25
-          flag7 = 0.55
-          flag2 = flag2(flag4, flag5, flag6, flag7)
-          flag4 = arg3 - flag2
-          flag4 = #flag4
-          if arg5 > flag4 then
-            arg5 = flag4
-            arg4 = flag
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = 0
+  localValue5 = localValue1 + 0.01
+  localValue6 = pairs
+  localValue7 = GetGamePool
+  workingValue62 = "CVehicle"
+  localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7 = localValue7(workingValue62)
+  localValue6, localValue7, workingValue62, workingValue66 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+  for stateFlag25, stateFlag in localValue6, localValue7, workingValue62, workingValue66 do
+    if 0 ~= stateFlag then
+      stateFlag2 = DoesEntityExist
+      stateFlag4 = stateFlag
+      stateFlag2 = stateFlag2(stateFlag4)
+      if stateFlag2 then
+        stateFlag2 = IsEntityAVehicle
+        stateFlag4 = stateFlag
+        stateFlag2 = stateFlag2(stateFlag4)
+        if stateFlag2 then
+          stateFlag2 = GetOffsetFromEntityInWorldCoords
+          stateFlag4 = stateFlag
+          stateFlag5 = 0.0
+          stateFlag6 = -3.25
+          stateFlag7 = 0.55
+          stateFlag2 = stateFlag2(stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+          stateFlag4 = localValue3 - stateFlag2
+          stateFlag4 = #stateFlag4
+          if localValue5 > stateFlag4 then
+            localValue5 = stateFlag4
+            localValue4 = stateFlag
           end
         end
       end
     end
   end
-  arg6 = arg4
-  arg7 = arg5
-  return arg6, arg7
+  localValue6 = localValue4
+  localValue7 = localValue5
+  return localValue6, localValue7
 end
-threadCall2 = Citizen
-threadCall2 = threadCall2.CreateThread
+backgroundThread2 = Citizen
+backgroundThread2 = backgroundThread2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
-function textValue8()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24
+-- === HELPER FUNCTION (decompiler name: text8; parameters: none) ===
+function text8()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24
   while true do
-    arg1 = workValue19
-    if arg1 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "aa.onduty.permission"
-      arg2 = arg2(arg3)
-      if arg2 then
-        goto flow_label_19
+    localValue1 = workingValue19
+    if localValue1 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "aa.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        goto continueAtStep19
       end
     end
-    if not arg1 then
-      arg2 = nil
-      workValue22 = arg2
+    if not localValue1 then
+      localValue2 = nil
+      workingValue22 = localValue2
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 1200
-    arg2(arg3)
-    goto flow_label_866
-    ::flow_label_19::
-    arg2 = arg1.type
-    if "debris" ~= arg2 then
-      arg2 = nil
-      workValue22 = arg2
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 1200
+    localValue2(localValue3)
+    goto continueAtStep866
+    ::continueAtStep19::
+    localValue2 = localValue1.type
+    if "debris" ~= localValue2 then
+      localValue2 = nil
+      workingValue22 = localValue2
     end
-    arg2 = PlayerPedId
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
-    arg3 = GetEntityCoords
-    arg4 = arg2
-    arg5 = true
+    localValue2 = localValue2()
+    localValue3 = GetEntityCoords
+    localValue4 = localValue2
+    localValue5 = true
     -- Beginner: result below is entityCoords.
-    arg3 = arg3(arg4, arg5)
-    arg4 = 600
-    arg5 = arg1.type
-    if "debris" == arg5 then
-      arg5 = type
-      arg6 = arg1.anchor
-      arg5 = arg5(arg6)
-      if "table" == arg5 then
-        arg5 = type
-        arg6 = arg1.anchor
-        arg6 = arg6.x
-        arg5 = arg5(arg6)
-        if "number" == arg5 then
-          arg5 = arg1.mainSecured
-          if not arg5 then
-            arg5 = arg1.anchor
-            arg5 = arg5.x
-            arg5 = arg5 + 0.0
-            arg6 = arg1.anchor
-            arg6 = arg6.y
-            arg6 = arg6 + 0.0
-            arg7 = arg1.anchor
-            arg7 = arg7.z
-            arg7 = arg7 + 0.0
-            workValue62 = vector3
-            workValue66 = arg5
-            flag25 = arg6
-            flag = arg7
-            workValue62 = workValue62(workValue66, flag25, flag)
-            workValue62 = arg3 - workValue62
-            workValue62 = #workValue62
-            if workValue62 < 42.0 then
-              arg4 = 0
-              workValue66 = DrawMarker
-              flag25 = 1
-              flag = arg5
-              flag2 = arg6
-              flag4 = arg7 - 1.0
-              flag5 = 0.0
-              flag6 = 0.0
-              flag7 = 0.0
-              flag8 = 0.0
-              flag9 = 0.0
-              flag10 = 0.0
-              numberValue3 = 3.2
-              flag11 = 3.2
-              flag12 = 1.1
-              flag13 = 200
-              flag14 = 200
-              flag15 = 80
-              flag16 = 110
-              flag17 = false
-              numberValue7 = false
-              flag18 = 2
-              flag19 = false
-              flag20 = nil
-              numberValue9 = nil
-              flag21 = false
-              workValue66(flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21)
+    localValue3 = localValue3(localValue4, localValue5)
+    localValue4 = 600
+    localValue5 = localValue1.type
+    if "debris" == localValue5 then
+      localValue5 = type
+      localValue6 = localValue1.anchor
+      localValue5 = localValue5(localValue6)
+      if "table" == localValue5 then
+        localValue5 = type
+        localValue6 = localValue1.anchor
+        localValue6 = localValue6.x
+        localValue5 = localValue5(localValue6)
+        if "number" == localValue5 then
+          localValue5 = localValue1.mainSecured
+          if not localValue5 then
+            localValue5 = localValue1.anchor
+            localValue5 = localValue5.x
+            localValue5 = localValue5 + 0.0
+            localValue6 = localValue1.anchor
+            localValue6 = localValue6.y
+            localValue6 = localValue6 + 0.0
+            localValue7 = localValue1.anchor
+            localValue7 = localValue7.z
+            localValue7 = localValue7 + 0.0
+            workingValue62 = vector3
+            workingValue66 = localValue5
+            stateFlag25 = localValue6
+            stateFlag = localValue7
+            workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag)
+            workingValue62 = localValue3 - workingValue62
+            workingValue62 = #workingValue62
+            if workingValue62 < 42.0 then
+              localValue4 = 0
+              workingValue66 = DrawMarker
+              stateFlag25 = 1
+              stateFlag = localValue5
+              stateFlag2 = localValue6
+              stateFlag4 = localValue7 - 1.0
+              stateFlag5 = 0.0
+              stateFlag6 = 0.0
+              stateFlag7 = 0.0
+              stateFlag8 = 0.0
+              stateFlag9 = 0.0
+              stateFlag10 = 0.0
+              number3 = 3.2
+              stateFlag11 = 3.2
+              stateFlag12 = 1.1
+              stateFlag13 = 200
+              stateFlag14 = 200
+              stateFlag15 = 80
+              stateFlag16 = 110
+              stateFlag17 = false
+              number7 = false
+              stateFlag18 = 2
+              stateFlag19 = false
+              stateFlag20 = nil
+              number9 = nil
+              stateFlag21 = false
+              workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21)
             end
-            workValue66 = tonumber
-            flag25 = arg1.carryingSecondarySlot
-            workValue66 = workValue66(flag25)
-            if workValue66 then
-              flag25 = workValue59
-              flag = 5.5
-              flag25, flag = flag25(flag)
-              if 0 ~= flag25 then
-                flag2 = GetVehiclePedIsIn
-                flag4 = arg2
-                flag5 = false
+            workingValue66 = tonumber
+            stateFlag25 = localValue1.carryingSecondarySlot
+            workingValue66 = workingValue66(stateFlag25)
+            if workingValue66 then
+              stateFlag25 = workingValue59
+              stateFlag = 5.5
+              stateFlag25, stateFlag = stateFlag25(stateFlag)
+              if 0 ~= stateFlag25 then
+                stateFlag2 = GetVehiclePedIsIn
+                stateFlag4 = localValue2
+                stateFlag5 = false
                 -- Beginner: result below is currentVehicle.
-                flag2 = flag2(flag4, flag5)
-                if 0 == flag2 then
-                  arg4 = 0
-                  flag2 = 4.2
-                  if flag < flag2 then
-                    flag2 = workValue31
-                    flag4 = "~INPUT_CONTEXT~ to stack it on the bed"
-                    flag2(flag4)
-                    flag2 = IsControlJustPressed
-                    flag4 = 0
-                    flag5 = 51
-                    flag2 = flag2(flag4, flag5)
-                    if flag2 then
-                      flag2 = workValue66
-                      flag4 = flag25
-                      flag5 = DoesEntityExist
-                      flag6 = flag4
-                      flag5 = flag5(flag6)
-                      if flag5 then
-                        flag5 = workValue39
-                        flag6 = flag4
-                        flag7 = flag2
-                        flag5 = flag5(flag6, flag7)
-                        if flag5 then
-                          flag5 = TriggerServerEvent
-                          flag6 = "9e60778b9c"
-                          flag7 = NetworkGetNetworkIdFromEntity
-                          flag8 = flag4
-                          flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24 = flag7(flag8)
+                stateFlag2 = stateFlag2(stateFlag4, stateFlag5)
+                if 0 == stateFlag2 then
+                  localValue4 = 0
+                  stateFlag2 = 4.2
+                  if stateFlag < stateFlag2 then
+                    stateFlag2 = workingValue31
+                    stateFlag4 = "~INPUT_CONTEXT~ to stack it on the bed"
+                    stateFlag2(stateFlag4)
+                    stateFlag2 = IsControlJustPressed
+                    stateFlag4 = 0
+                    stateFlag5 = 51
+                    stateFlag2 = stateFlag2(stateFlag4, stateFlag5)
+                    if stateFlag2 then
+                      stateFlag2 = workingValue66
+                      stateFlag4 = stateFlag25
+                      stateFlag5 = DoesEntityExist
+                      stateFlag6 = stateFlag4
+                      stateFlag5 = stateFlag5(stateFlag6)
+                      if stateFlag5 then
+                        stateFlag5 = workingValue39
+                        stateFlag6 = stateFlag4
+                        stateFlag7 = stateFlag2
+                        stateFlag5 = stateFlag5(stateFlag6, stateFlag7)
+                        if stateFlag5 then
+                          stateFlag5 = TriggerServerEvent
+                          stateFlag6 = "9e60778b9c"
+                          stateFlag7 = NetworkGetNetworkIdFromEntity
+                          stateFlag8 = stateFlag4
+                          stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24 = stateFlag7(stateFlag8)
                           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9e60778b9c".
-                          flag5(flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24)
+                          stateFlag5(stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24)
                         end
                       end
-                      flag5 = Citizen
-                      flag5 = flag5.Wait
-                      flag6 = 800
-                      flag5(flag6)
+                      stateFlag5 = Citizen
+                      stateFlag5 = stateFlag5.Wait
+                      stateFlag6 = 800
+                      stateFlag5(stateFlag6)
                     end
                   else
-                    flag2 = workValue31
-                    flag4 = "Take it to the back of the flatbed"
-                    flag2(flag4)
+                    stateFlag2 = workingValue31
+                    stateFlag4 = "Take it to the back of the flatbed"
+                    stateFlag2(stateFlag4)
                   end
                 end
               end
             else
-              flag25 = nil
-              flag = 2.85
-              flag2 = pairs
-              flag4 = dataTable2
-              flag2, flag4, flag5, flag6 = flag2(flag4)
-              for flag7, flag8 in flag2, flag4, flag5, flag6 do
-                if flag8 and 0 ~= flag8 then
-                  flag9 = DoesEntityExist
-                  flag10 = flag8
-                  flag9 = flag9(flag10)
-                  if flag9 then
-                    flag9 = cmgCall4
-                    flag10 = arg1
-                    numberValue3 = flag7
-                    flag9 = flag9(flag10, numberValue3)
-                    if not flag9 then
-                      flag9 = GetEntityCoords
-                      flag10 = flag8
-                      numberValue3 = true
+              stateFlag25 = nil
+              stateFlag = 2.85
+              stateFlag2 = pairs
+              stateFlag4 = dataCollection2
+              stateFlag2, stateFlag4, stateFlag5, stateFlag6 = stateFlag2(stateFlag4)
+              for stateFlag7, stateFlag8 in stateFlag2, stateFlag4, stateFlag5, stateFlag6 do
+                if stateFlag8 and 0 ~= stateFlag8 then
+                  stateFlag9 = DoesEntityExist
+                  stateFlag10 = stateFlag8
+                  stateFlag9 = stateFlag9(stateFlag10)
+                  if stateFlag9 then
+                    stateFlag9 = cmgOperation4
+                    stateFlag10 = localValue1
+                    number3 = stateFlag7
+                    stateFlag9 = stateFlag9(stateFlag10, number3)
+                    if not stateFlag9 then
+                      stateFlag9 = GetEntityCoords
+                      stateFlag10 = stateFlag8
+                      number3 = true
                       -- Beginner: result below is entityCoords.
-                      flag9 = flag9(flag10, numberValue3)
-                      flag10 = arg3 - flag9
-                      flag10 = #flag10
-                      if flag > flag10 then
-                        flag = flag10
-                        flag25 = flag7
+                      stateFlag9 = stateFlag9(stateFlag10, number3)
+                      stateFlag10 = localValue3 - stateFlag9
+                      stateFlag10 = #stateFlag10
+                      if stateFlag > stateFlag10 then
+                        stateFlag = stateFlag10
+                        stateFlag25 = stateFlag7
                       end
                     end
                   end
                 end
               end
-              if flag25 then
-                flag2 = GetVehiclePedIsIn
-                flag4 = arg2
-                flag5 = false
+              if stateFlag25 then
+                stateFlag2 = GetVehiclePedIsIn
+                stateFlag4 = localValue2
+                stateFlag5 = false
                 -- Beginner: result below is currentVehicle.
-                flag2 = flag2(flag4, flag5)
-                if 0 == flag2 then
-                  flag2 = 2.75
-                  if flag < flag2 then
-                    arg4 = 0
-                    flag2 = workValue31
-                    flag4 = "~INPUT_CONTEXT~ to grab a piece of debris"
-                    flag2(flag4)
-                    flag2 = IsControlJustPressed
-                    flag4 = 0
-                    flag5 = 51
-                    flag2 = flag2(flag4, flag5)
-                    if flag2 then
-                      flag2 = TriggerServerEvent
-                      flag4 = "c6e44e597f"
-                      flag5 = flag25
+                stateFlag2 = stateFlag2(stateFlag4, stateFlag5)
+                if 0 == stateFlag2 then
+                  stateFlag2 = 2.75
+                  if stateFlag < stateFlag2 then
+                    localValue4 = 0
+                    stateFlag2 = workingValue31
+                    stateFlag4 = "~INPUT_CONTEXT~ to grab a piece of debris"
+                    stateFlag2(stateFlag4)
+                    stateFlag2 = IsControlJustPressed
+                    stateFlag4 = 0
+                    stateFlag5 = 51
+                    stateFlag2 = stateFlag2(stateFlag4, stateFlag5)
+                    if stateFlag2 then
+                      stateFlag2 = TriggerServerEvent
+                      stateFlag4 = "c6e44e597f"
+                      stateFlag5 = stateFlag25
                       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c6e44e597f".
-                      flag2(flag4, flag5)
-                      flag2 = Citizen
-                      flag2 = flag2.Wait
-                      flag4 = 800
-                      flag2(flag4)
+                      stateFlag2(stateFlag4, stateFlag5)
+                      stateFlag2 = Citizen
+                      stateFlag2 = stateFlag2.Wait
+                      stateFlag4 = 800
+                      stateFlag2(stateFlag4)
                     end
                   end
                 end
               end
             end
-            flag25 = workValue34
-            flag = arg1
-            flag25 = flag25(flag)
-            if flag25 then
-              flag25 = tonumber
-              flag = arg1.carryingSecondarySlot
-              flag25 = flag25(flag)
-              if not flag25 then
-                flag25 = tostring
-                flag = arg1.contractId
-                if not flag then
-                  flag = ""
+            stateFlag25 = workingValue34
+            stateFlag = localValue1
+            stateFlag25 = stateFlag25(stateFlag)
+            if stateFlag25 then
+              stateFlag25 = tonumber
+              stateFlag = localValue1.carryingSecondarySlot
+              stateFlag25 = stateFlag25(stateFlag)
+              if not stateFlag25 then
+                stateFlag25 = tostring
+                stateFlag = localValue1.contractId
+                if not stateFlag then
+                  stateFlag = ""
                 end
-                flag25 = flag25(flag)
-                if "" == flag25 then
-                  flag25 = "debris"
+                stateFlag25 = stateFlag25(stateFlag)
+                if "" == stateFlag25 then
+                  stateFlag25 = "debris"
                 end
-                flag = workValue22
-                if flag ~= flag25 then
-                  workValue22 = flag25
-                  flag = drawNativeNotification
-                  flag2 = "Junk's cleared. Jump in the ~y~flatbed~w~, tuck up to the shell, ~y~winch~w~ it on (~INPUT_CONTEXT~)."
-                  flag4 = false
+                stateFlag = workingValue22
+                if stateFlag ~= stateFlag25 then
+                  workingValue22 = stateFlag25
+                  stateFlag = drawNativeNotification
+                  stateFlag2 = "Junk's cleared. Jump in the ~y~flatbed~w~, tuck up to the shell, ~y~winch~w~ it on (~INPUT_CONTEXT~)."
+                  stateFlag4 = false
                   -- Beginner: Show a GTA-style notification/help prompt.
-                  flag(flag2, flag4)
+                  stateFlag(stateFlag2, stateFlag4)
                 end
               end
             end
-            flag25 = workValue34
-            flag = arg1
-            flag25 = flag25(flag)
-            if flag25 then
-              flag25 = numberValue
-              if 0 ~= flag25 then
-                flag25 = DoesEntityExist
-                flag = numberValue
-                flag25 = flag25(flag)
-                if flag25 then
-                  flag25 = textValue7
-                  flag25 = flag25()
-                  flag = GetEntityCoords
-                  flag2 = numberValue
-                  flag4 = true
+            stateFlag25 = workingValue34
+            stateFlag = localValue1
+            stateFlag25 = stateFlag25(stateFlag)
+            if stateFlag25 then
+              stateFlag25 = number
+              if 0 ~= stateFlag25 then
+                stateFlag25 = DoesEntityExist
+                stateFlag = number
+                stateFlag25 = stateFlag25(stateFlag)
+                if stateFlag25 then
+                  stateFlag25 = text7
+                  stateFlag25 = stateFlag25()
+                  stateFlag = GetEntityCoords
+                  stateFlag2 = number
+                  stateFlag4 = true
                   -- Beginner: result below is entityCoords.
-                  flag = flag(flag2, flag4)
-                  if 0 ~= flag25 then
-                    flag2 = GetEntityCoords
-                    flag4 = flag25
-                    flag5 = true
+                  stateFlag = stateFlag(stateFlag2, stateFlag4)
+                  if 0 ~= stateFlag25 then
+                    stateFlag2 = GetEntityCoords
+                    stateFlag4 = stateFlag25
+                    stateFlag5 = true
                     -- Beginner: result below is entityCoords.
-                    flag2 = flag2(flag4, flag5)
-                    flag2 = flag2 - flag
-                    flag2 = #flag2
-                    flag4 = 13.5
-                    if flag2 < flag4 then
-                      arg4 = 0
-                      flag4 = DrawMarker
-                      flag5 = 1
-                      flag6 = flag.x
-                      flag7 = flag.y
-                      flag8 = flag.z
-                      flag8 = flag8 - 0.5
-                      flag9 = 0.0
-                      flag10 = 0.0
-                      numberValue3 = 0.0
-                      flag11 = 0.0
-                      flag12 = 0.0
-                      flag13 = 0.0
-                      flag14 = 2.0
-                      flag15 = 2.0
-                      flag16 = 0.8
-                      flag17 = 255
-                      numberValue7 = 180
-                      flag18 = 64
-                      flag19 = 130
-                      flag20 = false
-                      numberValue9 = false
-                      flag21 = 2
-                      flag22 = false
-                      numberValue11 = nil
-                      flag23 = nil
-                      flag24 = false
-                      flag4(flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24)
-                      flag4 = workValue31
-                      flag5 = "~INPUT_CONTEXT~ to winch the vehicle onto the flatbed"
-                      flag4(flag5)
-                      flag4 = IsControlJustPressed
-                      flag5 = 0
-                      flag6 = 51
-                      flag4 = flag4(flag5, flag6)
-                      if flag4 then
-                        flag4 = DoesEntityExist
-                        flag5 = numberValue
-                        flag4 = flag4(flag5)
-                        if flag4 then
-                          flag4 = DoesEntityExist
-                          flag5 = flag25
-                          flag4 = flag4(flag5)
-                          if flag4 then
-                            flag4 = tonumber
-                            flag5 = cmgCall.debrisMainFlatbedBone
-                            flag4 = flag4(flag5)
-                            if not flag4 then
-                              flag4 = 20
+                    stateFlag2 = stateFlag2(stateFlag4, stateFlag5)
+                    stateFlag2 = stateFlag2 - stateFlag
+                    stateFlag2 = #stateFlag2
+                    stateFlag4 = 13.5
+                    if stateFlag2 < stateFlag4 then
+                      localValue4 = 0
+                      stateFlag4 = DrawMarker
+                      stateFlag5 = 1
+                      stateFlag6 = stateFlag.x
+                      stateFlag7 = stateFlag.y
+                      stateFlag8 = stateFlag.z
+                      stateFlag8 = stateFlag8 - 0.5
+                      stateFlag9 = 0.0
+                      stateFlag10 = 0.0
+                      number3 = 0.0
+                      stateFlag11 = 0.0
+                      stateFlag12 = 0.0
+                      stateFlag13 = 0.0
+                      stateFlag14 = 2.0
+                      stateFlag15 = 2.0
+                      stateFlag16 = 0.8
+                      stateFlag17 = 255
+                      number7 = 180
+                      stateFlag18 = 64
+                      stateFlag19 = 130
+                      stateFlag20 = false
+                      number9 = false
+                      stateFlag21 = 2
+                      stateFlag22 = false
+                      number11 = nil
+                      stateFlag23 = nil
+                      stateFlag24 = false
+                      stateFlag4(stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24)
+                      stateFlag4 = workingValue31
+                      stateFlag5 = "~INPUT_CONTEXT~ to winch the vehicle onto the flatbed"
+                      stateFlag4(stateFlag5)
+                      stateFlag4 = IsControlJustPressed
+                      stateFlag5 = 0
+                      stateFlag6 = 51
+                      stateFlag4 = stateFlag4(stateFlag5, stateFlag6)
+                      if stateFlag4 then
+                        stateFlag4 = DoesEntityExist
+                        stateFlag5 = number
+                        stateFlag4 = stateFlag4(stateFlag5)
+                        if stateFlag4 then
+                          stateFlag4 = DoesEntityExist
+                          stateFlag5 = stateFlag25
+                          stateFlag4 = stateFlag4(stateFlag5)
+                          if stateFlag4 then
+                            stateFlag4 = tonumber
+                            stateFlag5 = cmgOperation.debrisMainFlatbedBone
+                            stateFlag4 = stateFlag4(stateFlag5)
+                            if not stateFlag4 then
+                              stateFlag4 = 20
                             end
-                            flag5 = workValue38
-                            flag6 = arg1.mainModel
-                            flag5 = flag5(flag6)
-                            flag6 = tonumber
-                            flag7 = flag5.ox
-                            flag6 = flag6(flag7)
-                            if not flag6 then
-                              flag6 = 0.0
+                            stateFlag5 = workingValue38
+                            stateFlag6 = localValue1.mainModel
+                            stateFlag5 = stateFlag5(stateFlag6)
+                            stateFlag6 = tonumber
+                            stateFlag7 = stateFlag5.ox
+                            stateFlag6 = stateFlag6(stateFlag7)
+                            if not stateFlag6 then
+                              stateFlag6 = 0.0
                             end
-                            flag7 = tonumber
-                            flag8 = flag5.oy
-                            flag7 = flag7(flag8)
-                            if not flag7 then
-                              flag7 = 0.0
+                            stateFlag7 = tonumber
+                            stateFlag8 = stateFlag5.oy
+                            stateFlag7 = stateFlag7(stateFlag8)
+                            if not stateFlag7 then
+                              stateFlag7 = 0.0
                             end
-                            flag8 = tonumber
-                            flag9 = flag5.oz
-                            flag8 = flag8(flag9)
-                            if not flag8 then
-                              flag8 = 0.0
+                            stateFlag8 = tonumber
+                            stateFlag9 = stateFlag5.oz
+                            stateFlag8 = stateFlag8(stateFlag9)
+                            if not stateFlag8 then
+                              stateFlag8 = 0.0
                             end
-                            flag9 = tonumber
-                            flag10 = flag5.rx
-                            flag9 = flag9(flag10)
-                            if not flag9 then
-                              flag9 = 0.0
+                            stateFlag9 = tonumber
+                            stateFlag10 = stateFlag5.rx
+                            stateFlag9 = stateFlag9(stateFlag10)
+                            if not stateFlag9 then
+                              stateFlag9 = 0.0
                             end
-                            flag10 = tonumber
-                            numberValue3 = flag5.ry
-                            flag10 = flag10(numberValue3)
-                            if not flag10 then
-                              flag10 = 0.0
+                            stateFlag10 = tonumber
+                            number3 = stateFlag5.ry
+                            stateFlag10 = stateFlag10(number3)
+                            if not stateFlag10 then
+                              stateFlag10 = 0.0
                             end
-                            numberValue3 = tonumber
-                            flag11 = flag5.rz
-                            numberValue3 = numberValue3(flag11)
-                            if not numberValue3 then
-                              numberValue3 = 0.0
+                            number3 = tonumber
+                            stateFlag11 = stateFlag5.rz
+                            number3 = number3(stateFlag11)
+                            if not number3 then
+                              number3 = 0.0
                             end
-                            flag11 = FreezeEntityPosition
-                            flag12 = numberValue
-                            flag13 = false
+                            stateFlag11 = FreezeEntityPosition
+                            stateFlag12 = number
+                            stateFlag13 = false
                             -- Beginner: Freeze or unfreeze an entity in place.
-                            flag11(flag12, flag13)
-                            flag11 = DetachEntity
-                            flag12 = numberValue
-                            flag13 = true
-                            flag14 = true
-                            flag11(flag12, flag13, flag14)
-                            flag11 = AttachEntityToEntity
-                            flag12 = numberValue
-                            flag13 = flag25
-                            flag14 = flag4
-                            flag15 = flag6
-                            flag16 = flag7
-                            flag17 = flag8
-                            numberValue7 = flag9
-                            flag18 = flag10
-                            flag19 = numberValue3
-                            flag20 = false
-                            numberValue9 = false
-                            flag21 = false
-                            flag22 = false
-                            numberValue11 = 2
-                            flag23 = true
+                            stateFlag11(stateFlag12, stateFlag13)
+                            stateFlag11 = DetachEntity
+                            stateFlag12 = number
+                            stateFlag13 = true
+                            stateFlag14 = true
+                            stateFlag11(stateFlag12, stateFlag13, stateFlag14)
+                            stateFlag11 = AttachEntityToEntity
+                            stateFlag12 = number
+                            stateFlag13 = stateFlag25
+                            stateFlag14 = stateFlag4
+                            stateFlag15 = stateFlag6
+                            stateFlag16 = stateFlag7
+                            stateFlag17 = stateFlag8
+                            number7 = stateFlag9
+                            stateFlag18 = stateFlag10
+                            stateFlag19 = number3
+                            stateFlag20 = false
+                            number9 = false
+                            stateFlag21 = false
+                            stateFlag22 = false
+                            number11 = 2
+                            stateFlag23 = true
                             -- Beginner: Attach one entity to another entity.
-                            flag11(flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23)
-                            flag11 = TriggerServerEvent
-                            flag12 = "62a9a8a2cb"
-                            flag13 = NetworkGetNetworkIdFromEntity
-                            flag14 = flag25
-                            flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24 = flag13(flag14)
+                            stateFlag11(stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23)
+                            stateFlag11 = TriggerServerEvent
+                            stateFlag12 = "62a9a8a2cb"
+                            stateFlag13 = NetworkGetNetworkIdFromEntity
+                            stateFlag14 = stateFlag25
+                            stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24 = stateFlag13(stateFlag14)
                             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "62a9a8a2cb".
-                            flag11(flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24)
+                            stateFlag11(stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24)
                           end
                         end
-                        flag4 = Citizen
-                        flag4 = flag4.Wait
-                        flag5 = 800
-                        flag4(flag5)
+                        stateFlag4 = Citizen
+                        stateFlag4 = stateFlag4.Wait
+                        stateFlag5 = 800
+                        stateFlag4(stateFlag5)
                       end
                     end
                   end
@@ -4289,333 +4289,333 @@ function textValue8()
       end
     end
     else
-      arg5 = arg1.type
-      if "debris" == arg5 then
-        arg5 = arg1.mainSecured
-        if arg5 then
-          arg5 = arg1.debrisDepotComplete
-          if true ~= arg5 then
-            arg5 = eventRegistration.x
-            arg5 = arg5 + 0.0
-            arg6 = eventRegistration.y
-            arg6 = arg6 + 0.0
-            arg7 = eventRegistration.z
-            arg7 = arg7 + 0.0
-            workValue62 = vector3
-            workValue66 = arg5
-            flag25 = arg6
-            flag = arg7
-            workValue62 = workValue62(workValue66, flag25, flag)
-            workValue66 = GetGroundZFor_3dCoord
-            flag25 = arg5
-            flag = arg6
-            flag2 = arg7 + 80.0
-            flag4 = 0.0
-            flag5 = false
-            workValue66, flag25 = workValue66(flag25, flag, flag2, flag4, flag5)
-            if flag25 and flag25 > 0.0 then
-              flag = flag25 + 0.12
-              if flag then
-                goto flow_label_445
+      localValue5 = localValue1.type
+      if "debris" == localValue5 then
+        localValue5 = localValue1.mainSecured
+        if localValue5 then
+          localValue5 = localValue1.debrisDepotComplete
+          if true ~= localValue5 then
+            localValue5 = eventHandler.x
+            localValue5 = localValue5 + 0.0
+            localValue6 = eventHandler.y
+            localValue6 = localValue6 + 0.0
+            localValue7 = eventHandler.z
+            localValue7 = localValue7 + 0.0
+            workingValue62 = vector3
+            workingValue66 = localValue5
+            stateFlag25 = localValue6
+            stateFlag = localValue7
+            workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag)
+            workingValue66 = GetGroundZFor_3dCoord
+            stateFlag25 = localValue5
+            stateFlag = localValue6
+            stateFlag2 = localValue7 + 80.0
+            stateFlag4 = 0.0
+            stateFlag5 = false
+            workingValue66, stateFlag25 = workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5)
+            if stateFlag25 and stateFlag25 > 0.0 then
+              stateFlag = stateFlag25 + 0.12
+              if stateFlag then
+                goto continueAtStep445
               end
             end
-            flag = arg7
-            ::flow_label_445::
-            flag2 = vector3
-            flag4 = arg5
-            flag5 = arg6
-            flag6 = flag
-            flag2 = flag2(flag4, flag5, flag6)
-            flag2 = arg3 - flag2
-            flag2 = #flag2
-            flag4 = numberValue12
-            if flag2 < flag4 then
-              arg4 = 0
-              flag4 = DrawMarker
-              flag5 = 1
-              flag6 = arg5
-              flag7 = arg6
-              flag8 = flag - 0.35
-              flag9 = 0.0
-              flag10 = 0.0
-              numberValue3 = 0.0
-              flag11 = 0.0
-              flag12 = 0.0
-              flag13 = 0.0
-              flag14 = numberValue17
-              flag15 = numberValue17
-              flag16 = numberValue18
-              flag17 = 72
-              numberValue7 = 255
-              flag18 = 140
-              flag19 = 195
-              flag20 = false
-              numberValue9 = false
-              flag21 = 2
-              flag22 = false
-              numberValue11 = nil
-              flag23 = nil
-              flag24 = false
-              flag4(flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24)
+            stateFlag = localValue7
+            ::continueAtStep445::
+            stateFlag2 = vector3
+            stateFlag4 = localValue5
+            stateFlag5 = localValue6
+            stateFlag6 = stateFlag
+            stateFlag2 = stateFlag2(stateFlag4, stateFlag5, stateFlag6)
+            stateFlag2 = localValue3 - stateFlag2
+            stateFlag2 = #stateFlag2
+            stateFlag4 = number12
+            if stateFlag2 < stateFlag4 then
+              localValue4 = 0
+              stateFlag4 = DrawMarker
+              stateFlag5 = 1
+              stateFlag6 = localValue5
+              stateFlag7 = localValue6
+              stateFlag8 = stateFlag - 0.35
+              stateFlag9 = 0.0
+              stateFlag10 = 0.0
+              number3 = 0.0
+              stateFlag11 = 0.0
+              stateFlag12 = 0.0
+              stateFlag13 = 0.0
+              stateFlag14 = number17
+              stateFlag15 = number17
+              stateFlag16 = number18
+              stateFlag17 = 72
+              number7 = 255
+              stateFlag18 = 140
+              stateFlag19 = 195
+              stateFlag20 = false
+              number9 = false
+              stateFlag21 = 2
+              stateFlag22 = false
+              number11 = nil
+              stateFlag23 = nil
+              stateFlag24 = false
+              stateFlag4(stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24)
             end
-            flag4 = textValue7
-            flag4 = flag4()
-            if 0 ~= flag4 then
-              flag5 = tonumber
-              flag6 = cmgCall.debrisDepotDeliverRadius
-              flag5 = flag5(flag6)
-              if not flag5 then
-                flag5 = 24.0
+            stateFlag4 = text7
+            stateFlag4 = stateFlag4()
+            if 0 ~= stateFlag4 then
+              stateFlag5 = tonumber
+              stateFlag6 = cmgOperation.debrisDepotDeliverRadius
+              stateFlag5 = stateFlag5(stateFlag6)
+              if not stateFlag5 then
+                stateFlag5 = 24.0
               end
-              flag6 = GetEntityCoords
-              flag7 = flag4
-              flag8 = true
+              stateFlag6 = GetEntityCoords
+              stateFlag7 = stateFlag4
+              stateFlag8 = true
               -- Beginner: result below is entityCoords.
-              flag6 = flag6(flag7, flag8)
-              flag6 = flag6 - workValue62
-              flag6 = #flag6
-              if flag5 >= flag6 and flag2 < 85.0 then
-                arg4 = 0
-                flag6 = workValue31
-                flag7 = "~INPUT_CONTEXT~ to sign the load in at the yard"
-                flag6(flag7)
-                flag6 = IsControlJustPressed
-                flag7 = 0
-                flag8 = 51
-                flag6 = flag6(flag7, flag8)
-                if flag6 then
-                  flag6 = TriggerServerEvent
-                  flag7 = "b44a868830"
+              stateFlag6 = stateFlag6(stateFlag7, stateFlag8)
+              stateFlag6 = stateFlag6 - workingValue62
+              stateFlag6 = #stateFlag6
+              if stateFlag5 >= stateFlag6 and stateFlag2 < 85.0 then
+                localValue4 = 0
+                stateFlag6 = workingValue31
+                stateFlag7 = "~INPUT_CONTEXT~ to sign the load in at the yard"
+                stateFlag6(stateFlag7)
+                stateFlag6 = IsControlJustPressed
+                stateFlag7 = 0
+                stateFlag8 = 51
+                stateFlag6 = stateFlag6(stateFlag7, stateFlag8)
+                if stateFlag6 then
+                  stateFlag6 = TriggerServerEvent
+                  stateFlag7 = "b44a868830"
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b44a868830".
-                  flag6(flag7)
-                  flag6 = Citizen
-                  flag6 = flag6.Wait
-                  flag7 = 800
-                  flag6(flag7)
+                  stateFlag6(stateFlag7)
+                  stateFlag6 = Citizen
+                  stateFlag6 = stateFlag6.Wait
+                  stateFlag7 = 800
+                  stateFlag6(stateFlag7)
                 end
               end
             end
         end
       end
       else
-        arg5 = arg1.type
-        if "parts_run" == arg5 then
-          arg5 = tonumber
-          arg6 = arg1.stage
-          arg5 = arg5(arg6)
-          if not arg5 then
-            arg5 = 1
+        localValue5 = localValue1.type
+        if "parts_run" == localValue5 then
+          localValue5 = tonumber
+          localValue6 = localValue1.stage
+          localValue5 = localValue5(localValue6)
+          if not localValue5 then
+            localValue5 = 1
           end
-          if 1 == arg5 then
-            arg6 = arg1.pickup
-            if arg6 then
-              goto flow_label_537
+          if 1 == localValue5 then
+            localValue6 = localValue1.pickup
+            if localValue6 then
+              goto continueAtStep537
             end
           end
-          arg6 = arg1.dropoff
-          ::flow_label_537::
-          if arg6 then
-            arg7 = arg6.x
-            if arg7 then
-              arg7 = vector3
-              workValue62 = arg6.x
-              workValue66 = arg6.y
-              flag25 = arg6.z
-              arg7 = arg7(workValue62, workValue66, flag25)
-              arg7 = arg3 - arg7
-              arg7 = #arg7
-              if arg7 < 35.0 then
-                arg4 = 0
-                workValue62 = DrawMarker
-                workValue66 = 1
-                flag25 = arg6.x
-                flag = arg6.y
-                flag2 = arg6.z
-                flag2 = flag2 - 1.0
-                flag4 = 0.0
-                flag5 = 0.0
-                flag6 = 0.0
-                flag7 = 0.0
-                flag8 = 0.0
-                flag9 = 0.0
-                flag10 = 2.2
-                numberValue3 = 2.2
-                flag11 = 1.0
-                flag12 = 80
-                flag13 = 160
-                flag14 = 255
-                flag15 = 110
-                flag16 = false
-                flag17 = false
-                numberValue7 = 2
-                flag18 = false
-                flag19 = nil
-                flag20 = nil
-                numberValue9 = false
-                workValue62(workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9)
+          localValue6 = localValue1.dropoff
+          ::continueAtStep537::
+          if localValue6 then
+            localValue7 = localValue6.x
+            if localValue7 then
+              localValue7 = vector3
+              workingValue62 = localValue6.x
+              workingValue66 = localValue6.y
+              stateFlag25 = localValue6.z
+              localValue7 = localValue7(workingValue62, workingValue66, stateFlag25)
+              localValue7 = localValue3 - localValue7
+              localValue7 = #localValue7
+              if localValue7 < 35.0 then
+                localValue4 = 0
+                workingValue62 = DrawMarker
+                workingValue66 = 1
+                stateFlag25 = localValue6.x
+                stateFlag = localValue6.y
+                stateFlag2 = localValue6.z
+                stateFlag2 = stateFlag2 - 1.0
+                stateFlag4 = 0.0
+                stateFlag5 = 0.0
+                stateFlag6 = 0.0
+                stateFlag7 = 0.0
+                stateFlag8 = 0.0
+                stateFlag9 = 0.0
+                stateFlag10 = 2.2
+                number3 = 2.2
+                stateFlag11 = 1.0
+                stateFlag12 = 80
+                stateFlag13 = 160
+                stateFlag14 = 255
+                stateFlag15 = 110
+                stateFlag16 = false
+                stateFlag17 = false
+                number7 = 2
+                stateFlag18 = false
+                stateFlag19 = nil
+                stateFlag20 = nil
+                number9 = false
+                workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9)
               end
-              if 1 == arg5 then
-                workValue62 = 2.5
-                if arg7 < workValue62 then
-                  workValue62 = IsPedInAnyVehicle
-                  workValue66 = arg2
-                  flag25 = false
-                  workValue62 = workValue62(workValue66, flag25)
-                  if not workValue62 then
-                    workValue62 = workValue31
-                    workValue66 = "~INPUT_CONTEXT~ to collect the order"
-                    workValue62(workValue66)
-                    workValue62 = IsControlJustPressed
-                    workValue66 = 0
-                    flag25 = 51
-                    workValue62 = workValue62(workValue66, flag25)
-                    if workValue62 then
-                      workValue62 = TriggerServerEvent
-                      workValue66 = "7c931c7bd2"
+              if 1 == localValue5 then
+                workingValue62 = 2.5
+                if localValue7 < workingValue62 then
+                  workingValue62 = IsPedInAnyVehicle
+                  workingValue66 = localValue2
+                  stateFlag25 = false
+                  workingValue62 = workingValue62(workingValue66, stateFlag25)
+                  if not workingValue62 then
+                    workingValue62 = workingValue31
+                    workingValue66 = "~INPUT_CONTEXT~ to collect the order"
+                    workingValue62(workingValue66)
+                    workingValue62 = IsControlJustPressed
+                    workingValue66 = 0
+                    stateFlag25 = 51
+                    workingValue62 = workingValue62(workingValue66, stateFlag25)
+                    if workingValue62 then
+                      workingValue62 = TriggerServerEvent
+                      workingValue66 = "7c931c7bd2"
                       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7c931c7bd2".
-                      workValue62(workValue66)
-                      workValue62 = Citizen
-                      workValue62 = workValue62.Wait
-                      workValue66 = 800
-                      workValue62(workValue66)
+                      workingValue62(workingValue66)
+                      workingValue62 = Citizen
+                      workingValue62 = workingValue62.Wait
+                      workingValue66 = 800
+                      workingValue62(workingValue66)
                     end
                 end
                 else
-                  workValue62 = 2.5
-                  if arg7 < workValue62 then
-                    workValue62 = IsPedInAnyVehicle
-                    workValue66 = arg2
-                    flag25 = false
-                    workValue62 = workValue62(workValue66, flag25)
-                    if workValue62 then
-                      workValue62 = workValue31
-                      workValue66 = "Hop out to grab the order."
-                      workValue62(workValue66)
+                  workingValue62 = 2.5
+                  if localValue7 < workingValue62 then
+                    workingValue62 = IsPedInAnyVehicle
+                    workingValue66 = localValue2
+                    stateFlag25 = false
+                    workingValue62 = workingValue62(workingValue66, stateFlag25)
+                    if workingValue62 then
+                      workingValue62 = workingValue31
+                      workingValue66 = "Hop out to grab the order."
+                      workingValue62(workingValue66)
                     end
                   end
                 end
-              elseif 2 == arg5 then
-                arg4 = 0
-                workValue62 = workValue60
-                workValue66 = 5.5
-                workValue62, workValue66 = workValue62(workValue66)
-                flag25 = IsPedInAnyVehicle
-                flag = arg2
-                flag2 = false
-                flag25 = flag25(flag, flag2)
-                if flag25 then
-                  flag25 = workValue31
-                  flag = "Out of the cab, then load at the rear."
-                  flag25(flag)
+              elseif 2 == localValue5 then
+                localValue4 = 0
+                workingValue62 = workingValue60
+                workingValue66 = 5.5
+                workingValue62, workingValue66 = workingValue62(workingValue66)
+                stateFlag25 = IsPedInAnyVehicle
+                stateFlag = localValue2
+                stateFlag2 = false
+                stateFlag25 = stateFlag25(stateFlag, stateFlag2)
+                if stateFlag25 then
+                  stateFlag25 = workingValue31
+                  stateFlag = "Out of the cab, then load at the rear."
+                  stateFlag25(stateFlag)
                 else
-                  if 0 ~= workValue62 then
-                    flag25 = 4.2
-                    if workValue66 < flag25 then
-                      flag25 = workValue31
-                      flag = "~INPUT_CONTEXT~ to chuck it in the boot"
-                      flag25(flag)
-                      flag25 = IsControlJustPressed
-                      flag = 0
-                      flag2 = 51
-                      flag25 = flag25(flag, flag2)
-                      if flag25 then
-                        flag25 = TriggerServerEvent
-                        flag = "7c931c7bd2"
-                        flag2 = NetworkGetNetworkIdFromEntity
-                        flag4 = workValue62
-                        flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24 = flag2(flag4)
+                  if 0 ~= workingValue62 then
+                    stateFlag25 = 4.2
+                    if workingValue66 < stateFlag25 then
+                      stateFlag25 = workingValue31
+                      stateFlag = "~INPUT_CONTEXT~ to chuck it in the boot"
+                      stateFlag25(stateFlag)
+                      stateFlag25 = IsControlJustPressed
+                      stateFlag = 0
+                      stateFlag2 = 51
+                      stateFlag25 = stateFlag25(stateFlag, stateFlag2)
+                      if stateFlag25 then
+                        stateFlag25 = TriggerServerEvent
+                        stateFlag = "7c931c7bd2"
+                        stateFlag2 = NetworkGetNetworkIdFromEntity
+                        stateFlag4 = workingValue62
+                        stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24 = stateFlag2(stateFlag4)
                         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7c931c7bd2".
-                        flag25(flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24)
-                        flag25 = Citizen
-                        flag25 = flag25.Wait
-                        flag = 800
-                        flag25(flag)
+                        stateFlag25(stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24)
+                        stateFlag25 = Citizen
+                        stateFlag25 = stateFlag25.Wait
+                        stateFlag = 800
+                        stateFlag25(stateFlag)
                       end
                   end
                   else
-                    flag25 = workValue31
-                    flag = "Bring the box to the ~y~rear of your ride~w~."
-                    flag25(flag)
+                    stateFlag25 = workingValue31
+                    stateFlag = "Bring the box to the ~y~rear of your ride~w~."
+                    stateFlag25(stateFlag)
                   end
                 end
-              elseif 3 == arg5 then
-                if arg7 < 35.0 then
-                  arg4 = 0
+              elseif 3 == localValue5 then
+                if localValue7 < 35.0 then
+                  localValue4 = 0
                 end
-                workValue62 = workValue60
-                workValue66 = 5.5
-                workValue62, workValue66 = workValue62(workValue66)
-                flag25 = IsPedInAnyVehicle
-                flag = arg2
-                flag2 = false
-                flag25 = flag25(flag, flag2)
-                if flag25 and arg7 < 14.0 then
-                  flag25 = workValue31
-                  flag = "Park up, hop out, grab it from the boot."
-                  flag25(flag)
-                elseif arg7 < 14.0 and 0 ~= workValue62 then
-                  flag25 = 4.2
-                  if workValue66 < flag25 then
-                    arg4 = 0
-                    flag25 = workValue31
-                    flag = "~INPUT_CONTEXT~ to pull the box from the boot"
-                    flag25(flag)
-                    flag25 = IsControlJustPressed
-                    flag = 0
-                    flag2 = 51
-                    flag25 = flag25(flag, flag2)
-                    if flag25 then
-                      flag25 = TriggerServerEvent
-                      flag = "7c931c7bd2"
-                      flag2 = NetworkGetNetworkIdFromEntity
-                      flag4 = workValue62
-                      flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24 = flag2(flag4)
+                workingValue62 = workingValue60
+                workingValue66 = 5.5
+                workingValue62, workingValue66 = workingValue62(workingValue66)
+                stateFlag25 = IsPedInAnyVehicle
+                stateFlag = localValue2
+                stateFlag2 = false
+                stateFlag25 = stateFlag25(stateFlag, stateFlag2)
+                if stateFlag25 and localValue7 < 14.0 then
+                  stateFlag25 = workingValue31
+                  stateFlag = "Park up, hop out, grab it from the boot."
+                  stateFlag25(stateFlag)
+                elseif localValue7 < 14.0 and 0 ~= workingValue62 then
+                  stateFlag25 = 4.2
+                  if workingValue66 < stateFlag25 then
+                    localValue4 = 0
+                    stateFlag25 = workingValue31
+                    stateFlag = "~INPUT_CONTEXT~ to pull the box from the boot"
+                    stateFlag25(stateFlag)
+                    stateFlag25 = IsControlJustPressed
+                    stateFlag = 0
+                    stateFlag2 = 51
+                    stateFlag25 = stateFlag25(stateFlag, stateFlag2)
+                    if stateFlag25 then
+                      stateFlag25 = TriggerServerEvent
+                      stateFlag = "7c931c7bd2"
+                      stateFlag2 = NetworkGetNetworkIdFromEntity
+                      stateFlag4 = workingValue62
+                      stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24 = stateFlag2(stateFlag4)
                       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7c931c7bd2".
-                      flag25(flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9, flag21, flag22, numberValue11, flag23, flag24)
-                      flag25 = Citizen
-                      flag25 = flag25.Wait
-                      flag = 800
-                      flag25(flag)
+                      stateFlag25(stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9, stateFlag21, stateFlag22, number11, stateFlag23, stateFlag24)
+                      stateFlag25 = Citizen
+                      stateFlag25 = stateFlag25.Wait
+                      stateFlag = 800
+                      stateFlag25(stateFlag)
                     end
                   end
                 end
-              elseif 4 == arg5 then
-                workValue62 = 2.5
-                if arg7 < workValue62 then
-                  workValue62 = IsPedInAnyVehicle
-                  workValue66 = arg2
-                  flag25 = false
-                  workValue62 = workValue62(workValue66, flag25)
-                  if not workValue62 then
-                    workValue62 = workValue31
-                    workValue66 = "~INPUT_CONTEXT~ to hand it over"
-                    workValue62(workValue66)
-                    workValue62 = IsControlJustPressed
-                    workValue66 = 0
-                    flag25 = 51
-                    workValue62 = workValue62(workValue66, flag25)
-                    if workValue62 then
-                      workValue62 = TriggerServerEvent
-                      workValue66 = "7c931c7bd2"
+              elseif 4 == localValue5 then
+                workingValue62 = 2.5
+                if localValue7 < workingValue62 then
+                  workingValue62 = IsPedInAnyVehicle
+                  workingValue66 = localValue2
+                  stateFlag25 = false
+                  workingValue62 = workingValue62(workingValue66, stateFlag25)
+                  if not workingValue62 then
+                    workingValue62 = workingValue31
+                    workingValue66 = "~INPUT_CONTEXT~ to hand it over"
+                    workingValue62(workingValue66)
+                    workingValue62 = IsControlJustPressed
+                    workingValue66 = 0
+                    stateFlag25 = 51
+                    workingValue62 = workingValue62(workingValue66, stateFlag25)
+                    if workingValue62 then
+                      workingValue62 = TriggerServerEvent
+                      workingValue66 = "7c931c7bd2"
                       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7c931c7bd2".
-                      workValue62(workValue66)
-                      workValue62 = Citizen
-                      workValue62 = workValue62.Wait
-                      workValue66 = 800
-                      workValue62(workValue66)
+                      workingValue62(workingValue66)
+                      workingValue62 = Citizen
+                      workingValue62 = workingValue62.Wait
+                      workingValue66 = 800
+                      workingValue62(workingValue66)
                     end
                 end
                 else
-                  workValue62 = 2.5
-                  if arg7 < workValue62 then
-                    workValue62 = IsPedInAnyVehicle
-                    workValue66 = arg2
-                    flag25 = false
-                    workValue62 = workValue62(workValue66, flag25)
-                    if workValue62 then
-                      workValue62 = workValue31
-                      workValue66 = "Exit the vehicle for the handover."
-                      workValue62(workValue66)
+                  workingValue62 = 2.5
+                  if localValue7 < workingValue62 then
+                    workingValue62 = IsPedInAnyVehicle
+                    workingValue66 = localValue2
+                    stateFlag25 = false
+                    workingValue62 = workingValue62(workingValue66, stateFlag25)
+                    if workingValue62 then
+                      workingValue62 = workingValue31
+                      workingValue66 = "Exit the vehicle for the handover."
+                      workingValue62(workingValue66)
                     end
                   end
                 end
@@ -4623,77 +4623,77 @@ function textValue8()
             end
           end
         else
-          arg5 = arg1.type
-          if "fuel_runout" == arg5 then
-            arg5 = arg1.vehicleNetId
-            if arg5 then
-              arg5 = tonumber
-              arg6 = arg1.vehicleNetId
-              arg5 = arg5(arg6)
-              if arg5 then
-                arg6 = NetworkDoesNetworkIdExist
-                arg7 = arg5
-                arg6 = arg6(arg7)
-                if arg6 then
-                  arg6 = NetworkDoesEntityExistWithNetworkId
-                  arg7 = arg5
-                  arg6 = arg6(arg7)
-                  if arg6 then
-                    arg6 = NetworkGetEntityFromNetworkId
-                    arg7 = arg5
-                    arg6 = arg6(arg7)
-                    if 0 ~= arg6 then
-                      arg7 = DoesEntityExist
-                      workValue62 = arg6
-                      arg7 = arg7(workValue62)
-                      if arg7 then
-                        arg7 = GetEntityCoords
-                        workValue62 = arg6
-                        workValue66 = true
+          localValue5 = localValue1.type
+          if "fuel_runout" == localValue5 then
+            localValue5 = localValue1.vehicleNetId
+            if localValue5 then
+              localValue5 = tonumber
+              localValue6 = localValue1.vehicleNetId
+              localValue5 = localValue5(localValue6)
+              if localValue5 then
+                localValue6 = NetworkDoesNetworkIdExist
+                localValue7 = localValue5
+                localValue6 = localValue6(localValue7)
+                if localValue6 then
+                  localValue6 = NetworkDoesEntityExistWithNetworkId
+                  localValue7 = localValue5
+                  localValue6 = localValue6(localValue7)
+                  if localValue6 then
+                    localValue6 = NetworkGetEntityFromNetworkId
+                    localValue7 = localValue5
+                    localValue6 = localValue6(localValue7)
+                    if 0 ~= localValue6 then
+                      localValue7 = DoesEntityExist
+                      workingValue62 = localValue6
+                      localValue7 = localValue7(workingValue62)
+                      if localValue7 then
+                        localValue7 = GetEntityCoords
+                        workingValue62 = localValue6
+                        workingValue66 = true
                         -- Beginner: result below is entityCoords.
-                        arg7 = arg7(workValue62, workValue66)
-                        workValue62 = arg3 - arg7
-                        workValue62 = #workValue62
-                        if workValue62 < 18.0 then
-                          arg4 = 0
+                        localValue7 = localValue7(workingValue62, workingValue66)
+                        workingValue62 = localValue3 - localValue7
+                        workingValue62 = #workingValue62
+                        if workingValue62 < 18.0 then
+                          localValue4 = 0
                         end
-                        workValue66 = 3.2
-                        if workValue62 < workValue66 then
-                          workValue66 = IsPedInAnyVehicle
-                          flag25 = arg2
-                          flag = false
-                          workValue66 = workValue66(flag25, flag)
-                          if not workValue66 then
-                            workValue66 = tonumber
-                            flag25 = workValue23
-                            workValue66 = workValue66(flag25)
-                            if workValue66 ~= arg5 then
-                              workValue66 = workValue31
-                              flag25 = "~INPUT_CONTEXT~ to top up their tank"
-                              workValue66(flag25)
-                              workValue66 = IsControlJustPressed
-                              flag25 = 0
-                              flag = 51
-                              workValue66 = workValue66(flag25, flag)
-                              if workValue66 then
-                                workValue66 = workValue25
-                                flag25 = arg5
-                                workValue66(flag25)
-                                workValue66 = Citizen
-                                workValue66 = workValue66.Wait
-                                flag25 = 800
-                                workValue66(flag25)
+                        workingValue66 = 3.2
+                        if workingValue62 < workingValue66 then
+                          workingValue66 = IsPedInAnyVehicle
+                          stateFlag25 = localValue2
+                          stateFlag = false
+                          workingValue66 = workingValue66(stateFlag25, stateFlag)
+                          if not workingValue66 then
+                            workingValue66 = tonumber
+                            stateFlag25 = workingValue23
+                            workingValue66 = workingValue66(stateFlag25)
+                            if workingValue66 ~= localValue5 then
+                              workingValue66 = workingValue31
+                              stateFlag25 = "~INPUT_CONTEXT~ to top up their tank"
+                              workingValue66(stateFlag25)
+                              workingValue66 = IsControlJustPressed
+                              stateFlag25 = 0
+                              stateFlag = 51
+                              workingValue66 = workingValue66(stateFlag25, stateFlag)
+                              if workingValue66 then
+                                workingValue66 = workingValue25
+                                stateFlag25 = localValue5
+                                workingValue66(stateFlag25)
+                                workingValue66 = Citizen
+                                workingValue66 = workingValue66.Wait
+                                stateFlag25 = 800
+                                workingValue66(stateFlag25)
                               end
                           end
                         end
                         else
-                          workValue66 = tonumber
-                          flag25 = workValue23
-                          workValue66 = workValue66(flag25)
-                          if workValue66 == arg5 then
-                            workValue66 = workValue31
-                            flag25 = "Hang tight till the pour's done."
-                            workValue66(flag25)
+                          workingValue66 = tonumber
+                          stateFlag25 = workingValue23
+                          workingValue66 = workingValue66(stateFlag25)
+                          if workingValue66 == localValue5 then
+                            workingValue66 = workingValue31
+                            stateFlag25 = "Hang tight till the pour's done."
+                            workingValue66(stateFlag25)
                           end
                         end
                       end
@@ -4706,311 +4706,311 @@ function textValue8()
         end
       end
     end
-    arg5 = arg1.type
-    if "debris" == arg5 then
-      arg5 = numberValue2
-      if 0 ~= arg5 then
-        arg5 = DoesEntityExist
-        arg6 = numberValue2
-        arg5 = arg5(arg6)
-        if arg5 then
-          arg5 = tonumber
-          arg6 = arg1.carryingSecondarySlot
-          arg5 = arg5(arg6)
-          if arg5 then
-            arg5 = GetVehiclePedIsIn
-            arg6 = arg2
-            arg7 = false
+    localValue5 = localValue1.type
+    if "debris" == localValue5 then
+      localValue5 = number2
+      if 0 ~= localValue5 then
+        localValue5 = DoesEntityExist
+        localValue6 = number2
+        localValue5 = localValue5(localValue6)
+        if localValue5 then
+          localValue5 = tonumber
+          localValue6 = localValue1.carryingSecondarySlot
+          localValue5 = localValue5(localValue6)
+          if localValue5 then
+            localValue5 = GetVehiclePedIsIn
+            localValue6 = localValue2
+            localValue7 = false
             -- Beginner: result below is currentVehicle.
-            arg5 = arg5(arg6, arg7)
-            if 0 == arg5 then
-              arg5 = workValue30
-              arg5()
+            localValue5 = localValue5(localValue6, localValue7)
+            if 0 == localValue5 then
+              localValue5 = workingValue30
+              localValue5()
             else
-              arg5 = workValue29
-              arg5()
+              localValue5 = workingValue29
+              localValue5()
             end
           end
         end
       end
     end
-    arg5 = Citizen
-    arg5 = arg5.Wait
-    arg6 = arg4
-    arg5(arg6)
-    ::flow_label_866::
+    localValue5 = Citizen
+    localValue5 = localValue5.Wait
+    localValue6 = localValue4
+    localValue5(localValue6)
+    ::continueAtStep866::
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall2(textValue8)
-threadCall2 = Citizen
-threadCall2 = threadCall2.CreateThread
+backgroundThread2(text8)
+backgroundThread2 = Citizen
+backgroundThread2 = backgroundThread2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
-function textValue8()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8
+-- === HELPER FUNCTION (decompiler name: text8; parameters: none) ===
+function text8()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8
   while true do
-    arg1 = tonumber
-    arg2 = workValue23
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg2 = NetworkDoesNetworkIdExist
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if arg2 then
-        arg2 = CMG
-        arg2 = arg2.getPlayerPed
+    localValue1 = tonumber
+    localValue2 = workingValue23
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue2 = NetworkDoesNetworkIdExist
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        arg2 = arg2()
-        arg3 = NetworkGetEntityFromNetworkId
-        arg4 = arg1
-        arg3 = arg3(arg4)
-        if 0 ~= arg2 and 0 ~= arg3 then
-          arg4 = DoesEntityExist
-          arg5 = arg3
-          arg4 = arg4(arg5)
-          if arg4 then
-            goto flow_label_33
+        localValue2 = localValue2()
+        localValue3 = NetworkGetEntityFromNetworkId
+        localValue4 = localValue1
+        localValue3 = localValue3(localValue4)
+        if 0 ~= localValue2 and 0 ~= localValue3 then
+          localValue4 = DoesEntityExist
+          localValue5 = localValue3
+          localValue4 = localValue4(localValue5)
+          if localValue4 then
+            goto continueAtStep33
           end
         end
-        arg4 = workValue24
-        arg4()
-        arg4 = Citizen
-        arg4 = arg4.Wait
-        arg5 = 0
-        arg4(arg5)
-        goto flow_label_108
-        ::flow_label_33::
-        arg4 = GetEntityCoords
-        arg5 = arg2
-        arg6 = true
+        localValue4 = workingValue24
+        localValue4()
+        localValue4 = Citizen
+        localValue4 = localValue4.Wait
+        localValue5 = 0
+        localValue4(localValue5)
+        goto continueAtStep108
+        ::continueAtStep33::
+        localValue4 = GetEntityCoords
+        localValue5 = localValue2
+        localValue6 = true
         -- Beginner: result below is entityCoords.
-        arg4 = arg4(arg5, arg6)
-        arg5 = GetEntityCoords
-        arg6 = arg3
-        arg7 = true
+        localValue4 = localValue4(localValue5, localValue6)
+        localValue5 = GetEntityCoords
+        localValue6 = localValue3
+        localValue7 = true
         -- Beginner: result below is entityCoords.
-        arg5 = arg5(arg6, arg7)
-        arg6 = GetVehiclePedIsIn
-        arg7 = arg2
-        workValue62 = false
+        localValue5 = localValue5(localValue6, localValue7)
+        localValue6 = GetVehiclePedIsIn
+        localValue7 = localValue2
+        workingValue62 = false
         -- Beginner: result below is currentVehicle.
-        arg6 = arg6(arg7, workValue62)
-        if 0 == arg6 then
-          arg6 = arg4 - arg5
-          arg6 = #arg6
-          arg7 = 3.5
-          if not (arg6 > arg7) then
-            goto flow_label_64
+        localValue6 = localValue6(localValue7, workingValue62)
+        if 0 == localValue6 then
+          localValue6 = localValue4 - localValue5
+          localValue6 = #localValue6
+          localValue7 = 3.5
+          if not (localValue6 > localValue7) then
+            goto continueAtStep64
           end
         end
-        arg6 = workValue24
-        arg6()
-        arg6 = tCMG
-        arg6 = arg6.notify
-        arg7 = "~r~Refuel stopped."
+        localValue6 = workingValue24
+        localValue6()
+        localValue6 = tCMG
+        localValue6 = localValue6.notify
+        localValue7 = "~r~Refuel stopped."
         -- Beginner: Show a notification to the player.
-        arg6(arg7)
-        arg6 = Citizen
-        arg6 = arg6.Wait
-        arg7 = 0
-        arg6(arg7)
-        goto flow_label_108
-        ::flow_label_64::
-        arg6 = CMG
-        arg6 = arg6.loadAnimDict
-        arg7 = tableHelper
+        localValue6(localValue7)
+        localValue6 = Citizen
+        localValue6 = localValue6.Wait
+        localValue7 = 0
+        localValue6(localValue7)
+        goto continueAtStep108
+        ::continueAtStep64::
+        localValue6 = CMG
+        localValue6 = localValue6.loadAnimDict
+        localValue7 = tableHelper
         -- Beginner: Load a GTA animation dictionary before using it.
-        arg6(arg7)
-        arg6 = IsEntityPlayingAnim
-        arg7 = arg2
-        workValue62 = tableHelper
-        workValue66 = textValue4
-        flag25 = 3
-        arg6 = arg6(arg7, workValue62, workValue66, flag25)
-        if not arg6 then
-          arg6 = TaskPlayAnim
-          arg7 = arg2
-          workValue62 = tableHelper
-          workValue66 = textValue4
-          flag25 = 2.0
-          flag = 8.0
-          flag2 = -1
-          flag4 = 50
-          flag5 = 0.0
-          flag6 = false
-          flag7 = false
-          flag8 = false
+        localValue6(localValue7)
+        localValue6 = IsEntityPlayingAnim
+        localValue7 = localValue2
+        workingValue62 = tableHelper
+        workingValue66 = text4
+        stateFlag25 = 3
+        localValue6 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25)
+        if not localValue6 then
+          localValue6 = TaskPlayAnim
+          localValue7 = localValue2
+          workingValue62 = tableHelper
+          workingValue66 = text4
+          stateFlag25 = 2.0
+          stateFlag = 8.0
+          stateFlag2 = -1
+          stateFlag4 = 50
+          stateFlag5 = 0.0
+          stateFlag6 = false
+          stateFlag7 = false
+          stateFlag8 = false
           -- Beginner: Play an animation on a ped.
-          arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8)
+          localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8)
         end
-        arg6 = GetGameTimer
+        localValue6 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        arg6 = arg6()
-        arg7 = numberValue10
-        if arg6 >= arg7 then
-          arg6 = workValue24
-          arg6()
-          arg6 = TriggerServerEvent
-          arg7 = "dfa22cde0c"
+        localValue6 = localValue6()
+        localValue7 = number10
+        if localValue6 >= localValue7 then
+          localValue6 = workingValue24
+          localValue6()
+          localValue6 = TriggerServerEvent
+          localValue7 = "dfa22cde0c"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "dfa22cde0c".
-          arg6(arg7)
+          localValue6(localValue7)
         end
-        arg6 = Citizen
-        arg6 = arg6.Wait
-        arg7 = 0
-        arg6(arg7)
+        localValue6 = Citizen
+        localValue6 = localValue6.Wait
+        localValue7 = 0
+        localValue6(localValue7)
     end
     else
-      arg2 = Citizen
-      arg2 = arg2.Wait
-      arg3 = 1200
-      arg2(arg3)
+      localValue2 = Citizen
+      localValue2 = localValue2.Wait
+      localValue3 = 1200
+      localValue2(localValue3)
     end
-    ::flow_label_108::
+    ::continueAtStep108::
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall2(textValue8)
-threadCall2 = RegisterNetEvent
-textValue8 = "c7dc2846b3"
+backgroundThread2(text8)
+backgroundThread2 = RegisterNetEvent
+text8 = "c7dc2846b3"
 -- Beginner: this function handles network event "c7dc2846b3".
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: arg1) ===
-function workValue61(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = tonumber
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg1 = arg2
-  if arg1 then
-    arg2 = NetworkDoesNetworkIdExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_13
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: localValue1) ===
+function workingValue61(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = tonumber
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue1 = localValue2
+  if localValue1 then
+    localValue2 = NetworkDoesNetworkIdExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep13
     end
   end
   return
-  ::flow_label_13::
-  arg2 = NetworkGetEntityFromNetworkId
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 ~= arg2 then
-    arg3 = DoesEntityExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      goto flow_label_24
+  ::continueAtStep13::
+  localValue2 = NetworkGetEntityFromNetworkId
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if 0 ~= localValue2 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      goto continueAtStep24
     end
   end
   return
-  ::flow_label_24::
-  arg3 = workValue24
-  arg3()
-  arg3 = CMG
-  arg3 = arg3.setVehicleFuel
-  if arg3 then
-    arg3 = CMG
-    arg3 = arg3.setVehicleFuel
-    arg4 = arg2
-    arg5 = 72.0
-    arg3(arg4, arg5)
+  ::continueAtStep24::
+  localValue3 = workingValue24
+  localValue3()
+  localValue3 = CMG
+  localValue3 = localValue3.setVehicleFuel
+  if localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.setVehicleFuel
+    localValue4 = localValue2
+    localValue5 = 72.0
+    localValue3(localValue4, localValue5)
   else
-    arg3 = SetVehicleFuelLevel
-    arg4 = arg2
-    arg5 = 72.0
-    arg3(arg4, arg5)
+    localValue3 = SetVehicleFuelLevel
+    localValue4 = localValue2
+    localValue5 = 72.0
+    localValue3(localValue4, localValue5)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c7dc2846b3".
-threadCall2(textValue8, workValue61)
-threadCall2 = RegisterNetEvent
-textValue8 = "824c168eef"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = RegisterNetEvent
+text8 = "824c168eef"
 -- Beginner: this function handles network event "824c168eef".
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62
-  arg1 = workValue19
-  arg2 = arg1 or arg2
-  if arg1 then
-    arg2 = arg1.vehicleNetId
-    if arg2 then
-      arg2 = tonumber
-      arg3 = arg1.vehicleNetId
-      arg2 = arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62
+  localValue1 = workingValue19
+  localValue2 = localValue1 or localValue2
+  if localValue1 then
+    localValue2 = localValue1.vehicleNetId
+    if localValue2 then
+      localValue2 = tonumber
+      localValue3 = localValue1.vehicleNetId
+      localValue2 = localValue2(localValue3)
     end
   end
-  arg3 = threadCall
+  localValue3 = backgroundThread
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg3()
-  arg3 = workValue32
-  arg3()
-  arg3 = workValue27
-  arg3()
-  arg3 = workValue24
-  arg3()
-  arg3 = nil
-  workValue18 = arg3
-  arg3 = nil
-  workValue19 = arg3
-  arg3 = false
-  flag3 = arg3
-  if arg2 then
-    arg3 = NetworkDoesNetworkIdExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = NetworkGetEntityFromNetworkId
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      if 0 ~= arg3 then
-        arg4 = DoesEntityExist
-        arg5 = arg3
-        arg4 = arg4(arg5)
-        if arg4 then
-          arg4 = IsEntityAVehicle
-          arg5 = arg3
-          arg4 = arg4(arg5)
-          if arg4 then
-            arg4 = NetworkRequestControlOfEntity
-            arg5 = arg3
-            arg4(arg5)
-            arg4 = GetGameTimer
+  localValue3()
+  localValue3 = workingValue32
+  localValue3()
+  localValue3 = workingValue27
+  localValue3()
+  localValue3 = workingValue24
+  localValue3()
+  localValue3 = nil
+  workingValue18 = localValue3
+  localValue3 = nil
+  workingValue19 = localValue3
+  localValue3 = false
+  stateFlag3 = localValue3
+  if localValue2 then
+    localValue3 = NetworkDoesNetworkIdExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = NetworkGetEntityFromNetworkId
+      localValue4 = localValue2
+      localValue3 = localValue3(localValue4)
+      if 0 ~= localValue3 then
+        localValue4 = DoesEntityExist
+        localValue5 = localValue3
+        localValue4 = localValue4(localValue5)
+        if localValue4 then
+          localValue4 = IsEntityAVehicle
+          localValue5 = localValue3
+          localValue4 = localValue4(localValue5)
+          if localValue4 then
+            localValue4 = NetworkRequestControlOfEntity
+            localValue5 = localValue3
+            localValue4(localValue5)
+            localValue4 = GetGameTimer
             -- Beginner: result below is gameTimeMs.
-            arg4 = arg4()
-            arg4 = arg4 + 800
+            localValue4 = localValue4()
+            localValue4 = localValue4 + 800
             while true do
-              arg5 = GetGameTimer
+              localValue5 = GetGameTimer
               -- Beginner: result below is gameTimeMs.
-              arg5 = arg5()
-              if not (arg4 > arg5) then
+              localValue5 = localValue5()
+              if not (localValue4 > localValue5) then
                 break
               end
-              arg5 = NetworkHasControlOfEntity
-              arg6 = arg3
-              arg5 = arg5(arg6)
-              if arg5 then
+              localValue5 = NetworkHasControlOfEntity
+              localValue6 = localValue3
+              localValue5 = localValue5(localValue6)
+              if localValue5 then
                 break
               end
-              arg5 = NetworkRequestControlOfEntity
-              arg6 = arg3
-              arg5(arg6)
-              arg5 = Citizen
-              arg5 = arg5.Wait
-              arg6 = 0
-              arg5(arg6)
+              localValue5 = NetworkRequestControlOfEntity
+              localValue6 = localValue3
+              localValue5(localValue6)
+              localValue5 = Citizen
+              localValue5 = localValue5.Wait
+              localValue6 = 0
+              localValue5(localValue6)
             end
-            arg5 = SetEntityAsMissionEntity
-            arg6 = arg3
-            arg7 = true
-            workValue62 = true
-            arg5(arg6, arg7, workValue62)
-            arg5 = DeleteEntity
-            arg6 = arg3
+            localValue5 = SetEntityAsMissionEntity
+            localValue6 = localValue3
+            localValue7 = true
+            workingValue62 = true
+            localValue5(localValue6, localValue7, workingValue62)
+            localValue5 = DeleteEntity
+            localValue6 = localValue3
             -- Beginner: Delete a GTA entity.
-            arg5(arg6)
+            localValue5(localValue6)
           end
         end
       end
@@ -5018,3294 +5018,3294 @@ function workValue61()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "824c168eef".
-threadCall2(textValue8, workValue61)
-threadCall2 = RegisterNetEvent
-textValue8 = "edaac23639"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = RegisterNetEvent
+text8 = "edaac23639"
 -- Beginner: this function handles network event "edaac23639".
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: arg1) ===
-function workValue61(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = tonumber
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg1 = arg2
-  if arg1 then
-    arg2 = NetworkDoesNetworkIdExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_13
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: localValue1) ===
+function workingValue61(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = tonumber
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue1 = localValue2
+  if localValue1 then
+    localValue2 = NetworkDoesNetworkIdExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep13
     end
   end
   return
-  ::flow_label_13::
-  arg2 = NetworkGetEntityFromNetworkId
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 ~= arg2 then
-    arg3 = DoesEntityExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = IsEntityAVehicle
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      if arg3 then
-        goto flow_label_29
+  ::continueAtStep13::
+  localValue2 = NetworkGetEntityFromNetworkId
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if 0 ~= localValue2 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = IsEntityAVehicle
+      localValue4 = localValue2
+      localValue3 = localValue3(localValue4)
+      if localValue3 then
+        goto continueAtStep29
       end
     end
   end
   return
-  ::flow_label_29::
-  arg3 = NetworkRequestControlOfEntity
-  arg4 = arg2
-  arg3(arg4)
-  arg3 = GetGameTimer
+  ::continueAtStep29::
+  localValue3 = NetworkRequestControlOfEntity
+  localValue4 = localValue2
+  localValue3(localValue4)
+  localValue3 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg3 = arg3()
-  arg3 = arg3 + 800
+  localValue3 = localValue3()
+  localValue3 = localValue3 + 800
   while true do
-    arg4 = GetGameTimer
+    localValue4 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg4 = arg4()
-    if not (arg3 > arg4) then
+    localValue4 = localValue4()
+    if not (localValue3 > localValue4) then
       break
     end
-    arg4 = NetworkHasControlOfEntity
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    if arg4 then
+    localValue4 = NetworkHasControlOfEntity
+    localValue5 = localValue2
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
       break
     end
-    arg4 = NetworkRequestControlOfEntity
-    arg5 = arg2
-    arg4(arg5)
-    arg4 = Citizen
-    arg4 = arg4.Wait
-    arg5 = 0
-    arg4(arg5)
+    localValue4 = NetworkRequestControlOfEntity
+    localValue5 = localValue2
+    localValue4(localValue5)
+    localValue4 = Citizen
+    localValue4 = localValue4.Wait
+    localValue5 = 0
+    localValue4(localValue5)
   end
-  arg4 = SetEntityAsMissionEntity
-  arg5 = arg2
-  arg6 = true
-  arg7 = true
-  arg4(arg5, arg6, arg7)
-  arg4 = DeleteEntity
-  arg5 = arg2
+  localValue4 = SetEntityAsMissionEntity
+  localValue5 = localValue2
+  localValue6 = true
+  localValue7 = true
+  localValue4(localValue5, localValue6, localValue7)
+  localValue4 = DeleteEntity
+  localValue5 = localValue2
   -- Beginner: Delete a GTA entity.
-  arg4(arg5)
+  localValue4(localValue5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "edaac23639".
-threadCall2(textValue8, workValue61)
-threadCall2 = RegisterNetEvent
-textValue8 = "a31d6248f4"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = RegisterNetEvent
+text8 = "a31d6248f4"
 -- Beginner: this function handles network event "a31d6248f4".
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: arg1) ===
-function workValue61(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
-  arg3 = {}
-  arg3.type = "MECHANIC_LEVEL_LIST"
-  arg4 = {}
-  arg5 = arg1 or arg5
-  if not arg1 then
-    arg5 = {}
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: localValue1) ===
+function workingValue61(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
+  localValue3 = {}
+  localValue3.type = "MECHANIC_LEVEL_LIST"
+  localValue4 = {}
+  localValue5 = localValue1 or localValue5
+  if not localValue1 then
+    localValue5 = {}
   end
-  arg4.levels = arg5
-  arg3.payload = arg4
-  arg2(arg3)
+  localValue4.levels = localValue5
+  localValue3.payload = localValue4
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a31d6248f4".
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1, arg2) ===
-function textValue8(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  if not arg2 or "" == arg2 then
+-- === HELPER FUNCTION (decompiler name: text8; parameters: localValue1, localValue2) ===
+function text8(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  if not localValue2 or "" == localValue2 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.isJobTerminalOpen
-  arg3 = arg3()
-  if arg3 then
-    arg3 = CMG
-    arg3 = arg3.getClientJob
-    arg3 = arg3()
-    if "Mechanic" == arg3 then
-      arg3 = CMG
-      arg3 = arg3.uiSendMessage
-      arg4 = {}
-      arg4.action = "MECHANIC_JOB_NOTIFICATION"
-      arg5 = {}
-      arg6 = true == arg1
-      arg5.success = arg6
-      arg5.message = arg2
-      arg4.payload = arg5
-      arg3(arg4)
+  localValue3 = CMG
+  localValue3 = localValue3.isJobTerminalOpen
+  localValue3 = localValue3()
+  if localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.getClientJob
+    localValue3 = localValue3()
+    if "Mechanic" == localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.uiSendMessage
+      localValue4 = {}
+      localValue4.action = "MECHANIC_JOB_NOTIFICATION"
+      localValue5 = {}
+      localValue6 = true == localValue1
+      localValue5.success = localValue6
+      localValue5.message = localValue2
+      localValue4.payload = localValue5
+      localValue3(localValue4)
   end
   else
-    if arg1 then
-      arg3 = "~g~"
-      if arg3 then
-        goto flow_label_38
+    if localValue1 then
+      localValue3 = "~g~"
+      if localValue3 then
+        goto continueAtStep38
       end
     end
-    arg3 = "~r~"
-    ::flow_label_38::
-    arg4 = tCMG
-    arg4 = arg4.notify
-    arg5 = arg3
-    arg6 = arg2
-    arg5 = arg5 .. arg6
+    localValue3 = "~r~"
+    ::continueAtStep38::
+    localValue4 = tCMG
+    localValue4 = localValue4.notify
+    localValue5 = localValue3
+    localValue6 = localValue2
+    localValue5 = localValue5 .. localValue6
     -- Beginner: Show a notification to the player.
-    arg4(arg5)
+    localValue4(localValue5)
   end
 end
-threadCall2.showMechanicJobNuiNotify = textValue8
-threadCall2 = RegisterNetEvent
-textValue8 = "e9fb295005"
+backgroundThread2.showMechanicJobNuiNotify = text8
+backgroundThread2 = RegisterNetEvent
+text8 = "e9fb295005"
 -- Beginner: this function handles network event "e9fb295005".
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: arg1, arg2) ===
-function workValue61(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = CMG
-  arg3 = arg3.showMechanicJobNuiNotify
-  arg4 = arg1
-  arg5 = arg2
-  arg3(arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: localValue1, localValue2) ===
+function workingValue61(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = CMG
+  localValue3 = localValue3.showMechanicJobNuiNotify
+  localValue4 = localValue1
+  localValue5 = localValue2
+  localValue3(localValue4, localValue5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e9fb295005".
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "mechanicJobRequestSync"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "mechanicJobRequestSync"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "5c8eb44f1a"
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "5c8eb44f1a"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5c8eb44f1a".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "getMechanicLevels"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "getMechanicLevels"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "faf016b7ca"
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "faf016b7ca"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "faf016b7ca".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "getMechanicLeaderboard"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "getMechanicLeaderboard"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "5bfcf45d60"
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "5bfcf45d60"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5bfcf45d60".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-threadCall2(textValue8, workValue61)
-threadCall2 = RegisterNetEvent
-textValue8 = "ded48a8b46"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = RegisterNetEvent
+text8 = "ded48a8b46"
 -- Beginner: this function handles network event "ded48a8b46".
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: arg1) ===
-function workValue61(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
-  arg3 = {}
-  arg3.type = "MECHANIC_LEADERBOARD"
-  arg4 = {}
-  arg5 = arg1 or arg5
-  if not arg1 then
-    arg5 = {}
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: localValue1) ===
+function workingValue61(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
+  localValue3 = {}
+  localValue3.type = "MECHANIC_LEADERBOARD"
+  localValue4 = {}
+  localValue5 = localValue1 or localValue5
+  if not localValue1 then
+    localValue5 = {}
   end
-  arg4.mechanics = arg5
-  arg3.payload = arg4
-  arg2(arg3)
+  localValue4.mechanics = localValue5
+  localValue3.payload = localValue4
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ded48a8b46".
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "mechanicJobStartBreakdown"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "mechanicJobStartBreakdown"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "b87fb49f5f"
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "b87fb49f5f"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b87fb49f5f".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "mechanicJobStartSolo"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "mechanicJobStartSolo"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: arg1) ===
-function workValue61(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg2 = "table" == arg2 and arg2
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" ~= arg3 or "" == arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: localValue1) ===
+function workingValue61(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue2 = "table" == localValue2 and localValue2
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" ~= localValue3 or "" == localValue2 then
     return
   end
-  arg3 = TriggerServerEvent
-  arg4 = "9bd49860b5"
-  arg5 = arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "9bd49860b5"
+  localValue5 = localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9bd49860b5".
-  arg3(arg4, arg5)
+  localValue3(localValue4, localValue5)
 end
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "mechanicJobCancelContract"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "mechanicJobCancelContract"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2
-  arg1 = threadCall
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2
+  localValue1 = backgroundThread
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg1()
-  arg1 = workValue32
-  arg1()
-  arg1 = nil
-  workValue18 = arg1
-  arg1 = nil
-  workValue19 = arg1
-  arg1 = false
-  flag3 = arg1
-  arg1 = TriggerServerEvent
-  arg2 = "421a80d091"
+  localValue1()
+  localValue1 = workingValue32
+  localValue1()
+  localValue1 = nil
+  workingValue18 = localValue1
+  localValue1 = nil
+  workingValue19 = localValue1
+  localValue1 = false
+  stateFlag3 = localValue1
+  localValue1 = TriggerServerEvent
+  localValue2 = "421a80d091"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "421a80d091".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "mechanicJobSetWaypointAgain"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "mechanicJobSetWaypointAgain"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2
-  arg1 = workValue57
-  arg1()
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2
+  localValue1 = workingValue57
+  localValue1()
 end
-threadCall2(textValue8, workValue61)
-threadCall2 = CMG
-threadCall2 = threadCall2.uiRegisterCallback
-textValue8 = "mechanicOpenCallManager"
+backgroundThread2(text8, workingValue61)
+backgroundThread2 = CMG
+backgroundThread2 = backgroundThread2.uiRegisterCallback
+text8 = "mechanicOpenCallManager"
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: none) ===
-function workValue61()
-  local arg1, arg2
-  arg1 = TriggerEvent
-  arg2 = "b4fcca60d5"
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: none) ===
+function workingValue61()
+  local localValue1, localValue2
+  localValue1 = TriggerEvent
+  localValue2 = "b4fcca60d5"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "b4fcca60d5".
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.openCallManagerFromJobMenu
-  arg1()
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.openCallManagerFromJobMenu
+  localValue1()
 end
-threadCall2(textValue8, workValue61)
+backgroundThread2(text8, workingValue61)
 
--- === HELPER FUNCTION (decompiler name: threadCall2; parameters: arg1) ===
-function threadCall2(arg1)
-  local arg2, arg3, arg4
-  if 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg2 = IsEntityAVehicle
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if arg2 then
-        goto flow_label_15
+-- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: localValue1) ===
+function backgroundThread2(localValue1)
+  local localValue2, localValue3, localValue4
+  if 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue2 = IsEntityAVehicle
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        goto continueAtStep15
       end
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_15::
-  arg2 = CMG
-  arg2 = arg2.getVehicleIdFromModel
-  arg3 = GetEntityModel
-  arg4 = arg1
-  arg3, arg4 = arg3(arg4)
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg3 = cmgCall3.garages
-    if arg3 then
-      arg3 = cmgCall3.garages
-      arg3 = arg3.Mechanics
-      if arg3 then
-        arg3 = cmgCall3.garages
-        arg3 = arg3.Mechanics
-        arg3 = arg3[arg2]
-        if arg3 then
-          arg3 = true
-          return arg3
+  localValue2 = false
+  return localValue2
+  ::continueAtStep15::
+  localValue2 = CMG
+  localValue2 = localValue2.getVehicleIdFromModel
+  localValue3 = GetEntityModel
+  localValue4 = localValue1
+  localValue3, localValue4 = localValue3(localValue4)
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue3 = cmgOperation3.garages
+    if localValue3 then
+      localValue3 = cmgOperation3.garages
+      localValue3 = localValue3.Mechanics
+      if localValue3 then
+        localValue3 = cmgOperation3.garages
+        localValue3 = localValue3.Mechanics
+        localValue3 = localValue3[localValue2]
+        if localValue3 then
+          localValue3 = true
+          return localValue3
         end
       end
     end
   end
-  arg3 = false
-  return arg3
+  localValue3 = false
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1) ===
-function textValue8(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = workValue19
-  if arg2 then
-    arg3 = arg2.vehicleNetId
-    if arg3 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: text8; parameters: localValue1) ===
+function text8(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = workingValue19
+  if localValue2 then
+    localValue3 = localValue2.vehicleNetId
+    if localValue3 then
+      goto continueAtStep9
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_9::
-  arg3 = tonumber
-  arg4 = arg2.vehicleNetId
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg4 = NetworkDoesNetworkIdExist
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      goto flow_label_21
+  localValue3 = false
+  return localValue3
+  ::continueAtStep9::
+  localValue3 = tonumber
+  localValue4 = localValue2.vehicleNetId
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue4 = NetworkDoesNetworkIdExist
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      goto continueAtStep21
     end
   end
-  arg4 = false
-  return arg4
-  ::flow_label_21::
-  arg4 = NetworkGetEntityFromNetworkId
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  arg5 = 0 ~= arg4 and arg4 == arg1
-  return arg5
+  localValue4 = false
+  return localValue4
+  ::continueAtStep21::
+  localValue4 = NetworkGetEntityFromNetworkId
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  localValue5 = 0 ~= localValue4 and localValue4 == localValue1
+  return localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue61; parameters: arg1) ===
-function workValue61(arg1)
-  local arg2, arg3, arg4
-  arg2 = threadCall2
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = textValue8
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
-      goto flow_label_13
+-- === HELPER FUNCTION (decompiler name: workingValue61; parameters: localValue1) ===
+function workingValue61(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = backgroundThread2
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = text8
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      goto continueAtStep13
     end
   end
-  arg2 = true
-  return arg2
-  ::flow_label_13::
-  if 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg2 = IsEntityAVehicle
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if arg2 then
-        goto flow_label_27
+  localValue2 = true
+  return localValue2
+  ::continueAtStep13::
+  if 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue2 = IsEntityAVehicle
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if localValue2 then
+        goto continueAtStep27
       end
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_27::
-  arg2 = GetEntityModel
-  arg3 = arg1
+  localValue2 = false
+  return localValue2
+  ::continueAtStep27::
+  localValue2 = GetEntityModel
+  localValue3 = localValue1
   -- Beginner: result below is modelHash.
-  arg2 = arg2(arg3)
-  if -956048545 == arg2 then
-    arg3 = true
-    return arg3
+  localValue2 = localValue2(localValue3)
+  if -956048545 == localValue2 then
+    localValue3 = true
+    return localValue3
   end
-  arg3 = workValue11
-  arg3 = arg3[arg2]
-  if not arg3 then
-    arg3 = workValue16
-    arg3 = arg3[arg2]
-    if not arg3 then
-      goto flow_label_44
+  localValue3 = workingValue11
+  localValue3 = localValue3[localValue2]
+  if not localValue3 then
+    localValue3 = workingValue16
+    localValue3 = localValue3[localValue2]
+    if not localValue3 then
+      goto continueAtStep44
     end
   end
-  arg3 = true
-  return arg3
-  ::flow_label_44::
-  arg3 = cmgCall.mechanicWorkVehicleModelHashes
-  if arg3 then
-    arg4 = arg3[arg2]
-    if arg4 then
-      arg4 = true
-      return arg4
+  localValue3 = true
+  return localValue3
+  ::continueAtStep44::
+  localValue3 = cmgOperation.mechanicWorkVehicleModelHashes
+  if localValue3 then
+    localValue4 = localValue3[localValue2]
+    if localValue4 then
+      localValue4 = true
+      return localValue4
     end
   end
-  arg4 = false
-  return arg4
+  localValue4 = false
+  return localValue4
 end
-numberValue15 = 0
-textValue9 = "~r~You can only use mechanic job vehicles whilst clocked on."
-numberValue16 = 0
+number15 = 0
+text9 = "~r~You can only use mechanic job vehicles whilst clocked on."
+number16 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue64; parameters: arg1) ===
-function workValue64(arg1)
-  local arg2, arg3, arg4, arg5
-  if 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: workingValue64; parameters: localValue1) ===
+function workingValue64(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  if 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep9
     end
   end
   return
-  ::flow_label_9::
-  arg2 = NetworkRequestControlOfEntity
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = NetworkHasControlOfEntity
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = SetEntityAsMissionEntity
-    arg3 = arg1
-    arg4 = true
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DeleteEntity
-    arg3 = arg1
+  ::continueAtStep9::
+  localValue2 = NetworkRequestControlOfEntity
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = NetworkHasControlOfEntity
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = SetEntityAsMissionEntity
+    localValue3 = localValue1
+    localValue4 = true
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DeleteEntity
+    localValue3 = localValue1
     -- Beginner: Delete a GTA entity.
-    arg2(arg3)
+    localValue2(localValue3)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue65; parameters: none) ===
-function workValue65()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7
-  arg1 = numberValue16
-  if 0 ~= arg1 then
-    arg1 = numberValue16
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = 0
-      numberValue16 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue65; parameters: none) ===
+function workingValue65()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7
+  localValue1 = number16
+  if 0 ~= localValue1 then
+    localValue1 = number16
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = 0
+      number16 = localValue2
     else
-      arg2 = workValue64
-      arg3 = arg1
-      arg2(arg3)
-      arg2 = DoesEntityExist
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = 0
-        numberValue16 = arg2
+      localValue2 = workingValue64
+      localValue3 = localValue1
+      localValue2(localValue3)
+      localValue2 = DoesEntityExist
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = 0
+        number16 = localValue2
       end
     end
   end
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "aa.onduty.permission"
-  arg1 = arg1(arg2)
-  if not arg1 then
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "aa.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.isJobTutorialRunning
-  arg1 = arg1()
-  if arg1 then
+  localValue1 = CMG
+  localValue1 = localValue1.isJobTutorialRunning
+  localValue1 = localValue1()
+  if localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.isSimeonsVehiclePreviewActive
-  arg1 = arg1()
-  if arg1 then
+  localValue1 = CMG
+  localValue1 = localValue1.isSimeonsVehiclePreviewActive
+  localValue1 = localValue1()
+  if localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.isBenchmarking
-  arg1 = arg1()
-  if arg1 then
+  localValue1 = CMG
+  localValue1 = localValue1.isBenchmarking
+  localValue1 = localValue1()
+  if localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.isHandcuffed
-  arg1 = arg1()
-  if arg1 then
+  localValue1 = CMG
+  localValue1 = localValue1.isHandcuffed
+  localValue1 = localValue1()
+  if localValue1 then
     return
   end
-  arg1 = PlayerPedId
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetVehiclePedIsEntering
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 ~= arg2 then
-    arg3 = workValue61
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if not arg3 then
-      arg3 = ClearPedTasks
-      arg4 = arg1
-      arg3(arg4)
-      arg3 = notify
-      arg4 = textValue9
+  localValue1 = localValue1()
+  localValue2 = GetVehiclePedIsEntering
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if 0 ~= localValue2 then
+    localValue3 = workingValue61
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
+      localValue3 = ClearPedTasks
+      localValue4 = localValue1
+      localValue3(localValue4)
+      localValue3 = notify
+      localValue4 = text9
       -- Beginner: Show a notification to the player.
-      arg3(arg4)
+      localValue3(localValue4)
     end
   end
-  arg3 = GetVehiclePedIsIn
-  arg4 = arg1
-  arg5 = false
+  localValue3 = GetVehiclePedIsIn
+  localValue4 = localValue1
+  localValue5 = false
   -- Beginner: result below is currentVehicle.
-  arg3 = arg3(arg4, arg5)
-  if 0 ~= arg3 then
-    arg4 = workValue61
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if not arg4 then
-      arg4 = GetPedInVehicleSeat
-      arg5 = arg3
-      arg6 = -1
-      arg4 = arg4(arg5, arg6)
-      arg4 = arg4 == arg1
-      arg5 = GetOffsetFromEntityInWorldCoords
-      arg6 = arg3
-      arg7 = 1.8
-      workValue62 = 0.0
-      workValue66 = 0.3
-      arg5 = arg5(arg6, arg7, workValue62, workValue66)
-      arg6 = GetGroundZFor_3dCoord
-      arg7 = arg5.x
-      workValue62 = arg5.y
-      workValue66 = arg5.z
-      workValue66 = workValue66 + 1.0
-      flag25 = 0
-      flag = false
-      arg6, arg7 = arg6(arg7, workValue62, workValue66, flag25, flag)
-      if arg6 and arg7 > 0.0 then
-        workValue62 = arg7 + 0.5
-        if workValue62 then
-          goto flow_label_117
+  localValue3 = localValue3(localValue4, localValue5)
+  if 0 ~= localValue3 then
+    localValue4 = workingValue61
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if not localValue4 then
+      localValue4 = GetPedInVehicleSeat
+      localValue5 = localValue3
+      localValue6 = -1
+      localValue4 = localValue4(localValue5, localValue6)
+      localValue4 = localValue4 == localValue1
+      localValue5 = GetOffsetFromEntityInWorldCoords
+      localValue6 = localValue3
+      localValue7 = 1.8
+      workingValue62 = 0.0
+      workingValue66 = 0.3
+      localValue5 = localValue5(localValue6, localValue7, workingValue62, workingValue66)
+      localValue6 = GetGroundZFor_3dCoord
+      localValue7 = localValue5.x
+      workingValue62 = localValue5.y
+      workingValue66 = localValue5.z
+      workingValue66 = workingValue66 + 1.0
+      stateFlag25 = 0
+      stateFlag = false
+      localValue6, localValue7 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag)
+      if localValue6 and localValue7 > 0.0 then
+        workingValue62 = localValue7 + 0.5
+        if workingValue62 then
+          goto continueAtStep117
         end
       end
-      workValue62 = arg5.z
-      workValue62 = workValue62 + 0.5
-      ::flow_label_117::
-      workValue66 = SetEntityCoordsNoOffset
-      flag25 = arg1
-      flag = arg5.x
-      flag2 = arg5.y
-      flag4 = workValue62
-      flag5 = false
-      flag6 = false
-      flag7 = false
+      workingValue62 = localValue5.z
+      workingValue62 = workingValue62 + 0.5
+      ::continueAtStep117::
+      workingValue66 = SetEntityCoordsNoOffset
+      stateFlag25 = localValue1
+      stateFlag = localValue5.x
+      stateFlag2 = localValue5.y
+      stateFlag4 = workingValue62
+      stateFlag5 = false
+      stateFlag6 = false
+      stateFlag7 = false
       -- Beginner: Move/teleport an entity to new coordinates.
-      workValue66(flag25, flag, flag2, flag4, flag5, flag6, flag7)
-      workValue66 = ClearPedTasksImmediately
-      flag25 = arg1
-      workValue66(flag25)
-      if arg4 then
-        numberValue16 = arg3
-        workValue66 = workValue64
-        flag25 = arg3
-        workValue66(flag25)
-        workValue66 = DoesEntityExist
-        flag25 = arg3
-        workValue66 = workValue66(flag25)
-        if not workValue66 then
-          workValue66 = 0
-          numberValue16 = workValue66
+      workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+      workingValue66 = ClearPedTasksImmediately
+      stateFlag25 = localValue1
+      workingValue66(stateFlag25)
+      if localValue4 then
+        number16 = localValue3
+        workingValue66 = workingValue64
+        stateFlag25 = localValue3
+        workingValue66(stateFlag25)
+        workingValue66 = DoesEntityExist
+        stateFlag25 = localValue3
+        workingValue66 = workingValue66(stateFlag25)
+        if not workingValue66 then
+          workingValue66 = 0
+          number16 = workingValue66
         end
       end
-      workValue66 = GetGameTimer
+      workingValue66 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      workValue66 = workValue66()
-      flag25 = numberValue15
-      if workValue66 >= flag25 then
-        flag25 = workValue66 + 4000
-        numberValue15 = flag25
-        flag25 = notify
-        flag = textValue9
+      workingValue66 = workingValue66()
+      stateFlag25 = number15
+      if workingValue66 >= stateFlag25 then
+        stateFlag25 = workingValue66 + 4000
+        number15 = stateFlag25
+        stateFlag25 = notify
+        stateFlag = text9
         -- Beginner: Show a notification to the player.
-        flag25(flag)
+        stateFlag25(stateFlag)
       end
     end
   end
 end
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.createThreadOnTick
-dataTable4 = workValue65
-dataTable5 = "Mechanic Vehicle Restrict"
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.createThreadOnTick
+dataCollection4 = workingValue65
+dataCollection5 = "Mechanic Vehicle Restrict"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall6(dataTable4, dataTable5)
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.registerDevMenuState
-dataTable4 = "Mechanic/Debris layout"
-dataTable5 = {}
-dataTable5.mainModelIndex = 1
-dataTable5.step = 0.1
-dataTable5.selectedIndex = 0
-dataTable5.nudgeStepListIndex = 3
-dataTable5.offsetKindIndex = 1
-dataTable5.secondarySlot1ModelIdx = 1
-dataTable5.secondarySlot2ModelIdx = 1
-dataTable5.secondarySlot3ModelIdx = 1
-dataTable5.secondarySlot4ModelIdx = 1
-cmgCall6 = cmgCall6(dataTable4, dataTable5)
-dataTable4 = {}
-dataTable4.active = false
-dataTable4.kind = "ground"
-dataTable4.anchor = nil
-dataTable4.baseZ = 0.0
-dataTable4.mainEnt = 0
-dataTable4.mainModelName = ""
-dataTable5 = {}
-dataTable4.slotEnts = dataTable5
-dataTable4.flatbedVeh = 0
-dataTable4.flatbedAttach = nil
-dataTable4.mainFlatbedAttach = nil
-dataTable5 = {}
-dataTable6 = "Main wreck"
-dataTable7 = "Secondary slot 1"
-textValue10 = "Secondary slot 2"
-textValue11 = "Secondary slot 3"
-textValue12 = "Secondary slot 4"
-dataTable5[1] = dataTable6
-dataTable5[2] = dataTable7
-dataTable5[3] = textValue10
-dataTable5[4] = textValue11
-dataTable5[5] = textValue12
-dataTable6 = {}
-dataTable7 = "Main wreck"
-textValue10 = "Bed slot 1"
-textValue11 = "Bed slot 2"
-textValue12 = "Bed slot 3"
-textValue13 = "Bed slot 4"
-dataTable6[1] = dataTable7
-dataTable6[2] = textValue10
-dataTable6[3] = textValue11
-dataTable6[4] = textValue12
-dataTable6[5] = textValue13
-dataTable7 = {}
-textValue10 = "Ground: pile / scene offsets"
-textValue11 = "Flatbed: bed attach (bone-local)"
-dataTable7[1] = textValue10
-dataTable7[2] = textValue11
+cmgOperation6(dataCollection4, dataCollection5)
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.registerDevMenuState
+dataCollection4 = "Mechanic/Debris layout"
+dataCollection5 = {}
+dataCollection5.mainModelIndex = 1
+dataCollection5.step = 0.1
+dataCollection5.selectedIndex = 0
+dataCollection5.nudgeStepListIndex = 3
+dataCollection5.offsetKindIndex = 1
+dataCollection5.secondarySlot1ModelIdx = 1
+dataCollection5.secondarySlot2ModelIdx = 1
+dataCollection5.secondarySlot3ModelIdx = 1
+dataCollection5.secondarySlot4ModelIdx = 1
+cmgOperation6 = cmgOperation6(dataCollection4, dataCollection5)
+dataCollection4 = {}
+dataCollection4.active = false
+dataCollection4.kind = "ground"
+dataCollection4.anchor = nil
+dataCollection4.baseZ = 0.0
+dataCollection4.mainEnt = 0
+dataCollection4.mainModelName = ""
+dataCollection5 = {}
+dataCollection4.slotEnts = dataCollection5
+dataCollection4.flatbedVeh = 0
+dataCollection4.flatbedAttach = nil
+dataCollection4.mainFlatbedAttach = nil
+dataCollection5 = {}
+dataCollection6 = "Main wreck"
+dataCollection7 = "Secondary slot 1"
+text10 = "Secondary slot 2"
+text11 = "Secondary slot 3"
+text12 = "Secondary slot 4"
+dataCollection5[1] = dataCollection6
+dataCollection5[2] = dataCollection7
+dataCollection5[3] = text10
+dataCollection5[4] = text11
+dataCollection5[5] = text12
+dataCollection6 = {}
+dataCollection7 = "Main wreck"
+text10 = "Bed slot 1"
+text11 = "Bed slot 2"
+text12 = "Bed slot 3"
+text13 = "Bed slot 4"
+dataCollection6[1] = dataCollection7
+dataCollection6[2] = text10
+dataCollection6[3] = text11
+dataCollection6[4] = text12
+dataCollection6[5] = text13
+dataCollection7 = {}
+text10 = "Ground: pile / scene offsets"
+text11 = "Flatbed: bed attach (bone-local)"
+dataCollection7[1] = text10
+dataCollection7[2] = text11
 
--- === HELPER FUNCTION (decompiler name: textValue10; parameters: none) ===
-function textValue10()
-  local arg1, arg2
-  arg1 = tonumber
-  arg2 = cmgCall6.offsetKindIndex
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = 1
+-- === HELPER FUNCTION (decompiler name: text10; parameters: none) ===
+function text10()
+  local localValue1, localValue2
+  localValue1 = tonumber
+  localValue2 = cmgOperation6.offsetKindIndex
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = 1
   end
-  if 2 == arg1 then
-    arg1 = "flatbed"
-    if arg1 then
-      goto flow_label_13
+  if 2 == localValue1 then
+    localValue1 = "flatbed"
+    if localValue1 then
+      goto continueAtStep13
     end
   end
-  arg1 = "ground"
-  ::flow_label_13::
-  return arg1
+  localValue1 = "ground"
+  ::continueAtStep13::
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: textValue11; parameters: none) ===
-function textValue11()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.getClientUserId
+-- === HELPER FUNCTION (decompiler name: text11; parameters: none) ===
+function text11()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.getClientUserId
   -- Beginner: result below is userId.
-  arg1 = arg1()
-  arg2 = arg1 or arg2
-  if arg1 then
-    arg2 = CMG
-    arg2 = arg2.isDeveloper
-    arg3 = arg1
-    arg2 = arg2(arg3)
+  localValue1 = localValue1()
+  localValue2 = localValue1 or localValue2
+  if localValue1 then
+    localValue2 = CMG
+    localValue2 = localValue2.isDeveloper
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: textValue12; parameters: arg1, arg2, arg3) ===
-function textValue12(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, workValue62, workValue66, flag25
-  arg4 = math
-  arg4 = arg4.rad
-  arg5 = arg3 + 0.0
-  arg4 = arg4(arg5)
-  arg5 = math
-  arg5 = arg5.cos
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  arg6 = math
-  arg6 = arg6.sin
-  arg7 = arg4
-  arg6 = arg6(arg7)
-  arg7 = arg1 * arg5
-  workValue62 = arg2 * arg6
-  arg7 = arg7 + workValue62
-  workValue62 = -arg1
-  workValue62 = workValue62 * arg6
-  workValue66 = arg2 * arg5
-  workValue62 = workValue62 + workValue66
-  workValue66 = arg7
-  flag25 = workValue62
-  return workValue66, flag25
+-- === HELPER FUNCTION (decompiler name: text12; parameters: localValue1, localValue2, localValue3) ===
+function text12(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25
+  localValue4 = math
+  localValue4 = localValue4.rad
+  localValue5 = localValue3 + 0.0
+  localValue4 = localValue4(localValue5)
+  localValue5 = math
+  localValue5 = localValue5.cos
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  localValue6 = math
+  localValue6 = localValue6.sin
+  localValue7 = localValue4
+  localValue6 = localValue6(localValue7)
+  localValue7 = localValue1 * localValue5
+  workingValue62 = localValue2 * localValue6
+  localValue7 = localValue7 + workingValue62
+  workingValue62 = -localValue1
+  workingValue62 = workingValue62 * localValue6
+  workingValue66 = localValue2 * localValue5
+  workingValue62 = workingValue62 + workingValue66
+  workingValue66 = localValue7
+  stateFlag25 = workingValue62
+  return workingValue66, stateFlag25
 end
 
--- === HELPER FUNCTION (decompiler name: textValue13; parameters: none) ===
-function textValue13()
-  local arg1, arg2
-  arg1 = dataTable4.mainEnt
-  if 0 ~= arg1 then
-    arg1 = DoesEntityExist
-    arg2 = dataTable4.mainEnt
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = GetEntityHeading
-      arg2 = dataTable4.mainEnt
-      return arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: text13; parameters: none) ===
+function text13()
+  local localValue1, localValue2
+  localValue1 = dataCollection4.mainEnt
+  if 0 ~= localValue1 then
+    localValue1 = DoesEntityExist
+    localValue2 = dataCollection4.mainEnt
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = GetEntityHeading
+      localValue2 = dataCollection4.mainEnt
+      return localValue1(localValue2)
     end
   end
-  arg1 = 0.0
-  return arg1
+  localValue1 = 0.0
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue67; parameters: arg1, arg2) ===
-function workValue67(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, workValue62
-  arg3 = workValue35
-  arg4 = arg1
-  arg5 = arg2
-  arg6 = textValue13
-  arg6, arg7, workValue62 = arg6()
-  arg3, arg4 = arg3(arg4, arg5, arg6, arg7, workValue62)
-  arg5 = vector3
-  arg6 = arg3
-  arg7 = arg4
-  workValue62 = 0.0
-  return arg5(arg6, arg7, workValue62)
+-- === HELPER FUNCTION (decompiler name: workingValue67; parameters: localValue1, localValue2) ===
+function workingValue67(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62
+  localValue3 = workingValue35
+  localValue4 = localValue1
+  localValue5 = localValue2
+  localValue6 = text13
+  localValue6, localValue7, workingValue62 = localValue6()
+  localValue3, localValue4 = localValue3(localValue4, localValue5, localValue6, localValue7, workingValue62)
+  localValue5 = vector3
+  localValue6 = localValue3
+  localValue7 = localValue4
+  workingValue62 = 0.0
+  return localValue5(localValue6, localValue7, workingValue62)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue68; parameters: none) ===
-function workValue68()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66
-  dataTable4.active = false
-  dataTable4.kind = "ground"
-  dataTable4.flatbedVeh = 0
-  dataTable4.flatbedAttach = nil
-  dataTable4.mainFlatbedAttach = nil
-  arg1 = dataTable4.mainEnt
-  if 0 ~= arg1 then
-    arg1 = DoesEntityExist
-    arg2 = dataTable4.mainEnt
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = SetEntityAsMissionEntity
-      arg2 = dataTable4.mainEnt
-      arg3 = true
-      arg4 = true
-      arg1(arg2, arg3, arg4)
-      arg1 = DeleteObject
-      arg2 = dataTable4.mainEnt
-      arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue68; parameters: none) ===
+function workingValue68()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66
+  dataCollection4.active = false
+  dataCollection4.kind = "ground"
+  dataCollection4.flatbedVeh = 0
+  dataCollection4.flatbedAttach = nil
+  dataCollection4.mainFlatbedAttach = nil
+  localValue1 = dataCollection4.mainEnt
+  if 0 ~= localValue1 then
+    localValue1 = DoesEntityExist
+    localValue2 = dataCollection4.mainEnt
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = SetEntityAsMissionEntity
+      localValue2 = dataCollection4.mainEnt
+      localValue3 = true
+      localValue4 = true
+      localValue1(localValue2, localValue3, localValue4)
+      localValue1 = DeleteObject
+      localValue2 = dataCollection4.mainEnt
+      localValue1(localValue2)
     end
   end
-  dataTable4.mainEnt = 0
-  arg1 = 1
-  arg2 = 4
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
-    arg5 = dataTable4.slotEnts
-    arg5 = arg5[arg4]
-    if arg5 and 0 ~= arg5 then
-      arg6 = DoesEntityExist
-      arg7 = arg5
-      arg6 = arg6(arg7)
-      if arg6 then
-        arg6 = DetachEntity
-        arg7 = arg5
-        workValue62 = true
-        workValue66 = true
-        arg6(arg7, workValue62, workValue66)
-        arg6 = SetEntityAsMissionEntity
-        arg7 = arg5
-        workValue62 = true
-        workValue66 = true
-        arg6(arg7, workValue62, workValue66)
-        arg6 = DeleteObject
-        arg7 = arg5
-        arg6(arg7)
+  dataCollection4.mainEnt = 0
+  localValue1 = 1
+  localValue2 = 4
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
+    localValue5 = dataCollection4.slotEnts
+    localValue5 = localValue5[localValue4]
+    if localValue5 and 0 ~= localValue5 then
+      localValue6 = DoesEntityExist
+      localValue7 = localValue5
+      localValue6 = localValue6(localValue7)
+      if localValue6 then
+        localValue6 = DetachEntity
+        localValue7 = localValue5
+        workingValue62 = true
+        workingValue66 = true
+        localValue6(localValue7, workingValue62, workingValue66)
+        localValue6 = SetEntityAsMissionEntity
+        localValue7 = localValue5
+        workingValue62 = true
+        workingValue66 = true
+        localValue6(localValue7, workingValue62, workingValue66)
+        localValue6 = DeleteObject
+        localValue7 = localValue5
+        localValue6(localValue7)
       end
     end
-    arg6 = dataTable4.slotEnts
-    arg6[arg4] = nil
+    localValue6 = dataCollection4.slotEnts
+    localValue6[localValue4] = nil
   end
-  dataTable4.anchor = nil
-  dataTable4.mainModelName = ""
+  dataCollection4.anchor = nil
+  dataCollection4.mainModelName = ""
 end
 
--- === HELPER FUNCTION (decompiler name: workValue69; parameters: none) ===
-function workValue69()
-  local arg1, arg2, arg3
-  arg1 = cmgCall.debrisMainWreckModels
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "table" == arg2 then
-    arg2 = #arg1
-    if not (arg2 < 1) then
-      goto flow_label_15
+-- === HELPER FUNCTION (decompiler name: workingValue69; parameters: none) ===
+function workingValue69()
+  local localValue1, localValue2, localValue3
+  localValue1 = cmgOperation.debrisMainWreckModels
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "table" == localValue2 then
+    localValue2 = #localValue1
+    if not (localValue2 < 1) then
+      goto continueAtStep15
     end
   end
-  arg2 = {}
-  arg3 = "prop_rub_carwreck_8"
-  arg2[1] = arg3
-  return arg2
-  ::flow_label_15::
-  return arg1
+  localValue2 = {}
+  localValue3 = "prop_rub_carwreck_8"
+  localValue2[1] = localValue3
+  return localValue2
+  ::continueAtStep15::
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue70; parameters: none) ===
-function workValue70()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66
-  arg1 = cmgCall.debrisLayoutGroups
-  arg2 = dataTable4.mainModelName
-  arg3 = type
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if "table" == arg3 then
-    arg3 = arg2 or arg3
-    if not arg2 then
-      arg3 = ""
+-- === HELPER FUNCTION (decompiler name: workingValue70; parameters: none) ===
+function workingValue70()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66
+  localValue1 = cmgOperation.debrisLayoutGroups
+  localValue2 = dataCollection4.mainModelName
+  localValue3 = type
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if "table" == localValue3 then
+    localValue3 = localValue2 or localValue3
+    if not localValue2 then
+      localValue3 = ""
     end
-    arg3 = arg1[arg3]
-    if arg3 then
-      goto flow_label_15
-    end
-  end
-  arg3 = nil
-  ::flow_label_15::
-  arg4 = type
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if "table" == arg4 then
-    arg4 = arg3.secondaryModels
-    if arg4 then
-      goto flow_label_24
+    localValue3 = localValue1[localValue3]
+    if localValue3 then
+      goto continueAtStep15
     end
   end
-  arg4 = nil
-  ::flow_label_24::
-  arg5 = type
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  if "table" == arg5 then
-    arg5 = #arg4
-    if not (arg5 < 1) then
-      goto flow_label_40
+  localValue3 = nil
+  ::continueAtStep15::
+  localValue4 = type
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if "table" == localValue4 then
+    localValue4 = localValue3.secondaryModels
+    if localValue4 then
+      goto continueAtStep24
     end
   end
-  arg5 = {}
-  arg6 = "prop_rub_carpart_02"
-  arg7 = "prop_wheel_rim_02"
-  workValue62 = "prop_car_exhaust_01"
-  workValue66 = "lr_smod_car_seat_001"
-  arg5[1] = arg6
-  arg5[2] = arg7
-  arg5[3] = workValue62
-  arg5[4] = workValue66
-  return arg5
-  ::flow_label_40::
-  return arg4
+  localValue4 = nil
+  ::continueAtStep24::
+  localValue5 = type
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  if "table" == localValue5 then
+    localValue5 = #localValue4
+    if not (localValue5 < 1) then
+      goto continueAtStep40
+    end
+  end
+  localValue5 = {}
+  localValue6 = "prop_rub_carpart_02"
+  localValue7 = "prop_wheel_rim_02"
+  workingValue62 = "prop_car_exhaust_01"
+  workingValue66 = "lr_smod_car_seat_001"
+  localValue5[1] = localValue6
+  localValue5[2] = localValue7
+  localValue5[3] = workingValue62
+  localValue5[4] = workingValue66
+  return localValue5
+  ::continueAtStep40::
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue71; parameters: none) ===
-function workValue71()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9
-  arg1 = {}
-  arg2 = {}
+-- === HELPER FUNCTION (decompiler name: workingValue71; parameters: none) ===
+function workingValue71()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9
+  localValue1 = {}
+  localValue2 = {}
 
-  -- === HELPER FUNCTION: arg3(arg12) ===
-  function arg3(arg12)
-    local arg22, arg32
-    arg22 = type
-    arg32 = arg12
-    arg22 = arg22(arg32)
-    if "string" ~= arg22 or "" == arg12 then
+  -- === HELPER FUNCTION: localValue3(localValue12) ===
+  function localValue3(localValue12)
+    local localValue22, localValue32
+    localValue22 = type
+    localValue32 = localValue12
+    localValue22 = localValue22(localValue32)
+    if "string" ~= localValue22 or "" == localValue12 then
       return
     end
-    arg22 = arg1
-    arg22 = arg22[arg12]
-    if arg22 then
+    localValue22 = localValue1
+    localValue22 = localValue22[localValue12]
+    if localValue22 then
       return
     end
-    arg22 = arg1
-    arg22[arg12] = true
-    arg22 = arg2
-    arg22 = #arg22
-    arg32 = arg22 + 1
-    arg22 = arg2
-    arg22[arg32] = arg12
+    localValue22 = localValue1
+    localValue22[localValue12] = true
+    localValue22 = localValue2
+    localValue22 = #localValue22
+    localValue32 = localValue22 + 1
+    localValue22 = localValue2
+    localValue22[localValue32] = localValue12
   end
-  arg4 = cmgCall.debrisLayoutGroups
-  arg5 = type
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  if "table" == arg5 then
-    arg5 = pairs
-    arg6 = arg4
-    arg5, arg6, arg7, workValue62 = arg5(arg6)
-    for workValue66, flag25 in arg5, arg6, arg7, workValue62 do
-      flag = type
-      flag2 = flag25
-      flag = flag(flag2)
-      if "table" == flag then
-        flag = type
-        flag2 = flag25.secondaryModels
-        flag = flag(flag2)
-        if "table" == flag then
-          flag = ipairs
-          flag2 = flag25.secondaryModels
-          flag, flag2, flag4, flag5 = flag(flag2)
-          for flag6, flag7 in flag, flag2, flag4, flag5 do
-            flag8 = arg3
-            flag9 = flag7
-            flag8(flag9)
+  localValue4 = cmgOperation.debrisLayoutGroups
+  localValue5 = type
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  if "table" == localValue5 then
+    localValue5 = pairs
+    localValue6 = localValue4
+    localValue5, localValue6, localValue7, workingValue62 = localValue5(localValue6)
+    for workingValue66, stateFlag25 in localValue5, localValue6, localValue7, workingValue62 do
+      stateFlag = type
+      stateFlag2 = stateFlag25
+      stateFlag = stateFlag(stateFlag2)
+      if "table" == stateFlag then
+        stateFlag = type
+        stateFlag2 = stateFlag25.secondaryModels
+        stateFlag = stateFlag(stateFlag2)
+        if "table" == stateFlag then
+          stateFlag = ipairs
+          stateFlag2 = stateFlag25.secondaryModels
+          stateFlag, stateFlag2, stateFlag4, stateFlag5 = stateFlag(stateFlag2)
+          for stateFlag6, stateFlag7 in stateFlag, stateFlag2, stateFlag4, stateFlag5 do
+            stateFlag8 = localValue3
+            stateFlag9 = stateFlag7
+            stateFlag8(stateFlag9)
           end
         end
       end
     end
   end
-  arg5 = ipairs
-  arg6 = workValue70
-  arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9 = arg6()
-  arg5, arg6, arg7, workValue62 = arg5(arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9)
-  for workValue66, flag25 in arg5, arg6, arg7, workValue62 do
-    flag = arg3
-    flag2 = flag25
-    flag(flag2)
+  localValue5 = ipairs
+  localValue6 = workingValue70
+  localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9 = localValue6()
+  localValue5, localValue6, localValue7, workingValue62 = localValue5(localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9)
+  for workingValue66, stateFlag25 in localValue5, localValue6, localValue7, workingValue62 do
+    stateFlag = localValue3
+    stateFlag2 = stateFlag25
+    stateFlag(stateFlag2)
   end
-  arg5 = #arg2
-  if arg5 < 1 then
-    arg5 = {}
-    arg6 = "prop_rub_carpart_02"
-    arg5[1] = arg6
-    return arg5
+  localValue5 = #localValue2
+  if localValue5 < 1 then
+    localValue5 = {}
+    localValue6 = "prop_rub_carpart_02"
+    localValue5[1] = localValue6
+    return localValue5
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue72; parameters: arg1) ===
-function workValue72(arg1)
-  local arg2, arg3, arg4
-  arg2 = "secondarySlot"
-  arg3 = arg1
-  arg4 = "ModelIdx"
-  arg2 = arg2 .. arg3 .. arg4
-  return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue72; parameters: localValue1) ===
+function workingValue72(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = "secondarySlot"
+  localValue3 = localValue1
+  localValue4 = "ModelIdx"
+  localValue2 = localValue2 .. localValue3 .. localValue4
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue73; parameters: arg1, arg2) ===
-function workValue73(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2
-  arg3 = arg2 or nil
-  if not arg2 then
-    arg3 = workValue71
-    arg3 = arg3()
+-- === HELPER FUNCTION (decompiler name: workingValue73; parameters: localValue1, localValue2) ===
+function workingValue73(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2
+  localValue3 = localValue2 or nil
+  if not localValue2 then
+    localValue3 = workingValue71
+    localValue3 = localValue3()
   end
-  arg4 = #arg3
-  if arg4 < 1 then
-    arg5 = "prop_rub_carpart_02"
-    return arg5
+  localValue4 = #localValue3
+  if localValue4 < 1 then
+    localValue5 = "prop_rub_carpart_02"
+    return localValue5
   end
-  arg5 = workValue72
-  arg6 = arg1
-  arg5 = arg5(arg6)
-  arg6 = math
-  arg6 = arg6.max
-  arg7 = 1
-  workValue62 = math
-  workValue62 = workValue62.min
-  workValue66 = arg4
-  flag25 = math
-  flag25 = flag25.floor
-  flag = tonumber
-  flag2 = cmgCall6
-  flag2 = flag2[arg5]
-  flag = flag(flag2)
-  if not flag then
-    flag = 1
+  localValue5 = workingValue72
+  localValue6 = localValue1
+  localValue5 = localValue5(localValue6)
+  localValue6 = math
+  localValue6 = localValue6.max
+  localValue7 = 1
+  workingValue62 = math
+  workingValue62 = workingValue62.min
+  workingValue66 = localValue4
+  stateFlag25 = math
+  stateFlag25 = stateFlag25.floor
+  stateFlag = tonumber
+  stateFlag2 = cmgOperation6
+  stateFlag2 = stateFlag2[localValue5]
+  stateFlag = stateFlag(stateFlag2)
+  if not stateFlag then
+    stateFlag = 1
   end
-  flag25, flag, flag2 = flag25(flag)
-  workValue62, workValue66, flag25, flag, flag2 = workValue62(workValue66, flag25, flag, flag2)
-  arg6 = arg6(arg7, workValue62, workValue66, flag25, flag, flag2)
-  arg7 = cmgCall6
-  arg7[arg5] = arg6
-  arg7 = arg3[arg6]
-  return arg7
+  stateFlag25, stateFlag, stateFlag2 = stateFlag25(stateFlag)
+  workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2 = workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2)
+  localValue6 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2)
+  localValue7 = cmgOperation6
+  localValue7[localValue5] = localValue6
+  localValue7 = localValue3[localValue6]
+  return localValue7
 end
 
--- === HELPER FUNCTION (decompiler name: workValue74; parameters: arg1) ===
-function workValue74(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2
-  arg2 = {}
-  arg3 = arg1 or arg3
-  if not arg1 then
-    arg3 = workValue71
-    arg3 = arg3()
+-- === HELPER FUNCTION (decompiler name: workingValue74; parameters: localValue1) ===
+function workingValue74(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2
+  localValue2 = {}
+  localValue3 = localValue1 or localValue3
+  if not localValue1 then
+    localValue3 = workingValue71
+    localValue3 = localValue3()
   end
-  arg4 = 1
-  arg5 = 4
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
-    workValue62 = workValue73
-    workValue66 = arg7
-    flag25 = arg3
-    workValue62 = workValue62(workValue66, flag25)
-    workValue66 = workValue37
-    flag25 = workValue62
-    flag = dataTable4.mainModelName
-    flag2 = arg7
-    workValue66 = workValue66(flag25, flag, flag2)
-    arg2[arg7] = workValue66
+  localValue4 = 1
+  localValue5 = 4
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
+    workingValue62 = workingValue73
+    workingValue66 = localValue7
+    stateFlag25 = localValue3
+    workingValue62 = workingValue62(workingValue66, stateFlag25)
+    workingValue66 = workingValue37
+    stateFlag25 = workingValue62
+    stateFlag = dataCollection4.mainModelName
+    stateFlag2 = localValue7
+    workingValue66 = workingValue66(stateFlag25, stateFlag, stateFlag2)
+    localValue2[localValue7] = workingValue66
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue75; parameters: arg1) ===
-function workValue75(arg1)
-  local arg2, arg3
-  arg2 = workValue38
-  arg3 = arg1
-  return arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue75; parameters: localValue1) ===
+function workingValue75(localValue1)
+  local localValue2, localValue3
+  localValue2 = workingValue38
+  localValue3 = localValue1
+  return localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3
-  arg1 = dataTable4.flatbedVeh
-  if 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3
+  localValue1 = dataCollection4.flatbedVeh
+  if 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep10
     end
   end
   return
-  ::flow_label_10::
-  arg2 = dataTable4.mainEnt
-  if 0 ~= arg2 then
-    arg3 = DoesEntityExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      goto flow_label_19
+  ::continueAtStep10::
+  localValue2 = dataCollection4.mainEnt
+  if 0 ~= localValue2 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      goto continueAtStep19
     end
   end
   return
-  ::flow_label_19::
-  arg3 = dataTable4.mainFlatbedAttach
-  arg4 = type
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if "table" ~= arg4 then
+  ::continueAtStep19::
+  localValue3 = dataCollection4.mainFlatbedAttach
+  localValue4 = type
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if "table" ~= localValue4 then
     return
   end
-  arg4 = tonumber
-  arg5 = cmgCall.debrisMainFlatbedBone
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = 20
+  localValue4 = tonumber
+  localValue5 = cmgOperation.debrisMainFlatbedBone
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = 20
   end
-  arg5 = DetachEntity
-  arg6 = arg2
-  arg7 = true
-  workValue62 = true
-  arg5(arg6, arg7, workValue62)
-  arg5 = AttachEntityToEntity
-  arg6 = arg2
-  arg7 = arg1
-  workValue62 = arg4
-  workValue66 = arg3.ox
-  flag25 = arg3.oy
-  flag = arg3.oz
-  flag2 = arg3.rx
-  flag4 = arg3.ry
-  flag5 = arg3.rz
-  flag6 = false
-  flag7 = false
-  flag8 = false
-  flag9 = false
-  flag10 = 2
-  numberValue3 = true
+  localValue5 = DetachEntity
+  localValue6 = localValue2
+  localValue7 = true
+  workingValue62 = true
+  localValue5(localValue6, localValue7, workingValue62)
+  localValue5 = AttachEntityToEntity
+  localValue6 = localValue2
+  localValue7 = localValue1
+  workingValue62 = localValue4
+  workingValue66 = localValue3.ox
+  stateFlag25 = localValue3.oy
+  stateFlag = localValue3.oz
+  stateFlag2 = localValue3.rx
+  stateFlag4 = localValue3.ry
+  stateFlag5 = localValue3.rz
+  stateFlag6 = false
+  stateFlag7 = false
+  stateFlag8 = false
+  stateFlag9 = false
+  stateFlag10 = 2
+  number3 = true
   -- Beginner: Attach one entity to another entity.
-  arg5(arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-  arg5 = SetEntityCollision
-  arg6 = arg2
-  arg7 = false
-  workValue62 = false
-  arg5(arg6, arg7, workValue62)
+  localValue5(localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+  localValue5 = SetEntityCollision
+  localValue6 = localValue2
+  localValue7 = false
+  workingValue62 = false
+  localValue5(localValue6, localValue7, workingValue62)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14
-  arg1 = dataTable4.flatbedVeh
-  if 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14
+  localValue1 = dataCollection4.flatbedVeh
+  if 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep10
     end
   end
   return
-  ::flow_label_10::
-  arg2 = workValue
-  arg2()
-  arg2 = tonumber
-  arg3 = cmgCall.debrisSecondaryFlatbedBone
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = tonumber
-    arg3 = cmgCall.debrisMainFlatbedBone
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = 20
+  ::continueAtStep10::
+  localValue2 = workingValue
+  localValue2()
+  localValue2 = tonumber
+  localValue3 = cmgOperation.debrisSecondaryFlatbedBone
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = tonumber
+    localValue3 = cmgOperation.debrisMainFlatbedBone
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = 20
     end
   end
-  arg3 = 1
-  arg4 = 4
-  arg5 = 1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = dataTable4.slotEnts
-    arg7 = arg7[arg6]
-    workValue62 = dataTable4.flatbedAttach
-    if workValue62 then
-      workValue62 = dataTable4.flatbedAttach
-      workValue62 = workValue62[arg6]
+  localValue3 = 1
+  localValue4 = 4
+  localValue5 = 1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = dataCollection4.slotEnts
+    localValue7 = localValue7[localValue6]
+    workingValue62 = dataCollection4.flatbedAttach
+    if workingValue62 then
+      workingValue62 = dataCollection4.flatbedAttach
+      workingValue62 = workingValue62[localValue6]
     end
-    if arg7 and 0 ~= arg7 then
-      workValue66 = DoesEntityExist
-      flag25 = arg7
-      workValue66 = workValue66(flag25)
-      if workValue66 and workValue62 then
-        workValue66 = DetachEntity
-        flag25 = arg7
-        flag = true
-        flag2 = true
-        workValue66(flag25, flag, flag2)
-        workValue66 = AttachEntityToEntity
-        flag25 = arg7
-        flag = arg1
-        flag2 = arg2
-        flag4 = workValue62.ox
-        flag5 = workValue62.oy
-        flag6 = workValue62.oz
-        flag7 = workValue62.rx
-        flag8 = workValue62.ry
-        flag9 = workValue62.rz
-        flag10 = false
-        numberValue3 = false
-        flag11 = false
-        flag12 = false
-        flag13 = 2
-        flag14 = true
+    if localValue7 and 0 ~= localValue7 then
+      workingValue66 = DoesEntityExist
+      stateFlag25 = localValue7
+      workingValue66 = workingValue66(stateFlag25)
+      if workingValue66 and workingValue62 then
+        workingValue66 = DetachEntity
+        stateFlag25 = localValue7
+        stateFlag = true
+        stateFlag2 = true
+        workingValue66(stateFlag25, stateFlag, stateFlag2)
+        workingValue66 = AttachEntityToEntity
+        stateFlag25 = localValue7
+        stateFlag = localValue1
+        stateFlag2 = localValue2
+        stateFlag4 = workingValue62.ox
+        stateFlag5 = workingValue62.oy
+        stateFlag6 = workingValue62.oz
+        stateFlag7 = workingValue62.rx
+        stateFlag8 = workingValue62.ry
+        stateFlag9 = workingValue62.rz
+        stateFlag10 = false
+        number3 = false
+        stateFlag11 = false
+        stateFlag12 = false
+        stateFlag13 = 2
+        stateFlag14 = true
         -- Beginner: Attach one entity to another entity.
-        workValue66(flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14)
-        workValue66 = SetEntityCollision
-        flag25 = arg7
-        flag = false
-        flag2 = false
-        workValue66(flag25, flag, flag2)
+        workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14)
+        workingValue66 = SetEntityCollision
+        stateFlag25 = localValue7
+        stateFlag = false
+        stateFlag2 = false
+        workingValue66(stateFlag25, stateFlag, stateFlag2)
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
-function workValue3(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = workValue71
-  arg2 = arg2()
-  arg3 = workValue73
-  arg4 = arg1
-  arg5 = arg2
-  arg3 = arg3(arg4, arg5)
-  arg4 = workValue36
-  arg5 = arg3
-  arg6 = dataTable4.mainModelName
-  arg7 = arg1
-  return arg4(arg5, arg6, arg7)
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1) ===
+function workingValue3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = workingValue71
+  localValue2 = localValue2()
+  localValue3 = workingValue73
+  localValue4 = localValue1
+  localValue5 = localValue2
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = workingValue36
+  localValue5 = localValue3
+  localValue6 = dataCollection4.mainModelName
+  localValue7 = localValue1
+  return localValue4(localValue5, localValue6, localValue7)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3
-  arg2 = dataTable4.active
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3
+  localValue2 = dataCollection4.active
+  if not localValue2 then
     return
   end
-  if arg1 < 1 or arg1 > 4 then
+  if localValue1 < 1 or localValue1 > 4 then
     return
   end
-  arg2 = dataTable4.kind
-  if "ground" ~= arg2 and "flatbed" ~= arg2 then
+  localValue2 = dataCollection4.kind
+  if "ground" ~= localValue2 and "flatbed" ~= localValue2 then
     return
   end
-  arg3 = workValue71
-  arg3 = arg3()
-  arg4 = workValue73
-  arg5 = arg1
-  arg6 = arg3
-  arg4 = arg4(arg5, arg6)
-  arg5 = GetHashKey
-  arg6 = arg4
+  localValue3 = workingValue71
+  localValue3 = localValue3()
+  localValue4 = workingValue73
+  localValue5 = localValue1
+  localValue6 = localValue3
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = GetHashKey
+  localValue6 = localValue4
   -- Beginner: result below is hash.
-  arg5 = arg5(arg6)
-  if not arg5 or 0 == arg5 then
+  localValue5 = localValue5(localValue6)
+  if not localValue5 or 0 == localValue5 then
     return
   end
-  arg6 = dataTable4.slotEnts
-  arg6 = arg6[arg1]
-  if arg6 and 0 ~= arg6 then
-    arg7 = DoesEntityExist
-    workValue62 = arg6
-    arg7 = arg7(workValue62)
-    if arg7 then
-      arg7 = GetEntityModel
-      workValue62 = arg6
+  localValue6 = dataCollection4.slotEnts
+  localValue6 = localValue6[localValue1]
+  if localValue6 and 0 ~= localValue6 then
+    localValue7 = DoesEntityExist
+    workingValue62 = localValue6
+    localValue7 = localValue7(workingValue62)
+    if localValue7 then
+      localValue7 = GetEntityModel
+      workingValue62 = localValue6
       -- Beginner: result below is modelHash.
-      arg7 = arg7(workValue62)
-      if arg7 == arg5 then
+      localValue7 = localValue7(workingValue62)
+      if localValue7 == localValue5 then
         return
       end
     end
   end
-  if "flatbed" == arg2 then
-    arg7 = dataTable4.flatbedVeh
-    if 0 ~= arg7 then
-      workValue62 = DoesEntityExist
-      workValue66 = arg7
-      workValue62 = workValue62(workValue66)
-      if workValue62 then
-        goto flow_label_58
+  if "flatbed" == localValue2 then
+    localValue7 = dataCollection4.flatbedVeh
+    if 0 ~= localValue7 then
+      workingValue62 = DoesEntityExist
+      workingValue66 = localValue7
+      workingValue62 = workingValue62(workingValue66)
+      if workingValue62 then
+        goto continueAtStep58
       end
     end
     return
-    ::flow_label_58::
-    if arg6 and 0 ~= arg6 then
-      workValue62 = DoesEntityExist
-      workValue66 = arg6
-      workValue62 = workValue62(workValue66)
-      if workValue62 then
-        workValue62 = DetachEntity
-        workValue66 = arg6
-        flag25 = true
-        flag = true
-        workValue62(workValue66, flag25, flag)
-        workValue62 = SetEntityAsMissionEntity
-        workValue66 = arg6
-        flag25 = true
-        flag = true
-        workValue62(workValue66, flag25, flag)
-        workValue62 = DeleteObject
-        workValue66 = arg6
-        workValue62(workValue66)
+    ::continueAtStep58::
+    if localValue6 and 0 ~= localValue6 then
+      workingValue62 = DoesEntityExist
+      workingValue66 = localValue6
+      workingValue62 = workingValue62(workingValue66)
+      if workingValue62 then
+        workingValue62 = DetachEntity
+        workingValue66 = localValue6
+        stateFlag25 = true
+        stateFlag = true
+        workingValue62(workingValue66, stateFlag25, stateFlag)
+        workingValue62 = SetEntityAsMissionEntity
+        workingValue66 = localValue6
+        stateFlag25 = true
+        stateFlag = true
+        workingValue62(workingValue66, stateFlag25, stateFlag)
+        workingValue62 = DeleteObject
+        workingValue66 = localValue6
+        workingValue62(workingValue66)
       end
     end
-    workValue62 = dataTable4.slotEnts
-    workValue62[arg1] = nil
-    workValue62 = dataTable4.flatbedAttach
-    if workValue62 then
-      workValue62 = dataTable4.flatbedAttach
-      workValue66 = workValue37
-      flag25 = arg4
-      flag = dataTable4.mainModelName
-      flag2 = arg1
-      workValue66 = workValue66(flag25, flag, flag2)
-      workValue62[arg1] = workValue66
+    workingValue62 = dataCollection4.slotEnts
+    workingValue62[localValue1] = nil
+    workingValue62 = dataCollection4.flatbedAttach
+    if workingValue62 then
+      workingValue62 = dataCollection4.flatbedAttach
+      workingValue66 = workingValue37
+      stateFlag25 = localValue4
+      stateFlag = dataCollection4.mainModelName
+      stateFlag2 = localValue1
+      workingValue66 = workingValue66(stateFlag25, stateFlag, stateFlag2)
+      workingValue62[localValue1] = workingValue66
     end
-    workValue62 = GetEntityCoords
-    workValue66 = arg7
-    flag25 = true
+    workingValue62 = GetEntityCoords
+    workingValue66 = localValue7
+    stateFlag25 = true
     -- Beginner: result below is entityCoords.
-    workValue62 = workValue62(workValue66, flag25)
-    workValue66 = CMG
-    workValue66 = workValue66.loadModel
-    flag25 = arg5
+    workingValue62 = workingValue62(workingValue66, stateFlag25)
+    workingValue66 = CMG
+    workingValue66 = workingValue66.loadModel
+    stateFlag25 = localValue5
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    workValue66(flag25)
-    workValue66 = CreateObject
-    flag25 = arg5
-    flag = workValue62.x
-    flag2 = workValue62.y
-    flag4 = workValue62.z
-    flag4 = flag4 + 0.5
-    flag5 = false
-    flag6 = false
-    flag7 = false
+    workingValue66(stateFlag25)
+    workingValue66 = CreateObject
+    stateFlag25 = localValue5
+    stateFlag = workingValue62.x
+    stateFlag2 = workingValue62.y
+    stateFlag4 = workingValue62.z
+    stateFlag4 = stateFlag4 + 0.5
+    stateFlag5 = false
+    stateFlag6 = false
+    stateFlag7 = false
     -- Beginner: result below is objectEntity.
-    workValue66 = workValue66(flag25, flag, flag2, flag4, flag5, flag6, flag7)
-    if 0 ~= workValue66 then
-      flag25 = DoesEntityExist
-      flag = workValue66
-      flag25 = flag25(flag)
-      if flag25 then
-        flag25 = dataTable4.slotEnts
-        flag25[arg1] = workValue66
+    workingValue66 = workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
+    if 0 ~= workingValue66 then
+      stateFlag25 = DoesEntityExist
+      stateFlag = workingValue66
+      stateFlag25 = stateFlag25(stateFlag)
+      if stateFlag25 then
+        stateFlag25 = dataCollection4.slotEnts
+        stateFlag25[localValue1] = workingValue66
       end
     end
-    flag25 = SetModelAsNoLongerNeeded
-    flag = arg5
-    flag25(flag)
-    flag25 = workValue2
-    flag25()
+    stateFlag25 = SetModelAsNoLongerNeeded
+    stateFlag = localValue5
+    stateFlag25(stateFlag)
+    stateFlag25 = workingValue2
+    stateFlag25()
     return
   end
-  arg7 = dataTable4.anchor
-  if not arg7 then
+  localValue7 = dataCollection4.anchor
+  if not localValue7 then
     return
   end
-  workValue62 = tonumber
-  workValue66 = dataTable4.baseZ
-  workValue62 = workValue62(workValue66)
-  if not workValue62 then
-    workValue62 = 0.0
+  workingValue62 = tonumber
+  workingValue66 = dataCollection4.baseZ
+  workingValue62 = workingValue62(workingValue66)
+  if not workingValue62 then
+    workingValue62 = 0.0
   end
-  workValue66 = nil
-  flag25 = nil
-  flag = nil
-  flag2 = nil
-  if arg6 and 0 ~= arg6 then
-    flag4 = DoesEntityExist
-    flag5 = arg6
-    flag4 = flag4(flag5)
-    if flag4 then
-      flag4 = GetEntityCoords
-      flag5 = arg6
-      flag6 = true
+  workingValue66 = nil
+  stateFlag25 = nil
+  stateFlag = nil
+  stateFlag2 = nil
+  if localValue6 and 0 ~= localValue6 then
+    stateFlag4 = DoesEntityExist
+    stateFlag5 = localValue6
+    stateFlag4 = stateFlag4(stateFlag5)
+    if stateFlag4 then
+      stateFlag4 = GetEntityCoords
+      stateFlag5 = localValue6
+      stateFlag6 = true
       -- Beginner: result below is entityCoords.
-      flag4 = flag4(flag5, flag6)
-      flag5 = flag4.x
-      flag6 = flag4.y
-      flag = flag4.z
-      flag25 = flag6
-      workValue66 = flag5
-      flag5 = GetEntityHeading
-      flag6 = arg6
+      stateFlag4 = stateFlag4(stateFlag5, stateFlag6)
+      stateFlag5 = stateFlag4.x
+      stateFlag6 = stateFlag4.y
+      stateFlag = stateFlag4.z
+      stateFlag25 = stateFlag6
+      workingValue66 = stateFlag5
+      stateFlag5 = GetEntityHeading
+      stateFlag6 = localValue6
       -- Beginner: result below is heading.
-      flag5 = flag5(flag6)
-      flag2 = flag5
-      flag5 = SetEntityAsMissionEntity
-      flag6 = arg6
-      flag7 = true
-      flag8 = true
-      flag5(flag6, flag7, flag8)
-      flag5 = DeleteObject
-      flag6 = arg6
-      flag5(flag6)
+      stateFlag5 = stateFlag5(stateFlag6)
+      stateFlag2 = stateFlag5
+      stateFlag5 = SetEntityAsMissionEntity
+      stateFlag6 = localValue6
+      stateFlag7 = true
+      stateFlag8 = true
+      stateFlag5(stateFlag6, stateFlag7, stateFlag8)
+      stateFlag5 = DeleteObject
+      stateFlag6 = localValue6
+      stateFlag5(stateFlag6)
   end
   else
-    flag4 = textValue13
-    flag4 = flag4()
-    flag5 = workValue3
-    flag6 = arg1
-    flag5 = flag5(flag6)
-    flag6 = workValue35
-    flag7 = flag5.dx
-    flag8 = flag5.dy
-    flag9 = flag4
-    flag6, flag7 = flag6(flag7, flag8, flag9)
-    flag8 = arg7.x
-    workValue66 = flag8 + flag6
-    flag8 = arg7.y
-    flag25 = flag8 + flag7
-    flag8 = flag5.dz
-    flag = workValue62 + flag8
-    flag8 = flag5.h
-    flag2 = flag8 + flag4
+    stateFlag4 = text13
+    stateFlag4 = stateFlag4()
+    stateFlag5 = workingValue3
+    stateFlag6 = localValue1
+    stateFlag5 = stateFlag5(stateFlag6)
+    stateFlag6 = workingValue35
+    stateFlag7 = stateFlag5.dx
+    stateFlag8 = stateFlag5.dy
+    stateFlag9 = stateFlag4
+    stateFlag6, stateFlag7 = stateFlag6(stateFlag7, stateFlag8, stateFlag9)
+    stateFlag8 = localValue7.x
+    workingValue66 = stateFlag8 + stateFlag6
+    stateFlag8 = localValue7.y
+    stateFlag25 = stateFlag8 + stateFlag7
+    stateFlag8 = stateFlag5.dz
+    stateFlag = workingValue62 + stateFlag8
+    stateFlag8 = stateFlag5.h
+    stateFlag2 = stateFlag8 + stateFlag4
   end
-  flag4 = dataTable4.slotEnts
-  flag4[arg1] = nil
-  flag4 = CMG
-  flag4 = flag4.loadModel
-  flag5 = arg5
+  stateFlag4 = dataCollection4.slotEnts
+  stateFlag4[localValue1] = nil
+  stateFlag4 = CMG
+  stateFlag4 = stateFlag4.loadModel
+  stateFlag5 = localValue5
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  flag4(flag5)
-  flag4 = CreateObject
-  flag5 = arg5
-  flag6 = workValue66
-  flag7 = flag25
-  flag8 = flag
-  flag9 = false
-  flag10 = false
-  numberValue3 = false
+  stateFlag4(stateFlag5)
+  stateFlag4 = CreateObject
+  stateFlag5 = localValue5
+  stateFlag6 = workingValue66
+  stateFlag7 = stateFlag25
+  stateFlag8 = stateFlag
+  stateFlag9 = false
+  stateFlag10 = false
+  number3 = false
   -- Beginner: result below is objectEntity.
-  flag4 = flag4(flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-  if 0 ~= flag4 then
-    flag5 = DoesEntityExist
-    flag6 = flag4
-    flag5 = flag5(flag6)
-    if flag5 then
-      flag5 = SetEntityHeading
-      flag6 = flag4
-      flag7 = flag2
+  stateFlag4 = stateFlag4(stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+  if 0 ~= stateFlag4 then
+    stateFlag5 = DoesEntityExist
+    stateFlag6 = stateFlag4
+    stateFlag5 = stateFlag5(stateFlag6)
+    if stateFlag5 then
+      stateFlag5 = SetEntityHeading
+      stateFlag6 = stateFlag4
+      stateFlag7 = stateFlag2
       -- Beginner: Change the direction an entity is facing.
-      flag5(flag6, flag7)
-      flag5 = FreezeEntityPosition
-      flag6 = flag4
-      flag7 = false
+      stateFlag5(stateFlag6, stateFlag7)
+      stateFlag5 = FreezeEntityPosition
+      stateFlag6 = stateFlag4
+      stateFlag7 = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      flag5(flag6, flag7)
-      flag5 = SetEntityCollision
-      flag6 = flag4
-      flag7 = false
-      flag8 = false
-      flag5(flag6, flag7, flag8)
-      flag5 = dataTable4.slotEnts
-      flag5[arg1] = flag4
+      stateFlag5(stateFlag6, stateFlag7)
+      stateFlag5 = SetEntityCollision
+      stateFlag6 = stateFlag4
+      stateFlag7 = false
+      stateFlag8 = false
+      stateFlag5(stateFlag6, stateFlag7, stateFlag8)
+      stateFlag5 = dataCollection4.slotEnts
+      stateFlag5[localValue1] = stateFlag4
     end
   end
-  flag5 = SetModelAsNoLongerNeeded
-  flag6 = arg5
-  flag5(flag6)
+  stateFlag5 = SetModelAsNoLongerNeeded
+  stateFlag6 = localValue5
+  stateFlag5(stateFlag6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9
-  arg1 = textValue11
-  arg1 = arg1()
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9
+  localValue1 = text11
+  localValue1 = localValue1()
+  if not localValue1 then
     return
   end
-  arg1 = workValue68
-  arg1()
-  arg1 = workValue69
-  arg1 = arg1()
-  arg2 = math
-  arg2 = arg2.max
-  arg3 = 1
-  arg4 = math
-  arg4 = arg4.min
-  arg5 = #arg1
-  arg6 = math
-  arg6 = arg6.floor
-  arg7 = cmgCall6.mainModelIndex
-  if not arg7 then
-    arg7 = 1
+  localValue1 = workingValue68
+  localValue1()
+  localValue1 = workingValue69
+  localValue1 = localValue1()
+  localValue2 = math
+  localValue2 = localValue2.max
+  localValue3 = 1
+  localValue4 = math
+  localValue4 = localValue4.min
+  localValue5 = #localValue1
+  localValue6 = math
+  localValue6 = localValue6.floor
+  localValue7 = cmgOperation6.mainModelIndex
+  if not localValue7 then
+    localValue7 = 1
   end
-  arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9 = arg6(arg7)
-  arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9 = arg4(arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9)
-  arg2 = arg2(arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9)
-  cmgCall6.mainModelIndex = arg2
-  arg3 = arg1[arg2]
-  dataTable4.mainModelName = arg3
-  arg4 = CMG
-  arg4 = arg4.getPlayerPed
+  localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9 = localValue6(localValue7)
+  localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9 = localValue4(localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9)
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9)
+  cmgOperation6.mainModelIndex = localValue2
+  localValue3 = localValue1[localValue2]
+  dataCollection4.mainModelName = localValue3
+  localValue4 = CMG
+  localValue4 = localValue4.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg4 = arg4()
-  arg5 = GetEntityCoords
-  arg6 = arg4
-  arg7 = true
+  localValue4 = localValue4()
+  localValue5 = GetEntityCoords
+  localValue6 = localValue4
+  localValue7 = true
   -- Beginner: result below is entityCoords.
-  arg5 = arg5(arg6, arg7)
-  arg6 = GetGroundZFor_3dCoord
-  arg7 = arg5.x
-  workValue62 = arg5.y
-  workValue66 = arg5.z
-  workValue66 = workValue66 + 50.0
-  flag25 = 0.0
-  flag = false
-  arg6, arg7 = arg6(arg7, workValue62, workValue66, flag25, flag)
-  if arg7 and arg7 > 0.0 then
-    workValue62 = arg7 + 0.05
-    if workValue62 then
-      goto flow_label_53
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue6 = GetGroundZFor_3dCoord
+  localValue7 = localValue5.x
+  workingValue62 = localValue5.y
+  workingValue66 = localValue5.z
+  workingValue66 = workingValue66 + 50.0
+  stateFlag25 = 0.0
+  stateFlag = false
+  localValue6, localValue7 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag)
+  if localValue7 and localValue7 > 0.0 then
+    workingValue62 = localValue7 + 0.05
+    if workingValue62 then
+      goto continueAtStep53
     end
   end
-  workValue62 = arg5.z
-  ::flow_label_53::
-  dataTable4.baseZ = workValue62
-  workValue62 = vector3
-  workValue66 = arg5.x
-  flag25 = arg5.y
-  flag = dataTable4.baseZ
-  workValue62 = workValue62(workValue66, flag25, flag)
-  dataTable4.anchor = workValue62
-  workValue62 = GetEntityHeading
-  workValue66 = arg4
+  workingValue62 = localValue5.z
+  ::continueAtStep53::
+  dataCollection4.baseZ = workingValue62
+  workingValue62 = vector3
+  workingValue66 = localValue5.x
+  stateFlag25 = localValue5.y
+  stateFlag = dataCollection4.baseZ
+  workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag)
+  dataCollection4.anchor = workingValue62
+  workingValue62 = GetEntityHeading
+  workingValue66 = localValue4
   -- Beginner: result below is heading.
-  workValue62 = workValue62(workValue66)
-  workValue66 = GetHashKey
-  flag25 = arg3
+  workingValue62 = workingValue62(workingValue66)
+  workingValue66 = GetHashKey
+  stateFlag25 = localValue3
   -- Beginner: result below is hash.
-  workValue66 = workValue66(flag25)
-  if not workValue66 or 0 == workValue66 then
-    flag25 = tCMG
-    flag25 = flag25.notify
-    flag = "~r~Invalid main wreck model."
+  workingValue66 = workingValue66(stateFlag25)
+  if not workingValue66 or 0 == workingValue66 then
+    stateFlag25 = tCMG
+    stateFlag25 = stateFlag25.notify
+    stateFlag = "~r~Invalid main wreck model."
     -- Beginner: Show a notification to the player.
-    flag25(flag)
+    stateFlag25(stateFlag)
     return
   end
-  flag25 = CMG
-  flag25 = flag25.loadModel
-  flag = workValue66
+  stateFlag25 = CMG
+  stateFlag25 = stateFlag25.loadModel
+  stateFlag = workingValue66
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  flag25(flag)
-  flag25 = CreateObject
-  flag = workValue66
-  flag2 = dataTable4.anchor
-  flag2 = flag2.x
-  flag4 = dataTable4.anchor
-  flag4 = flag4.y
-  flag5 = dataTable4.baseZ
-  flag5 = flag5 + 0.05
-  flag6 = false
-  flag7 = false
-  flag8 = false
+  stateFlag25(stateFlag)
+  stateFlag25 = CreateObject
+  stateFlag = workingValue66
+  stateFlag2 = dataCollection4.anchor
+  stateFlag2 = stateFlag2.x
+  stateFlag4 = dataCollection4.anchor
+  stateFlag4 = stateFlag4.y
+  stateFlag5 = dataCollection4.baseZ
+  stateFlag5 = stateFlag5 + 0.05
+  stateFlag6 = false
+  stateFlag7 = false
+  stateFlag8 = false
   -- Beginner: result below is objectEntity.
-  flag25 = flag25(flag, flag2, flag4, flag5, flag6, flag7, flag8)
-  dataTable4.mainEnt = flag25
-  flag25 = dataTable4.mainEnt
-  if 0 ~= flag25 then
-    flag25 = DoesEntityExist
-    flag = dataTable4.mainEnt
-    flag25 = flag25(flag)
-    if flag25 then
-      goto flow_label_109
+  stateFlag25 = stateFlag25(stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8)
+  dataCollection4.mainEnt = stateFlag25
+  stateFlag25 = dataCollection4.mainEnt
+  if 0 ~= stateFlag25 then
+    stateFlag25 = DoesEntityExist
+    stateFlag = dataCollection4.mainEnt
+    stateFlag25 = stateFlag25(stateFlag)
+    if stateFlag25 then
+      goto continueAtStep109
     end
   end
-  flag25 = tCMG
-  flag25 = flag25.notify
-  flag = "~r~Failed to spawn main wreck."
+  stateFlag25 = tCMG
+  stateFlag25 = stateFlag25.notify
+  stateFlag = "~r~Failed to spawn main wreck."
   -- Beginner: Show a notification to the player.
-  flag25(flag)
-  flag25 = SetModelAsNoLongerNeeded
-  flag = workValue66
-  flag25(flag)
+  stateFlag25(stateFlag)
+  stateFlag25 = SetModelAsNoLongerNeeded
+  stateFlag = workingValue66
+  stateFlag25(stateFlag)
   return
-  ::flow_label_109::
-  flag25 = SetEntityHeading
-  flag = dataTable4.mainEnt
-  flag2 = workValue62
+  ::continueAtStep109::
+  stateFlag25 = SetEntityHeading
+  stateFlag = dataCollection4.mainEnt
+  stateFlag2 = workingValue62
   -- Beginner: Change the direction an entity is facing.
-  flag25(flag, flag2)
-  flag25 = PlaceObjectOnGroundProperly
-  flag = dataTable4.mainEnt
-  flag25(flag)
-  flag25 = SetEntityCollision
-  flag = dataTable4.mainEnt
-  flag2 = false
-  flag4 = false
-  flag25(flag, flag2, flag4)
-  flag25 = GetEntityCoords
-  flag = dataTable4.mainEnt
-  flag2 = true
+  stateFlag25(stateFlag, stateFlag2)
+  stateFlag25 = PlaceObjectOnGroundProperly
+  stateFlag = dataCollection4.mainEnt
+  stateFlag25(stateFlag)
+  stateFlag25 = SetEntityCollision
+  stateFlag = dataCollection4.mainEnt
+  stateFlag2 = false
+  stateFlag4 = false
+  stateFlag25(stateFlag, stateFlag2, stateFlag4)
+  stateFlag25 = GetEntityCoords
+  stateFlag = dataCollection4.mainEnt
+  stateFlag2 = true
   -- Beginner: result below is entityCoords.
-  flag25 = flag25(flag, flag2)
-  flag = vector3
-  flag2 = flag25.x
-  flag4 = flag25.y
-  flag5 = dataTable4.baseZ
-  flag = flag(flag2, flag4, flag5)
-  dataTable4.anchor = flag
-  flag = SetModelAsNoLongerNeeded
-  flag2 = workValue66
-  flag(flag2)
-  flag = GetEntityHeading
-  flag2 = dataTable4.mainEnt
+  stateFlag25 = stateFlag25(stateFlag, stateFlag2)
+  stateFlag = vector3
+  stateFlag2 = stateFlag25.x
+  stateFlag4 = stateFlag25.y
+  stateFlag5 = dataCollection4.baseZ
+  stateFlag = stateFlag(stateFlag2, stateFlag4, stateFlag5)
+  dataCollection4.anchor = stateFlag
+  stateFlag = SetModelAsNoLongerNeeded
+  stateFlag2 = workingValue66
+  stateFlag(stateFlag2)
+  stateFlag = GetEntityHeading
+  stateFlag2 = dataCollection4.mainEnt
   -- Beginner: result below is heading.
-  flag = flag(flag2)
-  flag2 = workValue71
-  flag2 = flag2()
-  flag4 = 1
-  flag5 = 4
-  flag6 = 1
-  for flag7 = flag4, flag5, flag6 do
-    flag8 = workValue3
-    flag9 = flag7
-    flag8 = flag8(flag9)
-    flag9 = workValue35
-    flag10 = flag8.dx
-    numberValue3 = flag8.dy
-    flag11 = flag
-    flag9, flag10 = flag9(flag10, numberValue3, flag11)
-    numberValue3 = dataTable4.anchor
-    numberValue3 = numberValue3.x
-    numberValue3 = numberValue3 + flag9
-    flag11 = dataTable4.anchor
-    flag11 = flag11.y
-    flag11 = flag11 + flag10
-    flag12 = dataTable4.baseZ
-    flag13 = flag8.dz
-    flag12 = flag12 + flag13
-    flag13 = workValue73
-    flag14 = flag7
-    flag15 = flag2
-    flag13 = flag13(flag14, flag15)
-    flag14 = GetHashKey
-    flag15 = flag13
+  stateFlag = stateFlag(stateFlag2)
+  stateFlag2 = workingValue71
+  stateFlag2 = stateFlag2()
+  stateFlag4 = 1
+  stateFlag5 = 4
+  stateFlag6 = 1
+  for stateFlag7 = stateFlag4, stateFlag5, stateFlag6 do
+    stateFlag8 = workingValue3
+    stateFlag9 = stateFlag7
+    stateFlag8 = stateFlag8(stateFlag9)
+    stateFlag9 = workingValue35
+    stateFlag10 = stateFlag8.dx
+    number3 = stateFlag8.dy
+    stateFlag11 = stateFlag
+    stateFlag9, stateFlag10 = stateFlag9(stateFlag10, number3, stateFlag11)
+    number3 = dataCollection4.anchor
+    number3 = number3.x
+    number3 = number3 + stateFlag9
+    stateFlag11 = dataCollection4.anchor
+    stateFlag11 = stateFlag11.y
+    stateFlag11 = stateFlag11 + stateFlag10
+    stateFlag12 = dataCollection4.baseZ
+    stateFlag13 = stateFlag8.dz
+    stateFlag12 = stateFlag12 + stateFlag13
+    stateFlag13 = workingValue73
+    stateFlag14 = stateFlag7
+    stateFlag15 = stateFlag2
+    stateFlag13 = stateFlag13(stateFlag14, stateFlag15)
+    stateFlag14 = GetHashKey
+    stateFlag15 = stateFlag13
     -- Beginner: result below is hash.
-    flag14 = flag14(flag15)
-    if flag14 and 0 ~= flag14 then
-      flag15 = CMG
-      flag15 = flag15.loadModel
-      flag16 = flag14
+    stateFlag14 = stateFlag14(stateFlag15)
+    if stateFlag14 and 0 ~= stateFlag14 then
+      stateFlag15 = CMG
+      stateFlag15 = stateFlag15.loadModel
+      stateFlag16 = stateFlag14
       -- Beginner: Request/load a GTA model before spawning or applying it.
-      flag15(flag16)
-      flag15 = CreateObject
-      flag16 = flag14
-      flag17 = numberValue3
-      numberValue7 = flag11
-      flag18 = flag12
-      flag19 = false
-      flag20 = false
-      numberValue9 = false
+      stateFlag15(stateFlag16)
+      stateFlag15 = CreateObject
+      stateFlag16 = stateFlag14
+      stateFlag17 = number3
+      number7 = stateFlag11
+      stateFlag18 = stateFlag12
+      stateFlag19 = false
+      stateFlag20 = false
+      number9 = false
       -- Beginner: result below is objectEntity.
-      flag15 = flag15(flag16, flag17, numberValue7, flag18, flag19, flag20, numberValue9)
-      if 0 ~= flag15 then
-        flag16 = DoesEntityExist
-        flag17 = flag15
-        flag16 = flag16(flag17)
-        if flag16 then
-          flag16 = SetEntityHeading
-          flag17 = flag15
-          numberValue7 = flag8.h
-          numberValue7 = numberValue7 + flag
+      stateFlag15 = stateFlag15(stateFlag16, stateFlag17, number7, stateFlag18, stateFlag19, stateFlag20, number9)
+      if 0 ~= stateFlag15 then
+        stateFlag16 = DoesEntityExist
+        stateFlag17 = stateFlag15
+        stateFlag16 = stateFlag16(stateFlag17)
+        if stateFlag16 then
+          stateFlag16 = SetEntityHeading
+          stateFlag17 = stateFlag15
+          number7 = stateFlag8.h
+          number7 = number7 + stateFlag
           -- Beginner: Change the direction an entity is facing.
-          flag16(flag17, numberValue7)
-          flag16 = PlaceObjectOnGroundProperly
-          flag17 = flag15
-          flag16(flag17)
-          flag16 = FreezeEntityPosition
-          flag17 = flag15
-          numberValue7 = false
+          stateFlag16(stateFlag17, number7)
+          stateFlag16 = PlaceObjectOnGroundProperly
+          stateFlag17 = stateFlag15
+          stateFlag16(stateFlag17)
+          stateFlag16 = FreezeEntityPosition
+          stateFlag17 = stateFlag15
+          number7 = false
           -- Beginner: Freeze or unfreeze an entity in place.
-          flag16(flag17, numberValue7)
-          flag16 = SetEntityCollision
-          flag17 = flag15
-          numberValue7 = false
-          flag18 = false
-          flag16(flag17, numberValue7, flag18)
-          flag16 = dataTable4.slotEnts
-          flag16[flag7] = flag15
+          stateFlag16(stateFlag17, number7)
+          stateFlag16 = SetEntityCollision
+          stateFlag17 = stateFlag15
+          number7 = false
+          stateFlag18 = false
+          stateFlag16(stateFlag17, number7, stateFlag18)
+          stateFlag16 = dataCollection4.slotEnts
+          stateFlag16[stateFlag7] = stateFlag15
         end
       end
-      flag16 = SetModelAsNoLongerNeeded
-      flag17 = flag14
-      flag16(flag17)
+      stateFlag16 = SetModelAsNoLongerNeeded
+      stateFlag17 = stateFlag14
+      stateFlag16(stateFlag17)
     end
   end
-  dataTable4.kind = "ground"
-  dataTable4.flatbedVeh = 0
-  dataTable4.flatbedAttach = nil
-  dataTable4.active = true
-  flag4 = tCMG
-  flag4 = flag4.notify
-  flag5 = "~g~Ground layout spawned (collision off). Print \226\134\146 cfg.debrisLayoutGroups[mainModel].secondaryOffsets."
+  dataCollection4.kind = "ground"
+  dataCollection4.flatbedVeh = 0
+  dataCollection4.flatbedAttach = nil
+  dataCollection4.active = true
+  stateFlag4 = tCMG
+  stateFlag4 = stateFlag4.notify
+  stateFlag5 = "~g~Ground layout spawned (collision off). Print \226\134\146 cfg.debrisLayoutGroups[mainModel].secondaryOffsets."
   -- Beginner: Show a notification to the player.
-  flag4(flag5)
+  stateFlag4(stateFlag5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-function workValue6()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12
-  arg1 = textValue11
-  arg1 = arg1()
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+function workingValue6()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12
+  localValue1 = text11
+  localValue1 = localValue1()
+  if not localValue1 then
     return
   end
-  arg1 = textValue7
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = GetEntityModel
-    arg3 = arg1
+  localValue1 = text7
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = GetEntityModel
+    localValue3 = localValue1
     -- Beginner: result below is modelHash.
-    arg2 = arg2(arg3)
-    arg3 = workValue11
-    arg2 = arg3[arg2]
-    if arg2 then
-      goto flow_label_22
+    localValue2 = localValue2(localValue3)
+    localValue3 = workingValue11
+    localValue2 = localValue3[localValue2]
+    if localValue2 then
+      goto continueAtStep22
     end
   end
-  arg2 = tCMG
-  arg2 = arg2.notify
-  arg3 = "~r~Sit in your Mechanic flatbed driver seat to tune bed attach offsets."
-  arg2(arg3)
+  localValue2 = tCMG
+  localValue2 = localValue2.notify
+  localValue3 = "~r~Sit in your Mechanic flatbed driver seat to tune bed attach offsets."
+  localValue2(localValue3)
   return
-  ::flow_label_22::
-  arg2 = workValue68
-  arg2()
-  dataTable4.flatbedVeh = arg1
-  arg2 = workValue69
-  arg2 = arg2()
-  arg3 = math
-  arg3 = arg3.max
-  arg4 = 1
-  arg5 = math
-  arg5 = arg5.min
-  arg6 = #arg2
-  arg7 = math
-  arg7 = arg7.floor
-  workValue62 = cmgCall6.mainModelIndex
-  if not workValue62 then
-    workValue62 = 1
+  ::continueAtStep22::
+  localValue2 = workingValue68
+  localValue2()
+  dataCollection4.flatbedVeh = localValue1
+  localValue2 = workingValue69
+  localValue2 = localValue2()
+  localValue3 = math
+  localValue3 = localValue3.max
+  localValue4 = 1
+  localValue5 = math
+  localValue5 = localValue5.min
+  localValue6 = #localValue2
+  localValue7 = math
+  localValue7 = localValue7.floor
+  workingValue62 = cmgOperation6.mainModelIndex
+  if not workingValue62 then
+    workingValue62 = 1
   end
-  arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12 = arg7(workValue62)
-  arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12 = arg5(arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12)
-  arg3 = arg3(arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12)
-  cmgCall6.mainModelIndex = arg3
-  arg4 = arg2[arg3]
-  dataTable4.mainModelName = arg4
-  arg5 = workValue71
-  arg5 = arg5()
-  arg6 = workValue74
-  arg7 = arg5
-  arg6 = arg6(arg7)
-  dataTable4.flatbedAttach = arg6
-  arg6 = workValue75
-  arg7 = arg4
-  arg6 = arg6(arg7)
-  dataTable4.mainFlatbedAttach = arg6
-  arg6 = GetHashKey
-  arg7 = arg4
+  localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12 = localValue7(workingValue62)
+  localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12 = localValue5(localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12)
+  localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12)
+  cmgOperation6.mainModelIndex = localValue3
+  localValue4 = localValue2[localValue3]
+  dataCollection4.mainModelName = localValue4
+  localValue5 = workingValue71
+  localValue5 = localValue5()
+  localValue6 = workingValue74
+  localValue7 = localValue5
+  localValue6 = localValue6(localValue7)
+  dataCollection4.flatbedAttach = localValue6
+  localValue6 = workingValue75
+  localValue7 = localValue4
+  localValue6 = localValue6(localValue7)
+  dataCollection4.mainFlatbedAttach = localValue6
+  localValue6 = GetHashKey
+  localValue7 = localValue4
   -- Beginner: result below is hash.
-  arg6 = arg6(arg7)
-  if not arg6 or 0 == arg6 then
-    arg7 = tCMG
-    arg7 = arg7.notify
-    workValue62 = "~r~Invalid main wreck model."
+  localValue6 = localValue6(localValue7)
+  if not localValue6 or 0 == localValue6 then
+    localValue7 = tCMG
+    localValue7 = localValue7.notify
+    workingValue62 = "~r~Invalid main wreck model."
     -- Beginner: Show a notification to the player.
-    arg7(workValue62)
-    arg7 = workValue68
-    arg7()
+    localValue7(workingValue62)
+    localValue7 = workingValue68
+    localValue7()
     return
   end
-  arg7 = GetEntityCoords
-  workValue62 = arg1
-  workValue66 = true
+  localValue7 = GetEntityCoords
+  workingValue62 = localValue1
+  workingValue66 = true
   -- Beginner: result below is entityCoords.
-  arg7 = arg7(workValue62, workValue66)
-  workValue62 = CMG
-  workValue62 = workValue62.loadModel
-  workValue66 = arg6
+  localValue7 = localValue7(workingValue62, workingValue66)
+  workingValue62 = CMG
+  workingValue62 = workingValue62.loadModel
+  workingValue66 = localValue6
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  workValue62(workValue66)
-  workValue62 = CreateObject
-  workValue66 = arg6
-  flag25 = arg7.x
-  flag = arg7.y
-  flag2 = arg7.z
-  flag2 = flag2 + 0.5
-  flag4 = false
-  flag5 = false
-  flag6 = false
+  workingValue62(workingValue66)
+  workingValue62 = CreateObject
+  workingValue66 = localValue6
+  stateFlag25 = localValue7.x
+  stateFlag = localValue7.y
+  stateFlag2 = localValue7.z
+  stateFlag2 = stateFlag2 + 0.5
+  stateFlag4 = false
+  stateFlag5 = false
+  stateFlag6 = false
   -- Beginner: result below is objectEntity.
-  workValue62 = workValue62(workValue66, flag25, flag, flag2, flag4, flag5, flag6)
-  dataTable4.mainEnt = workValue62
-  workValue62 = dataTable4.mainEnt
-  if 0 ~= workValue62 then
-    workValue62 = DoesEntityExist
-    workValue66 = dataTable4.mainEnt
-    workValue62 = workValue62(workValue66)
-    if workValue62 then
-      goto flow_label_107
+  workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
+  dataCollection4.mainEnt = workingValue62
+  workingValue62 = dataCollection4.mainEnt
+  if 0 ~= workingValue62 then
+    workingValue62 = DoesEntityExist
+    workingValue66 = dataCollection4.mainEnt
+    workingValue62 = workingValue62(workingValue66)
+    if workingValue62 then
+      goto continueAtStep107
     end
   end
-  workValue62 = tCMG
-  workValue62 = workValue62.notify
-  workValue66 = "~r~Failed to spawn main wreck."
+  workingValue62 = tCMG
+  workingValue62 = workingValue62.notify
+  workingValue66 = "~r~Failed to spawn main wreck."
   -- Beginner: Show a notification to the player.
-  workValue62(workValue66)
-  workValue62 = SetModelAsNoLongerNeeded
-  workValue66 = arg6
-  workValue62(workValue66)
-  workValue62 = workValue68
-  workValue62()
+  workingValue62(workingValue66)
+  workingValue62 = SetModelAsNoLongerNeeded
+  workingValue66 = localValue6
+  workingValue62(workingValue66)
+  workingValue62 = workingValue68
+  workingValue62()
   return
-  ::flow_label_107::
-  workValue62 = SetModelAsNoLongerNeeded
-  workValue66 = arg6
-  workValue62(workValue66)
-  dataTable4.kind = "flatbed"
-  workValue62 = 1
-  workValue66 = 4
-  flag25 = 1
-  for flag = workValue62, workValue66, flag25 do
-    flag2 = workValue73
-    flag4 = flag
-    flag5 = arg5
-    flag2 = flag2(flag4, flag5)
-    flag4 = GetHashKey
-    flag5 = flag2
+  ::continueAtStep107::
+  workingValue62 = SetModelAsNoLongerNeeded
+  workingValue66 = localValue6
+  workingValue62(workingValue66)
+  dataCollection4.kind = "flatbed"
+  workingValue62 = 1
+  workingValue66 = 4
+  stateFlag25 = 1
+  for stateFlag = workingValue62, workingValue66, stateFlag25 do
+    stateFlag2 = workingValue73
+    stateFlag4 = stateFlag
+    stateFlag5 = localValue5
+    stateFlag2 = stateFlag2(stateFlag4, stateFlag5)
+    stateFlag4 = GetHashKey
+    stateFlag5 = stateFlag2
     -- Beginner: result below is hash.
-    flag4 = flag4(flag5)
-    flag5 = dataTable4.flatbedAttach
-    flag5 = flag5[flag]
-    if flag4 and 0 ~= flag4 and flag5 then
-      flag6 = CMG
-      flag6 = flag6.loadModel
-      flag7 = flag4
+    stateFlag4 = stateFlag4(stateFlag5)
+    stateFlag5 = dataCollection4.flatbedAttach
+    stateFlag5 = stateFlag5[stateFlag]
+    if stateFlag4 and 0 ~= stateFlag4 and stateFlag5 then
+      stateFlag6 = CMG
+      stateFlag6 = stateFlag6.loadModel
+      stateFlag7 = stateFlag4
       -- Beginner: Request/load a GTA model before spawning or applying it.
-      flag6(flag7)
-      flag6 = CreateObject
-      flag7 = flag4
-      flag8 = arg7.x
-      flag9 = arg7.y
-      flag10 = arg7.z
-      flag10 = flag10 + 0.5
-      numberValue3 = false
-      flag11 = false
-      flag12 = false
+      stateFlag6(stateFlag7)
+      stateFlag6 = CreateObject
+      stateFlag7 = stateFlag4
+      stateFlag8 = localValue7.x
+      stateFlag9 = localValue7.y
+      stateFlag10 = localValue7.z
+      stateFlag10 = stateFlag10 + 0.5
+      number3 = false
+      stateFlag11 = false
+      stateFlag12 = false
       -- Beginner: result below is objectEntity.
-      flag6 = flag6(flag7, flag8, flag9, flag10, numberValue3, flag11, flag12)
-      if 0 ~= flag6 then
-        flag7 = DoesEntityExist
-        flag8 = flag6
-        flag7 = flag7(flag8)
-        if flag7 then
-          flag7 = dataTable4.slotEnts
-          flag7[flag] = flag6
+      stateFlag6 = stateFlag6(stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12)
+      if 0 ~= stateFlag6 then
+        stateFlag7 = DoesEntityExist
+        stateFlag8 = stateFlag6
+        stateFlag7 = stateFlag7(stateFlag8)
+        if stateFlag7 then
+          stateFlag7 = dataCollection4.slotEnts
+          stateFlag7[stateFlag] = stateFlag6
         end
       end
-      flag7 = SetModelAsNoLongerNeeded
-      flag8 = flag4
-      flag7(flag8)
+      stateFlag7 = SetModelAsNoLongerNeeded
+      stateFlag8 = stateFlag4
+      stateFlag7(stateFlag8)
     end
   end
-  workValue62 = workValue2
-  workValue62()
-  dataTable4.active = true
-  workValue62 = tCMG
-  workValue62 = workValue62.notify
-  workValue66 = "~g~Main wreck + four props on flatbed (collision off). Nudge = ox/oy/oz; Heading \194\177 = rz. Print \226\134\146 cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach."
+  workingValue62 = workingValue2
+  workingValue62()
+  dataCollection4.active = true
+  workingValue62 = tCMG
+  workingValue62 = workingValue62.notify
+  workingValue66 = "~g~Main wreck + four props on flatbed (collision off). Nudge = ox/oy/oz; Heading \194\177 = rz. Print \226\134\146 cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach."
   -- Beginner: Show a notification to the player.
-  workValue62(workValue66)
+  workingValue62(workingValue66)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = dataTable4.kind
-  if "flatbed" == arg1 then
-    arg1 = math
-    arg1 = arg1.max
-    arg2 = 0
-    arg3 = math
-    arg3 = arg3.min
-    arg4 = 4
-    arg5 = math
-    arg5 = arg5.floor
-    arg6 = tonumber
-    arg7 = cmgCall6.selectedIndex
-    arg6 = arg6(arg7)
-    if not arg6 then
-      arg6 = 0
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = dataCollection4.kind
+  if "flatbed" == localValue1 then
+    localValue1 = math
+    localValue1 = localValue1.max
+    localValue2 = 0
+    localValue3 = math
+    localValue3 = localValue3.min
+    localValue4 = 4
+    localValue5 = math
+    localValue5 = localValue5.floor
+    localValue6 = tonumber
+    localValue7 = cmgOperation6.selectedIndex
+    localValue6 = localValue6(localValue7)
+    if not localValue6 then
+      localValue6 = 0
     end
-    arg5, arg6, arg7 = arg5(arg6)
-    arg3, arg4, arg5, arg6, arg7 = arg3(arg4, arg5, arg6, arg7)
-    arg1 = arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-    if 0 == arg1 then
-      arg2 = dataTable4.mainEnt
-      return arg2
+    localValue5, localValue6, localValue7 = localValue5(localValue6)
+    localValue3, localValue4, localValue5, localValue6, localValue7 = localValue3(localValue4, localValue5, localValue6, localValue7)
+    localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+    if 0 == localValue1 then
+      localValue2 = dataCollection4.mainEnt
+      return localValue2
     end
-    arg2 = dataTable4.slotEnts
-    arg2 = arg2[arg1]
-    if not arg2 then
-      arg2 = 0
+    localValue2 = dataCollection4.slotEnts
+    localValue2 = localValue2[localValue1]
+    if not localValue2 then
+      localValue2 = 0
     end
-    return arg2
+    return localValue2
   end
-  arg1 = math
-  arg1 = arg1.max
-  arg2 = 0
-  arg3 = math
-  arg3 = arg3.min
-  arg4 = 4
-  arg5 = math
-  arg5 = arg5.floor
-  arg6 = cmgCall6.selectedIndex
-  if not arg6 then
-    arg6 = 0
+  localValue1 = math
+  localValue1 = localValue1.max
+  localValue2 = 0
+  localValue3 = math
+  localValue3 = localValue3.min
+  localValue4 = 4
+  localValue5 = math
+  localValue5 = localValue5.floor
+  localValue6 = cmgOperation6.selectedIndex
+  if not localValue6 then
+    localValue6 = 0
   end
-  arg5, arg6, arg7 = arg5(arg6)
-  arg3, arg4, arg5, arg6, arg7 = arg3(arg4, arg5, arg6, arg7)
-  arg1 = arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  if 0 == arg1 then
-    arg2 = dataTable4.mainEnt
-    return arg2
+  localValue5, localValue6, localValue7 = localValue5(localValue6)
+  localValue3, localValue4, localValue5, localValue6, localValue7 = localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  if 0 == localValue1 then
+    localValue2 = dataCollection4.mainEnt
+    return localValue2
   end
-  arg2 = dataTable4.slotEnts
-  arg2 = arg2[arg1]
-  if not arg2 then
-    arg2 = 0
+  localValue2 = dataCollection4.slotEnts
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
+    localValue2 = 0
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1, arg2, arg3) ===
-function workValue8(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6
-  arg4 = dataTable4.kind
-  if "flatbed" == arg4 then
-    arg4 = math
-    arg4 = arg4.max
-    arg5 = 0
-    arg6 = math
-    arg6 = arg6.min
-    arg7 = 4
-    workValue62 = math
-    workValue62 = workValue62.floor
-    workValue66 = tonumber
-    flag25 = cmgCall6.selectedIndex
-    workValue66 = workValue66(flag25)
-    if not workValue66 then
-      workValue66 = 0
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1, localValue2, localValue3) ===
+function workingValue8(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6
+  localValue4 = dataCollection4.kind
+  if "flatbed" == localValue4 then
+    localValue4 = math
+    localValue4 = localValue4.max
+    localValue5 = 0
+    localValue6 = math
+    localValue6 = localValue6.min
+    localValue7 = 4
+    workingValue62 = math
+    workingValue62 = workingValue62.floor
+    workingValue66 = tonumber
+    stateFlag25 = cmgOperation6.selectedIndex
+    workingValue66 = workingValue66(stateFlag25)
+    if not workingValue66 then
+      workingValue66 = 0
     end
-    workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6 = workValue62(workValue66)
-    arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6 = arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6)
-    arg4 = arg4(arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6)
-    if 0 == arg4 then
-      arg5 = dataTable4.mainFlatbedAttach
-      arg6 = dataTable4.mainEnt
-      if arg5 and 0 ~= arg6 then
-        arg7 = DoesEntityExist
-        workValue62 = arg6
-        arg7 = arg7(workValue62)
-        if arg7 then
-          goto flow_label_35
+    workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6 = workingValue62(workingValue66)
+    localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
+    localValue4 = localValue4(localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
+    if 0 == localValue4 then
+      localValue5 = dataCollection4.mainFlatbedAttach
+      localValue6 = dataCollection4.mainEnt
+      if localValue5 and 0 ~= localValue6 then
+        localValue7 = DoesEntityExist
+        workingValue62 = localValue6
+        localValue7 = localValue7(workingValue62)
+        if localValue7 then
+          goto continueAtStep35
         end
       end
       return
-      ::flow_label_35::
-      arg7 = tonumber
-      workValue62 = cmgCall6.step
-      arg7 = arg7(workValue62)
-      if not arg7 then
-        arg7 = 0.1
+      ::continueAtStep35::
+      localValue7 = tonumber
+      workingValue62 = cmgOperation6.step
+      localValue7 = localValue7(workingValue62)
+      if not localValue7 then
+        localValue7 = 0.1
       end
-      workValue62 = arg5.ox
-      workValue66 = arg1 or workValue66
-      if not arg1 then
-        workValue66 = 0.0
+      workingValue62 = localValue5.ox
+      workingValue66 = localValue1 or workingValue66
+      if not localValue1 then
+        workingValue66 = 0.0
       end
-      workValue66 = workValue66 * arg7
-      workValue62 = workValue62 + workValue66
-      arg5.ox = workValue62
-      workValue62 = arg5.oy
-      workValue66 = arg2 or workValue66
-      if not arg2 then
-        workValue66 = 0.0
+      workingValue66 = workingValue66 * localValue7
+      workingValue62 = workingValue62 + workingValue66
+      localValue5.ox = workingValue62
+      workingValue62 = localValue5.oy
+      workingValue66 = localValue2 or workingValue66
+      if not localValue2 then
+        workingValue66 = 0.0
       end
-      workValue66 = workValue66 * arg7
-      workValue62 = workValue62 + workValue66
-      arg5.oy = workValue62
-      workValue62 = arg5.oz
-      workValue66 = arg3 or workValue66
-      if not arg3 then
-        workValue66 = 0.0
+      workingValue66 = workingValue66 * localValue7
+      workingValue62 = workingValue62 + workingValue66
+      localValue5.oy = workingValue62
+      workingValue62 = localValue5.oz
+      workingValue66 = localValue3 or workingValue66
+      if not localValue3 then
+        workingValue66 = 0.0
       end
-      workValue66 = workValue66 * arg7
-      workValue62 = workValue62 + workValue66
-      arg5.oz = workValue62
-      workValue62 = workValue
-      workValue62()
+      workingValue66 = workingValue66 * localValue7
+      workingValue62 = workingValue62 + workingValue66
+      localValue5.oz = workingValue62
+      workingValue62 = workingValue
+      workingValue62()
       return
     end
-    arg5 = dataTable4.flatbedAttach
-    if arg5 then
-      arg5 = dataTable4.flatbedAttach
-      arg5 = arg5[arg4]
+    localValue5 = dataCollection4.flatbedAttach
+    if localValue5 then
+      localValue5 = dataCollection4.flatbedAttach
+      localValue5 = localValue5[localValue4]
     end
-    arg6 = dataTable4.slotEnts
-    arg6 = arg6[arg4]
-    if arg5 and 0 ~= arg6 then
-      arg7 = DoesEntityExist
-      workValue62 = arg6
-      arg7 = arg7(workValue62)
-      if arg7 then
-        goto flow_label_88
+    localValue6 = dataCollection4.slotEnts
+    localValue6 = localValue6[localValue4]
+    if localValue5 and 0 ~= localValue6 then
+      localValue7 = DoesEntityExist
+      workingValue62 = localValue6
+      localValue7 = localValue7(workingValue62)
+      if localValue7 then
+        goto continueAtStep88
       end
     end
     return
-    ::flow_label_88::
-    arg7 = tonumber
-    workValue62 = cmgCall6.step
-    arg7 = arg7(workValue62)
-    if not arg7 then
-      arg7 = 0.1
+    ::continueAtStep88::
+    localValue7 = tonumber
+    workingValue62 = cmgOperation6.step
+    localValue7 = localValue7(workingValue62)
+    if not localValue7 then
+      localValue7 = 0.1
     end
-    workValue62 = arg5.ox
-    workValue66 = arg1 or workValue66
-    if not arg1 then
-      workValue66 = 0.0
+    workingValue62 = localValue5.ox
+    workingValue66 = localValue1 or workingValue66
+    if not localValue1 then
+      workingValue66 = 0.0
     end
-    workValue66 = workValue66 * arg7
-    workValue62 = workValue62 + workValue66
-    arg5.ox = workValue62
-    workValue62 = arg5.oy
-    workValue66 = arg2 or workValue66
-    if not arg2 then
-      workValue66 = 0.0
+    workingValue66 = workingValue66 * localValue7
+    workingValue62 = workingValue62 + workingValue66
+    localValue5.ox = workingValue62
+    workingValue62 = localValue5.oy
+    workingValue66 = localValue2 or workingValue66
+    if not localValue2 then
+      workingValue66 = 0.0
     end
-    workValue66 = workValue66 * arg7
-    workValue62 = workValue62 + workValue66
-    arg5.oy = workValue62
-    workValue62 = arg5.oz
-    workValue66 = arg3 or workValue66
-    if not arg3 then
-      workValue66 = 0.0
+    workingValue66 = workingValue66 * localValue7
+    workingValue62 = workingValue62 + workingValue66
+    localValue5.oy = workingValue62
+    workingValue62 = localValue5.oz
+    workingValue66 = localValue3 or workingValue66
+    if not localValue3 then
+      workingValue66 = 0.0
     end
-    workValue66 = workValue66 * arg7
-    workValue62 = workValue62 + workValue66
-    arg5.oz = workValue62
-    workValue62 = workValue2
-    workValue62()
+    workingValue66 = workingValue66 * localValue7
+    workingValue62 = workingValue62 + workingValue66
+    localValue5.oz = workingValue62
+    workingValue62 = workingValue2
+    workingValue62()
     return
   end
-  arg4 = workValue7
-  arg4 = arg4()
-  if 0 ~= arg4 then
-    arg5 = DoesEntityExist
-    arg6 = arg4
-    arg5 = arg5(arg6)
-    if arg5 then
-      goto flow_label_134
+  localValue4 = workingValue7
+  localValue4 = localValue4()
+  if 0 ~= localValue4 then
+    localValue5 = DoesEntityExist
+    localValue6 = localValue4
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      goto continueAtStep134
     end
   end
   return
-  ::flow_label_134::
-  arg5 = tonumber
-  arg6 = cmgCall6.step
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg5 = 0.1
+  ::continueAtStep134::
+  localValue5 = tonumber
+  localValue6 = cmgOperation6.step
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue5 = 0.1
   end
-  arg6 = workValue67
-  arg7 = arg1 * arg5
-  workValue62 = arg2 * arg5
-  arg6 = arg6(arg7, workValue62)
-  arg7 = GetEntityCoords
-  workValue62 = arg4
-  workValue66 = true
+  localValue6 = workingValue67
+  localValue7 = localValue1 * localValue5
+  workingValue62 = localValue2 * localValue5
+  localValue6 = localValue6(localValue7, workingValue62)
+  localValue7 = GetEntityCoords
+  workingValue62 = localValue4
+  workingValue66 = true
   -- Beginner: result below is entityCoords.
-  arg7 = arg7(workValue62, workValue66)
-  workValue62 = SetEntityCoordsNoOffset
-  workValue66 = arg4
-  flag25 = arg7.x
-  flag = arg6.x
-  flag25 = flag25 + flag
-  flag = arg7.y
-  flag2 = arg6.y
-  flag = flag + flag2
-  flag2 = arg7.z
-  flag4 = arg6.z
-  flag2 = flag2 + flag4
-  flag4 = arg3 or flag4
-  if not arg3 then
-    flag4 = 0.0
+  localValue7 = localValue7(workingValue62, workingValue66)
+  workingValue62 = SetEntityCoordsNoOffset
+  workingValue66 = localValue4
+  stateFlag25 = localValue7.x
+  stateFlag = localValue6.x
+  stateFlag25 = stateFlag25 + stateFlag
+  stateFlag = localValue7.y
+  stateFlag2 = localValue6.y
+  stateFlag = stateFlag + stateFlag2
+  stateFlag2 = localValue7.z
+  stateFlag4 = localValue6.z
+  stateFlag2 = stateFlag2 + stateFlag4
+  stateFlag4 = localValue3 or stateFlag4
+  if not localValue3 then
+    stateFlag4 = 0.0
   end
-  flag4 = flag4 * arg5
-  flag2 = flag2 + flag4
-  flag4 = false
-  flag5 = false
-  flag6 = false
+  stateFlag4 = stateFlag4 * localValue5
+  stateFlag2 = stateFlag2 + stateFlag4
+  stateFlag4 = false
+  stateFlag5 = false
+  stateFlag6 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  workValue62(workValue66, flag25, flag, flag2, flag4, flag5, flag6)
+  workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue62
-  arg2 = dataTable4.kind
-  if "flatbed" == arg2 then
-    arg2 = math
-    arg2 = arg2.max
-    arg3 = 0
-    arg4 = math
-    arg4 = arg4.min
-    arg5 = 4
-    arg6 = math
-    arg6 = arg6.floor
-    arg7 = tonumber
-    workValue62 = cmgCall6.selectedIndex
-    arg7 = arg7(workValue62)
-    if not arg7 then
-      arg7 = 0
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62
+  localValue2 = dataCollection4.kind
+  if "flatbed" == localValue2 then
+    localValue2 = math
+    localValue2 = localValue2.max
+    localValue3 = 0
+    localValue4 = math
+    localValue4 = localValue4.min
+    localValue5 = 4
+    localValue6 = math
+    localValue6 = localValue6.floor
+    localValue7 = tonumber
+    workingValue62 = cmgOperation6.selectedIndex
+    localValue7 = localValue7(workingValue62)
+    if not localValue7 then
+      localValue7 = 0
     end
-    arg6, arg7, workValue62 = arg6(arg7)
-    arg4, arg5, arg6, arg7, workValue62 = arg4(arg5, arg6, arg7, workValue62)
-    arg2 = arg2(arg3, arg4, arg5, arg6, arg7, workValue62)
-    if 0 == arg2 then
-      arg3 = dataTable4.mainFlatbedAttach
-      if not arg3 then
+    localValue6, localValue7, workingValue62 = localValue6(localValue7)
+    localValue4, localValue5, localValue6, localValue7, workingValue62 = localValue4(localValue5, localValue6, localValue7, workingValue62)
+    localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62)
+    if 0 == localValue2 then
+      localValue3 = dataCollection4.mainFlatbedAttach
+      if not localValue3 then
         return
       end
-      arg4 = arg3.rz
-      arg4 = arg4 + arg1
-      arg3.rz = arg4
-      arg4 = workValue
-      arg4()
+      localValue4 = localValue3.rz
+      localValue4 = localValue4 + localValue1
+      localValue3.rz = localValue4
+      localValue4 = workingValue
+      localValue4()
       return
     end
-    arg3 = dataTable4.flatbedAttach
-    if arg3 then
-      arg3 = dataTable4.flatbedAttach
-      arg3 = arg3[arg2]
+    localValue3 = dataCollection4.flatbedAttach
+    if localValue3 then
+      localValue3 = dataCollection4.flatbedAttach
+      localValue3 = localValue3[localValue2]
     end
-    if not arg3 then
+    if not localValue3 then
       return
     end
-    arg4 = arg3.rz
-    arg4 = arg4 + arg1
-    arg3.rz = arg4
-    arg4 = workValue2
-    arg4()
+    localValue4 = localValue3.rz
+    localValue4 = localValue4 + localValue1
+    localValue3.rz = localValue4
+    localValue4 = workingValue2
+    localValue4()
     return
   end
-  arg2 = workValue7
-  arg2 = arg2()
-  if 0 ~= arg2 then
-    arg3 = DoesEntityExist
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      goto flow_label_59
+  localValue2 = workingValue7
+  localValue2 = localValue2()
+  if 0 ~= localValue2 then
+    localValue3 = DoesEntityExist
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      goto continueAtStep59
     end
   end
   return
-  ::flow_label_59::
-  arg3 = SetEntityHeading
-  arg4 = arg2
-  arg5 = GetEntityHeading
-  arg6 = arg2
+  ::continueAtStep59::
+  localValue3 = SetEntityHeading
+  localValue4 = localValue2
+  localValue5 = GetEntityHeading
+  localValue6 = localValue2
   -- Beginner: result below is heading.
-  arg5 = arg5(arg6)
-  arg5 = arg5 + arg1
+  localValue5 = localValue5(localValue6)
+  localValue5 = localValue5 + localValue1
   -- Beginner: Change the direction an entity is facing.
-  arg3(arg4, arg5)
+  localValue3(localValue4, localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-function workValue10()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62
-  arg1 = dataTable4.mainEnt
-  if 0 ~= arg1 then
-    arg1 = DoesEntityExist
-    arg2 = dataTable4.mainEnt
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = dataTable4.anchor
-      if arg1 then
-        goto flow_label_13
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+function workingValue10()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62
+  localValue1 = dataCollection4.mainEnt
+  if 0 ~= localValue1 then
+    localValue1 = DoesEntityExist
+    localValue2 = dataCollection4.mainEnt
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = dataCollection4.anchor
+      if localValue1 then
+        goto continueAtStep13
       end
     end
   end
   return
-  ::flow_label_13::
-  arg1 = SetEntityCoordsNoOffset
-  arg2 = dataTable4.mainEnt
-  arg3 = dataTable4.anchor
-  arg3 = arg3.x
-  arg4 = dataTable4.anchor
-  arg4 = arg4.y
-  arg5 = dataTable4.baseZ
-  arg5 = arg5 + 0.05
-  arg6 = false
-  arg7 = false
-  workValue62 = false
+  ::continueAtStep13::
+  localValue1 = SetEntityCoordsNoOffset
+  localValue2 = dataCollection4.mainEnt
+  localValue3 = dataCollection4.anchor
+  localValue3 = localValue3.x
+  localValue4 = dataCollection4.anchor
+  localValue4 = localValue4.y
+  localValue5 = dataCollection4.baseZ
+  localValue5 = localValue5 + 0.05
+  localValue6 = false
+  localValue7 = false
+  workingValue62 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, workValue62)
-  arg1 = PlaceObjectOnGroundProperly
-  arg2 = dataTable4.mainEnt
-  arg1(arg2)
-  arg1 = SetEntityCollision
-  arg2 = dataTable4.mainEnt
-  arg3 = false
-  arg4 = false
-  arg1(arg2, arg3, arg4)
-  arg1 = GetEntityCoords
-  arg2 = dataTable4.mainEnt
-  arg3 = true
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62)
+  localValue1 = PlaceObjectOnGroundProperly
+  localValue2 = dataCollection4.mainEnt
+  localValue1(localValue2)
+  localValue1 = SetEntityCollision
+  localValue2 = dataCollection4.mainEnt
+  localValue3 = false
+  localValue4 = false
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = GetEntityCoords
+  localValue2 = dataCollection4.mainEnt
+  localValue3 = true
   -- Beginner: result below is entityCoords.
-  arg1 = arg1(arg2, arg3)
-  arg2 = vector3
-  arg3 = arg1.x
-  arg4 = arg1.y
-  arg5 = dataTable4.baseZ
-  arg2 = arg2(arg3, arg4, arg5)
-  dataTable4.anchor = arg2
+  localValue1 = localValue1(localValue2, localValue3)
+  localValue2 = vector3
+  localValue3 = localValue1.x
+  localValue4 = localValue1.y
+  localValue5 = dataCollection4.baseZ
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  dataCollection4.anchor = localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17
-  arg1 = dataTable4.kind
-  if "ground" ~= arg1 then
-    arg1 = tCMG
-    arg1 = arg1.notify
-    arg2 = "~r~Use Ground mode and spawn / reset at player to print pile offsets."
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17
+  localValue1 = dataCollection4.kind
+  if "ground" ~= localValue1 then
+    localValue1 = tCMG
+    localValue1 = localValue1.notify
+    localValue2 = "~r~Use Ground mode and spawn / reset at player to print pile offsets."
     -- Beginner: Show a notification to the player.
-    arg1(arg2)
+    localValue1(localValue2)
     return
   end
-  arg1 = dataTable4.active
-  if arg1 then
-    arg1 = dataTable4.anchor
-    if arg1 then
-      arg1 = dataTable4.mainEnt
-      if 0 ~= arg1 then
-        arg1 = DoesEntityExist
-        arg2 = dataTable4.mainEnt
-        arg1 = arg1(arg2)
-        if arg1 then
-          goto flow_label_28
+  localValue1 = dataCollection4.active
+  if localValue1 then
+    localValue1 = dataCollection4.anchor
+    if localValue1 then
+      localValue1 = dataCollection4.mainEnt
+      if 0 ~= localValue1 then
+        localValue1 = DoesEntityExist
+        localValue2 = dataCollection4.mainEnt
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
+          goto continueAtStep28
         end
       end
     end
   end
-  arg1 = tCMG
-  arg1 = arg1.notify
-  arg2 = "~r~Start a ground layout session first."
-  arg1(arg2)
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  localValue2 = "~r~Start a ground layout session first."
+  localValue1(localValue2)
   return
-  ::flow_label_28::
-  arg1 = dataTable4.anchor
-  arg1 = arg1.x
-  arg2 = dataTable4.anchor
-  arg2 = arg2.y
-  arg3 = dataTable4.baseZ
-  arg4 = textValue13
-  arg4 = arg4()
-  arg5 = {}
-  arg6 = #arg5
-  arg6 = arg6 + 1
-  arg7 = string
-  arg7 = arg7.format
-  workValue62 = "-- Mechanic debris layout (dev export)  mainModel=%s  anchor=vector3(%.4f, %.4f, %.4f)  mainHeading=%.2f"
-  workValue66 = dataTable4.mainModelName
-  flag25 = arg1
-  flag = arg2
-  flag2 = arg3
-  flag4 = arg4
-  arg7 = arg7(workValue62, workValue66, flag25, flag, flag2, flag4)
-  arg5[arg6] = arg7
-  arg6 = #arg5
-  arg6 = arg6 + 1
-  arg5[arg6] = "-- Paste into cfg_mechanic.lua (adjust debrisSpawns site separately if needed)."
-  arg6 = #arg5
-  arg6 = arg6 + 1
-  arg5[arg6] = "cfg.debrisLayoutGroups = cfg.debrisLayoutGroups or {}"
-  arg6 = #arg5
-  arg6 = arg6 + 1
-  arg7 = string
-  arg7 = arg7.format
-  workValue62 = "cfg.debrisLayoutGroups[\"%s\"] = cfg.debrisLayoutGroups[\"%s\"] or {}"
-  workValue66 = dataTable4.mainModelName
-  flag25 = dataTable4.mainModelName
-  arg7 = arg7(workValue62, workValue66, flag25)
-  arg5[arg6] = arg7
-  arg6 = #arg5
-  arg6 = arg6 + 1
-  arg7 = string
-  arg7 = arg7.format
-  workValue62 = "cfg.debrisLayoutGroups[\"%s\"].secondaryOffsets = {"
-  workValue66 = dataTable4.mainModelName
-  arg7 = arg7(workValue62, workValue66)
-  arg5[arg6] = arg7
-  arg6 = workValue71
-  arg6 = arg6()
-  arg7 = 1
-  workValue62 = 4
-  workValue66 = 1
-  for flag25 = arg7, workValue62, workValue66 do
-    flag = dataTable4.slotEnts
-    flag = flag[flag25]
-    flag2 = workValue73
-    flag4 = flag25
-    flag5 = arg6
-    flag2 = flag2(flag4, flag5)
-    if flag and 0 ~= flag then
-      flag4 = DoesEntityExist
-      flag5 = flag
-      flag4 = flag4(flag5)
-      if flag4 then
-        flag4 = GetEntityCoords
-        flag5 = flag
-        flag6 = true
+  ::continueAtStep28::
+  localValue1 = dataCollection4.anchor
+  localValue1 = localValue1.x
+  localValue2 = dataCollection4.anchor
+  localValue2 = localValue2.y
+  localValue3 = dataCollection4.baseZ
+  localValue4 = text13
+  localValue4 = localValue4()
+  localValue5 = {}
+  localValue6 = #localValue5
+  localValue6 = localValue6 + 1
+  localValue7 = string
+  localValue7 = localValue7.format
+  workingValue62 = "-- Mechanic debris layout (dev export)  mainModel=%s  anchor=vector3(%.4f, %.4f, %.4f)  mainHeading=%.2f"
+  workingValue66 = dataCollection4.mainModelName
+  stateFlag25 = localValue1
+  stateFlag = localValue2
+  stateFlag2 = localValue3
+  stateFlag4 = localValue4
+  localValue7 = localValue7(workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  localValue5[localValue6] = localValue7
+  localValue6 = #localValue5
+  localValue6 = localValue6 + 1
+  localValue5[localValue6] = "-- Paste into cfg_mechanic.lua (adjust debrisSpawns site separately if needed)."
+  localValue6 = #localValue5
+  localValue6 = localValue6 + 1
+  localValue5[localValue6] = "cfg.debrisLayoutGroups = cfg.debrisLayoutGroups or {}"
+  localValue6 = #localValue5
+  localValue6 = localValue6 + 1
+  localValue7 = string
+  localValue7 = localValue7.format
+  workingValue62 = "cfg.debrisLayoutGroups[\"%s\"] = cfg.debrisLayoutGroups[\"%s\"] or {}"
+  workingValue66 = dataCollection4.mainModelName
+  stateFlag25 = dataCollection4.mainModelName
+  localValue7 = localValue7(workingValue62, workingValue66, stateFlag25)
+  localValue5[localValue6] = localValue7
+  localValue6 = #localValue5
+  localValue6 = localValue6 + 1
+  localValue7 = string
+  localValue7 = localValue7.format
+  workingValue62 = "cfg.debrisLayoutGroups[\"%s\"].secondaryOffsets = {"
+  workingValue66 = dataCollection4.mainModelName
+  localValue7 = localValue7(workingValue62, workingValue66)
+  localValue5[localValue6] = localValue7
+  localValue6 = workingValue71
+  localValue6 = localValue6()
+  localValue7 = 1
+  workingValue62 = 4
+  workingValue66 = 1
+  for stateFlag25 = localValue7, workingValue62, workingValue66 do
+    stateFlag = dataCollection4.slotEnts
+    stateFlag = stateFlag[stateFlag25]
+    stateFlag2 = workingValue73
+    stateFlag4 = stateFlag25
+    stateFlag5 = localValue6
+    stateFlag2 = stateFlag2(stateFlag4, stateFlag5)
+    if stateFlag and 0 ~= stateFlag then
+      stateFlag4 = DoesEntityExist
+      stateFlag5 = stateFlag
+      stateFlag4 = stateFlag4(stateFlag5)
+      if stateFlag4 then
+        stateFlag4 = GetEntityCoords
+        stateFlag5 = stateFlag
+        stateFlag6 = true
         -- Beginner: result below is entityCoords.
-        flag4 = flag4(flag5, flag6)
-        flag5 = flag4.x
-        flag5 = flag5 - arg1
-        flag6 = flag4.y
-        flag6 = flag6 - arg2
-        flag7 = flag4.z
-        flag7 = flag7 - arg3
-        flag8 = textValue12
-        flag9 = flag5
-        flag10 = flag6
-        numberValue3 = arg4
-        flag8, flag9 = flag8(flag9, flag10, numberValue3)
-        flag10 = GetEntityHeading
-        numberValue3 = flag
+        stateFlag4 = stateFlag4(stateFlag5, stateFlag6)
+        stateFlag5 = stateFlag4.x
+        stateFlag5 = stateFlag5 - localValue1
+        stateFlag6 = stateFlag4.y
+        stateFlag6 = stateFlag6 - localValue2
+        stateFlag7 = stateFlag4.z
+        stateFlag7 = stateFlag7 - localValue3
+        stateFlag8 = text12
+        stateFlag9 = stateFlag5
+        stateFlag10 = stateFlag6
+        number3 = localValue4
+        stateFlag8, stateFlag9 = stateFlag8(stateFlag9, stateFlag10, number3)
+        stateFlag10 = GetEntityHeading
+        number3 = stateFlag
         -- Beginner: result below is heading.
-        flag10 = flag10(numberValue3)
-        flag10 = flag10 - arg4
+        stateFlag10 = stateFlag10(number3)
+        stateFlag10 = stateFlag10 - localValue4
         while true do
-          numberValue3 = 180.0
-          if not (flag10 > numberValue3) then
+          number3 = 180.0
+          if not (stateFlag10 > number3) then
             break
           end
-          flag10 = flag10 - 360.0
+          stateFlag10 = stateFlag10 - 360.0
         end
         while true do
-          numberValue3 = -180.0
-          if not (flag10 < numberValue3) then
+          number3 = -180.0
+          if not (stateFlag10 < number3) then
             break
           end
-          flag10 = flag10 + 360.0
+          stateFlag10 = stateFlag10 + 360.0
         end
-        numberValue3 = #arg5
-        numberValue3 = numberValue3 + 1
-        flag11 = string
-        flag11 = flag11.format
-        flag12 = "    [\"%s\"] = { dx = %.4f, dy = %.4f, dz = %.4f, h = %.2f },"
-        flag13 = flag2
-        flag14 = flag8
-        flag15 = flag9
-        flag16 = flag7
-        flag17 = flag10
-        flag11 = flag11(flag12, flag13, flag14, flag15, flag16, flag17)
-        arg5[numberValue3] = flag11
+        number3 = #localValue5
+        number3 = number3 + 1
+        stateFlag11 = string
+        stateFlag11 = stateFlag11.format
+        stateFlag12 = "    [\"%s\"] = { dx = %.4f, dy = %.4f, dz = %.4f, h = %.2f },"
+        stateFlag13 = stateFlag2
+        stateFlag14 = stateFlag8
+        stateFlag15 = stateFlag9
+        stateFlag16 = stateFlag7
+        stateFlag17 = stateFlag10
+        stateFlag11 = stateFlag11(stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17)
+        localValue5[number3] = stateFlag11
     end
     else
-      flag4 = #arg5
-      flag4 = flag4 + 1
-      flag5 = string
-      flag5 = flag5.format
-      flag6 = "-- slot %d model=%s (no entity)"
-      flag7 = flag25
-      flag8 = flag2
-      flag5 = flag5(flag6, flag7, flag8)
-      arg5[flag4] = flag5
+      stateFlag4 = #localValue5
+      stateFlag4 = stateFlag4 + 1
+      stateFlag5 = string
+      stateFlag5 = stateFlag5.format
+      stateFlag6 = "-- slot %d model=%s (no entity)"
+      stateFlag7 = stateFlag25
+      stateFlag8 = stateFlag2
+      stateFlag5 = stateFlag5(stateFlag6, stateFlag7, stateFlag8)
+      localValue5[stateFlag4] = stateFlag5
     end
   end
-  arg7 = #arg5
-  arg7 = arg7 + 1
-  arg5[arg7] = "}"
-  arg7 = print
-  workValue62 = table
-  workValue62 = workValue62.concat
-  workValue66 = arg5
-  flag25 = "\n"
-  workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17 = workValue62(workValue66, flag25)
-  arg7(workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17)
-  arg7 = tCMG
-  arg7 = arg7.notify
-  workValue62 = "~g~Printed ground offsets to F8 (cfg.debrisLayoutGroups[mainModel].secondaryOffsets)."
+  localValue7 = #localValue5
+  localValue7 = localValue7 + 1
+  localValue5[localValue7] = "}"
+  localValue7 = print
+  workingValue62 = table
+  workingValue62 = workingValue62.concat
+  workingValue66 = localValue5
+  stateFlag25 = "\n"
+  workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17 = workingValue62(workingValue66, stateFlag25)
+  localValue7(workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17)
+  localValue7 = tCMG
+  localValue7 = localValue7.notify
+  workingValue62 = "~g~Printed ground offsets to F8 (cfg.debrisLayoutGroups[mainModel].secondaryOffsets)."
   -- Beginner: Show a notification to the player.
-  arg7(workValue62)
+  localValue7(workingValue62)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11
-  arg1 = dataTable4.kind
-  if "flatbed" == arg1 then
-    arg1 = type
-    arg2 = dataTable4.flatbedAttach
-    arg1 = arg1(arg2)
-    if "table" == arg1 then
-      goto flow_label_14
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11
+  localValue1 = dataCollection4.kind
+  if "flatbed" == localValue1 then
+    localValue1 = type
+    localValue2 = dataCollection4.flatbedAttach
+    localValue1 = localValue1(localValue2)
+    if "table" == localValue1 then
+      goto continueAtStep14
     end
   end
-  arg1 = tCMG
-  arg1 = arg1.notify
-  arg2 = "~r~Use Flatbed mode and spawn on the flatbed first."
-  arg1(arg2)
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  localValue2 = "~r~Use Flatbed mode and spawn on the flatbed first."
+  localValue1(localValue2)
   return
-  ::flow_label_14::
-  arg1 = tonumber
-  arg2 = cmgCall.debrisSecondaryFlatbedBone
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = tonumber
-    arg2 = cmgCall.debrisMainFlatbedBone
-    arg1 = arg1(arg2)
-    if not arg1 then
-      arg1 = 20
+  ::continueAtStep14::
+  localValue1 = tonumber
+  localValue2 = cmgOperation.debrisSecondaryFlatbedBone
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = tonumber
+    localValue2 = cmgOperation.debrisMainFlatbedBone
+    localValue1 = localValue1(localValue2)
+    if not localValue1 then
+      localValue1 = 20
     end
   end
-  arg2 = tonumber
-  arg3 = cmgCall.debrisMainFlatbedBone
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = 20
+  localValue2 = tonumber
+  localValue3 = cmgOperation.debrisMainFlatbedBone
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = 20
   end
-  arg3 = {}
-  arg4 = #arg3
-  arg4 = arg4 + 1
-  arg3[arg4] = "-- Mechanic lane clear: flatbed bed attach (dev export)"
-  arg4 = #arg3
-  arg4 = arg4 + 1
-  arg5 = string
-  arg5 = arg5.format
-  arg6 = "-- mainModel=%s"
-  arg7 = dataTable4.mainModelName
-  if not arg7 then
-    arg7 = ""
+  localValue3 = {}
+  localValue4 = #localValue3
+  localValue4 = localValue4 + 1
+  localValue3[localValue4] = "-- Mechanic lane clear: flatbed bed attach (dev export)"
+  localValue4 = #localValue3
+  localValue4 = localValue4 + 1
+  localValue5 = string
+  localValue5 = localValue5.format
+  localValue6 = "-- mainModel=%s"
+  localValue7 = dataCollection4.mainModelName
+  if not localValue7 then
+    localValue7 = ""
   end
-  arg5 = arg5(arg6, arg7)
-  arg3[arg4] = arg5
-  arg4 = dataTable4.mainFlatbedAttach
-  arg5 = type
-  arg6 = arg4
-  arg5 = arg5(arg6)
-  if "table" == arg5 then
-    arg5 = #arg3
-    arg5 = arg5 + 1
-    arg6 = string
-    arg6 = arg6.format
-    arg7 = "cfg.debrisMainFlatbedBone = %d"
-    workValue62 = arg2
-    arg6 = arg6(arg7, workValue62)
-    arg3[arg5] = arg6
-    arg5 = #arg3
-    arg5 = arg5 + 1
-    arg6 = string
-    arg6 = arg6.format
-    arg7 = "cfg.debrisMainFlatbedAttach = { ox = %.4f, oy = %.4f, oz = %.4f, rx = %.4f, ry = %.4f, rz = %.4f },"
-    workValue62 = arg4.ox
-    workValue66 = arg4.oy
-    flag25 = arg4.oz
-    flag = arg4.rx
-    flag2 = arg4.ry
-    flag4 = arg4.rz
-    arg6 = arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4)
-    arg3[arg5] = arg6
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue3[localValue4] = localValue5
+  localValue4 = dataCollection4.mainFlatbedAttach
+  localValue5 = type
+  localValue6 = localValue4
+  localValue5 = localValue5(localValue6)
+  if "table" == localValue5 then
+    localValue5 = #localValue3
+    localValue5 = localValue5 + 1
+    localValue6 = string
+    localValue6 = localValue6.format
+    localValue7 = "cfg.debrisMainFlatbedBone = %d"
+    workingValue62 = localValue2
+    localValue6 = localValue6(localValue7, workingValue62)
+    localValue3[localValue5] = localValue6
+    localValue5 = #localValue3
+    localValue5 = localValue5 + 1
+    localValue6 = string
+    localValue6 = localValue6.format
+    localValue7 = "cfg.debrisMainFlatbedAttach = { ox = %.4f, oy = %.4f, oz = %.4f, rx = %.4f, ry = %.4f, rz = %.4f },"
+    workingValue62 = localValue4.ox
+    workingValue66 = localValue4.oy
+    stateFlag25 = localValue4.oz
+    stateFlag = localValue4.rx
+    stateFlag2 = localValue4.ry
+    stateFlag4 = localValue4.rz
+    localValue6 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4)
+    localValue3[localValue5] = localValue6
   end
-  arg5 = #arg3
-  arg5 = arg5 + 1
-  arg6 = string
-  arg6 = arg6.format
-  arg7 = "cfg.debrisSecondaryFlatbedBone = %d"
-  workValue62 = arg1
-  arg6 = arg6(arg7, workValue62)
-  arg3[arg5] = arg6
-  arg5 = #arg3
-  arg5 = arg5 + 1
-  arg3[arg5] = "cfg.debrisLayoutGroups = cfg.debrisLayoutGroups or {}"
-  arg5 = #arg3
-  arg5 = arg5 + 1
-  arg6 = string
-  arg6 = arg6.format
-  arg7 = "cfg.debrisLayoutGroups[\"%s\"] = cfg.debrisLayoutGroups[\"%s\"] or {}"
-  workValue62 = dataTable4.mainModelName
-  workValue66 = dataTable4.mainModelName
-  arg6 = arg6(arg7, workValue62, workValue66)
-  arg3[arg5] = arg6
-  arg5 = #arg3
-  arg5 = arg5 + 1
-  arg6 = string
-  arg6 = arg6.format
-  arg7 = "cfg.debrisLayoutGroups[\"%s\"].secondaryFlatbedAttach = {"
-  workValue62 = dataTable4.mainModelName
-  arg6 = arg6(arg7, workValue62)
-  arg3[arg5] = arg6
-  arg5 = workValue71
-  arg5 = arg5()
-  arg6 = 1
-  arg7 = 4
-  workValue62 = 1
-  for workValue66 = arg6, arg7, workValue62 do
-    flag25 = dataTable4.flatbedAttach
-    flag25 = flag25[workValue66]
-    flag = workValue73
-    flag2 = workValue66
-    flag4 = arg5
-    flag = flag(flag2, flag4)
-    if flag25 then
-      flag2 = #arg3
-      flag2 = flag2 + 1
-      flag4 = string
-      flag4 = flag4.format
-      flag5 = "    [\"%s\"] = { ox = %.4f, oy = %.4f, oz = %.4f, rx = %.4f, ry = %.4f, rz = %.4f },"
-      flag6 = flag
-      flag7 = flag25.ox
-      flag8 = flag25.oy
-      flag9 = flag25.oz
-      flag10 = flag25.rx
-      numberValue3 = flag25.ry
-      flag11 = flag25.rz
-      flag4 = flag4(flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11)
-      arg3[flag2] = flag4
+  localValue5 = #localValue3
+  localValue5 = localValue5 + 1
+  localValue6 = string
+  localValue6 = localValue6.format
+  localValue7 = "cfg.debrisSecondaryFlatbedBone = %d"
+  workingValue62 = localValue1
+  localValue6 = localValue6(localValue7, workingValue62)
+  localValue3[localValue5] = localValue6
+  localValue5 = #localValue3
+  localValue5 = localValue5 + 1
+  localValue3[localValue5] = "cfg.debrisLayoutGroups = cfg.debrisLayoutGroups or {}"
+  localValue5 = #localValue3
+  localValue5 = localValue5 + 1
+  localValue6 = string
+  localValue6 = localValue6.format
+  localValue7 = "cfg.debrisLayoutGroups[\"%s\"] = cfg.debrisLayoutGroups[\"%s\"] or {}"
+  workingValue62 = dataCollection4.mainModelName
+  workingValue66 = dataCollection4.mainModelName
+  localValue6 = localValue6(localValue7, workingValue62, workingValue66)
+  localValue3[localValue5] = localValue6
+  localValue5 = #localValue3
+  localValue5 = localValue5 + 1
+  localValue6 = string
+  localValue6 = localValue6.format
+  localValue7 = "cfg.debrisLayoutGroups[\"%s\"].secondaryFlatbedAttach = {"
+  workingValue62 = dataCollection4.mainModelName
+  localValue6 = localValue6(localValue7, workingValue62)
+  localValue3[localValue5] = localValue6
+  localValue5 = workingValue71
+  localValue5 = localValue5()
+  localValue6 = 1
+  localValue7 = 4
+  workingValue62 = 1
+  for workingValue66 = localValue6, localValue7, workingValue62 do
+    stateFlag25 = dataCollection4.flatbedAttach
+    stateFlag25 = stateFlag25[workingValue66]
+    stateFlag = workingValue73
+    stateFlag2 = workingValue66
+    stateFlag4 = localValue5
+    stateFlag = stateFlag(stateFlag2, stateFlag4)
+    if stateFlag25 then
+      stateFlag2 = #localValue3
+      stateFlag2 = stateFlag2 + 1
+      stateFlag4 = string
+      stateFlag4 = stateFlag4.format
+      stateFlag5 = "    [\"%s\"] = { ox = %.4f, oy = %.4f, oz = %.4f, rx = %.4f, ry = %.4f, rz = %.4f },"
+      stateFlag6 = stateFlag
+      stateFlag7 = stateFlag25.ox
+      stateFlag8 = stateFlag25.oy
+      stateFlag9 = stateFlag25.oz
+      stateFlag10 = stateFlag25.rx
+      number3 = stateFlag25.ry
+      stateFlag11 = stateFlag25.rz
+      stateFlag4 = stateFlag4(stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11)
+      localValue3[stateFlag2] = stateFlag4
     end
   end
-  arg6 = #arg3
-  arg6 = arg6 + 1
-  arg3[arg6] = "}"
-  arg6 = print
-  arg7 = table
-  arg7 = arg7.concat
-  workValue62 = arg3
-  workValue66 = "\n"
-  arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11 = arg7(workValue62, workValue66)
-  arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11)
-  arg6 = tCMG
-  arg6 = arg6.notify
-  arg7 = "~g~Printed flatbed attach to F8 (cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach)."
+  localValue6 = #localValue3
+  localValue6 = localValue6 + 1
+  localValue3[localValue6] = "}"
+  localValue6 = print
+  localValue7 = table
+  localValue7 = localValue7.concat
+  workingValue62 = localValue3
+  workingValue66 = "\n"
+  localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11 = localValue7(workingValue62, workingValue66)
+  localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11)
+  localValue6 = tCMG
+  localValue6 = localValue6.notify
+  localValue7 = "~g~Printed flatbed attach to F8 (cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach)."
   -- Beginner: Show a notification to the player.
-  arg6(arg7)
+  localValue6(localValue7)
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.registerDevMenuItems
-textValue = "Mechanic/Debris layout"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.registerDevMenuItems
+text = "Mechanic/Debris layout"
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3
-  arg1 = RageUI
-  arg1 = arg1.Separator
-  arg2 = "Lane clear debris offsets (dev)"
-  arg1(arg2)
-  arg1 = RageUI
-  arg1 = arg1.Separator
-  arg2 = "Two modes: ground pile vs flatbed bone-local attach. Props: collision off."
-  arg1(arg2)
-  arg1 = math
-  arg1 = arg1.max
-  arg2 = 1
-  arg3 = math
-  arg3 = arg3.min
-  arg4 = 2
-  arg5 = math
-  arg5 = arg5.floor
-  arg6 = tonumber
-  arg7 = cmgCall6.offsetKindIndex
-  arg6 = arg6(arg7)
-  if not arg6 then
-    arg6 = 1
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3
+  localValue1 = RageUI
+  localValue1 = localValue1.Separator
+  localValue2 = "Lane clear debris offsets (dev)"
+  localValue1(localValue2)
+  localValue1 = RageUI
+  localValue1 = localValue1.Separator
+  localValue2 = "Two modes: ground pile vs flatbed bone-local attach. Props: collision off."
+  localValue1(localValue2)
+  localValue1 = math
+  localValue1 = localValue1.max
+  localValue2 = 1
+  localValue3 = math
+  localValue3 = localValue3.min
+  localValue4 = 2
+  localValue5 = math
+  localValue5 = localValue5.floor
+  localValue6 = tonumber
+  localValue7 = cmgOperation6.offsetKindIndex
+  localValue6 = localValue6(localValue7)
+  if not localValue6 then
+    localValue6 = 1
   end
-  arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3 = arg5(arg6)
-  arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3 = arg3(arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-  arg1 = arg1(arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-  cmgCall6.offsetKindIndex = arg1
-  arg2 = RageUI
-  arg2 = arg2.List
-  arg3 = "Offset mode"
-  arg4 = dataTable7
-  arg5 = arg1
-  arg6 = "Ground: cfg.debrisLayoutGroups[mainModel].secondaryOffsets. Flatbed: cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach."
-  arg7 = {}
-  workValue62 = true
+  localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3 = localValue5(localValue6)
+  localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3 = localValue3(localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+  localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+  cmgOperation6.offsetKindIndex = localValue1
+  localValue2 = RageUI
+  localValue2 = localValue2.List
+  localValue3 = "Offset mode"
+  localValue4 = dataCollection7
+  localValue5 = localValue1
+  localValue6 = "Ground: cfg.debrisLayoutGroups[mainModel].secondaryOffsets. Flatbed: cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach."
+  localValue7 = {}
+  workingValue62 = true
 
-  -- === HELPER FUNCTION (decompiler name: workValue66; parameters: arg12, arg22, arg32, arg42) ===
-  function workValue66(arg12, arg22, arg32, arg42)
-    local cmgCall5, textValue6
-    cmgCall5 = cmgCall6.offsetKindIndex
-    if cmgCall5 ~= arg42 then
-      cmgCall5 = dataTable4.active
-      if cmgCall5 then
-        cmgCall5 = workValue68
-        cmgCall5()
-        cmgCall5 = tCMG
-        cmgCall5 = cmgCall5.notify
-        textValue6 = "~y~Session cleared: offset mode changed."
+  -- === HELPER FUNCTION (decompiler name: workingValue66; parameters: localValue12, localValue22, localValue32, localValue42) ===
+  function workingValue66(localValue12, localValue22, localValue32, localValue42)
+    local cmgOperation5, text6
+    cmgOperation5 = cmgOperation6.offsetKindIndex
+    if cmgOperation5 ~= localValue42 then
+      cmgOperation5 = dataCollection4.active
+      if cmgOperation5 then
+        cmgOperation5 = workingValue68
+        cmgOperation5()
+        cmgOperation5 = tCMG
+        cmgOperation5 = cmgOperation5.notify
+        text6 = "~y~Session cleared: offset mode changed."
         -- Beginner: Show a notification to the player.
-        cmgCall5(textValue6)
+        cmgOperation5(text6)
       end
-      cmgCall6.offsetKindIndex = arg42
+      cmgOperation6.offsetKindIndex = localValue42
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag25; parameters: none) ===
-  function flag25()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: stateFlag25; parameters: none) ===
+  function stateFlag25()
+    local localValue12, localValue22
   end
   -- Beginner: Draw a RageUI list selector.
-  arg2(arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25)
-  arg2 = textValue10
-  arg2 = arg2()
-  if "flatbed" == arg2 then
-    arg2 = "Flatbed driver seat. Spawns main + four secondaries (models from Slot 1\226\128\1474 lists) with cfg attaches; nudge ox/oy/oz/rz."
-    if arg2 then
-      goto flow_label_47
+  localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25)
+  localValue2 = text10
+  localValue2 = localValue2()
+  if "flatbed" == localValue2 then
+    localValue2 = "Flatbed driver seat. Spawns main + four secondaries (models from Slot 1\226\128\1474 lists) with cfg attaches; nudge ox/oy/oz/rz."
+    if localValue2 then
+      goto continueAtStep47
     end
   end
-  arg2 = "Spawns main + four secondaries at your feet (Slot 1\226\128\1474 model lists + cfg scene offsets). No job vehicle checks."
-  ::flow_label_47::
-  arg3 = RageUI
-  arg3 = arg3.Button
-  arg4 = textValue10
-  arg4 = arg4()
-  if "flatbed" == arg4 then
-    arg4 = "Spawn / reset on flatbed"
-    if arg4 then
-      goto flow_label_57
+  localValue2 = "Spawns main + four secondaries at your feet (Slot 1\226\128\1474 model lists + cfg scene offsets). No job vehicle checks."
+  ::continueAtStep47::
+  localValue3 = RageUI
+  localValue3 = localValue3.Button
+  localValue4 = text10
+  localValue4 = localValue4()
+  if "flatbed" == localValue4 then
+    localValue4 = "Spawn / reset on flatbed"
+    if localValue4 then
+      goto continueAtStep57
     end
   end
-  arg4 = "Spawn / reset at player"
-  ::flow_label_57::
-  arg5 = arg2
-  arg6 = true
+  localValue4 = "Spawn / reset at player"
+  ::continueAtStep57::
+  localValue5 = localValue2
+  localValue6 = true
 
-  -- === HELPER FUNCTION: arg7(arg12, arg22, arg32) ===
-  function arg7(arg12, arg22, arg32)
-    local arg42
-    if arg32 then
-      arg42 = textValue10
-      arg42 = arg42()
-      if "flatbed" == arg42 then
-        arg42 = workValue6
-        arg42()
+  -- === HELPER FUNCTION: localValue7(localValue12, localValue22, localValue32) ===
+  function localValue7(localValue12, localValue22, localValue32)
+    local localValue42
+    if localValue32 then
+      localValue42 = text10
+      localValue42 = localValue42()
+      if "flatbed" == localValue42 then
+        localValue42 = workingValue6
+        localValue42()
       else
-        arg42 = workValue5
-        arg42()
+        localValue42 = workingValue5
+        localValue42()
       end
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = RageUI
-  arg3 = arg3.Button
-  arg4 = "End session (delete props)"
-  arg5 = ""
-  arg6 = dataTable4.active
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = RageUI
+  localValue3 = localValue3.Button
+  localValue4 = "End session (delete props)"
+  localValue5 = ""
+  localValue6 = dataCollection4.active
 
-  -- === HELPER FUNCTION: arg7(arg12, arg22, arg32) ===
-  function arg7(arg12, arg22, arg32)
-    local arg42, cmgCall5
-    if arg32 then
-      arg42 = workValue68
-      arg42()
-      arg42 = tCMG
-      arg42 = arg42.notify
-      cmgCall5 = "~y~Debris layout session cleared."
+  -- === HELPER FUNCTION: localValue7(localValue12, localValue22, localValue32) ===
+  function localValue7(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5
+    if localValue32 then
+      localValue42 = workingValue68
+      localValue42()
+      localValue42 = tCMG
+      localValue42 = localValue42.notify
+      cmgOperation5 = "~y~Debris layout session cleared."
       -- Beginner: Show a notification to the player.
-      arg42(cmgCall5)
+      localValue42(cmgOperation5)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = workValue69
-  arg3 = arg3()
-  arg4 = textValue10
-  arg4 = arg4()
-  arg4 = "ground" == arg4
-  arg5 = RageUI
-  arg5 = arg5.List
-  arg6 = "Main wreck model"
-  arg7 = arg3
-  workValue62 = cmgCall6.mainModelIndex
-  workValue66 = "Used on next spawn (ground or flatbed mode)."
-  flag25 = {}
-  flag = true
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = workingValue69
+  localValue3 = localValue3()
+  localValue4 = text10
+  localValue4 = localValue4()
+  localValue4 = "ground" == localValue4
+  localValue5 = RageUI
+  localValue5 = localValue5.List
+  localValue6 = "Main wreck model"
+  localValue7 = localValue3
+  workingValue62 = cmgOperation6.mainModelIndex
+  workingValue66 = "Used on next spawn (ground or flatbed mode)."
+  stateFlag25 = {}
+  stateFlag = true
 
-  -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg12, arg22, arg32, arg42) ===
-  function flag2(arg12, arg22, arg32, arg42)
-    cmgCall6.mainModelIndex = arg42
+  -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue12, localValue22, localValue32, localValue42) ===
+  function stateFlag2(localValue12, localValue22, localValue32, localValue42)
+    cmgOperation6.mainModelIndex = localValue42
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-  function flag4()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+  function stateFlag4()
+    local localValue12, localValue22
   end
   -- Beginner: Draw a RageUI list selector.
-  arg5(arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4)
-  arg5 = workValue71
-  arg5 = arg5()
-  arg6 = RageUI
-  arg6 = arg6.Separator
-  arg7 = "Secondary props"
-  arg6(arg7)
-  arg6 = 1
-  arg7 = 4
-  workValue62 = 1
-  for workValue66 = arg6, arg7, workValue62 do
-    flag25 = workValue72
-    flag = workValue66
-    flag25 = flag25(flag)
-    flag = math
-    flag = flag.max
-    flag2 = 1
-    flag4 = math
-    flag4 = flag4.min
-    flag5 = #arg5
-    flag6 = math
-    flag6 = flag6.floor
-    flag7 = tonumber
-    flag8 = cmgCall6
-    flag8 = flag8[flag25]
-    flag7 = flag7(flag8)
-    if not flag7 then
-      flag7 = 1
+  localValue5(localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  localValue5 = workingValue71
+  localValue5 = localValue5()
+  localValue6 = RageUI
+  localValue6 = localValue6.Separator
+  localValue7 = "Secondary props"
+  localValue6(localValue7)
+  localValue6 = 1
+  localValue7 = 4
+  workingValue62 = 1
+  for workingValue66 = localValue6, localValue7, workingValue62 do
+    stateFlag25 = workingValue72
+    stateFlag = workingValue66
+    stateFlag25 = stateFlag25(stateFlag)
+    stateFlag = math
+    stateFlag = stateFlag.max
+    stateFlag2 = 1
+    stateFlag4 = math
+    stateFlag4 = stateFlag4.min
+    stateFlag5 = #localValue5
+    stateFlag6 = math
+    stateFlag6 = stateFlag6.floor
+    stateFlag7 = tonumber
+    stateFlag8 = cmgOperation6
+    stateFlag8 = stateFlag8[stateFlag25]
+    stateFlag7 = stateFlag7(stateFlag8)
+    if not stateFlag7 then
+      stateFlag7 = 1
     end
-    flag6, flag7, flag8, flag9, flag10, numberValue3 = flag6(flag7)
-    flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3 = flag4(flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-    flag = flag(flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-    flag2 = cmgCall6
-    flag2[flag25] = flag
-    flag2 = RageUI
-    flag2 = flag2.List
-    flag4 = "Slot "
-    flag5 = workValue66
-    flag6 = " model"
-    flag4 = flag4 .. flag5 .. flag6
-    flag5 = arg5
-    flag6 = flag
-    flag7 = "With an active session, changing model swaps that prop in place (offsets kept). Otherwise applies on next spawn."
-    flag8 = {}
-    flag9 = true
+    stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3 = stateFlag6(stateFlag7)
+    stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3 = stateFlag4(stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+    stateFlag = stateFlag(stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+    stateFlag2 = cmgOperation6
+    stateFlag2[stateFlag25] = stateFlag
+    stateFlag2 = RageUI
+    stateFlag2 = stateFlag2.List
+    stateFlag4 = "Slot "
+    stateFlag5 = workingValue66
+    stateFlag6 = " model"
+    stateFlag4 = stateFlag4 .. stateFlag5 .. stateFlag6
+    stateFlag5 = localValue5
+    stateFlag6 = stateFlag
+    stateFlag7 = "With an active session, changing model swaps that prop in place (offsets kept). Otherwise applies on next spawn."
+    stateFlag8 = {}
+    stateFlag9 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag10; parameters: arg12, arg22, arg32, arg42) ===
-    function flag10(arg12, arg22, arg32, arg42)
-      local cmgCall5, textValue6, mathHelper, workValue63, mathHelper2, numberValue20, workValue12, workValue17
-      cmgCall5 = math
-      cmgCall5 = cmgCall5.max
-      textValue6 = 1
+    -- === HELPER FUNCTION (decompiler name: stateFlag10; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function stateFlag10(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation5, text6, mathHelper, workingValue63, mathHelper2, number20, workingValue12, workingValue17
+      cmgOperation5 = math
+      cmgOperation5 = cmgOperation5.max
+      text6 = 1
       mathHelper = math
       mathHelper = mathHelper.min
-      workValue63 = arg5
-      workValue63 = #workValue63
+      workingValue63 = localValue5
+      workingValue63 = #workingValue63
       mathHelper2 = math
       mathHelper2 = mathHelper2.floor
-      numberValue20 = tonumber
-      workValue17 = flag25
-      workValue12 = cmgCall6
-      workValue12 = workValue12[workValue17]
-      numberValue20 = numberValue20(workValue12)
-      if not numberValue20 then
-        numberValue20 = 1
+      number20 = tonumber
+      workingValue17 = stateFlag25
+      workingValue12 = cmgOperation6
+      workingValue12 = workingValue12[workingValue17]
+      number20 = number20(workingValue12)
+      if not number20 then
+        number20 = 1
       end
-      mathHelper2, numberValue20, workValue12, workValue17 = mathHelper2(numberValue20)
-      mathHelper, workValue63, mathHelper2, numberValue20, workValue12, workValue17 = mathHelper(workValue63, mathHelper2, numberValue20, workValue12, workValue17)
-      cmgCall5 = cmgCall5(textValue6, mathHelper, workValue63, mathHelper2, numberValue20, workValue12, workValue17)
-      mathHelper = flag25
-      textValue6 = cmgCall6
-      textValue6[mathHelper] = arg42
-      textValue6 = dataTable4.active
-      if textValue6 and cmgCall5 ~= arg42 then
-        textValue6 = workValue4
-        mathHelper = workValue66
-        textValue6(mathHelper)
+      mathHelper2, number20, workingValue12, workingValue17 = mathHelper2(number20)
+      mathHelper, workingValue63, mathHelper2, number20, workingValue12, workingValue17 = mathHelper(workingValue63, mathHelper2, number20, workingValue12, workingValue17)
+      cmgOperation5 = cmgOperation5(text6, mathHelper, workingValue63, mathHelper2, number20, workingValue12, workingValue17)
+      mathHelper = stateFlag25
+      text6 = cmgOperation6
+      text6[mathHelper] = localValue42
+      text6 = dataCollection4.active
+      if text6 and cmgOperation5 ~= localValue42 then
+        text6 = workingValue4
+        mathHelper = workingValue66
+        text6(mathHelper)
       end
     end
 
-    -- === HELPER FUNCTION (decompiler name: numberValue3; parameters: none) ===
-    function numberValue3()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: number3; parameters: none) ===
+    function number3()
+      local localValue12, localValue22
     end
     -- Beginner: Draw a RageUI list selector.
-    flag2(flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
+    stateFlag2(stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
   end
-  if arg4 then
-    arg6 = RageUI
-    arg6 = arg6.List
-    arg7 = "Selected entity"
-    workValue62 = dataTable5
-    workValue66 = cmgCall6.selectedIndex
-    workValue66 = workValue66 + 1
-    flag25 = "Nudge / rotate applies to this entity."
-    flag = {}
-    flag2 = true
+  if localValue4 then
+    localValue6 = RageUI
+    localValue6 = localValue6.List
+    localValue7 = "Selected entity"
+    workingValue62 = dataCollection5
+    workingValue66 = cmgOperation6.selectedIndex
+    workingValue66 = workingValue66 + 1
+    stateFlag25 = "Nudge / rotate applies to this entity."
+    stateFlag = {}
+    stateFlag2 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32, arg42) ===
-    function flag4(arg12, arg22, arg32, arg42)
-      local cmgCall5
-      cmgCall5 = arg42 - 1
-      cmgCall6.selectedIndex = cmgCall5
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function stateFlag4(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation5
+      cmgOperation5 = localValue42 - 1
+      cmgOperation6.selectedIndex = cmgOperation5
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag5; parameters: none) ===
-    function flag5()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: stateFlag5; parameters: none) ===
+    function stateFlag5()
+      local localValue12, localValue22
     end
-    arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5)
+    localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5)
   else
-    arg6 = math
-    arg6 = arg6.max
-    arg7 = 1
-    workValue62 = math
-    workValue62 = workValue62.min
-    workValue66 = 5
-    flag25 = math
-    flag25 = flag25.floor
-    flag = tonumber
-    flag2 = cmgCall6.selectedIndex
-    flag = flag(flag2)
-    if not flag then
-      flag = 0
+    localValue6 = math
+    localValue6 = localValue6.max
+    localValue7 = 1
+    workingValue62 = math
+    workingValue62 = workingValue62.min
+    workingValue66 = 5
+    stateFlag25 = math
+    stateFlag25 = stateFlag25.floor
+    stateFlag = tonumber
+    stateFlag2 = cmgOperation6.selectedIndex
+    stateFlag = stateFlag(stateFlag2)
+    if not stateFlag then
+      stateFlag = 0
     end
-    flag25 = flag25(flag)
-    flag25 = flag25 + 1
-    workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3 = workValue62(workValue66, flag25)
-    arg6 = arg6(arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-    arg7 = arg6 - 1
-    cmgCall6.selectedIndex = arg7
-    arg7 = RageUI
-    arg7 = arg7.List
-    workValue62 = "Selected entity"
-    workValue66 = dataTable6
-    flag25 = arg6
-    flag = "Main wreck uses cfg.debrisMainFlatbedAttach. Scrap uses cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach."
-    flag2 = {}
-    flag4 = true
+    stateFlag25 = stateFlag25(stateFlag)
+    stateFlag25 = stateFlag25 + 1
+    workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3 = workingValue62(workingValue66, stateFlag25)
+    localValue6 = localValue6(localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+    localValue7 = localValue6 - 1
+    cmgOperation6.selectedIndex = localValue7
+    localValue7 = RageUI
+    localValue7 = localValue7.List
+    workingValue62 = "Selected entity"
+    workingValue66 = dataCollection6
+    stateFlag25 = localValue6
+    stateFlag = "Main wreck uses cfg.debrisMainFlatbedAttach. Scrap uses cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach."
+    stateFlag2 = {}
+    stateFlag4 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag5; parameters: arg12, arg22, arg32, arg42) ===
-    function flag5(arg12, arg22, arg32, arg42)
-      local cmgCall5
-      cmgCall5 = arg42 - 1
-      cmgCall6.selectedIndex = cmgCall5
+    -- === HELPER FUNCTION (decompiler name: stateFlag5; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function stateFlag5(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation5
+      cmgOperation5 = localValue42 - 1
+      cmgOperation6.selectedIndex = cmgOperation5
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
-    function flag6()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: stateFlag6; parameters: none) ===
+    function stateFlag6()
+      local localValue12, localValue22
     end
     -- Beginner: Draw a RageUI list selector.
-    arg7(workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6)
+    localValue7(workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6)
   end
-  arg6 = {}
-  arg7 = 0.02
-  workValue62 = 0.05
-  workValue66 = 0.1
-  flag25 = 0.2
-  flag = 0.5
-  arg6[1] = arg7
-  arg6[2] = workValue62
-  arg6[3] = workValue66
-  arg6[4] = flag25
-  arg6[5] = flag
-  arg7 = {}
-  workValue62 = ipairs
-  workValue66 = arg6
-  workValue62, workValue66, flag25, flag = workValue62(workValue66)
-  for flag2, flag4 in workValue62, workValue66, flag25, flag do
-    flag5 = #arg7
-    flag5 = flag5 + 1
-    flag6 = tostring
-    flag7 = flag4
-    flag6 = flag6(flag7)
-    flag7 = "m"
-    flag6 = flag6 .. flag7
-    arg7[flag5] = flag6
+  localValue6 = {}
+  localValue7 = 0.02
+  workingValue62 = 0.05
+  workingValue66 = 0.1
+  stateFlag25 = 0.2
+  stateFlag = 0.5
+  localValue6[1] = localValue7
+  localValue6[2] = workingValue62
+  localValue6[3] = workingValue66
+  localValue6[4] = stateFlag25
+  localValue6[5] = stateFlag
+  localValue7 = {}
+  workingValue62 = ipairs
+  workingValue66 = localValue6
+  workingValue62, workingValue66, stateFlag25, stateFlag = workingValue62(workingValue66)
+  for stateFlag2, stateFlag4 in workingValue62, workingValue66, stateFlag25, stateFlag do
+    stateFlag5 = #localValue7
+    stateFlag5 = stateFlag5 + 1
+    stateFlag6 = tostring
+    stateFlag7 = stateFlag4
+    stateFlag6 = stateFlag6(stateFlag7)
+    stateFlag7 = "m"
+    stateFlag6 = stateFlag6 .. stateFlag7
+    localValue7[stateFlag5] = stateFlag6
   end
-  workValue62 = math
-  workValue62 = workValue62.max
-  workValue66 = 1
-  flag25 = math
-  flag25 = flag25.min
-  flag = #arg6
-  flag2 = math
-  flag2 = flag2.floor
-  flag4 = cmgCall6.nudgeStepListIndex
-  if not flag4 then
-    flag4 = 3
+  workingValue62 = math
+  workingValue62 = workingValue62.max
+  workingValue66 = 1
+  stateFlag25 = math
+  stateFlag25 = stateFlag25.min
+  stateFlag = #localValue6
+  stateFlag2 = math
+  stateFlag2 = stateFlag2.floor
+  stateFlag4 = cmgOperation6.nudgeStepListIndex
+  if not stateFlag4 then
+    stateFlag4 = 3
   end
-  flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3 = flag2(flag4)
-  flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3 = flag25(flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-  workValue62 = workValue62(workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3)
-  cmgCall6.nudgeStepListIndex = workValue62
-  workValue66 = arg6[workValue62]
-  cmgCall6.step = workValue66
-  workValue66 = RageUI
-  workValue66 = workValue66.List
-  flag25 = "Nudge step"
-  flag = arg7
-  flag2 = workValue62
-  if arg4 then
-    flag4 = "Distance per nudge (local X/Y or world Z)."
-    if flag4 then
-      goto flow_label_245
+  stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3 = stateFlag2(stateFlag4)
+  stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3 = stateFlag25(stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+  workingValue62 = workingValue62(workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3)
+  cmgOperation6.nudgeStepListIndex = workingValue62
+  workingValue66 = localValue6[workingValue62]
+  cmgOperation6.step = workingValue66
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.List
+  stateFlag25 = "Nudge step"
+  stateFlag = localValue7
+  stateFlag2 = workingValue62
+  if localValue4 then
+    stateFlag4 = "Distance per nudge (local X/Y or world Z)."
+    if stateFlag4 then
+      goto continueAtStep245
     end
   end
-  flag4 = "Step size applied to ox, oy, oz (flatbed attach space)."
-  ::flow_label_245::
-  flag5 = {}
-  flag6 = true
+  stateFlag4 = "Step size applied to ox, oy, oz (flatbed attach space)."
+  ::continueAtStep245::
+  stateFlag5 = {}
+  stateFlag6 = true
 
-  -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32, arg42) ===
-  function flag7(arg12, arg22, arg32, arg42)
-    local cmgCall5
-    cmgCall6.nudgeStepListIndex = arg42
-    cmgCall5 = arg6
-    cmgCall5 = cmgCall5[arg42]
-    cmgCall6.step = cmgCall5
+  -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32, localValue42) ===
+  function stateFlag7(localValue12, localValue22, localValue32, localValue42)
+    local cmgOperation5
+    cmgOperation6.nudgeStepListIndex = localValue42
+    cmgOperation5 = localValue6
+    cmgOperation5 = cmgOperation5[localValue42]
+    cmgOperation6.step = cmgOperation5
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag8; parameters: none) ===
-  function flag8()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: stateFlag8; parameters: none) ===
+  function stateFlag8()
+    local localValue12, localValue22
   end
-  workValue66(flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8)
-  if arg4 then
-    workValue66 = RageUI
-    workValue66 = workValue66.Separator
-    flag25 = "Nudge (local: +Y forward along wreck heading)"
-    workValue66(flag25)
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8)
+  if localValue4 then
+    workingValue66 = RageUI
+    workingValue66 = workingValue66.Separator
+    stateFlag25 = "Nudge (local: +Y forward along wreck heading)"
+    workingValue66(stateFlag25)
   else
-    workValue66 = RageUI
-    workValue66 = workValue66.Separator
-    flag25 = "Nudge flatbed attach: +X = ox, +Y = oy, \194\177Z = oz"
-    workValue66(flag25)
+    workingValue66 = RageUI
+    workingValue66 = workingValue66.Separator
+    stateFlag25 = "Nudge flatbed attach: +X = ox, +Y = oy, \194\177Z = oz"
+    workingValue66(stateFlag25)
   end
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "Local +Y (forward)"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "Local +Y (forward)"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5, textValue6, mathHelper
-    if arg32 then
-      arg42 = workValue8
-      cmgCall5 = 0.0
-      textValue6 = 1.0
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5, text6, mathHelper
+    if localValue32 then
+      localValue42 = workingValue8
+      cmgOperation5 = 0.0
+      text6 = 1.0
       mathHelper = 0.0
-      arg42(cmgCall5, textValue6, mathHelper)
+      localValue42(cmgOperation5, text6, mathHelper)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "Local -Y (back)"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "Local -Y (back)"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5, textValue6, mathHelper
-    if arg32 then
-      arg42 = workValue8
-      cmgCall5 = 0.0
-      textValue6 = -1.0
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5, text6, mathHelper
+    if localValue32 then
+      localValue42 = workingValue8
+      cmgOperation5 = 0.0
+      text6 = -1.0
       mathHelper = 0.0
-      arg42(cmgCall5, textValue6, mathHelper)
+      localValue42(cmgOperation5, text6, mathHelper)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "Local +X (right)"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "Local +X (right)"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5, textValue6, mathHelper
-    if arg32 then
-      arg42 = workValue8
-      cmgCall5 = 1.0
-      textValue6 = 0.0
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5, text6, mathHelper
+    if localValue32 then
+      localValue42 = workingValue8
+      cmgOperation5 = 1.0
+      text6 = 0.0
       mathHelper = 0.0
-      arg42(cmgCall5, textValue6, mathHelper)
+      localValue42(cmgOperation5, text6, mathHelper)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "Local -X (left)"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "Local -X (left)"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5, textValue6, mathHelper
-    if arg32 then
-      arg42 = workValue8
-      cmgCall5 = -1.0
-      textValue6 = 0.0
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5, text6, mathHelper
+    if localValue32 then
+      localValue42 = workingValue8
+      cmgOperation5 = -1.0
+      text6 = 0.0
       mathHelper = 0.0
-      arg42(cmgCall5, textValue6, mathHelper)
+      localValue42(cmgOperation5, text6, mathHelper)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "World +Z"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "World +Z"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5, textValue6, mathHelper
-    if arg32 then
-      arg42 = workValue8
-      cmgCall5 = 0.0
-      textValue6 = 0.0
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5, text6, mathHelper
+    if localValue32 then
+      localValue42 = workingValue8
+      cmgOperation5 = 0.0
+      text6 = 0.0
       mathHelper = 1.0
-      arg42(cmgCall5, textValue6, mathHelper)
+      localValue42(cmgOperation5, text6, mathHelper)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "World -Z"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "World -Z"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5, textValue6, mathHelper
-    if arg32 then
-      arg42 = workValue8
-      cmgCall5 = 0.0
-      textValue6 = 0.0
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5, text6, mathHelper
+    if localValue32 then
+      localValue42 = workingValue8
+      cmgOperation5 = 0.0
+      text6 = 0.0
       mathHelper = -1.0
-      arg42(cmgCall5, textValue6, mathHelper)
+      localValue42(cmgOperation5, text6, mathHelper)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  if arg4 then
-    workValue66 = RageUI
-    workValue66 = workValue66.Separator
-    flag25 = "Rotate selected (degrees)"
-    workValue66(flag25)
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  if localValue4 then
+    workingValue66 = RageUI
+    workingValue66 = workingValue66.Separator
+    stateFlag25 = "Rotate selected (degrees)"
+    workingValue66(stateFlag25)
   else
-    workValue66 = RageUI
-    workValue66 = workValue66.Separator
-    flag25 = "Rotate: rz on bed attach (degrees)"
-    workValue66(flag25)
+    workingValue66 = RageUI
+    workingValue66 = workingValue66.Separator
+    stateFlag25 = "Rotate: rz on bed attach (degrees)"
+    workingValue66(stateFlag25)
   end
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "Heading +5\194\176"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "Heading +5\194\176"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5
-    if arg32 then
-      arg42 = workValue9
-      cmgCall5 = 5.0
-      arg42(cmgCall5)
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5
+    if localValue32 then
+      localValue42 = workingValue9
+      cmgOperation5 = 5.0
+      localValue42(cmgOperation5)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "Heading -5\194\176"
-  flag = ""
-  flag2 = dataTable4.active
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "Heading -5\194\176"
+  stateFlag = ""
+  stateFlag2 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42, cmgCall5
-    if arg32 then
-      arg42 = workValue9
-      cmgCall5 = -5.0
-      arg42(cmgCall5)
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42, cmgOperation5
+    if localValue32 then
+      localValue42 = workingValue9
+      cmgOperation5 = -5.0
+      localValue42(cmgOperation5)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  workValue66 = RageUI
-  workValue66 = workValue66.Button
-  flag25 = "Snap main wreck to anchor"
-  flag = "Reset main XY to layout anchor."
-  flag2 = dataTable4.active
-  if flag2 then
-    flag2 = arg4
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  workingValue66 = RageUI
+  workingValue66 = workingValue66.Button
+  stateFlag25 = "Snap main wreck to anchor"
+  stateFlag = "Reset main XY to layout anchor."
+  stateFlag2 = dataCollection4.active
+  if stateFlag2 then
+    stateFlag2 = localValue4
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32) ===
-  function flag4(arg12, arg22, arg32)
-    local arg42
-    if arg32 then
-      arg42 = workValue10
-      arg42()
+  -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag4(localValue12, localValue22, localValue32)
+    local localValue42
+    if localValue32 then
+      localValue42 = workingValue10
+      localValue42()
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  workValue66(flag25, flag, flag2, flag4)
-  if arg4 then
-    workValue66 = "Prints cfg.debrisLayoutGroups[mainModel].secondaryOffsets (ground)."
-    if workValue66 then
-      goto flow_label_345
+  workingValue66(stateFlag25, stateFlag, stateFlag2, stateFlag4)
+  if localValue4 then
+    workingValue66 = "Prints cfg.debrisLayoutGroups[mainModel].secondaryOffsets (ground)."
+    if workingValue66 then
+      goto continueAtStep345
     end
   end
-  workValue66 = "Prints cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach (bed)."
-  ::flow_label_345::
-  flag25 = RageUI
-  flag25 = flag25.Button
-  flag = "Print cfg snippet (F8 console)"
-  flag2 = workValue66
-  flag4 = dataTable4.active
+  workingValue66 = "Prints cfg.debrisLayoutGroups[mainModel].secondaryFlatbedAttach (bed)."
+  ::continueAtStep345::
+  stateFlag25 = RageUI
+  stateFlag25 = stateFlag25.Button
+  stateFlag = "Print cfg snippet (F8 console)"
+  stateFlag2 = workingValue66
+  stateFlag4 = dataCollection4.active
 
-  -- === HELPER FUNCTION (decompiler name: flag5; parameters: arg12, arg22, arg32) ===
-  function flag5(arg12, arg22, arg32)
-    local arg42
-    if arg32 then
-      arg42 = arg4
-      if arg42 then
-        arg42 = workValue13
-        arg42()
+  -- === HELPER FUNCTION (decompiler name: stateFlag5; parameters: localValue12, localValue22, localValue32) ===
+  function stateFlag5(localValue12, localValue22, localValue32)
+    local localValue42
+    if localValue32 then
+      localValue42 = localValue4
+      if localValue42 then
+        localValue42 = workingValue13
+        localValue42()
       else
-        arg42 = workValue14
-        arg42()
+        localValue42 = workingValue14
+        localValue42()
       end
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  flag25(flag, flag2, flag4, flag5)
+  stateFlag25(stateFlag, stateFlag2, stateFlag4, stateFlag5)
 end
-cmgCall2(textValue, workValue15)
-cmgCall2 = Citizen
-cmgCall2 = cmgCall2.CreateThread
+cmgOperation2(text, workingValue15)
+cmgOperation2 = Citizen
+cmgOperation2 = cmgOperation2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7
   while true do
-    arg1 = dataTable4.active
-    if arg1 then
-      arg1 = dataTable4.anchor
-      if arg1 then
-        arg2 = DrawMarker
-        arg3 = 1
-        arg4 = arg1.x
-        arg5 = arg1.y
-        arg6 = arg1.z
-        arg6 = arg6 - 0.35
-        arg7 = 0.0
-        workValue62 = 0.0
-        workValue66 = 0.0
-        flag25 = 0.0
-        flag = 0.0
-        flag2 = 0.0
-        flag4 = 1.2
-        flag5 = 1.2
-        flag6 = 0.4
-        flag7 = 50
-        flag8 = 200
-        flag9 = 255
-        flag10 = 120
-        numberValue3 = false
-        flag11 = false
-        flag12 = 2
-        flag13 = false
-        flag14 = nil
-        flag15 = nil
-        flag16 = false
-        arg2(arg3, arg4, arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16)
+    localValue1 = dataCollection4.active
+    if localValue1 then
+      localValue1 = dataCollection4.anchor
+      if localValue1 then
+        localValue2 = DrawMarker
+        localValue3 = 1
+        localValue4 = localValue1.x
+        localValue5 = localValue1.y
+        localValue6 = localValue1.z
+        localValue6 = localValue6 - 0.35
+        localValue7 = 0.0
+        workingValue62 = 0.0
+        workingValue66 = 0.0
+        stateFlag25 = 0.0
+        stateFlag = 0.0
+        stateFlag2 = 0.0
+        stateFlag4 = 1.2
+        stateFlag5 = 1.2
+        stateFlag6 = 0.4
+        stateFlag7 = 50
+        stateFlag8 = 200
+        stateFlag9 = 255
+        stateFlag10 = 120
+        number3 = false
+        stateFlag11 = false
+        stateFlag12 = 2
+        stateFlag13 = false
+        stateFlag14 = nil
+        stateFlag15 = nil
+        stateFlag16 = false
+        localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16)
       end
-      arg2 = workValue7
-      arg2 = arg2()
-      if 0 ~= arg2 then
-        arg3 = DoesEntityExist
-        arg4 = arg2
-        arg3 = arg3(arg4)
-        if arg3 then
-          arg3 = GetEntityCoords
-          arg4 = arg2
-          arg5 = true
+      localValue2 = workingValue7
+      localValue2 = localValue2()
+      if 0 ~= localValue2 then
+        localValue3 = DoesEntityExist
+        localValue4 = localValue2
+        localValue3 = localValue3(localValue4)
+        if localValue3 then
+          localValue3 = GetEntityCoords
+          localValue4 = localValue2
+          localValue5 = true
           -- Beginner: result below is entityCoords.
-          arg3 = arg3(arg4, arg5)
-          arg4 = DrawMarker
-          arg5 = 1
-          arg6 = arg3.x
-          arg7 = arg3.y
-          workValue62 = arg3.z
-          workValue62 = workValue62 - 0.2
-          workValue66 = 0.0
-          flag25 = 0.0
-          flag = 0.0
-          flag2 = 0.0
-          flag4 = 0.0
-          flag5 = 0.0
-          flag6 = 0.65
-          flag7 = 0.65
-          flag8 = 0.35
-          flag9 = 255
-          flag10 = 180
-          numberValue3 = 50
-          flag11 = 160
-          flag12 = false
-          flag13 = false
-          flag14 = 2
-          flag15 = false
-          flag16 = nil
-          flag17 = nil
-          numberValue7 = false
-          arg4(arg5, arg6, arg7, workValue62, workValue66, flag25, flag, flag2, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue3, flag11, flag12, flag13, flag14, flag15, flag16, flag17, numberValue7)
+          localValue3 = localValue3(localValue4, localValue5)
+          localValue4 = DrawMarker
+          localValue5 = 1
+          localValue6 = localValue3.x
+          localValue7 = localValue3.y
+          workingValue62 = localValue3.z
+          workingValue62 = workingValue62 - 0.2
+          workingValue66 = 0.0
+          stateFlag25 = 0.0
+          stateFlag = 0.0
+          stateFlag2 = 0.0
+          stateFlag4 = 0.0
+          stateFlag5 = 0.0
+          stateFlag6 = 0.65
+          stateFlag7 = 0.65
+          stateFlag8 = 0.35
+          stateFlag9 = 255
+          stateFlag10 = 180
+          number3 = 50
+          stateFlag11 = 160
+          stateFlag12 = false
+          stateFlag13 = false
+          stateFlag14 = 2
+          stateFlag15 = false
+          stateFlag16 = nil
+          stateFlag17 = nil
+          number7 = false
+          localValue4(localValue5, localValue6, localValue7, workingValue62, workingValue66, stateFlag25, stateFlag, stateFlag2, stateFlag4, stateFlag5, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number3, stateFlag11, stateFlag12, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag17, number7)
         end
       end
-      arg3 = Wait
-      arg4 = 0
-      arg3(arg4)
+      localValue3 = Wait
+      localValue4 = 0
+      localValue3(localValue4)
     else
-      arg1 = Wait
-      arg2 = 750
-      arg1(arg2)
+      localValue1 = Wait
+      localValue2 = 750
+      localValue1(localValue2)
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall2(textValue)
-cmgCall2 = AddEventHandler
-textValue = "onResourceStop"
+cmgOperation2(text)
+cmgOperation2 = AddEventHandler
+text = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1) ===
-function workValue15(arg1)
-  local arg2
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg1 ~= arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: localValue1) ===
+function workingValue15(localValue1)
+  local localValue2
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue1 ~= localValue2 then
     return
   end
-  arg2 = workValue68
-  arg2()
+  localValue2 = workingValue68
+  localValue2()
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-cmgCall2(textValue, workValue15)
+cmgOperation2(text, workingValue15)

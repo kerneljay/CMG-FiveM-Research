@@ -32,700 +32,700 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local numberValue, numberValue3, numberValue6, numberValue7, numberValue8, dataTable2, vector3Builder, vector3Builder2, vector3Builder3, numberValue13, eventRegistration, textValue, workValue3, workValue4, threadCall, iterator, workValue5, workValue6, workValue7, workValue8, workValue10, cmgCall, textValue2, stringHelper, numberValue4, numberValue5, workValue11, workValue12, workValue13, dataTable
-numberValue = 150.0
-numberValue3 = 3.0
-numberValue6 = 50.0
-numberValue7 = 8.0
-numberValue8 = 8.0
-dataTable2 = {}
-vector3Builder = vector3
-vector3Builder2 = 455.57122802734
-vector3Builder3 = -620.88134765625
-numberValue13 = 286.98864746094
-vector3Builder = vector3Builder(vector3Builder2, vector3Builder3, numberValue13)
-vector3Builder2 = vector3
-vector3Builder3 = 455.92523193359
-numberValue13 = -601.85333251953
-eventRegistration = 286.99536132812
-vector3Builder2 = vector3Builder2(vector3Builder3, numberValue13, eventRegistration)
-vector3Builder3 = vector3
-numberValue13 = 476.18197631836
-eventRegistration = -604.80316162109
-textValue = 286.99682617188
-vector3Builder3, numberValue13, eventRegistration, textValue, workValue3, workValue4, threadCall, iterator, workValue5, workValue6, workValue7, workValue8, workValue10, cmgCall, textValue2, stringHelper, numberValue4, numberValue5, workValue11, workValue12, workValue13, dataTable = vector3Builder3(numberValue13, eventRegistration, textValue)
-dataTable2[1] = vector3Builder
-dataTable2[2] = vector3Builder2
-dataTable2[3] = vector3Builder3
-dataTable2[4] = numberValue13
-dataTable2[5] = eventRegistration
-dataTable2[6] = textValue
-dataTable2[7] = workValue3
-dataTable2[8] = workValue4
-dataTable2[9] = threadCall
-dataTable2[10] = iterator
-dataTable2[11] = workValue5
-dataTable2[12] = workValue6
-dataTable2[13] = workValue7
-dataTable2[14] = workValue8
-dataTable2[15] = workValue10
-dataTable2[16] = cmgCall
-dataTable2[17] = textValue2
-dataTable2[18] = stringHelper
-dataTable2[19] = numberValue4
-dataTable2[20] = numberValue5
-dataTable2[21] = workValue11
-dataTable2[22] = workValue12
-dataTable2[23] = workValue13
-dataTable2[24] = dataTable
-vector3Builder = {}
-vector3Builder2 = 844159446
-vector3Builder[1] = vector3Builder2
-vector3Builder2 = false
-vector3Builder3 = 0
-numberValue13 = numberValue + numberValue3
-numberValue13 = numberValue13 * 0.5
-eventRegistration = RegisterNetEvent
-textValue = "dfb83eb4ef"
+local number, number3, number6, number7, number8, dataCollection2, createVector3, createVector32, createVector33, number13, eventHandler, text, workingValue3, workingValue4, backgroundThread, iterator, workingValue5, workingValue6, workingValue7, workingValue8, workingValue10, cmgOperation, text2, stringHelper, number4, number5, workingValue11, workingValue12, workingValue13, dataCollection
+number = 150.0
+number3 = 3.0
+number6 = 50.0
+number7 = 8.0
+number8 = 8.0
+dataCollection2 = {}
+createVector3 = vector3
+createVector32 = 455.57122802734
+createVector33 = -620.88134765625
+number13 = 286.98864746094
+createVector3 = createVector3(createVector32, createVector33, number13)
+createVector32 = vector3
+createVector33 = 455.92523193359
+number13 = -601.85333251953
+eventHandler = 286.99536132812
+createVector32 = createVector32(createVector33, number13, eventHandler)
+createVector33 = vector3
+number13 = 476.18197631836
+eventHandler = -604.80316162109
+text = 286.99682617188
+createVector33, number13, eventHandler, text, workingValue3, workingValue4, backgroundThread, iterator, workingValue5, workingValue6, workingValue7, workingValue8, workingValue10, cmgOperation, text2, stringHelper, number4, number5, workingValue11, workingValue12, workingValue13, dataCollection = createVector33(number13, eventHandler, text)
+dataCollection2[1] = createVector3
+dataCollection2[2] = createVector32
+dataCollection2[3] = createVector33
+dataCollection2[4] = number13
+dataCollection2[5] = eventHandler
+dataCollection2[6] = text
+dataCollection2[7] = workingValue3
+dataCollection2[8] = workingValue4
+dataCollection2[9] = backgroundThread
+dataCollection2[10] = iterator
+dataCollection2[11] = workingValue5
+dataCollection2[12] = workingValue6
+dataCollection2[13] = workingValue7
+dataCollection2[14] = workingValue8
+dataCollection2[15] = workingValue10
+dataCollection2[16] = cmgOperation
+dataCollection2[17] = text2
+dataCollection2[18] = stringHelper
+dataCollection2[19] = number4
+dataCollection2[20] = number5
+dataCollection2[21] = workingValue11
+dataCollection2[22] = workingValue12
+dataCollection2[23] = workingValue13
+dataCollection2[24] = dataCollection
+createVector3 = {}
+createVector32 = 844159446
+createVector3[1] = createVector32
+createVector32 = false
+createVector33 = 0
+number13 = number + number3
+number13 = number13 * 0.5
+eventHandler = RegisterNetEvent
+text = "dfb83eb4ef"
 -- Beginner: this function handles network event "dfb83eb4ef".
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-function workValue3()
-  local arg1, arg2
-  arg1 = vector3Builder2
-  arg1 = not arg1
-  vector3Builder2 = arg1
-  arg1 = notify
-  arg2 = "~b~Using binoculars, press E to close. (W/S to zoom in/out)"
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+function workingValue3()
+  local localValue1, localValue2
+  localValue1 = createVector32
+  localValue1 = not localValue1
+  createVector32 = localValue1
+  localValue1 = notify
+  localValue2 = "~b~Using binoculars, press E to close. (W/S to zoom in/out)"
   -- Beginner: Show a notification to the player.
-  arg1(arg2)
+  localValue1(localValue2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "dfb83eb4ef".
-eventRegistration(textValue, workValue3)
+eventHandler(text, workingValue3)
 -- Beginner: this function handles network event "dfb83eb4ef".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2
-  arg1 = HideHelpTextThisFrame
-  arg1()
-  arg1 = HideHudComponentThisFrame
-  arg2 = 19
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 1
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 2
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 3
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 4
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 13
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 11
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 12
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 15
-  arg1(arg2)
-  arg1 = HideHudComponentThisFrame
-  arg2 = 18
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2
+  localValue1 = HideHelpTextThisFrame
+  localValue1()
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 19
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 1
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 2
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 3
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 4
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 13
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 11
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 12
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 15
+  localValue1(localValue2)
+  localValue1 = HideHudComponentThisFrame
+  localValue2 = 18
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
-function textValue(arg1, arg2)
-  local cmgCall2, workValue15, numberValue9, numberValue10, numberValue11, mathHelper, numberValue12, workValue16, workValue, workValue2, numberValue2
-  cmgCall2 = GetCamRot
-  workValue15 = arg1
-  numberValue9 = 2
-  cmgCall2 = cmgCall2(workValue15, numberValue9)
-  workValue15 = GetDisabledControlNormal
-  numberValue9 = 0
-  numberValue10 = 220
-  workValue15 = workValue15(numberValue9, numberValue10)
-  numberValue9 = GetDisabledControlNormal
-  numberValue10 = 0
-  numberValue11 = 221
-  numberValue9 = numberValue9(numberValue10, numberValue11)
-  if 0.0 ~= workValue15 or 0.0 ~= numberValue9 then
-    numberValue10 = cmgCall2.z
-    numberValue11 = workValue15 * -1.0
-    mathHelper = numberValue8
-    numberValue11 = numberValue11 * mathHelper
-    mathHelper = arg2 + 0.1
-    numberValue11 = numberValue11 * mathHelper
-    numberValue10 = numberValue10 + numberValue11
-    numberValue11 = math
-    numberValue11 = numberValue11.max
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2) ===
+function text(localValue1, localValue2)
+  local cmgOperation2, workingValue15, number9, number10, number11, mathHelper, number12, workingValue16, workingValue, workingValue2, number2
+  cmgOperation2 = GetCamRot
+  workingValue15 = localValue1
+  number9 = 2
+  cmgOperation2 = cmgOperation2(workingValue15, number9)
+  workingValue15 = GetDisabledControlNormal
+  number9 = 0
+  number10 = 220
+  workingValue15 = workingValue15(number9, number10)
+  number9 = GetDisabledControlNormal
+  number10 = 0
+  number11 = 221
+  number9 = number9(number10, number11)
+  if 0.0 ~= workingValue15 or 0.0 ~= number9 then
+    number10 = cmgOperation2.z
+    number11 = workingValue15 * -1.0
+    mathHelper = number8
+    number11 = number11 * mathHelper
+    mathHelper = localValue2 + 0.1
+    number11 = number11 * mathHelper
+    number10 = number10 + number11
+    number11 = math
+    number11 = number11.max
     mathHelper = math
     mathHelper = mathHelper.min
-    numberValue12 = 20.0
-    workValue16 = cmgCall2.x
-    workValue = numberValue9 * -1.0
-    workValue2 = numberValue7
-    workValue = workValue * workValue2
-    workValue2 = arg2 + 0.1
-    workValue = workValue * workValue2
-    workValue16 = workValue16 + workValue
-    mathHelper = mathHelper(numberValue12, workValue16)
-    numberValue12 = -89.5
-    numberValue11 = numberValue11(mathHelper, numberValue12)
+    number12 = 20.0
+    workingValue16 = cmgOperation2.x
+    workingValue = number9 * -1.0
+    workingValue2 = number7
+    workingValue = workingValue * workingValue2
+    workingValue2 = localValue2 + 0.1
+    workingValue = workingValue * workingValue2
+    workingValue16 = workingValue16 + workingValue
+    mathHelper = mathHelper(number12, workingValue16)
+    number12 = -89.5
+    number11 = number11(mathHelper, number12)
     mathHelper = SetCamRot
-    numberValue12 = arg1
-    workValue16 = numberValue11
-    workValue = 0.0
-    workValue2 = numberValue10
-    numberValue2 = 2
-    mathHelper(numberValue12, workValue16, workValue, workValue2, numberValue2)
+    number12 = localValue1
+    workingValue16 = number11
+    workingValue = 0.0
+    workingValue2 = number10
+    number2 = 2
+    mathHelper(number12, workingValue16, workingValue, workingValue2, number2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
-function workValue3(arg1)
-  local arg2, cmgCall2, workValue15, numberValue9
-  arg2 = IsPedInAnyVehicle
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1) ===
+function workingValue3(localValue1)
+  local localValue2, cmgOperation2, workingValue15, number9
+  localValue2 = IsPedInAnyVehicle
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall2 = cmgCall2()
-  workValue15 = true
-  arg2 = arg2(cmgCall2, workValue15)
-  if not arg2 then
-    arg2 = IsDisabledControlPressed
-    cmgCall2 = 0
-    workValue15 = 32
-    arg2 = arg2(cmgCall2, workValue15)
-    if arg2 then
-      arg2 = math
-      arg2 = arg2.max
-      cmgCall2 = numberValue13
-      workValue15 = numberValue6
-      numberValue9 = GetFrameTime
-      numberValue9 = numberValue9()
-      workValue15 = workValue15 * numberValue9
-      cmgCall2 = cmgCall2 - workValue15
-      workValue15 = numberValue3
-      arg2 = arg2(cmgCall2, workValue15)
-      numberValue13 = arg2
+  cmgOperation2 = cmgOperation2()
+  workingValue15 = true
+  localValue2 = localValue2(cmgOperation2, workingValue15)
+  if not localValue2 then
+    localValue2 = IsDisabledControlPressed
+    cmgOperation2 = 0
+    workingValue15 = 32
+    localValue2 = localValue2(cmgOperation2, workingValue15)
+    if localValue2 then
+      localValue2 = math
+      localValue2 = localValue2.max
+      cmgOperation2 = number13
+      workingValue15 = number6
+      number9 = GetFrameTime
+      number9 = number9()
+      workingValue15 = workingValue15 * number9
+      cmgOperation2 = cmgOperation2 - workingValue15
+      workingValue15 = number3
+      localValue2 = localValue2(cmgOperation2, workingValue15)
+      number13 = localValue2
     end
-    arg2 = IsDisabledControlPressed
-    cmgCall2 = 0
-    workValue15 = 8
-    arg2 = arg2(cmgCall2, workValue15)
-    if arg2 then
-      arg2 = math
-      arg2 = arg2.min
-      cmgCall2 = numberValue13
-      workValue15 = numberValue6
-      numberValue9 = GetFrameTime
-      numberValue9 = numberValue9()
-      workValue15 = workValue15 * numberValue9
-      cmgCall2 = cmgCall2 + workValue15
-      workValue15 = numberValue
-      arg2 = arg2(cmgCall2, workValue15)
-      numberValue13 = arg2
+    localValue2 = IsDisabledControlPressed
+    cmgOperation2 = 0
+    workingValue15 = 8
+    localValue2 = localValue2(cmgOperation2, workingValue15)
+    if localValue2 then
+      localValue2 = math
+      localValue2 = localValue2.min
+      cmgOperation2 = number13
+      workingValue15 = number6
+      number9 = GetFrameTime
+      number9 = number9()
+      workingValue15 = workingValue15 * number9
+      cmgOperation2 = cmgOperation2 + workingValue15
+      workingValue15 = number
+      localValue2 = localValue2(cmgOperation2, workingValue15)
+      number13 = localValue2
     end
-    arg2 = GetCamFov
-    cmgCall2 = arg1
-    arg2 = arg2(cmgCall2)
-    cmgCall2 = math
-    cmgCall2 = cmgCall2.abs
-    workValue15 = numberValue13
-    workValue15 = workValue15 - arg2
-    cmgCall2 = cmgCall2(workValue15)
-    workValue15 = 0.1
-    if cmgCall2 < workValue15 then
-      numberValue13 = arg2
+    localValue2 = GetCamFov
+    cmgOperation2 = localValue1
+    localValue2 = localValue2(cmgOperation2)
+    cmgOperation2 = math
+    cmgOperation2 = cmgOperation2.abs
+    workingValue15 = number13
+    workingValue15 = workingValue15 - localValue2
+    cmgOperation2 = cmgOperation2(workingValue15)
+    workingValue15 = 0.1
+    if cmgOperation2 < workingValue15 then
+      number13 = localValue2
     end
-    cmgCall2 = SetCamFov
-    workValue15 = arg1
-    numberValue9 = numberValue13
-    numberValue9 = numberValue9 - arg2
-    numberValue9 = numberValue9 * 0.05
-    numberValue9 = arg2 + numberValue9
-    cmgCall2(workValue15, numberValue9)
+    cmgOperation2 = SetCamFov
+    workingValue15 = localValue1
+    number9 = number13
+    number9 = number9 - localValue2
+    number9 = number9 * 0.05
+    number9 = localValue2 + number9
+    cmgOperation2(workingValue15, number9)
   else
-    arg2 = IsDisabledControlPressed
-    cmgCall2 = 0
-    workValue15 = 241
-    arg2 = arg2(cmgCall2, workValue15)
-    if arg2 then
-      arg2 = math
-      arg2 = arg2.max
-      cmgCall2 = numberValue13
-      workValue15 = numberValue6
-      numberValue9 = GetFrameTime
-      numberValue9 = numberValue9()
-      workValue15 = workValue15 * numberValue9
-      cmgCall2 = cmgCall2 - workValue15
-      workValue15 = numberValue3
-      arg2 = arg2(cmgCall2, workValue15)
-      numberValue13 = arg2
+    localValue2 = IsDisabledControlPressed
+    cmgOperation2 = 0
+    workingValue15 = 241
+    localValue2 = localValue2(cmgOperation2, workingValue15)
+    if localValue2 then
+      localValue2 = math
+      localValue2 = localValue2.max
+      cmgOperation2 = number13
+      workingValue15 = number6
+      number9 = GetFrameTime
+      number9 = number9()
+      workingValue15 = workingValue15 * number9
+      cmgOperation2 = cmgOperation2 - workingValue15
+      workingValue15 = number3
+      localValue2 = localValue2(cmgOperation2, workingValue15)
+      number13 = localValue2
     end
-    arg2 = IsDisabledControlPressed
-    cmgCall2 = 0
-    workValue15 = 242
-    arg2 = arg2(cmgCall2, workValue15)
-    if arg2 then
-      arg2 = math
-      arg2 = arg2.min
-      cmgCall2 = numberValue13
-      workValue15 = numberValue6
-      numberValue9 = GetFrameTime
-      numberValue9 = numberValue9()
-      workValue15 = workValue15 * numberValue9
-      cmgCall2 = cmgCall2 + workValue15
-      workValue15 = numberValue
-      arg2 = arg2(cmgCall2, workValue15)
-      numberValue13 = arg2
+    localValue2 = IsDisabledControlPressed
+    cmgOperation2 = 0
+    workingValue15 = 242
+    localValue2 = localValue2(cmgOperation2, workingValue15)
+    if localValue2 then
+      localValue2 = math
+      localValue2 = localValue2.min
+      cmgOperation2 = number13
+      workingValue15 = number6
+      number9 = GetFrameTime
+      number9 = number9()
+      workingValue15 = workingValue15 * number9
+      cmgOperation2 = cmgOperation2 + workingValue15
+      workingValue15 = number
+      localValue2 = localValue2(cmgOperation2, workingValue15)
+      number13 = localValue2
     end
-    arg2 = GetCamFov
-    cmgCall2 = arg1
-    arg2 = arg2(cmgCall2)
-    cmgCall2 = math
-    cmgCall2 = cmgCall2.abs
-    workValue15 = numberValue13
-    workValue15 = workValue15 - arg2
-    cmgCall2 = cmgCall2(workValue15)
-    workValue15 = 0.1
-    if cmgCall2 < workValue15 then
-      numberValue13 = arg2
+    localValue2 = GetCamFov
+    cmgOperation2 = localValue1
+    localValue2 = localValue2(cmgOperation2)
+    cmgOperation2 = math
+    cmgOperation2 = cmgOperation2.abs
+    workingValue15 = number13
+    workingValue15 = workingValue15 - localValue2
+    cmgOperation2 = cmgOperation2(workingValue15)
+    workingValue15 = 0.1
+    if cmgOperation2 < workingValue15 then
+      number13 = localValue2
     end
-    cmgCall2 = SetCamFov
-    workValue15 = arg1
-    numberValue9 = numberValue13
-    numberValue9 = numberValue9 - arg2
-    numberValue9 = numberValue9 * 0.05
-    numberValue9 = arg2 + numberValue9
-    cmgCall2(workValue15, numberValue9)
+    cmgOperation2 = SetCamFov
+    workingValue15 = localValue1
+    number9 = number13
+    number9 = number9 - localValue2
+    number9 = number9 * 0.05
+    number9 = localValue2 + number9
+    cmgOperation2(workingValue15, number9)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, cmgCall2, workValue15, numberValue9, numberValue10, numberValue11, mathHelper, numberValue12, workValue16, workValue
-  arg2 = pairs
-  cmgCall2 = GetGamePool
-  workValue15 = "CObject"
-  cmgCall2, workValue15, numberValue9, numberValue10, numberValue11, mathHelper, numberValue12, workValue16, workValue = cmgCall2(workValue15)
-  arg2, cmgCall2, workValue15, numberValue9 = arg2(cmgCall2, workValue15, numberValue9, numberValue10, numberValue11, mathHelper, numberValue12, workValue16, workValue)
-  for numberValue10, numberValue11 in arg2, cmgCall2, workValue15, numberValue9 do
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, cmgOperation2, workingValue15, number9, number10, number11, mathHelper, number12, workingValue16, workingValue
+  localValue2 = pairs
+  cmgOperation2 = GetGamePool
+  workingValue15 = "CObject"
+  cmgOperation2, workingValue15, number9, number10, number11, mathHelper, number12, workingValue16, workingValue = cmgOperation2(workingValue15)
+  localValue2, cmgOperation2, workingValue15, number9 = localValue2(cmgOperation2, workingValue15, number9, number10, number11, mathHelper, number12, workingValue16, workingValue)
+  for number10, number11 in localValue2, cmgOperation2, workingValue15, number9 do
     mathHelper = GetEntityModel
-    numberValue12 = numberValue11
+    number12 = number11
     -- Beginner: result below is modelHash.
-    mathHelper = mathHelper(numberValue12)
-    numberValue12 = table
-    numberValue12 = numberValue12.has
-    workValue16 = vector3Builder
-    workValue = mathHelper
-    numberValue12 = numberValue12(workValue16, workValue)
-    if numberValue12 then
-      numberValue12 = arg1
-      workValue16 = numberValue11
-      numberValue12(workValue16)
+    mathHelper = mathHelper(number12)
+    number12 = table
+    number12 = number12.has
+    workingValue16 = createVector3
+    workingValue = mathHelper
+    number12 = number12(workingValue16, workingValue)
+    if number12 then
+      number12 = localValue1
+      workingValue16 = number11
+      number12(workingValue16)
     end
   end
 end
-threadCall = CreateThread
+backgroundThread = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
 
 -- === HELPER FUNCTION: iterator() ===
 function iterator()
-  local arg1, arg2, cmgCall2, workValue15, numberValue9, numberValue10, numberValue11, mathHelper, numberValue12, workValue16, workValue, workValue2, numberValue2
+  local localValue1, localValue2, cmgOperation2, workingValue15, number9, number10, number11, mathHelper, number12, workingValue16, workingValue, workingValue2, number2
   while true do
-    arg1 = IsControlJustPressed
-    arg2 = 0
-    cmgCall2 = 29
-    arg1 = arg1(arg2, cmgCall2)
-    if arg1 then
-      arg1 = IsControlPressed
-      arg2 = 0
-      cmgCall2 = 21
-      arg1 = arg1(arg2, cmgCall2)
-      if arg1 then
-        arg1 = vector3Builder2
-        if not arg1 then
-          arg1 = CMGclient
-          arg1 = arg1.useInventoryItem
-          arg2 = {}
-          cmgCall2 = "binos"
-          workValue15 = 1
-          arg2[1] = cmgCall2
-          arg2[2] = workValue15
-          arg1(arg2)
-          arg1 = TriggerServerEvent
-          arg2 = "4499b42011"
+    localValue1 = IsControlJustPressed
+    localValue2 = 0
+    cmgOperation2 = 29
+    localValue1 = localValue1(localValue2, cmgOperation2)
+    if localValue1 then
+      localValue1 = IsControlPressed
+      localValue2 = 0
+      cmgOperation2 = 21
+      localValue1 = localValue1(localValue2, cmgOperation2)
+      if localValue1 then
+        localValue1 = createVector32
+        if not localValue1 then
+          localValue1 = CMGclient
+          localValue1 = localValue1.useInventoryItem
+          localValue2 = {}
+          cmgOperation2 = "binos"
+          workingValue15 = 1
+          localValue2[1] = cmgOperation2
+          localValue2[2] = workingValue15
+          localValue1(localValue2)
+          localValue1 = TriggerServerEvent
+          localValue2 = "4499b42011"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4499b42011".
-          arg1(arg2)
+          localValue1(localValue2)
         end
       end
     end
-    arg1 = vector3Builder2
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.setEmotesIgnoreCombatTimer
-      arg2 = true
-      arg1(arg2)
-      arg1 = PlayerPedId
+    localValue1 = createVector32
+    if localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.setEmotesIgnoreCombatTimer
+      localValue2 = true
+      localValue1(localValue2)
+      localValue1 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      arg2 = IsPedInAnyVehicle
-      cmgCall2 = arg1
-      workValue15 = true
-      arg2 = arg2(cmgCall2, workValue15)
-      if not arg2 then
-        arg2 = CMG
-        arg2 = arg2.playEmote
-        cmgCall2 = "binoculars"
-        arg2(cmgCall2)
+      localValue1 = localValue1()
+      localValue2 = IsPedInAnyVehicle
+      cmgOperation2 = localValue1
+      workingValue15 = true
+      localValue2 = localValue2(cmgOperation2, workingValue15)
+      if not localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.playEmote
+        cmgOperation2 = "binoculars"
+        localValue2(cmgOperation2)
       end
-      arg2 = CMG
-      arg2 = arg2.setWeapon
-      cmgCall2 = arg1
-      workValue15 = "WEAPON_UNARMED"
-      numberValue9 = true
-      arg2(cmgCall2, workValue15, numberValue9)
-      arg2 = Wait
-      cmgCall2 = 450
-      arg2(cmgCall2)
-      arg2 = SetTimecycleModifier
-      cmgCall2 = "heliGunCam"
-      arg2(cmgCall2)
-      arg2 = SetTimecycleModifierStrength
-      cmgCall2 = 0.3
-      arg2(cmgCall2)
-      arg2 = RequestScaleformMovie
-      cmgCall2 = "binoculars"
+      localValue2 = CMG
+      localValue2 = localValue2.setWeapon
+      cmgOperation2 = localValue1
+      workingValue15 = "WEAPON_UNARMED"
+      number9 = true
+      localValue2(cmgOperation2, workingValue15, number9)
+      localValue2 = Wait
+      cmgOperation2 = 450
+      localValue2(cmgOperation2)
+      localValue2 = SetTimecycleModifier
+      cmgOperation2 = "heliGunCam"
+      localValue2(cmgOperation2)
+      localValue2 = SetTimecycleModifierStrength
+      cmgOperation2 = 0.3
+      localValue2(cmgOperation2)
+      localValue2 = RequestScaleformMovie
+      cmgOperation2 = "binoculars"
       -- Beginner: result below is scaleformHandle.
-      arg2 = arg2(cmgCall2)
+      localValue2 = localValue2(cmgOperation2)
       while true do
-        cmgCall2 = HasScaleformMovieLoaded
-        workValue15 = arg2
-        cmgCall2 = cmgCall2(workValue15)
-        if cmgCall2 then
+        cmgOperation2 = HasScaleformMovieLoaded
+        workingValue15 = localValue2
+        cmgOperation2 = cmgOperation2(workingValue15)
+        if cmgOperation2 then
           break
         end
-        cmgCall2 = Wait
-        workValue15 = 1
-        cmgCall2(workValue15)
+        cmgOperation2 = Wait
+        workingValue15 = 1
+        cmgOperation2(workingValue15)
       end
-      cmgCall2 = DrawScaleformMovieFullscreen
-      workValue15 = arg2
-      numberValue9 = 255
-      numberValue10 = 255
-      numberValue11 = 255
+      cmgOperation2 = DrawScaleformMovieFullscreen
+      workingValue15 = localValue2
+      number9 = 255
+      number10 = 255
+      number11 = 255
       mathHelper = 0
-      numberValue12 = 0
-      cmgCall2(workValue15, numberValue9, numberValue10, numberValue11, mathHelper, numberValue12)
-      cmgCall2 = CreateCam
-      workValue15 = "DEFAULT_SCRIPTED_FLY_CAMERA"
-      numberValue9 = true
+      number12 = 0
+      cmgOperation2(workingValue15, number9, number10, number11, mathHelper, number12)
+      cmgOperation2 = CreateCam
+      workingValue15 = "DEFAULT_SCRIPTED_FLY_CAMERA"
+      number9 = true
       -- Beginner: result below is cameraHandle.
-      cmgCall2 = cmgCall2(workValue15, numberValue9)
-      workValue15 = AttachCamToEntity
-      numberValue9 = cmgCall2
-      numberValue10 = CMG
-      numberValue10 = numberValue10.getPlayerPed
+      cmgOperation2 = cmgOperation2(workingValue15, number9)
+      workingValue15 = AttachCamToEntity
+      number9 = cmgOperation2
+      number10 = CMG
+      number10 = number10.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      numberValue10 = numberValue10()
-      numberValue11 = 0.0
+      number10 = number10()
+      number11 = 0.0
       mathHelper = 0.0
-      numberValue12 = 1.0
-      workValue16 = true
-      workValue15(numberValue9, numberValue10, numberValue11, mathHelper, numberValue12, workValue16)
-      workValue15 = SetCamRot
-      numberValue9 = cmgCall2
-      numberValue10 = 0.0
-      numberValue11 = 0.0
+      number12 = 1.0
+      workingValue16 = true
+      workingValue15(number9, number10, number11, mathHelper, number12, workingValue16)
+      workingValue15 = SetCamRot
+      number9 = cmgOperation2
+      number10 = 0.0
+      number11 = 0.0
       mathHelper = GetEntityHeading
-      numberValue12 = CMG
-      numberValue12 = numberValue12.getPlayerPed
-      numberValue12, workValue16, workValue, workValue2, numberValue2 = numberValue12()
+      number12 = CMG
+      number12 = number12.getPlayerPed
+      number12, workingValue16, workingValue, workingValue2, number2 = number12()
       -- Beginner: result below is heading.
-      mathHelper = mathHelper(numberValue12, workValue16, workValue, workValue2, numberValue2)
-      numberValue12 = 2
-      workValue15(numberValue9, numberValue10, numberValue11, mathHelper, numberValue12)
-      workValue15 = SetCamFov
-      numberValue9 = cmgCall2
-      numberValue10 = numberValue13
-      workValue15(numberValue9, numberValue10)
-      workValue15 = RenderScriptCams
-      numberValue9 = true
-      numberValue10 = false
-      numberValue11 = 0
+      mathHelper = mathHelper(number12, workingValue16, workingValue, workingValue2, number2)
+      number12 = 2
+      workingValue15(number9, number10, number11, mathHelper, number12)
+      workingValue15 = SetCamFov
+      number9 = cmgOperation2
+      number10 = number13
+      workingValue15(number9, number10)
+      workingValue15 = RenderScriptCams
+      number9 = true
+      number10 = false
+      number11 = 0
       mathHelper = true
-      numberValue12 = false
-      workValue15(numberValue9, numberValue10, numberValue11, mathHelper, numberValue12)
-      workValue15 = ScaleformMovieMethodAddParamInt
-      numberValue9 = 0
-      workValue15(numberValue9)
-      workValue15 = EndScaleformMovieMethod
-      workValue15()
-      workValue15 = workValue4
+      number12 = false
+      workingValue15(number9, number10, number11, mathHelper, number12)
+      workingValue15 = ScaleformMovieMethodAddParamInt
+      number9 = 0
+      workingValue15(number9)
+      workingValue15 = EndScaleformMovieMethod
+      workingValue15()
+      workingValue15 = workingValue4
 
-      -- === HELPER FUNCTION (decompiler name: numberValue9; parameters: arg12) ===
-      function numberValue9(arg12)
-        local workValue9, workValue14, flag, flag2
-        workValue9 = SetEntityVisible
-        workValue14 = arg12
-        flag = false
-        flag2 = false
-        workValue9(workValue14, flag, flag2)
+      -- === HELPER FUNCTION (decompiler name: number9; parameters: localValue12) ===
+      function number9(localValue12)
+        local workingValue9, workingValue14, stateFlag, stateFlag2
+        workingValue9 = SetEntityVisible
+        workingValue14 = localValue12
+        stateFlag = false
+        stateFlag2 = false
+        workingValue9(workingValue14, stateFlag, stateFlag2)
       end
-      workValue15(numberValue9)
-      workValue15 = nil
+      workingValue15(number9)
+      workingValue15 = nil
       while true do
-        numberValue9 = vector3Builder2
-        if not numberValue9 then
+        number9 = createVector32
+        if not number9 then
           break
         end
-        numberValue9 = IsPedInAnyVehicle
-        numberValue10 = CMG
-        numberValue10 = numberValue10.getPlayerPed
+        number9 = IsPedInAnyVehicle
+        number10 = CMG
+        number10 = number10.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        numberValue10 = numberValue10()
-        numberValue11 = true
-        numberValue9 = numberValue9(numberValue10, numberValue11)
-        if numberValue9 then
+        number10 = number10()
+        number11 = true
+        number9 = number9(number10, number11)
+        if number9 then
           break
         end
-        numberValue9 = CMG
-        numberValue9 = numberValue9.isPlayingEmote
-        numberValue9, numberValue10 = numberValue9()
-        numberValue11 = IsControlJustPressed
+        number9 = CMG
+        number9 = number9.isPlayingEmote
+        number9, number10 = number9()
+        number11 = IsControlJustPressed
         mathHelper = 0
-        numberValue12 = 38
-        numberValue11 = numberValue11(mathHelper, numberValue12)
-        if not (not numberValue11 and numberValue9) or "Binoculars" ~= numberValue10 then
-          numberValue11 = false
-          vector3Builder2 = numberValue11
+        number12 = 38
+        number11 = number11(mathHelper, number12)
+        if not (not number11 and number9) or "Binoculars" ~= number10 then
+          number11 = false
+          createVector32 = number11
           break
         end
-        if not workValue15 then
-          numberValue11 = numberValue
-          mathHelper = numberValue3
-          numberValue11 = numberValue11 - mathHelper
+        if not workingValue15 then
+          number11 = number
+          mathHelper = number3
+          number11 = number11 - mathHelper
           mathHelper = 1.0
-          numberValue11 = mathHelper / numberValue11
-          mathHelper = numberValue13
-          numberValue12 = numberValue3
-          mathHelper = mathHelper - numberValue12
-          numberValue11 = numberValue11 * mathHelper
-          mathHelper = textValue
-          numberValue12 = cmgCall2
-          workValue16 = numberValue11
-          mathHelper(numberValue12, workValue16)
+          number11 = mathHelper / number11
+          mathHelper = number13
+          number12 = number3
+          mathHelper = mathHelper - number12
+          number11 = number11 * mathHelper
+          mathHelper = text
+          number12 = cmgOperation2
+          workingValue16 = number11
+          mathHelper(number12, workingValue16)
         end
-        numberValue11 = DisableControlAction
+        number11 = DisableControlAction
         mathHelper = 0
-        numberValue12 = 30
-        workValue16 = true
-        numberValue11(mathHelper, numberValue12, workValue16)
-        numberValue11 = DisableControlAction
+        number12 = 30
+        workingValue16 = true
+        number11(mathHelper, number12, workingValue16)
+        number11 = DisableControlAction
         mathHelper = 0
-        numberValue12 = 31
-        workValue16 = true
-        numberValue11(mathHelper, numberValue12, workValue16)
-        numberValue11 = DisableControlAction
+        number12 = 31
+        workingValue16 = true
+        number11(mathHelper, number12, workingValue16)
+        number11 = DisableControlAction
         mathHelper = 0
-        numberValue12 = 32
-        workValue16 = true
-        numberValue11(mathHelper, numberValue12, workValue16)
-        numberValue11 = DisableControlAction
+        number12 = 32
+        workingValue16 = true
+        number11(mathHelper, number12, workingValue16)
+        number11 = DisableControlAction
         mathHelper = 0
-        numberValue12 = 33
-        workValue16 = true
-        numberValue11(mathHelper, numberValue12, workValue16)
-        numberValue11 = DisableControlAction
+        number12 = 33
+        workingValue16 = true
+        number11(mathHelper, number12, workingValue16)
+        number11 = DisableControlAction
         mathHelper = 0
-        numberValue12 = 34
-        workValue16 = true
-        numberValue11(mathHelper, numberValue12, workValue16)
-        numberValue11 = DisableControlAction
+        number12 = 34
+        workingValue16 = true
+        number11(mathHelper, number12, workingValue16)
+        number11 = DisableControlAction
         mathHelper = 0
-        numberValue12 = 35
-        workValue16 = true
-        numberValue11(mathHelper, numberValue12, workValue16)
-        numberValue11 = workValue3
-        mathHelper = cmgCall2
-        numberValue11(mathHelper)
-        numberValue11 = eventRegistration
+        number12 = 35
+        workingValue16 = true
+        number11(mathHelper, number12, workingValue16)
+        number11 = workingValue3
+        mathHelper = cmgOperation2
+        number11(mathHelper)
+        number11 = eventHandler
         -- Beginner: Register a network event handler that the server/other clients can trigger.
-        numberValue11()
-        numberValue11 = CMG
-        numberValue11 = numberValue11.setWeapon
-        mathHelper = arg1
-        numberValue12 = "WEAPON_UNARMED"
-        workValue16 = true
-        numberValue11(mathHelper, numberValue12, workValue16)
-        numberValue11 = DrawScaleformMovieFullscreen
-        mathHelper = arg2
-        numberValue12 = 255
-        workValue16 = 255
-        workValue = 255
-        workValue2 = 255
-        numberValue2 = 0
-        numberValue11(mathHelper, numberValue12, workValue16, workValue, workValue2, numberValue2)
-        numberValue11 = CMG
-        numberValue11 = numberValue11.runVigilanteTargetCheckThisFrame
-        numberValue11()
-        numberValue11 = Wait
+        number11()
+        number11 = CMG
+        number11 = number11.setWeapon
+        mathHelper = localValue1
+        number12 = "WEAPON_UNARMED"
+        workingValue16 = true
+        number11(mathHelper, number12, workingValue16)
+        number11 = DrawScaleformMovieFullscreen
+        mathHelper = localValue2
+        number12 = 255
+        workingValue16 = 255
+        workingValue = 255
+        workingValue2 = 255
+        number2 = 0
+        number11(mathHelper, number12, workingValue16, workingValue, workingValue2, number2)
+        number11 = CMG
+        number11 = number11.runVigilanteTargetCheckThisFrame
+        number11()
+        number11 = Wait
         mathHelper = 1
-        numberValue11(mathHelper)
+        number11(mathHelper)
       end
-      numberValue9 = PlaySoundFrontend
-      numberValue10 = -1
-      numberValue11 = "SELECT"
+      number9 = PlaySoundFrontend
+      number10 = -1
+      number11 = "SELECT"
       mathHelper = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-      numberValue12 = false
-      numberValue9(numberValue10, numberValue11, mathHelper, numberValue12)
-      numberValue9 = CMG
-      numberValue9 = numberValue9.cancelEmote
-      numberValue10 = true
-      numberValue9(numberValue10)
-      numberValue9 = false
-      vector3Builder2 = numberValue9
-      numberValue9 = GetFrameCount
-      numberValue9 = numberValue9()
-      vector3Builder3 = numberValue9
-      numberValue9 = CMG
-      numberValue9 = numberValue9.unregisterVigilanteHeadshots
-      numberValue10 = true
-      numberValue9(numberValue10)
-      numberValue9 = ClearTimecycleModifier
-      numberValue9()
-      numberValue9 = numberValue
-      numberValue10 = numberValue3
-      numberValue9 = numberValue9 + numberValue10
-      numberValue9 = numberValue9 * 0.5
-      numberValue13 = numberValue9
-      numberValue9 = RenderScriptCams
-      numberValue10 = false
-      numberValue11 = false
+      number12 = false
+      number9(number10, number11, mathHelper, number12)
+      number9 = CMG
+      number9 = number9.cancelEmote
+      number10 = true
+      number9(number10)
+      number9 = false
+      createVector32 = number9
+      number9 = GetFrameCount
+      number9 = number9()
+      createVector33 = number9
+      number9 = CMG
+      number9 = number9.unregisterVigilanteHeadshots
+      number10 = true
+      number9(number10)
+      number9 = ClearTimecycleModifier
+      number9()
+      number9 = number
+      number10 = number3
+      number9 = number9 + number10
+      number9 = number9 * 0.5
+      number13 = number9
+      number9 = RenderScriptCams
+      number10 = false
+      number11 = false
       mathHelper = 0
-      numberValue12 = true
-      workValue16 = false
-      numberValue9(numberValue10, numberValue11, mathHelper, numberValue12, workValue16)
-      numberValue9 = SetScaleformMovieAsNoLongerNeeded
-      numberValue10 = arg2
-      numberValue9(numberValue10)
-      numberValue9 = DestroyCam
-      numberValue10 = cmgCall2
-      numberValue11 = false
-      numberValue9(numberValue10, numberValue11)
-      numberValue9 = SetNightvision
-      numberValue10 = false
-      numberValue9(numberValue10)
-      numberValue9 = SetSeethrough
-      numberValue10 = false
-      numberValue9(numberValue10)
-      numberValue9 = CMG
-      numberValue9 = numberValue9.setEmotesIgnoreCombatTimer
-      numberValue10 = false
-      numberValue9(numberValue10)
-      numberValue9 = workValue4
+      number12 = true
+      workingValue16 = false
+      number9(number10, number11, mathHelper, number12, workingValue16)
+      number9 = SetScaleformMovieAsNoLongerNeeded
+      number10 = localValue2
+      number9(number10)
+      number9 = DestroyCam
+      number10 = cmgOperation2
+      number11 = false
+      number9(number10, number11)
+      number9 = SetNightvision
+      number10 = false
+      number9(number10)
+      number9 = SetSeethrough
+      number10 = false
+      number9(number10)
+      number9 = CMG
+      number9 = number9.setEmotesIgnoreCombatTimer
+      number10 = false
+      number9(number10)
+      number9 = workingValue4
 
-      -- === HELPER FUNCTION (decompiler name: numberValue10; parameters: arg12) ===
-      function numberValue10(arg12)
-        local workValue9, workValue14, flag, flag2
-        workValue9 = SetEntityVisible
-        workValue14 = arg12
-        flag = true
-        flag2 = true
-        workValue9(workValue14, flag, flag2)
+      -- === HELPER FUNCTION (decompiler name: number10; parameters: localValue12) ===
+      function number10(localValue12)
+        local workingValue9, workingValue14, stateFlag, stateFlag2
+        workingValue9 = SetEntityVisible
+        workingValue14 = localValue12
+        stateFlag = true
+        stateFlag2 = true
+        workingValue9(workingValue14, stateFlag, stateFlag2)
       end
-      numberValue9(numberValue10)
+      number9(number10)
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(iterator)
+backgroundThread(iterator)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
-function threadCall()
-  local arg1, arg2, cmgCall2
-  arg1 = vector3Builder2
-  if arg1 then
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: none) ===
+function backgroundThread()
+  local localValue1, localValue2, cmgOperation2
+  localValue1 = createVector32
+  if localValue1 then
     return
   end
-  arg1 = drawNativeNotification
-  arg2 = "Press ~INPUT_CONTEXT~ to use the binoculars"
+  localValue1 = drawNativeNotification
+  localValue2 = "Press ~INPUT_CONTEXT~ to use the binoculars"
   -- Beginner: Show a GTA-style notification/help prompt.
-  arg1(arg2)
-  arg1 = IsControlJustPressed
-  arg2 = 0
-  cmgCall2 = 51
-  arg1 = arg1(arg2, cmgCall2)
-  if arg1 then
-    arg1 = GetFrameCount
-    arg1 = arg1()
-    arg2 = vector3Builder3
-    if arg1 ~= arg2 then
-      arg1 = TriggerEvent
-      arg2 = "dfb83eb4ef"
+  localValue1(localValue2)
+  localValue1 = IsControlJustPressed
+  localValue2 = 0
+  cmgOperation2 = 51
+  localValue1 = localValue1(localValue2, cmgOperation2)
+  if localValue1 then
+    localValue1 = GetFrameCount
+    localValue1 = localValue1()
+    localValue2 = createVector33
+    if localValue1 ~= localValue2 then
+      localValue1 = TriggerEvent
+      localValue2 = "dfb83eb4ef"
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "dfb83eb4ef".
-      arg1(arg2)
+      localValue1(localValue2)
     end
   end
 end
 iterator = pairs
-workValue5 = dataTable2
-iterator, workValue5, workValue6, workValue7 = iterator(workValue5)
-for workValue8, workValue10 in iterator, workValue5, workValue6, workValue7 do
-  cmgCall = CMG
-  cmgCall = cmgCall.createArea
-  textValue2 = "static_binos_"
+workingValue5 = dataCollection2
+iterator, workingValue5, workingValue6, workingValue7 = iterator(workingValue5)
+for workingValue8, workingValue10 in iterator, workingValue5, workingValue6, workingValue7 do
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.createArea
+  text2 = "static_binos_"
   stringHelper = tostring
-  numberValue4 = workValue8
-  stringHelper = stringHelper(numberValue4)
-  textValue2 = textValue2 .. stringHelper
-  stringHelper = workValue10
-  numberValue4 = 0.5
-  numberValue5 = 2.0
+  number4 = workingValue8
+  stringHelper = stringHelper(number4)
+  text2 = text2 .. stringHelper
+  stringHelper = workingValue10
+  number4 = 0.5
+  number5 = 2.0
 
-  -- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-  function workValue11()
-    local arg1, arg2
+  -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+  function workingValue11()
+    local localValue1, localValue2
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-  function workValue12()
-    local arg1, arg2
+  -- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+  function workingValue12()
+    local localValue1, localValue2
   end
-  workValue13 = threadCall
-  dataTable = {}
+  workingValue13 = backgroundThread
+  dataCollection = {}
   -- Beginner: Create an interaction area around a world position.
-  cmgCall(textValue2, stringHelper, numberValue4, numberValue5, workValue11, workValue12, workValue13, dataTable)
+  cmgOperation(text2, stringHelper, number4, number5, workingValue11, workingValue12, workingValue13, dataCollection)
 end

@@ -32,27 +32,27 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local stringHelper, tableHelper, tableHelper2, iterator, workValue26, workValue28, workValue30, workValue32, workValue34, workValue36, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue12, workValue14, workValue16, workValue18, workValue20, workValue21, workValue22, workValue23, workValue24, dataTable2, dataTable3, workValue25
+local stringHelper, tableHelper, tableHelper2, iterator, workingValue26, workingValue28, workingValue30, workingValue32, workingValue34, workingValue36, workingValue, workingValue2, workingValue3, workingValue4, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue12, workingValue14, workingValue16, workingValue18, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, dataCollection2, dataCollection3, workingValue25
 stringHelper = {}
 Luaoop = stringHelper
 stringHelper = string
@@ -65,691 +65,691 @@ tableHelper = getmetatable
 tableHelper2 = setmetatable
 iterator = pairs
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: arg1, arg2) ===
-function workValue26(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37
-  arg3 = arg1.luaoop
-  arg3 = arg3.custom
-  if not arg3 then
-    arg3 = {}
-    arg4 = iterator
-    workValue27 = arg1
-    arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-    for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
-      arg3[workValue33] = workValue35
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: localValue1, localValue2) ===
+function workingValue26(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue37
+  localValue3 = localValue1.luaoop
+  localValue3 = localValue3.custom
+  if not localValue3 then
+    localValue3 = {}
+    localValue4 = iterator
+    workingValue27 = localValue1
+    localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+    for workingValue33, workingValue35 in localValue4, workingValue27, workingValue29, workingValue31 do
+      localValue3[workingValue33] = workingValue35
     end
-    arg4 = {}
-    arg3.luaoop = arg4
-    arg4 = iterator
-    workValue27 = arg1.luaoop
-    arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-    for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
-      workValue37 = arg3.luaoop
-      workValue37[workValue33] = workValue35
+    localValue4 = {}
+    localValue3.luaoop = localValue4
+    localValue4 = iterator
+    workingValue27 = localValue1.luaoop
+    localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+    for workingValue33, workingValue35 in localValue4, workingValue27, workingValue29, workingValue31 do
+      workingValue37 = localValue3.luaoop
+      workingValue37[workingValue33] = workingValue35
     end
-    arg4 = arg3.luaoop
-    arg4.custom = true
-    arg4 = tableHelper2
-    workValue27 = arg2
-    workValue29 = arg3
-    arg4(workValue27, workValue29)
-    arg1 = arg3
+    localValue4 = localValue3.luaoop
+    localValue4.custom = true
+    localValue4 = tableHelper2
+    workingValue27 = localValue2
+    workingValue29 = localValue3
+    localValue4(workingValue27, workingValue29)
+    localValue1 = localValue3
   end
-  arg3 = arg1
-  arg4 = arg1.luaoop
-  return arg3, arg4
+  localValue3 = localValue1
+  localValue4 = localValue1.luaoop
+  return localValue3, localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue28; parameters: arg1) ===
-function workValue28(arg1)
-  local arg2, arg3, arg4
-  if arg1 then
-    arg2 = tableHelper
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    arg3 = nil
-    if arg2 then
-      arg3 = arg2.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue28; parameters: localValue1) ===
+function workingValue28(localValue1)
+  local localValue2, localValue3, localValue4
+  if localValue1 then
+    localValue2 = tableHelper
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    localValue3 = nil
+    if localValue2 then
+      localValue3 = localValue2.luaoop
     end
-    if arg3 then
-      arg4 = arg3.type
-      if not arg4 then
-        arg4 = arg1
+    if localValue3 then
+      localValue4 = localValue3.type
+      if not localValue4 then
+        localValue4 = localValue1
       end
-      return arg4
+      return localValue4
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue30; parameters: arg1) ===
-function workValue30(arg1)
-  local arg2, arg3, arg4
-  if arg1 then
-    arg2 = tableHelper
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    arg3 = nil
-    if arg2 then
-      arg3 = arg2.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue30; parameters: localValue1) ===
+function workingValue30(localValue1)
+  local localValue2, localValue3, localValue4
+  if localValue1 then
+    localValue2 = tableHelper
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    localValue3 = nil
+    if localValue2 then
+      localValue3 = localValue2.luaoop
     end
-    if arg3 then
-      arg4 = arg3.name
-      return arg4
+    if localValue3 then
+      localValue4 = localValue3.name
+      return localValue4
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue32; parameters: arg1, arg2, arg3, arg4) ===
-function workValue32(arg1, arg2, arg3, arg4)
-  local workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2, textValue3, numberValue, stringHelper3
-  workValue27 = tableHelper
-  workValue29 = arg1
-  workValue27 = workValue27(workValue29)
-  workValue29 = nil
-  if workValue27 then
-    workValue29 = workValue27.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue32; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue32(localValue1, localValue2, localValue3, localValue4)
+  local workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue37, text, nameValue, text2, stringHelper2, text3, number, stringHelper3
+  workingValue27 = tableHelper
+  workingValue29 = localValue1
+  workingValue27 = workingValue27(workingValue29)
+  workingValue29 = nil
+  if workingValue27 then
+    workingValue29 = workingValue27.luaoop
   end
-  if workValue29 then
-    workValue31 = workValue29.type
-    if workValue31 then
-      workValue31 = nil
-      workValue33 = nil
-      if nil ~= arg3 then
-        workValue35 = workValue28
-        workValue37 = arg3
-        workValue35 = workValue35(workValue37)
-        workValue31 = workValue35
-        if not workValue31 then
-          workValue35 = type
-          workValue37 = arg3
-          workValue35 = workValue35(workValue37)
-          workValue31 = workValue35
+  if workingValue29 then
+    workingValue31 = workingValue29.type
+    if workingValue31 then
+      workingValue31 = nil
+      workingValue33 = nil
+      if nil ~= localValue3 then
+        workingValue35 = workingValue28
+        workingValue37 = localValue3
+        workingValue35 = workingValue35(workingValue37)
+        workingValue31 = workingValue35
+        if not workingValue31 then
+          workingValue35 = type
+          workingValue37 = localValue3
+          workingValue35 = workingValue35(workingValue37)
+          workingValue31 = workingValue35
         end
-        workValue35 = workValue29.type
-        workValue35 = workValue35[arg2]
-        workValue33 = workValue35[workValue31]
+        workingValue35 = workingValue29.type
+        workingValue35 = workingValue35[localValue2]
+        workingValue33 = workingValue35[workingValue31]
       else
-        workValue35 = workValue29.type
-        workValue33 = workValue35[arg2]
+        workingValue35 = workingValue29.type
+        workingValue33 = workingValue35[localValue2]
       end
-      if workValue33 then
-        return workValue33
-      elseif not arg4 then
-        workValue35 = nil
-        if nil == workValue31 then
-          workValue35 = "nil"
+      if workingValue33 then
+        return workingValue33
+      elseif not localValue4 then
+        workingValue35 = nil
+        if nil == workingValue31 then
+          workingValue35 = "nil"
         else
-          workValue37 = type
-          textValue = workValue31
-          workValue37 = workValue37(textValue)
-          if "string" == workValue37 then
-            workValue35 = workValue31
+          workingValue37 = type
+          text = workingValue31
+          workingValue37 = workingValue37(text)
+          if "string" == workingValue37 then
+            workingValue35 = workingValue31
           else
-            workValue37 = workValue30
-            textValue = workValue31
-            workValue37 = workValue37(textValue)
-            workValue35 = workValue37
+            workingValue37 = workingValue30
+            text = workingValue31
+            workingValue37 = workingValue37(text)
+            workingValue35 = workingValue37
           end
         end
-        workValue37 = error
-        textValue = "operator <"
-        nameValue = workValue29.name
-        textValue2 = "> ["
+        workingValue37 = error
+        text = "operator <"
+        nameValue = workingValue29.name
+        text2 = "> ["
         stringHelper2 = string
         stringHelper2 = stringHelper2.sub
-        textValue3 = arg2
-        numberValue = 3
-        stringHelper2 = stringHelper2(textValue3, numberValue)
-        textValue3 = "] <"
-        numberValue = workValue35
+        text3 = localValue2
+        number = 3
+        stringHelper2 = stringHelper2(text3, number)
+        text3 = "] <"
+        number = workingValue35
         stringHelper3 = "> undefined"
-        textValue = textValue .. nameValue .. textValue2 .. stringHelper2 .. textValue3 .. numberValue .. stringHelper3
-        workValue37(textValue)
+        text = text .. nameValue .. text2 .. stringHelper2 .. text3 .. number .. stringHelper3
+        workingValue37(text)
       end
   end
-  elseif not arg4 then
-    workValue31 = error
-    workValue33 = "left operand for operator ["
-    workValue35 = string
-    workValue35 = workValue35.sub
-    workValue37 = arg2
-    textValue = 3
-    workValue35 = workValue35(workValue37, textValue)
-    workValue37 = "] is not an instance"
-    workValue33 = workValue33 .. workValue35 .. workValue37
-    workValue31(workValue33)
+  elseif not localValue4 then
+    workingValue31 = error
+    workingValue33 = "left operand for operator ["
+    workingValue35 = string
+    workingValue35 = workingValue35.sub
+    workingValue37 = localValue2
+    text = 3
+    workingValue35 = workingValue35(workingValue37, text)
+    workingValue37 = "] is not an instance"
+    workingValue33 = workingValue33 .. workingValue35 .. workingValue37
+    workingValue31(workingValue33)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue34; parameters: arg1) ===
-function workValue34(arg1)
-  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35
-  arg2 = workValue32
-  arg3 = arg1
-  arg4 = "__tostring"
-  workValue27 = nil
-  workValue29 = true
-  arg2 = arg2(arg3, arg4, workValue27, workValue29)
-  if arg2 then
-    arg3 = arg2
-    arg4 = arg1
-    return arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue34; parameters: localValue1) ===
+function workingValue34(localValue1)
+  local localValue2, localValue3, localValue4, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35
+  localValue2 = workingValue32
+  localValue3 = localValue1
+  localValue4 = "__tostring"
+  workingValue27 = nil
+  workingValue29 = true
+  localValue2 = localValue2(localValue3, localValue4, workingValue27, workingValue29)
+  if localValue2 then
+    localValue3 = localValue2
+    localValue4 = localValue1
+    return localValue3(localValue4)
   else
-    arg3 = tableHelper
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    arg3.__tostring = nil
-    arg4 = string
-    arg4 = arg4.gsub
-    workValue27 = tostring
-    workValue29 = arg1
-    workValue27 = workValue27(workValue29)
-    workValue29 = "table:"
-    workValue31 = "instance<"
-    workValue33 = workValue30
-    workValue35 = arg1
-    workValue33 = workValue33(workValue35)
-    workValue35 = ">:"
-    workValue31 = workValue31 .. workValue33 .. workValue35
-    workValue33 = 1
-    arg4 = arg4(workValue27, workValue29, workValue31, workValue33)
-    workValue27 = workValue34
-    arg3.__tostring = workValue27
-    return arg4
+    localValue3 = tableHelper
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    localValue3.__tostring = nil
+    localValue4 = string
+    localValue4 = localValue4.gsub
+    workingValue27 = tostring
+    workingValue29 = localValue1
+    workingValue27 = workingValue27(workingValue29)
+    workingValue29 = "table:"
+    workingValue31 = "instance<"
+    workingValue33 = workingValue30
+    workingValue35 = localValue1
+    workingValue33 = workingValue33(workingValue35)
+    workingValue35 = ">:"
+    workingValue31 = workingValue31 .. workingValue33 .. workingValue35
+    workingValue33 = 1
+    localValue4 = localValue4(workingValue27, workingValue29, workingValue31, workingValue33)
+    workingValue27 = workingValue34
+    localValue3.__tostring = workingValue27
+    return localValue4
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue36; parameters: arg1, arg2) ===
-function workValue36(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29, workValue31
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__concat"
-  workValue29 = arg2
-  workValue31 = true
-  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue36; parameters: localValue1, localValue2) ===
+function workingValue36(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29, workingValue31
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__concat"
+  workingValue29 = localValue2
+  workingValue31 = true
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29, workingValue31)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
   end
-  arg4 = workValue32
-  workValue27 = arg2
-  workValue29 = "__concat"
-  workValue31 = arg1
-  arg4 = arg4(workValue27, workValue29, workValue31)
-  arg3 = arg4
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg2
-    workValue29 = arg1
-    workValue31 = true
-    return arg4(workValue27, workValue29, workValue31)
-  end
-end
-
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, workValue27
-  arg2 = workValue32
-  arg3 = arg1
-  arg4 = "__unm"
-  workValue27 = nil
-  arg2 = arg2(arg3, arg4, workValue27)
-  if arg2 then
-    arg3 = arg2
-    arg4 = arg1
-    return arg3(arg4)
+  localValue4 = workingValue32
+  workingValue27 = localValue2
+  workingValue29 = "__concat"
+  workingValue31 = localValue1
+  localValue4 = localValue4(workingValue27, workingValue29, workingValue31)
+  localValue3 = localValue4
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue2
+    workingValue29 = localValue1
+    workingValue31 = true
+    return localValue4(workingValue27, workingValue29, workingValue31)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, ...) ===
-function workValue2(arg1, ...)
-  local arg2, arg3, arg4, workValue27
-  arg2 = workValue32
-  arg3 = arg1
-  arg4 = "__call"
-  workValue27 = nil
-  arg2 = arg2(arg3, arg4, workValue27)
-  if arg2 then
-    arg3 = arg2
-    arg4 = arg1
-    workValue27 = ...
-    return arg3(arg4, workValue27)
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, workingValue27
+  localValue2 = workingValue32
+  localValue3 = localValue1
+  localValue4 = "__unm"
+  workingValue27 = nil
+  localValue2 = localValue2(localValue3, localValue4, workingValue27)
+  if localValue2 then
+    localValue3 = localValue2
+    localValue4 = localValue1
+    return localValue3(localValue4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2) ===
-function workValue3(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29, workValue31
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__add"
-  workValue29 = arg2
-  workValue31 = true
-  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
-  end
-  arg4 = workValue32
-  workValue27 = arg2
-  workValue29 = "__add"
-  workValue31 = arg1
-  arg4 = arg4(workValue27, workValue29, workValue31)
-  arg3 = arg4
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg2
-    workValue29 = arg1
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, ...) ===
+function workingValue2(localValue1, ...)
+  local localValue2, localValue3, localValue4, workingValue27
+  localValue2 = workingValue32
+  localValue3 = localValue1
+  localValue4 = "__call"
+  workingValue27 = nil
+  localValue2 = localValue2(localValue3, localValue4, workingValue27)
+  if localValue2 then
+    localValue3 = localValue2
+    localValue4 = localValue1
+    workingValue27 = ...
+    return localValue3(localValue4, workingValue27)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29, workValue31
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__sub"
-  workValue29 = arg2
-  workValue31 = true
-  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1, localValue2) ===
+function workingValue3(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29, workingValue31
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__add"
+  workingValue29 = localValue2
+  workingValue31 = true
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29, workingValue31)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
   end
-  arg4 = workValue32
-  workValue27 = arg1
-  workValue29 = "__add"
-  workValue31 = arg2
-  arg4 = arg4(workValue27, workValue29, workValue31)
-  arg3 = arg4
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = -arg2
-    return arg4(workValue27, workValue29)
-  end
-end
-
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29, workValue31
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__mul"
-  workValue29 = arg2
-  workValue31 = true
-  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
-  end
-  arg4 = workValue32
-  workValue27 = arg2
-  workValue29 = "__mul"
-  workValue31 = arg1
-  arg4 = arg4(workValue27, workValue29, workValue31)
-  arg3 = arg4
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg2
-    workValue29 = arg1
-    return arg4(workValue27, workValue29)
+  localValue4 = workingValue32
+  workingValue27 = localValue2
+  workingValue29 = "__add"
+  workingValue31 = localValue1
+  localValue4 = localValue4(workingValue27, workingValue29, workingValue31)
+  localValue3 = localValue4
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue2
+    workingValue29 = localValue1
+    return localValue4(workingValue27, workingValue29)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
-function workValue6(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__div"
-  workValue29 = arg2
-  arg3 = arg3(arg4, workValue27, workValue29)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29, workingValue31
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__sub"
+  workingValue29 = localValue2
+  workingValue31 = true
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29, workingValue31)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
+  end
+  localValue4 = workingValue32
+  workingValue27 = localValue1
+  workingValue29 = "__add"
+  workingValue31 = localValue2
+  localValue4 = localValue4(workingValue27, workingValue29, workingValue31)
+  localValue3 = localValue4
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = -localValue2
+    return localValue4(workingValue27, workingValue29)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
-function workValue7(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__mod"
-  workValue29 = arg2
-  arg3 = arg3(arg4, workValue27, workValue29)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29, workingValue31
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__mul"
+  workingValue29 = localValue2
+  workingValue31 = true
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29, workingValue31)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
+  end
+  localValue4 = workingValue32
+  workingValue27 = localValue2
+  workingValue29 = "__mul"
+  workingValue31 = localValue1
+  localValue4 = localValue4(workingValue27, workingValue29, workingValue31)
+  localValue3 = localValue4
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue2
+    workingValue29 = localValue1
+    return localValue4(workingValue27, workingValue29)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1, arg2) ===
-function workValue8(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__pow"
-  workValue29 = arg2
-  arg3 = arg3(arg4, workValue27, workValue29)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue1, localValue2) ===
+function workingValue6(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__div"
+  workingValue29 = localValue2
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2) ===
-function workValue9(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29, workValue31
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__eq"
-  workValue29 = arg2
-  workValue31 = true
-  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1, localValue2) ===
+function workingValue7(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__mod"
+  workingValue29 = localValue2
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1, arg2) ===
-function workValue10(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__lt"
-  workValue29 = arg2
-  arg3 = arg3(arg4, workValue27, workValue29)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1, localValue2) ===
+function workingValue8(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__pow"
+  workingValue29 = localValue2
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
-function workValue12(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29
-  arg3 = workValue32
-  arg4 = arg1
-  workValue27 = "__le"
-  workValue29 = arg2
-  arg3 = arg3(arg4, workValue27, workValue29)
-  if arg3 then
-    arg4 = arg3
-    workValue27 = arg1
-    workValue29 = arg2
-    return arg4(workValue27, workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2) ===
+function workingValue9(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29, workingValue31
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__eq"
+  workingValue29 = localValue2
+  workingValue31 = true
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29, workingValue31)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
-function workValue14(arg1)
-  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2, textValue3, numberValue, stringHelper3, dataTable, numberValue2, numberValue3, workValue13, workValue15, workValue17, workValue19
-  if arg1 then
-    arg2 = tableHelper
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    arg3 = nil
-    if arg2 then
-      arg3 = arg2.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: localValue1, localValue2) ===
+function workingValue10(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__lt"
+  workingValue29 = localValue2
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
+  end
+end
+
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: localValue1, localValue2) ===
+function workingValue12(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29
+  localValue3 = workingValue32
+  localValue4 = localValue1
+  workingValue27 = "__le"
+  workingValue29 = localValue2
+  localValue3 = localValue3(localValue4, workingValue27, workingValue29)
+  if localValue3 then
+    localValue4 = localValue3
+    workingValue27 = localValue1
+    workingValue29 = localValue2
+    return localValue4(workingValue27, workingValue29)
+  end
+end
+
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: localValue1) ===
+function workingValue14(localValue1)
+  local localValue2, localValue3, localValue4, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue37, text, nameValue, text2, stringHelper2, text3, number, stringHelper3, dataCollection, number2, number3, workingValue13, workingValue15, workingValue17, workingValue19
+  if localValue1 then
+    localValue2 = tableHelper
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    localValue3 = nil
+    if localValue2 then
+      localValue3 = localValue2.luaoop
     end
-    if arg3 then
-      arg4 = arg3.type
-      if not arg4 then
-        arg4 = arg3.build
-        if not arg4 then
-          arg4 = {}
-          arg3.build = arg4
+    if localValue3 then
+      localValue4 = localValue3.type
+      if not localValue4 then
+        localValue4 = localValue3.build
+        if not localValue4 then
+          localValue4 = {}
+          localValue3.build = localValue4
         end
-        arg4 = iterator
-        workValue27 = arg3.build
-        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-        for workValue33 in arg4, workValue27, workValue29, workValue31 do
-          workValue35 = arg3.build
-          workValue35[workValue33] = nil
+        localValue4 = iterator
+        workingValue27 = localValue3.build
+        localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+        for workingValue33 in localValue4, workingValue27, workingValue29, workingValue31 do
+          workingValue35 = localValue3.build
+          workingValue35[workingValue33] = nil
         end
-        arg4 = arg3.types
-        if not arg4 then
-          arg4 = {}
-          arg3.types = arg4
+        localValue4 = localValue3.types
+        if not localValue4 then
+          localValue4 = {}
+          localValue3.types = localValue4
         end
-        arg4 = iterator
-        workValue27 = arg3.types
-        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-        for workValue33 in arg4, workValue27, workValue29, workValue31 do
-          workValue35 = arg3.types
-          workValue35[workValue33] = nil
+        localValue4 = iterator
+        workingValue27 = localValue3.types
+        localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+        for workingValue33 in localValue4, workingValue27, workingValue29, workingValue31 do
+          workingValue35 = localValue3.types
+          workingValue35[workingValue33] = nil
         end
-        arg4 = arg3.instance_build
-        if not arg4 then
-          arg4 = {}
-          arg3.instance_build = arg4
+        localValue4 = localValue3.instance_build
+        if not localValue4 then
+          localValue4 = {}
+          localValue3.instance_build = localValue4
         end
-        arg4 = iterator
-        workValue27 = arg3.instance_build
-        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-        for workValue33 in arg4, workValue27, workValue29, workValue31 do
-          workValue35 = arg3.instance_build
-          workValue35[workValue33] = nil
+        localValue4 = iterator
+        workingValue27 = localValue3.instance_build
+        localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+        for workingValue33 in localValue4, workingValue27, workingValue29, workingValue31 do
+          workingValue35 = localValue3.instance_build
+          workingValue35[workingValue33] = nil
         end
-        arg4 = ipairs
-        workValue27 = arg3.bases
-        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
-          workValue37 = tableHelper
-          textValue = workValue35
-          workValue37 = workValue37(textValue)
-          workValue37 = workValue37.luaoop
-          textValue = iterator
-          nameValue = workValue37.types
-          textValue, nameValue, textValue2, stringHelper2 = textValue(nameValue)
-          for textValue3 in textValue, nameValue, textValue2, stringHelper2 do
-            numberValue = arg3.types
-            numberValue[textValue3] = true
+        localValue4 = ipairs
+        workingValue27 = localValue3.bases
+        localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+        for workingValue33, workingValue35 in localValue4, workingValue27, workingValue29, workingValue31 do
+          workingValue37 = tableHelper
+          text = workingValue35
+          workingValue37 = workingValue37(text)
+          workingValue37 = workingValue37.luaoop
+          text = iterator
+          nameValue = workingValue37.types
+          text, nameValue, text2, stringHelper2 = text(nameValue)
+          for text3 in text, nameValue, text2, stringHelper2 do
+            number = localValue3.types
+            number[text3] = true
           end
-          textValue = iterator
-          nameValue = workValue37.build
-          textValue, nameValue, textValue2, stringHelper2 = textValue(nameValue)
-          for textValue3, numberValue in textValue, nameValue, textValue2, stringHelper2 do
+          text = iterator
+          nameValue = workingValue37.build
+          text, nameValue, text2, stringHelper2 = text(nameValue)
+          for text3, number in text, nameValue, text2, stringHelper2 do
             stringHelper3 = type
-            dataTable = numberValue
-            stringHelper3 = stringHelper3(dataTable)
+            dataCollection = number
+            stringHelper3 = stringHelper3(dataCollection)
             if "table" == stringHelper3 then
               stringHelper3 = string
               stringHelper3 = stringHelper3.sub
-              dataTable = textValue3
-              numberValue2 = 1
-              numberValue3 = 2
-              stringHelper3 = stringHelper3(dataTable, numberValue2, numberValue3)
+              dataCollection = text3
+              number2 = 1
+              number3 = 2
+              stringHelper3 = stringHelper3(dataCollection, number2, number3)
               if "__" == stringHelper3 then
-                stringHelper3 = arg3.build
-                stringHelper3 = stringHelper3[textValue3]
+                stringHelper3 = localValue3.build
+                stringHelper3 = stringHelper3[text3]
                 if not stringHelper3 then
-                  dataTable = {}
-                  stringHelper3 = dataTable
-                  dataTable = arg3.build
-                  dataTable[textValue3] = stringHelper3
+                  dataCollection = {}
+                  stringHelper3 = dataCollection
+                  dataCollection = localValue3.build
+                  dataCollection[text3] = stringHelper3
                 end
-                dataTable = iterator
-                numberValue2 = numberValue
-                dataTable, numberValue2, numberValue3, workValue13 = dataTable(numberValue2)
-                for workValue15, workValue17 in dataTable, numberValue2, numberValue3, workValue13 do
-                  stringHelper3[workValue15] = workValue17
+                dataCollection = iterator
+                number2 = number
+                dataCollection, number2, number3, workingValue13 = dataCollection(number2)
+                for workingValue15, workingValue17 in dataCollection, number2, number3, workingValue13 do
+                  stringHelper3[workingValue15] = workingValue17
                 end
             end
             else
-              stringHelper3 = arg3.build
-              stringHelper3[textValue3] = numberValue
+              stringHelper3 = localValue3.build
+              stringHelper3[text3] = number
             end
           end
-          textValue = iterator
-          nameValue = workValue35
-          textValue, nameValue, textValue2, stringHelper2 = textValue(nameValue)
-          for textValue3, numberValue in textValue, nameValue, textValue2, stringHelper2 do
+          text = iterator
+          nameValue = workingValue35
+          text, nameValue, text2, stringHelper2 = text(nameValue)
+          for text3, number in text, nameValue, text2, stringHelper2 do
             stringHelper3 = type
-            dataTable = numberValue
-            stringHelper3 = stringHelper3(dataTable)
+            dataCollection = number
+            stringHelper3 = stringHelper3(dataCollection)
             if "table" == stringHelper3 then
               stringHelper3 = string
               stringHelper3 = stringHelper3.sub
-              dataTable = textValue3
-              numberValue2 = 1
-              numberValue3 = 2
-              stringHelper3 = stringHelper3(dataTable, numberValue2, numberValue3)
+              dataCollection = text3
+              number2 = 1
+              number3 = 2
+              stringHelper3 = stringHelper3(dataCollection, number2, number3)
               if "__" == stringHelper3 then
-                stringHelper3 = arg3.build
-                stringHelper3 = stringHelper3[textValue3]
+                stringHelper3 = localValue3.build
+                stringHelper3 = stringHelper3[text3]
                 if not stringHelper3 then
-                  dataTable = {}
-                  stringHelper3 = dataTable
-                  dataTable = arg3.build
-                  dataTable[textValue3] = stringHelper3
+                  dataCollection = {}
+                  stringHelper3 = dataCollection
+                  dataCollection = localValue3.build
+                  dataCollection[text3] = stringHelper3
                 end
-                dataTable = iterator
-                numberValue2 = numberValue
-                dataTable, numberValue2, numberValue3, workValue13 = dataTable(numberValue2)
-                for workValue15, workValue17 in dataTable, numberValue2, numberValue3, workValue13 do
-                  stringHelper3[workValue15] = workValue17
+                dataCollection = iterator
+                number2 = number
+                dataCollection, number2, number3, workingValue13 = dataCollection(number2)
+                for workingValue15, workingValue17 in dataCollection, number2, number3, workingValue13 do
+                  stringHelper3[workingValue15] = workingValue17
                 end
             end
             else
-              stringHelper3 = arg3.build
-              stringHelper3[textValue3] = numberValue
+              stringHelper3 = localValue3.build
+              stringHelper3[text3] = number
             end
           end
         end
-        arg4 = arg3.types
-        arg4[arg1] = true
-        arg4 = arg3.__postbuild
-        if arg4 then
-          arg4 = arg3.__postbuild
-          workValue27 = arg1
-          workValue29 = arg3.build
-          arg4(workValue27, workValue29)
+        localValue4 = localValue3.types
+        localValue4[localValue1] = true
+        localValue4 = localValue3.__postbuild
+        if localValue4 then
+          localValue4 = localValue3.__postbuild
+          workingValue27 = localValue1
+          workingValue29 = localValue3.build
+          localValue4(workingValue27, workingValue29)
         end
-        arg4 = iterator
-        workValue27 = arg3.build
-        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
-          workValue37 = string
-          workValue37 = workValue37.sub
-          textValue = workValue33
+        localValue4 = iterator
+        workingValue27 = localValue3.build
+        localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+        for workingValue33, workingValue35 in localValue4, workingValue27, workingValue29, workingValue31 do
+          workingValue37 = string
+          workingValue37 = workingValue37.sub
+          text = workingValue33
           nameValue = 1
-          textValue2 = 2
-          workValue37 = workValue37(textValue, nameValue, textValue2)
-          if "__" ~= workValue37 then
-            workValue37 = arg3.instance_build
-            workValue37[workValue33] = workValue35
+          text2 = 2
+          workingValue37 = workingValue37(text, nameValue, text2)
+          if "__" ~= workingValue37 then
+            workingValue37 = localValue3.instance_build
+            workingValue37[workingValue33] = workingValue35
           end
         end
-        arg4 = iterator
-        workValue27 = arg1
-        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
-          workValue37 = string
-          workValue37 = workValue37.sub
-          textValue = workValue33
+        localValue4 = iterator
+        workingValue27 = localValue1
+        localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+        for workingValue33, workingValue35 in localValue4, workingValue27, workingValue29, workingValue31 do
+          workingValue37 = string
+          workingValue37 = workingValue37.sub
+          text = workingValue33
           nameValue = 1
-          textValue2 = 2
-          workValue37 = workValue37(textValue, nameValue, textValue2)
-          if "__" ~= workValue37 then
-            workValue37 = arg3.instance_build
-            workValue37[workValue33] = workValue35
+          text2 = 2
+          workingValue37 = workingValue37(text, nameValue, text2)
+          if "__" ~= workingValue37 then
+            workingValue37 = localValue3.instance_build
+            workingValue37[workingValue33] = workingValue35
           end
         end
-        arg4 = arg3.meta
-        if not arg4 then
-          arg4 = {}
-          workValue27 = arg3.instance_build
-          arg4.__index = workValue27
-          workValue27 = {}
-          workValue29 = arg3.name
-          workValue27.name = workValue29
-          workValue29 = arg3.types
-          workValue27.types = workValue29
-          workValue27.type = arg1
-          arg4.luaoop = workValue27
-          workValue27 = workValue2
-          arg4.__call = workValue27
-          workValue27 = workValue
-          arg4.__unm = workValue27
-          workValue27 = workValue3
-          arg4.__add = workValue27
-          workValue27 = workValue4
-          arg4.__sub = workValue27
-          workValue27 = workValue5
-          arg4.__mul = workValue27
-          workValue27 = workValue6
-          arg4.__div = workValue27
-          workValue27 = workValue8
-          arg4.__pow = workValue27
-          workValue27 = workValue7
-          arg4.__mod = workValue27
-          workValue27 = workValue9
-          arg4.__eq = workValue27
-          workValue27 = workValue12
-          arg4.__le = workValue27
-          workValue27 = workValue10
-          arg4.__lt = workValue27
-          workValue27 = workValue34
-          arg4.__tostring = workValue27
-          workValue27 = workValue36
-          arg4.__concat = workValue27
-          arg3.meta = arg4
-          arg4 = arg3.__postmeta
-          if arg4 then
-            arg4 = arg3.__postmeta
-            workValue27 = arg1
-            workValue29 = arg3.meta
-            arg4(workValue27, workValue29)
+        localValue4 = localValue3.meta
+        if not localValue4 then
+          localValue4 = {}
+          workingValue27 = localValue3.instance_build
+          localValue4.__index = workingValue27
+          workingValue27 = {}
+          workingValue29 = localValue3.name
+          workingValue27.name = workingValue29
+          workingValue29 = localValue3.types
+          workingValue27.types = workingValue29
+          workingValue27.type = localValue1
+          localValue4.luaoop = workingValue27
+          workingValue27 = workingValue2
+          localValue4.__call = workingValue27
+          workingValue27 = workingValue
+          localValue4.__unm = workingValue27
+          workingValue27 = workingValue3
+          localValue4.__add = workingValue27
+          workingValue27 = workingValue4
+          localValue4.__sub = workingValue27
+          workingValue27 = workingValue5
+          localValue4.__mul = workingValue27
+          workingValue27 = workingValue6
+          localValue4.__div = workingValue27
+          workingValue27 = workingValue8
+          localValue4.__pow = workingValue27
+          workingValue27 = workingValue7
+          localValue4.__mod = workingValue27
+          workingValue27 = workingValue9
+          localValue4.__eq = workingValue27
+          workingValue27 = workingValue12
+          localValue4.__le = workingValue27
+          workingValue27 = workingValue10
+          localValue4.__lt = workingValue27
+          workingValue27 = workingValue34
+          localValue4.__tostring = workingValue27
+          workingValue27 = workingValue36
+          localValue4.__concat = workingValue27
+          localValue3.meta = localValue4
+          localValue4 = localValue3.__postmeta
+          if localValue4 then
+            localValue4 = localValue3.__postmeta
+            workingValue27 = localValue1
+            workingValue29 = localValue3.meta
+            localValue4(workingValue27, workingValue29)
           end
         end
-        arg4 = arg3.build
-        arg2.__index = arg4
-        arg4 = iterator
-        workValue27 = arg1
-        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
-          workValue37 = type
-          textValue = workValue35
-          workValue37 = workValue37(textValue)
-          if "table" == workValue37 then
-            workValue37 = string
-            workValue37 = workValue37.sub
-            textValue = workValue33
+        localValue4 = localValue3.build
+        localValue2.__index = localValue4
+        localValue4 = iterator
+        workingValue27 = localValue1
+        localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+        for workingValue33, workingValue35 in localValue4, workingValue27, workingValue29, workingValue31 do
+          workingValue37 = type
+          text = workingValue35
+          workingValue37 = workingValue37(text)
+          if "table" == workingValue37 then
+            workingValue37 = string
+            workingValue37 = workingValue37.sub
+            text = workingValue33
             nameValue = 1
-            textValue2 = 2
-            workValue37 = workValue37(textValue, nameValue, textValue2)
-            if "__" == workValue37 then
-              workValue37 = tableHelper2
-              textValue = workValue35
+            text2 = 2
+            workingValue37 = workingValue37(text, nameValue, text2)
+            if "__" == workingValue37 then
+              workingValue37 = tableHelper2
+              text = workingValue35
               nameValue = {}
-              textValue2 = arg3.build
-              textValue2 = textValue2[workValue33]
-              nameValue.__index = textValue2
-              workValue37(textValue, nameValue)
+              text2 = localValue3.build
+              text2 = text2[workingValue33]
+              nameValue.__index = text2
+              workingValue37(text, nameValue)
             end
           end
         end
@@ -758,310 +758,310 @@ function workValue14(arg1)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
-function workValue16(arg1)
-  local arg2, arg3, arg4
-  arg2 = tableHelper
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = arg2.destructor
-  arg4 = arg2.instance
-  arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1) ===
+function workingValue16(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = tableHelper
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = localValue2.destructor
+  localValue4 = localValue2.instance
+  localValue3(localValue4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, ...) ===
-function workValue18(arg1, ...)
-  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2
-  arg2 = tableHelper
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = nil
-  if arg2 then
-    arg3 = arg2.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, ...) ===
+function workingValue18(localValue1, ...)
+  local localValue2, localValue3, localValue4, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue37, text, nameValue, text2
+  localValue2 = tableHelper
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = nil
+  if localValue2 then
+    localValue3 = localValue2.luaoop
   end
-  if arg3 then
-    arg4 = arg3.type
-    if not arg4 then
-      arg4 = arg3.build
-      if not arg4 then
-        arg4 = workValue14
-        workValue27 = arg1
-        arg4(workValue27)
+  if localValue3 then
+    localValue4 = localValue3.type
+    if not localValue4 then
+      localValue4 = localValue3.build
+      if not localValue4 then
+        localValue4 = workingValue14
+        workingValue27 = localValue1
+        localValue4(workingValue27)
       end
-      arg4 = arg3.__instantiate
-      if arg4 then
-        workValue27 = arg4
-        workValue29 = arg1
-        workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2 = ...
-        return workValue27(workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2)
+      localValue4 = localValue3.__instantiate
+      if localValue4 then
+        workingValue27 = localValue4
+        workingValue29 = localValue1
+        workingValue31, workingValue33, workingValue35, workingValue37, text, nameValue, text2 = ...
+        return workingValue27(workingValue29, workingValue31, workingValue33, workingValue35, workingValue37, text, nameValue, text2)
       else
-        workValue27 = tableHelper2
-        workValue29 = {}
-        workValue31 = arg3.meta
-        workValue27 = workValue27(workValue29, workValue31)
-        workValue29 = arg1.__construct
-        workValue31 = arg1.__destruct
-        if workValue31 then
-          workValue33 = workValue26
-          workValue35 = arg3.meta
-          workValue37 = workValue27
-          workValue33, workValue35 = workValue33(workValue35, workValue37)
-          workValue37 = stringHelper
-          if workValue37 then
-            workValue37 = newproxy
-            textValue = true
-            workValue37 = workValue37(textValue)
-            textValue = tableHelper
-            nameValue = workValue37
-            textValue = textValue(nameValue)
-            nameValue = workValue16
-            textValue.__gc = nameValue
-            textValue.destructor = workValue31
-            textValue.instance = workValue27
-            workValue35.proxy = workValue37
+        workingValue27 = tableHelper2
+        workingValue29 = {}
+        workingValue31 = localValue3.meta
+        workingValue27 = workingValue27(workingValue29, workingValue31)
+        workingValue29 = localValue1.__construct
+        workingValue31 = localValue1.__destruct
+        if workingValue31 then
+          workingValue33 = workingValue26
+          workingValue35 = localValue3.meta
+          workingValue37 = workingValue27
+          workingValue33, workingValue35 = workingValue33(workingValue35, workingValue37)
+          workingValue37 = stringHelper
+          if workingValue37 then
+            workingValue37 = newproxy
+            text = true
+            workingValue37 = workingValue37(text)
+            text = tableHelper
+            nameValue = workingValue37
+            text = text(nameValue)
+            nameValue = workingValue16
+            text.__gc = nameValue
+            text.destructor = workingValue31
+            text.instance = workingValue27
+            workingValue35.proxy = workingValue37
           else
-            workValue37 = tableHelper2
-            textValue = {}
+            workingValue37 = tableHelper2
+            text = {}
             nameValue = {}
-            textValue2 = workValue16
-            nameValue.__gc = textValue2
-            nameValue.instance = workValue27
-            nameValue.destructor = workValue31
-            workValue37 = workValue37(textValue, nameValue)
-            workValue35.proxy = workValue37
+            text2 = workingValue16
+            nameValue.__gc = text2
+            nameValue.instance = workingValue27
+            nameValue.destructor = workingValue31
+            workingValue37 = workingValue37(text, nameValue)
+            workingValue35.proxy = workingValue37
           end
         end
-        if workValue29 then
-          workValue33 = workValue29
-          workValue35 = workValue27
-          workValue37, textValue, nameValue, textValue2 = ...
-          workValue33(workValue35, workValue37, textValue, nameValue, textValue2)
+        if workingValue29 then
+          workingValue33 = workingValue29
+          workingValue35 = workingValue27
+          workingValue37, text, nameValue, text2 = ...
+          workingValue33(workingValue35, workingValue37, text, nameValue, text2)
         end
-        return workValue27
+        return workingValue27
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, ...) ===
-function workValue20(arg1, ...)
-  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "string" == arg2 then
-    arg2 = {}
-    arg3 = {}
-    arg2.__add = arg3
-    arg3 = {}
-    arg2.__sub = arg3
-    arg3 = {}
-    arg2.__mul = arg3
-    arg3 = {}
-    arg2.__div = arg3
-    arg3 = {}
-    arg2.__pow = arg3
-    arg3 = {}
-    arg2.__mod = arg3
-    arg3 = {}
-    arg2.__eq = arg3
-    arg3 = {}
-    arg2.__le = arg3
-    arg3 = {}
-    arg2.__lt = arg3
-    arg3 = {}
-    arg2.__concat = arg3
-    arg3 = {}
-    arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2 = ...
-    arg3[1] = arg4
-    arg3[2] = workValue27
-    arg3[3] = workValue29
-    arg3[4] = workValue31
-    arg3[5] = workValue33
-    arg3[6] = workValue35
-    arg3[7] = workValue37
-    arg3[8] = textValue
-    arg3[9] = nameValue
-    arg3[10] = textValue2
-    arg3[11] = stringHelper2
-    arg4 = iterator
-    workValue27 = arg3
-    arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
-    for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
-      workValue37 = tableHelper
-      textValue = workValue35
-      workValue37 = workValue37(textValue)
-      textValue = nil
-      if workValue37 then
-        textValue = workValue37.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1, ...) ===
+function workingValue20(localValue1, ...)
+  local localValue2, localValue3, localValue4, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue37, text, nameValue, text2, stringHelper2
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "string" == localValue2 then
+    localValue2 = {}
+    localValue3 = {}
+    localValue2.__add = localValue3
+    localValue3 = {}
+    localValue2.__sub = localValue3
+    localValue3 = {}
+    localValue2.__mul = localValue3
+    localValue3 = {}
+    localValue2.__div = localValue3
+    localValue3 = {}
+    localValue2.__pow = localValue3
+    localValue3 = {}
+    localValue2.__mod = localValue3
+    localValue3 = {}
+    localValue2.__eq = localValue3
+    localValue3 = {}
+    localValue2.__le = localValue3
+    localValue3 = {}
+    localValue2.__lt = localValue3
+    localValue3 = {}
+    localValue2.__concat = localValue3
+    localValue3 = {}
+    localValue4, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue37, text, nameValue, text2, stringHelper2 = ...
+    localValue3[1] = localValue4
+    localValue3[2] = workingValue27
+    localValue3[3] = workingValue29
+    localValue3[4] = workingValue31
+    localValue3[5] = workingValue33
+    localValue3[6] = workingValue35
+    localValue3[7] = workingValue37
+    localValue3[8] = text
+    localValue3[9] = nameValue
+    localValue3[10] = text2
+    localValue3[11] = stringHelper2
+    localValue4 = iterator
+    workingValue27 = localValue3
+    localValue4, workingValue27, workingValue29, workingValue31 = localValue4(workingValue27)
+    for workingValue33, workingValue35 in localValue4, workingValue27, workingValue29, workingValue31 do
+      workingValue37 = tableHelper
+      text = workingValue35
+      workingValue37 = workingValue37(text)
+      text = nil
+      if workingValue37 then
+        text = workingValue37.luaoop
       end
-      if textValue then
-        nameValue = textValue.type
+      if text then
+        nameValue = text.type
         if not nameValue then
-          goto flow_label_64
+          goto continueAtStep64
         end
       end
       nameValue = error
-      textValue2 = "invalid base class #"
-      stringHelper2 = workValue33
-      textValue2 = textValue2 .. stringHelper2
-      nameValue(textValue2)
-      ::flow_label_64::
-      nameValue = textValue.build
+      text2 = "invalid base class #"
+      stringHelper2 = workingValue33
+      text2 = text2 .. stringHelper2
+      nameValue(text2)
+      ::continueAtStep64::
+      nameValue = text.build
       if not nameValue then
-        nameValue = workValue14
-        textValue2 = workValue35
-        nameValue(textValue2)
+        nameValue = workingValue14
+        text2 = workingValue35
+        nameValue(text2)
       end
     end
-    arg4 = string
-    arg4 = arg4.gsub
-    workValue27 = tostring
-    workValue29 = arg2
-    workValue27 = workValue27(workValue29)
-    workValue29 = "table:"
-    workValue31 = "class<"
-    workValue33 = arg1
-    workValue35 = ">:"
-    workValue31 = workValue31 .. workValue33 .. workValue35
-    workValue33 = 1
-    arg4 = arg4(workValue27, workValue29, workValue31, workValue33)
-    workValue27 = tableHelper2
-    workValue29 = arg2
-    workValue31 = {}
-    workValue33 = {}
-    workValue33.bases = arg3
-    workValue33.name = arg1
-    workValue31.luaoop = workValue33
-    workValue33 = workValue18
-    workValue31.__call = workValue33
+    localValue4 = string
+    localValue4 = localValue4.gsub
+    workingValue27 = tostring
+    workingValue29 = localValue2
+    workingValue27 = workingValue27(workingValue29)
+    workingValue29 = "table:"
+    workingValue31 = "class<"
+    workingValue33 = localValue1
+    workingValue35 = ">:"
+    workingValue31 = workingValue31 .. workingValue33 .. workingValue35
+    workingValue33 = 1
+    localValue4 = localValue4(workingValue27, workingValue29, workingValue31, workingValue33)
+    workingValue27 = tableHelper2
+    workingValue29 = localValue2
+    workingValue31 = {}
+    workingValue33 = {}
+    workingValue33.bases = localValue3
+    workingValue33.name = localValue1
+    workingValue31.luaoop = workingValue33
+    workingValue33 = workingValue18
+    workingValue31.__call = workingValue33
 
-    -- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg12) ===
-    function workValue33(arg12)
-      local workValue11
-      workValue11 = arg4
-      return workValue11
+    -- === HELPER FUNCTION (decompiler name: workingValue33; parameters: localValue12) ===
+    function workingValue33(localValue12)
+      local workingValue11
+      workingValue11 = localValue4
+      return workingValue11
     end
-    workValue31.__tostring = workValue33
-    return workValue27(workValue29, workValue31)
+    workingValue31.__tostring = workingValue33
+    return workingValue27(workingValue29, workingValue31)
   else
-    arg2 = error
-    arg3 = "class name is not a string"
-    arg2(arg3)
+    localValue2 = error
+    localValue3 = "class name is not a string"
+    localValue2(localValue3)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1, arg2) ===
-function workValue21(arg1, arg2)
-  local arg3, arg4, workValue27, workValue29
-  if arg1 then
-    arg3 = tableHelper
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    arg4 = nil
-    if arg3 then
-      arg4 = arg3.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue21; parameters: localValue1, localValue2) ===
+function workingValue21(localValue1, localValue2)
+  local localValue3, localValue4, workingValue27, workingValue29
+  if localValue1 then
+    localValue3 = tableHelper
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    localValue4 = nil
+    if localValue3 then
+      localValue4 = localValue3.luaoop
     end
-    if arg4 then
-      workValue27 = arg4.type
-      if not workValue27 then
-        workValue27 = arg4.types
-        if not workValue27 then
-          workValue27 = workValue14
-          workValue29 = arg1
-          workValue27(workValue29)
+    if localValue4 then
+      workingValue27 = localValue4.type
+      if not workingValue27 then
+        workingValue27 = localValue4.types
+        if not workingValue27 then
+          workingValue27 = workingValue14
+          workingValue29 = localValue1
+          workingValue27(workingValue29)
         end
       end
-      workValue27 = arg4.types
-      workValue27 = workValue27[arg2]
-      return workValue27
+      workingValue27 = localValue4.types
+      workingValue27 = workingValue27[localValue2]
+      return workingValue27
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue22; parameters: arg1) ===
-function workValue22(arg1)
-  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue
-  if arg1 then
-    arg2 = tableHelper
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    arg3 = nil
-    if arg2 then
-      arg3 = arg2.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue22; parameters: localValue1) ===
+function workingValue22(localValue1)
+  local localValue2, localValue3, localValue4, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue37, text
+  if localValue1 then
+    localValue2 = tableHelper
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    localValue3 = nil
+    if localValue2 then
+      localValue3 = localValue2.luaoop
     end
-    if arg3 then
-      arg4 = arg3.types
-      if not arg4 then
-        arg4 = arg3.type
-        if not arg4 then
-          arg4 = workValue14
-          workValue27 = arg1
-          arg4(workValue27)
+    if localValue3 then
+      localValue4 = localValue3.types
+      if not localValue4 then
+        localValue4 = localValue3.type
+        if not localValue4 then
+          localValue4 = workingValue14
+          workingValue27 = localValue1
+          localValue4(workingValue27)
         end
       end
-      arg4 = {}
-      workValue27 = iterator
-      workValue29 = arg3.types
-      workValue27, workValue29, workValue31, workValue33 = workValue27(workValue29)
-      for workValue35, workValue37 in workValue27, workValue29, workValue31, workValue33 do
-        arg4[workValue35] = workValue37
+      localValue4 = {}
+      workingValue27 = iterator
+      workingValue29 = localValue3.types
+      workingValue27, workingValue29, workingValue31, workingValue33 = workingValue27(workingValue29)
+      for workingValue35, workingValue37 in workingValue27, workingValue29, workingValue31, workingValue33 do
+        localValue4[workingValue35] = workingValue37
       end
-      return arg4
+      return localValue4
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue23; parameters: arg1) ===
-function workValue23(arg1)
-  local arg2, arg3, arg4, workValue27
-  if arg1 then
-    arg2 = tableHelper
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    arg3 = nil
-    if arg2 then
-      arg3 = arg2.luaoop
+-- === HELPER FUNCTION (decompiler name: workingValue23; parameters: localValue1) ===
+function workingValue23(localValue1)
+  local localValue2, localValue3, localValue4, workingValue27
+  if localValue1 then
+    localValue2 = tableHelper
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    localValue3 = nil
+    if localValue2 then
+      localValue3 = localValue2.luaoop
     end
-    if arg3 then
-      arg4 = arg3.type
-      if not arg4 then
-        arg4 = arg3.build
-        if not arg4 then
-          arg4 = workValue14
-          workValue27 = arg1
-          arg4(workValue27)
+    if localValue3 then
+      localValue4 = localValue3.type
+      if not localValue4 then
+        localValue4 = localValue3.build
+        if not localValue4 then
+          localValue4 = workingValue14
+          workingValue27 = localValue1
+          localValue4(workingValue27)
         end
-        arg4 = arg3.meta
-        return arg4
+        localValue4 = localValue3.meta
+        return localValue4
       end
     end
   end
 end
-workValue24 = tableHelper2
-dataTable2 = {}
-dataTable2.new = workValue20
-dataTable2.name = workValue30
-dataTable2.type = workValue28
-dataTable2.is = workValue21
-dataTable2.types = workValue22
-dataTable2.meta = workValue23
-dataTable2.instantiate = workValue18
-dataTable2.build = workValue14
-dataTable2.getop = workValue32
-dataTable3 = {}
+workingValue24 = tableHelper2
+dataCollection2 = {}
+dataCollection2.new = workingValue20
+dataCollection2.name = workingValue30
+dataCollection2.type = workingValue28
+dataCollection2.is = workingValue21
+dataCollection2.types = workingValue22
+dataCollection2.meta = workingValue23
+dataCollection2.instantiate = workingValue18
+dataCollection2.build = workingValue14
+dataCollection2.getop = workingValue32
+dataCollection3 = {}
 
--- === HELPER FUNCTION (decompiler name: workValue25; parameters: arg1, arg2, ...) ===
-function workValue25(arg1, arg2, ...)
-  local arg3, arg4, workValue27
-  arg3 = workValue20
-  arg4 = arg2
-  workValue27 = ...
-  return arg3(arg4, workValue27)
+-- === HELPER FUNCTION (decompiler name: workingValue25; parameters: localValue1, localValue2, ...) ===
+function workingValue25(localValue1, localValue2, ...)
+  local localValue3, localValue4, workingValue27
+  localValue3 = workingValue20
+  localValue4 = localValue2
+  workingValue27 = ...
+  return localValue3(localValue4, workingValue27)
 end
-dataTable3.__call = workValue25
-workValue24 = workValue24(dataTable2, dataTable3)
-class = workValue24
-workValue24 = Luaoop
-dataTable2 = class
-workValue24.class = dataTable2
+dataCollection3.__call = workingValue25
+workingValue24 = workingValue24(dataCollection2, dataCollection3)
+class = workingValue24
+workingValue24 = Luaoop
+dataCollection2 = class
+workingValue24.class = dataCollection2

@@ -32,433 +32,433 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, dataTable4, dataTable5, dataTable6, workValue18, workValue20, workValue22, workValue24, flag3, workValue28, flag, numberValue, workValue2, workValue4, workValue6, workValue7, workValue9, workValue10, workValue12, workValue13, workValue15, textValue2, workValue16
-dataTable = {}
-dataTable.From = 0
-dataTable.To = 100
-dataTable.Async = true
-dataTable.Duration = 5000
-dataTable.Label = "Loading..."
-dataTable.LabelPosition = "bottom"
-dataTable.Color = "rgba(255, 255, 255, 1.0)"
-dataTable.BGColor = "rgba(0, 0, 0, 0.4)"
-dataTable.x = 0.5
-dataTable.y = 0.5
-dataTable.Rotation = 0
-dataTable.MaxAngle = 360
-dataTable.Radius = 50
-dataTable.Stroke = 10
-dataTable.Width = 300
-dataTable.Height = 40
-dataTable.Cap = "butt"
-dataTable.Padding = 0
-dataTable.CancelKey = 178
-dataTable.ShowTimer = true
-dataTable.ShowProgress = false
-dataTable.Easing = "easeLinear"
-dataTable4 = {}
-dataTable4.Mouse = false
-dataTable4.Player = false
-dataTable4.Vehicle = false
-dataTable.DisableControls = dataTable4
+local dataCollection, dataCollection4, dataCollection5, dataCollection6, workingValue18, workingValue20, workingValue22, workingValue24, stateFlag3, workingValue28, stateFlag, number, workingValue2, workingValue4, workingValue6, workingValue7, workingValue9, workingValue10, workingValue12, workingValue13, workingValue15, text2, workingValue16
+dataCollection = {}
+dataCollection.From = 0
+dataCollection.To = 100
+dataCollection.Async = true
+dataCollection.Duration = 5000
+dataCollection.Label = "Loading..."
+dataCollection.LabelPosition = "bottom"
+dataCollection.Color = "rgba(255, 255, 255, 1.0)"
+dataCollection.BGColor = "rgba(0, 0, 0, 0.4)"
+dataCollection.x = 0.5
+dataCollection.y = 0.5
+dataCollection.Rotation = 0
+dataCollection.MaxAngle = 360
+dataCollection.Radius = 50
+dataCollection.Stroke = 10
+dataCollection.Width = 300
+dataCollection.Height = 40
+dataCollection.Cap = "butt"
+dataCollection.Padding = 0
+dataCollection.CancelKey = 178
+dataCollection.ShowTimer = true
+dataCollection.ShowProgress = false
+dataCollection.Easing = "easeLinear"
+dataCollection4 = {}
+dataCollection4.Mouse = false
+dataCollection4.Player = false
+dataCollection4.Vehicle = false
+dataCollection.DisableControls = dataCollection4
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
-function dataTable4()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: none) ===
+function dataCollection4()
+  local localValue1, localValue2
 end
-dataTable.onStart = dataTable4
+dataCollection.onStart = dataCollection4
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
-function dataTable4()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: none) ===
+function dataCollection4()
+  local localValue1, localValue2
 end
-dataTable.onComplete = dataTable4
-dataTable4 = {}
-dataTable4.MaxAngle = 240
-dataTable4.Rotation = -120
-dataTable4.Radius = 100
-dataTable4.Stroke = 30
-dataTable5 = {}
-dataTable6 = {}
-dataTable6.Zone = 40
-dataTable6.Duration = 1000
-dataTable5.Custom = dataTable6
-dataTable6 = {}
-dataTable6.Zone = 30
-dataTable6.Duration = 500
-dataTable5.Easy = dataTable6
-dataTable6 = {}
-dataTable6.Zone = 20
-dataTable6.Duration = 500
-dataTable5.Medium = dataTable6
-dataTable6 = {}
-dataTable6.Zone = 10
-dataTable6.Duration = 500
-dataTable5.Hard = dataTable6
-dataTable6 = {}
-dataTable6.Zone = 5
-dataTable6.Duration = 400
-dataTable5.VeryHard = dataTable6
-dataTable4.Difficulty = dataTable5
-dataTable.MiniGameOptions = dataTable4
+dataCollection.onComplete = dataCollection4
+dataCollection4 = {}
+dataCollection4.MaxAngle = 240
+dataCollection4.Rotation = -120
+dataCollection4.Radius = 100
+dataCollection4.Stroke = 30
+dataCollection5 = {}
+dataCollection6 = {}
+dataCollection6.Zone = 40
+dataCollection6.Duration = 1000
+dataCollection5.Custom = dataCollection6
+dataCollection6 = {}
+dataCollection6.Zone = 30
+dataCollection6.Duration = 500
+dataCollection5.Easy = dataCollection6
+dataCollection6 = {}
+dataCollection6.Zone = 20
+dataCollection6.Duration = 500
+dataCollection5.Medium = dataCollection6
+dataCollection6 = {}
+dataCollection6.Zone = 10
+dataCollection6.Duration = 500
+dataCollection5.Hard = dataCollection6
+dataCollection6 = {}
+dataCollection6.Zone = 5
+dataCollection6.Duration = 400
+dataCollection5.VeryHard = dataCollection6
+dataCollection4.Difficulty = dataCollection5
+dataCollection.MiniGameOptions = dataCollection4
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
-function dataTable4(arg1)
-  local arg2, arg3, arg4, workValue19
-  arg2 = {}
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1) ===
+function dataCollection4(localValue1)
+  local localValue2, localValue3, localValue4, workingValue19
+  localValue2 = {}
 
-  -- === HELPER FUNCTION: arg3(arg12) ===
-  function arg3(arg12)
-    local workValue14, iterator, workValue17, tableHelper, workValue21, workValue23, workValue26, workValue27, workValue30, workValue
-    workValue14 = type
-    iterator = arg12
-    workValue14 = workValue14(iterator)
-    if "table" ~= workValue14 then
-      return arg12
+  -- === HELPER FUNCTION: localValue3(localValue12) ===
+  function localValue3(localValue12)
+    local workingValue14, iterator, workingValue17, tableHelper, workingValue21, workingValue23, workingValue26, workingValue27, workingValue30, workingValue
+    workingValue14 = type
+    iterator = localValue12
+    workingValue14 = workingValue14(iterator)
+    if "table" ~= workingValue14 then
+      return localValue12
     else
-      workValue14 = arg2
-      workValue14 = workValue14[arg12]
-      if workValue14 then
-        workValue14 = arg2
-        workValue14 = workValue14[arg12]
-        return workValue14
+      workingValue14 = localValue2
+      workingValue14 = workingValue14[localValue12]
+      if workingValue14 then
+        workingValue14 = localValue2
+        workingValue14 = workingValue14[localValue12]
+        return workingValue14
       end
     end
-    workValue14 = {}
-    iterator = arg2
-    iterator[arg12] = workValue14
+    workingValue14 = {}
+    iterator = localValue2
+    iterator[localValue12] = workingValue14
     iterator = pairs
-    workValue17 = arg12
-    iterator, workValue17, tableHelper, workValue21 = iterator(workValue17)
-    for workValue23, workValue26 in iterator, workValue17, tableHelper, workValue21 do
-      workValue27 = arg3
-      workValue30 = workValue23
-      workValue27 = workValue27(workValue30)
-      workValue30 = arg3
-      workValue = workValue26
-      workValue30 = workValue30(workValue)
-      workValue14[workValue27] = workValue30
+    workingValue17 = localValue12
+    iterator, workingValue17, tableHelper, workingValue21 = iterator(workingValue17)
+    for workingValue23, workingValue26 in iterator, workingValue17, tableHelper, workingValue21 do
+      workingValue27 = localValue3
+      workingValue30 = workingValue23
+      workingValue27 = workingValue27(workingValue30)
+      workingValue30 = localValue3
+      workingValue = workingValue26
+      workingValue30 = workingValue30(workingValue)
+      workingValue14[workingValue27] = workingValue30
     end
     iterator = setmetatable
-    workValue17 = workValue14
+    workingValue17 = workingValue14
     tableHelper = getmetatable
-    workValue21 = arg12
-    tableHelper, workValue21, workValue23, workValue26, workValue27, workValue30, workValue = tableHelper(workValue21)
-    return iterator(workValue17, tableHelper, workValue21, workValue23, workValue26, workValue27, workValue30, workValue)
+    workingValue21 = localValue12
+    tableHelper, workingValue21, workingValue23, workingValue26, workingValue27, workingValue30, workingValue = tableHelper(workingValue21)
+    return iterator(workingValue17, tableHelper, workingValue21, workingValue23, workingValue26, workingValue27, workingValue30, workingValue)
   end
-  arg4 = arg3
-  workValue19 = arg1
-  return arg4(workValue19)
+  localValue4 = localValue3
+  workingValue19 = localValue1
+  return localValue4(workingValue19)
 end
 
--- === HELPER FUNCTION (decompiler name: dataTable5; parameters: arg1, arg2) ===
-function dataTable5(arg1, arg2)
-  local arg3, arg4, workValue19, stringHelper, dataTable7, workValue25, dataTable8, workValue29, flag2, dataTable2
-  arg3 = dataTable4
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  arg4 = pairs
-  workValue19 = arg2
-  arg4, workValue19, stringHelper, dataTable7 = arg4(workValue19)
-  for workValue25, dataTable8 in arg4, workValue19, stringHelper, dataTable7 do
-    workValue29 = type
-    flag2 = dataTable8
-    workValue29 = workValue29(flag2)
-    if "table" == workValue29 then
-      workValue29 = type
-      flag2 = arg3[workValue25]
-      if not flag2 then
-        flag2 = false
+-- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: localValue1, localValue2) ===
+function dataCollection5(localValue1, localValue2)
+  local localValue3, localValue4, workingValue19, stringHelper, dataCollection7, workingValue25, dataCollection8, workingValue29, stateFlag2, dataCollection2
+  localValue3 = dataCollection4
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  localValue4 = pairs
+  workingValue19 = localValue2
+  localValue4, workingValue19, stringHelper, dataCollection7 = localValue4(workingValue19)
+  for workingValue25, dataCollection8 in localValue4, workingValue19, stringHelper, dataCollection7 do
+    workingValue29 = type
+    stateFlag2 = dataCollection8
+    workingValue29 = workingValue29(stateFlag2)
+    if "table" == workingValue29 then
+      workingValue29 = type
+      stateFlag2 = localValue3[workingValue25]
+      if not stateFlag2 then
+        stateFlag2 = false
       end
-      workValue29 = workValue29(flag2)
-      if "table" == workValue29 then
-        workValue29 = dataTable5
-        flag2 = arg3[workValue25]
-        if not flag2 then
-          flag2 = {}
+      workingValue29 = workingValue29(stateFlag2)
+      if "table" == workingValue29 then
+        workingValue29 = dataCollection5
+        stateFlag2 = localValue3[workingValue25]
+        if not stateFlag2 then
+          stateFlag2 = {}
         end
-        dataTable2 = arg2[workValue25]
-        if not dataTable2 then
-          dataTable2 = {}
+        dataCollection2 = localValue2[workingValue25]
+        if not dataCollection2 then
+          dataCollection2 = {}
         end
-        workValue29(flag2, dataTable2)
+        workingValue29(stateFlag2, dataCollection2)
       else
-        arg3[workValue25] = dataTable8
+        localValue3[workingValue25] = dataCollection8
       end
     else
-      arg3[workValue25] = dataTable8
+      localValue3[workingValue25] = dataCollection8
     end
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: dataTable6; parameters: arg1) ===
-function dataTable6(arg1)
-  local arg2, arg3, arg4, workValue19
-  arg2 = "======== RPROGRESS ERROR: "
-  arg3 = arg1
-  arg4 = " ========"
-  arg2 = arg2 .. arg3 .. arg4
-  arg1 = arg2
-  arg2 = string
-  arg2 = arg2.rep
-  arg3 = "="
-  arg4 = string
-  arg4 = arg4.len
-  workValue19 = arg1
-  arg4, workValue19 = arg4(workValue19)
-  arg2 = arg2(arg3, arg4, workValue19)
-  arg3 = print
-  arg4 = arg2
-  arg3(arg4)
-  arg3 = print
-  arg4 = arg1
-  arg3(arg4)
-  arg3 = print
-  arg4 = arg2
-  arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: dataCollection6; parameters: localValue1) ===
+function dataCollection6(localValue1)
+  local localValue2, localValue3, localValue4, workingValue19
+  localValue2 = "======== RPROGRESS ERROR: "
+  localValue3 = localValue1
+  localValue4 = " ========"
+  localValue2 = localValue2 .. localValue3 .. localValue4
+  localValue1 = localValue2
+  localValue2 = string
+  localValue2 = localValue2.rep
+  localValue3 = "="
+  localValue4 = string
+  localValue4 = localValue4.len
+  workingValue19 = localValue1
+  localValue4, workingValue19 = localValue4(workingValue19)
+  localValue2 = localValue2(localValue3, localValue4, workingValue19)
+  localValue3 = print
+  localValue4 = localValue2
+  localValue3(localValue4)
+  localValue3 = print
+  localValue4 = localValue1
+  localValue3(localValue4)
+  localValue3 = print
+  localValue4 = localValue2
+  localValue3(localValue4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
-function workValue18(arg1)
-  local arg2, arg3, arg4, workValue19, stringHelper, dataTable7, workValue25, dataTable8, workValue29, flag2, dataTable2, workValue3, workValue5, dataTable3, workValue8, textValue, workValue11
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if "table" ~= arg2 then
-    arg2 = dataTable6
-    arg3 = "options must be type:table"
-    arg2(arg3)
-    arg2 = true
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1) ===
+function workingValue18(localValue1)
+  local localValue2, localValue3, localValue4, workingValue19, stringHelper, dataCollection7, workingValue25, dataCollection8, workingValue29, stateFlag2, dataCollection2, workingValue3, workingValue5, dataCollection3, workingValue8, text, workingValue11
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if "table" ~= localValue2 then
+    localValue2 = dataCollection6
+    localValue3 = "options must be type:table"
+    localValue2(localValue3)
+    localValue2 = true
+    return localValue2
   end
-  arg2 = pairs
-  arg3 = arg1
-  arg2, arg3, arg4, workValue19 = arg2(arg3)
-  for stringHelper, dataTable7 in arg2, arg3, arg4, workValue19 do
-    workValue25 = nil
+  localValue2 = pairs
+  localValue3 = localValue1
+  localValue2, localValue3, localValue4, workingValue19 = localValue2(localValue3)
+  for stringHelper, dataCollection7 in localValue2, localValue3, localValue4, workingValue19 do
+    workingValue25 = nil
     if "onStart" ~= stringHelper and "onComplete" ~= stringHelper and "onTimeout" ~= stringHelper then
       if "ShowTimer" == stringHelper or "ShowProgress" == stringHelper or "Async" == stringHelper or "MiniGame" == stringHelper or "Loop" == stringHelper or "canCancel" == stringHelper then
-        dataTable8 = type
-        workValue29 = dataTable7
-        dataTable8 = dataTable8(workValue29)
-        if "boolean" ~= dataTable8 then
-          dataTable8 = {}
-          dataTable8.prop = stringHelper
-          dataTable8.type = "boolean"
-          workValue25 = dataTable8
+        dataCollection8 = type
+        workingValue29 = dataCollection7
+        dataCollection8 = dataCollection8(workingValue29)
+        if "boolean" ~= dataCollection8 then
+          dataCollection8 = {}
+          dataCollection8.prop = stringHelper
+          dataCollection8.type = "boolean"
+          workingValue25 = dataCollection8
         end
       elseif "Label" == stringHelper or "Color" == stringHelper or "BGColor" == stringHelper or "LabelPosition" == stringHelper or "Easing" == stringHelper or "Cap" == stringHelper or "Type" == stringHelper then
-        dataTable8 = type
-        workValue29 = dataTable7
-        dataTable8 = dataTable8(workValue29)
-        if "string" ~= dataTable8 then
-          dataTable8 = {}
-          dataTable8.prop = stringHelper
-          dataTable8.type = "string"
-          workValue25 = dataTable8
+        dataCollection8 = type
+        workingValue29 = dataCollection7
+        dataCollection8 = dataCollection8(workingValue29)
+        if "string" ~= dataCollection8 then
+          dataCollection8 = {}
+          dataCollection8.prop = stringHelper
+          dataCollection8.type = "string"
+          workingValue25 = dataCollection8
         end
       elseif "DisableControls" == stringHelper then
-        dataTable8 = pairs
-        workValue29 = dataTable7
-        dataTable8, workValue29, flag2, dataTable2 = dataTable8(workValue29)
-        for workValue3, workValue5 in dataTable8, workValue29, flag2, dataTable2 do
-          dataTable3 = type
-          workValue8 = workValue5
-          dataTable3 = dataTable3(workValue8)
-          if "boolean" ~= dataTable3 then
-            dataTable3 = {}
-            workValue8 = stringHelper
-            textValue = "."
-            workValue11 = workValue3
-            workValue8 = workValue8 .. textValue .. workValue11
-            dataTable3.prop = workValue8
-            dataTable3.type = "boolean"
-            workValue25 = dataTable3
+        dataCollection8 = pairs
+        workingValue29 = dataCollection7
+        dataCollection8, workingValue29, stateFlag2, dataCollection2 = dataCollection8(workingValue29)
+        for workingValue3, workingValue5 in dataCollection8, workingValue29, stateFlag2, dataCollection2 do
+          dataCollection3 = type
+          workingValue8 = workingValue5
+          dataCollection3 = dataCollection3(workingValue8)
+          if "boolean" ~= dataCollection3 then
+            dataCollection3 = {}
+            workingValue8 = stringHelper
+            text = "."
+            workingValue11 = workingValue3
+            workingValue8 = workingValue8 .. text .. workingValue11
+            dataCollection3.prop = workingValue8
+            dataCollection3.type = "boolean"
+            workingValue25 = dataCollection3
           end
         end
       elseif "Animation" == stringHelper then
-        dataTable8 = pairs
-        workValue29 = dataTable7
-        dataTable8, workValue29, flag2, dataTable2 = dataTable8(workValue29)
-        for workValue3, workValue5 in dataTable8, workValue29, flag2, dataTable2 do
-          if "flag" == workValue3 then
-            dataTable3 = tonumber
-            workValue8 = workValue5
-            dataTable3 = dataTable3(workValue8)
-            if nil == dataTable3 then
-              dataTable3 = {}
-              dataTable3.prop = stringHelper
-              dataTable3.type = "number"
-              workValue25 = dataTable3
+        dataCollection8 = pairs
+        workingValue29 = dataCollection7
+        dataCollection8, workingValue29, stateFlag2, dataCollection2 = dataCollection8(workingValue29)
+        for workingValue3, workingValue5 in dataCollection8, workingValue29, stateFlag2, dataCollection2 do
+          if "flag" == workingValue3 then
+            dataCollection3 = tonumber
+            workingValue8 = workingValue5
+            dataCollection3 = dataCollection3(workingValue8)
+            if nil == dataCollection3 then
+              dataCollection3 = {}
+              dataCollection3.prop = stringHelper
+              dataCollection3.type = "number"
+              workingValue25 = dataCollection3
             end
           else
-            dataTable3 = type
-            workValue8 = workValue5
-            dataTable3 = dataTable3(workValue8)
-            if "string" ~= dataTable3 then
-              dataTable3 = {}
-              workValue8 = stringHelper
-              textValue = "."
-              workValue11 = workValue3
-              workValue8 = workValue8 .. textValue .. workValue11
-              dataTable3.prop = workValue8
-              dataTable3.type = "string"
-              workValue25 = dataTable3
+            dataCollection3 = type
+            workingValue8 = workingValue5
+            dataCollection3 = dataCollection3(workingValue8)
+            if "string" ~= dataCollection3 then
+              dataCollection3 = {}
+              workingValue8 = stringHelper
+              text = "."
+              workingValue11 = workingValue3
+              workingValue8 = workingValue8 .. text .. workingValue11
+              dataCollection3.prop = workingValue8
+              dataCollection3.type = "string"
+              workingValue25 = dataCollection3
             end
           end
         end
       else
-        dataTable8 = tonumber
-        workValue29 = dataTable7
-        dataTable8 = dataTable8(workValue29)
-        if nil == dataTable8 then
-          dataTable8 = {}
-          dataTable8.prop = stringHelper
-          dataTable8.type = "number"
-          workValue25 = dataTable8
+        dataCollection8 = tonumber
+        workingValue29 = dataCollection7
+        dataCollection8 = dataCollection8(workingValue29)
+        if nil == dataCollection8 then
+          dataCollection8 = {}
+          dataCollection8.prop = stringHelper
+          dataCollection8.type = "number"
+          workingValue25 = dataCollection8
         end
       end
-      if nil ~= workValue25 then
-        dataTable8 = dataTable6
-        workValue29 = "param '"
-        flag2 = workValue25.prop
-        dataTable2 = "' must be type:"
-        workValue3 = workValue25.type
-        workValue29 = workValue29 .. flag2 .. dataTable2 .. workValue3
-        dataTable8(workValue29)
-        dataTable8 = true
-        return dataTable8
+      if nil ~= workingValue25 then
+        dataCollection8 = dataCollection6
+        workingValue29 = "param '"
+        stateFlag2 = workingValue25.prop
+        dataCollection2 = "' must be type:"
+        workingValue3 = workingValue25.type
+        workingValue29 = workingValue29 .. stateFlag2 .. dataCollection2 .. workingValue3
+        dataCollection8(workingValue29)
+        dataCollection8 = true
+        return dataCollection8
       end
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-workValue20 = nil
-workValue22 = nil
-workValue24 = nil
-flag3 = false
-workValue28 = nil
-flag = false
-numberValue = 0
+workingValue20 = nil
+workingValue22 = nil
+workingValue24 = nil
+stateFlag3 = false
+workingValue28 = nil
+stateFlag = false
+number = 0
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2, arg3, arg4) ===
-function workValue2(arg1, arg2, arg3, arg4)
-  local workValue19, stringHelper, dataTable7, workValue25
-  workValue19 = type
-  stringHelper = arg1
-  workValue19 = workValue19(stringHelper)
-  if "string" ~= workValue19 then
-    workValue19 = dataTable6
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue2(localValue1, localValue2, localValue3, localValue4)
+  local workingValue19, stringHelper, dataCollection7, workingValue25
+  workingValue19 = type
+  stringHelper = localValue1
+  workingValue19 = workingValue19(stringHelper)
+  if "string" ~= workingValue19 then
+    workingValue19 = dataCollection6
     stringHelper = "param 'text' must be type:string"
-    workValue19(stringHelper)
+    workingValue19(stringHelper)
     return
   end
-  if arg4 then
-    workValue22 = arg4
+  if localValue4 then
+    workingValue22 = localValue4
   end
-  workValue19 = tonumber
-  stringHelper = arg2
-  workValue19 = workValue19(stringHelper)
-  if nil == workValue19 then
-    workValue19 = dataTable6
+  workingValue19 = tonumber
+  stringHelper = localValue2
+  workingValue19 = workingValue19(stringHelper)
+  if nil == workingValue19 then
+    workingValue19 = dataCollection6
     stringHelper = "param 'duration' must be type:number"
-    workValue19(stringHelper)
+    workingValue19(stringHelper)
     return
   end
-  workValue19 = dataTable5
-  stringHelper = dataTable
-  dataTable7 = {}
-  dataTable7.display = true
-  dataTable7.Duration = arg2
-  dataTable7.Label = arg1
-  workValue19 = workValue19(stringHelper, dataTable7)
-  if nil ~= arg3 then
-    workValue19.Type = "linear"
+  workingValue19 = dataCollection5
+  stringHelper = dataCollection
+  dataCollection7 = {}
+  dataCollection7.display = true
+  dataCollection7.Duration = localValue2
+  dataCollection7.Label = localValue1
+  workingValue19 = workingValue19(stringHelper, dataCollection7)
+  if nil ~= localValue3 then
+    workingValue19.Type = "linear"
   end
-  workValue19.Async = false
-  workValue19.MiniGame = false
-  workValue19.onStart = nil
-  workValue19.onComplete = nil
+  workingValue19.Async = false
+  workingValue19.MiniGame = false
+  workingValue19.onStart = nil
+  workingValue19.onComplete = nil
   stringHelper = SendNUIMessage
-  dataTable7 = workValue19
+  dataCollection7 = workingValue19
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  stringHelper(dataTable7)
+  stringHelper(dataCollection7)
   stringHelper = assert
-  dataTable7 = flag3
-  dataTable7 = not dataTable7
-  workValue25 = "Can not start progress bar whilst an existing bar is still running"
-  stringHelper(dataTable7, workValue25)
+  dataCollection7 = stateFlag3
+  dataCollection7 = not dataCollection7
+  workingValue25 = "Can not start progress bar whilst an existing bar is still running"
+  stringHelper(dataCollection7, workingValue25)
   stringHelper = true
-  flag3 = stringHelper
+  stateFlag3 = stringHelper
   while true do
-    stringHelper = flag3
+    stringHelper = stateFlag3
     if not stringHelper then
       break
     end
     stringHelper = DisableControls
-    dataTable7 = workValue19
-    stringHelper(dataTable7)
+    dataCollection7 = workingValue19
+    stringHelper(dataCollection7)
     stringHelper = Citizen
     stringHelper = stringHelper.Wait
-    dataTable7 = 1
-    stringHelper(dataTable7)
+    dataCollection7 = 1
+    stringHelper(dataCollection7)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, arg4, workValue19, stringHelper
-  arg1 = workValue28
-  if nil ~= arg1 then
-    arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, localValue4, workingValue19, stringHelper
+  localValue1 = workingValue28
+  if nil ~= localValue1 then
+    localValue1 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg2 = IsEntityDead
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = workValue28.scenario
-        if nil ~= arg2 then
-          arg2 = ClearPedTasks
-          arg3 = arg1
-          arg2(arg3)
+    localValue1 = localValue1()
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue2 = IsEntityDead
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = workingValue28.scenario
+        if nil ~= localValue2 then
+          localValue2 = ClearPedTasks
+          localValue3 = localValue1
+          localValue2(localValue3)
         else
-          arg2 = workValue28.animationDictionary
-          if nil ~= arg2 then
-            arg2 = workValue28.animationName
-            if nil ~= arg2 then
-              arg2 = StopAnimTask
-              arg3 = arg1
-              arg4 = workValue28.animationDictionary
-              workValue19 = workValue28.animationName
+          localValue2 = workingValue28.animationDictionary
+          if nil ~= localValue2 then
+            localValue2 = workingValue28.animationName
+            if nil ~= localValue2 then
+              localValue2 = StopAnimTask
+              localValue3 = localValue1
+              localValue4 = workingValue28.animationDictionary
+              workingValue19 = workingValue28.animationName
               stringHelper = 1.0
-              arg2(arg3, arg4, workValue19, stringHelper)
+              localValue2(localValue3, localValue4, workingValue19, stringHelper)
             end
           end
         end
@@ -467,597 +467,597 @@ function workValue4()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
-function workValue6(arg1, arg2)
-  local arg3, arg4, workValue19, stringHelper
-  arg3 = workValue18
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if arg3 then
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue1, localValue2) ===
+function workingValue6(localValue1, localValue2)
+  local localValue3, localValue4, workingValue19, stringHelper
+  localValue3 = workingValue18
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
     return
   end
-  arg3 = {}
-  arg4 = dataTable.DisableControls
-  arg4 = arg4.Mouse
-  arg3.Mouse = arg4
-  arg4 = dataTable.DisableControls
-  arg4 = arg4.Player
-  arg3.Player = arg4
-  arg4 = dataTable.DisableControls
-  arg4 = arg4.Vehicle
-  arg3.Vehicle = arg4
-  arg4 = arg1.DisableControls
-  if nil ~= arg4 then
-    arg3 = arg1.DisableControls
+  localValue3 = {}
+  localValue4 = dataCollection.DisableControls
+  localValue4 = localValue4.Mouse
+  localValue3.Mouse = localValue4
+  localValue4 = dataCollection.DisableControls
+  localValue4 = localValue4.Player
+  localValue3.Player = localValue4
+  localValue4 = dataCollection.DisableControls
+  localValue4 = localValue4.Vehicle
+  localValue3.Vehicle = localValue4
+  localValue4 = localValue1.DisableControls
+  if nil ~= localValue4 then
+    localValue3 = localValue1.DisableControls
   end
-  arg4 = dataTable5
-  workValue19 = dataTable
-  stringHelper = arg1
-  arg4 = arg4(workValue19, stringHelper)
-  arg1 = arg4
-  arg4 = dataTable5
-  workValue19 = dataTable.DisableControls
-  stringHelper = arg3
-  arg4 = arg4(workValue19, stringHelper)
-  arg1.DisableControls = arg4
-  arg1.display = true
-  arg4 = arg1.ShowProgress
-  if true == arg4 then
-    arg1.ShowTimer = false
+  localValue4 = dataCollection5
+  workingValue19 = dataCollection
+  stringHelper = localValue1
+  localValue4 = localValue4(workingValue19, stringHelper)
+  localValue1 = localValue4
+  localValue4 = dataCollection5
+  workingValue19 = dataCollection.DisableControls
+  stringHelper = localValue3
+  localValue4 = localValue4(workingValue19, stringHelper)
+  localValue1.DisableControls = localValue4
+  localValue1.display = true
+  localValue4 = localValue1.ShowProgress
+  if true == localValue4 then
+    localValue1.ShowTimer = false
   end
-  arg4 = arg1.onStart
-  workValue20 = arg4
-  arg4 = arg1.onComplete
-  workValue22 = arg4
-  arg4 = arg1.onTimeout
-  workValue24 = arg4
-  arg4 = nil
-  workValue28 = arg4
-  arg4 = arg1.Animation
-  if nil ~= arg4 then
-    arg4 = arg1.Animation
-    workValue28 = arg4
+  localValue4 = localValue1.onStart
+  workingValue20 = localValue4
+  localValue4 = localValue1.onComplete
+  workingValue22 = localValue4
+  localValue4 = localValue1.onTimeout
+  workingValue24 = localValue4
+  localValue4 = nil
+  workingValue28 = localValue4
+  localValue4 = localValue1.Animation
+  if nil ~= localValue4 then
+    localValue4 = localValue1.Animation
+    workingValue28 = localValue4
   end
-  arg1.onStart = nil
-  arg1.onComplete = nil
-  arg1.onTimeout = nil
-  if true == arg2 then
-    return arg1
+  localValue1.onStart = nil
+  localValue1.onComplete = nil
+  localValue1.onTimeout = nil
+  if true == localValue2 then
+    return localValue1
   end
-  arg4 = arg1.MiniGame
-  if arg4 then
-    arg4 = SetNuiFocus
-    workValue19 = true
+  localValue4 = localValue1.MiniGame
+  if localValue4 then
+    localValue4 = SetNuiFocus
+    workingValue19 = true
     stringHelper = true
     -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-    arg4(workValue19, stringHelper)
+    localValue4(workingValue19, stringHelper)
   end
-  arg4 = SendNUIMessage
-  workValue19 = arg1
+  localValue4 = SendNUIMessage
+  workingValue19 = localValue1
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg4(workValue19)
-  arg4 = assert
-  workValue19 = flag3
-  workValue19 = not workValue19
+  localValue4(workingValue19)
+  localValue4 = assert
+  workingValue19 = stateFlag3
+  workingValue19 = not workingValue19
   stringHelper = "Can not start progress bar whilst an existing bar is still running"
-  arg4(workValue19, stringHelper)
-  arg4 = true
-  flag3 = arg4
-  arg4 = arg1.Async
-  if false == arg4 then
+  localValue4(workingValue19, stringHelper)
+  localValue4 = true
+  stateFlag3 = localValue4
+  localValue4 = localValue1.Async
+  if false == localValue4 then
     while true do
-      arg4 = flag3
-      if not arg4 then
+      localValue4 = stateFlag3
+      if not localValue4 then
         break
       end
-      arg4 = IsControlJustPressed
-      workValue19 = 0
-      stringHelper = dataTable.CancelKey
-      arg4 = arg4(workValue19, stringHelper)
-      if arg4 then
-        arg4 = arg1.canCancel
-        if arg4 then
-          arg4 = workValue22
-          workValue19 = true
-          arg4(workValue19)
-          arg4 = TriggerEvent
-          workValue19 = "rprogress:stop"
+      localValue4 = IsControlJustPressed
+      workingValue19 = 0
+      stringHelper = dataCollection.CancelKey
+      localValue4 = localValue4(workingValue19, stringHelper)
+      if localValue4 then
+        localValue4 = localValue1.canCancel
+        if localValue4 then
+          localValue4 = workingValue22
+          workingValue19 = true
+          localValue4(workingValue19)
+          localValue4 = TriggerEvent
+          workingValue19 = "rprogress:stop"
           -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "rprogress:stop".
-          arg4(workValue19)
+          localValue4(workingValue19)
         end
       end
-      arg4 = DisableControls
-      workValue19 = arg1
-      arg4(workValue19)
-      arg4 = Citizen
-      arg4 = arg4.Wait
-      workValue19 = 1
-      arg4(workValue19)
+      localValue4 = DisableControls
+      workingValue19 = localValue1
+      localValue4(workingValue19)
+      localValue4 = Citizen
+      localValue4 = localValue4.Wait
+      workingValue19 = 1
+      localValue4(workingValue19)
     end
-    arg4 = workValue4
-    arg4()
+    localValue4 = workingValue4
+    localValue4()
   else
-    arg4 = Citizen
-    arg4 = arg4.CreateThread
+    localValue4 = Citizen
+    localValue4 = localValue4.CreateThread
 
-    -- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
-    function workValue19()
-      local arg12, workValue14, iterator
+    -- === HELPER FUNCTION (decompiler name: workingValue19; parameters: none) ===
+    function workingValue19()
+      local localValue12, workingValue14, iterator
       while true do
-        arg12 = flag3
-        if not arg12 then
+        localValue12 = stateFlag3
+        if not localValue12 then
           break
         end
-        arg12 = IsControlJustPressed
-        workValue14 = 0
-        iterator = dataTable.CancelKey
-        arg12 = arg12(workValue14, iterator)
-        if arg12 then
-          arg12 = arg1.canCancel
-          if arg12 then
-            arg12 = workValue22
-            workValue14 = true
-            arg12(workValue14)
-            arg12 = TriggerEvent
-            workValue14 = "rprogress:stop"
+        localValue12 = IsControlJustPressed
+        workingValue14 = 0
+        iterator = dataCollection.CancelKey
+        localValue12 = localValue12(workingValue14, iterator)
+        if localValue12 then
+          localValue12 = localValue1.canCancel
+          if localValue12 then
+            localValue12 = workingValue22
+            workingValue14 = true
+            localValue12(workingValue14)
+            localValue12 = TriggerEvent
+            workingValue14 = "rprogress:stop"
             -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "rprogress:stop".
-            arg12(workValue14)
+            localValue12(workingValue14)
           end
         end
-        arg12 = DisableControls
-        workValue14 = arg1
-        arg12(workValue14)
-        arg12 = Citizen
-        arg12 = arg12.Wait
-        workValue14 = 0
-        arg12(workValue14)
+        localValue12 = DisableControls
+        workingValue14 = localValue1
+        localValue12(workingValue14)
+        localValue12 = Citizen
+        localValue12 = localValue12.Wait
+        workingValue14 = 0
+        localValue12(workingValue14)
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    arg4(workValue19)
+    localValue4(workingValue19)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
-function workValue7(arg1, arg2)
-  local arg3, arg4, workValue19, stringHelper
-  arg3 = workValue2
-  arg4 = arg1
-  workValue19 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1, localValue2) ===
+function workingValue7(localValue1, localValue2)
+  local localValue3, localValue4, workingValue19, stringHelper
+  localValue3 = workingValue2
+  localValue4 = localValue1
+  workingValue19 = localValue2
   stringHelper = true
-  arg3(arg4, workValue19, stringHelper)
+  localValue3(localValue4, workingValue19, stringHelper)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, arg2
-  arg1 = SendNUIMessage
-  arg2 = {}
-  arg2.stop = true
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: none) ===
+function workingValue9()
+  local localValue1, localValue2
+  localValue1 = SendNUIMessage
+  localValue2 = {}
+  localValue2.stop = true
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg1(arg2)
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, arg4
-  arg2 = workValue6
-  arg3 = arg1
-  arg4 = true
-  arg2 = arg2(arg3, arg4)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: localValue1) ===
+function workingValue10(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = workingValue6
+  localValue3 = localValue1
+  localValue4 = true
+  localValue2 = localValue2(localValue3, localValue4)
+  if not localValue2 then
     return
   end
-  arg2.display = false
-  arg2.static = true
-  arg3 = SendNUIMessage
-  arg4 = arg2
-  arg3(arg4)
-  arg3 = {}
+  localValue2.display = false
+  localValue2.static = true
+  localValue3 = SendNUIMessage
+  localValue4 = localValue2
+  localValue3(localValue4)
+  localValue3 = {}
 
-  -- === HELPER FUNCTION: arg4() ===
-  function arg4()
-    local arg12, workValue14
-    arg2.hide = false
-    arg2.show = true
-    arg2.progress = false
-    arg12 = SendNUIMessage
-    workValue14 = arg2
+  -- === HELPER FUNCTION: localValue4() ===
+  function localValue4()
+    local localValue12, workingValue14
+    localValue2.hide = false
+    localValue2.show = true
+    localValue2.progress = false
+    localValue12 = SendNUIMessage
+    workingValue14 = localValue2
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    arg12(workValue14)
+    localValue12(workingValue14)
   end
-  arg3.Show = arg4
+  localValue3.Show = localValue4
 
-  -- === HELPER FUNCTION: arg4(arg12) ===
-  function arg4(arg12)
-    local workValue14, iterator
-    arg2.hide = false
-    arg2.show = true
-    workValue14 = tonumber
-    iterator = arg12
-    workValue14 = workValue14(iterator)
-    arg2.progress = workValue14
-    workValue14 = arg2.progress
-    if workValue14 < 0 then
-      arg2.progress = 0
+  -- === HELPER FUNCTION: localValue4(localValue12) ===
+  function localValue4(localValue12)
+    local workingValue14, iterator
+    localValue2.hide = false
+    localValue2.show = true
+    workingValue14 = tonumber
+    iterator = localValue12
+    workingValue14 = workingValue14(iterator)
+    localValue2.progress = workingValue14
+    workingValue14 = localValue2.progress
+    if workingValue14 < 0 then
+      localValue2.progress = 0
     else
-      workValue14 = arg2.progress
-      if workValue14 > 100 then
-        arg2.progress = 100
+      workingValue14 = localValue2.progress
+      if workingValue14 > 100 then
+        localValue2.progress = 100
       end
     end
-    workValue14 = SendNUIMessage
-    iterator = arg2
-    workValue14(iterator)
+    workingValue14 = SendNUIMessage
+    iterator = localValue2
+    workingValue14(iterator)
   end
-  arg3.SetProgress = arg4
+  localValue3.SetProgress = localValue4
 
-  -- === HELPER FUNCTION: arg4() ===
-  function arg4()
-    local arg12, workValue14
-    arg2.show = false
-    arg2.hide = true
-    arg2.progress = false
-    arg12 = SendNUIMessage
-    workValue14 = arg2
+  -- === HELPER FUNCTION: localValue4() ===
+  function localValue4()
+    local localValue12, workingValue14
+    localValue2.show = false
+    localValue2.hide = true
+    localValue2.progress = false
+    localValue12 = SendNUIMessage
+    workingValue14 = localValue2
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    arg12(workValue14)
+    localValue12(workingValue14)
   end
-  arg3.Hide = arg4
+  localValue3.Hide = localValue4
 
-  -- === HELPER FUNCTION: arg4() ===
-  function arg4()
-    local arg12, workValue14
-    arg2.show = false
-    arg2.hide = false
-    arg2.progress = false
-    arg2.destroy = true
-    arg12 = SendNUIMessage
-    workValue14 = arg2
-    arg12(workValue14)
+  -- === HELPER FUNCTION: localValue4() ===
+  function localValue4()
+    local localValue12, workingValue14
+    localValue2.show = false
+    localValue2.hide = false
+    localValue2.progress = false
+    localValue2.destroy = true
+    localValue12 = SendNUIMessage
+    workingValue14 = localValue2
+    localValue12(workingValue14)
   end
-  arg3.Destroy = arg4
-  return arg3
+  localValue3.Destroy = localValue4
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1) ===
-function workValue12(arg1)
-  local arg2, arg3, arg4, workValue19
-  arg2 = flag3
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: localValue1) ===
+function workingValue12(localValue1)
+  local localValue2, localValue3, localValue4, workingValue19
+  localValue2 = stateFlag3
+  if localValue2 then
     return
   end
-  arg2 = false
-  flag = arg2
-  arg2 = dataTable5
-  arg3 = dataTable.MiniGameOptions
-  arg4 = arg1
-  arg2 = arg2(arg3, arg4)
-  arg1 = arg2
-  arg2 = arg1.Zone
-  if nil == arg2 then
-    arg2 = arg1.Duration
-    if nil == arg2 then
-      arg2 = "Easy"
-      arg3 = arg1.Difficulty
-      if nil ~= arg3 then
-        arg2 = arg1.Difficulty
+  localValue2 = false
+  stateFlag = localValue2
+  localValue2 = dataCollection5
+  localValue3 = dataCollection.MiniGameOptions
+  localValue4 = localValue1
+  localValue2 = localValue2(localValue3, localValue4)
+  localValue1 = localValue2
+  localValue2 = localValue1.Zone
+  if nil == localValue2 then
+    localValue2 = localValue1.Duration
+    if nil == localValue2 then
+      localValue2 = "Easy"
+      localValue3 = localValue1.Difficulty
+      if nil ~= localValue3 then
+        localValue2 = localValue1.Difficulty
       end
-      arg3 = dataTable.MiniGameOptions
-      arg3 = arg3.Difficulty
-      arg3 = arg3[arg2]
-      arg3 = arg3.Zone
-      arg1.Zone = arg3
-      arg3 = dataTable.MiniGameOptions
-      arg3 = arg3.Difficulty
-      arg3 = arg3[arg2]
-      arg3 = arg3.Duration
-      arg1.Duration = arg3
+      localValue3 = dataCollection.MiniGameOptions
+      localValue3 = localValue3.Difficulty
+      localValue3 = localValue3[localValue2]
+      localValue3 = localValue3.Zone
+      localValue1.Zone = localValue3
+      localValue3 = dataCollection.MiniGameOptions
+      localValue3 = localValue3.Difficulty
+      localValue3 = localValue3[localValue2]
+      localValue3 = localValue3.Duration
+      localValue1.Duration = localValue3
     end
   end
-  arg1.Difficulty = nil
-  arg1.MiniGame = true
-  arg2 = workValue6
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = arg1.Timeout
-  if nil ~= arg2 then
-    arg2 = arg1.Timeout
-    if arg2 > 0 then
-      arg2 = numberValue
-      arg2 = arg2 + 1
-      numberValue = arg2
-      arg3 = Citizen
-      arg3 = arg3.SetTimeout
-      arg4 = arg1.Timeout
+  localValue1.Difficulty = nil
+  localValue1.MiniGame = true
+  localValue2 = workingValue6
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = localValue1.Timeout
+  if nil ~= localValue2 then
+    localValue2 = localValue1.Timeout
+    if localValue2 > 0 then
+      localValue2 = number
+      localValue2 = localValue2 + 1
+      number = localValue2
+      localValue3 = Citizen
+      localValue3 = localValue3.SetTimeout
+      localValue4 = localValue1.Timeout
 
-      -- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
-      function workValue19()
-        local arg12, workValue14
-        arg12 = workValue24
-        if nil ~= arg12 then
-          arg12 = type
-          workValue14 = workValue24
-          arg12 = arg12(workValue14)
-          if "function" == arg12 then
-            arg12 = flag
-            if not arg12 then
-              arg12 = numberValue
-              workValue14 = arg2
-              if arg12 == workValue14 then
-                arg12 = workValue9
-                arg12()
-                arg12 = workValue24
-                arg12()
+      -- === HELPER FUNCTION (decompiler name: workingValue19; parameters: none) ===
+      function workingValue19()
+        local localValue12, workingValue14
+        localValue12 = workingValue24
+        if nil ~= localValue12 then
+          localValue12 = type
+          workingValue14 = workingValue24
+          localValue12 = localValue12(workingValue14)
+          if "function" == localValue12 then
+            localValue12 = stateFlag
+            if not localValue12 then
+              localValue12 = number
+              workingValue14 = localValue2
+              if localValue12 == workingValue14 then
+                localValue12 = workingValue9
+                localValue12()
+                localValue12 = workingValue24
+                localValue12()
               end
             end
           end
         end
       end
-      arg3(arg4, workValue19)
+      localValue3(localValue4, workingValue19)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1) ===
-function workValue13(arg1)
-  local arg2, arg3, arg4, workValue19
-  arg2 = arg1.DisableControls
-  arg2 = arg2.Mouse
-  if arg2 then
-    arg2 = DisableControlAction
-    arg3 = 1
-    arg4 = 1
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
-    arg2 = DisableControlAction
-    arg3 = 1
-    arg4 = 2
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
-    arg2 = DisableControlAction
-    arg3 = 1
-    arg4 = 106
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue1) ===
+function workingValue13(localValue1)
+  local localValue2, localValue3, localValue4, workingValue19
+  localValue2 = localValue1.DisableControls
+  localValue2 = localValue2.Mouse
+  if localValue2 then
+    localValue2 = DisableControlAction
+    localValue3 = 1
+    localValue4 = 1
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
+    localValue2 = DisableControlAction
+    localValue3 = 1
+    localValue4 = 2
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
+    localValue2 = DisableControlAction
+    localValue3 = 1
+    localValue4 = 106
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
   end
-  arg2 = arg1.DisableControls
-  arg2 = arg2.Player
-  if arg2 then
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 21
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 30
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 31
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 36
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
+  localValue2 = localValue1.DisableControls
+  localValue2 = localValue2.Player
+  if localValue2 then
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 21
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 30
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 31
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 36
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
   end
-  arg2 = arg1.DisableControls
-  arg2 = arg2.Vehicle
-  if arg2 then
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 71
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 72
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 75
-    workValue19 = true
-    arg2(arg3, arg4, workValue19)
+  localValue2 = localValue1.DisableControls
+  localValue2 = localValue2.Vehicle
+  if localValue2 then
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 71
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 72
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 75
+    workingValue19 = true
+    localValue2(localValue3, localValue4, workingValue19)
   end
 end
-DisableControls = workValue13
+DisableControls = workingValue13
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, arg3
-  arg1 = false
-  flag3 = arg1
-  arg1 = SetNuiFocus
-  arg2 = false
-  arg3 = false
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, localValue3
+  localValue1 = false
+  stateFlag3 = localValue1
+  localValue1 = SetNuiFocus
+  localValue2 = false
+  localValue3 = false
   -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-  arg1(arg2, arg3)
+  localValue1(localValue2, localValue3)
 end
-workValue15 = RegisterNUICallback
-textValue2 = "progress_start"
+workingValue15 = RegisterNUICallback
+text2 = "progress_start"
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
-function workValue16(arg1, arg2)
-  local arg3, arg4
-  arg3 = workValue20
-  if nil ~= arg3 then
-    arg3 = workValue20
-    arg3()
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1, localValue2) ===
+function workingValue16(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = workingValue20
+  if nil ~= localValue3 then
+    localValue3 = workingValue20
+    localValue3()
   end
-  arg3 = arg2
-  arg4 = "ok"
-  arg3(arg4)
+  localValue3 = localValue2
+  localValue4 = "ok"
+  localValue3(localValue4)
 end
-workValue15(textValue2, workValue16)
-workValue15 = RegisterNUICallback
-textValue2 = "progress_complete"
+workingValue15(text2, workingValue16)
+workingValue15 = RegisterNUICallback
+text2 = "progress_complete"
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
-function workValue16(arg1, arg2)
-  local arg3, arg4
-  arg3 = workValue13
-  arg3()
-  arg3 = workValue22
-  if nil ~= arg3 then
-    arg3 = workValue22
-    arg3()
-    arg3 = workValue4
-    arg3()
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1, localValue2) ===
+function workingValue16(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = workingValue13
+  localValue3()
+  localValue3 = workingValue22
+  if nil ~= localValue3 then
+    localValue3 = workingValue22
+    localValue3()
+    localValue3 = workingValue4
+    localValue3()
   end
-  arg3 = arg2
-  arg4 = "ok"
-  arg3(arg4)
+  localValue3 = localValue2
+  localValue4 = "ok"
+  localValue3(localValue4)
 end
-workValue15(textValue2, workValue16)
-workValue15 = RegisterNUICallback
-textValue2 = "progress_stop"
+workingValue15(text2, workingValue16)
+workingValue15 = RegisterNUICallback
+text2 = "progress_stop"
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
-function workValue16(arg1, arg2)
-  local arg3, arg4
-  arg3 = workValue13
-  arg3()
-  arg3 = workValue4
-  arg3()
-  arg3 = arg2
-  arg4 = "ok"
-  arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1, localValue2) ===
+function workingValue16(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = workingValue13
+  localValue3()
+  localValue3 = workingValue4
+  localValue3()
+  localValue3 = localValue2
+  localValue4 = "ok"
+  localValue3(localValue4)
 end
-workValue15(textValue2, workValue16)
-workValue15 = RegisterNUICallback
-textValue2 = "progress_minigame_input"
+workingValue15(text2, workingValue16)
+workingValue15 = RegisterNUICallback
+text2 = "progress_minigame_input"
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
-function workValue16(arg1, arg2)
-  local arg3, arg4
-  arg3 = true
-  flag = arg3
-  arg3 = workValue22
-  if nil ~= arg3 then
-    arg3 = workValue22
-    arg4 = arg1.success
-    arg4 = true == arg4
-    arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1, localValue2) ===
+function workingValue16(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = true
+  stateFlag = localValue3
+  localValue3 = workingValue22
+  if nil ~= localValue3 then
+    localValue3 = workingValue22
+    localValue4 = localValue1.success
+    localValue4 = true == localValue4
+    localValue3(localValue4)
   end
-  arg3 = workValue4
-  arg3()
-  arg3 = arg2
-  arg4 = "ok"
-  arg3(arg4)
+  localValue3 = workingValue4
+  localValue3()
+  localValue3 = localValue2
+  localValue4 = "ok"
+  localValue3(localValue4)
 end
-workValue15(textValue2, workValue16)
-workValue15 = RegisterNUICallback
-textValue2 = "progress_minigame_complete"
+workingValue15(text2, workingValue16)
+workingValue15 = RegisterNUICallback
+text2 = "progress_minigame_complete"
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
-function workValue16(arg1, arg2)
-  local arg3, arg4
-  arg3 = workValue13
-  arg3()
-  arg3 = arg2
-  arg4 = "ok"
-  arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1, localValue2) ===
+function workingValue16(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = workingValue13
+  localValue3()
+  localValue3 = localValue2
+  localValue4 = "ok"
+  localValue3(localValue4)
 end
-workValue15(textValue2, workValue16)
-workValue15 = RegisterNetEvent
-textValue2 = "rprogress:start"
+workingValue15(text2, workingValue16)
+workingValue15 = RegisterNetEvent
+text2 = "rprogress:start"
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rprogress:start".
-workValue15(textValue2)
-workValue15 = RegisterNetEvent
-textValue2 = "rprogress:stop"
-workValue15(textValue2)
-workValue15 = RegisterNetEvent
-textValue2 = "rprogress:custom"
+workingValue15(text2)
+workingValue15 = RegisterNetEvent
+text2 = "rprogress:stop"
+workingValue15(text2)
+workingValue15 = RegisterNetEvent
+text2 = "rprogress:custom"
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rprogress:custom".
-workValue15(textValue2)
-workValue15 = RegisterNetEvent
-textValue2 = "rprogress:linear"
-workValue15(textValue2)
-workValue15 = RegisterNetEvent
-textValue2 = "rprogress:minigame"
+workingValue15(text2)
+workingValue15 = RegisterNetEvent
+text2 = "rprogress:linear"
+workingValue15(text2)
+workingValue15 = RegisterNetEvent
+text2 = "rprogress:minigame"
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rprogress:minigame".
-workValue15(textValue2)
-workValue15 = AddEventHandler
-textValue2 = "rprogress:start"
-workValue16 = workValue2
+workingValue15(text2)
+workingValue15 = AddEventHandler
+text2 = "rprogress:start"
+workingValue16 = workingValue2
 -- Beginner: Register a client-side event handler. Event/command: "rprogress:start".
-workValue15(textValue2, workValue16)
-workValue15 = AddEventHandler
-textValue2 = "rprogress:stop"
-workValue16 = workValue9
-workValue15(textValue2, workValue16)
-workValue15 = AddEventHandler
-textValue2 = "rprogress:custom"
+workingValue15(text2, workingValue16)
+workingValue15 = AddEventHandler
+text2 = "rprogress:stop"
+workingValue16 = workingValue9
+workingValue15(text2, workingValue16)
+workingValue15 = AddEventHandler
+text2 = "rprogress:custom"
 -- Beginner: this function runs when client event "rprogress:custom" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
-function workValue16(arg1)
-  local arg2, arg3
-  arg1.Async = false
-  arg1.onStart = nil
-  arg1.onComplete = nil
-  arg2 = workValue6
-  arg3 = arg1
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1) ===
+function workingValue16(localValue1)
+  local localValue2, localValue3
+  localValue1.Async = false
+  localValue1.onStart = nil
+  localValue1.onComplete = nil
+  localValue2 = workingValue6
+  localValue3 = localValue1
+  localValue2(localValue3)
 end
 -- Beginner: Register a client-side event handler. Event/command: "rprogress:custom".
-workValue15(textValue2, workValue16)
-workValue15 = AddEventHandler
-textValue2 = "rprogress:linear"
-workValue16 = workValue7
-workValue15(textValue2, workValue16)
-workValue15 = AddEventHandler
-textValue2 = "rprogress:minigame"
-workValue16 = workValue12
+workingValue15(text2, workingValue16)
+workingValue15 = AddEventHandler
+text2 = "rprogress:linear"
+workingValue16 = workingValue7
+workingValue15(text2, workingValue16)
+workingValue15 = AddEventHandler
+text2 = "rprogress:minigame"
+workingValue16 = workingValue12
 -- Beginner: Register a client-side event handler. Event/command: "rprogress:minigame".
-workValue15(textValue2, workValue16)
-workValue15 = exports
-textValue2 = "progressStart"
-workValue16 = workValue2
-workValue15(textValue2, workValue16)
-workValue15 = exports
-textValue2 = "progressCustom"
-workValue16 = workValue6
-workValue15(textValue2, workValue16)
-workValue15 = exports
-textValue2 = "progressStop"
-workValue16 = workValue9
-workValue15(textValue2, workValue16)
-workValue15 = exports
-textValue2 = "progressStatic"
-workValue16 = workValue10
-workValue15(textValue2, workValue16)
-workValue15 = exports
-textValue2 = "progressLinear"
-workValue16 = workValue7
-workValue15(textValue2, workValue16)
-workValue15 = exports
-textValue2 = "progressMiniGame"
-workValue16 = workValue12
-workValue15(textValue2, workValue16)
-workValue15 = CMG
-workValue15.startCircularProgressBar = workValue2
-workValue15 = CMG
-workValue15.customCircularProgressBar = workValue6
-workValue15 = CMG
-workValue15.stopCircularProgressBar = workValue9
-workValue15 = CMG
-workValue15.staticCircularProgressBar = workValue10
-workValue15 = CMG
-workValue15.linerCircularProgressBar = workValue7
-workValue15 = CMG
-workValue15.minigameCircularProgressBar = workValue12
-workValue15 = CMG
+workingValue15(text2, workingValue16)
+workingValue15 = exports
+text2 = "progressStart"
+workingValue16 = workingValue2
+workingValue15(text2, workingValue16)
+workingValue15 = exports
+text2 = "progressCustom"
+workingValue16 = workingValue6
+workingValue15(text2, workingValue16)
+workingValue15 = exports
+text2 = "progressStop"
+workingValue16 = workingValue9
+workingValue15(text2, workingValue16)
+workingValue15 = exports
+text2 = "progressStatic"
+workingValue16 = workingValue10
+workingValue15(text2, workingValue16)
+workingValue15 = exports
+text2 = "progressLinear"
+workingValue16 = workingValue7
+workingValue15(text2, workingValue16)
+workingValue15 = exports
+text2 = "progressMiniGame"
+workingValue16 = workingValue12
+workingValue15(text2, workingValue16)
+workingValue15 = CMG
+workingValue15.startCircularProgressBar = workingValue2
+workingValue15 = CMG
+workingValue15.customCircularProgressBar = workingValue6
+workingValue15 = CMG
+workingValue15.stopCircularProgressBar = workingValue9
+workingValue15 = CMG
+workingValue15.staticCircularProgressBar = workingValue10
+workingValue15 = CMG
+workingValue15.linerCircularProgressBar = workingValue7
+workingValue15 = CMG
+workingValue15.minigameCircularProgressBar = workingValue12
+workingValue15 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2
-  arg1 = flag3
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2
+  localValue1 = stateFlag3
+  return localValue1
 end
-workValue15.isProgressBarRunning = textValue2
+workingValue15.isProgressBarRunning = text2

@@ -32,2017 +32,2017 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, cmgCall3, cmgCall5, cmgCall7, textValue10, workValue42, workValue46, workValue47, workValue48, workValue50, workValue2, workValue3, flag, workValue4, workValue5, flag2, numberValue2, flag3, numberValue3, flag4, numberValue4, workValue7, workValue8, workValue9, cmgCall4, textValue2, workValue11, workValue13, flag5, textValue5, flag6, textValue6, cmgCall6, workValue16, textValue8, eventRegistration, textValue9, workValue18, flag7, workValue19, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue27, workValue28, workValue29, workValue30, workValue32, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue44, workValue45, cmgCall8, cmgCall9, cmgCall10, textValue11, flag8, textValue12
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-cmgCall3 = "cfg/cfg_garages"
+local cmgOperation, cmgOperation3, cmgOperation5, cmgOperation7, text10, workingValue42, workingValue46, workingValue47, workingValue48, workingValue50, workingValue2, workingValue3, stateFlag, workingValue4, workingValue5, stateFlag2, number2, stateFlag3, number3, stateFlag4, number4, workingValue7, workingValue8, workingValue9, cmgOperation4, text2, workingValue11, workingValue13, stateFlag5, text5, stateFlag6, text6, cmgOperation6, workingValue16, text8, eventHandler, text9, workingValue18, stateFlag7, workingValue19, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue27, workingValue28, workingValue29, workingValue30, workingValue32, workingValue33, workingValue34, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue40, workingValue41, workingValue44, workingValue45, cmgOperation8, cmgOperation9, cmgOperation10, text11, stateFlag8, text12
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+cmgOperation3 = "cfg/cfg_garages"
 -- Beginner: result below is config.
-cmgCall = cmgCall(cmgCall3)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.loadModule
-cmgCall5 = "cfg/cfg_mechanic"
+cmgOperation = cmgOperation(cmgOperation3)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.loadModule
+cmgOperation5 = "cfg/cfg_mechanic"
 -- Beginner: result below is config.
-cmgCall3 = cmgCall3(cmgCall5)
-cmgCall5 = CMG
-cmgCall5 = cmgCall5.loadModule
-cmgCall7 = "cfg/cfg_casts"
+cmgOperation3 = cmgOperation3(cmgOperation5)
+cmgOperation5 = CMG
+cmgOperation5 = cmgOperation5.loadModule
+cmgOperation7 = "cfg/cfg_casts"
 -- Beginner: result below is config.
-cmgCall5 = cmgCall5(cmgCall7)
-if not cmgCall5 then
-  cmgCall5 = {}
+cmgOperation5 = cmgOperation5(cmgOperation7)
+if not cmgOperation5 then
+  cmgOperation5 = {}
 end
-cmgCall7 = CMG
-cmgCall7 = cmgCall7.loadModule
-textValue10 = "cfg/items"
+cmgOperation7 = CMG
+cmgOperation7 = cmgOperation7.loadModule
+text10 = "cfg/items"
 -- Beginner: result below is config.
-cmgCall7 = cmgCall7(textValue10)
-textValue10 = cmgCall7.items
-if textValue10 then
-  textValue10 = cmgCall7.items
-  textValue10 = textValue10.evidencebag
-  if textValue10 then
-    textValue10 = cmgCall7.items
-    textValue10 = textValue10.evidencebag
-    textValue10 = textValue10.weight
-    if textValue10 then
-      goto flow_label_35
+cmgOperation7 = cmgOperation7(text10)
+text10 = cmgOperation7.items
+if text10 then
+  text10 = cmgOperation7.items
+  text10 = text10.evidencebag
+  if text10 then
+    text10 = cmgOperation7.items
+    text10 = text10.evidencebag
+    text10 = text10.weight
+    if text10 then
+      goto continueAtStep35
     end
   end
 end
-textValue10 = 5.0
-::flow_label_35::
+text10 = 5.0
+::continueAtStep35::
 
--- === HELPER FUNCTION (decompiler name: workValue42; parameters: arg1, arg2) ===
-function workValue42(arg1, arg2)
-  local arg3, arg4, arg5
-  if 0 ~= arg1 then
-    arg3 = IsEntityAVehicle
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    if arg3 then
-      arg3 = CMG
-      arg3 = arg3.getVehicleIdFromModel
-      arg4 = GetEntityModel
-      arg5 = arg1
-      arg4, arg5 = arg4(arg5)
-      arg3 = arg3(arg4, arg5)
-      if arg3 then
-        arg4 = cmgCall.garages
-        arg4 = arg4[arg2]
-        if arg4 then
-          arg4 = cmgCall.garages
-          arg4 = arg4[arg2]
-          arg4 = arg4[arg3]
-          if arg4 then
-            arg4 = true
-            return arg4
+-- === HELPER FUNCTION (decompiler name: workingValue42; parameters: localValue1, localValue2) ===
+function workingValue42(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  if 0 ~= localValue1 then
+    localValue3 = IsEntityAVehicle
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.getVehicleIdFromModel
+      localValue4 = GetEntityModel
+      localValue5 = localValue1
+      localValue4, localValue5 = localValue4(localValue5)
+      localValue3 = localValue3(localValue4, localValue5)
+      if localValue3 then
+        localValue4 = cmgOperation.garages
+        localValue4 = localValue4[localValue2]
+        if localValue4 then
+          localValue4 = cmgOperation.garages
+          localValue4 = localValue4[localValue2]
+          localValue4 = localValue4[localValue3]
+          if localValue4 then
+            localValue4 = true
+            return localValue4
           end
         end
       end
     end
   end
-  arg3 = false
-  return arg3
+  localValue3 = false
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue46; parameters: arg1) ===
-function workValue46(arg1)
-  local arg2, arg3, arg4
-  if arg1 and 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: workingValue46; parameters: localValue1) ===
+function workingValue46(localValue1)
+  local localValue2, localValue3, localValue4
+  if localValue1 and 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep12
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_12::
-  arg2 = IsEntityAVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep12::
+  localValue2 = IsEntityAVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = DecorGetBool
-  arg3 = arg1
-  arg4 = "6b6dade745"
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = DecorGetBool
+  localValue3 = localValue1
+  localValue4 = "6b6dade745"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "aa.onduty.permission"
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "aa.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = tCMG
-  arg2 = arg2.isInGreenzone
-  arg3 = false
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = tCMG
+  localValue2 = localValue2.isInGreenzone
+  localValue3 = false
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = DecorGetInt
-  arg3 = arg1
-  arg4 = "0a6cf607ed"
-  arg2 = arg2(arg3, arg4)
-  if arg2 <= 0 then
-    arg2 = false
-    return arg2
+  localValue2 = DecorGetInt
+  localValue3 = localValue1
+  localValue4 = "0a6cf607ed"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 <= 0 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.hasClientInventoryItem
-  arg3 = "lockpick"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientInventoryItem
-    arg3 = "ldnulockpick"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.clientVehicleWasLockpickedThisSession
-      arg3 = arg1
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = false
-        return arg2
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientInventoryItem
+  localValue3 = "lockpick"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientInventoryItem
+    localValue3 = "ldnulockpick"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.clientVehicleWasLockpickedThisSession
+      localValue3 = localValue1
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = false
+        return localValue2
       end
     end
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue47; parameters: arg1) ===
-function workValue47(arg1)
-  local arg2, arg3, arg4
-  if arg1 and 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: workingValue47; parameters: localValue1) ===
+function workingValue47(localValue1)
+  local localValue2, localValue3, localValue4
+  if localValue1 and 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep12
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_12::
-  arg2 = IsEntityAVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep12::
+  localValue2 = IsEntityAVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = GetPedInVehicleSeat
-  arg3 = arg1
-  arg4 = -1
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = GetPedInVehicleSeat
+  localValue3 = localValue1
+  localValue4 = -1
+  localValue2 = localValue2(localValue3, localValue4)
+  if 0 ~= localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = NetworkGetEntityIsNetworked
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = NetworkGetEntityIsNetworked
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = NetworkGetNetworkIdFromEntity
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 == arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = NetworkGetNetworkIdFromEntity
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if 0 == localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.hasClientInventoryItem
-  arg3 = "diyrepairkit"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientInventoryItem
+  localValue3 = "diyrepairkit"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue48; parameters: arg1) ===
-function workValue48(arg1)
-  local arg2, arg3, arg4
-  if arg1 and 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: workingValue48; parameters: localValue1) ===
+function workingValue48(localValue1)
+  local localValue2, localValue3, localValue4
+  if localValue1 and 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep12
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_12::
-  arg2 = IsEntityAVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep12::
+  localValue2 = IsEntityAVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = GetPedInVehicleSeat
-  arg3 = arg1
-  arg4 = -1
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = GetPedInVehicleSeat
+  localValue3 = localValue1
+  localValue4 = -1
+  localValue2 = localValue2(localValue3, localValue4)
+  if 0 ~= localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = NetworkGetEntityIsNetworked
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = NetworkGetEntityIsNetworked
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = NetworkGetNetworkIdFromEntity
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 == arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = NetworkGetNetworkIdFromEntity
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if 0 == localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.hasClientGroup
-  arg3 = "Trucking"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientGroup
+  localValue3 = "Trucking"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.hasClientInventoryItem
-  arg3 = "truckingrepairkit"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientInventoryItem
+  localValue3 = "truckingrepairkit"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue50; parameters: arg1) ===
-function workValue50(arg1)
-  local arg2, arg3
-  if arg1 and 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: workingValue50; parameters: localValue1) ===
+function workingValue50(localValue1)
+  local localValue2, localValue3
+  if localValue1 and 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep12
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_12::
-  arg2 = IsEntityAVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep12::
+  localValue2 = IsEntityAVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = NetworkGetEntityIsNetworked
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = NetworkGetEntityIsNetworked
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = NetworkGetNetworkIdFromEntity
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 == arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = NetworkGetNetworkIdFromEntity
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if 0 == localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
-function workValue2(arg1)
-  local arg2, arg3, arg4
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "borderforce.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = false
-      return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1) ===
+function workingValue2(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "borderforce.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = false
+      return localValue2
     end
   end
-  if arg1 and 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_26
+  if localValue1 and 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep26
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_26::
-  arg2 = IsEntityAVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep26::
+  localValue2 = IsEntityAVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = DecorGetInt
-  arg3 = arg1
-  arg4 = "0a6cf607ed"
-  arg2 = arg2(arg3, arg4)
-  if arg2 > 0 then
-    arg3 = CMG
-    arg3 = arg3.getSpaceInFirstChest
-    arg3 = arg3()
-    arg4 = textValue10
-    if arg3 < arg4 then
-      arg3 = false
-      return arg3
+  localValue2 = DecorGetInt
+  localValue3 = localValue1
+  localValue4 = "0a6cf607ed"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 > 0 then
+    localValue3 = CMG
+    localValue3 = localValue3.getSpaceInFirstChest
+    localValue3 = localValue3()
+    localValue4 = text10
+    if localValue3 < localValue4 then
+      localValue3 = false
+      return localValue3
     end
-    arg3 = true
-    return arg3
+    localValue3 = true
+    return localValue3
   end
-  arg3 = GetEntityAttachedTo
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if 0 ~= arg3 then
-    arg4 = true
-    return arg4
+  localValue3 = GetEntityAttachedTo
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if 0 ~= localValue3 then
+    localValue4 = true
+    return localValue4
   end
-  arg4 = false
-  return arg4
+  localValue4 = false
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
-function workValue3(arg1)
-  local arg2, arg3, arg4
-  arg2 = CMG
-  arg2 = arg2.hasGangRpCarTheftPerk
-  arg2 = arg2()
-  if not arg2 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1) ===
+function workingValue3(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = CMG
+  localValue2 = localValue2.hasGangRpCarTheftPerk
+  localValue2 = localValue2()
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  if arg1 and 0 ~= arg1 then
-    arg2 = DoesEntityExist
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 then
-      goto flow_label_19
+  if localValue1 and 0 ~= localValue1 then
+    localValue2 = DoesEntityExist
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      goto continueAtStep19
     end
   end
-  arg2 = false
-  return arg2
-  ::flow_label_19::
-  arg2 = IsEntityAVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = false
+  return localValue2
+  ::continueAtStep19::
+  localValue2 = IsEntityAVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = tCMG
-  arg2 = arg2.isInGreenzone
-  arg3 = false
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = false
-    return arg2
+  localValue2 = tCMG
+  localValue2 = localValue2.isInGreenzone
+  localValue3 = false
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = GetPedInVehicleSeat
-  arg3 = arg1
-  arg4 = -1
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
-    arg3 = IsPedAPlayer
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
-      goto flow_label_47
+  localValue2 = GetPedInVehicleSeat
+  localValue3 = localValue1
+  localValue4 = -1
+  localValue2 = localValue2(localValue3, localValue4)
+  if 0 ~= localValue2 then
+    localValue3 = IsPedAPlayer
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
+      goto continueAtStep47
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_47::
-  arg3 = true
-  return arg3
+  localValue3 = false
+  return localValue3
+  ::continueAtStep47::
+  localValue3 = true
+  return localValue3
 end
-flag = false
-workValue4 = nil
-workValue5 = nil
-flag2 = false
-numberValue2 = 0
-flag3 = false
-numberValue3 = 0
-flag4 = false
-numberValue4 = 0
+stateFlag = false
+workingValue4 = nil
+workingValue5 = nil
+stateFlag2 = false
+number2 = 0
+stateFlag3 = false
+number3 = 0
+stateFlag4 = false
+number4 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, arg3
-  arg1 = true
-  flag4 = arg1
-  arg1 = SetTimeout
-  arg2 = 1000
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, localValue3
+  localValue1 = true
+  stateFlag4 = localValue1
+  localValue1 = SetTimeout
+  localValue2 = 1000
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local cmgCall2, textValue
-    cmgCall2 = false
-    flag4 = cmgCall2
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local cmgOperation2, text
+    cmgOperation2 = false
+    stateFlag4 = cmgOperation2
   end
-  arg1(arg2, arg3)
+  localValue1(localValue2, localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function workValue8(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8, dataTable9, dataTable10, iterator, tableHelper2, workValue10, dataTable11, textValue3, workValue12, workValue14, textValue4, tableHelper3, workValue15, dataTable12, textValue7, workValue17
-  dataTable13 = {}
-  health = arg1 or health
-  if arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function workingValue8(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8, dataCollection9, dataCollection10, iterator, tableHelper2, workingValue10, dataCollection11, text3, workingValue12, workingValue14, text4, tableHelper3, workingValue15, dataCollection12, text7, workingValue17
+  dataCollection13 = {}
+  health = localValue1 or health
+  if localValue1 then
     health = GetEntityHealth
-    workValue51 = arg1
+    workingValue51 = localValue1
     -- Beginner: result below is health.
-    health = health(workValue51)
+    health = health(workingValue51)
     health = health <= 102
   end
-  if health and not arg4 then
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "revive"
-    dataTable.title = "CPR"
-    dataTable.icon = "#cpr"
-    dataTable13[workValue51] = dataTable
+  if health and not localValue4 then
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "revive"
+    dataCollection.title = "CPR"
+    dataCollection.icon = "#cpr"
+    dataCollection13[workingValue51] = dataCollection
   end
-  if not arg4 then
-    if arg6 then
-      workValue51 = #dataTable13
-      workValue51 = workValue51 + 1
-      dataTable = {}
-      dataTable.id = "removeHeadbag"
-      dataTable.title = "Remove Bag"
-      dataTable.icon = "#removeHeadbag"
-      dataTable13[workValue51] = dataTable
+  if not localValue4 then
+    if localValue6 then
+      workingValue51 = #dataCollection13
+      workingValue51 = workingValue51 + 1
+      dataCollection = {}
+      dataCollection.id = "removeHeadbag"
+      dataCollection.title = "Remove Bag"
+      dataCollection.icon = "#removeHeadbag"
+      dataCollection13[workingValue51] = dataCollection
     else
-      workValue51 = #dataTable13
-      workValue51 = workValue51 + 1
-      dataTable = {}
-      dataTable.id = "removeHeadbag"
-      dataTable.title = "Place Bag"
-      dataTable.icon = "#removeHeadbag"
-      dataTable13[workValue51] = dataTable
+      workingValue51 = #dataCollection13
+      workingValue51 = workingValue51 + 1
+      dataCollection = {}
+      dataCollection.id = "removeHeadbag"
+      dataCollection.title = "Place Bag"
+      dataCollection.icon = "#removeHeadbag"
+      dataCollection13[workingValue51] = dataCollection
     end
   end
-  if arg7 then
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "transferChips"
-    dataTable.title = "Transfer Chips"
-    dataTable.icon = "#casinoChip"
-    dataTable13[workValue51] = dataTable
+  if localValue7 then
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "transferChips"
+    dataCollection.title = "Transfer Chips"
+    dataCollection.icon = "#casinoChip"
+    dataCollection13[workingValue51] = dataCollection
   end
-  if arg2 then
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "askId"
-    dataTable.title = "Ask ID"
-    dataTable.icon = "#askId"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "giveCash"
-    dataTable.title = "Give Cash"
-    dataTable.icon = "#giveMoney"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "search"
-    dataTable.title = "Search Player"
-    dataTable.icon = "#searchPerson"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "police"
-    dataTable.title = "Police Service"
-    dataTable.icon = "#metPolice"
+  if localValue2 then
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "askId"
+    dataCollection.title = "Ask ID"
+    dataCollection.icon = "#askId"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "giveCash"
+    dataCollection.title = "Give Cash"
+    dataCollection.icon = "#giveMoney"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "search"
+    dataCollection.title = "Search Player"
+    dataCollection.icon = "#searchPerson"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "police"
+    dataCollection.title = "Police Service"
+    dataCollection.icon = "#metPolice"
     tableHelper = {}
-    dataTable2 = {}
-    dataTable2.id = "handcuff"
-    dataTable2.title = "Handcuff"
-    dataTable2.icon = "#handcuff"
-    dataTable3 = {}
-    dataTable3.id = "drag"
-    dataTable3.title = "Drag"
-    dataTable3.icon = "#drag"
-    dataTable4 = {}
-    dataTable4.id = "putincar"
-    dataTable4.title = "Put in car"
-    dataTable4.icon = "#putInVehicle"
-    dataTable5 = {}
-    dataTable5.id = "gunshottest"
-    dataTable5.title = "GSR Test"
-    dataTable5.icon = "#seizeWeapons"
-    dataTable6 = {}
-    dataTable6.id = "quickFine"
-    dataTable6.title = "Quick Fine"
-    dataTable6.icon = "#giveMoney"
-    dataTable7 = {}
-    dataTable7.id = "quickJail"
-    dataTable7.title = "Quick Jail"
-    dataTable7.icon = "#jail"
-    dataTable8 = {}
-    dataTable8.id = "pardonBounty"
-    dataTable8.title = "Pardon bounty"
-    dataTable8.icon = "#askId"
-    dataTable9 = {}
-    dataTable9.id = "requesttransport"
-    dataTable9.title = "Transport"
-    dataTable9.icon = "#putInVehicle"
-    dataTable10 = {}
-    dataTable10.id = "seizeweapons"
-    dataTable10.title = "Seize Weapons"
-    dataTable10.icon = "#seizeWeapons"
+    dataCollection2 = {}
+    dataCollection2.id = "handcuff"
+    dataCollection2.title = "Handcuff"
+    dataCollection2.icon = "#handcuff"
+    dataCollection3 = {}
+    dataCollection3.id = "drag"
+    dataCollection3.title = "Drag"
+    dataCollection3.icon = "#drag"
+    dataCollection4 = {}
+    dataCollection4.id = "putincar"
+    dataCollection4.title = "Put in car"
+    dataCollection4.icon = "#putInVehicle"
+    dataCollection5 = {}
+    dataCollection5.id = "gunshottest"
+    dataCollection5.title = "GSR Test"
+    dataCollection5.icon = "#seizeWeapons"
+    dataCollection6 = {}
+    dataCollection6.id = "quickFine"
+    dataCollection6.title = "Quick Fine"
+    dataCollection6.icon = "#giveMoney"
+    dataCollection7 = {}
+    dataCollection7.id = "quickJail"
+    dataCollection7.title = "Quick Jail"
+    dataCollection7.icon = "#jail"
+    dataCollection8 = {}
+    dataCollection8.id = "pardonBounty"
+    dataCollection8.title = "Pardon bounty"
+    dataCollection8.icon = "#askId"
+    dataCollection9 = {}
+    dataCollection9.id = "requesttransport"
+    dataCollection9.title = "Transport"
+    dataCollection9.icon = "#putInVehicle"
+    dataCollection10 = {}
+    dataCollection10.id = "seizeweapons"
+    dataCollection10.title = "Seize Weapons"
+    dataCollection10.icon = "#seizeWeapons"
     iterator = {}
     iterator.id = "seizeillegals"
     iterator.title = "Seize Illegals"
     iterator.icon = "#seizeIllegal"
-    tableHelper[1] = dataTable2
-    tableHelper[2] = dataTable3
-    tableHelper[3] = dataTable4
-    tableHelper[4] = dataTable5
-    tableHelper[5] = dataTable6
-    tableHelper[6] = dataTable7
-    tableHelper[7] = dataTable8
-    tableHelper[8] = dataTable9
-    tableHelper[9] = dataTable10
+    tableHelper[1] = dataCollection2
+    tableHelper[2] = dataCollection3
+    tableHelper[3] = dataCollection4
+    tableHelper[4] = dataCollection5
+    tableHelper[5] = dataCollection6
+    tableHelper[6] = dataCollection7
+    tableHelper[7] = dataCollection8
+    tableHelper[8] = dataCollection9
+    tableHelper[9] = dataCollection10
     tableHelper[10] = iterator
-    dataTable.items = tableHelper
-    dataTable13[workValue51] = dataTable
-  elseif arg3 then
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "askId"
-    dataTable.title = "Ask ID"
-    dataTable.icon = "#askId"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "giveCash"
-    dataTable.title = "Give Cash"
-    dataTable.icon = "#giveMoney"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "search"
-    dataTable.title = "Search Player"
-    dataTable.icon = "#searchPerson"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "police"
-    dataTable.title = "Prison Service"
-    dataTable.icon = "#metPolice"
+    dataCollection.items = tableHelper
+    dataCollection13[workingValue51] = dataCollection
+  elseif localValue3 then
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "askId"
+    dataCollection.title = "Ask ID"
+    dataCollection.icon = "#askId"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "giveCash"
+    dataCollection.title = "Give Cash"
+    dataCollection.icon = "#giveMoney"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "search"
+    dataCollection.title = "Search Player"
+    dataCollection.icon = "#searchPerson"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "police"
+    dataCollection.title = "Prison Service"
+    dataCollection.icon = "#metPolice"
     tableHelper = {}
-    dataTable2 = {}
-    dataTable2.id = "handcuff"
-    dataTable2.title = "Handcuff"
-    dataTable2.icon = "#handcuff"
-    dataTable3 = {}
-    dataTable3.id = "drag"
-    dataTable3.title = "Drag"
-    dataTable3.icon = "#drag"
-    dataTable4 = {}
-    dataTable4.id = "putincar"
-    dataTable4.title = "Put in car"
-    dataTable4.icon = "#putInVehicle"
-    dataTable5 = {}
-    dataTable5.id = "segregation"
-    dataTable5.title = "Segregation"
-    dataTable5.icon = "#rope"
-    dataTable6 = {}
-    dataTable6.id = "jail"
-    dataTable6.title = "Jail"
-    dataTable6.icon = "#jail"
-    dataTable7 = {}
-    dataTable7.id = "seizeweapons"
-    dataTable7.title = "Seize Weapons"
-    dataTable7.icon = "#seizeWeapons"
-    dataTable8 = {}
-    dataTable8.id = "seizeillegals"
-    dataTable8.title = "Seize Illegals"
-    dataTable8.icon = "#seizeIllegal"
-    tableHelper[1] = dataTable2
-    tableHelper[2] = dataTable3
-    tableHelper[3] = dataTable4
-    tableHelper[4] = dataTable5
-    tableHelper[5] = dataTable6
-    tableHelper[6] = dataTable7
-    tableHelper[7] = dataTable8
-    dataTable.items = tableHelper
-    dataTable13[workValue51] = dataTable
-  elseif arg5 then
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "askId"
-    dataTable.title = "Ask ID"
-    dataTable.icon = "#askId"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "giveCash"
-    dataTable.title = "Give Cash"
-    dataTable.icon = "#giveMoney"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "search"
-    dataTable.title = "Search Player"
-    dataTable.icon = "#searchPerson"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "police"
-    dataTable.title = "Vigilante"
-    dataTable.icon = "#vigilante"
+    dataCollection2 = {}
+    dataCollection2.id = "handcuff"
+    dataCollection2.title = "Handcuff"
+    dataCollection2.icon = "#handcuff"
+    dataCollection3 = {}
+    dataCollection3.id = "drag"
+    dataCollection3.title = "Drag"
+    dataCollection3.icon = "#drag"
+    dataCollection4 = {}
+    dataCollection4.id = "putincar"
+    dataCollection4.title = "Put in car"
+    dataCollection4.icon = "#putInVehicle"
+    dataCollection5 = {}
+    dataCollection5.id = "segregation"
+    dataCollection5.title = "Segregation"
+    dataCollection5.icon = "#rope"
+    dataCollection6 = {}
+    dataCollection6.id = "jail"
+    dataCollection6.title = "Jail"
+    dataCollection6.icon = "#jail"
+    dataCollection7 = {}
+    dataCollection7.id = "seizeweapons"
+    dataCollection7.title = "Seize Weapons"
+    dataCollection7.icon = "#seizeWeapons"
+    dataCollection8 = {}
+    dataCollection8.id = "seizeillegals"
+    dataCollection8.title = "Seize Illegals"
+    dataCollection8.icon = "#seizeIllegal"
+    tableHelper[1] = dataCollection2
+    tableHelper[2] = dataCollection3
+    tableHelper[3] = dataCollection4
+    tableHelper[4] = dataCollection5
+    tableHelper[5] = dataCollection6
+    tableHelper[6] = dataCollection7
+    tableHelper[7] = dataCollection8
+    dataCollection.items = tableHelper
+    dataCollection13[workingValue51] = dataCollection
+  elseif localValue5 then
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "askId"
+    dataCollection.title = "Ask ID"
+    dataCollection.icon = "#askId"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "giveCash"
+    dataCollection.title = "Give Cash"
+    dataCollection.icon = "#giveMoney"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "search"
+    dataCollection.title = "Search Player"
+    dataCollection.icon = "#searchPerson"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "police"
+    dataCollection.title = "Vigilante"
+    dataCollection.icon = "#vigilante"
     tableHelper = {}
-    dataTable2 = {}
-    dataTable2.id = "handcuff"
-    dataTable2.title = "Handcuff"
-    dataTable2.icon = "#handcuff"
-    dataTable3 = {}
-    dataTable3.id = "drag"
-    dataTable3.title = "Drag"
-    dataTable3.icon = "#drag"
-    dataTable4 = {}
-    dataTable4.id = "putincar"
-    dataTable4.title = "Put in car"
-    dataTable4.icon = "#putInVehicle"
-    dataTable5 = {}
-    dataTable5.id = "jail"
-    dataTable5.title = "Jail"
-    dataTable5.icon = "#jail"
-    tableHelper[1] = dataTable2
-    tableHelper[2] = dataTable3
-    tableHelper[3] = dataTable4
-    tableHelper[4] = dataTable5
-    dataTable.items = tableHelper
-    dataTable13[workValue51] = dataTable
-  elseif arg4 then
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "askId"
-    dataTable.title = "Ask ID"
-    dataTable.icon = "#askId"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "giveCash"
-    dataTable.title = "Give Cash"
-    dataTable.icon = "#giveMoney"
-    dataTable13[workValue51] = dataTable
-    workValue51 = CMG
-    workValue51 = workValue51.hasClientPermission
-    dataTable = "doctor.permission"
-    workValue51 = workValue51(dataTable)
-    dataTable = {}
+    dataCollection2 = {}
+    dataCollection2.id = "handcuff"
+    dataCollection2.title = "Handcuff"
+    dataCollection2.icon = "#handcuff"
+    dataCollection3 = {}
+    dataCollection3.id = "drag"
+    dataCollection3.title = "Drag"
+    dataCollection3.icon = "#drag"
+    dataCollection4 = {}
+    dataCollection4.id = "putincar"
+    dataCollection4.title = "Put in car"
+    dataCollection4.icon = "#putInVehicle"
+    dataCollection5 = {}
+    dataCollection5.id = "jail"
+    dataCollection5.title = "Jail"
+    dataCollection5.icon = "#jail"
+    tableHelper[1] = dataCollection2
+    tableHelper[2] = dataCollection3
+    tableHelper[3] = dataCollection4
+    tableHelper[4] = dataCollection5
+    dataCollection.items = tableHelper
+    dataCollection13[workingValue51] = dataCollection
+  elseif localValue4 then
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "askId"
+    dataCollection.title = "Ask ID"
+    dataCollection.icon = "#askId"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "giveCash"
+    dataCollection.title = "Give Cash"
+    dataCollection.icon = "#giveMoney"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = CMG
+    workingValue51 = workingValue51.hasClientPermission
+    dataCollection = "doctor.permission"
+    workingValue51 = workingValue51(dataCollection)
+    dataCollection = {}
     if health then
       tableHelper = table
       tableHelper = tableHelper.insert
-      dataTable2 = dataTable
-      dataTable3 = {}
-      dataTable3.id = "revive"
-      dataTable3.title = "Revive"
-      dataTable3.icon = "#cpr"
-      tableHelper(dataTable2, dataTable3)
+      dataCollection2 = dataCollection
+      dataCollection3 = {}
+      dataCollection3.id = "revive"
+      dataCollection3.title = "Revive"
+      dataCollection3.icon = "#cpr"
+      tableHelper(dataCollection2, dataCollection3)
       tableHelper = table
       tableHelper = tableHelper.insert
-      dataTable2 = dataTable
-      dataTable3 = {}
-      dataTable3.id = "nhsDrag"
-      dataTable3.title = "Drag"
-      dataTable3.icon = "#drag"
-      tableHelper(dataTable2, dataTable3)
+      dataCollection2 = dataCollection
+      dataCollection3 = {}
+      dataCollection3.id = "nhsDrag"
+      dataCollection3.title = "Drag"
+      dataCollection3.icon = "#drag"
+      tableHelper(dataCollection2, dataCollection3)
     else
       tableHelper = GetPlayerByEntityID
-      dataTable2 = arg1
-      tableHelper = tableHelper(dataTable2)
+      dataCollection2 = localValue1
+      tableHelper = tableHelper(dataCollection2)
       if tableHelper then
-        dataTable2 = GetPlayerServerId
-        dataTable3 = tableHelper
+        dataCollection2 = GetPlayerServerId
+        dataCollection3 = tableHelper
         -- Beginner: result below is serverId.
-        dataTable2 = dataTable2(dataTable3)
-        if dataTable2 then
-          goto flow_label_351
+        dataCollection2 = dataCollection2(dataCollection3)
+        if dataCollection2 then
+          goto continueAtStep351
         end
       end
-      dataTable2 = 0
-      ::flow_label_351::
-      dataTable3 = table
-      dataTable3 = dataTable3.insert
-      dataTable4 = dataTable
-      dataTable5 = {}
-      dataTable5.id = "medicBandage"
-      dataTable5.title = "Bandage"
-      dataTable5.icon = "#bandage"
-      dataTable3(dataTable4, dataTable5)
-      dataTable3 = table
-      dataTable3 = dataTable3.insert
-      dataTable4 = dataTable
-      dataTable5 = {}
-      dataTable5.id = "medicMorphine"
-      dataTable5.title = "Apply Morphine"
-      dataTable5.icon = "#morphine"
-      dataTable3(dataTable4, dataTable5)
-      if workValue51 then
-        if dataTable2 > 0 then
-          dataTable3 = CMG
-          dataTable3 = dataTable3.TriggerServerCallback
-          dataTable4 = "d9316895e8"
-          dataTable5 = dataTable2
-          dataTable3 = dataTable3(dataTable4, dataTable5)
-          if dataTable3 then
-            goto flow_label_381
+      dataCollection2 = 0
+      ::continueAtStep351::
+      dataCollection3 = table
+      dataCollection3 = dataCollection3.insert
+      dataCollection4 = dataCollection
+      dataCollection5 = {}
+      dataCollection5.id = "medicBandage"
+      dataCollection5.title = "Bandage"
+      dataCollection5.icon = "#bandage"
+      dataCollection3(dataCollection4, dataCollection5)
+      dataCollection3 = table
+      dataCollection3 = dataCollection3.insert
+      dataCollection4 = dataCollection
+      dataCollection5 = {}
+      dataCollection5.id = "medicMorphine"
+      dataCollection5.title = "Apply Morphine"
+      dataCollection5.icon = "#morphine"
+      dataCollection3(dataCollection4, dataCollection5)
+      if workingValue51 then
+        if dataCollection2 > 0 then
+          dataCollection3 = CMG
+          dataCollection3 = dataCollection3.TriggerServerCallback
+          dataCollection4 = "d9316895e8"
+          dataCollection5 = dataCollection2
+          dataCollection3 = dataCollection3(dataCollection4, dataCollection5)
+          if dataCollection3 then
+            goto continueAtStep381
           end
         end
-        dataTable3 = false
-        ::flow_label_381::
-        if dataTable3 then
-          dataTable4 = "Take off Crutches"
-          if dataTable4 then
-            goto flow_label_387
+        dataCollection3 = false
+        ::continueAtStep381::
+        if dataCollection3 then
+          dataCollection4 = "Take off Crutches"
+          if dataCollection4 then
+            goto continueAtStep387
           end
         end
-        dataTable4 = "Put In Crutches"
-        ::flow_label_387::
-        dataTable5 = table
-        dataTable5 = dataTable5.insert
-        dataTable6 = dataTable
-        dataTable7 = {}
-        dataTable7.id = "toggleCrutches"
-        dataTable7.title = dataTable4
-        dataTable7.icon = "#crutches"
-        dataTable5(dataTable6, dataTable7)
-        dataTable5 = table
-        dataTable5 = dataTable5.insert
-        dataTable6 = dataTable
-        dataTable7 = {}
-        dataTable7.id = "giveWheelchair"
-        dataTable7.title = "Put In Wheelchair"
-        dataTable7.icon = "#wheelchairSymbol"
-        dataTable5(dataTable6, dataTable7)
+        dataCollection4 = "Put In Crutches"
+        ::continueAtStep387::
+        dataCollection5 = table
+        dataCollection5 = dataCollection5.insert
+        dataCollection6 = dataCollection
+        dataCollection7 = {}
+        dataCollection7.id = "toggleCrutches"
+        dataCollection7.title = dataCollection4
+        dataCollection7.icon = "#crutches"
+        dataCollection5(dataCollection6, dataCollection7)
+        dataCollection5 = table
+        dataCollection5 = dataCollection5.insert
+        dataCollection6 = dataCollection
+        dataCollection7 = {}
+        dataCollection7.id = "giveWheelchair"
+        dataCollection7.title = "Put In Wheelchair"
+        dataCollection7.icon = "#wheelchairSymbol"
+        dataCollection5(dataCollection6, dataCollection7)
       end
     end
     tableHelper = table
     tableHelper = tableHelper.insert
-    dataTable2 = dataTable
-    dataTable3 = {}
-    dataTable3.id = "nhsGiveDonut"
-    dataTable3.title = "Give Donut"
-    dataTable3.icon = "#donut"
-    tableHelper(dataTable2, dataTable3)
-    if workValue51 then
-      tableHelper = cmgCall5.casts
+    dataCollection2 = dataCollection
+    dataCollection3 = {}
+    dataCollection3.id = "nhsGiveDonut"
+    dataCollection3.title = "Give Donut"
+    dataCollection3.icon = "#donut"
+    tableHelper(dataCollection2, dataCollection3)
+    if workingValue51 then
+      tableHelper = cmgOperation5.casts
       if not tableHelper then
         tableHelper = {}
       end
-      dataTable2 = cmgCall5.categories
-      if not dataTable2 then
-        dataTable2 = {}
+      dataCollection2 = cmgOperation5.categories
+      if not dataCollection2 then
+        dataCollection2 = {}
       end
-      dataTable3 = {}
-      dataTable4 = ipairs
-      dataTable5 = dataTable2
-      dataTable4, dataTable5, dataTable6, dataTable7 = dataTable4(dataTable5)
-      for dataTable8, dataTable9 in dataTable4, dataTable5, dataTable6, dataTable7 do
-        dataTable10 = {}
+      dataCollection3 = {}
+      dataCollection4 = ipairs
+      dataCollection5 = dataCollection2
+      dataCollection4, dataCollection5, dataCollection6, dataCollection7 = dataCollection4(dataCollection5)
+      for dataCollection8, dataCollection9 in dataCollection4, dataCollection5, dataCollection6, dataCollection7 do
+        dataCollection10 = {}
         iterator = ipairs
-        tableHelper2 = dataTable9.castIds
+        tableHelper2 = dataCollection9.castIds
         if not tableHelper2 then
           tableHelper2 = {}
         end
-        iterator, tableHelper2, workValue10, dataTable11 = iterator(tableHelper2)
-        for textValue3, workValue12 in iterator, tableHelper2, workValue10, dataTable11 do
-          workValue14 = tableHelper[workValue12]
-          if workValue14 then
-            textValue4 = dataTable9.icon
-            if not textValue4 then
-              textValue4 = "#firstaid"
+        iterator, tableHelper2, workingValue10, dataCollection11 = iterator(tableHelper2)
+        for text3, workingValue12 in iterator, tableHelper2, workingValue10, dataCollection11 do
+          workingValue14 = tableHelper[workingValue12]
+          if workingValue14 then
+            text4 = dataCollection9.icon
+            if not text4 then
+              text4 = "#firstaid"
             end
             tableHelper3 = table
             tableHelper3 = tableHelper3.insert
-            workValue15 = dataTable10
-            dataTable12 = {}
-            textValue7 = "toggleCast_"
-            workValue17 = workValue12
-            textValue7 = textValue7 .. workValue17
-            dataTable12.id = textValue7
-            textValue7 = workValue14.label
-            dataTable12.title = textValue7
-            dataTable12.icon = textValue4
-            dataTable12.castId = workValue12
-            tableHelper3(workValue15, dataTable12)
+            workingValue15 = dataCollection10
+            dataCollection12 = {}
+            text7 = "toggleCast_"
+            workingValue17 = workingValue12
+            text7 = text7 .. workingValue17
+            dataCollection12.id = text7
+            text7 = workingValue14.label
+            dataCollection12.title = text7
+            dataCollection12.icon = text4
+            dataCollection12.castId = workingValue12
+            tableHelper3(workingValue15, dataCollection12)
           end
         end
-        iterator = #dataTable10
+        iterator = #dataCollection10
         if iterator > 0 then
-          iterator = dataTable9.icon
+          iterator = dataCollection9.icon
           if not iterator then
             iterator = "#firstaid"
           end
           tableHelper2 = table
           tableHelper2 = tableHelper2.insert
-          workValue10 = dataTable3
-          dataTable11 = {}
-          textValue3 = "casts_"
-          workValue12 = dataTable9.id
-          textValue3 = textValue3 .. workValue12
-          dataTable11.id = textValue3
-          textValue3 = dataTable9.title
-          dataTable11.title = textValue3
-          dataTable11.icon = iterator
-          dataTable11.items = dataTable10
-          tableHelper2(workValue10, dataTable11)
+          workingValue10 = dataCollection3
+          dataCollection11 = {}
+          text3 = "casts_"
+          workingValue12 = dataCollection9.id
+          text3 = text3 .. workingValue12
+          dataCollection11.id = text3
+          text3 = dataCollection9.title
+          dataCollection11.title = text3
+          dataCollection11.icon = iterator
+          dataCollection11.items = dataCollection10
+          tableHelper2(workingValue10, dataCollection11)
         end
       end
-      dataTable4 = table
-      dataTable4 = dataTable4.insert
-      dataTable5 = dataTable3
-      dataTable6 = {}
-      dataTable6.id = "removeAllCasts"
-      dataTable6.title = "Remove All Casts"
-      dataTable6.icon = "#removeAllCasts"
-      dataTable4(dataTable5, dataTable6)
-      dataTable4 = #dataTable3
-      if dataTable4 > 0 then
-        dataTable4 = table
-        dataTable4 = dataTable4.insert
-        dataTable5 = dataTable
-        dataTable6 = {}
-        dataTable6.id = "casts"
-        dataTable6.title = "Casts"
-        dataTable6.icon = "#firstaid"
-        dataTable6.items = dataTable3
-        dataTable4(dataTable5, dataTable6)
+      dataCollection4 = table
+      dataCollection4 = dataCollection4.insert
+      dataCollection5 = dataCollection3
+      dataCollection6 = {}
+      dataCollection6.id = "removeAllCasts"
+      dataCollection6.title = "Remove All Casts"
+      dataCollection6.icon = "#removeAllCasts"
+      dataCollection4(dataCollection5, dataCollection6)
+      dataCollection4 = #dataCollection3
+      if dataCollection4 > 0 then
+        dataCollection4 = table
+        dataCollection4 = dataCollection4.insert
+        dataCollection5 = dataCollection
+        dataCollection6 = {}
+        dataCollection6.id = "casts"
+        dataCollection6.title = "Casts"
+        dataCollection6.icon = "#firstaid"
+        dataCollection6.items = dataCollection3
+        dataCollection4(dataCollection5, dataCollection6)
       end
     end
-    tableHelper = #dataTable13
+    tableHelper = #dataCollection13
     tableHelper = tableHelper + 1
-    dataTable2 = {}
-    dataTable2.id = "healthService"
-    dataTable2.title = "Health Service"
-    dataTable2.icon = "#healthservice"
-    dataTable2.items = dataTable
-    dataTable13[tableHelper] = dataTable2
+    dataCollection2 = {}
+    dataCollection2.id = "healthService"
+    dataCollection2.title = "Health Service"
+    dataCollection2.icon = "#healthservice"
+    dataCollection2.items = dataCollection
+    dataCollection13[tableHelper] = dataCollection2
   else
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "askId"
-    dataTable.title = "Ask ID"
-    dataTable.icon = "#askId"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "giveCash"
-    dataTable.title = "Give Cash"
-    dataTable.icon = "#giveMoney"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "search"
-    dataTable.title = "Search Player"
-    dataTable.icon = "#searchPerson"
-    dataTable13[workValue51] = dataTable
-    workValue51 = #dataTable13
-    workValue51 = workValue51 + 1
-    dataTable = {}
-    dataTable.id = "robPerson"
-    dataTable.title = "Rob Person"
-    dataTable.icon = "#robPlayer"
-    dataTable13[workValue51] = dataTable
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "askId"
+    dataCollection.title = "Ask ID"
+    dataCollection.icon = "#askId"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "giveCash"
+    dataCollection.title = "Give Cash"
+    dataCollection.icon = "#giveMoney"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "search"
+    dataCollection.title = "Search Player"
+    dataCollection.icon = "#searchPerson"
+    dataCollection13[workingValue51] = dataCollection
+    workingValue51 = #dataCollection13
+    workingValue51 = workingValue51 + 1
+    dataCollection = {}
+    dataCollection.id = "robPerson"
+    dataCollection.title = "Rob Person"
+    dataCollection.icon = "#robPlayer"
+    dataCollection13[workingValue51] = dataCollection
   end
-  return dataTable13
+  return dataCollection13
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
-function workValue9(arg1, arg2, arg3, arg4, arg5, arg6)
-  local arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2
-  if arg1 then
-    arg7 = {}
-    dataTable13 = {}
-    dataTable13.id = "lock"
-    dataTable13.title = "Lock Car"
-    dataTable13.icon = "#carLock"
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6) ===
+function workingValue9(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6)
+  local localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2
+  if localValue1 then
+    localValue7 = {}
+    dataCollection13 = {}
+    dataCollection13.id = "lock"
+    dataCollection13.title = "Lock Car"
+    dataCollection13.icon = "#carLock"
     health = {}
     health.id = "openBoot"
     health.title = "Open Boot"
     health.icon = "#openBoot"
-    workValue51 = {}
-    workValue51.id = "cleanCar"
-    workValue51.title = "Clean Car"
-    workValue51.icon = "#cleanCar"
-    arg7[1] = dataTable13
-    arg7[2] = health
-    arg7[3] = workValue51
-    dataTable13 = workValue47
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    workingValue51 = {}
+    workingValue51.id = "cleanCar"
+    workingValue51.title = "Clean Car"
+    workingValue51.icon = "#cleanCar"
+    localValue7[1] = dataCollection13
+    localValue7[2] = health
+    localValue7[3] = workingValue51
+    dataCollection13 = workingValue47
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "repair"
       health.title = "Repair"
       health.icon = "#repair"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = workValue48
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    dataCollection13 = workingValue48
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "repairTrucking"
       health.title = "Truck repair"
       health.icon = "#repair"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = #arg7
-    dataTable13 = dataTable13 + 1
+    dataCollection13 = #localValue7
+    dataCollection13 = dataCollection13 + 1
     health = {}
     health.id = "openHood"
     health.title = "Open Hood"
     health.icon = "#openHood"
-    arg7[dataTable13] = health
-    dataTable13 = {}
-    health = workValue2
-    workValue51 = arg6
-    health = health(workValue51)
+    localValue7[dataCollection13] = health
+    dataCollection13 = {}
+    health = workingValue2
+    workingValue51 = localValue6
+    health = health(workingValue51)
     if health then
-      health = #dataTable13
+      health = #dataCollection13
       health = health + 1
-      workValue51 = {}
-      workValue51.id = "searchvehicle"
-      workValue51.title = "Search Vehicle"
-      workValue51.icon = "#searchVehicle"
-      dataTable13[health] = workValue51
+      workingValue51 = {}
+      workingValue51.id = "searchvehicle"
+      workingValue51.title = "Search Vehicle"
+      workingValue51.icon = "#searchVehicle"
+      dataCollection13[health] = workingValue51
     end
-    health = #dataTable13
+    health = #dataCollection13
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "impoundVehicle"
-    workValue51.title = "Impound Vehicle"
-    workValue51.icon = "#searchVehicle"
-    dataTable13[health] = workValue51
-    health = #dataTable13
+    workingValue51 = {}
+    workingValue51.id = "impoundVehicle"
+    workingValue51.title = "Impound Vehicle"
+    workingValue51.icon = "#searchVehicle"
+    dataCollection13[health] = workingValue51
+    health = #dataCollection13
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "askDriverId"
-    workValue51.title = "Ask Driver ID"
-    workValue51.icon = "#askId"
-    dataTable13[health] = workValue51
-    health = #dataTable13
+    workingValue51 = {}
+    workingValue51.id = "askDriverId"
+    workingValue51.title = "Ask Driver ID"
+    workingValue51.icon = "#askId"
+    dataCollection13[health] = workingValue51
+    health = #dataCollection13
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "ejectPassenger"
-    workValue51.title = "Eject Passenger"
-    workValue51.icon = "#openHood"
-    dataTable13[health] = workValue51
-    health = #arg7
+    workingValue51 = {}
+    workingValue51.id = "ejectPassenger"
+    workingValue51.title = "Eject Passenger"
+    workingValue51.icon = "#openHood"
+    dataCollection13[health] = workingValue51
+    health = #localValue7
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "police"
-    workValue51.title = "MET Police"
-    workValue51.icon = "#metPolice"
-    workValue51.items = dataTable13
-    arg7[health] = workValue51
-    return arg7
-  elseif arg2 then
-    arg7 = {}
-    dataTable13 = {}
-    dataTable13.id = "lock"
-    dataTable13.title = "Lock Car"
-    dataTable13.icon = "#carLock"
+    workingValue51 = {}
+    workingValue51.id = "police"
+    workingValue51.title = "MET Police"
+    workingValue51.icon = "#metPolice"
+    workingValue51.items = dataCollection13
+    localValue7[health] = workingValue51
+    return localValue7
+  elseif localValue2 then
+    localValue7 = {}
+    dataCollection13 = {}
+    dataCollection13.id = "lock"
+    dataCollection13.title = "Lock Car"
+    dataCollection13.icon = "#carLock"
     health = {}
     health.id = "openBoot"
     health.title = "Open Boot"
     health.icon = "#openBoot"
-    workValue51 = {}
-    workValue51.id = "cleanCar"
-    workValue51.title = "Clean Car"
-    workValue51.icon = "#cleanCar"
-    arg7[1] = dataTable13
-    arg7[2] = health
-    arg7[3] = workValue51
-    dataTable13 = workValue47
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    workingValue51 = {}
+    workingValue51.id = "cleanCar"
+    workingValue51.title = "Clean Car"
+    workingValue51.icon = "#cleanCar"
+    localValue7[1] = dataCollection13
+    localValue7[2] = health
+    localValue7[3] = workingValue51
+    dataCollection13 = workingValue47
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "repair"
       health.title = "Repair"
       health.icon = "#repair"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = workValue48
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    dataCollection13 = workingValue48
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "repairTrucking"
       health.title = "Truck repair"
       health.icon = "#repair"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = #arg7
-    dataTable13 = dataTable13 + 1
+    dataCollection13 = #localValue7
+    dataCollection13 = dataCollection13 + 1
     health = {}
     health.id = "openHood"
     health.title = "Open Hood"
     health.icon = "#openHood"
-    arg7[dataTable13] = health
-    dataTable13 = #arg7
-    dataTable13 = dataTable13 + 1
+    localValue7[dataCollection13] = health
+    dataCollection13 = #localValue7
+    dataCollection13 = dataCollection13 + 1
     health = {}
     health.id = "police"
     health.title = "HMP"
     health.icon = "#metPolice"
-    workValue51 = {}
-    dataTable = {}
-    dataTable.id = "impoundVehicle"
-    dataTable.title = "Impound Vehicle"
-    dataTable.icon = "#searchVehicle"
+    workingValue51 = {}
+    dataCollection = {}
+    dataCollection.id = "impoundVehicle"
+    dataCollection.title = "Impound Vehicle"
+    dataCollection.icon = "#searchVehicle"
     tableHelper = {}
     tableHelper.id = "askDriverId"
     tableHelper.title = "Ask Driver ID"
     tableHelper.icon = "#askId"
-    workValue51[1] = dataTable
-    workValue51[2] = tableHelper
-    health.items = workValue51
-    arg7[dataTable13] = health
-    return arg7
-  elseif arg3 then
-    arg7 = GetEntityModel
-    dataTable13 = arg6
+    workingValue51[1] = dataCollection
+    workingValue51[2] = tableHelper
+    health.items = workingValue51
+    localValue7[dataCollection13] = health
+    return localValue7
+  elseif localValue3 then
+    localValue7 = GetEntityModel
+    dataCollection13 = localValue6
     -- Beginner: result below is modelHash.
-    arg7 = arg7(dataTable13)
-    dataTable13 = cmgCall3.mechanicFlatbedModelHashes
-    dataTable13 = dataTable13[arg7]
-    if not dataTable13 then
-      dataTable13 = cmgCall3.mechanicTowTruckModelHashes
-      dataTable13 = dataTable13[arg7]
+    localValue7 = localValue7(dataCollection13)
+    dataCollection13 = cmgOperation3.mechanicFlatbedModelHashes
+    dataCollection13 = dataCollection13[localValue7]
+    if not dataCollection13 then
+      dataCollection13 = cmgOperation3.mechanicTowTruckModelHashes
+      dataCollection13 = dataCollection13[localValue7]
     end
     health = {}
-    workValue51 = workValue48
-    dataTable = arg6
-    workValue51 = workValue51(dataTable)
-    if workValue51 then
-      workValue51 = #health
-      workValue51 = workValue51 + 1
-      dataTable = {}
-      dataTable.id = "repairTrucking"
-      dataTable.title = "Truck repair"
-      dataTable.icon = "#repair"
-      health[workValue51] = dataTable
+    workingValue51 = workingValue48
+    dataCollection = localValue6
+    workingValue51 = workingValue51(dataCollection)
+    if workingValue51 then
+      workingValue51 = #health
+      workingValue51 = workingValue51 + 1
+      dataCollection = {}
+      dataCollection.id = "repairTrucking"
+      dataCollection.title = "Truck repair"
+      dataCollection.icon = "#repair"
+      health[workingValue51] = dataCollection
     end
-    workValue51 = workValue50
-    dataTable = arg6
-    workValue51 = workValue51(dataTable)
-    if workValue51 then
-      workValue51 = #health
-      workValue51 = workValue51 + 1
-      dataTable = {}
-      dataTable.id = "repairAA"
-      dataTable.title = "Repair"
-      dataTable.icon = "#repair"
-      health[workValue51] = dataTable
+    workingValue51 = workingValue50
+    dataCollection = localValue6
+    workingValue51 = workingValue51(dataCollection)
+    if workingValue51 then
+      workingValue51 = #health
+      workingValue51 = workingValue51 + 1
+      dataCollection = {}
+      dataCollection.id = "repairAA"
+      dataCollection.title = "Repair"
+      dataCollection.icon = "#repair"
+      health[workingValue51] = dataCollection
     end
-    if dataTable13 then
-      workValue51 = #health
-      workValue51 = workValue51 + 1
-      dataTable = {}
-      dataTable.id = "detachVehicle"
-      dataTable.title = "Detach Vehicle"
-      dataTable.icon = "#searchVehicle"
-      health[workValue51] = dataTable
+    if dataCollection13 then
+      workingValue51 = #health
+      workingValue51 = workingValue51 + 1
+      dataCollection = {}
+      dataCollection.id = "detachVehicle"
+      dataCollection.title = "Detach Vehicle"
+      dataCollection.icon = "#searchVehicle"
+      health[workingValue51] = dataCollection
     else
-      workValue51 = #health
-      workValue51 = workValue51 + 1
-      dataTable = {}
-      dataTable.id = "mechanicHookTargetVehicle"
-      dataTable.title = "Attach to Flatbed"
-      dataTable.icon = "#searchVehicle"
-      health[workValue51] = dataTable
+      workingValue51 = #health
+      workingValue51 = workingValue51 + 1
+      dataCollection = {}
+      dataCollection.id = "mechanicHookTargetVehicle"
+      dataCollection.title = "Attach to Flatbed"
+      dataCollection.icon = "#searchVehicle"
+      health[workingValue51] = dataCollection
     end
-    workValue51 = {}
-    dataTable = {}
-    dataTable.id = "lock"
-    dataTable.title = "Lock Car"
-    dataTable.icon = "#carLock"
+    workingValue51 = {}
+    dataCollection = {}
+    dataCollection.id = "lock"
+    dataCollection.title = "Lock Car"
+    dataCollection.icon = "#carLock"
     tableHelper = {}
     tableHelper.id = "openBoot"
     tableHelper.title = "Open Boot"
     tableHelper.icon = "#openBoot"
-    dataTable2 = {}
-    dataTable2.id = "cleanCar"
-    dataTable2.title = "Clean Car"
-    dataTable2.icon = "#cleanCar"
-    workValue51[1] = dataTable
-    workValue51[2] = tableHelper
-    workValue51[3] = dataTable2
-    dataTable = #workValue51
-    dataTable = dataTable + 1
+    dataCollection2 = {}
+    dataCollection2.id = "cleanCar"
+    dataCollection2.title = "Clean Car"
+    dataCollection2.icon = "#cleanCar"
+    workingValue51[1] = dataCollection
+    workingValue51[2] = tableHelper
+    workingValue51[3] = dataCollection2
+    dataCollection = #workingValue51
+    dataCollection = dataCollection + 1
     tableHelper = {}
     tableHelper.id = "aa"
     tableHelper.title = "Mechanic"
     tableHelper.icon = "#mechanic"
     tableHelper.items = health
-    workValue51[dataTable] = tableHelper
-    dataTable = #workValue51
-    dataTable = dataTable + 1
+    workingValue51[dataCollection] = tableHelper
+    dataCollection = #workingValue51
+    dataCollection = dataCollection + 1
     tableHelper = {}
     tableHelper.id = "openHood"
     tableHelper.title = "Open Hood"
     tableHelper.icon = "#openHood"
-    workValue51[dataTable] = tableHelper
-    return workValue51
-  elseif arg4 then
-    arg7 = {}
-    dataTable13 = {}
-    dataTable13.id = "impoundVehicle"
-    dataTable13.title = "Impound Vehicle"
-    dataTable13.icon = "#searchVehicle"
-    arg7[1] = dataTable13
-    if arg6 then
-      dataTable13 = workValue42
-      health = arg6
-      workValue51 = "Health Service Vehicles"
-      dataTable13 = dataTable13(health, workValue51)
-      if dataTable13 then
-        dataTable13 = table
-        dataTable13 = dataTable13.insert
-        health = arg7
-        workValue51 = 1
-        dataTable = {}
-        dataTable.id = "spawnStretcher"
-        dataTable.title = "Spawn Stretcher"
-        dataTable.icon = "#stretcher"
-        dataTable13(health, workValue51, dataTable)
+    workingValue51[dataCollection] = tableHelper
+    return workingValue51
+  elseif localValue4 then
+    localValue7 = {}
+    dataCollection13 = {}
+    dataCollection13.id = "impoundVehicle"
+    dataCollection13.title = "Impound Vehicle"
+    dataCollection13.icon = "#searchVehicle"
+    localValue7[1] = dataCollection13
+    if localValue6 then
+      dataCollection13 = workingValue42
+      health = localValue6
+      workingValue51 = "Health Service Vehicles"
+      dataCollection13 = dataCollection13(health, workingValue51)
+      if dataCollection13 then
+        dataCollection13 = table
+        dataCollection13 = dataCollection13.insert
+        health = localValue7
+        workingValue51 = 1
+        dataCollection = {}
+        dataCollection.id = "spawnStretcher"
+        dataCollection.title = "Spawn Stretcher"
+        dataCollection.icon = "#stretcher"
+        dataCollection13(health, workingValue51, dataCollection)
       end
     end
-    dataTable13 = {}
+    dataCollection13 = {}
     health = {}
     health.id = "lock"
     health.title = "Lock Car"
     health.icon = "#carLock"
-    workValue51 = {}
-    workValue51.id = "openBoot"
-    workValue51.title = "Open Boot"
-    workValue51.icon = "#openBoot"
-    dataTable = {}
-    dataTable.id = "cleanCar"
-    dataTable.title = "Clean Car"
-    dataTable.icon = "#cleanCar"
-    dataTable13[1] = health
-    dataTable13[2] = workValue51
-    dataTable13[3] = dataTable
-    health = workValue47
-    workValue51 = arg6
-    health = health(workValue51)
+    workingValue51 = {}
+    workingValue51.id = "openBoot"
+    workingValue51.title = "Open Boot"
+    workingValue51.icon = "#openBoot"
+    dataCollection = {}
+    dataCollection.id = "cleanCar"
+    dataCollection.title = "Clean Car"
+    dataCollection.icon = "#cleanCar"
+    dataCollection13[1] = health
+    dataCollection13[2] = workingValue51
+    dataCollection13[3] = dataCollection
+    health = workingValue47
+    workingValue51 = localValue6
+    health = health(workingValue51)
     if health then
-      health = #dataTable13
+      health = #dataCollection13
       health = health + 1
-      workValue51 = {}
-      workValue51.id = "repair"
-      workValue51.title = "Repair"
-      workValue51.icon = "#repair"
-      dataTable13[health] = workValue51
+      workingValue51 = {}
+      workingValue51.id = "repair"
+      workingValue51.title = "Repair"
+      workingValue51.icon = "#repair"
+      dataCollection13[health] = workingValue51
     end
-    health = workValue48
-    workValue51 = arg6
-    health = health(workValue51)
+    health = workingValue48
+    workingValue51 = localValue6
+    health = health(workingValue51)
     if health then
-      health = #dataTable13
+      health = #dataCollection13
       health = health + 1
-      workValue51 = {}
-      workValue51.id = "repairTrucking"
-      workValue51.title = "Truck repair"
-      workValue51.icon = "#repair"
-      dataTable13[health] = workValue51
+      workingValue51 = {}
+      workingValue51.id = "repairTrucking"
+      workingValue51.title = "Truck repair"
+      workingValue51.icon = "#repair"
+      dataCollection13[health] = workingValue51
     end
-    health = #dataTable13
+    health = #dataCollection13
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "openHood"
-    workValue51.title = "Open Hood"
-    workValue51.icon = "#openHood"
-    dataTable13[health] = workValue51
-    health = #dataTable13
+    workingValue51 = {}
+    workingValue51.id = "openHood"
+    workingValue51.title = "Open Hood"
+    workingValue51.icon = "#openHood"
+    dataCollection13[health] = workingValue51
+    health = #dataCollection13
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "police"
-    workValue51.title = "Health Service"
-    workValue51.icon = "#healthservice"
-    workValue51.items = arg7
-    dataTable13[health] = workValue51
-    return dataTable13
-  elseif arg5 then
-    arg7 = {}
-    dataTable13 = workValue2
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    workingValue51 = {}
+    workingValue51.id = "police"
+    workingValue51.title = "Health Service"
+    workingValue51.icon = "#healthservice"
+    workingValue51.items = localValue7
+    dataCollection13[health] = workingValue51
+    return dataCollection13
+  elseif localValue5 then
+    localValue7 = {}
+    dataCollection13 = workingValue2
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "searchvehicle"
       health.title = "Search Vehicle"
       health.icon = "#searchVehicle"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = #arg7
-    dataTable13 = dataTable13 + 1
+    dataCollection13 = #localValue7
+    dataCollection13 = dataCollection13 + 1
     health = {}
     health.id = "askDriverId"
     health.title = "Ask Driver ID"
     health.icon = "#askId"
-    arg7[dataTable13] = health
-    dataTable13 = #arg7
-    dataTable13 = dataTable13 + 1
+    localValue7[dataCollection13] = health
+    dataCollection13 = #localValue7
+    dataCollection13 = dataCollection13 + 1
     health = {}
     health.id = "ejectPassenger"
     health.title = "Eject Passenger"
     health.icon = "#openHood"
-    arg7[dataTable13] = health
-    dataTable13 = {}
+    localValue7[dataCollection13] = health
+    dataCollection13 = {}
     health = {}
     health.id = "lock"
     health.title = "Lock Car"
     health.icon = "#carLock"
-    workValue51 = {}
-    workValue51.id = "openBoot"
-    workValue51.title = "Open Boot"
-    workValue51.icon = "#openBoot"
-    dataTable = {}
-    dataTable.id = "cleanCar"
-    dataTable.title = "Clean Car"
-    dataTable.icon = "#cleanCar"
-    dataTable13[1] = health
-    dataTable13[2] = workValue51
-    dataTable13[3] = dataTable
-    health = workValue47
-    workValue51 = arg6
-    health = health(workValue51)
+    workingValue51 = {}
+    workingValue51.id = "openBoot"
+    workingValue51.title = "Open Boot"
+    workingValue51.icon = "#openBoot"
+    dataCollection = {}
+    dataCollection.id = "cleanCar"
+    dataCollection.title = "Clean Car"
+    dataCollection.icon = "#cleanCar"
+    dataCollection13[1] = health
+    dataCollection13[2] = workingValue51
+    dataCollection13[3] = dataCollection
+    health = workingValue47
+    workingValue51 = localValue6
+    health = health(workingValue51)
     if health then
-      health = #dataTable13
+      health = #dataCollection13
       health = health + 1
-      workValue51 = {}
-      workValue51.id = "repair"
-      workValue51.title = "Repair"
-      workValue51.icon = "#repair"
-      dataTable13[health] = workValue51
+      workingValue51 = {}
+      workingValue51.id = "repair"
+      workingValue51.title = "Repair"
+      workingValue51.icon = "#repair"
+      dataCollection13[health] = workingValue51
     end
-    health = workValue48
-    workValue51 = arg6
-    health = health(workValue51)
+    health = workingValue48
+    workingValue51 = localValue6
+    health = health(workingValue51)
     if health then
-      health = #dataTable13
+      health = #dataCollection13
       health = health + 1
-      workValue51 = {}
-      workValue51.id = "repairTrucking"
-      workValue51.title = "Truck repair"
-      workValue51.icon = "#repair"
-      dataTable13[health] = workValue51
+      workingValue51 = {}
+      workingValue51.id = "repairTrucking"
+      workingValue51.title = "Truck repair"
+      workingValue51.icon = "#repair"
+      dataCollection13[health] = workingValue51
     end
-    health = #dataTable13
+    health = #dataCollection13
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "openHood"
-    workValue51.title = "Open Hood"
-    workValue51.icon = "#openHood"
-    dataTable13[health] = workValue51
-    health = #dataTable13
+    workingValue51 = {}
+    workingValue51.id = "openHood"
+    workingValue51.title = "Open Hood"
+    workingValue51.icon = "#openHood"
+    dataCollection13[health] = workingValue51
+    health = #dataCollection13
     health = health + 1
-    workValue51 = {}
-    workValue51.id = "vigilante"
-    workValue51.title = "Vigilante"
-    workValue51.icon = "#vigilante"
-    workValue51.items = arg7
-    dataTable13[health] = workValue51
-    return dataTable13
+    workingValue51 = {}
+    workingValue51.id = "vigilante"
+    workingValue51.title = "Vigilante"
+    workingValue51.icon = "#vigilante"
+    workingValue51.items = localValue7
+    dataCollection13[health] = workingValue51
+    return dataCollection13
   else
-    arg7 = {}
-    dataTable13 = {}
-    dataTable13.id = "lock"
-    dataTable13.title = "Lock Car"
-    dataTable13.icon = "#carLock"
+    localValue7 = {}
+    dataCollection13 = {}
+    dataCollection13.id = "lock"
+    dataCollection13.title = "Lock Car"
+    dataCollection13.icon = "#carLock"
     health = {}
     health.id = "openBoot"
     health.title = "Open Boot"
     health.icon = "#openBoot"
-    workValue51 = {}
-    workValue51.id = "cleanCar"
-    workValue51.title = "Clean Car"
-    workValue51.icon = "#cleanCar"
-    arg7[1] = dataTable13
-    arg7[2] = health
-    arg7[3] = workValue51
-    dataTable13 = workValue46
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    workingValue51 = {}
+    workingValue51.id = "cleanCar"
+    workingValue51.title = "Clean Car"
+    workingValue51.icon = "#cleanCar"
+    localValue7[1] = dataCollection13
+    localValue7[2] = health
+    localValue7[3] = workingValue51
+    dataCollection13 = workingValue46
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "lockpick"
       health.title = "Lockpick"
       health.icon = "#lockpick"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = workValue47
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    dataCollection13 = workingValue47
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "repair"
       health.title = "Repair"
       health.icon = "#repair"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = workValue48
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    dataCollection13 = workingValue48
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "repairTrucking"
       health.title = "Truck repair"
       health.icon = "#repair"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = #arg7
-    dataTable13 = dataTable13 + 1
+    dataCollection13 = #localValue7
+    dataCollection13 = dataCollection13 + 1
     health = {}
     health.id = "openHood"
     health.title = "Open Hood"
     health.icon = "#openHood"
-    arg7[dataTable13] = health
-    dataTable13 = workValue2
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    localValue7[dataCollection13] = health
+    dataCollection13 = workingValue2
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "searchvehicle"
       health.title = "Search Vehicle"
       health.icon = "#searchVehicle"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    dataTable13 = workValue3
-    health = arg6
-    dataTable13 = dataTable13(health)
-    if dataTable13 then
-      dataTable13 = #arg7
-      dataTable13 = dataTable13 + 1
+    dataCollection13 = workingValue3
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
+    if dataCollection13 then
+      dataCollection13 = #localValue7
+      dataCollection13 = dataCollection13 + 1
       health = {}
       health.id = "carjack"
       health.title = "Carjack"
       health.icon = "#carjack"
-      arg7[dataTable13] = health
+      localValue7[dataCollection13] = health
     end
-    return arg7
+    return localValue7
   end
 end
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
-function cmgCall4(arg1)
-  local arg2, arg3
-  arg2 = flag2
-  if arg2 == arg1 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1) ===
+function cmgOperation4(localValue1)
+  local localValue2, localValue3
+  localValue2 = stateFlag2
+  if localValue2 == localValue1 then
     return
   end
-  flag2 = arg1
-  arg2 = SendNUIMessage
-  arg3 = {}
-  arg3.radialCrosshair = arg1
+  stateFlag2 = localValue1
+  localValue2 = SendNUIMessage
+  localValue3 = {}
+  localValue3.radialCrosshair = localValue1
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-Crosshair = cmgCall4
-cmgCall4 = RegisterNUICallback
-textValue2 = "radialDisablenuifocus"
+Crosshair = cmgOperation4
+cmgOperation4 = RegisterNUICallback
+text2 = "radialDisablenuifocus"
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2, arg3, arg4
-  arg2 = arg1.nuifocus
-  flag = arg2
-  arg2 = SetNuiFocusKeepInput
-  arg3 = false
-  arg2(arg3)
-  arg2 = SetNuiFocus
-  arg3 = arg1.nuifocus
-  arg4 = arg1.nuifocus
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = localValue1.nuifocus
+  stateFlag = localValue2
+  localValue2 = SetNuiFocusKeepInput
+  localValue3 = false
+  localValue2(localValue3)
+  localValue2 = SetNuiFocus
+  localValue3 = localValue1.nuifocus
+  localValue4 = localValue1.nuifocus
   -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-  arg2(arg3, arg4)
-  arg2 = false
-  flag3 = arg2
+  localValue2(localValue3, localValue4)
+  localValue2 = false
+  stateFlag3 = localValue2
 end
-cmgCall4(textValue2, workValue11)
-cmgCall4 = CMG
+cmgOperation4(text2, workingValue11)
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = pairs
-  arg3 = GetActivePlayers
-  arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51 = arg3()
-  arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    dataTable13 = GetPlayerPed
-    health = arg7
+  localValue1 = localValue1()
+  localValue2 = pairs
+  localValue3 = GetActivePlayers
+  localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51 = localValue3()
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    dataCollection13 = GetPlayerPed
+    health = localValue7
     -- Beginner: result below is playerPed.
-    dataTable13 = dataTable13(health)
+    dataCollection13 = dataCollection13(health)
     health = GetEntityAttachedTo
-    workValue51 = dataTable13
-    health = health(workValue51)
-    if health == arg1 then
-      return dataTable13
+    workingValue51 = dataCollection13
+    health = health(workingValue51)
+    if health == localValue1 then
+      return dataCollection13
     end
   end
-  arg2 = 0
-  return arg2
+  localValue2 = 0
+  return localValue2
 end
-cmgCall4.getDraggedPed = textValue2
+cmgOperation4.getDraggedPed = text2
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
-function cmgCall4(arg1)
-  local arg2, arg3
-  arg2 = GetEntityModel
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1) ===
+function cmgOperation4(localValue1)
+  local localValue2, localValue3
+  localValue2 = GetEntityModel
+  localValue3 = localValue1
   -- Beginner: result below is modelHash.
-  arg2 = arg2(arg3)
-  if -2100640717 == arg2 then
-    arg3 = 10.0
-    return arg3
+  localValue2 = localValue2(localValue3)
+  if -2100640717 == localValue2 then
+    localValue3 = 10.0
+    return localValue3
   end
-  arg3 = 3.5
-  return arg3
+  localValue3 = 3.5
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8
-  arg1 = GetShapeTestResult
-  arg2 = numberValue2
-  arg1, arg2, arg3, arg4, arg5 = arg1(arg2)
-  if 1 ~= arg1 then
-    if 2 == arg1 then
-      arg6 = GetEntityType
-      arg7 = arg5
-      arg6 = arg6(arg7)
-      if arg6 > 0 then
-        arg6 = GetEntityCoords
-        arg7 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8
+  localValue1 = GetShapeTestResult
+  localValue2 = number2
+  localValue1, localValue2, localValue3, localValue4, localValue5 = localValue1(localValue2)
+  if 1 ~= localValue1 then
+    if 2 == localValue1 then
+      localValue6 = GetEntityType
+      localValue7 = localValue5
+      localValue6 = localValue6(localValue7)
+      if localValue6 > 0 then
+        localValue6 = GetEntityCoords
+        localValue7 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        arg7 = arg7()
-        dataTable13 = true
+        localValue7 = localValue7()
+        dataCollection13 = true
         -- Beginner: result below is entityCoords.
-        arg6 = arg6(arg7, dataTable13)
-        arg7 = GetEntityCoords
-        dataTable13 = arg5
+        localValue6 = localValue6(localValue7, dataCollection13)
+        localValue7 = GetEntityCoords
+        dataCollection13 = localValue5
         health = true
         -- Beginner: result below is entityCoords.
-        arg7 = arg7(dataTable13, health)
-        arg6 = arg6 - arg7
-        arg6 = #arg6
-        arg7 = cmgCall4
-        dataTable13 = arg5
-        arg7 = arg7(dataTable13)
-        if arg6 <= arg7 then
-          arg6 = PlayerPedId
+        localValue7 = localValue7(dataCollection13, health)
+        localValue6 = localValue6 - localValue7
+        localValue6 = #localValue6
+        localValue7 = cmgOperation4
+        dataCollection13 = localValue5
+        localValue7 = localValue7(dataCollection13)
+        if localValue6 <= localValue7 then
+          localValue6 = PlayerPedId
           -- Beginner: result below is localPlayerPed.
-          arg6 = arg6()
-          if arg5 ~= arg6 then
-            workValue4 = arg5
-            arg6 = GetEntityType
-            arg7 = arg5
-            arg6 = arg6(arg7)
-            workValue5 = arg6
+          localValue6 = localValue6()
+          if localValue5 ~= localValue6 then
+            workingValue4 = localValue5
+            localValue6 = GetEntityType
+            localValue7 = localValue5
+            localValue6 = localValue6(localValue7)
+            workingValue5 = localValue6
         end
       end
       else
-        arg6 = nil
-        workValue4 = arg6
-        arg6 = nil
-        workValue5 = arg6
+        localValue6 = nil
+        workingValue4 = localValue6
+        localValue6 = nil
+        workingValue5 = localValue6
       end
-      arg6 = workValue4
-      if not arg6 then
-        arg6 = GetEntityPlayerIsFreeAimingAt
-        arg7 = PlayerId
-        arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8 = arg7()
-        arg6, arg7 = arg6(arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8)
-        if arg6 and 0 ~= arg7 then
-          dataTable13 = CMG
-          dataTable13 = dataTable13.getDraggedPed
-          dataTable13 = dataTable13()
-          if arg7 == dataTable13 then
-            workValue4 = arg7
-            dataTable13 = GetEntityType
-            health = arg7
-            dataTable13 = dataTable13(health)
-            workValue5 = dataTable13
+      localValue6 = workingValue4
+      if not localValue6 then
+        localValue6 = GetEntityPlayerIsFreeAimingAt
+        localValue7 = PlayerId
+        localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8 = localValue7()
+        localValue6, localValue7 = localValue6(localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8)
+        if localValue6 and 0 ~= localValue7 then
+          dataCollection13 = CMG
+          dataCollection13 = dataCollection13.getDraggedPed
+          dataCollection13 = dataCollection13()
+          if localValue7 == dataCollection13 then
+            workingValue4 = localValue7
+            dataCollection13 = GetEntityType
+            health = localValue7
+            dataCollection13 = dataCollection13(health)
+            workingValue5 = dataCollection13
           end
         end
       end
     end
-    arg6 = GetGameplayCamRot
-    arg7 = 2
-    arg6 = arg6(arg7)
-    arg7 = GetGameplayCamCoord
-    arg7 = arg7()
-    dataTable13 = CMG
-    dataTable13 = dataTable13.rotationToDirection
-    health = arg6
-    dataTable13 = dataTable13(health)
+    localValue6 = GetGameplayCamRot
+    localValue7 = 2
+    localValue6 = localValue6(localValue7)
+    localValue7 = GetGameplayCamCoord
+    localValue7 = localValue7()
+    dataCollection13 = CMG
+    dataCollection13 = dataCollection13.rotationToDirection
+    health = localValue6
+    dataCollection13 = dataCollection13(health)
     health = vector3
-    workValue51 = arg7.x
-    dataTable = dataTable13.x
-    dataTable = dataTable * 15.0
-    workValue51 = workValue51 + dataTable
-    dataTable = arg7.y
-    tableHelper = dataTable13.y
+    workingValue51 = localValue7.x
+    dataCollection = dataCollection13.x
+    dataCollection = dataCollection * 15.0
+    workingValue51 = workingValue51 + dataCollection
+    dataCollection = localValue7.y
+    tableHelper = dataCollection13.y
     tableHelper = tableHelper * 15.0
-    dataTable = dataTable + tableHelper
-    tableHelper = arg7.z
-    dataTable2 = dataTable13.z
-    dataTable2 = dataTable2 * 15.0
-    tableHelper = tableHelper + dataTable2
-    health = health(workValue51, dataTable, tableHelper)
-    workValue51 = StartShapeTestLosProbe
-    dataTable = arg7.x
-    tableHelper = arg7.y
-    dataTable2 = arg7.z
-    dataTable3 = health.x
-    dataTable4 = health.y
-    dataTable5 = health.z
-    dataTable6 = -1
-    dataTable7 = -1
-    dataTable8 = 1
-    workValue51 = workValue51(dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8)
-    numberValue2 = workValue51
+    dataCollection = dataCollection + tableHelper
+    tableHelper = localValue7.z
+    dataCollection2 = dataCollection13.z
+    dataCollection2 = dataCollection2 * 15.0
+    tableHelper = tableHelper + dataCollection2
+    health = health(workingValue51, dataCollection, tableHelper)
+    workingValue51 = StartShapeTestLosProbe
+    dataCollection = localValue7.x
+    tableHelper = localValue7.y
+    dataCollection2 = localValue7.z
+    dataCollection3 = health.x
+    dataCollection4 = health.y
+    dataCollection5 = health.z
+    dataCollection6 = -1
+    dataCollection7 = -1
+    dataCollection8 = 1
+    workingValue51 = workingValue51(dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8)
+    number2 = workingValue51
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2
-  arg1 = GetEntityHealth
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2
+  localValue1 = GetEntityHealth
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
+  localValue2 = localValue2()
   -- Beginner: result below is health.
-  arg1 = arg1(arg2)
-  arg1 = arg1 > 102
-  return arg1
+  localValue1 = localValue1(localValue2)
+  localValue1 = localValue1 > 102
+  return localValue1
 end
-workValue13 = RegisterCommand
-flag5 = "lootbag"
+workingValue13 = RegisterCommand
+stateFlag5 = "lootbag"
 -- Beginner: this function is the command handler for "lootbag".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2
-  arg1 = GetFrameCount
-  arg1 = arg1()
-  numberValue3 = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2
+  localValue1 = GetFrameCount
+  localValue1 = localValue1()
+  number3 = localValue1
 end
-flag6 = true
+stateFlag6 = true
 -- Beginner: Register a chat/console command. Event/command: "lootbag".
-workValue13(flag5, textValue5, flag6)
-workValue13 = RegisterKeyMapping
-flag5 = "lootbag"
-textValue5 = "Open Lootbag"
-flag6 = "KEYBOARD"
-textValue6 = "E"
+workingValue13(stateFlag5, text5, stateFlag6)
+workingValue13 = RegisterKeyMapping
+stateFlag5 = "lootbag"
+text5 = "Open Lootbag"
+stateFlag6 = "KEYBOARD"
+text6 = "E"
 -- Beginner: Bind a command to a keyboard/controller key.
-workValue13(flag5, textValue5, flag6, textValue6)
+workingValue13(stateFlag5, text5, stateFlag6, text6)
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.isMechanicDebrisCarryingScrap
-  arg1 = arg1()
-  if arg1 then
-    arg1 = false
-    return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.isMechanicDebrisCarryingScrap
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = false
+    return localValue1
   end
-  arg1 = GetFrameCount
-  arg1 = arg1()
-  arg2 = numberValue3
-  arg2 = arg2 == arg1
-  return arg2
+  localValue1 = GetFrameCount
+  localValue1 = localValue1()
+  localValue2 = number3
+  localValue2 = localValue2 == localValue1
+  return localValue2
 end
-flag5 = false
+stateFlag5 = false
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
-function textValue5(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable
-  arg3 = flag5
-  if arg3 then
-    arg3 = notify
-    arg4 = "~r~You are already opening a lootbag."
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1, localValue2) ===
+function text5(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection
+  localValue3 = stateFlag5
+  if localValue3 then
+    localValue3 = notify
+    localValue4 = "~r~You are already opening a lootbag."
     -- Beginner: Show a notification to the player.
-    arg3(arg4)
+    localValue3(localValue4)
     return
   end
-  arg3 = CMG
-  arg3 = arg3.hasClientPermission
-  arg4 = "admin.tickets"
-  arg3 = arg3(arg4)
-  arg4 = CMG
-  arg4 = arg4.isNoClipActive
-  arg4 = arg4()
-  if not arg4 or arg3 then
-    arg4 = CMG
-    arg4 = arg4.isCarrying
-    arg4 = arg4()
-    if not arg4 then
-      arg4 = CMG
-      arg4 = arg4.isPiggyBackActive
-      arg4 = arg4()
-      if not arg4 then
-        arg4 = CMG
-        arg4 = arg4.isKnockedOut
-        arg4 = arg4()
-        if not arg4 then
-          goto flow_label_35
+  localValue3 = CMG
+  localValue3 = localValue3.hasClientPermission
+  localValue4 = "admin.tickets"
+  localValue3 = localValue3(localValue4)
+  localValue4 = CMG
+  localValue4 = localValue4.isNoClipActive
+  localValue4 = localValue4()
+  if not localValue4 or localValue3 then
+    localValue4 = CMG
+    localValue4 = localValue4.isCarrying
+    localValue4 = localValue4()
+    if not localValue4 then
+      localValue4 = CMG
+      localValue4 = localValue4.isPiggyBackActive
+      localValue4 = localValue4()
+      if not localValue4 then
+        localValue4 = CMG
+        localValue4 = localValue4.isKnockedOut
+        localValue4 = localValue4()
+        if not localValue4 then
+          goto continueAtStep35
         end
       end
     end
   end
   return
-  ::flow_label_35::
-  arg4 = DecorExistOn
-  arg5 = arg2
-  arg6 = "12da94aa7e"
-  arg4 = arg4(arg5, arg6)
-  if arg4 then
-    arg4 = DecorGetInt
-    arg5 = arg2
-    arg6 = "12da94aa7e"
-    arg4 = arg4(arg5, arg6)
-    arg5 = CMG
-    arg5 = arg5.getClientUserId
+  ::continueAtStep35::
+  localValue4 = DecorExistOn
+  localValue5 = localValue2
+  localValue6 = "12da94aa7e"
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 then
+    localValue4 = DecorGetInt
+    localValue5 = localValue2
+    localValue6 = "12da94aa7e"
+    localValue4 = localValue4(localValue5, localValue6)
+    localValue5 = CMG
+    localValue5 = localValue5.getClientUserId
     -- Beginner: result below is userId.
-    arg5 = arg5()
-    if arg4 ~= arg5 then
-      arg5 = CMG
-      arg5 = arg5.hasClientGroup
-      arg6 = "Vigilante"
-      arg5 = arg5(arg6)
-      if arg5 then
-        arg5 = DecorGetInt
-        arg6 = arg2
-        arg7 = "5f7af1c5ce"
-        arg5 = arg5(arg6, arg7)
-        arg6 = CMG
-        arg6 = arg6.isLootbagOwnerVigilante
-        arg7 = arg5
-        arg6 = arg6(arg7)
-        if not arg6 then
-          arg6 = notify
-          arg7 = "~r~You can not open other players lootbags whilst being a vigilante."
-          arg6(arg7)
+    localValue5 = localValue5()
+    if localValue4 ~= localValue5 then
+      localValue5 = CMG
+      localValue5 = localValue5.hasClientGroup
+      localValue6 = "Vigilante"
+      localValue5 = localValue5(localValue6)
+      if localValue5 then
+        localValue5 = DecorGetInt
+        localValue6 = localValue2
+        localValue7 = "5f7af1c5ce"
+        localValue5 = localValue5(localValue6, localValue7)
+        localValue6 = CMG
+        localValue6 = localValue6.isLootbagOwnerVigilante
+        localValue7 = localValue5
+        localValue6 = localValue6(localValue7)
+        if not localValue6 then
+          localValue6 = notify
+          localValue7 = "~r~You can not open other players lootbags whilst being a vigilante."
+          localValue6(localValue7)
           return
         end
       end
     end
   end
-  arg4 = IsEntityVisible
-  arg5 = PlayerPedId
-  arg5, arg6, arg7, dataTable13, health, workValue51, dataTable = arg5()
-  arg4 = arg4(arg5, arg6, arg7, dataTable13, health, workValue51, dataTable)
-  if not arg4 and not arg3 then
+  localValue4 = IsEntityVisible
+  localValue5 = PlayerPedId
+  localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection = localValue5()
+  localValue4 = localValue4(localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection)
+  if not localValue4 and not localValue3 then
     return
   end
-  arg4 = CMG
-  arg4 = arg4.isHandcuffed
-  arg4 = arg4()
-  if arg4 then
+  localValue4 = CMG
+  localValue4 = localValue4.isHandcuffed
+  localValue4 = localValue4()
+  if localValue4 then
     return
   end
-  arg4 = CMG
-  arg4 = arg4.hasNewPlayerProtection
-  arg4 = arg4()
-  if arg4 then
-    arg4 = notify
-    arg5 = "~r~You can not open lootbags whilst you have new player protection."
+  localValue4 = CMG
+  localValue4 = localValue4.hasNewPlayerProtection
+  localValue4 = localValue4()
+  if localValue4 then
+    localValue4 = notify
+    localValue5 = "~r~You can not open lootbags whilst you have new player protection."
     -- Beginner: Show a notification to the player.
-    arg4(arg5)
+    localValue4(localValue5)
     return
   end
-  arg4 = true
-  flag5 = arg4
-  arg4 = GetGameTimer
+  localValue4 = true
+  stateFlag5 = localValue4
+  localValue4 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg4 = arg4()
-  arg5 = {}
-  arg6 = {}
-  arg7 = "amb@medic@standing@kneel@base"
-  dataTable13 = "base"
+  localValue4 = localValue4()
+  localValue5 = {}
+  localValue6 = {}
+  localValue7 = "amb@medic@standing@kneel@base"
+  dataCollection13 = "base"
   health = 1
-  arg6[1] = arg7
-  arg6[2] = dataTable13
-  arg6[3] = health
-  arg7 = {}
-  dataTable13 = "anim@gangops@facility@servers@bodysearch@"
+  localValue6[1] = localValue7
+  localValue6[2] = dataCollection13
+  localValue6[3] = health
+  localValue7 = {}
+  dataCollection13 = "anim@gangops@facility@servers@bodysearch@"
   health = "player_search"
-  workValue51 = 1
-  arg7[1] = dataTable13
-  arg7[2] = health
-  arg7[3] = workValue51
-  dataTable13 = {}
+  workingValue51 = 1
+  localValue7[1] = dataCollection13
+  localValue7[2] = health
+  localValue7[3] = workingValue51
+  dataCollection13 = {}
   health = "amb@medic@standing@kneel@exit"
-  workValue51 = "exit"
-  dataTable = 1
-  dataTable13[1] = health
-  dataTable13[2] = workValue51
-  dataTable13[3] = dataTable
-  arg5[1] = arg6
-  arg5[2] = arg7
-  arg5[3] = dataTable13
-  arg6 = tCMG
-  arg6 = arg6.playAnim
-  arg7 = false
-  dataTable13 = arg5
+  workingValue51 = "exit"
+  dataCollection = 1
+  dataCollection13[1] = health
+  dataCollection13[2] = workingValue51
+  dataCollection13[3] = dataCollection
+  localValue5[1] = localValue6
+  localValue5[2] = localValue7
+  localValue5[3] = dataCollection13
+  localValue6 = tCMG
+  localValue6 = localValue6.playAnim
+  localValue7 = false
+  dataCollection13 = localValue5
   health = false
-  arg6(arg7, dataTable13, health)
+  localValue6(localValue7, dataCollection13, health)
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local cmgCall2, textValue, numberValue5, workValue20, workValue31, workValue43, flag9, playerPed, workValue49, workValue52, numberValue
-    cmgCall2 = pairs
-    textValue = arg5
-    cmgCall2, textValue, numberValue5, workValue20 = cmgCall2(textValue)
-    for workValue31, workValue43 in cmgCall2, textValue, numberValue5, workValue20 do
-      flag9 = IsEntityPlayingAnim
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local cmgOperation2, text, number5, workingValue20, workingValue31, workingValue43, stateFlag9, playerPed, workingValue49, workingValue52, number
+    cmgOperation2 = pairs
+    text = localValue5
+    cmgOperation2, text, number5, workingValue20 = cmgOperation2(text)
+    for workingValue31, workingValue43 in cmgOperation2, text, number5, workingValue20 do
+      stateFlag9 = IsEntityPlayingAnim
       playerPed = PlayerPedId
       -- Beginner: result below is localPlayerPed.
       playerPed = playerPed()
-      workValue49 = workValue43[1]
-      workValue52 = workValue43[2]
-      numberValue = 3
-      flag9 = flag9(playerPed, workValue49, workValue52, numberValue)
-      if flag9 then
-        flag9 = true
-        return flag9
+      workingValue49 = workingValue43[1]
+      workingValue52 = workingValue43[2]
+      number = 3
+      stateFlag9 = stateFlag9(playerPed, workingValue49, workingValue52, number)
+      if stateFlag9 then
+        stateFlag9 = true
+        return stateFlag9
       end
     end
-    cmgCall2 = false
-    return cmgCall2
+    cmgOperation2 = false
+    return cmgOperation2
   end
-  arg7 = GetSelectedPedWeapon
-  dataTable13 = PlayerPedId
-  dataTable13, health, workValue51, dataTable = dataTable13()
+  localValue7 = GetSelectedPedWeapon
+  dataCollection13 = PlayerPedId
+  dataCollection13, health, workingValue51, dataCollection = dataCollection13()
   -- Beginner: result below is weaponHash.
-  arg7 = arg7(dataTable13, health, workValue51, dataTable)
-  dataTable13 = CMG
-  dataTable13 = dataTable13.inEvent
-  dataTable13 = dataTable13()
-  if not dataTable13 then
-    dataTable13 = CMG
-    dataTable13 = dataTable13.isEmergencyService
-    dataTable13 = dataTable13()
-    if dataTable13 or -1569615261 == arg7 or 883325847 == arg7 then
-      dataTable13 = Citizen
-      dataTable13 = dataTable13.CreateThread
+  localValue7 = localValue7(dataCollection13, health, workingValue51, dataCollection)
+  dataCollection13 = CMG
+  dataCollection13 = dataCollection13.inEvent
+  dataCollection13 = dataCollection13()
+  if not dataCollection13 then
+    dataCollection13 = CMG
+    dataCollection13 = dataCollection13.isEmergencyService
+    dataCollection13 = dataCollection13()
+    if dataCollection13 or -1569615261 == localValue7 or 883325847 == localValue7 then
+      dataCollection13 = Citizen
+      dataCollection13 = dataCollection13.CreateThread
 
       -- === HELPER FUNCTION: health() ===
       function health()
-        local cmgCall2, textValue, numberValue5, workValue20, workValue31
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.startCircularProgressBar
-        textValue = ""
-        numberValue5 = 3000
-        workValue20 = nil
+        local cmgOperation2, text, number5, workingValue20, workingValue31
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.startCircularProgressBar
+        text = ""
+        number5 = 3000
+        workingValue20 = nil
 
-        -- === HELPER FUNCTION (decompiler name: workValue31; parameters: none) ===
-        function workValue31()
-          local workValue, workValue6
+        -- === HELPER FUNCTION (decompiler name: workingValue31; parameters: none) ===
+        function workingValue31()
+          local workingValue, workingValue6
         end
-        cmgCall2(textValue, numberValue5, workValue20, workValue31)
+        cmgOperation2(text, number5, workingValue20, workingValue31)
       end
       -- Beginner: Start a separate FiveM thread so this code can run independently.
-      dataTable13(health)
-      dataTable13 = Citizen
-      dataTable13 = dataTable13.Wait
+      dataCollection13(health)
+      dataCollection13 = Citizen
+      dataCollection13 = dataCollection13.Wait
       health = 100
-      dataTable13(health)
+      dataCollection13(health)
       while true do
-        dataTable13 = flag5
-        if not dataTable13 then
+        dataCollection13 = stateFlag5
+        if not dataCollection13 then
           break
         end
-        dataTable13 = tCMG
-        dataTable13 = dataTable13.isInComa
-        dataTable13 = dataTable13()
-        if dataTable13 then
-          dataTable13 = CMG
-          dataTable13 = dataTable13.stopCircularProgressBar
-          dataTable13()
-          dataTable13 = false
-          flag5 = dataTable13
-          dataTable13 = tCMG
-          dataTable13 = dataTable13.stopAnim
-          dataTable13()
+        dataCollection13 = tCMG
+        dataCollection13 = dataCollection13.isInComa
+        dataCollection13 = dataCollection13()
+        if dataCollection13 then
+          dataCollection13 = CMG
+          dataCollection13 = dataCollection13.stopCircularProgressBar
+          dataCollection13()
+          dataCollection13 = false
+          stateFlag5 = dataCollection13
+          dataCollection13 = tCMG
+          dataCollection13 = dataCollection13.stopAnim
+          dataCollection13()
           return
         else
-          dataTable13 = arg6
-          dataTable13 = dataTable13()
-          if not dataTable13 then
-            dataTable13 = CMG
-            dataTable13 = dataTable13.stopCircularProgressBar
-            dataTable13()
-            dataTable13 = false
-            flag5 = dataTable13
-            dataTable13 = notify
+          dataCollection13 = localValue6
+          dataCollection13 = dataCollection13()
+          if not dataCollection13 then
+            dataCollection13 = CMG
+            dataCollection13 = dataCollection13.stopCircularProgressBar
+            dataCollection13()
+            dataCollection13 = false
+            stateFlag5 = dataCollection13
+            dataCollection13 = notify
             health = "~r~Opening lootbag cancelled."
             -- Beginner: Show a notification to the player.
-            dataTable13(health)
-            dataTable13 = tCMG
-            dataTable13 = dataTable13.stopAnim
-            dataTable13()
+            dataCollection13(health)
+            dataCollection13 = tCMG
+            dataCollection13 = dataCollection13.stopAnim
+            dataCollection13()
             return
           else
-            dataTable13 = GetGameTimer
+            dataCollection13 = GetGameTimer
             -- Beginner: result below is gameTimeMs.
-            dataTable13 = dataTable13()
-            dataTable13 = dataTable13 - arg4
+            dataCollection13 = dataCollection13()
+            dataCollection13 = dataCollection13 - localValue4
             health = 3000
-            if dataTable13 >= health then
+            if dataCollection13 >= health then
               break
             end
           end
         end
-        dataTable13 = Citizen
-        dataTable13 = dataTable13.Wait
+        dataCollection13 = Citizen
+        dataCollection13 = dataCollection13.Wait
         health = 0
-        dataTable13(health)
+        dataCollection13(health)
       end
     end
   end
-  dataTable13 = false
-  flag5 = dataTable13
-  dataTable13 = tCMG
-  dataTable13 = dataTable13.isInComa
-  dataTable13 = dataTable13()
-  if dataTable13 then
+  dataCollection13 = false
+  stateFlag5 = dataCollection13
+  dataCollection13 = tCMG
+  dataCollection13 = dataCollection13.isInComa
+  dataCollection13 = dataCollection13()
+  if dataCollection13 then
     return
   end
-  dataTable13 = arg1
-  dataTable13()
+  dataCollection13 = localValue1
+  dataCollection13()
 end
 
--- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
-function flag6()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2
-  arg1 = CMG
-  arg1 = arg1.getDraggedPed
-  arg1 = arg1()
-  if 0 == arg1 then
+-- === HELPER FUNCTION (decompiler name: stateFlag6; parameters: none) ===
+function stateFlag6()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2
+  localValue1 = CMG
+  localValue1 = localValue1.getDraggedPed
+  localValue1 = localValue1()
+  if 0 == localValue1 then
     return
   end
-  arg2 = GetFrameCount
-  arg2 = arg2()
-  arg3 = numberValue4
-  if arg2 ~= arg3 then
-    arg3 = arg2 - 1
-    arg4 = numberValue4
-    if arg3 ~= arg4 then
-      goto flow_label_18
+  localValue2 = GetFrameCount
+  localValue2 = localValue2()
+  localValue3 = number4
+  if localValue2 ~= localValue3 then
+    localValue3 = localValue2 - 1
+    localValue4 = number4
+    if localValue3 ~= localValue4 then
+      goto continueAtStep18
     end
   end
   return
-  ::flow_label_18::
-  arg3 = SetNuiFocus
-  arg4 = true
-  arg5 = true
+  ::continueAtStep18::
+  localValue3 = SetNuiFocus
+  localValue4 = true
+  localValue5 = true
   -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-  arg3(arg4, arg5)
-  arg3 = SendNUIMessage
-  arg4 = {}
-  arg4.openRadialMenu = true
-  arg4.type = "ped"
-  arg4.entityId = arg1
-  arg5 = workValue8
-  arg6 = arg1
-  arg7 = CMG
-  arg7 = arg7.hasClientPermission
-  dataTable13 = "police.onduty.permission"
-  arg7 = arg7(dataTable13)
-  if not arg7 then
-    arg7 = CMG
-    arg7 = arg7.hasClientPermission
-    dataTable13 = "borderforce.onduty.permission"
-    arg7 = arg7(dataTable13)
+  localValue3(localValue4, localValue5)
+  localValue3 = SendNUIMessage
+  localValue4 = {}
+  localValue4.openRadialMenu = true
+  localValue4.type = "ped"
+  localValue4.entityId = localValue1
+  localValue5 = workingValue8
+  localValue6 = localValue1
+  localValue7 = CMG
+  localValue7 = localValue7.hasClientPermission
+  dataCollection13 = "police.onduty.permission"
+  localValue7 = localValue7(dataCollection13)
+  if not localValue7 then
+    localValue7 = CMG
+    localValue7 = localValue7.hasClientPermission
+    dataCollection13 = "borderforce.onduty.permission"
+    localValue7 = localValue7(dataCollection13)
   end
-  dataTable13 = CMG
-  dataTable13 = dataTable13.hasClientPermission
+  dataCollection13 = CMG
+  dataCollection13 = dataCollection13.hasClientPermission
   health = "prisonguard.onduty.permission"
-  dataTable13 = dataTable13(health)
+  dataCollection13 = dataCollection13(health)
   health = CMG
   health = health.hasClientPermission
-  workValue51 = "nhs.onduty.permission"
-  health = health(workValue51)
-  workValue51 = CMG
-  workValue51 = workValue51.hasClientGroup
-  dataTable = "Vigilante"
-  workValue51 = workValue51(dataTable)
-  dataTable = DecorGetBool
-  tableHelper = arg1
-  dataTable2 = "4ac0472477"
-  dataTable = dataTable(tableHelper, dataTable2)
+  workingValue51 = "nhs.onduty.permission"
+  health = health(workingValue51)
+  workingValue51 = CMG
+  workingValue51 = workingValue51.hasClientGroup
+  dataCollection = "Vigilante"
+  workingValue51 = workingValue51(dataCollection)
+  dataCollection = DecorGetBool
+  tableHelper = localValue1
+  dataCollection2 = "4ac0472477"
+  dataCollection = dataCollection(tableHelper, dataCollection2)
   tableHelper = CMG
   tableHelper = tableHelper.isDrawingCasinoChipsUI
   tableHelper = tableHelper()
@@ -2052,142 +2052,142 @@ function flag6()
     tableHelper = tableHelper()
     tableHelper = tableHelper > 0
   end
-  arg5 = arg5(arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper)
-  arg4.menuItems = arg5
+  localValue5 = localValue5(localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper)
+  localValue4.menuItems = localValue5
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg3(arg4)
+  localValue3(localValue4)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3
-  arg1 = textValue2
-  arg1()
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3
+  localValue1 = text2
+  localValue1()
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetVehiclePedIsIn
-  arg3 = arg1
-  arg4 = false
+  localValue1 = localValue1()
+  localValue2 = GetVehiclePedIsIn
+  localValue3 = localValue1
+  localValue4 = false
   -- Beginner: result below is currentVehicle.
-  arg2 = arg2(arg3, arg4)
-  arg3 = flag
-  if arg3 and 0 ~= arg2 then
-    arg3 = flag3
-    if not arg3 then
-      arg3 = false
-      flag = arg3
-      arg3 = SendNUIMessage
-      arg4 = {}
-      arg4.closeRadialMenu = true
+  localValue2 = localValue2(localValue3, localValue4)
+  localValue3 = stateFlag
+  if localValue3 and 0 ~= localValue2 then
+    localValue3 = stateFlag3
+    if not localValue3 then
+      localValue3 = false
+      stateFlag = localValue3
+      localValue3 = SendNUIMessage
+      localValue4 = {}
+      localValue4.closeRadialMenu = true
       -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-      arg3(arg4)
+      localValue3(localValue4)
     end
   end
-  arg3 = CMG
-  arg3 = arg3.isMechanicDebrisCarryingScrap
-  arg3 = arg3()
-  if arg3 then
-    arg3 = flag
-    if arg3 then
-      arg3 = false
-      flag = arg3
-      arg3 = SendNUIMessage
-      arg4 = {}
-      arg4.closeRadialMenu = true
-      arg3(arg4)
-      arg3 = SetNuiFocus
-      arg4 = false
-      arg5 = false
+  localValue3 = CMG
+  localValue3 = localValue3.isMechanicDebrisCarryingScrap
+  localValue3 = localValue3()
+  if localValue3 then
+    localValue3 = stateFlag
+    if localValue3 then
+      localValue3 = false
+      stateFlag = localValue3
+      localValue3 = SendNUIMessage
+      localValue4 = {}
+      localValue4.closeRadialMenu = true
+      localValue3(localValue4)
+      localValue3 = SetNuiFocus
+      localValue4 = false
+      localValue5 = false
       -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-      arg3(arg4, arg5)
+      localValue3(localValue4, localValue5)
     end
   end
-  arg3 = workValue4
-  if arg3 then
-    arg3 = workValue5
-    if arg3 then
-      arg3 = CMG
-      arg3 = arg3.isMechanicDebrisCarryingScrap
-      arg3 = arg3()
-      if arg3 then
-        arg3 = Crosshair
-        arg4 = false
-        arg3(arg4)
+  localValue3 = workingValue4
+  if localValue3 then
+    localValue3 = workingValue5
+    if localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.isMechanicDebrisCarryingScrap
+      localValue3 = localValue3()
+      if localValue3 then
+        localValue3 = Crosshair
+        localValue4 = false
+        localValue3(localValue4)
       else
-        arg3 = workValue11
-        arg3 = arg3()
-        if arg3 and 0 == arg2 then
-          arg3 = GetRenderingCam
-          arg3 = arg3()
-          if -1 == arg3 then
-            arg3 = flag4
-            if not arg3 then
-              arg3 = workValue5
-              if 1 == arg3 then
-                arg3 = workValue4
-                if arg3 ~= arg1 then
-                  arg3 = IsPedAPlayer
-                  arg4 = workValue4
-                  arg3 = arg3(arg4)
-                  if arg3 then
-                    arg3 = CMG
-                    arg3 = arg3.isAtArenaWagerHub
-                    arg3 = arg3()
-                    if arg3 then
-                      arg3 = Crosshair
-                      arg4 = false
-                      arg3(arg4)
+        localValue3 = workingValue11
+        localValue3 = localValue3()
+        if localValue3 and 0 == localValue2 then
+          localValue3 = GetRenderingCam
+          localValue3 = localValue3()
+          if -1 == localValue3 then
+            localValue3 = stateFlag4
+            if not localValue3 then
+              localValue3 = workingValue5
+              if 1 == localValue3 then
+                localValue3 = workingValue4
+                if localValue3 ~= localValue1 then
+                  localValue3 = IsPedAPlayer
+                  localValue4 = workingValue4
+                  localValue3 = localValue3(localValue4)
+                  if localValue3 then
+                    localValue3 = CMG
+                    localValue3 = localValue3.isAtArenaWagerHub
+                    localValue3 = localValue3()
+                    if localValue3 then
+                      localValue3 = Crosshair
+                      localValue4 = false
+                      localValue3(localValue4)
                     else
-                      arg3 = Crosshair
-                      arg4 = true
-                      arg3(arg4)
-                      arg3 = workValue13
-                      arg3 = arg3()
-                      if arg3 then
-                        arg3 = flag
-                        if false == arg3 then
-                          arg3 = true
-                          flag = arg3
-                          arg3 = SetNuiFocus
-                          arg4 = true
-                          arg5 = true
+                      localValue3 = Crosshair
+                      localValue4 = true
+                      localValue3(localValue4)
+                      localValue3 = workingValue13
+                      localValue3 = localValue3()
+                      if localValue3 then
+                        localValue3 = stateFlag
+                        if false == localValue3 then
+                          localValue3 = true
+                          stateFlag = localValue3
+                          localValue3 = SetNuiFocus
+                          localValue4 = true
+                          localValue5 = true
                           -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-                          arg3(arg4, arg5)
-                          arg3 = SendNUIMessage
-                          arg4 = {}
-                          arg4.openRadialMenu = true
-                          arg4.type = "ped"
-                          arg5 = workValue4
-                          arg4.entityId = arg5
-                          arg5 = workValue8
-                          arg6 = workValue4
-                          arg7 = CMG
-                          arg7 = arg7.hasClientPermission
-                          dataTable13 = "police.onduty.permission"
-                          arg7 = arg7(dataTable13)
-                          if not arg7 then
-                            arg7 = CMG
-                            arg7 = arg7.hasClientPermission
-                            dataTable13 = "borderforce.onduty.permission"
-                            arg7 = arg7(dataTable13)
+                          localValue3(localValue4, localValue5)
+                          localValue3 = SendNUIMessage
+                          localValue4 = {}
+                          localValue4.openRadialMenu = true
+                          localValue4.type = "ped"
+                          localValue5 = workingValue4
+                          localValue4.entityId = localValue5
+                          localValue5 = workingValue8
+                          localValue6 = workingValue4
+                          localValue7 = CMG
+                          localValue7 = localValue7.hasClientPermission
+                          dataCollection13 = "police.onduty.permission"
+                          localValue7 = localValue7(dataCollection13)
+                          if not localValue7 then
+                            localValue7 = CMG
+                            localValue7 = localValue7.hasClientPermission
+                            dataCollection13 = "borderforce.onduty.permission"
+                            localValue7 = localValue7(dataCollection13)
                           end
-                          dataTable13 = CMG
-                          dataTable13 = dataTable13.hasClientPermission
+                          dataCollection13 = CMG
+                          dataCollection13 = dataCollection13.hasClientPermission
                           health = "prisonguard.onduty.permission"
-                          dataTable13 = dataTable13(health)
+                          dataCollection13 = dataCollection13(health)
                           health = CMG
                           health = health.hasClientPermission
-                          workValue51 = "nhs.onduty.permission"
-                          health = health(workValue51)
-                          workValue51 = CMG
-                          workValue51 = workValue51.hasClientGroup
-                          dataTable = "Vigilante"
-                          workValue51 = workValue51(dataTable)
-                          dataTable = DecorGetBool
-                          tableHelper = workValue4
-                          dataTable2 = "4ac0472477"
-                          dataTable = dataTable(tableHelper, dataTable2)
+                          workingValue51 = "nhs.onduty.permission"
+                          health = health(workingValue51)
+                          workingValue51 = CMG
+                          workingValue51 = workingValue51.hasClientGroup
+                          dataCollection = "Vigilante"
+                          workingValue51 = workingValue51(dataCollection)
+                          dataCollection = DecorGetBool
+                          tableHelper = workingValue4
+                          dataCollection2 = "4ac0472477"
+                          dataCollection = dataCollection(tableHelper, dataCollection2)
                           tableHelper = CMG
                           tableHelper = tableHelper.isDrawingCasinoChipsUI
                           tableHelper = tableHelper()
@@ -2197,1885 +2197,1885 @@ function textValue6()
                             tableHelper = tableHelper()
                             tableHelper = tableHelper > 0
                           end
-                          arg5 = arg5(arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper)
-                          arg4.menuItems = arg5
+                          localValue5 = localValue5(localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper)
+                          localValue4.menuItems = localValue5
                           -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-                          arg3(arg4)
+                          localValue3(localValue4)
                         end
                       end
                     end
                 end
               end
               else
-                arg3 = workValue5
-                if 2 == arg3 then
-                  arg3 = workValue4
-                  if arg3 ~= arg2 then
-                    arg3 = Crosshair
-                    arg4 = true
-                    arg3(arg4)
-                    arg3 = workValue13
-                    arg3 = arg3()
-                    if arg3 then
-                      arg3 = flag
-                      if false == arg3 then
-                        arg3 = GetEntityModel
-                        arg4 = workValue4
+                localValue3 = workingValue5
+                if 2 == localValue3 then
+                  localValue3 = workingValue4
+                  if localValue3 ~= localValue2 then
+                    localValue3 = Crosshair
+                    localValue4 = true
+                    localValue3(localValue4)
+                    localValue3 = workingValue13
+                    localValue3 = localValue3()
+                    if localValue3 then
+                      localValue3 = stateFlag
+                      if false == localValue3 then
+                        localValue3 = GetEntityModel
+                        localValue4 = workingValue4
                         -- Beginner: result below is modelHash.
-                        arg3 = arg3(arg4)
-                        arg4 = -665859588 == arg3
-                        arg5 = CMG
-                        arg5 = arg5.isWheelchairVehicle
-                        if arg5 then
-                          arg5 = CMG
-                          arg5 = arg5.isWheelchairVehicle
-                          arg6 = workValue4
-                          arg5 = arg5(arg6)
+                        localValue3 = localValue3(localValue4)
+                        localValue4 = -665859588 == localValue3
+                        localValue5 = CMG
+                        localValue5 = localValue5.isWheelchairVehicle
+                        if localValue5 then
+                          localValue5 = CMG
+                          localValue5 = localValue5.isWheelchairVehicle
+                          localValue6 = workingValue4
+                          localValue5 = localValue5(localValue6)
                         end
-                        arg6 = CMG
-                        arg6 = arg6.hasClientPermission
-                        arg7 = "nhs.onduty.permission"
-                        arg6 = arg6(arg7)
-                        arg7 = nil
-                        if arg4 and arg6 then
-                          dataTable13 = {}
+                        localValue6 = CMG
+                        localValue6 = localValue6.hasClientPermission
+                        localValue7 = "nhs.onduty.permission"
+                        localValue6 = localValue6(localValue7)
+                        localValue7 = nil
+                        if localValue4 and localValue6 then
+                          dataCollection13 = {}
                           health = {}
                           health.id = "removeStretcher"
                           health.title = "Remove Stretcher"
                           health.icon = "#stretcher"
-                          dataTable13[1] = health
-                          arg7 = dataTable13
+                          dataCollection13[1] = health
+                          localValue7 = dataCollection13
                         else
-                          if arg5 and arg6 then
-                            dataTable13 = CMG
-                            dataTable13 = dataTable13.hasClientPermission
+                          if localValue5 and localValue6 then
+                            dataCollection13 = CMG
+                            dataCollection13 = dataCollection13.hasClientPermission
                             health = "doctor.permission"
-                            dataTable13 = dataTable13(health)
-                            if dataTable13 then
-                              dataTable13 = {}
+                            dataCollection13 = dataCollection13(health)
+                            if dataCollection13 then
+                              dataCollection13 = {}
                               health = {}
                               health.id = "removeWheelchair"
                               health.title = "Remove Wheelchair"
                               health.icon = "#wheelchairSymbol"
-                              dataTable13[1] = health
-                              arg7 = dataTable13
+                              dataCollection13[1] = health
+                              localValue7 = dataCollection13
                           end
                           else
-                            dataTable13 = workValue9
+                            dataCollection13 = workingValue9
                             health = CMG
                             health = health.hasClientPermission
-                            workValue51 = "police.onduty.permission"
-                            health = health(workValue51)
+                            workingValue51 = "police.onduty.permission"
+                            health = health(workingValue51)
                             if not health then
                               health = CMG
                               health = health.hasClientPermission
-                              workValue51 = "borderforce.onduty.permission"
-                              health = health(workValue51)
+                              workingValue51 = "borderforce.onduty.permission"
+                              health = health(workingValue51)
                             end
-                            workValue51 = CMG
-                            workValue51 = workValue51.hasClientPermission
-                            dataTable = "prisonguard.onduty.permission"
-                            workValue51 = workValue51(dataTable)
-                            dataTable = CMG
-                            dataTable = dataTable.hasClientPermission
+                            workingValue51 = CMG
+                            workingValue51 = workingValue51.hasClientPermission
+                            dataCollection = "prisonguard.onduty.permission"
+                            workingValue51 = workingValue51(dataCollection)
+                            dataCollection = CMG
+                            dataCollection = dataCollection.hasClientPermission
                             tableHelper = "aa.onduty.permission"
-                            dataTable = dataTable(tableHelper)
-                            tableHelper = arg6
-                            dataTable2 = CMG
-                            dataTable2 = dataTable2.hasClientGroup
-                            dataTable3 = "Vigilante"
-                            dataTable2 = dataTable2(dataTable3)
-                            dataTable3 = workValue4
-                            dataTable13 = dataTable13(health, workValue51, dataTable, tableHelper, dataTable2, dataTable3)
-                            arg7 = dataTable13
+                            dataCollection = dataCollection(tableHelper)
+                            tableHelper = localValue6
+                            dataCollection2 = CMG
+                            dataCollection2 = dataCollection2.hasClientGroup
+                            dataCollection3 = "Vigilante"
+                            dataCollection2 = dataCollection2(dataCollection3)
+                            dataCollection3 = workingValue4
+                            dataCollection13 = dataCollection13(health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3)
+                            localValue7 = dataCollection13
                           end
                         end
-                        dataTable13 = true
-                        flag = dataTable13
-                        dataTable13 = SetNuiFocus
+                        dataCollection13 = true
+                        stateFlag = dataCollection13
+                        dataCollection13 = SetNuiFocus
                         health = true
-                        workValue51 = true
+                        workingValue51 = true
                         -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-                        dataTable13(health, workValue51)
-                        dataTable13 = SendNUIMessage
+                        dataCollection13(health, workingValue51)
+                        dataCollection13 = SendNUIMessage
                         health = {}
                         health.openRadialMenu = true
                         health.type = "vehicle"
-                        workValue51 = workValue4
-                        health.entityId = workValue51
-                        health.menuItems = arg7
+                        workingValue51 = workingValue4
+                        health.entityId = workingValue51
+                        health.menuItems = localValue7
                         -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-                        dataTable13(health)
+                        dataCollection13(health)
                       end
                     end
                 end
                 else
-                  arg3 = workValue5
-                  if 3 == arg3 then
-                    arg3 = CMG
-                    arg4 = "getTrapperWarehouseShapeTestPickupPlantId"
-                    arg3 = arg3[arg4]
-                    arg4 = workValue4
-                    arg3 = arg3(arg4)
-                    if arg3 then
-                      arg4 = CMG
-                      arg4 = arg4.isTrapperShelfRadialSuppressedForPlantId
-                      arg5 = arg3
-                      arg4 = arg4(arg5)
-                      if arg4 then
-                        arg4 = Crosshair
-                        arg5 = false
-                        arg4(arg5)
+                  localValue3 = workingValue5
+                  if 3 == localValue3 then
+                    localValue3 = CMG
+                    localValue4 = "getTrapperWarehouseShapeTestPickupPlantId"
+                    localValue3 = localValue3[localValue4]
+                    localValue4 = workingValue4
+                    localValue3 = localValue3(localValue4)
+                    if localValue3 then
+                      localValue4 = CMG
+                      localValue4 = localValue4.isTrapperShelfRadialSuppressedForPlantId
+                      localValue5 = localValue3
+                      localValue4 = localValue4(localValue5)
+                      if localValue4 then
+                        localValue4 = Crosshair
+                        localValue5 = false
+                        localValue4(localValue5)
                     end
-                    elseif arg3 then
-                      arg4 = Crosshair
-                      arg5 = true
-                      arg4(arg5)
-                      arg4 = workValue13
-                      arg4 = arg4()
-                      if arg4 then
-                        arg4 = flag
-                        if false == arg4 then
-                          arg4 = true
-                          flag = arg4
-                          arg4 = CMG
-                          arg4 = arg4.openTrapperPickupRadial
-                          arg5 = arg3
-                          arg6 = {}
-                          arg7 = {}
-                          arg7.id = "pickupTrappingItem"
-                          arg7.title = "Pick up"
-                          arg7.icon = "#trapperPickupPackage"
-                          arg6[1] = arg7
-                          arg4(arg5, arg6)
-                          arg4 = workValue7
-                          arg4()
+                    elseif localValue3 then
+                      localValue4 = Crosshair
+                      localValue5 = true
+                      localValue4(localValue5)
+                      localValue4 = workingValue13
+                      localValue4 = localValue4()
+                      if localValue4 then
+                        localValue4 = stateFlag
+                        if false == localValue4 then
+                          localValue4 = true
+                          stateFlag = localValue4
+                          localValue4 = CMG
+                          localValue4 = localValue4.openTrapperPickupRadial
+                          localValue5 = localValue3
+                          localValue6 = {}
+                          localValue7 = {}
+                          localValue7.id = "pickupTrappingItem"
+                          localValue7.title = "Pick up"
+                          localValue7.icon = "#trapperPickupPackage"
+                          localValue6[1] = localValue7
+                          localValue4(localValue5, localValue6)
+                          localValue4 = workingValue7
+                          localValue4()
                         end
                       end
                     else
-                      arg4 = CMG
-                      arg4 = arg4.hasClientPermission
-                      arg5 = "nhs.onduty.permission"
-                      arg4 = arg4(arg5)
-                      if not arg4 then
-                        arg4 = GetEntityModel
-                        arg5 = workValue4
+                      localValue4 = CMG
+                      localValue4 = localValue4.hasClientPermission
+                      localValue5 = "nhs.onduty.permission"
+                      localValue4 = localValue4(localValue5)
+                      if not localValue4 then
+                        localValue4 = GetEntityModel
+                        localValue5 = workingValue4
                         -- Beginner: result below is modelHash.
-                        arg4 = arg4(arg5)
-                        arg5 = CMG
-                        arg5 = arg5.isLootbagModel
-                        arg6 = arg4
-                        arg5 = arg5(arg6)
-                        if arg5 then
-                          arg5 = Crosshair
-                          arg6 = true
-                          arg5(arg6)
-                          arg5 = workValue13
-                          arg5 = arg5()
-                          if arg5 then
-                            arg5 = DecorGetInt
-                            arg6 = workValue4
-                            arg7 = "5f7af1c5ce"
-                            arg5 = arg5(arg6, arg7)
-                            arg6 = DecorExistOn
-                            arg7 = workValue4
-                            dataTable13 = "b1457c1a26"
-                            arg6 = arg6(arg7, dataTable13)
-                            if arg6 then
-                              arg6 = DecorGetBool
-                              arg7 = workValue4
-                              dataTable13 = "b1457c1a26"
-                              arg6 = arg6(arg7, dataTable13)
+                        localValue4 = localValue4(localValue5)
+                        localValue5 = CMG
+                        localValue5 = localValue5.isLootbagModel
+                        localValue6 = localValue4
+                        localValue5 = localValue5(localValue6)
+                        if localValue5 then
+                          localValue5 = Crosshair
+                          localValue6 = true
+                          localValue5(localValue6)
+                          localValue5 = workingValue13
+                          localValue5 = localValue5()
+                          if localValue5 then
+                            localValue5 = DecorGetInt
+                            localValue6 = workingValue4
+                            localValue7 = "5f7af1c5ce"
+                            localValue5 = localValue5(localValue6, localValue7)
+                            localValue6 = DecorExistOn
+                            localValue7 = workingValue4
+                            dataCollection13 = "b1457c1a26"
+                            localValue6 = localValue6(localValue7, dataCollection13)
+                            if localValue6 then
+                              localValue6 = DecorGetBool
+                              localValue7 = workingValue4
+                              dataCollection13 = "b1457c1a26"
+                              localValue6 = localValue6(localValue7, dataCollection13)
                             end
-                            if not arg6 then
-                              arg7 = TriggerEvent
-                              dataTable13 = "56e6172373"
+                            if not localValue6 then
+                              localValue7 = TriggerEvent
+                              dataCollection13 = "56e6172373"
                               health = false
                               -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "56e6172373".
-                              arg7(dataTable13, health)
+                              localValue7(dataCollection13, health)
                             end
-                            arg7 = textValue5
+                            localValue7 = text5
 
-                            -- === HELPER FUNCTION (decompiler name: dataTable13; parameters: none) ===
-                            function dataTable13()
-                              local cmgCall2, textValue, numberValue5
-                              cmgCall2 = TriggerServerEvent
-                              textValue = "bdaf15af25"
-                              numberValue5 = arg5
+                            -- === HELPER FUNCTION (decompiler name: dataCollection13; parameters: none) ===
+                            function dataCollection13()
+                              local cmgOperation2, text, number5
+                              cmgOperation2 = TriggerServerEvent
+                              text = "bdaf15af25"
+                              number5 = localValue5
                               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bdaf15af25".
-                              cmgCall2(textValue, numberValue5)
+                              cmgOperation2(text, number5)
                             end
-                            health = workValue4
-                            arg7(dataTable13, health)
-                            arg7 = workValue7
-                            arg7()
+                            health = workingValue4
+                            localValue7(dataCollection13, health)
+                            localValue7 = workingValue7
+                            localValue7()
                           end
-                        elseif 290621560 == arg4 then
-                          arg5 = Crosshair
-                          arg6 = true
-                          arg5(arg6)
-                          arg5 = workValue13
-                          arg5 = arg5()
-                          if arg5 then
-                            arg5 = DecorGetInt
-                            arg6 = workValue4
-                            arg7 = "5f7af1c5ce"
-                            arg5 = arg5(arg6, arg7)
-                            arg6 = TriggerEvent
-                            arg7 = "56e6172373"
-                            dataTable13 = false
+                        elseif 290621560 == localValue4 then
+                          localValue5 = Crosshair
+                          localValue6 = true
+                          localValue5(localValue6)
+                          localValue5 = workingValue13
+                          localValue5 = localValue5()
+                          if localValue5 then
+                            localValue5 = DecorGetInt
+                            localValue6 = workingValue4
+                            localValue7 = "5f7af1c5ce"
+                            localValue5 = localValue5(localValue6, localValue7)
+                            localValue6 = TriggerEvent
+                            localValue7 = "56e6172373"
+                            dataCollection13 = false
                             -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "56e6172373".
-                            arg6(arg7, dataTable13)
-                            arg6 = TriggerServerEvent
-                            arg7 = "17e6b6a62a"
-                            dataTable13 = arg5
+                            localValue6(localValue7, dataCollection13)
+                            localValue6 = TriggerServerEvent
+                            localValue7 = "17e6b6a62a"
+                            dataCollection13 = localValue5
                             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "17e6b6a62a".
-                            arg6(arg7, dataTable13)
-                            arg6 = workValue7
-                            arg6()
+                            localValue6(localValue7, dataCollection13)
+                            localValue6 = workingValue7
+                            localValue6()
                           end
-                        elseif -1422265815 == arg4 then
-                          arg5 = Crosshair
-                          arg6 = true
-                          arg5(arg6)
-                          arg5 = workValue13
-                          arg5 = arg5()
-                          if arg5 then
-                            arg5 = DecorGetInt
-                            arg6 = workValue4
-                            arg7 = "5f7af1c5ce"
-                            arg5 = arg5(arg6, arg7)
-                            arg6 = TriggerEvent
-                            arg7 = "56e6172373"
-                            dataTable13 = false
+                        elseif -1422265815 == localValue4 then
+                          localValue5 = Crosshair
+                          localValue6 = true
+                          localValue5(localValue6)
+                          localValue5 = workingValue13
+                          localValue5 = localValue5()
+                          if localValue5 then
+                            localValue5 = DecorGetInt
+                            localValue6 = workingValue4
+                            localValue7 = "5f7af1c5ce"
+                            localValue5 = localValue5(localValue6, localValue7)
+                            localValue6 = TriggerEvent
+                            localValue7 = "56e6172373"
+                            dataCollection13 = false
                             -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "56e6172373".
-                            arg6(arg7, dataTable13)
-                            arg6 = textValue5
+                            localValue6(localValue7, dataCollection13)
+                            localValue6 = text5
 
-                            -- === HELPER FUNCTION: arg7() ===
-                            function arg7()
-                              local cmgCall2, textValue, numberValue5
-                              cmgCall2 = TriggerServerEvent
-                              textValue = "5891aba85f"
-                              numberValue5 = arg5
+                            -- === HELPER FUNCTION: localValue7() ===
+                            function localValue7()
+                              local cmgOperation2, text, number5
+                              cmgOperation2 = TriggerServerEvent
+                              text = "5891aba85f"
+                              number5 = localValue5
                               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5891aba85f".
-                              cmgCall2(textValue, numberValue5)
+                              cmgOperation2(text, number5)
                             end
-                            dataTable13 = workValue4
-                            arg6(arg7, dataTable13)
-                            arg6 = workValue7
-                            arg6()
+                            dataCollection13 = workingValue4
+                            localValue6(localValue7, dataCollection13)
+                            localValue6 = workingValue7
+                            localValue6()
                           end
-                        elseif 772559902 == arg4 then
-                          arg5 = Crosshair
-                          arg6 = true
-                          arg5(arg6)
-                          arg5 = workValue13
-                          arg5 = arg5()
-                          if arg5 then
-                            arg5 = DecorGetInt
-                            arg6 = workValue4
-                            arg7 = "5f7af1c5ce"
-                            arg5 = arg5(arg6, arg7)
-                            arg6 = textValue5
+                        elseif 772559902 == localValue4 then
+                          localValue5 = Crosshair
+                          localValue6 = true
+                          localValue5(localValue6)
+                          localValue5 = workingValue13
+                          localValue5 = localValue5()
+                          if localValue5 then
+                            localValue5 = DecorGetInt
+                            localValue6 = workingValue4
+                            localValue7 = "5f7af1c5ce"
+                            localValue5 = localValue5(localValue6, localValue7)
+                            localValue6 = text5
 
-                            -- === HELPER FUNCTION: arg7() ===
-                            function arg7()
-                              local cmgCall2, textValue, numberValue5
-                              cmgCall2 = TriggerServerEvent
-                              textValue = "5891aba85f"
-                              numberValue5 = arg5
+                            -- === HELPER FUNCTION: localValue7() ===
+                            function localValue7()
+                              local cmgOperation2, text, number5
+                              cmgOperation2 = TriggerServerEvent
+                              text = "5891aba85f"
+                              number5 = localValue5
                               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5891aba85f".
-                              cmgCall2(textValue, numberValue5)
+                              cmgOperation2(text, number5)
                             end
-                            dataTable13 = workValue4
-                            arg6(arg7, dataTable13)
-                            arg6 = workValue7
-                            arg6()
+                            dataCollection13 = workingValue4
+                            localValue6(localValue7, dataCollection13)
+                            localValue6 = workingValue7
+                            localValue6()
                           end
-                        elseif 1879598094 == arg4 then
-                          arg5 = Crosshair
-                          arg6 = true
-                          arg5(arg6)
-                          arg5 = workValue13
-                          arg5 = arg5()
-                          if arg5 then
-                            arg5 = DecorGetInt
-                            arg6 = workValue4
-                            arg7 = "f1f74bea1b"
-                            arg5 = arg5(arg6, arg7)
-                            arg6 = TriggerServerEvent
-                            arg7 = "fa763c2c8a"
-                            dataTable13 = arg5
+                        elseif 1879598094 == localValue4 then
+                          localValue5 = Crosshair
+                          localValue6 = true
+                          localValue5(localValue6)
+                          localValue5 = workingValue13
+                          localValue5 = localValue5()
+                          if localValue5 then
+                            localValue5 = DecorGetInt
+                            localValue6 = workingValue4
+                            localValue7 = "f1f74bea1b"
+                            localValue5 = localValue5(localValue6, localValue7)
+                            localValue6 = TriggerServerEvent
+                            localValue7 = "fa763c2c8a"
+                            dataCollection13 = localValue5
                             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "fa763c2c8a".
-                            arg6(arg7, dataTable13)
-                            arg6 = workValue7
-                            arg6()
+                            localValue6(localValue7, dataCollection13)
+                            localValue6 = workingValue7
+                            localValue6()
                           end
                         else
-                          arg5 = Crosshair
-                          arg6 = false
-                          arg5(arg6)
+                          localValue5 = Crosshair
+                          localValue6 = false
+                          localValue5(localValue6)
                         end
                       else
-                        arg4 = Crosshair
-                        arg5 = false
-                        arg4(arg5)
+                        localValue4 = Crosshair
+                        localValue5 = false
+                        localValue4(localValue5)
                       end
                     end
                   else
-                    arg3 = Crosshair
-                    arg4 = false
-                    arg3(arg4)
+                    localValue3 = Crosshair
+                    localValue4 = false
+                    localValue3(localValue4)
                   end
                 end
               end
           end
         end
         else
-          arg3 = Crosshair
-          arg4 = false
-          arg3(arg4)
+          localValue3 = Crosshair
+          localValue4 = false
+          localValue3(localValue4)
         end
       end
   end
   else
-    arg3 = Crosshair
-    arg4 = false
-    arg3(arg4)
+    localValue3 = Crosshair
+    localValue4 = false
+    localValue3(localValue4)
   end
-  arg3 = flag2
-  if not arg3 then
-    arg3 = IsControlJustPressed
-    arg4 = 0
-    arg5 = 38
-    arg3 = arg3(arg4, arg5)
-    if arg3 then
-      arg3 = CMG
-      arg3 = arg3.isMechanicDebrisCarryingScrap
-      arg3 = arg3()
-      if not arg3 then
-        arg3 = CMG
-        arg3 = arg3.isAtArenaWagerHub
-        arg3 = arg3()
-        if not arg3 then
-          arg3 = Citizen
-          arg3 = arg3.CreateThread
-          arg4 = flag6
+  localValue3 = stateFlag2
+  if not localValue3 then
+    localValue3 = IsControlJustPressed
+    localValue4 = 0
+    localValue5 = 38
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.isMechanicDebrisCarryingScrap
+      localValue3 = localValue3()
+      if not localValue3 then
+        localValue3 = CMG
+        localValue3 = localValue3.isAtArenaWagerHub
+        localValue3 = localValue3()
+        if not localValue3 then
+          localValue3 = Citizen
+          localValue3 = localValue3.CreateThread
+          localValue4 = stateFlag6
           -- Beginner: Start a separate FiveM thread so this code can run independently.
-          arg3(arg4)
+          localValue3(localValue4)
         end
       end
     end
   end
 end
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.createThreadOnTick
-workValue16 = textValue6
-textValue8 = "Radial Menu"
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.createThreadOnTick
+workingValue16 = text6
+text8 = "Radial Menu"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall6(workValue16, textValue8)
+cmgOperation6(workingValue16, text8)
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
-function cmgCall6(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3
-  arg3 = GetEntityCoords
-  arg4 = arg2
-  arg5 = true
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1, localValue2) ===
+function cmgOperation6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3
+  localValue3 = GetEntityCoords
+  localValue4 = localValue2
+  localValue5 = true
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(arg4, arg5)
-  arg4 = GetOffsetFromEntityInWorldCoords
-  arg5 = arg2
-  arg6 = 0.0
-  arg7 = arg1
-  dataTable13 = 0.0
-  arg4 = arg4(arg5, arg6, arg7, dataTable13)
-  arg5 = _ENV
-  arg6 = "StartExpensiveSynchronousShapeTestLosProbe"
-  arg5 = arg5[arg6]
-  arg6 = arg3.x
-  arg7 = arg3.y
-  dataTable13 = arg3.z
-  health = arg4.x
-  workValue51 = arg4.y
-  dataTable = arg4.z
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = GetOffsetFromEntityInWorldCoords
+  localValue5 = localValue2
+  localValue6 = 0.0
+  localValue7 = localValue1
+  dataCollection13 = 0.0
+  localValue4 = localValue4(localValue5, localValue6, localValue7, dataCollection13)
+  localValue5 = _ENV
+  localValue6 = "StartExpensiveSynchronousShapeTestLosProbe"
+  localValue5 = localValue5[localValue6]
+  localValue6 = localValue3.x
+  localValue7 = localValue3.y
+  dataCollection13 = localValue3.z
+  health = localValue4.x
+  workingValue51 = localValue4.y
+  dataCollection = localValue4.z
   tableHelper = -1
-  dataTable2 = arg2
-  dataTable3 = 0
-  arg5 = arg5(arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3)
-  arg6 = GetShapeTestResult
-  arg7 = arg5
-  arg6, arg7, dataTable13, health, workValue51 = arg6(arg7)
-  return workValue51
+  dataCollection2 = localValue2
+  dataCollection3 = 0
+  localValue5 = localValue5(localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3)
+  localValue6 = GetShapeTestResult
+  localValue7 = localValue5
+  localValue6, localValue7, dataCollection13, health, workingValue51 = localValue6(localValue7)
+  return workingValue51
 end
-GetEntInFrontOfPlayer = cmgCall6
+GetEntInFrontOfPlayer = cmgOperation6
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1) ===
-function cmgCall6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper
-  arg2 = GetGameplayCamRot
-  arg3 = 2
-  arg2 = arg2(arg3)
-  arg3 = GetGameplayCamCoord
-  arg3 = arg3()
-  arg4 = arg2.z
-  arg4 = arg4 * 0.0174532924
-  arg5 = arg2.x
-  arg5 = arg5 * 0.0174532924
-  arg6 = math
-  arg6 = arg6.abs
-  arg7 = math
-  arg7 = arg7.cos
-  dataTable13 = arg5
-  arg7, dataTable13, health, workValue51, dataTable, tableHelper = arg7(dataTable13)
-  arg6 = arg6(arg7, dataTable13, health, workValue51, dataTable, tableHelper)
-  arg7 = arg3.x
-  dataTable13 = math
-  dataTable13 = dataTable13.sin
-  health = arg4
-  dataTable13 = dataTable13(health)
-  dataTable13 = -dataTable13
-  health = arg6 + arg1
-  dataTable13 = dataTable13 * health
-  arg7 = arg7 + dataTable13
-  dataTable13 = arg3.y
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1) ===
+function cmgOperation6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper
+  localValue2 = GetGameplayCamRot
+  localValue3 = 2
+  localValue2 = localValue2(localValue3)
+  localValue3 = GetGameplayCamCoord
+  localValue3 = localValue3()
+  localValue4 = localValue2.z
+  localValue4 = localValue4 * 0.0174532924
+  localValue5 = localValue2.x
+  localValue5 = localValue5 * 0.0174532924
+  localValue6 = math
+  localValue6 = localValue6.abs
+  localValue7 = math
+  localValue7 = localValue7.cos
+  dataCollection13 = localValue5
+  localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper = localValue7(dataCollection13)
+  localValue6 = localValue6(localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper)
+  localValue7 = localValue3.x
+  dataCollection13 = math
+  dataCollection13 = dataCollection13.sin
+  health = localValue4
+  dataCollection13 = dataCollection13(health)
+  dataCollection13 = -dataCollection13
+  health = localValue6 + localValue1
+  dataCollection13 = dataCollection13 * health
+  localValue7 = localValue7 + dataCollection13
+  dataCollection13 = localValue3.y
   health = math
   health = health.cos
-  workValue51 = arg4
-  health = health(workValue51)
-  workValue51 = arg6 + arg1
-  health = health * workValue51
-  dataTable13 = dataTable13 + health
-  health = arg3.z
-  workValue51 = math
-  workValue51 = workValue51.sin
-  dataTable = arg5
-  workValue51 = workValue51(dataTable)
-  workValue51 = workValue51 * 8.0
-  health = health + workValue51
-  workValue51 = arg7
-  dataTable = dataTable13
+  workingValue51 = localValue4
+  health = health(workingValue51)
+  workingValue51 = localValue6 + localValue1
+  health = health * workingValue51
+  dataCollection13 = dataCollection13 + health
+  health = localValue3.z
+  workingValue51 = math
+  workingValue51 = workingValue51.sin
+  dataCollection = localValue5
+  workingValue51 = workingValue51(dataCollection)
+  workingValue51 = workingValue51 * 8.0
+  health = health + workingValue51
+  workingValue51 = localValue7
+  dataCollection = dataCollection13
   tableHelper = health
-  return workValue51, dataTable, tableHelper
+  return workingValue51, dataCollection, tableHelper
 end
-GetCoordsFromCam = cmgCall6
+GetCoordsFromCam = cmgOperation6
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
-function cmgCall6(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5
-  arg3 = GetGameplayCamCoord
-  arg3 = arg3()
-  arg4 = GetCoordsFromCam
-  arg5 = arg1
-  arg4, arg5, arg6 = arg4(arg5)
-  arg7 = _ENV
-  dataTable13 = "StartExpensiveSynchronousShapeTestLosProbe"
-  arg7 = arg7[dataTable13]
-  dataTable13 = arg3.x
-  health = arg3.y
-  workValue51 = arg3.z
-  dataTable = arg4
-  tableHelper = arg5
-  dataTable2 = arg6
-  dataTable3 = -1
-  dataTable4 = arg2
-  dataTable5 = 0
-  arg7 = arg7(dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5)
-  dataTable13 = GetShapeTestResult
-  health = arg7
-  dataTable13, health, workValue51, dataTable, tableHelper = dataTable13(health)
-  dataTable2 = tableHelper
-  dataTable3 = arg4
-  dataTable4 = arg5
-  dataTable5 = arg6
-  return dataTable2, dataTable3, dataTable4, dataTable5
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1, localValue2) ===
+function cmgOperation6(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5
+  localValue3 = GetGameplayCamCoord
+  localValue3 = localValue3()
+  localValue4 = GetCoordsFromCam
+  localValue5 = localValue1
+  localValue4, localValue5, localValue6 = localValue4(localValue5)
+  localValue7 = _ENV
+  dataCollection13 = "StartExpensiveSynchronousShapeTestLosProbe"
+  localValue7 = localValue7[dataCollection13]
+  dataCollection13 = localValue3.x
+  health = localValue3.y
+  workingValue51 = localValue3.z
+  dataCollection = localValue4
+  tableHelper = localValue5
+  dataCollection2 = localValue6
+  dataCollection3 = -1
+  dataCollection4 = localValue2
+  dataCollection5 = 0
+  localValue7 = localValue7(dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5)
+  dataCollection13 = GetShapeTestResult
+  health = localValue7
+  dataCollection13, health, workingValue51, dataCollection, tableHelper = dataCollection13(health)
+  dataCollection2 = tableHelper
+  dataCollection3 = localValue4
+  dataCollection4 = localValue5
+  dataCollection5 = localValue6
+  return dataCollection2, dataCollection3, dataCollection4, dataCollection5
 end
-Target = cmgCall6
+Target = cmgOperation6
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-function cmgCall6()
-  local arg1, arg2
-  arg1 = TriggerEvent
-  arg2 = "d5c231fe44"
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+function cmgOperation6()
+  local localValue1, localValue2
+  localValue1 = TriggerEvent
+  localValue2 = "d5c231fe44"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "d5c231fe44".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-workValue16 = nil
+workingValue16 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1) ===
-function textValue8(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  workValue16 = arg1
-  arg2 = SetVehicleDoorOpen
-  arg3 = arg1
-  arg4 = 5
-  arg5 = true
-  arg6 = false
-  arg2(arg3, arg4, arg5, arg6)
-  arg2 = TriggerEvent
-  arg3 = "a7ce3135a0"
+-- === HELPER FUNCTION (decompiler name: text8; parameters: localValue1) ===
+function text8(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  workingValue16 = localValue1
+  localValue2 = SetVehicleDoorOpen
+  localValue3 = localValue1
+  localValue4 = 5
+  localValue5 = true
+  localValue6 = false
+  localValue2(localValue3, localValue4, localValue5, localValue6)
+  localValue2 = TriggerEvent
+  localValue3 = "a7ce3135a0"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "a7ce3135a0".
-  arg2(arg3)
-  arg2 = SendNUIMessage
-  arg3 = {}
-  arg3.closeRadialMenu = true
+  localValue2(localValue3)
+  localValue2 = SendNUIMessage
+  localValue3 = {}
+  localValue3.closeRadialMenu = true
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg2(arg3)
-  arg2 = GetSoundId
+  localValue2(localValue3)
+  localValue2 = GetSoundId
   -- Beginner: result below is soundHandle.
-  arg2 = arg2()
-  arg3 = PlaySoundFrontend
-  arg4 = arg2
-  arg5 = "boot_pop"
-  arg6 = "dlc_vw_body_disposal_sounds"
-  arg7 = true
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = ReleaseSoundId
-  arg4 = arg2
-  arg3(arg4)
+  localValue2 = localValue2()
+  localValue3 = PlaySoundFrontend
+  localValue4 = localValue2
+  localValue5 = "boot_pop"
+  localValue6 = "dlc_vw_body_disposal_sounds"
+  localValue7 = true
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = ReleaseSoundId
+  localValue4 = localValue2
+  localValue3(localValue4)
 end
-eventRegistration = RegisterNetEvent
-textValue9 = "2a70dddd80"
+eventHandler = RegisterNetEvent
+text9 = "2a70dddd80"
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2a70dddd80".
-eventRegistration(textValue9)
-eventRegistration = AddEventHandler
-textValue9 = "2a70dddd80"
+eventHandler(text9)
+eventHandler = AddEventHandler
+text9 = "2a70dddd80"
 -- Beginner: this function runs when client event "2a70dddd80" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: none) ===
-function workValue18()
-  local arg1, arg2, arg3, arg4
-  arg1 = workValue16
-  if arg1 then
-    arg1 = SetVehicleDoorShut
-    arg2 = workValue16
-    arg3 = 5
-    arg4 = true
-    arg1(arg2, arg3, arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: none) ===
+function workingValue18()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = workingValue16
+  if localValue1 then
+    localValue1 = SetVehicleDoorShut
+    localValue2 = workingValue16
+    localValue3 = 5
+    localValue4 = true
+    localValue1(localValue2, localValue3, localValue4)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "2a70dddd80".
-eventRegistration(textValue9, workValue18)
+eventHandler(text9, workingValue18)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
-function eventRegistration(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1) ===
+function eventHandler(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = GetEntityHealth
-  arg4 = arg2
+  localValue2 = localValue2()
+  localValue3 = GetEntityHealth
+  localValue4 = localValue2
   -- Beginner: result below is health.
-  arg3 = arg3(arg4)
-  if arg3 > 102 then
-    arg3 = IsEntityDead
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if not arg3 then
-      arg3 = TaskStartScenarioInPlace
-      arg4 = arg2
-      arg5 = "world_human_maid_clean"
-      arg6 = 0
-      arg7 = true
-      arg3(arg4, arg5, arg6, arg7)
-      arg3 = Wait
-      arg4 = 10000
-      arg3(arg4)
-      arg3 = SetVehicleDirtLevel
-      arg4 = arg1
-      arg5 = 0.0
-      arg3(arg4, arg5)
-      arg3 = SetVehicleUndriveable
-      arg4 = arg1
-      arg5 = false
-      arg3(arg4, arg5)
-      arg3 = ClearPedSecondaryTask
-      arg4 = arg2
-      arg3(arg4)
-      arg3 = ClearPedTasks
-      arg4 = arg2
-      arg3(arg4)
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 102 then
+    localValue3 = IsEntityDead
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
+      localValue3 = TaskStartScenarioInPlace
+      localValue4 = localValue2
+      localValue5 = "world_human_maid_clean"
+      localValue6 = 0
+      localValue7 = true
+      localValue3(localValue4, localValue5, localValue6, localValue7)
+      localValue3 = Wait
+      localValue4 = 10000
+      localValue3(localValue4)
+      localValue3 = SetVehicleDirtLevel
+      localValue4 = localValue1
+      localValue5 = 0.0
+      localValue3(localValue4, localValue5)
+      localValue3 = SetVehicleUndriveable
+      localValue4 = localValue1
+      localValue5 = false
+      localValue3(localValue4, localValue5)
+      localValue3 = ClearPedSecondaryTask
+      localValue4 = localValue2
+      localValue3(localValue4)
+      localValue3 = ClearPedTasks
+      localValue4 = localValue2
+      localValue3(localValue4)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: arg1) ===
-function textValue9(arg1)
-  local arg2, arg3, arg4
-  arg2 = TriggerEvent
-  arg3 = "1631601e81"
-  arg4 = arg1
+-- === HELPER FUNCTION (decompiler name: text9; parameters: localValue1) ===
+function text9(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = TriggerEvent
+  localValue3 = "1631601e81"
+  localValue4 = localValue1
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "1631601e81".
-  arg2(arg3, arg4)
+  localValue2(localValue3, localValue4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
-function workValue18(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = NetworkGetEntityIsNetworked
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = NetworkGetNetworkIdFromEntity
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if 0 ~= arg2 then
-      arg3 = TriggerServerEvent
-      arg4 = "aa1fa541c3"
-      arg5 = arg1
-      arg6 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1) ===
+function workingValue18(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = NetworkGetEntityIsNetworked
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = NetworkGetNetworkIdFromEntity
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if 0 ~= localValue2 then
+      localValue3 = TriggerServerEvent
+      localValue4 = "aa1fa541c3"
+      localValue5 = localValue1
+      localValue6 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "aa1fa541c3".
-      arg3(arg4, arg5, arg6)
+      localValue3(localValue4, localValue5, localValue6)
     end
   end
 end
-flag7 = false
+stateFlag7 = false
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: arg1) ===
-function workValue19(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = flag7
-  if not arg2 then
-    arg2 = SetVehicleDoorOpen
-    arg3 = arg1
-    arg4 = 4
-    arg5 = false
-    arg6 = false
-    arg2(arg3, arg4, arg5, arg6)
-    arg2 = true
-    flag7 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: localValue1) ===
+function workingValue19(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = stateFlag7
+  if not localValue2 then
+    localValue2 = SetVehicleDoorOpen
+    localValue3 = localValue1
+    localValue4 = 4
+    localValue5 = false
+    localValue6 = false
+    localValue2(localValue3, localValue4, localValue5, localValue6)
+    localValue2 = true
+    stateFlag7 = localValue2
   else
-    arg2 = SetVehicleDoorShut
-    arg3 = arg1
-    arg4 = 4
-    arg5 = false
-    arg2(arg3, arg4, arg5)
-    arg2 = false
-    flag7 = arg2
+    localValue2 = SetVehicleDoorShut
+    localValue3 = localValue1
+    localValue4 = 4
+    localValue5 = false
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = false
+    stateFlag7 = localValue2
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1) ===
-function workValue21(arg1)
-  local arg2, arg3, arg4
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "borderforce.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      goto flow_label_17
+-- === HELPER FUNCTION (decompiler name: workingValue21; parameters: localValue1) ===
+function workingValue21(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "borderforce.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      goto continueAtStep17
     end
   end
-  arg2 = TriggerEvent
-  arg3 = "918c11c450"
-  arg4 = arg1
+  localValue2 = TriggerEvent
+  localValue3 = "918c11c450"
+  localValue4 = localValue1
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "918c11c450".
-  arg2(arg3, arg4)
-  ::flow_label_17::
+  localValue2(localValue3, localValue4)
+  ::continueAtStep17::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue22; parameters: arg1) ===
-function workValue22(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "prisonguard.onduty.permission"
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.isPlayerNearPrison
-    arg2 = arg2()
-    if not arg2 then
-      arg2 = workValue42
-      arg3 = arg1
-      arg4 = "Prison Service Vehicles"
-      arg2 = arg2(arg3, arg4)
-      if not arg2 then
-        arg2 = notify
-        arg3 = "~r~You can not impound outside of the prison"
+-- === HELPER FUNCTION (decompiler name: workingValue22; parameters: localValue1) ===
+function workingValue22(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "prisonguard.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.isPlayerNearPrison
+    localValue2 = localValue2()
+    if not localValue2 then
+      localValue2 = workingValue42
+      localValue3 = localValue1
+      localValue4 = "Prison Service Vehicles"
+      localValue2 = localValue2(localValue3, localValue4)
+      if not localValue2 then
+        localValue2 = notify
+        localValue3 = "~r~You can not impound outside of the prison"
         -- Beginner: Show a notification to the player.
-        arg2(arg3)
+        localValue2(localValue3)
         return
       end
     end
   end
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "nhs.onduty.permission"
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = workValue42
-    arg3 = arg1
-    arg4 = "Health Service Vehicles"
-    arg2 = arg2(arg3, arg4)
-    if not arg2 then
-      arg2 = workValue42
-      arg3 = arg1
-      arg4 = "Health Service Helicopters"
-      arg2 = arg2(arg3, arg4)
-      if not arg2 then
-        arg2 = notify
-        arg3 = "~r~You can only impound NHS vehicles."
-        arg2(arg3)
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "nhs.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = workingValue42
+    localValue3 = localValue1
+    localValue4 = "Health Service Vehicles"
+    localValue2 = localValue2(localValue3, localValue4)
+    if not localValue2 then
+      localValue2 = workingValue42
+      localValue3 = localValue1
+      localValue4 = "Health Service Helicopters"
+      localValue2 = localValue2(localValue3, localValue4)
+      if not localValue2 then
+        localValue2 = notify
+        localValue3 = "~r~You can only impound NHS vehicles."
+        localValue2(localValue3)
         return
       end
     end
   end
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "prisonguard.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "borderforce.onduty.permission"
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = CMG
-        arg2 = arg2.hasClientPermission
-        arg3 = "nhs.onduty.permission"
-        arg2 = arg2(arg3)
-        if not arg2 then
-          goto flow_label_124
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "prisonguard.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "borderforce.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.hasClientPermission
+        localValue3 = "nhs.onduty.permission"
+        localValue2 = localValue2(localValue3)
+        if not localValue2 then
+          goto continueAtStep124
         end
       end
     end
   end
-  arg2 = tonumber
-  arg3 = DecorGetInt
-  arg4 = arg1
-  arg5 = "ac76c9d452"
-  arg3, arg4, arg5, arg6, arg7, dataTable13, health = arg3(arg4, arg5)
-  arg2 = arg2(arg3, arg4, arg5, arg6, arg7, dataTable13, health)
-  arg3 = DecorGetInt
-  arg4 = arg1
-  arg5 = "0a6cf607ed"
-  arg3 = arg3(arg4, arg5)
-  if arg2 and arg2 > 0 and arg3 > 0 then
-    arg4 = CMG
-    arg4 = arg4.impoundVehicleOptions
-    arg5 = arg2
-    arg6 = GetEntityModel
-    arg7 = arg1
+  localValue2 = tonumber
+  localValue3 = DecorGetInt
+  localValue4 = localValue1
+  localValue5 = "ac76c9d452"
+  localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health = localValue3(localValue4, localValue5)
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health)
+  localValue3 = DecorGetInt
+  localValue4 = localValue1
+  localValue5 = "0a6cf607ed"
+  localValue3 = localValue3(localValue4, localValue5)
+  if localValue2 and localValue2 > 0 and localValue3 > 0 then
+    localValue4 = CMG
+    localValue4 = localValue4.impoundVehicleOptions
+    localValue5 = localValue2
+    localValue6 = GetEntityModel
+    localValue7 = localValue1
     -- Beginner: result below is modelHash.
-    arg6 = arg6(arg7)
-    arg7 = VehToNet
-    dataTable13 = arg1
-    arg7 = arg7(dataTable13)
-    dataTable13 = arg1
-    health = arg3
-    arg4(arg5, arg6, arg7, dataTable13, health)
+    localValue6 = localValue6(localValue7)
+    localValue7 = VehToNet
+    dataCollection13 = localValue1
+    localValue7 = localValue7(dataCollection13)
+    dataCollection13 = localValue1
+    health = localValue3
+    localValue4(localValue5, localValue6, localValue7, dataCollection13, health)
   else
-    arg4 = TriggerEvent
-    arg5 = "408b84e9ad"
-    arg6 = "~r~Vehicle is not owned by anyone"
+    localValue4 = TriggerEvent
+    localValue5 = "408b84e9ad"
+    localValue6 = "~r~Vehicle is not owned by anyone"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "408b84e9ad".
-    arg4(arg5, arg6)
-    arg4 = GetPedInVehicleSeat
-    arg5 = arg1
-    arg6 = -1
-    arg4 = arg4(arg5, arg6)
-    if 0 == arg4 then
-      arg4 = GetPedInVehicleSeat
-      arg5 = arg1
-      arg6 = 0
-      arg4 = arg4(arg5, arg6)
-      if 0 == arg4 then
-        arg4 = NetworkGetEntityIsNetworked
-        arg5 = arg1
-        arg4 = arg4(arg5)
-        if arg4 then
-          arg4 = TriggerServerEvent
-          arg5 = "90508c11e5"
-          arg6 = NetworkGetNetworkIdFromEntity
-          arg7 = arg1
-          arg6, arg7, dataTable13, health = arg6(arg7)
+    localValue4(localValue5, localValue6)
+    localValue4 = GetPedInVehicleSeat
+    localValue5 = localValue1
+    localValue6 = -1
+    localValue4 = localValue4(localValue5, localValue6)
+    if 0 == localValue4 then
+      localValue4 = GetPedInVehicleSeat
+      localValue5 = localValue1
+      localValue6 = 0
+      localValue4 = localValue4(localValue5, localValue6)
+      if 0 == localValue4 then
+        localValue4 = NetworkGetEntityIsNetworked
+        localValue5 = localValue1
+        localValue4 = localValue4(localValue5)
+        if localValue4 then
+          localValue4 = TriggerServerEvent
+          localValue5 = "90508c11e5"
+          localValue6 = NetworkGetNetworkIdFromEntity
+          localValue7 = localValue1
+          localValue6, localValue7, dataCollection13, health = localValue6(localValue7)
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "90508c11e5".
-          arg4(arg5, arg6, arg7, dataTable13, health)
+          localValue4(localValue5, localValue6, localValue7, dataCollection13, health)
         end
       end
     end
   end
-  ::flow_label_124::
+  ::continueAtStep124::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue23; parameters: arg1) ===
-function workValue23(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue23; parameters: localValue1) ===
+function workingValue23(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = GetSelectedPedWeapon
-    arg5 = PlayerPedId
-    arg5, arg6 = arg5()
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = GetSelectedPedWeapon
+    localValue5 = PlayerPedId
+    localValue5, localValue6 = localValue5()
     -- Beginner: result below is weaponHash.
-    arg4 = arg4(arg5, arg6)
-    if -1569615261 ~= arg4 then
-      arg4 = TriggerServerEvent
-      arg5 = "42f4c2df43"
-      arg6 = arg3
-      arg4(arg5, arg6)
+    localValue4 = localValue4(localValue5, localValue6)
+    if -1569615261 ~= localValue4 then
+      localValue4 = TriggerServerEvent
+      localValue5 = "42f4c2df43"
+      localValue6 = localValue3
+      localValue4(localValue5, localValue6)
     else
-      arg4 = TriggerEvent
-      arg5 = "408b84e9ad"
-      arg6 = "~r~You need a weapon in your hands."
+      localValue4 = TriggerEvent
+      localValue5 = "408b84e9ad"
+      localValue6 = "~r~You need a weapon in your hands."
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "408b84e9ad".
-      arg4(arg5, arg6)
+      localValue4(localValue5, localValue6)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue24; parameters: arg1) ===
-function workValue24(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = GetPedInVehicleSeat
-  arg3 = arg1
-  arg4 = -1
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
-    arg3 = GetPlayerByEntityID
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if not arg3 then
+-- === HELPER FUNCTION (decompiler name: workingValue24; parameters: localValue1) ===
+function workingValue24(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = GetPedInVehicleSeat
+  localValue3 = localValue1
+  localValue4 = -1
+  localValue2 = localValue2(localValue3, localValue4)
+  if 0 ~= localValue2 then
+    localValue3 = GetPlayerByEntityID
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
       return
     end
-    arg4 = GetPlayerServerId
-    arg5 = arg3
+    localValue4 = GetPlayerServerId
+    localValue5 = localValue3
     -- Beginner: result below is serverId.
-    arg4 = arg4(arg5)
-    if arg4 > 0 then
-      arg5 = TriggerServerEvent
-      arg6 = "2eb52f2bce"
-      arg7 = arg4
+    localValue4 = localValue4(localValue5)
+    if localValue4 > 0 then
+      localValue5 = TriggerServerEvent
+      localValue6 = "2eb52f2bce"
+      localValue7 = localValue4
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2eb52f2bce".
-      arg5(arg6, arg7)
+      localValue5(localValue6, localValue7)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue25; parameters: arg1) ===
-function workValue25(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue25; parameters: localValue1) ===
+function workingValue25(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "2eb52f2bce"
-    arg6 = arg3
-    arg4(arg5, arg6)
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "2eb52f2bce"
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: arg1) ===
-function workValue26(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: localValue1) ===
+function workingValue26(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "80473a9734"
-    arg6 = arg3
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "80473a9734"
+    localValue6 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "80473a9734".
-    arg4(arg5, arg6)
+    localValue4(localValue5, localValue6)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg1) ===
-function workValue27(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable13
-  arg2 = tCMG
-  arg2 = arg2.canAnim
-  arg2 = arg2()
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue27; parameters: localValue1) ===
+function workingValue27(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13
+  localValue2 = tCMG
+  localValue2 = localValue2.canAnim
+  localValue2 = localValue2()
+  if not localValue2 then
     return
   end
-  arg2 = GetEntityHealth
-  arg3 = arg1
+  localValue2 = GetEntityHealth
+  localValue3 = localValue1
   -- Beginner: result below is health.
-  arg2 = arg2(arg3)
-  if arg2 <= 102 then
-    arg2 = TriggerEvent
-    arg3 = "408b84e9ad"
-    arg4 = "~r~You can not search a player who is dead."
+  localValue2 = localValue2(localValue3)
+  if localValue2 <= 102 then
+    localValue2 = TriggerEvent
+    localValue3 = "408b84e9ad"
+    localValue4 = "~r~You can not search a player who is dead."
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "408b84e9ad".
-    arg2(arg3, arg4)
+    localValue2(localValue3, localValue4)
     return
   end
-  arg2 = CMG
-  arg2 = arg2.isPlayerInRedZone
-  arg2 = arg2()
-  if arg2 then
-    arg2 = notify
-    arg3 = "~r~You can not search players while in a red zone."
+  localValue2 = CMG
+  localValue2 = localValue2.isPlayerInRedZone
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = notify
+    localValue3 = "~r~You can not search players while in a red zone."
     -- Beginner: Show a notification to the player.
-    arg2(arg3)
-    arg2 = true
-    return arg2
+    localValue2(localValue3)
+    localValue2 = true
+    return localValue2
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.hasClientPermission
-  arg4 = "police.onduty.permission"
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = CMG
-    arg3 = arg3.hasClientPermission
-    arg4 = "prisonguard.onduty.permission"
-    arg3 = arg3(arg4)
-    if not arg3 then
-      arg3 = CMG
-      arg3 = arg3.hasClientPermission
-      arg4 = "borderforce.onduty.permission"
-      arg3 = arg3(arg4)
-      if not arg3 then
-        arg3 = CMG
-        arg3 = arg3.hasClientGroup
-        arg4 = "Vigilante"
-        arg3 = arg3(arg4)
-        if not arg3 then
-          arg3 = GetPlayerPed
-          arg4 = arg2
+  localValue3 = CMG
+  localValue3 = localValue3.hasClientPermission
+  localValue4 = "police.onduty.permission"
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.hasClientPermission
+    localValue4 = "prisonguard.onduty.permission"
+    localValue3 = localValue3(localValue4)
+    if not localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.hasClientPermission
+      localValue4 = "borderforce.onduty.permission"
+      localValue3 = localValue3(localValue4)
+      if not localValue3 then
+        localValue3 = CMG
+        localValue3 = localValue3.hasClientGroup
+        localValue4 = "Vigilante"
+        localValue3 = localValue3(localValue4)
+        if not localValue3 then
+          localValue3 = GetPlayerPed
+          localValue4 = localValue2
           -- Beginner: result below is playerPed.
-          arg3 = arg3(arg4)
-          if nil == arg3 then
-            goto flow_label_110
+          localValue3 = localValue3(localValue4)
+          if nil == localValue3 then
+            goto continueAtStep110
           end
-          arg4 = IsEntityPlayingAnim
-          arg5 = arg3
-          arg6 = "missminuteman_1ig_2"
-          arg7 = "handsup_enter"
-          dataTable13 = 3
-          arg4 = arg4(arg5, arg6, arg7, dataTable13)
-          if not arg4 then
-            arg4 = IsEntityPlayingAnim
-            arg5 = arg3
-            arg6 = "random@arrests"
-            arg7 = "idle_2_hands_up"
-            dataTable13 = 3
-            arg4 = arg4(arg5, arg6, arg7, dataTable13)
-            if not arg4 then
-              arg4 = IsEntityPlayingAnim
-              arg5 = arg3
-              arg6 = "random@arrests@busted"
-              arg7 = "idle_a"
-              dataTable13 = 3
-              arg4 = arg4(arg5, arg6, arg7, dataTable13)
-              if not arg4 then
-                goto flow_label_96
+          localValue4 = IsEntityPlayingAnim
+          localValue5 = localValue3
+          localValue6 = "missminuteman_1ig_2"
+          localValue7 = "handsup_enter"
+          dataCollection13 = 3
+          localValue4 = localValue4(localValue5, localValue6, localValue7, dataCollection13)
+          if not localValue4 then
+            localValue4 = IsEntityPlayingAnim
+            localValue5 = localValue3
+            localValue6 = "random@arrests"
+            localValue7 = "idle_2_hands_up"
+            dataCollection13 = 3
+            localValue4 = localValue4(localValue5, localValue6, localValue7, dataCollection13)
+            if not localValue4 then
+              localValue4 = IsEntityPlayingAnim
+              localValue5 = localValue3
+              localValue6 = "random@arrests@busted"
+              localValue7 = "idle_a"
+              dataCollection13 = 3
+              localValue4 = localValue4(localValue5, localValue6, localValue7, dataCollection13)
+              if not localValue4 then
+                goto continueAtStep96
               end
             end
           end
-          arg4 = GetPlayerServerId
-          arg5 = arg2
+          localValue4 = GetPlayerServerId
+          localValue5 = localValue2
           -- Beginner: result below is serverId.
-          arg4 = arg4(arg5)
-          if arg4 > 0 then
-            arg5 = TriggerServerEvent
-            arg6 = "f54bde726f"
-            arg7 = arg4
+          localValue4 = localValue4(localValue5)
+          if localValue4 > 0 then
+            localValue5 = TriggerServerEvent
+            localValue6 = "f54bde726f"
+            localValue7 = localValue4
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f54bde726f".
-            arg5(arg6, arg7)
-            goto flow_label_110
-            ::flow_label_96::
-            arg4 = TriggerEvent
-            arg5 = "408b84e9ad"
-            arg6 = "~r~Player must have their hands up or be on their knees!"
+            localValue5(localValue6, localValue7)
+            goto continueAtStep110
+            ::continueAtStep96::
+            localValue4 = TriggerEvent
+            localValue5 = "408b84e9ad"
+            localValue6 = "~r~Player must have their hands up or be on their knees!"
             -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "408b84e9ad".
-            arg4(arg5, arg6)
+            localValue4(localValue5, localValue6)
           end
       end
     end
   end
   else
-    arg3 = GetPlayerServerId
-    arg4 = arg2
+    localValue3 = GetPlayerServerId
+    localValue4 = localValue2
     -- Beginner: result below is serverId.
-    arg3 = arg3(arg4)
-    if arg3 > 0 then
-      arg4 = TriggerServerEvent
-      arg5 = "f54bde726f"
-      arg6 = arg3
+    localValue3 = localValue3(localValue4)
+    if localValue3 > 0 then
+      localValue4 = TriggerServerEvent
+      localValue5 = "f54bde726f"
+      localValue6 = localValue3
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f54bde726f".
-      arg4(arg5, arg6)
+      localValue4(localValue5, localValue6)
     end
   end
-  ::flow_label_110::
+  ::continueAtStep110::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue28; parameters: arg1) ===
-function workValue28(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue28; parameters: localValue1) ===
+function workingValue28(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "6583aad871"
-    arg6 = arg3
-    arg4(arg5, arg6)
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "6583aad871"
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue29; parameters: arg1) ===
-function workValue29(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "prisonguard.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "borderforce.onduty.permission"
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = CMG
-        arg2 = arg2.hasClientGroup
-        arg3 = "Vigilante"
-        arg2 = arg2(arg3)
-        if not arg2 then
-          goto flow_label_39
+-- === HELPER FUNCTION (decompiler name: workingValue29; parameters: localValue1) ===
+function workingValue29(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "prisonguard.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "borderforce.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.hasClientGroup
+        localValue3 = "Vigilante"
+        localValue2 = localValue2(localValue3)
+        if not localValue2 then
+          goto continueAtStep39
         end
       end
     end
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = ExecuteCommand
-    arg5 = "cuff"
-    arg4(arg5)
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = ExecuteCommand
+    localValue5 = "cuff"
+    localValue4(localValue5)
   end
-  ::flow_label_39::
+  ::continueAtStep39::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue30; parameters: arg1) ===
-function workValue30(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "nhs.onduty.permission"
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = GetPlayerByEntityID
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue30; parameters: localValue1) ===
+function workingValue30(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "nhs.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = GetPlayerByEntityID
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
       return
     end
-    arg3 = GetPlayerServerId
-    arg4 = arg2
+    localValue3 = GetPlayerServerId
+    localValue4 = localValue2
     -- Beginner: result below is serverId.
-    arg3 = arg3(arg4)
-    if arg3 > 0 then
-      arg4 = CMG
-      arg4 = arg4.startNhsDragFromRadial
-      if arg4 then
-        arg4 = CMG
-        arg4 = arg4.startNhsDragFromRadial
-        arg5 = arg3
-        arg4(arg5)
+    localValue3 = localValue3(localValue4)
+    if localValue3 > 0 then
+      localValue4 = CMG
+      localValue4 = localValue4.startNhsDragFromRadial
+      if localValue4 then
+        localValue4 = CMG
+        localValue4 = localValue4.startNhsDragFromRadial
+        localValue5 = localValue3
+        localValue4(localValue5)
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue32; parameters: arg1) ===
-function workValue32(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "prisonguard.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "borderforce.onduty.permission"
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = CMG
-        arg2 = arg2.hasClientGroup
-        arg3 = "Vigilante"
-        arg2 = arg2(arg3)
-        if not arg2 then
-          goto flow_label_40
+-- === HELPER FUNCTION (decompiler name: workingValue32; parameters: localValue1) ===
+function workingValue32(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "prisonguard.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "borderforce.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.hasClientGroup
+        localValue3 = "Vigilante"
+        localValue2 = localValue2(localValue3)
+        if not localValue2 then
+          goto continueAtStep40
         end
       end
     end
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "c5274515e4"
-    arg6 = arg3
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "c5274515e4"
+    localValue6 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c5274515e4".
-    arg4(arg5, arg6)
+    localValue4(localValue5, localValue6)
   end
-  ::flow_label_40::
+  ::continueAtStep40::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1) ===
-function workValue33(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "prisonguard.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "borderforce.onduty.permission"
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = CMG
-        arg2 = arg2.hasClientGroup
-        arg3 = "Vigilante"
-        arg2 = arg2(arg3)
-        if not arg2 then
-          goto flow_label_40
+-- === HELPER FUNCTION (decompiler name: workingValue33; parameters: localValue1) ===
+function workingValue33(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "prisonguard.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "borderforce.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.hasClientGroup
+        localValue3 = "Vigilante"
+        localValue2 = localValue2(localValue3)
+        if not localValue2 then
+          goto continueAtStep40
         end
       end
     end
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "c2eb9806b2"
-    arg6 = arg3
-    arg4(arg5, arg6)
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "c2eb9806b2"
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   end
-  ::flow_label_40::
+  ::continueAtStep40::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue34; parameters: arg1) ===
-function workValue34(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue34; parameters: localValue1) ===
+function workingValue34(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "8fd6319695"
-    arg6 = arg3
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "8fd6319695"
+    localValue6 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8fd6319695".
-    arg4(arg5, arg6)
+    localValue4(localValue5, localValue6)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue35; parameters: arg1) ===
-function workValue35(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue35; parameters: localValue1) ===
+function workingValue35(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 <= 0 then
+  localValue3 = localValue3(localValue4)
+  if localValue3 <= 0 then
     return
   end
-  arg4 = CMG
-  arg4 = arg4.hasClientPermission
-  arg5 = "police.onduty.permission"
-  arg4 = arg4(arg5)
-  if not arg4 then
-    arg4 = CMG
-    arg4 = arg4.hasClientPermission
-    arg5 = "prisonguard.onduty.permission"
-    arg4 = arg4(arg5)
-    if not arg4 then
-      arg4 = CMG
-      arg4 = arg4.hasClientPermission
-      arg5 = "borderforce.onduty.permission"
-      arg4 = arg4(arg5)
-      if not arg4 then
-        goto flow_label_40
+  localValue4 = CMG
+  localValue4 = localValue4.hasClientPermission
+  localValue5 = "police.onduty.permission"
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
+    localValue4 = CMG
+    localValue4 = localValue4.hasClientPermission
+    localValue5 = "prisonguard.onduty.permission"
+    localValue4 = localValue4(localValue5)
+    if not localValue4 then
+      localValue4 = CMG
+      localValue4 = localValue4.hasClientPermission
+      localValue5 = "borderforce.onduty.permission"
+      localValue4 = localValue4(localValue5)
+      if not localValue4 then
+        goto continueAtStep40
       end
     end
   end
-  arg4 = TriggerServerEvent
-  arg5 = "61172cd221"
-  arg6 = arg3
-  arg4(arg5, arg6)
-  arg4 = TriggerServerEvent
-  arg5 = "6915ac5021"
-  arg6 = arg3
+  localValue4 = TriggerServerEvent
+  localValue5 = "61172cd221"
+  localValue6 = localValue3
+  localValue4(localValue5, localValue6)
+  localValue4 = TriggerServerEvent
+  localValue5 = "6915ac5021"
+  localValue6 = localValue3
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6915ac5021".
-  arg4(arg5, arg6)
-  goto flow_label_50
-  ::flow_label_40::
-  arg4 = CMG
-  arg4 = arg4.hasClientGroup
-  arg5 = "Vigilante"
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg4 = TriggerServerEvent
-    arg5 = "6c006240e4"
-    arg6 = arg3
-    arg4(arg5, arg6)
+  localValue4(localValue5, localValue6)
+  goto continueAtStep50
+  ::continueAtStep40::
+  localValue4 = CMG
+  localValue4 = localValue4.hasClientGroup
+  localValue5 = "Vigilante"
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "6c006240e4"
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   end
-  ::flow_label_50::
+  ::continueAtStep50::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue36; parameters: arg1) ===
-function workValue36(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "prisonguard.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      goto flow_label_28
+-- === HELPER FUNCTION (decompiler name: workingValue36; parameters: localValue1) ===
+function workingValue36(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "prisonguard.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      goto continueAtStep28
     end
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "227b779c06"
-    arg6 = arg3
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "227b779c06"
+    localValue6 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "227b779c06".
-    arg4(arg5, arg6)
+    localValue4(localValue5, localValue6)
   end
-  ::flow_label_28::
+  ::continueAtStep28::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue37; parameters: arg1) ===
-function workValue37(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue37; parameters: localValue1) ===
+function workingValue37(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 <= 0 then
+  localValue3 = localValue3(localValue4)
+  if localValue3 <= 0 then
     return
   end
-  arg4 = CMG
-  arg4 = arg4.clientGetUserIdFromSource
-  arg5 = arg3
+  localValue4 = CMG
+  localValue4 = localValue4.clientGetUserIdFromSource
+  localValue5 = localValue3
   -- Beginner: result below is userId.
-  arg4 = arg4(arg5)
-  if not arg4 or 0 == arg4 then
-    arg5 = notify
-    arg6 = "~r~Could not resolve target player."
+  localValue4 = localValue4(localValue5)
+  if not localValue4 or 0 == localValue4 then
+    localValue5 = notify
+    localValue6 = "~r~Could not resolve target player."
     -- Beginner: Show a notification to the player.
-    arg5(arg6)
+    localValue5(localValue6)
     return
   end
-  arg5 = TriggerServerEvent
-  arg6 = "a12d48ef57"
-  arg7 = arg4
+  localValue5 = TriggerServerEvent
+  localValue6 = "a12d48ef57"
+  localValue7 = localValue4
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a12d48ef57".
-  arg5(arg6, arg7)
+  localValue5(localValue6, localValue7)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue38; parameters: arg1) ===
-function workValue38(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "prisonguard.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "borderforce.onduty.permission"
-      arg2 = arg2(arg3)
-      if not arg2 then
-        goto flow_label_34
+-- === HELPER FUNCTION (decompiler name: workingValue38; parameters: localValue1) ===
+function workingValue38(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "prisonguard.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "borderforce.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        goto continueAtStep34
       end
     end
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "61172cd221"
-    arg6 = arg3
-    arg4(arg5, arg6)
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "61172cd221"
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   end
-  ::flow_label_34::
+  ::continueAtStep34::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue39; parameters: arg1) ===
-function workValue39(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "police.onduty.permission"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.hasClientPermission
-    arg3 = "prisonguard.onduty.permission"
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      arg3 = "borderforce.onduty.permission"
-      arg2 = arg2(arg3)
-      if not arg2 then
-        goto flow_label_34
+-- === HELPER FUNCTION (decompiler name: workingValue39; parameters: localValue1) ===
+function workingValue39(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "police.onduty.permission"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.hasClientPermission
+    localValue3 = "prisonguard.onduty.permission"
+    localValue2 = localValue2(localValue3)
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      localValue3 = "borderforce.onduty.permission"
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        goto continueAtStep34
       end
     end
   end
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "05699b6c7f"
-    arg6 = arg3
+  localValue3 = localValue3(localValue4)
+  if localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "05699b6c7f"
+    localValue6 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "05699b6c7f".
-    arg4(arg5, arg6)
+    localValue4(localValue5, localValue6)
   end
-  ::flow_label_34::
+  ::continueAtStep34::
 end
 
--- === HELPER FUNCTION (decompiler name: workValue40; parameters: arg1) ===
-function workValue40(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue40; parameters: localValue1) ===
+function workingValue40(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 <= 0 then
+  localValue3 = localValue3(localValue4)
+  if localValue3 <= 0 then
     return
   end
-  arg4 = DecorGetBool
-  arg5 = arg1
-  arg6 = "4ac0472477"
-  arg4 = arg4(arg5, arg6)
-  if arg4 then
-    arg4 = TriggerServerEvent
-    arg5 = "eb96303226"
-    arg6 = arg3
-    arg4(arg5, arg6)
+  localValue4 = DecorGetBool
+  localValue5 = localValue1
+  localValue6 = "4ac0472477"
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "eb96303226"
+    localValue6 = localValue3
+    localValue4(localValue5, localValue6)
   else
-    arg4 = TriggerServerEvent
-    arg5 = "a02d917ea8"
-    arg6 = arg3
+    localValue4 = TriggerServerEvent
+    localValue5 = "a02d917ea8"
+    localValue6 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a02d917ea8".
-    arg4(arg5, arg6)
+    localValue4(localValue5, localValue6)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue41; parameters: arg1) ===
-function workValue41(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue41; parameters: localValue1) ===
+function workingValue41(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 <= 0 then
+  localValue3 = localValue3(localValue4)
+  if localValue3 <= 0 then
     return
   end
-  arg4 = TriggerServerEvent
-  arg5 = "cdcf103ded"
-  arg6 = arg3
-  arg4(arg5, arg6)
+  localValue4 = TriggerServerEvent
+  localValue5 = "cdcf103ded"
+  localValue6 = localValue3
+  localValue4(localValue5, localValue6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue44; parameters: arg1) ===
-function workValue44(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetPlayerByEntityID
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue44; parameters: localValue1) ===
+function workingValue44(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetPlayerByEntityID
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg3 = GetPlayerServerId
-  arg4 = arg2
+  localValue3 = GetPlayerServerId
+  localValue4 = localValue2
   -- Beginner: result below is serverId.
-  arg3 = arg3(arg4)
-  if arg3 <= 0 then
+  localValue3 = localValue3(localValue4)
+  if localValue3 <= 0 then
     return
   end
-  arg4 = TriggerServerEvent
-  arg5 = "a91c36f550"
-  arg6 = arg3
+  localValue4 = TriggerServerEvent
+  localValue5 = "a91c36f550"
+  localValue6 = localValue3
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a91c36f550".
-  arg4(arg5, arg6)
+  localValue4(localValue5, localValue6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue45; parameters: arg1) ===
-function workValue45(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2
-  arg2 = IsEntityAVehicle
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue45; parameters: localValue1) ===
+function workingValue45(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2
+  localValue2 = IsEntityAVehicle
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
     return
   end
-  arg2 = 0
-  arg3 = 10.0
-  arg4 = GetVehicleModelNumberOfSeats
-  arg5 = GetEntityModel
-  arg6 = arg1
-  arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2 = arg5(arg6)
-  arg4 = arg4(arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2)
-  arg5 = -1
-  arg6 = arg4 - 2
-  arg7 = 1
-  for dataTable13 = arg5, arg6, arg7 do
+  localValue2 = 0
+  localValue3 = 10.0
+  localValue4 = GetVehicleModelNumberOfSeats
+  localValue5 = GetEntityModel
+  localValue6 = localValue1
+  localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2 = localValue5(localValue6)
+  localValue4 = localValue4(localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2)
+  localValue5 = -1
+  localValue6 = localValue4 - 2
+  localValue7 = 1
+  for dataCollection13 = localValue5, localValue6, localValue7 do
     health = GetPedInVehicleSeat
-    workValue51 = arg1
-    dataTable = dataTable13
-    health = health(workValue51, dataTable)
+    workingValue51 = localValue1
+    dataCollection = dataCollection13
+    health = health(workingValue51, dataCollection)
     if 0 ~= health then
-      workValue51 = GetPedBoneIndex
-      dataTable = health
+      workingValue51 = GetPedBoneIndex
+      dataCollection = health
       tableHelper = 0
-      workValue51 = workValue51(dataTable, tableHelper)
-      if workValue51 > -1 then
-        dataTable = GetWorldPositionOfEntityBone
+      workingValue51 = workingValue51(dataCollection, tableHelper)
+      if workingValue51 > -1 then
+        dataCollection = GetWorldPositionOfEntityBone
         tableHelper = health
-        dataTable2 = workValue51
-        dataTable = dataTable(tableHelper, dataTable2)
+        dataCollection2 = workingValue51
+        dataCollection = dataCollection(tableHelper, dataCollection2)
         tableHelper = CMG
         tableHelper = tableHelper.getPlayerCoords
         -- Beginner: result below is playerCoords.
         tableHelper = tableHelper()
-        dataTable = dataTable - tableHelper
-        dataTable = #dataTable
-        if arg3 > dataTable then
-          arg2 = health
-          arg3 = dataTable
+        dataCollection = dataCollection - tableHelper
+        dataCollection = #dataCollection
+        if localValue3 > dataCollection then
+          localValue2 = health
+          localValue3 = dataCollection
         end
       end
     end
   end
-  if 0 == arg2 then
-    arg5 = notify
-    arg6 = "~r~No player nearby to pull out vehicle."
+  if 0 == localValue2 then
+    localValue5 = notify
+    localValue6 = "~r~No player nearby to pull out vehicle."
     -- Beginner: Show a notification to the player.
-    arg5(arg6)
+    localValue5(localValue6)
     return
   end
-  arg5 = NetworkGetPlayerIndexFromPed
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  if arg5 >= 0 then
-    arg6 = GetPlayerServerId
-    arg7 = arg5
+  localValue5 = NetworkGetPlayerIndexFromPed
+  localValue6 = localValue2
+  localValue5 = localValue5(localValue6)
+  if localValue5 >= 0 then
+    localValue6 = GetPlayerServerId
+    localValue7 = localValue5
     -- Beginner: result below is serverId.
-    arg6 = arg6(arg7)
-    if arg6 > 0 then
-      arg7 = TriggerServerEvent
-      dataTable13 = "1fccdc61f1"
-      health = arg6
+    localValue6 = localValue6(localValue7)
+    if localValue6 > 0 then
+      localValue7 = TriggerServerEvent
+      dataCollection13 = "1fccdc61f1"
+      health = localValue6
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1fccdc61f1".
-      arg7(dataTable13, health)
+      localValue7(dataCollection13, health)
     end
   end
 end
-cmgCall8 = RegisterNUICallback
-cmgCall9 = "radialClick"
+cmgOperation8 = RegisterNUICallback
+cmgOperation9 = "radialClick"
 
--- === HELPER FUNCTION (decompiler name: cmgCall10; parameters: arg1) ===
-function cmgCall10(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable
-  arg2 = arg1.itemid
-  arg3 = arg1.entity
-  if "pickupTrappingItem" == arg2 then
-    arg4 = arg1.trapperPlantId
-    if arg4 then
-      arg5 = type
-      arg6 = arg4
-      arg5 = arg5(arg6)
-      if "string" == arg5 then
-        arg5 = TriggerServerEvent
-        arg6 = "b8b99c63a7"
-        arg7 = arg4
-        arg5(arg6, arg7)
+-- === HELPER FUNCTION (decompiler name: cmgOperation10; parameters: localValue1) ===
+function cmgOperation10(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection
+  localValue2 = localValue1.itemid
+  localValue3 = localValue1.entity
+  if "pickupTrappingItem" == localValue2 then
+    localValue4 = localValue1.trapperPlantId
+    if localValue4 then
+      localValue5 = type
+      localValue6 = localValue4
+      localValue5 = localValue5(localValue6)
+      if "string" == localValue5 then
+        localValue5 = TriggerServerEvent
+        localValue6 = "b8b99c63a7"
+        localValue7 = localValue4
+        localValue5(localValue6, localValue7)
       end
     end
     return
   end
-  arg4 = IsPedInAnyVehicle
-  arg5 = PlayerPedId
+  localValue4 = IsPedInAnyVehicle
+  localValue5 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg5 = arg5()
-  arg6 = true
-  arg4 = arg4(arg5, arg6)
-  if arg4 then
-    arg4 = flag3
-    if not arg4 then
-      arg4 = arg2 or arg4
-      if arg2 then
-        arg5 = arg2
-        arg4 = arg2.sub
-        arg6 = 1
-        arg7 = 11
-        arg4 = arg4(arg5, arg6, arg7)
-        arg4 = "toggleCast_" == arg4 or "removeAllCasts" == arg2 or "medicBandage" == arg2 or "medicMorphine" == arg2
+  localValue5 = localValue5()
+  localValue6 = true
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 then
+    localValue4 = stateFlag3
+    if not localValue4 then
+      localValue4 = localValue2 or localValue4
+      if localValue2 then
+        localValue5 = localValue2
+        localValue4 = localValue2.sub
+        localValue6 = 1
+        localValue7 = 11
+        localValue4 = localValue4(localValue5, localValue6, localValue7)
+        localValue4 = "toggleCast_" == localValue4 or "removeAllCasts" == localValue2 or "medicBandage" == localValue2 or "medicMorphine" == localValue2
       end
-      if not arg4 then
+      if not localValue4 then
         return
       end
     end
   end
-  if arg2 then
-    arg5 = arg2
-    arg4 = arg2.sub
-    arg6 = 1
-    arg7 = 11
-    arg4 = arg4(arg5, arg6, arg7)
-    if "toggleCast_" == arg4 then
-      arg5 = arg2
-      arg4 = arg2.sub
-      arg6 = 12
-      arg4 = arg4(arg5, arg6)
-      arg5 = GetPlayerByEntityID
-      arg6 = arg3
-      arg5 = arg5(arg6)
-      if arg5 and "" ~= arg4 then
-        arg6 = GetPlayerServerId
-        arg7 = arg5
+  if localValue2 then
+    localValue5 = localValue2
+    localValue4 = localValue2.sub
+    localValue6 = 1
+    localValue7 = 11
+    localValue4 = localValue4(localValue5, localValue6, localValue7)
+    if "toggleCast_" == localValue4 then
+      localValue5 = localValue2
+      localValue4 = localValue2.sub
+      localValue6 = 12
+      localValue4 = localValue4(localValue5, localValue6)
+      localValue5 = GetPlayerByEntityID
+      localValue6 = localValue3
+      localValue5 = localValue5(localValue6)
+      if localValue5 and "" ~= localValue4 then
+        localValue6 = GetPlayerServerId
+        localValue7 = localValue5
         -- Beginner: result below is serverId.
-        arg6 = arg6(arg7)
-        if arg6 > 0 then
-          arg7 = CMG
-          arg7 = arg7.TriggerServerCallback
-          dataTable13 = "2b2bfb838d"
-          health = arg6
-          workValue51 = arg4
-          arg7(dataTable13, health, workValue51)
+        localValue6 = localValue6(localValue7)
+        if localValue6 > 0 then
+          localValue7 = CMG
+          localValue7 = localValue7.TriggerServerCallback
+          dataCollection13 = "2b2bfb838d"
+          health = localValue6
+          workingValue51 = localValue4
+          localValue7(dataCollection13, health, workingValue51)
         end
       end
   end
-  elseif "removeAllCasts" == arg2 then
-    arg4 = GetPlayerByEntityID
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg5 = GetPlayerServerId
-      arg6 = arg4
+  elseif "removeAllCasts" == localValue2 then
+    localValue4 = GetPlayerByEntityID
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue5 = GetPlayerServerId
+      localValue6 = localValue4
       -- Beginner: result below is serverId.
-      arg5 = arg5(arg6)
-      if arg5 > 0 then
-        arg6 = TriggerServerEvent
-        arg7 = "5c706bee2d"
-        dataTable13 = arg5
+      localValue5 = localValue5(localValue6)
+      if localValue5 > 0 then
+        localValue6 = TriggerServerEvent
+        localValue7 = "5c706bee2d"
+        dataCollection13 = localValue5
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5c706bee2d".
-        arg6(arg7, dataTable13)
+        localValue6(localValue7, dataCollection13)
       end
     end
-  elseif "medicBandage" == arg2 then
-    arg4 = GetPlayerByEntityID
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg5 = GetPlayerServerId
-      arg6 = arg4
+  elseif "medicBandage" == localValue2 then
+    localValue4 = GetPlayerByEntityID
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue5 = GetPlayerServerId
+      localValue6 = localValue4
       -- Beginner: result below is serverId.
-      arg5 = arg5(arg6)
-      if arg5 > 0 then
-        arg6 = CMG
-        arg6 = arg6.TriggerServerCallback
-        arg7 = "0685d077c4"
-        dataTable13 = arg5
-        arg6 = arg6(arg7, dataTable13)
-        if arg6 then
-          arg7 = notify
-          dataTable13 = "~g~Applying bandage..."
+      localValue5 = localValue5(localValue6)
+      if localValue5 > 0 then
+        localValue6 = CMG
+        localValue6 = localValue6.TriggerServerCallback
+        localValue7 = "0685d077c4"
+        dataCollection13 = localValue5
+        localValue6 = localValue6(localValue7, dataCollection13)
+        if localValue6 then
+          localValue7 = notify
+          dataCollection13 = "~g~Applying bandage..."
           -- Beginner: Show a notification to the player.
-          arg7(dataTable13)
+          localValue7(dataCollection13)
         else
-          arg7 = notify
-          dataTable13 = "~r~Target is not bleeding."
-          arg7(dataTable13)
+          localValue7 = notify
+          dataCollection13 = "~r~Target is not bleeding."
+          localValue7(dataCollection13)
         end
       end
     end
-  elseif "medicMorphine" == arg2 then
-    arg4 = GetPlayerByEntityID
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg5 = GetPlayerServerId
-      arg6 = arg4
+  elseif "medicMorphine" == localValue2 then
+    localValue4 = GetPlayerByEntityID
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue5 = GetPlayerServerId
+      localValue6 = localValue4
       -- Beginner: result below is serverId.
-      arg5 = arg5(arg6)
-      if arg5 > 0 then
-        arg6 = CMG
-        arg6 = arg6.TriggerServerCallback
-        arg7 = "0711499036"
-        dataTable13 = arg5
-        arg6, arg7 = arg6(arg7, dataTable13)
-        if arg6 then
-          dataTable13 = notify
+      localValue5 = localValue5(localValue6)
+      if localValue5 > 0 then
+        localValue6 = CMG
+        localValue6 = localValue6.TriggerServerCallback
+        localValue7 = "0711499036"
+        dataCollection13 = localValue5
+        localValue6, localValue7 = localValue6(localValue7, dataCollection13)
+        if localValue6 then
+          dataCollection13 = notify
           health = "~g~Applying morphine..."
           -- Beginner: Show a notification to the player.
-          dataTable13(health)
-        elseif arg7 and arg7 > 0 then
-          dataTable13 = notify
+          dataCollection13(health)
+        elseif localValue7 and localValue7 > 0 then
+          dataCollection13 = notify
           health = "~r~User is in combat timer, try again in "
-          workValue51 = tostring
-          dataTable = arg7
-          workValue51 = workValue51(dataTable)
-          dataTable = " seconds."
-          health = health .. workValue51 .. dataTable
-          dataTable13(health)
+          workingValue51 = tostring
+          dataCollection = localValue7
+          workingValue51 = workingValue51(dataCollection)
+          dataCollection = " seconds."
+          health = health .. workingValue51 .. dataCollection
+          dataCollection13(health)
         else
-          dataTable13 = notify
+          dataCollection13 = notify
           health = "~r~Could not apply morphine."
           -- Beginner: Show a notification to the player.
-          dataTable13(health)
+          dataCollection13(health)
         end
       end
     end
-  elseif "lock" == arg2 then
-    arg4 = cmgCall6
+  elseif "lock" == localValue2 then
+    localValue4 = cmgOperation6
     -- Beginner: Run a helper every game frame while this script is active.
-    arg4()
-  elseif "openBoot" == arg2 then
-    arg4 = textValue8
-    arg5 = arg3
-    arg4(arg5)
-  elseif "cleanCar" == arg2 then
-    arg4 = eventRegistration
-    arg5 = arg3
+    localValue4()
+  elseif "openBoot" == localValue2 then
+    localValue4 = text8
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "cleanCar" == localValue2 then
+    localValue4 = eventHandler
+    localValue5 = localValue3
     -- Beginner: Register a client-side event handler.
-    arg4(arg5)
-  elseif "lockpick" == arg2 then
-    arg4 = textValue9
-    arg5 = arg3
-    arg4(arg5)
-  elseif "mechanicHookTargetVehicle" == arg2 then
-    arg4 = CMG
-    arg4 = arg4.tryMechanicAttachFromTargetVehicle
-    arg5 = arg3
-    arg4(arg5)
-  elseif "detachVehicle" == arg2 then
-    arg4 = CMG
-    arg4 = arg4.detachTowedVehicle
-    arg5 = arg3
-    arg4(arg5)
-  elseif "repair" == arg2 then
-    arg4 = TriggerEvent
-    arg5 = "a37e8d69f4"
-    arg6 = "diy"
+    localValue4(localValue5)
+  elseif "lockpick" == localValue2 then
+    localValue4 = text9
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "mechanicHookTargetVehicle" == localValue2 then
+    localValue4 = CMG
+    localValue4 = localValue4.tryMechanicAttachFromTargetVehicle
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "detachVehicle" == localValue2 then
+    localValue4 = CMG
+    localValue4 = localValue4.detachTowedVehicle
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "repair" == localValue2 then
+    localValue4 = TriggerEvent
+    localValue5 = "a37e8d69f4"
+    localValue6 = "diy"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "a37e8d69f4".
-    arg4(arg5, arg6)
-  elseif "repairTrucking" == arg2 then
-    arg4 = TriggerEvent
-    arg5 = "a37e8d69f4"
-    arg6 = "trucking"
-    arg4(arg5, arg6)
-  elseif "repairAA" == arg2 then
-    arg4 = workValue18
-    arg5 = arg3
-    arg4(arg5)
-  elseif "openHood" == arg2 then
-    arg4 = workValue19
-    arg5 = arg3
-    arg4(arg5)
-  elseif "searchvehicle" == arg2 then
-    arg4 = workValue21
-    arg5 = arg3
-    arg4(arg5)
-  elseif "impoundVehicle" == arg2 then
-    arg4 = workValue22
-    arg5 = arg3
-    arg4(arg5)
-  elseif "askDriverId" == arg2 then
-    arg4 = workValue24
-    arg5 = arg3
-    arg4(arg5)
-  elseif "ejectPassenger" == arg2 then
-    arg4 = workValue45
-    arg5 = arg3
-    arg4(arg5)
-  elseif "carjack" == arg2 then
-    if arg3 and 0 ~= arg3 then
-      arg4 = DoesEntityExist
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      if arg4 then
-        arg4 = IsEntityAVehicle
-        arg5 = arg3
-        arg4 = arg4(arg5)
-        if arg4 then
-          arg4 = GetPedInVehicleSeat
-          arg5 = arg3
-          arg6 = -1
-          arg4 = arg4(arg5, arg6)
-          if 0 ~= arg4 then
-            arg5 = IsPedAPlayer
-            arg6 = arg4
-            arg5 = arg5(arg6)
-            if arg5 then
-              arg5 = NetworkGetPlayerIndexFromPed
-              arg6 = arg4
-              arg5 = arg5(arg6)
-              if arg5 >= 0 then
-                arg6 = GetPlayerServerId
-                arg7 = arg5
+    localValue4(localValue5, localValue6)
+  elseif "repairTrucking" == localValue2 then
+    localValue4 = TriggerEvent
+    localValue5 = "a37e8d69f4"
+    localValue6 = "trucking"
+    localValue4(localValue5, localValue6)
+  elseif "repairAA" == localValue2 then
+    localValue4 = workingValue18
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "openHood" == localValue2 then
+    localValue4 = workingValue19
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "searchvehicle" == localValue2 then
+    localValue4 = workingValue21
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "impoundVehicle" == localValue2 then
+    localValue4 = workingValue22
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "askDriverId" == localValue2 then
+    localValue4 = workingValue24
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "ejectPassenger" == localValue2 then
+    localValue4 = workingValue45
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "carjack" == localValue2 then
+    if localValue3 and 0 ~= localValue3 then
+      localValue4 = DoesEntityExist
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      if localValue4 then
+        localValue4 = IsEntityAVehicle
+        localValue5 = localValue3
+        localValue4 = localValue4(localValue5)
+        if localValue4 then
+          localValue4 = GetPedInVehicleSeat
+          localValue5 = localValue3
+          localValue6 = -1
+          localValue4 = localValue4(localValue5, localValue6)
+          if 0 ~= localValue4 then
+            localValue5 = IsPedAPlayer
+            localValue6 = localValue4
+            localValue5 = localValue5(localValue6)
+            if localValue5 then
+              localValue5 = NetworkGetPlayerIndexFromPed
+              localValue6 = localValue4
+              localValue5 = localValue5(localValue6)
+              if localValue5 >= 0 then
+                localValue6 = GetPlayerServerId
+                localValue7 = localValue5
                 -- Beginner: result below is serverId.
-                arg6 = arg6(arg7)
-                if arg6 > 0 then
-                  arg7 = CMG
-                  arg7 = arg7.startGangCarjack
-                  dataTable13 = arg6
-                  arg7(dataTable13)
+                localValue6 = localValue6(localValue7)
+                if localValue6 > 0 then
+                  localValue7 = CMG
+                  localValue7 = localValue7.startGangCarjack
+                  dataCollection13 = localValue6
+                  localValue7(dataCollection13)
                 end
               end
             end
@@ -4083,810 +4083,810 @@ function cmgCall10(arg1)
         end
       end
     end
-  elseif "askId" == arg2 then
-    arg4 = workValue25
-    arg5 = arg3
-    arg4(arg5)
-  elseif "giveCash" == arg2 then
-    arg4 = workValue26
-    arg5 = arg3
-    arg4(arg5)
-  elseif "search" == arg2 then
-    arg4 = workValue27
-    arg5 = arg3
-    arg4(arg5)
-  elseif "robPerson" == arg2 then
-    arg4 = workValue23
-    arg5 = arg3
-    arg4(arg5)
-  elseif "revive" == arg2 then
-    arg4 = workValue28
-    arg5 = arg3
-    arg4(arg5)
-  elseif "handcuff" == arg2 then
-    arg4 = workValue29
-    arg5 = arg3
-    arg4(arg5)
-  elseif "nhsDrag" == arg2 then
-    arg4 = workValue30
-    arg5 = arg3
-    arg4(arg5)
-  elseif "drag" == arg2 then
-    arg4 = workValue32
-    arg5 = arg3
-    arg4(arg5)
-  elseif "putincar" == arg2 then
-    arg4 = workValue33
-    arg5 = arg3
-    arg4(arg5)
-  elseif "gunshottest" == arg2 then
-    arg4 = workValue34
-    arg5 = arg3
-    arg4(arg5)
-  elseif "jail" == arg2 then
-    arg4 = workValue35
-    arg5 = arg3
-    arg4(arg5)
-  elseif "quickFine" == arg2 then
-    arg4 = CMG
-    arg4 = arg4.openQuickChargesMenu
-    arg5 = arg3
-    arg6 = "fine"
-    arg4(arg5, arg6)
-  elseif "quickJail" == arg2 then
-    arg4 = CMG
-    arg4 = arg4.openQuickChargesMenu
-    arg5 = arg3
-    arg6 = "jail"
-    arg4(arg5, arg6)
-  elseif "pardonBounty" == arg2 then
-    arg4 = workValue37
-    arg5 = arg3
-    arg4(arg5)
-  elseif "requesttransport" == arg2 then
-    arg4 = workValue36
-    arg5 = arg3
-    arg4(arg5)
-  elseif "seizeweapons" == arg2 then
-    arg4 = workValue38
-    arg5 = arg3
-    arg4(arg5)
-  elseif "seizeillegals" == arg2 then
-    arg4 = workValue39
-    arg5 = arg3
-    arg4(arg5)
-  elseif "removeHeadbag" == arg2 then
-    arg4 = workValue40
-    arg5 = arg3
-    arg4(arg5)
-  elseif "leaveRadio" == arg2 then
-    arg4 = TriggerEvent
-    arg5 = "24a888d2b3"
+  elseif "askId" == localValue2 then
+    localValue4 = workingValue25
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "giveCash" == localValue2 then
+    localValue4 = workingValue26
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "search" == localValue2 then
+    localValue4 = workingValue27
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "robPerson" == localValue2 then
+    localValue4 = workingValue23
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "revive" == localValue2 then
+    localValue4 = workingValue28
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "handcuff" == localValue2 then
+    localValue4 = workingValue29
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "nhsDrag" == localValue2 then
+    localValue4 = workingValue30
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "drag" == localValue2 then
+    localValue4 = workingValue32
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "putincar" == localValue2 then
+    localValue4 = workingValue33
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "gunshottest" == localValue2 then
+    localValue4 = workingValue34
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "jail" == localValue2 then
+    localValue4 = workingValue35
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "quickFine" == localValue2 then
+    localValue4 = CMG
+    localValue4 = localValue4.openQuickChargesMenu
+    localValue5 = localValue3
+    localValue6 = "fine"
+    localValue4(localValue5, localValue6)
+  elseif "quickJail" == localValue2 then
+    localValue4 = CMG
+    localValue4 = localValue4.openQuickChargesMenu
+    localValue5 = localValue3
+    localValue6 = "jail"
+    localValue4(localValue5, localValue6)
+  elseif "pardonBounty" == localValue2 then
+    localValue4 = workingValue37
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "requesttransport" == localValue2 then
+    localValue4 = workingValue36
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "seizeweapons" == localValue2 then
+    localValue4 = workingValue38
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "seizeillegals" == localValue2 then
+    localValue4 = workingValue39
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "removeHeadbag" == localValue2 then
+    localValue4 = workingValue40
+    localValue5 = localValue3
+    localValue4(localValue5)
+  elseif "leaveRadio" == localValue2 then
+    localValue4 = TriggerEvent
+    localValue5 = "24a888d2b3"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "24a888d2b3".
-    arg4(arg5)
-  elseif "toggleMute" == arg2 then
-    arg4 = ExecuteCommand
-    arg5 = "toggleradiomute"
-    arg4(arg5)
-  elseif "radioConfig" == arg2 then
-    arg4 = TriggerEvent
-    arg5 = "c9189814b6"
+    localValue4(localValue5)
+  elseif "toggleMute" == localValue2 then
+    localValue4 = ExecuteCommand
+    localValue5 = "toggleradiomute"
+    localValue4(localValue5)
+  elseif "radioConfig" == localValue2 then
+    localValue4 = TriggerEvent
+    localValue5 = "c9189814b6"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c9189814b6".
-    arg4(arg5)
+    localValue4(localValue5)
   else
-    arg4 = string
-    arg4 = arg4.match
-    arg5 = arg2
-    arg6 = "radioChannel"
-    arg4 = arg4(arg5, arg6)
-    if arg4 then
-      arg4 = string
-      arg4 = arg4.sub
-      arg5 = arg2
-      arg6 = 13
-      arg7 = #arg2
-      arg4 = arg4(arg5, arg6, arg7)
-      arg5 = TriggerEvent
-      arg6 = "c96f59b76d"
-      arg7 = tonumber
-      dataTable13 = arg4
-      arg7, dataTable13, health, workValue51, dataTable = arg7(dataTable13)
-      arg5(arg6, arg7, dataTable13, health, workValue51, dataTable)
-    elseif "segregation" == arg2 then
-      arg4 = workValue44
-      arg5 = arg3
-      arg4(arg5)
-    elseif "transferChips" == arg2 then
-      arg4 = workValue41
-      arg5 = arg3
-      arg4(arg5)
-    elseif "spawnStretcher" == arg2 then
-      arg4 = type
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      arg4 = arg3 or arg4
-      if "number" ~= arg4 or 0 == arg3 or not arg3 then
-        arg4 = nil
+    localValue4 = string
+    localValue4 = localValue4.match
+    localValue5 = localValue2
+    localValue6 = "radioChannel"
+    localValue4 = localValue4(localValue5, localValue6)
+    if localValue4 then
+      localValue4 = string
+      localValue4 = localValue4.sub
+      localValue5 = localValue2
+      localValue6 = 13
+      localValue7 = #localValue2
+      localValue4 = localValue4(localValue5, localValue6, localValue7)
+      localValue5 = TriggerEvent
+      localValue6 = "c96f59b76d"
+      localValue7 = tonumber
+      dataCollection13 = localValue4
+      localValue7, dataCollection13, health, workingValue51, dataCollection = localValue7(dataCollection13)
+      localValue5(localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection)
+    elseif "segregation" == localValue2 then
+      localValue4 = workingValue44
+      localValue5 = localValue3
+      localValue4(localValue5)
+    elseif "transferChips" == localValue2 then
+      localValue4 = workingValue41
+      localValue5 = localValue3
+      localValue4(localValue5)
+    elseif "spawnStretcher" == localValue2 then
+      localValue4 = type
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      localValue4 = localValue3 or localValue4
+      if "number" ~= localValue4 or 0 == localValue3 or not localValue3 then
+        localValue4 = nil
       end
-      if arg4 then
-        arg5 = DoesEntityExist
-        arg6 = arg4
-        arg5 = arg5(arg6)
-        if arg5 then
-          arg5 = workValue42
-          arg6 = arg4
-          arg7 = "Health Service Vehicles"
-          arg5 = arg5(arg6, arg7)
-          if arg5 then
-            arg5 = ExecuteCommand
-            arg6 = "stretcher"
-            arg5(arg6)
+      if localValue4 then
+        localValue5 = DoesEntityExist
+        localValue6 = localValue4
+        localValue5 = localValue5(localValue6)
+        if localValue5 then
+          localValue5 = workingValue42
+          localValue6 = localValue4
+          localValue7 = "Health Service Vehicles"
+          localValue5 = localValue5(localValue6, localValue7)
+          if localValue5 then
+            localValue5 = ExecuteCommand
+            localValue6 = "stretcher"
+            localValue5(localValue6)
         end
         else
-          arg5 = notify
-          arg6 = "~r~You can only spawn stretchers from NHS vehicles."
+          localValue5 = notify
+          localValue6 = "~r~You can only spawn stretchers from NHS vehicles."
           -- Beginner: Show a notification to the player.
-          arg5(arg6)
+          localValue5(localValue6)
         end
       else
-        arg5 = notify
-        arg6 = "~r~You can only spawn stretchers from NHS vehicles."
-        arg5(arg6)
+        localValue5 = notify
+        localValue6 = "~r~You can only spawn stretchers from NHS vehicles."
+        localValue5(localValue6)
       end
-    elseif "removeStretcher" == arg2 then
-      arg4 = type
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      arg4 = arg3 or arg4
-      if "number" ~= arg4 or 0 == arg3 or not arg3 then
-        arg4 = nil
+    elseif "removeStretcher" == localValue2 then
+      localValue4 = type
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      localValue4 = localValue3 or localValue4
+      if "number" ~= localValue4 or 0 == localValue3 or not localValue3 then
+        localValue4 = nil
       end
-      if arg4 then
-        arg5 = DoesEntityExist
-        arg6 = arg4
-        arg5 = arg5(arg6)
-        if arg5 then
-          arg5 = GetEntityModel
-          arg6 = arg4
+      if localValue4 then
+        localValue5 = DoesEntityExist
+        localValue6 = localValue4
+        localValue5 = localValue5(localValue6)
+        if localValue5 then
+          localValue5 = GetEntityModel
+          localValue6 = localValue4
           -- Beginner: result below is modelHash.
-          arg5 = arg5(arg6)
-          if -665859588 == arg5 then
-            arg5 = TriggerServerEvent
-            arg6 = "2bfff324f7"
-            arg7 = CMG
-            arg7 = arg7.getNetId
-            dataTable13 = arg4
+          localValue5 = localValue5(localValue6)
+          if -665859588 == localValue5 then
+            localValue5 = TriggerServerEvent
+            localValue6 = "2bfff324f7"
+            localValue7 = CMG
+            localValue7 = localValue7.getNetId
+            dataCollection13 = localValue4
             health = "Stretchers"
-            arg7, dataTable13, health, workValue51, dataTable = arg7(dataTable13, health)
+            localValue7, dataCollection13, health, workingValue51, dataCollection = localValue7(dataCollection13, health)
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2bfff324f7".
-            arg5(arg6, arg7, dataTable13, health, workValue51, dataTable)
+            localValue5(localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection)
         end
         else
-          arg5 = ExecuteCommand
-          arg6 = "removestretcher"
-          arg5(arg6)
+          localValue5 = ExecuteCommand
+          localValue6 = "removestretcher"
+          localValue5(localValue6)
         end
       else
-        arg5 = ExecuteCommand
-        arg6 = "removestretcher"
-        arg5(arg6)
+        localValue5 = ExecuteCommand
+        localValue6 = "removestretcher"
+        localValue5(localValue6)
       end
-    elseif "toggleCrutches" == arg2 then
-      arg4 = GetPlayerByEntityID
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      if arg4 then
-        arg5 = GetPlayerServerId
-        arg6 = arg4
+    elseif "toggleCrutches" == localValue2 then
+      localValue4 = GetPlayerByEntityID
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      if localValue4 then
+        localValue5 = GetPlayerServerId
+        localValue6 = localValue4
         -- Beginner: result below is serverId.
-        arg5 = arg5(arg6)
-        if arg5 > 0 then
-          arg6 = CMG
-          arg6 = arg6.TriggerServerCallback
-          arg7 = "1e07024b66"
-          dataTable13 = arg5
-          arg6(arg7, dataTable13)
+        localValue5 = localValue5(localValue6)
+        if localValue5 > 0 then
+          localValue6 = CMG
+          localValue6 = localValue6.TriggerServerCallback
+          localValue7 = "1e07024b66"
+          dataCollection13 = localValue5
+          localValue6(localValue7, dataCollection13)
         end
       end
-    elseif "giveWheelchair" == arg2 then
-      arg4 = GetPlayerByEntityID
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      if arg4 then
-        arg5 = GetPlayerServerId
-        arg6 = arg4
+    elseif "giveWheelchair" == localValue2 then
+      localValue4 = GetPlayerByEntityID
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      if localValue4 then
+        localValue5 = GetPlayerServerId
+        localValue6 = localValue4
         -- Beginner: result below is serverId.
-        arg5 = arg5(arg6)
-        if arg5 > 0 then
-          arg6 = notify
-          arg7 = "~g~Providing wheelchair..."
+        localValue5 = localValue5(localValue6)
+        if localValue5 > 0 then
+          localValue6 = notify
+          localValue7 = "~g~Providing wheelchair..."
           -- Beginner: Show a notification to the player.
-          arg6(arg7)
-          arg6 = TriggerServerEvent
-          arg7 = "05e4b09a9e"
-          dataTable13 = arg5
+          localValue6(localValue7)
+          localValue6 = TriggerServerEvent
+          localValue7 = "05e4b09a9e"
+          dataCollection13 = localValue5
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "05e4b09a9e".
-          arg6(arg7, dataTable13)
+          localValue6(localValue7, dataCollection13)
         else
-          arg6 = notify
-          arg7 = "~r~Could not get target player."
+          localValue6 = notify
+          localValue7 = "~r~Could not get target player."
           -- Beginner: Show a notification to the player.
-          arg6(arg7)
+          localValue6(localValue7)
         end
       else
-        arg5 = notify
-        arg6 = "~r~No valid target player."
-        arg5(arg6)
+        localValue5 = notify
+        localValue6 = "~r~No valid target player."
+        localValue5(localValue6)
       end
-    elseif "removeWheelchair" == arg2 then
-      arg4 = type
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      arg4 = arg3 or arg4
-      if "number" ~= arg4 or 0 == arg3 or not arg3 then
-        arg4 = nil
+    elseif "removeWheelchair" == localValue2 then
+      localValue4 = type
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      localValue4 = localValue3 or localValue4
+      if "number" ~= localValue4 or 0 == localValue3 or not localValue3 then
+        localValue4 = nil
       end
-      if arg4 then
-        arg5 = DoesEntityExist
-        arg6 = arg4
-        arg5 = arg5(arg6)
-        if arg5 then
-          arg5 = CMG
-          arg5 = arg5.isWheelchairVehicle
-          if arg5 then
-            arg5 = CMG
-            arg5 = arg5.isWheelchairVehicle
-            arg6 = arg4
-            arg5 = arg5(arg6)
-            if arg5 then
-              arg5 = TriggerServerEvent
-              arg6 = "cc35a3d2bc"
-              arg7 = NetworkGetNetworkIdFromEntity
-              dataTable13 = arg4
-              arg7, dataTable13, health, workValue51, dataTable = arg7(dataTable13)
+      if localValue4 then
+        localValue5 = DoesEntityExist
+        localValue6 = localValue4
+        localValue5 = localValue5(localValue6)
+        if localValue5 then
+          localValue5 = CMG
+          localValue5 = localValue5.isWheelchairVehicle
+          if localValue5 then
+            localValue5 = CMG
+            localValue5 = localValue5.isWheelchairVehicle
+            localValue6 = localValue4
+            localValue5 = localValue5(localValue6)
+            if localValue5 then
+              localValue5 = TriggerServerEvent
+              localValue6 = "cc35a3d2bc"
+              localValue7 = NetworkGetNetworkIdFromEntity
+              dataCollection13 = localValue4
+              localValue7, dataCollection13, health, workingValue51, dataCollection = localValue7(dataCollection13)
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cc35a3d2bc".
-              arg5(arg6, arg7, dataTable13, health, workValue51, dataTable)
+              localValue5(localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection)
             end
           end
         end
       end
-    elseif "nhsGiveDonut" == arg2 then
-      arg4 = GetPlayerByEntityID
-      arg5 = arg3
-      arg4 = arg4(arg5)
-      if arg4 then
-        arg5 = GetPlayerServerId
-        arg6 = arg4
+    elseif "nhsGiveDonut" == localValue2 then
+      localValue4 = GetPlayerByEntityID
+      localValue5 = localValue3
+      localValue4 = localValue4(localValue5)
+      if localValue4 then
+        localValue5 = GetPlayerServerId
+        localValue6 = localValue4
         -- Beginner: result below is serverId.
-        arg5 = arg5(arg6)
-        if arg5 > 0 then
-          arg6 = TriggerServerEvent
-          arg7 = "9353a3745a"
-          dataTable13 = arg5
-          arg6(arg7, dataTable13)
+        localValue5 = localValue5(localValue6)
+        if localValue5 > 0 then
+          localValue6 = TriggerServerEvent
+          localValue7 = "9353a3745a"
+          dataCollection13 = localValue5
+          localValue6(localValue7, dataCollection13)
         end
       end
     end
   end
 end
-cmgCall8(cmgCall9, cmgCall10)
+cmgOperation8(cmgOperation9, cmgOperation10)
 
--- === HELPER FUNCTION (decompiler name: cmgCall8; parameters: arg1) ===
-function cmgCall8(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health
-  arg2 = ipairs
-  arg3 = GetActivePlayers
-  arg3, arg4, arg5, arg6, arg7, dataTable13, health = arg3()
-  arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, dataTable13, health)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    dataTable13 = GetPlayerPed
-    health = arg7
+-- === HELPER FUNCTION (decompiler name: cmgOperation8; parameters: localValue1) ===
+function cmgOperation8(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health
+  localValue2 = ipairs
+  localValue3 = GetActivePlayers
+  localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health = localValue3()
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    dataCollection13 = GetPlayerPed
+    health = localValue7
     -- Beginner: result below is playerPed.
-    dataTable13 = dataTable13(health)
-    if arg1 == dataTable13 then
-      return arg7
+    dataCollection13 = dataCollection13(health)
+    if localValue1 == dataCollection13 then
+      return localValue7
     end
   end
-  arg2 = nil
-  return arg2
+  localValue2 = nil
+  return localValue2
 end
-GetPlayerByEntityID = cmgCall8
-cmgCall8 = CMG
+GetPlayerByEntityID = cmgOperation8
+cmgOperation8 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: none) ===
-function cmgCall9()
-  local arg1, arg2
-  arg1 = workValue4
-  arg2 = workValue5
-  return arg1, arg2
+-- === HELPER FUNCTION (decompiler name: cmgOperation9; parameters: none) ===
+function cmgOperation9()
+  local localValue1, localValue2
+  localValue1 = workingValue4
+  localValue2 = workingValue5
+  return localValue1, localValue2
 end
-cmgCall8.getSelectedEntity = cmgCall9
-cmgCall8 = AddEventHandler
-cmgCall9 = "CMGUI:showRadioWheel"
+cmgOperation8.getSelectedEntity = cmgOperation9
+cmgOperation8 = AddEventHandler
+cmgOperation9 = "CMGUI:showRadioWheel"
 -- Beginner: this function runs when client event "CMGUI:showRadioWheel" fires.
 
--- === HELPER FUNCTION (decompiler name: cmgCall10; parameters: arg1) ===
-function cmgCall10(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health
-  arg2 = flag3
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation10; parameters: localValue1) ===
+function cmgOperation10(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health
+  localValue2 = stateFlag3
+  if localValue2 then
     return
   end
-  arg2 = true
-  flag = arg2
-  arg2 = true
-  flag3 = arg2
-  arg2 = SetNuiFocusKeepInput
-  arg3 = true
-  arg2(arg3)
-  arg2 = SetNuiFocus
-  arg3 = true
-  arg4 = true
+  localValue2 = true
+  stateFlag = localValue2
+  localValue2 = true
+  stateFlag3 = localValue2
+  localValue2 = SetNuiFocusKeepInput
+  localValue3 = true
+  localValue2(localValue3)
+  localValue2 = SetNuiFocus
+  localValue3 = true
+  localValue4 = true
   -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-  arg2(arg3, arg4)
-  arg2 = SendNUIMessage
-  arg3 = {}
-  arg3.openRadialMenu = true
-  arg3.type = "radios"
-  arg3.wheelData = arg1
+  localValue2(localValue3, localValue4)
+  localValue2 = SendNUIMessage
+  localValue3 = {}
+  localValue3.openRadialMenu = true
+  localValue3.type = "radios"
+  localValue3.wheelData = localValue1
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg2(arg3)
+  localValue2(localValue3)
   while true do
-    arg2 = flag3
-    if not arg2 then
+    localValue2 = stateFlag3
+    if not localValue2 then
       break
     end
-    arg2 = 0
-    arg3 = 6
-    arg4 = 1
-    for arg5 = arg2, arg3, arg4 do
-      arg6 = DisableControlAction
-      arg7 = 0
-      dataTable13 = arg5
+    localValue2 = 0
+    localValue3 = 6
+    localValue4 = 1
+    for localValue5 = localValue2, localValue3, localValue4 do
+      localValue6 = DisableControlAction
+      localValue7 = 0
+      dataCollection13 = localValue5
       health = true
-      arg6(arg7, dataTable13, health)
+      localValue6(localValue7, dataCollection13, health)
     end
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 24
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 25
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 69
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 79
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 92
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 114
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 140
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 141
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 142
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 257
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 263
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = DisableControlAction
-    arg3 = 0
-    arg4 = 264
-    arg5 = true
-    arg2(arg3, arg4, arg5)
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 0
-    arg2(arg3)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 24
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 25
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 69
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 79
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 92
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 114
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 140
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 141
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 142
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 257
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 263
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = DisableControlAction
+    localValue3 = 0
+    localValue4 = 264
+    localValue5 = true
+    localValue2(localValue3, localValue4, localValue5)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 0
+    localValue2(localValue3)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMGUI:showRadioWheel".
-cmgCall8(cmgCall9, cmgCall10)
+cmgOperation8(cmgOperation9, cmgOperation10)
 
--- === HELPER FUNCTION (decompiler name: cmgCall8; parameters: none) ===
-function cmgCall8()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: cmgOperation8; parameters: none) ===
+function cmgOperation8()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+  localValue1 = localValue1()
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = 0
-  arg4 = 3.0
-  arg5 = pairs
-  arg6 = GetGamePool
-  arg7 = "CObject"
-  arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5 = arg6(arg7)
-  arg5, arg6, arg7, dataTable13 = arg5(arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5)
-  for health, workValue51 in arg5, arg6, arg7, dataTable13 do
-    dataTable = GetEntityModel
-    tableHelper = workValue51
+  localValue2 = localValue2()
+  localValue3 = 0
+  localValue4 = 3.0
+  localValue5 = pairs
+  localValue6 = GetGamePool
+  localValue7 = "CObject"
+  localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5 = localValue6(localValue7)
+  localValue5, localValue6, localValue7, dataCollection13 = localValue5(localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5)
+  for health, workingValue51 in localValue5, localValue6, localValue7, dataCollection13 do
+    dataCollection = GetEntityModel
+    tableHelper = workingValue51
     -- Beginner: result below is modelHash.
-    dataTable = dataTable(tableHelper)
+    dataCollection = dataCollection(tableHelper)
     tableHelper = CMG
     tableHelper = tableHelper.isLootbagModel
-    dataTable2 = dataTable
-    tableHelper = tableHelper(dataTable2)
-    if tableHelper or -1422265815 == dataTable or 772559902 == dataTable then
+    dataCollection2 = dataCollection
+    tableHelper = tableHelper(dataCollection2)
+    if tableHelper or -1422265815 == dataCollection or 772559902 == dataCollection then
       tableHelper = GetEntityCoords
-      dataTable2 = workValue51
-      dataTable3 = true
+      dataCollection2 = workingValue51
+      dataCollection3 = true
       -- Beginner: result below is entityCoords.
-      tableHelper = tableHelper(dataTable2, dataTable3)
-      tableHelper = tableHelper - arg2
+      tableHelper = tableHelper(dataCollection2, dataCollection3)
+      tableHelper = tableHelper - localValue2
       tableHelper = #tableHelper
-      if arg4 > tableHelper then
-        dataTable2 = HasEntityClearLosToEntity
-        dataTable3 = arg1
-        dataTable4 = workValue51
-        dataTable5 = 17
-        dataTable2 = dataTable2(dataTable3, dataTable4, dataTable5)
-        if dataTable2 then
-          arg3 = workValue51
-          arg4 = tableHelper
+      if localValue4 > tableHelper then
+        dataCollection2 = HasEntityClearLosToEntity
+        dataCollection3 = localValue1
+        dataCollection4 = workingValue51
+        dataCollection5 = 17
+        dataCollection2 = dataCollection2(dataCollection3, dataCollection4, dataCollection5)
+        if dataCollection2 then
+          localValue3 = workingValue51
+          localValue4 = tableHelper
         end
       end
     end
   end
-  return arg3
+  return localValue3
 end
-cmgCall9 = RegisterCommand
-cmgCall10 = "lootclosestbag"
+cmgOperation9 = RegisterCommand
+cmgOperation10 = "lootclosestbag"
 -- Beginner: this function is the command handler for "lootclosestbag".
 
--- === HELPER FUNCTION (decompiler name: textValue11; parameters: none) ===
-function textValue11()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = CMG
-  arg1 = arg1.isDrawingInventoryUI
-  arg1 = arg1()
-  if arg1 then
-    arg1 = TriggerEvent
-    arg2 = "2a70dddd80"
+-- === HELPER FUNCTION (decompiler name: text11; parameters: none) ===
+function text11()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = CMG
+  localValue1 = localValue1.isDrawingInventoryUI
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = TriggerEvent
+    localValue2 = "2a70dddd80"
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "2a70dddd80".
-    arg1(arg2)
+    localValue1(localValue2)
     return
   end
-  arg1 = workValue11
-  arg1 = arg1()
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.getPlayerVehicle
+  localValue1 = workingValue11
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg1 = arg1()
-    if 0 == arg1 then
-      arg1 = GetRenderingCam
-      arg1 = arg1()
-      if -1 == arg1 then
-        arg1 = CMG
-        arg1 = arg1.hasClientPermission
-        arg2 = "nhs.onduty.permission"
-        arg1 = arg1(arg2)
-        if not arg1 then
-          goto flow_label_30
+    localValue1 = localValue1()
+    if 0 == localValue1 then
+      localValue1 = GetRenderingCam
+      localValue1 = localValue1()
+      if -1 == localValue1 then
+        localValue1 = CMG
+        localValue1 = localValue1.hasClientPermission
+        localValue2 = "nhs.onduty.permission"
+        localValue1 = localValue1(localValue2)
+        if not localValue1 then
+          goto continueAtStep30
         end
       end
     end
   end
   return
-  ::flow_label_30::
-  arg1 = cmgCall8
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = GetEntityModel
-    arg3 = arg1
+  ::continueAtStep30::
+  localValue1 = cmgOperation8
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = GetEntityModel
+    localValue3 = localValue1
     -- Beginner: result below is modelHash.
-    arg2 = arg2(arg3)
-    arg3 = DecorGetInt
-    arg4 = arg1
-    arg5 = "5f7af1c5ce"
-    arg3 = arg3(arg4, arg5)
-    arg4 = CMG
-    arg4 = arg4.isLootbagModel
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = DecorExistOn
-      arg5 = arg1
-      arg6 = "b1457c1a26"
-      arg4 = arg4(arg5, arg6)
-      if arg4 then
-        arg4 = DecorGetBool
-        arg5 = arg1
-        arg6 = "b1457c1a26"
-        arg4 = arg4(arg5, arg6)
+    localValue2 = localValue2(localValue3)
+    localValue3 = DecorGetInt
+    localValue4 = localValue1
+    localValue5 = "5f7af1c5ce"
+    localValue3 = localValue3(localValue4, localValue5)
+    localValue4 = CMG
+    localValue4 = localValue4.isLootbagModel
+    localValue5 = localValue2
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = DecorExistOn
+      localValue5 = localValue1
+      localValue6 = "b1457c1a26"
+      localValue4 = localValue4(localValue5, localValue6)
+      if localValue4 then
+        localValue4 = DecorGetBool
+        localValue5 = localValue1
+        localValue6 = "b1457c1a26"
+        localValue4 = localValue4(localValue5, localValue6)
       end
-      if not arg4 then
-        arg5 = TriggerEvent
-        arg6 = "56e6172373"
-        arg7 = false
-        arg5(arg6, arg7)
+      if not localValue4 then
+        localValue5 = TriggerEvent
+        localValue6 = "56e6172373"
+        localValue7 = false
+        localValue5(localValue6, localValue7)
       end
-      arg5 = textValue5
+      localValue5 = text5
 
-      -- === HELPER FUNCTION: arg6() ===
-      function arg6()
-        local cmgCall2, textValue, numberValue5
-        cmgCall2 = TriggerServerEvent
-        textValue = "bdaf15af25"
-        numberValue5 = arg3
+      -- === HELPER FUNCTION: localValue6() ===
+      function localValue6()
+        local cmgOperation2, text, number5
+        cmgOperation2 = TriggerServerEvent
+        text = "bdaf15af25"
+        number5 = localValue3
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bdaf15af25".
-        cmgCall2(textValue, numberValue5)
+        cmgOperation2(text, number5)
       end
-      arg7 = arg1
-      arg5(arg6, arg7)
-    elseif -1422265815 == arg2 then
-      arg4 = TriggerEvent
-      arg5 = "56e6172373"
-      arg6 = false
+      localValue7 = localValue1
+      localValue5(localValue6, localValue7)
+    elseif -1422265815 == localValue2 then
+      localValue4 = TriggerEvent
+      localValue5 = "56e6172373"
+      localValue6 = false
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "56e6172373".
-      arg4(arg5, arg6)
-      arg4 = textValue5
+      localValue4(localValue5, localValue6)
+      localValue4 = text5
 
-      -- === HELPER FUNCTION: arg5() ===
-      function arg5()
-        local cmgCall2, textValue, numberValue5
-        cmgCall2 = TriggerServerEvent
-        textValue = "5891aba85f"
-        numberValue5 = arg3
+      -- === HELPER FUNCTION: localValue5() ===
+      function localValue5()
+        local cmgOperation2, text, number5
+        cmgOperation2 = TriggerServerEvent
+        text = "5891aba85f"
+        number5 = localValue3
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5891aba85f".
-        cmgCall2(textValue, numberValue5)
+        cmgOperation2(text, number5)
       end
-      arg6 = arg1
-      arg4(arg5, arg6)
-    elseif 772559902 == arg2 then
-      arg4 = textValue5
+      localValue6 = localValue1
+      localValue4(localValue5, localValue6)
+    elseif 772559902 == localValue2 then
+      localValue4 = text5
 
-      -- === HELPER FUNCTION: arg5() ===
-      function arg5()
-        local cmgCall2, textValue, numberValue5
-        cmgCall2 = TriggerServerEvent
-        textValue = "5891aba85f"
-        numberValue5 = arg3
+      -- === HELPER FUNCTION: localValue5() ===
+      function localValue5()
+        local cmgOperation2, text, number5
+        cmgOperation2 = TriggerServerEvent
+        text = "5891aba85f"
+        number5 = localValue3
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5891aba85f".
-        cmgCall2(textValue, numberValue5)
+        cmgOperation2(text, number5)
       end
-      arg6 = arg1
-      arg4(arg5, arg6)
+      localValue6 = localValue1
+      localValue4(localValue5, localValue6)
     end
   end
 end
-flag8 = false
+stateFlag8 = false
 -- Beginner: Register a chat/console command. Event/command: "lootclosestbag".
-cmgCall9(cmgCall10, textValue11, flag8)
-cmgCall9 = RegisterKeyMapping
-cmgCall10 = "lootclosestbag"
-textValue11 = "Loot Closest Bag"
-flag8 = "KEYBOARD"
-textValue12 = "CAPITAL"
+cmgOperation9(cmgOperation10, text11, stateFlag8)
+cmgOperation9 = RegisterKeyMapping
+cmgOperation10 = "lootclosestbag"
+text11 = "Loot Closest Bag"
+stateFlag8 = "KEYBOARD"
+text12 = "CAPITAL"
 -- Beginner: Bind a command to a keyboard/controller key.
-cmgCall9(cmgCall10, textValue11, flag8, textValue12)
-cmgCall9 = Citizen
-cmgCall9 = cmgCall9.CreateThread
+cmgOperation9(cmgOperation10, text11, stateFlag8, text12)
+cmgOperation9 = Citizen
+cmgOperation9 = cmgOperation9.CreateThread
 
--- === HELPER FUNCTION (decompiler name: cmgCall10; parameters: none) ===
-function cmgCall10()
-  local arg1, arg2, arg3
+-- === HELPER FUNCTION (decompiler name: cmgOperation10; parameters: none) ===
+function cmgOperation10()
+  local localValue1, localValue2, localValue3
   while true do
-    arg1 = false
-    arg2 = CMG
-    arg2 = arg2.isNewPlayer
-    arg2 = arg2()
-    if arg2 then
-      arg2 = cmgCall8
-      arg2 = arg2()
-      if 0 ~= arg2 then
-        arg2 = drawNativeNotification
-        arg3 = "Press ~INPUT_EEE09CC7~ to loot the lootbag."
+    localValue1 = false
+    localValue2 = CMG
+    localValue2 = localValue2.isNewPlayer
+    localValue2 = localValue2()
+    if localValue2 then
+      localValue2 = cmgOperation8
+      localValue2 = localValue2()
+      if 0 ~= localValue2 then
+        localValue2 = drawNativeNotification
+        localValue3 = "Press ~INPUT_EEE09CC7~ to loot the lootbag."
         -- Beginner: Show a GTA-style notification/help prompt.
-        arg2(arg3)
-        arg1 = true
+        localValue2(localValue3)
+        localValue1 = true
       end
     end
-    arg2 = Wait
-    if arg1 then
-      arg3 = 0
-      if arg3 then
-        goto flow_label_22
+    localValue2 = Wait
+    if localValue1 then
+      localValue3 = 0
+      if localValue3 then
+        goto continueAtStep22
       end
     end
-    arg3 = 2000
-    ::flow_label_22::
-    arg2(arg3)
+    localValue3 = 2000
+    ::continueAtStep22::
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall9(cmgCall10)
-cmgCall9 = false
-cmgCall10 = RegisterNetEvent
-textValue11 = "c09ac80094"
+cmgOperation9(cmgOperation10)
+cmgOperation9 = false
+cmgOperation10 = RegisterNetEvent
+text11 = "c09ac80094"
 -- Beginner: this function handles network event "c09ac80094".
 
--- === HELPER FUNCTION (decompiler name: flag8; parameters: none) ===
-function flag8()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8
-  arg1 = tCMG
-  arg1 = arg1.canAnim
-  arg1 = arg1()
-  if arg1 then
-    arg1 = cmgCall9
-    if not arg1 then
-      arg1 = true
-      cmgCall9 = arg1
-      arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: stateFlag8; parameters: none) ===
+function stateFlag8()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8
+  localValue1 = tCMG
+  localValue1 = localValue1.canAnim
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = cmgOperation9
+    if not localValue1 then
+      localValue1 = true
+      cmgOperation9 = localValue1
+      localValue1 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      arg2 = CMG
-      arg2 = arg2.loadModel
-      arg3 = 1047179740
+      localValue1 = localValue1()
+      localValue2 = CMG
+      localValue2 = localValue2.loadModel
+      localValue3 = 1047179740
       -- Beginner: Request/load a GTA model before spawning or applying it.
-      arg2(arg3)
-      arg2 = CMG
-      arg2 = arg2.getPlayerCoords
+      localValue2(localValue3)
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerCoords
       -- Beginner: result below is playerCoords.
-      arg2 = arg2()
-      arg3 = CMG
-      arg3 = arg3.requestEntitySpawn
-      arg4 = "hand_over_card_object"
-      arg3(arg4)
-      arg3 = CreateObject
-      arg4 = 1047179740
-      arg5 = arg2.x
-      arg6 = arg2.y
-      arg7 = arg2.z
-      dataTable13 = true
+      localValue2 = localValue2()
+      localValue3 = CMG
+      localValue3 = localValue3.requestEntitySpawn
+      localValue4 = "hand_over_card_object"
+      localValue3(localValue4)
+      localValue3 = CreateObject
+      localValue4 = 1047179740
+      localValue5 = localValue2.x
+      localValue6 = localValue2.y
+      localValue7 = localValue2.z
+      dataCollection13 = true
       health = false
-      workValue51 = false
+      workingValue51 = false
       -- Beginner: result below is objectEntity.
-      arg3 = arg3(arg4, arg5, arg6, arg7, dataTable13, health, workValue51)
-      arg4 = AttachEntityToEntity
-      arg5 = arg3
-      arg6 = arg1
-      arg7 = GetPedBoneIndex
-      dataTable13 = arg1
+      localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7, dataCollection13, health, workingValue51)
+      localValue4 = AttachEntityToEntity
+      localValue5 = localValue3
+      localValue6 = localValue1
+      localValue7 = GetPedBoneIndex
+      dataCollection13 = localValue1
       health = 57005
-      arg7 = arg7(dataTable13, health)
-      dataTable13 = 0.14
+      localValue7 = localValue7(dataCollection13, health)
+      dataCollection13 = 0.14
       health = 0.04
-      workValue51 = -0.02
-      dataTable = 208.0
+      workingValue51 = -0.02
+      dataCollection = 208.0
       tableHelper = 6.0
-      dataTable2 = 2.0
-      dataTable3 = false
-      dataTable4 = false
-      dataTable5 = false
-      dataTable6 = true
-      dataTable7 = 2
-      dataTable8 = true
+      dataCollection2 = 2.0
+      dataCollection3 = false
+      dataCollection4 = false
+      dataCollection5 = false
+      dataCollection6 = true
+      dataCollection7 = 2
+      dataCollection8 = true
       -- Beginner: Attach one entity to another entity.
-      arg4(arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8)
-      arg4 = SetModelAsNoLongerNeeded
-      arg5 = 1047179740
-      arg4(arg5)
-      arg4 = CMG
-      arg4 = arg4.loadAnimDict
-      arg5 = "mp_common"
+      localValue4(localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8)
+      localValue4 = SetModelAsNoLongerNeeded
+      localValue5 = 1047179740
+      localValue4(localValue5)
+      localValue4 = CMG
+      localValue4 = localValue4.loadAnimDict
+      localValue5 = "mp_common"
       -- Beginner: Load a GTA animation dictionary before using it.
-      arg4(arg5)
-      arg4 = TaskPlayAnim
-      arg5 = arg1
-      arg6 = "mp_common"
-      arg7 = "givetake1_a"
-      dataTable13 = 8.0
+      localValue4(localValue5)
+      localValue4 = TaskPlayAnim
+      localValue5 = localValue1
+      localValue6 = "mp_common"
+      localValue7 = "givetake1_a"
+      dataCollection13 = 8.0
       health = 8.0
-      workValue51 = -1
-      dataTable = 1
+      workingValue51 = -1
+      dataCollection = 1
       tableHelper = 0
-      dataTable2 = false
-      dataTable3 = false
-      dataTable4 = false
+      dataCollection2 = false
+      dataCollection3 = false
+      dataCollection4 = false
       -- Beginner: Play an animation on a ped.
-      arg4(arg5, arg6, arg7, dataTable13, health, workValue51, dataTable, tableHelper, dataTable2, dataTable3, dataTable4)
-      arg4 = RemoveAnimDict
-      arg5 = "mp_common"
-      arg4(arg5)
-      arg4 = Citizen
-      arg4 = arg4.Wait
-      arg5 = 2000
-      arg4(arg5)
-      arg4 = DeleteEntity
-      arg5 = arg3
+      localValue4(localValue5, localValue6, localValue7, dataCollection13, health, workingValue51, dataCollection, tableHelper, dataCollection2, dataCollection3, dataCollection4)
+      localValue4 = RemoveAnimDict
+      localValue5 = "mp_common"
+      localValue4(localValue5)
+      localValue4 = Citizen
+      localValue4 = localValue4.Wait
+      localValue5 = 2000
+      localValue4(localValue5)
+      localValue4 = DeleteEntity
+      localValue5 = localValue3
       -- Beginner: Delete a GTA entity.
-      arg4(arg5)
-      arg4 = StopAnimTask
-      arg5 = arg1
-      arg6 = "mp_common"
-      arg7 = "givetake1_a"
-      dataTable13 = 1.0
-      arg4(arg5, arg6, arg7, dataTable13)
-      arg4 = false
-      cmgCall9 = arg4
+      localValue4(localValue5)
+      localValue4 = StopAnimTask
+      localValue5 = localValue1
+      localValue6 = "mp_common"
+      localValue7 = "givetake1_a"
+      dataCollection13 = 1.0
+      localValue4(localValue5, localValue6, localValue7, dataCollection13)
+      localValue4 = false
+      cmgOperation9 = localValue4
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c09ac80094".
-cmgCall10(textValue11, flag8)
-cmgCall10 = CMG
+cmgOperation10(text11, stateFlag8)
+cmgOperation10 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg1, arg2) ===
-function textValue11(arg1, arg2)
-  local arg3, arg4, arg5
-  if arg1 and arg2 then
-    arg3 = #arg2
-    if 0 ~= arg3 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: text11; parameters: localValue1, localValue2) ===
+function text11(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  if localValue1 and localValue2 then
+    localValue3 = #localValue2
+    if 0 ~= localValue3 then
+      goto continueAtStep9
     end
   end
   return
-  ::flow_label_9::
-  arg3 = true
-  flag = arg3
-  arg3 = SetNuiFocus
-  arg4 = true
-  arg5 = true
+  ::continueAtStep9::
+  localValue3 = true
+  stateFlag = localValue3
+  localValue3 = SetNuiFocus
+  localValue4 = true
+  localValue5 = true
   -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
-  arg3(arg4, arg5)
-  arg3 = SendNUIMessage
-  arg4 = {}
-  arg4.openRadialMenu = true
-  arg4.type = "trapperPickup"
-  arg4.trapperPlantId = arg1
-  arg4.menuItems = arg2
+  localValue3(localValue4, localValue5)
+  localValue3 = SendNUIMessage
+  localValue4 = {}
+  localValue4.openRadialMenu = true
+  localValue4.type = "trapperPickup"
+  localValue4.trapperPlantId = localValue1
+  localValue4.menuItems = localValue2
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg3(arg4)
+  localValue3(localValue4)
 end
-cmgCall10.openTrapperPickupRadial = textValue11
-cmgCall10 = CMG
+cmgOperation10.openTrapperPickupRadial = text11
+cmgOperation10 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue11; parameters: none) ===
-function textValue11()
-  local arg1, arg2
-  arg1 = flag3
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text11; parameters: none) ===
+function text11()
+  local localValue1, localValue2
+  localValue1 = stateFlag3
+  return localValue1
 end
-cmgCall10.isOnRadioMenu = textValue11
-cmgCall10 = CMG
+cmgOperation10.isOnRadioMenu = text11
+cmgOperation10 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue11; parameters: none) ===
-function textValue11()
-  local arg1, arg2
-  arg1 = GetFrameCount
-  arg1 = arg1()
-  numberValue4 = arg1
+-- === HELPER FUNCTION (decompiler name: text11; parameters: none) ===
+function text11()
+  local localValue1, localValue2
+  localValue1 = GetFrameCount
+  localValue1 = localValue1()
+  number4 = localValue1
 end
-cmgCall10.setIgnoreRadialInputThisFrame = textValue11
+cmgOperation10.setIgnoreRadialInputThisFrame = text11

@@ -32,203 +32,203 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, cmgCall3, textValue3, dataTable, dataTable2, iterator, dataTable3, workValue16, workValue17, cmgCall6, cmgCall2, hashValue, numberValue, numberValue2, workValue5, workValue7, workValue9, workValue11, workValue13, numberValue3, eventRegistration, textValue, workValue14, cmgCall4, cmgCall5, textValue2, workValue15, flag6
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-cmgCall3 = "cfg/cfg_weaponsonback"
+local cmgOperation, cmgOperation3, text3, dataCollection, dataCollection2, iterator, dataCollection3, workingValue16, workingValue17, cmgOperation6, cmgOperation2, hashValue, number, number2, workingValue5, workingValue7, workingValue9, workingValue11, workingValue13, number3, eventHandler, text, workingValue14, cmgOperation4, cmgOperation5, text2, workingValue15, stateFlag6
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+cmgOperation3 = "cfg/cfg_weaponsonback"
 -- Beginner: result below is config.
-cmgCall = cmgCall(cmgCall3)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.loadModule
-textValue3 = "cfg/weapons"
+cmgOperation = cmgOperation(cmgOperation3)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.loadModule
+text3 = "cfg/weapons"
 -- Beginner: result below is config.
-cmgCall3 = cmgCall3(textValue3)
-textValue3 = "cmg_chain_on_back"
-dataTable = {}
-dataTable2 = {}
+cmgOperation3 = cmgOperation3(text3)
+text3 = "cmg_chain_on_back"
+dataCollection = {}
+dataCollection2 = {}
 iterator = ipairs
-dataTable3 = cmgCall.chainOnBackWeaponNames
-if not dataTable3 then
-  dataTable3 = {}
+dataCollection3 = cmgOperation.chainOnBackWeaponNames
+if not dataCollection3 then
+  dataCollection3 = {}
 end
-iterator, dataTable3, workValue16, workValue17 = iterator(dataTable3)
-for cmgCall6, cmgCall2 in iterator, dataTable3, workValue16, workValue17 do
+iterator, dataCollection3, workingValue16, workingValue17 = iterator(dataCollection3)
+for cmgOperation6, cmgOperation2 in iterator, dataCollection3, workingValue16, workingValue17 do
   hashValue = GetHashKey
-  numberValue = cmgCall2
+  number = cmgOperation2
   -- Beginner: result below is hash.
-  hashValue = hashValue(numberValue)
-  dataTable2[hashValue] = cmgCall2
+  hashValue = hashValue(number)
+  dataCollection2[hashValue] = cmgOperation2
 end
 
 -- === HELPER FUNCTION: iterator() ===
 function iterator()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
-  arg1 = {}
-  arg2 = pairs
-  arg3 = dataTable
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    dataTable4 = {}
-    workValue18 = arg7[1]
-    workValue19 = arg7[2]
-    workValue = arg7[3]
-    workValue2 = arg7[4]
-    workValue3 = arg7[5]
-    workValue4 = arg7[6]
-    dataTable4[1] = workValue18
-    dataTable4[2] = workValue19
-    dataTable4[3] = workValue
-    dataTable4[4] = workValue2
-    dataTable4[5] = workValue3
-    dataTable4[6] = workValue4
-    arg1[arg6] = dataTable4
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4
+  localValue1 = {}
+  localValue2 = pairs
+  localValue3 = dataCollection
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    dataCollection4 = {}
+    workingValue18 = localValue7[1]
+    workingValue19 = localValue7[2]
+    workingValue = localValue7[3]
+    workingValue2 = localValue7[4]
+    workingValue3 = localValue7[5]
+    workingValue4 = localValue7[6]
+    dataCollection4[1] = workingValue18
+    dataCollection4[2] = workingValue19
+    dataCollection4[3] = workingValue
+    dataCollection4[4] = workingValue2
+    dataCollection4[5] = workingValue3
+    dataCollection4[6] = workingValue4
+    localValue1[localValue6] = dataCollection4
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-function dataTable3()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = SetResourceKvp
-  arg2 = textValue3
-  arg3 = json
-  arg3 = arg3.encode
-  arg4 = dataTable
-  arg3, arg4, arg5 = arg3(arg4)
-  arg1(arg2, arg3, arg4, arg5)
-  arg1 = LocalPlayer
-  if arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    if arg1 then
-      arg1 = LocalPlayer
-      arg1 = arg1.state
-      arg2 = arg1
-      arg1 = arg1.set
-      arg3 = "chainOnBack"
-      arg4 = iterator
-      arg4 = arg4()
-      arg5 = true
-      arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+function dataCollection3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = SetResourceKvp
+  localValue2 = text3
+  localValue3 = json
+  localValue3 = localValue3.encode
+  localValue4 = dataCollection
+  localValue3, localValue4, localValue5 = localValue3(localValue4)
+  localValue1(localValue2, localValue3, localValue4, localValue5)
+  localValue1 = LocalPlayer
+  if localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    if localValue1 then
+      localValue1 = LocalPlayer
+      localValue1 = localValue1.state
+      localValue2 = localValue1
+      localValue1 = localValue1.set
+      localValue3 = "chainOnBack"
+      localValue4 = iterator
+      localValue4 = localValue4()
+      localValue5 = true
+      localValue1(localValue2, localValue3, localValue4, localValue5)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: none) ===
-function workValue16()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12
-  arg1 = {}
-  dataTable = arg1
-  arg1 = GetResourceKvpString
-  arg2 = textValue3
-  arg1 = arg1(arg2)
-  if not arg1 or "" == arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: none) ===
+function workingValue16()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12
+  localValue1 = {}
+  dataCollection = localValue1
+  localValue1 = GetResourceKvpString
+  localValue2 = text3
+  localValue1 = localValue1(localValue2)
+  if not localValue1 or "" == localValue1 then
     return
   end
-  arg2 = pcall
-  arg3 = json
-  arg3 = arg3.decode
-  arg4 = arg1
-  arg2, arg3 = arg2(arg3, arg4)
-  if arg2 then
-    arg4 = type
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if "table" == arg4 then
-      goto flow_label_25
+  localValue2 = pcall
+  localValue3 = json
+  localValue3 = localValue3.decode
+  localValue4 = localValue1
+  localValue2, localValue3 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue4 = type
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if "table" == localValue4 then
+      goto continueAtStep25
     end
   end
   return
-  ::flow_label_25::
-  arg4 = pairs
-  arg5 = arg3
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for dataTable4, workValue18 in arg4, arg5, arg6, arg7 do
-    workValue19 = type
-    workValue = dataTable4
-    workValue19 = workValue19(workValue)
-    if "string" == workValue19 then
-      workValue19 = type
-      workValue = workValue18
-      workValue19 = workValue19(workValue)
-      if "table" == workValue19 then
-        workValue19 = workValue18[1]
-        if workValue19 then
-          workValue19 = workValue18[2]
-          if workValue19 then
-            workValue19 = workValue18[3]
-            if workValue19 then
-              workValue19 = workValue18[4]
-              if workValue19 then
-                workValue19 = workValue18[5]
-                if workValue19 then
-                  workValue19 = workValue18[6]
-                  if workValue19 then
-                    workValue19 = dataTable
-                    workValue = {}
-                    workValue2 = tonumber
-                    workValue3 = workValue18[1]
-                    workValue2 = workValue2(workValue3)
-                    if not workValue2 then
-                      workValue2 = 0.0
+  ::continueAtStep25::
+  localValue4 = pairs
+  localValue5 = localValue3
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for dataCollection4, workingValue18 in localValue4, localValue5, localValue6, localValue7 do
+    workingValue19 = type
+    workingValue = dataCollection4
+    workingValue19 = workingValue19(workingValue)
+    if "string" == workingValue19 then
+      workingValue19 = type
+      workingValue = workingValue18
+      workingValue19 = workingValue19(workingValue)
+      if "table" == workingValue19 then
+        workingValue19 = workingValue18[1]
+        if workingValue19 then
+          workingValue19 = workingValue18[2]
+          if workingValue19 then
+            workingValue19 = workingValue18[3]
+            if workingValue19 then
+              workingValue19 = workingValue18[4]
+              if workingValue19 then
+                workingValue19 = workingValue18[5]
+                if workingValue19 then
+                  workingValue19 = workingValue18[6]
+                  if workingValue19 then
+                    workingValue19 = dataCollection
+                    workingValue = {}
+                    workingValue2 = tonumber
+                    workingValue3 = workingValue18[1]
+                    workingValue2 = workingValue2(workingValue3)
+                    if not workingValue2 then
+                      workingValue2 = 0.0
                     end
-                    workValue3 = tonumber
-                    workValue4 = workValue18[2]
-                    workValue3 = workValue3(workValue4)
-                    if not workValue3 then
-                      workValue3 = 0.0
+                    workingValue3 = tonumber
+                    workingValue4 = workingValue18[2]
+                    workingValue3 = workingValue3(workingValue4)
+                    if not workingValue3 then
+                      workingValue3 = 0.0
                     end
-                    workValue4 = tonumber
-                    workValue6 = workValue18[3]
-                    workValue4 = workValue4(workValue6)
-                    if not workValue4 then
-                      workValue4 = 0.0
+                    workingValue4 = tonumber
+                    workingValue6 = workingValue18[3]
+                    workingValue4 = workingValue4(workingValue6)
+                    if not workingValue4 then
+                      workingValue4 = 0.0
                     end
-                    workValue6 = tonumber
-                    workValue8 = workValue18[4]
-                    workValue6 = workValue6(workValue8)
-                    if not workValue6 then
-                      workValue6 = 0.0
+                    workingValue6 = tonumber
+                    workingValue8 = workingValue18[4]
+                    workingValue6 = workingValue6(workingValue8)
+                    if not workingValue6 then
+                      workingValue6 = 0.0
                     end
-                    workValue8 = tonumber
-                    workValue10 = workValue18[5]
-                    workValue8 = workValue8(workValue10)
-                    if not workValue8 then
-                      workValue8 = 0.0
+                    workingValue8 = tonumber
+                    workingValue10 = workingValue18[5]
+                    workingValue8 = workingValue8(workingValue10)
+                    if not workingValue8 then
+                      workingValue8 = 0.0
                     end
-                    workValue10 = tonumber
-                    workValue12 = workValue18[6]
-                    workValue10 = workValue10(workValue12)
-                    if not workValue10 then
-                      workValue10 = 0.0
+                    workingValue10 = tonumber
+                    workingValue12 = workingValue18[6]
+                    workingValue10 = workingValue10(workingValue12)
+                    if not workingValue10 then
+                      workingValue10 = 0.0
                     end
-                    workValue[1] = workValue2
-                    workValue[2] = workValue3
-                    workValue[3] = workValue4
-                    workValue[4] = workValue6
-                    workValue[5] = workValue8
-                    workValue[6] = workValue10
-                    workValue19[dataTable4] = workValue
+                    workingValue[1] = workingValue2
+                    workingValue[2] = workingValue3
+                    workingValue[3] = workingValue4
+                    workingValue[4] = workingValue6
+                    workingValue[5] = workingValue8
+                    workingValue[6] = workingValue10
+                    workingValue19[dataCollection4] = workingValue
                   end
                 end
               end
@@ -240,296 +240,296 @@ function workValue16()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
-function workValue17()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = LocalPlayer
-  if arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    if arg1 then
-      arg1 = LocalPlayer
-      arg1 = arg1.state
-      arg2 = arg1
-      arg1 = arg1.set
-      arg3 = "chainOnBack"
-      arg4 = iterator
-      arg4 = arg4()
-      arg5 = true
-      arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue17; parameters: none) ===
+function workingValue17()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = LocalPlayer
+  if localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    if localValue1 then
+      localValue1 = LocalPlayer
+      localValue1 = localValue1.state
+      localValue2 = localValue1
+      localValue1 = localValue1.set
+      localValue3 = "chainOnBack"
+      localValue4 = iterator
+      localValue4 = localValue4()
+      localValue5 = true
+      localValue1(localValue2, localValue3, localValue4, localValue5)
     end
   end
 end
-cmgCall6 = CMG
+cmgOperation6 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4
-  arg2 = GetHashKey
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4
+  localValue2 = GetHashKey
+  localValue3 = localValue1
   -- Beginner: result below is hash.
-  arg2 = arg2(arg3)
-  arg3 = cmgCall.weapons
-  arg3 = arg3[arg2]
-  if not arg3 then
-    arg4 = vector3
-    arg5 = 0.0
-    arg6 = 0.0
-    arg7 = 0.0
-    arg4 = arg4(arg5, arg6, arg7)
-    arg5 = vector3
-    arg6 = 0.0
-    arg7 = 0.0
-    dataTable4 = 0.0
-    arg5, arg6, arg7, dataTable4 = arg5(arg6, arg7, dataTable4)
-    return arg4, arg5, arg6, arg7, dataTable4
+  localValue2 = localValue2(localValue3)
+  localValue3 = cmgOperation.weapons
+  localValue3 = localValue3[localValue2]
+  if not localValue3 then
+    localValue4 = vector3
+    localValue5 = 0.0
+    localValue6 = 0.0
+    localValue7 = 0.0
+    localValue4 = localValue4(localValue5, localValue6, localValue7)
+    localValue5 = vector3
+    localValue6 = 0.0
+    localValue7 = 0.0
+    dataCollection4 = 0.0
+    localValue5, localValue6, localValue7, dataCollection4 = localValue5(localValue6, localValue7, dataCollection4)
+    return localValue4, localValue5, localValue6, localValue7, dataCollection4
   end
-  arg4 = arg3.offset
-  arg5 = arg3.rotation
-  return arg4, arg5
+  localValue4 = localValue3.offset
+  localValue5 = localValue3.rotation
+  return localValue4, localValue5
 end
-cmgCall6.getChainOnBackCfgTransform = cmgCall2
-cmgCall6 = CMG
+cmgOperation6.getChainOnBackCfgTransform = cmgOperation2
+cmgOperation6 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19
-  arg2 = CMG
-  arg2 = arg2.getChainOnBackCfgTransform
-  arg3 = arg1
-  arg2, arg3 = arg2(arg3)
-  arg4 = dataTable
-  arg4 = arg4[arg1]
-  if arg4 then
-    arg5 = arg4[1]
-    arg6 = arg4[2]
-    arg7 = arg4[3]
-    dataTable4 = arg4[4]
-    workValue18 = arg4[5]
-    workValue19 = arg4[6]
-    return arg5, arg6, arg7, dataTable4, workValue18, workValue19
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19
+  localValue2 = CMG
+  localValue2 = localValue2.getChainOnBackCfgTransform
+  localValue3 = localValue1
+  localValue2, localValue3 = localValue2(localValue3)
+  localValue4 = dataCollection
+  localValue4 = localValue4[localValue1]
+  if localValue4 then
+    localValue5 = localValue4[1]
+    localValue6 = localValue4[2]
+    localValue7 = localValue4[3]
+    dataCollection4 = localValue4[4]
+    workingValue18 = localValue4[5]
+    workingValue19 = localValue4[6]
+    return localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19
   end
-  arg5 = arg2.x
-  arg6 = arg2.y
-  arg7 = arg2.z
-  dataTable4 = arg3.x
-  workValue18 = arg3.y
-  workValue19 = arg3.z
-  return arg5, arg6, arg7, dataTable4, workValue18, workValue19
+  localValue5 = localValue2.x
+  localValue6 = localValue2.y
+  localValue7 = localValue2.z
+  dataCollection4 = localValue3.x
+  workingValue18 = localValue3.y
+  workingValue19 = localValue3.z
+  return localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19
 end
-cmgCall6.getChainOnBackEffectiveNumbers = cmgCall2
-cmgCall6 = Citizen
-cmgCall6 = cmgCall6.CreateThread
+cmgOperation6.getChainOnBackEffectiveNumbers = cmgOperation2
+cmgOperation6 = Citizen
+cmgOperation6 = cmgOperation6.CreateThread
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2
-  arg1 = workValue16
-  arg1()
-  arg1 = Citizen
-  arg1 = arg1.Wait
-  arg2 = 1000
-  arg1(arg2)
-  arg1 = workValue17
-  arg1()
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2
+  localValue1 = workingValue16
+  localValue1()
+  localValue1 = Citizen
+  localValue1 = localValue1.Wait
+  localValue2 = 1000
+  localValue1(localValue2)
+  localValue1 = workingValue17
+  localValue1()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall6(cmgCall2)
-cmgCall6 = AddEventHandler
-cmgCall2 = "CMG:onClientSpawn"
+cmgOperation6(cmgOperation2)
+cmgOperation6 = AddEventHandler
+cmgOperation2 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
 -- === HELPER FUNCTION: hashValue() ===
 function hashValue()
-  local arg1, arg2
-  arg1 = workValue16
-  arg1()
-  arg1 = workValue17
-  arg1()
+  local localValue1, localValue2
+  localValue1 = workingValue16
+  localValue1()
+  localValue1 = workingValue17
+  localValue1()
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-cmgCall6(cmgCall2, hashValue)
-cmgCall6 = {}
-cmgCall6.enabled = false
-cmgCall6.hash = 313219588
-cmgCall6.bone = 39317
-cmgCall2 = vector3
+cmgOperation6(cmgOperation2, hashValue)
+cmgOperation6 = {}
+cmgOperation6.enabled = false
+cmgOperation6.hash = 313219588
+cmgOperation6.bone = 39317
+cmgOperation2 = vector3
 hashValue = 0.02
-numberValue = 0.09
-numberValue2 = 0.01
-cmgCall2 = cmgCall2(hashValue, numberValue, numberValue2)
-cmgCall6.offset = cmgCall2
-cmgCall2 = vector3
+number = 0.09
+number2 = 0.01
+cmgOperation2 = cmgOperation2(hashValue, number, number2)
+cmgOperation6.offset = cmgOperation2
+cmgOperation2 = vector3
 hashValue = 90.0
-numberValue = 0.0
-numberValue2 = 0.0
-cmgCall2 = cmgCall2(hashValue, numberValue, numberValue2)
-cmgCall6.rotation = cmgCall2
-cmgCall2 = Citizen
-cmgCall2 = cmgCall2.CreateThread
+number = 0.0
+number2 = 0.0
+cmgOperation2 = cmgOperation2(hashValue, number, number2)
+cmgOperation6.rotation = cmgOperation2
+cmgOperation2 = Citizen
+cmgOperation2 = cmgOperation2.CreateThread
 
 -- === HELPER FUNCTION: hashValue() ===
 function hashValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
-  arg1 = pairs
-  arg2 = cmgCall3.weapons
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = cmgCall.weapons
-    dataTable4 = arg6.hash
-    arg7 = arg7[dataTable4]
-    if not arg7 then
-      arg7 = nil
-      dataTable4 = arg6.mag
-      if dataTable4 then
-        dataTable4 = GetHashKey
-        workValue18 = arg6.mag
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4
+  localValue1 = pairs
+  localValue2 = cmgOperation3.weapons
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = cmgOperation.weapons
+    dataCollection4 = localValue6.hash
+    localValue7 = localValue7[dataCollection4]
+    if not localValue7 then
+      localValue7 = nil
+      dataCollection4 = localValue6.mag
+      if dataCollection4 then
+        dataCollection4 = GetHashKey
+        workingValue18 = localValue6.mag
         -- Beginner: result below is hash.
-        dataTable4 = dataTable4(workValue18)
-        arg7 = dataTable4
+        dataCollection4 = dataCollection4(workingValue18)
+        localValue7 = dataCollection4
       end
-      dataTable4 = arg6.dontShowOnBack
-      if not dataTable4 then
-        dataTable4 = arg6.class
-        if "SMG" == dataTable4 then
-          dataTable4 = cmgCall.weapons
-          workValue18 = arg6.hash
-          workValue19 = {}
-          workValue19.bone = 58271
-          workValue = vector3
-          workValue2 = -0.01
-          workValue3 = 0.1
-          workValue4 = -0.07
-          workValue = workValue(workValue2, workValue3, workValue4)
-          workValue19.offset = workValue
-          workValue = vector3
-          workValue2 = -55.0
-          workValue3 = 0.1
-          workValue4 = 0.0
-          workValue = workValue(workValue2, workValue3, workValue4)
-          workValue19.rotation = workValue
-          workValue = GetHashKey
-          workValue2 = arg6.model
+      dataCollection4 = localValue6.dontShowOnBack
+      if not dataCollection4 then
+        dataCollection4 = localValue6.class
+        if "SMG" == dataCollection4 then
+          dataCollection4 = cmgOperation.weapons
+          workingValue18 = localValue6.hash
+          workingValue19 = {}
+          workingValue19.bone = 58271
+          workingValue = vector3
+          workingValue2 = -0.01
+          workingValue3 = 0.1
+          workingValue4 = -0.07
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          workingValue19.offset = workingValue
+          workingValue = vector3
+          workingValue2 = -55.0
+          workingValue3 = 0.1
+          workingValue4 = 0.0
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          workingValue19.rotation = workingValue
+          workingValue = GetHashKey
+          workingValue2 = localValue6.model
           -- Beginner: result below is hash.
-          workValue = workValue(workValue2)
-          workValue19.model = workValue
-          workValue19.type = "SMG"
-          workValue19.magComponent = arg7
-          dataTable4[workValue18] = workValue19
+          workingValue = workingValue(workingValue2)
+          workingValue19.model = workingValue
+          workingValue19.type = "SMG"
+          workingValue19.magComponent = localValue7
+          dataCollection4[workingValue18] = workingValue19
         else
-          dataTable4 = arg6.class
-          if "AR" == dataTable4 then
-            dataTable4 = cmgCall.weapons
-            workValue18 = arg6.hash
-            workValue19 = {}
-            workValue19.bone = 24818
-            workValue = vector3
-            workValue2 = -0.12
-            workValue3 = -0.12
-            workValue4 = -0.13
-            workValue = workValue(workValue2, workValue3, workValue4)
-            workValue19.offset = workValue
-            workValue = vector3
-            workValue2 = 100.0
-            workValue3 = -3.0
-            workValue4 = 5.0
-            workValue = workValue(workValue2, workValue3, workValue4)
-            workValue19.rotation = workValue
-            workValue = GetHashKey
-            workValue2 = arg6.model
+          dataCollection4 = localValue6.class
+          if "AR" == dataCollection4 then
+            dataCollection4 = cmgOperation.weapons
+            workingValue18 = localValue6.hash
+            workingValue19 = {}
+            workingValue19.bone = 24818
+            workingValue = vector3
+            workingValue2 = -0.12
+            workingValue3 = -0.12
+            workingValue4 = -0.13
+            workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+            workingValue19.offset = workingValue
+            workingValue = vector3
+            workingValue2 = 100.0
+            workingValue3 = -3.0
+            workingValue4 = 5.0
+            workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+            workingValue19.rotation = workingValue
+            workingValue = GetHashKey
+            workingValue2 = localValue6.model
             -- Beginner: result below is hash.
-            workValue = workValue(workValue2)
-            workValue19.model = workValue
-            workValue19.type = "AR"
-            workValue19.magComponent = arg7
-            dataTable4[workValue18] = workValue19
+            workingValue = workingValue(workingValue2)
+            workingValue19.model = workingValue
+            workingValue19.type = "AR"
+            workingValue19.magComponent = localValue7
+            dataCollection4[workingValue18] = workingValue19
           else
-            dataTable4 = arg6.class
-            if "Heavy" == dataTable4 then
-              dataTable4 = cmgCall.weapons
-              workValue18 = arg6.hash
-              workValue19 = {}
-              workValue19.bone = 24818
-              workValue = vector3
-              workValue2 = -0.12
-              workValue3 = -0.12
-              workValue4 = -0.13
-              workValue = workValue(workValue2, workValue3, workValue4)
-              workValue19.offset = workValue
-              workValue = vector3
-              workValue2 = 100.0
-              workValue3 = -3.0
-              workValue4 = 5.0
-              workValue = workValue(workValue2, workValue3, workValue4)
-              workValue19.rotation = workValue
-              workValue = GetHashKey
-              workValue2 = arg6.model
+            dataCollection4 = localValue6.class
+            if "Heavy" == dataCollection4 then
+              dataCollection4 = cmgOperation.weapons
+              workingValue18 = localValue6.hash
+              workingValue19 = {}
+              workingValue19.bone = 24818
+              workingValue = vector3
+              workingValue2 = -0.12
+              workingValue3 = -0.12
+              workingValue4 = -0.13
+              workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+              workingValue19.offset = workingValue
+              workingValue = vector3
+              workingValue2 = 100.0
+              workingValue3 = -3.0
+              workingValue4 = 5.0
+              workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+              workingValue19.rotation = workingValue
+              workingValue = GetHashKey
+              workingValue2 = localValue6.model
               -- Beginner: result below is hash.
-              workValue = workValue(workValue2)
-              workValue19.model = workValue
-              workValue19.type = "Heavy"
-              workValue19.magComponent = arg7
-              dataTable4[workValue18] = workValue19
+              workingValue = workingValue(workingValue2)
+              workingValue19.model = workingValue
+              workingValue19.type = "Heavy"
+              workingValue19.magComponent = localValue7
+              dataCollection4[workingValue18] = workingValue19
             else
-              dataTable4 = arg6.class
-              if "Melee" == dataTable4 then
-                dataTable4 = arg6.subType
-                if "knuckle" ~= dataTable4 then
-                  dataTable4 = arg6.subType
-                  if "stungun" ~= dataTable4 then
-                    dataTable4 = cmgCall.weapons
-                    workValue18 = arg6.hash
-                    workValue19 = {}
-                    workValue19.bone = 24818
-                    workValue = vector3
-                    workValue2 = 0.32
-                    workValue3 = -0.15
-                    workValue4 = 0.13
-                    workValue = workValue(workValue2, workValue3, workValue4)
-                    workValue19.offset = workValue
-                    workValue = vector3
-                    workValue2 = 0.0
-                    workValue3 = -90.0
-                    workValue4 = 0.0
-                    workValue = workValue(workValue2, workValue3, workValue4)
-                    workValue19.rotation = workValue
-                    workValue = GetHashKey
-                    workValue2 = arg6.model
+              dataCollection4 = localValue6.class
+              if "Melee" == dataCollection4 then
+                dataCollection4 = localValue6.subType
+                if "knuckle" ~= dataCollection4 then
+                  dataCollection4 = localValue6.subType
+                  if "stungun" ~= dataCollection4 then
+                    dataCollection4 = cmgOperation.weapons
+                    workingValue18 = localValue6.hash
+                    workingValue19 = {}
+                    workingValue19.bone = 24818
+                    workingValue = vector3
+                    workingValue2 = 0.32
+                    workingValue3 = -0.15
+                    workingValue4 = 0.13
+                    workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+                    workingValue19.offset = workingValue
+                    workingValue = vector3
+                    workingValue2 = 0.0
+                    workingValue3 = -90.0
+                    workingValue4 = 0.0
+                    workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+                    workingValue19.rotation = workingValue
+                    workingValue = GetHashKey
+                    workingValue2 = localValue6.model
                     -- Beginner: result below is hash.
-                    workValue = workValue(workValue2)
-                    workValue19.model = workValue
-                    workValue19.type = "Melee"
-                    workValue19.magComponent = arg7
-                    dataTable4[workValue18] = workValue19
+                    workingValue = workingValue(workingValue2)
+                    workingValue19.model = workingValue
+                    workingValue19.type = "Melee"
+                    workingValue19.magComponent = localValue7
+                    dataCollection4[workingValue18] = workingValue19
                 end
               end
               else
-                dataTable4 = arg6.class
-                if "Shotgun" == dataTable4 then
-                  dataTable4 = cmgCall.weapons
-                  workValue18 = arg6.hash
-                  workValue19 = {}
-                  workValue19.bone = 24818
-                  workValue = vector3
-                  workValue2 = -0.12
-                  workValue3 = -0.12
-                  workValue4 = -0.13
-                  workValue = workValue(workValue2, workValue3, workValue4)
-                  workValue19.offset = workValue
-                  workValue = vector3
-                  workValue2 = 100.0
-                  workValue3 = -3.0
-                  workValue4 = 5.0
-                  workValue = workValue(workValue2, workValue3, workValue4)
-                  workValue19.rotation = workValue
-                  workValue = GetHashKey
-                  workValue2 = arg6.model
+                dataCollection4 = localValue6.class
+                if "Shotgun" == dataCollection4 then
+                  dataCollection4 = cmgOperation.weapons
+                  workingValue18 = localValue6.hash
+                  workingValue19 = {}
+                  workingValue19.bone = 24818
+                  workingValue = vector3
+                  workingValue2 = -0.12
+                  workingValue3 = -0.12
+                  workingValue4 = -0.13
+                  workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+                  workingValue19.offset = workingValue
+                  workingValue = vector3
+                  workingValue2 = 100.0
+                  workingValue3 = -3.0
+                  workingValue4 = 5.0
+                  workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+                  workingValue19.rotation = workingValue
+                  workingValue = GetHashKey
+                  workingValue2 = localValue6.model
                   -- Beginner: result below is hash.
-                  workValue = workValue(workValue2)
-                  workValue19.model = workValue
-                  workValue19.type = "Shotgun"
-                  workValue19.magComponent = arg7
-                  dataTable4[workValue18] = workValue19
+                  workingValue = workingValue(workingValue2)
+                  workingValue19.model = workingValue
+                  workingValue19.type = "Shotgun"
+                  workingValue19.magComponent = localValue7
+                  dataCollection4[workingValue18] = workingValue19
                 end
               end
             end
@@ -540,1561 +540,1561 @@ function hashValue()
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall2(hashValue)
-cmgCall2 = AddEventHandler
+cmgOperation2(hashValue)
+cmgOperation2 = AddEventHandler
 hashValue = "2d7bd9be41"
 -- Beginner: this function runs when client event "2d7bd9be41" fires.
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-function numberValue()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = LocalPlayer
-  arg1 = arg1.state
-  arg1 = arg1.weaponsDiagonal
-  if not arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    arg2 = arg1
-    arg1 = arg1.set
-    arg3 = "weaponsDiagonal"
-    arg4 = true
-    arg5 = true
-    arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+function number()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = LocalPlayer
+  localValue1 = localValue1.state
+  localValue1 = localValue1.weaponsDiagonal
+  if not localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    localValue2 = localValue1
+    localValue1 = localValue1.set
+    localValue3 = "weaponsDiagonal"
+    localValue4 = true
+    localValue5 = true
+    localValue1(localValue2, localValue3, localValue4, localValue5)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "2d7bd9be41".
-cmgCall2(hashValue, numberValue)
-cmgCall2 = AddEventHandler
+cmgOperation2(hashValue, number)
+cmgOperation2 = AddEventHandler
 hashValue = "311dece672"
 -- Beginner: this function runs when client event "311dece672" fires.
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-function numberValue()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = LocalPlayer
-  arg1 = arg1.state
-  arg1 = arg1.weaponsDiagonal
-  if arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    arg2 = arg1
-    arg1 = arg1.set
-    arg3 = "weaponsDiagonal"
-    arg4 = nil
-    arg5 = true
-    arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+function number()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = LocalPlayer
+  localValue1 = localValue1.state
+  localValue1 = localValue1.weaponsDiagonal
+  if localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    localValue2 = localValue1
+    localValue1 = localValue1.set
+    localValue3 = "weaponsDiagonal"
+    localValue4 = nil
+    localValue5 = true
+    localValue1(localValue2, localValue3, localValue4, localValue5)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "311dece672".
-cmgCall2(hashValue, numberValue)
-cmgCall2 = AddEventHandler
+cmgOperation2(hashValue, number)
+cmgOperation2 = AddEventHandler
 hashValue = "c4b3821d33"
 -- Beginner: this function runs when client event "c4b3821d33" fires.
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-function numberValue()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = LocalPlayer
-  arg1 = arg1.state
-  arg1 = arg1.frontAR
-  if not arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    arg2 = arg1
-    arg1 = arg1.set
-    arg3 = "frontAR"
-    arg4 = true
-    arg5 = true
-    arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+function number()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = LocalPlayer
+  localValue1 = localValue1.state
+  localValue1 = localValue1.frontAR
+  if not localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    localValue2 = localValue1
+    localValue1 = localValue1.set
+    localValue3 = "frontAR"
+    localValue4 = true
+    localValue5 = true
+    localValue1(localValue2, localValue3, localValue4, localValue5)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "c4b3821d33".
-cmgCall2(hashValue, numberValue)
-cmgCall2 = AddEventHandler
+cmgOperation2(hashValue, number)
+cmgOperation2 = AddEventHandler
 hashValue = "45968dd649"
 -- Beginner: this function runs when client event "45968dd649" fires.
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-function numberValue()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = LocalPlayer
-  arg1 = arg1.state
-  arg1 = arg1.frontAR
-  if arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    arg2 = arg1
-    arg1 = arg1.set
-    arg3 = "frontAR"
-    arg4 = nil
-    arg5 = true
-    arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+function number()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = LocalPlayer
+  localValue1 = localValue1.state
+  localValue1 = localValue1.frontAR
+  if localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    localValue2 = localValue1
+    localValue1 = localValue1.set
+    localValue3 = "frontAR"
+    localValue4 = nil
+    localValue5 = true
+    localValue1(localValue2, localValue3, localValue4, localValue5)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "45968dd649".
-cmgCall2(hashValue, numberValue)
-cmgCall2 = AddEventHandler
+cmgOperation2(hashValue, number)
+cmgOperation2 = AddEventHandler
 hashValue = "b6b9f5a6b2"
 -- Beginner: this function runs when client event "b6b9f5a6b2" fires.
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-function numberValue()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = LocalPlayer
-  arg1 = arg1.state
-  arg1 = arg1.frontSMG
-  if not arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    arg2 = arg1
-    arg1 = arg1.set
-    arg3 = "frontSMG"
-    arg4 = true
-    arg5 = true
-    arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+function number()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = LocalPlayer
+  localValue1 = localValue1.state
+  localValue1 = localValue1.frontSMG
+  if not localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    localValue2 = localValue1
+    localValue1 = localValue1.set
+    localValue3 = "frontSMG"
+    localValue4 = true
+    localValue5 = true
+    localValue1(localValue2, localValue3, localValue4, localValue5)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "b6b9f5a6b2".
-cmgCall2(hashValue, numberValue)
-cmgCall2 = AddEventHandler
+cmgOperation2(hashValue, number)
+cmgOperation2 = AddEventHandler
 hashValue = "21f52e326d"
 -- Beginner: this function runs when client event "21f52e326d" fires.
 
--- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-function numberValue()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = LocalPlayer
-  arg1 = arg1.state
-  arg1 = arg1.frontSMG
-  if arg1 then
-    arg1 = LocalPlayer
-    arg1 = arg1.state
-    arg2 = arg1
-    arg1 = arg1.set
-    arg3 = "frontSMG"
-    arg4 = nil
-    arg5 = true
-    arg1(arg2, arg3, arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+function number()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = LocalPlayer
+  localValue1 = localValue1.state
+  localValue1 = localValue1.frontSMG
+  if localValue1 then
+    localValue1 = LocalPlayer
+    localValue1 = localValue1.state
+    localValue2 = localValue1
+    localValue1 = localValue1.set
+    localValue3 = "frontSMG"
+    localValue4 = nil
+    localValue5 = true
+    localValue1(localValue2, localValue3, localValue4, localValue5)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "21f52e326d".
-cmgCall2(hashValue, numberValue)
-cmgCall2 = {}
+cmgOperation2(hashValue, number)
+cmgOperation2 = {}
 hashValue = {}
-numberValue = {}
-numberValue2 = 0
+number = {}
+number2 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3
-  arg1 = GetSelectedPedWeapon
-  arg2 = PlayerPedId
-  arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3 = arg2()
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3
+  localValue1 = GetSelectedPedWeapon
+  localValue2 = PlayerPedId
+  localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3 = localValue2()
   -- Beginner: result below is weaponHash.
-  arg1 = arg1(arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3)
-  arg2 = CMG
-  arg2 = arg2.getCachedWeaponStore
-  arg2 = arg2()
-  arg3 = false
-  arg4 = CMG
-  arg4 = arg4.hasClientPermission
-  arg5 = "police.onduty.permission"
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg4 = CMG
-    arg4 = arg4.getPlayerVehicle
+  localValue1 = localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3)
+  localValue2 = CMG
+  localValue2 = localValue2.getCachedWeaponStore
+  localValue2 = localValue2()
+  localValue3 = false
+  localValue4 = CMG
+  localValue4 = localValue4.hasClientPermission
+  localValue5 = "police.onduty.permission"
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue4 = CMG
+    localValue4 = localValue4.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg4 = arg4()
-    arg4 = 0 ~= arg4
+    localValue4 = localValue4()
+    localValue4 = 0 ~= localValue4
   end
-  arg5 = pairs
-  arg6 = arg2
-  arg5, arg6, arg7, dataTable4 = arg5(arg6)
-  for workValue18 in arg5, arg6, arg7, dataTable4 do
-    workValue19 = GetHashKey
-    workValue = workValue18
+  localValue5 = pairs
+  localValue6 = localValue2
+  localValue5, localValue6, localValue7, dataCollection4 = localValue5(localValue6)
+  for workingValue18 in localValue5, localValue6, localValue7, dataCollection4 do
+    workingValue19 = GetHashKey
+    workingValue = workingValue18
     -- Beginner: result below is hash.
-    workValue19 = workValue19(workValue)
-    workValue = cmgCall.weapons
-    workValue = workValue[workValue19]
-    if workValue then
-      if arg4 then
-        workValue2 = workValue.type
+    workingValue19 = workingValue19(workingValue)
+    workingValue = cmgOperation.weapons
+    workingValue = workingValue[workingValue19]
+    if workingValue then
+      if localValue4 then
+        workingValue2 = workingValue.type
       end
-      workValue2 = CMG
-      workValue2 = workValue2.isEmergencyService
-      workValue2 = workValue2()
-      if not workValue2 then
-        workValue2 = tCMG
-        workValue2 = workValue2.isInGreenzone
-        workValue3 = false
-        workValue2 = workValue2(workValue3)
-        workValue2 = "Heavy" ~= workValue2 and workValue2
+      workingValue2 = CMG
+      workingValue2 = workingValue2.isEmergencyService
+      workingValue2 = workingValue2()
+      if not workingValue2 then
+        workingValue2 = tCMG
+        workingValue2 = workingValue2.isInGreenzone
+        workingValue3 = false
+        workingValue2 = workingValue2(workingValue3)
+        workingValue2 = "Heavy" ~= workingValue2 and workingValue2
       end
-      workValue3 = cmgCall2
-      workValue3 = workValue3[workValue19]
-      if workValue3 and not workValue2 then
-        workValue3 = cmgCall2
-        workValue3[workValue19] = nil
-        arg3 = true
+      workingValue3 = cmgOperation2
+      workingValue3 = workingValue3[workingValue19]
+      if workingValue3 and not workingValue2 then
+        workingValue3 = cmgOperation2
+        workingValue3[workingValue19] = nil
+        localValue3 = true
       else
-        workValue3 = cmgCall2
-        workValue3 = workValue3[workValue19]
-        if not workValue3 and workValue19 ~= arg1 and workValue2 then
-          workValue3 = cmgCall2
-          workValue3[workValue19] = workValue18
-          arg3 = true
+        workingValue3 = cmgOperation2
+        workingValue3 = workingValue3[workingValue19]
+        if not workingValue3 and workingValue19 ~= localValue1 and workingValue2 then
+          workingValue3 = cmgOperation2
+          workingValue3[workingValue19] = workingValue18
+          localValue3 = true
         end
       end
     end
   end
-  arg5 = pairs
-  arg6 = cmgCall2
-  arg5, arg6, arg7, dataTable4 = arg5(arg6)
-  for workValue18, workValue19 in arg5, arg6, arg7, dataTable4 do
-    workValue = arg2[workValue19]
-    if not workValue or workValue18 == arg1 then
-      workValue = cmgCall2
-      workValue[workValue18] = nil
-      arg3 = true
+  localValue5 = pairs
+  localValue6 = cmgOperation2
+  localValue5, localValue6, localValue7, dataCollection4 = localValue5(localValue6)
+  for workingValue18, workingValue19 in localValue5, localValue6, localValue7, dataCollection4 do
+    workingValue = localValue2[workingValue19]
+    if not workingValue or workingValue18 == localValue1 then
+      workingValue = cmgOperation2
+      workingValue[workingValue18] = nil
+      localValue3 = true
     end
   end
-  if arg3 then
-    arg5 = {}
-    arg6 = pairs
-    arg7 = cmgCall2
-    arg6, arg7, dataTable4, workValue18 = arg6(arg7)
-    for workValue19 in arg6, arg7, dataTable4, workValue18 do
-      workValue = table
-      workValue = workValue.insert
-      workValue2 = arg5
-      workValue3 = workValue19
-      workValue(workValue2, workValue3)
+  if localValue3 then
+    localValue5 = {}
+    localValue6 = pairs
+    localValue7 = cmgOperation2
+    localValue6, localValue7, dataCollection4, workingValue18 = localValue6(localValue7)
+    for workingValue19 in localValue6, localValue7, dataCollection4, workingValue18 do
+      workingValue = table
+      workingValue = workingValue.insert
+      workingValue2 = localValue5
+      workingValue3 = workingValue19
+      workingValue(workingValue2, workingValue3)
     end
-    arg6 = #arg5
-    if arg6 > 0 then
-      arg6 = LocalPlayer
-      arg6 = arg6.state
-      arg7 = arg6
-      arg6 = arg6.set
-      dataTable4 = "weapons"
-      workValue18 = arg5
-      workValue19 = true
-      arg6(arg7, dataTable4, workValue18, workValue19)
+    localValue6 = #localValue5
+    if localValue6 > 0 then
+      localValue6 = LocalPlayer
+      localValue6 = localValue6.state
+      localValue7 = localValue6
+      localValue6 = localValue6.set
+      dataCollection4 = "weapons"
+      workingValue18 = localValue5
+      workingValue19 = true
+      localValue6(localValue7, dataCollection4, workingValue18, workingValue19)
     else
-      arg6 = LocalPlayer
-      arg6 = arg6.state
-      arg7 = arg6
-      arg6 = arg6.set
-      dataTable4 = "weapons"
-      workValue18 = nil
-      workValue19 = true
-      arg6(arg7, dataTable4, workValue18, workValue19)
+      localValue6 = LocalPlayer
+      localValue6 = localValue6.state
+      localValue7 = localValue6
+      localValue6 = localValue6.set
+      dataCollection4 = "weapons"
+      workingValue18 = nil
+      workingValue19 = true
+      localValue6(localValue7, dataCollection4, workingValue18, workingValue19)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
-function workValue7(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5
-  arg3 = cmgCall.weapons
-  arg3 = arg3[arg1]
-  if not arg3 then
-    arg4 = 0
-    return arg4
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1, localValue2) ===
+function workingValue7(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5
+  localValue3 = cmgOperation.weapons
+  localValue3 = localValue3[localValue1]
+  if not localValue3 then
+    localValue4 = 0
+    return localValue4
   end
-  arg4 = arg3.bone
-  arg5 = arg3.offset
-  arg6 = arg3.rotation
-  arg7 = dataTable2
-  arg7 = arg7[arg1]
-  if arg7 then
-    dataTable4 = nil
-    workValue18 = arg2.ped
-    workValue19 = PlayerPedId
+  localValue4 = localValue3.bone
+  localValue5 = localValue3.offset
+  localValue6 = localValue3.rotation
+  localValue7 = dataCollection2
+  localValue7 = localValue7[localValue1]
+  if localValue7 then
+    dataCollection4 = nil
+    workingValue18 = localValue2.ped
+    workingValue19 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    workValue19 = workValue19()
-    if workValue18 == workValue19 then
-      workValue18 = dataTable
-      dataTable4 = workValue18[arg7]
+    workingValue19 = workingValue19()
+    if workingValue18 == workingValue19 then
+      workingValue18 = dataCollection
+      dataCollection4 = workingValue18[localValue7]
     else
-      workValue18 = type
-      workValue19 = arg2.chainOnBack
-      workValue18 = workValue18(workValue19)
-      if "table" == workValue18 then
-        workValue18 = arg2.chainOnBack
-        dataTable4 = workValue18[arg7]
+      workingValue18 = type
+      workingValue19 = localValue2.chainOnBack
+      workingValue18 = workingValue18(workingValue19)
+      if "table" == workingValue18 then
+        workingValue18 = localValue2.chainOnBack
+        dataCollection4 = workingValue18[localValue7]
       end
     end
-    if dataTable4 then
-      workValue18 = vector3
-      workValue19 = dataTable4[1]
-      workValue = dataTable4[2]
-      workValue2 = dataTable4[3]
-      workValue18 = workValue18(workValue19, workValue, workValue2)
-      arg5 = workValue18
-      workValue18 = vector3
-      workValue19 = dataTable4[4]
-      workValue = dataTable4[5]
-      workValue2 = dataTable4[6]
-      workValue18 = workValue18(workValue19, workValue, workValue2)
-      arg6 = workValue18
+    if dataCollection4 then
+      workingValue18 = vector3
+      workingValue19 = dataCollection4[1]
+      workingValue = dataCollection4[2]
+      workingValue2 = dataCollection4[3]
+      workingValue18 = workingValue18(workingValue19, workingValue, workingValue2)
+      localValue5 = workingValue18
+      workingValue18 = vector3
+      workingValue19 = dataCollection4[4]
+      workingValue = dataCollection4[5]
+      workingValue2 = dataCollection4[6]
+      workingValue18 = workingValue18(workingValue19, workingValue, workingValue2)
+      localValue6 = workingValue18
     end
   end
-  dataTable4 = cmgCall6.enabled
-  if dataTable4 then
-    dataTable4 = cmgCall6.hash
-    if arg1 == dataTable4 then
-      dataTable4 = arg2.ped
-      workValue18 = PlayerPedId
+  dataCollection4 = cmgOperation6.enabled
+  if dataCollection4 then
+    dataCollection4 = cmgOperation6.hash
+    if localValue1 == dataCollection4 then
+      dataCollection4 = localValue2.ped
+      workingValue18 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      workValue18 = workValue18()
-      if dataTable4 == workValue18 then
-        arg4 = cmgCall6.bone
-        arg5 = cmgCall6.offset
-        arg6 = cmgCall6.rotation
+      workingValue18 = workingValue18()
+      if dataCollection4 == workingValue18 then
+        localValue4 = cmgOperation6.bone
+        localValue5 = cmgOperation6.offset
+        localValue6 = cmgOperation6.rotation
       end
     end
   end
-  dataTable4 = arg2.diagonal
-  if dataTable4 then
-    dataTable4 = vector3
-    workValue18 = -0.12
-    workValue19 = -0.12
-    workValue = -0.13
-    dataTable4 = dataTable4(workValue18, workValue19, workValue)
-    if arg5 == dataTable4 then
-      dataTable4 = vector3
-      workValue18 = 0.0
-      workValue19 = -0.2
-      workValue = 0.0
-      dataTable4 = dataTable4(workValue18, workValue19, workValue)
-      arg5 = dataTable4
-      dataTable4 = vector3
-      workValue18 = 0.0
-      workValue19 = 45.0
-      workValue = arg6.z
-      dataTable4 = dataTable4(workValue18, workValue19, workValue)
-      arg6 = dataTable4
+  dataCollection4 = localValue2.diagonal
+  if dataCollection4 then
+    dataCollection4 = vector3
+    workingValue18 = -0.12
+    workingValue19 = -0.12
+    workingValue = -0.13
+    dataCollection4 = dataCollection4(workingValue18, workingValue19, workingValue)
+    if localValue5 == dataCollection4 then
+      dataCollection4 = vector3
+      workingValue18 = 0.0
+      workingValue19 = -0.2
+      workingValue = 0.0
+      dataCollection4 = dataCollection4(workingValue18, workingValue19, workingValue)
+      localValue5 = dataCollection4
+      dataCollection4 = vector3
+      workingValue18 = 0.0
+      workingValue19 = 45.0
+      workingValue = localValue6.z
+      dataCollection4 = dataCollection4(workingValue18, workingValue19, workingValue)
+      localValue6 = dataCollection4
     end
   end
-  dataTable4 = arg2.frontAR
-  if dataTable4 then
-    dataTable4 = arg3.type
-    if "AR" == dataTable4 then
-      dataTable4 = vector3
-      workValue18 = 0.0
-      workValue19 = 0.18
-      workValue = 0.0
-      dataTable4 = dataTable4(workValue18, workValue19, workValue)
-      arg5 = dataTable4
-      dataTable4 = vector3
-      workValue18 = 180.0
-      workValue19 = 148.0
-      workValue = 0.0
-      dataTable4 = dataTable4(workValue18, workValue19, workValue)
-      arg6 = dataTable4
+  dataCollection4 = localValue2.frontAR
+  if dataCollection4 then
+    dataCollection4 = localValue3.type
+    if "AR" == dataCollection4 then
+      dataCollection4 = vector3
+      workingValue18 = 0.0
+      workingValue19 = 0.18
+      workingValue = 0.0
+      dataCollection4 = dataCollection4(workingValue18, workingValue19, workingValue)
+      localValue5 = dataCollection4
+      dataCollection4 = vector3
+      workingValue18 = 180.0
+      workingValue19 = 148.0
+      workingValue = 0.0
+      dataCollection4 = dataCollection4(workingValue18, workingValue19, workingValue)
+      localValue6 = dataCollection4
     end
   end
-  dataTable4 = arg2.frontSMG
-  if dataTable4 then
-    dataTable4 = arg3.type
-    if "SMG" == dataTable4 then
-      arg4 = 24818
-      dataTable4 = vector3
-      workValue18 = 0.0
-      workValue19 = 0.18
-      workValue = 0.0
-      dataTable4 = dataTable4(workValue18, workValue19, workValue)
-      arg5 = dataTable4
-      dataTable4 = vector3
-      workValue18 = 180.0
-      workValue19 = 148.0
-      workValue = 0.0
-      dataTable4 = dataTable4(workValue18, workValue19, workValue)
-      arg6 = dataTable4
+  dataCollection4 = localValue2.frontSMG
+  if dataCollection4 then
+    dataCollection4 = localValue3.type
+    if "SMG" == dataCollection4 then
+      localValue4 = 24818
+      dataCollection4 = vector3
+      workingValue18 = 0.0
+      workingValue19 = 0.18
+      workingValue = 0.0
+      dataCollection4 = dataCollection4(workingValue18, workingValue19, workingValue)
+      localValue5 = dataCollection4
+      dataCollection4 = vector3
+      workingValue18 = 180.0
+      workingValue19 = 148.0
+      workingValue = 0.0
+      dataCollection4 = dataCollection4(workingValue18, workingValue19, workingValue)
+      localValue6 = dataCollection4
     end
   end
-  dataTable4 = HasModelLoaded
-  workValue18 = arg3.model
-  dataTable4 = dataTable4(workValue18)
-  if not dataTable4 then
-    dataTable4 = RequestModel
-    workValue18 = arg3.model
-    dataTable4(workValue18)
-    dataTable4 = 0
-    return dataTable4
+  dataCollection4 = HasModelLoaded
+  workingValue18 = localValue3.model
+  dataCollection4 = dataCollection4(workingValue18)
+  if not dataCollection4 then
+    dataCollection4 = RequestModel
+    workingValue18 = localValue3.model
+    dataCollection4(workingValue18)
+    dataCollection4 = 0
+    return dataCollection4
   end
-  dataTable4 = arg3.components
-  if not dataTable4 then
-    dataTable4 = arg3.magComponent
-    if not dataTable4 then
-      goto flow_label_145
+  dataCollection4 = localValue3.components
+  if not dataCollection4 then
+    dataCollection4 = localValue3.magComponent
+    if not dataCollection4 then
+      goto continueAtStep145
     end
   end
-  dataTable4 = HasWeaponAssetLoaded
-  workValue18 = arg1
-  dataTable4 = dataTable4(workValue18)
-  if not dataTable4 then
-    dataTable4 = RequestWeaponAsset
-    workValue18 = arg1
-    workValue19 = 4294967295
-    workValue = 4294967295
-    dataTable4(workValue18, workValue19, workValue)
-    dataTable4 = 0
-    return dataTable4
+  dataCollection4 = HasWeaponAssetLoaded
+  workingValue18 = localValue1
+  dataCollection4 = dataCollection4(workingValue18)
+  if not dataCollection4 then
+    dataCollection4 = RequestWeaponAsset
+    workingValue18 = localValue1
+    workingValue19 = 4294967295
+    workingValue = 4294967295
+    dataCollection4(workingValue18, workingValue19, workingValue)
+    dataCollection4 = 0
+    return dataCollection4
   end
-  ::flow_label_145::
-  dataTable4 = 0
-  workValue18 = arg3.components
-  if workValue18 then
-    workValue18 = CreateWeaponObject
-    workValue19 = arg1
-    workValue = 0
-    workValue2 = 0.0
-    workValue3 = 0.0
-    workValue4 = 0.0
-    workValue6 = true
-    workValue8 = 1.0
-    workValue10 = false
-    workValue18 = workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10)
-    dataTable4 = workValue18
-    workValue18 = pairs
-    workValue19 = arg3.components
-    workValue18, workValue19, workValue, workValue2 = workValue18(workValue19)
-    for workValue3, workValue4 in workValue18, workValue19, workValue, workValue2 do
-      workValue6 = GiveWeaponComponentToWeaponObject
-      workValue8 = dataTable4
-      workValue10 = workValue4
-      workValue6(workValue8, workValue10)
+  ::continueAtStep145::
+  dataCollection4 = 0
+  workingValue18 = localValue3.components
+  if workingValue18 then
+    workingValue18 = CreateWeaponObject
+    workingValue19 = localValue1
+    workingValue = 0
+    workingValue2 = 0.0
+    workingValue3 = 0.0
+    workingValue4 = 0.0
+    workingValue6 = true
+    workingValue8 = 1.0
+    workingValue10 = false
+    workingValue18 = workingValue18(workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10)
+    dataCollection4 = workingValue18
+    workingValue18 = pairs
+    workingValue19 = localValue3.components
+    workingValue18, workingValue19, workingValue, workingValue2 = workingValue18(workingValue19)
+    for workingValue3, workingValue4 in workingValue18, workingValue19, workingValue, workingValue2 do
+      workingValue6 = GiveWeaponComponentToWeaponObject
+      workingValue8 = dataCollection4
+      workingValue10 = workingValue4
+      workingValue6(workingValue8, workingValue10)
     end
-    workValue18 = arg3.removeComponents
-    if workValue18 then
-      workValue18 = pairs
-      workValue19 = arg3.removeComponents
-      workValue18, workValue19, workValue, workValue2 = workValue18(workValue19)
-      for workValue3, workValue4 in workValue18, workValue19, workValue, workValue2 do
-        workValue6 = RemoveWeaponComponentFromWeaponObject
-        workValue8 = dataTable4
-        workValue10 = workValue4
-        workValue6(workValue8, workValue10)
+    workingValue18 = localValue3.removeComponents
+    if workingValue18 then
+      workingValue18 = pairs
+      workingValue19 = localValue3.removeComponents
+      workingValue18, workingValue19, workingValue, workingValue2 = workingValue18(workingValue19)
+      for workingValue3, workingValue4 in workingValue18, workingValue19, workingValue, workingValue2 do
+        workingValue6 = RemoveWeaponComponentFromWeaponObject
+        workingValue8 = dataCollection4
+        workingValue10 = workingValue4
+        workingValue6(workingValue8, workingValue10)
       end
     end
   else
-    workValue18 = arg3.magComponent
-    if workValue18 then
-      workValue18 = CreateWeaponObject
-      workValue19 = arg1
-      workValue = 0
-      workValue2 = 0.0
-      workValue3 = 0.0
-      workValue4 = 0.0
-      workValue6 = true
-      workValue8 = 1.0
-      workValue10 = false
-      workValue18 = workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10)
-      dataTable4 = workValue18
-      workValue18 = GiveWeaponComponentToWeaponObject
-      workValue19 = dataTable4
-      workValue = arg3.magComponent
-      workValue18(workValue19, workValue)
+    workingValue18 = localValue3.magComponent
+    if workingValue18 then
+      workingValue18 = CreateWeaponObject
+      workingValue19 = localValue1
+      workingValue = 0
+      workingValue2 = 0.0
+      workingValue3 = 0.0
+      workingValue4 = 0.0
+      workingValue6 = true
+      workingValue8 = 1.0
+      workingValue10 = false
+      workingValue18 = workingValue18(workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10)
+      dataCollection4 = workingValue18
+      workingValue18 = GiveWeaponComponentToWeaponObject
+      workingValue19 = dataCollection4
+      workingValue = localValue3.magComponent
+      workingValue18(workingValue19, workingValue)
     else
-      workValue18 = CreateObject
-      workValue19 = arg3.model
-      workValue = 0.0
-      workValue2 = 0.0
-      workValue3 = 0.0
-      workValue4 = false
-      workValue6 = false
-      workValue8 = false
+      workingValue18 = CreateObject
+      workingValue19 = localValue3.model
+      workingValue = 0.0
+      workingValue2 = 0.0
+      workingValue3 = 0.0
+      workingValue4 = false
+      workingValue6 = false
+      workingValue8 = false
       -- Beginner: result below is objectEntity.
-      workValue18 = workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8)
-      dataTable4 = workValue18
+      workingValue18 = workingValue18(workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8)
+      dataCollection4 = workingValue18
     end
   end
-  workValue18 = AttachEntityToEntity
-  workValue19 = dataTable4
-  workValue = arg2.ped
-  workValue2 = GetPedBoneIndex
-  workValue3 = arg2.ped
-  workValue4 = arg4
-  workValue2 = workValue2(workValue3, workValue4)
-  workValue3 = arg5.x
-  workValue4 = arg5.y
-  workValue6 = arg5.z
-  workValue8 = arg6.x
-  workValue10 = arg6.y
-  workValue12 = arg6.z
-  flag = false
-  flag2 = false
-  flag3 = false
-  flag4 = false
-  numberValue4 = 2
-  flag5 = true
+  workingValue18 = AttachEntityToEntity
+  workingValue19 = dataCollection4
+  workingValue = localValue2.ped
+  workingValue2 = GetPedBoneIndex
+  workingValue3 = localValue2.ped
+  workingValue4 = localValue4
+  workingValue2 = workingValue2(workingValue3, workingValue4)
+  workingValue3 = localValue5.x
+  workingValue4 = localValue5.y
+  workingValue6 = localValue5.z
+  workingValue8 = localValue6.x
+  workingValue10 = localValue6.y
+  workingValue12 = localValue6.z
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
+  stateFlag4 = false
+  number4 = 2
+  stateFlag5 = true
   -- Beginner: Attach one entity to another entity.
-  workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5)
-  workValue18 = SetModelAsNoLongerNeeded
-  workValue19 = arg3.model
-  workValue18(workValue19)
-  return dataTable4
+  workingValue18(workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5)
+  workingValue18 = SetModelAsNoLongerNeeded
+  workingValue19 = localValue3.model
+  workingValue18(workingValue19)
+  return dataCollection4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18
-  arg2 = pairs
-  arg3 = arg1.weapons
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    if 0 ~= arg7 then
-      dataTable4 = DeleteEntity
-      workValue18 = arg7
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18
+  localValue2 = pairs
+  localValue3 = localValue1.weapons
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    if 0 ~= localValue7 then
+      dataCollection4 = DeleteEntity
+      workingValue18 = localValue7
       -- Beginner: Delete a GTA entity.
-      dataTable4(workValue18)
-      dataTable4 = arg1.weapons
-      dataTable4[arg6] = 0
+      dataCollection4(workingValue18)
+      dataCollection4 = localValue1.weapons
+      dataCollection4[localValue6] = 0
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue
-  arg2 = arg1.ped
-  if 0 == arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue
+  localValue2 = localValue1.ped
+  if 0 == localValue2 then
     return
   end
-  arg2 = IsEntityVisible
-  arg3 = arg1.ped
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = workValue9
-    arg3 = arg1
-    arg2(arg3)
+  localValue2 = IsEntityVisible
+  localValue3 = localValue1.ped
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = workingValue9
+    localValue3 = localValue1
+    localValue2(localValue3)
     return
   end
-  arg2 = pairs
-  arg3 = arg1.weapons
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    if 0 == arg7 then
-      dataTable4 = arg1.weapons
-      workValue18 = workValue7
-      workValue19 = arg6
-      workValue = arg1
-      workValue18 = workValue18(workValue19, workValue)
-      dataTable4[arg6] = workValue18
+  localValue2 = pairs
+  localValue3 = localValue1.weapons
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    if 0 == localValue7 then
+      dataCollection4 = localValue1.weapons
+      workingValue18 = workingValue7
+      workingValue19 = localValue6
+      workingValue = localValue1
+      workingValue18 = workingValue18(workingValue19, workingValue)
+      dataCollection4[localValue6] = workingValue18
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
-  arg1 = pairs
-  arg2 = hashValue
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = arg6.playerIndex
-    if -1 == arg7 then
-      arg7 = GetPlayerFromServerId
-      dataTable4 = arg5
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4
+  localValue1 = pairs
+  localValue2 = hashValue
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = localValue6.playerIndex
+    if -1 == localValue7 then
+      localValue7 = GetPlayerFromServerId
+      dataCollection4 = localValue5
       -- Beginner: result below is playerIndex.
-      arg7 = arg7(dataTable4)
-      arg6.playerIndex = arg7
+      localValue7 = localValue7(dataCollection4)
+      localValue6.playerIndex = localValue7
     end
-    arg7 = arg6.playerIndex
-    if -1 ~= arg7 then
-      arg7 = pairs
-      dataTable4 = arg6.weapons
-      arg7, dataTable4, workValue18, workValue19 = arg7(dataTable4)
-      for workValue, workValue2 in arg7, dataTable4, workValue18, workValue19 do
-        if 0 ~= workValue2 then
-          workValue3 = IsEntityAttached
-          workValue4 = workValue2
-          workValue3 = workValue3(workValue4)
-          if not workValue3 then
-            workValue3 = DeleteEntity
-            workValue4 = workValue2
+    localValue7 = localValue6.playerIndex
+    if -1 ~= localValue7 then
+      localValue7 = pairs
+      dataCollection4 = localValue6.weapons
+      localValue7, dataCollection4, workingValue18, workingValue19 = localValue7(dataCollection4)
+      for workingValue, workingValue2 in localValue7, dataCollection4, workingValue18, workingValue19 do
+        if 0 ~= workingValue2 then
+          workingValue3 = IsEntityAttached
+          workingValue4 = workingValue2
+          workingValue3 = workingValue3(workingValue4)
+          if not workingValue3 then
+            workingValue3 = DeleteEntity
+            workingValue4 = workingValue2
             -- Beginner: Delete a GTA entity.
-            workValue3(workValue4)
-            workValue3 = arg6.weapons
-            workValue3[workValue] = 0
+            workingValue3(workingValue4)
+            workingValue3 = localValue6.weapons
+            workingValue3[workingValue] = 0
           end
         end
       end
-      arg7 = arg6.ped
-      if 0 ~= arg7 then
-        arg7 = DoesEntityExist
-        dataTable4 = arg6.ped
-        arg7 = arg7(dataTable4)
-        if arg7 then
-          goto flow_label_46
+      localValue7 = localValue6.ped
+      if 0 ~= localValue7 then
+        localValue7 = DoesEntityExist
+        dataCollection4 = localValue6.ped
+        localValue7 = localValue7(dataCollection4)
+        if localValue7 then
+          goto continueAtStep46
         end
       end
-      arg7 = GetPlayerPed
-      dataTable4 = arg6.playerIndex
+      localValue7 = GetPlayerPed
+      dataCollection4 = localValue6.playerIndex
       -- Beginner: result below is playerPed.
-      arg7 = arg7(dataTable4)
-      arg6.ped = arg7
-      ::flow_label_46::
-      arg7 = workValue11
-      dataTable4 = arg6
-      arg7(dataTable4)
+      localValue7 = localValue7(dataCollection4)
+      localValue6.ped = localValue7
+      ::continueAtStep46::
+      localValue7 = workingValue11
+      dataCollection4 = localValue6
+      localValue7(dataCollection4)
     end
   end
 end
-numberValue3 = 0
-eventRegistration = Citizen
-eventRegistration = eventRegistration.CreateThread
+number3 = 0
+eventHandler = Citizen
+eventHandler = eventHandler.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2
   while true do
-    arg1 = workValue5
-    arg1()
-    arg1 = numberValue3
-    arg1 = arg1 % 3
-    if 0 == arg1 then
-      arg1 = workValue13
-      arg1()
+    localValue1 = workingValue5
+    localValue1()
+    localValue1 = number3
+    localValue1 = localValue1 % 3
+    if 0 == localValue1 then
+      localValue1 = workingValue13
+      localValue1()
     end
-    arg1 = numberValue3
-    arg1 = arg1 + 1
-    numberValue3 = arg1
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 1000
-    arg1(arg2)
+    localValue1 = number3
+    localValue1 = localValue1 + 1
+    number3 = localValue1
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 1000
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-eventRegistration(textValue)
-eventRegistration = RegisterNetEvent
-textValue = "onPlayerDropped"
+eventHandler(text)
+eventHandler = RegisterNetEvent
+text = "onPlayerDropped"
 -- Beginner: this function handles network event "onPlayerDropped".
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
-function workValue14(arg1)
-  local arg2, arg3, arg4
-  arg2 = hashValue
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = workValue9
-    arg4 = arg2
-    arg3(arg4)
-    arg3 = hashValue
-    arg3[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: localValue1) ===
+function workingValue14(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = hashValue
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = workingValue9
+    localValue4 = localValue2
+    localValue3(localValue4)
+    localValue3 = hashValue
+    localValue3[localValue1] = nil
   end
-  arg3 = numberValue
-  arg3[arg1] = nil
+  localValue3 = number
+  localValue3[localValue1] = nil
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "onPlayerDropped".
-eventRegistration(textValue, workValue14)
-eventRegistration = AddStateBagChangeHandler
-textValue = "weapons"
-workValue14 = nil
+eventHandler(text, workingValue14)
+eventHandler = AddStateBagChangeHandler
+text = "weapons"
+workingValue14 = nil
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2, arg3) ===
-function cmgCall4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
-  arg4 = tonumber
-  arg5 = stringsplit
-  arg6 = arg1
-  arg7 = ":"
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5[2]
-  arg4 = arg4(arg5)
-  if not arg4 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4
+  localValue4 = tonumber
+  localValue5 = stringsplit
+  localValue6 = localValue1
+  localValue7 = ":"
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5[2]
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
     return
   end
-  arg5 = hashValue
-  arg5 = arg5[arg4]
-  if nil == arg3 then
-    if arg5 then
-      arg6 = workValue9
-      arg7 = arg5
-      arg6(arg7)
-      arg6 = hashValue
-      arg6[arg4] = nil
+  localValue5 = hashValue
+  localValue5 = localValue5[localValue4]
+  if nil == localValue3 then
+    if localValue5 then
+      localValue6 = workingValue9
+      localValue7 = localValue5
+      localValue6(localValue7)
+      localValue6 = hashValue
+      localValue6[localValue4] = nil
     end
     return
   end
-  if arg5 then
-    arg6 = Player
-    arg7 = arg4
-    arg6 = arg6(arg7)
-    arg6 = arg6.state
-    arg6 = arg6.chainOnBack
-    arg5.chainOnBack = arg6
-    arg6 = pairs
-    arg7 = arg5.weapons
-    arg6, arg7, dataTable4, workValue18 = arg6(arg7)
-    for workValue19, workValue in arg6, arg7, dataTable4, workValue18 do
-      workValue2 = table
-      workValue2 = workValue2.has
-      workValue3 = arg3
-      workValue4 = workValue19
-      workValue2 = workValue2(workValue3, workValue4)
-      if not workValue2 then
-        if 0 ~= workValue then
-          workValue2 = DeleteEntity
-          workValue3 = workValue
+  if localValue5 then
+    localValue6 = Player
+    localValue7 = localValue4
+    localValue6 = localValue6(localValue7)
+    localValue6 = localValue6.state
+    localValue6 = localValue6.chainOnBack
+    localValue5.chainOnBack = localValue6
+    localValue6 = pairs
+    localValue7 = localValue5.weapons
+    localValue6, localValue7, dataCollection4, workingValue18 = localValue6(localValue7)
+    for workingValue19, workingValue in localValue6, localValue7, dataCollection4, workingValue18 do
+      workingValue2 = table
+      workingValue2 = workingValue2.has
+      workingValue3 = localValue3
+      workingValue4 = workingValue19
+      workingValue2 = workingValue2(workingValue3, workingValue4)
+      if not workingValue2 then
+        if 0 ~= workingValue then
+          workingValue2 = DeleteEntity
+          workingValue3 = workingValue
           -- Beginner: Delete a GTA entity.
-          workValue2(workValue3)
+          workingValue2(workingValue3)
         end
-        workValue2 = arg5.weapons
-        workValue2[workValue19] = nil
-        workValue2 = cmgCall.weapons
-        workValue2 = workValue2[workValue19]
-        if workValue2 then
-          workValue3 = SetModelAsNoLongerNeeded
-          workValue4 = workValue2.model
-          workValue3(workValue4)
+        workingValue2 = localValue5.weapons
+        workingValue2[workingValue19] = nil
+        workingValue2 = cmgOperation.weapons
+        workingValue2 = workingValue2[workingValue19]
+        if workingValue2 then
+          workingValue3 = SetModelAsNoLongerNeeded
+          workingValue4 = workingValue2.model
+          workingValue3(workingValue4)
         end
       end
     end
-    arg6 = pairs
-    arg7 = arg3
-    arg6, arg7, dataTable4, workValue18 = arg6(arg7)
-    for workValue19, workValue in arg6, arg7, dataTable4, workValue18 do
-      workValue2 = arg5.weapons
-      workValue2 = workValue2[workValue]
-      if not workValue2 then
-        workValue2 = arg5.weapons
-        workValue2[workValue] = 0
+    localValue6 = pairs
+    localValue7 = localValue3
+    localValue6, localValue7, dataCollection4, workingValue18 = localValue6(localValue7)
+    for workingValue19, workingValue in localValue6, localValue7, dataCollection4, workingValue18 do
+      workingValue2 = localValue5.weapons
+      workingValue2 = workingValue2[workingValue]
+      if not workingValue2 then
+        workingValue2 = localValue5.weapons
+        workingValue2[workingValue] = 0
       end
     end
-    arg6 = workValue11
-    arg7 = arg5
-    arg6(arg7)
+    localValue6 = workingValue11
+    localValue7 = localValue5
+    localValue6(localValue7)
   else
-    arg6 = {}
-    arg7 = pairs
-    dataTable4 = arg3
-    arg7, dataTable4, workValue18, workValue19 = arg7(dataTable4)
-    for workValue, workValue2 in arg7, dataTable4, workValue18, workValue19 do
-      arg6[workValue2] = 0
+    localValue6 = {}
+    localValue7 = pairs
+    dataCollection4 = localValue3
+    localValue7, dataCollection4, workingValue18, workingValue19 = localValue7(dataCollection4)
+    for workingValue, workingValue2 in localValue7, dataCollection4, workingValue18, workingValue19 do
+      localValue6[workingValue2] = 0
     end
-    arg7 = hashValue
-    dataTable4 = {}
-    dataTable4.ped = 0
-    dataTable4.playerIndex = -1
-    dataTable4.weapons = arg6
-    workValue18 = Player
-    workValue19 = arg4
-    workValue18 = workValue18(workValue19)
-    workValue18 = workValue18.state
-    workValue18 = workValue18.weaponsDiagonal
-    dataTable4.diagonal = workValue18
-    workValue18 = Player
-    workValue19 = arg4
-    workValue18 = workValue18(workValue19)
-    workValue18 = workValue18.state
-    workValue18 = workValue18.frontAR
-    dataTable4.frontAR = workValue18
-    workValue18 = Player
-    workValue19 = arg4
-    workValue18 = workValue18(workValue19)
-    workValue18 = workValue18.state
-    workValue18 = workValue18.frontSMG
-    dataTable4.frontSMG = workValue18
-    workValue18 = Player
-    workValue19 = arg4
-    workValue18 = workValue18(workValue19)
-    workValue18 = workValue18.state
-    workValue18 = workValue18.chainOnBack
-    dataTable4.chainOnBack = workValue18
-    arg7[arg4] = dataTable4
+    localValue7 = hashValue
+    dataCollection4 = {}
+    dataCollection4.ped = 0
+    dataCollection4.playerIndex = -1
+    dataCollection4.weapons = localValue6
+    workingValue18 = Player
+    workingValue19 = localValue4
+    workingValue18 = workingValue18(workingValue19)
+    workingValue18 = workingValue18.state
+    workingValue18 = workingValue18.weaponsDiagonal
+    dataCollection4.diagonal = workingValue18
+    workingValue18 = Player
+    workingValue19 = localValue4
+    workingValue18 = workingValue18(workingValue19)
+    workingValue18 = workingValue18.state
+    workingValue18 = workingValue18.frontAR
+    dataCollection4.frontAR = workingValue18
+    workingValue18 = Player
+    workingValue19 = localValue4
+    workingValue18 = workingValue18(workingValue19)
+    workingValue18 = workingValue18.state
+    workingValue18 = workingValue18.frontSMG
+    dataCollection4.frontSMG = workingValue18
+    workingValue18 = Player
+    workingValue19 = localValue4
+    workingValue18 = workingValue18(workingValue19)
+    workingValue18 = workingValue18.state
+    workingValue18 = workingValue18.chainOnBack
+    dataCollection4.chainOnBack = workingValue18
+    localValue7[localValue4] = dataCollection4
   end
 end
-eventRegistration(textValue, workValue14, cmgCall4)
-eventRegistration = AddStateBagChangeHandler
-textValue = "weaponsDiagonal"
-workValue14 = nil
+eventHandler(text, workingValue14, cmgOperation4)
+eventHandler = AddStateBagChangeHandler
+text = "weaponsDiagonal"
+workingValue14 = nil
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2, arg3) ===
-function cmgCall4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = tonumber
-  arg5 = stringsplit
-  arg6 = arg1
-  arg7 = ":"
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5[2]
-  arg4 = arg4(arg5)
-  arg5 = hashValue
-  arg5 = arg5[arg4]
-  if arg5 then
-    arg6 = arg5.diagonal
-    if arg6 ~= arg3 then
-      arg5.diagonal = arg3
-      arg6 = workValue9
-      arg7 = arg5
-      arg6(arg7)
-      arg6 = workValue11
-      arg7 = arg5
-      arg6(arg7)
-    end
-  end
-end
-eventRegistration(textValue, workValue14, cmgCall4)
-eventRegistration = AddStateBagChangeHandler
-textValue = "frontAR"
-workValue14 = nil
-
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2, arg3) ===
-function cmgCall4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = tonumber
-  arg5 = stringsplit
-  arg6 = arg1
-  arg7 = ":"
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5[2]
-  arg4 = arg4(arg5)
-  arg5 = hashValue
-  arg5 = arg5[arg4]
-  if arg5 then
-    arg6 = arg5.frontAR
-    if arg6 ~= arg3 then
-      arg5.frontAR = arg3
-      arg6 = workValue9
-      arg7 = arg5
-      arg6(arg7)
-      arg6 = workValue11
-      arg7 = arg5
-      arg6(arg7)
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = tonumber
+  localValue5 = stringsplit
+  localValue6 = localValue1
+  localValue7 = ":"
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5[2]
+  localValue4 = localValue4(localValue5)
+  localValue5 = hashValue
+  localValue5 = localValue5[localValue4]
+  if localValue5 then
+    localValue6 = localValue5.diagonal
+    if localValue6 ~= localValue3 then
+      localValue5.diagonal = localValue3
+      localValue6 = workingValue9
+      localValue7 = localValue5
+      localValue6(localValue7)
+      localValue6 = workingValue11
+      localValue7 = localValue5
+      localValue6(localValue7)
     end
   end
 end
-eventRegistration(textValue, workValue14, cmgCall4)
-eventRegistration = AddStateBagChangeHandler
-textValue = "frontSMG"
-workValue14 = nil
+eventHandler(text, workingValue14, cmgOperation4)
+eventHandler = AddStateBagChangeHandler
+text = "frontAR"
+workingValue14 = nil
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2, arg3) ===
-function cmgCall4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = tonumber
-  arg5 = stringsplit
-  arg6 = arg1
-  arg7 = ":"
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5[2]
-  arg4 = arg4(arg5)
-  arg5 = hashValue
-  arg5 = arg5[arg4]
-  if arg5 then
-    arg6 = arg5.frontSMG
-    if arg6 ~= arg3 then
-      arg5.frontSMG = arg3
-      arg6 = workValue9
-      arg7 = arg5
-      arg6(arg7)
-      arg6 = workValue11
-      arg7 = arg5
-      arg6(arg7)
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = tonumber
+  localValue5 = stringsplit
+  localValue6 = localValue1
+  localValue7 = ":"
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5[2]
+  localValue4 = localValue4(localValue5)
+  localValue5 = hashValue
+  localValue5 = localValue5[localValue4]
+  if localValue5 then
+    localValue6 = localValue5.frontAR
+    if localValue6 ~= localValue3 then
+      localValue5.frontAR = localValue3
+      localValue6 = workingValue9
+      localValue7 = localValue5
+      localValue6(localValue7)
+      localValue6 = workingValue11
+      localValue7 = localValue5
+      localValue6(localValue7)
     end
   end
 end
-eventRegistration(textValue, workValue14, cmgCall4)
-eventRegistration = AddStateBagChangeHandler
-textValue = "chainOnBack"
-workValue14 = nil
+eventHandler(text, workingValue14, cmgOperation4)
+eventHandler = AddStateBagChangeHandler
+text = "frontSMG"
+workingValue14 = nil
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2, arg3) ===
-function cmgCall4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = tonumber
-  arg5 = stringsplit
-  arg6 = arg1
-  arg7 = ":"
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5[2]
-  arg4 = arg4(arg5)
-  if not arg4 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = tonumber
+  localValue5 = stringsplit
+  localValue6 = localValue1
+  localValue7 = ":"
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5[2]
+  localValue4 = localValue4(localValue5)
+  localValue5 = hashValue
+  localValue5 = localValue5[localValue4]
+  if localValue5 then
+    localValue6 = localValue5.frontSMG
+    if localValue6 ~= localValue3 then
+      localValue5.frontSMG = localValue3
+      localValue6 = workingValue9
+      localValue7 = localValue5
+      localValue6(localValue7)
+      localValue6 = workingValue11
+      localValue7 = localValue5
+      localValue6(localValue7)
+    end
+  end
+end
+eventHandler(text, workingValue14, cmgOperation4)
+eventHandler = AddStateBagChangeHandler
+text = "chainOnBack"
+workingValue14 = nil
+
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = tonumber
+  localValue5 = stringsplit
+  localValue6 = localValue1
+  localValue7 = ":"
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5[2]
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
     return
   end
-  arg5 = hashValue
-  arg5 = arg5[arg4]
-  if not arg5 then
+  localValue5 = hashValue
+  localValue5 = localValue5[localValue4]
+  if not localValue5 then
     return
   end
-  arg5.chainOnBack = arg3
-  arg6 = workValue9
-  arg7 = arg5
-  arg6(arg7)
-  arg6 = workValue11
-  arg7 = arg5
-  arg6(arg7)
+  localValue5.chainOnBack = localValue3
+  localValue6 = workingValue9
+  localValue7 = localValue5
+  localValue6(localValue7)
+  localValue6 = workingValue11
+  localValue7 = localValue5
+  localValue6(localValue7)
 end
-eventRegistration(textValue, workValue14, cmgCall4)
-eventRegistration = AddStateBagChangeHandler
-textValue = "redDot"
-workValue14 = nil
+eventHandler(text, workingValue14, cmgOperation4)
+eventHandler = AddStateBagChangeHandler
+text = "redDot"
+workingValue14 = nil
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2, arg3) ===
-function cmgCall4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = tonumber
-  arg5 = stringsplit
-  arg6 = arg1
-  arg7 = ":"
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5[2]
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg5 = numberValue
-    arg5[arg4] = arg3
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = tonumber
+  localValue5 = stringsplit
+  localValue6 = localValue1
+  localValue7 = ":"
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5[2]
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue5 = number
+    localValue5[localValue4] = localValue3
   end
 end
-eventRegistration(textValue, workValue14, cmgCall4)
-eventRegistration = 0
+eventHandler(text, workingValue14, cmgOperation4)
+eventHandler = 0
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetSelectedPedWeapon
-  arg3 = arg1
+  localValue1 = localValue1()
+  localValue2 = GetSelectedPedWeapon
+  localValue3 = localValue1
   -- Beginner: result below is weaponHash.
-  arg2 = arg2(arg3)
-  arg3 = cmgCall.redDotWeapons
-  arg3 = arg3[arg2]
-  if arg3 then
-    arg3 = IsPlayerFreeAiming
-    arg4 = PlayerId
-    arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = arg4()
-    arg3 = arg3(arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
-    if arg3 then
-      arg3 = GetGameTimer
+  localValue2 = localValue2(localValue3)
+  localValue3 = cmgOperation.redDotWeapons
+  localValue3 = localValue3[localValue2]
+  if localValue3 then
+    localValue3 = IsPlayerFreeAiming
+    localValue4 = PlayerId
+    localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9 = localValue4()
+    localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9)
+    if localValue3 then
+      localValue3 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      arg3 = arg3()
-      arg4 = eventRegistration
-      arg3 = arg3 - arg4
-      arg4 = 200
-      if arg3 > arg4 then
-        arg3 = LocalPlayer
-        arg3 = arg3.state
-        arg4 = arg3
-        arg3 = arg3.set
-        arg5 = "redDot"
-        arg6 = {}
-        arg7 = GetGameplayCamCoord
-        arg7 = arg7()
-        dataTable4 = CMG
-        dataTable4 = dataTable4.rotationToDirection
-        workValue18 = GetGameplayCamRot
-        workValue19 = 2
-        workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = workValue18(workValue19)
-        dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = dataTable4(workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
-        arg6[1] = arg7
-        arg6[2] = dataTable4
-        arg6[3] = workValue18
-        arg6[4] = workValue19
-        arg6[5] = workValue
-        arg6[6] = workValue2
-        arg6[7] = workValue3
-        arg6[8] = workValue4
-        arg6[9] = workValue6
-        arg6[10] = workValue8
-        arg6[11] = workValue10
-        arg6[12] = workValue12
-        arg6[13] = flag
-        arg6[14] = flag2
-        arg6[15] = flag3
-        arg6[16] = flag4
-        arg6[17] = numberValue4
-        arg6[18] = flag5
-        arg6[19] = numberValue5
-        arg6[20] = numberValue6
-        arg6[21] = numberValue7
-        arg6[22] = numberValue8
-        arg6[23] = numberValue9
-        arg7 = true
-        arg3(arg4, arg5, arg6, arg7)
-        arg3 = GetGameTimer
+      localValue3 = localValue3()
+      localValue4 = eventHandler
+      localValue3 = localValue3 - localValue4
+      localValue4 = 200
+      if localValue3 > localValue4 then
+        localValue3 = LocalPlayer
+        localValue3 = localValue3.state
+        localValue4 = localValue3
+        localValue3 = localValue3.set
+        localValue5 = "redDot"
+        localValue6 = {}
+        localValue7 = GetGameplayCamCoord
+        localValue7 = localValue7()
+        dataCollection4 = CMG
+        dataCollection4 = dataCollection4.rotationToDirection
+        workingValue18 = GetGameplayCamRot
+        workingValue19 = 2
+        workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9 = workingValue18(workingValue19)
+        dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9 = dataCollection4(workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9)
+        localValue6[1] = localValue7
+        localValue6[2] = dataCollection4
+        localValue6[3] = workingValue18
+        localValue6[4] = workingValue19
+        localValue6[5] = workingValue
+        localValue6[6] = workingValue2
+        localValue6[7] = workingValue3
+        localValue6[8] = workingValue4
+        localValue6[9] = workingValue6
+        localValue6[10] = workingValue8
+        localValue6[11] = workingValue10
+        localValue6[12] = workingValue12
+        localValue6[13] = stateFlag
+        localValue6[14] = stateFlag2
+        localValue6[15] = stateFlag3
+        localValue6[16] = stateFlag4
+        localValue6[17] = number4
+        localValue6[18] = stateFlag5
+        localValue6[19] = number5
+        localValue6[20] = number6
+        localValue6[21] = number7
+        localValue6[22] = number8
+        localValue6[23] = number9
+        localValue7 = true
+        localValue3(localValue4, localValue5, localValue6, localValue7)
+        localValue3 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        arg3 = arg3()
-        eventRegistration = arg3
+        localValue3 = localValue3()
+        eventHandler = localValue3
       end
-      arg3 = 2
-      numberValue2 = arg3
+      localValue3 = 2
+      number2 = localValue3
     else
-      arg3 = numberValue2
-      if 1 ~= arg3 then
-        arg3 = LocalPlayer
-        arg3 = arg3.state
-        arg4 = arg3
-        arg3 = arg3.set
-        arg5 = "redDot"
-        arg6 = true
-        arg7 = true
-        arg3(arg4, arg5, arg6, arg7)
-        arg3 = 1
-        numberValue2 = arg3
+      localValue3 = number2
+      if 1 ~= localValue3 then
+        localValue3 = LocalPlayer
+        localValue3 = localValue3.state
+        localValue4 = localValue3
+        localValue3 = localValue3.set
+        localValue5 = "redDot"
+        localValue6 = true
+        localValue7 = true
+        localValue3(localValue4, localValue5, localValue6, localValue7)
+        localValue3 = 1
+        number2 = localValue3
       end
     end
   else
-    arg3 = numberValue2
-    if 0 ~= arg3 then
-      arg3 = LocalPlayer
-      arg3 = arg3.state
-      arg4 = arg3
-      arg3 = arg3.set
-      arg5 = "redDot"
-      arg6 = nil
-      arg7 = true
-      arg3(arg4, arg5, arg6, arg7)
-      arg3 = 0
-      numberValue2 = arg3
+    localValue3 = number2
+    if 0 ~= localValue3 then
+      localValue3 = LocalPlayer
+      localValue3 = localValue3.state
+      localValue4 = localValue3
+      localValue3 = localValue3.set
+      localValue5 = "redDot"
+      localValue6 = nil
+      localValue7 = true
+      localValue3(localValue4, localValue5, localValue6, localValue7)
+      localValue3 = 0
+      number2 = localValue3
     end
   end
-  arg3 = pairs
-  arg4 = numberValue
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, dataTable4 in arg3, arg4, arg5, arg6 do
-    workValue18 = GetPlayerFromServerId
-    workValue19 = arg7
+  localValue3 = pairs
+  localValue4 = number
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, dataCollection4 in localValue3, localValue4, localValue5, localValue6 do
+    workingValue18 = GetPlayerFromServerId
+    workingValue19 = localValue7
     -- Beginner: result below is playerIndex.
-    workValue18 = workValue18(workValue19)
-    if workValue18 >= 0 then
-      workValue19 = GetPlayerPed
-      workValue = workValue18
+    workingValue18 = workingValue18(workingValue19)
+    if workingValue18 >= 0 then
+      workingValue19 = GetPlayerPed
+      workingValue = workingValue18
       -- Beginner: result below is playerPed.
-      workValue19 = workValue19(workValue)
-      if 0 ~= workValue19 then
-        workValue = GetCurrentPedWeaponEntityIndex
-        workValue2 = workValue19
-        workValue = workValue(workValue2)
-        if 0 ~= workValue then
-          workValue2 = nil
-          workValue3 = nil
-          workValue4 = true == dataTable4
-          if workValue4 then
-            workValue6 = GetEntityCoords
-            workValue8 = workValue
+      workingValue19 = workingValue19(workingValue)
+      if 0 ~= workingValue19 then
+        workingValue = GetCurrentPedWeaponEntityIndex
+        workingValue2 = workingValue19
+        workingValue = workingValue(workingValue2)
+        if 0 ~= workingValue then
+          workingValue2 = nil
+          workingValue3 = nil
+          workingValue4 = true == dataCollection4
+          if workingValue4 then
+            workingValue6 = GetEntityCoords
+            workingValue8 = workingValue
             -- Beginner: result below is entityCoords.
-            workValue6 = workValue6(workValue8)
-            workValue2 = workValue6
-            workValue6 = select
-            workValue8 = 2
-            workValue10 = GetEntityMatrix
-            workValue12 = workValue
-            workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = workValue10(workValue12)
-            workValue6 = workValue6(workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
-            workValue3 = workValue6
+            workingValue6 = workingValue6(workingValue8)
+            workingValue2 = workingValue6
+            workingValue6 = select
+            workingValue8 = 2
+            workingValue10 = GetEntityMatrix
+            workingValue12 = workingValue
+            workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9 = workingValue10(workingValue12)
+            workingValue6 = workingValue6(workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9)
+            workingValue3 = workingValue6
           else
-            workValue2 = dataTable4[1]
-            workValue3 = dataTable4[2]
+            workingValue2 = dataCollection4[1]
+            workingValue3 = dataCollection4[2]
           end
-          workValue6 = DrawSpotLight
-          workValue8 = workValue2.x
-          workValue10 = workValue2.y
-          workValue12 = workValue2.z
-          flag = workValue3.x
-          flag2 = workValue3.y
-          flag3 = workValue3.z
-          flag4 = 255
-          numberValue4 = 0
-          flag5 = 0
-          if workValue4 then
-            numberValue5 = 5.0
-            if numberValue5 then
-              goto flow_label_128
+          workingValue6 = DrawSpotLight
+          workingValue8 = workingValue2.x
+          workingValue10 = workingValue2.y
+          workingValue12 = workingValue2.z
+          stateFlag = workingValue3.x
+          stateFlag2 = workingValue3.y
+          stateFlag3 = workingValue3.z
+          stateFlag4 = 255
+          number4 = 0
+          stateFlag5 = 0
+          if workingValue4 then
+            number5 = 5.0
+            if number5 then
+              goto continueAtStep128
             end
           end
-          numberValue5 = 15.0
-          ::flow_label_128::
-          numberValue6 = 20.0
-          numberValue7 = 100.0
-          numberValue8 = 0.0
-          numberValue9 = 10.0
-          workValue6(workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
+          number5 = 15.0
+          ::continueAtStep128::
+          number6 = 20.0
+          number7 = 100.0
+          number8 = 0.0
+          number9 = 10.0
+          workingValue6(workingValue8, workingValue10, workingValue12, stateFlag, stateFlag2, stateFlag3, stateFlag4, number4, stateFlag5, number5, number6, number7, number8, number9)
         end
       end
     end
   end
 end
-workValue14 = CMG
-workValue14 = workValue14.createThreadOnTick
-cmgCall4 = textValue
-cmgCall5 = "Taser Red Dot"
+workingValue14 = CMG
+workingValue14 = workingValue14.createThreadOnTick
+cmgOperation4 = text
+cmgOperation5 = "Taser Red Dot"
 -- Beginner: Run a helper every game frame while this script is active.
-workValue14(cmgCall4, cmgCall5)
-workValue14 = AddEventHandler
-cmgCall4 = "onResourceStop"
+workingValue14(cmgOperation4, cmgOperation5)
+workingValue14 = AddEventHandler
+cmgOperation4 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
-function cmgCall5(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg2 == arg1 then
-    arg2 = pairs
-    arg3 = hashValue
-    arg2, arg3, arg4, arg5 = arg2(arg3)
-    for arg6, arg7 in arg2, arg3, arg4, arg5 do
-      dataTable4 = workValue9
-      workValue18 = arg7
-      dataTable4(workValue18)
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1) ===
+function cmgOperation5(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue2 == localValue1 then
+    localValue2 = pairs
+    localValue3 = hashValue
+    localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+    for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+      dataCollection4 = workingValue9
+      workingValue18 = localValue7
+      dataCollection4(workingValue18)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-workValue14(cmgCall4, cmgCall5)
+workingValue14(cmgOperation4, cmgOperation5)
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2, arg3, arg4
-  arg1 = GetPlayerServerId
-  arg2 = PlayerId
-  arg2, arg3, arg4 = arg2()
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = GetPlayerServerId
+  localValue2 = PlayerId
+  localValue2, localValue3, localValue4 = localValue2()
   -- Beginner: result below is serverId.
-  arg1 = arg1(arg2, arg3, arg4)
-  arg2 = hashValue
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = workValue9
-    arg4 = arg2
-    arg3(arg4)
-    arg3 = workValue11
-    arg4 = arg2
-    arg3(arg4)
+  localValue1 = localValue1(localValue2, localValue3, localValue4)
+  localValue2 = hashValue
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = workingValue9
+    localValue4 = localValue2
+    localValue3(localValue4)
+    localValue3 = workingValue11
+    localValue4 = localValue2
+    localValue3(localValue4)
   end
 end
-cmgCall4 = CMG
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function cmgCall5(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6
-  dataTable4 = dataTable
-  workValue18 = {}
-  workValue19 = arg2
-  workValue = arg3
-  workValue2 = arg4
-  workValue3 = arg5
-  workValue4 = arg6
-  workValue6 = arg7
-  workValue18[1] = workValue19
-  workValue18[2] = workValue
-  workValue18[3] = workValue2
-  workValue18[4] = workValue3
-  workValue18[5] = workValue4
-  workValue18[6] = workValue6
-  dataTable4[arg1] = workValue18
-  dataTable4 = dataTable3
-  dataTable4()
-  dataTable4 = workValue14
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function cmgOperation5(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6
+  dataCollection4 = dataCollection
+  workingValue18 = {}
+  workingValue19 = localValue2
+  workingValue = localValue3
+  workingValue2 = localValue4
+  workingValue3 = localValue5
+  workingValue4 = localValue6
+  workingValue6 = localValue7
+  workingValue18[1] = workingValue19
+  workingValue18[2] = workingValue
+  workingValue18[3] = workingValue2
+  workingValue18[4] = workingValue3
+  workingValue18[5] = workingValue4
+  workingValue18[6] = workingValue6
+  dataCollection4[localValue1] = workingValue18
+  dataCollection4 = dataCollection3
+  dataCollection4()
+  dataCollection4 = workingValue14
   -- Beginner: Register a client-side event handler.
-  dataTable4()
+  dataCollection4()
 end
-cmgCall4.setChainOnBackOverrideNumbers = cmgCall5
-cmgCall4 = CMG
+cmgOperation4.setChainOnBackOverrideNumbers = cmgOperation5
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
-function cmgCall5(arg1)
-  local arg2
-  arg2 = dataTable
-  arg2[arg1] = nil
-  arg2 = dataTable3
-  arg2()
-  arg2 = workValue14
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1) ===
+function cmgOperation5(localValue1)
+  local localValue2
+  localValue2 = dataCollection
+  localValue2[localValue1] = nil
+  localValue2 = dataCollection3
+  localValue2()
+  localValue2 = workingValue14
   -- Beginner: Register a client-side event handler.
-  arg2()
+  localValue2()
 end
-cmgCall4.clearChainOnBackOverride = cmgCall5
+cmgOperation4.clearChainOnBackOverride = cmgOperation5
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2, arg3) ===
-function cmgCall4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, dataTable4
-  arg4 = SetTextFont
-  arg5 = 4
-  arg4(arg5)
-  arg4 = SetTextScale
-  arg5 = 0.35
-  arg6 = 0.35
-  arg4(arg5, arg6)
-  arg4 = SetTextColour
-  arg5 = 255
-  arg6 = 255
-  arg7 = 255
-  dataTable4 = 215
-  arg4(arg5, arg6, arg7, dataTable4)
-  arg4 = SetTextOutline
-  arg4()
-  arg4 = SetTextCentre
-  arg5 = false
-  arg4(arg5)
-  arg4 = BeginTextCommandDisplayText
-  arg5 = "STRING"
-  arg4(arg5)
-  arg4 = AddTextComponentSubstringPlayerName
-  arg5 = arg3
-  arg4(arg5)
-  arg4 = EndTextCommandDisplayText
-  arg5 = arg1
-  arg6 = arg2
-  arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1, localValue2, localValue3) ===
+function cmgOperation4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, dataCollection4
+  localValue4 = SetTextFont
+  localValue5 = 4
+  localValue4(localValue5)
+  localValue4 = SetTextScale
+  localValue5 = 0.35
+  localValue6 = 0.35
+  localValue4(localValue5, localValue6)
+  localValue4 = SetTextColour
+  localValue5 = 255
+  localValue6 = 255
+  localValue7 = 255
+  dataCollection4 = 215
+  localValue4(localValue5, localValue6, localValue7, dataCollection4)
+  localValue4 = SetTextOutline
+  localValue4()
+  localValue4 = SetTextCentre
+  localValue5 = false
+  localValue4(localValue5)
+  localValue4 = BeginTextCommandDisplayText
+  localValue5 = "STRING"
+  localValue4(localValue5)
+  localValue4 = AddTextComponentSubstringPlayerName
+  localValue5 = localValue3
+  localValue4(localValue5)
+  localValue4 = EndTextCommandDisplayText
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
 end
-cmgCall5 = CMG
-cmgCall5 = cmgCall5.registerCommand
-textValue2 = "chainedit"
+cmgOperation5 = CMG
+cmgOperation5 = cmgOperation5.registerCommand
+text2 = "chainedit"
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.isDevMode
-  arg1 = arg1()
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.isDevMode
+  localValue1 = localValue1()
+  if not localValue1 then
     return
   end
-  arg1 = cmgCall6.enabled
-  arg1 = not arg1
-  cmgCall6.enabled = arg1
-  arg1 = workValue14
+  localValue1 = cmgOperation6.enabled
+  localValue1 = not localValue1
+  cmgOperation6.enabled = localValue1
+  localValue1 = workingValue14
   -- Beginner: Register a client-side event handler.
-  arg1()
+  localValue1()
 end
-flag6 = true
-cmgCall5(textValue2, workValue15, flag6)
-cmgCall5 = CMG
-cmgCall5 = cmgCall5.registerCommand
-textValue2 = "chainprint"
+stateFlag6 = true
+cmgOperation5(text2, workingValue15, stateFlag6)
+cmgOperation5 = CMG
+cmgOperation5 = cmgOperation5.registerCommand
+text2 = "chainprint"
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19
-  arg1 = CMG
-  arg1 = arg1.isDevMode
-  arg1 = arg1()
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19
+  localValue1 = CMG
+  localValue1 = localValue1.isDevMode
+  localValue1 = localValue1()
+  if not localValue1 then
     return
   end
-  arg1 = print
-  arg2 = "CHAIN CFG => bone=%d, offset=vector3(%.4f, %.4f, %.4f), rotation=vector3(%.2f, %.2f, %.2f)"
-  arg3 = arg2
-  arg2 = arg2.format
-  arg4 = cmgCall6.bone
-  arg5 = cmgCall6.offset
-  arg5 = arg5.x
-  arg6 = cmgCall6.offset
-  arg6 = arg6.y
-  arg7 = cmgCall6.offset
-  arg7 = arg7.z
-  dataTable4 = cmgCall6.rotation
-  dataTable4 = dataTable4.x
-  workValue18 = cmgCall6.rotation
-  workValue18 = workValue18.y
-  workValue19 = cmgCall6.rotation
-  workValue19 = workValue19.z
-  arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19 = arg2(arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19)
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19)
+  localValue1 = print
+  localValue2 = "CHAIN CFG => bone=%d, offset=vector3(%.4f, %.4f, %.4f), rotation=vector3(%.2f, %.2f, %.2f)"
+  localValue3 = localValue2
+  localValue2 = localValue2.format
+  localValue4 = cmgOperation6.bone
+  localValue5 = cmgOperation6.offset
+  localValue5 = localValue5.x
+  localValue6 = cmgOperation6.offset
+  localValue6 = localValue6.y
+  localValue7 = cmgOperation6.offset
+  localValue7 = localValue7.z
+  dataCollection4 = cmgOperation6.rotation
+  dataCollection4 = dataCollection4.x
+  workingValue18 = cmgOperation6.rotation
+  workingValue18 = workingValue18.y
+  workingValue19 = cmgOperation6.rotation
+  workingValue19 = workingValue19.z
+  localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19)
 end
-flag6 = true
-cmgCall5(textValue2, workValue15, flag6)
-cmgCall5 = Citizen
-cmgCall5 = cmgCall5.CreateThread
+stateFlag6 = true
+cmgOperation5(text2, workingValue15, stateFlag6)
+cmgOperation5 = Citizen
+cmgOperation5 = cmgOperation5.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12
-  arg1 = CMG
-  arg1 = arg1.isDevMode
-  arg1 = arg1()
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, dataCollection4, workingValue18, workingValue19, workingValue, workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12
+  localValue1 = CMG
+  localValue1 = localValue1.isDevMode
+  localValue1 = localValue1()
+  if not localValue1 then
     return
   end
   while true do
-    arg1 = cmgCall6.enabled
-    if not arg1 then
-      arg1 = Citizen
-      arg1 = arg1.Wait
-      arg2 = 500
-      arg1(arg2)
+    localValue1 = cmgOperation6.enabled
+    if not localValue1 then
+      localValue1 = Citizen
+      localValue1 = localValue1.Wait
+      localValue2 = 500
+      localValue1(localValue2)
     else
-      arg1 = Citizen
-      arg1 = arg1.Wait
-      arg2 = 0
-      arg1(arg2)
-      arg1 = 0.005
-      arg2 = 1.0
-      arg3 = IsControlPressed
-      arg4 = 0
-      arg5 = 21
-      arg3 = arg3(arg4, arg5)
-      if arg3 then
-        arg1 = 0.02
-        arg2 = 5.0
+      localValue1 = Citizen
+      localValue1 = localValue1.Wait
+      localValue2 = 0
+      localValue1(localValue2)
+      localValue1 = 0.005
+      localValue2 = 1.0
+      localValue3 = IsControlPressed
+      localValue4 = 0
+      localValue5 = 21
+      localValue3 = localValue3(localValue4, localValue5)
+      if localValue3 then
+        localValue1 = 0.02
+        localValue2 = 5.0
       else
-        arg3 = IsControlPressed
-        arg4 = 0
-        arg5 = 36
-        arg3 = arg3(arg4, arg5)
-        if arg3 then
-          arg1 = 0.001
-          arg2 = 0.2
+        localValue3 = IsControlPressed
+        localValue4 = 0
+        localValue5 = 36
+        localValue3 = localValue3(localValue4, localValue5)
+        if localValue3 then
+          localValue1 = 0.001
+          localValue2 = 0.2
         end
       end
-      arg3 = IsControlPressed
-      arg4 = 0
-      arg5 = 19
-      arg3 = arg3(arg4, arg5)
-      arg4 = IsControlJustPressed
-      arg5 = 0
-      arg6 = 172
-      arg4 = arg4(arg5, arg6)
-      arg5 = IsControlJustPressed
-      arg6 = 0
-      arg7 = 173
-      arg5 = arg5(arg6, arg7)
-      arg6 = IsControlJustPressed
-      arg7 = 0
-      dataTable4 = 174
-      arg6 = arg6(arg7, dataTable4)
-      arg7 = IsControlJustPressed
-      dataTable4 = 0
-      workValue18 = 175
-      arg7 = arg7(dataTable4, workValue18)
-      dataTable4 = IsControlJustPressed
-      workValue18 = 0
-      workValue19 = 44
-      dataTable4 = dataTable4(workValue18, workValue19)
-      workValue18 = IsControlJustPressed
-      workValue19 = 0
-      workValue = 38
-      workValue18 = workValue18(workValue19, workValue)
-      workValue19 = false
-      if not arg3 then
-        if arg6 then
-          workValue = vector3
-          workValue2 = cmgCall6.offset
-          workValue2 = workValue2.x
-          workValue2 = workValue2 - arg1
-          workValue3 = cmgCall6.offset
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.offset
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.offset = workValue
-          workValue19 = true
+      localValue3 = IsControlPressed
+      localValue4 = 0
+      localValue5 = 19
+      localValue3 = localValue3(localValue4, localValue5)
+      localValue4 = IsControlJustPressed
+      localValue5 = 0
+      localValue6 = 172
+      localValue4 = localValue4(localValue5, localValue6)
+      localValue5 = IsControlJustPressed
+      localValue6 = 0
+      localValue7 = 173
+      localValue5 = localValue5(localValue6, localValue7)
+      localValue6 = IsControlJustPressed
+      localValue7 = 0
+      dataCollection4 = 174
+      localValue6 = localValue6(localValue7, dataCollection4)
+      localValue7 = IsControlJustPressed
+      dataCollection4 = 0
+      workingValue18 = 175
+      localValue7 = localValue7(dataCollection4, workingValue18)
+      dataCollection4 = IsControlJustPressed
+      workingValue18 = 0
+      workingValue19 = 44
+      dataCollection4 = dataCollection4(workingValue18, workingValue19)
+      workingValue18 = IsControlJustPressed
+      workingValue19 = 0
+      workingValue = 38
+      workingValue18 = workingValue18(workingValue19, workingValue)
+      workingValue19 = false
+      if not localValue3 then
+        if localValue6 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.offset
+          workingValue2 = workingValue2.x
+          workingValue2 = workingValue2 - localValue1
+          workingValue3 = cmgOperation6.offset
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.offset
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.offset = workingValue
+          workingValue19 = true
         end
-        if arg7 then
-          workValue = vector3
-          workValue2 = cmgCall6.offset
-          workValue2 = workValue2.x
-          workValue2 = workValue2 + arg1
-          workValue3 = cmgCall6.offset
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.offset
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.offset = workValue
-          workValue19 = true
+        if localValue7 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.offset
+          workingValue2 = workingValue2.x
+          workingValue2 = workingValue2 + localValue1
+          workingValue3 = cmgOperation6.offset
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.offset
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.offset = workingValue
+          workingValue19 = true
         end
-        if arg4 then
-          workValue = vector3
-          workValue2 = cmgCall6.offset
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.offset
-          workValue3 = workValue3.y
-          workValue3 = workValue3 + arg1
-          workValue4 = cmgCall6.offset
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.offset = workValue
-          workValue19 = true
+        if localValue4 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.offset
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.offset
+          workingValue3 = workingValue3.y
+          workingValue3 = workingValue3 + localValue1
+          workingValue4 = cmgOperation6.offset
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.offset = workingValue
+          workingValue19 = true
         end
-        if arg5 then
-          workValue = vector3
-          workValue2 = cmgCall6.offset
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.offset
-          workValue3 = workValue3.y
-          workValue3 = workValue3 - arg1
-          workValue4 = cmgCall6.offset
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.offset = workValue
-          workValue19 = true
+        if localValue5 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.offset
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.offset
+          workingValue3 = workingValue3.y
+          workingValue3 = workingValue3 - localValue1
+          workingValue4 = cmgOperation6.offset
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.offset = workingValue
+          workingValue19 = true
         end
-        if dataTable4 then
-          workValue = vector3
-          workValue2 = cmgCall6.offset
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.offset
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.offset
-          workValue4 = workValue4.z
-          workValue4 = workValue4 + arg1
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.offset = workValue
-          workValue19 = true
+        if dataCollection4 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.offset
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.offset
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.offset
+          workingValue4 = workingValue4.z
+          workingValue4 = workingValue4 + localValue1
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.offset = workingValue
+          workingValue19 = true
         end
-        if workValue18 then
-          workValue = vector3
-          workValue2 = cmgCall6.offset
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.offset
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.offset
-          workValue4 = workValue4.z
-          workValue4 = workValue4 - arg1
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.offset = workValue
-          workValue19 = true
+        if workingValue18 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.offset
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.offset
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.offset
+          workingValue4 = workingValue4.z
+          workingValue4 = workingValue4 - localValue1
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.offset = workingValue
+          workingValue19 = true
         end
       else
-        if arg6 then
-          workValue = vector3
-          workValue2 = cmgCall6.rotation
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.rotation
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.rotation
-          workValue4 = workValue4.z
-          workValue4 = workValue4 - arg2
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.rotation = workValue
-          workValue19 = true
+        if localValue6 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.rotation
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.rotation
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.rotation
+          workingValue4 = workingValue4.z
+          workingValue4 = workingValue4 - localValue2
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.rotation = workingValue
+          workingValue19 = true
         end
-        if arg7 then
-          workValue = vector3
-          workValue2 = cmgCall6.rotation
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.rotation
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.rotation
-          workValue4 = workValue4.z
-          workValue4 = workValue4 + arg2
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.rotation = workValue
-          workValue19 = true
+        if localValue7 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.rotation
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.rotation
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.rotation
+          workingValue4 = workingValue4.z
+          workingValue4 = workingValue4 + localValue2
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.rotation = workingValue
+          workingValue19 = true
         end
-        if arg4 then
-          workValue = vector3
-          workValue2 = cmgCall6.rotation
-          workValue2 = workValue2.x
-          workValue2 = workValue2 - arg2
-          workValue3 = cmgCall6.rotation
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.rotation
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.rotation = workValue
-          workValue19 = true
+        if localValue4 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.rotation
+          workingValue2 = workingValue2.x
+          workingValue2 = workingValue2 - localValue2
+          workingValue3 = cmgOperation6.rotation
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.rotation
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.rotation = workingValue
+          workingValue19 = true
         end
-        if arg5 then
-          workValue = vector3
-          workValue2 = cmgCall6.rotation
-          workValue2 = workValue2.x
-          workValue2 = workValue2 + arg2
-          workValue3 = cmgCall6.rotation
-          workValue3 = workValue3.y
-          workValue4 = cmgCall6.rotation
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.rotation = workValue
-          workValue19 = true
+        if localValue5 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.rotation
+          workingValue2 = workingValue2.x
+          workingValue2 = workingValue2 + localValue2
+          workingValue3 = cmgOperation6.rotation
+          workingValue3 = workingValue3.y
+          workingValue4 = cmgOperation6.rotation
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.rotation = workingValue
+          workingValue19 = true
         end
-        if dataTable4 then
-          workValue = vector3
-          workValue2 = cmgCall6.rotation
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.rotation
-          workValue3 = workValue3.y
-          workValue3 = workValue3 - arg2
-          workValue4 = cmgCall6.rotation
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.rotation = workValue
-          workValue19 = true
+        if dataCollection4 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.rotation
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.rotation
+          workingValue3 = workingValue3.y
+          workingValue3 = workingValue3 - localValue2
+          workingValue4 = cmgOperation6.rotation
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.rotation = workingValue
+          workingValue19 = true
         end
-        if workValue18 then
-          workValue = vector3
-          workValue2 = cmgCall6.rotation
-          workValue2 = workValue2.x
-          workValue3 = cmgCall6.rotation
-          workValue3 = workValue3.y
-          workValue3 = workValue3 + arg2
-          workValue4 = cmgCall6.rotation
-          workValue4 = workValue4.z
-          workValue = workValue(workValue2, workValue3, workValue4)
-          cmgCall6.rotation = workValue
-          workValue19 = true
+        if workingValue18 then
+          workingValue = vector3
+          workingValue2 = cmgOperation6.rotation
+          workingValue2 = workingValue2.x
+          workingValue3 = cmgOperation6.rotation
+          workingValue3 = workingValue3.y
+          workingValue3 = workingValue3 + localValue2
+          workingValue4 = cmgOperation6.rotation
+          workingValue4 = workingValue4.z
+          workingValue = workingValue(workingValue2, workingValue3, workingValue4)
+          cmgOperation6.rotation = workingValue
+          workingValue19 = true
         end
       end
-      if workValue19 then
-        workValue = workValue14
+      if workingValue19 then
+        workingValue = workingValue14
         -- Beginner: Register a client-side event handler.
-        workValue()
+        workingValue()
       end
-      workValue = cmgCall4
-      workValue2 = 0.015
-      workValue3 = 0.65
-      workValue4 = "~y~CHAIN EDIT~w~ (%s)  /chainprint to copy"
-      workValue6 = workValue4
-      workValue4 = workValue4.format
-      if arg3 then
-        workValue8 = "ROT"
-        if workValue8 then
-          goto flow_label_253
+      workingValue = cmgOperation4
+      workingValue2 = 0.015
+      workingValue3 = 0.65
+      workingValue4 = "~y~CHAIN EDIT~w~ (%s)  /chainprint to copy"
+      workingValue6 = workingValue4
+      workingValue4 = workingValue4.format
+      if localValue3 then
+        workingValue8 = "ROT"
+        if workingValue8 then
+          goto continueAtStep253
         end
       end
-      workValue8 = "POS"
-      ::flow_label_253::
-      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8)
-      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
-      workValue = cmgCall4
-      workValue2 = 0.015
-      workValue3 = 0.675
-      workValue4 = "bone=%d"
-      workValue6 = workValue4
-      workValue4 = workValue4.format
-      workValue8 = cmgCall6.bone
-      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8)
-      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
-      workValue = cmgCall4
-      workValue2 = 0.015
-      workValue3 = 0.7
-      workValue4 = "off:  x=%.4f y=%.4f z=%.4f"
-      workValue6 = workValue4
-      workValue4 = workValue4.format
-      workValue8 = cmgCall6.offset
-      workValue8 = workValue8.x
-      workValue10 = cmgCall6.offset
-      workValue10 = workValue10.y
-      workValue12 = cmgCall6.offset
-      workValue12 = workValue12.z
-      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8, workValue10, workValue12)
-      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
-      workValue = cmgCall4
-      workValue2 = 0.015
-      workValue3 = 0.725
-      workValue4 = "rot:  x=%.2f y=%.2f z=%.2f"
-      workValue6 = workValue4
-      workValue4 = workValue4.format
-      workValue8 = cmgCall6.rotation
-      workValue8 = workValue8.x
-      workValue10 = cmgCall6.rotation
-      workValue10 = workValue10.y
-      workValue12 = cmgCall6.rotation
-      workValue12 = workValue12.z
-      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8, workValue10, workValue12)
-      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
-      workValue = cmgCall4
-      workValue2 = 0.015
-      workValue3 = 0.75
-      workValue4 = "Move: Arrows + Q/E | Rotate: hold ALT | SHIFT big | CTRL fine | /chainedit toggle"
-      workValue(workValue2, workValue3, workValue4)
+      workingValue8 = "POS"
+      ::continueAtStep253::
+      workingValue4, workingValue6, workingValue8, workingValue10, workingValue12 = workingValue4(workingValue6, workingValue8)
+      workingValue(workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12)
+      workingValue = cmgOperation4
+      workingValue2 = 0.015
+      workingValue3 = 0.675
+      workingValue4 = "bone=%d"
+      workingValue6 = workingValue4
+      workingValue4 = workingValue4.format
+      workingValue8 = cmgOperation6.bone
+      workingValue4, workingValue6, workingValue8, workingValue10, workingValue12 = workingValue4(workingValue6, workingValue8)
+      workingValue(workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12)
+      workingValue = cmgOperation4
+      workingValue2 = 0.015
+      workingValue3 = 0.7
+      workingValue4 = "off:  x=%.4f y=%.4f z=%.4f"
+      workingValue6 = workingValue4
+      workingValue4 = workingValue4.format
+      workingValue8 = cmgOperation6.offset
+      workingValue8 = workingValue8.x
+      workingValue10 = cmgOperation6.offset
+      workingValue10 = workingValue10.y
+      workingValue12 = cmgOperation6.offset
+      workingValue12 = workingValue12.z
+      workingValue4, workingValue6, workingValue8, workingValue10, workingValue12 = workingValue4(workingValue6, workingValue8, workingValue10, workingValue12)
+      workingValue(workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12)
+      workingValue = cmgOperation4
+      workingValue2 = 0.015
+      workingValue3 = 0.725
+      workingValue4 = "rot:  x=%.2f y=%.2f z=%.2f"
+      workingValue6 = workingValue4
+      workingValue4 = workingValue4.format
+      workingValue8 = cmgOperation6.rotation
+      workingValue8 = workingValue8.x
+      workingValue10 = cmgOperation6.rotation
+      workingValue10 = workingValue10.y
+      workingValue12 = cmgOperation6.rotation
+      workingValue12 = workingValue12.z
+      workingValue4, workingValue6, workingValue8, workingValue10, workingValue12 = workingValue4(workingValue6, workingValue8, workingValue10, workingValue12)
+      workingValue(workingValue2, workingValue3, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12)
+      workingValue = cmgOperation4
+      workingValue2 = 0.015
+      workingValue3 = 0.75
+      workingValue4 = "Move: Arrows + Q/E | Rotate: hold ALT | SHIFT big | CTRL fine | /chainedit toggle"
+      workingValue(workingValue2, workingValue3, workingValue4)
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall5(textValue2)
+cmgOperation5(text2)

@@ -32,1784 +32,1784 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable3, workValue7, dataTable4, numberValue10, threadCall, textValue9, textValue10, rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable3 = "cfg/cfg_impound"
+local cmgOperation, dataCollection3, workingValue7, dataCollection4, number10, backgroundThread, text9, text10, rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection3 = "cfg/cfg_impound"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable3)
-dataTable3 = {}
-dataTable3.owner_id = 0
-dataTable3.owner_name = ""
-dataTable3.vehicle = ""
-dataTable3.vehicle_name = ""
-workValue7 = nil
-dataTable4 = {}
-numberValue10 = 786469
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+cmgOperation = cmgOperation(dataCollection3)
+dataCollection3 = {}
+dataCollection3.owner_id = 0
+dataCollection3.owner_name = ""
+dataCollection3.vehicle = ""
+dataCollection3.vehicle_name = ""
+workingValue7 = nil
+dataCollection4 = {}
+number10 = 786469
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
-function textValue9()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2
-  arg1 = CMG
-  arg1 = arg1.createDynamicPed
-  arg2 = cmgCall.ped
-  arg2 = arg2.modelHash
-  arg3 = cmgCall.ped
-  arg3 = arg3.position
-  arg4 = 215.0
-  arg5 = true
-  arg6 = cmgCall.ped
-  arg6 = arg6.animDict
-  arg7 = cmgCall.ped
-  arg7 = arg7.animName
-  arg8 = 30
-  flag24 = false
+-- === HELPER FUNCTION (decompiler name: text9; parameters: none) ===
+function text9()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2
+  localValue1 = CMG
+  localValue1 = localValue1.createDynamicPed
+  localValue2 = cmgOperation.ped
+  localValue2 = localValue2.modelHash
+  localValue3 = cmgOperation.ped
+  localValue3 = localValue3.position
+  localValue4 = 215.0
+  localValue5 = true
+  localValue6 = cmgOperation.ped
+  localValue6 = localValue6.animDict
+  localValue7 = cmgOperation.ped
+  localValue7 = localValue7.animName
+  localValue8 = 30
+  stateFlag24 = false
 
-  -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-  function workValue13()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+  function workingValue13()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, flag24, workValue13)
-  arg1 = CMG
-  arg1 = arg1.createDynamicPed
-  arg2 = cmgCall.paletoPed
-  arg2 = arg2.modelHash
-  arg3 = cmgCall.paletoPed
-  arg3 = arg3.position
-  arg4 = 315.0
-  arg5 = true
-  arg6 = cmgCall.paletoPed
-  arg6 = arg6.animDict
-  arg7 = cmgCall.paletoPed
-  arg7 = arg7.animName
-  arg8 = 30
-  flag24 = false
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13)
+  localValue1 = CMG
+  localValue1 = localValue1.createDynamicPed
+  localValue2 = cmgOperation.paletoPed
+  localValue2 = localValue2.modelHash
+  localValue3 = cmgOperation.paletoPed
+  localValue3 = localValue3.position
+  localValue4 = 315.0
+  localValue5 = true
+  localValue6 = cmgOperation.paletoPed
+  localValue6 = localValue6.animDict
+  localValue7 = cmgOperation.paletoPed
+  localValue7 = localValue7.animName
+  localValue8 = 30
+  stateFlag24 = false
 
-  -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-  function workValue13()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+  function workingValue13()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, flag24, workValue13)
-  arg1 = tCMG
-  arg1 = arg1.addBlip
-  arg2 = cmgCall.ped
-  arg2 = arg2.position
-  arg2 = arg2.x
-  arg3 = cmgCall.ped
-  arg3 = arg3.position
-  arg3 = arg3.y
-  arg4 = cmgCall.ped
-  arg4 = arg4.position
-  arg4 = arg4.z
-  arg5 = 357
-  arg6 = 81
-  arg7 = "Vehicle Impound"
-  arg8 = 0.8
-  flag24 = false
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13)
+  localValue1 = tCMG
+  localValue1 = localValue1.addBlip
+  localValue2 = cmgOperation.ped
+  localValue2 = localValue2.position
+  localValue2 = localValue2.x
+  localValue3 = cmgOperation.ped
+  localValue3 = localValue3.position
+  localValue3 = localValue3.y
+  localValue4 = cmgOperation.ped
+  localValue4 = localValue4.position
+  localValue4 = localValue4.z
+  localValue5 = 357
+  localValue6 = 81
+  localValue7 = "Vehicle Impound"
+  localValue8 = 0.8
+  stateFlag24 = false
   -- Beginner: Create a minimap blip.
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, flag24)
-  arg1 = tCMG
-  arg1 = arg1.addBlip
-  arg2 = cmgCall.paletoPed
-  arg2 = arg2.position
-  arg2 = arg2.x
-  arg3 = cmgCall.paletoPed
-  arg3 = arg3.position
-  arg3 = arg3.y
-  arg4 = cmgCall.paletoPed
-  arg4 = arg4.position
-  arg4 = arg4.z
-  arg5 = 357
-  arg6 = 81
-  arg7 = "Vehicle Impound"
-  arg8 = 0.8
-  flag24 = false
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, flag24)
-  arg1 = Wait
-  arg2 = 2000
-  arg1(arg2)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24)
+  localValue1 = tCMG
+  localValue1 = localValue1.addBlip
+  localValue2 = cmgOperation.paletoPed
+  localValue2 = localValue2.position
+  localValue2 = localValue2.x
+  localValue3 = cmgOperation.paletoPed
+  localValue3 = localValue3.position
+  localValue3 = localValue3.y
+  localValue4 = cmgOperation.paletoPed
+  localValue4 = localValue4.position
+  localValue4 = localValue4.z
+  localValue5 = 357
+  localValue6 = 81
+  localValue7 = "Vehicle Impound"
+  localValue8 = 0.8
+  stateFlag24 = false
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24)
+  localValue1 = Wait
+  localValue2 = 2000
+  localValue1(localValue2)
 
-  -- === HELPER FUNCTION: arg1(arg12) ===
-  function arg1(arg12)
-    local arg22, workValue8, flag18, rageUiCall3, textValue7
-    arg22 = arg12.type
-    workValue7 = arg22
-    arg22 = RageUI
-    arg22 = arg22.Visible
-    workValue8 = RMenu
-    flag18 = workValue8
-    workValue8 = workValue8.Get
-    rageUiCall3 = "cmgimpound"
-    textValue7 = "main"
+  -- === HELPER FUNCTION: localValue1(localValue12) ===
+  function localValue1(localValue12)
+    local localValue22, workingValue8, stateFlag18, rageUiOperation3, text7
+    localValue22 = localValue12.type
+    workingValue7 = localValue22
+    localValue22 = RageUI
+    localValue22 = localValue22.Visible
+    workingValue8 = RMenu
+    stateFlag18 = workingValue8
+    workingValue8 = workingValue8.Get
+    rageUiOperation3 = "cmgimpound"
+    text7 = "main"
     -- Beginner: result below is menu.
-    workValue8 = workValue8(flag18, rageUiCall3, textValue7)
-    flag18 = true
-    arg22(workValue8, flag18)
+    workingValue8 = workingValue8(stateFlag18, rageUiOperation3, text7)
+    stateFlag18 = true
+    localValue22(workingValue8, stateFlag18)
   end
 
-  -- === HELPER FUNCTION: arg2() ===
-  function arg2()
-    local arg12, arg22
-    arg12 = RageUI
-    arg12 = arg12.CloseAll
-    arg12()
+  -- === HELPER FUNCTION: localValue2() ===
+  function localValue2()
+    local localValue12, localValue22
+    localValue12 = RageUI
+    localValue12 = localValue12.CloseAll
+    localValue12()
   end
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local localValue12, localValue22
   end
-  arg4 = CMG
-  arg4 = arg4.createArea
-  arg5 = "vehicle_impound"
-  arg6 = cmgCall.ped
-  arg6 = arg6.position
-  arg7 = 3.0
-  arg8 = 6
-  flag24 = arg1
-  workValue13 = arg2
-  cmgCall2 = arg3
-  dataTable2 = {}
-  dataTable2.type = "city"
+  localValue4 = CMG
+  localValue4 = localValue4.createArea
+  localValue5 = "vehicle_impound"
+  localValue6 = cmgOperation.ped
+  localValue6 = localValue6.position
+  localValue7 = 3.0
+  localValue8 = 6
+  stateFlag24 = localValue1
+  workingValue13 = localValue2
+  cmgOperation2 = localValue3
+  dataCollection2 = {}
+  dataCollection2.type = "city"
   -- Beginner: Create an interaction area around a world position.
-  arg4(arg5, arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2)
-  arg4 = CMG
-  arg4 = arg4.createArea
-  arg5 = "vehicle_paleto_impound"
-  arg6 = cmgCall.paletoPed
-  arg6 = arg6.position
-  arg7 = 3.0
-  arg8 = 6
-  flag24 = arg1
-  workValue13 = arg2
-  cmgCall2 = arg3
-  dataTable2 = {}
-  dataTable2.type = "paleto"
-  arg4(arg5, arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2)
+  localValue4(localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2)
+  localValue4 = CMG
+  localValue4 = localValue4.createArea
+  localValue5 = "vehicle_paleto_impound"
+  localValue6 = cmgOperation.paletoPed
+  localValue6 = localValue6.position
+  localValue7 = 3.0
+  localValue8 = 6
+  stateFlag24 = localValue1
+  workingValue13 = localValue2
+  cmgOperation2 = localValue3
+  dataCollection2 = {}
+  dataCollection2.type = "paleto"
+  localValue4(localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2)
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(textValue9)
-threadCall = RMenu
-threadCall = threadCall.Add
-textValue9 = "cmgimpound"
-textValue10 = "reasons"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateMenu
-textValue11 = ""
-textValue = "~b~Impounding Vehicle..."
-rageUiCall = CMG
-rageUiCall = rageUiCall.getRageUIMenuWidth
-rageUiCall = rageUiCall()
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuHeight
-rageUiCall2 = rageUiCall2()
-textValue2 = "cmg_jobselectorui"
-textValue3 = "metpd"
-rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3 = rageUiCall4(textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall(textValue9, textValue10, rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall = RMenu
-threadCall = threadCall.Add
-textValue9 = "cmgimpound"
-textValue10 = "main"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateMenu
-textValue11 = ""
-textValue = "~b~Your Impounded Vehicles"
-rageUiCall = CMG
-rageUiCall = rageUiCall.getRageUIMenuWidth
-rageUiCall = rageUiCall()
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuHeight
-rageUiCall2 = rageUiCall2()
-textValue2 = "cmg_jobselectorui"
-textValue3 = "metpd"
-rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3 = rageUiCall4(textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall(textValue9, textValue10, rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall = RMenu
-threadCall = threadCall.Add
-textValue9 = "cmgimpound"
-textValue10 = "vehicle_information"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue11 = RMenu
-textValue = textValue11
-textValue11 = textValue11.Get
-rageUiCall = "cmgimpound"
-rageUiCall2 = "main"
-textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3 = textValue11(textValue, rageUiCall, rageUiCall2)
-rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3 = rageUiCall4(textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall(textValue9, textValue10, rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall = RMenu
-threadCall = threadCall.Add
-textValue9 = "cmgimpound"
-textValue10 = "pay_fine_confirmation"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateSubMenu
-textValue11 = RMenu
-textValue = textValue11
-textValue11 = textValue11.Get
-rageUiCall = "cmgimpound"
-rageUiCall2 = "vehicle_information"
-textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3 = textValue11(textValue, rageUiCall, rageUiCall2)
-rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3 = rageUiCall4(textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall(textValue9, textValue10, rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall = RMenu
-threadCall = threadCall.Add
-textValue9 = "cmgimpound"
-textValue10 = "requestvehicle"
-rageUiCall4 = RageUI
-rageUiCall4 = rageUiCall4.CreateMenu
-textValue11 = ""
-textValue = "~b~Request Impounded Vehicle"
-rageUiCall = CMG
-rageUiCall = rageUiCall.getRageUIMenuWidth
-rageUiCall = rageUiCall()
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuHeight
-rageUiCall2 = rageUiCall2()
-textValue2 = "cmg_jobselectorui"
-textValue3 = "metpd"
-rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3 = rageUiCall4(textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall(textValue9, textValue10, rageUiCall4, textValue11, textValue, rageUiCall, rageUiCall2, textValue2, textValue3)
-threadCall = nil
-textValue9 = {}
-textValue10 = 2
-rageUiCall4 = 4
-textValue11 = 5
-textValue9[1] = textValue10
-textValue9[2] = rageUiCall4
-textValue9[3] = textValue11
-textValue10 = 1
+backgroundThread(text9)
+backgroundThread = RMenu
+backgroundThread = backgroundThread.Add
+text9 = "cmgimpound"
+text10 = "reasons"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateMenu
+text11 = ""
+text = "~b~Impounding Vehicle..."
+rageUiOperation = CMG
+rageUiOperation = rageUiOperation.getRageUIMenuWidth
+rageUiOperation = rageUiOperation()
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuHeight
+rageUiOperation2 = rageUiOperation2()
+text2 = "cmg_jobselectorui"
+text3 = "metpd"
+rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3 = rageUiOperation4(text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread(text9, text10, rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread = RMenu
+backgroundThread = backgroundThread.Add
+text9 = "cmgimpound"
+text10 = "main"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateMenu
+text11 = ""
+text = "~b~Your Impounded Vehicles"
+rageUiOperation = CMG
+rageUiOperation = rageUiOperation.getRageUIMenuWidth
+rageUiOperation = rageUiOperation()
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuHeight
+rageUiOperation2 = rageUiOperation2()
+text2 = "cmg_jobselectorui"
+text3 = "metpd"
+rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3 = rageUiOperation4(text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread(text9, text10, rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread = RMenu
+backgroundThread = backgroundThread.Add
+text9 = "cmgimpound"
+text10 = "vehicle_information"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text11 = RMenu
+text = text11
+text11 = text11.Get
+rageUiOperation = "cmgimpound"
+rageUiOperation2 = "main"
+text11, text, rageUiOperation, rageUiOperation2, text2, text3 = text11(text, rageUiOperation, rageUiOperation2)
+rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3 = rageUiOperation4(text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread(text9, text10, rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread = RMenu
+backgroundThread = backgroundThread.Add
+text9 = "cmgimpound"
+text10 = "pay_fine_confirmation"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateSubMenu
+text11 = RMenu
+text = text11
+text11 = text11.Get
+rageUiOperation = "cmgimpound"
+rageUiOperation2 = "vehicle_information"
+text11, text, rageUiOperation, rageUiOperation2, text2, text3 = text11(text, rageUiOperation, rageUiOperation2)
+rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3 = rageUiOperation4(text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread(text9, text10, rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread = RMenu
+backgroundThread = backgroundThread.Add
+text9 = "cmgimpound"
+text10 = "requestvehicle"
+rageUiOperation4 = RageUI
+rageUiOperation4 = rageUiOperation4.CreateMenu
+text11 = ""
+text = "~b~Request Impounded Vehicle"
+rageUiOperation = CMG
+rageUiOperation = rageUiOperation.getRageUIMenuWidth
+rageUiOperation = rageUiOperation()
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuHeight
+rageUiOperation2 = rageUiOperation2()
+text2 = "cmg_jobselectorui"
+text3 = "metpd"
+rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3 = rageUiOperation4(text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread(text9, text10, rageUiOperation4, text11, text, rageUiOperation, rageUiOperation2, text2, text3)
+backgroundThread = nil
+text9 = {}
+text10 = 2
+rageUiOperation4 = 4
+text11 = 5
+text9[1] = text10
+text9[2] = rageUiOperation4
+text9[3] = text11
+text10 = 1
 
--- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
-function rageUiCall4()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = ipairs
-  arg2 = cmgCall.reasonsForImpound
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg6.checked = false
+-- === HELPER FUNCTION (decompiler name: rageUiOperation4; parameters: none) ===
+function rageUiOperation4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = ipairs
+  localValue2 = cmgOperation.reasonsForImpound
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue6.checked = false
   end
 end
-textValue11 = RageUI
-textValue11 = textValue11.CreateWhile
-textValue = 1.0
-rageUiCall = RMenu
-rageUiCall2 = rageUiCall
-rageUiCall = rageUiCall.Get
-textValue2 = "cmgimpound"
-textValue3 = "main"
+text11 = RageUI
+text11 = text11.CreateWhile
+text = 1.0
+rageUiOperation = RMenu
+rageUiOperation2 = rageUiOperation
+rageUiOperation = rageUiOperation.Get
+text2 = "cmgimpound"
+text3 = "main"
 -- Beginner: result below is menu.
-rageUiCall = rageUiCall(rageUiCall2, textValue2, textValue3)
-rageUiCall2 = nil
+rageUiOperation = rageUiOperation(rageUiOperation2, text2, text3)
+rageUiOperation2 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = RageUI
-  arg1 = arg1.BackspaceMenuCallback
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = RageUI
+  localValue1 = localValue1.BackspaceMenuCallback
 
-  -- === HELPER FUNCTION: arg2() ===
-  function arg2()
-    local arg12, arg22
-    arg12 = rageUiCall4
-    arg12()
+  -- === HELPER FUNCTION: localValue2() ===
+  function localValue2()
+    local localValue12, localValue22
+    localValue12 = rageUiOperation4
+    localValue12()
   end
-  arg1(arg2)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgimpound"
-  arg5 = "reasons"
+  localValue1(localValue2)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgimpound"
+  localValue5 = "reasons"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5, textValue12
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "Vehicle: ~b~"
-    workValue8 = dataTable3.vehicle_name
-    flag18 = "~s~ | Owner: ~b~"
-    rageUiCall3 = dataTable3.owner_name
-    arg22 = arg22 .. workValue8 .. flag18 .. rageUiCall3
-    arg12(arg22)
-    arg12 = 1
-    arg22 = cmgCall.reasonsForImpound
-    arg22 = #arg22
-    workValue8 = 1
-    for flag18 = arg12, arg22, workValue8 do
-      rageUiCall3 = RageUI
-      rageUiCall3 = rageUiCall3.Checkbox
-      textValue7 = cmgCall.reasonsForImpound
-      textValue7 = textValue7[flag18]
-      textValue7 = textValue7.option
-      cmgCall3 = ""
-      workValue10 = cmgCall.reasonsForImpound
-      workValue10 = workValue10[flag18]
-      workValue10 = workValue10.checked
-      dataTable5 = {}
-      dataTable5.Style = 1
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5, text12
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "Vehicle: ~b~"
+    workingValue8 = dataCollection3.vehicle_name
+    stateFlag18 = "~s~ | Owner: ~b~"
+    rageUiOperation3 = dataCollection3.owner_name
+    localValue22 = localValue22 .. workingValue8 .. stateFlag18 .. rageUiOperation3
+    localValue12(localValue22)
+    localValue12 = 1
+    localValue22 = cmgOperation.reasonsForImpound
+    localValue22 = #localValue22
+    workingValue8 = 1
+    for stateFlag18 = localValue12, localValue22, workingValue8 do
+      rageUiOperation3 = RageUI
+      rageUiOperation3 = rageUiOperation3.Checkbox
+      text7 = cmgOperation.reasonsForImpound
+      text7 = text7[stateFlag18]
+      text7 = text7.option
+      cmgOperation3 = ""
+      workingValue10 = cmgOperation.reasonsForImpound
+      workingValue10 = workingValue10[stateFlag18]
+      workingValue10 = workingValue10.checked
+      dataCollection5 = {}
+      dataCollection5.Style = 1
 
-      -- === HELPER FUNCTION (decompiler name: textValue12; parameters: arg13, arg23, arg32, arg42) ===
-      function textValue12(arg13, arg23, arg32, arg42)
-        local serverEventCall, textValue8
-        if arg23 then
-          serverEventCall = cmgCall.reasonsForImpound
-          textValue8 = flag18
-          serverEventCall = serverEventCall[textValue8]
-          serverEventCall.checked = arg42
+      -- === HELPER FUNCTION (decompiler name: text12; parameters: localValue13, localValue23, localValue32, localValue42) ===
+      function text12(localValue13, localValue23, localValue32, localValue42)
+        local serverEventCall, text8
+        if localValue23 then
+          serverEventCall = cmgOperation.reasonsForImpound
+          text8 = stateFlag18
+          serverEventCall = serverEventCall[text8]
+          serverEventCall.checked = localValue42
         end
       end
       -- Beginner: Draw a RageUI checkbox.
-      rageUiCall3(textValue7, cmgCall3, workValue10, dataTable5, textValue12)
+      rageUiOperation3(text7, cmgOperation3, workingValue10, dataCollection5, text12)
     end
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~g~Confirm Selection"
-    workValue8 = ""
-    flag18 = {}
-    flag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    rageUiCall3 = true
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~g~Confirm Selection"
+    workingValue8 = ""
+    stateFlag18 = {}
+    stateFlag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    rageUiOperation3 = true
 
-    -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg13, arg23, arg32) ===
-    function textValue7(arg13, arg23, arg32)
-      local arg42, serverEventCall, textValue8, workValue9, workValue11, workValue12, workValue14, tableHelper, workValue, workValue3, workValue5
-      if arg32 then
-        arg42 = {}
+    -- === HELPER FUNCTION (decompiler name: text7; parameters: localValue13, localValue23, localValue32) ===
+    function text7(localValue13, localValue23, localValue32)
+      local localValue42, serverEventCall, text8, workingValue9, workingValue11, workingValue12, workingValue14, tableHelper, workingValue, workingValue3, workingValue5
+      if localValue32 then
+        localValue42 = {}
         serverEventCall = ipairs
-        textValue8 = cmgCall.reasonsForImpound
-        serverEventCall, textValue8, workValue9, workValue11 = serverEventCall(textValue8)
-        for workValue12, workValue14 in serverEventCall, textValue8, workValue9, workValue11 do
-          tableHelper = workValue14.checked
+        text8 = cmgOperation.reasonsForImpound
+        serverEventCall, text8, workingValue9, workingValue11 = serverEventCall(text8)
+        for workingValue12, workingValue14 in serverEventCall, text8, workingValue9, workingValue11 do
+          tableHelper = workingValue14.checked
           if tableHelper then
             tableHelper = table
             tableHelper = tableHelper.insert
-            workValue = arg42
-            workValue3 = workValue12
-            tableHelper(workValue, workValue3)
-            workValue14.checked = false
+            workingValue = localValue42
+            workingValue3 = workingValue12
+            tableHelper(workingValue, workingValue3)
+            workingValue14.checked = false
           end
         end
         serverEventCall = TriggerServerEvent
-        textValue8 = "bd4dad4950"
-        workValue9 = dataTable3.owner_id
-        workValue11 = dataTable3.owner_name
-        workValue12 = dataTable3.vehicle
-        workValue14 = dataTable3.vehicle_name
-        tableHelper = arg42
-        workValue = dataTable3.vehicle_net_id
-        workValue3 = dataTable3.uuid
-        workValue5 = dataTable3.isEmergencyVehicle
+        text8 = "bd4dad4950"
+        workingValue9 = dataCollection3.owner_id
+        workingValue11 = dataCollection3.owner_name
+        workingValue12 = dataCollection3.vehicle
+        workingValue14 = dataCollection3.vehicle_name
+        tableHelper = localValue42
+        workingValue = dataCollection3.vehicle_net_id
+        workingValue3 = dataCollection3.uuid
+        workingValue5 = dataCollection3.isEmergencyVehicle
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bd4dad4950".
-        serverEventCall(textValue8, workValue9, workValue11, workValue12, workValue14, tableHelper, workValue, workValue3, workValue5)
+        serverEventCall(text8, workingValue9, workingValue11, workingValue12, workingValue14, tableHelper, workingValue, workingValue3, workingValue5)
         serverEventCall = RageUI
         serverEventCall = serverEventCall.CloseAll
         serverEventCall()
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, workValue8, flag18, rageUiCall3, textValue7)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "~r~Cancel"
-    workValue8 = ""
-    flag18 = {}
-    flag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    rageUiCall3 = true
+    localValue12(localValue22, workingValue8, stateFlag18, rageUiOperation3, text7)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "~r~Cancel"
+    workingValue8 = ""
+    stateFlag18 = {}
+    stateFlag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    rageUiOperation3 = true
 
-    -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg13, arg23, arg32) ===
-    function textValue7(arg13, arg23, arg32)
-      local arg42
-      if arg32 then
-        arg42 = RageUI
-        arg42 = arg42.CloseAll
-        arg42()
+    -- === HELPER FUNCTION (decompiler name: text7; parameters: localValue13, localValue23, localValue32) ===
+    function text7(localValue13, localValue23, localValue32)
+      local localValue42
+      if localValue32 then
+        localValue42 = RageUI
+        localValue42 = localValue42.CloseAll
+        localValue42()
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, workValue8, flag18, rageUiCall3, textValue7)
+    localValue12(localValue22, workingValue8, stateFlag18, rageUiOperation3, text7)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgimpound"
-  arg5 = "main"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgimpound"
+  localValue5 = "main"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5, textValue12, dataTable, flag, workValue2, workValue4, workValue6, textValue5, textValue6
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "View your impounded vehicles here."
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "You can pay the ~g~\194\16310,000~s~ fine to release your vehicle."
-    arg12(arg22)
-    arg12 = RageUI
-    arg12 = arg12.Separator
-    arg22 = "---"
-    arg12(arg22)
-    arg12 = dataTable4
-    if nil ~= arg12 then
-      arg12 = dataTable4
-      arg22 = {}
-      if arg12 ~= arg22 then
-        arg12 = pairs
-        arg22 = dataTable4
-        arg12, arg22, workValue8, flag18 = arg12(arg22)
-        for rageUiCall3, textValue7 in arg12, arg22, workValue8, flag18 do
-          cmgCall3 = CMG
-          cmgCall3 = cmgCall3.getVehicleInfoFromUUID
-          workValue10 = rageUiCall3
-          cmgCall3 = cmgCall3(workValue10)
-          if cmgCall3 then
-            workValue10 = RageUI
-            workValue10 = workValue10.ButtonWithStyle
-            dataTable5 = cmgCall3.name
-            textValue12 = ""
-            dataTable = {}
-            dataTable.RightLabel = "\226\134\146\226\134\146\226\134\146"
-            flag = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5, text12, dataCollection, stateFlag, workingValue2, workingValue4, workingValue6, text5, text6
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "View your impounded vehicles here."
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "You can pay the ~g~\194\16310,000~s~ fine to release your vehicle."
+    localValue12(localValue22)
+    localValue12 = RageUI
+    localValue12 = localValue12.Separator
+    localValue22 = "---"
+    localValue12(localValue22)
+    localValue12 = dataCollection4
+    if nil ~= localValue12 then
+      localValue12 = dataCollection4
+      localValue22 = {}
+      if localValue12 ~= localValue22 then
+        localValue12 = pairs
+        localValue22 = dataCollection4
+        localValue12, localValue22, workingValue8, stateFlag18 = localValue12(localValue22)
+        for rageUiOperation3, text7 in localValue12, localValue22, workingValue8, stateFlag18 do
+          cmgOperation3 = CMG
+          cmgOperation3 = cmgOperation3.getVehicleInfoFromUUID
+          workingValue10 = rageUiOperation3
+          cmgOperation3 = cmgOperation3(workingValue10)
+          if cmgOperation3 then
+            workingValue10 = RageUI
+            workingValue10 = workingValue10.ButtonWithStyle
+            dataCollection5 = cmgOperation3.name
+            text12 = ""
+            dataCollection = {}
+            dataCollection.RightLabel = "\226\134\146\226\134\146\226\134\146"
+            stateFlag = true
 
-            -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg13, arg23, arg32) ===
-            function workValue2(arg13, arg23, arg32)
-              local arg42
-              if arg32 then
-                arg42 = textValue7
-                threadCall = arg42
+            -- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue13, localValue23, localValue32) ===
+            function workingValue2(localValue13, localValue23, localValue32)
+              local localValue42
+              if localValue32 then
+                localValue42 = text7
+                backgroundThread = localValue42
               end
             end
-            workValue4 = RMenu
-            workValue6 = workValue4
-            workValue4 = workValue4.Get
-            textValue5 = "cmgimpound"
-            textValue6 = "vehicle_information"
-            workValue4, workValue6, textValue5, textValue6 = workValue4(workValue6, textValue5, textValue6)
+            workingValue4 = RMenu
+            workingValue6 = workingValue4
+            workingValue4 = workingValue4.Get
+            text5 = "cmgimpound"
+            text6 = "vehicle_information"
+            workingValue4, workingValue6, text5, text6 = workingValue4(workingValue6, text5, text6)
             -- Beginner: Draw a selectable RageUI menu button.
-            workValue10(dataTable5, textValue12, dataTable, flag, workValue2, workValue4, workValue6, textValue5, textValue6)
+            workingValue10(dataCollection5, text12, dataCollection, stateFlag, workingValue2, workingValue4, workingValue6, text5, text6)
           end
         end
     end
     else
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "~r~None of your vehicles are currently impounded."
-      arg12(arg22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "~r~None of your vehicles are currently impounded."
+      localValue12(localValue22)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgimpound"
-  arg5 = "vehicle_information"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgimpound"
+  localValue5 = "vehicle_information"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5, textValue12, dataTable
-    arg12 = threadCall
-    if 0 ~= arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = CMG
-      arg22 = arg22.getVehicleInfoFromUUID
-      workValue8 = threadCall.uuid
-      arg22 = arg22(workValue8)
-      arg22 = arg22.name
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "This vehicle was impounded by ~b~"
-      workValue8 = threadCall.impounded_by_name
-      flag18 = "(ID: "
-      rageUiCall3 = threadCall.impounder
-      textValue7 = ") ~s~for:"
-      arg22 = arg22 .. workValue8 .. flag18 .. rageUiCall3 .. textValue7
-      arg12(arg22)
-      arg12 = json
-      arg12 = arg12.decode
-      arg22 = threadCall.reasons
-      arg12 = arg12(arg22)
-      if arg12 then
-        arg22 = ipairs
-        workValue8 = arg12
-        arg22, workValue8, flag18, rageUiCall3 = arg22(workValue8)
-        for textValue7 in arg22, workValue8, flag18, rageUiCall3 do
-          cmgCall3 = RageUI
-          cmgCall3 = cmgCall3.Separator
-          workValue10 = "\194\187 "
-          dataTable5 = cmgCall.reasonsForImpound
-          textValue12 = arg12[textValue7]
-          dataTable5 = dataTable5[textValue12]
-          dataTable5 = dataTable5.option
-          workValue10 = workValue10 .. dataTable5
-          cmgCall3(workValue10)
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5, text12, dataCollection
+    localValue12 = backgroundThread
+    if 0 ~= localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = CMG
+      localValue22 = localValue22.getVehicleInfoFromUUID
+      workingValue8 = backgroundThread.uuid
+      localValue22 = localValue22(workingValue8)
+      localValue22 = localValue22.name
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "This vehicle was impounded by ~b~"
+      workingValue8 = backgroundThread.impounded_by_name
+      stateFlag18 = "(ID: "
+      rageUiOperation3 = backgroundThread.impounder
+      text7 = ") ~s~for:"
+      localValue22 = localValue22 .. workingValue8 .. stateFlag18 .. rageUiOperation3 .. text7
+      localValue12(localValue22)
+      localValue12 = json
+      localValue12 = localValue12.decode
+      localValue22 = backgroundThread.reasons
+      localValue12 = localValue12(localValue22)
+      if localValue12 then
+        localValue22 = ipairs
+        workingValue8 = localValue12
+        localValue22, workingValue8, stateFlag18, rageUiOperation3 = localValue22(workingValue8)
+        for text7 in localValue22, workingValue8, stateFlag18, rageUiOperation3 do
+          cmgOperation3 = RageUI
+          cmgOperation3 = cmgOperation3.Separator
+          workingValue10 = "\194\187 "
+          dataCollection5 = cmgOperation.reasonsForImpound
+          text12 = localValue12[text7]
+          dataCollection5 = dataCollection5[text12]
+          dataCollection5 = dataCollection5.option
+          workingValue10 = workingValue10 .. dataCollection5
+          cmgOperation3(workingValue10)
         end
       end
-      arg22 = RageUI
-      arg22 = arg22.ButtonWithStyle
-      workValue8 = "~g~Pay Fine"
-      flag18 = "Paying the fine will release your vehicle."
-      rageUiCall3 = {}
-      rageUiCall3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      textValue7 = true
+      localValue22 = RageUI
+      localValue22 = localValue22.ButtonWithStyle
+      workingValue8 = "~g~Pay Fine"
+      stateFlag18 = "Paying the fine will release your vehicle."
+      rageUiOperation3 = {}
+      rageUiOperation3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      text7 = true
 
-      -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg13, arg23, arg32) ===
-      function cmgCall3(arg13, arg23, arg32)
+      -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue13, localValue23, localValue32) ===
+      function cmgOperation3(localValue13, localValue23, localValue32)
       end
-      workValue10 = RMenu
-      dataTable5 = workValue10
-      workValue10 = workValue10.Get
-      textValue12 = "cmgimpound"
-      dataTable = "pay_fine_confirmation"
-      workValue10, dataTable5, textValue12, dataTable = workValue10(dataTable5, textValue12, dataTable)
+      workingValue10 = RMenu
+      dataCollection5 = workingValue10
+      workingValue10 = workingValue10.Get
+      text12 = "cmgimpound"
+      dataCollection = "pay_fine_confirmation"
+      workingValue10, dataCollection5, text12, dataCollection = workingValue10(dataCollection5, text12, dataCollection)
       -- Beginner: Draw a selectable RageUI menu button.
-      arg22(workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5, textValue12, dataTable)
+      localValue22(workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5, text12, dataCollection)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgimpound"
-  arg5 = "pay_fine_confirmation"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgimpound"
+  localValue5 = "pay_fine_confirmation"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5, textValue12
-    arg12 = threadCall
-    if 0 ~= arg12 then
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "Would you like to release your vehicle?"
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "This action will cost you ~g~\194\16310,000~s~."
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "---"
-      arg12(arg22)
-      arg12 = RageUI
-      arg12 = arg12.ButtonWithStyle
-      arg22 = "~g~Pay"
-      workValue8 = "Pay the fine"
-      flag18 = {}
-      flag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      rageUiCall3 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5, text12
+    localValue12 = backgroundThread
+    if 0 ~= localValue12 then
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "Would you like to release your vehicle?"
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "This action will cost you ~g~\194\16310,000~s~."
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "---"
+      localValue12(localValue22)
+      localValue12 = RageUI
+      localValue12 = localValue12.ButtonWithStyle
+      localValue22 = "~g~Pay"
+      workingValue8 = "Pay the fine"
+      stateFlag18 = {}
+      stateFlag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      rageUiOperation3 = true
 
-      -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg13, arg23, arg32) ===
-      function textValue7(arg13, arg23, arg32)
-        local arg42, serverEventCall, textValue8, workValue9
-        if arg32 then
-          arg42 = TriggerServerEvent
+      -- === HELPER FUNCTION (decompiler name: text7; parameters: localValue13, localValue23, localValue32) ===
+      function text7(localValue13, localValue23, localValue32)
+        local localValue42, serverEventCall, text8, workingValue9
+        if localValue32 then
+          localValue42 = TriggerServerEvent
           serverEventCall = "8fff197382"
-          textValue8 = threadCall.uuid
-          workValue9 = workValue7
+          text8 = backgroundThread.uuid
+          workingValue9 = workingValue7
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8fff197382".
-          arg42(serverEventCall, textValue8, workValue9)
+          localValue42(serverEventCall, text8, workingValue9)
         end
       end
-      cmgCall3 = RMenu
-      workValue10 = cmgCall3
-      cmgCall3 = cmgCall3.Get
-      dataTable5 = "cmgimpound"
-      textValue12 = "main"
-      cmgCall3, workValue10, dataTable5, textValue12 = cmgCall3(workValue10, dataTable5, textValue12)
+      cmgOperation3 = RMenu
+      workingValue10 = cmgOperation3
+      cmgOperation3 = cmgOperation3.Get
+      dataCollection5 = "cmgimpound"
+      text12 = "main"
+      cmgOperation3, workingValue10, dataCollection5, text12 = cmgOperation3(workingValue10, dataCollection5, text12)
       -- Beginner: Draw a selectable RageUI menu button.
-      arg12(arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5, textValue12)
-      arg12 = RageUI
-      arg12 = arg12.ButtonWithStyle
-      arg22 = "~r~Cancel"
-      workValue8 = "Go back"
-      flag18 = {}
-      flag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      rageUiCall3 = true
+      localValue12(localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5, text12)
+      localValue12 = RageUI
+      localValue12 = localValue12.ButtonWithStyle
+      localValue22 = "~r~Cancel"
+      workingValue8 = "Go back"
+      stateFlag18 = {}
+      stateFlag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      rageUiOperation3 = true
 
-      -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg13, arg23, arg32) ===
-      function textValue7(arg13, arg23, arg32)
+      -- === HELPER FUNCTION (decompiler name: text7; parameters: localValue13, localValue23, localValue32) ===
+      function text7(localValue13, localValue23, localValue32)
       end
-      cmgCall3 = RMenu
-      workValue10 = cmgCall3
-      cmgCall3 = cmgCall3.Get
-      dataTable5 = "cmgimpound"
-      textValue12 = "main"
-      cmgCall3, workValue10, dataTable5, textValue12 = cmgCall3(workValue10, dataTable5, textValue12)
-      arg12(arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5, textValue12)
+      cmgOperation3 = RMenu
+      workingValue10 = cmgOperation3
+      cmgOperation3 = cmgOperation3.Get
+      dataCollection5 = "cmgimpound"
+      text12 = "main"
+      cmgOperation3, workingValue10, dataCollection5, text12 = cmgOperation3(workingValue10, dataCollection5, text12)
+      localValue12(localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5, text12)
     end
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgimpound"
-  arg5 = "requestvehicle"
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgimpound"
+  localValue5 = "requestvehicle"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, arg5)
-  arg3 = true
-  arg4 = true
-  arg5 = true
+  localValue2 = localValue2(localValue3, localValue4, localValue5)
+  localValue3 = true
+  localValue4 = true
+  localValue5 = true
 
-  -- === HELPER FUNCTION: arg6() ===
-  function arg6()
-    local arg12, arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5
-    arg12 = RageUI
-    arg12 = arg12.List
-    arg22 = "Minimum Seat Amount"
-    workValue8 = textValue9
-    flag18 = textValue10
-    rageUiCall3 = "The minimum amount of seats this vehicle should have"
-    textValue7 = {}
-    cmgCall3 = true
+  -- === HELPER FUNCTION: localValue6() ===
+  function localValue6()
+    local localValue12, localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5
+    localValue12 = RageUI
+    localValue12 = localValue12.List
+    localValue22 = "Minimum Seat Amount"
+    workingValue8 = text9
+    stateFlag18 = text10
+    rageUiOperation3 = "The minimum amount of seats this vehicle should have"
+    text7 = {}
+    cmgOperation3 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg13, arg23, arg32, arg42) ===
-    function workValue10(arg13, arg23, arg32, arg42)
-      textValue10 = arg42
+    -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: localValue13, localValue23, localValue32, localValue42) ===
+    function workingValue10(localValue13, localValue23, localValue32, localValue42)
+      text10 = localValue42
     end
 
-    -- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
-    function dataTable5()
-      local arg13, arg23
+    -- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: none) ===
+    function dataCollection5()
+      local localValue13, localValue23
     end
     -- Beginner: Draw a RageUI list selector.
-    arg12(arg22, workValue8, flag18, rageUiCall3, textValue7, cmgCall3, workValue10, dataTable5)
-    arg12 = RageUI
-    arg12 = arg12.ButtonWithStyle
-    arg22 = "Request Impounded Vehicle"
-    workValue8 = ""
-    flag18 = {}
-    flag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    rageUiCall3 = true
+    localValue12(localValue22, workingValue8, stateFlag18, rageUiOperation3, text7, cmgOperation3, workingValue10, dataCollection5)
+    localValue12 = RageUI
+    localValue12 = localValue12.ButtonWithStyle
+    localValue22 = "Request Impounded Vehicle"
+    workingValue8 = ""
+    stateFlag18 = {}
+    stateFlag18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    rageUiOperation3 = true
 
-    -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg13, arg23, arg32) ===
-    function textValue7(arg13, arg23, arg32)
-      local arg42, serverEventCall, textValue8, workValue9
-      if arg32 then
-        arg42 = TriggerServerEvent
+    -- === HELPER FUNCTION (decompiler name: text7; parameters: localValue13, localValue23, localValue32) ===
+    function text7(localValue13, localValue23, localValue32)
+      local localValue42, serverEventCall, text8, workingValue9
+      if localValue32 then
+        localValue42 = TriggerServerEvent
         serverEventCall = "007a0c4d08"
-        workValue9 = textValue10
-        textValue8 = textValue9
-        textValue8 = textValue8[workValue9]
+        workingValue9 = text10
+        text8 = text9
+        text8 = text8[workingValue9]
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "007a0c4d08".
-        arg42(serverEventCall, textValue8)
+        localValue42(serverEventCall, text8)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg12(arg22, workValue8, flag18, rageUiCall3, textValue7)
+    localValue12(localValue22, workingValue8, stateFlag18, rageUiOperation3, text7)
   end
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local localValue12, localValue22
   end
-  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
 end
-textValue11(textValue, rageUiCall, rageUiCall2, textValue2)
-textValue11 = RegisterNetEvent
-textValue = "11cbf24793"
+text11(text, rageUiOperation, rageUiOperation2, text2)
+text11 = RegisterNetEvent
+text = "11cbf24793"
 -- Beginner: this function handles network event "11cbf24793".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function rageUiCall(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local arg8, flag24, workValue13
-  arg8 = {}
-  flag24 = tonumber
-  workValue13 = arg1
-  flag24 = flag24(workValue13)
-  arg8.owner_id = flag24
-  arg8.owner_name = arg2
-  arg8.vehicle = arg4
-  arg8.vehicle_name = arg3
-  arg8.vehicle_net_id = arg5
-  arg8.uuid = arg6
-  arg8.isEmergencyVehicle = arg7
-  dataTable3 = arg8
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function rageUiOperation(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local localValue8, stateFlag24, workingValue13
+  localValue8 = {}
+  stateFlag24 = tonumber
+  workingValue13 = localValue1
+  stateFlag24 = stateFlag24(workingValue13)
+  localValue8.owner_id = stateFlag24
+  localValue8.owner_name = localValue2
+  localValue8.vehicle = localValue4
+  localValue8.vehicle_name = localValue3
+  localValue8.vehicle_net_id = localValue5
+  localValue8.uuid = localValue6
+  localValue8.isEmergencyVehicle = localValue7
+  dataCollection3 = localValue8
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "11cbf24793".
-textValue11(textValue, rageUiCall)
-textValue11 = RegisterNetEvent
-textValue = "e27c143134"
+text11(text, rageUiOperation)
+text11 = RegisterNetEvent
+text = "e27c143134"
 -- Beginner: this function handles network event "e27c143134".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
-function rageUiCall(arg1)
-  local arg2
-  dataTable4 = arg1
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1) ===
+function rageUiOperation(localValue1)
+  local localValue2
+  dataCollection4 = localValue1
 end
-textValue11(textValue, rageUiCall)
-textValue11 = RegisterNetEvent
-textValue = "f85a25a536"
+text11(text, rageUiOperation)
+text11 = RegisterNetEvent
+text = "f85a25a536"
 -- Beginner: this function handles network event "f85a25a536".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
-function rageUiCall(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-  local flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3, flag4, flag5, flag6, numberValue2, numberValue3, numberValue4, numberValue5, flag7, flag8, vector3Builder, flag9, flag10, flag11, flag12, numberValue6, flag13, flag14, networkId, networkId2, numberValue7, flag15, flag16, flag17, numberValue8, flag19, flag20, flag21, flag22, numberValue9, flag23
-  flag24 = CMG
-  flag24 = flag24.getObjectId
-  workValue13 = arg1
-  cmgCall2 = "CMG:impoundSuccess (1)"
-  flag24 = flag24(workValue13, cmgCall2)
-  workValue13 = GetEntityCoords
-  cmgCall2 = flag24
-  dataTable2 = false
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8) ===
+function rageUiOperation(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+  local stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3, number4, number5, stateFlag7, stateFlag8, createVector3, stateFlag9, stateFlag10, stateFlag11, stateFlag12, number6, stateFlag13, stateFlag14, networkId, networkId2, number7, stateFlag15, stateFlag16, stateFlag17, number8, stateFlag19, stateFlag20, stateFlag21, stateFlag22, number9, stateFlag23
+  stateFlag24 = CMG
+  stateFlag24 = stateFlag24.getObjectId
+  workingValue13 = localValue1
+  cmgOperation2 = "CMG:impoundSuccess (1)"
+  stateFlag24 = stateFlag24(workingValue13, cmgOperation2)
+  workingValue13 = GetEntityCoords
+  cmgOperation2 = stateFlag24
+  dataCollection2 = false
   -- Beginner: result below is entityCoords.
-  workValue13 = workValue13(cmgCall2, dataTable2)
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.requestEntitySpawn
-  dataTable2 = "impound_sticker_object"
-  numberValue = workValue13
-  cmgCall2(dataTable2, numberValue)
-  cmgCall2 = CreateObject
-  dataTable2 = 1289584093
-  numberValue = workValue13.x
-  flag2 = workValue13.y
-  textValue4 = workValue13.z
-  flag3 = true
-  flag4 = true
-  flag5 = true
+  workingValue13 = workingValue13(cmgOperation2, dataCollection2)
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.requestEntitySpawn
+  dataCollection2 = "impound_sticker_object"
+  number = workingValue13
+  cmgOperation2(dataCollection2, number)
+  cmgOperation2 = CreateObject
+  dataCollection2 = 1289584093
+  number = workingValue13.x
+  stateFlag2 = workingValue13.y
+  text4 = workingValue13.z
+  stateFlag3 = true
+  stateFlag4 = true
+  stateFlag5 = true
   -- Beginner: result below is objectEntity.
-  cmgCall2 = cmgCall2(dataTable2, numberValue, flag2, textValue4, flag3, flag4, flag5)
-  dataTable2 = CMG
-  dataTable2 = dataTable2.loadModel
-  numberValue = -1099035225
+  cmgOperation2 = cmgOperation2(dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5)
+  dataCollection2 = CMG
+  dataCollection2 = dataCollection2.loadModel
+  number = -1099035225
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  dataTable2(numberValue)
-  dataTable2 = FreezeEntityPosition
-  numberValue = flag24
-  flag2 = true
+  dataCollection2(number)
+  dataCollection2 = FreezeEntityPosition
+  number = stateFlag24
+  stateFlag2 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  dataTable2(numberValue, flag2)
-  dataTable2 = CMG
-  dataTable2 = dataTable2.requestEntitySpawn
-  numberValue = "impound_clamp_object"
-  flag2 = workValue13
-  dataTable2(numberValue, flag2)
-  dataTable2 = CreateObject
-  numberValue = -1099035225
-  flag2 = workValue13.x
-  textValue4 = workValue13.y
-  flag3 = workValue13.z
-  flag4 = true
-  flag5 = true
-  flag6 = true
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = CMG
+  dataCollection2 = dataCollection2.requestEntitySpawn
+  number = "impound_clamp_object"
+  stateFlag2 = workingValue13
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = CreateObject
+  number = -1099035225
+  stateFlag2 = workingValue13.x
+  text4 = workingValue13.y
+  stateFlag3 = workingValue13.z
+  stateFlag4 = true
+  stateFlag5 = true
+  stateFlag6 = true
   -- Beginner: result below is objectEntity.
-  dataTable2 = dataTable2(numberValue, flag2, textValue4, flag3, flag4, flag5, flag6)
-  numberValue = SetModelAsNoLongerNeeded
-  flag2 = -1099035225
-  numberValue(flag2)
-  numberValue = GetEntityBoneIndexByName
-  flag2 = flag24
-  textValue4 = "wheel_lf"
-  numberValue = numberValue(flag2, textValue4)
-  flag2 = SetEntityHeading
-  textValue4 = dataTable2
-  flag3 = 0.0
+  dataCollection2 = dataCollection2(number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6)
+  number = SetModelAsNoLongerNeeded
+  stateFlag2 = -1099035225
+  number(stateFlag2)
+  number = GetEntityBoneIndexByName
+  stateFlag2 = stateFlag24
+  text4 = "wheel_lf"
+  number = number(stateFlag2, text4)
+  stateFlag2 = SetEntityHeading
+  text4 = dataCollection2
+  stateFlag3 = 0.0
   -- Beginner: Change the direction an entity is facing.
-  flag2(textValue4, flag3)
-  flag2 = AttachEntityToEntity
-  textValue4 = dataTable2
-  flag3 = flag24
-  flag4 = numberValue
-  flag5 = -0.1
-  flag6 = 0.15
-  numberValue2 = -0.3
-  numberValue3 = 180.0
-  numberValue4 = 200.0
-  numberValue5 = 90.0
-  flag7 = true
-  flag8 = true
-  vector3Builder = false
-  flag9 = false
-  flag10 = 2
-  flag11 = true
+  stateFlag2(text4, stateFlag3)
+  stateFlag2 = AttachEntityToEntity
+  text4 = dataCollection2
+  stateFlag3 = stateFlag24
+  stateFlag4 = number
+  stateFlag5 = -0.1
+  stateFlag6 = 0.15
+  number2 = -0.3
+  number3 = 180.0
+  number4 = 200.0
+  number5 = 90.0
+  stateFlag7 = true
+  stateFlag8 = true
+  createVector3 = false
+  stateFlag9 = false
+  stateFlag10 = 2
+  stateFlag11 = true
   -- Beginner: Attach one entity to another entity.
-  flag2(textValue4, flag3, flag4, flag5, flag6, numberValue2, numberValue3, numberValue4, numberValue5, flag7, flag8, vector3Builder, flag9, flag10, flag11)
-  flag2 = FreezeEntityPosition
-  textValue4 = dataTable2
-  flag3 = true
+  stateFlag2(text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3, number4, number5, stateFlag7, stateFlag8, createVector3, stateFlag9, stateFlag10, stateFlag11)
+  stateFlag2 = FreezeEntityPosition
+  text4 = dataCollection2
+  stateFlag3 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  flag2(textValue4, flag3)
-  flag2 = IsVehicleWindowIntact
-  textValue4 = flag24
-  flag3 = 0
-  flag2 = flag2(textValue4, flag3)
-  if flag2 then
-    flag2 = GetEntityBoneIndexByName
-    textValue4 = flag24
-    flag3 = "windscreen"
-    flag2 = flag2(textValue4, flag3)
-    textValue4 = FreezeEntityPosition
-    flag3 = cmgCall2
-    flag4 = true
-    textValue4(flag3, flag4)
-    textValue4 = AttachEntityToEntity
-    flag3 = cmgCall2
-    flag4 = flag24
-    flag5 = flag2
-    flag6 = 0.1
-    numberValue2 = -2.7
-    numberValue3 = -1.65
-    numberValue4 = -32.0
-    numberValue5 = 5.0
-    flag7 = 180.0
-    flag8 = true
-    vector3Builder = true
-    flag9 = false
-    flag10 = true
-    flag11 = 0
-    flag12 = true
+  stateFlag2(text4, stateFlag3)
+  stateFlag2 = IsVehicleWindowIntact
+  text4 = stateFlag24
+  stateFlag3 = 0
+  stateFlag2 = stateFlag2(text4, stateFlag3)
+  if stateFlag2 then
+    stateFlag2 = GetEntityBoneIndexByName
+    text4 = stateFlag24
+    stateFlag3 = "windscreen"
+    stateFlag2 = stateFlag2(text4, stateFlag3)
+    text4 = FreezeEntityPosition
+    stateFlag3 = cmgOperation2
+    stateFlag4 = true
+    text4(stateFlag3, stateFlag4)
+    text4 = AttachEntityToEntity
+    stateFlag3 = cmgOperation2
+    stateFlag4 = stateFlag24
+    stateFlag5 = stateFlag2
+    stateFlag6 = 0.1
+    number2 = -2.7
+    number3 = -1.65
+    number4 = -32.0
+    number5 = 5.0
+    stateFlag7 = 180.0
+    stateFlag8 = true
+    createVector3 = true
+    stateFlag9 = false
+    stateFlag10 = true
+    stateFlag11 = 0
+    stateFlag12 = true
     -- Beginner: Attach one entity to another entity.
-    textValue4(flag3, flag4, flag5, flag6, numberValue2, numberValue3, numberValue4, numberValue5, flag7, flag8, vector3Builder, flag9, flag10, flag11, flag12)
+    text4(stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3, number4, number5, stateFlag7, stateFlag8, createVector3, stateFlag9, stateFlag10, stateFlag11, stateFlag12)
   end
-  flag2 = CMG
-  flag2 = flag2.notifyPicture
-  textValue4 = "polnotification"
-  flag3 = "notification"
-  flag4 = "You have siezed a ~b~"
-  flag5 = arg2
-  flag6 = "~s~ owned by ~b~"
-  numberValue2 = arg3
-  numberValue3 = [[
+  stateFlag2 = CMG
+  stateFlag2 = stateFlag2.notifyPicture
+  text4 = "polnotification"
+  stateFlag3 = "notification"
+  stateFlag4 = "You have siezed a ~b~"
+  stateFlag5 = localValue2
+  stateFlag6 = "~s~ owned by ~b~"
+  number2 = localValue3
+  number3 = [[
 ~s~.
 
 A tow truck will pick up the vehicle shortly and take it to the impound.]]
-  flag4 = flag4 .. flag5 .. flag6 .. numberValue2 .. numberValue3
-  flag5 = "Metropolitan Police"
-  flag6 = "Impound"
-  numberValue2 = nil
-  numberValue3 = nil
-  flag2(textValue4, flag3, flag4, flag5, flag6, numberValue2, numberValue3)
-  flag2 = PlayerPedId
+  stateFlag4 = stateFlag4 .. stateFlag5 .. stateFlag6 .. number2 .. number3
+  stateFlag5 = "Metropolitan Police"
+  stateFlag6 = "Impound"
+  number2 = nil
+  number3 = nil
+  stateFlag2(text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3)
+  stateFlag2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  flag2 = flag2()
-  textValue4 = GetEntityCoords
-  flag3 = flag2
+  stateFlag2 = stateFlag2()
+  text4 = GetEntityCoords
+  stateFlag3 = stateFlag2
   -- Beginner: result below is entityCoords.
-  textValue4 = textValue4(flag3)
-  flag3 = GetClosestVehicleNodeWithHeading
-  flag4 = textValue4.x
-  flag5 = textValue4.y
-  flag6 = textValue4.z
-  numberValue2 = nil
-  numberValue3 = 8
-  numberValue4 = 8
-  numberValue5 = 8
-  flag7 = 8
-  flag3, flag4, flag5 = flag3(flag4, flag5, flag6, numberValue2, numberValue3, numberValue4, numberValue5, flag7)
-  flag6 = GetPointOnRoadSide
-  numberValue2 = textValue4.x
-  numberValue3 = textValue4.y
-  numberValue4 = textValue4.z
-  numberValue5 = 0.0
-  flag6, numberValue2, numberValue3 = flag6(numberValue2, numberValue3, numberValue4, numberValue5)
-  numberValue4 = GetNthClosestVehicleNode
-  numberValue5 = textValue4.x
-  flag7 = textValue4.y
-  flag8 = textValue4.z
-  vector3Builder = 15
-  numberValue4, numberValue5 = numberValue4(numberValue5, flag7, flag8, vector3Builder)
-  flag7 = nil
-  flag8 = nil
-  vector3Builder = vector3
-  flag9 = 0
-  flag10 = 0
-  flag11 = 0
-  vector3Builder = vector3Builder(flag9, flag10, flag11)
-  if numberValue5 ~= vector3Builder then
-    vector3Builder = vector3
-    flag9 = 0
-    flag10 = 0
-    flag11 = 0
-    vector3Builder = vector3Builder(flag9, flag10, flag11)
-    if numberValue2 ~= vector3Builder then
-      vector3Builder = CMG
-      vector3Builder = vector3Builder.loadModel
-      flag9 = 1353720154
+  text4 = text4(stateFlag3)
+  stateFlag3 = GetClosestVehicleNodeWithHeading
+  stateFlag4 = text4.x
+  stateFlag5 = text4.y
+  stateFlag6 = text4.z
+  number2 = nil
+  number3 = 8
+  number4 = 8
+  number5 = 8
+  stateFlag7 = 8
+  stateFlag3, stateFlag4, stateFlag5 = stateFlag3(stateFlag4, stateFlag5, stateFlag6, number2, number3, number4, number5, stateFlag7)
+  stateFlag6 = GetPointOnRoadSide
+  number2 = text4.x
+  number3 = text4.y
+  number4 = text4.z
+  number5 = 0.0
+  stateFlag6, number2, number3 = stateFlag6(number2, number3, number4, number5)
+  number4 = GetNthClosestVehicleNode
+  number5 = text4.x
+  stateFlag7 = text4.y
+  stateFlag8 = text4.z
+  createVector3 = 15
+  number4, number5 = number4(number5, stateFlag7, stateFlag8, createVector3)
+  stateFlag7 = nil
+  stateFlag8 = nil
+  createVector3 = vector3
+  stateFlag9 = 0
+  stateFlag10 = 0
+  stateFlag11 = 0
+  createVector3 = createVector3(stateFlag9, stateFlag10, stateFlag11)
+  if number5 ~= createVector3 then
+    createVector3 = vector3
+    stateFlag9 = 0
+    stateFlag10 = 0
+    stateFlag11 = 0
+    createVector3 = createVector3(stateFlag9, stateFlag10, stateFlag11)
+    if number2 ~= createVector3 then
+      createVector3 = CMG
+      createVector3 = createVector3.loadModel
+      stateFlag9 = 1353720154
       -- Beginner: Request/load a GTA model before spawning or applying it.
-      vector3Builder(flag9)
-      vector3Builder = CMG
-      vector3Builder = vector3Builder.loadModel
-      flag9 = -1760377969
-      vector3Builder(flag9)
-      vector3Builder = CMG
-      vector3Builder = vector3Builder.requestEntitySpawn
-      flag9 = "impound_flatbed"
-      flag10 = numberValue5
-      vector3Builder(flag9, flag10)
-      vector3Builder = CMG
-      vector3Builder = vector3Builder.spawnVehicle
-      flag9 = 1353720154
-      flag10 = numberValue5.x
-      flag11 = numberValue5.y
-      flag12 = numberValue5.z
-      numberValue6 = flag5
-      flag13 = false
-      flag14 = true
+      createVector3(stateFlag9)
+      createVector3 = CMG
+      createVector3 = createVector3.loadModel
+      stateFlag9 = -1760377969
+      createVector3(stateFlag9)
+      createVector3 = CMG
+      createVector3 = createVector3.requestEntitySpawn
+      stateFlag9 = "impound_flatbed"
+      stateFlag10 = number5
+      createVector3(stateFlag9, stateFlag10)
+      createVector3 = CMG
+      createVector3 = createVector3.spawnVehicle
+      stateFlag9 = 1353720154
+      stateFlag10 = number5.x
+      stateFlag11 = number5.y
+      stateFlag12 = number5.z
+      number6 = stateFlag5
+      stateFlag13 = false
+      stateFlag14 = true
       networkId = true
-      vector3Builder = vector3Builder(flag9, flag10, flag11, flag12, numberValue6, flag13, flag14, networkId)
-      flag7 = vector3Builder
-      vector3Builder = NetworkGetNetworkIdFromEntity
-      flag9 = flag7
-      vector3Builder = vector3Builder(flag9)
-      flag9 = SetVehicleDoorsLocked
-      flag10 = flag7
-      flag11 = 2
-      flag9(flag10, flag11)
-      flag9 = SetNetworkIdCanMigrate
-      flag10 = vector3Builder
-      flag11 = false
-      flag9(flag10, flag11)
-      flag9 = SetModelAsNoLongerNeeded
-      flag10 = 1353720154
-      flag9(flag10)
-      flag9 = AddBlipForEntity
-      flag10 = flag7
+      createVector3 = createVector3(stateFlag9, stateFlag10, stateFlag11, stateFlag12, number6, stateFlag13, stateFlag14, networkId)
+      stateFlag7 = createVector3
+      createVector3 = NetworkGetNetworkIdFromEntity
+      stateFlag9 = stateFlag7
+      createVector3 = createVector3(stateFlag9)
+      stateFlag9 = SetVehicleDoorsLocked
+      stateFlag10 = stateFlag7
+      stateFlag11 = 2
+      stateFlag9(stateFlag10, stateFlag11)
+      stateFlag9 = SetNetworkIdCanMigrate
+      stateFlag10 = createVector3
+      stateFlag11 = false
+      stateFlag9(stateFlag10, stateFlag11)
+      stateFlag9 = SetModelAsNoLongerNeeded
+      stateFlag10 = 1353720154
+      stateFlag9(stateFlag10)
+      stateFlag9 = AddBlipForEntity
+      stateFlag10 = stateFlag7
       -- Beginner: result below is blipHandle.
-      flag9 = flag9(flag10)
-      flag10 = SetBlipSprite
-      flag11 = flag9
-      flag12 = 68
-      flag10(flag11, flag12)
-      flag10 = SetBlipDisplay
-      flag11 = flag9
-      flag12 = 4
-      flag10(flag11, flag12)
-      flag10 = SetBlipScale
-      flag11 = flag9
-      flag12 = 1.0
-      flag10(flag11, flag12)
-      flag10 = SetBlipColour
-      flag11 = flag9
-      flag12 = 5
-      flag10(flag11, flag12)
-      flag10 = SetBlipAsShortRange
-      flag11 = flag9
-      flag12 = true
-      flag10(flag11, flag12)
-      flag10 = CMG
-      flag10 = flag10.requestEntitySpawn
-      flag11 = "impound_ped"
-      flag12 = numberValue5
-      flag10(flag11, flag12)
-      flag10 = CreatePedInsideVehicle
-      flag11 = flag7
-      flag12 = 1
-      numberValue6 = -1760377969
-      flag13 = -1
-      flag14 = true
+      stateFlag9 = stateFlag9(stateFlag10)
+      stateFlag10 = SetBlipSprite
+      stateFlag11 = stateFlag9
+      stateFlag12 = 68
+      stateFlag10(stateFlag11, stateFlag12)
+      stateFlag10 = SetBlipDisplay
+      stateFlag11 = stateFlag9
+      stateFlag12 = 4
+      stateFlag10(stateFlag11, stateFlag12)
+      stateFlag10 = SetBlipScale
+      stateFlag11 = stateFlag9
+      stateFlag12 = 1.0
+      stateFlag10(stateFlag11, stateFlag12)
+      stateFlag10 = SetBlipColour
+      stateFlag11 = stateFlag9
+      stateFlag12 = 5
+      stateFlag10(stateFlag11, stateFlag12)
+      stateFlag10 = SetBlipAsShortRange
+      stateFlag11 = stateFlag9
+      stateFlag12 = true
+      stateFlag10(stateFlag11, stateFlag12)
+      stateFlag10 = CMG
+      stateFlag10 = stateFlag10.requestEntitySpawn
+      stateFlag11 = "impound_ped"
+      stateFlag12 = number5
+      stateFlag10(stateFlag11, stateFlag12)
+      stateFlag10 = CreatePedInsideVehicle
+      stateFlag11 = stateFlag7
+      stateFlag12 = 1
+      number6 = -1760377969
+      stateFlag13 = -1
+      stateFlag14 = true
       networkId = false
-      flag10 = flag10(flag11, flag12, numberValue6, flag13, flag14, networkId)
-      flag8 = flag10
-      flag10 = NetworkGetNetworkIdFromEntity
-      flag11 = flag8
-      flag10 = flag10(flag11)
-      flag11 = TaskVehicleDriveToCoord
-      flag12 = flag8
-      numberValue6 = flag7
-      flag13 = numberValue2.x
-      flag14 = numberValue2.y
-      networkId = numberValue2.z
+      stateFlag10 = stateFlag10(stateFlag11, stateFlag12, number6, stateFlag13, stateFlag14, networkId)
+      stateFlag8 = stateFlag10
+      stateFlag10 = NetworkGetNetworkIdFromEntity
+      stateFlag11 = stateFlag8
+      stateFlag10 = stateFlag10(stateFlag11)
+      stateFlag11 = TaskVehicleDriveToCoord
+      stateFlag12 = stateFlag8
+      number6 = stateFlag7
+      stateFlag13 = number2.x
+      stateFlag14 = number2.y
+      networkId = number2.z
       networkId2 = 15.0
-      numberValue7 = 1.0
-      flag15 = 1353720154
-      flag16 = numberValue10
-      flag17 = 5.0
-      numberValue8 = 0.0
-      flag11(flag12, numberValue6, flag13, flag14, networkId, networkId2, numberValue7, flag15, flag16, flag17, numberValue8)
-      flag11 = SetModelAsNoLongerNeeded
-      flag12 = -1760377969
-      flag11(flag12)
-      flag11 = GetGameTimer
+      number7 = 1.0
+      stateFlag15 = 1353720154
+      stateFlag16 = number10
+      stateFlag17 = 5.0
+      number8 = 0.0
+      stateFlag11(stateFlag12, number6, stateFlag13, stateFlag14, networkId, networkId2, number7, stateFlag15, stateFlag16, stateFlag17, number8)
+      stateFlag11 = SetModelAsNoLongerNeeded
+      stateFlag12 = -1760377969
+      stateFlag11(stateFlag12)
+      stateFlag11 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      flag11 = flag11()
-      flag12 = GetEntityCoords
-      numberValue6 = flag24
+      stateFlag11 = stateFlag11()
+      stateFlag12 = GetEntityCoords
+      number6 = stateFlag24
       -- Beginner: result below is entityCoords.
-      flag12 = flag12(numberValue6)
-      numberValue6 = GetEntityCoords
-      flag13 = flag7
+      stateFlag12 = stateFlag12(number6)
+      number6 = GetEntityCoords
+      stateFlag13 = stateFlag7
       -- Beginner: result below is entityCoords.
-      numberValue6 = numberValue6(flag13)
-      flag12 = flag12 - numberValue6
-      flag12 = #flag12
-      while flag12 > 15.0 do
-        numberValue6 = GetGameTimer
+      number6 = number6(stateFlag13)
+      stateFlag12 = stateFlag12 - number6
+      stateFlag12 = #stateFlag12
+      while stateFlag12 > 15.0 do
+        number6 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        numberValue6 = numberValue6()
-        numberValue6 = numberValue6 - flag11
-        flag13 = 20000
-        if not (numberValue6 < flag13) then
+        number6 = number6()
+        number6 = number6 - stateFlag11
+        stateFlag13 = 20000
+        if not (number6 < stateFlag13) then
           break
         end
-        numberValue6 = Wait
-        flag13 = 1000
-        numberValue6(flag13)
-        numberValue6 = GetEntityCoords
-        flag13 = flag24
+        number6 = Wait
+        stateFlag13 = 1000
+        number6(stateFlag13)
+        number6 = GetEntityCoords
+        stateFlag13 = stateFlag24
         -- Beginner: result below is entityCoords.
-        numberValue6 = numberValue6(flag13)
-        flag13 = GetEntityCoords
-        flag14 = flag7
+        number6 = number6(stateFlag13)
+        stateFlag13 = GetEntityCoords
+        stateFlag14 = stateFlag7
         -- Beginner: result below is entityCoords.
-        flag13 = flag13(flag14)
-        numberValue6 = numberValue6 - flag13
-        flag12 = #numberValue6
+        stateFlag13 = stateFlag13(stateFlag14)
+        number6 = number6 - stateFlag13
+        stateFlag12 = #number6
       end
-      numberValue6 = TriggerServerEvent
-      flag13 = "8e7fb83d26"
-      flag14 = arg1
+      number6 = TriggerServerEvent
+      stateFlag13 = "8e7fb83d26"
+      stateFlag14 = localValue1
       networkId = NetworkGetNetworkIdFromEntity
-      networkId2 = dataTable2
+      networkId2 = dataCollection2
       networkId = networkId(networkId2)
       networkId2 = NetworkGetNetworkIdFromEntity
-      numberValue7 = cmgCall2
-      networkId2, numberValue7, flag15, flag16, flag17, numberValue8, flag19, flag20, flag21, flag22, numberValue9, flag23 = networkId2(numberValue7)
+      number7 = cmgOperation2
+      networkId2, number7, stateFlag15, stateFlag16, stateFlag17, number8, stateFlag19, stateFlag20, stateFlag21, stateFlag22, number9, stateFlag23 = networkId2(number7)
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8e7fb83d26".
-      numberValue6(flag13, flag14, networkId, networkId2, numberValue7, flag15, flag16, flag17, numberValue8, flag19, flag20, flag21, flag22, numberValue9, flag23)
-      numberValue6 = CMG
-      numberValue6 = numberValue6.requestEntitySpawn
-      flag13 = "impound_vehicle"
-      numberValue6(flag13)
-      numberValue6 = CMG
-      numberValue6 = numberValue6.spawnVehicle
-      flag13 = arg4
-      flag14 = arg7.x
-      networkId = arg7.y
-      networkId2 = arg7.z
-      numberValue7 = arg8
-      flag15 = false
-      flag16 = true
-      flag17 = false
-      numberValue6 = numberValue6(flag13, flag14, networkId, networkId2, numberValue7, flag15, flag16, flag17)
-      flag24 = numberValue6
-      numberValue6 = CMG
-      numberValue6 = numberValue6.getNetId
-      flag13 = flag24
-      flag14 = "CMG:impoundSuccess (2)"
-      numberValue6 = numberValue6(flag13, flag14)
-      arg1 = numberValue6
-      numberValue6 = SetVehicleDoorsLocked
-      flag13 = flag24
-      flag14 = 2
-      numberValue6(flag13, flag14)
-      numberValue6 = SetNetworkIdCanMigrate
-      flag13 = arg1
-      flag14 = false
-      numberValue6(flag13, flag14)
-      numberValue6 = SetVehicleColours
-      flag13 = flag24
-      flag14 = arg5
-      networkId = arg6
-      numberValue6(flag13, flag14, networkId)
-      numberValue6 = AttachEntityToEntity
-      flag13 = flag24
-      flag14 = flag7
+      number6(stateFlag13, stateFlag14, networkId, networkId2, number7, stateFlag15, stateFlag16, stateFlag17, number8, stateFlag19, stateFlag20, stateFlag21, stateFlag22, number9, stateFlag23)
+      number6 = CMG
+      number6 = number6.requestEntitySpawn
+      stateFlag13 = "impound_vehicle"
+      number6(stateFlag13)
+      number6 = CMG
+      number6 = number6.spawnVehicle
+      stateFlag13 = localValue4
+      stateFlag14 = localValue7.x
+      networkId = localValue7.y
+      networkId2 = localValue7.z
+      number7 = localValue8
+      stateFlag15 = false
+      stateFlag16 = true
+      stateFlag17 = false
+      number6 = number6(stateFlag13, stateFlag14, networkId, networkId2, number7, stateFlag15, stateFlag16, stateFlag17)
+      stateFlag24 = number6
+      number6 = CMG
+      number6 = number6.getNetId
+      stateFlag13 = stateFlag24
+      stateFlag14 = "CMG:impoundSuccess (2)"
+      number6 = number6(stateFlag13, stateFlag14)
+      localValue1 = number6
+      number6 = SetVehicleDoorsLocked
+      stateFlag13 = stateFlag24
+      stateFlag14 = 2
+      number6(stateFlag13, stateFlag14)
+      number6 = SetNetworkIdCanMigrate
+      stateFlag13 = localValue1
+      stateFlag14 = false
+      number6(stateFlag13, stateFlag14)
+      number6 = SetVehicleColours
+      stateFlag13 = stateFlag24
+      stateFlag14 = localValue5
+      networkId = localValue6
+      number6(stateFlag13, stateFlag14, networkId)
+      number6 = AttachEntityToEntity
+      stateFlag13 = stateFlag24
+      stateFlag14 = stateFlag7
       networkId = 20
       networkId2 = -0.5
-      numberValue7 = -5.0
-      flag15 = 1.0
-      flag16 = 0.0
-      flag17 = 0.0
-      numberValue8 = 0.0
-      flag19 = false
-      flag20 = false
-      flag21 = false
-      flag22 = false
-      numberValue9 = 20
-      flag23 = true
+      number7 = -5.0
+      stateFlag15 = 1.0
+      stateFlag16 = 0.0
+      stateFlag17 = 0.0
+      number8 = 0.0
+      stateFlag19 = false
+      stateFlag20 = false
+      stateFlag21 = false
+      stateFlag22 = false
+      number9 = 20
+      stateFlag23 = true
       -- Beginner: Attach one entity to another entity.
-      numberValue6(flag13, flag14, networkId, networkId2, numberValue7, flag15, flag16, flag17, numberValue8, flag19, flag20, flag21, flag22, numberValue9, flag23)
-      numberValue6 = TriggerServerEvent
-      flag13 = "cd4e53e76b"
-      flag14 = arg1
-      networkId = vector3Builder
-      networkId2 = flag10
+      number6(stateFlag13, stateFlag14, networkId, networkId2, number7, stateFlag15, stateFlag16, stateFlag17, number8, stateFlag19, stateFlag20, stateFlag21, stateFlag22, number9, stateFlag23)
+      number6 = TriggerServerEvent
+      stateFlag13 = "cd4e53e76b"
+      stateFlag14 = localValue1
+      networkId = createVector3
+      networkId2 = stateFlag10
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cd4e53e76b".
-      numberValue6(flag13, flag14, networkId, networkId2)
-      numberValue6 = TaskVehicleDriveToCoord
-      flag13 = flag8
-      flag14 = flag7
-      networkId = cmgCall.driveToPosition
+      number6(stateFlag13, stateFlag14, networkId, networkId2)
+      number6 = TaskVehicleDriveToCoord
+      stateFlag13 = stateFlag8
+      stateFlag14 = stateFlag7
+      networkId = cmgOperation.driveToPosition
       networkId = networkId.x
-      networkId2 = cmgCall.driveToPosition
+      networkId2 = cmgOperation.driveToPosition
       networkId2 = networkId2.y
-      numberValue7 = cmgCall.driveToPosition
-      numberValue7 = numberValue7.z
-      flag15 = 15.0
-      flag16 = 1.0
-      flag17 = 1353720154
-      numberValue8 = numberValue10
-      flag19 = 5.0
-      flag20 = 0.0
-      numberValue6(flag13, flag14, networkId, networkId2, numberValue7, flag15, flag16, flag17, numberValue8, flag19, flag20)
-      numberValue6 = SetEntityInvincible
-      flag13 = flag24
-      flag14 = true
-      numberValue6(flag13, flag14)
-      numberValue6 = SetEntityInvincible
-      flag13 = flag7
-      flag14 = true
-      numberValue6(flag13, flag14)
+      number7 = cmgOperation.driveToPosition
+      number7 = number7.z
+      stateFlag15 = 15.0
+      stateFlag16 = 1.0
+      stateFlag17 = 1353720154
+      number8 = number10
+      stateFlag19 = 5.0
+      stateFlag20 = 0.0
+      number6(stateFlag13, stateFlag14, networkId, networkId2, number7, stateFlag15, stateFlag16, stateFlag17, number8, stateFlag19, stateFlag20)
+      number6 = SetEntityInvincible
+      stateFlag13 = stateFlag24
+      stateFlag14 = true
+      number6(stateFlag13, stateFlag14)
+      number6 = SetEntityInvincible
+      stateFlag13 = stateFlag7
+      stateFlag14 = true
+      number6(stateFlag13, stateFlag14)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f85a25a536".
-textValue11(textValue, rageUiCall)
-textValue11 = RegisterNetEvent
-textValue = "3cfe51923c"
+text11(text, rageUiOperation)
+text11 = RegisterNetEvent
+text = "3cfe51923c"
 -- Beginner: this function handles network event "3cfe51923c".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1, arg2) ===
-function rageUiCall(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3, flag4, flag5, flag6, numberValue2
-  arg3 = CMG
-  arg3 = arg3.getObjectId
-  arg4 = arg1
-  arg5 = "CMG:attachVehToTowCl (vehicle)"
-  arg3 = arg3(arg4, arg5)
-  arg4 = CMG
-  arg4 = arg4.getObjectId
-  arg5 = arg2
-  arg6 = "CMG:attachVehToTowCl (towTruck)"
-  arg4 = arg4(arg5, arg6)
-  arg5 = AttachEntityToEntity
-  arg6 = arg3
-  arg7 = arg4
-  arg8 = 20
-  flag24 = -0.5
-  workValue13 = -5.0
-  cmgCall2 = 1.0
-  dataTable2 = 0.0
-  numberValue = 0.0
-  flag2 = 0.0
-  textValue4 = false
-  flag3 = false
-  flag4 = false
-  flag5 = false
-  flag6 = 20
-  numberValue2 = true
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1, localValue2) ===
+function rageUiOperation(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2
+  localValue3 = CMG
+  localValue3 = localValue3.getObjectId
+  localValue4 = localValue1
+  localValue5 = "CMG:attachVehToTowCl (vehicle)"
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = CMG
+  localValue4 = localValue4.getObjectId
+  localValue5 = localValue2
+  localValue6 = "CMG:attachVehToTowCl (towTruck)"
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = AttachEntityToEntity
+  localValue6 = localValue3
+  localValue7 = localValue4
+  localValue8 = 20
+  stateFlag24 = -0.5
+  workingValue13 = -5.0
+  cmgOperation2 = 1.0
+  dataCollection2 = 0.0
+  number = 0.0
+  stateFlag2 = 0.0
+  text4 = false
+  stateFlag3 = false
+  stateFlag4 = false
+  stateFlag5 = false
+  stateFlag6 = 20
+  number2 = true
   -- Beginner: Attach one entity to another entity.
-  arg5(arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3, flag4, flag5, flag6, numberValue2)
+  localValue5(localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3cfe51923c".
-textValue11(textValue, rageUiCall)
+text11(text, rageUiOperation)
 
--- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg1) ===
-function textValue11(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = -1
-  arg3 = GetVehicleMaxNumberOfPassengers
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  arg3 = arg3 - 1
-  arg4 = 1
-  for arg5 = arg2, arg3, arg4 do
-    arg6 = IsVehicleSeatFree
-    arg7 = arg1
-    arg8 = arg5
-    arg6 = arg6(arg7, arg8)
-    if not arg6 then
-      arg6 = true
-      return arg6
+-- === HELPER FUNCTION (decompiler name: text11; parameters: localValue1) ===
+function text11(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = -1
+  localValue3 = GetVehicleMaxNumberOfPassengers
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  localValue3 = localValue3 - 1
+  localValue4 = 1
+  for localValue5 = localValue2, localValue3, localValue4 do
+    localValue6 = IsVehicleSeatFree
+    localValue7 = localValue1
+    localValue8 = localValue5
+    localValue6 = localValue6(localValue7, localValue8)
+    if not localValue6 then
+      localValue6 = true
+      return localValue6
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-textValue = CMG
+text = CMG
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function rageUiCall(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3, flag4
-  arg6 = CMG
-  arg6 = arg6.getVehicleIdFromModel
-  arg7 = arg2
-  arg6 = arg6(arg7)
-  arg7 = textValue11
-  arg8 = arg4
-  arg7 = arg7(arg8)
-  if arg7 then
-    arg7 = CMG
-    arg7 = arg7.notifyPicture
-    arg8 = "polnotification"
-    flag24 = "notification"
-    workValue13 = "The vehicle cannot be impounded with a person inside."
-    cmgCall2 = "Metropolitan Police"
-    dataTable2 = "Impound"
-    numberValue = nil
-    flag2 = nil
-    arg7(arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2)
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function rageUiOperation(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4
+  localValue6 = CMG
+  localValue6 = localValue6.getVehicleIdFromModel
+  localValue7 = localValue2
+  localValue6 = localValue6(localValue7)
+  localValue7 = text11
+  localValue8 = localValue4
+  localValue7 = localValue7(localValue8)
+  if localValue7 then
+    localValue7 = CMG
+    localValue7 = localValue7.notifyPicture
+    localValue8 = "polnotification"
+    stateFlag24 = "notification"
+    workingValue13 = "The vehicle cannot be impounded with a person inside."
+    cmgOperation2 = "Metropolitan Police"
+    dataCollection2 = "Impound"
+    number = nil
+    stateFlag2 = nil
+    localValue7(localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2)
     return
   end
-  arg7 = tCMG
-  arg7 = arg7.getVehicleInfos
-  arg8 = arg4
-  arg7 = arg7(arg8)
-  if not arg7 then
-    arg7 = 0
+  localValue7 = tCMG
+  localValue7 = localValue7.getVehicleInfos
+  localValue8 = localValue4
+  localValue7 = localValue7(localValue8)
+  if not localValue7 then
+    localValue7 = 0
   end
-  arg8 = GetVehicleClass
-  flag24 = arg4
-  arg8 = arg8(flag24)
-  flag24 = 18 == arg8
-  workValue13 = cmgCall.disallowedVehicleClasses
-  workValue13 = workValue13[arg8]
-  if workValue13 then
-    workValue13 = CMG
-    workValue13 = workValue13.notifyPicture
-    cmgCall2 = "polnotification"
-    dataTable2 = "notification"
-    numberValue = "That vehicle is too large to be impounded."
-    flag2 = "Metropolitan Police"
-    textValue4 = "Impound"
-    flag3 = nil
-    flag4 = nil
-    workValue13(cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3, flag4)
+  localValue8 = GetVehicleClass
+  stateFlag24 = localValue4
+  localValue8 = localValue8(stateFlag24)
+  stateFlag24 = 18 == localValue8
+  workingValue13 = cmgOperation.disallowedVehicleClasses
+  workingValue13 = workingValue13[localValue8]
+  if workingValue13 then
+    workingValue13 = CMG
+    workingValue13 = workingValue13.notifyPicture
+    cmgOperation2 = "polnotification"
+    dataCollection2 = "notification"
+    number = "That vehicle is too large to be impounded."
+    stateFlag2 = "Metropolitan Police"
+    text4 = "Impound"
+    stateFlag3 = nil
+    stateFlag4 = nil
+    workingValue13(cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4)
   else
-    workValue13 = TriggerServerEvent
-    cmgCall2 = "0a61d49b9d"
-    dataTable2 = arg1
-    numberValue = arg6
-    flag2 = arg3
-    textValue4 = arg5
-    flag3 = flag24
+    workingValue13 = TriggerServerEvent
+    cmgOperation2 = "0a61d49b9d"
+    dataCollection2 = localValue1
+    number = localValue6
+    stateFlag2 = localValue3
+    text4 = localValue5
+    stateFlag3 = stateFlag24
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "0a61d49b9d".
-    workValue13(cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3)
-    workValue13 = RageUI
-    workValue13 = workValue13.Visible
-    cmgCall2 = RMenu
-    dataTable2 = cmgCall2
-    cmgCall2 = cmgCall2.Get
-    numberValue = "cmgimpound"
-    flag2 = "reasons"
+    workingValue13(cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3)
+    workingValue13 = RageUI
+    workingValue13 = workingValue13.Visible
+    cmgOperation2 = RMenu
+    dataCollection2 = cmgOperation2
+    cmgOperation2 = cmgOperation2.Get
+    number = "cmgimpound"
+    stateFlag2 = "reasons"
     -- Beginner: result below is menu.
-    cmgCall2 = cmgCall2(dataTable2, numberValue, flag2)
-    dataTable2 = true
-    workValue13(cmgCall2, dataTable2)
+    cmgOperation2 = cmgOperation2(dataCollection2, number, stateFlag2)
+    dataCollection2 = true
+    workingValue13(cmgOperation2, dataCollection2)
   end
 end
-textValue.impoundVehicleOptions = rageUiCall
-textValue = RegisterCommand
-rageUiCall = "impound"
+text.impoundVehicleOptions = rageUiOperation
+text = RegisterCommand
+rageUiOperation = "impound"
 -- Beginner: this function is the command handler for "impound".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
-function rageUiCall2()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "police.onduty.permission"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = RageUI
-    arg1 = arg1.Visible
-    arg2 = RMenu
-    arg3 = arg2
-    arg2 = arg2.Get
-    arg4 = "cmgimpound"
-    arg5 = "requestvehicle"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: none) ===
+function rageUiOperation2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "police.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.Visible
+    localValue2 = RMenu
+    localValue3 = localValue2
+    localValue2 = localValue2.Get
+    localValue4 = "cmgimpound"
+    localValue5 = "requestvehicle"
     -- Beginner: result below is menu.
-    arg2 = arg2(arg3, arg4, arg5)
-    arg3 = true
-    arg1(arg2, arg3)
+    localValue2 = localValue2(localValue3, localValue4, localValue5)
+    localValue3 = true
+    localValue1(localValue2, localValue3)
   end
 end
-textValue2 = false
+text2 = false
 -- Beginner: Register a chat/console command. Event/command: "impound".
-textValue(rageUiCall, rageUiCall2, textValue2)
-textValue = tCMG
+text(rageUiOperation, rageUiOperation2, text2)
+text = tCMG
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
-function rageUiCall(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, flag24, workValue13
-  arg2 = {}
-  arg3 = pairs
-  arg4 = arg1
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    flag24 = GetVehicleModelNumberOfSeats
-    workValue13 = arg8
-    flag24 = flag24(workValue13)
-    arg2[arg8] = flag24
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1) ===
+function rageUiOperation(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13
+  localValue2 = {}
+  localValue3 = pairs
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    stateFlag24 = GetVehicleModelNumberOfSeats
+    workingValue13 = localValue8
+    stateFlag24 = stateFlag24(workingValue13)
+    localValue2[localValue8] = stateFlag24
   end
-  return arg2
+  return localValue2
 end
-textValue.getVehicleSeatAmountsFromList = rageUiCall
-textValue = RegisterNetEvent
-rageUiCall = "ddf87b5c68"
+text.getVehicleSeatAmountsFromList = rageUiOperation
+text = RegisterNetEvent
+rageUiOperation = "ddf87b5c68"
 -- Beginner: this function handles network event "ddf87b5c68".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: arg1) ===
-function rageUiCall2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3, flag4, flag5, flag6, numberValue2, numberValue3, numberValue4, numberValue5, flag7, flag8, vector3Builder, flag9, flag10, flag11
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: localValue1) ===
+function rageUiOperation2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3, number4, number5, stateFlag7, stateFlag8, createVector3, stateFlag9, stateFlag10, stateFlag11
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = GetClosestVehicleNodeWithHeading
-  arg4 = arg2.x
-  arg5 = arg2.y
-  arg6 = arg2.z
-  arg7 = nil
-  arg8 = 8
-  flag24 = 8
-  workValue13 = 8
-  cmgCall2 = 8
-  arg3, arg4, arg5 = arg3(arg4, arg5, arg6, arg7, arg8, flag24, workValue13, cmgCall2)
-  arg6 = GetPointOnRoadSide
-  arg7 = arg2.x
-  arg8 = arg2.y
-  flag24 = arg2.z
-  workValue13 = 0.0
-  arg6, arg7 = arg6(arg7, arg8, flag24, workValue13)
-  arg8 = GetNthClosestVehicleNode
-  flag24 = arg2.x
-  workValue13 = arg2.y
-  cmgCall2 = arg2.z
-  dataTable2 = 15
-  arg8, flag24 = arg8(flag24, workValue13, cmgCall2, dataTable2)
-  workValue13 = vector3
-  cmgCall2 = 0.0
-  dataTable2 = 0.0
-  numberValue = 0.0
-  workValue13 = workValue13(cmgCall2, dataTable2, numberValue)
-  if flag24 ~= workValue13 then
-    workValue13 = vector3
-    cmgCall2 = 0.0
-    dataTable2 = 0.0
-    numberValue = 0.0
-    workValue13 = workValue13(cmgCall2, dataTable2, numberValue)
-    if arg7 ~= workValue13 then
-      goto flow_label_41
+  localValue2 = localValue2()
+  localValue3 = GetClosestVehicleNodeWithHeading
+  localValue4 = localValue2.x
+  localValue5 = localValue2.y
+  localValue6 = localValue2.z
+  localValue7 = nil
+  localValue8 = 8
+  stateFlag24 = 8
+  workingValue13 = 8
+  cmgOperation2 = 8
+  localValue3, localValue4, localValue5 = localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2)
+  localValue6 = GetPointOnRoadSide
+  localValue7 = localValue2.x
+  localValue8 = localValue2.y
+  stateFlag24 = localValue2.z
+  workingValue13 = 0.0
+  localValue6, localValue7 = localValue6(localValue7, localValue8, stateFlag24, workingValue13)
+  localValue8 = GetNthClosestVehicleNode
+  stateFlag24 = localValue2.x
+  workingValue13 = localValue2.y
+  cmgOperation2 = localValue2.z
+  dataCollection2 = 15
+  localValue8, stateFlag24 = localValue8(stateFlag24, workingValue13, cmgOperation2, dataCollection2)
+  workingValue13 = vector3
+  cmgOperation2 = 0.0
+  dataCollection2 = 0.0
+  number = 0.0
+  workingValue13 = workingValue13(cmgOperation2, dataCollection2, number)
+  if stateFlag24 ~= workingValue13 then
+    workingValue13 = vector3
+    cmgOperation2 = 0.0
+    dataCollection2 = 0.0
+    number = 0.0
+    workingValue13 = workingValue13(cmgOperation2, dataCollection2, number)
+    if localValue7 ~= workingValue13 then
+      goto continueAtStep41
     end
   end
   return
-  ::flow_label_41::
-  workValue13 = CMG
-  workValue13 = workValue13.loadModel
-  cmgCall2 = 1353720154
+  ::continueAtStep41::
+  workingValue13 = CMG
+  workingValue13 = workingValue13.loadModel
+  cmgOperation2 = 1353720154
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  workValue13(cmgCall2)
-  workValue13 = CMG
-  workValue13 = workValue13.requestEntitySpawn
-  cmgCall2 = "impound_request_flatbed"
-  dataTable2 = flag24
-  workValue13(cmgCall2, dataTable2)
-  workValue13 = CMG
-  workValue13 = workValue13.spawnVehicle
-  cmgCall2 = 1353720154
-  dataTable2 = flag24.x
-  numberValue = flag24.y
-  flag2 = flag24.z
-  textValue4 = arg5
-  flag3 = false
-  flag4 = true
-  flag5 = true
-  workValue13 = workValue13(cmgCall2, dataTable2, numberValue, flag2, textValue4, flag3, flag4, flag5)
-  cmgCall2 = SetModelAsNoLongerNeeded
-  dataTable2 = 1353720154
-  cmgCall2(dataTable2)
-  cmgCall2 = SetVehicleDoorsLocked
-  dataTable2 = workValue13
-  numberValue = 2
-  cmgCall2(dataTable2, numberValue)
-  cmgCall2 = SetEntityInvincible
-  dataTable2 = workValue13
-  numberValue = true
-  cmgCall2(dataTable2, numberValue)
-  cmgCall2 = AddBlipForEntity
-  dataTable2 = workValue13
+  workingValue13(cmgOperation2)
+  workingValue13 = CMG
+  workingValue13 = workingValue13.requestEntitySpawn
+  cmgOperation2 = "impound_request_flatbed"
+  dataCollection2 = stateFlag24
+  workingValue13(cmgOperation2, dataCollection2)
+  workingValue13 = CMG
+  workingValue13 = workingValue13.spawnVehicle
+  cmgOperation2 = 1353720154
+  dataCollection2 = stateFlag24.x
+  number = stateFlag24.y
+  stateFlag2 = stateFlag24.z
+  text4 = localValue5
+  stateFlag3 = false
+  stateFlag4 = true
+  stateFlag5 = true
+  workingValue13 = workingValue13(cmgOperation2, dataCollection2, number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5)
+  cmgOperation2 = SetModelAsNoLongerNeeded
+  dataCollection2 = 1353720154
+  cmgOperation2(dataCollection2)
+  cmgOperation2 = SetVehicleDoorsLocked
+  dataCollection2 = workingValue13
+  number = 2
+  cmgOperation2(dataCollection2, number)
+  cmgOperation2 = SetEntityInvincible
+  dataCollection2 = workingValue13
+  number = true
+  cmgOperation2(dataCollection2, number)
+  cmgOperation2 = AddBlipForEntity
+  dataCollection2 = workingValue13
   -- Beginner: result below is blipHandle.
-  cmgCall2 = cmgCall2(dataTable2)
-  dataTable2 = SetBlipSprite
-  numberValue = cmgCall2
-  flag2 = 68
-  dataTable2(numberValue, flag2)
-  dataTable2 = SetBlipDisplay
-  numberValue = cmgCall2
-  flag2 = 4
-  dataTable2(numberValue, flag2)
-  dataTable2 = SetBlipScale
-  numberValue = cmgCall2
-  flag2 = 1.0
-  dataTable2(numberValue, flag2)
-  dataTable2 = SetBlipColour
-  numberValue = cmgCall2
-  flag2 = 5
-  dataTable2(numberValue, flag2)
-  dataTable2 = SetBlipAsShortRange
-  numberValue = cmgCall2
-  flag2 = true
-  dataTable2(numberValue, flag2)
-  dataTable2 = CMG
-  dataTable2 = dataTable2.loadModel
-  numberValue = -1760377969
+  cmgOperation2 = cmgOperation2(dataCollection2)
+  dataCollection2 = SetBlipSprite
+  number = cmgOperation2
+  stateFlag2 = 68
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = SetBlipDisplay
+  number = cmgOperation2
+  stateFlag2 = 4
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = SetBlipScale
+  number = cmgOperation2
+  stateFlag2 = 1.0
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = SetBlipColour
+  number = cmgOperation2
+  stateFlag2 = 5
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = SetBlipAsShortRange
+  number = cmgOperation2
+  stateFlag2 = true
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = CMG
+  dataCollection2 = dataCollection2.loadModel
+  number = -1760377969
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  dataTable2(numberValue)
-  dataTable2 = CMG
-  dataTable2 = dataTable2.requestEntitySpawn
-  numberValue = "impound_request_ped"
-  flag2 = flag24
-  dataTable2(numberValue, flag2)
-  dataTable2 = CreatePedInsideVehicle
-  numberValue = workValue13
-  flag2 = 1
-  textValue4 = -1760377969
-  flag3 = -1
-  flag4 = true
-  flag5 = false
-  dataTable2 = dataTable2(numberValue, flag2, textValue4, flag3, flag4, flag5)
-  numberValue = SetModelAsNoLongerNeeded
-  flag2 = -1760377969
-  numberValue(flag2)
-  numberValue = SetEntityInvincible
-  flag2 = dataTable2
-  textValue4 = true
-  numberValue(flag2, textValue4)
-  numberValue = CMG
-  numberValue = numberValue.loadModel
-  flag2 = arg1
+  dataCollection2(number)
+  dataCollection2 = CMG
+  dataCollection2 = dataCollection2.requestEntitySpawn
+  number = "impound_request_ped"
+  stateFlag2 = stateFlag24
+  dataCollection2(number, stateFlag2)
+  dataCollection2 = CreatePedInsideVehicle
+  number = workingValue13
+  stateFlag2 = 1
+  text4 = -1760377969
+  stateFlag3 = -1
+  stateFlag4 = true
+  stateFlag5 = false
+  dataCollection2 = dataCollection2(number, stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5)
+  number = SetModelAsNoLongerNeeded
+  stateFlag2 = -1760377969
+  number(stateFlag2)
+  number = SetEntityInvincible
+  stateFlag2 = dataCollection2
+  text4 = true
+  number(stateFlag2, text4)
+  number = CMG
+  number = number.loadModel
+  stateFlag2 = localValue1
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  numberValue(flag2)
-  numberValue = CMG
-  numberValue = numberValue.requestEntitySpawn
-  flag2 = "impound_request_vehicle"
-  textValue4 = flag24
-  numberValue(flag2, textValue4)
-  numberValue = CMG
-  numberValue = numberValue.spawnVehicle
-  flag2 = arg1
-  textValue4 = flag24.x
-  flag3 = flag24.y
-  flag4 = flag24.z
-  flag5 = GetEntityHeading
-  flag6 = workValue13
+  number(stateFlag2)
+  number = CMG
+  number = number.requestEntitySpawn
+  stateFlag2 = "impound_request_vehicle"
+  text4 = stateFlag24
+  number(stateFlag2, text4)
+  number = CMG
+  number = number.spawnVehicle
+  stateFlag2 = localValue1
+  text4 = stateFlag24.x
+  stateFlag3 = stateFlag24.y
+  stateFlag4 = stateFlag24.z
+  stateFlag5 = GetEntityHeading
+  stateFlag6 = workingValue13
   -- Beginner: result below is heading.
-  flag5 = flag5(flag6)
-  flag6 = false
-  numberValue2 = true
-  numberValue3 = false
-  numberValue = numberValue(flag2, textValue4, flag3, flag4, flag5, flag6, numberValue2, numberValue3)
-  flag2 = SetModelAsNoLongerNeeded
-  textValue4 = arg1
-  flag2(textValue4)
-  flag2 = AttachEntityToEntity
-  textValue4 = numberValue
-  flag3 = workValue13
-  flag4 = 20
-  flag5 = -0.5
-  flag6 = -5.0
-  numberValue2 = 1.0
-  numberValue3 = 0.0
-  numberValue4 = 0.0
-  numberValue5 = 0.0
-  flag7 = false
-  flag8 = false
-  vector3Builder = false
-  flag9 = false
-  flag10 = 20
-  flag11 = true
+  stateFlag5 = stateFlag5(stateFlag6)
+  stateFlag6 = false
+  number2 = true
+  number3 = false
+  number = number(stateFlag2, text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3)
+  stateFlag2 = SetModelAsNoLongerNeeded
+  text4 = localValue1
+  stateFlag2(text4)
+  stateFlag2 = AttachEntityToEntity
+  text4 = number
+  stateFlag3 = workingValue13
+  stateFlag4 = 20
+  stateFlag5 = -0.5
+  stateFlag6 = -5.0
+  number2 = 1.0
+  number3 = 0.0
+  number4 = 0.0
+  number5 = 0.0
+  stateFlag7 = false
+  stateFlag8 = false
+  createVector3 = false
+  stateFlag9 = false
+  stateFlag10 = 20
+  stateFlag11 = true
   -- Beginner: Attach one entity to another entity.
-  flag2(textValue4, flag3, flag4, flag5, flag6, numberValue2, numberValue3, numberValue4, numberValue5, flag7, flag8, vector3Builder, flag9, flag10, flag11)
-  flag2 = SetEntityInvincible
-  textValue4 = numberValue
-  flag3 = true
-  flag2(textValue4, flag3)
-  flag2 = TaskVehicleDriveToCoord
-  textValue4 = dataTable2
-  flag3 = workValue13
-  flag4 = arg7.x
-  flag5 = arg7.y
-  flag6 = arg7.z
-  numberValue2 = 15.0
-  numberValue3 = 1.0
-  numberValue4 = 1353720154
-  numberValue5 = numberValue10
-  flag7 = 5.0
-  flag8 = 0.0
-  flag2(textValue4, flag3, flag4, flag5, flag6, numberValue2, numberValue3, numberValue4, numberValue5, flag7, flag8)
-  flag2 = GetGameTimer
+  stateFlag2(text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3, number4, number5, stateFlag7, stateFlag8, createVector3, stateFlag9, stateFlag10, stateFlag11)
+  stateFlag2 = SetEntityInvincible
+  text4 = number
+  stateFlag3 = true
+  stateFlag2(text4, stateFlag3)
+  stateFlag2 = TaskVehicleDriveToCoord
+  text4 = dataCollection2
+  stateFlag3 = workingValue13
+  stateFlag4 = localValue7.x
+  stateFlag5 = localValue7.y
+  stateFlag6 = localValue7.z
+  number2 = 15.0
+  number3 = 1.0
+  number4 = 1353720154
+  number5 = number10
+  stateFlag7 = 5.0
+  stateFlag8 = 0.0
+  stateFlag2(text4, stateFlag3, stateFlag4, stateFlag5, stateFlag6, number2, number3, number4, number5, stateFlag7, stateFlag8)
+  stateFlag2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  flag2 = flag2()
+  stateFlag2 = stateFlag2()
   while true do
-    textValue4 = GetGameTimer
+    text4 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    textValue4 = textValue4()
-    textValue4 = textValue4 - flag2
-    flag3 = 5000
-    if not (textValue4 < flag3) then
+    text4 = text4()
+    text4 = text4 - stateFlag2
+    stateFlag3 = 5000
+    if not (text4 < stateFlag3) then
       break
     end
-    textValue4 = NetworkGetNetworkIdFromEntity
-    flag3 = workValue13
-    textValue4 = textValue4(flag3)
-    flag3 = NetworkGetNetworkIdFromEntity
-    flag4 = dataTable2
-    flag3 = flag3(flag4)
-    flag4 = NetworkGetNetworkIdFromEntity
-    flag5 = numberValue
-    flag4 = flag4(flag5)
-    if 0 ~= textValue4 and 0 ~= flag3 and 0 ~= flag4 then
-      flag5 = TriggerServerEvent
-      flag6 = "6d0044938f"
-      numberValue2 = textValue4
-      numberValue3 = flag3
-      numberValue4 = flag4
-      numberValue5 = arg7
+    text4 = NetworkGetNetworkIdFromEntity
+    stateFlag3 = workingValue13
+    text4 = text4(stateFlag3)
+    stateFlag3 = NetworkGetNetworkIdFromEntity
+    stateFlag4 = dataCollection2
+    stateFlag3 = stateFlag3(stateFlag4)
+    stateFlag4 = NetworkGetNetworkIdFromEntity
+    stateFlag5 = number
+    stateFlag4 = stateFlag4(stateFlag5)
+    if 0 ~= text4 and 0 ~= stateFlag3 and 0 ~= stateFlag4 then
+      stateFlag5 = TriggerServerEvent
+      stateFlag6 = "6d0044938f"
+      number2 = text4
+      number3 = stateFlag3
+      number4 = stateFlag4
+      number5 = localValue7
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6d0044938f".
-      flag5(flag6, numberValue2, numberValue3, numberValue4, numberValue5)
+      stateFlag5(stateFlag6, number2, number3, number4, number5)
       return
     end
-    flag5 = Citizen
-    flag5 = flag5.Wait
-    flag6 = 0
-    flag5(flag6)
+    stateFlag5 = Citizen
+    stateFlag5 = stateFlag5.Wait
+    stateFlag6 = 0
+    stateFlag5(stateFlag6)
   end
-  textValue4 = DeleteEntity
-  flag3 = workValue13
+  text4 = DeleteEntity
+  stateFlag3 = workingValue13
   -- Beginner: Delete a GTA entity.
-  textValue4(flag3)
-  textValue4 = DeleteEntity
-  flag3 = dataTable2
-  textValue4(flag3)
-  textValue4 = DeleteEntity
-  flag3 = numberValue
+  text4(stateFlag3)
+  text4 = DeleteEntity
+  stateFlag3 = dataCollection2
+  text4(stateFlag3)
+  text4 = DeleteEntity
+  stateFlag3 = number
   -- Beginner: Delete a GTA entity.
-  textValue4(flag3)
+  text4(stateFlag3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ddf87b5c68".
-textValue(rageUiCall, rageUiCall2)
-textValue = RegisterNetEvent
-rageUiCall = "09c0273fe4"
+text(rageUiOperation, rageUiOperation2)
+text = RegisterNetEvent
+rageUiOperation = "09c0273fe4"
 -- Beginner: this function handles network event "09c0273fe4".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: arg1, arg2, arg3) ===
-function rageUiCall2(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: localValue1, localValue2, localValue3) ===
+function rageUiOperation2(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4
   -- Beginner: this function handles network event "09c0273fe4".
 
-  -- === HELPER FUNCTION: arg4(arg12, arg22) ===
-  function arg4(arg12, arg22)
-    local workValue8, flag18, rageUiCall3
-    if 0 ~= arg12 then
-      workValue8 = DoesEntityExist
-      flag18 = arg12
-      workValue8 = workValue8(flag18)
-      if workValue8 then
-        goto flow_label_10
+  -- === HELPER FUNCTION: localValue4(localValue12, localValue22) ===
+  function localValue4(localValue12, localValue22)
+    local workingValue8, stateFlag18, rageUiOperation3
+    if 0 ~= localValue12 then
+      workingValue8 = DoesEntityExist
+      stateFlag18 = localValue12
+      workingValue8 = workingValue8(stateFlag18)
+      if workingValue8 then
+        goto continueAtStep10
       end
     end
-    workValue8 = false
-    return workValue8
-    ::flow_label_10::
-    workValue8 = NetworkRequestControlOfEntity
-    flag18 = arg12
-    workValue8(flag18)
-    workValue8 = GetGameTimer
+    workingValue8 = false
+    return workingValue8
+    ::continueAtStep10::
+    workingValue8 = NetworkRequestControlOfEntity
+    stateFlag18 = localValue12
+    workingValue8(stateFlag18)
+    workingValue8 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    workValue8 = workValue8()
-    workValue8 = workValue8 + arg22
+    workingValue8 = workingValue8()
+    workingValue8 = workingValue8 + localValue22
     while true do
-      flag18 = GetGameTimer
+      stateFlag18 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      flag18 = flag18()
-      if not (workValue8 > flag18) then
+      stateFlag18 = stateFlag18()
+      if not (workingValue8 > stateFlag18) then
         break
       end
-      flag18 = NetworkHasControlOfEntity
-      rageUiCall3 = arg12
-      flag18 = flag18(rageUiCall3)
-      if flag18 then
+      stateFlag18 = NetworkHasControlOfEntity
+      rageUiOperation3 = localValue12
+      stateFlag18 = stateFlag18(rageUiOperation3)
+      if stateFlag18 then
         break
       end
-      flag18 = NetworkRequestControlOfEntity
-      rageUiCall3 = arg12
-      flag18(rageUiCall3)
-      flag18 = Citizen
-      flag18 = flag18.Wait
-      rageUiCall3 = 0
-      flag18(rageUiCall3)
+      stateFlag18 = NetworkRequestControlOfEntity
+      rageUiOperation3 = localValue12
+      stateFlag18(rageUiOperation3)
+      stateFlag18 = Citizen
+      stateFlag18 = stateFlag18.Wait
+      rageUiOperation3 = 0
+      stateFlag18(rageUiOperation3)
     end
-    flag18 = NetworkHasControlOfEntity
-    rageUiCall3 = arg12
-    return flag18(rageUiCall3)
+    stateFlag18 = NetworkHasControlOfEntity
+    rageUiOperation3 = localValue12
+    return stateFlag18(rageUiOperation3)
   end
-  arg5 = 0
-  arg6 = NetworkDoesNetworkIdExist
-  arg7 = arg2
-  arg6 = arg6(arg7)
-  if arg6 then
-    arg6 = NetworkDoesEntityExistWithNetworkId
-    arg7 = arg2
-    arg6 = arg6(arg7)
-    if arg6 then
-      arg6 = NetworkGetEntityFromNetworkId
-      arg7 = arg2
-      arg6 = arg6(arg7)
-      arg5 = arg6
+  localValue5 = 0
+  localValue6 = NetworkDoesNetworkIdExist
+  localValue7 = localValue2
+  localValue6 = localValue6(localValue7)
+  if localValue6 then
+    localValue6 = NetworkDoesEntityExistWithNetworkId
+    localValue7 = localValue2
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
+      localValue6 = NetworkGetEntityFromNetworkId
+      localValue7 = localValue2
+      localValue6 = localValue6(localValue7)
+      localValue5 = localValue6
     end
   end
-  if 0 ~= arg5 then
-    arg6 = arg4
-    arg7 = arg5
-    arg8 = 1500
-    arg6(arg7, arg8)
-    arg6 = NetworkHasControlOfEntity
-    arg7 = arg5
-    arg6 = arg6(arg7)
-    if arg6 then
-      arg6 = DetachEntity
-      arg7 = arg5
-      arg8 = true
-      flag24 = true
-      arg6(arg7, arg8, flag24)
-      arg6 = SetEntityCoordsNoOffset
-      arg7 = arg5
-      arg8 = arg3.x
-      flag24 = arg3.y
-      workValue13 = arg3.z
-      cmgCall2 = true
-      dataTable2 = false
-      numberValue = false
+  if 0 ~= localValue5 then
+    localValue6 = localValue4
+    localValue7 = localValue5
+    localValue8 = 1500
+    localValue6(localValue7, localValue8)
+    localValue6 = NetworkHasControlOfEntity
+    localValue7 = localValue5
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
+      localValue6 = DetachEntity
+      localValue7 = localValue5
+      localValue8 = true
+      stateFlag24 = true
+      localValue6(localValue7, localValue8, stateFlag24)
+      localValue6 = SetEntityCoordsNoOffset
+      localValue7 = localValue5
+      localValue8 = localValue3.x
+      stateFlag24 = localValue3.y
+      workingValue13 = localValue3.z
+      cmgOperation2 = true
+      dataCollection2 = false
+      number = false
       -- Beginner: Move/teleport an entity to new coordinates.
-      arg6(arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue)
-      arg6 = pairs
-      arg7 = CMG
-      arg7 = arg7.getAllVehicles
-      arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4 = arg7()
-      arg6, arg7, arg8, flag24 = arg6(arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4)
-      for workValue13, cmgCall2 in arg6, arg7, arg8, flag24 do
-        dataTable2 = SetEntityNoCollisionEntity
-        numberValue = arg5
-        flag2 = cmgCall2
-        textValue4 = false
-        dataTable2(numberValue, flag2, textValue4)
+      localValue6(localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number)
+      localValue6 = pairs
+      localValue7 = CMG
+      localValue7 = localValue7.getAllVehicles
+      localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4 = localValue7()
+      localValue6, localValue7, localValue8, stateFlag24 = localValue6(localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4)
+      for workingValue13, cmgOperation2 in localValue6, localValue7, localValue8, stateFlag24 do
+        dataCollection2 = SetEntityNoCollisionEntity
+        number = localValue5
+        stateFlag2 = cmgOperation2
+        text4 = false
+        dataCollection2(number, stateFlag2, text4)
       end
-      arg6 = Wait
-      arg7 = 2000
-      arg6(arg7)
-      arg6 = pairs
-      arg7 = CMG
-      arg7 = arg7.getAllVehicles
-      arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4 = arg7()
-      arg6, arg7, arg8, flag24 = arg6(arg7, arg8, flag24, workValue13, cmgCall2, dataTable2, numberValue, flag2, textValue4)
-      for workValue13, cmgCall2 in arg6, arg7, arg8, flag24 do
-        dataTable2 = SetEntityNoCollisionEntity
-        numberValue = arg5
-        flag2 = cmgCall2
-        textValue4 = true
-        dataTable2(numberValue, flag2, textValue4)
+      localValue6 = Wait
+      localValue7 = 2000
+      localValue6(localValue7)
+      localValue6 = pairs
+      localValue7 = CMG
+      localValue7 = localValue7.getAllVehicles
+      localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4 = localValue7()
+      localValue6, localValue7, localValue8, stateFlag24 = localValue6(localValue7, localValue8, stateFlag24, workingValue13, cmgOperation2, dataCollection2, number, stateFlag2, text4)
+      for workingValue13, cmgOperation2 in localValue6, localValue7, localValue8, stateFlag24 do
+        dataCollection2 = SetEntityNoCollisionEntity
+        number = localValue5
+        stateFlag2 = cmgOperation2
+        text4 = true
+        dataCollection2(number, stateFlag2, text4)
       end
-      arg6 = SetVehicleFixed
-      arg7 = arg5
-      arg6(arg7)
+      localValue6 = SetVehicleFixed
+      localValue7 = localValue5
+      localValue6(localValue7)
     end
   end
-  arg6 = NetworkDoesNetworkIdExist
-  arg7 = arg1
-  arg6 = arg6(arg7)
-  if arg6 then
-    arg6 = NetworkDoesEntityExistWithNetworkId
-    arg7 = arg1
-    arg6 = arg6(arg7)
-    if arg6 then
-      arg6 = NetworkGetEntityFromNetworkId
-      arg7 = arg1
-      arg6 = arg6(arg7)
-      if 0 ~= arg6 then
-        arg7 = arg4
-        arg8 = arg6
-        flag24 = 800
-        arg7(arg8, flag24)
-        arg7 = NetworkHasControlOfEntity
-        arg8 = arg6
-        arg7 = arg7(arg8)
-        if arg7 then
-          arg7 = GetVehiclePedIsUsing
-          arg8 = arg6
-          arg7 = arg7(arg8)
-          if 0 ~= arg7 then
-            arg8 = TaskVehicleDriveWander
-            flag24 = arg6
-            workValue13 = arg7
-            cmgCall2 = 15.0
-            dataTable2 = 786603
-            arg8(flag24, workValue13, cmgCall2, dataTable2)
+  localValue6 = NetworkDoesNetworkIdExist
+  localValue7 = localValue1
+  localValue6 = localValue6(localValue7)
+  if localValue6 then
+    localValue6 = NetworkDoesEntityExistWithNetworkId
+    localValue7 = localValue1
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
+      localValue6 = NetworkGetEntityFromNetworkId
+      localValue7 = localValue1
+      localValue6 = localValue6(localValue7)
+      if 0 ~= localValue6 then
+        localValue7 = localValue4
+        localValue8 = localValue6
+        stateFlag24 = 800
+        localValue7(localValue8, stateFlag24)
+        localValue7 = NetworkHasControlOfEntity
+        localValue8 = localValue6
+        localValue7 = localValue7(localValue8)
+        if localValue7 then
+          localValue7 = GetVehiclePedIsUsing
+          localValue8 = localValue6
+          localValue7 = localValue7(localValue8)
+          if 0 ~= localValue7 then
+            localValue8 = TaskVehicleDriveWander
+            stateFlag24 = localValue6
+            workingValue13 = localValue7
+            cmgOperation2 = 15.0
+            dataCollection2 = 786603
+            localValue8(stateFlag24, workingValue13, cmgOperation2, dataCollection2)
           end
         end
       end
@@ -1817,4 +1817,4 @@ function rageUiCall2(arg1, arg2, arg3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "09c0273fe4".
-textValue(rageUiCall, rageUiCall2)
+text(rageUiOperation, rageUiOperation2)

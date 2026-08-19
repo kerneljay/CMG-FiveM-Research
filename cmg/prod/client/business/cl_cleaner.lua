@@ -32,1005 +32,1005 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local workValue, workValue12, workValue21, workValue25, workValue26, flag12, numberValue9, workValue28, flag14, numberValue10, workValue3, workValue5, workValue6, workValue7, cmgCall, textValue, workValue8, workValue9, workValue10, workValue11, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, dataTable3, dataTable4, textValue4, workValue22, textValue6, workValue23, workValue24
-workValue = nil
-workValue12 = nil
-workValue21 = nil
-workValue25 = nil
-workValue26 = nil
-flag12 = false
-numberValue9 = 0
-workValue28 = nil
-flag14 = false
-numberValue10 = 0
-workValue3 = nil
-workValue5 = nil
-workValue6 = nil
-workValue7 = nil
-cmgCall = CMG
-cmgCall = cmgCall.registerHudTimerBarProvider
-textValue = "businessCleanerJob"
+local workingValue, workingValue12, workingValue21, workingValue25, workingValue26, stateFlag12, number9, workingValue28, stateFlag14, number10, workingValue3, workingValue5, workingValue6, workingValue7, cmgOperation, text, workingValue8, workingValue9, workingValue10, workingValue11, workingValue14, workingValue15, workingValue16, workingValue17, workingValue18, workingValue19, workingValue20, dataCollection3, dataCollection4, text4, workingValue22, text6, workingValue23, workingValue24
+workingValue = nil
+workingValue12 = nil
+workingValue21 = nil
+workingValue25 = nil
+workingValue26 = nil
+stateFlag12 = false
+number9 = 0
+workingValue28 = nil
+stateFlag14 = false
+number10 = 0
+workingValue3 = nil
+workingValue5 = nil
+workingValue6 = nil
+workingValue7 = nil
+cmgOperation = CMG
+cmgOperation = cmgOperation.registerHudTimerBarProvider
+text = "businessCleanerJob"
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local workValue13, textValue5, flag11
-  workValue13 = workValue6
-  if workValue13 then
-    workValue13 = arg1.push
-    textValue5 = workValue6
-    flag11 = workValue7
-    workValue13(textValue5, flag11)
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local workingValue13, text5, stateFlag11
+  workingValue13 = workingValue6
+  if workingValue13 then
+    workingValue13 = localValue1.push
+    text5 = workingValue6
+    stateFlag11 = workingValue7
+    workingValue13(text5, stateFlag11)
   end
 end
-cmgCall(textValue, workValue8)
+cmgOperation(text, workingValue8)
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: arg1) ===
-function cmgCall(arg1)
-  local workValue13
-  workValue13 = arg1.jobMetadata
-  workValue = workValue13
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: localValue1) ===
+function cmgOperation(localValue1)
+  local workingValue13
+  workingValue13 = localValue1.jobMetadata
+  workingValue = workingValue13
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7
-  arg1 = {}
-  workValue12 = arg1
-  arg1 = {}
-  workValue21 = arg1
-  arg1 = {}
-  workValue25 = arg1
-  arg1 = assert
-  workValue13 = workValue
-  textValue5 = "initGround nil metadata"
-  arg1(workValue13, textValue5)
-  arg1 = false
-  workValue13 = pairs
-  textValue5 = workValue.groundPoints
-  workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
-  for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
-    workValue29 = workValue.groundModels
-    workValue30 = workValue.groundModels
-    workValue30 = #workValue30
-    workValue30 = numberValue8 % workValue30
-    workValue30 = workValue30 + 1
-    workValue29 = workValue29[workValue30]
-    workValue30 = CMG
-    workValue30 = workValue30.loadModel
-    workValue31 = workValue29
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2, number6, number7
+  localValue1 = {}
+  workingValue12 = localValue1
+  localValue1 = {}
+  workingValue21 = localValue1
+  localValue1 = {}
+  workingValue25 = localValue1
+  localValue1 = assert
+  workingValue13 = workingValue
+  text5 = "initGround nil metadata"
+  localValue1(workingValue13, text5)
+  localValue1 = false
+  workingValue13 = pairs
+  text5 = workingValue.groundPoints
+  workingValue13, text5, stateFlag11, workingValue27 = workingValue13(text5)
+  for number8, cmgOperation2 in workingValue13, text5, stateFlag11, workingValue27 do
+    workingValue29 = workingValue.groundModels
+    workingValue30 = workingValue.groundModels
+    workingValue30 = #workingValue30
+    workingValue30 = number8 % workingValue30
+    workingValue30 = workingValue30 + 1
+    workingValue29 = workingValue29[workingValue30]
+    workingValue30 = CMG
+    workingValue30 = workingValue30.loadModel
+    workingValue31 = workingValue29
     -- Beginner: Request/load a GTA model before spawning or applying it.
-    workValue30(workValue31)
-    workValue30 = CreateObject
-    workValue31 = workValue29
-    workValue4 = cmgCall2.x
-    mathHelper = cmgCall2.y
-    numberValue3 = cmgCall2.z
-    numberValue3 = numberValue3 - 1.0
-    flag2 = false
-    flag4 = false
-    flag6 = false
+    workingValue30(workingValue31)
+    workingValue30 = CreateObject
+    workingValue31 = workingValue29
+    workingValue4 = cmgOperation2.x
+    mathHelper = cmgOperation2.y
+    number3 = cmgOperation2.z
+    number3 = number3 - 1.0
+    stateFlag2 = false
+    stateFlag4 = false
+    stateFlag6 = false
     -- Beginner: result below is objectEntity.
-    workValue30 = workValue30(workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6)
-    workValue31 = SetEntityHeading
-    workValue4 = workValue30
+    workingValue30 = workingValue30(workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6)
+    workingValue31 = SetEntityHeading
+    workingValue4 = workingValue30
     mathHelper = math
     mathHelper = mathHelper.random
-    numberValue3 = 1
-    flag2 = 360
-    mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7 = mathHelper(numberValue3, flag2)
+    number3 = 1
+    stateFlag2 = 360
+    mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2, number6, number7 = mathHelper(number3, stateFlag2)
     -- Beginner: Change the direction an entity is facing.
-    workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7)
-    workValue31 = SetModelAsNoLongerNeeded
-    workValue4 = workValue29
-    workValue31(workValue4)
-    workValue31 = table
-    workValue31 = workValue31.insert
-    workValue4 = workValue12
-    mathHelper = workValue30
-    workValue31(workValue4, mathHelper)
-    workValue31 = tCMG
-    workValue31 = workValue31.addMarker
-    workValue4 = cmgCall2.x
-    mathHelper = cmgCall2.y
-    numberValue3 = cmgCall2.z
-    numberValue3 = numberValue3 - 0.6
-    flag2 = 0.2
-    flag4 = 0.2
-    flag6 = 0.2
-    numberValue4 = 255
-    dataTable = 255
-    numberValue5 = 0
-    dataTable2 = 150
-    numberValue6 = 25.0
-    numberValue7 = 0
-    workValue31 = workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7)
-    workValue4 = table
-    workValue4 = workValue4.insert
-    mathHelper = workValue21
-    numberValue3 = workValue31
-    workValue4(mathHelper, numberValue3)
-    workValue4 = "business_job_"
+    workingValue31(workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2, number6, number7)
+    workingValue31 = SetModelAsNoLongerNeeded
+    workingValue4 = workingValue29
+    workingValue31(workingValue4)
+    workingValue31 = table
+    workingValue31 = workingValue31.insert
+    workingValue4 = workingValue12
+    mathHelper = workingValue30
+    workingValue31(workingValue4, mathHelper)
+    workingValue31 = tCMG
+    workingValue31 = workingValue31.addMarker
+    workingValue4 = cmgOperation2.x
+    mathHelper = cmgOperation2.y
+    number3 = cmgOperation2.z
+    number3 = number3 - 0.6
+    stateFlag2 = 0.2
+    stateFlag4 = 0.2
+    stateFlag6 = 0.2
+    number4 = 255
+    dataCollection = 255
+    number5 = 0
+    dataCollection2 = 150
+    number6 = 25.0
+    number7 = 0
+    workingValue31 = workingValue31(workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2, number6, number7)
+    workingValue4 = table
+    workingValue4 = workingValue4.insert
+    mathHelper = workingValue21
+    number3 = workingValue31
+    workingValue4(mathHelper, number3)
+    workingValue4 = "business_job_"
     mathHelper = tostring
-    numberValue3 = numberValue8
-    mathHelper = mathHelper(numberValue3)
-    workValue4 = workValue4 .. mathHelper
+    number3 = number8
+    mathHelper = mathHelper(number3)
+    workingValue4 = workingValue4 .. mathHelper
     mathHelper = CMG
     mathHelper = mathHelper.createArea
-    numberValue3 = workValue4
-    flag2 = cmgCall2
-    flag4 = 1.0
-    flag6 = 1.5
+    number3 = workingValue4
+    stateFlag2 = cmgOperation2
+    stateFlag4 = 1.0
+    stateFlag6 = 1.5
 
-    -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-    function numberValue4()
-      local workValue2, textValue2
+    -- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+    function number4()
+      local workingValue2, text2
     end
 
-    -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-    function dataTable()
-      local workValue2, textValue2
+    -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+    function dataCollection()
+      local workingValue2, text2
     end
 
-    -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
-    function numberValue5()
-      local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
-      workValue2 = arg1
-      if not workValue2 then
-        workValue2 = workValue25
-        if workValue2 then
-          textValue2 = numberValue8
-          workValue2 = workValue25
-          workValue2 = workValue2[textValue2]
-          if workValue2 then
-            workValue2 = drawNativeNotification
-            textValue2 = "Press ~INPUT_CONTEXT~ to pick up the trash"
+    -- === HELPER FUNCTION (decompiler name: number5; parameters: none) ===
+    function number5()
+      local workingValue2, text2, dataCollection5, dataCollection6, dataCollection7, tableHelper, text7
+      workingValue2 = localValue1
+      if not workingValue2 then
+        workingValue2 = workingValue25
+        if workingValue2 then
+          text2 = number8
+          workingValue2 = workingValue25
+          workingValue2 = workingValue2[text2]
+          if workingValue2 then
+            workingValue2 = drawNativeNotification
+            text2 = "Press ~INPUT_CONTEXT~ to pick up the trash"
             -- Beginner: Show a GTA-style notification/help prompt.
-            workValue2(textValue2)
-            workValue2 = IsControlJustPressed
-            textValue2 = 0
-            dataTable5 = 51
-            workValue2 = workValue2(textValue2, dataTable5)
-            if workValue2 then
-              workValue2 = CMG
-              workValue2 = workValue2.disableSittingOnChairThisFrame
-              workValue2()
-              workValue2 = tCMG
-              workValue2 = workValue2.setCanAnim
-              textValue2 = false
-              workValue2(textValue2)
-              workValue2 = true
-              arg1 = workValue2
-              workValue2 = tCMG
-              workValue2 = workValue2.playAnim
-              textValue2 = true
-              dataTable5 = {}
-              dataTable6 = {}
-              dataTable7 = "pickup_object"
+            workingValue2(text2)
+            workingValue2 = IsControlJustPressed
+            text2 = 0
+            dataCollection5 = 51
+            workingValue2 = workingValue2(text2, dataCollection5)
+            if workingValue2 then
+              workingValue2 = CMG
+              workingValue2 = workingValue2.disableSittingOnChairThisFrame
+              workingValue2()
+              workingValue2 = tCMG
+              workingValue2 = workingValue2.setCanAnim
+              text2 = false
+              workingValue2(text2)
+              workingValue2 = true
+              localValue1 = workingValue2
+              workingValue2 = tCMG
+              workingValue2 = workingValue2.playAnim
+              text2 = true
+              dataCollection5 = {}
+              dataCollection6 = {}
+              dataCollection7 = "pickup_object"
               tableHelper = "pickup_low"
-              textValue7 = 1
-              dataTable6[1] = dataTable7
-              dataTable6[2] = tableHelper
-              dataTable6[3] = textValue7
-              dataTable5[1] = dataTable6
-              dataTable6 = false
-              workValue2(textValue2, dataTable5, dataTable6)
-              workValue2 = Citizen
-              workValue2 = workValue2.CreateThread
+              text7 = 1
+              dataCollection6[1] = dataCollection7
+              dataCollection6[2] = tableHelper
+              dataCollection6[3] = text7
+              dataCollection5[1] = dataCollection6
+              dataCollection6 = false
+              workingValue2(text2, dataCollection5, dataCollection6)
+              workingValue2 = Citizen
+              workingValue2 = workingValue2.CreateThread
 
-              -- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-              function textValue2()
-                local serverEventCall, textValue3
+              -- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+              function text2()
+                local serverEventCall, text3
                 serverEventCall = Citizen
                 serverEventCall = serverEventCall.Wait
-                textValue3 = 1500
-                serverEventCall(textValue3)
+                text3 = 1500
+                serverEventCall(text3)
                 serverEventCall = TriggerServerEvent
-                textValue3 = "bf3f551598"
+                text3 = "bf3f551598"
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
-                serverEventCall(textValue3)
+                serverEventCall(text3)
                 serverEventCall = DeleteEntity
-                textValue3 = workValue30
+                text3 = workingValue30
                 -- Beginner: Delete a GTA entity.
-                serverEventCall(textValue3)
+                serverEventCall(text3)
                 serverEventCall = tCMG
                 serverEventCall = serverEventCall.removeMarker
-                textValue3 = workValue31
-                serverEventCall(textValue3)
+                text3 = workingValue31
+                serverEventCall(text3)
                 serverEventCall = tCMG
                 serverEventCall = serverEventCall.removeArea
-                textValue3 = workValue4
-                serverEventCall(textValue3)
-                textValue3 = numberValue8
-                serverEventCall = workValue25
-                serverEventCall[textValue3] = nil
+                text3 = workingValue4
+                serverEventCall(text3)
+                text3 = number8
+                serverEventCall = workingValue25
+                serverEventCall[text3] = nil
                 serverEventCall = false
-                arg1 = serverEventCall
+                localValue1 = serverEventCall
                 serverEventCall = tCMG
                 serverEventCall = serverEventCall.setCanAnim
-                textValue3 = true
-                serverEventCall(textValue3)
+                text3 = true
+                serverEventCall(text3)
               end
               -- Beginner: Start a separate FiveM thread so this code can run independently.
-              workValue2(textValue2)
+              workingValue2(text2)
             end
           end
         end
       end
     end
-    dataTable2 = {}
+    dataCollection2 = {}
     -- Beginner: Create an interaction area around a world position.
-    mathHelper(numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
+    mathHelper(number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2)
     mathHelper = table
     mathHelper = mathHelper.insert
-    numberValue3 = workValue25
-    flag2 = workValue4
-    mathHelper(numberValue3, flag2)
+    number3 = workingValue25
+    stateFlag2 = workingValue4
+    mathHelper(number3, stateFlag2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, workValue13, textValue5, flag11
-  arg1 = drawNativeText
-  workValue13 = "Locate the ~y~trash~w~ and clean it up"
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, workingValue13, text5, stateFlag11
+  localValue1 = drawNativeText
+  workingValue13 = "Locate the ~y~trash~w~ and clean it up"
   -- Beginner: Draw GTA-style text on screen.
-  arg1(workValue13)
-  arg1 = workValue25
-  if arg1 then
-    arg1 = table
-    arg1 = arg1.count
-    workValue13 = workValue25
+  localValue1(workingValue13)
+  localValue1 = workingValue25
+  if localValue1 then
+    localValue1 = table
+    localValue1 = localValue1.count
+    workingValue13 = workingValue25
     -- Beginner: result below is count.
-    arg1 = arg1(workValue13)
-    if arg1 then
-      goto flow_label_14
+    localValue1 = localValue1(workingValue13)
+    if localValue1 then
+      goto continueAtStep14
     end
   end
-  arg1 = 0
-  ::flow_label_14::
-  workValue13 = "~y~TRASH REMAINING"
-  workValue6 = workValue13
-  workValue13 = tostring
-  textValue5 = arg1
-  workValue13 = workValue13(textValue5)
-  workValue7 = workValue13
-  workValue13 = CMG
-  workValue13 = workValue13.setHudTimerBarProviderActive
-  textValue5 = "businessCleanerJob"
-  flag11 = true
-  workValue13(textValue5, flag11)
-  workValue13 = 0 == arg1
-  return workValue13
+  localValue1 = 0
+  ::continueAtStep14::
+  workingValue13 = "~y~TRASH REMAINING"
+  workingValue6 = workingValue13
+  workingValue13 = tostring
+  text5 = localValue1
+  workingValue13 = workingValue13(text5)
+  workingValue7 = workingValue13
+  workingValue13 = CMG
+  workingValue13 = workingValue13.setHudTimerBarProviderActive
+  text5 = "businessCleanerJob"
+  stateFlag11 = true
+  workingValue13(text5, stateFlag11)
+  workingValue13 = 0 == localValue1
+  return workingValue13
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
-  arg1 = nil
-  workValue6 = arg1
-  arg1 = nil
-  workValue7 = arg1
-  arg1 = CMG
-  arg1 = arg1.setHudTimerBarProviderActive
-  workValue13 = "businessCleanerJob"
-  textValue5 = false
-  arg1(workValue13, textValue5)
-  arg1 = workValue12
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue12
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = DeleteEntity
-      workValue29 = numberValue8
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: none) ===
+function workingValue9()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29
+  localValue1 = nil
+  workingValue6 = localValue1
+  localValue1 = nil
+  workingValue7 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.setHudTimerBarProviderActive
+  workingValue13 = "businessCleanerJob"
+  text5 = false
+  localValue1(workingValue13, text5)
+  localValue1 = workingValue12
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue12
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = DeleteEntity
+      workingValue29 = number8
       -- Beginner: Delete a GTA entity.
-      cmgCall2(workValue29)
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = workValue21
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue21
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeMarker
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+  localValue1 = workingValue21
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue21
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeMarker
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = workValue25
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue25
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeArea
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+  localValue1 = workingValue25
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue25
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeArea
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = nil
-  workValue12 = arg1
-  arg1 = nil
-  workValue21 = arg1
-  arg1 = nil
-  workValue25 = arg1
+  localValue1 = nil
+  workingValue12 = localValue1
+  localValue1 = nil
+  workingValue21 = localValue1
+  localValue1 = nil
+  workingValue25 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-function workValue10()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
-  arg1 = {}
-  workValue21 = arg1
-  arg1 = {}
-  workValue25 = arg1
-  arg1 = assert
-  workValue13 = workValue
-  textValue5 = "initSurface nil metadata"
-  arg1(workValue13, textValue5)
-  arg1 = false
-  workValue13 = pairs
-  textValue5 = workValue.surfacePoints
-  workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
-  for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
-    workValue29 = tCMG
-    workValue29 = workValue29.addMarker
-    workValue30 = cmgCall2.x
-    workValue31 = cmgCall2.y
-    workValue4 = cmgCall2.z
-    workValue4 = workValue4 - 0.6
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+function workingValue10()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2
+  localValue1 = {}
+  workingValue21 = localValue1
+  localValue1 = {}
+  workingValue25 = localValue1
+  localValue1 = assert
+  workingValue13 = workingValue
+  text5 = "initSurface nil metadata"
+  localValue1(workingValue13, text5)
+  localValue1 = false
+  workingValue13 = pairs
+  text5 = workingValue.surfacePoints
+  workingValue13, text5, stateFlag11, workingValue27 = workingValue13(text5)
+  for number8, cmgOperation2 in workingValue13, text5, stateFlag11, workingValue27 do
+    workingValue29 = tCMG
+    workingValue29 = workingValue29.addMarker
+    workingValue30 = cmgOperation2.x
+    workingValue31 = cmgOperation2.y
+    workingValue4 = cmgOperation2.z
+    workingValue4 = workingValue4 - 0.6
     mathHelper = 0.2
-    numberValue3 = 0.2
-    flag2 = 0.2
-    flag4 = 255
-    flag6 = 255
-    numberValue4 = 0
-    dataTable = 150
-    numberValue5 = 25.0
-    dataTable2 = 0
-    workValue29 = workValue29(workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
-    workValue30 = table
-    workValue30 = workValue30.insert
-    workValue31 = workValue21
-    workValue4 = workValue29
-    workValue30(workValue31, workValue4)
-    workValue30 = "business_job_"
-    workValue31 = tostring
-    workValue4 = numberValue8
-    workValue31 = workValue31(workValue4)
-    workValue30 = workValue30 .. workValue31
-    workValue31 = CMG
-    workValue31 = workValue31.createArea
-    workValue4 = workValue30
-    mathHelper = cmgCall2
-    numberValue3 = 2.0
-    flag2 = 1.5
+    number3 = 0.2
+    stateFlag2 = 0.2
+    stateFlag4 = 255
+    stateFlag6 = 255
+    number4 = 0
+    dataCollection = 150
+    number5 = 25.0
+    dataCollection2 = 0
+    workingValue29 = workingValue29(workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2)
+    workingValue30 = table
+    workingValue30 = workingValue30.insert
+    workingValue31 = workingValue21
+    workingValue4 = workingValue29
+    workingValue30(workingValue31, workingValue4)
+    workingValue30 = "business_job_"
+    workingValue31 = tostring
+    workingValue4 = number8
+    workingValue31 = workingValue31(workingValue4)
+    workingValue30 = workingValue30 .. workingValue31
+    workingValue31 = CMG
+    workingValue31 = workingValue31.createArea
+    workingValue4 = workingValue30
+    mathHelper = cmgOperation2
+    number3 = 2.0
+    stateFlag2 = 1.5
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local workValue2, textValue2
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local workingValue2, text2
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
-    function flag6()
-      local workValue2, textValue2
+    -- === HELPER FUNCTION (decompiler name: stateFlag6; parameters: none) ===
+    function stateFlag6()
+      local workingValue2, text2
     end
 
-    -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-    function numberValue4()
-      local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13
-      workValue2 = arg1
-      if not workValue2 then
-        workValue2 = workValue25
-        if workValue2 then
-          workValue2 = workValue25
-          if workValue2 then
-            textValue2 = numberValue8
-            workValue2 = workValue25
-            workValue2 = workValue2[textValue2]
-            if workValue2 then
-              workValue2 = drawNativeNotification
-              textValue2 = "Press ~INPUT_CONTEXT~ to clean the table"
+    -- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+    function number4()
+      local workingValue2, text2, dataCollection5, dataCollection6, dataCollection7, tableHelper, text7, stateFlag13
+      workingValue2 = localValue1
+      if not workingValue2 then
+        workingValue2 = workingValue25
+        if workingValue2 then
+          workingValue2 = workingValue25
+          if workingValue2 then
+            text2 = number8
+            workingValue2 = workingValue25
+            workingValue2 = workingValue2[text2]
+            if workingValue2 then
+              workingValue2 = drawNativeNotification
+              text2 = "Press ~INPUT_CONTEXT~ to clean the table"
               -- Beginner: Show a GTA-style notification/help prompt.
-              workValue2(textValue2)
-              workValue2 = IsControlJustPressed
-              textValue2 = 0
-              dataTable5 = 51
-              workValue2 = workValue2(textValue2, dataTable5)
-              if workValue2 then
-                workValue2 = CMG
-                workValue2 = workValue2.disableSittingOnChairThisFrame
-                workValue2()
-                workValue2 = tCMG
-                workValue2 = workValue2.setCanAnim
-                textValue2 = false
-                workValue2(textValue2)
-                workValue2 = true
-                arg1 = workValue2
-                workValue2 = PlayerPedId
+              workingValue2(text2)
+              workingValue2 = IsControlJustPressed
+              text2 = 0
+              dataCollection5 = 51
+              workingValue2 = workingValue2(text2, dataCollection5)
+              if workingValue2 then
+                workingValue2 = CMG
+                workingValue2 = workingValue2.disableSittingOnChairThisFrame
+                workingValue2()
+                workingValue2 = tCMG
+                workingValue2 = workingValue2.setCanAnim
+                text2 = false
+                workingValue2(text2)
+                workingValue2 = true
+                localValue1 = workingValue2
+                workingValue2 = PlayerPedId
                 -- Beginner: result below is localPlayerPed.
-                workValue2 = workValue2()
-                textValue2 = tCMG
-                textValue2 = textValue2.playAnim
-                dataTable5 = true
-                dataTable6 = {}
-                dataTable7 = {}
+                workingValue2 = workingValue2()
+                text2 = tCMG
+                text2 = text2.playAnim
+                dataCollection5 = true
+                dataCollection6 = {}
+                dataCollection7 = {}
                 tableHelper = "timetable@floyd@clean_kitchen@base"
-                textValue7 = "base"
-                flag13 = 1
-                dataTable7[1] = tableHelper
-                dataTable7[2] = textValue7
-                dataTable7[3] = flag13
-                dataTable6[1] = dataTable7
-                dataTable7 = false
-                textValue2(dataTable5, dataTable6, dataTable7)
-                textValue2 = Citizen
-                textValue2 = textValue2.CreateThread
+                text7 = "base"
+                stateFlag13 = 1
+                dataCollection7[1] = tableHelper
+                dataCollection7[2] = text7
+                dataCollection7[3] = stateFlag13
+                dataCollection6[1] = dataCollection7
+                dataCollection7 = false
+                text2(dataCollection5, dataCollection6, dataCollection7)
+                text2 = Citizen
+                text2 = text2.CreateThread
 
-                -- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
-                function dataTable5()
-                  local serverEventCall, textValue3
+                -- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: none) ===
+                function dataCollection5()
+                  local serverEventCall, text3
                   serverEventCall = Citizen
                   serverEventCall = serverEventCall.Wait
-                  textValue3 = 6000
-                  serverEventCall(textValue3)
+                  text3 = 6000
+                  serverEventCall(text3)
                   serverEventCall = ClearPedSecondaryTask
-                  textValue3 = workValue2
-                  serverEventCall(textValue3)
+                  text3 = workingValue2
+                  serverEventCall(text3)
                   serverEventCall = ClearPedTasks
-                  textValue3 = workValue2
-                  serverEventCall(textValue3)
+                  text3 = workingValue2
+                  serverEventCall(text3)
                   serverEventCall = TriggerServerEvent
-                  textValue3 = "bf3f551598"
+                  text3 = "bf3f551598"
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
-                  serverEventCall(textValue3)
+                  serverEventCall(text3)
                   serverEventCall = tCMG
                   serverEventCall = serverEventCall.removeMarker
-                  textValue3 = workValue29
-                  serverEventCall(textValue3)
+                  text3 = workingValue29
+                  serverEventCall(text3)
                   serverEventCall = tCMG
                   serverEventCall = serverEventCall.removeArea
-                  textValue3 = workValue30
-                  serverEventCall(textValue3)
-                  textValue3 = numberValue8
-                  serverEventCall = workValue25
-                  serverEventCall[textValue3] = nil
+                  text3 = workingValue30
+                  serverEventCall(text3)
+                  text3 = number8
+                  serverEventCall = workingValue25
+                  serverEventCall[text3] = nil
                   serverEventCall = false
-                  arg1 = serverEventCall
+                  localValue1 = serverEventCall
                   serverEventCall = tCMG
                   serverEventCall = serverEventCall.setCanAnim
-                  textValue3 = true
-                  serverEventCall(textValue3)
+                  text3 = true
+                  serverEventCall(text3)
                 end
                 -- Beginner: Start a separate FiveM thread so this code can run independently.
-                textValue2(dataTable5)
+                text2(dataCollection5)
               end
             end
           end
         end
       end
     end
-    dataTable = {}
+    dataCollection = {}
     -- Beginner: Create an interaction area around a world position.
-    workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable)
-    workValue31 = table
-    workValue31 = workValue31.insert
-    workValue4 = workValue25
-    mathHelper = workValue30
-    workValue31(workValue4, mathHelper)
+    workingValue31(workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection)
+    workingValue31 = table
+    workingValue31 = workingValue31.insert
+    workingValue4 = workingValue25
+    mathHelper = workingValue30
+    workingValue31(workingValue4, mathHelper)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, workValue13, textValue5, flag11
-  arg1 = drawNativeText
-  workValue13 = "Clean the dirty ~y~tables~w~ and prepare for customers"
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, workingValue13, text5, stateFlag11
+  localValue1 = drawNativeText
+  workingValue13 = "Clean the dirty ~y~tables~w~ and prepare for customers"
   -- Beginner: Draw GTA-style text on screen.
-  arg1(workValue13)
-  arg1 = workValue25
-  if arg1 then
-    arg1 = table
-    arg1 = arg1.count
-    workValue13 = workValue25
+  localValue1(workingValue13)
+  localValue1 = workingValue25
+  if localValue1 then
+    localValue1 = table
+    localValue1 = localValue1.count
+    workingValue13 = workingValue25
     -- Beginner: result below is count.
-    arg1 = arg1(workValue13)
-    if arg1 then
-      goto flow_label_14
+    localValue1 = localValue1(workingValue13)
+    if localValue1 then
+      goto continueAtStep14
     end
   end
-  arg1 = 0
-  ::flow_label_14::
-  workValue13 = "~y~TABLES REMAINING"
-  workValue6 = workValue13
-  workValue13 = tostring
-  textValue5 = arg1
-  workValue13 = workValue13(textValue5)
-  workValue7 = workValue13
-  workValue13 = CMG
-  workValue13 = workValue13.setHudTimerBarProviderActive
-  textValue5 = "businessCleanerJob"
-  flag11 = true
-  workValue13(textValue5, flag11)
-  workValue13 = 0 == arg1
-  return workValue13
+  localValue1 = 0
+  ::continueAtStep14::
+  workingValue13 = "~y~TABLES REMAINING"
+  workingValue6 = workingValue13
+  workingValue13 = tostring
+  text5 = localValue1
+  workingValue13 = workingValue13(text5)
+  workingValue7 = workingValue13
+  workingValue13 = CMG
+  workingValue13 = workingValue13.setHudTimerBarProviderActive
+  text5 = "businessCleanerJob"
+  stateFlag11 = true
+  workingValue13(text5, stateFlag11)
+  workingValue13 = 0 == localValue1
+  return workingValue13
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
-  arg1 = nil
-  workValue6 = arg1
-  arg1 = nil
-  workValue7 = arg1
-  arg1 = CMG
-  arg1 = arg1.setHudTimerBarProviderActive
-  workValue13 = "businessCleanerJob"
-  textValue5 = false
-  arg1(workValue13, textValue5)
-  arg1 = workValue21
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue21
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeMarker
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29
+  localValue1 = nil
+  workingValue6 = localValue1
+  localValue1 = nil
+  workingValue7 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.setHudTimerBarProviderActive
+  workingValue13 = "businessCleanerJob"
+  text5 = false
+  localValue1(workingValue13, text5)
+  localValue1 = workingValue21
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue21
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeMarker
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = workValue25
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue25
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeArea
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+  localValue1 = workingValue25
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue25
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeArea
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = nil
-  workValue21 = arg1
-  arg1 = nil
-  workValue25 = arg1
+  localValue1 = nil
+  workingValue21 = localValue1
+  localValue1 = nil
+  workingValue25 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, workValue13
-  arg1 = "floor"
-  workValue26 = arg1
-  arg1 = false
-  flag12 = arg1
-  arg1 = 1
-  numberValue9 = arg1
-  arg1 = workValue
-  if arg1 then
-    arg1 = workValue.toiletPoints
-    workValue13 = numberValue9
-    arg1 = arg1[workValue13]
-    workValue28 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, workingValue13
+  localValue1 = "floor"
+  workingValue26 = localValue1
+  localValue1 = false
+  stateFlag12 = localValue1
+  localValue1 = 1
+  number9 = localValue1
+  localValue1 = workingValue
+  if localValue1 then
+    localValue1 = workingValue.toiletPoints
+    workingValue13 = number9
+    localValue1 = localValue1[workingValue13]
+    workingValue28 = localValue1
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: none) ===
-function workValue16()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
-  arg1 = workValue26
-  if "floor" == arg1 then
-    arg1 = flag12
-    if not arg1 then
-      arg1 = {}
-      workValue21 = arg1
-      arg1 = {}
-      workValue25 = arg1
-      arg1 = assert
-      workValue13 = workValue28
-      textValue5 = "tickToilet nil metadata (floor)"
-      arg1(workValue13, textValue5)
-      arg1 = false
-      workValue13 = pairs
-      textValue5 = workValue28.liquidPoints
-      workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
-      for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
-        workValue29 = tCMG
-        workValue29 = workValue29.addMarker
-        workValue30 = cmgCall2.x
-        workValue31 = cmgCall2.y
-        workValue4 = cmgCall2.z
-        workValue4 = workValue4 - 0.6
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: none) ===
+function workingValue16()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2
+  localValue1 = workingValue26
+  if "floor" == localValue1 then
+    localValue1 = stateFlag12
+    if not localValue1 then
+      localValue1 = {}
+      workingValue21 = localValue1
+      localValue1 = {}
+      workingValue25 = localValue1
+      localValue1 = assert
+      workingValue13 = workingValue28
+      text5 = "tickToilet nil metadata (floor)"
+      localValue1(workingValue13, text5)
+      localValue1 = false
+      workingValue13 = pairs
+      text5 = workingValue28.liquidPoints
+      workingValue13, text5, stateFlag11, workingValue27 = workingValue13(text5)
+      for number8, cmgOperation2 in workingValue13, text5, stateFlag11, workingValue27 do
+        workingValue29 = tCMG
+        workingValue29 = workingValue29.addMarker
+        workingValue30 = cmgOperation2.x
+        workingValue31 = cmgOperation2.y
+        workingValue4 = cmgOperation2.z
+        workingValue4 = workingValue4 - 0.6
         mathHelper = 0.2
-        numberValue3 = 0.2
-        flag2 = 0.2
-        flag4 = 255
-        flag6 = 255
-        numberValue4 = 0
-        dataTable = 150
-        numberValue5 = 25.0
-        dataTable2 = 0
-        workValue29 = workValue29(workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
-        workValue30 = table
-        workValue30 = workValue30.insert
-        workValue31 = workValue21
-        workValue4 = workValue29
-        workValue30(workValue31, workValue4)
-        workValue30 = "business_job_"
-        workValue31 = tostring
-        workValue4 = numberValue8
-        workValue31 = workValue31(workValue4)
-        workValue30 = workValue30 .. workValue31
-        workValue31 = CMG
-        workValue31 = workValue31.createArea
-        workValue4 = workValue30
-        mathHelper = cmgCall2
-        numberValue3 = 1.0
-        flag2 = 1.5
+        number3 = 0.2
+        stateFlag2 = 0.2
+        stateFlag4 = 255
+        stateFlag6 = 255
+        number4 = 0
+        dataCollection = 150
+        number5 = 25.0
+        dataCollection2 = 0
+        workingValue29 = workingValue29(workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2)
+        workingValue30 = table
+        workingValue30 = workingValue30.insert
+        workingValue31 = workingValue21
+        workingValue4 = workingValue29
+        workingValue30(workingValue31, workingValue4)
+        workingValue30 = "business_job_"
+        workingValue31 = tostring
+        workingValue4 = number8
+        workingValue31 = workingValue31(workingValue4)
+        workingValue30 = workingValue30 .. workingValue31
+        workingValue31 = CMG
+        workingValue31 = workingValue31.createArea
+        workingValue4 = workingValue30
+        mathHelper = cmgOperation2
+        number3 = 1.0
+        stateFlag2 = 1.5
 
-        -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-        function flag4()
-          local workValue2, textValue2
+        -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+        function stateFlag4()
+          local workingValue2, text2
         end
 
-        -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
-        function flag6()
-          local workValue2, textValue2
+        -- === HELPER FUNCTION (decompiler name: stateFlag6; parameters: none) ===
+        function stateFlag6()
+          local workingValue2, text2
         end
 
-        -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-        function numberValue4()
-          local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9, flag10
-          workValue2 = arg1
-          if not workValue2 then
-            workValue2 = workValue25
-            if workValue2 then
-              textValue2 = numberValue8
-              workValue2 = workValue25
-              workValue2 = workValue2[textValue2]
-              if workValue2 then
-                workValue2 = drawNativeNotification
-                textValue2 = "Press ~INPUT_CONTEXT~ to mop the floor"
+        -- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+        function number4()
+          local workingValue2, text2, dataCollection5, dataCollection6, dataCollection7, tableHelper, text7, stateFlag13, stateFlag15, number11, number, number2, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9, stateFlag10
+          workingValue2 = localValue1
+          if not workingValue2 then
+            workingValue2 = workingValue25
+            if workingValue2 then
+              text2 = number8
+              workingValue2 = workingValue25
+              workingValue2 = workingValue2[text2]
+              if workingValue2 then
+                workingValue2 = drawNativeNotification
+                text2 = "Press ~INPUT_CONTEXT~ to mop the floor"
                 -- Beginner: Show a GTA-style notification/help prompt.
-                workValue2(textValue2)
-                workValue2 = IsControlJustPressed
-                textValue2 = 0
-                dataTable5 = 51
-                workValue2 = workValue2(textValue2, dataTable5)
-                if workValue2 then
-                  workValue2 = CMG
-                  workValue2 = workValue2.disableSittingOnChairThisFrame
-                  workValue2()
-                  workValue2 = tCMG
-                  workValue2 = workValue2.setCanAnim
-                  textValue2 = false
-                  workValue2(textValue2)
-                  workValue2 = true
-                  arg1 = workValue2
-                  workValue2 = tCMG
-                  workValue2 = workValue2.playAnim
-                  textValue2 = true
-                  dataTable5 = {}
-                  dataTable6 = {}
-                  dataTable7 = "move_mop"
+                workingValue2(text2)
+                workingValue2 = IsControlJustPressed
+                text2 = 0
+                dataCollection5 = 51
+                workingValue2 = workingValue2(text2, dataCollection5)
+                if workingValue2 then
+                  workingValue2 = CMG
+                  workingValue2 = workingValue2.disableSittingOnChairThisFrame
+                  workingValue2()
+                  workingValue2 = tCMG
+                  workingValue2 = workingValue2.setCanAnim
+                  text2 = false
+                  workingValue2(text2)
+                  workingValue2 = true
+                  localValue1 = workingValue2
+                  workingValue2 = tCMG
+                  workingValue2 = workingValue2.playAnim
+                  text2 = true
+                  dataCollection5 = {}
+                  dataCollection6 = {}
+                  dataCollection7 = "move_mop"
                   tableHelper = "idle_scrub_small_player"
-                  textValue7 = 1
-                  dataTable6[1] = dataTable7
-                  dataTable6[2] = tableHelper
-                  dataTable6[3] = textValue7
-                  dataTable5[1] = dataTable6
-                  dataTable6 = false
-                  workValue2(textValue2, dataTable5, dataTable6)
-                  workValue2 = CMG
-                  workValue2 = workValue2.loadModel
-                  textValue2 = -320848029
+                  text7 = 1
+                  dataCollection6[1] = dataCollection7
+                  dataCollection6[2] = tableHelper
+                  dataCollection6[3] = text7
+                  dataCollection5[1] = dataCollection6
+                  dataCollection6 = false
+                  workingValue2(text2, dataCollection5, dataCollection6)
+                  workingValue2 = CMG
+                  workingValue2 = workingValue2.loadModel
+                  text2 = -320848029
                   -- Beginner: Request/load a GTA model before spawning or applying it.
-                  workValue2(textValue2)
-                  workValue2 = CMG
-                  workValue2 = workValue2.getPlayerCoords
+                  workingValue2(text2)
+                  workingValue2 = CMG
+                  workingValue2 = workingValue2.getPlayerCoords
                   -- Beginner: result below is playerCoords.
-                  workValue2 = workValue2()
-                  textValue2 = CMG
-                  textValue2 = textValue2.requestEntitySpawn
-                  dataTable5 = "business_cleaner_mop"
-                  textValue2(dataTable5)
-                  textValue2 = CreateObject
-                  dataTable5 = -320848029
-                  dataTable6 = workValue2.x
-                  dataTable7 = workValue2.y
-                  tableHelper = workValue2.z
-                  textValue7 = true
-                  flag13 = false
-                  flag15 = false
+                  workingValue2 = workingValue2()
+                  text2 = CMG
+                  text2 = text2.requestEntitySpawn
+                  dataCollection5 = "business_cleaner_mop"
+                  text2(dataCollection5)
+                  text2 = CreateObject
+                  dataCollection5 = -320848029
+                  dataCollection6 = workingValue2.x
+                  dataCollection7 = workingValue2.y
+                  tableHelper = workingValue2.z
+                  text7 = true
+                  stateFlag13 = false
+                  stateFlag15 = false
                   -- Beginner: result below is objectEntity.
-                  textValue2 = textValue2(dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15)
-                  dataTable5 = PlayerPedId
+                  text2 = text2(dataCollection5, dataCollection6, dataCollection7, tableHelper, text7, stateFlag13, stateFlag15)
+                  dataCollection5 = PlayerPedId
                   -- Beginner: result below is localPlayerPed.
-                  dataTable5 = dataTable5()
-                  dataTable6 = AttachEntityToEntity
-                  dataTable7 = textValue2
-                  tableHelper = dataTable5
-                  textValue7 = GetPedBoneIndex
-                  flag13 = dataTable5
-                  flag15 = 28422
-                  textValue7 = textValue7(flag13, flag15)
-                  flag13 = 0.0
-                  flag15 = 0.0
-                  numberValue11 = 0.12
-                  numberValue = 0.0
-                  numberValue2 = 0.0
-                  flag = 0.0
-                  flag3 = true
-                  flag5 = true
-                  flag7 = false
-                  flag8 = true
-                  flag9 = 1
-                  flag10 = true
+                  dataCollection5 = dataCollection5()
+                  dataCollection6 = AttachEntityToEntity
+                  dataCollection7 = text2
+                  tableHelper = dataCollection5
+                  text7 = GetPedBoneIndex
+                  stateFlag13 = dataCollection5
+                  stateFlag15 = 28422
+                  text7 = text7(stateFlag13, stateFlag15)
+                  stateFlag13 = 0.0
+                  stateFlag15 = 0.0
+                  number11 = 0.12
+                  number = 0.0
+                  number2 = 0.0
+                  stateFlag = 0.0
+                  stateFlag3 = true
+                  stateFlag5 = true
+                  stateFlag7 = false
+                  stateFlag8 = true
+                  stateFlag9 = 1
+                  stateFlag10 = true
                   -- Beginner: Attach one entity to another entity.
-                  dataTable6(dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9, flag10)
-                  dataTable6 = SetModelAsNoLongerNeeded
-                  dataTable7 = -320848029
-                  dataTable6(dataTable7)
-                  dataTable6 = Citizen
-                  dataTable6 = dataTable6.CreateThread
+                  dataCollection6(dataCollection7, tableHelper, text7, stateFlag13, stateFlag15, number11, number, number2, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9, stateFlag10)
+                  dataCollection6 = SetModelAsNoLongerNeeded
+                  dataCollection7 = -320848029
+                  dataCollection6(dataCollection7)
+                  dataCollection6 = Citizen
+                  dataCollection6 = dataCollection6.CreateThread
 
-                  -- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
-                  function dataTable7()
-                    local serverEventCall, textValue3
+                  -- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: none) ===
+                  function dataCollection7()
+                    local serverEventCall, text3
                     serverEventCall = Citizen
                     serverEventCall = serverEventCall.Wait
-                    textValue3 = 4000
-                    serverEventCall(textValue3)
+                    text3 = 4000
+                    serverEventCall(text3)
                     serverEventCall = DeleteEntity
-                    textValue3 = textValue2
+                    text3 = text2
                     -- Beginner: Delete a GTA entity.
-                    serverEventCall(textValue3)
+                    serverEventCall(text3)
                     serverEventCall = TriggerServerEvent
-                    textValue3 = "bf3f551598"
+                    text3 = "bf3f551598"
                     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
-                    serverEventCall(textValue3)
+                    serverEventCall(text3)
                     serverEventCall = tCMG
                     serverEventCall = serverEventCall.removeMarker
-                    textValue3 = workValue29
-                    serverEventCall(textValue3)
+                    text3 = workingValue29
+                    serverEventCall(text3)
                     serverEventCall = tCMG
                     serverEventCall = serverEventCall.removeArea
-                    textValue3 = workValue30
-                    serverEventCall(textValue3)
-                    textValue3 = numberValue8
-                    serverEventCall = workValue25
-                    serverEventCall[textValue3] = nil
+                    text3 = workingValue30
+                    serverEventCall(text3)
+                    text3 = number8
+                    serverEventCall = workingValue25
+                    serverEventCall[text3] = nil
                     serverEventCall = false
-                    arg1 = serverEventCall
+                    localValue1 = serverEventCall
                     serverEventCall = tCMG
                     serverEventCall = serverEventCall.setCanAnim
-                    textValue3 = true
-                    serverEventCall(textValue3)
+                    text3 = true
+                    serverEventCall(text3)
                   end
                   -- Beginner: Start a separate FiveM thread so this code can run independently.
-                  dataTable6(dataTable7)
+                  dataCollection6(dataCollection7)
                 end
               end
             end
           end
         end
-        dataTable = {}
+        dataCollection = {}
         -- Beginner: Create an interaction area around a world position.
-        workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable)
-        workValue31 = table
-        workValue31 = workValue31.insert
-        workValue4 = workValue25
-        mathHelper = workValue30
-        workValue31(workValue4, mathHelper)
+        workingValue31(workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection)
+        workingValue31 = table
+        workingValue31 = workingValue31.insert
+        workingValue4 = workingValue25
+        mathHelper = workingValue30
+        workingValue31(workingValue4, mathHelper)
       end
-      workValue13 = true
-      flag12 = workValue13
+      workingValue13 = true
+      stateFlag12 = workingValue13
     end
-    arg1 = drawNativeText
-    workValue13 = "Mop the ~y~pee~w~ on the toilet floor"
+    localValue1 = drawNativeText
+    workingValue13 = "Mop the ~y~pee~w~ on the toilet floor"
     -- Beginner: Draw GTA-style text on screen.
-    arg1(workValue13)
-    arg1 = workValue25
-    if arg1 then
-      arg1 = table
-      arg1 = arg1.count
-      workValue13 = workValue25
+    localValue1(workingValue13)
+    localValue1 = workingValue25
+    if localValue1 then
+      localValue1 = table
+      localValue1 = localValue1.count
+      workingValue13 = workingValue25
       -- Beginner: result below is count.
-      arg1 = arg1(workValue13)
+      localValue1 = localValue1(workingValue13)
     end
-    if 0 == arg1 then
-      arg1 = workValue21
-      if arg1 then
-        arg1 = pairs
-        workValue13 = workValue21
-        arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-        for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-          cmgCall2 = tCMG
-          cmgCall2 = cmgCall2.removeMarker
-          workValue29 = numberValue8
-          cmgCall2(workValue29)
+    if 0 == localValue1 then
+      localValue1 = workingValue21
+      if localValue1 then
+        localValue1 = pairs
+        workingValue13 = workingValue21
+        localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+        for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+          cmgOperation2 = tCMG
+          cmgOperation2 = cmgOperation2.removeMarker
+          workingValue29 = number8
+          cmgOperation2(workingValue29)
         end
       end
-      arg1 = workValue25
-      if arg1 then
-        arg1 = pairs
-        workValue13 = workValue25
-        arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-        for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-          cmgCall2 = tCMG
-          cmgCall2 = cmgCall2.removeArea
-          workValue29 = numberValue8
-          cmgCall2(workValue29)
+      localValue1 = workingValue25
+      if localValue1 then
+        localValue1 = pairs
+        workingValue13 = workingValue25
+        localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+        for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+          cmgOperation2 = tCMG
+          cmgOperation2 = cmgOperation2.removeArea
+          workingValue29 = number8
+          cmgOperation2(workingValue29)
         end
       end
-      arg1 = nil
-      workValue21 = arg1
-      arg1 = nil
-      workValue25 = arg1
-      arg1 = "scrub"
-      workValue26 = arg1
-      arg1 = false
-      flag12 = arg1
+      localValue1 = nil
+      workingValue21 = localValue1
+      localValue1 = nil
+      workingValue25 = localValue1
+      localValue1 = "scrub"
+      workingValue26 = localValue1
+      localValue1 = false
+      stateFlag12 = localValue1
     end
   else
-    arg1 = workValue26
-    if "scrub" == arg1 then
-      arg1 = flag12
-      if not arg1 then
-        arg1 = {}
-        workValue21 = arg1
-        arg1 = {}
-        workValue25 = arg1
-        arg1 = assert
-        workValue13 = workValue28
-        textValue5 = "tickToilet nil metadata (scrub)"
-        arg1(workValue13, textValue5)
-        arg1 = false
-        workValue13 = tCMG
-        workValue13 = workValue13.addMarker
-        textValue5 = workValue28.scrub
-        textValue5 = textValue5.x
-        flag11 = workValue28.scrub
-        flag11 = flag11.y
-        workValue27 = workValue28.scrub
-        workValue27 = workValue27.z
-        workValue27 = workValue27 - 0.6
-        numberValue8 = 0.2
-        cmgCall2 = 0.2
-        workValue29 = 0.2
-        workValue30 = 255
-        workValue31 = 255
-        workValue4 = 0
+    localValue1 = workingValue26
+    if "scrub" == localValue1 then
+      localValue1 = stateFlag12
+      if not localValue1 then
+        localValue1 = {}
+        workingValue21 = localValue1
+        localValue1 = {}
+        workingValue25 = localValue1
+        localValue1 = assert
+        workingValue13 = workingValue28
+        text5 = "tickToilet nil metadata (scrub)"
+        localValue1(workingValue13, text5)
+        localValue1 = false
+        workingValue13 = tCMG
+        workingValue13 = workingValue13.addMarker
+        text5 = workingValue28.scrub
+        text5 = text5.x
+        stateFlag11 = workingValue28.scrub
+        stateFlag11 = stateFlag11.y
+        workingValue27 = workingValue28.scrub
+        workingValue27 = workingValue27.z
+        workingValue27 = workingValue27 - 0.6
+        number8 = 0.2
+        cmgOperation2 = 0.2
+        workingValue29 = 0.2
+        workingValue30 = 255
+        workingValue31 = 255
+        workingValue4 = 0
         mathHelper = 150
-        numberValue3 = 25.0
-        flag2 = 0
-        workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2)
-        textValue5 = table
-        textValue5 = textValue5.insert
-        flag11 = workValue21
-        workValue27 = workValue13
-        textValue5(flag11, workValue27)
-        textValue5 = "business_job_"
-        flag11 = tostring
-        workValue27 = 1
-        flag11 = flag11(workValue27)
-        textValue5 = textValue5 .. flag11
-        flag11 = CMG
-        flag11 = flag11.createArea
-        workValue27 = textValue5
-        numberValue8 = workValue28.scrub
-        numberValue8 = numberValue8.xyz
-        cmgCall2 = 1.0
-        workValue29 = 1.5
+        number3 = 25.0
+        stateFlag2 = 0
+        workingValue13 = workingValue13(text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2)
+        text5 = table
+        text5 = text5.insert
+        stateFlag11 = workingValue21
+        workingValue27 = workingValue13
+        text5(stateFlag11, workingValue27)
+        text5 = "business_job_"
+        stateFlag11 = tostring
+        workingValue27 = 1
+        stateFlag11 = stateFlag11(workingValue27)
+        text5 = text5 .. stateFlag11
+        stateFlag11 = CMG
+        stateFlag11 = stateFlag11.createArea
+        workingValue27 = text5
+        number8 = workingValue28.scrub
+        number8 = number8.xyz
+        cmgOperation2 = 1.0
+        workingValue29 = 1.5
 
-        -- === HELPER FUNCTION (decompiler name: workValue30; parameters: none) ===
-        function workValue30()
-          local workValue2, textValue2
+        -- === HELPER FUNCTION (decompiler name: workingValue30; parameters: none) ===
+        function workingValue30()
+          local workingValue2, text2
         end
 
-        -- === HELPER FUNCTION (decompiler name: workValue31; parameters: none) ===
-        function workValue31()
-          local workValue2, textValue2
+        -- === HELPER FUNCTION (decompiler name: workingValue31; parameters: none) ===
+        function workingValue31()
+          local workingValue2, text2
         end
 
-        -- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-        function workValue4()
-          local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
-          workValue2 = arg1
-          if not workValue2 then
-            workValue2 = workValue25
-            if workValue2 then
-              workValue2 = workValue25
-              workValue2 = workValue2[1]
-              if workValue2 then
-                workValue2 = drawNativeNotification
-                textValue2 = "Press ~INPUT_CONTEXT~ to plunge the toilet"
+        -- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+        function workingValue4()
+          local workingValue2, text2, dataCollection5, dataCollection6, dataCollection7, tableHelper, text7
+          workingValue2 = localValue1
+          if not workingValue2 then
+            workingValue2 = workingValue25
+            if workingValue2 then
+              workingValue2 = workingValue25
+              workingValue2 = workingValue2[1]
+              if workingValue2 then
+                workingValue2 = drawNativeNotification
+                text2 = "Press ~INPUT_CONTEXT~ to plunge the toilet"
                 -- Beginner: Show a GTA-style notification/help prompt.
-                workValue2(textValue2)
-                workValue2 = IsControlJustPressed
-                textValue2 = 0
-                dataTable5 = 51
-                workValue2 = workValue2(textValue2, dataTable5)
-                if workValue2 then
-                  workValue2 = CMG
-                  workValue2 = workValue2.disableSittingOnChairThisFrame
-                  workValue2()
-                  workValue2 = tCMG
-                  workValue2 = workValue2.setCanAnim
-                  textValue2 = false
-                  workValue2(textValue2)
-                  workValue2 = true
-                  arg1 = workValue2
-                  workValue2 = tCMG
-                  workValue2 = workValue2.playAnim
-                  textValue2 = true
-                  dataTable5 = {}
-                  dataTable6 = {}
-                  dataTable7 = "switch@trevor@on_toilet"
+                workingValue2(text2)
+                workingValue2 = IsControlJustPressed
+                text2 = 0
+                dataCollection5 = 51
+                workingValue2 = workingValue2(text2, dataCollection5)
+                if workingValue2 then
+                  workingValue2 = CMG
+                  workingValue2 = workingValue2.disableSittingOnChairThisFrame
+                  workingValue2()
+                  workingValue2 = tCMG
+                  workingValue2 = workingValue2.setCanAnim
+                  text2 = false
+                  workingValue2(text2)
+                  workingValue2 = true
+                  localValue1 = workingValue2
+                  workingValue2 = tCMG
+                  workingValue2 = workingValue2.playAnim
+                  text2 = true
+                  dataCollection5 = {}
+                  dataCollection6 = {}
+                  dataCollection7 = "switch@trevor@on_toilet"
                   tableHelper = "trev_on_toilet_loop"
-                  textValue7 = 1
-                  dataTable6[1] = dataTable7
-                  dataTable6[2] = tableHelper
-                  dataTable6[3] = textValue7
-                  dataTable5[1] = dataTable6
-                  dataTable6 = false
-                  workValue2(textValue2, dataTable5, dataTable6)
-                  workValue2 = Citizen
-                  workValue2 = workValue2.CreateThread
+                  text7 = 1
+                  dataCollection6[1] = dataCollection7
+                  dataCollection6[2] = tableHelper
+                  dataCollection6[3] = text7
+                  dataCollection5[1] = dataCollection6
+                  dataCollection6 = false
+                  workingValue2(text2, dataCollection5, dataCollection6)
+                  workingValue2 = Citizen
+                  workingValue2 = workingValue2.CreateThread
 
-                  -- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-                  function textValue2()
-                    local serverEventCall, textValue3
+                  -- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+                  function text2()
+                    local serverEventCall, text3
                     serverEventCall = Citizen
                     serverEventCall = serverEventCall.Wait
-                    textValue3 = 7500
-                    serverEventCall(textValue3)
+                    text3 = 7500
+                    serverEventCall(text3)
                     serverEventCall = TriggerServerEvent
-                    textValue3 = "bf3f551598"
+                    text3 = "bf3f551598"
                     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
-                    serverEventCall(textValue3)
+                    serverEventCall(text3)
                     serverEventCall = tCMG
                     serverEventCall = serverEventCall.removeMarker
-                    textValue3 = workValue13
-                    serverEventCall(textValue3)
+                    text3 = workingValue13
+                    serverEventCall(text3)
                     serverEventCall = tCMG
                     serverEventCall = serverEventCall.removeArea
-                    textValue3 = textValue5
-                    serverEventCall(textValue3)
-                    serverEventCall = workValue25
+                    text3 = text5
+                    serverEventCall(text3)
+                    serverEventCall = workingValue25
                     serverEventCall[1] = nil
                     serverEventCall = false
-                    arg1 = serverEventCall
+                    localValue1 = serverEventCall
                     serverEventCall = tCMG
                     serverEventCall = serverEventCall.setCanAnim
-                    textValue3 = true
-                    serverEventCall(textValue3)
+                    text3 = true
+                    serverEventCall(text3)
                   end
                   -- Beginner: Start a separate FiveM thread so this code can run independently.
-                  workValue2(textValue2)
+                  workingValue2(text2)
                 end
               end
             end
@@ -1038,197 +1038,197 @@ function workValue16()
         end
         mathHelper = {}
         -- Beginner: Create an interaction area around a world position.
-        flag11(workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper)
-        flag11 = table
-        flag11 = flag11.insert
-        workValue27 = workValue25
-        numberValue8 = textValue5
-        flag11(workValue27, numberValue8)
-        flag11 = true
-        flag12 = flag11
+        stateFlag11(workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper)
+        stateFlag11 = table
+        stateFlag11 = stateFlag11.insert
+        workingValue27 = workingValue25
+        number8 = text5
+        stateFlag11(workingValue27, number8)
+        stateFlag11 = true
+        stateFlag12 = stateFlag11
       end
-      arg1 = drawNativeText
-      workValue13 = "Plunge the ~y~toilet~w~ to remove blockages"
+      localValue1 = drawNativeText
+      workingValue13 = "Plunge the ~y~toilet~w~ to remove blockages"
       -- Beginner: Draw GTA-style text on screen.
-      arg1(workValue13)
-      arg1 = workValue25
-      if arg1 then
-        arg1 = table
-        arg1 = arg1.count
-        workValue13 = workValue25
+      localValue1(workingValue13)
+      localValue1 = workingValue25
+      if localValue1 then
+        localValue1 = table
+        localValue1 = localValue1.count
+        workingValue13 = workingValue25
         -- Beginner: result below is count.
-        arg1 = arg1(workValue13)
+        localValue1 = localValue1(workingValue13)
       end
-      if 0 == arg1 then
-        arg1 = workValue21
-        if arg1 then
-          arg1 = pairs
-          workValue13 = workValue21
-          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-            cmgCall2 = tCMG
-            cmgCall2 = cmgCall2.removeMarker
-            workValue29 = numberValue8
-            cmgCall2(workValue29)
+      if 0 == localValue1 then
+        localValue1 = workingValue21
+        if localValue1 then
+          localValue1 = pairs
+          workingValue13 = workingValue21
+          localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+          for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+            cmgOperation2 = tCMG
+            cmgOperation2 = cmgOperation2.removeMarker
+            workingValue29 = number8
+            cmgOperation2(workingValue29)
           end
         end
-        arg1 = workValue25
-        if arg1 then
-          arg1 = pairs
-          workValue13 = workValue25
-          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-            cmgCall2 = tCMG
-            cmgCall2 = cmgCall2.removeArea
-            workValue29 = numberValue8
-            cmgCall2(workValue29)
+        localValue1 = workingValue25
+        if localValue1 then
+          localValue1 = pairs
+          workingValue13 = workingValue25
+          localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+          for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+            cmgOperation2 = tCMG
+            cmgOperation2 = cmgOperation2.removeArea
+            workingValue29 = number8
+            cmgOperation2(workingValue29)
           end
         end
-        arg1 = nil
-        workValue21 = arg1
-        arg1 = nil
-        workValue25 = arg1
-        arg1 = "hands"
-        workValue26 = arg1
-        arg1 = false
-        flag12 = arg1
+        localValue1 = nil
+        workingValue21 = localValue1
+        localValue1 = nil
+        workingValue25 = localValue1
+        localValue1 = "hands"
+        workingValue26 = localValue1
+        localValue1 = false
+        stateFlag12 = localValue1
       end
     else
-      arg1 = workValue26
-      if "hands" == arg1 then
-        arg1 = flag12
-        if not arg1 then
-          arg1 = {}
-          workValue21 = arg1
-          arg1 = {}
-          workValue25 = arg1
-          arg1 = assert
-          workValue13 = workValue28
-          textValue5 = "tickToilet nil metadata (hands)"
-          arg1(workValue13, textValue5)
-          arg1 = false
-          workValue13 = tCMG
-          workValue13 = workValue13.addMarker
-          textValue5 = workValue28.hands
-          textValue5 = textValue5.x
-          flag11 = workValue28.hands
-          flag11 = flag11.y
-          workValue27 = workValue28.hands
-          workValue27 = workValue27.z
-          workValue27 = workValue27 - 0.6
-          numberValue8 = 0.2
-          cmgCall2 = 0.2
-          workValue29 = 0.2
-          workValue30 = 255
-          workValue31 = 255
-          workValue4 = 0
+      localValue1 = workingValue26
+      if "hands" == localValue1 then
+        localValue1 = stateFlag12
+        if not localValue1 then
+          localValue1 = {}
+          workingValue21 = localValue1
+          localValue1 = {}
+          workingValue25 = localValue1
+          localValue1 = assert
+          workingValue13 = workingValue28
+          text5 = "tickToilet nil metadata (hands)"
+          localValue1(workingValue13, text5)
+          localValue1 = false
+          workingValue13 = tCMG
+          workingValue13 = workingValue13.addMarker
+          text5 = workingValue28.hands
+          text5 = text5.x
+          stateFlag11 = workingValue28.hands
+          stateFlag11 = stateFlag11.y
+          workingValue27 = workingValue28.hands
+          workingValue27 = workingValue27.z
+          workingValue27 = workingValue27 - 0.6
+          number8 = 0.2
+          cmgOperation2 = 0.2
+          workingValue29 = 0.2
+          workingValue30 = 255
+          workingValue31 = 255
+          workingValue4 = 0
           mathHelper = 150
-          numberValue3 = 25.0
-          flag2 = 0
-          workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2)
-          textValue5 = table
-          textValue5 = textValue5.insert
-          flag11 = workValue21
-          workValue27 = workValue13
-          textValue5(flag11, workValue27)
-          textValue5 = "business_job_"
-          flag11 = tostring
-          workValue27 = 1
-          flag11 = flag11(workValue27)
-          textValue5 = textValue5 .. flag11
-          flag11 = CMG
-          flag11 = flag11.createArea
-          workValue27 = textValue5
-          numberValue8 = workValue28.hands
-          numberValue8 = numberValue8.xyz
-          cmgCall2 = 1.0
-          workValue29 = 1.5
+          number3 = 25.0
+          stateFlag2 = 0
+          workingValue13 = workingValue13(text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2)
+          text5 = table
+          text5 = text5.insert
+          stateFlag11 = workingValue21
+          workingValue27 = workingValue13
+          text5(stateFlag11, workingValue27)
+          text5 = "business_job_"
+          stateFlag11 = tostring
+          workingValue27 = 1
+          stateFlag11 = stateFlag11(workingValue27)
+          text5 = text5 .. stateFlag11
+          stateFlag11 = CMG
+          stateFlag11 = stateFlag11.createArea
+          workingValue27 = text5
+          number8 = workingValue28.hands
+          number8 = number8.xyz
+          cmgOperation2 = 1.0
+          workingValue29 = 1.5
 
-          -- === HELPER FUNCTION (decompiler name: workValue30; parameters: none) ===
-          function workValue30()
-            local workValue2, textValue2
+          -- === HELPER FUNCTION (decompiler name: workingValue30; parameters: none) ===
+          function workingValue30()
+            local workingValue2, text2
           end
 
-          -- === HELPER FUNCTION (decompiler name: workValue31; parameters: none) ===
-          function workValue31()
-            local workValue2, textValue2
+          -- === HELPER FUNCTION (decompiler name: workingValue31; parameters: none) ===
+          function workingValue31()
+            local workingValue2, text2
           end
 
-          -- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-          function workValue4()
-            local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
-            workValue2 = arg1
-            if not workValue2 then
-              workValue2 = workValue25
-              if workValue2 then
-                workValue2 = workValue25
-                workValue2 = workValue2[1]
-                if workValue2 then
-                  workValue2 = drawNativeNotification
-                  textValue2 = "Press ~INPUT_CONTEXT~ to wash your hands"
+          -- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+          function workingValue4()
+            local workingValue2, text2, dataCollection5, dataCollection6, dataCollection7, tableHelper, text7
+            workingValue2 = localValue1
+            if not workingValue2 then
+              workingValue2 = workingValue25
+              if workingValue2 then
+                workingValue2 = workingValue25
+                workingValue2 = workingValue2[1]
+                if workingValue2 then
+                  workingValue2 = drawNativeNotification
+                  text2 = "Press ~INPUT_CONTEXT~ to wash your hands"
                   -- Beginner: Show a GTA-style notification/help prompt.
-                  workValue2(textValue2)
-                  workValue2 = IsControlJustPressed
-                  textValue2 = 0
-                  dataTable5 = 51
-                  workValue2 = workValue2(textValue2, dataTable5)
-                  if workValue2 then
-                    workValue2 = CMG
-                    workValue2 = workValue2.disableSittingOnChairThisFrame
-                    workValue2()
-                    workValue2 = tCMG
-                    workValue2 = workValue2.setCanAnim
-                    textValue2 = false
-                    workValue2(textValue2)
-                    workValue2 = true
-                    arg1 = workValue2
-                    workValue2 = tCMG
-                    workValue2 = workValue2.playAnim
-                    textValue2 = true
-                    dataTable5 = {}
-                    dataTable6 = {}
-                    dataTable7 = "switch@michael@wash_face"
+                  workingValue2(text2)
+                  workingValue2 = IsControlJustPressed
+                  text2 = 0
+                  dataCollection5 = 51
+                  workingValue2 = workingValue2(text2, dataCollection5)
+                  if workingValue2 then
+                    workingValue2 = CMG
+                    workingValue2 = workingValue2.disableSittingOnChairThisFrame
+                    workingValue2()
+                    workingValue2 = tCMG
+                    workingValue2 = workingValue2.setCanAnim
+                    text2 = false
+                    workingValue2(text2)
+                    workingValue2 = true
+                    localValue1 = workingValue2
+                    workingValue2 = tCMG
+                    workingValue2 = workingValue2.playAnim
+                    text2 = true
+                    dataCollection5 = {}
+                    dataCollection6 = {}
+                    dataCollection7 = "switch@michael@wash_face"
                     tableHelper = "loop_michael"
-                    textValue7 = 1
-                    dataTable6[1] = dataTable7
-                    dataTable6[2] = tableHelper
-                    dataTable6[3] = textValue7
-                    dataTable5[1] = dataTable6
-                    dataTable6 = false
-                    workValue2(textValue2, dataTable5, dataTable6)
-                    workValue2 = Citizen
-                    workValue2 = workValue2.CreateThread
+                    text7 = 1
+                    dataCollection6[1] = dataCollection7
+                    dataCollection6[2] = tableHelper
+                    dataCollection6[3] = text7
+                    dataCollection5[1] = dataCollection6
+                    dataCollection6 = false
+                    workingValue2(text2, dataCollection5, dataCollection6)
+                    workingValue2 = Citizen
+                    workingValue2 = workingValue2.CreateThread
 
-                    -- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-                    function textValue2()
-                      local serverEventCall, textValue3
+                    -- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+                    function text2()
+                      local serverEventCall, text3
                       serverEventCall = Citizen
                       serverEventCall = serverEventCall.Wait
-                      textValue3 = 3800
-                      serverEventCall(textValue3)
+                      text3 = 3800
+                      serverEventCall(text3)
                       serverEventCall = TriggerServerEvent
-                      textValue3 = "bf3f551598"
+                      text3 = "bf3f551598"
                       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
-                      serverEventCall(textValue3)
+                      serverEventCall(text3)
                       serverEventCall = tCMG
                       serverEventCall = serverEventCall.removeMarker
-                      textValue3 = workValue13
-                      serverEventCall(textValue3)
+                      text3 = workingValue13
+                      serverEventCall(text3)
                       serverEventCall = tCMG
                       serverEventCall = serverEventCall.removeArea
-                      textValue3 = textValue5
-                      serverEventCall(textValue3)
-                      serverEventCall = workValue25
+                      text3 = text5
+                      serverEventCall(text3)
+                      serverEventCall = workingValue25
                       serverEventCall[1] = nil
                       serverEventCall = false
-                      arg1 = serverEventCall
+                      localValue1 = serverEventCall
                       serverEventCall = tCMG
                       serverEventCall = serverEventCall.setCanAnim
-                      textValue3 = true
-                      serverEventCall(textValue3)
+                      text3 = true
+                      serverEventCall(text3)
                     end
                     -- Beginner: Start a separate FiveM thread so this code can run independently.
-                    workValue2(textValue2)
+                    workingValue2(text2)
                   end
                 end
               end
@@ -1236,323 +1236,323 @@ function workValue16()
           end
           mathHelper = {}
           -- Beginner: Create an interaction area around a world position.
-          flag11(workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper)
-          flag11 = table
-          flag11 = flag11.insert
-          workValue27 = workValue25
-          numberValue8 = textValue5
-          flag11(workValue27, numberValue8)
-          flag11 = true
-          flag12 = flag11
+          stateFlag11(workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper)
+          stateFlag11 = table
+          stateFlag11 = stateFlag11.insert
+          workingValue27 = workingValue25
+          number8 = text5
+          stateFlag11(workingValue27, number8)
+          stateFlag11 = true
+          stateFlag12 = stateFlag11
         end
-        arg1 = drawNativeText
-        workValue13 = "Wash your hands and face at the ~y~sink~w~ thoroughly"
+        localValue1 = drawNativeText
+        workingValue13 = "Wash your hands and face at the ~y~sink~w~ thoroughly"
         -- Beginner: Draw GTA-style text on screen.
-        arg1(workValue13)
-        arg1 = workValue25
-        if arg1 then
-          arg1 = table
-          arg1 = arg1.count
-          workValue13 = workValue25
+        localValue1(workingValue13)
+        localValue1 = workingValue25
+        if localValue1 then
+          localValue1 = table
+          localValue1 = localValue1.count
+          workingValue13 = workingValue25
           -- Beginner: result below is count.
-          arg1 = arg1(workValue13)
-          if 0 ~= arg1 then
-            goto flow_label_380
+          localValue1 = localValue1(workingValue13)
+          if 0 ~= localValue1 then
+            goto continueAtStep380
           end
         end
-        arg1 = workValue21
-        if arg1 then
-          arg1 = pairs
-          workValue13 = workValue21
-          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-            cmgCall2 = tCMG
-            cmgCall2 = cmgCall2.removeMarker
-            workValue29 = numberValue8
-            cmgCall2(workValue29)
+        localValue1 = workingValue21
+        if localValue1 then
+          localValue1 = pairs
+          workingValue13 = workingValue21
+          localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+          for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+            cmgOperation2 = tCMG
+            cmgOperation2 = cmgOperation2.removeMarker
+            workingValue29 = number8
+            cmgOperation2(workingValue29)
           end
         end
-        arg1 = workValue25
-        if arg1 then
-          arg1 = pairs
-          workValue13 = workValue25
-          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-            cmgCall2 = tCMG
-            cmgCall2 = cmgCall2.removeArea
-            workValue29 = numberValue8
-            cmgCall2(workValue29)
+        localValue1 = workingValue25
+        if localValue1 then
+          localValue1 = pairs
+          workingValue13 = workingValue25
+          localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+          for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+            cmgOperation2 = tCMG
+            cmgOperation2 = cmgOperation2.removeArea
+            workingValue29 = number8
+            cmgOperation2(workingValue29)
           end
         end
-        arg1 = nil
-        workValue21 = arg1
-        arg1 = nil
-        workValue25 = arg1
-        arg1 = workValue
-        if arg1 then
-          arg1 = numberValue9
-          workValue13 = table
-          workValue13 = workValue13.count
-          textValue5 = workValue.toiletPoints
+        localValue1 = nil
+        workingValue21 = localValue1
+        localValue1 = nil
+        workingValue25 = localValue1
+        localValue1 = workingValue
+        if localValue1 then
+          localValue1 = number9
+          workingValue13 = table
+          workingValue13 = workingValue13.count
+          text5 = workingValue.toiletPoints
           -- Beginner: result below is count.
-          workValue13 = workValue13(textValue5)
-          if arg1 == workValue13 then
-            arg1 = true
-            return arg1
+          workingValue13 = workingValue13(text5)
+          if localValue1 == workingValue13 then
+            localValue1 = true
+            return localValue1
         end
         else
-          arg1 = "floor"
-          workValue26 = arg1
-          arg1 = false
-          flag12 = arg1
-          arg1 = numberValue9
-          arg1 = arg1 + 1
-          numberValue9 = arg1
-          arg1 = workValue
-          if arg1 then
-            arg1 = workValue.toiletPoints
-            workValue13 = numberValue9
-            arg1 = arg1[workValue13]
-            workValue28 = arg1
+          localValue1 = "floor"
+          workingValue26 = localValue1
+          localValue1 = false
+          stateFlag12 = localValue1
+          localValue1 = number9
+          localValue1 = localValue1 + 1
+          number9 = localValue1
+          localValue1 = workingValue
+          if localValue1 then
+            localValue1 = workingValue.toiletPoints
+            workingValue13 = number9
+            localValue1 = localValue1[workingValue13]
+            workingValue28 = localValue1
           end
         end
       end
     end
   end
-  ::flow_label_380::
-  arg1 = false
-  return arg1
+  ::continueAtStep380::
+  localValue1 = false
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
-function workValue17()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
-  arg1 = workValue21
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue21
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeMarker
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue17; parameters: none) ===
+function workingValue17()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29
+  localValue1 = workingValue21
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue21
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeMarker
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = workValue25
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue25
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeArea
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+  localValue1 = workingValue25
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue25
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeArea
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = nil
-  workValue21 = arg1
-  arg1 = nil
-  workValue25 = arg1
-  arg1 = 0
-  numberValue9 = arg1
-  arg1 = nil
-  workValue28 = arg1
-  arg1 = false
-  flag12 = arg1
-  arg1 = nil
-  workValue26 = arg1
+  localValue1 = nil
+  workingValue21 = localValue1
+  localValue1 = nil
+  workingValue25 = localValue1
+  localValue1 = 0
+  number9 = localValue1
+  localValue1 = nil
+  workingValue28 = localValue1
+  localValue1 = false
+  stateFlag12 = localValue1
+  localValue1 = nil
+  workingValue26 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: none) ===
-function workValue18()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
-  arg1 = {}
-  workValue21 = arg1
-  arg1 = {}
-  workValue25 = arg1
-  arg1 = false
-  flag14 = arg1
-  arg1 = 0
-  numberValue10 = arg1
-  arg1 = assert
-  workValue13 = workValue
-  textValue5 = "initBin nil metadata"
-  arg1(workValue13, textValue5)
-  arg1 = false
-  workValue13 = pairs
-  textValue5 = workValue.binPoints
-  workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
-  for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
-    workValue29 = tCMG
-    workValue29 = workValue29.addMarker
-    workValue30 = cmgCall2.x
-    workValue31 = cmgCall2.y
-    workValue4 = cmgCall2.z
-    workValue4 = workValue4 - 1.0
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: none) ===
+function workingValue18()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2
+  localValue1 = {}
+  workingValue21 = localValue1
+  localValue1 = {}
+  workingValue25 = localValue1
+  localValue1 = false
+  stateFlag14 = localValue1
+  localValue1 = 0
+  number10 = localValue1
+  localValue1 = assert
+  workingValue13 = workingValue
+  text5 = "initBin nil metadata"
+  localValue1(workingValue13, text5)
+  localValue1 = false
+  workingValue13 = pairs
+  text5 = workingValue.binPoints
+  workingValue13, text5, stateFlag11, workingValue27 = workingValue13(text5)
+  for number8, cmgOperation2 in workingValue13, text5, stateFlag11, workingValue27 do
+    workingValue29 = tCMG
+    workingValue29 = workingValue29.addMarker
+    workingValue30 = cmgOperation2.x
+    workingValue31 = cmgOperation2.y
+    workingValue4 = cmgOperation2.z
+    workingValue4 = workingValue4 - 1.0
     mathHelper = 0.4
-    numberValue3 = 0.4
-    flag2 = 0.4
-    flag4 = 255
-    flag6 = 255
-    numberValue4 = 0
-    dataTable = 150
-    numberValue5 = 25.0
-    dataTable2 = 1
-    workValue29 = workValue29(workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
-    workValue30 = table
-    workValue30 = workValue30.insert
-    workValue31 = workValue21
-    workValue4 = workValue29
-    workValue30(workValue31, workValue4)
-    workValue30 = "business_job_"
-    workValue31 = tostring
-    workValue4 = numberValue8
-    workValue31 = workValue31(workValue4)
-    workValue30 = workValue30 .. workValue31
-    workValue31 = CMG
-    workValue31 = workValue31.createArea
-    workValue4 = workValue30
-    mathHelper = cmgCall2.xyz
-    numberValue3 = 1.0
-    flag2 = 1.5
+    number3 = 0.4
+    stateFlag2 = 0.4
+    stateFlag4 = 255
+    stateFlag6 = 255
+    number4 = 0
+    dataCollection = 150
+    number5 = 25.0
+    dataCollection2 = 1
+    workingValue29 = workingValue29(workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection, number5, dataCollection2)
+    workingValue30 = table
+    workingValue30 = workingValue30.insert
+    workingValue31 = workingValue21
+    workingValue4 = workingValue29
+    workingValue30(workingValue31, workingValue4)
+    workingValue30 = "business_job_"
+    workingValue31 = tostring
+    workingValue4 = number8
+    workingValue31 = workingValue31(workingValue4)
+    workingValue30 = workingValue30 .. workingValue31
+    workingValue31 = CMG
+    workingValue31 = workingValue31.createArea
+    workingValue4 = workingValue30
+    mathHelper = cmgOperation2.xyz
+    number3 = 1.0
+    stateFlag2 = 1.5
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local workValue2, textValue2
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local workingValue2, text2
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
-    function flag6()
-      local workValue2, textValue2
+    -- === HELPER FUNCTION (decompiler name: stateFlag6; parameters: none) ===
+    function stateFlag6()
+      local workingValue2, text2
     end
 
-    -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
-    function numberValue4()
-      local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9
-      workValue2 = arg1
-      if not workValue2 then
-        workValue2 = workValue25
-        if workValue2 then
-          workValue2 = workValue25
-          if workValue2 then
-            textValue2 = numberValue8
-            workValue2 = workValue25
-            workValue2 = workValue2[textValue2]
-            if workValue2 then
-              workValue2 = flag14
-              if not workValue2 then
-                workValue2 = drawNativeNotification
-                textValue2 = "Press ~INPUT_CONTEXT~ to replace the bin ban"
+    -- === HELPER FUNCTION (decompiler name: number4; parameters: none) ===
+    function number4()
+      local workingValue2, text2, dataCollection5, dataCollection6, dataCollection7, tableHelper, text7, stateFlag13, stateFlag15, number11, number, number2, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9
+      workingValue2 = localValue1
+      if not workingValue2 then
+        workingValue2 = workingValue25
+        if workingValue2 then
+          workingValue2 = workingValue25
+          if workingValue2 then
+            text2 = number8
+            workingValue2 = workingValue25
+            workingValue2 = workingValue2[text2]
+            if workingValue2 then
+              workingValue2 = stateFlag14
+              if not workingValue2 then
+                workingValue2 = drawNativeNotification
+                text2 = "Press ~INPUT_CONTEXT~ to replace the bin ban"
                 -- Beginner: Show a GTA-style notification/help prompt.
-                workValue2(textValue2)
-                workValue2 = IsControlJustPressed
-                textValue2 = 0
-                dataTable5 = 51
-                workValue2 = workValue2(textValue2, dataTable5)
-                if workValue2 then
-                  workValue2 = CMG
-                  workValue2 = workValue2.disableSittingOnChairThisFrame
-                  workValue2()
-                  workValue2 = tCMG
-                  workValue2 = workValue2.setCanAnim
-                  textValue2 = false
-                  workValue2(textValue2)
-                  workValue2 = true
-                  arg1 = workValue2
-                  workValue2 = tCMG
-                  workValue2 = workValue2.playAnim
-                  textValue2 = true
-                  dataTable5 = {}
-                  dataTable6 = {}
-                  dataTable7 = "anim@heists@narcotics@trash"
+                workingValue2(text2)
+                workingValue2 = IsControlJustPressed
+                text2 = 0
+                dataCollection5 = 51
+                workingValue2 = workingValue2(text2, dataCollection5)
+                if workingValue2 then
+                  workingValue2 = CMG
+                  workingValue2 = workingValue2.disableSittingOnChairThisFrame
+                  workingValue2()
+                  workingValue2 = tCMG
+                  workingValue2 = workingValue2.setCanAnim
+                  text2 = false
+                  workingValue2(text2)
+                  workingValue2 = true
+                  localValue1 = workingValue2
+                  workingValue2 = tCMG
+                  workingValue2 = workingValue2.playAnim
+                  text2 = true
+                  dataCollection5 = {}
+                  dataCollection6 = {}
+                  dataCollection7 = "anim@heists@narcotics@trash"
                   tableHelper = "walk"
-                  textValue7 = 1
-                  dataTable6[1] = dataTable7
-                  dataTable6[2] = tableHelper
-                  dataTable6[3] = textValue7
-                  dataTable5[1] = dataTable6
-                  dataTable6 = true
-                  workValue2(textValue2, dataTable5, dataTable6)
-                  workValue2 = CMG
-                  workValue2 = workValue2.loadModel
-                  textValue2 = 1138881502
+                  text7 = 1
+                  dataCollection6[1] = dataCollection7
+                  dataCollection6[2] = tableHelper
+                  dataCollection6[3] = text7
+                  dataCollection5[1] = dataCollection6
+                  dataCollection6 = true
+                  workingValue2(text2, dataCollection5, dataCollection6)
+                  workingValue2 = CMG
+                  workingValue2 = workingValue2.loadModel
+                  text2 = 1138881502
                   -- Beginner: Request/load a GTA model before spawning or applying it.
-                  workValue2(textValue2)
-                  workValue2 = CMG
-                  workValue2 = workValue2.getPlayerCoords
+                  workingValue2(text2)
+                  workingValue2 = CMG
+                  workingValue2 = workingValue2.getPlayerCoords
                   -- Beginner: result below is playerCoords.
-                  workValue2 = workValue2()
-                  textValue2 = CMG
-                  textValue2 = textValue2.requestEntitySpawn
-                  dataTable5 = "business_cleaner_binbag"
-                  textValue2(dataTable5)
-                  textValue2 = CreateObject
-                  dataTable5 = 1138881502
-                  dataTable6 = workValue2.x
-                  dataTable7 = workValue2.y
-                  tableHelper = workValue2.z
-                  textValue7 = true
-                  flag13 = false
-                  flag15 = false
+                  workingValue2 = workingValue2()
+                  text2 = CMG
+                  text2 = text2.requestEntitySpawn
+                  dataCollection5 = "business_cleaner_binbag"
+                  text2(dataCollection5)
+                  text2 = CreateObject
+                  dataCollection5 = 1138881502
+                  dataCollection6 = workingValue2.x
+                  dataCollection7 = workingValue2.y
+                  tableHelper = workingValue2.z
+                  text7 = true
+                  stateFlag13 = false
+                  stateFlag15 = false
                   -- Beginner: result below is objectEntity.
-                  textValue2 = textValue2(dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15)
-                  numberValue10 = textValue2
-                  textValue2 = PlayerPedId
+                  text2 = text2(dataCollection5, dataCollection6, dataCollection7, tableHelper, text7, stateFlag13, stateFlag15)
+                  number10 = text2
+                  text2 = PlayerPedId
                   -- Beginner: result below is localPlayerPed.
-                  textValue2 = textValue2()
-                  dataTable5 = AttachEntityToEntity
-                  dataTable6 = numberValue10
-                  dataTable7 = textValue2
+                  text2 = text2()
+                  dataCollection5 = AttachEntityToEntity
+                  dataCollection6 = number10
+                  dataCollection7 = text2
                   tableHelper = GetPedBoneIndex
-                  textValue7 = textValue2
-                  flag13 = 57005
-                  tableHelper = tableHelper(textValue7, flag13)
-                  textValue7 = 0.12
-                  flag13 = 0.0
-                  flag15 = 0.0
-                  numberValue11 = 25.0
-                  numberValue = 270.0
-                  numberValue2 = 180.0
-                  flag = true
-                  flag3 = true
-                  flag5 = false
-                  flag7 = true
-                  flag8 = 1
-                  flag9 = true
+                  text7 = text2
+                  stateFlag13 = 57005
+                  tableHelper = tableHelper(text7, stateFlag13)
+                  text7 = 0.12
+                  stateFlag13 = 0.0
+                  stateFlag15 = 0.0
+                  number11 = 25.0
+                  number = 270.0
+                  number2 = 180.0
+                  stateFlag = true
+                  stateFlag3 = true
+                  stateFlag5 = false
+                  stateFlag7 = true
+                  stateFlag8 = 1
+                  stateFlag9 = true
                   -- Beginner: Attach one entity to another entity.
-                  dataTable5(dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9)
-                  dataTable5 = SetModelAsNoLongerNeeded
-                  dataTable6 = 1138881502
-                  dataTable5(dataTable6)
-                  dataTable5 = TriggerServerEvent
-                  dataTable6 = "bf3f551598"
+                  dataCollection5(dataCollection6, dataCollection7, tableHelper, text7, stateFlag13, stateFlag15, number11, number, number2, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9)
+                  dataCollection5 = SetModelAsNoLongerNeeded
+                  dataCollection6 = 1138881502
+                  dataCollection5(dataCollection6)
+                  dataCollection5 = TriggerServerEvent
+                  dataCollection6 = "bf3f551598"
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
-                  dataTable5(dataTable6)
-                  dataTable5 = true
-                  flag14 = dataTable5
-                  dataTable5 = tCMG
-                  dataTable5 = dataTable5.removeMarker
-                  dataTable6 = workValue29
-                  dataTable5(dataTable6)
-                  dataTable5 = tCMG
-                  dataTable5 = dataTable5.removeArea
-                  dataTable6 = workValue30
-                  dataTable5(dataTable6)
-                  dataTable6 = numberValue8
-                  dataTable5 = workValue25
-                  dataTable5[dataTable6] = nil
-                  dataTable5 = false
-                  arg1 = dataTable5
-                  dataTable5 = tCMG
-                  dataTable5 = dataTable5.setCanAnim
-                  dataTable6 = true
-                  dataTable5(dataTable6)
-                  dataTable5 = notify
-                  dataTable6 = "~g~Picked up bin bag!"
+                  dataCollection5(dataCollection6)
+                  dataCollection5 = true
+                  stateFlag14 = dataCollection5
+                  dataCollection5 = tCMG
+                  dataCollection5 = dataCollection5.removeMarker
+                  dataCollection6 = workingValue29
+                  dataCollection5(dataCollection6)
+                  dataCollection5 = tCMG
+                  dataCollection5 = dataCollection5.removeArea
+                  dataCollection6 = workingValue30
+                  dataCollection5(dataCollection6)
+                  dataCollection6 = number8
+                  dataCollection5 = workingValue25
+                  dataCollection5[dataCollection6] = nil
+                  dataCollection5 = false
+                  localValue1 = dataCollection5
+                  dataCollection5 = tCMG
+                  dataCollection5 = dataCollection5.setCanAnim
+                  dataCollection6 = true
+                  dataCollection5(dataCollection6)
+                  dataCollection5 = notify
+                  dataCollection6 = "~g~Picked up bin bag!"
                   -- Beginner: Show a notification to the player.
-                  dataTable5(dataTable6)
+                  dataCollection5(dataCollection6)
                 end
               end
             end
@@ -1560,248 +1560,248 @@ function workValue18()
         end
       end
     end
-    dataTable = {}
+    dataCollection = {}
     -- Beginner: Create an interaction area around a world position.
-    workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable)
-    workValue31 = table
-    workValue31 = workValue31.insert
-    workValue4 = workValue25
-    mathHelper = workValue30
-    workValue31(workValue4, mathHelper)
+    workingValue31(workingValue4, mathHelper, number3, stateFlag2, stateFlag4, stateFlag6, number4, dataCollection)
+    workingValue31 = table
+    workingValue31 = workingValue31.insert
+    workingValue4 = workingValue25
+    mathHelper = workingValue30
+    workingValue31(workingValue4, mathHelper)
   end
-  workValue13 = CMG
-  workValue13 = workValue13.createArea
-  textValue5 = "business_job_bin"
-  flag11 = workValue.binDeliveryPoint
-  workValue27 = 1.0
-  numberValue8 = 1.5
+  workingValue13 = CMG
+  workingValue13 = workingValue13.createArea
+  text5 = "business_job_bin"
+  stateFlag11 = workingValue.binDeliveryPoint
+  workingValue27 = 1.0
+  number8 = 1.5
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-  function cmgCall2()
-    local workValue2, textValue2
-  end
-
-  -- === HELPER FUNCTION (decompiler name: workValue29; parameters: none) ===
-  function workValue29()
-    local workValue2, textValue2
+  -- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+  function cmgOperation2()
+    local workingValue2, text2
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue30; parameters: none) ===
-  function workValue30()
-    local workValue2, textValue2, dataTable5
-    workValue2 = flag14
-    if workValue2 then
-      workValue2 = drawNativeNotification
-      textValue2 = "Press ~INPUT_CONTEXT~ to dispose of the bin bag"
+  -- === HELPER FUNCTION (decompiler name: workingValue29; parameters: none) ===
+  function workingValue29()
+    local workingValue2, text2
+  end
+
+  -- === HELPER FUNCTION (decompiler name: workingValue30; parameters: none) ===
+  function workingValue30()
+    local workingValue2, text2, dataCollection5
+    workingValue2 = stateFlag14
+    if workingValue2 then
+      workingValue2 = drawNativeNotification
+      text2 = "Press ~INPUT_CONTEXT~ to dispose of the bin bag"
       -- Beginner: Show a GTA-style notification/help prompt.
-      workValue2(textValue2)
-      workValue2 = IsControlJustPressed
-      textValue2 = 0
-      dataTable5 = 51
-      workValue2 = workValue2(textValue2, dataTable5)
-      if workValue2 then
-        workValue2 = CMG
-        workValue2 = workValue2.disableSittingOnChairThisFrame
-        workValue2()
-        workValue2 = tCMG
-        workValue2 = workValue2.setCanAnim
-        textValue2 = false
-        workValue2(textValue2)
-        workValue2 = true
-        arg1 = workValue2
-        workValue2 = DeleteEntity
-        textValue2 = numberValue10
+      workingValue2(text2)
+      workingValue2 = IsControlJustPressed
+      text2 = 0
+      dataCollection5 = 51
+      workingValue2 = workingValue2(text2, dataCollection5)
+      if workingValue2 then
+        workingValue2 = CMG
+        workingValue2 = workingValue2.disableSittingOnChairThisFrame
+        workingValue2()
+        workingValue2 = tCMG
+        workingValue2 = workingValue2.setCanAnim
+        text2 = false
+        workingValue2(text2)
+        workingValue2 = true
+        localValue1 = workingValue2
+        workingValue2 = DeleteEntity
+        text2 = number10
         -- Beginner: Delete a GTA entity.
-        workValue2(textValue2)
-        workValue2 = tCMG
-        workValue2 = workValue2.stopAnim
-        textValue2 = false
-        workValue2(textValue2)
-        workValue2 = notify
-        textValue2 = "~r~Thrown away bin bag."
+        workingValue2(text2)
+        workingValue2 = tCMG
+        workingValue2 = workingValue2.stopAnim
+        text2 = false
+        workingValue2(text2)
+        workingValue2 = notify
+        text2 = "~r~Thrown away bin bag."
         -- Beginner: Show a notification to the player.
-        workValue2(textValue2)
-        workValue2 = TriggerServerEvent
-        textValue2 = "bf3f551598"
+        workingValue2(text2)
+        workingValue2 = TriggerServerEvent
+        text2 = "bf3f551598"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
-        workValue2(textValue2)
-        workValue2 = false
-        flag14 = workValue2
-        workValue2 = false
-        arg1 = workValue2
-        workValue2 = tCMG
-        workValue2 = workValue2.setCanAnim
-        textValue2 = true
-        workValue2(textValue2)
+        workingValue2(text2)
+        workingValue2 = false
+        stateFlag14 = workingValue2
+        workingValue2 = false
+        localValue1 = workingValue2
+        workingValue2 = tCMG
+        workingValue2 = workingValue2.setCanAnim
+        text2 = true
+        workingValue2(text2)
       end
     end
   end
-  workValue31 = {}
-  workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31)
-  workValue3 = workValue13
-  workValue13 = tCMG
-  workValue13 = workValue13.addMarker
-  textValue5 = workValue.binDeliveryPoint
-  textValue5 = textValue5.x
-  flag11 = workValue.binDeliveryPoint
-  flag11 = flag11.y
-  workValue27 = workValue.binDeliveryPoint
-  workValue27 = workValue27.z
-  workValue27 = workValue27 - 1.0
-  numberValue8 = 0.4
-  cmgCall2 = 0.4
-  workValue29 = 0.4
-  workValue30 = 255
-  workValue31 = 255
-  workValue4 = 0
+  workingValue31 = {}
+  workingValue13 = workingValue13(text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31)
+  workingValue3 = workingValue13
+  workingValue13 = tCMG
+  workingValue13 = workingValue13.addMarker
+  text5 = workingValue.binDeliveryPoint
+  text5 = text5.x
+  stateFlag11 = workingValue.binDeliveryPoint
+  stateFlag11 = stateFlag11.y
+  workingValue27 = workingValue.binDeliveryPoint
+  workingValue27 = workingValue27.z
+  workingValue27 = workingValue27 - 1.0
+  number8 = 0.4
+  cmgOperation2 = 0.4
+  workingValue29 = 0.4
+  workingValue30 = 255
+  workingValue31 = 255
+  workingValue4 = 0
   mathHelper = 150
-  numberValue3 = 25.0
-  flag2 = 1
-  workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2)
-  workValue5 = workValue13
+  number3 = 25.0
+  stateFlag2 = 1
+  workingValue13 = workingValue13(text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29, workingValue30, workingValue31, workingValue4, mathHelper, number3, stateFlag2)
+  workingValue5 = workingValue13
 end
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
-function workValue19()
-  local arg1, workValue13, textValue5, flag11
-  arg1 = flag14
-  if arg1 then
-    arg1 = drawNativeText
-    workValue13 = "Take the bin bag ~y~outside~w~ to the tip"
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: none) ===
+function workingValue19()
+  local localValue1, workingValue13, text5, stateFlag11
+  localValue1 = stateFlag14
+  if localValue1 then
+    localValue1 = drawNativeText
+    workingValue13 = "Take the bin bag ~y~outside~w~ to the tip"
     -- Beginner: Draw GTA-style text on screen.
-    arg1(workValue13)
+    localValue1(workingValue13)
   else
-    arg1 = drawNativeText
-    workValue13 = "Locate the nearest ~y~bin~w~ and empty it"
-    arg1(workValue13)
+    localValue1 = drawNativeText
+    workingValue13 = "Locate the nearest ~y~bin~w~ and empty it"
+    localValue1(workingValue13)
   end
-  arg1 = workValue25
-  if arg1 then
-    arg1 = table
-    arg1 = arg1.count
-    workValue13 = workValue25
+  localValue1 = workingValue25
+  if localValue1 then
+    localValue1 = table
+    localValue1 = localValue1.count
+    workingValue13 = workingValue25
     -- Beginner: result below is count.
-    arg1 = arg1(workValue13)
-    if arg1 then
-      goto flow_label_21
+    localValue1 = localValue1(workingValue13)
+    if localValue1 then
+      goto continueAtStep21
     end
   end
-  arg1 = 0
-  ::flow_label_21::
-  workValue13 = "~y~BINS REMAINING"
-  workValue6 = workValue13
-  workValue13 = tostring
-  textValue5 = arg1
-  workValue13 = workValue13(textValue5)
-  workValue7 = workValue13
-  workValue13 = CMG
-  workValue13 = workValue13.setHudTimerBarProviderActive
-  textValue5 = "businessCleanerJob"
-  flag11 = true
-  workValue13(textValue5, flag11)
-  workValue13 = 0 == arg1
-  return workValue13
+  localValue1 = 0
+  ::continueAtStep21::
+  workingValue13 = "~y~BINS REMAINING"
+  workingValue6 = workingValue13
+  workingValue13 = tostring
+  text5 = localValue1
+  workingValue13 = workingValue13(text5)
+  workingValue7 = workingValue13
+  workingValue13 = CMG
+  workingValue13 = workingValue13.setHudTimerBarProviderActive
+  text5 = "businessCleanerJob"
+  stateFlag11 = true
+  workingValue13(text5, stateFlag11)
+  workingValue13 = 0 == localValue1
+  return workingValue13
 end
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: none) ===
-function workValue20()
-  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
-  arg1 = nil
-  workValue6 = arg1
-  arg1 = nil
-  workValue7 = arg1
-  arg1 = CMG
-  arg1 = arg1.setHudTimerBarProviderActive
-  workValue13 = "businessCleanerJob"
-  textValue5 = false
-  arg1(workValue13, textValue5)
-  arg1 = workValue21
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue21
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeMarker
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: none) ===
+function workingValue20()
+  local localValue1, workingValue13, text5, stateFlag11, workingValue27, number8, cmgOperation2, workingValue29
+  localValue1 = nil
+  workingValue6 = localValue1
+  localValue1 = nil
+  workingValue7 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.setHudTimerBarProviderActive
+  workingValue13 = "businessCleanerJob"
+  text5 = false
+  localValue1(workingValue13, text5)
+  localValue1 = workingValue21
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue21
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeMarker
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = workValue25
-  if arg1 then
-    arg1 = pairs
-    workValue13 = workValue25
-    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
-    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
-      cmgCall2 = tCMG
-      cmgCall2 = cmgCall2.removeArea
-      workValue29 = numberValue8
-      cmgCall2(workValue29)
+  localValue1 = workingValue25
+  if localValue1 then
+    localValue1 = pairs
+    workingValue13 = workingValue25
+    localValue1, workingValue13, text5, stateFlag11 = localValue1(workingValue13)
+    for workingValue27, number8 in localValue1, workingValue13, text5, stateFlag11 do
+      cmgOperation2 = tCMG
+      cmgOperation2 = cmgOperation2.removeArea
+      workingValue29 = number8
+      cmgOperation2(workingValue29)
     end
   end
-  arg1 = workValue3
-  if arg1 then
-    arg1 = tCMG
-    arg1 = arg1.removeArea
-    workValue13 = workValue3
-    arg1(workValue13)
+  localValue1 = workingValue3
+  if localValue1 then
+    localValue1 = tCMG
+    localValue1 = localValue1.removeArea
+    workingValue13 = workingValue3
+    localValue1(workingValue13)
   end
-  arg1 = DeleteEntity
-  workValue13 = numberValue10
+  localValue1 = DeleteEntity
+  workingValue13 = number10
   -- Beginner: Delete a GTA entity.
-  arg1(workValue13)
-  arg1 = workValue5
-  if arg1 then
-    arg1 = tCMG
-    arg1 = arg1.removeMarker
-    workValue13 = workValue5
-    arg1(workValue13)
+  localValue1(workingValue13)
+  localValue1 = workingValue5
+  if localValue1 then
+    localValue1 = tCMG
+    localValue1 = localValue1.removeMarker
+    workingValue13 = workingValue5
+    localValue1(workingValue13)
   end
-  arg1 = nil
-  workValue5 = arg1
-  arg1 = 0
-  numberValue10 = arg1
-  arg1 = nil
-  workValue3 = arg1
-  arg1 = false
-  flag14 = arg1
-  arg1 = nil
-  workValue21 = arg1
-  arg1 = nil
-  workValue25 = arg1
-  arg1 = nil
-  workValue = arg1
+  localValue1 = nil
+  workingValue5 = localValue1
+  localValue1 = 0
+  number10 = localValue1
+  localValue1 = nil
+  workingValue3 = localValue1
+  localValue1 = false
+  stateFlag14 = localValue1
+  localValue1 = nil
+  workingValue21 = localValue1
+  localValue1 = nil
+  workingValue25 = localValue1
+  localValue1 = nil
+  workingValue = localValue1
 end
-dataTable3 = {}
-dataTable4 = {}
-dataTable4.init = textValue
-dataTable4.tick = workValue8
-dataTable4.finish = workValue9
-dataTable4.next = "surface"
-dataTable3.ground = dataTable4
-dataTable4 = {}
-dataTable4.init = workValue10
-dataTable4.tick = workValue11
-dataTable4.finish = workValue14
-dataTable4.next = "toilet"
-dataTable3.surface = dataTable4
-dataTable4 = {}
-dataTable4.init = workValue15
-dataTable4.tick = workValue16
-dataTable4.finish = workValue17
-dataTable4.next = "bin"
-dataTable3.toilet = dataTable4
-dataTable4 = {}
-dataTable4.init = workValue18
-dataTable4.tick = workValue19
-dataTable4.finish = workValue20
-dataTable4.next = "ground"
-dataTable3.bin = dataTable4
-dataTable4 = CMG
-dataTable4 = dataTable4.registerBusinessJob
-textValue4 = "cleaner"
-workValue22 = cmgCall
-textValue6 = "ground"
-workValue23 = dataTable3
-workValue24 = nil
-dataTable4(textValue4, workValue22, textValue6, workValue23, workValue24)
+dataCollection3 = {}
+dataCollection4 = {}
+dataCollection4.init = text
+dataCollection4.tick = workingValue8
+dataCollection4.finish = workingValue9
+dataCollection4.next = "surface"
+dataCollection3.ground = dataCollection4
+dataCollection4 = {}
+dataCollection4.init = workingValue10
+dataCollection4.tick = workingValue11
+dataCollection4.finish = workingValue14
+dataCollection4.next = "toilet"
+dataCollection3.surface = dataCollection4
+dataCollection4 = {}
+dataCollection4.init = workingValue15
+dataCollection4.tick = workingValue16
+dataCollection4.finish = workingValue17
+dataCollection4.next = "bin"
+dataCollection3.toilet = dataCollection4
+dataCollection4 = {}
+dataCollection4.init = workingValue18
+dataCollection4.tick = workingValue19
+dataCollection4.finish = workingValue20
+dataCollection4.next = "ground"
+dataCollection3.bin = dataCollection4
+dataCollection4 = CMG
+dataCollection4 = dataCollection4.registerBusinessJob
+text4 = "cleaner"
+workingValue22 = cmgOperation
+text6 = "ground"
+workingValue23 = dataCollection3
+workingValue24 = nil
+dataCollection4(text4, workingValue22, text6, workingValue23, workingValue24)

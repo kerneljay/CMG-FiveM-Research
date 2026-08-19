@@ -32,148 +32,148 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, flag17, numberValue9, workValue10, numberValue11, workValue11, workValue12, workValue13, workValue14, threadCall, workValue, workValue2, workValue3, cmgCall2, numberValue2, textValue, workValue5, flag11
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-flag17 = "cfg/cfg_stretcher"
+local cmgOperation, stateFlag17, number9, workingValue10, number11, workingValue11, workingValue12, workingValue13, workingValue14, backgroundThread, workingValue, workingValue2, workingValue3, cmgOperation2, number2, text, workingValue5, stateFlag11
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+stateFlag17 = "cfg/cfg_stretcher"
 -- Beginner: result below is config.
-cmgCall = cmgCall(flag17)
-flag17 = false
-numberValue9 = 0
-workValue10 = nil
-numberValue11 = 1
-workValue11 = nil
+cmgOperation = cmgOperation(stateFlag17)
+stateFlag17 = false
+number9 = 0
+workingValue10 = nil
+number11 = 1
+workingValue11 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
-function workValue12(arg1, arg2)
-  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: localValue1, localValue2) ===
+function workingValue12(localValue1, localValue2)
+  local cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  cmgCall3 = cmgCall3()
-  numberValue10 = 0
-  textValue3 = arg1
+  cmgOperation3 = cmgOperation3()
+  number10 = 0
+  text3 = localValue1
   iterator = pairs
-  cmgCall4 = CMG
-  cmgCall4 = cmgCall4.getAllVehicles
-  cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4 = cmgCall4()
-  iterator, cmgCall4, playerPed2, flag28 = iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4)
-  for flag29, flag in iterator, cmgCall4, playerPed2, flag28 do
+  cmgOperation4 = CMG
+  cmgOperation4 = cmgOperation4.getAllVehicles
+  cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4 = cmgOperation4()
+  iterator, cmgOperation4, playerPed2, stateFlag28 = iterator(cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4)
+  for stateFlag29, stateFlag in iterator, cmgOperation4, playerPed2, stateFlag28 do
     modelHash = GetEntityModel
-    coords = flag
+    coords = stateFlag
     -- Beginner: result below is modelHash.
     modelHash = modelHash(coords)
-    coords = arg2[modelHash]
+    coords = localValue2[modelHash]
     if coords then
       coords = GetEntityCoords
-      workValue4 = flag
+      workingValue4 = stateFlag
       -- Beginner: result below is entityCoords.
-      coords = coords(workValue4)
-      workValue4 = cmgCall3 - coords
-      workValue4 = #workValue4
-      if textValue3 > workValue4 then
-        textValue3 = workValue4
-        numberValue10 = flag
+      coords = coords(workingValue4)
+      workingValue4 = cmgOperation3 - coords
+      workingValue4 = #workingValue4
+      if text3 > workingValue4 then
+        text3 = workingValue4
+        number10 = stateFlag
       end
     end
   end
-  return numberValue10
+  return number10
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator
-  arg1 = IsControlJustReleased
-  arg2 = 0
-  cmgCall3 = 299
-  arg1 = arg1(arg2, cmgCall3)
-  if arg1 then
-    arg1 = NetworkHasControlOfEntity
-    arg2 = numberValue9
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = TriggerServerEvent
-      arg2 = "5afe1684a7"
-      cmgCall3 = CMG
-      cmgCall3 = cmgCall3.getNetId
-      numberValue10 = numberValue9
-      textValue3 = "Stretchers"
-      cmgCall3, numberValue10, textValue3, iterator = cmgCall3(numberValue10, textValue3)
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, cmgOperation3, number10, text3, iterator
+  localValue1 = IsControlJustReleased
+  localValue2 = 0
+  cmgOperation3 = 299
+  localValue1 = localValue1(localValue2, cmgOperation3)
+  if localValue1 then
+    localValue1 = NetworkHasControlOfEntity
+    localValue2 = number9
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = TriggerServerEvent
+      localValue2 = "5afe1684a7"
+      cmgOperation3 = CMG
+      cmgOperation3 = cmgOperation3.getNetId
+      number10 = number9
+      text3 = "Stretchers"
+      cmgOperation3, number10, text3, iterator = cmgOperation3(number10, text3)
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5afe1684a7".
-      arg1(arg2, cmgCall3, numberValue10, textValue3, iterator)
+      localValue1(localValue2, cmgOperation3, number10, text3, iterator)
     else
-      arg1 = CMG
-      arg1 = arg1.hasClientPermission
-      arg2 = "nhs.onduty.permission"
-      arg1 = arg1(arg2)
-      if arg1 then
-        arg1 = numberValue9
-        if 0 ~= arg1 then
-          arg1 = GetVehicleDoorAngleRatio
-          arg2 = numberValue9
-          cmgCall3 = 4
-          arg1 = arg1(arg2, cmgCall3)
-          arg1 = 0 ~= arg1
-          if arg1 then
-            arg2 = SetVehicleDoorShut
-            cmgCall3 = numberValue9
-            numberValue10 = 3
-            textValue3 = false
-            arg2(cmgCall3, numberValue10, textValue3)
-            arg2 = Wait
-            cmgCall3 = 500
-            arg2(cmgCall3)
-            arg2 = SetVehicleDoorShut
-            cmgCall3 = numberValue9
-            numberValue10 = 4
-            textValue3 = false
-            arg2(cmgCall3, numberValue10, textValue3)
-            arg2 = tCMG
-            arg2 = arg2.notify
-            cmgCall3 = "Door closed."
+      localValue1 = CMG
+      localValue1 = localValue1.hasClientPermission
+      localValue2 = "nhs.onduty.permission"
+      localValue1 = localValue1(localValue2)
+      if localValue1 then
+        localValue1 = number9
+        if 0 ~= localValue1 then
+          localValue1 = GetVehicleDoorAngleRatio
+          localValue2 = number9
+          cmgOperation3 = 4
+          localValue1 = localValue1(localValue2, cmgOperation3)
+          localValue1 = 0 ~= localValue1
+          if localValue1 then
+            localValue2 = SetVehicleDoorShut
+            cmgOperation3 = number9
+            number10 = 3
+            text3 = false
+            localValue2(cmgOperation3, number10, text3)
+            localValue2 = Wait
+            cmgOperation3 = 500
+            localValue2(cmgOperation3)
+            localValue2 = SetVehicleDoorShut
+            cmgOperation3 = number9
+            number10 = 4
+            text3 = false
+            localValue2(cmgOperation3, number10, text3)
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            cmgOperation3 = "Door closed."
             -- Beginner: Show a notification to the player.
-            arg2(cmgCall3)
+            localValue2(cmgOperation3)
           else
-            arg2 = SetVehicleDoorOpen
-            cmgCall3 = numberValue9
-            numberValue10 = 4
-            textValue3 = false
+            localValue2 = SetVehicleDoorOpen
+            cmgOperation3 = number9
+            number10 = 4
+            text3 = false
             iterator = false
-            arg2(cmgCall3, numberValue10, textValue3, iterator)
-            arg2 = Wait
-            cmgCall3 = 500
-            arg2(cmgCall3)
-            arg2 = SetVehicleDoorOpen
-            cmgCall3 = numberValue9
-            numberValue10 = 3
-            textValue3 = false
+            localValue2(cmgOperation3, number10, text3, iterator)
+            localValue2 = Wait
+            cmgOperation3 = 500
+            localValue2(cmgOperation3)
+            localValue2 = SetVehicleDoorOpen
+            cmgOperation3 = number9
+            number10 = 3
+            text3 = false
             iterator = false
-            arg2(cmgCall3, numberValue10, textValue3, iterator)
-            arg2 = tCMG
-            arg2 = arg2.notify
-            cmgCall3 = "Door opened."
+            localValue2(cmgOperation3, number10, text3, iterator)
+            localValue2 = tCMG
+            localValue2 = localValue2.notify
+            cmgOperation3 = "Door opened."
             -- Beginner: Show a notification to the player.
-            arg2(cmgCall3)
+            localValue2(cmgOperation3)
           end
         end
       end
@@ -181,928 +181,928 @@ function workValue13()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
-function workValue14(arg1)
-  local arg2, cmgCall3, numberValue10, textValue3, iterator
-  arg2 = BeginTextCommandDisplayHelp
-  cmgCall3 = "STRING"
-  arg2(cmgCall3)
-  arg2 = AddTextEntry
-  cmgCall3 = "STRETCHER_HELP_TEXT"
-  numberValue10 = arg1
-  arg2(cmgCall3, numberValue10)
-  arg2 = AddTextComponentSubstringTextLabel
-  cmgCall3 = "STRETCHER_HELP_TEXT"
-  arg2(cmgCall3)
-  arg2 = EndTextCommandDisplayHelp
-  cmgCall3 = 0
-  numberValue10 = false
-  textValue3 = false
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: localValue1) ===
+function workingValue14(localValue1)
+  local localValue2, cmgOperation3, number10, text3, iterator
+  localValue2 = BeginTextCommandDisplayHelp
+  cmgOperation3 = "STRING"
+  localValue2(cmgOperation3)
+  localValue2 = AddTextEntry
+  cmgOperation3 = "STRETCHER_HELP_TEXT"
+  number10 = localValue1
+  localValue2(cmgOperation3, number10)
+  localValue2 = AddTextComponentSubstringTextLabel
+  cmgOperation3 = "STRETCHER_HELP_TEXT"
+  localValue2(cmgOperation3)
+  localValue2 = EndTextCommandDisplayHelp
+  cmgOperation3 = 0
+  number10 = false
+  text3 = false
   iterator = 0
-  arg2(cmgCall3, numberValue10, textValue3, iterator)
+  localValue2(cmgOperation3, number10, text3, iterator)
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, cmgCall3
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, cmgOperation3
   while true do
-    arg1 = Wait
-    arg2 = 750
-    arg1(arg2)
-    arg1 = workValue12
-    arg2 = 2.0
-    cmgCall3 = cmgCall.stretcherModels
-    arg1 = arg1(arg2, cmgCall3)
-    workValue10 = arg1
+    localValue1 = Wait
+    localValue2 = 750
+    localValue1(localValue2)
+    localValue1 = workingValue12
+    localValue2 = 2.0
+    cmgOperation3 = cmgOperation.stretcherModels
+    localValue1 = localValue1(localValue2, cmgOperation3)
+    workingValue10 = localValue1
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(workValue)
+backgroundThread(workingValue)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1) ===
-function threadCall(arg1)
-  local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash
-  arg2 = GetEntityAttachedTo
-  cmgCall3 = arg1
-  arg2 = arg2(cmgCall3)
-  cmgCall3 = DetachEntity
-  numberValue10 = arg1
-  textValue3 = false
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: localValue1) ===
+function backgroundThread(localValue1)
+  local localValue2, cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash
+  localValue2 = GetEntityAttachedTo
+  cmgOperation3 = localValue1
+  localValue2 = localValue2(cmgOperation3)
+  cmgOperation3 = DetachEntity
+  number10 = localValue1
+  text3 = false
   iterator = false
-  cmgCall3(numberValue10, textValue3, iterator)
-  cmgCall3 = false
-  flag17 = cmgCall3
-  cmgCall3 = 1
-  numberValue11 = cmgCall3
-  if arg2 and 0 ~= arg2 then
-    cmgCall3 = SetVehicleEngineOn
-    numberValue10 = arg2
-    textValue3 = false
+  cmgOperation3(number10, text3, iterator)
+  cmgOperation3 = false
+  stateFlag17 = cmgOperation3
+  cmgOperation3 = 1
+  number11 = cmgOperation3
+  if localValue2 and 0 ~= localValue2 then
+    cmgOperation3 = SetVehicleEngineOn
+    number10 = localValue2
+    text3 = false
     iterator = true
-    cmgCall4 = true
-    cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-    cmgCall3 = GetEntityCoords
-    numberValue10 = arg2
+    cmgOperation4 = true
+    cmgOperation3(number10, text3, iterator, cmgOperation4)
+    cmgOperation3 = GetEntityCoords
+    number10 = localValue2
     -- Beginner: result below is entityCoords.
-    cmgCall3 = cmgCall3(numberValue10)
-    numberValue10 = DecorGetInt
-    textValue3 = arg2
+    cmgOperation3 = cmgOperation3(number10)
+    number10 = DecorGetInt
+    text3 = localValue2
     iterator = "58fe205294"
-    numberValue10 = numberValue10(textValue3, iterator)
-    if 0 ~= numberValue10 then
-      numberValue10 = CMG
-      numberValue10 = numberValue10.getObjectId
-      textValue3 = DecorGetInt
-      iterator = arg2
-      cmgCall4 = "58fe205294"
-      textValue3 = textValue3(iterator, cmgCall4)
+    number10 = number10(text3, iterator)
+    if 0 ~= number10 then
+      number10 = CMG
+      number10 = number10.getObjectId
+      text3 = DecorGetInt
+      iterator = localValue2
+      cmgOperation4 = "58fe205294"
+      text3 = text3(iterator, cmgOperation4)
       iterator = "exitStretcher"
-      numberValue10 = numberValue10(textValue3, iterator)
-      if numberValue10 and 0 ~= numberValue10 then
-        textValue3 = GetWorldPositionOfEntityBone
-        iterator = numberValue10
-        cmgCall4 = GetEntityBoneIndexByName
-        playerPed2 = numberValue10
-        flag28 = "bonnet"
-        cmgCall4, playerPed2, flag28, flag29, flag, modelHash = cmgCall4(playerPed2, flag28)
-        textValue3 = textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash)
+      number10 = number10(text3, iterator)
+      if number10 and 0 ~= number10 then
+        text3 = GetWorldPositionOfEntityBone
+        iterator = number10
+        cmgOperation4 = GetEntityBoneIndexByName
+        playerPed2 = number10
+        stateFlag28 = "bonnet"
+        cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash = cmgOperation4(playerPed2, stateFlag28)
+        text3 = text3(iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash)
         iterator = vector3
-        cmgCall4 = 0.0
+        cmgOperation4 = 0.0
         playerPed2 = -2.0
-        flag28 = 0.0
-        iterator = iterator(cmgCall4, playerPed2, flag28)
-        cmgCall3 = textValue3 + iterator
+        stateFlag28 = 0.0
+        iterator = iterator(cmgOperation4, playerPed2, stateFlag28)
+        cmgOperation3 = text3 + iterator
       end
     end
-    numberValue10 = SetEntityCoords
-    textValue3 = arg1
-    iterator = cmgCall3.x
-    cmgCall4 = cmgCall3.y
-    playerPed2 = cmgCall3.z
-    flag28 = false
-    flag29 = false
-    flag = false
+    number10 = SetEntityCoords
+    text3 = localValue1
+    iterator = cmgOperation3.x
+    cmgOperation4 = cmgOperation3.y
+    playerPed2 = cmgOperation3.z
+    stateFlag28 = false
+    stateFlag29 = false
+    stateFlag = false
     modelHash = false
     -- Beginner: Move/teleport an entity to new coordinates.
-    numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash)
-    numberValue10 = PlaceObjectOnGroundProperly
-    textValue3 = arg1
-    numberValue10(textValue3)
+    number10(text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash)
+    number10 = PlaceObjectOnGroundProperly
+    text3 = localValue1
+    number10(text3)
   end
-  cmgCall3 = ClearPedTasksImmediately
-  numberValue10 = arg1
-  cmgCall3(numberValue10)
+  cmgOperation3 = ClearPedTasksImmediately
+  number10 = localValue1
+  cmgOperation3(number10)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29
-  arg2 = pairs
-  cmgCall3 = GetActivePlayers
-  cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29 = cmgCall3()
-  arg2, cmgCall3, numberValue10, textValue3 = arg2(cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29)
-  for iterator, cmgCall4 in arg2, cmgCall3, numberValue10, textValue3 do
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29
+  localValue2 = pairs
+  cmgOperation3 = GetActivePlayers
+  cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29 = cmgOperation3()
+  localValue2, cmgOperation3, number10, text3 = localValue2(cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29)
+  for iterator, cmgOperation4 in localValue2, cmgOperation3, number10, text3 do
     playerPed2 = GetPlayerPed
-    flag28 = cmgCall4
+    stateFlag28 = cmgOperation4
     -- Beginner: result below is playerPed.
-    playerPed2 = playerPed2(flag28)
-    flag28 = GetEntityAttachedTo
-    flag29 = playerPed2
-    flag28 = flag28(flag29)
-    if flag28 == arg1 then
-      flag28 = true
-      return flag28
+    playerPed2 = playerPed2(stateFlag28)
+    stateFlag28 = GetEntityAttachedTo
+    stateFlag29 = playerPed2
+    stateFlag28 = stateFlag28(stateFlag29)
+    if stateFlag28 == localValue1 then
+      stateFlag28 = true
+      return stateFlag28
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
-function workValue2(arg1, arg2)
-  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15
-  cmgCall3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, localValue2) ===
+function workingValue2(localValue1, localValue2)
+  local cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15
+  cmgOperation3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  cmgCall3 = cmgCall3()
-  numberValue10 = workValue
-  textValue3 = arg1
-  numberValue10 = numberValue10(textValue3)
-  if numberValue10 then
-    numberValue10 = flag17
-    if not numberValue10 then
-      goto flow_label_81
+  cmgOperation3 = cmgOperation3()
+  number10 = workingValue
+  text3 = localValue1
+  number10 = number10(text3)
+  if number10 then
+    number10 = stateFlag17
+    if not number10 then
+      goto continueAtStep81
     end
   end
-  numberValue10 = true
-  flag17 = numberValue10
-  numberValue10 = SetVehicleEngineOn
-  textValue3 = arg1
+  number10 = true
+  stateFlag17 = number10
+  number10 = SetVehicleEngineOn
+  text3 = localValue1
   iterator = true
-  cmgCall4 = true
+  cmgOperation4 = true
   playerPed2 = true
-  numberValue10(textValue3, iterator, cmgCall4, playerPed2)
-  if arg2 then
-    numberValue11 = arg2
+  number10(text3, iterator, cmgOperation4, playerPed2)
+  if localValue2 then
+    number11 = localValue2
   end
-  numberValue10 = cmgCall.positions
-  textValue3 = numberValue11
-  numberValue10 = numberValue10[textValue3]
-  textValue3 = CMG
-  textValue3 = textValue3.loadAnimDict
-  iterator = numberValue10.animDict
+  number10 = cmgOperation.positions
+  text3 = number11
+  number10 = number10[text3]
+  text3 = CMG
+  text3 = text3.loadAnimDict
+  iterator = number10.animDict
   -- Beginner: Load a GTA animation dictionary before using it.
-  textValue3(iterator)
-  textValue3 = DetachEntity
-  iterator = cmgCall3
-  cmgCall4 = false
+  text3(iterator)
+  text3 = DetachEntity
+  iterator = cmgOperation3
+  cmgOperation4 = false
   playerPed2 = false
-  textValue3(iterator, cmgCall4, playerPed2)
-  textValue3 = AttachEntityToEntity
-  iterator = cmgCall3
-  cmgCall4 = arg1
-  playerPed2 = cmgCall3
-  flag28 = numberValue10.offset
-  flag28 = flag28.x
-  flag29 = numberValue10.offset
-  flag29 = flag29.y
-  flag = numberValue10.offset
-  flag = flag.z
+  text3(iterator, cmgOperation4, playerPed2)
+  text3 = AttachEntityToEntity
+  iterator = cmgOperation3
+  cmgOperation4 = localValue1
+  playerPed2 = cmgOperation3
+  stateFlag28 = number10.offset
+  stateFlag28 = stateFlag28.x
+  stateFlag29 = number10.offset
+  stateFlag29 = stateFlag29.y
+  stateFlag = number10.offset
+  stateFlag = stateFlag.z
   modelHash = 0.0
   coords = 0.0
-  workValue4 = numberValue10.offset
-  workValue4 = workValue4.heading
-  flag5 = false
-  flag7 = false
-  flag9 = false
-  flag12 = false
-  flag14 = 0
-  flag15 = false
+  workingValue4 = number10.offset
+  workingValue4 = workingValue4.heading
+  stateFlag5 = false
+  stateFlag7 = false
+  stateFlag9 = false
+  stateFlag12 = false
+  stateFlag14 = 0
+  stateFlag15 = false
   -- Beginner: Attach one entity to another entity.
-  textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15)
-  textValue3 = TaskPlayAnim
-  iterator = cmgCall3
-  cmgCall4 = numberValue10.animDict
-  playerPed2 = numberValue10.animName
-  flag28 = 8.0
-  flag29 = 8.0
-  flag = -1
+  text3(iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15)
+  text3 = TaskPlayAnim
+  iterator = cmgOperation3
+  cmgOperation4 = number10.animDict
+  playerPed2 = number10.animName
+  stateFlag28 = 8.0
+  stateFlag29 = 8.0
+  stateFlag = -1
   modelHash = 1
   coords = 0
-  workValue4 = false
-  flag5 = false
-  flag7 = false
+  workingValue4 = false
+  stateFlag5 = false
+  stateFlag7 = false
   -- Beginner: Play an animation on a ped.
-  textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7)
-  textValue3 = RemoveAnimDict
-  iterator = numberValue10.animDict
-  textValue3(iterator)
-  textValue3 = numberValue11
-  if 3 == textValue3 then
-    textValue3 = 1
-    numberValue11 = textValue3
+  text3(iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7)
+  text3 = RemoveAnimDict
+  iterator = number10.animDict
+  text3(iterator)
+  text3 = number11
+  if 3 == text3 then
+    text3 = 1
+    number11 = text3
   else
-    textValue3 = numberValue11
-    textValue3 = textValue3 + 1
-    numberValue11 = textValue3
+    text3 = number11
+    text3 = text3 + 1
+    number11 = text3
   end
-  ::flow_label_81::
+  ::continueAtStep81::
 end
-workValue3 = DecorRegister
-cmgCall2 = "ddf749d1be"
-numberValue2 = 2
-workValue3(cmgCall2, numberValue2)
-workValue3 = DecorRegister
-cmgCall2 = "58fe205294"
-numberValue2 = 3
-workValue3(cmgCall2, numberValue2)
+workingValue3 = DecorRegister
+cmgOperation2 = "ddf749d1be"
+number2 = 2
+workingValue3(cmgOperation2, number2)
+workingValue3 = DecorRegister
+cmgOperation2 = "58fe205294"
+number2 = 3
+workingValue3(cmgOperation2, number2)
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-function workValue3()
-  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+function workingValue3()
+  local localValue1, localValue2, cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = flag17
-  if arg2 then
-    arg2 = DisableControlAction
-    cmgCall3 = 0
-    numberValue10 = 24
-    textValue3 = true
-    arg2(cmgCall3, numberValue10, textValue3)
-    arg2 = DisableControlAction
-    cmgCall3 = 0
-    numberValue10 = 25
-    textValue3 = true
-    arg2(cmgCall3, numberValue10, textValue3)
-    arg2 = GetEntityAttachedTo
-    cmgCall3 = arg1
-    arg2 = arg2(cmgCall3)
-    if 0 == arg2 then
-      arg2 = threadCall
-      cmgCall3 = arg1
+  localValue1 = localValue1()
+  localValue2 = stateFlag17
+  if localValue2 then
+    localValue2 = DisableControlAction
+    cmgOperation3 = 0
+    number10 = 24
+    text3 = true
+    localValue2(cmgOperation3, number10, text3)
+    localValue2 = DisableControlAction
+    cmgOperation3 = 0
+    number10 = 25
+    text3 = true
+    localValue2(cmgOperation3, number10, text3)
+    localValue2 = GetEntityAttachedTo
+    cmgOperation3 = localValue1
+    localValue2 = localValue2(cmgOperation3)
+    if 0 == localValue2 then
+      localValue2 = backgroundThread
+      cmgOperation3 = localValue1
       -- Beginner: Start a separate FiveM thread so this code can run independently.
-      arg2(cmgCall3)
+      localValue2(cmgOperation3)
     else
-      arg2 = workValue14
-      cmgCall3 = "~INPUT_FRONTEND_RDOWN~ Change position  ~INPUT_CELLPHONE_CANCEL~ Get up"
-      arg2(cmgCall3)
-      arg2 = IsControlJustReleased
-      cmgCall3 = 0
-      numberValue10 = 202
-      arg2 = arg2(cmgCall3, numberValue10)
-      if arg2 then
-        arg2 = threadCall
-        cmgCall3 = arg1
+      localValue2 = workingValue14
+      cmgOperation3 = "~INPUT_FRONTEND_RDOWN~ Change position  ~INPUT_CELLPHONE_CANCEL~ Get up"
+      localValue2(cmgOperation3)
+      localValue2 = IsControlJustReleased
+      cmgOperation3 = 0
+      number10 = 202
+      localValue2 = localValue2(cmgOperation3, number10)
+      if localValue2 then
+        localValue2 = backgroundThread
+        cmgOperation3 = localValue1
         -- Beginner: Start a separate FiveM thread so this code can run independently.
-        arg2(cmgCall3)
+        localValue2(cmgOperation3)
       end
     end
   end
-  arg2 = workValue10
-  if nil ~= arg2 then
-    arg2 = workValue10
-    if 0 ~= arg2 then
-      arg2 = DecorGetInt
-      cmgCall3 = workValue10
-      numberValue10 = "58fe205294"
-      arg2 = arg2(cmgCall3, numberValue10)
-      if 0 ~= arg2 then
-        arg2 = CMG
-        arg2 = arg2.getObjectId
-        cmgCall3 = DecorGetInt
-        numberValue10 = workValue10
-        textValue3 = "58fe205294"
-        cmgCall3 = cmgCall3(numberValue10, textValue3)
-        numberValue10 = "Stretcher tick"
-        arg2 = arg2(cmgCall3, numberValue10)
-        if not arg2 then
-          arg2 = 0
+  localValue2 = workingValue10
+  if nil ~= localValue2 then
+    localValue2 = workingValue10
+    if 0 ~= localValue2 then
+      localValue2 = DecorGetInt
+      cmgOperation3 = workingValue10
+      number10 = "58fe205294"
+      localValue2 = localValue2(cmgOperation3, number10)
+      if 0 ~= localValue2 then
+        localValue2 = CMG
+        localValue2 = localValue2.getObjectId
+        cmgOperation3 = DecorGetInt
+        number10 = workingValue10
+        text3 = "58fe205294"
+        cmgOperation3 = cmgOperation3(number10, text3)
+        number10 = "Stretcher tick"
+        localValue2 = localValue2(cmgOperation3, number10)
+        if not localValue2 then
+          localValue2 = 0
         end
-        numberValue9 = arg2
+        number9 = localValue2
       else
-        arg2 = workValue12
-        cmgCall3 = 15.0
-        numberValue10 = cmgCall.ambulanceModels
-        arg2 = arg2(cmgCall3, numberValue10)
-        numberValue9 = arg2
+        localValue2 = workingValue12
+        cmgOperation3 = 15.0
+        number10 = cmgOperation.ambulanceModels
+        localValue2 = localValue2(cmgOperation3, number10)
+        number9 = localValue2
       end
-      arg2 = GetEntityCoords
-      cmgCall3 = workValue10
+      localValue2 = GetEntityCoords
+      cmgOperation3 = workingValue10
       -- Beginner: result below is entityCoords.
-      arg2 = arg2(cmgCall3)
-      cmgCall3 = flag17
-      if not cmgCall3 then
-        cmgCall3 = IsEntityPlayingAnim
-        numberValue10 = arg1
-        textValue3 = "anim@heists@box_carry@"
+      localValue2 = localValue2(cmgOperation3)
+      cmgOperation3 = stateFlag17
+      if not cmgOperation3 then
+        cmgOperation3 = IsEntityPlayingAnim
+        number10 = localValue1
+        text3 = "anim@heists@box_carry@"
         iterator = "idle"
-        cmgCall4 = 3
-        cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-        if not cmgCall3 then
-          cmgCall3 = CMG
-          cmgCall3 = cmgCall3.getPlayerVehicle
+        cmgOperation4 = 3
+        cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4)
+        if not cmgOperation3 then
+          cmgOperation3 = CMG
+          cmgOperation3 = cmgOperation3.getPlayerVehicle
           -- Beginner: result below is currentVehicle.
-          cmgCall3 = cmgCall3()
-          if 0 == cmgCall3 then
-            cmgCall3 = true
-            numberValue10 = DecorGetInt
-            textValue3 = workValue10
+          cmgOperation3 = cmgOperation3()
+          if 0 == cmgOperation3 then
+            cmgOperation3 = true
+            number10 = DecorGetInt
+            text3 = workingValue10
             iterator = "58fe205294"
-            numberValue10 = numberValue10(textValue3, iterator)
-            if 0 ~= numberValue10 then
-              numberValue10 = numberValue9
-              cmgCall3 = 0 ~= numberValue10
+            number10 = number10(text3, iterator)
+            if 0 ~= number10 then
+              number10 = number9
+              cmgOperation3 = 0 ~= number10
             end
-            if cmgCall3 then
-              numberValue10 = workValue14
-              textValue3 = "~INPUT_COVER~ Push  ~INPUT_FRONTEND_RDOWN~ Use"
-              numberValue10(textValue3)
+            if cmgOperation3 then
+              number10 = workingValue14
+              text3 = "~INPUT_COVER~ Push  ~INPUT_FRONTEND_RDOWN~ Use"
+              number10(text3)
             end
           end
         end
       end
-      cmgCall3 = IsEntityPlayingAnim
-      numberValue10 = arg1
-      textValue3 = "anim@heists@box_carry@"
+      cmgOperation3 = IsEntityPlayingAnim
+      number10 = localValue1
+      text3 = "anim@heists@box_carry@"
       iterator = "idle"
-      cmgCall4 = 3
-      cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-      if cmgCall3 then
-        cmgCall3 = numberValue9
-        if 0 == cmgCall3 then
-          cmgCall3 = -1
-          numberValue10 = 5.0
-          textValue3 = pairs
+      cmgOperation4 = 3
+      cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4)
+      if cmgOperation3 then
+        cmgOperation3 = number9
+        if 0 == cmgOperation3 then
+          cmgOperation3 = -1
+          number10 = 5.0
+          text3 = pairs
           iterator = GetActivePlayers
-          iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = iterator()
-          textValue3, iterator, cmgCall4, playerPed2 = textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-          for flag28, flag29 in textValue3, iterator, cmgCall4, playerPed2 do
-            flag = GetPlayerPed
-            modelHash = flag29
+          iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25 = iterator()
+          text3, iterator, cmgOperation4, playerPed2 = text3(iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+          for stateFlag28, stateFlag29 in text3, iterator, cmgOperation4, playerPed2 do
+            stateFlag = GetPlayerPed
+            modelHash = stateFlag29
             -- Beginner: result below is playerPed.
-            flag = flag(modelHash)
-            if 0 ~= flag then
+            stateFlag = stateFlag(modelHash)
+            if 0 ~= stateFlag then
               modelHash = GetEntityHealth
-              coords = flag
+              coords = stateFlag
               -- Beginner: result below is health.
               modelHash = modelHash(coords)
               if modelHash >= 100 and modelHash <= 102 then
                 coords = GetEntityAttachedTo
-                workValue4 = flag
-                coords = coords(workValue4)
+                workingValue4 = stateFlag
+                coords = coords(workingValue4)
                 if 0 == coords then
                   coords = GetEntityCoords
-                  workValue4 = flag
-                  flag5 = true
+                  workingValue4 = stateFlag
+                  stateFlag5 = true
                   -- Beginner: result below is entityCoords.
-                  coords = coords(workValue4, flag5)
-                  coords = coords - arg2
+                  coords = coords(workingValue4, stateFlag5)
+                  coords = coords - localValue2
                   coords = #coords
-                  if numberValue10 > coords then
-                    cmgCall3 = flag29
-                    numberValue10 = coords
+                  if number10 > coords then
+                    cmgOperation3 = stateFlag29
+                    number10 = coords
                   end
                 end
               end
             end
           end
-          textValue3 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop pushing"
-          if -1 ~= cmgCall3 then
+          text3 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop pushing"
+          if -1 ~= cmgOperation3 then
             iterator = CMG
             iterator = iterator.hasClientPermission
-            cmgCall4 = "nhs.onduty.permission"
-            iterator = iterator(cmgCall4)
+            cmgOperation4 = "nhs.onduty.permission"
+            iterator = iterator(cmgOperation4)
             if iterator then
-              textValue3 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop  ~INPUT_CELLPHONE_CAMERA_GRID~ Place player"
+              text3 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop  ~INPUT_CELLPHONE_CAMERA_GRID~ Place player"
               iterator = IsControlJustPressed
-              cmgCall4 = 0
+              cmgOperation4 = 0
               playerPed2 = 183
-              iterator = iterator(cmgCall4, playerPed2)
+              iterator = iterator(cmgOperation4, playerPed2)
               if iterator then
                 iterator = GetPlayerServerId
-                cmgCall4 = cmgCall3
+                cmgOperation4 = cmgOperation3
                 -- Beginner: result below is serverId.
-                iterator = iterator(cmgCall4)
-                cmgCall4 = NetworkGetNetworkIdFromEntity
-                playerPed2 = workValue10
-                cmgCall4 = cmgCall4(playerPed2)
-                if iterator > 0 and 0 ~= cmgCall4 then
+                iterator = iterator(cmgOperation4)
+                cmgOperation4 = NetworkGetNetworkIdFromEntity
+                playerPed2 = workingValue10
+                cmgOperation4 = cmgOperation4(playerPed2)
+                if iterator > 0 and 0 ~= cmgOperation4 then
                   playerPed2 = TriggerServerEvent
-                  flag28 = "2d2aca0333"
-                  flag29 = iterator
-                  flag = cmgCall4
+                  stateFlag28 = "2d2aca0333"
+                  stateFlag29 = iterator
+                  stateFlag = cmgOperation4
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2d2aca0333".
-                  playerPed2(flag28, flag29, flag)
+                  playerPed2(stateFlag28, stateFlag29, stateFlag)
                 end
               end
             end
           end
-          iterator = workValue14
-          cmgCall4 = textValue3
-          iterator(cmgCall4)
+          iterator = workingValue14
+          cmgOperation4 = text3
+          iterator(cmgOperation4)
         end
       end
-      cmgCall3 = numberValue9
-      if 0 ~= cmgCall3 then
-        cmgCall3 = DecorGetBool
-        numberValue10 = numberValue9
-        textValue3 = "ddf749d1be"
-        cmgCall3 = cmgCall3(numberValue10, textValue3)
-        if cmgCall3 then
-          cmgCall3 = CMG
-          cmgCall3 = cmgCall3.hasClientPermission
-          numberValue10 = "nhs.onduty.permission"
-          cmgCall3 = cmgCall3(numberValue10)
-          if cmgCall3 then
-            cmgCall3 = IsPedInVehicle
-            numberValue10 = arg1
-            textValue3 = numberValue9
+      cmgOperation3 = number9
+      if 0 ~= cmgOperation3 then
+        cmgOperation3 = DecorGetBool
+        number10 = number9
+        text3 = "ddf749d1be"
+        cmgOperation3 = cmgOperation3(number10, text3)
+        if cmgOperation3 then
+          cmgOperation3 = CMG
+          cmgOperation3 = cmgOperation3.hasClientPermission
+          number10 = "nhs.onduty.permission"
+          cmgOperation3 = cmgOperation3(number10)
+          if cmgOperation3 then
+            cmgOperation3 = IsPedInVehicle
+            number10 = localValue1
+            text3 = number9
             iterator = false
-            cmgCall3 = cmgCall3(numberValue10, textValue3, iterator)
-            if not cmgCall3 then
-              cmgCall3 = flag17
-              if not cmgCall3 then
-                cmgCall3 = GetWorldPositionOfEntityBone
-                numberValue10 = numberValue9
-                textValue3 = GetEntityBoneIndexByName
-                iterator = numberValue9
-                cmgCall4 = "bonnet"
-                textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator, cmgCall4)
-                cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-                numberValue10 = DrawMarker
-                textValue3 = 1
-                iterator = cmgCall3.x
-                cmgCall4 = cmgCall3.y
-                playerPed2 = cmgCall3.z
+            cmgOperation3 = cmgOperation3(number10, text3, iterator)
+            if not cmgOperation3 then
+              cmgOperation3 = stateFlag17
+              if not cmgOperation3 then
+                cmgOperation3 = GetWorldPositionOfEntityBone
+                number10 = number9
+                text3 = GetEntityBoneIndexByName
+                iterator = number9
+                cmgOperation4 = "bonnet"
+                text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25 = text3(iterator, cmgOperation4)
+                cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+                number10 = DrawMarker
+                text3 = 1
+                iterator = cmgOperation3.x
+                cmgOperation4 = cmgOperation3.y
+                playerPed2 = cmgOperation3.z
                 playerPed2 = playerPed2 - 1.75
-                flag28 = 0.0
-                flag29 = 0.0
-                flag = 0.0
+                stateFlag28 = 0.0
+                stateFlag29 = 0.0
+                stateFlag = 0.0
                 modelHash = 0
                 coords = 0.0
-                workValue4 = 0.0
-                flag5 = 1.5
-                flag7 = 1.5
-                flag9 = 1.5
-                flag12 = 0
-                flag14 = 48
-                flag15 = 135
-                flag18 = 235
-                flag19 = false
-                flag20 = true
-                numberValue7 = 2
-                flag22 = false
-                workValue6 = nil
-                workValue7 = nil
-                flag25 = false
-                numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-                numberValue10 = workValue13
-                numberValue10()
-                numberValue10 = GetVehicleDoorAngleRatio
-                textValue3 = numberValue9
+                workingValue4 = 0.0
+                stateFlag5 = 1.5
+                stateFlag7 = 1.5
+                stateFlag9 = 1.5
+                stateFlag12 = 0
+                stateFlag14 = 48
+                stateFlag15 = 135
+                stateFlag18 = 235
+                stateFlag19 = false
+                stateFlag20 = true
+                number7 = 2
+                stateFlag22 = false
+                workingValue6 = nil
+                workingValue7 = nil
+                stateFlag25 = false
+                number10(text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+                number10 = workingValue13
+                number10()
+                number10 = GetVehicleDoorAngleRatio
+                text3 = number9
                 iterator = 4
-                numberValue10 = numberValue10(textValue3, iterator)
-                numberValue10 = 0 ~= numberValue10
-                if numberValue10 then
-                  textValue3 = workValue14
+                number10 = number10(text3, iterator)
+                number10 = 0 ~= number10
+                if number10 then
+                  text3 = workingValue14
                   iterator = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out"
-                  textValue3(iterator)
-                  textValue3 = IsControlJustReleased
+                  text3(iterator)
+                  text3 = IsControlJustReleased
                   iterator = 0
-                  cmgCall4 = 300
-                  textValue3 = textValue3(iterator, cmgCall4)
-                  if textValue3 then
-                    textValue3 = CMG
-                    textValue3 = textValue3.getNetId
-                    iterator = numberValue9
-                    cmgCall4 = "Stretchers"
-                    textValue3 = textValue3(iterator, cmgCall4)
+                  cmgOperation4 = 300
+                  text3 = text3(iterator, cmgOperation4)
+                  if text3 then
+                    text3 = CMG
+                    text3 = text3.getNetId
+                    iterator = number9
+                    cmgOperation4 = "Stretchers"
+                    text3 = text3(iterator, cmgOperation4)
                     iterator = pairs
-                    cmgCall4 = CMG
-                    cmgCall4 = cmgCall4.getAllVehicles
-                    cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = cmgCall4()
-                    iterator, cmgCall4, playerPed2, flag28 = iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-                    for flag29, flag in iterator, cmgCall4, playerPed2, flag28 do
-                      modelHash = cmgCall.stretcherModels
+                    cmgOperation4 = CMG
+                    cmgOperation4 = cmgOperation4.getAllVehicles
+                    cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25 = cmgOperation4()
+                    iterator, cmgOperation4, playerPed2, stateFlag28 = iterator(cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+                    for stateFlag29, stateFlag in iterator, cmgOperation4, playerPed2, stateFlag28 do
+                      modelHash = cmgOperation.stretcherModels
                       coords = GetEntityModel
-                      workValue4 = flag
+                      workingValue4 = stateFlag
                       -- Beginner: result below is modelHash.
-                      coords = coords(workValue4)
+                      coords = coords(workingValue4)
                       modelHash = modelHash[coords]
                       if modelHash then
                         modelHash = DecorGetInt
-                        coords = flag
-                        workValue4 = "58fe205294"
-                        modelHash = modelHash(coords, workValue4)
-                        if modelHash == textValue3 then
+                        coords = stateFlag
+                        workingValue4 = "58fe205294"
+                        modelHash = modelHash(coords, workingValue4)
+                        if modelHash == text3 then
                           modelHash = DetachEntity
-                          coords = flag
-                          workValue4 = true
-                          flag5 = false
-                          modelHash(coords, workValue4, flag5)
+                          coords = stateFlag
+                          workingValue4 = true
+                          stateFlag5 = false
+                          modelHash(coords, workingValue4, stateFlag5)
                           modelHash = FreezeEntityPosition
-                          coords = flag
-                          workValue4 = false
+                          coords = stateFlag
+                          workingValue4 = false
                           -- Beginner: Freeze or unfreeze an entity in place.
-                          modelHash(coords, workValue4)
+                          modelHash(coords, workingValue4)
                           modelHash = vector3
                           coords = 0.0
-                          workValue4 = -2.0
-                          flag5 = 0.0
-                          modelHash = modelHash(coords, workValue4, flag5)
-                          modelHash = cmgCall3 + modelHash
+                          workingValue4 = -2.0
+                          stateFlag5 = 0.0
+                          modelHash = modelHash(coords, workingValue4, stateFlag5)
+                          modelHash = cmgOperation3 + modelHash
                           coords = SetEntityCoords
-                          workValue4 = flag
-                          flag5 = modelHash.x
-                          flag7 = modelHash.y
-                          flag9 = modelHash.z
-                          flag12 = false
-                          flag14 = false
-                          flag15 = false
-                          flag18 = false
+                          workingValue4 = stateFlag
+                          stateFlag5 = modelHash.x
+                          stateFlag7 = modelHash.y
+                          stateFlag9 = modelHash.z
+                          stateFlag12 = false
+                          stateFlag14 = false
+                          stateFlag15 = false
+                          stateFlag18 = false
                           -- Beginner: Move/teleport an entity to new coordinates.
-                          coords(workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18)
+                          coords(workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18)
                           coords = SetVehicleOnGroundProperly
-                          workValue4 = flag
-                          coords(workValue4)
+                          workingValue4 = stateFlag
+                          coords(workingValue4)
                           coords = SetVehicleExtra
-                          workValue4 = flag
-                          flag5 = 1
-                          flag7 = true
-                          coords(workValue4, flag5, flag7)
+                          workingValue4 = stateFlag
+                          stateFlag5 = 1
+                          stateFlag7 = true
+                          coords(workingValue4, stateFlag5, stateFlag7)
                           coords = SetVehicleExtra
-                          workValue4 = flag
-                          flag5 = 2
-                          flag7 = false
-                          coords(workValue4, flag5, flag7)
+                          workingValue4 = stateFlag
+                          stateFlag5 = 2
+                          stateFlag7 = false
+                          coords(workingValue4, stateFlag5, stateFlag7)
                           coords = DecorSetInt
-                          workValue4 = flag
-                          flag5 = "58fe205294"
-                          flag7 = 0
-                          coords(workValue4, flag5, flag7)
+                          workingValue4 = stateFlag
+                          stateFlag5 = "58fe205294"
+                          stateFlag7 = 0
+                          coords(workingValue4, stateFlag5, stateFlag7)
                           coords = NetworkHasControlOfEntity
-                          workValue4 = numberValue9
-                          coords = coords(workValue4)
+                          workingValue4 = number9
+                          coords = coords(workingValue4)
                           if coords then
                             coords = DecorSetBool
-                            workValue4 = numberValue9
-                            flag5 = "ddf749d1be"
-                            flag7 = false
-                            coords(workValue4, flag5, flag7)
+                            workingValue4 = number9
+                            stateFlag5 = "ddf749d1be"
+                            stateFlag7 = false
+                            coords(workingValue4, stateFlag5, stateFlag7)
                           else
                             coords = TriggerServerEvent
-                            workValue4 = "c15aeb9b9f"
-                            flag5 = CMG
-                            flag5 = flag5.getNetId
-                            flag7 = numberValue9
-                            flag9 = "Stretcher"
-                            flag5 = flag5(flag7, flag9)
-                            flag7 = false
+                            workingValue4 = "c15aeb9b9f"
+                            stateFlag5 = CMG
+                            stateFlag5 = stateFlag5.getNetId
+                            stateFlag7 = number9
+                            stateFlag9 = "Stretcher"
+                            stateFlag5 = stateFlag5(stateFlag7, stateFlag9)
+                            stateFlag7 = false
                             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
-                            coords(workValue4, flag5, flag7)
+                            coords(workingValue4, stateFlag5, stateFlag7)
                           end
                           coords = tCMG
                           coords = coords.notify
-                          workValue4 = "Stretcher taken out."
+                          workingValue4 = "Stretcher taken out."
                           -- Beginner: Show a notification to the player.
-                          coords(workValue4)
+                          coords(workingValue4)
                           break
                         end
                       end
                     end
                   end
                 else
-                  textValue3 = workValue14
+                  text3 = workingValue14
                   iterator = "~INPUT_REPLAY_REWIND~ Open/close rear door"
-                  textValue3(iterator)
+                  text3(iterator)
                 end
               end
             end
           end
         end
       end
-      cmgCall3 = IsControlJustReleased
-      numberValue10 = 0
-      textValue3 = 44
-      cmgCall3 = cmgCall3(numberValue10, textValue3)
-      if cmgCall3 then
-        cmgCall3 = IsEntityPlayingAnim
-        numberValue10 = arg1
-        textValue3 = "anim@heists@box_carry@"
+      cmgOperation3 = IsControlJustReleased
+      number10 = 0
+      text3 = 44
+      cmgOperation3 = cmgOperation3(number10, text3)
+      if cmgOperation3 then
+        cmgOperation3 = IsEntityPlayingAnim
+        number10 = localValue1
+        text3 = "anim@heists@box_carry@"
         iterator = "idle"
-        cmgCall4 = 3
-        cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-        if not cmgCall3 then
-          cmgCall3 = flag17
-          if not cmgCall3 then
-            cmgCall3 = DecorGetInt
-            numberValue10 = workValue10
-            textValue3 = "58fe205294"
-            cmgCall3 = cmgCall3(numberValue10, textValue3)
-            if 0 ~= cmgCall3 then
-              cmgCall3 = numberValue9
-              if nil == cmgCall3 then
-                cmgCall3 = 0
+        cmgOperation4 = 3
+        cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4)
+        if not cmgOperation3 then
+          cmgOperation3 = stateFlag17
+          if not cmgOperation3 then
+            cmgOperation3 = DecorGetInt
+            number10 = workingValue10
+            text3 = "58fe205294"
+            cmgOperation3 = cmgOperation3(number10, text3)
+            if 0 ~= cmgOperation3 then
+              cmgOperation3 = number9
+              if nil == cmgOperation3 then
+                cmgOperation3 = 0
               end
-              if 0 ~= cmgCall3 then
-                numberValue10 = GetVehicleDoorAngleRatio
-                textValue3 = cmgCall3
+              if 0 ~= cmgOperation3 then
+                number10 = GetVehicleDoorAngleRatio
+                text3 = cmgOperation3
                 iterator = 4
-                numberValue10 = numberValue10(textValue3, iterator)
-                if 0 == numberValue10 then
-                  numberValue10 = IsThisModelAHeli
-                  textValue3 = GetEntityModel
-                  iterator = cmgCall3
-                  textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator)
-                  numberValue10 = numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+                number10 = number10(text3, iterator)
+                if 0 == number10 then
+                  number10 = IsThisModelAHeli
+                  text3 = GetEntityModel
+                  iterator = cmgOperation3
+                  text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25 = text3(iterator)
+                  number10 = number10(text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
                 end
-                if numberValue10 then
-                  numberValue10 = workValue11
-                  textValue3 = arg1
-                  iterator = workValue10
-                  numberValue10(textValue3, iterator)
+                if number10 then
+                  number10 = workingValue11
+                  text3 = localValue1
+                  iterator = workingValue10
+                  number10(text3, iterator)
                 end
               end
             else
-              cmgCall3 = workValue11
-              numberValue10 = arg1
-              textValue3 = workValue10
-              cmgCall3(numberValue10, textValue3)
+              cmgOperation3 = workingValue11
+              number10 = localValue1
+              text3 = workingValue10
+              cmgOperation3(number10, text3)
             end
           end
         end
       end
-      cmgCall3 = numberValue9
-      if 0 ~= cmgCall3 then
-        cmgCall3 = DecorGetBool
-        numberValue10 = numberValue9
-        textValue3 = "ddf749d1be"
-        cmgCall3 = cmgCall3(numberValue10, textValue3)
-        if not cmgCall3 then
-          cmgCall3 = IsEntityPlayingAnim
-          numberValue10 = arg1
-          textValue3 = "anim@heists@box_carry@"
+      cmgOperation3 = number9
+      if 0 ~= cmgOperation3 then
+        cmgOperation3 = DecorGetBool
+        number10 = number9
+        text3 = "ddf749d1be"
+        cmgOperation3 = cmgOperation3(number10, text3)
+        if not cmgOperation3 then
+          cmgOperation3 = IsEntityPlayingAnim
+          number10 = localValue1
+          text3 = "anim@heists@box_carry@"
           iterator = "idle"
-          cmgCall4 = 3
-          cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-          if cmgCall3 then
-            cmgCall3 = IsPedInVehicle
-            numberValue10 = arg1
-            textValue3 = numberValue9
+          cmgOperation4 = 3
+          cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4)
+          if cmgOperation3 then
+            cmgOperation3 = IsPedInVehicle
+            number10 = localValue1
+            text3 = number9
             iterator = false
-            cmgCall3 = cmgCall3(numberValue10, textValue3, iterator)
-            if not cmgCall3 then
-              cmgCall3 = GetWorldPositionOfEntityBone
-              numberValue10 = numberValue9
-              textValue3 = GetEntityBoneIndexByName
-              iterator = numberValue9
-              cmgCall4 = "bonnet"
-              textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator, cmgCall4)
-              cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-              numberValue10 = DrawMarker
-              textValue3 = 1
-              iterator = cmgCall3.x
-              cmgCall4 = cmgCall3.y
-              playerPed2 = cmgCall3.z
+            cmgOperation3 = cmgOperation3(number10, text3, iterator)
+            if not cmgOperation3 then
+              cmgOperation3 = GetWorldPositionOfEntityBone
+              number10 = number9
+              text3 = GetEntityBoneIndexByName
+              iterator = number9
+              cmgOperation4 = "bonnet"
+              text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25 = text3(iterator, cmgOperation4)
+              cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+              number10 = DrawMarker
+              text3 = 1
+              iterator = cmgOperation3.x
+              cmgOperation4 = cmgOperation3.y
+              playerPed2 = cmgOperation3.z
               playerPed2 = playerPed2 - 1.75
-              flag28 = 0.0
-              flag29 = 0.0
-              flag = 0.0
+              stateFlag28 = 0.0
+              stateFlag29 = 0.0
+              stateFlag = 0.0
               modelHash = 0
               coords = 0.0
-              workValue4 = 0.0
-              flag5 = 1.5
-              flag7 = 1.5
-              flag9 = 1.5
-              flag12 = 0
-              flag14 = 48
-              flag15 = 135
-              flag18 = 235
-              flag19 = false
-              flag20 = true
-              numberValue7 = 2
-              flag22 = false
-              workValue6 = nil
-              workValue7 = nil
-              flag25 = false
-              numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-              numberValue10 = workValue13
-              numberValue10()
+              workingValue4 = 0.0
+              stateFlag5 = 1.5
+              stateFlag7 = 1.5
+              stateFlag9 = 1.5
+              stateFlag12 = 0
+              stateFlag14 = 48
+              stateFlag15 = 135
+              stateFlag18 = 235
+              stateFlag19 = false
+              stateFlag20 = true
+              number7 = 2
+              stateFlag22 = false
+              workingValue6 = nil
+              workingValue7 = nil
+              stateFlag25 = false
+              number10(text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+              number10 = workingValue13
+              number10()
             end
           end
         end
       end
-      cmgCall3 = IsControlJustReleased
-      numberValue10 = 0
-      textValue3 = 191
-      cmgCall3 = cmgCall3(numberValue10, textValue3)
-      if cmgCall3 then
-        cmgCall3 = IsEntityPlayingAnim
-        numberValue10 = arg1
-        textValue3 = "anim@heists@box_carry@"
+      cmgOperation3 = IsControlJustReleased
+      number10 = 0
+      text3 = 191
+      cmgOperation3 = cmgOperation3(number10, text3)
+      if cmgOperation3 then
+        cmgOperation3 = IsEntityPlayingAnim
+        number10 = localValue1
+        text3 = "anim@heists@box_carry@"
         iterator = "idle"
-        cmgCall4 = 3
-        cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-        if not cmgCall3 then
-          cmgCall3 = workValue2
-          numberValue10 = workValue10
-          cmgCall3(numberValue10)
+        cmgOperation4 = 3
+        cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4)
+        if not cmgOperation3 then
+          cmgOperation3 = workingValue2
+          number10 = workingValue10
+          cmgOperation3(number10)
         end
       end
     end
   end
-  arg2 = flag17
-  if not arg2 then
-    arg2 = CMG
-    arg2 = arg2.getPlayerVehicle
+  localValue2 = stateFlag17
+  if not localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg2 = arg2()
-    if 0 == arg2 then
-      arg2 = CMG
-      arg2 = arg2.hasClientPermission
-      cmgCall3 = "nhs.onduty.permission"
-      arg2 = arg2(cmgCall3)
-      if arg2 then
-        arg2 = workValue12
-        cmgCall3 = 5.0
-        numberValue10 = cmgCall.ambulanceModels
-        arg2 = arg2(cmgCall3, numberValue10)
-        if arg2 and 0 ~= arg2 then
-          cmgCall3 = DecorGetBool
-          numberValue10 = arg2
-          textValue3 = "ddf749d1be"
-          cmgCall3 = cmgCall3(numberValue10, textValue3)
-          if cmgCall3 then
-            cmgCall3 = IsPedInVehicle
-            numberValue10 = arg1
-            textValue3 = arg2
+    localValue2 = localValue2()
+    if 0 == localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.hasClientPermission
+      cmgOperation3 = "nhs.onduty.permission"
+      localValue2 = localValue2(cmgOperation3)
+      if localValue2 then
+        localValue2 = workingValue12
+        cmgOperation3 = 5.0
+        number10 = cmgOperation.ambulanceModels
+        localValue2 = localValue2(cmgOperation3, number10)
+        if localValue2 and 0 ~= localValue2 then
+          cmgOperation3 = DecorGetBool
+          number10 = localValue2
+          text3 = "ddf749d1be"
+          cmgOperation3 = cmgOperation3(number10, text3)
+          if cmgOperation3 then
+            cmgOperation3 = IsPedInVehicle
+            number10 = localValue1
+            text3 = localValue2
             iterator = false
-            cmgCall3 = cmgCall3(numberValue10, textValue3, iterator)
-            if not cmgCall3 then
-              cmgCall3 = GetWorldPositionOfEntityBone
-              numberValue10 = arg2
-              textValue3 = GetEntityBoneIndexByName
-              iterator = arg2
-              cmgCall4 = "bonnet"
-              textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator, cmgCall4)
-              cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-              numberValue10 = GetEntityCoords
-              textValue3 = arg1
+            cmgOperation3 = cmgOperation3(number10, text3, iterator)
+            if not cmgOperation3 then
+              cmgOperation3 = GetWorldPositionOfEntityBone
+              number10 = localValue2
+              text3 = GetEntityBoneIndexByName
+              iterator = localValue2
+              cmgOperation4 = "bonnet"
+              text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25 = text3(iterator, cmgOperation4)
+              cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+              number10 = GetEntityCoords
+              text3 = localValue1
               -- Beginner: result below is entityCoords.
-              numberValue10 = numberValue10(textValue3)
-              numberValue10 = numberValue10 - cmgCall3
-              numberValue10 = #numberValue10
-              if numberValue10 < 4.0 then
-                numberValue10 = DrawMarker
-                textValue3 = 1
-                iterator = cmgCall3.x
-                cmgCall4 = cmgCall3.y
-                playerPed2 = cmgCall3.z
+              number10 = number10(text3)
+              number10 = number10 - cmgOperation3
+              number10 = #number10
+              if number10 < 4.0 then
+                number10 = DrawMarker
+                text3 = 1
+                iterator = cmgOperation3.x
+                cmgOperation4 = cmgOperation3.y
+                playerPed2 = cmgOperation3.z
                 playerPed2 = playerPed2 - 1.75
-                flag28 = 0.0
-                flag29 = 0.0
-                flag = 0.0
+                stateFlag28 = 0.0
+                stateFlag29 = 0.0
+                stateFlag = 0.0
                 modelHash = 0
                 coords = 0.0
-                workValue4 = 0.0
-                flag5 = 1.5
-                flag7 = 1.5
-                flag9 = 1.5
-                flag12 = 0
-                flag14 = 48
-                flag15 = 135
-                flag18 = 235
-                flag19 = false
-                flag20 = true
-                numberValue7 = 2
-                flag22 = false
-                workValue6 = nil
-                workValue7 = nil
-                flag25 = false
-                numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-                numberValue9 = arg2
-                numberValue10 = workValue13
-                numberValue10()
-                numberValue10 = GetVehicleDoorAngleRatio
-                textValue3 = arg2
+                workingValue4 = 0.0
+                stateFlag5 = 1.5
+                stateFlag7 = 1.5
+                stateFlag9 = 1.5
+                stateFlag12 = 0
+                stateFlag14 = 48
+                stateFlag15 = 135
+                stateFlag18 = 235
+                stateFlag19 = false
+                stateFlag20 = true
+                number7 = 2
+                stateFlag22 = false
+                workingValue6 = nil
+                workingValue7 = nil
+                stateFlag25 = false
+                number10(text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+                number9 = localValue2
+                number10 = workingValue13
+                number10()
+                number10 = GetVehicleDoorAngleRatio
+                text3 = localValue2
                 iterator = 4
-                numberValue10 = numberValue10(textValue3, iterator)
-                numberValue10 = 0 ~= numberValue10
-                if numberValue10 then
-                  textValue3 = workValue14
+                number10 = number10(text3, iterator)
+                number10 = 0 ~= number10
+                if number10 then
+                  text3 = workingValue14
                   iterator = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out"
-                  textValue3(iterator)
-                  textValue3 = IsControlJustReleased
+                  text3(iterator)
+                  text3 = IsControlJustReleased
                   iterator = 0
-                  cmgCall4 = 300
-                  textValue3 = textValue3(iterator, cmgCall4)
-                  if textValue3 then
-                    textValue3 = CMG
-                    textValue3 = textValue3.getNetId
-                    iterator = arg2
-                    cmgCall4 = "Stretchers"
-                    textValue3 = textValue3(iterator, cmgCall4)
+                  cmgOperation4 = 300
+                  text3 = text3(iterator, cmgOperation4)
+                  if text3 then
+                    text3 = CMG
+                    text3 = text3.getNetId
+                    iterator = localValue2
+                    cmgOperation4 = "Stretchers"
+                    text3 = text3(iterator, cmgOperation4)
                     iterator = pairs
-                    cmgCall4 = CMG
-                    cmgCall4 = cmgCall4.getAllVehicles
-                    cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = cmgCall4()
-                    iterator, cmgCall4, playerPed2, flag28 = iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
-                    for flag29, flag in iterator, cmgCall4, playerPed2, flag28 do
-                      modelHash = cmgCall.stretcherModels
+                    cmgOperation4 = CMG
+                    cmgOperation4 = cmgOperation4.getAllVehicles
+                    cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25 = cmgOperation4()
+                    iterator, cmgOperation4, playerPed2, stateFlag28 = iterator(cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18, stateFlag19, stateFlag20, number7, stateFlag22, workingValue6, workingValue7, stateFlag25)
+                    for stateFlag29, stateFlag in iterator, cmgOperation4, playerPed2, stateFlag28 do
+                      modelHash = cmgOperation.stretcherModels
                       coords = GetEntityModel
-                      workValue4 = flag
+                      workingValue4 = stateFlag
                       -- Beginner: result below is modelHash.
-                      coords = coords(workValue4)
+                      coords = coords(workingValue4)
                       modelHash = modelHash[coords]
                       if modelHash then
                         modelHash = DecorGetInt
-                        coords = flag
-                        workValue4 = "58fe205294"
-                        modelHash = modelHash(coords, workValue4)
-                        if modelHash == textValue3 then
+                        coords = stateFlag
+                        workingValue4 = "58fe205294"
+                        modelHash = modelHash(coords, workingValue4)
+                        if modelHash == text3 then
                           modelHash = DetachEntity
-                          coords = flag
-                          workValue4 = true
-                          flag5 = false
-                          modelHash(coords, workValue4, flag5)
+                          coords = stateFlag
+                          workingValue4 = true
+                          stateFlag5 = false
+                          modelHash(coords, workingValue4, stateFlag5)
                           modelHash = FreezeEntityPosition
-                          coords = flag
-                          workValue4 = false
+                          coords = stateFlag
+                          workingValue4 = false
                           -- Beginner: Freeze or unfreeze an entity in place.
-                          modelHash(coords, workValue4)
+                          modelHash(coords, workingValue4)
                           modelHash = vector3
                           coords = 0.0
-                          workValue4 = -2.0
-                          flag5 = 0.0
-                          modelHash = modelHash(coords, workValue4, flag5)
-                          modelHash = cmgCall3 + modelHash
+                          workingValue4 = -2.0
+                          stateFlag5 = 0.0
+                          modelHash = modelHash(coords, workingValue4, stateFlag5)
+                          modelHash = cmgOperation3 + modelHash
                           coords = SetEntityCoords
-                          workValue4 = flag
-                          flag5 = modelHash.x
-                          flag7 = modelHash.y
-                          flag9 = modelHash.z
-                          flag12 = false
-                          flag14 = false
-                          flag15 = false
-                          flag18 = false
+                          workingValue4 = stateFlag
+                          stateFlag5 = modelHash.x
+                          stateFlag7 = modelHash.y
+                          stateFlag9 = modelHash.z
+                          stateFlag12 = false
+                          stateFlag14 = false
+                          stateFlag15 = false
+                          stateFlag18 = false
                           -- Beginner: Move/teleport an entity to new coordinates.
-                          coords(workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18)
+                          coords(workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18)
                           coords = SetVehicleOnGroundProperly
-                          workValue4 = flag
-                          coords(workValue4)
+                          workingValue4 = stateFlag
+                          coords(workingValue4)
                           coords = SetVehicleExtra
-                          workValue4 = flag
-                          flag5 = 1
-                          flag7 = true
-                          coords(workValue4, flag5, flag7)
+                          workingValue4 = stateFlag
+                          stateFlag5 = 1
+                          stateFlag7 = true
+                          coords(workingValue4, stateFlag5, stateFlag7)
                           coords = SetVehicleExtra
-                          workValue4 = flag
-                          flag5 = 2
-                          flag7 = false
-                          coords(workValue4, flag5, flag7)
+                          workingValue4 = stateFlag
+                          stateFlag5 = 2
+                          stateFlag7 = false
+                          coords(workingValue4, stateFlag5, stateFlag7)
                           coords = DecorSetInt
-                          workValue4 = flag
-                          flag5 = "58fe205294"
-                          flag7 = 0
-                          coords(workValue4, flag5, flag7)
+                          workingValue4 = stateFlag
+                          stateFlag5 = "58fe205294"
+                          stateFlag7 = 0
+                          coords(workingValue4, stateFlag5, stateFlag7)
                           coords = NetworkHasControlOfEntity
-                          workValue4 = arg2
-                          coords = coords(workValue4)
+                          workingValue4 = localValue2
+                          coords = coords(workingValue4)
                           if coords then
                             coords = DecorSetBool
-                            workValue4 = arg2
-                            flag5 = "ddf749d1be"
-                            flag7 = false
-                            coords(workValue4, flag5, flag7)
+                            workingValue4 = localValue2
+                            stateFlag5 = "ddf749d1be"
+                            stateFlag7 = false
+                            coords(workingValue4, stateFlag5, stateFlag7)
                           else
                             coords = TriggerServerEvent
-                            workValue4 = "c15aeb9b9f"
-                            flag5 = CMG
-                            flag5 = flag5.getNetId
-                            flag7 = arg2
-                            flag9 = "Stretcher"
-                            flag5 = flag5(flag7, flag9)
-                            flag7 = false
+                            workingValue4 = "c15aeb9b9f"
+                            stateFlag5 = CMG
+                            stateFlag5 = stateFlag5.getNetId
+                            stateFlag7 = localValue2
+                            stateFlag9 = "Stretcher"
+                            stateFlag5 = stateFlag5(stateFlag7, stateFlag9)
+                            stateFlag7 = false
                             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
-                            coords(workValue4, flag5, flag7)
+                            coords(workingValue4, stateFlag5, stateFlag7)
                           end
                           coords = tCMG
                           coords = coords.notify
-                          workValue4 = "Stretcher taken out."
+                          workingValue4 = "Stretcher taken out."
                           -- Beginner: Show a notification to the player.
-                          coords(workValue4)
+                          coords(workingValue4)
                           break
                         end
                       end
                     end
                   end
                 else
-                  textValue3 = workValue14
+                  text3 = workingValue14
                   iterator = "~INPUT_REPLAY_REWIND~ Open rear door"
-                  textValue3(iterator)
+                  text3(iterator)
                 end
               end
             end
@@ -1112,201 +1112,201 @@ function workValue3()
     end
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-numberValue2 = workValue3
-textValue = "NHS Stretcher"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+number2 = workingValue3
+text = "NHS Stretcher"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(numberValue2, textValue)
+cmgOperation2(number2, text)
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2) ===
-function cmgCall2(arg1, arg2)
-  local cmgCall3, numberValue10
-  cmgCall3 = Citizen
-  cmgCall3 = cmgCall3.CreateThread
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1, localValue2) ===
+function cmgOperation2(localValue1, localValue2)
+  local cmgOperation3, number10
+  cmgOperation3 = Citizen
+  cmgOperation3 = cmgOperation3.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: numberValue10; parameters: none) ===
-  function numberValue10()
-    local networkId, serverEventCall, textValue2, playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26
+  -- === HELPER FUNCTION (decompiler name: number10; parameters: none) ===
+  function number10()
+    local networkId, serverEventCall, text2, playerPed, stateFlag27, text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26
     networkId = NetworkGetNetworkIdFromEntity
-    serverEventCall = arg2
+    serverEventCall = localValue2
     networkId = networkId(serverEventCall)
     if 0 == networkId then
       return
     end
     serverEventCall = TriggerServerEvent
-    textValue2 = "5672bd2d03"
+    text2 = "5672bd2d03"
     playerPed = networkId
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5672bd2d03".
-    serverEventCall(textValue2, playerPed)
+    serverEventCall(text2, playerPed)
     serverEventCall = AttachEntityToEntity
-    textValue2 = arg2
+    text2 = localValue2
     playerPed = PlayerPedId
     -- Beginner: result below is localPlayerPed.
     playerPed = playerPed()
-    flag27 = -1
-    textValue4 = -0.05
-    numberValue12 = 1.3
-    textValue5 = -0.345
-    textValue6 = 180.0
-    numberValue13 = 180.0
-    numberValue = 180.0
-    flag2 = false
-    flag3 = false
-    flag4 = false
-    flag6 = true
-    flag8 = 0
-    flag10 = true
+    stateFlag27 = -1
+    text4 = -0.05
+    number12 = 1.3
+    text5 = -0.345
+    text6 = 180.0
+    number13 = 180.0
+    number = 180.0
+    stateFlag2 = false
+    stateFlag3 = false
+    stateFlag4 = false
+    stateFlag6 = true
+    stateFlag8 = 0
+    stateFlag10 = true
     -- Beginner: Attach one entity to another entity.
-    serverEventCall(textValue2, playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10)
+    serverEventCall(text2, playerPed, stateFlag27, text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10)
     while true do
       serverEventCall = NetworkHasControlOfEntity
-      textValue2 = arg2
-      serverEventCall = serverEventCall(textValue2)
+      text2 = localValue2
+      serverEventCall = serverEventCall(text2)
       if serverEventCall then
         serverEventCall = IsEntityAttachedToEntity
-        textValue2 = arg2
-        playerPed = arg1
-        serverEventCall = serverEventCall(textValue2, playerPed)
+        text2 = localValue2
+        playerPed = localValue1
+        serverEventCall = serverEventCall(text2, playerPed)
         if serverEventCall then
           break
         end
       end
       serverEventCall = Wait
-      textValue2 = 0
-      serverEventCall(textValue2)
+      text2 = 0
+      serverEventCall(text2)
     end
     serverEventCall = SetEntityHeading
-    textValue2 = arg1
+    text2 = localValue1
     playerPed = GetEntityHeading
-    flag27 = arg2
-    playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = playerPed(flag27)
+    stateFlag27 = localValue2
+    playerPed, stateFlag27, text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26 = playerPed(stateFlag27)
     -- Beginner: Change the direction an entity is facing.
-    serverEventCall(textValue2, playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+    serverEventCall(text2, playerPed, stateFlag27, text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26)
     serverEventCall = SetVehicleExtra
-    textValue2 = arg2
+    text2 = localValue2
     playerPed = 1
-    flag27 = false
-    serverEventCall(textValue2, playerPed, flag27)
+    stateFlag27 = false
+    serverEventCall(text2, playerPed, stateFlag27)
     serverEventCall = SetVehicleExtra
-    textValue2 = arg2
+    text2 = localValue2
     playerPed = 2
-    flag27 = true
-    serverEventCall(textValue2, playerPed, flag27)
+    stateFlag27 = true
+    serverEventCall(text2, playerPed, stateFlag27)
     serverEventCall = CMG
     serverEventCall = serverEventCall.loadAnimDict
-    textValue2 = "anim@heists@box_carry@"
+    text2 = "anim@heists@box_carry@"
     -- Beginner: Load a GTA animation dictionary before using it.
-    serverEventCall(textValue2)
+    serverEventCall(text2)
     serverEventCall = 0
     while true do
-      textValue2 = IsEntityAttachedToEntity
-      playerPed = arg2
-      flag27 = arg1
-      textValue2 = textValue2(playerPed, flag27)
-      if not textValue2 then
+      text2 = IsEntityAttachedToEntity
+      playerPed = localValue2
+      stateFlag27 = localValue1
+      text2 = text2(playerPed, stateFlag27)
+      if not text2 then
         break
       end
-      textValue2 = Citizen
-      textValue2 = textValue2.Wait
+      text2 = Citizen
+      text2 = text2.Wait
       playerPed = 0
-      textValue2(playerPed)
-      textValue2 = IsEntityPlayingAnim
-      playerPed = arg1
-      flag27 = "anim@heists@box_carry@"
-      textValue4 = "idle"
-      numberValue12 = 3
-      textValue2 = textValue2(playerPed, flag27, textValue4, numberValue12)
-      if not textValue2 then
-        textValue2 = TaskPlayAnim
-        playerPed = arg1
-        flag27 = "anim@heists@box_carry@"
-        textValue4 = "idle"
-        numberValue12 = 8.0
-        textValue5 = 8.0
-        textValue6 = -1
-        numberValue13 = 50
-        numberValue = 0
-        flag2 = false
-        flag3 = false
-        flag4 = false
+      text2(playerPed)
+      text2 = IsEntityPlayingAnim
+      playerPed = localValue1
+      stateFlag27 = "anim@heists@box_carry@"
+      text4 = "idle"
+      number12 = 3
+      text2 = text2(playerPed, stateFlag27, text4, number12)
+      if not text2 then
+        text2 = TaskPlayAnim
+        playerPed = localValue1
+        stateFlag27 = "anim@heists@box_carry@"
+        text4 = "idle"
+        number12 = 8.0
+        text5 = 8.0
+        text6 = -1
+        number13 = 50
+        number = 0
+        stateFlag2 = false
+        stateFlag3 = false
+        stateFlag4 = false
         -- Beginner: Play an animation on a ped.
-        textValue2(playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4)
+        text2(playerPed, stateFlag27, text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4)
       end
-      textValue2 = IsControlJustReleased
+      text2 = IsControlJustReleased
       playerPed = 0
-      flag27 = 73
-      textValue2 = textValue2(playerPed, flag27)
-      if not textValue2 then
-        textValue2 = IsPedDeadOrDying
-        playerPed = arg1
-        flag27 = false
-        textValue2 = textValue2(playerPed, flag27)
-        if not textValue2 then
-          goto flow_label_129
+      stateFlag27 = 73
+      text2 = text2(playerPed, stateFlag27)
+      if not text2 then
+        text2 = IsPedDeadOrDying
+        playerPed = localValue1
+        stateFlag27 = false
+        text2 = text2(playerPed, stateFlag27)
+        if not text2 then
+          goto continueAtStep129
         end
       end
-      textValue2 = ClearPedTasksImmediately
-      playerPed = arg1
-      textValue2(playerPed)
-      textValue2 = SetVehicleExtra
-      playerPed = arg2
-      flag27 = 1
-      textValue4 = true
-      textValue2(playerPed, flag27, textValue4)
-      textValue2 = SetVehicleExtra
-      playerPed = arg2
-      flag27 = 2
-      textValue4 = false
-      textValue2(playerPed, flag27, textValue4)
-      textValue2 = DetachEntity
-      playerPed = arg2
-      flag27 = true
-      textValue4 = false
-      textValue2(playerPed, flag27, textValue4)
-      textValue2 = SetVehicleOnGroundProperly
-      playerPed = arg2
-      textValue2(playerPed)
-      ::flow_label_129::
-      textValue2 = DecorGetInt
-      playerPed = arg2
-      flag27 = "58fe205294"
-      textValue2 = textValue2(playerPed, flag27)
-      if 0 ~= textValue2 then
-        textValue2 = CMG
-        textValue2 = textValue2.getObjectId
+      text2 = ClearPedTasksImmediately
+      playerPed = localValue1
+      text2(playerPed)
+      text2 = SetVehicleExtra
+      playerPed = localValue2
+      stateFlag27 = 1
+      text4 = true
+      text2(playerPed, stateFlag27, text4)
+      text2 = SetVehicleExtra
+      playerPed = localValue2
+      stateFlag27 = 2
+      text4 = false
+      text2(playerPed, stateFlag27, text4)
+      text2 = DetachEntity
+      playerPed = localValue2
+      stateFlag27 = true
+      text4 = false
+      text2(playerPed, stateFlag27, text4)
+      text2 = SetVehicleOnGroundProperly
+      playerPed = localValue2
+      text2(playerPed)
+      ::continueAtStep129::
+      text2 = DecorGetInt
+      playerPed = localValue2
+      stateFlag27 = "58fe205294"
+      text2 = text2(playerPed, stateFlag27)
+      if 0 ~= text2 then
+        text2 = CMG
+        text2 = text2.getObjectId
         playerPed = DecorGetInt
-        flag27 = arg2
-        textValue4 = "58fe205294"
-        playerPed = playerPed(flag27, textValue4)
-        flag27 = "pushStretcher(ped, nearbyStretcher)"
-        textValue2 = textValue2(playerPed, flag27)
-        if textValue2 then
+        stateFlag27 = localValue2
+        text4 = "58fe205294"
+        playerPed = playerPed(stateFlag27, text4)
+        stateFlag27 = "pushStretcher(ped, nearbyStretcher)"
+        text2 = text2(playerPed, stateFlag27)
+        if text2 then
           playerPed = DecorGetBool
-          flag27 = textValue2
-          textValue4 = "ddf749d1be"
-          playerPed = playerPed(flag27, textValue4)
+          stateFlag27 = text2
+          text4 = "ddf749d1be"
+          playerPed = playerPed(stateFlag27, text4)
           if playerPed then
             playerPed = NetworkHasControlOfEntity
-            flag27 = textValue2
-            playerPed = playerPed(flag27)
+            stateFlag27 = text2
+            playerPed = playerPed(stateFlag27)
             if not playerPed then
               playerPed = GetGameTimer
               -- Beginner: result below is gameTimeMs.
               playerPed = playerPed()
               playerPed = playerPed - serverEventCall
-              flag27 = 200
-              if playerPed > flag27 then
+              stateFlag27 = 200
+              if playerPed > stateFlag27 then
                 playerPed = TriggerServerEvent
-                flag27 = "c15aeb9b9f"
-                textValue4 = CMG
-                textValue4 = textValue4.getNetId
-                numberValue12 = textValue2
-                textValue5 = "Stretchers"
-                textValue4 = textValue4(numberValue12, textValue5)
-                numberValue12 = false
+                stateFlag27 = "c15aeb9b9f"
+                text4 = CMG
+                text4 = text4.getNetId
+                number12 = text2
+                text5 = "Stretchers"
+                text4 = text4(number12, text5)
+                number12 = false
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
-                playerPed(flag27, textValue4, numberValue12)
+                playerPed(stateFlag27, text4, number12)
                 playerPed = GetGameTimer
                 -- Beginner: result below is gameTimeMs.
                 playerPed = playerPed()
@@ -1314,566 +1314,566 @@ function cmgCall2(arg1, arg2)
               end
             else
               playerPed = DecorSetBool
-              flag27 = textValue2
-              textValue4 = "ddf749d1be"
-              numberValue12 = false
-              playerPed(flag27, textValue4, numberValue12)
+              stateFlag27 = text2
+              text4 = "ddf749d1be"
+              number12 = false
+              playerPed(stateFlag27, text4, number12)
             end
           end
         end
       end
-      textValue2 = workValue12
+      text2 = workingValue12
       playerPed = 15.0
-      flag27 = cmgCall.ambulanceModels
-      textValue2 = textValue2(playerPed, flag27)
-      numberValue9 = textValue2
-      textValue2 = numberValue9
-      if nil ~= textValue2 then
-        textValue2 = numberValue9
-        if 0 ~= textValue2 then
-          textValue2 = GetVehicleDoorAngleRatio
-          playerPed = numberValue9
-          flag27 = 4
-          textValue2 = textValue2(playerPed, flag27)
-          textValue2 = 0 ~= textValue2
-          if not textValue2 then
-            playerPed = workValue14
-            flag27 = "~INPUT_REPLAY_REWIND~ Open rear door"
-            playerPed(flag27)
+      stateFlag27 = cmgOperation.ambulanceModels
+      text2 = text2(playerPed, stateFlag27)
+      number9 = text2
+      text2 = number9
+      if nil ~= text2 then
+        text2 = number9
+        if 0 ~= text2 then
+          text2 = GetVehicleDoorAngleRatio
+          playerPed = number9
+          stateFlag27 = 4
+          text2 = text2(playerPed, stateFlag27)
+          text2 = 0 ~= text2
+          if not text2 then
+            playerPed = workingValue14
+            stateFlag27 = "~INPUT_REPLAY_REWIND~ Open rear door"
+            playerPed(stateFlag27)
           else
-            playerPed = workValue14
-            flag27 = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Put stretcher in"
-            playerPed(flag27)
+            playerPed = workingValue14
+            stateFlag27 = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Put stretcher in"
+            playerPed(stateFlag27)
           end
           playerPed = DecorGetBool
-          flag27 = numberValue9
-          textValue4 = "ddf749d1be"
-          playerPed = playerPed(flag27, textValue4)
+          stateFlag27 = number9
+          text4 = "ddf749d1be"
+          playerPed = playerPed(stateFlag27, text4)
           if not playerPed then
-            flag27 = GetWorldPositionOfEntityBone
-            textValue4 = numberValue9
-            numberValue12 = GetEntityBoneIndexByName
-            textValue5 = numberValue9
-            textValue6 = "bonnet"
-            numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = numberValue12(textValue5, textValue6)
-            flag27 = flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
-            textValue4 = DrawMarker
-            numberValue12 = 1
-            textValue5 = flag27.x
-            textValue6 = flag27.y
-            numberValue13 = flag27.z
-            numberValue13 = numberValue13 - 1.75
-            numberValue = 0.0
-            flag2 = 0.0
-            flag3 = 0.0
-            flag4 = 0
-            flag6 = 0.0
-            flag8 = 0.0
-            flag10 = 1.5
-            flag13 = 1.5
-            numberValue3 = 1.5
-            flag16 = 0
-            numberValue4 = 48
-            numberValue5 = 135
-            numberValue6 = 235
-            flag21 = false
-            flag23 = true
-            numberValue8 = 2
-            flag24 = false
-            workValue8 = nil
-            workValue9 = nil
-            flag26 = false
-            textValue4(numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+            stateFlag27 = GetWorldPositionOfEntityBone
+            text4 = number9
+            number12 = GetEntityBoneIndexByName
+            text5 = number9
+            text6 = "bonnet"
+            number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26 = number12(text5, text6)
+            stateFlag27 = stateFlag27(text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26)
+            text4 = DrawMarker
+            number12 = 1
+            text5 = stateFlag27.x
+            text6 = stateFlag27.y
+            number13 = stateFlag27.z
+            number13 = number13 - 1.75
+            number = 0.0
+            stateFlag2 = 0.0
+            stateFlag3 = 0.0
+            stateFlag4 = 0
+            stateFlag6 = 0.0
+            stateFlag8 = 0.0
+            stateFlag10 = 1.5
+            stateFlag13 = 1.5
+            number3 = 1.5
+            stateFlag16 = 0
+            number4 = 48
+            number5 = 135
+            number6 = 235
+            stateFlag21 = false
+            stateFlag23 = true
+            number8 = 2
+            stateFlag24 = false
+            workingValue8 = nil
+            workingValue9 = nil
+            stateFlag26 = false
+            text4(number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26)
           end
-          flag27 = IsControlJustReleased
-          textValue4 = 0
-          numberValue12 = 300
-          flag27 = flag27(textValue4, numberValue12)
-          if flag27 then
-            if not textValue2 then
-              flag27 = IsThisModelAHeli
-              textValue4 = GetEntityModel
-              numberValue12 = numberValue9
-              textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue4(numberValue12)
-              flag27 = flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+          stateFlag27 = IsControlJustReleased
+          text4 = 0
+          number12 = 300
+          stateFlag27 = stateFlag27(text4, number12)
+          if stateFlag27 then
+            if not text2 then
+              stateFlag27 = IsThisModelAHeli
+              text4 = GetEntityModel
+              number12 = number9
+              text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26 = text4(number12)
+              stateFlag27 = stateFlag27(text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26)
             end
-            if flag27 and not playerPed then
-              flag27 = ClearPedTasksImmediately
-              textValue4 = arg1
-              flag27(textValue4)
-              flag27 = SetVehicleExtra
-              textValue4 = arg2
-              numberValue12 = 1
-              textValue5 = true
-              flag27(textValue4, numberValue12, textValue5)
-              flag27 = SetVehicleExtra
-              textValue4 = arg2
-              numberValue12 = 2
-              textValue5 = false
-              flag27(textValue4, numberValue12, textValue5)
-              flag27 = DetachEntity
-              textValue4 = arg2
-              numberValue12 = true
-              textValue5 = false
-              flag27(textValue4, numberValue12, textValue5)
-              flag27 = SetVehicleOnGroundProperly
-              textValue4 = arg2
-              flag27(textValue4)
-              flag27 = IsThisModelAHeli
-              textValue4 = GetEntityModel
-              numberValue12 = numberValue9
-              textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue4(numberValue12)
-              flag27 = flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
-              if flag27 then
-                flag27 = AttachEntityToEntity
-                textValue4 = arg2
-                numberValue12 = numberValue9
-                textValue5 = -1
-                textValue6 = 0.0
-                numberValue13 = 0.0
-                numberValue = 0.0
-                flag2 = 0.0
-                flag3 = 0.0
-                flag4 = 0.0
-                flag6 = false
-                flag8 = false
-                flag10 = false
-                flag13 = false
-                numberValue3 = 0.0
-                flag16 = true
+            if stateFlag27 and not playerPed then
+              stateFlag27 = ClearPedTasksImmediately
+              text4 = localValue1
+              stateFlag27(text4)
+              stateFlag27 = SetVehicleExtra
+              text4 = localValue2
+              number12 = 1
+              text5 = true
+              stateFlag27(text4, number12, text5)
+              stateFlag27 = SetVehicleExtra
+              text4 = localValue2
+              number12 = 2
+              text5 = false
+              stateFlag27(text4, number12, text5)
+              stateFlag27 = DetachEntity
+              text4 = localValue2
+              number12 = true
+              text5 = false
+              stateFlag27(text4, number12, text5)
+              stateFlag27 = SetVehicleOnGroundProperly
+              text4 = localValue2
+              stateFlag27(text4)
+              stateFlag27 = IsThisModelAHeli
+              text4 = GetEntityModel
+              number12 = number9
+              text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26 = text4(number12)
+              stateFlag27 = stateFlag27(text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26)
+              if stateFlag27 then
+                stateFlag27 = AttachEntityToEntity
+                text4 = localValue2
+                number12 = number9
+                text5 = -1
+                text6 = 0.0
+                number13 = 0.0
+                number = 0.0
+                stateFlag2 = 0.0
+                stateFlag3 = 0.0
+                stateFlag4 = 0.0
+                stateFlag6 = false
+                stateFlag8 = false
+                stateFlag10 = false
+                stateFlag13 = false
+                number3 = 0.0
+                stateFlag16 = true
                 -- Beginner: Attach one entity to another entity.
-                flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16)
+                stateFlag27(text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16)
               else
-                flag27 = AttachEntityToEntity
-                textValue4 = arg2
-                numberValue12 = numberValue9
-                textValue5 = GetEntityBoneIndexByName
-                textValue6 = numberValue9
-                numberValue13 = "engine"
-                textValue5 = textValue5(textValue6, numberValue13)
-                textValue6 = 0.0
-                numberValue13 = -3.0
-                numberValue = -1.0
-                flag2 = 0.0
-                flag3 = 0.0
-                flag4 = 0.0
-                flag6 = false
-                flag8 = false
-                flag10 = false
-                flag13 = false
-                numberValue3 = 0.0
-                flag16 = true
-                flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16)
+                stateFlag27 = AttachEntityToEntity
+                text4 = localValue2
+                number12 = number9
+                text5 = GetEntityBoneIndexByName
+                text6 = number9
+                number13 = "engine"
+                text5 = text5(text6, number13)
+                text6 = 0.0
+                number13 = -3.0
+                number = -1.0
+                stateFlag2 = 0.0
+                stateFlag3 = 0.0
+                stateFlag4 = 0.0
+                stateFlag6 = false
+                stateFlag8 = false
+                stateFlag10 = false
+                stateFlag13 = false
+                number3 = 0.0
+                stateFlag16 = true
+                stateFlag27(text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16)
               end
-              flag27 = NetworkHasControlOfEntity
-              textValue4 = numberValue9
-              flag27 = flag27(textValue4)
-              if not flag27 then
-                flag27 = TriggerServerEvent
-                textValue4 = "c15aeb9b9f"
-                numberValue12 = CMG
-                numberValue12 = numberValue12.getNetId
-                textValue5 = numberValue9
-                textValue6 = "Stretcher"
-                numberValue12 = numberValue12(textValue5, textValue6)
-                textValue5 = true
+              stateFlag27 = NetworkHasControlOfEntity
+              text4 = number9
+              stateFlag27 = stateFlag27(text4)
+              if not stateFlag27 then
+                stateFlag27 = TriggerServerEvent
+                text4 = "c15aeb9b9f"
+                number12 = CMG
+                number12 = number12.getNetId
+                text5 = number9
+                text6 = "Stretcher"
+                number12 = number12(text5, text6)
+                text5 = true
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
-                flag27(textValue4, numberValue12, textValue5)
+                stateFlag27(text4, number12, text5)
               else
-                flag27 = DecorSetBool
-                textValue4 = numberValue9
-                numberValue12 = "ddf749d1be"
-                textValue5 = true
-                flag27(textValue4, numberValue12, textValue5)
+                stateFlag27 = DecorSetBool
+                text4 = number9
+                number12 = "ddf749d1be"
+                text5 = true
+                stateFlag27(text4, number12, text5)
               end
-              flag27 = NetworkHasControlOfEntity
-              textValue4 = arg2
-              flag27 = flag27(textValue4)
-              if not flag27 then
-                flag27 = workValue10
-                if flag27 then
-                  flag27 = TriggerServerEvent
-                  textValue4 = "91ad572dcd"
-                  numberValue12 = CMG
-                  numberValue12 = numberValue12.getNetId
-                  textValue5 = workValue10
-                  textValue6 = "Stretchers"
-                  numberValue12 = numberValue12(textValue5, textValue6)
-                  textValue5 = CMG
-                  textValue5 = textValue5.getNetId
-                  textValue6 = numberValue9
-                  numberValue13 = "Stretchers"
-                  textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue5(textValue6, numberValue13)
+              stateFlag27 = NetworkHasControlOfEntity
+              text4 = localValue2
+              stateFlag27 = stateFlag27(text4)
+              if not stateFlag27 then
+                stateFlag27 = workingValue10
+                if stateFlag27 then
+                  stateFlag27 = TriggerServerEvent
+                  text4 = "91ad572dcd"
+                  number12 = CMG
+                  number12 = number12.getNetId
+                  text5 = workingValue10
+                  text6 = "Stretchers"
+                  number12 = number12(text5, text6)
+                  text5 = CMG
+                  text5 = text5.getNetId
+                  text6 = number9
+                  number13 = "Stretchers"
+                  text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26 = text5(text6, number13)
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "91ad572dcd".
-                  flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+                  stateFlag27(text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26)
                 end
               else
-                flag27 = DecorSetInt
-                textValue4 = arg2
-                numberValue12 = "58fe205294"
-                textValue5 = CMG
-                textValue5 = textValue5.getNetId
-                textValue6 = numberValue9
-                numberValue13 = "Stretchers"
-                textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue5(textValue6, numberValue13)
-                flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+                stateFlag27 = DecorSetInt
+                text4 = localValue2
+                number12 = "58fe205294"
+                text5 = CMG
+                text5 = text5.getNetId
+                text6 = number9
+                number13 = "Stretchers"
+                text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26 = text5(text6, number13)
+                stateFlag27(text4, number12, text5, text6, number13, number, stateFlag2, stateFlag3, stateFlag4, stateFlag6, stateFlag8, stateFlag10, stateFlag13, number3, stateFlag16, number4, number5, number6, stateFlag21, stateFlag23, number8, stateFlag24, workingValue8, workingValue9, stateFlag26)
               end
-              flag27 = FreezeEntityPosition
-              textValue4 = arg2
-              numberValue12 = true
+              stateFlag27 = FreezeEntityPosition
+              text4 = localValue2
+              number12 = true
               -- Beginner: Freeze or unfreeze an entity in place.
-              flag27(textValue4, numberValue12)
+              stateFlag27(text4, number12)
             end
           end
         end
       end
     end
-    textValue2 = RemoveAnimDict
+    text2 = RemoveAnimDict
     playerPed = "anim@heists@box_carry@"
-    textValue2(playerPed)
+    text2(playerPed)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  cmgCall3(numberValue10)
+  cmgOperation3(number10)
 end
-workValue11 = cmgCall2
-cmgCall2 = RegisterNetEvent
-numberValue2 = "5672bd2d03"
+workingValue11 = cmgOperation2
+cmgOperation2 = RegisterNetEvent
+number2 = "5672bd2d03"
 -- Beginner: this function handles network event "5672bd2d03".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
-function textValue(arg1, arg2)
-  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18
-  cmgCall3 = NetworkDoesNetworkIdExist
-  numberValue10 = arg1
-  cmgCall3 = cmgCall3(numberValue10)
-  if not cmgCall3 then
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2) ===
+function text(localValue1, localValue2)
+  local cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18
+  cmgOperation3 = NetworkDoesNetworkIdExist
+  number10 = localValue1
+  cmgOperation3 = cmgOperation3(number10)
+  if not cmgOperation3 then
     return
   end
-  cmgCall3 = NetworkGetEntityFromNetworkId
-  numberValue10 = arg1
-  cmgCall3 = cmgCall3(numberValue10)
-  numberValue10 = GetPlayerFromServerId
-  textValue3 = arg2
+  cmgOperation3 = NetworkGetEntityFromNetworkId
+  number10 = localValue1
+  cmgOperation3 = cmgOperation3(number10)
+  number10 = GetPlayerFromServerId
+  text3 = localValue2
   -- Beginner: result below is playerIndex.
-  numberValue10 = numberValue10(textValue3)
-  if 0 == cmgCall3 or -1 == numberValue10 then
+  number10 = number10(text3)
+  if 0 == cmgOperation3 or -1 == number10 then
     return
   end
-  textValue3 = GetPlayerPed
-  iterator = numberValue10
+  text3 = GetPlayerPed
+  iterator = number10
   -- Beginner: result below is playerPed.
-  textValue3 = textValue3(iterator)
-  if 0 == textValue3 then
+  text3 = text3(iterator)
+  if 0 == text3 then
     return
   end
   iterator = AttachEntityToEntity
-  cmgCall4 = cmgCall3
-  playerPed2 = textValue3
-  flag28 = -1
-  flag29 = -0.05
-  flag = 1.3
+  cmgOperation4 = cmgOperation3
+  playerPed2 = text3
+  stateFlag28 = -1
+  stateFlag29 = -0.05
+  stateFlag = 1.3
   modelHash = -0.345
   coords = 180.0
-  workValue4 = 180.0
-  flag5 = 180.0
-  flag7 = false
-  flag9 = false
-  flag12 = false
-  flag14 = true
-  flag15 = 0
-  flag18 = true
+  workingValue4 = 180.0
+  stateFlag5 = 180.0
+  stateFlag7 = false
+  stateFlag9 = false
+  stateFlag12 = false
+  stateFlag14 = true
+  stateFlag15 = 0
+  stateFlag18 = true
   -- Beginner: Attach one entity to another entity.
-  iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18)
+  iterator(cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag, modelHash, coords, workingValue4, stateFlag5, stateFlag7, stateFlag9, stateFlag12, stateFlag14, stateFlag15, stateFlag18)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5672bd2d03".
-cmgCall2(numberValue2, textValue)
-cmgCall2 = 0
-numberValue2 = RegisterCommand
-textValue = "stretcher"
+cmgOperation2(number2, text)
+cmgOperation2 = 0
+number2 = RegisterCommand
+text = "stretcher"
 -- Beginner: this function is the command handler for "stretcher".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "nhs.onduty.permission"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, cmgOperation3, number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "nhs.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg1 = arg1()
-    arg2 = cmgCall2
-    arg1 = arg1 - arg2
-    arg2 = 10000
-    if arg1 > arg2 then
-      arg1 = GetGameTimer
+    localValue1 = localValue1()
+    localValue2 = cmgOperation2
+    localValue1 = localValue1 - localValue2
+    localValue2 = 10000
+    if localValue1 > localValue2 then
+      localValue1 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      arg1 = arg1()
-      cmgCall2 = arg1
-      arg1 = CMG
-      arg1 = arg1.getPlayerPed
+      localValue1 = localValue1()
+      cmgOperation2 = localValue1
+      localValue1 = CMG
+      localValue1 = localValue1.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      arg2 = CMG
-      arg2 = arg2.getPlayerCoords
+      localValue1 = localValue1()
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerCoords
       -- Beginner: result below is playerCoords.
-      arg2 = arg2()
-      cmgCall3 = CMG
-      cmgCall3 = cmgCall3.loadModel
-      numberValue10 = -665859588
+      localValue2 = localValue2()
+      cmgOperation3 = CMG
+      cmgOperation3 = cmgOperation3.loadModel
+      number10 = -665859588
       -- Beginner: Request/load a GTA model before spawning or applying it.
-      cmgCall3(numberValue10)
-      cmgCall3 = CMG
-      cmgCall3 = cmgCall3.requestEntitySpawn
-      numberValue10 = "stretcher"
-      cmgCall3(numberValue10)
-      cmgCall3 = CMG
-      cmgCall3 = cmgCall3.spawnVehicle
-      numberValue10 = -665859588
-      textValue3 = arg2.x
-      iterator = arg2.y
-      cmgCall4 = arg2.z
+      cmgOperation3(number10)
+      cmgOperation3 = CMG
+      cmgOperation3 = cmgOperation3.requestEntitySpawn
+      number10 = "stretcher"
+      cmgOperation3(number10)
+      cmgOperation3 = CMG
+      cmgOperation3 = cmgOperation3.spawnVehicle
+      number10 = -665859588
+      text3 = localValue2.x
+      iterator = localValue2.y
+      cmgOperation4 = localValue2.z
       playerPed2 = GetEntityHeading
-      flag28 = arg1
+      stateFlag28 = localValue1
       -- Beginner: result below is heading.
-      playerPed2 = playerPed2(flag28)
-      flag28 = false
-      flag29 = true
-      flag = true
-      cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag)
-      numberValue10 = SetVehicleDoorsLocked
-      textValue3 = cmgCall3
+      playerPed2 = playerPed2(stateFlag28)
+      stateFlag28 = false
+      stateFlag29 = true
+      stateFlag = true
+      cmgOperation3 = cmgOperation3(number10, text3, iterator, cmgOperation4, playerPed2, stateFlag28, stateFlag29, stateFlag)
+      number10 = SetVehicleDoorsLocked
+      text3 = cmgOperation3
       iterator = 2
-      numberValue10(textValue3, iterator)
-      numberValue10 = SetVehicleOnGroundProperly
-      textValue3 = cmgCall3
-      numberValue10(textValue3)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      number10(text3, iterator)
+      number10 = SetVehicleOnGroundProperly
+      text3 = cmgOperation3
+      number10(text3)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 7
-      cmgCall4 = true
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      cmgOperation4 = true
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 6
-      cmgCall4 = true
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      cmgOperation4 = true
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 5
-      cmgCall4 = true
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      cmgOperation4 = true
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 3
-      cmgCall4 = true
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      cmgOperation4 = true
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 1
-      cmgCall4 = true
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      cmgOperation4 = true
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 2
-      cmgCall4 = false
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      cmgOperation4 = false
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 11
-      cmgCall4 = false
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetVehicleExtra
-      textValue3 = cmgCall3
+      cmgOperation4 = false
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetVehicleExtra
+      text3 = cmgOperation3
       iterator = 12
-      cmgCall4 = true
-      numberValue10(textValue3, iterator, cmgCall4)
-      numberValue10 = SetModelAsNoLongerNeeded
-      textValue3 = -665859588
-      numberValue10(textValue3)
-      numberValue10 = tCMG
-      numberValue10 = numberValue10.notify
-      textValue3 = "Stretcher created."
+      cmgOperation4 = true
+      number10(text3, iterator, cmgOperation4)
+      number10 = SetModelAsNoLongerNeeded
+      text3 = -665859588
+      number10(text3)
+      number10 = tCMG
+      number10 = number10.notify
+      text3 = "Stretcher created."
       -- Beginner: Show a notification to the player.
-      numberValue10(textValue3)
+      number10(text3)
     end
   end
 end
-flag11 = false
+stateFlag11 = false
 -- Beginner: Register a chat/console command. Event/command: "stretcher".
-numberValue2(textValue, workValue5, flag11)
-numberValue2 = RegisterCommand
-textValue = "removestretcher"
+number2(text, workingValue5, stateFlag11)
+number2 = RegisterCommand
+text = "removestretcher"
 -- Beginner: this function is the command handler for "removestretcher".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "nhs.onduty.permission"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = workValue12
-    arg2 = 5.0
-    cmgCall3 = cmgCall.stretcherModels
-    arg1 = arg1(arg2, cmgCall3)
-    if nil ~= arg1 then
-      arg2 = TriggerServerEvent
-      cmgCall3 = "2bfff324f7"
-      numberValue10 = CMG
-      numberValue10 = numberValue10.getNetId
-      textValue3 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, cmgOperation3, number10, text3, iterator
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "nhs.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = workingValue12
+    localValue2 = 5.0
+    cmgOperation3 = cmgOperation.stretcherModels
+    localValue1 = localValue1(localValue2, cmgOperation3)
+    if nil ~= localValue1 then
+      localValue2 = TriggerServerEvent
+      cmgOperation3 = "2bfff324f7"
+      number10 = CMG
+      number10 = number10.getNetId
+      text3 = localValue1
       iterator = "Stretchers"
-      numberValue10, textValue3, iterator = numberValue10(textValue3, iterator)
+      number10, text3, iterator = number10(text3, iterator)
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2bfff324f7".
-      arg2(cmgCall3, numberValue10, textValue3, iterator)
+      localValue2(cmgOperation3, number10, text3, iterator)
     end
   end
 end
-flag11 = false
+stateFlag11 = false
 -- Beginner: Register a chat/console command. Event/command: "removestretcher".
-numberValue2(textValue, workValue5, flag11)
-numberValue2 = RegisterNetEvent
-textValue = "0a9884b220"
+number2(text, workingValue5, stateFlag11)
+number2 = RegisterNetEvent
+text = "0a9884b220"
 -- Beginner: this function handles network event "0a9884b220".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.getObjectId
-  numberValue10 = arg1
-  textValue3 = "0a9884b220"
-  cmgCall3 = cmgCall3(numberValue10, textValue3)
-  if cmgCall3 then
-    numberValue10 = DecorSetInt
-    textValue3 = cmgCall3
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local cmgOperation3, number10, text3, iterator, cmgOperation4
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.getObjectId
+  number10 = localValue1
+  text3 = "0a9884b220"
+  cmgOperation3 = cmgOperation3(number10, text3)
+  if cmgOperation3 then
+    number10 = DecorSetInt
+    text3 = cmgOperation3
     iterator = "58fe205294"
-    cmgCall4 = arg2
-    numberValue10(textValue3, iterator, cmgCall4)
+    cmgOperation4 = localValue2
+    number10(text3, iterator, cmgOperation4)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "0a9884b220".
-numberValue2(textValue, workValue5)
-numberValue2 = RegisterNetEvent
-textValue = "5f63e7b654"
+number2(text, workingValue5)
+number2 = RegisterNetEvent
+text = "5f63e7b654"
 -- Beginner: this function handles network event "5f63e7b654".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.getObjectId
-  numberValue10 = arg1
-  textValue3 = "5f63e7b654"
-  cmgCall3 = cmgCall3(numberValue10, textValue3)
-  if cmgCall3 then
-    numberValue10 = DecorSetBool
-    textValue3 = cmgCall3
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local cmgOperation3, number10, text3, iterator, cmgOperation4
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.getObjectId
+  number10 = localValue1
+  text3 = "5f63e7b654"
+  cmgOperation3 = cmgOperation3(number10, text3)
+  if cmgOperation3 then
+    number10 = DecorSetBool
+    text3 = cmgOperation3
     iterator = "ddf749d1be"
-    cmgCall4 = arg2
-    numberValue10(textValue3, iterator, cmgCall4)
+    cmgOperation4 = localValue2
+    number10(text3, iterator, cmgOperation4)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5f63e7b654".
-numberValue2(textValue, workValue5)
-numberValue2 = RegisterNetEvent
-textValue = "48c58592c1"
+number2(text, workingValue5)
+number2 = RegisterNetEvent
+text = "48c58592c1"
 -- Beginner: this function handles network event "48c58592c1".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4
-  arg2 = CMG
-  arg2 = arg2.getObjectId
-  cmgCall3 = arg1
-  numberValue10 = "48c58592c1"
-  arg2 = arg2(cmgCall3, numberValue10)
-  cmgCall3 = GetVehicleDoorAngleRatio
-  numberValue10 = arg2
-  textValue3 = 4
-  cmgCall3 = cmgCall3(numberValue10, textValue3)
-  if 0 == cmgCall3 then
-    cmgCall3 = GetVehicleDoorAngleRatio
-    numberValue10 = arg2
-    textValue3 = 3
-    cmgCall3 = cmgCall3(numberValue10, textValue3)
-    if 0 == cmgCall3 then
-      goto flow_label_32
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local localValue2, cmgOperation3, number10, text3, iterator, cmgOperation4
+  localValue2 = CMG
+  localValue2 = localValue2.getObjectId
+  cmgOperation3 = localValue1
+  number10 = "48c58592c1"
+  localValue2 = localValue2(cmgOperation3, number10)
+  cmgOperation3 = GetVehicleDoorAngleRatio
+  number10 = localValue2
+  text3 = 4
+  cmgOperation3 = cmgOperation3(number10, text3)
+  if 0 == cmgOperation3 then
+    cmgOperation3 = GetVehicleDoorAngleRatio
+    number10 = localValue2
+    text3 = 3
+    cmgOperation3 = cmgOperation3(number10, text3)
+    if 0 == cmgOperation3 then
+      goto continueAtStep32
     end
   end
-  cmgCall3 = SetVehicleDoorShut
-  numberValue10 = arg2
-  textValue3 = 3
+  cmgOperation3 = SetVehicleDoorShut
+  number10 = localValue2
+  text3 = 3
   iterator = false
-  cmgCall3(numberValue10, textValue3, iterator)
-  cmgCall3 = Wait
-  numberValue10 = 500
-  cmgCall3(numberValue10)
-  cmgCall3 = SetVehicleDoorShut
-  numberValue10 = arg2
-  textValue3 = 4
+  cmgOperation3(number10, text3, iterator)
+  cmgOperation3 = Wait
+  number10 = 500
+  cmgOperation3(number10)
+  cmgOperation3 = SetVehicleDoorShut
+  number10 = localValue2
+  text3 = 4
   iterator = false
-  cmgCall3(numberValue10, textValue3, iterator)
-  goto flow_label_47
-  ::flow_label_32::
-  cmgCall3 = SetVehicleDoorOpen
-  numberValue10 = arg2
-  textValue3 = 4
+  cmgOperation3(number10, text3, iterator)
+  goto continueAtStep47
+  ::continueAtStep32::
+  cmgOperation3 = SetVehicleDoorOpen
+  number10 = localValue2
+  text3 = 4
   iterator = false
-  cmgCall4 = false
-  cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-  cmgCall3 = Wait
-  numberValue10 = 500
-  cmgCall3(numberValue10)
-  cmgCall3 = SetVehicleDoorOpen
-  numberValue10 = arg2
-  textValue3 = 3
+  cmgOperation4 = false
+  cmgOperation3(number10, text3, iterator, cmgOperation4)
+  cmgOperation3 = Wait
+  number10 = 500
+  cmgOperation3(number10)
+  cmgOperation3 = SetVehicleDoorOpen
+  number10 = localValue2
+  text3 = 3
   iterator = false
-  cmgCall4 = false
-  cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
-  ::flow_label_47::
+  cmgOperation4 = false
+  cmgOperation3(number10, text3, iterator, cmgOperation4)
+  ::continueAtStep47::
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "48c58592c1".
-numberValue2(textValue, workValue5)
-numberValue2 = CMG
+number2(text, workingValue5)
+number2 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2
-  arg1 = flag17
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2
+  localValue1 = stateFlag17
+  return localValue1
 end
-numberValue2.isUsingStretcher = textValue
-numberValue2 = RegisterNetEvent
-textValue = "2d2aca0333"
+number2.isUsingStretcher = text
+number2 = RegisterNetEvent
+text = "2d2aca0333"
 -- Beginner: this function handles network event "2d2aca0333".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, cmgCall3, numberValue10, textValue3
-  arg2 = NetworkDoesNetworkIdExist
-  cmgCall3 = arg1
-  arg2 = arg2(cmgCall3)
-  if not arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local localValue2, cmgOperation3, number10, text3
+  localValue2 = NetworkDoesNetworkIdExist
+  cmgOperation3 = localValue1
+  localValue2 = localValue2(cmgOperation3)
+  if not localValue2 then
     return
   end
-  arg2 = NetworkGetEntityFromNetworkId
-  cmgCall3 = arg1
-  arg2 = arg2(cmgCall3)
-  if 0 ~= arg2 then
-    cmgCall3 = DoesEntityExist
-    numberValue10 = arg2
-    cmgCall3 = cmgCall3(numberValue10)
-    if cmgCall3 then
-      cmgCall3 = workValue2
-      numberValue10 = arg2
-      textValue3 = 2
-      cmgCall3(numberValue10, textValue3)
+  localValue2 = NetworkGetEntityFromNetworkId
+  cmgOperation3 = localValue1
+  localValue2 = localValue2(cmgOperation3)
+  if 0 ~= localValue2 then
+    cmgOperation3 = DoesEntityExist
+    number10 = localValue2
+    cmgOperation3 = cmgOperation3(number10)
+    if cmgOperation3 then
+      cmgOperation3 = workingValue2
+      number10 = localValue2
+      text3 = 2
+      cmgOperation3(number10, text3)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2d2aca0333".
-numberValue2(textValue, workValue5)
+number2(text, workingValue5)

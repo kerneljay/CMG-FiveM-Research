@@ -32,966 +32,966 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, textValue9, workValue6, workValue7, numberValue3, numberValue4, numberValue5, numberValue6, workValue15, textValue12, textValue, rageUiCall, textValue3, rageUiCall2, rageUiCall3, rageUiCall4, rageUiCall5, textValue5, textValue7
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-textValue9 = "cfg/cfg_homecustomisation"
+local cmgOperation, text9, workingValue6, workingValue7, number3, number4, number5, number6, workingValue15, text12, text, rageUiOperation, text3, rageUiOperation2, rageUiOperation3, rageUiOperation4, rageUiOperation5, text5, text7
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+text9 = "cfg/cfg_homecustomisation"
 -- Beginner: result below is config.
-cmgCall = cmgCall(textValue9)
-textValue9 = nil
-workValue6 = nil
-workValue7 = nil
-numberValue3 = 0
-numberValue4 = 0
-numberValue5 = 0
-numberValue6 = 0
-workValue15 = RMenu
-workValue15 = workValue15.Add
-textValue12 = "housecctv"
-textValue = "mainmenu"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue3 = "CCTV"
-rageUiCall2 = "Main Menu"
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4, rageUiCall5, textValue5, textValue7 = rageUiCall4()
-rageUiCall, textValue3, rageUiCall2, rageUiCall3, rageUiCall4, rageUiCall5, textValue5, textValue7 = rageUiCall(textValue3, rageUiCall2, rageUiCall3, rageUiCall4, rageUiCall5, textValue5, textValue7)
-workValue15(textValue12, textValue, rageUiCall, textValue3, rageUiCall2, rageUiCall3, rageUiCall4, rageUiCall5, textValue5, textValue7)
-workValue15 = RMenu
-workValue15 = workValue15.Add
-textValue12 = "housecctv"
-textValue = "camerainfo"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue3 = RMenu
-rageUiCall2 = textValue3
-textValue3 = textValue3.Get
-rageUiCall3 = "housecctv"
-rageUiCall4 = "mainmenu"
+cmgOperation = cmgOperation(text9)
+text9 = nil
+workingValue6 = nil
+workingValue7 = nil
+number3 = 0
+number4 = 0
+number5 = 0
+number6 = 0
+workingValue15 = RMenu
+workingValue15 = workingValue15.Add
+text12 = "housecctv"
+text = "mainmenu"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text3 = "CCTV"
+rageUiOperation2 = "Main Menu"
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4, rageUiOperation5, text5, text7 = rageUiOperation4()
+rageUiOperation, text3, rageUiOperation2, rageUiOperation3, rageUiOperation4, rageUiOperation5, text5, text7 = rageUiOperation(text3, rageUiOperation2, rageUiOperation3, rageUiOperation4, rageUiOperation5, text5, text7)
+workingValue15(text12, text, rageUiOperation, text3, rageUiOperation2, rageUiOperation3, rageUiOperation4, rageUiOperation5, text5, text7)
+workingValue15 = RMenu
+workingValue15 = workingValue15.Add
+text12 = "housecctv"
+text = "camerainfo"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text3 = RMenu
+rageUiOperation2 = text3
+text3 = text3.Get
+rageUiOperation3 = "housecctv"
+rageUiOperation4 = "mainmenu"
 -- Beginner: result below is menu.
-textValue3 = textValue3(rageUiCall2, rageUiCall3, rageUiCall4)
-rageUiCall2 = "CCTV"
-rageUiCall3 = "Camera Info"
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuWidth
-rageUiCall4 = rageUiCall4()
-rageUiCall5 = CMG
-rageUiCall5 = rageUiCall5.getRageUIMenuHeight
-rageUiCall5, textValue5, textValue7 = rageUiCall5()
-rageUiCall, textValue3, rageUiCall2, rageUiCall3, rageUiCall4, rageUiCall5, textValue5, textValue7 = rageUiCall(textValue3, rageUiCall2, rageUiCall3, rageUiCall4, rageUiCall5, textValue5, textValue7)
-workValue15(textValue12, textValue, rageUiCall, textValue3, rageUiCall2, rageUiCall3, rageUiCall4, rageUiCall5, textValue5, textValue7)
-workValue15 = nil
+text3 = text3(rageUiOperation2, rageUiOperation3, rageUiOperation4)
+rageUiOperation2 = "CCTV"
+rageUiOperation3 = "Camera Info"
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuWidth
+rageUiOperation4 = rageUiOperation4()
+rageUiOperation5 = CMG
+rageUiOperation5 = rageUiOperation5.getRageUIMenuHeight
+rageUiOperation5, text5, text7 = rageUiOperation5()
+rageUiOperation, text3, rageUiOperation2, rageUiOperation3, rageUiOperation4, rageUiOperation5, text5, text7 = rageUiOperation(text3, rageUiOperation2, rageUiOperation3, rageUiOperation4, rageUiOperation5, text5, text7)
+workingValue15(text12, text, rageUiOperation, text3, rageUiOperation2, rageUiOperation3, rageUiOperation4, rageUiOperation5, text5, text7)
+workingValue15 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue12; parameters: arg1) ===
-function textValue12(arg1)
-  local numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4, stringHelper, workValue2, flag4, flag5
-  numberValue = 1
-  numberValue2 = -1
+-- === HELPER FUNCTION (decompiler name: text12; parameters: localValue1) ===
+function text12(localValue1)
+  local number, number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4, stringHelper, workingValue2, stateFlag4, stateFlag5
+  number = 1
+  number2 = -1
   iterator = pairs
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.getHomePlaceableObjects
-  cmgCall2, iterator2, cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4, stringHelper, workValue2, flag4, flag5 = cmgCall2()
-  iterator, cmgCall2, iterator2, cmgCall3 = iterator(cmgCall2, iterator2, cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4, stringHelper, workValue2, flag4, flag5)
-  for flag9, flag10 in iterator, cmgCall2, iterator2, cmgCall3 do
-    numberValue7 = cmgCall.cctvLookup
-    flag = flag10[1]
-    numberValue7 = numberValue7[flag]
-    if numberValue7 then
-      flag = textValue9
-      if flag10 == flag then
-        numberValue2 = numberValue
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.getHomePlaceableObjects
+  cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4, stringHelper, workingValue2, stateFlag4, stateFlag5 = cmgOperation2()
+  iterator, cmgOperation2, iterator2, cmgOperation3 = iterator(cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4, stringHelper, workingValue2, stateFlag4, stateFlag5)
+  for stateFlag9, stateFlag10 in iterator, cmgOperation2, iterator2, cmgOperation3 do
+    number7 = cmgOperation.cctvLookup
+    stateFlag = stateFlag10[1]
+    number7 = number7[stateFlag]
+    if number7 then
+      stateFlag = text9
+      if stateFlag10 == stateFlag then
+        number2 = number
       end
-      numberValue = numberValue + 1
+      number = number + 1
     end
   end
-  if -1 == numberValue2 then
+  if -1 == number2 then
     return
   end
-  iterator = numberValue2 + arg1
+  iterator = number2 + localValue1
   if iterator <= 0 then
-    iterator = numberValue
-  elseif numberValue < iterator then
+    iterator = number
+  elseif number < iterator then
     iterator = 1
   end
-  cmgCall2 = 1
+  cmgOperation2 = 1
   iterator2 = pairs
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.getHomePlaceableObjects
-  cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4, stringHelper, workValue2, flag4, flag5 = cmgCall3()
-  iterator2, cmgCall3, flag9, flag10 = iterator2(cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4, stringHelper, workValue2, flag4, flag5)
-  for numberValue7, flag in iterator2, cmgCall3, flag9, flag10 do
-    flag2 = cmgCall.cctvLookup
-    textValue4 = flag[1]
-    flag2 = flag2[textValue4]
-    if flag2 then
-      if cmgCall2 == iterator then
-        textValue4 = "Camera "
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.getHomePlaceableObjects
+  cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4, stringHelper, workingValue2, stateFlag4, stateFlag5 = cmgOperation3()
+  iterator2, cmgOperation3, stateFlag9, stateFlag10 = iterator2(cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4, stringHelper, workingValue2, stateFlag4, stateFlag5)
+  for number7, stateFlag in iterator2, cmgOperation3, stateFlag9, stateFlag10 do
+    stateFlag2 = cmgOperation.cctvLookup
+    text4 = stateFlag[1]
+    stateFlag2 = stateFlag2[text4]
+    if stateFlag2 then
+      if cmgOperation2 == iterator then
+        text4 = "Camera "
         stringHelper = tostring
-        workValue2 = cmgCall2
-        stringHelper = stringHelper(workValue2)
-        textValue4 = textValue4 .. stringHelper
-        stringHelper = flag[5]
+        workingValue2 = cmgOperation2
+        stringHelper = stringHelper(workingValue2)
+        text4 = text4 .. stringHelper
+        stringHelper = stateFlag[5]
         if stringHelper then
-          stringHelper = flag[5]
+          stringHelper = stateFlag[5]
           stringHelper = stringHelper.camera_name
           if stringHelper then
-            stringHelper = flag[5]
-            textValue4 = stringHelper.camera_name
+            stringHelper = stateFlag[5]
+            text4 = stringHelper.camera_name
           end
         end
         stringHelper = string
         stringHelper = stringHelper.upper
-        workValue2 = textValue4
-        stringHelper = stringHelper(workValue2)
-        workValue7 = stringHelper
-        stringHelper = textValue9
+        workingValue2 = text4
+        stringHelper = stringHelper(workingValue2)
+        workingValue7 = stringHelper
+        stringHelper = text9
         if stringHelper then
           stringHelper = SetEntityVisible
-          workValue2 = textValue9
-          workValue2 = workValue2[4]
-          flag4 = true
-          flag5 = true
-          stringHelper(workValue2, flag4, flag5)
+          workingValue2 = text9
+          workingValue2 = workingValue2[4]
+          stateFlag4 = true
+          stateFlag5 = true
+          stringHelper(workingValue2, stateFlag4, stateFlag5)
         end
-        textValue9 = flag
-        workValue6 = flag2
-        stringHelper = workValue15
+        text9 = stateFlag
+        workingValue6 = stateFlag2
+        stringHelper = workingValue15
         stringHelper()
         break
       end
-      cmgCall2 = cmgCall2 + 1
+      cmgOperation2 = cmgOperation2 + 1
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, number, number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9
   while true do
-    arg1 = IsControlJustPressed
-    numberValue = 0
-    numberValue2 = 202
-    arg1 = arg1(numberValue, numberValue2)
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.showAllDisplays
-      numberValue = "homecctv"
-      arg1(numberValue)
-      arg1 = ClearTimecycleModifier
-      arg1()
-      arg1 = RenderScriptCams
-      numberValue = false
-      numberValue2 = false
+    localValue1 = IsControlJustPressed
+    number = 0
+    number2 = 202
+    localValue1 = localValue1(number, number2)
+    if localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.showAllDisplays
+      number = "homecctv"
+      localValue1(number)
+      localValue1 = ClearTimecycleModifier
+      localValue1()
+      localValue1 = RenderScriptCams
+      number = false
+      number2 = false
       iterator = 0
-      cmgCall2 = false
+      cmgOperation2 = false
       iterator2 = false
-      arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2)
-      arg1 = DestroyCam
-      numberValue = numberValue3
-      numberValue2 = false
-      arg1(numberValue, numberValue2)
-      arg1 = textValue9
-      if arg1 then
-        arg1 = SetEntityVisible
-        numberValue = textValue9
-        numberValue = numberValue[4]
-        numberValue2 = true
+      localValue1(number, number2, iterator, cmgOperation2, iterator2)
+      localValue1 = DestroyCam
+      number = number3
+      number2 = false
+      localValue1(number, number2)
+      localValue1 = text9
+      if localValue1 then
+        localValue1 = SetEntityVisible
+        number = text9
+        number = number[4]
+        number2 = true
         iterator = true
-        arg1(numberValue, numberValue2, iterator)
+        localValue1(number, number2, iterator)
       end
-      arg1 = numberValue5
-      if 0 ~= arg1 then
-        arg1 = SetScaleformMovieAsNoLongerNeeded
-        numberValue = numberValue5
-        arg1(numberValue)
-        arg1 = 0
-        numberValue5 = arg1
+      localValue1 = number5
+      if 0 ~= localValue1 then
+        localValue1 = SetScaleformMovieAsNoLongerNeeded
+        number = number5
+        localValue1(number)
+        localValue1 = 0
+        number5 = localValue1
       end
-      arg1 = numberValue6
-      if 0 ~= arg1 then
-        arg1 = DeleteEntity
-        numberValue = numberValue6
+      localValue1 = number6
+      if 0 ~= localValue1 then
+        localValue1 = DeleteEntity
+        number = number6
         -- Beginner: Delete a GTA entity.
-        arg1(numberValue)
-        arg1 = 0
-        numberValue6 = arg1
+        localValue1(number)
+        localValue1 = 0
+        number6 = localValue1
       end
-      arg1 = ClearPedTasks
-      numberValue = PlayerPedId
-      numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9 = numberValue()
-      arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9)
-      arg1 = 0
-      numberValue3 = arg1
+      localValue1 = ClearPedTasks
+      number = PlayerPedId
+      number, number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9 = number()
+      localValue1(number, number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9)
+      localValue1 = 0
+      number3 = localValue1
       break
     end
-    arg1 = IsControlJustPressed
-    numberValue = 0
-    numberValue2 = 189
-    arg1 = arg1(numberValue, numberValue2)
-    if arg1 then
-      arg1 = textValue12
-      numberValue = -1
-      arg1(numberValue)
+    localValue1 = IsControlJustPressed
+    number = 0
+    number2 = 189
+    localValue1 = localValue1(number, number2)
+    if localValue1 then
+      localValue1 = text12
+      number = -1
+      localValue1(number)
     end
-    arg1 = IsControlJustPressed
-    numberValue = 0
-    numberValue2 = 190
-    arg1 = arg1(numberValue, numberValue2)
-    if arg1 then
-      arg1 = textValue12
-      numberValue = 1
-      arg1(numberValue)
+    localValue1 = IsControlJustPressed
+    number = 0
+    number2 = 190
+    localValue1 = localValue1(number, number2)
+    if localValue1 then
+      localValue1 = text12
+      number = 1
+      localValue1(number)
     end
-    arg1 = workValue6
-    if arg1 then
-      arg1 = workValue6.type
-      if "fixed" ~= arg1 then
-        arg1 = GetDisabledControlNormal
-        numberValue = 0
-        numberValue2 = 220
-        arg1 = arg1(numberValue, numberValue2)
-        numberValue = GetFrameTime
-        numberValue = numberValue()
-        arg1 = arg1 * numberValue
-        arg1 = arg1 * 250.0
-        numberValue = math
-        numberValue = numberValue.abs
-        numberValue2 = arg1
-        numberValue = numberValue(numberValue2)
-        numberValue2 = 0.001
-        if numberValue > numberValue2 then
-          numberValue = GetCamRot
-          numberValue2 = numberValue3
+    localValue1 = workingValue6
+    if localValue1 then
+      localValue1 = workingValue6.type
+      if "fixed" ~= localValue1 then
+        localValue1 = GetDisabledControlNormal
+        number = 0
+        number2 = 220
+        localValue1 = localValue1(number, number2)
+        number = GetFrameTime
+        number = number()
+        localValue1 = localValue1 * number
+        localValue1 = localValue1 * 250.0
+        number = math
+        number = number.abs
+        number2 = localValue1
+        number = number(number2)
+        number2 = 0.001
+        if number > number2 then
+          number = GetCamRot
+          number2 = number3
           iterator = 2
-          numberValue = numberValue(numberValue2, iterator)
-          numberValue2 = SetCamRot
-          iterator = numberValue3
-          cmgCall2 = numberValue.x
-          iterator2 = numberValue.y
-          cmgCall3 = numberValue.z
-          cmgCall3 = cmgCall3 - arg1
-          flag9 = 2
-          numberValue2(iterator, cmgCall2, iterator2, cmgCall3, flag9)
+          number = number(number2, iterator)
+          number2 = SetCamRot
+          iterator = number3
+          cmgOperation2 = number.x
+          iterator2 = number.y
+          cmgOperation3 = number.z
+          cmgOperation3 = cmgOperation3 - localValue1
+          stateFlag9 = 2
+          number2(iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9)
         end
       end
     end
-    arg1 = numberValue5
-    if 0 ~= arg1 then
-      arg1 = DrawScaleformMovieFullscreen
-      numberValue = numberValue5
-      numberValue2 = 255
+    localValue1 = number5
+    if 0 ~= localValue1 then
+      localValue1 = DrawScaleformMovieFullscreen
+      number = number5
+      number2 = 255
       iterator = 255
-      cmgCall2 = 255
+      cmgOperation2 = 255
       iterator2 = 255
-      cmgCall3 = 0
-      arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3)
+      cmgOperation3 = 0
+      localValue1(number, number2, iterator, cmgOperation2, iterator2, cmgOperation3)
     end
-    arg1 = workValue7
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.DrawText
-      numberValue = 0.5
-      numberValue2 = 0.05
-      iterator = workValue7
-      cmgCall2 = 1.0
+    localValue1 = workingValue7
+    if localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.DrawText
+      number = 0.5
+      number2 = 0.05
+      iterator = workingValue7
+      cmgOperation2 = 1.0
       iterator2 = nil
-      cmgCall3 = 0
-      arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3)
+      cmgOperation3 = 0
+      localValue1(number, number2, iterator, cmgOperation2, iterator2, cmgOperation3)
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    numberValue = 0
-    arg1(numberValue)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    number = 0
+    localValue1(number)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
-function rageUiCall()
-  local arg1, numberValue, numberValue2, iterator
-  arg1 = RequestScaleformMovie
-  numberValue = "instructional_buttons"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: none) ===
+function rageUiOperation()
+  local localValue1, number, number2, iterator
+  localValue1 = RequestScaleformMovie
+  number = "instructional_buttons"
   -- Beginner: result below is scaleformHandle.
-  arg1 = arg1(numberValue)
+  localValue1 = localValue1(number)
   while true do
-    numberValue = HasScaleformMovieLoaded
-    numberValue2 = arg1
-    numberValue = numberValue(numberValue2)
-    if numberValue then
+    number = HasScaleformMovieLoaded
+    number2 = localValue1
+    number = number(number2)
+    if number then
       break
     end
-    numberValue = Citizen
-    numberValue = numberValue.Wait
-    numberValue2 = 0
-    numberValue(numberValue2)
+    number = Citizen
+    number = number.Wait
+    number2 = 0
+    number(number2)
   end
-  numberValue = BeginScaleformMovieMethod
-  numberValue2 = arg1
+  number = BeginScaleformMovieMethod
+  number2 = localValue1
   iterator = "CLEAR_ALL"
-  numberValue(numberValue2, iterator)
-  numberValue = EndScaleformMovieMethod
-  numberValue()
-  numberValue = BeginScaleformMovieMethod
-  numberValue2 = arg1
+  number(number2, iterator)
+  number = EndScaleformMovieMethod
+  number()
+  number = BeginScaleformMovieMethod
+  number2 = localValue1
   iterator = "SET_DATA_SLOT"
-  numberValue(numberValue2, iterator)
-  numberValue = ScaleformMovieMethodAddParamInt
-  numberValue2 = 0
-  numberValue(numberValue2)
-  numberValue = _ENV
-  numberValue2 = "ScaleformMovieMethodAddParamPlayerNameString"
-  numberValue = numberValue[numberValue2]
-  numberValue2 = "~INPUT_FRONTEND_CANCEL~"
-  numberValue(numberValue2)
-  numberValue = BeginTextCommandScaleformString
-  numberValue2 = "STRING"
-  numberValue(numberValue2)
-  numberValue = AddTextComponentSubstringKeyboardDisplay
-  numberValue2 = "Exit Viewing"
-  numberValue(numberValue2)
-  numberValue = EndTextCommandScaleformString
-  numberValue()
-  numberValue = EndScaleformMovieMethod
-  numberValue()
-  numberValue = BeginScaleformMovieMethod
-  numberValue2 = arg1
+  number(number2, iterator)
+  number = ScaleformMovieMethodAddParamInt
+  number2 = 0
+  number(number2)
+  number = _ENV
+  number2 = "ScaleformMovieMethodAddParamPlayerNameString"
+  number = number[number2]
+  number2 = "~INPUT_FRONTEND_CANCEL~"
+  number(number2)
+  number = BeginTextCommandScaleformString
+  number2 = "STRING"
+  number(number2)
+  number = AddTextComponentSubstringKeyboardDisplay
+  number2 = "Exit Viewing"
+  number(number2)
+  number = EndTextCommandScaleformString
+  number()
+  number = EndScaleformMovieMethod
+  number()
+  number = BeginScaleformMovieMethod
+  number2 = localValue1
   iterator = "SET_DATA_SLOT"
-  numberValue(numberValue2, iterator)
-  numberValue = ScaleformMovieMethodAddParamInt
-  numberValue2 = 1
-  numberValue(numberValue2)
-  numberValue = _ENV
-  numberValue2 = "ScaleformMovieMethodAddParamPlayerNameString"
-  numberValue = numberValue[numberValue2]
-  numberValue2 = "~INPUT_FRONTEND_RIGHT~"
-  numberValue(numberValue2)
-  numberValue = BeginTextCommandScaleformString
-  numberValue2 = "STRING"
-  numberValue(numberValue2)
-  numberValue = AddTextComponentSubstringKeyboardDisplay
-  numberValue2 = "Next Camera"
-  numberValue(numberValue2)
-  numberValue = EndTextCommandScaleformString
-  numberValue()
-  numberValue = EndScaleformMovieMethod
-  numberValue()
-  numberValue = BeginScaleformMovieMethod
-  numberValue2 = arg1
+  number(number2, iterator)
+  number = ScaleformMovieMethodAddParamInt
+  number2 = 1
+  number(number2)
+  number = _ENV
+  number2 = "ScaleformMovieMethodAddParamPlayerNameString"
+  number = number[number2]
+  number2 = "~INPUT_FRONTEND_RIGHT~"
+  number(number2)
+  number = BeginTextCommandScaleformString
+  number2 = "STRING"
+  number(number2)
+  number = AddTextComponentSubstringKeyboardDisplay
+  number2 = "Next Camera"
+  number(number2)
+  number = EndTextCommandScaleformString
+  number()
+  number = EndScaleformMovieMethod
+  number()
+  number = BeginScaleformMovieMethod
+  number2 = localValue1
   iterator = "SET_DATA_SLOT"
-  numberValue(numberValue2, iterator)
-  numberValue = ScaleformMovieMethodAddParamInt
-  numberValue2 = 2
-  numberValue(numberValue2)
-  numberValue = _ENV
-  numberValue2 = "ScaleformMovieMethodAddParamPlayerNameString"
-  numberValue = numberValue[numberValue2]
-  numberValue2 = "~INPUT_FRONTEND_LEFT~"
-  numberValue(numberValue2)
-  numberValue = BeginTextCommandScaleformString
-  numberValue2 = "STRING"
-  numberValue(numberValue2)
-  numberValue = AddTextComponentSubstringKeyboardDisplay
-  numberValue2 = "Previous Camera"
-  numberValue(numberValue2)
-  numberValue = EndTextCommandScaleformString
-  numberValue()
-  numberValue = EndScaleformMovieMethod
-  numberValue()
-  numberValue = BeginScaleformMovieMethod
-  numberValue2 = arg1
+  number(number2, iterator)
+  number = ScaleformMovieMethodAddParamInt
+  number2 = 2
+  number(number2)
+  number = _ENV
+  number2 = "ScaleformMovieMethodAddParamPlayerNameString"
+  number = number[number2]
+  number2 = "~INPUT_FRONTEND_LEFT~"
+  number(number2)
+  number = BeginTextCommandScaleformString
+  number2 = "STRING"
+  number(number2)
+  number = AddTextComponentSubstringKeyboardDisplay
+  number2 = "Previous Camera"
+  number(number2)
+  number = EndTextCommandScaleformString
+  number()
+  number = EndScaleformMovieMethod
+  number()
+  number = BeginScaleformMovieMethod
+  number2 = localValue1
   iterator = "DRAW_INSTRUCTIONAL_BUTTONS"
-  numberValue(numberValue2, iterator)
-  numberValue = EndScaleformMovieMethod
-  numberValue()
-  numberValue = BeginScaleformMovieMethod
-  numberValue2 = arg1
+  number(number2, iterator)
+  number = EndScaleformMovieMethod
+  number()
+  number = BeginScaleformMovieMethod
+  number2 = localValue1
   iterator = "SET_BACKGROUND_COLOUR"
-  numberValue(numberValue2, iterator)
-  numberValue = ScaleformMovieMethodAddParamInt
-  numberValue2 = 0
-  numberValue(numberValue2)
-  numberValue = ScaleformMovieMethodAddParamInt
-  numberValue2 = 0
-  numberValue(numberValue2)
-  numberValue = ScaleformMovieMethodAddParamInt
-  numberValue2 = 0
-  numberValue(numberValue2)
-  numberValue = ScaleformMovieMethodAddParamInt
-  numberValue2 = 80
-  numberValue(numberValue2)
-  numberValue = EndScaleformMovieMethod
-  numberValue()
-  numberValue5 = arg1
+  number(number2, iterator)
+  number = ScaleformMovieMethodAddParamInt
+  number2 = 0
+  number(number2)
+  number = ScaleformMovieMethodAddParamInt
+  number2 = 0
+  number(number2)
+  number = ScaleformMovieMethodAddParamInt
+  number2 = 0
+  number(number2)
+  number = ScaleformMovieMethodAddParamInt
+  number2 = 80
+  number(number2)
+  number = EndScaleformMovieMethod
+  number()
+  number5 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-function textValue3()
-  local arg1, numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4, stringHelper, workValue2, flag4, flag5
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+function text3()
+  local localValue1, number, number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4, stringHelper, workingValue2, stateFlag4, stateFlag5
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  numberValue = CMG
-  numberValue = numberValue.loadModel
-  numberValue2 = -1585232418
+  localValue1 = localValue1()
+  number = CMG
+  number = number.loadModel
+  number2 = -1585232418
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  numberValue(numberValue2)
-  numberValue = CMG
-  numberValue = numberValue.requestEntitySpawn
-  numberValue2 = "home_cctv_tablet"
-  numberValue(numberValue2)
-  numberValue = CreateObject
-  numberValue2 = -1585232418
+  number(number2)
+  number = CMG
+  number = number.requestEntitySpawn
+  number2 = "home_cctv_tablet"
+  number(number2)
+  number = CreateObject
+  number2 = -1585232418
   iterator = 0
-  cmgCall2 = 0
+  cmgOperation2 = 0
   iterator2 = 0
-  cmgCall3 = true
-  flag9 = true
-  flag10 = true
+  cmgOperation3 = true
+  stateFlag9 = true
+  stateFlag10 = true
   -- Beginner: result below is objectEntity.
-  numberValue = numberValue(numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9, flag10)
-  numberValue6 = numberValue
-  numberValue = SetModelAsNoLongerNeeded
-  numberValue2 = -1585232418
-  numberValue(numberValue2)
-  numberValue = CMG
-  numberValue = numberValue.loadAnimDict
-  numberValue2 = "amb@world_human_seat_wall_tablet@female@base"
+  number = number(number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10)
+  number6 = number
+  number = SetModelAsNoLongerNeeded
+  number2 = -1585232418
+  number(number2)
+  number = CMG
+  number = number.loadAnimDict
+  number2 = "amb@world_human_seat_wall_tablet@female@base"
   -- Beginner: Load a GTA animation dictionary before using it.
-  numberValue(numberValue2)
-  numberValue = TaskPlayAnim
-  numberValue2 = arg1
+  number(number2)
+  number = TaskPlayAnim
+  number2 = localValue1
   iterator = "amb@world_human_seat_wall_tablet@female@base"
-  cmgCall2 = "base"
+  cmgOperation2 = "base"
   iterator2 = 8.0
-  cmgCall3 = -8.0
-  flag9 = -1
-  flag10 = 50
-  numberValue7 = 0
-  flag = false
-  flag2 = false
-  textValue4 = false
+  cmgOperation3 = -8.0
+  stateFlag9 = -1
+  stateFlag10 = 50
+  number7 = 0
+  stateFlag = false
+  stateFlag2 = false
+  text4 = false
   -- Beginner: Play an animation on a ped.
-  numberValue(numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4)
-  numberValue = RemoveAnimDict
-  numberValue2 = "amb@world_human_seat_wall_tablet@female@base"
-  numberValue(numberValue2)
-  numberValue = AttachEntityToEntity
-  numberValue2 = numberValue6
-  iterator = arg1
-  cmgCall2 = GetPedBoneIndex
-  iterator2 = arg1
-  cmgCall3 = 57005
-  cmgCall2 = cmgCall2(iterator2, cmgCall3)
+  number(number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4)
+  number = RemoveAnimDict
+  number2 = "amb@world_human_seat_wall_tablet@female@base"
+  number(number2)
+  number = AttachEntityToEntity
+  number2 = number6
+  iterator = localValue1
+  cmgOperation2 = GetPedBoneIndex
+  iterator2 = localValue1
+  cmgOperation3 = 57005
+  cmgOperation2 = cmgOperation2(iterator2, cmgOperation3)
   iterator2 = 0.17
-  cmgCall3 = 0.1
-  flag9 = -0.13
-  flag10 = 24.0
-  numberValue7 = 180.0
-  flag = 180.0
-  flag2 = true
-  textValue4 = true
+  cmgOperation3 = 0.1
+  stateFlag9 = -0.13
+  stateFlag10 = 24.0
+  number7 = 180.0
+  stateFlag = 180.0
+  stateFlag2 = true
+  text4 = true
   stringHelper = false
-  workValue2 = true
-  flag4 = 1
-  flag5 = true
+  workingValue2 = true
+  stateFlag4 = 1
+  stateFlag5 = true
   -- Beginner: Attach one entity to another entity.
-  numberValue(numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9, flag10, numberValue7, flag, flag2, textValue4, stringHelper, workValue2, flag4, flag5)
-  numberValue = Citizen
-  numberValue = numberValue.CreateThread
+  number(number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10, number7, stateFlag, stateFlag2, text4, stringHelper, workingValue2, stateFlag4, stateFlag5)
+  number = Citizen
+  number = number.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
-  function numberValue2()
-    local arg12, arg2, arg3, flag6, dataTable2
+  -- === HELPER FUNCTION (decompiler name: number2; parameters: none) ===
+  function number2()
+    local localValue12, localValue2, localValue3, stateFlag6, dataCollection2
     while true do
-      arg12 = DoesEntityExist
-      arg2 = numberValue6
-      arg12 = arg12(arg2)
-      if not arg12 then
+      localValue12 = DoesEntityExist
+      localValue2 = number6
+      localValue12 = localValue12(localValue2)
+      if not localValue12 then
         break
       end
-      arg12 = IsEntityPlayingAnim
-      arg2 = arg1
-      arg3 = "amb@world_human_seat_wall_tablet@female@base"
-      flag6 = "base"
-      dataTable2 = 3
-      arg12 = arg12(arg2, arg3, flag6, dataTable2)
-      if not arg12 then
-        arg12 = DeleteEntity
-        arg2 = numberValue6
+      localValue12 = IsEntityPlayingAnim
+      localValue2 = localValue1
+      localValue3 = "amb@world_human_seat_wall_tablet@female@base"
+      stateFlag6 = "base"
+      dataCollection2 = 3
+      localValue12 = localValue12(localValue2, localValue3, stateFlag6, dataCollection2)
+      if not localValue12 then
+        localValue12 = DeleteEntity
+        localValue2 = number6
         -- Beginner: Delete a GTA entity.
-        arg12(arg2)
+        localValue12(localValue2)
         return
       end
-      arg12 = Citizen
-      arg12 = arg12.Wait
-      arg2 = 0
-      arg12(arg2)
+      localValue12 = Citizen
+      localValue12 = localValue12.Wait
+      localValue2 = 0
+      localValue12(localValue2)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  numberValue(numberValue2)
+  number(number2)
 end
 
--- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
-function rageUiCall2()
-  local arg1, numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3, flag9, flag10
-  arg1 = assert
-  numberValue = workValue6
-  numberValue2 = "A valid cctv must be selected in order to view the camera"
-  arg1(numberValue, numberValue2)
-  arg1 = assert
-  numberValue = textValue9
-  numberValue2 = "A valid selectable must be active to view the camera"
-  arg1(numberValue, numberValue2)
-  arg1 = numberValue3
-  arg1 = 0 ~= arg1
-  numberValue = RageUI
-  numberValue = numberValue.CloseAll
-  numberValue()
-  if not arg1 then
-    numberValue = CMG
-    numberValue = numberValue.hideAllDisplays
-    numberValue2 = "homecctv"
-    numberValue(numberValue2)
-    numberValue = CreateCam
-    numberValue2 = "DEFAULT_SCRIPTED_CAMERA"
+-- === HELPER FUNCTION (decompiler name: rageUiOperation2; parameters: none) ===
+function rageUiOperation2()
+  local localValue1, number, number2, iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10
+  localValue1 = assert
+  number = workingValue6
+  number2 = "A valid cctv must be selected in order to view the camera"
+  localValue1(number, number2)
+  localValue1 = assert
+  number = text9
+  number2 = "A valid selectable must be active to view the camera"
+  localValue1(number, number2)
+  localValue1 = number3
+  localValue1 = 0 ~= localValue1
+  number = RageUI
+  number = number.CloseAll
+  number()
+  if not localValue1 then
+    number = CMG
+    number = number.hideAllDisplays
+    number2 = "homecctv"
+    number(number2)
+    number = CreateCam
+    number2 = "DEFAULT_SCRIPTED_CAMERA"
     iterator = true
     -- Beginner: result below is cameraHandle.
-    numberValue = numberValue(numberValue2, iterator)
-    numberValue3 = numberValue
+    number = number(number2, iterator)
+    number3 = number
   end
-  numberValue = vector3
-  numberValue2 = 0.0
+  number = vector3
+  number2 = 0.0
   iterator = 0.0
-  cmgCall2 = 0.0
-  numberValue = numberValue(numberValue2, iterator, cmgCall2)
-  numberValue2 = workValue6.offset
-  if numberValue2 then
-    numberValue2 = workValue6.offset
-    numberValue = numberValue + numberValue2
+  cmgOperation2 = 0.0
+  number = number(number2, iterator, cmgOperation2)
+  number2 = workingValue6.offset
+  if number2 then
+    number2 = workingValue6.offset
+    number = number + number2
   end
-  numberValue2 = AttachCamToEntity
-  iterator = numberValue3
-  cmgCall2 = textValue9
-  cmgCall2 = cmgCall2[4]
-  iterator2 = numberValue.x
-  cmgCall3 = numberValue.y
-  flag9 = numberValue.z
-  flag10 = true
-  numberValue2(iterator, cmgCall2, iterator2, cmgCall3, flag9, flag10)
-  numberValue2 = GetEntityRotation
-  iterator = textValue9
+  number2 = AttachCamToEntity
+  iterator = number3
+  cmgOperation2 = text9
+  cmgOperation2 = cmgOperation2[4]
+  iterator2 = number.x
+  cmgOperation3 = number.y
+  stateFlag9 = number.z
+  stateFlag10 = true
+  number2(iterator, cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10)
+  number2 = GetEntityRotation
+  iterator = text9
   iterator = iterator[4]
-  cmgCall2 = 2
-  numberValue2 = numberValue2(iterator, cmgCall2)
-  iterator = workValue6.rotation
+  cmgOperation2 = 2
+  number2 = number2(iterator, cmgOperation2)
+  iterator = workingValue6.rotation
   if iterator then
-    iterator = workValue6.rotation
-    numberValue2 = numberValue2 + iterator
+    iterator = workingValue6.rotation
+    number2 = number2 + iterator
   end
   iterator = SetCamRot
-  cmgCall2 = numberValue3
-  iterator2 = numberValue2.x
-  cmgCall3 = numberValue2.y
-  flag9 = numberValue2.z
-  flag10 = 2
-  iterator(cmgCall2, iterator2, cmgCall3, flag9, flag10)
+  cmgOperation2 = number3
+  iterator2 = number2.x
+  cmgOperation3 = number2.y
+  stateFlag9 = number2.z
+  stateFlag10 = 2
+  iterator(cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10)
   iterator = SetEntityVisible
-  cmgCall2 = textValue9
-  cmgCall2 = cmgCall2[4]
+  cmgOperation2 = text9
+  cmgOperation2 = cmgOperation2[4]
   iterator2 = false
-  cmgCall3 = false
-  iterator(cmgCall2, iterator2, cmgCall3)
-  if not arg1 then
+  cmgOperation3 = false
+  iterator(cmgOperation2, iterator2, cmgOperation3)
+  if not localValue1 then
     iterator = RenderScriptCams
-    cmgCall2 = true
+    cmgOperation2 = true
     iterator2 = false
-    cmgCall3 = 0
-    flag9 = false
-    flag10 = false
-    iterator(cmgCall2, iterator2, cmgCall3, flag9, flag10)
+    cmgOperation3 = 0
+    stateFlag9 = false
+    stateFlag10 = false
+    iterator(cmgOperation2, iterator2, cmgOperation3, stateFlag9, stateFlag10)
     iterator = SetTimecycleModifier
-    cmgCall2 = "scanline_cam_cheap"
-    iterator(cmgCall2)
+    cmgOperation2 = "scanline_cam_cheap"
+    iterator(cmgOperation2)
     iterator = SetTimecycleModifierStrength
-    cmgCall2 = 1.0
-    iterator(cmgCall2)
+    cmgOperation2 = 1.0
+    iterator(cmgOperation2)
     iterator = Citizen
     iterator = iterator.CreateThread
-    cmgCall2 = textValue
+    cmgOperation2 = text
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    iterator(cmgCall2)
-    iterator = rageUiCall
+    iterator(cmgOperation2)
+    iterator = rageUiOperation
     iterator()
-    iterator = textValue3
+    iterator = text3
     iterator()
   end
 end
-workValue15 = rageUiCall2
-rageUiCall2 = RageUI
-rageUiCall2 = rageUiCall2.CreateWhile
-rageUiCall3 = 1.0
-rageUiCall4 = RMenu
-rageUiCall5 = rageUiCall4
-rageUiCall4 = rageUiCall4.Get
-textValue5 = "housecctv"
-textValue7 = "mainmenu"
+workingValue15 = rageUiOperation2
+rageUiOperation2 = RageUI
+rageUiOperation2 = rageUiOperation2.CreateWhile
+rageUiOperation3 = 1.0
+rageUiOperation4 = RMenu
+rageUiOperation5 = rageUiOperation4
+rageUiOperation4 = rageUiOperation4.Get
+text5 = "housecctv"
+text7 = "mainmenu"
 -- Beginner: result below is menu.
-rageUiCall4 = rageUiCall4(rageUiCall5, textValue5, textValue7)
-rageUiCall5 = nil
+rageUiOperation4 = rageUiOperation4(rageUiOperation5, text5, text7)
+rageUiOperation5 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  numberValue = RMenu
-  numberValue2 = numberValue
-  numberValue = numberValue.Get
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, number, number2, iterator, cmgOperation2, iterator2, cmgOperation3
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  number = RMenu
+  number2 = number
+  number = number.Get
   iterator = "housecctv"
-  cmgCall2 = "mainmenu"
+  cmgOperation2 = "mainmenu"
   -- Beginner: result below is menu.
-  numberValue = numberValue(numberValue2, iterator, cmgCall2)
-  numberValue2 = true
+  number = number(number2, iterator, cmgOperation2)
+  number2 = true
   iterator = false
-  cmgCall2 = true
+  cmgOperation2 = true
 
   -- === HELPER FUNCTION: iterator2() ===
   function iterator2()
-    local arg12, arg2, arg3, flag6, dataTable2, flag7, workValue12, workValue14, textValue11, stringHelper2, workValue, textValue2, dataTable, flag3, workValue3, workValue4, workValue5, textValue6, textValue8
-    arg12 = 1
-    arg2 = pairs
-    arg3 = CMG
-    arg3 = arg3.getHomePlaceableObjects
-    arg3, flag6, dataTable2, flag7, workValue12, workValue14, textValue11, stringHelper2, workValue, textValue2, dataTable, flag3, workValue3, workValue4, workValue5, textValue6, textValue8 = arg3()
-    arg2, arg3, flag6, dataTable2 = arg2(arg3, flag6, dataTable2, flag7, workValue12, workValue14, textValue11, stringHelper2, workValue, textValue2, dataTable, flag3, workValue3, workValue4, workValue5, textValue6, textValue8)
-    for flag7, workValue12 in arg2, arg3, flag6, dataTable2 do
-      workValue14 = cmgCall.cctvLookup
-      textValue11 = workValue12[1]
-      workValue14 = workValue14[textValue11]
-      if workValue14 then
-        textValue11 = "Camera "
+    local localValue12, localValue2, localValue3, stateFlag6, dataCollection2, stateFlag7, workingValue12, workingValue14, text11, stringHelper2, workingValue, text2, dataCollection, stateFlag3, workingValue3, workingValue4, workingValue5, text6, text8
+    localValue12 = 1
+    localValue2 = pairs
+    localValue3 = CMG
+    localValue3 = localValue3.getHomePlaceableObjects
+    localValue3, stateFlag6, dataCollection2, stateFlag7, workingValue12, workingValue14, text11, stringHelper2, workingValue, text2, dataCollection, stateFlag3, workingValue3, workingValue4, workingValue5, text6, text8 = localValue3()
+    localValue2, localValue3, stateFlag6, dataCollection2 = localValue2(localValue3, stateFlag6, dataCollection2, stateFlag7, workingValue12, workingValue14, text11, stringHelper2, workingValue, text2, dataCollection, stateFlag3, workingValue3, workingValue4, workingValue5, text6, text8)
+    for stateFlag7, workingValue12 in localValue2, localValue3, stateFlag6, dataCollection2 do
+      workingValue14 = cmgOperation.cctvLookup
+      text11 = workingValue12[1]
+      workingValue14 = workingValue14[text11]
+      if workingValue14 then
+        text11 = "Camera "
         stringHelper2 = tostring
-        workValue = arg12
-        stringHelper2 = stringHelper2(workValue)
-        textValue11 = textValue11 .. stringHelper2
-        stringHelper2 = workValue12[5]
+        workingValue = localValue12
+        stringHelper2 = stringHelper2(workingValue)
+        text11 = text11 .. stringHelper2
+        stringHelper2 = workingValue12[5]
         if stringHelper2 then
-          stringHelper2 = workValue12[5]
+          stringHelper2 = workingValue12[5]
           stringHelper2 = stringHelper2.camera_name
           if stringHelper2 then
-            stringHelper2 = workValue12[5]
-            textValue11 = stringHelper2.camera_name
+            stringHelper2 = workingValue12[5]
+            text11 = stringHelper2.camera_name
           end
         end
         stringHelper2 = RageUI
         stringHelper2 = stringHelper2.ButtonWithStyle
-        workValue = textValue11
-        textValue2 = ""
-        dataTable = {}
-        dataTable.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag3 = true
+        workingValue = text11
+        text2 = ""
+        dataCollection = {}
+        dataCollection.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag3 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg13, arg22, arg32) ===
-        function workValue3(arg13, arg22, arg32)
-          local workValue8, workValue10, flag8
-          if arg22 then
-            workValue8 = numberValue4
-            workValue10 = numberValue4
-            workValue8 = workValue8 ~= workValue10
-            workValue10 = workValue12
-            workValue10 = workValue10[4]
-            if workValue8 ~= workValue10 then
-              workValue8 = SetEntityDrawOutline
-              workValue10 = numberValue4
-              flag8 = false
-              workValue8(workValue10, flag8)
+        -- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue13, localValue22, localValue32) ===
+        function workingValue3(localValue13, localValue22, localValue32)
+          local workingValue8, workingValue10, stateFlag8
+          if localValue22 then
+            workingValue8 = number4
+            workingValue10 = number4
+            workingValue8 = workingValue8 ~= workingValue10
+            workingValue10 = workingValue12
+            workingValue10 = workingValue10[4]
+            if workingValue8 ~= workingValue10 then
+              workingValue8 = SetEntityDrawOutline
+              workingValue10 = number4
+              stateFlag8 = false
+              workingValue8(workingValue10, stateFlag8)
             end
-            workValue8 = SetEntityDrawOutline
-            workValue10 = workValue12
-            workValue10 = workValue10[4]
-            flag8 = true
-            workValue8(workValue10, flag8)
-            workValue8 = workValue12
-            workValue8 = workValue8[4]
-            numberValue4 = workValue8
+            workingValue8 = SetEntityDrawOutline
+            workingValue10 = workingValue12
+            workingValue10 = workingValue10[4]
+            stateFlag8 = true
+            workingValue8(workingValue10, stateFlag8)
+            workingValue8 = workingValue12
+            workingValue8 = workingValue8[4]
+            number4 = workingValue8
           end
-          if arg32 then
-            workValue8 = workValue12
-            textValue9 = workValue8
-            workValue8 = workValue14
-            workValue6 = workValue8
-            workValue8 = string
-            workValue8 = workValue8.upper
-            workValue10 = textValue11
-            workValue8 = workValue8(workValue10)
-            workValue7 = workValue8
+          if localValue32 then
+            workingValue8 = workingValue12
+            text9 = workingValue8
+            workingValue8 = workingValue14
+            workingValue6 = workingValue8
+            workingValue8 = string
+            workingValue8 = workingValue8.upper
+            workingValue10 = text11
+            workingValue8 = workingValue8(workingValue10)
+            workingValue7 = workingValue8
           end
         end
-        workValue4 = RMenu
-        workValue5 = workValue4
-        workValue4 = workValue4.Get
-        textValue6 = "housecctv"
-        textValue8 = "camerainfo"
-        workValue4, workValue5, textValue6, textValue8 = workValue4(workValue5, textValue6, textValue8)
+        workingValue4 = RMenu
+        workingValue5 = workingValue4
+        workingValue4 = workingValue4.Get
+        text6 = "housecctv"
+        text8 = "camerainfo"
+        workingValue4, workingValue5, text6, text8 = workingValue4(workingValue5, text6, text8)
         -- Beginner: Draw a selectable RageUI menu button.
-        stringHelper2(workValue, textValue2, dataTable, flag3, workValue3, workValue4, workValue5, textValue6, textValue8)
-        arg12 = arg12 + 1
+        stringHelper2(workingValue, text2, dataCollection, stateFlag3, workingValue3, workingValue4, workingValue5, text6, text8)
+        localValue12 = localValue12 + 1
       end
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-  function cmgCall3()
-    local arg12, arg2
+  -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+  function cmgOperation3()
+    local localValue12, localValue2
   end
-  arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  numberValue = RMenu
-  numberValue2 = numberValue
-  numberValue = numberValue.Get
+  localValue1(number, number2, iterator, cmgOperation2, iterator2, cmgOperation3)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  number = RMenu
+  number2 = number
+  number = number.Get
   iterator = "housecctv"
-  cmgCall2 = "camerainfo"
+  cmgOperation2 = "camerainfo"
   -- Beginner: result below is menu.
-  numberValue = numberValue(numberValue2, iterator, cmgCall2)
-  numberValue2 = true
+  number = number(number2, iterator, cmgOperation2)
+  number2 = true
   iterator = false
-  cmgCall2 = true
+  cmgOperation2 = true
 
   -- === HELPER FUNCTION: iterator2() ===
   function iterator2()
-    local arg12, arg2, arg3, flag6, dataTable2, flag7, workValue12
-    arg12 = textValue9
-    if not arg12 then
+    local localValue12, localValue2, localValue3, stateFlag6, dataCollection2, stateFlag7, workingValue12
+    localValue12 = text9
+    if not localValue12 then
       return
     end
-    arg12 = CMG
-    arg12 = arg12.getHomePlaceableIndex
-    arg2 = textValue9
-    arg2 = arg2[4]
-    arg12 = arg12(arg2)
-    if arg12 <= 0 then
-      arg2 = RageUI
-      arg2 = arg2.Visible
-      arg3 = RMenu
-      flag6 = arg3
-      arg3 = arg3.Get
-      dataTable2 = "housecctv"
-      flag7 = "mainmenu"
+    localValue12 = CMG
+    localValue12 = localValue12.getHomePlaceableIndex
+    localValue2 = text9
+    localValue2 = localValue2[4]
+    localValue12 = localValue12(localValue2)
+    if localValue12 <= 0 then
+      localValue2 = RageUI
+      localValue2 = localValue2.Visible
+      localValue3 = RMenu
+      stateFlag6 = localValue3
+      localValue3 = localValue3.Get
+      dataCollection2 = "housecctv"
+      stateFlag7 = "mainmenu"
       -- Beginner: result below is menu.
-      arg3 = arg3(flag6, dataTable2, flag7)
-      flag6 = true
-      arg2(arg3, flag6)
+      localValue3 = localValue3(stateFlag6, dataCollection2, stateFlag7)
+      stateFlag6 = true
+      localValue2(localValue3, stateFlag6)
       return
     end
-    arg2 = RageUI
-    arg2 = arg2.ButtonWithStyle
-    arg3 = "View Camera"
-    flag6 = ""
-    dataTable2 = {}
-    dataTable2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag7 = true
+    localValue2 = RageUI
+    localValue2 = localValue2.ButtonWithStyle
+    localValue3 = "View Camera"
+    stateFlag6 = ""
+    dataCollection2 = {}
+    dataCollection2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag7 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg13, arg22, arg32) ===
-    function workValue12(arg13, arg22, arg32)
-      local workValue8
-      if arg32 then
-        workValue8 = workValue15
-        workValue8()
+    -- === HELPER FUNCTION (decompiler name: workingValue12; parameters: localValue13, localValue22, localValue32) ===
+    function workingValue12(localValue13, localValue22, localValue32)
+      local workingValue8
+      if localValue32 then
+        workingValue8 = workingValue15
+        workingValue8()
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg2(arg3, flag6, dataTable2, flag7, workValue12)
-    arg2 = RageUI
-    arg2 = arg2.ButtonWithStyle
-    arg3 = "Set Name"
-    flag6 = ""
-    dataTable2 = {}
-    dataTable2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag7 = true
+    localValue2(localValue3, stateFlag6, dataCollection2, stateFlag7, workingValue12)
+    localValue2 = RageUI
+    localValue2 = localValue2.ButtonWithStyle
+    localValue3 = "Set Name"
+    stateFlag6 = ""
+    dataCollection2 = {}
+    dataCollection2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag7 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg13, arg22, arg32) ===
-    function workValue12(arg13, arg22, arg32)
-      local workValue8, workValue10, flag8, workValue13
-      if arg32 then
-        workValue8 = CMG
-        workValue8 = workValue8.clientPrompt
-        workValue10 = "Enter Camera Name"
-        flag8 = ""
+    -- === HELPER FUNCTION (decompiler name: workingValue12; parameters: localValue13, localValue22, localValue32) ===
+    function workingValue12(localValue13, localValue22, localValue32)
+      local workingValue8, workingValue10, stateFlag8, workingValue13
+      if localValue32 then
+        workingValue8 = CMG
+        workingValue8 = workingValue8.clientPrompt
+        workingValue10 = "Enter Camera Name"
+        stateFlag8 = ""
 
-        -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg14) ===
-        function workValue13(arg14)
-          local serverEventCall, textValue10, workValue9, workValue11
-          serverEventCall = #arg14
+        -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue14) ===
+        function workingValue13(localValue14)
+          local serverEventCall, text10, workingValue9, workingValue11
+          serverEventCall = #localValue14
           if serverEventCall > 2 then
-            serverEventCall = #arg14
+            serverEventCall = #localValue14
             if serverEventCall < 25 then
               serverEventCall = TriggerServerEvent
-              textValue10 = "4c8a1aa1b3"
-              workValue9 = arg12
-              workValue11 = arg14
+              text10 = "4c8a1aa1b3"
+              workingValue9 = localValue12
+              workingValue11 = localValue14
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4c8a1aa1b3".
-              serverEventCall(textValue10, workValue9, workValue11)
+              serverEventCall(text10, workingValue9, workingValue11)
           end
           else
             serverEventCall = notify
-            textValue10 = "~r~Please enter a name between 3 and 25 characters."
+            text10 = "~r~Please enter a name between 3 and 25 characters."
             -- Beginner: Show a notification to the player.
-            serverEventCall(textValue10)
+            serverEventCall(text10)
           end
         end
-        workValue8(workValue10, flag8, workValue13)
+        workingValue8(workingValue10, stateFlag8, workingValue13)
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    arg2(arg3, flag6, dataTable2, flag7, workValue12)
+    localValue2(localValue3, stateFlag6, dataCollection2, stateFlag7, workingValue12)
   end
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-  function cmgCall3()
-    local arg12, arg2
+  -- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+  function cmgOperation3()
+    local localValue12, localValue2
   end
-  arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2, cmgCall3)
+  localValue1(number, number2, iterator, cmgOperation2, iterator2, cmgOperation3)
 end
-rageUiCall2(rageUiCall3, rageUiCall4, rageUiCall5, textValue5)
-rageUiCall2 = RegisterNetEvent
-rageUiCall3 = "4a71260cab"
+rageUiOperation2(rageUiOperation3, rageUiOperation4, rageUiOperation5, text5)
+rageUiOperation2 = RegisterNetEvent
+rageUiOperation3 = "4a71260cab"
 -- Beginner: this function handles network event "4a71260cab".
 
--- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
-function rageUiCall4()
-  local arg1, numberValue, numberValue2, iterator, cmgCall2
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  numberValue = RMenu
-  numberValue2 = numberValue
-  numberValue = numberValue.Get
+-- === HELPER FUNCTION (decompiler name: rageUiOperation4; parameters: none) ===
+function rageUiOperation4()
+  local localValue1, number, number2, iterator, cmgOperation2
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  number = RMenu
+  number2 = number
+  number = number.Get
   iterator = "housecctv"
-  cmgCall2 = "mainmenu"
+  cmgOperation2 = "mainmenu"
   -- Beginner: result below is menu.
-  numberValue = numberValue(numberValue2, iterator, cmgCall2)
-  numberValue2 = true
-  arg1(numberValue, numberValue2)
+  number = number(number2, iterator, cmgOperation2)
+  number2 = true
+  localValue1(number, number2)
   while true do
-    arg1 = RageUI
-    arg1 = arg1.IsAnyMenuOfTypeVisible
-    numberValue = "housecctv"
-    arg1 = arg1(numberValue)
-    if not arg1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.IsAnyMenuOfTypeVisible
+    number = "housecctv"
+    localValue1 = localValue1(number)
+    if not localValue1 then
       break
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    numberValue = 0
-    arg1(numberValue)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    number = 0
+    localValue1(number)
   end
-  arg1 = numberValue4
-  if 0 ~= arg1 then
-    arg1 = SetEntityDrawOutline
-    numberValue = numberValue4
-    numberValue2 = false
-    arg1(numberValue, numberValue2)
-    arg1 = 0
-    numberValue4 = arg1
+  localValue1 = number4
+  if 0 ~= localValue1 then
+    localValue1 = SetEntityDrawOutline
+    number = number4
+    number2 = false
+    localValue1(number, number2)
+    localValue1 = 0
+    number4 = localValue1
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4a71260cab".
-rageUiCall2(rageUiCall3, rageUiCall4)
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.registerHomeCustomisationButtons
-rageUiCall3 = "CCTV Control"
+rageUiOperation2(rageUiOperation3, rageUiOperation4)
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.registerHomeCustomisationButtons
+rageUiOperation3 = "CCTV Control"
 
--- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
-function rageUiCall4()
-  local arg1, numberValue, numberValue2, iterator, cmgCall2, iterator2
-  arg1 = RageUI
-  arg1 = arg1.Separator
-  numberValue = "~y~Makes all CCTVs in your house controllable"
-  arg1(numberValue)
-  arg1 = RageUI
-  arg1 = arg1.Separator
-  numberValue = "~y~View and name them by using /cctv"
-  arg1(numberValue)
-  arg1 = RageUI
-  arg1 = arg1.ButtonWithStyle
-  numberValue = "Purchase"
-  numberValue2 = ""
+-- === HELPER FUNCTION (decompiler name: rageUiOperation4; parameters: none) ===
+function rageUiOperation4()
+  local localValue1, number, number2, iterator, cmgOperation2, iterator2
+  localValue1 = RageUI
+  localValue1 = localValue1.Separator
+  number = "~y~Makes all CCTVs in your house controllable"
+  localValue1(number)
+  localValue1 = RageUI
+  localValue1 = localValue1.Separator
+  number = "~y~View and name them by using /cctv"
+  localValue1(number)
+  localValue1 = RageUI
+  localValue1 = localValue1.ButtonWithStyle
+  number = "Purchase"
+  number2 = ""
   iterator = {}
   iterator.RightLabel = "\194\1632,000,000"
-  cmgCall2 = true
+  cmgOperation2 = true
 
-  -- === HELPER FUNCTION: iterator2(arg12, arg2, arg3) ===
-  function iterator2(arg12, arg2, arg3)
-    local flag6, dataTable2
-    if arg3 then
-      flag6 = TriggerServerEvent
-      dataTable2 = "780b19ba17"
+  -- === HELPER FUNCTION: iterator2(localValue12, localValue2, localValue3) ===
+  function iterator2(localValue12, localValue2, localValue3)
+    local stateFlag6, dataCollection2
+    if localValue3 then
+      stateFlag6 = TriggerServerEvent
+      dataCollection2 = "780b19ba17"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "780b19ba17".
-      flag6(dataTable2)
+      stateFlag6(dataCollection2)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2)
+  localValue1(number, number2, iterator, cmgOperation2, iterator2)
 end
-rageUiCall2(rageUiCall3, rageUiCall4)
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.registerHomeCustomisationButtons
-rageUiCall3 = "Silent Alarm"
+rageUiOperation2(rageUiOperation3, rageUiOperation4)
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.registerHomeCustomisationButtons
+rageUiOperation3 = "Silent Alarm"
 
--- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
-function rageUiCall4()
-  local arg1, numberValue, numberValue2, iterator, cmgCall2, iterator2
-  arg1 = RageUI
-  arg1 = arg1.Separator
-  numberValue = "~y~Notifies the police when being broken into"
-  arg1(numberValue)
-  arg1 = RageUI
-  arg1 = arg1.Separator
-  numberValue = "~y~The house location and name will be provided"
-  arg1(numberValue)
-  arg1 = RageUI
-  arg1 = arg1.ButtonWithStyle
-  numberValue = "Purchase"
-  numberValue2 = ""
+-- === HELPER FUNCTION (decompiler name: rageUiOperation4; parameters: none) ===
+function rageUiOperation4()
+  local localValue1, number, number2, iterator, cmgOperation2, iterator2
+  localValue1 = RageUI
+  localValue1 = localValue1.Separator
+  number = "~y~Notifies the police when being broken into"
+  localValue1(number)
+  localValue1 = RageUI
+  localValue1 = localValue1.Separator
+  number = "~y~The house location and name will be provided"
+  localValue1(number)
+  localValue1 = RageUI
+  localValue1 = localValue1.ButtonWithStyle
+  number = "Purchase"
+  number2 = ""
   iterator = {}
   iterator.RightLabel = "\194\1633,000,000"
-  cmgCall2 = true
+  cmgOperation2 = true
 
-  -- === HELPER FUNCTION: iterator2(arg12, arg2, arg3) ===
-  function iterator2(arg12, arg2, arg3)
-    local flag6, dataTable2
-    if arg3 then
-      flag6 = TriggerServerEvent
-      dataTable2 = "e2673bb257"
+  -- === HELPER FUNCTION: iterator2(localValue12, localValue2, localValue3) ===
+  function iterator2(localValue12, localValue2, localValue3)
+    local stateFlag6, dataCollection2
+    if localValue3 then
+      stateFlag6 = TriggerServerEvent
+      dataCollection2 = "e2673bb257"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e2673bb257".
-      flag6(dataTable2)
+      stateFlag6(dataCollection2)
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(numberValue, numberValue2, iterator, cmgCall2, iterator2)
+  localValue1(number, number2, iterator, cmgOperation2, iterator2)
 end
-rageUiCall2(rageUiCall3, rageUiCall4)
+rageUiOperation2(rageUiOperation3, rageUiOperation4)

@@ -32,425 +32,425 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local workValue, cmgCall, dataTable3, dataTable5, workValue17, numberValue18, workValue19, dataTable7, numberValue19, flag20, numberValue, numberValue2, numberValue3, numberValue4, dataTable, flag5, dataTable2, numberValue5, workValue6, workValue8, cmgCall2, textValue2, workValue9, workValue10, workValue11, cmgCall3, workValue12, cmgCall4, textValue3, workValue13, numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7
-workValue = require
-cmgCall = "glm"
-workValue = workValue(cmgCall)
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable3 = "cfg/cfg_farming"
+local workingValue, cmgOperation, dataCollection3, dataCollection5, workingValue17, number18, workingValue19, dataCollection7, number19, stateFlag20, number, number2, number3, number4, dataCollection, stateFlag5, dataCollection2, number5, workingValue6, workingValue8, cmgOperation2, text2, workingValue9, workingValue10, workingValue11, cmgOperation3, workingValue12, cmgOperation4, text3, workingValue13, number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7
+workingValue = require
+cmgOperation = "glm"
+workingValue = workingValue(cmgOperation)
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection3 = "cfg/cfg_farming"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable3)
-dataTable3 = {}
-dataTable5 = {}
-workValue17 = nil
-numberValue18 = 0
-workValue19 = nil
-dataTable7 = {}
-numberValue19 = 0
-flag20 = false
-numberValue = 0
-numberValue2 = 0
-numberValue3 = 0
-numberValue4 = 0
-dataTable = {}
-flag5 = false
-dataTable2 = {}
-numberValue5 = 0
-workValue6 = nil
-workValue8 = nil
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.registerHudTimerBarProvider
-textValue2 = "farmingJob"
+cmgOperation = cmgOperation(dataCollection3)
+dataCollection3 = {}
+dataCollection5 = {}
+workingValue17 = nil
+number18 = 0
+workingValue19 = nil
+dataCollection7 = {}
+number19 = 0
+stateFlag20 = false
+number = 0
+number2 = 0
+number3 = 0
+number4 = 0
+dataCollection = {}
+stateFlag5 = false
+dataCollection2 = {}
+number5 = 0
+workingValue6 = nil
+workingValue8 = nil
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.registerHudTimerBarProvider
+text2 = "farmingJob"
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, workValue16
-  arg2 = workValue6
-  if arg2 then
-    arg2 = arg1.push
-    arg3 = workValue6
-    workValue16 = workValue8
-    arg2(arg3, workValue16)
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, workingValue16
+  localValue2 = workingValue6
+  if localValue2 then
+    localValue2 = localValue1.push
+    localValue3 = workingValue6
+    workingValue16 = workingValue8
+    localValue2(localValue3, workingValue16)
   end
 end
-cmgCall2(textValue2, workValue9)
-cmgCall2 = RegisterNetEvent
-textValue2 = "9e07b10346"
+cmgOperation2(text2, workingValue9)
+cmgOperation2 = RegisterNetEvent
+text2 = "9e07b10346"
 -- Beginner: this function handles network event "9e07b10346".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2, arg3) ===
-function workValue9(arg1, arg2, arg3)
-  local workValue16, tableHelper, flag19, coords2
-  workValue16 = dataTable3
-  workValue16 = workValue16[arg1]
-  if workValue16 then
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2, localValue3) ===
+function workingValue9(localValue1, localValue2, localValue3)
+  local workingValue16, tableHelper, stateFlag19, coords2
+  workingValue16 = dataCollection3
+  workingValue16 = workingValue16[localValue1]
+  if workingValue16 then
     tableHelper = table
     tableHelper = tableHelper.insert
-    flag19 = workValue16
+    stateFlag19 = workingValue16
     coords2 = {}
-    coords2.position = arg2
-    coords2.model = arg3
+    coords2.position = localValue2
+    coords2.model = localValue3
     coords2.isSliding = true
     coords2.nextCheckTime = 0
     coords2.failedCheckAttempts = 0
-    tableHelper(flag19, coords2)
+    tableHelper(stateFlag19, coords2)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9e07b10346".
-cmgCall2(textValue2, workValue9)
-cmgCall2 = RegisterNetEvent
-textValue2 = "c1a89581c1"
+cmgOperation2(text2, workingValue9)
+cmgOperation2 = RegisterNetEvent
+text2 = "c1a89581c1"
 -- Beginner: this function handles network event "c1a89581c1".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7
-  arg2 = dataTable3
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = pairs
-    workValue16 = arg2
-    arg3, workValue16, tableHelper, flag19 = arg3(workValue16)
-    for coords2, workValue21 in arg3, workValue16, tableHelper, flag19 do
-      position = workValue21.object
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7
+  localValue2 = dataCollection3
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = pairs
+    workingValue16 = localValue2
+    localValue3, workingValue16, tableHelper, stateFlag19 = localValue3(workingValue16)
+    for coords2, workingValue21 in localValue3, workingValue16, tableHelper, stateFlag19 do
+      position = workingValue21.object
       if position then
-        position = workValue21.position
-        workValue22 = SetEntityCoordsNoOffset
-        flag = workValue21.object
-        flag2 = position.x
+        position = workingValue21.position
+        workingValue22 = SetEntityCoordsNoOffset
+        stateFlag = workingValue21.object
+        stateFlag2 = position.x
         modelValue = position.y
-        flag3 = position.z
-        flag4 = true
-        flag6 = false
-        flag7 = false
+        stateFlag3 = position.z
+        stateFlag4 = true
+        stateFlag6 = false
+        stateFlag7 = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        workValue22(flag, flag2, modelValue, flag3, flag4, flag6, flag7)
+        workingValue22(stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7)
       end
     end
-    arg3 = dataTable3
-    arg3[arg1] = nil
+    localValue3 = dataCollection3
+    localValue3[localValue1] = nil
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c1a89581c1".
-cmgCall2(textValue2, workValue9)
-cmgCall2 = RegisterNetEvent
-textValue2 = "2ce4151c46"
+cmgOperation2(text2, workingValue9)
+cmgOperation2 = RegisterNetEvent
+text2 = "2ce4151c46"
 -- Beginner: this function handles network event "2ce4151c46".
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2) ===
-function workValue9(arg1, arg2)
-  local arg3, workValue16, tableHelper, flag19, coords2, workValue21, position
-  arg3 = pairs
-  workValue16 = arg2
-  arg3, workValue16, tableHelper, flag19 = arg3(workValue16)
-  for coords2, workValue21 in arg3, workValue16, tableHelper, flag19 do
-    workValue21.isSliding = false
-    workValue21.nextCheckTime = 0
-    workValue21.failedCheckAttempts = 0
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2) ===
+function workingValue9(localValue1, localValue2)
+  local localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position
+  localValue3 = pairs
+  workingValue16 = localValue2
+  localValue3, workingValue16, tableHelper, stateFlag19 = localValue3(workingValue16)
+  for coords2, workingValue21 in localValue3, workingValue16, tableHelper, stateFlag19 do
+    workingValue21.isSliding = false
+    workingValue21.nextCheckTime = 0
+    workingValue21.failedCheckAttempts = 0
   end
-  arg3 = dataTable3
-  arg3[arg1] = arg2
+  localValue3 = dataCollection3
+  localValue3[localValue1] = localValue2
 end
-cmgCall2(textValue2, workValue9)
+cmgOperation2(text2, workingValue9)
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, workValue16
-  arg2 = TriggerServerEvent
-  arg3 = "2ce4151c46"
-  workValue16 = arg1.index
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, workingValue16
+  localValue2 = TriggerServerEvent
+  localValue3 = "2ce4151c46"
+  workingValue16 = localValue1.index
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2ce4151c46".
-  arg2(arg3, workValue16)
+  localValue2(localValue3, workingValue16)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2
-  arg3 = arg1.index
-  arg2 = dataTable3
-  arg2 = arg2[arg3]
-  if arg2 then
-    arg3 = pairs
-    workValue16 = arg2
-    arg3, workValue16, tableHelper, flag19 = arg3(workValue16)
-    for coords2, workValue21 in arg3, workValue16, tableHelper, flag19 do
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2
+  localValue3 = localValue1.index
+  localValue2 = dataCollection3
+  localValue2 = localValue2[localValue3]
+  if localValue2 then
+    localValue3 = pairs
+    workingValue16 = localValue2
+    localValue3, workingValue16, tableHelper, stateFlag19 = localValue3(workingValue16)
+    for coords2, workingValue21 in localValue3, workingValue16, tableHelper, stateFlag19 do
       position = SetEntityCollision
-      workValue22 = workValue21.object
-      flag = false
-      flag2 = false
-      position(workValue22, flag, flag2)
+      workingValue22 = workingValue21.object
+      stateFlag = false
+      stateFlag2 = false
+      position(workingValue22, stateFlag, stateFlag2)
       position = FreezeEntityPosition
-      workValue22 = workValue21.object
-      flag = false
+      workingValue22 = workingValue21.object
+      stateFlag = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      position(workValue22, flag)
+      position(workingValue22, stateFlag)
       position = SetEntityAsMissionEntity
-      workValue22 = workValue21.object
-      flag = false
-      flag2 = false
-      position(workValue22, flag, flag2)
+      workingValue22 = workingValue21.object
+      stateFlag = false
+      stateFlag2 = false
+      position(workingValue22, stateFlag, stateFlag2)
       position = SetEntityCleanupByEngine
-      workValue22 = workValue21.object
-      flag = true
-      position(workValue22, flag)
+      workingValue22 = workingValue21.object
+      stateFlag = true
+      position(workingValue22, stateFlag)
       position = SetEntityAsNoLongerNeeded
-      workValue22 = workValue21.object
-      position(workValue22)
+      workingValue22 = workingValue21.object
+      position(workingValue22)
       position = DeleteEntity
-      workValue22 = workValue21.object
+      workingValue22 = workingValue21.object
       -- Beginner: Delete a GTA entity.
-      position(workValue22)
+      position(workingValue22)
     end
-    workValue16 = arg1.index
-    arg3 = dataTable3
-    arg3[workValue16] = nil
+    workingValue16 = localValue1.index
+    localValue3 = dataCollection3
+    localValue3[workingValue16] = nil
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords
-  arg2 = pairs
-  arg3 = arg1
-  arg2, arg3, workValue16, tableHelper = arg2(arg3)
-  for flag19, coords2 in arg2, arg3, workValue16, tableHelper do
-    workValue21 = coords2.object
-    if not workValue21 then
-      workValue21 = numberValue19
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords
+  localValue2 = pairs
+  localValue3 = localValue1
+  localValue2, localValue3, workingValue16, tableHelper = localValue2(localValue3)
+  for stateFlag19, coords2 in localValue2, localValue3, workingValue16, tableHelper do
+    workingValue21 = coords2.object
+    if not workingValue21 then
+      workingValue21 = number19
       position = coords2.nextCheckTime
-      if workValue21 > position then
-        workValue21 = GetClosestObjectOfType
+      if workingValue21 > position then
+        workingValue21 = GetClosestObjectOfType
         position = coords2.position
         position = position.x
-        workValue22 = coords2.position
-        workValue22 = workValue22.y
-        flag = coords2.position
-        flag = flag.z
-        flag2 = 1.5
+        workingValue22 = coords2.position
+        workingValue22 = workingValue22.y
+        stateFlag = coords2.position
+        stateFlag = stateFlag.z
+        stateFlag2 = 1.5
         modelValue = coords2.model
-        flag3 = true
-        flag4 = false
-        flag6 = false
+        stateFlag3 = true
+        stateFlag4 = false
+        stateFlag6 = false
         -- Beginner: result below is objectEntity.
-        workValue21 = workValue21(position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6)
-        if 0 ~= workValue21 then
+        workingValue21 = workingValue21(position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6)
+        if 0 ~= workingValue21 then
           position = SetEntityCollision
-          workValue22 = workValue21
-          flag = false
-          flag2 = false
-          position(workValue22, flag, flag2)
+          workingValue22 = workingValue21
+          stateFlag = false
+          stateFlag2 = false
+          position(workingValue22, stateFlag, stateFlag2)
           position = FreezeEntityPosition
-          workValue22 = workValue21
-          flag = true
+          workingValue22 = workingValue21
+          stateFlag = true
           -- Beginner: Freeze or unfreeze an entity in place.
-          position(workValue22, flag)
+          position(workingValue22, stateFlag)
           position = coords2.isSliding
           if not position then
             position = GetEntityCoords
-            workValue22 = workValue21
-            flag = true
+            workingValue22 = workingValue21
+            stateFlag = true
             -- Beginner: result below is entityCoords.
-            position = position(workValue22, flag)
-            workValue22 = SetEntityCoords
-            flag = workValue21
-            flag2 = position.x
+            position = position(workingValue22, stateFlag)
+            workingValue22 = SetEntityCoords
+            stateFlag = workingValue21
+            stateFlag2 = position.x
             modelValue = position.y
-            flag3 = 0.0
-            flag4 = false
-            flag6 = false
-            flag7 = false
+            stateFlag3 = 0.0
+            stateFlag4 = false
+            stateFlag6 = false
+            stateFlag7 = false
             coords = false
             -- Beginner: Move/teleport an entity to new coordinates.
-            workValue22(flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords)
+            workingValue22(stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords)
           end
-          coords2.object = workValue21
+          coords2.object = workingValue21
           coords2.failedCheckAttempts = 0
         else
           position = coords2.failedCheckAttempts
           if position < 3 then
-            workValue22 = position + 1
-            coords2.failedCheckAttempts = workValue22
+            workingValue22 = position + 1
+            coords2.failedCheckAttempts = workingValue22
           end
-          workValue22 = numberValue19
-          flag = math
-          flag = flag.random
-          flag2 = 1000
+          workingValue22 = number19
+          stateFlag = math
+          stateFlag = stateFlag.random
+          stateFlag2 = 1000
           modelValue = position * 1000
           modelValue = 1000 + modelValue
-          flag = flag(flag2, modelValue)
-          workValue22 = workValue22 + flag
-          coords2.nextCheckTime = workValue22
+          stateFlag = stateFlag(stateFlag2, modelValue)
+          workingValue22 = workingValue22 + stateFlag
+          coords2.nextCheckTime = workingValue22
         end
       end
     else
-      workValue21 = coords2.isSliding
-      if workValue21 then
-        workValue21 = DoesEntityExist
+      workingValue21 = coords2.isSliding
+      if workingValue21 then
+        workingValue21 = DoesEntityExist
         position = coords2.object
-        workValue21 = workValue21(position)
-        if not workValue21 then
+        workingValue21 = workingValue21(position)
+        if not workingValue21 then
           coords2.object = nil
         else
-          workValue21 = GetEntityCoords
+          workingValue21 = GetEntityCoords
           position = coords2.object
-          workValue22 = true
+          workingValue22 = true
           -- Beginner: result below is entityCoords.
-          workValue21 = workValue21(position, workValue22)
-          position = workValue21.z
+          workingValue21 = workingValue21(position, workingValue22)
+          position = workingValue21.z
           if position > 0.0 then
             position = SetEntityCoords
-            workValue22 = coords2.object
-            flag = workValue21.x
-            flag2 = workValue21.y
-            modelValue = workValue21.z
-            flag3 = GetFrameTime
-            flag3 = flag3()
-            flag3 = -2.5 * flag3
-            modelValue = modelValue + flag3
-            flag3 = false
-            flag4 = false
-            flag6 = false
-            flag7 = false
-            position(workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7)
+            workingValue22 = coords2.object
+            stateFlag = workingValue21.x
+            stateFlag2 = workingValue21.y
+            modelValue = workingValue21.z
+            stateFlag3 = GetFrameTime
+            stateFlag3 = stateFlag3()
+            stateFlag3 = -2.5 * stateFlag3
+            modelValue = modelValue + stateFlag3
+            stateFlag3 = false
+            stateFlag4 = false
+            stateFlag6 = false
+            stateFlag7 = false
+            position(workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7)
           else
             coords2.isSliding = false
           end
         end
       else
-        workValue21 = numberValue19
+        workingValue21 = number19
         position = coords2.nextCheckTime
-        if workValue21 > position then
-          workValue21 = DoesEntityExist
+        if workingValue21 > position then
+          workingValue21 = DoesEntityExist
           position = coords2.object
-          workValue21 = workValue21(position)
-          if not workValue21 then
+          workingValue21 = workingValue21(position)
+          if not workingValue21 then
             coords2.object = nil
           end
-          workValue21 = numberValue19
+          workingValue21 = number19
           position = math
           position = position.random
-          workValue22 = 1000
-          flag = 2000
-          position = position(workValue22, flag)
-          workValue21 = workValue21 + position
-          coords2.nextCheckTime = workValue21
+          workingValue22 = 1000
+          stateFlag = 2000
+          position = position(workingValue22, stateFlag)
+          workingValue21 = workingValue21 + position
+          coords2.nextCheckTime = workingValue21
         end
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10
-  arg2 = CMG
-  arg2 = arg2.getPlayerVehicle
-  arg2, arg3 = arg2()
-  if 0 == arg2 or not arg3 then
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: localValue1) ===
+function workingValue10(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerVehicle
+  localValue2, localValue3 = localValue2()
+  if 0 == localValue2 or not localValue3 then
     return
   end
-  workValue16 = GetEntityModel
-  tableHelper = arg2
+  workingValue16 = GetEntityModel
+  tableHelper = localValue2
   -- Beginner: result below is modelHash.
-  workValue16 = workValue16(tableHelper)
-  if -2076478498 ~= workValue16 then
+  workingValue16 = workingValue16(tableHelper)
+  if -2076478498 ~= workingValue16 then
     return
   end
   tableHelper = GetVehicleTrailerVehicle
-  flag19 = arg2
-  tableHelper, flag19 = tableHelper(flag19)
-  if not tableHelper or 0 == flag19 then
+  stateFlag19 = localValue2
+  tableHelper, stateFlag19 = tableHelper(stateFlag19)
+  if not tableHelper or 0 == stateFlag19 then
     return
   end
-  coords2 = workValue17
+  coords2 = workingValue17
   if not coords2 then
     return
   end
-  coords2 = workValue17.stage
+  coords2 = workingValue17.stage
   if "GROWN" == coords2 then
     coords2 = GetEntityCoords
-    workValue21 = flag19
+    workingValue21 = stateFlag19
     position = true
     -- Beginner: result below is entityCoords.
-    coords2 = coords2(workValue21, position)
-    workValue21 = pairs
-    position = cmgCall.fieldObjects
-    workValue21, position, workValue22, flag = workValue21(position)
-    for flag2, modelValue in workValue21, position, workValue22, flag do
-      flag3 = GetClosestObjectOfType
-      flag4 = coords2.x
-      flag6 = coords2.y
-      flag7 = coords2.z
+    coords2 = coords2(workingValue21, position)
+    workingValue21 = pairs
+    position = cmgOperation.fieldObjects
+    workingValue21, position, workingValue22, stateFlag = workingValue21(position)
+    for stateFlag2, modelValue in workingValue21, position, workingValue22, stateFlag do
+      stateFlag3 = GetClosestObjectOfType
+      stateFlag4 = coords2.x
+      stateFlag6 = coords2.y
+      stateFlag7 = coords2.z
       coords = 1.5
-      workValue7 = modelValue
-      flag8 = true
-      flag9 = false
-      flag10 = false
+      workingValue7 = modelValue
+      stateFlag8 = true
+      stateFlag9 = false
+      stateFlag10 = false
       -- Beginner: result below is objectEntity.
-      flag3 = flag3(flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10)
-      if 0 ~= flag3 then
-        flag4 = dataTable5
-        flag4 = flag4[flag3]
-        if not flag4 then
-          flag4 = TriggerServerEvent
-          flag6 = "9e07b10346"
-          flag7 = arg1.index
+      stateFlag3 = stateFlag3(stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10)
+      if 0 ~= stateFlag3 then
+        stateFlag4 = dataCollection5
+        stateFlag4 = stateFlag4[stateFlag3]
+        if not stateFlag4 then
+          stateFlag4 = TriggerServerEvent
+          stateFlag6 = "9e07b10346"
+          stateFlag7 = localValue1.index
           coords = GetEntityCoords
-          workValue7 = flag3
+          workingValue7 = stateFlag3
           -- Beginner: result below is entityCoords.
-          coords = coords(workValue7)
-          workValue7 = modelValue
+          coords = coords(workingValue7)
+          workingValue7 = modelValue
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9e07b10346".
-          flag4(flag6, flag7, coords, workValue7)
-          flag4 = dataTable5
-          flag4[flag3] = true
+          stateFlag4(stateFlag6, stateFlag7, coords, workingValue7)
+          stateFlag4 = dataCollection5
+          stateFlag4[stateFlag3] = true
         end
       end
     end
   else
-    coords2 = workValue17.stage
+    coords2 = workingValue17.stage
     if "HARVESTED" == coords2 then
       coords2 = GetEntityCoords
-      workValue21 = flag19
+      workingValue21 = stateFlag19
       position = true
       -- Beginner: result below is entityCoords.
-      coords2 = coords2(workValue21, position)
+      coords2 = coords2(workingValue21, position)
       coords2 = coords2.xy
-      workValue21 = pairs
-      position = dataTable
-      workValue21, position, workValue22, flag = workValue21(position)
-      for flag2, modelValue in workValue21, position, workValue22, flag do
-        flag3 = modelValue.xy
-        flag3 = coords2 - flag3
-        flag3 = #flag3
-        flag4 = 1.5
-        if flag3 < flag4 then
-          flag3 = table
-          flag3 = flag3.remove
-          flag4 = dataTable
-          flag6 = flag2
-          flag3(flag4, flag6)
+      workingValue21 = pairs
+      position = dataCollection
+      workingValue21, position, workingValue22, stateFlag = workingValue21(position)
+      for stateFlag2, modelValue in workingValue21, position, workingValue22, stateFlag do
+        stateFlag3 = modelValue.xy
+        stateFlag3 = coords2 - stateFlag3
+        stateFlag3 = #stateFlag3
+        stateFlag4 = 1.5
+        if stateFlag3 < stateFlag4 then
+          stateFlag3 = table
+          stateFlag3 = stateFlag3.remove
+          stateFlag4 = dataCollection
+          stateFlag6 = stateFlag2
+          stateFlag3(stateFlag4, stateFlag6)
           break
         end
       end
@@ -458,1089 +458,1089 @@ function workValue10(arg1)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2, arg3, workValue16
-  arg3 = arg1.index
-  arg2 = dataTable3
-  arg2 = arg2[arg3]
-  if arg2 then
-    arg3 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2, localValue3, workingValue16
+  localValue3 = localValue1.index
+  localValue2 = dataCollection3
+  localValue2 = localValue2[localValue3]
+  if localValue2 then
+    localValue3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg3 = arg3()
-    numberValue19 = arg3
-    arg3 = workValue9
-    workValue16 = arg2
-    arg3(workValue16)
-    arg3 = workValue17
-    if arg3 then
-      arg3 = workValue17.fieldIndex
-      workValue16 = arg1.index
-      if arg3 == workValue16 then
-        arg3 = workValue10
-        workValue16 = arg1
-        arg3(workValue16)
+    localValue3 = localValue3()
+    number19 = localValue3
+    localValue3 = workingValue9
+    workingValue16 = localValue2
+    localValue3(workingValue16)
+    localValue3 = workingValue17
+    if localValue3 then
+      localValue3 = workingValue17.fieldIndex
+      workingValue16 = localValue1.index
+      if localValue3 == workingValue16 then
+        localValue3 = workingValue10
+        workingValue16 = localValue1
+        localValue3(workingValue16)
       end
     end
   end
 end
-cmgCall3 = pairs
-workValue12 = cmgCall.fields
-cmgCall3, workValue12, cmgCall4, textValue3 = cmgCall3(workValue12)
-for workValue13, numberValue12 in cmgCall3, workValue12, cmgCall4, textValue3 do
-  cmgCall5 = CMG
-  cmgCall5 = cmgCall5.createArea
-  textValue5 = "farming_"
+cmgOperation3 = pairs
+workingValue12 = cmgOperation.fields
+cmgOperation3, workingValue12, cmgOperation4, text3 = cmgOperation3(workingValue12)
+for workingValue13, number12 in cmgOperation3, workingValue12, cmgOperation4, text3 do
+  cmgOperation5 = CMG
+  cmgOperation5 = cmgOperation5.createArea
+  text5 = "farming_"
   stringHelper2 = tostring
-  numberValue15 = workValue13
-  stringHelper2 = stringHelper2(numberValue15)
-  textValue5 = textValue5 .. stringHelper2
-  stringHelper2 = numberValue12.position
-  numberValue15 = 150.0
-  dataTable4 = 300.0
-  textValue6 = cmgCall2
-  cmgCall6 = textValue2
-  numberValue17 = workValue11
-  textValue7 = numberValue12
+  number15 = workingValue13
+  stringHelper2 = stringHelper2(number15)
+  text5 = text5 .. stringHelper2
+  stringHelper2 = number12.position
+  number15 = 150.0
+  dataCollection4 = 300.0
+  text6 = cmgOperation2
+  cmgOperation6 = text2
+  number17 = workingValue11
+  text7 = number12
   -- Beginner: Create an interaction area around a world position.
-  cmgCall5(textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7)
+  cmgOperation5(text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7)
 end
-cmgCall3 = Citizen
-cmgCall3 = cmgCall3.CreateThread
+cmgOperation3 = Citizen
+cmgOperation3 = cmgOperation3.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-function workValue12()
-  local arg1, arg2
-  arg1 = GlobalState
-  arg1 = arg1.registeredFarmingArchetypeDefs
-  if not arg1 then
-    arg1 = RegisterArchetypes
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+function workingValue12()
+  local localValue1, localValue2
+  localValue1 = GlobalState
+  localValue1 = localValue1.registeredFarmingArchetypeDefs
+  if not localValue1 then
+    localValue1 = RegisterArchetypes
 
-    -- === HELPER FUNCTION: arg2() ===
-    function arg2()
-      local rageUiCall, textValue
-      rageUiCall = cmgCall.archetypeDefs
-      return rageUiCall
+    -- === HELPER FUNCTION: localValue2() ===
+    function localValue2()
+      local rageUiOperation, text
+      rageUiOperation = cmgOperation.archetypeDefs
+      return rageUiOperation
     end
-    arg1(arg2)
-    arg1 = GlobalState
-    arg1.registeredFarmingArchetypeDefs = true
+    localValue1(localValue2)
+    localValue1 = GlobalState
+    localValue1.registeredFarmingArchetypeDefs = true
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall3(workValue12)
-cmgCall3 = CMG
+cmgOperation3(workingValue12)
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-function workValue12()
-  local arg1, arg2, arg3, workValue16, tableHelper, flag19, coords2
-  arg1 = PlaySound
-  arg2 = -1
-  arg3 = "CHECKPOINT_BEHIND"
-  workValue16 = "HUD_MINI_GAME_SOUNDSET"
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+function workingValue12()
+  local localValue1, localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2
+  localValue1 = PlaySound
+  localValue2 = -1
+  localValue3 = "CHECKPOINT_BEHIND"
+  workingValue16 = "HUD_MINI_GAME_SOUNDSET"
   tableHelper = false
-  flag19 = false
+  stateFlag19 = false
   coords2 = true
-  arg1(arg2, arg3, workValue16, tableHelper, flag19, coords2)
-  arg1 = CMG
-  arg1 = arg1.initializeInstructionalJobScaleform
-  arg2 = "Welcome to Farming"
-  arg3 = "I have set a waypoint to the Farming Warehouse where you can pick up your tractor."
-  arg1(arg2, arg3)
-  arg1 = SetNewWaypoint
-  arg2 = cmgCall.menuPosition
-  arg2 = arg2.x
-  arg3 = cmgCall.menuPosition
-  arg3 = arg3.y
-  arg1(arg2, arg3)
+  localValue1(localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2)
+  localValue1 = CMG
+  localValue1 = localValue1.initializeInstructionalJobScaleform
+  localValue2 = "Welcome to Farming"
+  localValue3 = "I have set a waypoint to the Farming Warehouse where you can pick up your tractor."
+  localValue1(localValue2, localValue3)
+  localValue1 = SetNewWaypoint
+  localValue2 = cmgOperation.menuPosition
+  localValue2 = localValue2.x
+  localValue3 = cmgOperation.menuPosition
+  localValue3 = localValue3.y
+  localValue1(localValue2, localValue3)
 end
-cmgCall3.displayFarmerInstructions = workValue12
+cmgOperation3.displayFarmerInstructions = workingValue12
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, workValue16, tableHelper
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  workValue16 = "farming"
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, workingValue16, tableHelper
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  workingValue16 = "farming"
   tableHelper = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, workValue16, tableHelper)
-  arg3 = true
-  arg1(arg2, arg3)
+  localValue2 = localValue2(localValue3, workingValue16, tableHelper)
+  localValue3 = true
+  localValue1(localValue2, localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
-function workValue12()
-  local arg1, arg2, arg3, workValue16, tableHelper
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  workValue16 = "farming"
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: none) ===
+function workingValue12()
+  local localValue1, localValue2, localValue3, workingValue16, tableHelper
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  workingValue16 = "farming"
   tableHelper = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, workValue16, tableHelper)
-  arg3 = false
-  arg1(arg2, arg3)
+  localValue2 = localValue2(localValue3, workingValue16, tableHelper)
+  localValue3 = false
+  localValue1(localValue2, localValue3)
 end
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.createArea
-textValue3 = "farming_menu"
-workValue13 = cmgCall.menuPosition
-numberValue12 = 1.5
-cmgCall5 = 3.0
-textValue5 = cmgCall3
-stringHelper2 = workValue12
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.createArea
+text3 = "farming_menu"
+workingValue13 = cmgOperation.menuPosition
+number12 = 1.5
+cmgOperation5 = 3.0
+text5 = cmgOperation3
+stringHelper2 = workingValue12
 
--- === HELPER FUNCTION (decompiler name: numberValue15; parameters: none) ===
-function numberValue15()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: number15; parameters: none) ===
+function number15()
+  local localValue1, localValue2
 end
-dataTable4 = {}
+dataCollection4 = {}
 -- Beginner: Create an interaction area around a world position.
-cmgCall4(textValue3, workValue13, numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4)
-cmgCall4 = tCMG
-cmgCall4 = cmgCall4.addMarker
-textValue3 = cmgCall.menuPosition
-textValue3 = textValue3.x
-workValue13 = cmgCall.menuPosition
-workValue13 = workValue13.y
-numberValue12 = cmgCall.menuPosition
-numberValue12 = numberValue12.z
-numberValue12 = numberValue12 - 1.0
-cmgCall5 = 1.0
-textValue5 = 1.0
+cmgOperation4(text3, workingValue13, number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4)
+cmgOperation4 = tCMG
+cmgOperation4 = cmgOperation4.addMarker
+text3 = cmgOperation.menuPosition
+text3 = text3.x
+workingValue13 = cmgOperation.menuPosition
+workingValue13 = workingValue13.y
+number12 = cmgOperation.menuPosition
+number12 = number12.z
+number12 = number12 - 1.0
+cmgOperation5 = 1.0
+text5 = 1.0
 stringHelper2 = 1.0
-numberValue15 = 255
-dataTable4 = 0
-textValue6 = 0
-cmgCall6 = 170
-numberValue17 = 50
-textValue7 = 27
+number15 = 255
+dataCollection4 = 0
+text6 = 0
+cmgOperation6 = 170
+number17 = 50
+text7 = 27
 -- Beginner: Create a world marker.
-cmgCall4(textValue3, workValue13, numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7)
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.createDynamicPed
-textValue3 = -1806291497
-workValue13 = cmgCall.npcPosition
-workValue13 = workValue13.xyz
-numberValue12 = cmgCall.npcPosition
-numberValue12 = numberValue12.w
-cmgCall5 = true
-textValue5 = nil
+cmgOperation4(text3, workingValue13, number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7)
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.createDynamicPed
+text3 = -1806291497
+workingValue13 = cmgOperation.npcPosition
+workingValue13 = workingValue13.xyz
+number12 = cmgOperation.npcPosition
+number12 = number12.w
+cmgOperation5 = true
+text5 = nil
 stringHelper2 = nil
-numberValue15 = 100.0
-dataTable4 = false
+number15 = 100.0
+dataCollection4 = false
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
 end
-cmgCall4(textValue3, workValue13, numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6)
-cmgCall4 = RMenu
-cmgCall4 = cmgCall4.Add
-textValue3 = "farming"
-workValue13 = "mainmenu"
-numberValue12 = RageUI
-numberValue12 = numberValue12.CreateMenu
-cmgCall5 = "CMG Farming"
-textValue5 = "~b~CMG Farming"
+cmgOperation4(text3, workingValue13, number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6)
+cmgOperation4 = RMenu
+cmgOperation4 = cmgOperation4.Add
+text3 = "farming"
+workingValue13 = "mainmenu"
+number12 = RageUI
+number12 = number12.CreateMenu
+cmgOperation5 = "CMG Farming"
+text5 = "~b~CMG Farming"
 stringHelper2 = CMG
 stringHelper2 = stringHelper2.getRageUIMenuWidth
 stringHelper2 = stringHelper2()
-numberValue15 = CMG
-numberValue15 = numberValue15.getRageUIMenuHeight
-numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7 = numberValue15()
-numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7 = numberValue12(cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7)
-cmgCall4(textValue3, workValue13, numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7)
-cmgCall4 = RMenu
-cmgCall4 = cmgCall4.Add
-textValue3 = "farming"
-workValue13 = "status"
-numberValue12 = RageUI
-numberValue12 = numberValue12.CreateSubMenu
-cmgCall5 = RMenu
-textValue5 = cmgCall5
-cmgCall5 = cmgCall5.Get
+number15 = CMG
+number15 = number15.getRageUIMenuHeight
+number15, dataCollection4, text6, cmgOperation6, number17, text7 = number15()
+number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7 = number12(cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7)
+cmgOperation4(text3, workingValue13, number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7)
+cmgOperation4 = RMenu
+cmgOperation4 = cmgOperation4.Add
+text3 = "farming"
+workingValue13 = "status"
+number12 = RageUI
+number12 = number12.CreateSubMenu
+cmgOperation5 = RMenu
+text5 = cmgOperation5
+cmgOperation5 = cmgOperation5.Get
 stringHelper2 = "farming"
-numberValue15 = "mainmenu"
+number15 = "mainmenu"
 -- Beginner: result below is menu.
-cmgCall5 = cmgCall5(textValue5, stringHelper2, numberValue15)
-textValue5 = "CMG Farming"
+cmgOperation5 = cmgOperation5(text5, stringHelper2, number15)
+text5 = "CMG Farming"
 stringHelper2 = "~b~CMG Farming"
-numberValue15 = CMG
-numberValue15 = numberValue15.getRageUIMenuWidth
-numberValue15 = numberValue15()
-dataTable4 = CMG
-dataTable4 = dataTable4.getRageUIMenuHeight
-dataTable4, textValue6, cmgCall6, numberValue17, textValue7 = dataTable4()
-numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7 = numberValue12(cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7)
-cmgCall4(textValue3, workValue13, numberValue12, cmgCall5, textValue5, stringHelper2, numberValue15, dataTable4, textValue6, cmgCall6, numberValue17, textValue7)
+number15 = CMG
+number15 = number15.getRageUIMenuWidth
+number15 = number15()
+dataCollection4 = CMG
+dataCollection4 = dataCollection4.getRageUIMenuHeight
+dataCollection4, text6, cmgOperation6, number17, text7 = dataCollection4()
+number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7 = number12(cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7)
+cmgOperation4(text3, workingValue13, number12, cmgOperation5, text5, stringHelper2, number15, dataCollection4, text6, cmgOperation6, number17, text7)
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
-function cmgCall4(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22
-  arg2 = pairs
-  arg3 = CMG
-  arg3 = arg3.getAllVehicles
-  arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22 = arg3()
-  arg2, arg3, workValue16, tableHelper = arg2(arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22)
-  for flag19, coords2 in arg2, arg3, workValue16, tableHelper do
-    workValue21 = GetEntityCoords
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: localValue1) ===
+function cmgOperation4(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22
+  localValue2 = pairs
+  localValue3 = CMG
+  localValue3 = localValue3.getAllVehicles
+  localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22 = localValue3()
+  localValue2, localValue3, workingValue16, tableHelper = localValue2(localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22)
+  for stateFlag19, coords2 in localValue2, localValue3, workingValue16, tableHelper do
+    workingValue21 = GetEntityCoords
     position = coords2
-    workValue22 = true
+    workingValue22 = true
     -- Beginner: result below is entityCoords.
-    workValue21 = workValue21(position, workValue22)
-    workValue21 = workValue21 - arg1
-    workValue21 = #workValue21
-    if workValue21 < 5.0 then
-      workValue21 = false
-      return workValue21
+    workingValue21 = workingValue21(position, workingValue22)
+    workingValue21 = workingValue21 - localValue1
+    workingValue21 = #workingValue21
+    if workingValue21 < 5.0 then
+      workingValue21 = false
+      return workingValue21
     end
   end
-  arg2 = true
-  return arg2
+  localValue2 = true
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue
-  arg2 = 0
-  arg3 = 100.0
-  workValue16 = pairs
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue
+  localValue2 = 0
+  localValue3 = 100.0
+  workingValue16 = pairs
   tableHelper = CMG
   tableHelper = tableHelper.getAllVehicles
-  tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue = tableHelper()
-  workValue16, tableHelper, flag19, coords2 = workValue16(tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue)
-  for workValue21, position in workValue16, tableHelper, flag19, coords2 do
-    workValue22 = GetEntityModel
-    flag = position
+  tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue = tableHelper()
+  workingValue16, tableHelper, stateFlag19, coords2 = workingValue16(tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue)
+  for workingValue21, position in workingValue16, tableHelper, stateFlag19, coords2 do
+    workingValue22 = GetEntityModel
+    stateFlag = position
     -- Beginner: result below is modelHash.
-    workValue22 = workValue22(flag)
-    if workValue22 == arg1 then
-      workValue22 = GetEntityAttachedTo
-      flag = position
-      workValue22 = workValue22(flag)
-      if 0 == workValue22 then
-        workValue22 = CMG
-        workValue22 = workValue22.getPlayerCoords
+    workingValue22 = workingValue22(stateFlag)
+    if workingValue22 == localValue1 then
+      workingValue22 = GetEntityAttachedTo
+      stateFlag = position
+      workingValue22 = workingValue22(stateFlag)
+      if 0 == workingValue22 then
+        workingValue22 = CMG
+        workingValue22 = workingValue22.getPlayerCoords
         -- Beginner: result below is playerCoords.
-        workValue22 = workValue22()
-        flag = GetEntityCoords
-        flag2 = position
+        workingValue22 = workingValue22()
+        stateFlag = GetEntityCoords
+        stateFlag2 = position
         modelValue = true
         -- Beginner: result below is entityCoords.
-        flag = flag(flag2, modelValue)
-        workValue22 = workValue22 - flag
-        workValue22 = #workValue22
-        if arg3 > workValue22 then
-          arg2 = position
-          arg3 = workValue22
+        stateFlag = stateFlag(stateFlag2, modelValue)
+        workingValue22 = workingValue22 - stateFlag
+        workingValue22 = #workingValue22
+        if localValue3 > workingValue22 then
+          localValue2 = position
+          localValue3 = workingValue22
         end
       end
     end
   end
-  if 0 ~= arg2 then
-    workValue16 = GetEntityCoords
-    tableHelper = arg2
-    flag19 = true
+  if 0 ~= localValue2 then
+    workingValue16 = GetEntityCoords
+    tableHelper = localValue2
+    stateFlag19 = true
     -- Beginner: result below is entityCoords.
-    workValue16 = workValue16(tableHelper, flag19)
+    workingValue16 = workingValue16(tableHelper, stateFlag19)
     tableHelper = SetNewWaypoint
-    flag19 = workValue16.x
-    coords2 = workValue16.y
-    tableHelper(flag19, coords2)
+    stateFlag19 = workingValue16.x
+    coords2 = workingValue16.y
+    tableHelper(stateFlag19, coords2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords
-  arg1 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  numberValue18 = arg1
-  arg1 = pairs
-  arg2 = dataTable7
-  arg1, arg2, arg3, workValue16 = arg1(arg2)
-  for tableHelper, flag19 in arg1, arg2, arg3, workValue16 do
+  localValue1 = localValue1()
+  number18 = localValue1
+  localValue1 = pairs
+  localValue2 = dataCollection7
+  localValue1, localValue2, localValue3, workingValue16 = localValue1(localValue2)
+  for tableHelper, stateFlag19 in localValue1, localValue2, localValue3, workingValue16 do
     coords2 = DoesEntityExist
-    workValue21 = flag19
-    coords2 = coords2(workValue21)
+    workingValue21 = stateFlag19
+    coords2 = coords2(workingValue21)
     if coords2 then
       coords2 = GetEntityModel
-      workValue21 = flag19
+      workingValue21 = stateFlag19
       -- Beginner: result below is modelHash.
-      coords2 = coords2(workValue21)
+      coords2 = coords2(workingValue21)
       coords2 = -2076478498 ~= coords2
-      workValue21 = NetworkHasControlOfEntity
-      position = flag19
-      workValue21 = workValue21(position)
-      if workValue21 and coords2 then
-        workValue21 = DeleteEntity
-        position = flag19
+      workingValue21 = NetworkHasControlOfEntity
+      position = stateFlag19
+      workingValue21 = workingValue21(position)
+      if workingValue21 and coords2 then
+        workingValue21 = DeleteEntity
+        position = stateFlag19
         -- Beginner: Delete a GTA entity.
-        workValue21(position)
+        workingValue21(position)
       end
       if coords2 then
-        workValue21 = GetBlipFromEntity
-        position = flag19
-        workValue21 = workValue21(position)
+        workingValue21 = GetBlipFromEntity
+        position = stateFlag19
+        workingValue21 = workingValue21(position)
         position = DoesBlipExist
-        workValue22 = workValue21
-        position = position(workValue22)
+        workingValue22 = workingValue21
+        position = position(workingValue22)
         if position then
           position = RemoveBlip
-          workValue22 = workValue21
-          position(workValue22)
+          workingValue22 = workingValue21
+          position(workingValue22)
         end
       end
     end
   end
-  arg1 = false
-  arg2 = pairs
-  arg3 = cmgCall.tractorSpawnPositions
-  arg2, arg3, workValue16, tableHelper = arg2(arg3)
-  for flag19, coords2 in arg2, arg3, workValue16, tableHelper do
-    workValue21 = cmgCall4
+  localValue1 = false
+  localValue2 = pairs
+  localValue3 = cmgOperation.tractorSpawnPositions
+  localValue2, localValue3, workingValue16, tableHelper = localValue2(localValue3)
+  for stateFlag19, coords2 in localValue2, localValue3, workingValue16, tableHelper do
+    workingValue21 = cmgOperation4
     position = coords2.xyz
-    workValue21 = workValue21(position)
-    if workValue21 then
-      workValue21 = CMG
-      workValue21 = workValue21.requestEntitySpawn
+    workingValue21 = workingValue21(position)
+    if workingValue21 then
+      workingValue21 = CMG
+      workingValue21 = workingValue21.requestEntitySpawn
       position = "farming_tractor"
-      workValue22 = coords2.xyz
-      workValue21(position, workValue22)
-      workValue21 = CMG
-      workValue21 = workValue21.spawnVehicle
+      workingValue22 = coords2.xyz
+      workingValue21(position, workingValue22)
+      workingValue21 = CMG
+      workingValue21 = workingValue21.spawnVehicle
       position = -2076478498
-      workValue22 = coords2.x
-      flag = coords2.y
-      flag2 = coords2.z
+      workingValue22 = coords2.x
+      stateFlag = coords2.y
+      stateFlag2 = coords2.z
       modelValue = coords2.w
-      flag3 = false
-      flag4 = true
-      flag6 = true
-      workValue21 = workValue21(position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6)
+      stateFlag3 = false
+      stateFlag4 = true
+      stateFlag6 = true
+      workingValue21 = workingValue21(position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6)
       position = table
       position = position.insert
-      workValue22 = dataTable7
-      flag = workValue21
-      position(workValue22, flag)
+      workingValue22 = dataCollection7
+      stateFlag = workingValue21
+      position(workingValue22, stateFlag)
       position = AddBlipForEntity
-      workValue22 = workValue21
+      workingValue22 = workingValue21
       -- Beginner: result below is blipHandle.
-      position = position(workValue22)
-      workValue22 = SetBlipSprite
-      flag = position
-      flag2 = 477
-      workValue22(flag, flag2)
-      workValue22 = SetBlipColour
-      flag = position
-      flag2 = 5
-      workValue22(flag, flag2)
-      arg1 = true
+      position = position(workingValue22)
+      workingValue22 = SetBlipSprite
+      stateFlag = position
+      stateFlag2 = 477
+      workingValue22(stateFlag, stateFlag2)
+      workingValue22 = SetBlipColour
+      stateFlag = position
+      stateFlag2 = 5
+      workingValue22(stateFlag, stateFlag2)
+      localValue1 = true
       break
     end
   end
-  arg2 = false
-  arg3 = pairs
-  workValue16 = cmgCall.trailerSpawnPositions
-  arg3, workValue16, tableHelper, flag19 = arg3(workValue16)
-  for coords2, workValue21 in arg3, workValue16, tableHelper, flag19 do
-    position = cmgCall4
-    workValue22 = workValue21.xyz
-    position = position(workValue22)
+  localValue2 = false
+  localValue3 = pairs
+  workingValue16 = cmgOperation.trailerSpawnPositions
+  localValue3, workingValue16, tableHelper, stateFlag19 = localValue3(workingValue16)
+  for coords2, workingValue21 in localValue3, workingValue16, tableHelper, stateFlag19 do
+    position = cmgOperation4
+    workingValue22 = workingValue21.xyz
+    position = position(workingValue22)
     if position then
       position = false
-      workValue22 = workValue17
-      if workValue22 then
-        workValue22 = workValue17.stage
-        if "HARVESTED" == workValue22 then
+      workingValue22 = workingValue17
+      if workingValue22 then
+        workingValue22 = workingValue17.stage
+        if "HARVESTED" == workingValue22 then
           position = true
         end
       end
-      workValue22 = CMG
-      workValue22 = workValue22.requestEntitySpawn
-      flag = "farming_trailer"
-      flag2 = workValue21.xyz
+      workingValue22 = CMG
+      workingValue22 = workingValue22.requestEntitySpawn
+      stateFlag = "farming_trailer"
+      stateFlag2 = workingValue21.xyz
       modelValue = position
-      workValue22(flag, flag2, modelValue)
-      workValue22 = CMG
-      workValue22 = workValue22.spawnVehicle
+      workingValue22(stateFlag, stateFlag2, modelValue)
+      workingValue22 = CMG
+      workingValue22 = workingValue22.spawnVehicle
       if position then
-        flag = cmgCall.grainModel
-        if flag then
-          goto flow_label_137
+        stateFlag = cmgOperation.grainModel
+        if stateFlag then
+          goto continueAtStep137
         end
       end
-      flag = cmgCall.rakeModel
-      ::flow_label_137::
-      flag2 = workValue21.x
-      modelValue = workValue21.y
-      flag3 = workValue21.z
-      flag4 = workValue21.w
-      flag6 = false
-      flag7 = true
+      stateFlag = cmgOperation.rakeModel
+      ::continueAtStep137::
+      stateFlag2 = workingValue21.x
+      modelValue = workingValue21.y
+      stateFlag3 = workingValue21.z
+      stateFlag4 = workingValue21.w
+      stateFlag6 = false
+      stateFlag7 = true
       coords = true
-      workValue22 = workValue22(flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords)
-      flag = table
-      flag = flag.insert
-      flag2 = dataTable7
-      modelValue = workValue22
-      flag(flag2, modelValue)
-      flag = AddBlipForEntity
-      flag2 = workValue22
+      workingValue22 = workingValue22(stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords)
+      stateFlag = table
+      stateFlag = stateFlag.insert
+      stateFlag2 = dataCollection7
+      modelValue = workingValue22
+      stateFlag(stateFlag2, modelValue)
+      stateFlag = AddBlipForEntity
+      stateFlag2 = workingValue22
       -- Beginner: result below is blipHandle.
-      flag = flag(flag2)
-      flag2 = SetBlipSprite
-      modelValue = flag
-      flag3 = 479
-      flag2(modelValue, flag3)
-      flag2 = SetBlipColour
-      modelValue = flag
-      flag3 = 5
-      flag2(modelValue, flag3)
-      arg2 = true
+      stateFlag = stateFlag(stateFlag2)
+      stateFlag2 = SetBlipSprite
+      modelValue = stateFlag
+      stateFlag3 = 479
+      stateFlag2(modelValue, stateFlag3)
+      stateFlag2 = SetBlipColour
+      modelValue = stateFlag
+      stateFlag3 = 5
+      stateFlag2(modelValue, stateFlag3)
+      localValue2 = true
       break
     end
   end
-  if not arg1 then
-    arg3 = notify
-    workValue16 = "~r~Unable to spawn tractor. There is no available space left."
+  if not localValue1 then
+    localValue3 = notify
+    workingValue16 = "~r~Unable to spawn tractor. There is no available space left."
     -- Beginner: Show a notification to the player.
-    arg3(workValue16)
+    localValue3(workingValue16)
   end
-  if not arg2 then
-    arg3 = notify
-    workValue16 = "~r~Unable to spawn trailer. There is no available space left."
-    arg3(workValue16)
+  if not localValue2 then
+    localValue3 = notify
+    workingValue16 = "~r~Unable to spawn trailer. There is no available space left."
+    localValue3(workingValue16)
   end
 end
-numberValue12 = {}
-numberValue12.GROWN = "Grown & Ready"
-numberValue12.HARVESTED = "Harvested"
-numberValue12.PLANTED = "Planted"
-cmgCall5 = RageUI
-cmgCall5 = cmgCall5.CreateWhile
-textValue5 = 1.0
+number12 = {}
+number12.GROWN = "Grown & Ready"
+number12.HARVESTED = "Harvested"
+number12.PLANTED = "Planted"
+cmgOperation5 = RageUI
+cmgOperation5 = cmgOperation5.CreateWhile
+text5 = 1.0
 stringHelper2 = RMenu
-numberValue15 = stringHelper2
+number15 = stringHelper2
 stringHelper2 = stringHelper2.Get
-dataTable4 = "farming"
-textValue6 = "mainmenu"
+dataCollection4 = "farming"
+text6 = "mainmenu"
 -- Beginner: result below is menu.
-stringHelper2 = stringHelper2(numberValue15, dataTable4, textValue6)
-numberValue15 = nil
+stringHelper2 = stringHelper2(number15, dataCollection4, text6)
+number15 = nil
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
-function dataTable4()
-  local arg1, arg2, arg3, workValue16, tableHelper, flag19
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  workValue16 = "farming"
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: none) ===
+function dataCollection4()
+  local localValue1, localValue2, localValue3, workingValue16, tableHelper, stateFlag19
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  workingValue16 = "farming"
   tableHelper = "mainmenu"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, workValue16, tableHelper)
-  arg3 = true
-  workValue16 = false
+  localValue2 = localValue2(localValue3, workingValue16, tableHelper)
+  localValue3 = true
+  workingValue16 = false
   tableHelper = true
 
-  -- === HELPER FUNCTION (decompiler name: flag19; parameters: none) ===
-  function flag19()
-    local rageUiCall, textValue, textValue4, dataTable6, flag18, workValue18, workValue20, textValue9, textValue10, textValue11
-    rageUiCall = workValue17
-    if not rageUiCall then
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.ButtonWithStyle
-      textValue = "~y~Start Job"
-      textValue4 = ""
-      dataTable6 = {}
-      dataTable6.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag18 = true
+  -- === HELPER FUNCTION (decompiler name: stateFlag19; parameters: none) ===
+  function stateFlag19()
+    local rageUiOperation, text, text4, dataCollection6, stateFlag18, workingValue18, workingValue20, text9, text10, text11
+    rageUiOperation = workingValue17
+    if not rageUiOperation then
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.ButtonWithStyle
+      text = "~y~Start Job"
+      text4 = ""
+      dataCollection6 = {}
+      dataCollection6.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag18 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg12, arg22, arg32) ===
-      function workValue18(arg12, arg22, arg32)
-        local gameTime, textValue8
-        if arg32 then
+      -- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue12, localValue22, localValue32) ===
+      function workingValue18(localValue12, localValue22, localValue32)
+        local gameTime, text8
+        if localValue32 then
           gameTime = TriggerServerEvent
-          textValue8 = "10a03c8ecd"
+          text8 = "10a03c8ecd"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "10a03c8ecd".
-          gameTime(textValue8)
+          gameTime(text8)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      rageUiCall(textValue, textValue4, dataTable6, flag18, workValue18)
+      rageUiOperation(text, text4, dataCollection6, stateFlag18, workingValue18)
     end
-    rageUiCall = workValue17
-    if rageUiCall then
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.ButtonWithStyle
-      textValue = "Request Equipment"
-      textValue4 = ""
-      dataTable6 = {}
-      dataTable6.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag18 = true
+    rageUiOperation = workingValue17
+    if rageUiOperation then
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.ButtonWithStyle
+      text = "Request Equipment"
+      text4 = ""
+      dataCollection6 = {}
+      dataCollection6.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag18 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg12, arg22, arg32) ===
-      function workValue18(arg12, arg22, arg32)
-        local gameTime, textValue8
-        if arg32 then
+      -- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue12, localValue22, localValue32) ===
+      function workingValue18(localValue12, localValue22, localValue32)
+        local gameTime, text8
+        if localValue32 then
           gameTime = GetGameTimer
           -- Beginner: result below is gameTimeMs.
           gameTime = gameTime()
-          textValue8 = numberValue18
-          gameTime = gameTime - textValue8
-          textValue8 = 12000
-          if gameTime < textValue8 then
+          text8 = number18
+          gameTime = gameTime - text8
+          text8 = 12000
+          if gameTime < text8 then
             gameTime = notify
-            textValue8 = "~r~Please wait another 2 minutes before requesting equipment."
+            text8 = "~r~Please wait another 2 minutes before requesting equipment."
             -- Beginner: Show a notification to the player.
-            gameTime(textValue8)
+            gameTime(text8)
           else
-            gameTime = workValue13
+            gameTime = workingValue13
             gameTime()
           end
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      rageUiCall(textValue, textValue4, dataTable6, flag18, workValue18)
-      rageUiCall = RageUI
-      rageUiCall = rageUiCall.ButtonWithStyle
-      textValue = "~r~End Job"
-      textValue4 = ""
-      dataTable6 = {}
-      dataTable6.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag18 = true
+      rageUiOperation(text, text4, dataCollection6, stateFlag18, workingValue18)
+      rageUiOperation = RageUI
+      rageUiOperation = rageUiOperation.ButtonWithStyle
+      text = "~r~End Job"
+      text4 = ""
+      dataCollection6 = {}
+      dataCollection6.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag18 = true
 
-      -- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg12, arg22, arg32) ===
-      function workValue18(arg12, arg22, arg32)
-        local gameTime, textValue8
-        if arg32 then
+      -- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue12, localValue22, localValue32) ===
+      function workingValue18(localValue12, localValue22, localValue32)
+        local gameTime, text8
+        if localValue32 then
           gameTime = TriggerServerEvent
-          textValue8 = "3bea630af8"
+          text8 = "3bea630af8"
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3bea630af8".
-          gameTime(textValue8)
+          gameTime(text8)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      rageUiCall(textValue, textValue4, dataTable6, flag18, workValue18)
+      rageUiOperation(text, text4, dataCollection6, stateFlag18, workingValue18)
     end
-    rageUiCall = RageUI
-    rageUiCall = rageUiCall.ButtonWithStyle
-    textValue = "Field Status"
-    textValue4 = ""
-    dataTable6 = {}
-    dataTable6.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag18 = true
+    rageUiOperation = RageUI
+    rageUiOperation = rageUiOperation.ButtonWithStyle
+    text = "Field Status"
+    text4 = ""
+    dataCollection6 = {}
+    dataCollection6.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag18 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg12, arg22, arg32) ===
-    function workValue18(arg12, arg22, arg32)
-      local gameTime, textValue8
-      if arg32 then
+    -- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue12, localValue22, localValue32) ===
+    function workingValue18(localValue12, localValue22, localValue32)
+      local gameTime, text8
+      if localValue32 then
         gameTime = nil
-        workValue19 = gameTime
+        workingValue19 = gameTime
         gameTime = TriggerServerEvent
-        textValue8 = "46d9e512b2"
+        text8 = "46d9e512b2"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "46d9e512b2".
-        gameTime(textValue8)
+        gameTime(text8)
       end
     end
-    workValue20 = RMenu
-    textValue9 = workValue20
-    workValue20 = workValue20.Get
-    textValue10 = "farming"
-    textValue11 = "status"
-    workValue20, textValue9, textValue10, textValue11 = workValue20(textValue9, textValue10, textValue11)
+    workingValue20 = RMenu
+    text9 = workingValue20
+    workingValue20 = workingValue20.Get
+    text10 = "farming"
+    text11 = "status"
+    workingValue20, text9, text10, text11 = workingValue20(text9, text10, text11)
     -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall(textValue, textValue4, dataTable6, flag18, workValue18, workValue20, textValue9, textValue10, textValue11)
+    rageUiOperation(text, text4, dataCollection6, stateFlag18, workingValue18, workingValue20, text9, text10, text11)
   end
-  arg1(arg2, arg3, workValue16, tableHelper, flag19)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  workValue16 = "farming"
+  localValue1(localValue2, localValue3, workingValue16, tableHelper, stateFlag19)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  workingValue16 = "farming"
   tableHelper = "status"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, workValue16, tableHelper)
-  arg3 = true
-  workValue16 = false
+  localValue2 = localValue2(localValue3, workingValue16, tableHelper)
+  localValue3 = true
+  workingValue16 = false
   tableHelper = true
 
-  -- === HELPER FUNCTION (decompiler name: flag19; parameters: none) ===
-  function flag19()
-    local rageUiCall, textValue, textValue4, dataTable6, flag18, workValue18, workValue20, textValue9, textValue10, textValue11, stringHelper, workValue2, workValue3, workValue4, workValue5
-    rageUiCall = workValue19
-    if rageUiCall then
-      rageUiCall = pairs
-      textValue = workValue19
-      rageUiCall, textValue, textValue4, dataTable6 = rageUiCall(textValue)
-      for flag18, workValue18 in rageUiCall, textValue, textValue4, dataTable6 do
-        workValue20 = workValue18.farmerName
-        if workValue20 then
-          workValue20 = "~y~"
-          if workValue20 then
-            goto flow_label_15
+  -- === HELPER FUNCTION (decompiler name: stateFlag19; parameters: none) ===
+  function stateFlag19()
+    local rageUiOperation, text, text4, dataCollection6, stateFlag18, workingValue18, workingValue20, text9, text10, text11, stringHelper, workingValue2, workingValue3, workingValue4, workingValue5
+    rageUiOperation = workingValue19
+    if rageUiOperation then
+      rageUiOperation = pairs
+      text = workingValue19
+      rageUiOperation, text, text4, dataCollection6 = rageUiOperation(text)
+      for stateFlag18, workingValue18 in rageUiOperation, text, text4, dataCollection6 do
+        workingValue20 = workingValue18.farmerName
+        if workingValue20 then
+          workingValue20 = "~y~"
+          if workingValue20 then
+            goto continueAtStep15
           end
         end
-        workValue20 = "~g~"
-        ::flow_label_15::
-        textValue9 = workValue18.stage
-        if "PLANTED" == textValue9 then
-          workValue20 = "~r~"
+        workingValue20 = "~g~"
+        ::continueAtStep15::
+        text9 = workingValue18.stage
+        if "PLANTED" == text9 then
+          workingValue20 = "~r~"
         end
-        textValue9 = ""
-        textValue10 = workValue18.farmerName
-        if textValue10 then
-          textValue10 = textValue9
-          textValue11 = "Farmer: "
-          stringHelper = workValue18.farmerName
-          textValue10 = textValue10 .. textValue11 .. stringHelper
-          textValue9 = textValue10
+        text9 = ""
+        text10 = workingValue18.farmerName
+        if text10 then
+          text10 = text9
+          text11 = "Farmer: "
+          stringHelper = workingValue18.farmerName
+          text10 = text10 .. text11 .. stringHelper
+          text9 = text10
         end
-        textValue10 = workValue18.timePlanted
-        if textValue10 > 0 then
-          textValue10 = #textValue9
-          if textValue10 > 0 then
-            textValue10 = textValue9
-            textValue11 = " | "
-            textValue10 = textValue10 .. textValue11
-            textValue9 = textValue10
+        text10 = workingValue18.timePlanted
+        if text10 > 0 then
+          text10 = #text9
+          if text10 > 0 then
+            text10 = text9
+            text11 = " | "
+            text10 = text10 .. text11
+            text9 = text10
           end
-          textValue10 = math
-          textValue10 = textValue10.min
-          textValue11 = 100
+          text10 = math
+          text10 = text10.min
+          text11 = 100
           stringHelper = math
           stringHelper = stringHelper.ceil
-          workValue2 = workValue18.timeNow
-          workValue3 = workValue18.timePlanted
-          workValue2 = workValue2 - workValue3
-          workValue3 = cmgCall.growTimeMilliseconds
-          workValue2 = workValue2 / workValue3
-          workValue2 = workValue2 * 100.0
-          stringHelper, workValue2, workValue3, workValue4, workValue5 = stringHelper(workValue2)
-          textValue10 = textValue10(textValue11, stringHelper, workValue2, workValue3, workValue4, workValue5)
-          textValue11 = textValue9
+          workingValue2 = workingValue18.timeNow
+          workingValue3 = workingValue18.timePlanted
+          workingValue2 = workingValue2 - workingValue3
+          workingValue3 = cmgOperation.growTimeMilliseconds
+          workingValue2 = workingValue2 / workingValue3
+          workingValue2 = workingValue2 * 100.0
+          stringHelper, workingValue2, workingValue3, workingValue4, workingValue5 = stringHelper(workingValue2)
+          text10 = text10(text11, stringHelper, workingValue2, workingValue3, workingValue4, workingValue5)
+          text11 = text9
           stringHelper = string
           stringHelper = stringHelper.format
-          workValue2 = "%d%% Grown"
-          workValue3 = textValue10
-          stringHelper = stringHelper(workValue2, workValue3)
-          textValue11 = textValue11 .. stringHelper
-          textValue9 = textValue11
+          workingValue2 = "%d%% Grown"
+          workingValue3 = text10
+          stringHelper = stringHelper(workingValue2, workingValue3)
+          text11 = text11 .. stringHelper
+          text9 = text11
         end
-        textValue10 = RageUI
-        textValue10 = textValue10.ButtonWithStyle
-        textValue11 = workValue18.fieldName
-        stringHelper = textValue9
-        workValue2 = {}
-        workValue3 = workValue20
-        workValue5 = workValue18.stage
-        workValue4 = numberValue12
-        workValue4 = workValue4[workValue5]
-        workValue3 = workValue3 .. workValue4
-        workValue2.RightLabel = workValue3
-        workValue3 = true
+        text10 = RageUI
+        text10 = text10.ButtonWithStyle
+        text11 = workingValue18.fieldName
+        stringHelper = text9
+        workingValue2 = {}
+        workingValue3 = workingValue20
+        workingValue5 = workingValue18.stage
+        workingValue4 = number12
+        workingValue4 = workingValue4[workingValue5]
+        workingValue3 = workingValue3 .. workingValue4
+        workingValue2.RightLabel = workingValue3
+        workingValue3 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg12, arg22, arg32) ===
-        function workValue4(arg12, arg22, arg32)
+        -- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue12, localValue22, localValue32) ===
+        function workingValue4(localValue12, localValue22, localValue32)
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        textValue10(textValue11, stringHelper, workValue2, workValue3, workValue4)
+        text10(text11, stringHelper, workingValue2, workingValue3, workingValue4)
       end
     end
   end
-  arg1(arg2, arg3, workValue16, tableHelper, flag19)
+  localValue1(localValue2, localValue3, workingValue16, tableHelper, stateFlag19)
 end
-cmgCall5(textValue5, stringHelper2, numberValue15, dataTable4)
-cmgCall5 = RegisterNetEvent
-textValue5 = "95c3eb0ca3"
+cmgOperation5(text5, stringHelper2, number15, dataCollection4)
+cmgOperation5 = RegisterNetEvent
+text5 = "95c3eb0ca3"
 -- Beginner: this function handles network event "95c3eb0ca3".
 
--- === HELPER FUNCTION: stringHelper2(arg1) ===
-function stringHelper2(arg1)
-  local arg2
-  workValue19 = arg1
+-- === HELPER FUNCTION: stringHelper2(localValue1) ===
+function stringHelper2(localValue1)
+  local localValue2
+  workingValue19 = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "95c3eb0ca3".
-cmgCall5(textValue5, stringHelper2)
+cmgOperation5(text5, stringHelper2)
 -- Beginner: this function handles network event "95c3eb0ca3".
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
-function cmgCall5()
-  local arg1, arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position
-  arg1 = pairs
-  arg2 = dataTable2
-  arg1, arg2, arg3, workValue16 = arg1(arg2)
-  for tableHelper, flag19 in arg1, arg2, arg3, workValue16 do
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: none) ===
+function cmgOperation5()
+  local localValue1, localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position
+  localValue1 = pairs
+  localValue2 = dataCollection2
+  localValue1, localValue2, localValue3, workingValue16 = localValue1(localValue2)
+  for tableHelper, stateFlag19 in localValue1, localValue2, localValue3, workingValue16 do
     coords2 = StopParticleFxLooped
-    workValue21 = flag19
+    workingValue21 = stateFlag19
     position = true
-    coords2(workValue21, position)
+    coords2(workingValue21, position)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2
-  arg1 = false
-  flag20 = arg1
-  arg1 = cmgCall5
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2
+  localValue1 = false
+  stateFlag20 = localValue1
+  localValue1 = cmgOperation5
   -- Beginner: Register a network event handler that the server/other clients can trigger.
-  arg1()
-  arg1 = workValue17
-  if not arg1 then
+  localValue1()
+  localValue1 = workingValue17
+  if not localValue1 then
     return
   end
-  arg1 = workValue17.stage
-  if "GROWN" == arg1 then
-    arg1 = 0
-    numberValue = arg1
-    arg1 = 0
-    numberValue2 = arg1
-    arg1 = 0
-    numberValue3 = arg1
+  localValue1 = workingValue17.stage
+  if "GROWN" == localValue1 then
+    localValue1 = 0
+    number = localValue1
+    localValue1 = 0
+    number2 = localValue1
+    localValue1 = 0
+    number3 = localValue1
   else
-    arg1 = workValue17.stage
-    if "HARVESTED" == arg1 then
-      arg1 = 0
-      numberValue4 = arg1
-      arg1 = {}
-      dataTable = arg1
-      arg1 = false
-      flag5 = arg1
+    localValue1 = workingValue17.stage
+    if "HARVESTED" == localValue1 then
+      localValue1 = 0
+      number4 = localValue1
+      localValue1 = {}
+      dataCollection = localValue1
+      localValue1 = false
+      stateFlag5 = localValue1
     end
   end
 end
 stringHelper2 = RegisterNetEvent
-numberValue15 = "8a973949c8"
+number15 = "8a973949c8"
 -- Beginner: this function handles network event "8a973949c8".
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2) ===
-function dataTable4(arg1, arg2)
-  local arg3
-  arg3 = workValue17
-  if not arg3 then
-    arg3 = {}
-    workValue17 = arg3
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1, localValue2) ===
+function dataCollection4(localValue1, localValue2)
+  local localValue3
+  localValue3 = workingValue17
+  if not localValue3 then
+    localValue3 = {}
+    workingValue17 = localValue3
   end
-  workValue17.fieldIndex = arg1
-  workValue17.stage = arg2
-  arg3 = cmgCall.fields
-  arg3 = arg3[arg1]
-  workValue17.config = arg3
-  arg3 = textValue5
-  arg3()
+  workingValue17.fieldIndex = localValue1
+  workingValue17.stage = localValue2
+  localValue3 = cmgOperation.fields
+  localValue3 = localValue3[localValue1]
+  workingValue17.config = localValue3
+  localValue3 = text5
+  localValue3()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8a973949c8".
-stringHelper2(numberValue15, dataTable4)
+stringHelper2(number15, dataCollection4)
 stringHelper2 = RegisterNetEvent
-numberValue15 = "a171c01ded"
+number15 = "a171c01ded"
 -- Beginner: this function handles network event "a171c01ded".
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
-function dataTable4(arg1)
-  local arg2, arg3, workValue16
-  arg2 = assert
-  arg3 = workValue17
-  workValue16 = "Attempting to set farming job stage whilst allocated field is invalid"
-  arg2(arg3, workValue16)
-  workValue17.stage = arg1
-  arg2 = textValue5
-  arg2()
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1) ===
+function dataCollection4(localValue1)
+  local localValue2, localValue3, workingValue16
+  localValue2 = assert
+  localValue3 = workingValue17
+  workingValue16 = "Attempting to set farming job stage whilst allocated field is invalid"
+  localValue2(localValue3, workingValue16)
+  workingValue17.stage = localValue1
+  localValue2 = text5
+  localValue2()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a171c01ded".
-stringHelper2(numberValue15, dataTable4)
+stringHelper2(number15, dataCollection4)
 stringHelper2 = RegisterNetEvent
-numberValue15 = "3bea630af8"
+number15 = "3bea630af8"
 -- Beginner: this function handles network event "3bea630af8".
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
-function dataTable4(arg1)
-  local arg2, arg3
-  arg2 = nil
-  workValue17 = arg2
-  if arg1 then
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 5000
-    arg2(arg3)
-    arg2 = notify
-    arg3 = "~g~You have successfully tendered the field. Return to the warehouse to start another shift!"
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1) ===
+function dataCollection4(localValue1)
+  local localValue2, localValue3
+  localValue2 = nil
+  workingValue17 = localValue2
+  if localValue1 then
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 5000
+    localValue2(localValue3)
+    localValue2 = notify
+    localValue3 = "~g~You have successfully tendered the field. Return to the warehouse to start another shift!"
     -- Beginner: Show a notification to the player.
-    arg2(arg3)
+    localValue2(localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3bea630af8".
-stringHelper2(numberValue15, dataTable4)
+stringHelper2(number15, dataCollection4)
 
--- === HELPER FUNCTION: stringHelper2(arg1) ===
-function stringHelper2(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19
-  arg2 = workValue17
-  if not arg2 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION: stringHelper2(localValue1) ===
+function stringHelper2(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19
+  localValue2 = workingValue17
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = workValue.translate
-  arg3 = workValue.mat4
-  workValue16 = 1.0
-  arg3 = arg3(workValue16)
-  workValue16 = workValue17.config
-  workValue16 = workValue16.aabbCenter
-  workValue16 = workValue16 - arg1
-  arg2 = arg2(arg3, workValue16)
-  arg3 = workValue.polygon
-  arg3 = arg3.contains
-  workValue16 = workValue17.config
-  workValue16 = workValue16.polygons
-  tableHelper = arg2[4]
+  localValue2 = workingValue.translate
+  localValue3 = workingValue.mat4
+  workingValue16 = 1.0
+  localValue3 = localValue3(workingValue16)
+  workingValue16 = workingValue17.config
+  workingValue16 = workingValue16.aabbCenter
+  workingValue16 = workingValue16 - localValue1
+  localValue2 = localValue2(localValue3, workingValue16)
+  localValue3 = workingValue.polygon
+  localValue3 = localValue3.contains
+  workingValue16 = workingValue17.config
+  workingValue16 = workingValue16.polygons
+  tableHelper = localValue2[4]
   tableHelper = tableHelper.xyz
-  flag19 = 100.0
-  return arg3(workValue16, tableHelper, flag19)
+  stateFlag19 = 100.0
+  return localValue3(workingValue16, tableHelper, stateFlag19)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue15; parameters: arg1) ===
-function numberValue15(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14
-  arg2 = GetVehicleTrailerVehicle
-  arg3 = arg1
-  arg2, arg3 = arg2(arg3)
-  if not arg2 or 0 == arg3 then
-    workValue16 = textValue3
-    tableHelper = cmgCall.rakeModel
-    workValue16(tableHelper)
-    workValue16 = drawNativeText
+-- === HELPER FUNCTION (decompiler name: number15; parameters: localValue1) ===
+function number15(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14
+  localValue2 = GetVehicleTrailerVehicle
+  localValue3 = localValue1
+  localValue2, localValue3 = localValue2(localValue3)
+  if not localValue2 or 0 == localValue3 then
+    workingValue16 = text3
+    tableHelper = cmgOperation.rakeModel
+    workingValue16(tableHelper)
+    workingValue16 = drawNativeText
     tableHelper = "Attach the ~y~rake trailer~w~ to your ~y~tractor~w~"
     -- Beginner: Draw GTA-style text on screen.
-    workValue16(tableHelper)
+    workingValue16(tableHelper)
     return
   end
-  workValue16 = GetEntityModel
-  tableHelper = arg3
+  workingValue16 = GetEntityModel
+  tableHelper = localValue3
   -- Beginner: result below is modelHash.
-  workValue16 = workValue16(tableHelper)
-  tableHelper = cmgCall.rakeModel
-  if workValue16 ~= tableHelper then
-    tableHelper = cmgCall.grainModel
-    if workValue16 == tableHelper then
+  workingValue16 = workingValue16(tableHelper)
+  tableHelper = cmgOperation.rakeModel
+  if workingValue16 ~= tableHelper then
+    tableHelper = cmgOperation.grainModel
+    if workingValue16 == tableHelper then
       tableHelper = drawNativeNotification
-      flag19 = "You have the grain trailer attached. You need the rake trailer for your field."
+      stateFlag19 = "You have the grain trailer attached. You need the rake trailer for your field."
       -- Beginner: Show a GTA-style notification/help prompt.
-      tableHelper(flag19)
+      tableHelper(stateFlag19)
     end
     tableHelper = drawNativeText
-    flag19 = "Detach your current ~y~trailer~w~ at the ~y~warehouse~w~"
+    stateFlag19 = "Detach your current ~y~trailer~w~ at the ~y~warehouse~w~"
     -- Beginner: Draw GTA-style text on screen.
-    tableHelper(flag19)
+    tableHelper(stateFlag19)
     return
   end
   tableHelper = CMG
   tableHelper = tableHelper.getPlayerCoords
   -- Beginner: result below is playerCoords.
   tableHelper = tableHelper()
-  flag19 = stringHelper2
+  stateFlag19 = stringHelper2
   coords2 = tableHelper
-  flag19 = flag19(coords2)
-  if not flag19 then
-    flag19 = workValue17
-    if flag19 then
-      flag19 = drawNativeText
+  stateFlag19 = stateFlag19(coords2)
+  if not stateFlag19 then
+    stateFlag19 = workingValue17
+    if stateFlag19 then
+      stateFlag19 = drawNativeText
       coords2 = string
       coords2 = coords2.format
-      workValue21 = "Drive to ~y~%s~w~"
-      position = workValue17.config
+      workingValue21 = "Drive to ~y~%s~w~"
+      position = workingValue17.config
       position = position.name
-      coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14 = coords2(workValue21, position)
-      flag19(coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14)
-      flag19 = workValue17.config
-      flag19 = flag19.position
+      coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14 = coords2(workingValue21, position)
+      stateFlag19(coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14)
+      stateFlag19 = workingValue17.config
+      stateFlag19 = stateFlag19.position
       coords2 = GetGroundZFor_3dCoord
-      workValue21 = flag19.x
-      position = flag19.y
-      workValue22 = flag19.z
-      flag = nil
-      flag2 = false
-      coords2, workValue21 = coords2(workValue21, position, workValue22, flag, flag2)
-      position = workValue17.config
+      workingValue21 = stateFlag19.x
+      position = stateFlag19.y
+      workingValue22 = stateFlag19.z
+      stateFlag = nil
+      stateFlag2 = false
+      coords2, workingValue21 = coords2(workingValue21, position, workingValue22, stateFlag, stateFlag2)
+      position = workingValue17.config
       position = position.aabbCenter
-      workValue22 = DrawMarker
-      flag = 1
-      flag2 = position.x
+      workingValue22 = DrawMarker
+      stateFlag = 1
+      stateFlag2 = position.x
       modelValue = position.y
-      flag3 = workValue21 or flag3
-      if not coords2 or not workValue21 then
-        flag3 = flag19.z
+      stateFlag3 = workingValue21 or stateFlag3
+      if not coords2 or not workingValue21 then
+        stateFlag3 = stateFlag19.z
       end
-      flag3 = flag3 - 10.0
-      flag4 = 0.0
-      flag6 = 0.0
-      flag7 = 0.0
+      stateFlag3 = stateFlag3 - 10.0
+      stateFlag4 = 0.0
+      stateFlag6 = 0.0
+      stateFlag7 = 0.0
       coords = 0.0
-      workValue7 = 0.0
-      flag8 = 0.0
-      flag9 = 15.0
-      flag10 = 15.0
-      numberValue6 = 125.0
-      numberValue7 = 255
-      numberValue8 = 255
-      numberValue9 = 0
-      numberValue10 = 125
-      flag11 = false
-      flag12 = false
-      numberValue11 = 2
-      flag13 = false
-      numberValue13 = nil
-      numberValue14 = nil
-      flag14 = false
-      workValue22(flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14)
-      workValue22 = SetNewWaypoint
-      flag = position.x
-      flag2 = position.y
-      workValue22(flag, flag2)
-      workValue22 = false
-      flag20 = workValue22
+      workingValue7 = 0.0
+      stateFlag8 = 0.0
+      stateFlag9 = 15.0
+      stateFlag10 = 15.0
+      number6 = 125.0
+      number7 = 255
+      number8 = 255
+      number9 = 0
+      number10 = 125
+      stateFlag11 = false
+      stateFlag12 = false
+      number11 = 2
+      stateFlag13 = false
+      number13 = nil
+      number14 = nil
+      stateFlag14 = false
+      workingValue22(stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14)
+      workingValue22 = SetNewWaypoint
+      stateFlag = position.x
+      stateFlag2 = position.y
+      workingValue22(stateFlag, stateFlag2)
+      workingValue22 = false
+      stateFlag20 = workingValue22
       return
     end
   end
-  flag19 = GetGameTimer
+  stateFlag19 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  flag19 = flag19()
-  coords2 = numberValue2
-  flag19 = flag19 - coords2
+  stateFlag19 = stateFlag19()
+  coords2 = number2
+  stateFlag19 = stateFlag19 - coords2
   coords2 = 200
-  if flag19 > coords2 then
-    flag19 = 0
-    numberValue = flag19
-    flag19 = pairs
+  if stateFlag19 > coords2 then
+    stateFlag19 = 0
+    number = stateFlag19
+    stateFlag19 = pairs
     coords2 = GetGamePool
-    workValue21 = "CObject"
-    coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14 = coords2(workValue21)
-    flag19, coords2, workValue21, position = flag19(coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14)
-    for workValue22, flag in flag19, coords2, workValue21, position do
-      flag2 = GetEntityModel
-      modelValue = flag
+    workingValue21 = "CObject"
+    coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14 = coords2(workingValue21)
+    stateFlag19, coords2, workingValue21, position = stateFlag19(coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14)
+    for workingValue22, stateFlag in stateFlag19, coords2, workingValue21, position do
+      stateFlag2 = GetEntityModel
+      modelValue = stateFlag
       -- Beginner: result below is modelHash.
-      flag2 = flag2(modelValue)
+      stateFlag2 = stateFlag2(modelValue)
       modelValue = table
       modelValue = modelValue.find
-      flag3 = cmgCall.fieldObjects
-      flag4 = flag2
-      modelValue = modelValue(flag3, flag4)
+      stateFlag3 = cmgOperation.fieldObjects
+      stateFlag4 = stateFlag2
+      modelValue = modelValue(stateFlag3, stateFlag4)
       if modelValue then
         modelValue = GetEntityCoords
-        flag3 = flag
+        stateFlag3 = stateFlag
         -- Beginner: result below is entityCoords.
-        modelValue = modelValue(flag3)
-        flag3 = modelValue.z
-        if flag3 > 5.0 then
-          flag3 = stringHelper2
-          flag4 = modelValue
-          flag3 = flag3(flag4)
-          if flag3 then
-            flag3 = numberValue
-            flag3 = flag3 + 1
-            numberValue = flag3
+        modelValue = modelValue(stateFlag3)
+        stateFlag3 = modelValue.z
+        if stateFlag3 > 5.0 then
+          stateFlag3 = stringHelper2
+          stateFlag4 = modelValue
+          stateFlag3 = stateFlag3(stateFlag4)
+          if stateFlag3 then
+            stateFlag3 = number
+            stateFlag3 = stateFlag3 + 1
+            number = stateFlag3
           end
         end
       end
-      modelValue = numberValue
+      modelValue = number
       if 0 == modelValue then
-        modelValue = numberValue3
+        modelValue = number3
         modelValue = modelValue + 1
-        numberValue3 = modelValue
+        number3 = modelValue
       else
         modelValue = 0
-        numberValue3 = modelValue
+        number3 = modelValue
       end
     end
-    flag19 = GetGameTimer
+    stateFlag19 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    flag19 = flag19()
-    numberValue2 = flag19
+    stateFlag19 = stateFlag19()
+    number2 = stateFlag19
   end
-  flag19 = numberValue3
-  if flag19 > 50 then
-    flag19 = flag20
-    if not flag19 then
-      flag19 = TriggerServerEvent
+  stateFlag19 = number3
+  if stateFlag19 > 50 then
+    stateFlag19 = stateFlag20
+    if not stateFlag19 then
+      stateFlag19 = TriggerServerEvent
       coords2 = "a9707ae981"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a9707ae981".
-      flag19(coords2)
-      flag19 = true
-      flag20 = flag19
+      stateFlag19(coords2)
+      stateFlag19 = true
+      stateFlag20 = stateFlag19
     end
   else
-    flag19 = numberValue3
-    if flag19 > 0 then
-      flag19 = "~y~REMAINING CROPS"
-      workValue6 = flag19
-      flag19 = "NONE"
-      workValue8 = flag19
-      flag19 = drawNativeText
+    stateFlag19 = number3
+    if stateFlag19 > 0 then
+      stateFlag19 = "~y~REMAINING CROPS"
+      workingValue6 = stateFlag19
+      stateFlag19 = "NONE"
+      workingValue8 = stateFlag19
+      stateFlag19 = drawNativeText
       coords2 = "Search the remaining ~y~field~w~ for any crops"
       -- Beginner: Draw GTA-style text on screen.
-      flag19(coords2)
+      stateFlag19(coords2)
     else
-      flag19 = "~y~REMAINING CROPS"
-      workValue6 = flag19
-      flag19 = tostring
-      coords2 = numberValue
-      flag19 = flag19(coords2)
-      workValue8 = flag19
-      flag19 = drawNativeText
+      stateFlag19 = "~y~REMAINING CROPS"
+      workingValue6 = stateFlag19
+      stateFlag19 = tostring
+      coords2 = number
+      stateFlag19 = stateFlag19(coords2)
+      workingValue8 = stateFlag19
+      stateFlag19 = drawNativeText
       coords2 = "Harvest the remaining ~y~crops~w~ with your tractor"
-      flag19(coords2)
+      stateFlag19(coords2)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
-function dataTable4(arg1)
-  local arg2, arg3, workValue16, tableHelper, flag19, coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14, flag15, numberValue16, flag16, workValue14, workValue15, flag17
-  arg2 = GetVehicleTrailerVehicle
-  arg3 = arg1
-  arg2, arg3 = arg2(arg3)
-  if not arg2 or 0 == arg3 then
-    workValue16 = textValue3
-    tableHelper = cmgCall.grainModel
-    workValue16(tableHelper)
-    workValue16 = drawNativeText
+-- === HELPER FUNCTION (decompiler name: dataCollection4; parameters: localValue1) ===
+function dataCollection4(localValue1)
+  local localValue2, localValue3, workingValue16, tableHelper, stateFlag19, coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14, stateFlag15, number16, stateFlag16, workingValue14, workingValue15, stateFlag17
+  localValue2 = GetVehicleTrailerVehicle
+  localValue3 = localValue1
+  localValue2, localValue3 = localValue2(localValue3)
+  if not localValue2 or 0 == localValue3 then
+    workingValue16 = text3
+    tableHelper = cmgOperation.grainModel
+    workingValue16(tableHelper)
+    workingValue16 = drawNativeText
     tableHelper = "Attach the ~y~grain trailer~w~ to your ~y~tractor~w~"
     -- Beginner: Draw GTA-style text on screen.
-    workValue16(tableHelper)
-    workValue16 = cmgCall5
+    workingValue16(tableHelper)
+    workingValue16 = cmgOperation5
     -- Beginner: Register a network event handler that the server/other clients can trigger.
-    workValue16()
+    workingValue16()
     return
   end
-  workValue16 = GetEntityModel
-  tableHelper = arg3
+  workingValue16 = GetEntityModel
+  tableHelper = localValue3
   -- Beginner: result below is modelHash.
-  workValue16 = workValue16(tableHelper)
-  tableHelper = cmgCall.grainModel
-  if workValue16 ~= tableHelper then
-    tableHelper = cmgCall.rakeModel
-    if workValue16 == tableHelper then
+  workingValue16 = workingValue16(tableHelper)
+  tableHelper = cmgOperation.grainModel
+  if workingValue16 ~= tableHelper then
+    tableHelper = cmgOperation.rakeModel
+    if workingValue16 == tableHelper then
       tableHelper = drawNativeNotification
-      flag19 = "You have the rake trailer attached. You need the grain trailer for your field."
+      stateFlag19 = "You have the rake trailer attached. You need the grain trailer for your field."
       -- Beginner: Show a GTA-style notification/help prompt.
-      tableHelper(flag19)
+      tableHelper(stateFlag19)
     end
     tableHelper = drawNativeText
-    flag19 = "Detach your current ~y~trailer~w~ at the ~y~warehouse~w~"
+    stateFlag19 = "Detach your current ~y~trailer~w~ at the ~y~warehouse~w~"
     -- Beginner: Draw GTA-style text on screen.
-    tableHelper(flag19)
-    tableHelper = cmgCall5
+    tableHelper(stateFlag19)
+    tableHelper = cmgOperation5
     -- Beginner: Register a network event handler that the server/other clients can trigger.
     tableHelper()
     return
@@ -1549,314 +1549,314 @@ function dataTable4(arg1)
   tableHelper = tableHelper.getPlayerCoords
   -- Beginner: result below is playerCoords.
   tableHelper = tableHelper()
-  flag19 = stringHelper2
+  stateFlag19 = stringHelper2
   coords2 = tableHelper
-  flag19 = flag19(coords2)
-  if not flag19 then
-    flag19 = workValue17
-    if flag19 then
-      flag19 = drawNativeText
+  stateFlag19 = stateFlag19(coords2)
+  if not stateFlag19 then
+    stateFlag19 = workingValue17
+    if stateFlag19 then
+      stateFlag19 = drawNativeText
       coords2 = string
       coords2 = coords2.format
-      workValue21 = "Drive to ~y~%s~w~"
-      position = workValue17.config
+      workingValue21 = "Drive to ~y~%s~w~"
+      position = workingValue17.config
       position = position.name
-      coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14, flag15, numberValue16, flag16, workValue14, workValue15, flag17 = coords2(workValue21, position)
+      coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14, stateFlag15, number16, stateFlag16, workingValue14, workingValue15, stateFlag17 = coords2(workingValue21, position)
       -- Beginner: Draw GTA-style text on screen.
-      flag19(coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14, flag15, numberValue16, flag16, workValue14, workValue15, flag17)
-      flag19 = workValue17.config
-      flag19 = flag19.position
+      stateFlag19(coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14, stateFlag15, number16, stateFlag16, workingValue14, workingValue15, stateFlag17)
+      stateFlag19 = workingValue17.config
+      stateFlag19 = stateFlag19.position
       coords2 = GetGroundZFor_3dCoord
-      workValue21 = flag19.x
-      position = flag19.y
-      workValue22 = flag19.z
-      flag = nil
-      flag2 = false
-      coords2, workValue21 = coords2(workValue21, position, workValue22, flag, flag2)
-      position = workValue17.config
+      workingValue21 = stateFlag19.x
+      position = stateFlag19.y
+      workingValue22 = stateFlag19.z
+      stateFlag = nil
+      stateFlag2 = false
+      coords2, workingValue21 = coords2(workingValue21, position, workingValue22, stateFlag, stateFlag2)
+      position = workingValue17.config
       position = position.aabbCenter
-      workValue22 = DrawMarker
-      flag = 1
-      flag2 = position.x
+      workingValue22 = DrawMarker
+      stateFlag = 1
+      stateFlag2 = position.x
       modelValue = position.y
-      flag3 = workValue21 or flag3
-      if not coords2 or not workValue21 then
-        flag3 = flag19.z
+      stateFlag3 = workingValue21 or stateFlag3
+      if not coords2 or not workingValue21 then
+        stateFlag3 = stateFlag19.z
       end
-      flag3 = flag3 - 10.0
-      flag4 = 0.0
-      flag6 = 0.0
-      flag7 = 0.0
+      stateFlag3 = stateFlag3 - 10.0
+      stateFlag4 = 0.0
+      stateFlag6 = 0.0
+      stateFlag7 = 0.0
       coords = 0.0
-      workValue7 = 0.0
-      flag8 = 0.0
-      flag9 = 15.0
-      flag10 = 15.0
-      numberValue6 = 125.0
-      numberValue7 = 255
-      numberValue8 = 255
-      numberValue9 = 0
-      numberValue10 = 125
-      flag11 = false
-      flag12 = false
-      numberValue11 = 2
-      flag13 = false
-      numberValue13 = nil
-      numberValue14 = nil
-      flag14 = false
-      workValue22(flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14)
-      workValue22 = SetNewWaypoint
-      flag = position.x
-      flag2 = position.y
-      workValue22(flag, flag2)
-      workValue22 = false
-      flag20 = workValue22
-      workValue22 = cmgCall5
+      workingValue7 = 0.0
+      stateFlag8 = 0.0
+      stateFlag9 = 15.0
+      stateFlag10 = 15.0
+      number6 = 125.0
+      number7 = 255
+      number8 = 255
+      number9 = 0
+      number10 = 125
+      stateFlag11 = false
+      stateFlag12 = false
+      number11 = 2
+      stateFlag13 = false
+      number13 = nil
+      number14 = nil
+      stateFlag14 = false
+      workingValue22(stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14)
+      workingValue22 = SetNewWaypoint
+      stateFlag = position.x
+      stateFlag2 = position.y
+      workingValue22(stateFlag, stateFlag2)
+      workingValue22 = false
+      stateFlag20 = workingValue22
+      workingValue22 = cmgOperation5
       -- Beginner: Register a network event handler that the server/other clients can trigger.
-      workValue22()
+      workingValue22()
       return
     end
   end
-  flag19 = flag5
-  if not flag19 then
-    flag19 = pairs
+  stateFlag19 = stateFlag5
+  if not stateFlag19 then
+    stateFlag19 = pairs
     coords2 = GetGamePool
-    workValue21 = "CObject"
-    coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14, flag15, numberValue16, flag16, workValue14, workValue15, flag17 = coords2(workValue21)
-    flag19, coords2, workValue21, position = flag19(coords2, workValue21, position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14, flag15, numberValue16, flag16, workValue14, workValue15, flag17)
-    for workValue22, flag in flag19, coords2, workValue21, position do
-      flag2 = GetEntityModel
-      modelValue = flag
+    workingValue21 = "CObject"
+    coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14, stateFlag15, number16, stateFlag16, workingValue14, workingValue15, stateFlag17 = coords2(workingValue21)
+    stateFlag19, coords2, workingValue21, position = stateFlag19(coords2, workingValue21, position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14, stateFlag15, number16, stateFlag16, workingValue14, workingValue15, stateFlag17)
+    for workingValue22, stateFlag in stateFlag19, coords2, workingValue21, position do
+      stateFlag2 = GetEntityModel
+      modelValue = stateFlag
       -- Beginner: result below is modelHash.
-      flag2 = flag2(modelValue)
+      stateFlag2 = stateFlag2(modelValue)
       modelValue = table
       modelValue = modelValue.find
-      flag3 = cmgCall.fieldObjects
-      flag4 = flag2
-      modelValue = modelValue(flag3, flag4)
+      stateFlag3 = cmgOperation.fieldObjects
+      stateFlag4 = stateFlag2
+      modelValue = modelValue(stateFlag3, stateFlag4)
       if modelValue then
         modelValue = GetEntityCoords
-        flag3 = flag
+        stateFlag3 = stateFlag
         -- Beginner: result below is entityCoords.
-        modelValue = modelValue(flag3)
-        flag3 = modelValue.z
-        if flag3 < 5.0 then
-          flag3 = stringHelper2
-          flag4 = modelValue
-          flag3 = flag3(flag4)
-          if flag3 then
-            flag3 = table
-            flag3 = flag3.insert
-            flag4 = dataTable
-            flag6 = modelValue
-            flag3(flag4, flag6)
+        modelValue = modelValue(stateFlag3)
+        stateFlag3 = modelValue.z
+        if stateFlag3 < 5.0 then
+          stateFlag3 = stringHelper2
+          stateFlag4 = modelValue
+          stateFlag3 = stateFlag3(stateFlag4)
+          if stateFlag3 then
+            stateFlag3 = table
+            stateFlag3 = stateFlag3.insert
+            stateFlag4 = dataCollection
+            stateFlag6 = modelValue
+            stateFlag3(stateFlag4, stateFlag6)
           end
         end
       end
     end
-    flag19 = dataTable
-    flag19 = #flag19
-    numberValue4 = flag19
-    flag19 = true
-    flag5 = flag19
+    stateFlag19 = dataCollection
+    stateFlag19 = #stateFlag19
+    number4 = stateFlag19
+    stateFlag19 = true
+    stateFlag5 = stateFlag19
   end
-  flag19 = dataTable
-  flag19 = #flag19
-  if flag19 >= 5 then
-    flag19 = flag19 - 5
+  stateFlag19 = dataCollection
+  stateFlag19 = #stateFlag19
+  if stateFlag19 >= 5 then
+    stateFlag19 = stateFlag19 - 5
   end
   coords2 = CMG
   coords2 = coords2.getPlayerCoords
   -- Beginner: result below is playerCoords.
   coords2 = coords2()
-  workValue21 = pairs
-  position = dataTable
-  workValue21, position, workValue22, flag = workValue21(position)
-  for flag2, modelValue in workValue21, position, workValue22, flag do
-    flag3 = dataTable
-    flag3 = #flag3
-    if not (flag3 < 75) then
-      flag3 = coords2 - modelValue
-      flag3 = #flag3
-      if not (flag3 < 50.0) then
-        goto flow_label_208
+  workingValue21 = pairs
+  position = dataCollection
+  workingValue21, position, workingValue22, stateFlag = workingValue21(position)
+  for stateFlag2, modelValue in workingValue21, position, workingValue22, stateFlag do
+    stateFlag3 = dataCollection
+    stateFlag3 = #stateFlag3
+    if not (stateFlag3 < 75) then
+      stateFlag3 = coords2 - modelValue
+      stateFlag3 = #stateFlag3
+      if not (stateFlag3 < 50.0) then
+        goto continueAtStep208
       end
     end
-    flag3 = GetGroundZFor_3dCoord
-    flag4 = modelValue.x
-    flag6 = modelValue.y
-    flag7 = coords2.z
-    flag7 = flag7 + 15.0
+    stateFlag3 = GetGroundZFor_3dCoord
+    stateFlag4 = modelValue.x
+    stateFlag6 = modelValue.y
+    stateFlag7 = coords2.z
+    stateFlag7 = stateFlag7 + 15.0
     coords = nil
-    workValue7 = false
-    flag3, flag4 = flag3(flag4, flag6, flag7, coords, workValue7)
-    flag6 = DrawMarker
-    flag7 = 0
+    workingValue7 = false
+    stateFlag3, stateFlag4 = stateFlag3(stateFlag4, stateFlag6, stateFlag7, coords, workingValue7)
+    stateFlag6 = DrawMarker
+    stateFlag7 = 0
     coords = modelValue.x
-    workValue7 = modelValue.y
-    flag8 = flag4 or flag8
-    if not flag3 or not flag4 then
-      flag8 = coords2.z
+    workingValue7 = modelValue.y
+    stateFlag8 = stateFlag4 or stateFlag8
+    if not stateFlag3 or not stateFlag4 then
+      stateFlag8 = coords2.z
     end
-    flag9 = 0.0
-    flag10 = 0.0
-    numberValue6 = 0.0
-    numberValue7 = 0.0
-    numberValue8 = 0.0
-    numberValue9 = 0.0
-    numberValue10 = 0.2
-    flag11 = 0.2
-    flag12 = 0.2
-    numberValue11 = 255
-    flag13 = 255
-    numberValue13 = 0
-    numberValue14 = 155
-    flag14 = false
-    flag15 = false
-    numberValue16 = 2
-    flag16 = false
-    workValue14 = nil
-    workValue15 = nil
-    flag17 = false
-    flag6(flag7, coords, workValue7, flag8, flag9, flag10, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, flag11, flag12, numberValue11, flag13, numberValue13, numberValue14, flag14, flag15, numberValue16, flag16, workValue14, workValue15, flag17)
-    ::flow_label_208::
+    stateFlag9 = 0.0
+    stateFlag10 = 0.0
+    number6 = 0.0
+    number7 = 0.0
+    number8 = 0.0
+    number9 = 0.0
+    number10 = 0.2
+    stateFlag11 = 0.2
+    stateFlag12 = 0.2
+    number11 = 255
+    stateFlag13 = 255
+    number13 = 0
+    number14 = 155
+    stateFlag14 = false
+    stateFlag15 = false
+    number16 = 2
+    stateFlag16 = false
+    workingValue14 = nil
+    workingValue15 = nil
+    stateFlag17 = false
+    stateFlag6(stateFlag7, coords, workingValue7, stateFlag8, stateFlag9, stateFlag10, number6, number7, number8, number9, number10, stateFlag11, stateFlag12, number11, stateFlag13, number13, number14, stateFlag14, stateFlag15, number16, stateFlag16, workingValue14, workingValue15, stateFlag17)
+    ::continueAtStep208::
   end
-  workValue21 = dataTable2
-  workValue21 = #workValue21
-  if workValue21 < 25 then
-    workValue21 = GetGameTimer
+  workingValue21 = dataCollection2
+  workingValue21 = #workingValue21
+  if workingValue21 < 25 then
+    workingValue21 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    workValue21 = workValue21()
-    position = numberValue5
-    workValue21 = workValue21 - position
+    workingValue21 = workingValue21()
+    position = number5
+    workingValue21 = workingValue21 - position
     position = 250
-    if workValue21 > position then
-      workValue21 = GetGameTimer
+    if workingValue21 > position then
+      workingValue21 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      workValue21 = workValue21()
-      numberValue5 = workValue21
-      workValue21 = CMG
-      workValue21 = workValue21.loadPtfx
+      workingValue21 = workingValue21()
+      number5 = workingValue21
+      workingValue21 = CMG
+      workingValue21 = workingValue21.loadPtfx
       position = "core"
-      workValue21(position)
-      workValue21 = StartParticleFxLoopedOnEntityBone
+      workingValue21(position)
+      workingValue21 = StartParticleFxLoopedOnEntityBone
       position = "ent_amb_fbi_falling_debris"
-      workValue22 = arg3
-      flag = 0.0
-      flag2 = 0.0
+      workingValue22 = localValue3
+      stateFlag = 0.0
+      stateFlag2 = 0.0
       modelValue = 0.0
-      flag3 = 0.0
-      flag4 = 0.0
-      flag6 = 0.0
-      flag7 = -1
+      stateFlag3 = 0.0
+      stateFlag4 = 0.0
+      stateFlag6 = 0.0
+      stateFlag7 = -1
       coords = 1.0
-      workValue7 = false
-      flag8 = false
-      flag9 = false
-      workValue21 = workValue21(position, workValue22, flag, flag2, modelValue, flag3, flag4, flag6, flag7, coords, workValue7, flag8, flag9)
+      workingValue7 = false
+      stateFlag8 = false
+      stateFlag9 = false
+      workingValue21 = workingValue21(position, workingValue22, stateFlag, stateFlag2, modelValue, stateFlag3, stateFlag4, stateFlag6, stateFlag7, coords, workingValue7, stateFlag8, stateFlag9)
       position = table
       position = position.insert
-      workValue22 = dataTable2
-      flag = workValue21
-      position(workValue22, flag)
+      workingValue22 = dataCollection2
+      stateFlag = workingValue21
+      position(workingValue22, stateFlag)
     end
   end
-  workValue21 = numberValue4
-  workValue21 = flag19 / workValue21
+  workingValue21 = number4
+  workingValue21 = stateFlag19 / workingValue21
   position = 1.0
-  workValue21 = position - workValue21
-  workValue21 = workValue21 * 100.0
+  workingValue21 = position - workingValue21
+  workingValue21 = workingValue21 * 100.0
   position = math
   position = position.ceil
-  workValue22 = workValue21
-  position = position(workValue22)
-  workValue22 = "~y~AREA PLANTED"
-  workValue6 = workValue22
-  workValue22 = string
-  workValue22 = workValue22.format
-  flag = "%s%%"
-  flag2 = position
-  workValue22 = workValue22(flag, flag2)
-  workValue8 = workValue22
-  workValue22 = drawNativeText
-  flag = "Drive on the ~y~field~w~ to plant seeds"
+  workingValue22 = workingValue21
+  position = position(workingValue22)
+  workingValue22 = "~y~AREA PLANTED"
+  workingValue6 = workingValue22
+  workingValue22 = string
+  workingValue22 = workingValue22.format
+  stateFlag = "%s%%"
+  stateFlag2 = position
+  workingValue22 = workingValue22(stateFlag, stateFlag2)
+  workingValue8 = workingValue22
+  workingValue22 = drawNativeText
+  stateFlag = "Drive on the ~y~field~w~ to plant seeds"
   -- Beginner: Draw GTA-style text on screen.
-  workValue22(flag)
+  workingValue22(stateFlag)
   if position >= 98 then
-    workValue22 = flag20
-    if not workValue22 then
-      workValue22 = TriggerServerEvent
-      flag = "4f5fc9931b"
+    workingValue22 = stateFlag20
+    if not workingValue22 then
+      workingValue22 = TriggerServerEvent
+      stateFlag = "4f5fc9931b"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4f5fc9931b".
-      workValue22(flag)
-      workValue22 = true
-      flag20 = workValue22
+      workingValue22(stateFlag)
+      workingValue22 = true
+      stateFlag20 = workingValue22
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, arg3, workValue16, tableHelper
-  arg1 = nil
-  workValue6 = arg1
-  arg1 = nil
-  workValue8 = arg1
-  arg1 = workValue17
-  if not arg1 then
-    arg1 = CMG
-    arg1 = arg1.setHudTimerBarProviderActive
-    arg2 = "farmingJob"
-    arg3 = false
-    arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, localValue3, workingValue16, tableHelper
+  localValue1 = nil
+  workingValue6 = localValue1
+  localValue1 = nil
+  workingValue8 = localValue1
+  localValue1 = workingValue17
+  if not localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.setHudTimerBarProviderActive
+    localValue2 = "farmingJob"
+    localValue3 = false
+    localValue1(localValue2, localValue3)
     return
   end
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
-  arg1, arg2 = arg1()
-  if 0 == arg1 or not arg2 then
-    arg3 = CMG
-    arg3 = arg3.setHudTimerBarProviderActive
-    workValue16 = "farmingJob"
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
+  localValue1, localValue2 = localValue1()
+  if 0 == localValue1 or not localValue2 then
+    localValue3 = CMG
+    localValue3 = localValue3.setHudTimerBarProviderActive
+    workingValue16 = "farmingJob"
     tableHelper = false
-    arg3(workValue16, tableHelper)
-    arg3 = drawNativeText
-    workValue16 = "Enter the ~y~tractor~w~ or request a new one at the ~y~warehouse~w~"
+    localValue3(workingValue16, tableHelper)
+    localValue3 = drawNativeText
+    workingValue16 = "Enter the ~y~tractor~w~ or request a new one at the ~y~warehouse~w~"
     -- Beginner: Draw GTA-style text on screen.
-    arg3(workValue16)
+    localValue3(workingValue16)
     return
   end
-  arg3 = workValue17.stage
-  if "GROWN" == arg3 then
-    arg3 = numberValue15
-    workValue16 = arg1
-    arg3(workValue16)
+  localValue3 = workingValue17.stage
+  if "GROWN" == localValue3 then
+    localValue3 = number15
+    workingValue16 = localValue1
+    localValue3(workingValue16)
   else
-    arg3 = workValue17.stage
-    if "HARVESTED" == arg3 then
-      arg3 = dataTable4
-      workValue16 = arg1
-      arg3(workValue16)
+    localValue3 = workingValue17.stage
+    if "HARVESTED" == localValue3 then
+      localValue3 = dataCollection4
+      workingValue16 = localValue1
+      localValue3(workingValue16)
     else
-      arg3 = workValue17.stage
-      if "PLANTED" == arg3 then
-        arg3 = drawNativeText
-        workValue16 = "Return to the ~y~warehouse~w~ to drop off your equipment"
+      localValue3 = workingValue17.stage
+      if "PLANTED" == localValue3 then
+        localValue3 = drawNativeText
+        workingValue16 = "Return to the ~y~warehouse~w~ to drop off your equipment"
         -- Beginner: Draw GTA-style text on screen.
-        arg3(workValue16)
+        localValue3(workingValue16)
       end
     end
   end
-  arg3 = CMG
-  arg3 = arg3.setHudTimerBarProviderActive
-  workValue16 = "farmingJob"
-  tableHelper = workValue6
+  localValue3 = CMG
+  localValue3 = localValue3.setHudTimerBarProviderActive
+  workingValue16 = "farmingJob"
+  tableHelper = workingValue6
   tableHelper = nil ~= tableHelper
-  arg3(workValue16, tableHelper)
+  localValue3(workingValue16, tableHelper)
 end
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.createThreadOnTick
-numberValue17 = textValue6
-textValue7 = "Farming"
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.createThreadOnTick
+number17 = text6
+text7 = "Farming"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall6(numberValue17, textValue7)
+cmgOperation6(number17, text7)

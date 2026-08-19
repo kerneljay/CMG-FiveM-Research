@@ -32,1851 +32,1851 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, dataTable2, numberValue16, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue, workValue2, workValue3, workValue4, eventRegistration, textValue, workValue5, numberValue3, numberValue4, dataTable, cmgCall3, numberValue5, numberValue6, numberValue7, numberValue8, numberValue10
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable2 = "cfg/cfg_bankrob"
+local cmgOperation, dataCollection2, number16, workingValue8, workingValue9, workingValue10, workingValue11, workingValue12, workingValue13, workingValue14, workingValue, workingValue2, workingValue3, workingValue4, eventHandler, text, workingValue5, number3, number4, dataCollection, cmgOperation3, number5, number6, number7, number8, number10
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+dataCollection2 = "cfg/cfg_bankrob"
 -- Beginner: result below is config.
-cmgCall = cmgCall(dataTable2)
-dataTable2 = {}
-numberValue16 = 0
+cmgOperation = cmgOperation(dataCollection2)
+dataCollection2 = {}
+number16 = 0
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local arg2, arg3, flag15
-  arg2 = TriggerServerEvent
-  arg3 = "946c287b9d"
-  flag15 = arg1.index
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local localValue2, localValue3, stateFlag15
+  localValue2 = TriggerServerEvent
+  localValue3 = "946c287b9d"
+  stateFlag15 = localValue1.index
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "946c287b9d".
-  arg2(arg3, flag15)
+  localValue2(localValue3, stateFlag15)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, flag15
-  arg2 = arg1.handles
-  if arg2 then
-    arg2 = DeleteEntity
-    arg3 = arg1.handles
-    arg3 = arg3.object
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, stateFlag15
+  localValue2 = localValue1.handles
+  if localValue2 then
+    localValue2 = DeleteEntity
+    localValue3 = localValue1.handles
+    localValue3 = localValue3.object
     -- Beginner: Delete a GTA entity.
-    arg2(arg3)
-    arg2 = StopParticleFxLooped
-    arg3 = arg1.handles
-    arg3 = arg3.particle
-    flag15 = false
-    arg2(arg3, flag15)
-    arg2 = arg1.handles
-    arg2 = arg2.soundId
-    if -1 ~= arg2 then
-      arg2 = StopSound
-      arg3 = arg1.handles
-      arg3 = arg3.soundId
-      arg2(arg3)
-      arg2 = ReleaseSoundId
-      arg3 = arg1.handles
-      arg3 = arg3.soundId
-      arg2(arg3)
+    localValue2(localValue3)
+    localValue2 = StopParticleFxLooped
+    localValue3 = localValue1.handles
+    localValue3 = localValue3.particle
+    stateFlag15 = false
+    localValue2(localValue3, stateFlag15)
+    localValue2 = localValue1.handles
+    localValue2 = localValue2.soundId
+    if -1 ~= localValue2 then
+      localValue2 = StopSound
+      localValue3 = localValue1.handles
+      localValue3 = localValue3.soundId
+      localValue2(localValue3)
+      localValue2 = ReleaseSoundId
+      localValue3 = localValue1.handles
+      localValue3 = localValue3.soundId
+      localValue2(localValue3)
     end
-    arg1.handles = nil
+    localValue1.handles = nil
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18
-  arg3 = arg1.index
-  arg2 = dataTable2
-  arg2 = arg2[arg3]
-  if arg2 then
-    arg3 = pairs
-    flag15 = arg2.safes
-    arg3, flag15, textValue3, position = arg3(flag15)
-    for numberValue21, modelValue in arg3, flag15, textValue3, position do
-      flag17 = workValue9
-      flag18 = modelValue
-      flag17(flag18)
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: localValue1) ===
+function workingValue10(localValue1)
+  local localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18
+  localValue3 = localValue1.index
+  localValue2 = dataCollection2
+  localValue2 = localValue2[localValue3]
+  if localValue2 then
+    localValue3 = pairs
+    stateFlag15 = localValue2.safes
+    localValue3, stateFlag15, text3, position = localValue3(stateFlag15)
+    for number21, modelValue in localValue3, stateFlag15, text3, position do
+      stateFlag17 = workingValue9
+      stateFlag18 = modelValue
+      stateFlag17(stateFlag18)
     end
-    flag15 = arg1.index
-    arg3 = dataTable2
-    arg3[flag15] = nil
+    stateFlag15 = localValue1.index
+    localValue3 = dataCollection2
+    localValue3[stateFlag15] = nil
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1, arg2) ===
-function workValue11(arg1, arg2)
-  local arg3, flag15, textValue3, position
-  arg3 = CMG
-  arg3 = arg3.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1, localValue2) ===
+function workingValue11(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position
+  localValue3 = CMG
+  localValue3 = localValue3.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg3 = arg3()
-  flag15 = arg2.uiPosition
-  arg3 = arg3 - flag15
-  arg3 = #arg3
-  if arg3 > 1.0 then
+  localValue3 = localValue3()
+  stateFlag15 = localValue2.uiPosition
+  localValue3 = localValue3 - stateFlag15
+  localValue3 = #localValue3
+  if localValue3 > 1.0 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.isEmergencyService
-  arg3 = arg3()
-  if arg3 then
+  localValue3 = CMG
+  localValue3 = localValue3.isEmergencyService
+  localValue3 = localValue3()
+  if localValue3 then
     return
   end
-  arg3 = drawNativeNotification
-  flag15 = "Press ~INPUT_CONTEXT~ to hack the "
-  textValue3 = arg2.type
-  if "terminal" == textValue3 then
-    textValue3 = "Gate"
-    if textValue3 then
-      goto flow_label_26
+  localValue3 = drawNativeNotification
+  stateFlag15 = "Press ~INPUT_CONTEXT~ to hack the "
+  text3 = localValue2.type
+  if "terminal" == text3 then
+    text3 = "Gate"
+    if text3 then
+      goto continueAtStep26
     end
   end
-  textValue3 = "Vault"
-  ::flow_label_26::
-  flag15 = flag15 .. textValue3
+  text3 = "Vault"
+  ::continueAtStep26::
+  stateFlag15 = stateFlag15 .. text3
   -- Beginner: Show a GTA-style notification/help prompt.
-  arg3(flag15)
-  arg3 = IsControlJustPressed
-  flag15 = 0
-  textValue3 = 51
-  arg3 = arg3(flag15, textValue3)
-  if arg3 then
-    arg3 = TriggerServerEvent
-    flag15 = "9ff6fe9b05"
-    textValue3 = arg1.index
-    position = arg2.index
+  localValue3(stateFlag15)
+  localValue3 = IsControlJustPressed
+  stateFlag15 = 0
+  text3 = 51
+  localValue3 = localValue3(stateFlag15, text3)
+  if localValue3 then
+    localValue3 = TriggerServerEvent
+    stateFlag15 = "9ff6fe9b05"
+    text3 = localValue1.index
+    position = localValue2.index
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9ff6fe9b05".
-    arg3(flag15, textValue3, position)
+    localValue3(stateFlag15, text3, position)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
-function workValue12(arg1, arg2)
-  local arg3, flag15, textValue3
-  arg3 = nil
-  flag15 = nil
-  if arg2 < arg1 then
-    arg3 = arg1 - arg2
-    textValue3 = 360.0
-    flag15 = textValue3 - arg3
+-- === HELPER FUNCTION (decompiler name: workingValue12; parameters: localValue1, localValue2) ===
+function workingValue12(localValue1, localValue2)
+  local localValue3, stateFlag15, text3
+  localValue3 = nil
+  stateFlag15 = nil
+  if localValue2 < localValue1 then
+    localValue3 = localValue1 - localValue2
+    text3 = 360.0
+    stateFlag15 = text3 - localValue3
   else
-    flag15 = arg2 - arg1
-    textValue3 = 360.0
-    arg3 = textValue3 - flag15
+    stateFlag15 = localValue2 - localValue1
+    text3 = 360.0
+    localValue3 = text3 - stateFlag15
   end
-  if flag15 < arg3 then
-    textValue3 = -1.0
-    if textValue3 then
-      goto flow_label_21
+  if stateFlag15 < localValue3 then
+    text3 = -1.0
+    if text3 then
+      goto continueAtStep21
     end
   end
-  textValue3 = 1.0
-  ::flow_label_21::
-  return textValue3
+  text3 = 1.0
+  ::continueAtStep21::
+  return text3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1, arg2) ===
-function workValue13(arg1, arg2)
-  local arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag
-  arg3 = GetClosestObjectOfType
-  flag15 = arg1.position
-  flag15 = flag15.x
-  textValue3 = arg1.position
-  textValue3 = textValue3.y
-  position = arg1.position
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue1, localValue2) ===
+function workingValue13(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag
+  localValue3 = GetClosestObjectOfType
+  stateFlag15 = localValue1.position
+  stateFlag15 = stateFlag15.x
+  text3 = localValue1.position
+  text3 = text3.y
+  position = localValue1.position
   position = position.z
-  numberValue21 = 2.0
-  modelValue = arg1.model
-  flag17 = false
-  flag18 = false
-  flag = false
+  number21 = 2.0
+  modelValue = localValue1.model
+  stateFlag17 = false
+  stateFlag18 = false
+  stateFlag = false
   -- Beginner: result below is objectEntity.
-  arg3 = arg3(flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag)
-  if 0 == arg3 then
+  localValue3 = localValue3(stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag)
+  if 0 == localValue3 then
     return
   end
-  flag15 = FreezeEntityPosition
-  textValue3 = arg3
-  position = arg2.isHacked
+  stateFlag15 = FreezeEntityPosition
+  text3 = localValue3
+  position = localValue2.isHacked
   position = not position
   -- Beginner: Freeze or unfreeze an entity in place.
-  flag15(textValue3, position)
-  flag15 = false
-  textValue3 = arg1.type
-  if "vault" == textValue3 then
-    textValue3 = GetEntityHeading
-    position = arg3
+  stateFlag15(text3, position)
+  stateFlag15 = false
+  text3 = localValue1.type
+  if "vault" == text3 then
+    text3 = GetEntityHeading
+    position = localValue3
     -- Beginner: result below is heading.
-    textValue3 = textValue3(position)
-    position = arg2.isHacked
+    text3 = text3(position)
+    position = localValue2.isHacked
     if position then
       position = math
       position = position.abs
-      numberValue21 = arg1.openHeading
-      numberValue21 = numberValue21 - textValue3
-      position = position(numberValue21)
+      number21 = localValue1.openHeading
+      number21 = number21 - text3
+      position = position(number21)
       if position > 2.0 then
         position = SetEntityHeading
-        numberValue21 = arg3
+        number21 = localValue3
         modelValue = GetFrameTime
         modelValue = modelValue()
         modelValue = 15.0 * modelValue
-        flag17 = workValue12
-        flag18 = arg1.closedHeading
-        flag = textValue3
-        flag17 = flag17(flag18, flag)
-        modelValue = modelValue * flag17
-        modelValue = textValue3 - modelValue
+        stateFlag17 = workingValue12
+        stateFlag18 = localValue1.closedHeading
+        stateFlag = text3
+        stateFlag17 = stateFlag17(stateFlag18, stateFlag)
+        modelValue = modelValue * stateFlag17
+        modelValue = text3 - modelValue
         -- Beginner: Change the direction an entity is facing.
-        position(numberValue21, modelValue)
-        flag15 = true
+        position(number21, modelValue)
+        stateFlag15 = true
       end
     else
       position = math
       position = position.abs
-      numberValue21 = arg1.closedHeading
-      numberValue21 = numberValue21 - textValue3
-      position = position(numberValue21)
+      number21 = localValue1.closedHeading
+      number21 = number21 - text3
+      position = position(number21)
       if position > 2.0 then
         position = SetEntityHeading
-        numberValue21 = arg3
+        number21 = localValue3
         modelValue = GetFrameTime
         modelValue = modelValue()
         modelValue = 15.0 * modelValue
-        flag17 = workValue12
-        flag18 = arg1.closedHeading
-        flag = textValue3
-        flag17 = flag17(flag18, flag)
-        modelValue = modelValue * flag17
-        modelValue = textValue3 + modelValue
-        position(numberValue21, modelValue)
-        flag15 = true
+        stateFlag17 = workingValue12
+        stateFlag18 = localValue1.closedHeading
+        stateFlag = text3
+        stateFlag17 = stateFlag17(stateFlag18, stateFlag)
+        modelValue = modelValue * stateFlag17
+        modelValue = text3 + modelValue
+        position(number21, modelValue)
+        stateFlag15 = true
       end
     end
   end
-  if flag15 then
-    textValue3 = GetGameTimer
+  if stateFlag15 then
+    text3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    textValue3 = textValue3()
-    position = numberValue16
-    textValue3 = textValue3 - position
+    text3 = text3()
+    position = number16
+    text3 = text3 - position
     position = 1750
-    if textValue3 > position then
-      textValue3 = PlaySoundFrontend
+    if text3 > position then
+      text3 = PlaySoundFrontend
       position = -1
-      numberValue21 = "OPENING"
+      number21 = "OPENING"
       modelValue = "MP_PROPERTIES_ELEVATOR_DOORS"
-      flag17 = true
-      textValue3(position, numberValue21, modelValue, flag17)
-      textValue3 = GetGameTimer
+      stateFlag17 = true
+      text3(position, number21, modelValue, stateFlag17)
+      text3 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      textValue3 = textValue3()
-      numberValue16 = textValue3
+      text3 = text3()
+      number16 = text3
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1, arg2) ===
-function workValue14(arg1, arg2)
-  local arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag, flag2, flag3
-  arg3 = false
-  flag15 = pairs
-  textValue3 = arg1.doors
-  flag15, textValue3, position, numberValue21 = flag15(textValue3)
-  for modelValue, flag17 in flag15, textValue3, position, numberValue21 do
-    flag18 = arg2.doors
-    flag18 = flag18[modelValue]
-    flag = flag18.isHacked
-    if not flag and not arg3 then
-      flag = flag18.hackingUserId
-      if 0 == flag then
-        flag = workValue11
-        flag2 = arg1
-        flag3 = flag17
-        flag(flag2, flag3)
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: localValue1, localValue2) ===
+function workingValue14(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3
+  localValue3 = false
+  stateFlag15 = pairs
+  text3 = localValue1.doors
+  stateFlag15, text3, position, number21 = stateFlag15(text3)
+  for modelValue, stateFlag17 in stateFlag15, text3, position, number21 do
+    stateFlag18 = localValue2.doors
+    stateFlag18 = stateFlag18[modelValue]
+    stateFlag = stateFlag18.isHacked
+    if not stateFlag and not localValue3 then
+      stateFlag = stateFlag18.hackingUserId
+      if 0 == stateFlag then
+        stateFlag = workingValue11
+        stateFlag2 = localValue1
+        stateFlag3 = stateFlag17
+        stateFlag(stateFlag2, stateFlag3)
       end
-      arg3 = true
+      localValue3 = true
     end
-    flag = workValue13
-    flag2 = flag17
-    flag3 = flag18
-    flag(flag2, flag3)
+    stateFlag = workingValue13
+    stateFlag2 = stateFlag17
+    stateFlag3 = stateFlag18
+    stateFlag(stateFlag2, stateFlag3)
   end
-  flag15 = not arg3
-  return flag15
+  stateFlag15 = not localValue3
+  return stateFlag15
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
-function workValue(arg1, arg2)
-  local arg3, flag15, textValue3, position
-  arg3 = CMG
-  arg3 = arg3.isEmergencyService
-  arg3 = arg3()
-  if arg3 then
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2) ===
+function workingValue(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position
+  localValue3 = CMG
+  localValue3 = localValue3.isEmergencyService
+  localValue3 = localValue3()
+  if localValue3 then
     return
   end
-  arg3 = drawNativeNotification
-  flag15 = "Press ~INPUT_CONTEXT~ to break open the safe"
+  localValue3 = drawNativeNotification
+  stateFlag15 = "Press ~INPUT_CONTEXT~ to break open the safe"
   -- Beginner: Show a GTA-style notification/help prompt.
-  arg3(flag15)
-  arg3 = IsControlJustPressed
-  flag15 = 0
-  textValue3 = 51
-  arg3 = arg3(flag15, textValue3)
-  if arg3 then
-    arg3 = TriggerServerEvent
-    flag15 = "8792ec1a1b"
-    textValue3 = arg1.index
-    position = arg2.index
+  localValue3(stateFlag15)
+  localValue3 = IsControlJustPressed
+  stateFlag15 = 0
+  text3 = 51
+  localValue3 = localValue3(stateFlag15, text3)
+  if localValue3 then
+    localValue3 = TriggerServerEvent
+    stateFlag15 = "8792ec1a1b"
+    text3 = localValue1.index
+    position = localValue2.index
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8792ec1a1b".
-    arg3(flag15, textValue3, position)
+    localValue3(stateFlag15, text3, position)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
-function workValue2(arg1)
-  local arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag, flag2, flag3, flag4, numberValue, stringHelper, numberValue2, flag5, tableHelper, flag6, flag7, flag8, flag9, flag10
-  arg2 = arg1.handles
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1) ===
+function workingValue2(localValue1)
+  local localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4, number, stringHelper, number2, stateFlag5, tableHelper, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10
+  localValue2 = localValue1.handles
+  if localValue2 then
     return
   end
-  arg2 = fullPlayerListData
-  arg3 = arg1.lootingUserId
-  arg2 = arg2[arg3]
-  if not arg2 then
+  localValue2 = fullPlayerListData
+  localValue3 = localValue1.lootingUserId
+  localValue2 = localValue2[localValue3]
+  if not localValue2 then
     return
   end
-  arg3 = arg2[1]
-  if not arg3 then
+  localValue3 = localValue2[1]
+  if not localValue3 then
     return
   end
-  flag15 = GetPlayerFromServerId
-  textValue3 = arg3
+  stateFlag15 = GetPlayerFromServerId
+  text3 = localValue3
   -- Beginner: result below is playerIndex.
-  flag15 = flag15(textValue3)
-  if -1 == flag15 then
+  stateFlag15 = stateFlag15(text3)
+  if -1 == stateFlag15 then
     return
   end
-  textValue3 = GetPlayerPed
-  position = flag15
+  text3 = GetPlayerPed
+  position = stateFlag15
   -- Beginner: result below is playerPed.
-  textValue3 = textValue3(position)
-  if 0 == textValue3 then
+  text3 = text3(position)
+  if 0 == text3 then
     return
   end
   position = CMG
   position = position.loadModel
-  numberValue21 = -443429795
+  number21 = -443429795
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  position(numberValue21)
+  position(number21)
   position = CMG
   position = position.getPlayerCoords
   -- Beginner: result below is playerCoords.
   position = position()
-  numberValue21 = CreateObject
+  number21 = CreateObject
   modelValue = -443429795
-  flag17 = position.x
-  flag18 = position.y
-  flag = position.z
-  flag2 = false
-  flag3 = false
-  flag4 = false
+  stateFlag17 = position.x
+  stateFlag18 = position.y
+  stateFlag = position.z
+  stateFlag2 = false
+  stateFlag3 = false
+  stateFlag4 = false
   -- Beginner: result below is objectEntity.
-  numberValue21 = numberValue21(modelValue, flag17, flag18, flag, flag2, flag3, flag4)
+  number21 = number21(modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4)
   modelValue = AttachEntityToEntity
-  flag17 = numberValue21
-  flag18 = textValue3
-  flag = GetPedBoneIndex
-  flag2 = textValue3
-  flag3 = 28422
-  flag = flag(flag2, flag3)
-  flag2 = 0.0
-  flag3 = 0.0
-  flag4 = 0.0
-  numberValue = 0.0
+  stateFlag17 = number21
+  stateFlag18 = text3
+  stateFlag = GetPedBoneIndex
+  stateFlag2 = text3
+  stateFlag3 = 28422
+  stateFlag = stateFlag(stateFlag2, stateFlag3)
+  stateFlag2 = 0.0
+  stateFlag3 = 0.0
+  stateFlag4 = 0.0
+  number = 0.0
   stringHelper = 0.0
-  numberValue2 = 0.0
-  flag5 = true
+  number2 = 0.0
+  stateFlag5 = true
   tableHelper = true
-  flag6 = false
-  flag7 = false
-  flag8 = 2
-  flag9 = true
+  stateFlag6 = false
+  stateFlag7 = false
+  stateFlag8 = 2
+  stateFlag9 = true
   -- Beginner: Attach one entity to another entity.
-  modelValue(flag17, flag18, flag, flag2, flag3, flag4, numberValue, stringHelper, numberValue2, flag5, tableHelper, flag6, flag7, flag8, flag9)
+  modelValue(stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4, number, stringHelper, number2, stateFlag5, tableHelper, stateFlag6, stateFlag7, stateFlag8, stateFlag9)
   modelValue = {}
-  flag17 = "DLC_HEIST_FLEECA_SOUNDSET"
-  flag18 = "DLC_MPHEIST\\HEIST_FLEECA_DRILL"
-  flag = "DLC_MPHEIST\\HEIST_FLEECA_DRILL_2"
-  modelValue[1] = flag17
-  modelValue[2] = flag18
-  modelValue[3] = flag
-  flag17 = GetGameTimer
+  stateFlag17 = "DLC_HEIST_FLEECA_SOUNDSET"
+  stateFlag18 = "DLC_MPHEIST\\HEIST_FLEECA_DRILL"
+  stateFlag = "DLC_MPHEIST\\HEIST_FLEECA_DRILL_2"
+  modelValue[1] = stateFlag17
+  modelValue[2] = stateFlag18
+  modelValue[3] = stateFlag
+  stateFlag17 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  flag17 = flag17()
-  flag18 = false
-  while not flag18 do
-    flag = GetGameTimer
+  stateFlag17 = stateFlag17()
+  stateFlag18 = false
+  while not stateFlag18 do
+    stateFlag = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    flag = flag()
-    flag = flag - flag17
-    flag2 = 2000
-    if flag > flag2 then
+    stateFlag = stateFlag()
+    stateFlag = stateFlag - stateFlag17
+    stateFlag2 = 2000
+    if stateFlag > stateFlag2 then
       break
     end
-    flag18 = true
-    flag = pairs
-    flag2 = modelValue
-    flag, flag2, flag3, flag4 = flag(flag2)
-    for numberValue, stringHelper in flag, flag2, flag3, flag4 do
-      numberValue2 = RequestAmbientAudioBank
-      flag5 = stringHelper
+    stateFlag18 = true
+    stateFlag = pairs
+    stateFlag2 = modelValue
+    stateFlag, stateFlag2, stateFlag3, stateFlag4 = stateFlag(stateFlag2)
+    for number, stringHelper in stateFlag, stateFlag2, stateFlag3, stateFlag4 do
+      number2 = RequestAmbientAudioBank
+      stateFlag5 = stringHelper
       tableHelper = false
-      numberValue2 = numberValue2(flag5, tableHelper)
-      if not numberValue2 then
-        flag18 = false
+      number2 = number2(stateFlag5, tableHelper)
+      if not number2 then
+        stateFlag18 = false
       end
     end
-    flag = Citizen
-    flag = flag.Wait
-    flag2 = 0
-    flag(flag2)
+    stateFlag = Citizen
+    stateFlag = stateFlag.Wait
+    stateFlag2 = 0
+    stateFlag(stateFlag2)
   end
-  flag = GetSoundId
+  stateFlag = GetSoundId
   -- Beginner: result below is soundHandle.
-  flag = flag()
-  flag2 = PlaySoundFromEntity
-  flag3 = flag
-  flag4 = "Drill"
-  numberValue = numberValue21
+  stateFlag = stateFlag()
+  stateFlag2 = PlaySoundFromEntity
+  stateFlag3 = stateFlag
+  stateFlag4 = "Drill"
+  number = number21
   stringHelper = "DLC_HEIST_FLEECA_SOUNDSET"
-  numberValue2 = false
-  flag5 = 0
-  flag2(flag3, flag4, numberValue, stringHelper, numberValue2, flag5)
-  flag2 = CMG
-  flag2 = flag2.loadPtfx
-  flag3 = "core"
-  flag2(flag3)
-  flag2 = UseParticleFxAsset
-  flag3 = "core"
-  flag2(flag3)
-  flag2 = StartParticleFxLoopedOnEntity
-  flag3 = "ent_anim_pneumatic_drill"
-  flag4 = numberValue21
-  numberValue = 0.0
+  number2 = false
+  stateFlag5 = 0
+  stateFlag2(stateFlag3, stateFlag4, number, stringHelper, number2, stateFlag5)
+  stateFlag2 = CMG
+  stateFlag2 = stateFlag2.loadPtfx
+  stateFlag3 = "core"
+  stateFlag2(stateFlag3)
+  stateFlag2 = UseParticleFxAsset
+  stateFlag3 = "core"
+  stateFlag2(stateFlag3)
+  stateFlag2 = StartParticleFxLoopedOnEntity
+  stateFlag3 = "ent_anim_pneumatic_drill"
+  stateFlag4 = number21
+  number = 0.0
   stringHelper = -0.5
-  numberValue2 = 0.0
-  flag5 = 0.0
+  number2 = 0.0
+  stateFlag5 = 0.0
   tableHelper = 0.0
-  flag6 = 0.0
-  flag7 = 0.9
-  flag8 = false
-  flag9 = false
-  flag10 = false
-  flag2 = flag2(flag3, flag4, numberValue, stringHelper, numberValue2, flag5, tableHelper, flag6, flag7, flag8, flag9, flag10)
-  flag3 = RemoveNamedPtfxAsset
-  flag4 = "ent_anim_pneumatic_drill"
-  flag3(flag4)
-  flag3 = {}
-  flag3.object = numberValue21
-  flag3.soundId = flag
-  flag3.particle = flag2
-  arg1.handles = flag3
-  flag3 = arg1.lootingUserId
-  if 0 == flag3 then
-    flag3 = workValue9
-    flag4 = arg1
-    flag3(flag4)
+  stateFlag6 = 0.0
+  stateFlag7 = 0.9
+  stateFlag8 = false
+  stateFlag9 = false
+  stateFlag10 = false
+  stateFlag2 = stateFlag2(stateFlag3, stateFlag4, number, stringHelper, number2, stateFlag5, tableHelper, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10)
+  stateFlag3 = RemoveNamedPtfxAsset
+  stateFlag4 = "ent_anim_pneumatic_drill"
+  stateFlag3(stateFlag4)
+  stateFlag3 = {}
+  stateFlag3.object = number21
+  stateFlag3.soundId = stateFlag
+  stateFlag3.particle = stateFlag2
+  localValue1.handles = stateFlag3
+  stateFlag3 = localValue1.lootingUserId
+  if 0 == stateFlag3 then
+    stateFlag3 = workingValue9
+    stateFlag4 = localValue1
+    stateFlag3(stateFlag4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2) ===
-function workValue3(arg1, arg2)
-  local arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag, flag2, flag3, flag4, numberValue, stringHelper, numberValue2, flag5, tableHelper, flag6, flag7, flag8, flag9, flag10, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue17, numberValue18, flag11, flag12, numberValue19, flag13, workValue6, workValue7, flag14
-  arg3 = arg2.delayStartTime
-  if arg3 then
-    arg3 = arg2.delayStartTime
-    if 0 ~= arg3 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1, localValue2) ===
+function workingValue3(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4, number, stringHelper, number2, stateFlag5, tableHelper, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number9, number11, number12, number13, number14, number15, number17, number18, stateFlag11, stateFlag12, number19, stateFlag13, workingValue6, workingValue7, stateFlag14
+  localValue3 = localValue2.delayStartTime
+  if localValue3 then
+    localValue3 = localValue2.delayStartTime
+    if 0 ~= localValue3 then
+      goto continueAtStep9
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_9::
-  arg3 = GetNetworkTime
+  localValue3 = false
+  return localValue3
+  ::continueAtStep9::
+  localValue3 = GetNetworkTime
   -- Beginner: result below is networkTime.
-  arg3 = arg3()
-  flag15 = arg2.delayStartTime
-  arg3 = arg3 - flag15
-  flag15 = math
-  flag15 = flag15.ceil
-  textValue3 = cmgCall.delayBetweenSafeLoots
-  textValue3 = arg3 / textValue3
-  flag15 = flag15(textValue3)
-  textValue3 = nil
+  localValue3 = localValue3()
+  stateFlag15 = localValue2.delayStartTime
+  localValue3 = localValue3 - stateFlag15
+  stateFlag15 = math
+  stateFlag15 = stateFlag15.ceil
+  text3 = cmgOperation.delayBetweenSafeLoots
+  text3 = localValue3 / text3
+  stateFlag15 = stateFlag15(text3)
+  text3 = nil
   position = 1.0
-  numberValue21 = pairs
-  modelValue = arg1.safes
-  numberValue21, modelValue, flag17, flag18 = numberValue21(modelValue)
-  for flag, flag2 in numberValue21, modelValue, flag17, flag18 do
-    if flag > flag15 then
-      flag3 = CMG
-      flag3 = flag3.createTimerBars
+  number21 = pairs
+  modelValue = localValue1.safes
+  number21, modelValue, stateFlag17, stateFlag18 = number21(modelValue)
+  for stateFlag, stateFlag2 in number21, modelValue, stateFlag17, stateFlag18 do
+    if stateFlag > stateFlag15 then
+      stateFlag3 = CMG
+      stateFlag3 = stateFlag3.createTimerBars
       -- Beginner: result below is timerBars.
-      flag3 = flag3()
-      flag4 = flag3.push
-      numberValue = "~y~FOUND SAFES"
+      stateFlag3 = stateFlag3()
+      stateFlag4 = stateFlag3.push
+      number = "~y~FOUND SAFES"
       stringHelper = tostring
-      numberValue2 = flag15
-      stringHelper = stringHelper(numberValue2)
-      numberValue2 = "/"
-      flag5 = tostring
+      number2 = stateFlag15
+      stringHelper = stringHelper(number2)
+      number2 = "/"
+      stateFlag5 = tostring
       tableHelper = table
       tableHelper = tableHelper.count
-      flag6 = arg1.safes
-      tableHelper, flag6, flag7, flag8, flag9, flag10, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue17, numberValue18, flag11, flag12, numberValue19, flag13, workValue6, workValue7, flag14 = tableHelper(flag6)
-      flag5 = flag5(tableHelper, flag6, flag7, flag8, flag9, flag10, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue17, numberValue18, flag11, flag12, numberValue19, flag13, workValue6, workValue7, flag14)
-      stringHelper = stringHelper .. numberValue2 .. flag5
-      flag4(numberValue, stringHelper)
-      flag4 = flag3.draw
-      flag4()
+      stateFlag6 = localValue1.safes
+      tableHelper, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number9, number11, number12, number13, number14, number15, number17, number18, stateFlag11, stateFlag12, number19, stateFlag13, workingValue6, workingValue7, stateFlag14 = tableHelper(stateFlag6)
+      stateFlag5 = stateFlag5(tableHelper, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number9, number11, number12, number13, number14, number15, number17, number18, stateFlag11, stateFlag12, number19, stateFlag13, workingValue6, workingValue7, stateFlag14)
+      stringHelper = stringHelper .. number2 .. stateFlag5
+      stateFlag4(number, stringHelper)
+      stateFlag4 = stateFlag3.draw
+      stateFlag4()
       break
     end
-    flag3 = arg2.safes
-    flag3 = flag3[flag]
-    flag4 = flag3.isLooted
-    if not flag4 then
-      flag4 = flag3.lootingUserId
-      if 0 == flag4 then
-        flag4 = CMG
-        flag4 = flag4.getPlayerCoords
+    stateFlag3 = localValue2.safes
+    stateFlag3 = stateFlag3[stateFlag]
+    stateFlag4 = stateFlag3.isLooted
+    if not stateFlag4 then
+      stateFlag4 = stateFlag3.lootingUserId
+      if 0 == stateFlag4 then
+        stateFlag4 = CMG
+        stateFlag4 = stateFlag4.getPlayerCoords
         -- Beginner: result below is playerCoords.
-        flag4 = flag4()
-        numberValue = flag2.position
-        flag4 = flag4 - numberValue
-        flag4 = #flag4
-        if position > flag4 then
-          textValue3 = flag2
-          position = flag4
+        stateFlag4 = stateFlag4()
+        number = stateFlag2.position
+        stateFlag4 = stateFlag4 - number
+        stateFlag4 = #stateFlag4
+        if position > stateFlag4 then
+          text3 = stateFlag2
+          position = stateFlag4
         end
-        if flag4 < 10.0 then
-          numberValue = DrawMarker
+        if stateFlag4 < 10.0 then
+          number = DrawMarker
           stringHelper = 28
-          numberValue2 = flag2.position
-          numberValue2 = numberValue2.x
-          flag5 = flag2.position
-          flag5 = flag5.y
-          tableHelper = flag2.position
+          number2 = stateFlag2.position
+          number2 = number2.x
+          stateFlag5 = stateFlag2.position
+          stateFlag5 = stateFlag5.y
+          tableHelper = stateFlag2.position
           tableHelper = tableHelper.z
-          flag6 = 0.0
-          flag7 = 0.0
-          flag8 = 0.0
-          flag9 = 0.0
-          flag10 = 0.0
-          numberValue9 = 0.0
-          numberValue11 = 0.3
-          numberValue12 = 0.3
-          numberValue13 = 0.3
-          numberValue14 = 255
-          numberValue15 = 255
-          numberValue17 = 0
-          numberValue18 = 40
-          flag11 = false
-          flag12 = false
-          numberValue19 = 2
-          flag13 = false
-          workValue6 = nil
-          workValue7 = nil
-          flag14 = false
-          numberValue(stringHelper, numberValue2, flag5, tableHelper, flag6, flag7, flag8, flag9, flag10, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue17, numberValue18, flag11, flag12, numberValue19, flag13, workValue6, workValue7, flag14)
+          stateFlag6 = 0.0
+          stateFlag7 = 0.0
+          stateFlag8 = 0.0
+          stateFlag9 = 0.0
+          stateFlag10 = 0.0
+          number9 = 0.0
+          number11 = 0.3
+          number12 = 0.3
+          number13 = 0.3
+          number14 = 255
+          number15 = 255
+          number17 = 0
+          number18 = 40
+          stateFlag11 = false
+          stateFlag12 = false
+          number19 = 2
+          stateFlag13 = false
+          workingValue6 = nil
+          workingValue7 = nil
+          stateFlag14 = false
+          number(stringHelper, number2, stateFlag5, tableHelper, stateFlag6, stateFlag7, stateFlag8, stateFlag9, stateFlag10, number9, number11, number12, number13, number14, number15, number17, number18, stateFlag11, stateFlag12, number19, stateFlag13, workingValue6, workingValue7, stateFlag14)
         end
       else
-        flag4 = workValue2
-        numberValue = flag3
-        flag4(numberValue)
+        stateFlag4 = workingValue2
+        number = stateFlag3
+        stateFlag4(number)
       end
     end
   end
-  if textValue3 then
-    numberValue21 = workValue
-    modelValue = arg1
-    flag17 = textValue3
-    numberValue21(modelValue, flag17)
+  if text3 then
+    number21 = workingValue
+    modelValue = localValue1
+    stateFlag17 = text3
+    number21(modelValue, stateFlag17)
   end
-  numberValue21 = nil ~= textValue3
-  return numberValue21
+  number21 = nil ~= text3
+  return number21
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, flag15, textValue3
-  arg3 = arg1.index
-  arg2 = dataTable2
-  arg2 = arg2[arg3]
-  if arg2 then
-    arg3 = workValue14
-    flag15 = arg1
-    textValue3 = arg2
-    arg3 = arg3(flag15, textValue3)
-    if arg3 then
-      arg3 = workValue3
-      flag15 = arg1
-      textValue3 = arg2
-      arg3(flag15, textValue3)
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, stateFlag15, text3
+  localValue3 = localValue1.index
+  localValue2 = dataCollection2
+  localValue2 = localValue2[localValue3]
+  if localValue2 then
+    localValue3 = workingValue14
+    stateFlag15 = localValue1
+    text3 = localValue2
+    localValue3 = localValue3(stateFlag15, text3)
+    if localValue3 then
+      localValue3 = workingValue3
+      stateFlag15 = localValue1
+      text3 = localValue2
+      localValue3(stateFlag15, text3)
     end
   end
 end
-eventRegistration = RegisterNetEvent
-textValue = "4824ef5e69"
+eventHandler = RegisterNetEvent
+text = "4824ef5e69"
 -- Beginner: this function handles network event "4824ef5e69".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local arg3
-  arg3 = dataTable2
-  arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local localValue3
+  localValue3 = dataCollection2
+  localValue3[localValue1] = localValue2
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4824ef5e69".
-eventRegistration(textValue, workValue5)
-eventRegistration = RegisterNetEvent
-textValue = "6f8b6da635"
+eventHandler(text, workingValue5)
+eventHandler = RegisterNetEvent
+text = "6f8b6da635"
 -- Beginner: this function handles network event "6f8b6da635".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2, arg3) ===
-function workValue5(arg1, arg2, arg3)
-  local flag15, textValue3
-  flag15 = dataTable2
-  flag15 = flag15[arg1]
-  if flag15 then
-    textValue3 = flag15.doors
-    textValue3 = textValue3[arg2]
-    if textValue3 then
-      textValue3.hackingUserId = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2, localValue3) ===
+function workingValue5(localValue1, localValue2, localValue3)
+  local stateFlag15, text3
+  stateFlag15 = dataCollection2
+  stateFlag15 = stateFlag15[localValue1]
+  if stateFlag15 then
+    text3 = stateFlag15.doors
+    text3 = text3[localValue2]
+    if text3 then
+      text3.hackingUserId = localValue3
     end
   end
 end
-eventRegistration(textValue, workValue5)
-eventRegistration = RegisterNetEvent
-textValue = "be099ec876"
+eventHandler(text, workingValue5)
+eventHandler = RegisterNetEvent
+text = "be099ec876"
 -- Beginner: this function handles network event "be099ec876".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2, arg3) ===
-function workValue5(arg1, arg2, arg3)
-  local flag15, textValue3
-  flag15 = dataTable2
-  flag15 = flag15[arg1]
-  if flag15 then
-    textValue3 = flag15.doors
-    textValue3 = textValue3[arg2]
-    if textValue3 then
-      textValue3.isHacked = true
-      textValue3.hackingUserId = 0
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2, localValue3) ===
+function workingValue5(localValue1, localValue2, localValue3)
+  local stateFlag15, text3
+  stateFlag15 = dataCollection2
+  stateFlag15 = stateFlag15[localValue1]
+  if stateFlag15 then
+    text3 = stateFlag15.doors
+    text3 = text3[localValue2]
+    if text3 then
+      text3.isHacked = true
+      text3.hackingUserId = 0
     end
-    flag15.delayStartTime = arg3
+    stateFlag15.delayStartTime = localValue3
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "be099ec876".
-eventRegistration(textValue, workValue5)
-eventRegistration = RegisterNetEvent
-textValue = "9ff6fe9b05"
+eventHandler(text, workingValue5)
+eventHandler = RegisterNetEvent
+text = "9ff6fe9b05"
 -- Beginner: this function handles network event "9ff6fe9b05".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local arg3, flag15, textValue3, position, numberValue21
-  arg3 = cmgCall.locations
-  arg3 = arg3[arg1]
-  arg3 = arg3.doors
-  arg3 = arg3[arg2]
-  flag15 = arg3.type
-  if "vault" == flag15 then
-    flag15 = CMG
-    flag15 = flag15.hideAllDisplays
-    textValue3 = "bankrob"
-    flag15(textValue3)
-    flag15 = SetPlayerControl
-    textValue3 = PlayerId
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position, number21
+  localValue3 = cmgOperation.locations
+  localValue3 = localValue3[localValue1]
+  localValue3 = localValue3.doors
+  localValue3 = localValue3[localValue2]
+  stateFlag15 = localValue3.type
+  if "vault" == stateFlag15 then
+    stateFlag15 = CMG
+    stateFlag15 = stateFlag15.hideAllDisplays
+    text3 = "bankrob"
+    stateFlag15(text3)
+    stateFlag15 = SetPlayerControl
+    text3 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    textValue3 = textValue3()
+    text3 = text3()
     position = false
-    numberValue21 = 0
-    flag15(textValue3, position, numberValue21)
-    flag15 = FreezeEntityPosition
-    textValue3 = PlayerPedId
+    number21 = 0
+    stateFlag15(text3, position, number21)
+    stateFlag15 = FreezeEntityPosition
+    text3 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    textValue3 = textValue3()
+    text3 = text3()
     position = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    flag15(textValue3, position)
-    flag15 = CMG
-    flag15 = flag15.startDataCrackMinigame
-    textValue3 = 5
+    stateFlag15(text3, position)
+    stateFlag15 = CMG
+    stateFlag15 = stateFlag15.startDataCrackMinigame
+    text3 = 5
 
-    -- === HELPER FUNCTION: position(arg12) ===
-    function position(arg12)
-      local cmgCall2, textValue2, flag16, numberValue20
-      if arg12 then
-        cmgCall2 = TriggerServerEvent
-        textValue2 = "a51f426b65"
-        flag16 = arg1
-        numberValue20 = arg2
+    -- === HELPER FUNCTION: position(localValue12) ===
+    function position(localValue12)
+      local cmgOperation2, text2, stateFlag16, number20
+      if localValue12 then
+        cmgOperation2 = TriggerServerEvent
+        text2 = "a51f426b65"
+        stateFlag16 = localValue1
+        number20 = localValue2
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a51f426b65".
-        cmgCall2(textValue2, flag16, numberValue20)
+        cmgOperation2(text2, stateFlag16, number20)
       else
-        cmgCall2 = TriggerServerEvent
-        textValue2 = "341b26095f"
-        flag16 = arg1
-        numberValue20 = arg2
-        cmgCall2(textValue2, flag16, numberValue20)
+        cmgOperation2 = TriggerServerEvent
+        text2 = "341b26095f"
+        stateFlag16 = localValue1
+        number20 = localValue2
+        cmgOperation2(text2, stateFlag16, number20)
       end
-      cmgCall2 = CMG
-      cmgCall2 = cmgCall2.showAllDisplays
-      textValue2 = "bankrob"
-      cmgCall2(textValue2)
-      cmgCall2 = SetPlayerControl
-      textValue2 = PlayerId
+      cmgOperation2 = CMG
+      cmgOperation2 = cmgOperation2.showAllDisplays
+      text2 = "bankrob"
+      cmgOperation2(text2)
+      cmgOperation2 = SetPlayerControl
+      text2 = PlayerId
       -- Beginner: result below is localPlayerIndex.
-      textValue2 = textValue2()
-      flag16 = true
-      numberValue20 = 0
-      cmgCall2(textValue2, flag16, numberValue20)
-      cmgCall2 = FreezeEntityPosition
-      textValue2 = PlayerPedId
+      text2 = text2()
+      stateFlag16 = true
+      number20 = 0
+      cmgOperation2(text2, stateFlag16, number20)
+      cmgOperation2 = FreezeEntityPosition
+      text2 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      textValue2 = textValue2()
-      flag16 = false
+      text2 = text2()
+      stateFlag16 = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      cmgCall2(textValue2, flag16)
+      cmgOperation2(text2, stateFlag16)
     end
-    flag15(textValue3, position)
+    stateFlag15(text3, position)
   else
-    flag15 = arg3.type
-    if "terminal" == flag15 then
-      flag15 = CMG
-      flag15 = flag15.hideAllDisplays
-      textValue3 = "bankrob"
-      flag15(textValue3)
-      flag15 = SetPlayerControl
-      textValue3 = PlayerId
+    stateFlag15 = localValue3.type
+    if "terminal" == stateFlag15 then
+      stateFlag15 = CMG
+      stateFlag15 = stateFlag15.hideAllDisplays
+      text3 = "bankrob"
+      stateFlag15(text3)
+      stateFlag15 = SetPlayerControl
+      text3 = PlayerId
       -- Beginner: result below is localPlayerIndex.
-      textValue3 = textValue3()
+      text3 = text3()
       position = false
-      numberValue21 = 0
-      flag15(textValue3, position, numberValue21)
-      flag15 = FreezeEntityPosition
-      textValue3 = PlayerPedId
+      number21 = 0
+      stateFlag15(text3, position, number21)
+      stateFlag15 = FreezeEntityPosition
+      text3 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      textValue3 = textValue3()
+      text3 = text3()
       position = true
       -- Beginner: Freeze or unfreeze an entity in place.
-      flag15(textValue3, position)
-      flag15 = TriggerEvent
-      textValue3 = "ultra-voltlab"
+      stateFlag15(text3, position)
+      stateFlag15 = TriggerEvent
+      text3 = "ultra-voltlab"
       position = 60
 
-      -- === HELPER FUNCTION (decompiler name: numberValue21; parameters: arg12) ===
-      function numberValue21(arg12)
-        local cmgCall2, textValue2, flag16, numberValue20
-        if 1 == arg12 then
-          cmgCall2 = TriggerServerEvent
-          textValue2 = "a51f426b65"
-          flag16 = arg1
-          numberValue20 = arg2
+      -- === HELPER FUNCTION (decompiler name: number21; parameters: localValue12) ===
+      function number21(localValue12)
+        local cmgOperation2, text2, stateFlag16, number20
+        if 1 == localValue12 then
+          cmgOperation2 = TriggerServerEvent
+          text2 = "a51f426b65"
+          stateFlag16 = localValue1
+          number20 = localValue2
           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a51f426b65".
-          cmgCall2(textValue2, flag16, numberValue20)
+          cmgOperation2(text2, stateFlag16, number20)
         else
-          cmgCall2 = TriggerServerEvent
-          textValue2 = "341b26095f"
-          flag16 = arg1
-          numberValue20 = arg2
-          cmgCall2(textValue2, flag16, numberValue20)
+          cmgOperation2 = TriggerServerEvent
+          text2 = "341b26095f"
+          stateFlag16 = localValue1
+          number20 = localValue2
+          cmgOperation2(text2, stateFlag16, number20)
         end
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.showAllDisplays
-        textValue2 = "bankrob"
-        cmgCall2(textValue2)
-        cmgCall2 = SetPlayerControl
-        textValue2 = PlayerId
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.showAllDisplays
+        text2 = "bankrob"
+        cmgOperation2(text2)
+        cmgOperation2 = SetPlayerControl
+        text2 = PlayerId
         -- Beginner: result below is localPlayerIndex.
-        textValue2 = textValue2()
-        flag16 = true
-        numberValue20 = 0
-        cmgCall2(textValue2, flag16, numberValue20)
-        cmgCall2 = FreezeEntityPosition
-        textValue2 = PlayerPedId
+        text2 = text2()
+        stateFlag16 = true
+        number20 = 0
+        cmgOperation2(text2, stateFlag16, number20)
+        cmgOperation2 = FreezeEntityPosition
+        text2 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        textValue2 = textValue2()
-        flag16 = false
+        text2 = text2()
+        stateFlag16 = false
         -- Beginner: Freeze or unfreeze an entity in place.
-        cmgCall2(textValue2, flag16)
+        cmgOperation2(text2, stateFlag16)
       end
       -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "ultra-voltlab".
-      flag15(textValue3, position, numberValue21)
+      stateFlag15(text3, position, number21)
     end
   end
-  flag15 = CMG
-  flag15 = flag15.setPlayerCombatTimer
-  textValue3 = 300
+  stateFlag15 = CMG
+  stateFlag15 = stateFlag15.setPlayerCombatTimer
+  text3 = 300
   position = false
-  flag15(textValue3, position)
+  stateFlag15(text3, position)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9ff6fe9b05".
-eventRegistration(textValue, workValue5)
-eventRegistration = RegisterNetEvent
-textValue = "36280d9b8c"
+eventHandler(text, workingValue5)
+eventHandler = RegisterNetEvent
+text = "36280d9b8c"
 -- Beginner: this function handles network event "36280d9b8c".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2, arg3) ===
-function workValue5(arg1, arg2, arg3)
-  local flag15, textValue3, position, numberValue21
-  flag15 = dataTable2
-  flag15 = flag15[arg1]
-  if flag15 then
-    textValue3 = flag15.safes
-    textValue3 = textValue3[arg2]
-    if textValue3 then
-      textValue3.lootingUserId = arg3
-      position = workValue9
-      numberValue21 = textValue3
-      position(numberValue21)
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2, localValue3) ===
+function workingValue5(localValue1, localValue2, localValue3)
+  local stateFlag15, text3, position, number21
+  stateFlag15 = dataCollection2
+  stateFlag15 = stateFlag15[localValue1]
+  if stateFlag15 then
+    text3 = stateFlag15.safes
+    text3 = text3[localValue2]
+    if text3 then
+      text3.lootingUserId = localValue3
+      position = workingValue9
+      number21 = text3
+      position(number21)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "36280d9b8c".
-eventRegistration(textValue, workValue5)
-eventRegistration = RegisterNetEvent
-textValue = "8d7a05103b"
+eventHandler(text, workingValue5)
+eventHandler = RegisterNetEvent
+text = "8d7a05103b"
 -- Beginner: this function handles network event "8d7a05103b".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local arg3, flag15, textValue3, position
-  arg3 = dataTable2
-  arg3 = arg3[arg1]
-  if arg3 then
-    flag15 = arg3.safes
-    flag15 = flag15[arg2]
-    if flag15 then
-      flag15.isLooted = true
-      flag15.lootingUserId = 0
-      textValue3 = workValue9
-      position = flag15
-      textValue3(position)
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position
+  localValue3 = dataCollection2
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    stateFlag15 = localValue3.safes
+    stateFlag15 = stateFlag15[localValue2]
+    if stateFlag15 then
+      stateFlag15.isLooted = true
+      stateFlag15.lootingUserId = 0
+      text3 = workingValue9
+      position = stateFlag15
+      text3(position)
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8d7a05103b".
-eventRegistration(textValue, workValue5)
-eventRegistration = RegisterNetEvent
-textValue = "8792ec1a1b"
+eventHandler(text, workingValue5)
+eventHandler = RegisterNetEvent
+text = "8792ec1a1b"
 -- Beginner: this function handles network event "8792ec1a1b".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag, flag2, flag3, flag4, numberValue, stringHelper, numberValue2, flag5, tableHelper, flag6, flag7, flag8
-  arg3 = cmgCall.locations
-  arg3 = arg3[arg1]
-  arg3 = arg3.safes
-  arg3 = arg3[arg2]
-  flag15 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4, number, stringHelper, number2, stateFlag5, tableHelper, stateFlag6, stateFlag7, stateFlag8
+  localValue3 = cmgOperation.locations
+  localValue3 = localValue3[localValue1]
+  localValue3 = localValue3.safes
+  localValue3 = localValue3[localValue2]
+  stateFlag15 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  flag15 = flag15()
-  textValue3 = CMG
-  textValue3 = textValue3.setWeapon
-  position = flag15
-  numberValue21 = -1569615261
+  stateFlag15 = stateFlag15()
+  text3 = CMG
+  text3 = text3.setWeapon
+  position = stateFlag15
+  number21 = -1569615261
   modelValue = true
-  textValue3(position, numberValue21, modelValue)
-  textValue3 = FreezeEntityPosition
-  position = flag15
-  numberValue21 = true
+  text3(position, number21, modelValue)
+  text3 = FreezeEntityPosition
+  position = stateFlag15
+  number21 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  textValue3(position, numberValue21)
-  textValue3 = tCMG
-  textValue3 = textValue3.setCanAnim
+  text3(position, number21)
+  text3 = tCMG
+  text3 = text3.setCanAnim
   position = false
-  textValue3(position)
-  textValue3 = SetPlayerControl
+  text3(position)
+  text3 = SetPlayerControl
   position = PlayerId
   -- Beginner: result below is localPlayerIndex.
   position = position()
-  numberValue21 = false
+  number21 = false
   modelValue = 0
-  textValue3(position, numberValue21, modelValue)
-  textValue3 = CMG
-  textValue3 = textValue3.loadAnimDict
+  text3(position, number21, modelValue)
+  text3 = CMG
+  text3 = text3.loadAnimDict
   position = "anim@heists@fleeca_bank@drilling"
   -- Beginner: Load a GTA animation dictionary before using it.
-  textValue3(position)
-  textValue3 = arg3.animPosition
+  text3(position)
+  text3 = localValue3.animPosition
   position = TaskPlayAnimAdvanced
-  numberValue21 = flag15
+  number21 = stateFlag15
   modelValue = "anim@heists@fleeca_bank@drilling"
-  flag17 = "drill_straight_idle"
-  flag18 = textValue3.x
-  flag = textValue3.y
-  flag2 = textValue3.z
-  flag3 = 0.0
-  flag4 = 0.0
-  numberValue = textValue3.w
+  stateFlag17 = "drill_straight_idle"
+  stateFlag18 = text3.x
+  stateFlag = text3.y
+  stateFlag2 = text3.z
+  stateFlag3 = 0.0
+  stateFlag4 = 0.0
+  number = text3.w
   stringHelper = 3.0
-  numberValue2 = -4.0
-  flag5 = -1
+  number2 = -4.0
+  stateFlag5 = -1
   tableHelper = 2
-  flag6 = 0
-  flag7 = 0
-  flag8 = 0
-  position(numberValue21, modelValue, flag17, flag18, flag, flag2, flag3, flag4, numberValue, stringHelper, numberValue2, flag5, tableHelper, flag6, flag7, flag8)
+  stateFlag6 = 0
+  stateFlag7 = 0
+  stateFlag8 = 0
+  position(number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4, number, stringHelper, number2, stateFlag5, tableHelper, stateFlag6, stateFlag7, stateFlag8)
   position = RemoveAnimDict
-  numberValue21 = "anim@heists@fleeca_bank@drilling"
-  position(numberValue21)
+  number21 = "anim@heists@fleeca_bank@drilling"
+  position(number21)
   position = CMG
   position = position.setPlayerCombatTimer
-  numberValue21 = 300
+  number21 = 300
   modelValue = false
-  position(numberValue21, modelValue)
+  position(number21, modelValue)
   position = CMG
   position = position.startDrillingUI
 
-  -- === HELPER FUNCTION (decompiler name: numberValue21; parameters: arg12) ===
-  function numberValue21(arg12)
-    local cmgCall2, textValue2, flag16, numberValue20
-    if 1 == arg12 then
-      cmgCall2 = TriggerServerEvent
-      textValue2 = "7a0004831f"
-      flag16 = arg1
-      numberValue20 = arg2
+  -- === HELPER FUNCTION (decompiler name: number21; parameters: localValue12) ===
+  function number21(localValue12)
+    local cmgOperation2, text2, stateFlag16, number20
+    if 1 == localValue12 then
+      cmgOperation2 = TriggerServerEvent
+      text2 = "7a0004831f"
+      stateFlag16 = localValue1
+      number20 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7a0004831f".
-      cmgCall2(textValue2, flag16, numberValue20)
-    elseif 2 == arg12 then
-      cmgCall2 = TriggerServerEvent
-      textValue2 = "0585ae58be"
-      flag16 = arg1
-      numberValue20 = arg2
-      cmgCall2(textValue2, flag16, numberValue20)
-    elseif 3 == arg12 then
-      cmgCall2 = TriggerServerEvent
-      textValue2 = "0585ae58be"
-      flag16 = arg1
-      numberValue20 = arg2
+      cmgOperation2(text2, stateFlag16, number20)
+    elseif 2 == localValue12 then
+      cmgOperation2 = TriggerServerEvent
+      text2 = "0585ae58be"
+      stateFlag16 = localValue1
+      number20 = localValue2
+      cmgOperation2(text2, stateFlag16, number20)
+    elseif 3 == localValue12 then
+      cmgOperation2 = TriggerServerEvent
+      text2 = "0585ae58be"
+      stateFlag16 = localValue1
+      number20 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "0585ae58be".
-      cmgCall2(textValue2, flag16, numberValue20)
-      cmgCall2 = CMG
-      cmgCall2 = cmgCall2.stopDrillingUI
-      cmgCall2()
+      cmgOperation2(text2, stateFlag16, number20)
+      cmgOperation2 = CMG
+      cmgOperation2 = cmgOperation2.stopDrillingUI
+      cmgOperation2()
     end
-    cmgCall2 = ClearPedTasksImmediately
-    textValue2 = flag15
-    cmgCall2(textValue2)
-    cmgCall2 = StopGameplayCamShaking
-    textValue2 = true
-    cmgCall2(textValue2)
-    cmgCall2 = FreezeEntityPosition
-    textValue2 = flag15
-    flag16 = false
+    cmgOperation2 = ClearPedTasksImmediately
+    text2 = stateFlag15
+    cmgOperation2(text2)
+    cmgOperation2 = StopGameplayCamShaking
+    text2 = true
+    cmgOperation2(text2)
+    cmgOperation2 = FreezeEntityPosition
+    text2 = stateFlag15
+    stateFlag16 = false
     -- Beginner: Freeze or unfreeze an entity in place.
-    cmgCall2(textValue2, flag16)
-    cmgCall2 = tCMG
-    cmgCall2 = cmgCall2.setCanAnim
-    textValue2 = true
-    cmgCall2(textValue2)
-    cmgCall2 = SetPlayerControl
-    textValue2 = PlayerId
+    cmgOperation2(text2, stateFlag16)
+    cmgOperation2 = tCMG
+    cmgOperation2 = cmgOperation2.setCanAnim
+    text2 = true
+    cmgOperation2(text2)
+    cmgOperation2 = SetPlayerControl
+    text2 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    textValue2 = textValue2()
-    flag16 = true
-    numberValue20 = 0
-    cmgCall2(textValue2, flag16, numberValue20)
-    cmgCall2 = CMG
-    cmgCall2 = cmgCall2.setPlayerCombatTimer
-    textValue2 = 300
-    flag16 = false
-    cmgCall2(textValue2, flag16)
+    text2 = text2()
+    stateFlag16 = true
+    number20 = 0
+    cmgOperation2(text2, stateFlag16, number20)
+    cmgOperation2 = CMG
+    cmgOperation2 = cmgOperation2.setPlayerCombatTimer
+    text2 = 300
+    stateFlag16 = false
+    cmgOperation2(text2, stateFlag16)
   end
-  position(numberValue21)
+  position(number21)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8792ec1a1b".
-eventRegistration(textValue, workValue5)
-eventRegistration = Citizen
-eventRegistration = eventRegistration.CreateThread
+eventHandler(text, workingValue5)
+eventHandler = Citizen
+eventHandler = eventHandler.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag, flag2, flag3, flag4, numberValue
-  arg1 = pairs
-  arg2 = cmgCall.locations
-  arg1, arg2, arg3, flag15 = arg1(arg2)
-  for textValue3, position in arg1, arg2, arg3, flag15 do
-    numberValue21 = CMG
-    numberValue21 = numberValue21.createArea
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4, number
+  localValue1 = pairs
+  localValue2 = cmgOperation.locations
+  localValue1, localValue2, localValue3, stateFlag15 = localValue1(localValue2)
+  for text3, position in localValue1, localValue2, localValue3, stateFlag15 do
+    number21 = CMG
+    number21 = number21.createArea
     modelValue = "bankrob_"
-    flag17 = tostring
-    flag18 = textValue3
-    flag17 = flag17(flag18)
-    modelValue = modelValue .. flag17
-    flag17 = position.doors
-    flag17 = flag17[1]
-    flag17 = flag17.position
-    flag18 = 50.0
-    flag = 100.0
-    flag2 = workValue8
-    flag3 = workValue10
-    flag4 = workValue4
-    numberValue = position
+    stateFlag17 = tostring
+    stateFlag18 = text3
+    stateFlag17 = stateFlag17(stateFlag18)
+    modelValue = modelValue .. stateFlag17
+    stateFlag17 = position.doors
+    stateFlag17 = stateFlag17[1]
+    stateFlag17 = stateFlag17.position
+    stateFlag18 = 50.0
+    stateFlag = 100.0
+    stateFlag2 = workingValue8
+    stateFlag3 = workingValue10
+    stateFlag4 = workingValue4
+    number = position
     -- Beginner: Create an interaction area around a world position.
-    numberValue21(modelValue, flag17, flag18, flag, flag2, flag3, flag4, numberValue)
+    number21(modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2, stateFlag3, stateFlag4, number)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-eventRegistration(textValue)
-eventRegistration = RegisterNetEvent
-textValue = "6241081128"
+eventHandler(text)
+eventHandler = RegisterNetEvent
+text = "6241081128"
 -- Beginner: this function handles network event "6241081128".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag, flag2
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2
   while true do
-    arg2 = RequestScriptAudioBank
-    arg3 = "Alarms"
-    flag15 = false
-    arg2 = arg2(arg3, flag15)
-    if arg2 then
+    localValue2 = RequestScriptAudioBank
+    localValue3 = "Alarms"
+    stateFlag15 = false
+    localValue2 = localValue2(localValue3, stateFlag15)
+    if localValue2 then
       break
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 0
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 0
+    localValue2(localValue3)
   end
-  arg2 = GetSoundId
+  localValue2 = GetSoundId
   -- Beginner: result below is soundHandle.
-  arg2 = arg2()
-  arg3 = PlaySoundFromCoord
-  flag15 = arg2
-  textValue3 = "Burglar_Bell"
-  position = arg1.x
-  numberValue21 = arg1.y
-  modelValue = arg1.z
-  flag17 = "Generic_Alarms"
-  flag18 = false
-  flag = 0.05
-  flag2 = false
-  arg3(flag15, textValue3, position, numberValue21, modelValue, flag17, flag18, flag, flag2)
-  arg3 = Citizen
-  arg3 = arg3.Wait
-  flag15 = 300000
-  arg3(flag15)
-  arg3 = StopSound
-  flag15 = arg2
-  arg3(flag15)
-  arg3 = ReleaseSoundId
-  flag15 = arg2
-  arg3(flag15)
-  arg3 = ReleaseNamedScriptAudioBank
-  flag15 = "Alarms"
-  arg3(flag15)
+  localValue2 = localValue2()
+  localValue3 = PlaySoundFromCoord
+  stateFlag15 = localValue2
+  text3 = "Burglar_Bell"
+  position = localValue1.x
+  number21 = localValue1.y
+  modelValue = localValue1.z
+  stateFlag17 = "Generic_Alarms"
+  stateFlag18 = false
+  stateFlag = 0.05
+  stateFlag2 = false
+  localValue3(stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18, stateFlag, stateFlag2)
+  localValue3 = Citizen
+  localValue3 = localValue3.Wait
+  stateFlag15 = 300000
+  localValue3(stateFlag15)
+  localValue3 = StopSound
+  stateFlag15 = localValue2
+  localValue3(stateFlag15)
+  localValue3 = ReleaseSoundId
+  stateFlag15 = localValue2
+  localValue3(stateFlag15)
+  localValue3 = ReleaseNamedScriptAudioBank
+  stateFlag15 = "Alarms"
+  localValue3(stateFlag15)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6241081128".
-eventRegistration(textValue, workValue5)
-eventRegistration = {}
-textValue = {}
-workValue5 = vector2
-numberValue3 = 0.21359223
-numberValue4 = 0.3446602
-workValue5 = workValue5(numberValue3, numberValue4)
-numberValue3 = vector2
-numberValue4 = 0.5048544
-dataTable = 0.6359223
-numberValue3 = numberValue3(numberValue4, dataTable)
-numberValue4 = vector2
-dataTable = 0.79611653
-cmgCall3 = 0.92718446
-numberValue4, dataTable, cmgCall3, numberValue5, numberValue6, numberValue7, numberValue8, numberValue10 = numberValue4(dataTable, cmgCall3)
-textValue[1] = workValue5
-textValue[2] = numberValue3
-textValue[3] = numberValue4
-textValue[4] = dataTable
-textValue[5] = cmgCall3
-textValue[6] = numberValue5
-textValue[7] = numberValue6
-textValue[8] = numberValue7
-textValue[9] = numberValue8
-textValue[10] = numberValue10
+eventHandler(text, workingValue5)
+eventHandler = {}
+text = {}
+workingValue5 = vector2
+number3 = 0.21359223
+number4 = 0.3446602
+workingValue5 = workingValue5(number3, number4)
+number3 = vector2
+number4 = 0.5048544
+dataCollection = 0.6359223
+number3 = number3(number4, dataCollection)
+number4 = vector2
+dataCollection = 0.79611653
+cmgOperation3 = 0.92718446
+number4, dataCollection, cmgOperation3, number5, number6, number7, number8, number10 = number4(dataCollection, cmgOperation3)
+text[1] = workingValue5
+text[2] = number3
+text[3] = number4
+text[4] = dataCollection
+text[5] = cmgOperation3
+text[6] = number5
+text[7] = number6
+text[8] = number7
+text[9] = number8
+text[10] = number10
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, arg3
-  arg2 = BeginTextCommandScaleformString
-  arg3 = "STRING"
-  arg2(arg3)
-  arg2 = AddTextComponentScaleform
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = EndTextCommandScaleformString
-  arg2()
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1) ===
+function workingValue5(localValue1)
+  local localValue2, localValue3
+  localValue2 = BeginTextCommandScaleformString
+  localValue3 = "STRING"
+  localValue2(localValue3)
+  localValue2 = AddTextComponentScaleform
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = EndTextCommandScaleformString
+  localValue2()
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue3; parameters: arg1) ===
-function numberValue3(arg1)
-  local arg2, arg3
-  arg2 = N_0xe83a3e3557a56640
-  arg3 = arg1
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: number3; parameters: localValue1) ===
+function number3(localValue1)
+  local localValue2, localValue3
+  localValue2 = N_0xe83a3e3557a56640
+  localValue3 = localValue1
+  localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue4; parameters: arg1) ===
-function numberValue4(arg1)
-  local arg2, arg3, flag15, textValue3, position, numberValue21
-  arg2 = RequestScaleformMovie
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: number4; parameters: localValue1) ===
+function number4(localValue1)
+  local localValue2, localValue3, stateFlag15, text3, position, number21
+  localValue2 = RequestScaleformMovie
+  localValue3 = localValue1
   -- Beginner: result below is scaleformHandle.
-  arg2 = arg2(arg3)
+  localValue2 = localValue2(localValue3)
   while true do
-    arg3 = HasScaleformMovieLoaded
-    flag15 = arg2
-    arg3 = arg3(flag15)
-    if arg3 then
+    localValue3 = HasScaleformMovieLoaded
+    stateFlag15 = localValue2
+    localValue3 = localValue3(stateFlag15)
+    if localValue3 then
       break
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    flag15 = 0
-    arg3(flag15)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    stateFlag15 = 0
+    localValue3(stateFlag15)
   end
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "CLEAR_ALL"
-  arg3(flag15, textValue3)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "SET_CLEAR_SPACE"
-  arg3(flag15, textValue3)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 200
-  arg3(flag15)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "SET_DATA_SLOT"
-  arg3(flag15, textValue3)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 0
-  arg3(flag15)
-  arg3 = numberValue3
-  flag15 = GetControlInstructionalButton
-  textValue3 = 2
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "CLEAR_ALL"
+  localValue3(stateFlag15, text3)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "SET_CLEAR_SPACE"
+  localValue3(stateFlag15, text3)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 200
+  localValue3(stateFlag15)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "SET_DATA_SLOT"
+  localValue3(stateFlag15, text3)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 0
+  localValue3(stateFlag15)
+  localValue3 = number3
+  stateFlag15 = GetControlInstructionalButton
+  text3 = 2
   position = 172
-  numberValue21 = true
-  flag15, textValue3, position, numberValue21 = flag15(textValue3, position, numberValue21)
-  arg3(flag15, textValue3, position, numberValue21)
-  arg3 = workValue5
-  flag15 = "Drill Forward"
-  arg3(flag15)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "SET_DATA_SLOT"
-  arg3(flag15, textValue3)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 1
-  arg3(flag15)
-  arg3 = numberValue3
-  flag15 = GetControlInstructionalButton
-  textValue3 = 2
+  number21 = true
+  stateFlag15, text3, position, number21 = stateFlag15(text3, position, number21)
+  localValue3(stateFlag15, text3, position, number21)
+  localValue3 = workingValue5
+  stateFlag15 = "Drill Forward"
+  localValue3(stateFlag15)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "SET_DATA_SLOT"
+  localValue3(stateFlag15, text3)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 1
+  localValue3(stateFlag15)
+  localValue3 = number3
+  stateFlag15 = GetControlInstructionalButton
+  text3 = 2
   position = 173
-  numberValue21 = true
-  flag15, textValue3, position, numberValue21 = flag15(textValue3, position, numberValue21)
-  arg3(flag15, textValue3, position, numberValue21)
-  arg3 = workValue5
-  flag15 = "Drill Backward"
-  arg3(flag15)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "SET_DATA_SLOT"
-  arg3(flag15, textValue3)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 2
-  arg3(flag15)
-  arg3 = numberValue3
-  flag15 = GetControlInstructionalButton
-  textValue3 = 2
+  number21 = true
+  stateFlag15, text3, position, number21 = stateFlag15(text3, position, number21)
+  localValue3(stateFlag15, text3, position, number21)
+  localValue3 = workingValue5
+  stateFlag15 = "Drill Backward"
+  localValue3(stateFlag15)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "SET_DATA_SLOT"
+  localValue3(stateFlag15, text3)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 2
+  localValue3(stateFlag15)
+  localValue3 = number3
+  stateFlag15 = GetControlInstructionalButton
+  text3 = 2
   position = 175
-  numberValue21 = true
-  flag15, textValue3, position, numberValue21 = flag15(textValue3, position, numberValue21)
-  arg3(flag15, textValue3, position, numberValue21)
-  arg3 = workValue5
-  flag15 = "Drill Faster"
-  arg3(flag15)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "SET_DATA_SLOT"
-  arg3(flag15, textValue3)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 3
-  arg3(flag15)
-  arg3 = numberValue3
-  flag15 = GetControlInstructionalButton
-  textValue3 = 2
+  number21 = true
+  stateFlag15, text3, position, number21 = stateFlag15(text3, position, number21)
+  localValue3(stateFlag15, text3, position, number21)
+  localValue3 = workingValue5
+  stateFlag15 = "Drill Faster"
+  localValue3(stateFlag15)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "SET_DATA_SLOT"
+  localValue3(stateFlag15, text3)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 3
+  localValue3(stateFlag15)
+  localValue3 = number3
+  stateFlag15 = GetControlInstructionalButton
+  text3 = 2
   position = 174
-  numberValue21 = true
-  flag15, textValue3, position, numberValue21 = flag15(textValue3, position, numberValue21)
-  arg3(flag15, textValue3, position, numberValue21)
-  arg3 = workValue5
-  flag15 = "Drill Slower"
-  arg3(flag15)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "SET_DATA_SLOT"
-  arg3(flag15, textValue3)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 4
-  arg3(flag15)
-  arg3 = numberValue3
-  flag15 = GetControlInstructionalButton
-  textValue3 = 2
+  number21 = true
+  stateFlag15, text3, position, number21 = stateFlag15(text3, position, number21)
+  localValue3(stateFlag15, text3, position, number21)
+  localValue3 = workingValue5
+  stateFlag15 = "Drill Slower"
+  localValue3(stateFlag15)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "SET_DATA_SLOT"
+  localValue3(stateFlag15, text3)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 4
+  localValue3(stateFlag15)
+  localValue3 = number3
+  stateFlag15 = GetControlInstructionalButton
+  text3 = 2
   position = 202
-  numberValue21 = true
-  flag15, textValue3, position, numberValue21 = flag15(textValue3, position, numberValue21)
-  arg3(flag15, textValue3, position, numberValue21)
-  arg3 = workValue5
-  flag15 = "Stop Drilling"
-  arg3(flag15)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  arg3(flag15, textValue3)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  arg3 = PushScaleformMovieFunction
-  flag15 = arg2
-  textValue3 = "SET_BACKGROUND_COLOUR"
-  arg3(flag15, textValue3)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 0
-  arg3(flag15)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 0
-  arg3(flag15)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 0
-  arg3(flag15)
-  arg3 = PushScaleformMovieFunctionParameterInt
-  flag15 = 80
-  arg3(flag15)
-  arg3 = PopScaleformMovieFunctionVoid
-  arg3()
-  return arg2
+  number21 = true
+  stateFlag15, text3, position, number21 = stateFlag15(text3, position, number21)
+  localValue3(stateFlag15, text3, position, number21)
+  localValue3 = workingValue5
+  stateFlag15 = "Stop Drilling"
+  localValue3(stateFlag15)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  localValue3(stateFlag15, text3)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  localValue3 = PushScaleformMovieFunction
+  stateFlag15 = localValue2
+  text3 = "SET_BACKGROUND_COLOUR"
+  localValue3(stateFlag15, text3)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 0
+  localValue3(stateFlag15)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 0
+  localValue3(stateFlag15)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 0
+  localValue3(stateFlag15)
+  localValue3 = PushScaleformMovieFunctionParameterInt
+  stateFlag15 = 80
+  localValue3(stateFlag15)
+  localValue3 = PopScaleformMovieFunctionVoid
+  localValue3()
+  return localValue2
 end
-dataTable = {}
-cmgCall3 = 30
-numberValue5 = 31
-numberValue6 = 32
-numberValue7 = 33
-numberValue8 = 34
-numberValue10 = 35
-dataTable[1] = cmgCall3
-dataTable[2] = numberValue5
-dataTable[3] = numberValue6
-dataTable[4] = numberValue7
-dataTable[5] = numberValue8
-dataTable[6] = numberValue10
-eventRegistration.DisabledControls = dataTable
+dataCollection = {}
+cmgOperation3 = 30
+number5 = 31
+number6 = 32
+number7 = 33
+number8 = 34
+number10 = 35
+dataCollection[1] = cmgOperation3
+dataCollection[2] = number5
+dataCollection[3] = number6
+dataCollection[4] = number7
+dataCollection[5] = number8
+dataCollection[6] = number10
+eventHandler.DisabledControls = dataCollection
 
--- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1) ===
-function dataTable(arg1)
-  local arg2, arg3
-  arg2 = eventRegistration.Active
-  if not arg2 then
-    eventRegistration.Active = true
-    arg2 = eventRegistration.Pause
-    if not arg2 then
-      arg2 = eventRegistration.Init
-      arg2()
+-- === HELPER FUNCTION (decompiler name: dataCollection; parameters: localValue1) ===
+function dataCollection(localValue1)
+  local localValue2, localValue3
+  localValue2 = eventHandler.Active
+  if not localValue2 then
+    eventHandler.Active = true
+    localValue2 = eventHandler.Pause
+    if not localValue2 then
+      localValue2 = eventHandler.Init
+      localValue2()
     end
-    arg2 = eventRegistration.Update
-    arg3 = arg1
-    arg2(arg3)
+    localValue2 = eventHandler.Update
+    localValue3 = localValue1
+    localValue2(localValue3)
   end
 end
-eventRegistration.Start = dataTable
+eventHandler.Start = dataCollection
 
--- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-function dataTable()
-  local arg1, arg2
-  arg1 = eventRegistration.Active
-  if arg1 then
-    eventRegistration.Active = false
-    eventRegistration.Result = 3
-    eventRegistration.Pause = true
+-- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+function dataCollection()
+  local localValue1, localValue2
+  localValue1 = eventHandler.Active
+  if localValue1 then
+    eventHandler.Active = false
+    eventHandler.Result = 3
+    eventHandler.Pause = true
   end
 end
-eventRegistration.Stop = dataTable
+eventHandler.Stop = dataCollection
 
--- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-function dataTable()
-  local arg1, arg2, arg3
-  arg1 = eventRegistration.Scaleform
-  if arg1 then
-    arg1 = SetScaleformMovieAsNoLongerNeeded
-    arg2 = eventRegistration.Scaleform
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+function dataCollection()
+  local localValue1, localValue2, localValue3
+  localValue1 = eventHandler.Scaleform
+  if localValue1 then
+    localValue1 = SetScaleformMovieAsNoLongerNeeded
+    localValue2 = eventHandler.Scaleform
+    localValue1(localValue2)
   end
-  arg1 = RequestScaleformMovie
-  arg2 = "VAULT_DRILL"
+  localValue1 = RequestScaleformMovie
+  localValue2 = "VAULT_DRILL"
   -- Beginner: result below is scaleformHandle.
-  arg1 = arg1(arg2)
-  eventRegistration.Scaleform = arg1
+  localValue1 = localValue1(localValue2)
+  eventHandler.Scaleform = localValue1
   while true do
-    arg1 = HasScaleformMovieLoaded
-    arg2 = eventRegistration.Scaleform
-    arg1 = arg1(arg2)
-    if arg1 then
+    localValue1 = HasScaleformMovieLoaded
+    localValue2 = eventHandler.Scaleform
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
       break
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
-  eventRegistration.DrillSpeed = 0.0
-  eventRegistration.DrillPos = 0.0
-  eventRegistration.DrillTemp = 0.0
-  eventRegistration.HoleDepth = 0.0
-  arg1 = PushScaleformMovieFunction
-  arg2 = eventRegistration.Scaleform
-  arg3 = "REVEAL"
-  arg1(arg2, arg3)
-  arg1 = PopScaleformMovieFunctionVoid
-  arg1()
-  arg1 = PushScaleformMovieFunction
-  arg2 = eventRegistration.Scaleform
-  arg3 = "SET_SPEED"
-  arg1(arg2, arg3)
-  arg1 = PushScaleformMovieFunctionParameterFloat
-  arg2 = 0.0
-  arg1(arg2)
-  arg1 = PopScaleformMovieFunctionVoid
-  arg1()
-  arg1 = PushScaleformMovieFunction
-  arg2 = eventRegistration.Scaleform
-  arg3 = "SET_DRILL_POSITION"
-  arg1(arg2, arg3)
-  arg1 = PushScaleformMovieFunctionParameterFloat
-  arg2 = 0.0
-  arg1(arg2)
-  arg1 = PopScaleformMovieFunctionVoid
-  arg1()
-  arg1 = PushScaleformMovieFunction
-  arg2 = eventRegistration.Scaleform
-  arg3 = "SET_TEMPERATURE"
-  arg1(arg2, arg3)
-  arg1 = PushScaleformMovieFunctionParameterFloat
-  arg2 = 0.0
-  arg1(arg2)
-  arg1 = PopScaleformMovieFunctionVoid
-  arg1()
-  arg1 = PushScaleformMovieFunction
-  arg2 = eventRegistration.Scaleform
-  arg3 = "SET_HOLE_DEPTH"
-  arg1(arg2, arg3)
-  arg1 = PushScaleformMovieFunctionParameterFloat
-  arg2 = 0.0
-  arg1(arg2)
-  arg1 = PopScaleformMovieFunctionVoid
-  arg1()
-  arg1 = PushScaleformMovieFunction
-  arg2 = eventRegistration.Scaleform
-  arg3 = "SET_NUM_DISCS"
-  arg1(arg2, arg3)
-  arg1 = PushScaleformMovieFunctionParameterInt
-  arg2 = 3
-  arg1(arg2)
-  arg1 = PopScaleformMovieFunctionVoid
-  arg1()
+  eventHandler.DrillSpeed = 0.0
+  eventHandler.DrillPos = 0.0
+  eventHandler.DrillTemp = 0.0
+  eventHandler.HoleDepth = 0.0
+  localValue1 = PushScaleformMovieFunction
+  localValue2 = eventHandler.Scaleform
+  localValue3 = "REVEAL"
+  localValue1(localValue2, localValue3)
+  localValue1 = PopScaleformMovieFunctionVoid
+  localValue1()
+  localValue1 = PushScaleformMovieFunction
+  localValue2 = eventHandler.Scaleform
+  localValue3 = "SET_SPEED"
+  localValue1(localValue2, localValue3)
+  localValue1 = PushScaleformMovieFunctionParameterFloat
+  localValue2 = 0.0
+  localValue1(localValue2)
+  localValue1 = PopScaleformMovieFunctionVoid
+  localValue1()
+  localValue1 = PushScaleformMovieFunction
+  localValue2 = eventHandler.Scaleform
+  localValue3 = "SET_DRILL_POSITION"
+  localValue1(localValue2, localValue3)
+  localValue1 = PushScaleformMovieFunctionParameterFloat
+  localValue2 = 0.0
+  localValue1(localValue2)
+  localValue1 = PopScaleformMovieFunctionVoid
+  localValue1()
+  localValue1 = PushScaleformMovieFunction
+  localValue2 = eventHandler.Scaleform
+  localValue3 = "SET_TEMPERATURE"
+  localValue1(localValue2, localValue3)
+  localValue1 = PushScaleformMovieFunctionParameterFloat
+  localValue2 = 0.0
+  localValue1(localValue2)
+  localValue1 = PopScaleformMovieFunctionVoid
+  localValue1()
+  localValue1 = PushScaleformMovieFunction
+  localValue2 = eventHandler.Scaleform
+  localValue3 = "SET_HOLE_DEPTH"
+  localValue1(localValue2, localValue3)
+  localValue1 = PushScaleformMovieFunctionParameterFloat
+  localValue2 = 0.0
+  localValue1(localValue2)
+  localValue1 = PopScaleformMovieFunctionVoid
+  localValue1()
+  localValue1 = PushScaleformMovieFunction
+  localValue2 = eventHandler.Scaleform
+  localValue3 = "SET_NUM_DISCS"
+  localValue1(localValue2, localValue3)
+  localValue1 = PushScaleformMovieFunctionParameterInt
+  localValue2 = 3
+  localValue1(localValue2)
+  localValue1 = PopScaleformMovieFunctionVoid
+  localValue1()
 end
-eventRegistration.Init = dataTable
+eventHandler.Init = dataCollection
 
--- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1) ===
-function dataTable(arg1)
-  local arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17
-  arg2 = numberValue4
-  arg3 = "instructional_buttons"
-  arg2 = arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: dataCollection; parameters: localValue1) ===
+function dataCollection(localValue1)
+  local localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17
+  localValue2 = number4
+  localValue3 = "instructional_buttons"
+  localValue2 = localValue2(localValue3)
   while true do
-    arg3 = eventRegistration.Active
-    if not arg3 then
+    localValue3 = eventHandler.Active
+    if not localValue3 then
       break
     end
-    arg3 = eventRegistration.Draw
-    arg3()
-    arg3 = eventRegistration.DisableControls
-    arg3()
-    arg3 = eventRegistration.HandleControls
-    arg3()
-    arg3 = DrawScaleformMovieFullscreen
-    flag15 = arg2
-    textValue3 = 255
+    localValue3 = eventHandler.Draw
+    localValue3()
+    localValue3 = eventHandler.DisableControls
+    localValue3()
+    localValue3 = eventHandler.HandleControls
+    localValue3()
+    localValue3 = DrawScaleformMovieFullscreen
+    stateFlag15 = localValue2
+    text3 = 255
     position = 255
-    numberValue21 = 255
+    number21 = 255
     modelValue = 255
-    flag17 = 0
-    arg3(flag15, textValue3, position, numberValue21, modelValue, flag17)
-    arg3 = Wait
-    flag15 = 0
-    arg3(flag15)
+    stateFlag17 = 0
+    localValue3(stateFlag15, text3, position, number21, modelValue, stateFlag17)
+    localValue3 = Wait
+    stateFlag15 = 0
+    localValue3(stateFlag15)
   end
-  arg3 = arg1
-  flag15 = eventRegistration.Result
-  arg3(flag15)
+  localValue3 = localValue1
+  stateFlag15 = eventHandler.Result
+  localValue3(stateFlag15)
 end
-eventRegistration.Update = dataTable
+eventHandler.Update = dataCollection
 
--- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-function dataTable()
-  local arg1, arg2, arg3, flag15, textValue3, position, numberValue21
-  arg1 = DrawScaleformMovieFullscreen
-  arg2 = eventRegistration.Scaleform
-  arg3 = 255
-  flag15 = 255
-  textValue3 = 255
+-- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+function dataCollection()
+  local localValue1, localValue2, localValue3, stateFlag15, text3, position, number21
+  localValue1 = DrawScaleformMovieFullscreen
+  localValue2 = eventHandler.Scaleform
+  localValue3 = 255
+  stateFlag15 = 255
+  text3 = 255
   position = 255
-  numberValue21 = 255
-  arg1(arg2, arg3, flag15, textValue3, position, numberValue21)
+  number21 = 255
+  localValue1(localValue2, localValue3, stateFlag15, text3, position, number21)
 end
-eventRegistration.Draw = dataTable
+eventHandler.Draw = dataCollection
 
--- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-function dataTable()
-  local arg1, arg2, arg3, flag15, textValue3, position, numberValue21, modelValue
-  arg1 = pairs
-  arg2 = textValue
-  arg1, arg2, arg3, flag15 = arg1(arg2)
-  for textValue3, position in arg1, arg2, arg3, flag15 do
-    numberValue21 = eventRegistration.DrillPos
+-- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+function dataCollection()
+  local localValue1, localValue2, localValue3, stateFlag15, text3, position, number21, modelValue
+  localValue1 = pairs
+  localValue2 = text
+  localValue1, localValue2, localValue3, stateFlag15 = localValue1(localValue2)
+  for text3, position in localValue1, localValue2, localValue3, stateFlag15 do
+    number21 = eventHandler.DrillPos
     modelValue = position.x
-    if numberValue21 >= modelValue then
-      numberValue21 = eventRegistration.DrillPos
+    if number21 >= modelValue then
+      number21 = eventHandler.DrillPos
       modelValue = position.y
-      if numberValue21 <= modelValue then
-        numberValue21 = true
-        return numberValue21
+      if number21 <= modelValue then
+        number21 = true
+        return number21
       end
     end
   end
-  arg1 = false
-  return arg1
+  localValue1 = false
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18
-  arg1 = eventRegistration.DrillPos
-  arg2 = IsDisabledControlJustPressed
-  arg3 = 0
-  flag15 = 172
-  arg2 = arg2(arg3, flag15)
-  if arg2 then
-    arg2 = math
-    arg2 = arg2.min
-    arg3 = 1.0
-    flag15 = eventRegistration.DrillPos
-    flag15 = flag15 + 0.01
-    arg2 = arg2(arg3, flag15)
-    eventRegistration.DrillPos = arg2
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18
+  localValue1 = eventHandler.DrillPos
+  localValue2 = IsDisabledControlJustPressed
+  localValue3 = 0
+  stateFlag15 = 172
+  localValue2 = localValue2(localValue3, stateFlag15)
+  if localValue2 then
+    localValue2 = math
+    localValue2 = localValue2.min
+    localValue3 = 1.0
+    stateFlag15 = eventHandler.DrillPos
+    stateFlag15 = stateFlag15 + 0.01
+    localValue2 = localValue2(localValue3, stateFlag15)
+    eventHandler.DrillPos = localValue2
   else
-    arg2 = IsDisabledControlPressed
-    arg3 = 0
-    flag15 = 172
-    arg2 = arg2(arg3, flag15)
-    if arg2 then
-      arg2 = math
-      arg2 = arg2.min
-      arg3 = 1.0
-      flag15 = eventRegistration.DrillPos
-      textValue3 = GetFrameTime
-      textValue3 = textValue3()
-      textValue3 = 0.1 * textValue3
+    localValue2 = IsDisabledControlPressed
+    localValue3 = 0
+    stateFlag15 = 172
+    localValue2 = localValue2(localValue3, stateFlag15)
+    if localValue2 then
+      localValue2 = math
+      localValue2 = localValue2.min
+      localValue3 = 1.0
+      stateFlag15 = eventHandler.DrillPos
+      text3 = GetFrameTime
+      text3 = text3()
+      text3 = 0.1 * text3
       position = math
       position = position.max
-      numberValue21 = 0.1
-      modelValue = eventRegistration.DrillTemp
-      position = position(numberValue21, modelValue)
+      number21 = 0.1
+      modelValue = eventHandler.DrillTemp
+      position = position(number21, modelValue)
       position = position * 10
-      textValue3 = textValue3 / position
-      flag15 = flag15 + textValue3
-      arg2 = arg2(arg3, flag15)
-      eventRegistration.DrillPos = arg2
+      text3 = text3 / position
+      stateFlag15 = stateFlag15 + text3
+      localValue2 = localValue2(localValue3, stateFlag15)
+      eventHandler.DrillPos = localValue2
     else
-      arg2 = IsDisabledControlJustPressed
-      arg3 = 0
-      flag15 = 173
-      arg2 = arg2(arg3, flag15)
-      if arg2 then
-        arg2 = math
-        arg2 = arg2.max
-        arg3 = 0.0
-        flag15 = eventRegistration.DrillPos
-        flag15 = flag15 - 0.01
-        arg2 = arg2(arg3, flag15)
-        eventRegistration.DrillPos = arg2
+      localValue2 = IsDisabledControlJustPressed
+      localValue3 = 0
+      stateFlag15 = 173
+      localValue2 = localValue2(localValue3, stateFlag15)
+      if localValue2 then
+        localValue2 = math
+        localValue2 = localValue2.max
+        localValue3 = 0.0
+        stateFlag15 = eventHandler.DrillPos
+        stateFlag15 = stateFlag15 - 0.01
+        localValue2 = localValue2(localValue3, stateFlag15)
+        eventHandler.DrillPos = localValue2
       else
-        arg2 = IsDisabledControlPressed
-        arg3 = 0
-        flag15 = 173
-        arg2 = arg2(arg3, flag15)
-        if arg2 then
-          arg2 = math
-          arg2 = arg2.max
-          arg3 = 0.0
-          flag15 = eventRegistration.DrillPos
-          textValue3 = GetFrameTime
-          textValue3 = textValue3()
-          textValue3 = 0.1 * textValue3
-          flag15 = flag15 - textValue3
-          arg2 = arg2(arg3, flag15)
-          eventRegistration.DrillPos = arg2
+        localValue2 = IsDisabledControlPressed
+        localValue3 = 0
+        stateFlag15 = 173
+        localValue2 = localValue2(localValue3, stateFlag15)
+        if localValue2 then
+          localValue2 = math
+          localValue2 = localValue2.max
+          localValue3 = 0.0
+          stateFlag15 = eventHandler.DrillPos
+          text3 = GetFrameTime
+          text3 = text3()
+          text3 = 0.1 * text3
+          stateFlag15 = stateFlag15 - text3
+          localValue2 = localValue2(localValue3, stateFlag15)
+          eventHandler.DrillPos = localValue2
         end
       end
     end
   end
-  arg2 = eventRegistration.DrillSpeed
-  arg3 = IsDisabledControlJustPressed
-  flag15 = 0
-  textValue3 = 175
-  arg3 = arg3(flag15, textValue3)
-  if arg3 then
-    arg3 = math
-    arg3 = arg3.min
-    flag15 = 1.0
-    textValue3 = eventRegistration.DrillSpeed
-    textValue3 = textValue3 + 0.05
-    arg3 = arg3(flag15, textValue3)
-    eventRegistration.DrillSpeed = arg3
+  localValue2 = eventHandler.DrillSpeed
+  localValue3 = IsDisabledControlJustPressed
+  stateFlag15 = 0
+  text3 = 175
+  localValue3 = localValue3(stateFlag15, text3)
+  if localValue3 then
+    localValue3 = math
+    localValue3 = localValue3.min
+    stateFlag15 = 1.0
+    text3 = eventHandler.DrillSpeed
+    text3 = text3 + 0.05
+    localValue3 = localValue3(stateFlag15, text3)
+    eventHandler.DrillSpeed = localValue3
   else
-    arg3 = IsDisabledControlPressed
-    flag15 = 0
-    textValue3 = 175
-    arg3 = arg3(flag15, textValue3)
-    if arg3 then
-      arg3 = math
-      arg3 = arg3.min
-      flag15 = 1.0
-      textValue3 = eventRegistration.DrillSpeed
+    localValue3 = IsDisabledControlPressed
+    stateFlag15 = 0
+    text3 = 175
+    localValue3 = localValue3(stateFlag15, text3)
+    if localValue3 then
+      localValue3 = math
+      localValue3 = localValue3.min
+      stateFlag15 = 1.0
+      text3 = eventHandler.DrillSpeed
       position = GetFrameTime
       position = position()
       position = 0.5 * position
-      textValue3 = textValue3 + position
-      arg3 = arg3(flag15, textValue3)
-      eventRegistration.DrillSpeed = arg3
+      text3 = text3 + position
+      localValue3 = localValue3(stateFlag15, text3)
+      eventHandler.DrillSpeed = localValue3
     else
-      arg3 = IsControlJustPressed
-      flag15 = 0
-      textValue3 = 174
-      arg3 = arg3(flag15, textValue3)
-      if arg3 then
-        arg3 = math
-        arg3 = arg3.max
-        flag15 = 0.0
-        textValue3 = eventRegistration.DrillSpeed
-        textValue3 = textValue3 - 0.05
-        arg3 = arg3(flag15, textValue3)
-        eventRegistration.DrillSpeed = arg3
+      localValue3 = IsControlJustPressed
+      stateFlag15 = 0
+      text3 = 174
+      localValue3 = localValue3(stateFlag15, text3)
+      if localValue3 then
+        localValue3 = math
+        localValue3 = localValue3.max
+        stateFlag15 = 0.0
+        text3 = eventHandler.DrillSpeed
+        text3 = text3 - 0.05
+        localValue3 = localValue3(stateFlag15, text3)
+        eventHandler.DrillSpeed = localValue3
       else
-        arg3 = IsDisabledControlPressed
-        flag15 = 0
-        textValue3 = 174
-        arg3 = arg3(flag15, textValue3)
-        if arg3 then
-          arg3 = math
-          arg3 = arg3.max
-          flag15 = 0.0
-          textValue3 = eventRegistration.DrillSpeed
+        localValue3 = IsDisabledControlPressed
+        stateFlag15 = 0
+        text3 = 174
+        localValue3 = localValue3(stateFlag15, text3)
+        if localValue3 then
+          localValue3 = math
+          localValue3 = localValue3.max
+          stateFlag15 = 0.0
+          text3 = eventHandler.DrillSpeed
           position = GetFrameTime
           position = position()
           position = 0.5 * position
-          textValue3 = textValue3 - position
-          arg3 = arg3(flag15, textValue3)
-          eventRegistration.DrillSpeed = arg3
+          text3 = text3 - position
+          localValue3 = localValue3(stateFlag15, text3)
+          eventHandler.DrillSpeed = localValue3
         end
       end
     end
   end
-  arg3 = IsDisabledControlJustPressed
-  flag15 = 0
-  textValue3 = 202
-  arg3 = arg3(flag15, textValue3)
-  if arg3 then
-    eventRegistration.Active = false
-    eventRegistration.Result = 3
+  localValue3 = IsDisabledControlJustPressed
+  stateFlag15 = 0
+  text3 = 202
+  localValue3 = localValue3(stateFlag15, text3)
+  if localValue3 then
+    eventHandler.Active = false
+    eventHandler.Result = 3
   end
-  arg3 = eventRegistration.DrillTemp
-  flag15 = eventRegistration.DrillPos
-  if arg1 < flag15 then
-    flag15 = eventRegistration.DrillSpeed
-    textValue3 = 0.4
-    if flag15 > textValue3 then
-      flag15 = dataTable
-      flag15 = flag15()
-      if flag15 then
-        flag15 = math
-        flag15 = flag15.min
-        textValue3 = 1.0
-        position = eventRegistration.DrillTemp
-        numberValue21 = GetFrameTime
-        numberValue21 = numberValue21()
-        numberValue21 = 0.05 * numberValue21
-        modelValue = eventRegistration.DrillSpeed
+  localValue3 = eventHandler.DrillTemp
+  stateFlag15 = eventHandler.DrillPos
+  if localValue1 < stateFlag15 then
+    stateFlag15 = eventHandler.DrillSpeed
+    text3 = 0.4
+    if stateFlag15 > text3 then
+      stateFlag15 = dataCollection
+      stateFlag15 = stateFlag15()
+      if stateFlag15 then
+        stateFlag15 = math
+        stateFlag15 = stateFlag15.min
+        text3 = 1.0
+        position = eventHandler.DrillTemp
+        number21 = GetFrameTime
+        number21 = number21()
+        number21 = 0.05 * number21
+        modelValue = eventHandler.DrillSpeed
         modelValue = modelValue * 10
-        numberValue21 = numberValue21 * modelValue
-        position = position + numberValue21
-        flag15 = flag15(textValue3, position)
-        eventRegistration.DrillTemp = flag15
+        number21 = number21 * modelValue
+        position = position + number21
+        stateFlag15 = stateFlag15(text3, position)
+        eventHandler.DrillTemp = stateFlag15
       end
-      flag15 = PushScaleformMovieFunction
-      textValue3 = eventRegistration.Scaleform
+      stateFlag15 = PushScaleformMovieFunction
+      text3 = eventHandler.Scaleform
       position = "SET_DRILL_POSITION"
-      flag15(textValue3, position)
-      flag15 = PushScaleformMovieFunctionParameterFloat
-      textValue3 = eventRegistration.DrillPos
-      flag15(textValue3)
-      flag15 = PopScaleformMovieFunctionVoid
-      flag15()
+      stateFlag15(text3, position)
+      stateFlag15 = PushScaleformMovieFunctionParameterFloat
+      text3 = eventHandler.DrillPos
+      stateFlag15(text3)
+      stateFlag15 = PopScaleformMovieFunctionVoid
+      stateFlag15()
     else
-      flag15 = eventRegistration.DrillPos
-      textValue3 = 0.1
-      if not (flag15 < textValue3) then
-        flag15 = eventRegistration.DrillPos
-        textValue3 = eventRegistration.HoleDepth
-        if not (flag15 < textValue3) then
-          goto flow_label_211
+      stateFlag15 = eventHandler.DrillPos
+      text3 = 0.1
+      if not (stateFlag15 < text3) then
+        stateFlag15 = eventHandler.DrillPos
+        text3 = eventHandler.HoleDepth
+        if not (stateFlag15 < text3) then
+          goto continueAtStep211
         end
       end
-      flag15 = PushScaleformMovieFunction
-      textValue3 = eventRegistration.Scaleform
+      stateFlag15 = PushScaleformMovieFunction
+      text3 = eventHandler.Scaleform
       position = "SET_DRILL_POSITION"
-      flag15(textValue3, position)
-      flag15 = PushScaleformMovieFunctionParameterFloat
-      textValue3 = eventRegistration.DrillPos
-      flag15(textValue3)
-      flag15 = PopScaleformMovieFunctionVoid
-      flag15()
-      goto flow_label_269
-      ::flow_label_211::
-      eventRegistration.DrillPos = arg1
-      flag15 = dataTable
-      flag15 = flag15()
-      if flag15 then
-        flag15 = math
-        flag15 = flag15.min
-        textValue3 = 1.0
-        position = eventRegistration.DrillTemp
-        numberValue21 = GetFrameTime
-        numberValue21 = numberValue21()
-        numberValue21 = 0.01 * numberValue21
-        position = position + numberValue21
-        flag15 = flag15(textValue3, position)
-        eventRegistration.DrillTemp = flag15
+      stateFlag15(text3, position)
+      stateFlag15 = PushScaleformMovieFunctionParameterFloat
+      text3 = eventHandler.DrillPos
+      stateFlag15(text3)
+      stateFlag15 = PopScaleformMovieFunctionVoid
+      stateFlag15()
+      goto continueAtStep269
+      ::continueAtStep211::
+      eventHandler.DrillPos = localValue1
+      stateFlag15 = dataCollection
+      stateFlag15 = stateFlag15()
+      if stateFlag15 then
+        stateFlag15 = math
+        stateFlag15 = stateFlag15.min
+        text3 = 1.0
+        position = eventHandler.DrillTemp
+        number21 = GetFrameTime
+        number21 = number21()
+        number21 = 0.01 * number21
+        position = position + number21
+        stateFlag15 = stateFlag15(text3, position)
+        eventHandler.DrillTemp = stateFlag15
       end
     end
   else
-    flag15 = eventRegistration.DrillPos
-    textValue3 = eventRegistration.HoleDepth
-    if flag15 < textValue3 then
-      flag15 = math
-      flag15 = flag15.max
-      textValue3 = 0.0
-      position = eventRegistration.DrillTemp
-      numberValue21 = GetFrameTime
-      numberValue21 = numberValue21()
-      numberValue21 = 0.05 * numberValue21
+    stateFlag15 = eventHandler.DrillPos
+    text3 = eventHandler.HoleDepth
+    if stateFlag15 < text3 then
+      stateFlag15 = math
+      stateFlag15 = stateFlag15.max
+      text3 = 0.0
+      position = eventHandler.DrillTemp
+      number21 = GetFrameTime
+      number21 = number21()
+      number21 = 0.05 * number21
       modelValue = math
       modelValue = modelValue.max
-      flag17 = 0.005
-      flag18 = eventRegistration.DrillSpeed
-      flag18 = flag18 * 10
-      flag18 = flag18 / 2
-      modelValue = modelValue(flag17, flag18)
-      numberValue21 = numberValue21 * modelValue
-      position = position - numberValue21
-      flag15 = flag15(textValue3, position)
-      eventRegistration.DrillTemp = flag15
+      stateFlag17 = 0.005
+      stateFlag18 = eventHandler.DrillSpeed
+      stateFlag18 = stateFlag18 * 10
+      stateFlag18 = stateFlag18 / 2
+      modelValue = modelValue(stateFlag17, stateFlag18)
+      number21 = number21 * modelValue
+      position = position - number21
+      stateFlag15 = stateFlag15(text3, position)
+      eventHandler.DrillTemp = stateFlag15
     end
-    flag15 = eventRegistration.DrillPos
-    textValue3 = eventRegistration.HoleDepth
-    if flag15 ~= textValue3 then
-      flag15 = PushScaleformMovieFunction
-      textValue3 = eventRegistration.Scaleform
+    stateFlag15 = eventHandler.DrillPos
+    text3 = eventHandler.HoleDepth
+    if stateFlag15 ~= text3 then
+      stateFlag15 = PushScaleformMovieFunction
+      text3 = eventHandler.Scaleform
       position = "SET_DRILL_POSITION"
-      flag15(textValue3, position)
-      flag15 = PushScaleformMovieFunctionParameterFloat
-      textValue3 = eventRegistration.DrillPos
-      flag15(textValue3)
-      flag15 = PopScaleformMovieFunctionVoid
-      flag15()
+      stateFlag15(text3, position)
+      stateFlag15 = PushScaleformMovieFunctionParameterFloat
+      text3 = eventHandler.DrillPos
+      stateFlag15(text3)
+      stateFlag15 = PopScaleformMovieFunctionVoid
+      stateFlag15()
     end
   end
-  ::flow_label_269::
-  flag15 = eventRegistration.DrillSpeed
-  if arg2 ~= flag15 then
-    flag15 = PushScaleformMovieFunction
-    textValue3 = eventRegistration.Scaleform
+  ::continueAtStep269::
+  stateFlag15 = eventHandler.DrillSpeed
+  if localValue2 ~= stateFlag15 then
+    stateFlag15 = PushScaleformMovieFunction
+    text3 = eventHandler.Scaleform
     position = "SET_SPEED"
-    flag15(textValue3, position)
-    flag15 = PushScaleformMovieFunctionParameterFloat
-    textValue3 = eventRegistration.DrillSpeed
-    flag15(textValue3)
-    flag15 = PopScaleformMovieFunctionVoid
-    flag15()
+    stateFlag15(text3, position)
+    stateFlag15 = PushScaleformMovieFunctionParameterFloat
+    text3 = eventHandler.DrillSpeed
+    stateFlag15(text3)
+    stateFlag15 = PopScaleformMovieFunctionVoid
+    stateFlag15()
   end
-  flag15 = eventRegistration.DrillTemp
-  if arg3 ~= flag15 then
-    flag15 = PushScaleformMovieFunction
-    textValue3 = eventRegistration.Scaleform
+  stateFlag15 = eventHandler.DrillTemp
+  if localValue3 ~= stateFlag15 then
+    stateFlag15 = PushScaleformMovieFunction
+    text3 = eventHandler.Scaleform
     position = "SET_TEMPERATURE"
-    flag15(textValue3, position)
-    flag15 = PushScaleformMovieFunctionParameterFloat
-    textValue3 = eventRegistration.DrillTemp
-    flag15(textValue3)
-    flag15 = PopScaleformMovieFunctionVoid
-    flag15()
+    stateFlag15(text3, position)
+    stateFlag15 = PushScaleformMovieFunctionParameterFloat
+    text3 = eventHandler.DrillTemp
+    stateFlag15(text3)
+    stateFlag15 = PopScaleformMovieFunctionVoid
+    stateFlag15()
   end
-  flag15 = eventRegistration.DrillTemp
-  if flag15 >= 1.0 then
-    eventRegistration.Result = 2
-    eventRegistration.Active = false
-    eventRegistration.Pause = false
-    flag15 = PushScaleformMovieFunction
-    textValue3 = eventRegistration.Scaleform
+  stateFlag15 = eventHandler.DrillTemp
+  if stateFlag15 >= 1.0 then
+    eventHandler.Result = 2
+    eventHandler.Active = false
+    eventHandler.Pause = false
+    stateFlag15 = PushScaleformMovieFunction
+    text3 = eventHandler.Scaleform
     position = "RESET"
-    flag15(textValue3, position)
-    flag15 = PopScaleformMovieFunctionVoid
-    flag15()
+    stateFlag15(text3, position)
+    stateFlag15 = PopScaleformMovieFunctionVoid
+    stateFlag15()
   else
-    flag15 = eventRegistration.DrillPos
-    if flag15 >= 1.0 then
-      eventRegistration.Result = 1
-      eventRegistration.Active = false
-      eventRegistration.Pause = false
-      flag15 = PushScaleformMovieFunction
-      textValue3 = eventRegistration.Scaleform
+    stateFlag15 = eventHandler.DrillPos
+    if stateFlag15 >= 1.0 then
+      eventHandler.Result = 1
+      eventHandler.Active = false
+      eventHandler.Pause = false
+      stateFlag15 = PushScaleformMovieFunction
+      text3 = eventHandler.Scaleform
       position = "RESET"
-      flag15(textValue3, position)
-      flag15 = PopScaleformMovieFunctionVoid
-      flag15()
+      stateFlag15(text3, position)
+      stateFlag15 = PopScaleformMovieFunctionVoid
+      stateFlag15()
     end
   end
-  flag15 = eventRegistration.DrillPos
-  textValue3 = eventRegistration.HoleDepth
-  if flag15 > textValue3 then
-    flag15 = eventRegistration.DrillPos
-    if flag15 then
-      goto flow_label_326
+  stateFlag15 = eventHandler.DrillPos
+  text3 = eventHandler.HoleDepth
+  if stateFlag15 > text3 then
+    stateFlag15 = eventHandler.DrillPos
+    if stateFlag15 then
+      goto continueAtStep326
     end
   end
-  flag15 = eventRegistration.HoleDepth
-  ::flow_label_326::
-  eventRegistration.HoleDepth = flag15
+  stateFlag15 = eventHandler.HoleDepth
+  ::continueAtStep326::
+  eventHandler.HoleDepth = stateFlag15
 end
-eventRegistration.HandleControls = cmgCall3
+eventHandler.HandleControls = cmgOperation3
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18
-  arg1 = ipairs
-  arg2 = eventRegistration.DisabledControls
-  arg1, arg2, arg3, flag15 = arg1(arg2)
-  for textValue3, position in arg1, arg2, arg3, flag15 do
-    numberValue21 = DisableControlAction
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18
+  localValue1 = ipairs
+  localValue2 = eventHandler.DisabledControls
+  localValue1, localValue2, localValue3, stateFlag15 = localValue1(localValue2)
+  for text3, position in localValue1, localValue2, localValue3, stateFlag15 do
+    number21 = DisableControlAction
     modelValue = 0
-    flag17 = position
-    flag18 = true
-    numberValue21(modelValue, flag17, flag18)
+    stateFlag17 = position
+    stateFlag18 = true
+    number21(modelValue, stateFlag17, stateFlag18)
   end
 end
-eventRegistration.DisableControls = cmgCall3
+eventHandler.DisableControls = cmgOperation3
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, flag15, textValue3, position, numberValue21, modelValue, flag17, flag18
-  arg1 = ipairs
-  arg2 = eventRegistration.DisabledControls
-  arg1, arg2, arg3, flag15 = arg1(arg2)
-  for textValue3, position in arg1, arg2, arg3, flag15 do
-    numberValue21 = DisableControlAction
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, stateFlag15, text3, position, number21, modelValue, stateFlag17, stateFlag18
+  localValue1 = ipairs
+  localValue2 = eventHandler.DisabledControls
+  localValue1, localValue2, localValue3, stateFlag15 = localValue1(localValue2)
+  for text3, position in localValue1, localValue2, localValue3, stateFlag15 do
+    number21 = DisableControlAction
     modelValue = 0
-    flag17 = position
-    flag18 = true
-    numberValue21(modelValue, flag17, flag18)
+    stateFlag17 = position
+    stateFlag18 = true
+    number21(modelValue, stateFlag17, stateFlag18)
   end
 end
-eventRegistration.EnableControls = cmgCall3
-cmgCall3 = CMG
+eventHandler.EnableControls = cmgOperation3
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
-function numberValue5(arg1)
-  local arg2, arg3
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+-- === HELPER FUNCTION (decompiler name: number5; parameters: localValue1) ===
+function number5(localValue1)
+  local localValue2, localValue3
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local arg12, cmgCall2
-    arg12 = eventRegistration.Start
-    cmgCall2 = arg1
-    arg12(cmgCall2)
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local localValue12, cmgOperation2
+    localValue12 = eventHandler.Start
+    cmgOperation2 = localValue1
+    localValue12(cmgOperation2)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-cmgCall3.startDrillingUI = numberValue5
-cmgCall3 = CMG
+cmgOperation3.startDrillingUI = number5
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
-function numberValue5()
-  local arg1, arg2
-  arg1 = Citizen
-  arg1 = arg1.CreateThread
+-- === HELPER FUNCTION (decompiler name: number5; parameters: none) ===
+function number5()
+  local localValue1, localValue2
+  localValue1 = Citizen
+  localValue1 = localValue1.CreateThread
 
-  -- === HELPER FUNCTION: arg2() ===
-  function arg2()
-    local arg12, cmgCall2
-    arg12 = eventRegistration.Stop
-    arg12()
+  -- === HELPER FUNCTION: localValue2() ===
+  function localValue2()
+    local localValue12, cmgOperation2
+    localValue12 = eventHandler.Stop
+    localValue12()
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg1(arg2)
+  localValue1(localValue2)
 end
-cmgCall3.stopDrillingUI = numberValue5
+cmgOperation3.stopDrillingUI = number5

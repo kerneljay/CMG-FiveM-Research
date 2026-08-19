@@ -32,2114 +32,2114 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, textValue, dataTable4, rageUiCall2, dataTable6, cmgCall10, rageUiCall3, rageUiCall4, flag14, textValue16, flag, dataTable, flag2, numberValue3, cmgCall3, workValue, workValue2, workValue3, rageUiCall, cmgCall4, textValue2, workValue4, workValue5, textValue5, cmgCall6, cmgCall7, textValue6, workValue9, textValue7, textValue8, cmgCall8, cmgCall9, textValue9, numberValue6, numberValue7, numberValue8, numberValue9, textValue10, flag8, flag9, textValue11, textValue12, numberValue10, numberValue11, flag10, flag11
-cmgCall = RMenu
-cmgCall = cmgCall.Add
-textValue = "cmgtruckmenu"
-dataTable4 = "job"
-rageUiCall2 = RageUI
-rageUiCall2 = rageUiCall2.CreateMenu
-dataTable6 = ""
-cmgCall10 = "~b~CMG Trucking"
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-flag14 = "cmg_truckingjob"
-textValue16 = "cmg_truckingjob"
-rageUiCall2, dataTable6, cmgCall10, rageUiCall3, rageUiCall4, flag14, textValue16, flag, dataTable, flag2, numberValue3, cmgCall3, workValue, workValue2, workValue3, rageUiCall, cmgCall4, textValue2, workValue4, workValue5, textValue5, cmgCall6, cmgCall7, textValue6, workValue9, textValue7, textValue8, cmgCall8, cmgCall9, textValue9, numberValue6, numberValue7, numberValue8, numberValue9, textValue10, flag8, flag9, textValue11, textValue12, numberValue10, numberValue11, flag10, flag11 = rageUiCall2(dataTable6, cmgCall10, rageUiCall3, rageUiCall4, flag14, textValue16)
-cmgCall(textValue, dataTable4, rageUiCall2, dataTable6, cmgCall10, rageUiCall3, rageUiCall4, flag14, textValue16, flag, dataTable, flag2, numberValue3, cmgCall3, workValue, workValue2, workValue3, rageUiCall, cmgCall4, textValue2, workValue4, workValue5, textValue5, cmgCall6, cmgCall7, textValue6, workValue9, textValue7, textValue8, cmgCall8, cmgCall9, textValue9, numberValue6, numberValue7, numberValue8, numberValue9, textValue10, flag8, flag9, textValue11, textValue12, numberValue10, numberValue11, flag10, flag11)
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-textValue = "cfg/cfg_trucking"
+local cmgOperation, text, dataCollection4, rageUiOperation2, dataCollection6, cmgOperation10, rageUiOperation3, rageUiOperation4, stateFlag14, text16, stateFlag, dataCollection, stateFlag2, number3, cmgOperation3, workingValue, workingValue2, workingValue3, rageUiOperation, cmgOperation4, text2, workingValue4, workingValue5, text5, cmgOperation6, cmgOperation7, text6, workingValue9, text7, text8, cmgOperation8, cmgOperation9, text9, number6, number7, number8, number9, text10, stateFlag8, stateFlag9, text11, text12, number10, number11, stateFlag10, stateFlag11
+cmgOperation = RMenu
+cmgOperation = cmgOperation.Add
+text = "cmgtruckmenu"
+dataCollection4 = "job"
+rageUiOperation2 = RageUI
+rageUiOperation2 = rageUiOperation2.CreateMenu
+dataCollection6 = ""
+cmgOperation10 = "~b~CMG Trucking"
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+stateFlag14 = "cmg_truckingjob"
+text16 = "cmg_truckingjob"
+rageUiOperation2, dataCollection6, cmgOperation10, rageUiOperation3, rageUiOperation4, stateFlag14, text16, stateFlag, dataCollection, stateFlag2, number3, cmgOperation3, workingValue, workingValue2, workingValue3, rageUiOperation, cmgOperation4, text2, workingValue4, workingValue5, text5, cmgOperation6, cmgOperation7, text6, workingValue9, text7, text8, cmgOperation8, cmgOperation9, text9, number6, number7, number8, number9, text10, stateFlag8, stateFlag9, text11, text12, number10, number11, stateFlag10, stateFlag11 = rageUiOperation2(dataCollection6, cmgOperation10, rageUiOperation3, rageUiOperation4, stateFlag14, text16)
+cmgOperation(text, dataCollection4, rageUiOperation2, dataCollection6, cmgOperation10, rageUiOperation3, rageUiOperation4, stateFlag14, text16, stateFlag, dataCollection, stateFlag2, number3, cmgOperation3, workingValue, workingValue2, workingValue3, rageUiOperation, cmgOperation4, text2, workingValue4, workingValue5, text5, cmgOperation6, cmgOperation7, text6, workingValue9, text7, text8, cmgOperation8, cmgOperation9, text9, number6, number7, number8, number9, text10, stateFlag8, stateFlag9, text11, text12, number10, number11, stateFlag10, stateFlag11)
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+text = "cfg/cfg_trucking"
 -- Beginner: result below is config.
-cmgCall = cmgCall(textValue)
-textValue = ""
-dataTable4 = {}
-dataTable4.vehicle = nil
-dataTable4.trailer = nil
-dataTable4.checkpoint = nil
-rageUiCall2 = 1
-dataTable6 = {}
-cmgCall10 = {}
-rageUiCall3 = {}
-rageUiCall4 = false
-flag14 = false
-textValue16 = 0
-flag = false
-dataTable = {}
-flag2 = false
+cmgOperation = cmgOperation(text)
+text = ""
+dataCollection4 = {}
+dataCollection4.vehicle = nil
+dataCollection4.trailer = nil
+dataCollection4.checkpoint = nil
+rageUiOperation2 = 1
+dataCollection6 = {}
+cmgOperation10 = {}
+rageUiOperation3 = {}
+rageUiOperation4 = false
+stateFlag14 = false
+text16 = 0
+stateFlag = false
+dataCollection = {}
+stateFlag2 = false
 globalTruckingOnDuty = false
-numberValue3 = 48
-cmgCall3 = CMG
+number3 = 48
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2
-  arg1 = flag
-  return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  return localValue1
 end
-cmgCall3.isDoingTruckRoute = workValue
-cmgCall3 = pairs
-workValue = cmgCall.jobs
-cmgCall3, workValue, workValue2, workValue3 = cmgCall3(workValue)
-for rageUiCall, cmgCall4 in cmgCall3, workValue, workValue2, workValue3 do
-  textValue2 = "Illegal" == rageUiCall
-  workValue4 = cmgCall4
-  workValue5 = workValue4.config
-  if workValue5 then
-    workValue5 = workValue4.config
-    workValue5 = workValue5[1]
-    textValue5 = workValue4.config
-    textValue5 = textValue5[2]
-    cmgCall6 = type
-    cmgCall7 = workValue5
-    cmgCall6 = cmgCall6(cmgCall7)
-    if "vector3" == cmgCall6 then
-      cmgCall6 = tCMG
-      cmgCall6 = cmgCall6.addBlip
-      cmgCall7 = workValue5.x
-      textValue6 = workValue5.y
-      workValue9 = workValue5.z
-      textValue7 = 67
-      textValue8 = 5
-      cmgCall8 = textValue5
-      cmgCall6 = cmgCall6(cmgCall7, textValue6, workValue9, textValue7, textValue8, cmgCall8)
-      if textValue2 then
-        cmgCall7 = CMG
-        cmgCall7 = cmgCall7.addBlipContext
-        textValue6 = "Civilian"
-        workValue9 = cmgCall6
-        cmgCall7(textValue6, workValue9)
+cmgOperation3.isDoingTruckRoute = workingValue
+cmgOperation3 = pairs
+workingValue = cmgOperation.jobs
+cmgOperation3, workingValue, workingValue2, workingValue3 = cmgOperation3(workingValue)
+for rageUiOperation, cmgOperation4 in cmgOperation3, workingValue, workingValue2, workingValue3 do
+  text2 = "Illegal" == rageUiOperation
+  workingValue4 = cmgOperation4
+  workingValue5 = workingValue4.config
+  if workingValue5 then
+    workingValue5 = workingValue4.config
+    workingValue5 = workingValue5[1]
+    text5 = workingValue4.config
+    text5 = text5[2]
+    cmgOperation6 = type
+    cmgOperation7 = workingValue5
+    cmgOperation6 = cmgOperation6(cmgOperation7)
+    if "vector3" == cmgOperation6 then
+      cmgOperation6 = tCMG
+      cmgOperation6 = cmgOperation6.addBlip
+      cmgOperation7 = workingValue5.x
+      text6 = workingValue5.y
+      workingValue9 = workingValue5.z
+      text7 = 67
+      text8 = 5
+      cmgOperation8 = text5
+      cmgOperation6 = cmgOperation6(cmgOperation7, text6, workingValue9, text7, text8, cmgOperation8)
+      if text2 then
+        cmgOperation7 = CMG
+        cmgOperation7 = cmgOperation7.addBlipContext
+        text6 = "Civilian"
+        workingValue9 = cmgOperation6
+        cmgOperation7(text6, workingValue9)
       end
-      cmgCall7 = tCMG
-      cmgCall7 = cmgCall7.addMarker
-      textValue6 = workValue5.x
-      workValue9 = workValue5.y
-      textValue7 = workValue5.z
-      textValue8 = 0.7
-      cmgCall8 = 0.7
-      cmgCall9 = 0.5
-      textValue9 = 0
-      numberValue6 = 255
-      numberValue7 = 125
-      numberValue8 = 125
-      numberValue9 = 50
-      textValue10 = 39
-      flag8 = true
-      flag9 = true
+      cmgOperation7 = tCMG
+      cmgOperation7 = cmgOperation7.addMarker
+      text6 = workingValue5.x
+      workingValue9 = workingValue5.y
+      text7 = workingValue5.z
+      text8 = 0.7
+      cmgOperation8 = 0.7
+      cmgOperation9 = 0.5
+      text9 = 0
+      number6 = 255
+      number7 = 125
+      number8 = 125
+      number9 = 50
+      text10 = 39
+      stateFlag8 = true
+      stateFlag9 = true
       -- Beginner: Create a world marker.
-      cmgCall7(textValue6, workValue9, textValue7, textValue8, cmgCall8, cmgCall9, textValue9, numberValue6, numberValue7, numberValue8, numberValue9, textValue10, flag8, flag9)
+      cmgOperation7(text6, workingValue9, text7, text8, cmgOperation8, cmgOperation9, text9, number6, number7, number8, number9, text10, stateFlag8, stateFlag9)
     else
-      cmgCall6 = pairs
-      cmgCall7 = workValue5
-      cmgCall6, cmgCall7, textValue6, workValue9 = cmgCall6(cmgCall7)
-      for textValue7, textValue8 in cmgCall6, cmgCall7, textValue6, workValue9 do
-        cmgCall8 = tCMG
-        cmgCall8 = cmgCall8.addBlip
-        cmgCall9 = textValue8.x
-        textValue9 = textValue8.y
-        numberValue6 = textValue8.z
-        numberValue7 = 67
-        numberValue8 = 5
-        numberValue9 = textValue5
-        cmgCall8 = cmgCall8(cmgCall9, textValue9, numberValue6, numberValue7, numberValue8, numberValue9)
-        if textValue2 then
-          cmgCall9 = CMG
-          cmgCall9 = cmgCall9.addBlipContext
-          textValue9 = "Civilian"
-          numberValue6 = cmgCall8
-          cmgCall9(textValue9, numberValue6)
+      cmgOperation6 = pairs
+      cmgOperation7 = workingValue5
+      cmgOperation6, cmgOperation7, text6, workingValue9 = cmgOperation6(cmgOperation7)
+      for text7, text8 in cmgOperation6, cmgOperation7, text6, workingValue9 do
+        cmgOperation8 = tCMG
+        cmgOperation8 = cmgOperation8.addBlip
+        cmgOperation9 = text8.x
+        text9 = text8.y
+        number6 = text8.z
+        number7 = 67
+        number8 = 5
+        number9 = text5
+        cmgOperation8 = cmgOperation8(cmgOperation9, text9, number6, number7, number8, number9)
+        if text2 then
+          cmgOperation9 = CMG
+          cmgOperation9 = cmgOperation9.addBlipContext
+          text9 = "Civilian"
+          number6 = cmgOperation8
+          cmgOperation9(text9, number6)
         end
-        cmgCall9 = tCMG
-        cmgCall9 = cmgCall9.addMarker
-        textValue9 = textValue8.x
-        numberValue6 = textValue8.y
-        numberValue7 = textValue8.z
-        numberValue8 = 0.7
-        numberValue9 = 0.7
-        textValue10 = 0.5
-        flag8 = 0
-        flag9 = 255
-        textValue11 = 125
-        textValue12 = 125
-        numberValue10 = 50
-        numberValue11 = 39
-        flag10 = true
-        flag11 = true
+        cmgOperation9 = tCMG
+        cmgOperation9 = cmgOperation9.addMarker
+        text9 = text8.x
+        number6 = text8.y
+        number7 = text8.z
+        number8 = 0.7
+        number9 = 0.7
+        text10 = 0.5
+        stateFlag8 = 0
+        stateFlag9 = 255
+        text11 = 125
+        text12 = 125
+        number10 = 50
+        number11 = 39
+        stateFlag10 = true
+        stateFlag11 = true
         -- Beginner: Create a world marker.
-        cmgCall9(textValue9, numberValue6, numberValue7, numberValue8, numberValue9, textValue10, flag8, flag9, textValue11, textValue12, numberValue10, numberValue11, flag10, flag11)
+        cmgOperation9(text9, number6, number7, number8, number9, text10, stateFlag8, stateFlag9, text11, text12, number10, number11, stateFlag10, stateFlag11)
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
-function cmgCall3(arg1)
-  local arg2, arg3, arg4, textValue13, iterator
-  textValue = arg1
-  arg2 = CMG
-  arg2 = arg2.TriggerServerCallback
-  arg3 = "9a9cb9e8bf"
-  arg4 = textValue
-  arg2 = arg2(arg3, arg4)
-  textValue16 = arg2
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgtruckmenu"
-  textValue13 = "job"
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1) ===
+function cmgOperation3(localValue1)
+  local localValue2, localValue3, localValue4, text13, iterator
+  text = localValue1
+  localValue2 = CMG
+  localValue2 = localValue2.TriggerServerCallback
+  localValue3 = "9a9cb9e8bf"
+  localValue4 = text
+  localValue2 = localValue2(localValue3, localValue4)
+  text16 = localValue2
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgtruckmenu"
+  text13 = "job"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue13)
-  arg3 = arg2
-  arg2 = arg2.SetSubtitle
-  arg4 = cmgCall.jobs
-  arg4 = arg4[arg1]
-  arg4 = arg4.config
-  arg4 = arg4[2]
-  arg2(arg3, arg4)
-  arg2 = RageUI
-  arg2 = arg2.Visible
-  arg3 = RMenu
-  arg4 = arg3
-  arg3 = arg3.Get
-  textValue13 = "cmgtruckmenu"
+  localValue2 = localValue2(localValue3, localValue4, text13)
+  localValue3 = localValue2
+  localValue2 = localValue2.SetSubtitle
+  localValue4 = cmgOperation.jobs
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4.config
+  localValue4 = localValue4[2]
+  localValue2(localValue3, localValue4)
+  localValue2 = RageUI
+  localValue2 = localValue2.Visible
+  localValue3 = RMenu
+  localValue4 = localValue3
+  localValue3 = localValue3.Get
+  text13 = "cmgtruckmenu"
   iterator = "job"
   -- Beginner: result below is menu.
-  arg3 = arg3(arg4, textValue13, iterator)
-  arg4 = true
-  arg2(arg3, arg4)
+  localValue3 = localValue3(localValue4, text13, iterator)
+  localValue4 = true
+  localValue2(localValue3, localValue4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, arg3, arg4, textValue13
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgtruckmenu"
-  textValue13 = "job"
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, localValue3, localValue4, text13
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgtruckmenu"
+  text13 = "job"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue13)
-  arg3 = false
-  arg1(arg2, arg3)
+  localValue2 = localValue2(localValue3, localValue4, text13)
+  localValue3 = false
+  localValue1(localValue2, localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
-function workValue2(arg1)
-  local arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7
-  arg2 = pairs
-  arg3 = arg1
-  arg2, arg3, arg4, textValue13 = arg2(arg3)
-  for iterator, numberValue13 in arg2, arg3, arg4, textValue13 do
-    workValue11 = IsPositionOccupied
-    numberValue14 = numberValue13[2]
-    numberValue14 = numberValue14.x
-    numberValue15 = numberValue13[2]
-    numberValue15 = numberValue15.y
-    numberValue = numberValue13[2]
-    numberValue = numberValue.z
-    numberValue2 = 1.8
-    flag3 = false
-    cmgCall2 = true
-    flag4 = false
-    flag5 = false
-    flag6 = false
-    numberValue4 = 0
-    flag7 = false
-    workValue11 = workValue11(numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7)
-    if not workValue11 then
-      workValue11 = numberValue13[2]
-      return workValue11
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1) ===
+function workingValue2(localValue1)
+  local localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7
+  localValue2 = pairs
+  localValue3 = localValue1
+  localValue2, localValue3, localValue4, text13 = localValue2(localValue3)
+  for iterator, number13 in localValue2, localValue3, localValue4, text13 do
+    workingValue11 = IsPositionOccupied
+    number14 = number13[2]
+    number14 = number14.x
+    number15 = number13[2]
+    number15 = number15.y
+    number = number13[2]
+    number = number.z
+    number2 = 1.8
+    stateFlag3 = false
+    cmgOperation2 = true
+    stateFlag4 = false
+    stateFlag5 = false
+    stateFlag6 = false
+    number4 = 0
+    stateFlag7 = false
+    workingValue11 = workingValue11(number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7)
+    if not workingValue11 then
+      workingValue11 = number13[2]
+      return workingValue11
     end
   end
-  arg2 = nil
-  return arg2
+  localValue2 = nil
+  return localValue2
 end
-workValue3 = nil
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateWhile
-cmgCall4 = 1.0
-textValue2 = RMenu
-workValue4 = textValue2
-textValue2 = textValue2.Get
-workValue5 = "cmgtruckmenu"
-textValue5 = "job"
+workingValue3 = nil
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateWhile
+cmgOperation4 = 1.0
+text2 = RMenu
+workingValue4 = text2
+text2 = text2.Get
+workingValue5 = "cmgtruckmenu"
+text5 = "job"
 -- Beginner: result below is menu.
-textValue2 = textValue2(workValue4, workValue5, textValue5)
-workValue4 = nil
+text2 = text2(workingValue4, workingValue5, text5)
+workingValue4 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, arg3, arg4, textValue13, iterator
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "cmgtruckmenu"
-  textValue13 = "job"
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "cmgtruckmenu"
+  text13 = "job"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue13)
-  arg3 = true
-  arg4 = false
-  textValue13 = true
+  localValue2 = localValue2(localValue3, localValue4, text13)
+  localValue3 = true
+  localValue4 = false
+  text13 = true
 
   -- === HELPER FUNCTION: iterator() ===
   function iterator()
-    local arg12, arg22, arg32, dataTable5, flag12, textValue15, workValue10
-    arg12 = textValue
-    if "" ~= arg12 then
-      arg12 = flag
-      if false == arg12 then
-        arg12 = RageUI
-        arg12 = arg12.ButtonWithStyle
-        arg22 = "Start Job"
-        arg32 = nil
-        dataTable5 = {}
-        dataTable5.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag12 = true
+    local localValue12, localValue22, localValue32, dataCollection5, stateFlag12, text15, workingValue10
+    localValue12 = text
+    if "" ~= localValue12 then
+      localValue12 = stateFlag
+      if false == localValue12 then
+        localValue12 = RageUI
+        localValue12 = localValue12.ButtonWithStyle
+        localValue22 = "Start Job"
+        localValue32 = nil
+        dataCollection5 = {}
+        dataCollection5.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag12 = true
 
-        -- === HELPER FUNCTION (decompiler name: textValue15; parameters: arg13, arg23, arg33) ===
-        function textValue15(arg13, arg23, arg33)
-          local serverEventCall, textValue14, numberValue12, flag13
-          if arg33 then
+        -- === HELPER FUNCTION (decompiler name: text15; parameters: localValue13, localValue23, localValue33) ===
+        function text15(localValue13, localValue23, localValue33)
+          local serverEventCall, text14, number12, stateFlag13
+          if localValue33 then
             serverEventCall = GetResourceKvpInt
-            textValue14 = "cmg_trucking_done_cutscene"
-            serverEventCall = serverEventCall(textValue14)
+            text14 = "cmg_trucking_done_cutscene"
+            serverEventCall = serverEventCall(text14)
             if 1 == serverEventCall then
               serverEventCall = TriggerServerEvent
-              textValue14 = "881ad8757a"
-              numberValue12 = textValue
-              flag13 = false
+              text14 = "881ad8757a"
+              number12 = text
+              stateFlag13 = false
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "881ad8757a".
-              serverEventCall(textValue14, numberValue12, flag13)
+              serverEventCall(text14, number12, stateFlag13)
             else
-              serverEventCall = workValue3
+              serverEventCall = workingValue3
               serverEventCall()
               serverEventCall = TriggerServerEvent
-              textValue14 = "881ad8757a"
-              numberValue12 = textValue
-              flag13 = false
+              text14 = "881ad8757a"
+              number12 = text
+              stateFlag13 = false
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "881ad8757a".
-              serverEventCall(textValue14, numberValue12, flag13)
+              serverEventCall(text14, number12, stateFlag13)
               serverEventCall = SetResourceKvpInt
-              textValue14 = "cmg_trucking_done_cutscene"
-              numberValue12 = 1
-              serverEventCall(textValue14, numberValue12)
+              text14 = "cmg_trucking_done_cutscene"
+              number12 = 1
+              serverEventCall(text14, number12)
             end
           end
         end
         -- Beginner: Draw a selectable RageUI menu button.
-        arg12(arg22, arg32, dataTable5, flag12, textValue15)
+        localValue12(localValue22, localValue32, dataCollection5, stateFlag12, text15)
       else
-        arg12 = flag
-        if arg12 then
-          arg12 = RageUI
-          arg12 = arg12.Separator
-          arg22 = "~r~You are currently doing a job.\n"
-          arg12(arg22)
-          arg12 = RageUI
-          arg12 = arg12.Separator
-          arg22 = [[
+        localValue12 = stateFlag
+        if localValue12 then
+          localValue12 = RageUI
+          localValue12 = localValue12.Separator
+          localValue22 = "~r~You are currently doing a job.\n"
+          localValue12(localValue22)
+          localValue12 = RageUI
+          localValue12 = localValue12.Separator
+          localValue22 = [[
 ~r~ Please finish the current one to
 start a new one!]]
-          arg12(arg22)
-          arg12 = RageUI
-          arg12 = arg12.Separator
-          arg22 = ""
-          arg12(arg22)
-          arg12 = RageUI
-          arg12 = arg12.Separator
-          arg22 = ""
-          arg12(arg22)
-          arg12 = RageUI
-          arg12 = arg12.ButtonWithStyle
-          arg22 = "End Job"
-          arg32 = nil
-          dataTable5 = {}
-          dataTable5.RightLabel = "\226\134\146\226\134\146\226\134\146"
-          flag12 = true
+          localValue12(localValue22)
+          localValue12 = RageUI
+          localValue12 = localValue12.Separator
+          localValue22 = ""
+          localValue12(localValue22)
+          localValue12 = RageUI
+          localValue12 = localValue12.Separator
+          localValue22 = ""
+          localValue12(localValue22)
+          localValue12 = RageUI
+          localValue12 = localValue12.ButtonWithStyle
+          localValue22 = "End Job"
+          localValue32 = nil
+          dataCollection5 = {}
+          dataCollection5.RightLabel = "\226\134\146\226\134\146\226\134\146"
+          stateFlag12 = true
 
-          -- === HELPER FUNCTION (decompiler name: textValue15; parameters: arg13, arg23, arg33) ===
-          function textValue15(arg13, arg23, arg33)
-            local serverEventCall, textValue14, numberValue12
-            if arg33 then
+          -- === HELPER FUNCTION (decompiler name: text15; parameters: localValue13, localValue23, localValue33) ===
+          function text15(localValue13, localValue23, localValue33)
+            local serverEventCall, text14, number12
+            if localValue33 then
               serverEventCall = TriggerServerEvent
-              textValue14 = "6f29153e97"
-              numberValue12 = "~r~You ended the job"
+              text14 = "6f29153e97"
+              number12 = "~r~You ended the job"
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6f29153e97".
-              serverEventCall(textValue14, numberValue12)
+              serverEventCall(text14, number12)
             end
           end
           -- Beginner: Draw a selectable RageUI menu button.
-          arg12(arg22, arg32, dataTable5, flag12, textValue15)
+          localValue12(localValue22, localValue32, dataCollection5, stateFlag12, text15)
         end
       end
-      arg12 = RageUI
-      arg12 = arg12.Separator
-      arg22 = "Current Level: "
-      arg32 = tostring
-      dataTable5 = textValue16
-      dataTable5 = dataTable5[1]
-      arg32 = arg32(dataTable5)
-      arg22 = arg22 .. arg32
-      arg12(arg22)
-      arg12 = getMoneyStringFormatted
-      arg22 = tostring
-      arg32 = math
-      arg32 = arg32.floor
-      dataTable5 = textValue16
-      dataTable5 = dataTable5[2]
-      arg32, dataTable5, flag12, textValue15, workValue10 = arg32(dataTable5)
-      arg22, arg32, dataTable5, flag12, textValue15, workValue10 = arg22(arg32, dataTable5, flag12, textValue15, workValue10)
-      arg12 = arg12(arg22, arg32, dataTable5, flag12, textValue15, workValue10)
-      arg22 = getMoneyStringFormatted
-      arg32 = tostring
-      dataTable5 = math
-      dataTable5 = dataTable5.floor
-      flag12 = textValue16
-      flag12 = flag12[3]
-      dataTable5, flag12, textValue15, workValue10 = dataTable5(flag12)
-      arg32, dataTable5, flag12, textValue15, workValue10 = arg32(dataTable5, flag12, textValue15, workValue10)
-      arg22 = arg22(arg32, dataTable5, flag12, textValue15, workValue10)
-      arg32 = RageUI
-      arg32 = arg32.Separator
-      dataTable5 = textValue16
-      dataTable5 = dataTable5[2]
-      flag12 = textValue16
-      flag12 = flag12[3]
-      if dataTable5 ~= flag12 then
-        dataTable5 = "Payout: \194\163"
-        flag12 = arg12
-        textValue15 = "-\194\163"
-        workValue10 = arg22
-        dataTable5 = dataTable5 .. flag12 .. textValue15 .. workValue10
-        if dataTable5 then
-          goto flow_label_92
+      localValue12 = RageUI
+      localValue12 = localValue12.Separator
+      localValue22 = "Current Level: "
+      localValue32 = tostring
+      dataCollection5 = text16
+      dataCollection5 = dataCollection5[1]
+      localValue32 = localValue32(dataCollection5)
+      localValue22 = localValue22 .. localValue32
+      localValue12(localValue22)
+      localValue12 = getMoneyStringFormatted
+      localValue22 = tostring
+      localValue32 = math
+      localValue32 = localValue32.floor
+      dataCollection5 = text16
+      dataCollection5 = dataCollection5[2]
+      localValue32, dataCollection5, stateFlag12, text15, workingValue10 = localValue32(dataCollection5)
+      localValue22, localValue32, dataCollection5, stateFlag12, text15, workingValue10 = localValue22(localValue32, dataCollection5, stateFlag12, text15, workingValue10)
+      localValue12 = localValue12(localValue22, localValue32, dataCollection5, stateFlag12, text15, workingValue10)
+      localValue22 = getMoneyStringFormatted
+      localValue32 = tostring
+      dataCollection5 = math
+      dataCollection5 = dataCollection5.floor
+      stateFlag12 = text16
+      stateFlag12 = stateFlag12[3]
+      dataCollection5, stateFlag12, text15, workingValue10 = dataCollection5(stateFlag12)
+      localValue32, dataCollection5, stateFlag12, text15, workingValue10 = localValue32(dataCollection5, stateFlag12, text15, workingValue10)
+      localValue22 = localValue22(localValue32, dataCollection5, stateFlag12, text15, workingValue10)
+      localValue32 = RageUI
+      localValue32 = localValue32.Separator
+      dataCollection5 = text16
+      dataCollection5 = dataCollection5[2]
+      stateFlag12 = text16
+      stateFlag12 = stateFlag12[3]
+      if dataCollection5 ~= stateFlag12 then
+        dataCollection5 = "Payout: \194\163"
+        stateFlag12 = localValue12
+        text15 = "-\194\163"
+        workingValue10 = localValue22
+        dataCollection5 = dataCollection5 .. stateFlag12 .. text15 .. workingValue10
+        if dataCollection5 then
+          goto continueAtStep92
         end
       end
-      dataTable5 = "Payout: \194\163"
-      flag12 = arg12
-      dataTable5 = dataTable5 .. flag12
-      ::flow_label_92::
-      arg32(dataTable5)
+      dataCollection5 = "Payout: \194\163"
+      stateFlag12 = localValue12
+      dataCollection5 = dataCollection5 .. stateFlag12
+      ::continueAtStep92::
+      localValue32(dataCollection5)
     end
   end
-  arg1(arg2, arg3, arg4, textValue13, iterator)
+  localValue1(localValue2, localValue3, localValue4, text13, iterator)
 end
-rageUiCall(cmgCall4, textValue2, workValue4, workValue5)
-rageUiCall = AddEventHandler
-cmgCall4 = "CMG:onClientSpawn"
+rageUiOperation(cmgOperation4, text2, workingValue4, workingValue5)
+rageUiOperation = AddEventHandler
+cmgOperation4 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2) ===
-function textValue2(arg1, arg2)
-  local arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5, textValue3, dataTable2, textValue4, numberValue5, workValue6, workValue7, workValue8, dataTable3
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2) ===
+function text2(localValue1, localValue2)
+  local localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5, text3, dataCollection2, text4, number5, workingValue6, workingValue7, workingValue8, dataCollection3
+  if localValue2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = drawNativeNotification
-      arg22 = "Press ~INPUT_PICKUP~ to open the Trucking menu."
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = drawNativeNotification
+      localValue22 = "Press ~INPUT_PICKUP~ to open the Trucking menu."
       -- Beginner: Show a GTA-style notification/help prompt.
-      arg12(arg22)
+      localValue12(localValue22)
     end
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION: arg4() ===
-    function arg4()
-      local arg12, arg22
-      arg12 = workValue
-      arg12()
+    -- === HELPER FUNCTION: localValue4() ===
+    function localValue4()
+      local localValue12, localValue22
+      localValue12 = workingValue
+      localValue12()
     end
 
-    -- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg12) ===
-    function textValue13(arg12)
-      local arg22, arg32, dataTable5
-      arg22 = IsControlJustReleased
-      arg32 = 1
-      dataTable5 = 38
-      arg22 = arg22(arg32, dataTable5)
-      if arg22 then
-        arg22 = CMG
-        arg22 = arg22.hasClientGroup
-        arg32 = "Trucking"
-        arg22 = arg22(arg32)
-        if arg22 then
-          arg22 = cmgCall3
-          arg32 = arg12.job
-          arg22(arg32)
+    -- === HELPER FUNCTION (decompiler name: text13; parameters: localValue12) ===
+    function text13(localValue12)
+      local localValue22, localValue32, dataCollection5
+      localValue22 = IsControlJustReleased
+      localValue32 = 1
+      dataCollection5 = 38
+      localValue22 = localValue22(localValue32, dataCollection5)
+      if localValue22 then
+        localValue22 = CMG
+        localValue22 = localValue22.hasClientGroup
+        localValue32 = "Trucking"
+        localValue22 = localValue22(localValue32)
+        if localValue22 then
+          localValue22 = cmgOperation3
+          localValue32 = localValue12.job
+          localValue22(localValue32)
         else
-          arg22 = tCMG
-          arg22 = arg22.notify
-          arg32 = "~r~You aren't clocked on as a Trucking, head to cityhall to sign up."
+          localValue22 = tCMG
+          localValue22 = localValue22.notify
+          localValue32 = "~r~You aren't clocked on as a Trucking, head to cityhall to sign up."
           -- Beginner: Show a notification to the player.
-          arg22(arg32)
+          localValue22(localValue32)
         end
       end
     end
     iterator = pairs
-    numberValue13 = cmgCall.jobs
-    iterator, numberValue13, workValue11, numberValue14 = iterator(numberValue13)
-    for numberValue15, numberValue in iterator, numberValue13, workValue11, numberValue14 do
-      numberValue2 = numberValue.config
-      flag3 = numberValue2[1]
-      cmgCall2 = type
-      flag4 = flag3
-      cmgCall2 = cmgCall2(flag4)
-      if "vector3" == cmgCall2 then
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.createArea
-        flag4 = "trucking_"
-        flag5 = numberValue15
-        flag4 = flag4 .. flag5
-        flag5 = numberValue2[1]
-        flag6 = 1.15
-        numberValue4 = 6
-        flag7 = arg3
-        cmgCall5 = arg4
-        textValue3 = textValue13
-        dataTable2 = {}
-        dataTable2.job = numberValue15
+    number13 = cmgOperation.jobs
+    iterator, number13, workingValue11, number14 = iterator(number13)
+    for number15, number in iterator, number13, workingValue11, number14 do
+      number2 = number.config
+      stateFlag3 = number2[1]
+      cmgOperation2 = type
+      stateFlag4 = stateFlag3
+      cmgOperation2 = cmgOperation2(stateFlag4)
+      if "vector3" == cmgOperation2 then
+        cmgOperation2 = CMG
+        cmgOperation2 = cmgOperation2.createArea
+        stateFlag4 = "trucking_"
+        stateFlag5 = number15
+        stateFlag4 = stateFlag4 .. stateFlag5
+        stateFlag5 = number2[1]
+        stateFlag6 = 1.15
+        number4 = 6
+        stateFlag7 = localValue3
+        cmgOperation5 = localValue4
+        text3 = text13
+        dataCollection2 = {}
+        dataCollection2.job = number15
         -- Beginner: Create an interaction area around a world position.
-        cmgCall2(flag4, flag5, flag6, numberValue4, flag7, cmgCall5, textValue3, dataTable2)
+        cmgOperation2(stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5, text3, dataCollection2)
       else
-        cmgCall2 = pairs
-        flag4 = flag3
-        cmgCall2, flag4, flag5, flag6 = cmgCall2(flag4)
-        for numberValue4, flag7 in cmgCall2, flag4, flag5, flag6 do
-          cmgCall5 = CMG
-          cmgCall5 = cmgCall5.createArea
-          textValue3 = "trucking_"
-          dataTable2 = numberValue15
-          textValue4 = "_"
-          numberValue5 = numberValue4
-          textValue3 = textValue3 .. dataTable2 .. textValue4 .. numberValue5
-          dataTable2 = flag7
-          textValue4 = 1.15
-          numberValue5 = 6
-          workValue6 = arg3
-          workValue7 = arg4
-          workValue8 = textValue13
-          dataTable3 = {}
-          dataTable3.job = numberValue15
-          cmgCall5(textValue3, dataTable2, textValue4, numberValue5, workValue6, workValue7, workValue8, dataTable3)
+        cmgOperation2 = pairs
+        stateFlag4 = stateFlag3
+        cmgOperation2, stateFlag4, stateFlag5, stateFlag6 = cmgOperation2(stateFlag4)
+        for number4, stateFlag7 in cmgOperation2, stateFlag4, stateFlag5, stateFlag6 do
+          cmgOperation5 = CMG
+          cmgOperation5 = cmgOperation5.createArea
+          text3 = "trucking_"
+          dataCollection2 = number15
+          text4 = "_"
+          number5 = number4
+          text3 = text3 .. dataCollection2 .. text4 .. number5
+          dataCollection2 = stateFlag7
+          text4 = 1.15
+          number5 = 6
+          workingValue6 = localValue3
+          workingValue7 = localValue4
+          workingValue8 = text13
+          dataCollection3 = {}
+          dataCollection3.job = number15
+          cmgOperation5(text3, dataCollection2, text4, number5, workingValue6, workingValue7, workingValue8, dataCollection3)
         end
       end
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-rageUiCall(cmgCall4, textValue2)
+rageUiOperation(cmgOperation4, text2)
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
-function rageUiCall(arg1)
-  local arg2, arg3, arg4, textValue13
-  arg2 = math
-  arg2 = arg2.randomseed
-  arg3 = GetGameTimer
-  arg3, arg4, textValue13 = arg3()
-  arg2(arg3, arg4, textValue13)
-  arg2 = math
-  arg2 = arg2.random
-  arg3 = 1
-  arg4 = #arg1
-  arg2 = arg2(arg3, arg4)
-  arg3 = math
-  arg3 = arg3.random
-  arg4 = 1
-  textValue13 = #arg1
-  arg3 = arg3(arg4, textValue13)
-  arg2 = arg3
-  arg3 = math
-  arg3 = arg3.random
-  arg4 = 1
-  textValue13 = #arg1
-  arg3 = arg3(arg4, textValue13)
-  arg2 = arg3
-  return arg2
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: localValue1) ===
+function rageUiOperation(localValue1)
+  local localValue2, localValue3, localValue4, text13
+  localValue2 = math
+  localValue2 = localValue2.randomseed
+  localValue3 = GetGameTimer
+  localValue3, localValue4, text13 = localValue3()
+  localValue2(localValue3, localValue4, text13)
+  localValue2 = math
+  localValue2 = localValue2.random
+  localValue3 = 1
+  localValue4 = #localValue1
+  localValue2 = localValue2(localValue3, localValue4)
+  localValue3 = math
+  localValue3 = localValue3.random
+  localValue4 = 1
+  text13 = #localValue1
+  localValue3 = localValue3(localValue4, text13)
+  localValue2 = localValue3
+  localValue3 = math
+  localValue3 = localValue3.random
+  localValue4 = 1
+  text13 = #localValue1
+  localValue3 = localValue3(localValue4, text13)
+  localValue2 = localValue3
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6
-  arg1 = dataTable
-  arg2 = arg1[2]
-  arg3 = AddBlipForCoord
-  arg4 = arg2.x
-  textValue13 = arg2.y
-  iterator = arg2.z
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6
+  localValue1 = dataCollection
+  localValue2 = localValue1[2]
+  localValue3 = AddBlipForCoord
+  localValue4 = localValue2.x
+  text13 = localValue2.y
+  iterator = localValue2.z
   -- Beginner: result below is blipHandle.
-  arg3 = arg3(arg4, textValue13, iterator)
-  dataTable6.job = arg3
-  arg3 = false
-  flag2 = arg3
-  arg3 = SetBlipSprite
-  arg4 = dataTable6.job
-  textValue13 = arg1.blip
-  arg3(arg4, textValue13)
-  arg3 = SetBlipRoute
-  arg4 = dataTable6.job
-  textValue13 = true
-  arg3(arg4, textValue13)
-  arg3 = NetworkGetNetworkIdFromEntity
-  arg4 = GetVehiclePedIsIn
-  textValue13 = PlayerPedId
+  localValue3 = localValue3(localValue4, text13, iterator)
+  dataCollection6.job = localValue3
+  localValue3 = false
+  stateFlag2 = localValue3
+  localValue3 = SetBlipSprite
+  localValue4 = dataCollection6.job
+  text13 = localValue1.blip
+  localValue3(localValue4, text13)
+  localValue3 = SetBlipRoute
+  localValue4 = dataCollection6.job
+  text13 = true
+  localValue3(localValue4, text13)
+  localValue3 = NetworkGetNetworkIdFromEntity
+  localValue4 = GetVehiclePedIsIn
+  text13 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  textValue13 = textValue13()
+  text13 = text13()
   iterator = false
-  arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6 = arg4(textValue13, iterator)
-  arg3 = arg3(arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6)
-  arg4 = TriggerServerEvent
-  textValue13 = "22348440e3"
-  iterator = arg3
+  localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6 = localValue4(text13, iterator)
+  localValue3 = localValue3(localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6)
+  localValue4 = TriggerServerEvent
+  text13 = "22348440e3"
+  iterator = localValue3
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "22348440e3".
-  arg4(textValue13, iterator)
-  arg4 = DeleteCheckpoint
-  textValue13 = cmgCall10.trailer
-  arg4(textValue13)
-  arg4 = GetVehiclePedIsIn
-  textValue13 = PlayerPedId
+  localValue4(text13, iterator)
+  localValue4 = DeleteCheckpoint
+  text13 = cmgOperation10.trailer
+  localValue4(text13)
+  localValue4 = GetVehiclePedIsIn
+  text13 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  textValue13 = textValue13()
+  text13 = text13()
   iterator = false
   -- Beginner: result below is currentVehicle.
-  arg4 = arg4(textValue13, iterator)
-  dataTable4.vehicle = arg4
-  arg4 = CreateCheckpoint
-  textValue13 = numberValue3
-  iterator = arg2.x
-  numberValue13 = arg2.y
-  workValue11 = arg2.z
-  workValue11 = workValue11 - 1.0
-  numberValue14 = 0
-  numberValue15 = 0
-  numberValue = 0
-  numberValue2 = 10.0
-  flag3 = 0
-  cmgCall2 = 255
-  flag4 = 0
-  flag5 = 127
-  flag6 = 0
+  localValue4 = localValue4(text13, iterator)
+  dataCollection4.vehicle = localValue4
+  localValue4 = CreateCheckpoint
+  text13 = number3
+  iterator = localValue2.x
+  number13 = localValue2.y
+  workingValue11 = localValue2.z
+  workingValue11 = workingValue11 - 1.0
+  number14 = 0
+  number15 = 0
+  number = 0
+  number2 = 10.0
+  stateFlag3 = 0
+  cmgOperation2 = 255
+  stateFlag4 = 0
+  stateFlag5 = 127
+  stateFlag6 = 0
   -- Beginner: result below is checkpointHandle.
-  arg4 = arg4(textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6)
-  dataTable4.checkpoint = arg4
-  arg4 = SetCheckpointCylinderHeight
-  textValue13 = dataTable4.checkpoint
+  localValue4 = localValue4(text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6)
+  dataCollection4.checkpoint = localValue4
+  localValue4 = SetCheckpointCylinderHeight
+  text13 = dataCollection4.checkpoint
   iterator = 50.0
-  numberValue13 = 100.0
-  workValue11 = 25.0
-  arg4(textValue13, iterator, numberValue13, workValue11)
+  number13 = 100.0
+  workingValue11 = 25.0
+  localValue4(text13, iterator, number13, workingValue11)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2, arg3, arg4) ===
-function textValue2(arg1, arg2, arg3, arg4)
-  local textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3
-  textValue13 = CMG
-  textValue13 = textValue13.requestEntitySpawn
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function text2(localValue1, localValue2, localValue3, localValue4)
+  local text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3
+  text13 = CMG
+  text13 = text13.requestEntitySpawn
   iterator = "truckjob_trailer"
-  numberValue13 = arg1
-  workValue11 = arg2
-  textValue13(iterator, numberValue13, workValue11)
-  textValue13 = CMG
-  textValue13 = textValue13.spawnVehicle
-  iterator = arg1
-  numberValue13 = arg2.x
-  workValue11 = arg2.y
-  numberValue14 = arg2.z
-  numberValue15 = arg3
-  numberValue = false
-  numberValue2 = true
-  flag3 = true
-  textValue13 = textValue13(iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3)
+  number13 = localValue1
+  workingValue11 = localValue2
+  text13(iterator, number13, workingValue11)
+  text13 = CMG
+  text13 = text13.spawnVehicle
+  iterator = localValue1
+  number13 = localValue2.x
+  workingValue11 = localValue2.y
+  number14 = localValue2.z
+  number15 = localValue3
+  number = false
+  number2 = true
+  stateFlag3 = true
+  text13 = text13(iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3)
   iterator = TriggerServerEvent
-  numberValue13 = "1e0bbaf6cd"
-  workValue11 = arg1
-  numberValue14 = "trucking_job"
+  number13 = "1e0bbaf6cd"
+  workingValue11 = localValue1
+  number14 = "trucking_job"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1e0bbaf6cd".
-  iterator(numberValue13, workValue11, numberValue14)
+  iterator(number13, workingValue11, number14)
   iterator = NetworkGetEntityIsNetworked
-  numberValue13 = textValue13
-  iterator = iterator(numberValue13)
+  number13 = text13
+  iterator = iterator(number13)
   if iterator then
     iterator = NetworkGetNetworkIdFromEntity
-    numberValue13 = textValue13
-    iterator = iterator(numberValue13)
+    number13 = text13
+    iterator = iterator(number13)
     if iterator > 0 then
-      numberValue13 = TriggerServerEvent
-      workValue11 = "e32e549079"
-      numberValue14 = iterator
-      numberValue13(workValue11, numberValue14)
+      number13 = TriggerServerEvent
+      workingValue11 = "e32e549079"
+      number14 = iterator
+      number13(workingValue11, number14)
     end
   end
-  if nil ~= arg4 then
+  if nil ~= localValue4 then
     iterator = 1
-    numberValue13 = 9
-    workValue11 = 1
-    for numberValue14 = iterator, numberValue13, workValue11 do
-      numberValue15 = SetVehicleExtra
-      numberValue = textValue13
-      numberValue2 = numberValue14
-      flag3 = true
-      numberValue15(numberValue, numberValue2, flag3)
+    number13 = 9
+    workingValue11 = 1
+    for number14 = iterator, number13, workingValue11 do
+      number15 = SetVehicleExtra
+      number = text13
+      number2 = number14
+      stateFlag3 = true
+      number15(number, number2, stateFlag3)
     end
     iterator = SetVehicleExtra
-    numberValue13 = textValue13
-    workValue11 = arg4
-    numberValue14 = false
-    iterator(numberValue13, workValue11, numberValue14)
+    number13 = text13
+    workingValue11 = localValue4
+    number14 = false
+    iterator(number13, workingValue11, number14)
   end
   iterator = SetTrailerLegsLowered
   iterator()
-  return textValue13
+  return text13
 end
-workValue4 = Citizen
-workValue4 = workValue4.CreateThread
+workingValue4 = Citizen
+workingValue4 = workingValue4.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerPed
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    if 0 ~= arg1 then
-      arg2 = pairs
-      arg3 = CMG
-      arg3 = arg3.getAllVehicles
-      arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue = arg3()
-      arg2, arg3, arg4, textValue13 = arg2(arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue)
-      for iterator, numberValue13 in arg2, arg3, arg4, textValue13 do
-        workValue11 = DoesEntityExist
-        numberValue14 = numberValue13
-        workValue11 = workValue11(numberValue14)
-        if workValue11 then
-          workValue11 = Entity
-          numberValue14 = numberValue13
-          workValue11 = workValue11(numberValue14)
-          workValue11 = workValue11.state
-          workValue11 = workValue11.truckJob
-          if workValue11 then
-            workValue11 = SetEntityNoCollisionEntity
-            numberValue14 = numberValue13
-            numberValue15 = arg1
-            numberValue = false
-            workValue11(numberValue14, numberValue15, numberValue)
-            workValue11 = SetEntityNoCollisionEntity
-            numberValue14 = arg1
-            numberValue15 = numberValue13
-            numberValue = false
-            workValue11(numberValue14, numberValue15, numberValue)
+    localValue1 = localValue1()
+    if 0 ~= localValue1 then
+      localValue2 = pairs
+      localValue3 = CMG
+      localValue3 = localValue3.getAllVehicles
+      localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number = localValue3()
+      localValue2, localValue3, localValue4, text13 = localValue2(localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number)
+      for iterator, number13 in localValue2, localValue3, localValue4, text13 do
+        workingValue11 = DoesEntityExist
+        number14 = number13
+        workingValue11 = workingValue11(number14)
+        if workingValue11 then
+          workingValue11 = Entity
+          number14 = number13
+          workingValue11 = workingValue11(number14)
+          workingValue11 = workingValue11.state
+          workingValue11 = workingValue11.truckJob
+          if workingValue11 then
+            workingValue11 = SetEntityNoCollisionEntity
+            number14 = number13
+            number15 = localValue1
+            number = false
+            workingValue11(number14, number15, number)
+            workingValue11 = SetEntityNoCollisionEntity
+            number14 = localValue1
+            number15 = number13
+            number = false
+            workingValue11(number14, number15, number)
           end
         end
       end
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 500
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 500
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-workValue4(workValue5)
+workingValue4(workingValue5)
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
-function workValue4(arg1, arg2, arg3)
-  local arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5
-  arg4 = tCMG
-  arg4 = arg4.removeArea
-  textValue13 = "trucking_spawn"
-  arg4(textValue13)
-  arg4 = rageUiCall3
-  arg4 = #arg4
-  arg4 = arg4 + 1
-  textValue13 = rageUiCall3
-  textValue13[arg4] = true
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2, localValue3) ===
+function workingValue4(localValue1, localValue2, localValue3)
+  local localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5
+  localValue4 = tCMG
+  localValue4 = localValue4.removeArea
+  text13 = "trucking_spawn"
+  localValue4(text13)
+  localValue4 = rageUiOperation3
+  localValue4 = #localValue4
+  localValue4 = localValue4 + 1
+  text13 = rageUiOperation3
+  text13[localValue4] = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue13; parameters: none) ===
-  function textValue13()
-    local arg12, arg22, arg32, dataTable5
-    arg22 = arg4
-    arg12 = rageUiCall3
-    arg12 = arg12[arg22]
-    if arg12 then
-      arg12 = textValue2
-      arg22 = arg2
-      arg32 = arg1
-      dataTable5 = arg3
-      arg12 = arg12(arg22, arg32, dataTable5)
-      dataTable4.trailer = arg12
-      arg22 = arg4
-      arg12 = rageUiCall3
-      arg12[arg22] = false
+  -- === HELPER FUNCTION (decompiler name: text13; parameters: none) ===
+  function text13()
+    local localValue12, localValue22, localValue32, dataCollection5
+    localValue22 = localValue4
+    localValue12 = rageUiOperation3
+    localValue12 = localValue12[localValue22]
+    if localValue12 then
+      localValue12 = text2
+      localValue22 = localValue2
+      localValue32 = localValue1
+      dataCollection5 = localValue3
+      localValue12 = localValue12(localValue22, localValue32, dataCollection5)
+      dataCollection4.trailer = localValue12
+      localValue22 = localValue4
+      localValue12 = rageUiOperation3
+      localValue12[localValue22] = false
     end
   end
 
   -- === HELPER FUNCTION: iterator() ===
   function iterator()
-    local arg12, arg22
+    local localValue12, localValue22
   end
 
-  -- === HELPER FUNCTION (decompiler name: numberValue13; parameters: none) ===
-  function numberValue13()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: number13; parameters: none) ===
+  function number13()
+    local localValue12, localValue22
   end
-  workValue11 = CMG
-  workValue11 = workValue11.createArea
-  numberValue14 = "trucking_spawn"
-  numberValue15 = arg1
-  numberValue = 106
-  numberValue2 = 6
-  flag3 = textValue13
-  cmgCall2 = iterator
-  flag4 = numberValue13
-  flag5 = {}
+  workingValue11 = CMG
+  workingValue11 = workingValue11.createArea
+  number14 = "trucking_spawn"
+  number15 = localValue1
+  number = 106
+  number2 = 6
+  stateFlag3 = text13
+  cmgOperation2 = iterator
+  stateFlag4 = number13
+  stateFlag5 = {}
   -- Beginner: Create an interaction area around a world position.
-  workValue11(numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5)
-  return arg4
+  workingValue11(number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5)
+  return localValue4
 end
-workValue5 = RegisterNetEvent
-textValue5 = "3216f44327"
+workingValue5 = RegisterNetEvent
+text5 = "3216f44327"
 -- Beginner: this function handles network event "3216f44327".
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
-function cmgCall6(arg1, arg2)
-  local arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5
-  dataTable = arg1
-  arg1 = arg1[1]
-  arg3 = rageUiCall
-  arg4 = arg1.trailers
-  arg3 = arg3(arg4)
-  if not arg2 then
-    arg4 = workValue2
-    textValue13 = arg1.trailerSpawns
-    textValue13 = textValue13.docks
-    arg4 = arg4(textValue13)
-    if arg4 then
-      textValue13 = notify
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1, localValue2) ===
+function cmgOperation6(localValue1, localValue2)
+  local localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5
+  dataCollection = localValue1
+  localValue1 = localValue1[1]
+  localValue3 = rageUiOperation
+  localValue4 = localValue1.trailers
+  localValue3 = localValue3(localValue4)
+  if not localValue2 then
+    localValue4 = workingValue2
+    text13 = localValue1.trailerSpawns
+    text13 = text13.docks
+    localValue4 = localValue4(text13)
+    if localValue4 then
+      text13 = notify
       iterator = "~y~Notice: Government regulations have limited trucking to 150 MPH"
       -- Beginner: Show a notification to the player.
-      textValue13(iterator)
-      textValue13 = GetEntityModel
+      text13(iterator)
+      text13 = GetEntityModel
       iterator = CMG
       iterator = iterator.getPlayerPed
-      iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5 = iterator()
+      iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5 = iterator()
       -- Beginner: result below is modelHash.
-      textValue13 = textValue13(iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5)
-      if 1885233650 == textValue13 then
-        textValue13 = CMG
-        textValue13 = textValue13.loadCustomisationPreset
+      text13 = text13(iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5)
+      if 1885233650 == text13 then
+        text13 = CMG
+        text13 = text13.loadCustomisationPreset
         iterator = "TruckerMale"
-        textValue13(iterator)
+        text13(iterator)
       else
-        textValue13 = GetEntityModel
+        text13 = GetEntityModel
         iterator = CMG
         iterator = iterator.getPlayerPed
-        iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5 = iterator()
+        iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5 = iterator()
         -- Beginner: result below is modelHash.
-        textValue13 = textValue13(iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5)
-        if -1667301416 == textValue13 then
-          textValue13 = CMG
-          textValue13 = textValue13.loadCustomisationPreset
+        text13 = text13(iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5)
+        if -1667301416 == text13 then
+          text13 = CMG
+          text13 = text13.loadCustomisationPreset
           iterator = "TruckerFemale"
-          textValue13(iterator)
+          text13(iterator)
         else
-          textValue13 = CMG
-          textValue13 = textValue13.loadCustomisationPreset
+          text13 = CMG
+          text13 = text13.loadCustomisationPreset
           iterator = "TruckerMale"
-          textValue13(iterator)
+          text13(iterator)
         end
       end
-      textValue13 = textValue2
-      iterator = arg1.trailers
-      iterator = iterator[arg3]
+      text13 = text2
+      iterator = localValue1.trailers
+      iterator = iterator[localValue3]
       iterator = iterator[1]
-      numberValue13 = arg4
-      workValue11 = arg1.trailerSpawns
-      workValue11 = workValue11.docks
-      numberValue14 = rageUiCall2
-      workValue11 = workValue11[numberValue14]
-      workValue11 = workValue11[1]
-      numberValue14 = arg1.trailers
-      numberValue14 = numberValue14[arg3]
-      numberValue14 = numberValue14[2]
-      textValue13 = textValue13(iterator, numberValue13, workValue11, numberValue14)
-      dataTable4.trailer = textValue13
-      textValue13 = GetEntityCoords
-      iterator = dataTable4.trailer
+      number13 = localValue4
+      workingValue11 = localValue1.trailerSpawns
+      workingValue11 = workingValue11.docks
+      number14 = rageUiOperation2
+      workingValue11 = workingValue11[number14]
+      workingValue11 = workingValue11[1]
+      number14 = localValue1.trailers
+      number14 = number14[localValue3]
+      number14 = number14[2]
+      text13 = text13(iterator, number13, workingValue11, number14)
+      dataCollection4.trailer = text13
+      text13 = GetEntityCoords
+      iterator = dataCollection4.trailer
       -- Beginner: result below is entityCoords.
-      textValue13 = textValue13(iterator)
+      text13 = text13(iterator)
       iterator = AddBlipForCoord
-      numberValue13 = textValue13.x
-      workValue11 = textValue13.y
-      numberValue14 = textValue13.z
+      number13 = text13.x
+      workingValue11 = text13.y
+      number14 = text13.z
       -- Beginner: result below is blipHandle.
-      iterator = iterator(numberValue13, workValue11, numberValue14)
-      dataTable6.trailer = iterator
+      iterator = iterator(number13, workingValue11, number14)
+      dataCollection6.trailer = iterator
       iterator = SetBlipSprite
-      numberValue13 = dataTable6.trailer
-      workValue11 = 479
-      iterator(numberValue13, workValue11)
+      number13 = dataCollection6.trailer
+      workingValue11 = 479
+      iterator(number13, workingValue11)
       iterator = SetBlipRoute
-      numberValue13 = dataTable6.trailer
-      workValue11 = true
-      iterator(numberValue13, workValue11)
+      number13 = dataCollection6.trailer
+      workingValue11 = true
+      iterator(number13, workingValue11)
       iterator = SetBlipAsShortRange
-      numberValue13 = dataTable6.trailer
-      workValue11 = false
-      iterator(numberValue13, workValue11)
+      number13 = dataCollection6.trailer
+      workingValue11 = false
+      iterator(number13, workingValue11)
       iterator = CreateCheckpoint
-      numberValue13 = numberValue3
-      workValue11 = arg4.x
-      numberValue14 = arg4.y
-      numberValue15 = arg4.z
-      numberValue15 = numberValue15 - 1.0
-      numberValue = 0
-      numberValue2 = 0
-      flag3 = 0
-      cmgCall2 = 10.0
-      flag4 = 0
-      flag5 = 255
-      flag6 = 0
-      numberValue4 = 127
-      flag7 = 0
+      number13 = number3
+      workingValue11 = localValue4.x
+      number14 = localValue4.y
+      number15 = localValue4.z
+      number15 = number15 - 1.0
+      number = 0
+      number2 = 0
+      stateFlag3 = 0
+      cmgOperation2 = 10.0
+      stateFlag4 = 0
+      stateFlag5 = 255
+      stateFlag6 = 0
+      number4 = 127
+      stateFlag7 = 0
       -- Beginner: result below is checkpointHandle.
-      iterator = iterator(numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7)
-      cmgCall10.trailer = iterator
+      iterator = iterator(number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7)
+      cmgOperation10.trailer = iterator
       iterator = SetCheckpointCylinderHeight
-      numberValue13 = cmgCall10.trailer
-      workValue11 = 50.0
-      numberValue14 = 100.0
-      numberValue15 = 25.0
-      iterator(numberValue13, workValue11, numberValue14, numberValue15)
+      number13 = cmgOperation10.trailer
+      workingValue11 = 50.0
+      number14 = 100.0
+      number15 = 25.0
+      iterator(number13, workingValue11, number14, number15)
       iterator = Citizen
       iterator = iterator.CreateThread
 
-      -- === HELPER FUNCTION (decompiler name: numberValue13; parameters: none) ===
-      function numberValue13()
-        local arg12, arg22, arg32
+      -- === HELPER FUNCTION (decompiler name: number13; parameters: none) ===
+      function number13()
+        local localValue12, localValue22, localValue32
         while true do
-          arg12 = GetVehiclePedIsIn
-          arg22 = PlayerPedId
+          localValue12 = GetVehiclePedIsIn
+          localValue22 = PlayerPedId
           -- Beginner: result below is localPlayerPed.
-          arg22 = arg22()
-          arg32 = false
+          localValue22 = localValue22()
+          localValue32 = false
           -- Beginner: result below is currentVehicle.
-          arg12 = arg12(arg22, arg32)
-          if 0 ~= arg12 then
+          localValue12 = localValue12(localValue22, localValue32)
+          if 0 ~= localValue12 then
             break
           end
-          arg12 = flag
-          if not arg12 then
+          localValue12 = stateFlag
+          if not localValue12 then
             break
           end
-          arg12 = drawNativeText
-          arg22 = "~g~Rent or buy a truck outside then pickup your trailer to complete the job."
+          localValue12 = drawNativeText
+          localValue22 = "~g~Rent or buy a truck outside then pickup your trailer to complete the job."
           -- Beginner: Draw GTA-style text on screen.
-          arg12(arg22)
-          arg12 = Wait
-          arg22 = 0
-          arg12(arg22)
+          localValue12(localValue22)
+          localValue12 = Wait
+          localValue22 = 0
+          localValue12(localValue22)
         end
       end
       -- Beginner: Start a separate FiveM thread so this code can run independently.
-      iterator(numberValue13)
+      iterator(number13)
       iterator = CreateScaleform
-      numberValue13 = 2
-      workValue11 = "~y~Job Started!"
-      numberValue14 = "Pick up your trailer outside!"
-      iterator(numberValue13, workValue11, numberValue14)
+      number13 = 2
+      workingValue11 = "~y~Job Started!"
+      number14 = "Pick up your trailer outside!"
+      iterator(number13, workingValue11, number14)
       iterator = true
-      flag = iterator
+      stateFlag = iterator
     else
-      textValue13 = TriggerServerEvent
+      text13 = TriggerServerEvent
       iterator = "6f29153e97"
-      numberValue13 = "Job Cancelled!"
-      workValue11 = "No space for trailers outside!"
+      number13 = "Job Cancelled!"
+      workingValue11 = "No space for trailers outside!"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6f29153e97".
-      textValue13(iterator, numberValue13, workValue11)
+      text13(iterator, number13, workingValue11)
     end
   else
-    arg4 = rageUiCall
-    textValue13 = arg1.trailerSpawns
-    textValue13 = textValue13.pickup
-    arg4 = arg4(textValue13)
-    textValue13 = arg1.trailerSpawns
-    textValue13 = textValue13.pickup
-    textValue13 = textValue13[arg4]
-    textValue13 = textValue13[2]
-    iterator = workValue4
-    numberValue13 = arg1.trailerSpawns
-    numberValue13 = numberValue13.pickup
-    numberValue13 = numberValue13[arg4]
-    numberValue13 = numberValue13[2]
-    workValue11 = arg1.trailers
-    workValue11 = workValue11[arg3]
-    workValue11 = workValue11[1]
-    numberValue14 = arg1.trailerSpawns
-    numberValue14 = numberValue14.pickup
-    numberValue14 = numberValue14[arg4]
-    numberValue14 = numberValue14[1]
+    localValue4 = rageUiOperation
+    text13 = localValue1.trailerSpawns
+    text13 = text13.pickup
+    localValue4 = localValue4(text13)
+    text13 = localValue1.trailerSpawns
+    text13 = text13.pickup
+    text13 = text13[localValue4]
+    text13 = text13[2]
+    iterator = workingValue4
+    number13 = localValue1.trailerSpawns
+    number13 = number13.pickup
+    number13 = number13[localValue4]
+    number13 = number13[2]
+    workingValue11 = localValue1.trailers
+    workingValue11 = workingValue11[localValue3]
+    workingValue11 = workingValue11[1]
+    number14 = localValue1.trailerSpawns
+    number14 = number14.pickup
+    number14 = number14[localValue4]
+    number14 = number14[1]
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    iterator(numberValue13, workValue11, numberValue14)
-    iterator = arg1.trailerSpawns
+    iterator(number13, workingValue11, number14)
+    iterator = localValue1.trailerSpawns
     iterator = iterator.pickup
-    iterator = iterator[arg4]
+    iterator = iterator[localValue4]
     iterator = iterator[2]
-    numberValue13 = AddBlipForCoord
-    workValue11 = iterator.x
-    numberValue14 = iterator.y
-    numberValue15 = iterator.z
+    number13 = AddBlipForCoord
+    workingValue11 = iterator.x
+    number14 = iterator.y
+    number15 = iterator.z
     -- Beginner: result below is blipHandle.
-    numberValue13 = numberValue13(workValue11, numberValue14, numberValue15)
-    dataTable6.trailer = numberValue13
-    numberValue13 = SetBlipSprite
-    workValue11 = dataTable6.trailer
-    numberValue14 = 479
-    numberValue13(workValue11, numberValue14)
-    numberValue13 = SetBlipRoute
-    workValue11 = dataTable6.trailer
-    numberValue14 = true
-    numberValue13(workValue11, numberValue14)
-    numberValue13 = SetBlipAsShortRange
-    workValue11 = dataTable6.trailer
-    numberValue14 = false
-    numberValue13(workValue11, numberValue14)
-    numberValue13 = CreateCheckpoint
-    workValue11 = numberValue3
-    numberValue14 = textValue13.x
-    numberValue15 = textValue13.y
-    numberValue = textValue13.z
-    numberValue = numberValue - 1.0
-    numberValue2 = 0
-    flag3 = 0
-    cmgCall2 = 0
-    flag4 = 10.0
-    flag5 = 0
-    flag6 = 255
-    numberValue4 = 0
-    flag7 = 127
-    cmgCall5 = 0
+    number13 = number13(workingValue11, number14, number15)
+    dataCollection6.trailer = number13
+    number13 = SetBlipSprite
+    workingValue11 = dataCollection6.trailer
+    number14 = 479
+    number13(workingValue11, number14)
+    number13 = SetBlipRoute
+    workingValue11 = dataCollection6.trailer
+    number14 = true
+    number13(workingValue11, number14)
+    number13 = SetBlipAsShortRange
+    workingValue11 = dataCollection6.trailer
+    number14 = false
+    number13(workingValue11, number14)
+    number13 = CreateCheckpoint
+    workingValue11 = number3
+    number14 = text13.x
+    number15 = text13.y
+    number = text13.z
+    number = number - 1.0
+    number2 = 0
+    stateFlag3 = 0
+    cmgOperation2 = 0
+    stateFlag4 = 10.0
+    stateFlag5 = 0
+    stateFlag6 = 255
+    number4 = 0
+    stateFlag7 = 127
+    cmgOperation5 = 0
     -- Beginner: result below is checkpointHandle.
-    numberValue13 = numberValue13(workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5)
-    cmgCall10.trailer = numberValue13
-    numberValue13 = SetCheckpointCylinderHeight
-    workValue11 = cmgCall10.trailer
-    numberValue14 = 50.0
-    numberValue15 = 100.0
-    numberValue = 25.0
-    numberValue13(workValue11, numberValue14, numberValue15, numberValue)
-    numberValue13 = DeleteCheckpoint
-    workValue11 = dataTable4.checkpoint
-    numberValue13(workValue11)
-    numberValue13 = false
-    flag14 = numberValue13
-    numberValue13 = Citizen
-    numberValue13 = numberValue13.CreateThread
+    number13 = number13(workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5)
+    cmgOperation10.trailer = number13
+    number13 = SetCheckpointCylinderHeight
+    workingValue11 = cmgOperation10.trailer
+    number14 = 50.0
+    number15 = 100.0
+    number = 25.0
+    number13(workingValue11, number14, number15, number)
+    number13 = DeleteCheckpoint
+    workingValue11 = dataCollection4.checkpoint
+    number13(workingValue11)
+    number13 = false
+    stateFlag14 = number13
+    number13 = Citizen
+    number13 = number13.CreateThread
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-    function workValue11()
-      local arg12, arg22, arg32
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+    function workingValue11()
+      local localValue12, localValue22, localValue32
       while true do
-        arg12 = GetVehiclePedIsIn
-        arg22 = PlayerPedId
+        localValue12 = GetVehiclePedIsIn
+        localValue22 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        arg22 = arg22()
-        arg32 = false
+        localValue22 = localValue22()
+        localValue32 = false
         -- Beginner: result below is currentVehicle.
-        arg12 = arg12(arg22, arg32)
-        if 0 ~= arg12 then
+        localValue12 = localValue12(localValue22, localValue32)
+        if 0 ~= localValue12 then
           break
         end
-        arg12 = flag
-        if not arg12 then
+        localValue12 = stateFlag
+        if not localValue12 then
           break
         end
-        arg12 = drawNativeText
-        arg22 = "~g~Rent or buy a truck outside then pickup your trailer to complete the job."
+        localValue12 = drawNativeText
+        localValue22 = "~g~Rent or buy a truck outside then pickup your trailer to complete the job."
         -- Beginner: Draw GTA-style text on screen.
-        arg12(arg22)
-        arg12 = Wait
-        arg22 = 0
-        arg12(arg22)
+        localValue12(localValue22)
+        localValue12 = Wait
+        localValue22 = 0
+        localValue12(localValue22)
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    numberValue13(workValue11)
-    numberValue13 = CreateScaleform
-    workValue11 = 2
-    numberValue14 = "~y~Job Started!"
-    numberValue15 = "Pick up your trailer at the blip on the map!"
-    numberValue13(workValue11, numberValue14, numberValue15)
+    number13(workingValue11)
+    number13 = CreateScaleform
+    workingValue11 = 2
+    number14 = "~y~Job Started!"
+    number15 = "Pick up your trailer at the blip on the map!"
+    number13(workingValue11, number14, number15)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3216f44327".
-workValue5(textValue5, cmgCall6)
-workValue5 = RegisterNetEvent
-textValue5 = "1374215996"
+workingValue5(text5, cmgOperation6)
+workingValue5 = RegisterNetEvent
+text5 = "1374215996"
 -- Beginner: this function handles network event "1374215996".
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-function cmgCall6()
-  local arg1, arg2, arg3, arg4
-  arg1 = TriggerServerEvent
-  arg2 = "881ad8757a"
-  arg3 = textValue
-  arg4 = true
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+function cmgOperation6()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = TriggerServerEvent
+  localValue2 = "881ad8757a"
+  localValue3 = text
+  localValue4 = true
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "881ad8757a".
-  arg1(arg2, arg3, arg4)
+  localValue1(localValue2, localValue3, localValue4)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1374215996".
-workValue5(textValue5, cmgCall6)
-workValue5 = Citizen
-workValue5 = workValue5.CreateThread
+workingValue5(text5, cmgOperation6)
+workingValue5 = Citizen
+workingValue5 = workingValue5.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11
   while true do
-    arg1 = PlayerPedId
+    localValue1 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = IsPedInAnyVehicle
-    arg3 = arg1
-    arg4 = false
-    arg2 = arg2(arg3, arg4)
-    if arg2 then
-      arg2 = flag14
-      if not arg2 then
-        arg2 = GetVehiclePedIsIn
-        arg3 = arg1
-        arg4 = false
+    localValue1 = localValue1()
+    localValue2 = IsPedInAnyVehicle
+    localValue3 = localValue1
+    localValue4 = false
+    localValue2 = localValue2(localValue3, localValue4)
+    if localValue2 then
+      localValue2 = stateFlag14
+      if not localValue2 then
+        localValue2 = GetVehiclePedIsIn
+        localValue3 = localValue1
+        localValue4 = false
         -- Beginner: result below is currentVehicle.
-        arg2 = arg2(arg3, arg4)
-        arg3 = GetVehicleTrailerVehicle
-        arg4 = arg2
-        arg3, arg4 = arg3(arg4)
-        textValue13 = IsVehicleAttachedToTrailer
-        iterator = arg2
-        textValue13 = textValue13(iterator)
-        if textValue13 then
-          textValue13 = dataTable4.trailer
-          if arg4 == textValue13 then
-            textValue13 = true
-            flag14 = textValue13
-            textValue13 = true
-            rageUiCall4 = textValue13
-            textValue13 = CreateScaleform
+        localValue2 = localValue2(localValue3, localValue4)
+        localValue3 = GetVehicleTrailerVehicle
+        localValue4 = localValue2
+        localValue3, localValue4 = localValue3(localValue4)
+        text13 = IsVehicleAttachedToTrailer
+        iterator = localValue2
+        text13 = text13(iterator)
+        if text13 then
+          text13 = dataCollection4.trailer
+          if localValue4 == text13 then
+            text13 = true
+            stateFlag14 = text13
+            text13 = true
+            rageUiOperation4 = text13
+            text13 = CreateScaleform
             iterator = 2
-            numberValue13 = "~g~Trailer Attached!"
-            workValue11 = "Continue to your destination"
-            textValue13(iterator, numberValue13, workValue11)
-            textValue13 = SetBlipRoute
-            iterator = dataTable6.trailer
-            numberValue13 = false
-            textValue13(iterator, numberValue13)
-            textValue13 = RemoveBlip
-            iterator = dataTable6.trailer
-            textValue13(iterator)
-            textValue13 = cmgCall4
-            textValue13()
+            number13 = "~g~Trailer Attached!"
+            workingValue11 = "Continue to your destination"
+            text13(iterator, number13, workingValue11)
+            text13 = SetBlipRoute
+            iterator = dataCollection6.trailer
+            number13 = false
+            text13(iterator, number13)
+            text13 = RemoveBlip
+            iterator = dataCollection6.trailer
+            text13(iterator)
+            text13 = cmgOperation4
+            text13()
           end
         end
       end
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 150
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 150
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-workValue5(textValue5)
+workingValue5(text5)
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2, arg3) ===
-function workValue5(arg1, arg2, arg3)
-  local arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15
-  arg4 = true
-  textValue13 = Scaleform
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2, localValue3) ===
+function workingValue5(localValue1, localValue2, localValue3)
+  local localValue4, text13, iterator, number13, workingValue11, number14, number15
+  localValue4 = true
+  text13 = Scaleform
   iterator = "MIDSIZED_MESSAGE"
-  textValue13 = textValue13(iterator)
-  iterator = textValue13.RunFunction
-  numberValue13 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-  workValue11 = {}
-  numberValue14 = arg2
-  numberValue15 = arg3
-  workValue11[1] = numberValue14
-  workValue11[2] = numberValue15
-  iterator(numberValue13, workValue11)
+  text13 = text13(iterator)
+  iterator = text13.RunFunction
+  number13 = "SHOW_SHARD_MIDSIZED_MESSAGE"
+  workingValue11 = {}
+  number14 = localValue2
+  number15 = localValue3
+  workingValue11[1] = number14
+  workingValue11[2] = number15
+  iterator(number13, workingValue11)
   iterator = Citizen
   iterator = iterator.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: numberValue13; parameters: none) ===
-  function numberValue13()
-    local arg12, arg22
+  -- === HELPER FUNCTION (decompiler name: number13; parameters: none) ===
+  function number13()
+    local localValue12, localValue22
     while true do
-      arg12 = arg4
-      if not arg12 then
+      localValue12 = localValue4
+      if not localValue12 then
         break
       end
-      arg12 = textValue13.Render2D
-      arg12()
-      arg12 = Citizen
-      arg12 = arg12.Wait
-      arg22 = 0
-      arg12(arg22)
+      localValue12 = text13.Render2D
+      localValue12()
+      localValue12 = Citizen
+      localValue12 = localValue12.Wait
+      localValue22 = 0
+      localValue12(localValue22)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  iterator(numberValue13)
+  iterator(number13)
   iterator = SetTimeout
-  numberValue13 = arg1 * 1000
+  number13 = localValue1 * 1000
 
-  -- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-  function workValue11()
-    local arg12, arg22
-    arg12 = false
-    arg4 = arg12
+  -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+  function workingValue11()
+    local localValue12, localValue22
+    localValue12 = false
+    localValue4 = localValue12
   end
-  iterator(numberValue13, workValue11)
-  return textValue13
+  iterator(number13, workingValue11)
+  return text13
 end
-CreateScaleform = workValue5
-workValue5 = Citizen
-workValue5 = workValue5.CreateThread
+CreateScaleform = workingValue5
+workingValue5 = Citizen
+workingValue5 = workingValue5.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13
   while true do
-    arg1 = PlayerPedId
+    localValue1 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = IsPedInAnyVehicle
-    arg3 = arg1
-    arg4 = false
-    arg2 = arg2(arg3, arg4)
-    if arg2 then
-      arg2 = GetEntityCoords
-      arg3 = dataTable4.trailer
+    localValue1 = localValue1()
+    localValue2 = IsPedInAnyVehicle
+    localValue3 = localValue1
+    localValue4 = false
+    localValue2 = localValue2(localValue3, localValue4)
+    if localValue2 then
+      localValue2 = GetEntityCoords
+      localValue3 = dataCollection4.trailer
       -- Beginner: result below is entityCoords.
-      arg2 = arg2(arg3)
-      arg3 = GetVehiclePedIsIn
-      arg4 = arg1
-      textValue13 = false
+      localValue2 = localValue2(localValue3)
+      localValue3 = GetVehiclePedIsIn
+      localValue4 = localValue1
+      text13 = false
       -- Beginner: result below is currentVehicle.
-      arg3 = arg3(arg4, textValue13)
-      arg4 = GetEntityCoords
-      textValue13 = arg3
+      localValue3 = localValue3(localValue4, text13)
+      localValue4 = GetEntityCoords
+      text13 = localValue3
       -- Beginner: result below is entityCoords.
-      arg4 = arg4(textValue13)
-      arg4 = arg2 - arg4
-      arg4 = #arg4
-      textValue13 = 9.75
-      if arg4 <= textValue13 then
-        arg4 = IsControlPressed
-        textValue13 = 0
+      localValue4 = localValue4(text13)
+      localValue4 = localValue2 - localValue4
+      localValue4 = #localValue4
+      text13 = 9.75
+      if localValue4 <= text13 then
+        localValue4 = IsControlPressed
+        text13 = 0
         iterator = 74
-        arg4 = arg4(textValue13, iterator)
-        if not arg4 then
-          arg4 = IsVehicleAttachedToTrailer
-          textValue13 = arg3
-          arg4 = arg4(textValue13)
-          if not arg4 then
-            arg4 = rageUiCall4
-            if not arg4 then
-              arg4 = AttachVehicleToTrailer
-              textValue13 = arg3
-              iterator = dataTable4.trailer
-              numberValue13 = 1.0
-              arg4(textValue13, iterator, numberValue13)
+        localValue4 = localValue4(text13, iterator)
+        if not localValue4 then
+          localValue4 = IsVehicleAttachedToTrailer
+          text13 = localValue3
+          localValue4 = localValue4(text13)
+          if not localValue4 then
+            localValue4 = rageUiOperation4
+            if not localValue4 then
+              localValue4 = AttachVehicleToTrailer
+              text13 = localValue3
+              iterator = dataCollection4.trailer
+              number13 = 1.0
+              localValue4(text13, iterator, number13)
             end
           end
         end
       end
     end
-    arg2 = Wait
-    arg3 = 1000
-    arg2(arg3)
+    localValue2 = Wait
+    localValue3 = 1000
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-workValue5(textValue5)
-workValue5 = Citizen
-workValue5 = workValue5.CreateThread
+workingValue5(text5)
+workingValue5 = Citizen
+workingValue5 = workingValue5.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3, arg4
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3, localValue4
   while true do
-    arg1 = PlayerPedId
+    localValue1 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg1 = arg1()
-    arg2 = IsPedInAnyVehicle
-    arg3 = arg1
-    arg4 = false
-    arg2 = arg2(arg3, arg4)
-    if arg2 then
-      arg2 = GetVehiclePedIsIn
-      arg3 = arg1
-      arg4 = false
+    localValue1 = localValue1()
+    localValue2 = IsPedInAnyVehicle
+    localValue3 = localValue1
+    localValue4 = false
+    localValue2 = localValue2(localValue3, localValue4)
+    if localValue2 then
+      localValue2 = GetVehiclePedIsIn
+      localValue3 = localValue1
+      localValue4 = false
       -- Beginner: result below is currentVehicle.
-      arg2 = arg2(arg3, arg4)
-      arg3 = IsVehicleAttachedToTrailer
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      if not arg3 then
-        arg3 = rageUiCall4
-        if arg3 then
-          arg3 = false
-          rageUiCall4 = arg3
+      localValue2 = localValue2(localValue3, localValue4)
+      localValue3 = IsVehicleAttachedToTrailer
+      localValue4 = localValue2
+      localValue3 = localValue3(localValue4)
+      if not localValue3 then
+        localValue3 = rageUiOperation4
+        if localValue3 then
+          localValue3 = false
+          rageUiOperation4 = localValue3
         end
       end
     end
-    arg2 = Wait
-    arg3 = 1500
-    arg2(arg3)
+    localValue2 = Wait
+    localValue3 = 1500
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-workValue5(textValue5)
-workValue5 = tCMG
+workingValue5(text5)
+workingValue5 = tCMG
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2, arg3, arg4, textValue13, iterator, numberValue13
-  arg2 = CMG
-  arg2 = arg2.getObjectId
-  arg3 = arg1
-  arg4 = "isTrailerAttached"
-  arg2 = arg2(arg3, arg4)
-  arg3 = GetVehicleTrailerVehicle
-  arg4 = arg2
-  arg3, arg4 = arg3(arg4)
-  textValue13 = 0
-  if arg3 and 0 ~= arg4 then
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2, localValue3, localValue4, text13, iterator, number13
+  localValue2 = CMG
+  localValue2 = localValue2.getObjectId
+  localValue3 = localValue1
+  localValue4 = "isTrailerAttached"
+  localValue2 = localValue2(localValue3, localValue4)
+  localValue3 = GetVehicleTrailerVehicle
+  localValue4 = localValue2
+  localValue3, localValue4 = localValue3(localValue4)
+  text13 = 0
+  if localValue3 and 0 ~= localValue4 then
     iterator = NetworkGetNetworkIdFromEntity
-    numberValue13 = arg4
-    iterator = iterator(numberValue13)
-    textValue13 = iterator
+    number13 = localValue4
+    iterator = iterator(number13)
+    text13 = iterator
   end
-  iterator = arg3
-  numberValue13 = textValue13
-  return iterator, numberValue13
+  iterator = localValue3
+  number13 = text13
+  return iterator, number13
 end
-workValue5.isTrailerAttached = textValue5
-workValue5 = Citizen
-workValue5 = workValue5.CreateThread
+workingValue5.isTrailerAttached = text5
+workingValue5 = Citizen
+workingValue5 = workingValue5.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3
   while true do
-    arg1 = flag
-    if arg1 then
-      arg1 = dataTable4.vehicle
-      if arg1 then
-        arg1 = GetVehicleEngineHealth
-        arg2 = dataTable4.vehicle
-        arg1 = arg1(arg2)
-        if not (arg1 < 0.0) then
-          arg1 = DoesEntityExist
-          arg2 = dataTable4.vehicle
-          arg1 = arg1(arg2)
-          if arg1 then
-            goto flow_label_21
+    localValue1 = stateFlag
+    if localValue1 then
+      localValue1 = dataCollection4.vehicle
+      if localValue1 then
+        localValue1 = GetVehicleEngineHealth
+        localValue2 = dataCollection4.vehicle
+        localValue1 = localValue1(localValue2)
+        if not (localValue1 < 0.0) then
+          localValue1 = DoesEntityExist
+          localValue2 = dataCollection4.vehicle
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            goto continueAtStep21
           end
         end
-        arg1 = TriggerServerEvent
-        arg2 = "6f29153e97"
-        arg3 = "Truck was destroyed!"
+        localValue1 = TriggerServerEvent
+        localValue2 = "6f29153e97"
+        localValue3 = "Truck was destroyed!"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6f29153e97".
-        arg1(arg2, arg3)
+        localValue1(localValue2, localValue3)
       end
-      ::flow_label_21::
-      arg1 = globalInPrison
-      if arg1 then
-        arg1 = TriggerServerEvent
-        arg2 = "6f29153e97"
-        arg3 = "You were sent to jail!"
-        arg1(arg2, arg3)
+      ::continueAtStep21::
+      localValue1 = globalInPrison
+      if localValue1 then
+        localValue1 = TriggerServerEvent
+        localValue2 = "6f29153e97"
+        localValue3 = "You were sent to jail!"
+        localValue1(localValue2, localValue3)
       end
     end
-    arg1 = Wait
-    arg2 = 1000
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 1000
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-workValue5(textValue5)
-workValue5 = RegisterNetEvent
-textValue5 = "0db0e450dd"
+workingValue5(text5)
+workingValue5 = RegisterNetEvent
+text5 = "0db0e450dd"
 -- Beginner: this function handles network event "0db0e450dd".
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
-function cmgCall6(arg1, arg2)
-  local arg3, arg4, textValue13, iterator, numberValue13
-  arg3 = CMG
-  arg3 = arg3.hasClientGroup
-  arg4 = "Trucking"
-  arg3 = arg3(arg4)
-  if arg3 then
-    arg3 = DeleteEntity
-    arg4 = dataTable4.trailer
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1, localValue2) ===
+function cmgOperation6(localValue1, localValue2)
+  local localValue3, localValue4, text13, iterator, number13
+  localValue3 = CMG
+  localValue3 = localValue3.hasClientGroup
+  localValue4 = "Trucking"
+  localValue3 = localValue3(localValue4)
+  if localValue3 then
+    localValue3 = DeleteEntity
+    localValue4 = dataCollection4.trailer
     -- Beginner: Delete a GTA entity.
-    arg3(arg4)
-    arg3 = DeleteCheckpoint
-    arg4 = cmgCall10.trailer
-    arg3(arg4)
-    arg3 = false
-    flag = arg3
-    arg3 = {}
-    dataTable = arg3
-    arg3 = true
-    flag2 = arg3
-    arg3 = false
-    rageUiCall4 = arg3
-    arg3 = false
-    flag14 = arg3
-    arg3 = 1
-    arg4 = rageUiCall3
-    arg4 = #arg4
-    textValue13 = 1
-    for iterator = arg3, arg4, textValue13 do
-      numberValue13 = rageUiCall3
-      numberValue13[iterator] = false
+    localValue3(localValue4)
+    localValue3 = DeleteCheckpoint
+    localValue4 = cmgOperation10.trailer
+    localValue3(localValue4)
+    localValue3 = false
+    stateFlag = localValue3
+    localValue3 = {}
+    dataCollection = localValue3
+    localValue3 = true
+    stateFlag2 = localValue3
+    localValue3 = false
+    rageUiOperation4 = localValue3
+    localValue3 = false
+    stateFlag14 = localValue3
+    localValue3 = 1
+    localValue4 = rageUiOperation3
+    localValue4 = #localValue4
+    text13 = 1
+    for iterator = localValue3, localValue4, text13 do
+      number13 = rageUiOperation3
+      number13[iterator] = false
     end
-    arg3 = CreateScaleform
-    arg4 = 2
-    textValue13 = "~r~"
-    iterator = arg1
-    textValue13 = textValue13 .. iterator
-    if not textValue13 then
-      textValue13 = "JOB ENDED!"
+    localValue3 = CreateScaleform
+    localValue4 = 2
+    text13 = "~r~"
+    iterator = localValue1
+    text13 = text13 .. iterator
+    if not text13 then
+      text13 = "JOB ENDED!"
     end
-    iterator = arg2
-    arg3(arg4, textValue13, iterator)
-    arg3 = SetBlipRoute
-    arg4 = dataTable6.job
-    textValue13 = false
-    arg3(arg4, textValue13)
-    arg3 = RemoveBlip
-    arg4 = dataTable6.job
-    arg3(arg4)
-    arg3 = RemoveBlip
-    arg4 = dataTable6.trailer
-    arg3(arg4)
-    dataTable4.vehicle = nil
-    dataTable4.trailer = nil
-    arg3 = dataTable4.checkpoint
-    if arg3 then
-      arg3 = DeleteCheckpoint
-      arg4 = dataTable4.checkpoint
-      arg3(arg4)
-      dataTable4.checkpoint = nil
+    iterator = localValue2
+    localValue3(localValue4, text13, iterator)
+    localValue3 = SetBlipRoute
+    localValue4 = dataCollection6.job
+    text13 = false
+    localValue3(localValue4, text13)
+    localValue3 = RemoveBlip
+    localValue4 = dataCollection6.job
+    localValue3(localValue4)
+    localValue3 = RemoveBlip
+    localValue4 = dataCollection6.trailer
+    localValue3(localValue4)
+    dataCollection4.vehicle = nil
+    dataCollection4.trailer = nil
+    localValue3 = dataCollection4.checkpoint
+    if localValue3 then
+      localValue3 = DeleteCheckpoint
+      localValue4 = dataCollection4.checkpoint
+      localValue3(localValue4)
+      dataCollection4.checkpoint = nil
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "0db0e450dd".
-workValue5(textValue5, cmgCall6)
-workValue5 = RegisterNetEvent
-textValue5 = "052449cb64"
+workingValue5(text5, cmgOperation6)
+workingValue5 = RegisterNetEvent
+text5 = "052449cb64"
 -- Beginner: this function handles network event "052449cb64".
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1) ===
-function cmgCall6(arg1)
-  local arg2
-  flag2 = arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1) ===
+function cmgOperation6(localValue1)
+  local localValue2
+  stateFlag2 = localValue1
 end
-workValue5(textValue5, cmgCall6)
-workValue5 = Citizen
-workValue5 = workValue5.CreateThread
+workingValue5(text5, cmgOperation6)
+workingValue5 = Citizen
+workingValue5 = workingValue5.CreateThread
 -- Beginner: this function handles network event "052449cb64".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3, arg4, textValue13, iterator
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator
   while true do
-    arg1 = flag2
-    if arg1 then
+    localValue1 = stateFlag2
+    if localValue1 then
       break
     end
-    arg1 = IsEntityAVehicle
-    arg2 = dataTable4.trailer
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = PlayerPedId
+    localValue1 = IsEntityAVehicle
+    localValue2 = dataCollection4.trailer
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      arg2 = GetEntityCoords
-      arg3 = arg1
+      localValue1 = localValue1()
+      localValue2 = GetEntityCoords
+      localValue3 = localValue1
       -- Beginner: result below is entityCoords.
-      arg2 = arg2(arg3)
-      arg3 = GetEntityCoords
-      arg4 = dataTable4.trailer
+      localValue2 = localValue2(localValue3)
+      localValue3 = GetEntityCoords
+      localValue4 = dataCollection4.trailer
       -- Beginner: result below is entityCoords.
-      arg3 = arg3(arg4)
-      arg4 = arg2 - arg3
-      arg4 = #arg4
-      textValue13 = 450.0
-      if arg4 > textValue13 then
-        arg4 = TriggerServerEvent
-        textValue13 = "6f29153e97"
+      localValue3 = localValue3(localValue4)
+      localValue4 = localValue2 - localValue3
+      localValue4 = #localValue4
+      text13 = 450.0
+      if localValue4 > text13 then
+        localValue4 = TriggerServerEvent
+        text13 = "6f29153e97"
         iterator = "You left the trailer behind"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6f29153e97".
-        arg4(textValue13, iterator)
+        localValue4(text13, iterator)
       end
     end
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 1000
-    arg1(arg2)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 1000
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-workValue5(textValue5)
-workValue5 = RegisterNetEvent
-textValue5 = "6d852a57fc"
+workingValue5(text5)
+workingValue5 = RegisterNetEvent
+text5 = "6d852a57fc"
 -- Beginner: this function handles network event "6d852a57fc".
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1) ===
-function cmgCall6(arg1)
-  local arg2
-  rageUiCall2 = arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1) ===
+function cmgOperation6(localValue1)
+  local localValue2
+  rageUiOperation2 = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6d852a57fc".
-workValue5(textValue5, cmgCall6)
-workValue5 = {}
-textValue5 = "trailers"
-cmgCall6 = "trflat"
-cmgCall7 = "heli1"
-textValue6 = "tr4"
-workValue9 = "tr3"
-textValue7 = "docktrailer"
-textValue8 = "bvttanker"
-cmgCall8 = "tanker"
-cmgCall9 = "tanker2"
-textValue9 = "trailers3"
-numberValue6 = "trailers2"
-numberValue7 = "ArmyTrailer2"
-numberValue8 = "TrailerLogs"
-numberValue9 = "militaire1"
-textValue10 = "ArmyTanker"
-flag8 = "docktrailer"
-flag9 = "tr3"
-textValue11 = "tr4"
-textValue12 = "bvttanker"
-workValue5[1] = textValue5
-workValue5[2] = cmgCall6
-workValue5[3] = cmgCall7
-workValue5[4] = textValue6
-workValue5[5] = workValue9
-workValue5[6] = textValue7
-workValue5[7] = textValue8
-workValue5[8] = cmgCall8
-workValue5[9] = cmgCall9
-workValue5[10] = textValue9
-workValue5[11] = numberValue6
-workValue5[12] = numberValue7
-workValue5[13] = numberValue8
-workValue5[14] = numberValue9
-workValue5[15] = textValue10
-workValue5[16] = flag8
-workValue5[17] = flag9
-workValue5[18] = textValue11
-workValue5[19] = textValue12
+workingValue5(text5, cmgOperation6)
+workingValue5 = {}
+text5 = "trailers"
+cmgOperation6 = "trflat"
+cmgOperation7 = "heli1"
+text6 = "tr4"
+workingValue9 = "tr3"
+text7 = "docktrailer"
+text8 = "bvttanker"
+cmgOperation8 = "tanker"
+cmgOperation9 = "tanker2"
+text9 = "trailers3"
+number6 = "trailers2"
+number7 = "ArmyTrailer2"
+number8 = "TrailerLogs"
+number9 = "militaire1"
+text10 = "ArmyTanker"
+stateFlag8 = "docktrailer"
+stateFlag9 = "tr3"
+text11 = "tr4"
+text12 = "bvttanker"
+workingValue5[1] = text5
+workingValue5[2] = cmgOperation6
+workingValue5[3] = cmgOperation7
+workingValue5[4] = text6
+workingValue5[5] = workingValue9
+workingValue5[6] = text7
+workingValue5[7] = text8
+workingValue5[8] = cmgOperation8
+workingValue5[9] = cmgOperation9
+workingValue5[10] = text9
+workingValue5[11] = number6
+workingValue5[12] = number7
+workingValue5[13] = number8
+workingValue5[14] = number9
+workingValue5[15] = text10
+workingValue5[16] = stateFlag8
+workingValue5[17] = stateFlag9
+workingValue5[18] = text11
+workingValue5[19] = text12
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4
-  arg1 = 0
-  arg2 = {}
-  arg3 = 1
-  arg4 = 19
-  textValue13 = 1
-  for iterator = arg3, arg4, textValue13 do
-    numberValue13 = CMG
-    numberValue13 = numberValue13.spawnVehicle
-    workValue11 = workValue5
-    workValue11 = workValue11[iterator]
-    numberValue14 = 896.7 + arg1
-    numberValue15 = -3153.494
-    numberValue = 5.892334
-    numberValue2 = 177.1
-    flag3 = false
-    cmgCall2 = false
-    flag4 = false
-    numberValue13 = numberValue13(workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4)
-    workValue11 = FreezeEntityPosition
-    numberValue14 = numberValue13
-    numberValue15 = true
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4
+  localValue1 = 0
+  localValue2 = {}
+  localValue3 = 1
+  localValue4 = 19
+  text13 = 1
+  for iterator = localValue3, localValue4, text13 do
+    number13 = CMG
+    number13 = number13.spawnVehicle
+    workingValue11 = workingValue5
+    workingValue11 = workingValue11[iterator]
+    number14 = 896.7 + localValue1
+    number15 = -3153.494
+    number = 5.892334
+    number2 = 177.1
+    stateFlag3 = false
+    cmgOperation2 = false
+    stateFlag4 = false
+    number13 = number13(workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4)
+    workingValue11 = FreezeEntityPosition
+    number14 = number13
+    number15 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    workValue11(numberValue14, numberValue15)
-    workValue11 = table
-    workValue11 = workValue11.add
-    numberValue14 = arg2
-    numberValue15 = numberValue13
-    workValue11(numberValue14, numberValue15)
-    arg1 = arg1 + 4
+    workingValue11(number14, number15)
+    workingValue11 = table
+    workingValue11 = workingValue11.add
+    number14 = localValue2
+    number15 = number13
+    workingValue11(number14, number15)
+    localValue1 = localValue1 + 4
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-function cmgCall6()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4
-  arg1 = TriggerServerEvent
-  arg2 = "54143cc8e2"
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+function cmgOperation6()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4
+  localValue1 = TriggerServerEvent
+  localValue2 = "54143cc8e2"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "54143cc8e2".
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.hideAllDisplays
-  arg2 = "trucking_intro"
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.hideAllDisplays
+  localValue2 = "trucking_intro"
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+  localValue1 = localValue1()
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = SetEntityCoords
-  arg4 = arg1
-  textValue13 = 856.022
+  localValue2 = localValue2()
+  localValue3 = SetEntityCoords
+  localValue4 = localValue1
+  text13 = 856.022
   iterator = -3188.11
-  numberValue13 = 4.05127
-  workValue11 = false
-  numberValue14 = false
-  numberValue15 = false
-  numberValue = false
+  number13 = 4.05127
+  workingValue11 = false
+  number14 = false
+  number15 = false
+  number = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  arg3(arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue)
-  arg3 = SetFocusPosAndVel
-  arg4 = 862.5825
-  textValue13 = -3195.493
+  localValue3(localValue4, text13, iterator, number13, workingValue11, number14, number15, number)
+  localValue3 = SetFocusPosAndVel
+  localValue4 = 862.5825
+  text13 = -3195.493
   iterator = 6.002151
-  numberValue13 = 0.0
-  workValue11 = 0.0
-  numberValue14 = 0.0
-  arg3(arg4, textValue13, iterator, numberValue13, workValue11, numberValue14)
-  arg3 = CreateCameraWithParams
-  arg4 = "DEFAULT_SCRIPTED_CAMERA"
-  textValue13 = 866.1363
+  number13 = 0.0
+  workingValue11 = 0.0
+  number14 = 0.0
+  localValue3(localValue4, text13, iterator, number13, workingValue11, number14)
+  localValue3 = CreateCameraWithParams
+  localValue4 = "DEFAULT_SCRIPTED_CAMERA"
+  text13 = 866.1363
   iterator = -3191.314
-  numberValue13 = 7.14502
-  workValue11 = 0.0
-  numberValue14 = 0.0
-  numberValue15 = 0.0
-  numberValue = 65.0
-  numberValue2 = false
-  flag3 = 2
-  arg3 = arg3(arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3)
-  arg4 = PointCamAtCoord
-  textValue13 = arg3
+  number13 = 7.14502
+  workingValue11 = 0.0
+  number14 = 0.0
+  number15 = 0.0
+  number = 65.0
+  number2 = false
+  stateFlag3 = 2
+  localValue3 = localValue3(localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3)
+  localValue4 = PointCamAtCoord
+  text13 = localValue3
   iterator = 862.5825
-  numberValue13 = -3195.493
-  workValue11 = 6.002151
-  arg4(textValue13, iterator, numberValue13, workValue11)
-  arg4 = SetCamActive
-  textValue13 = arg3
+  number13 = -3195.493
+  workingValue11 = 6.002151
+  localValue4(text13, iterator, number13, workingValue11)
+  localValue4 = SetCamActive
+  text13 = localValue3
   iterator = true
-  arg4(textValue13, iterator)
-  arg4 = RenderScriptCams
-  textValue13 = true
+  localValue4(text13, iterator)
+  localValue4 = RenderScriptCams
+  text13 = true
   iterator = true
-  numberValue13 = 0
-  workValue11 = true
-  numberValue14 = false
-  arg4(textValue13, iterator, numberValue13, workValue11, numberValue14)
-  arg4 = CreateCameraWithParams
-  textValue13 = "DEFAULT_SCRIPTED_CAMERA"
+  number13 = 0
+  workingValue11 = true
+  number14 = false
+  localValue4(text13, iterator, number13, workingValue11, number14)
+  localValue4 = CreateCameraWithParams
+  text13 = "DEFAULT_SCRIPTED_CAMERA"
   iterator = 862.5231
-  numberValue13 = -3190.259
-  workValue11 = 7.14502
-  numberValue14 = 0.0
-  numberValue15 = 0.0
-  numberValue = 0.0
-  numberValue2 = 65.0
-  flag3 = false
-  cmgCall2 = 2
-  arg4 = arg4(textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2)
-  textValue13 = PointCamAtCoord
-  iterator = arg4
-  numberValue13 = 862.5825
-  workValue11 = -3195.493
-  numberValue14 = 6.002151
-  textValue13(iterator, numberValue13, workValue11, numberValue14)
-  textValue13 = SetCamActiveWithInterp
-  iterator = arg4
-  numberValue13 = arg3
-  workValue11 = 10000
-  numberValue14 = 5
-  numberValue15 = 5
-  textValue13(iterator, numberValue13, workValue11, numberValue14, numberValue15)
-  textValue13 = drawNativeNotification
+  number13 = -3190.259
+  workingValue11 = 7.14502
+  number14 = 0.0
+  number15 = 0.0
+  number = 0.0
+  number2 = 65.0
+  stateFlag3 = false
+  cmgOperation2 = 2
+  localValue4 = localValue4(text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2)
+  text13 = PointCamAtCoord
+  iterator = localValue4
+  number13 = 862.5825
+  workingValue11 = -3195.493
+  number14 = 6.002151
+  text13(iterator, number13, workingValue11, number14)
+  text13 = SetCamActiveWithInterp
+  iterator = localValue4
+  number13 = localValue3
+  workingValue11 = 10000
+  number14 = 5
+  number15 = 5
+  text13(iterator, number13, workingValue11, number14, number15)
+  text13 = drawNativeNotification
   iterator = "This is where you will start your trucking job. You can also come here to end the shift."
   -- Beginner: Show a GTA-style notification/help prompt.
-  textValue13(iterator)
-  textValue13 = Wait
+  text13(iterator)
+  text13 = Wait
   iterator = 10000
-  textValue13(iterator)
-  textValue13 = vector3
+  text13(iterator)
+  text13 = vector3
   iterator = 901.9878
-  numberValue13 = -3185.827
-  workValue11 = 5.898679
-  textValue13 = textValue13(iterator, numberValue13, workValue11)
+  number13 = -3185.827
+  workingValue11 = 5.898679
+  text13 = text13(iterator, number13, workingValue11)
   iterator = PointCamAtCoord
-  numberValue13 = arg3
-  workValue11 = textValue13.x
-  numberValue14 = textValue13.y
-  numberValue15 = textValue13.z
-  iterator(numberValue13, workValue11, numberValue14, numberValue15)
+  number13 = localValue3
+  workingValue11 = text13.x
+  number14 = text13.y
+  number15 = text13.z
+  iterator(number13, workingValue11, number14, number15)
   iterator = vector3
-  numberValue13 = 901.9878
-  workValue11 = -3185.827
-  numberValue14 = 5.898679
-  iterator = iterator(numberValue13, workValue11, numberValue14)
-  textValue13 = iterator
+  number13 = 901.9878
+  workingValue11 = -3185.827
+  number14 = 5.898679
+  iterator = iterator(number13, workingValue11, number14)
+  text13 = iterator
   iterator = PointCamAtCoord
-  numberValue13 = arg4
-  workValue11 = textValue13.x
-  numberValue14 = textValue13.y
-  numberValue15 = textValue13.z
-  iterator(numberValue13, workValue11, numberValue14, numberValue15)
+  number13 = localValue4
+  workingValue11 = text13.x
+  number14 = text13.y
+  number15 = text13.z
+  iterator(number13, workingValue11, number14, number15)
   iterator = vector3
-  numberValue13 = 897.033
-  workValue11 = -3189.376
-  numberValue14 = 5.892334
-  iterator = iterator(numberValue13, workValue11, numberValue14)
-  textValue13 = iterator
+  number13 = 897.033
+  workingValue11 = -3189.376
+  number14 = 5.892334
+  iterator = iterator(number13, workingValue11, number14)
+  text13 = iterator
   iterator = SetCamCoord
-  numberValue13 = arg3
-  workValue11 = textValue13.x
-  numberValue14 = textValue13.y
-  numberValue15 = textValue13.z
-  iterator(numberValue13, workValue11, numberValue14, numberValue15)
+  number13 = localValue3
+  workingValue11 = text13.x
+  number14 = text13.y
+  number15 = text13.z
+  iterator(number13, workingValue11, number14, number15)
   iterator = vector3
-  numberValue13 = 904.6154
-  workValue11 = -3189.428
-  numberValue14 = 5.892334
-  iterator = iterator(numberValue13, workValue11, numberValue14)
-  textValue13 = iterator
+  number13 = 904.6154
+  workingValue11 = -3189.428
+  number14 = 5.892334
+  iterator = iterator(number13, workingValue11, number14)
+  text13 = iterator
   iterator = SetCamCoord
-  numberValue13 = arg4
-  workValue11 = textValue13.x
-  numberValue14 = textValue13.y
-  numberValue15 = textValue13.z
-  iterator(numberValue13, workValue11, numberValue14, numberValue15)
+  number13 = localValue4
+  workingValue11 = text13.x
+  number14 = text13.y
+  number15 = text13.z
+  iterator(number13, workingValue11, number14, number15)
   iterator = SetCamActiveWithInterp
-  numberValue13 = arg4
-  workValue11 = arg3
-  numberValue14 = 10000
-  numberValue15 = 5
-  numberValue = 5
-  iterator(numberValue13, workValue11, numberValue14, numberValue15, numberValue)
+  number13 = localValue4
+  workingValue11 = localValue3
+  number14 = 10000
+  number15 = 5
+  number = 5
+  iterator(number13, workingValue11, number14, number15, number)
   iterator = drawNativeNotification
-  numberValue13 = "Come here to rent or buy yourself a brand new truck to complete the trucking job with."
+  number13 = "Come here to rent or buy yourself a brand new truck to complete the trucking job with."
   -- Beginner: Show a GTA-style notification/help prompt.
-  iterator(numberValue13)
+  iterator(number13)
   iterator = Wait
-  numberValue13 = 10000
-  iterator(numberValue13)
-  iterator = textValue5
+  number13 = 10000
+  iterator(number13)
+  iterator = text5
   iterator = iterator()
-  numberValue13 = vector3
-  workValue11 = 934.8527
-  numberValue14 = -3154.536
-  numberValue15 = 5.892334
-  numberValue13 = numberValue13(workValue11, numberValue14, numberValue15)
-  textValue13 = numberValue13
-  numberValue13 = PointCamAtCoord
-  workValue11 = arg3
-  numberValue14 = textValue13.x
-  numberValue15 = textValue13.y
-  numberValue = textValue13.z
-  numberValue13(workValue11, numberValue14, numberValue15, numberValue)
-  numberValue13 = vector3
-  workValue11 = 934.8527
-  numberValue14 = -3154.536
-  numberValue15 = 5.892334
-  numberValue13 = numberValue13(workValue11, numberValue14, numberValue15)
-  textValue13 = numberValue13
-  numberValue13 = PointCamAtCoord
-  workValue11 = arg4
-  numberValue14 = textValue13.x
-  numberValue15 = textValue13.y
-  numberValue = textValue13.z
-  numberValue13(workValue11, numberValue14, numberValue15, numberValue)
-  numberValue13 = vector3
-  workValue11 = 886.589
-  numberValue14 = -3165.547
-  numberValue15 = 9.892334
-  numberValue13 = numberValue13(workValue11, numberValue14, numberValue15)
-  textValue13 = numberValue13
-  numberValue13 = SetCamCoord
-  workValue11 = arg3
-  numberValue14 = textValue13.x
-  numberValue15 = textValue13.y
-  numberValue = textValue13.z
-  numberValue13(workValue11, numberValue14, numberValue15, numberValue)
-  numberValue13 = vector3
-  workValue11 = 975.2308
-  numberValue14 = -3166.602
-  numberValue15 = 9.892334
-  numberValue13 = numberValue13(workValue11, numberValue14, numberValue15)
-  textValue13 = numberValue13
-  numberValue13 = SetCamCoord
-  workValue11 = arg4
-  numberValue14 = textValue13.x
-  numberValue15 = textValue13.y
-  numberValue = textValue13.z
-  numberValue13(workValue11, numberValue14, numberValue15, numberValue)
-  numberValue13 = SetCamActiveWithInterp
-  workValue11 = arg4
-  numberValue14 = arg3
-  numberValue15 = 25000
-  numberValue = 5
-  numberValue2 = 5
-  numberValue13(workValue11, numberValue14, numberValue15, numberValue, numberValue2)
-  numberValue13 = drawNativeNotification
-  workValue11 = "You will be driving a wide selection of trailers around the city of CMG!"
+  number13 = vector3
+  workingValue11 = 934.8527
+  number14 = -3154.536
+  number15 = 5.892334
+  number13 = number13(workingValue11, number14, number15)
+  text13 = number13
+  number13 = PointCamAtCoord
+  workingValue11 = localValue3
+  number14 = text13.x
+  number15 = text13.y
+  number = text13.z
+  number13(workingValue11, number14, number15, number)
+  number13 = vector3
+  workingValue11 = 934.8527
+  number14 = -3154.536
+  number15 = 5.892334
+  number13 = number13(workingValue11, number14, number15)
+  text13 = number13
+  number13 = PointCamAtCoord
+  workingValue11 = localValue4
+  number14 = text13.x
+  number15 = text13.y
+  number = text13.z
+  number13(workingValue11, number14, number15, number)
+  number13 = vector3
+  workingValue11 = 886.589
+  number14 = -3165.547
+  number15 = 9.892334
+  number13 = number13(workingValue11, number14, number15)
+  text13 = number13
+  number13 = SetCamCoord
+  workingValue11 = localValue3
+  number14 = text13.x
+  number15 = text13.y
+  number = text13.z
+  number13(workingValue11, number14, number15, number)
+  number13 = vector3
+  workingValue11 = 975.2308
+  number14 = -3166.602
+  number15 = 9.892334
+  number13 = number13(workingValue11, number14, number15)
+  text13 = number13
+  number13 = SetCamCoord
+  workingValue11 = localValue4
+  number14 = text13.x
+  number15 = text13.y
+  number = text13.z
+  number13(workingValue11, number14, number15, number)
+  number13 = SetCamActiveWithInterp
+  workingValue11 = localValue4
+  number14 = localValue3
+  number15 = 25000
+  number = 5
+  number2 = 5
+  number13(workingValue11, number14, number15, number, number2)
+  number13 = drawNativeNotification
+  workingValue11 = "You will be driving a wide selection of trailers around the city of CMG!"
   -- Beginner: Show a GTA-style notification/help prompt.
-  numberValue13(workValue11)
-  numberValue13 = Wait
-  workValue11 = 25000
-  numberValue13(workValue11)
-  numberValue13 = 1
-  workValue11 = #iterator
-  numberValue14 = 1
-  for numberValue15 = numberValue13, workValue11, numberValue14 do
-    numberValue = DeleteEntity
-    numberValue2 = iterator[numberValue15]
+  number13(workingValue11)
+  number13 = Wait
+  workingValue11 = 25000
+  number13(workingValue11)
+  number13 = 1
+  workingValue11 = #iterator
+  number14 = 1
+  for number15 = number13, workingValue11, number14 do
+    number = DeleteEntity
+    number2 = iterator[number15]
     -- Beginner: Delete a GTA entity.
-    numberValue(numberValue2)
+    number(number2)
   end
-  numberValue13 = DestroyCam
-  workValue11 = arg3
-  numberValue14 = false
-  numberValue13(workValue11, numberValue14)
-  numberValue13 = DestroyCam
-  workValue11 = arg4
-  numberValue14 = false
-  numberValue13(workValue11, numberValue14)
-  numberValue13 = RenderScriptCams
-  workValue11 = false
-  numberValue14 = true
-  numberValue15 = 3000
-  numberValue = true
-  numberValue2 = false
-  numberValue13(workValue11, numberValue14, numberValue15, numberValue, numberValue2)
-  numberValue13 = ClearFocus
-  numberValue13()
-  numberValue13 = FreezeEntityPosition
-  workValue11 = arg1
-  numberValue14 = false
+  number13 = DestroyCam
+  workingValue11 = localValue3
+  number14 = false
+  number13(workingValue11, number14)
+  number13 = DestroyCam
+  workingValue11 = localValue4
+  number14 = false
+  number13(workingValue11, number14)
+  number13 = RenderScriptCams
+  workingValue11 = false
+  number14 = true
+  number15 = 3000
+  number = true
+  number2 = false
+  number13(workingValue11, number14, number15, number, number2)
+  number13 = ClearFocus
+  number13()
+  number13 = FreezeEntityPosition
+  workingValue11 = localValue1
+  number14 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  numberValue13(workValue11, numberValue14)
-  numberValue13 = TriggerServerEvent
-  workValue11 = "54143cc8e2"
+  number13(workingValue11, number14)
+  number13 = TriggerServerEvent
+  workingValue11 = "54143cc8e2"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "54143cc8e2".
-  numberValue13(workValue11)
-  numberValue13 = SetEntityCoords
-  workValue11 = arg1
-  numberValue14 = arg2.x
-  numberValue15 = arg2.y
-  numberValue = arg2.z
-  numberValue2 = false
-  flag3 = false
-  cmgCall2 = false
-  flag4 = false
+  number13(workingValue11)
+  number13 = SetEntityCoords
+  workingValue11 = localValue1
+  number14 = localValue2.x
+  number15 = localValue2.y
+  number = localValue2.z
+  number2 = false
+  stateFlag3 = false
+  cmgOperation2 = false
+  stateFlag4 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  numberValue13(workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4)
-  numberValue13 = CMG
-  numberValue13 = numberValue13.showAllDisplays
-  workValue11 = "trucking_intro"
-  numberValue13(workValue11)
+  number13(workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4)
+  number13 = CMG
+  number13 = number13.showAllDisplays
+  workingValue11 = "trucking_intro"
+  number13(workingValue11)
 end
-workValue3 = cmgCall6
-cmgCall6 = RegisterCommand
-cmgCall7 = "setdonecutscene"
+workingValue3 = cmgOperation6
+cmgOperation6 = RegisterCommand
+cmgOperation7 = "setdonecutscene"
 -- Beginner: this function is the command handler for "setdonecutscene".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1, arg2) ===
-function textValue6(arg1, arg2)
-  local arg3, arg4, textValue13, iterator, numberValue13
-  arg3 = CMG
-  arg3 = arg3.getClientUserId
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1, localValue2) ===
+function text6(localValue1, localValue2)
+  local localValue3, localValue4, text13, iterator, number13
+  localValue3 = CMG
+  localValue3 = localValue3.getClientUserId
   -- Beginner: result below is userId.
-  arg3 = arg3()
-  if arg3 then
-    arg4 = CMG
-    arg4 = arg4.isDeveloper
-    textValue13 = arg3
-    arg4 = arg4(textValue13)
-    if arg4 then
-      arg4 = SetResourceKvpInt
-      textValue13 = "cmg_trucking_done_cutscene"
+  localValue3 = localValue3()
+  if localValue3 then
+    localValue4 = CMG
+    localValue4 = localValue4.isDeveloper
+    text13 = localValue3
+    localValue4 = localValue4(text13)
+    if localValue4 then
+      localValue4 = SetResourceKvpInt
+      text13 = "cmg_trucking_done_cutscene"
       iterator = tonumber
-      numberValue13 = arg2[1]
-      iterator = iterator(numberValue13)
+      number13 = localValue2[1]
+      iterator = iterator(number13)
       if not iterator then
         iterator = 0
       end
-      arg4(textValue13, iterator)
-      arg4 = print
-      textValue13 = "set cmg_trucking_done_cutscene to "
-      iterator = arg2[1]
-      textValue13 = textValue13 .. iterator
-      arg4(textValue13)
+      localValue4(text13, iterator)
+      localValue4 = print
+      text13 = "set cmg_trucking_done_cutscene to "
+      iterator = localValue2[1]
+      text13 = text13 .. iterator
+      localValue4(text13)
     end
   end
 end
-workValue9 = false
+workingValue9 = false
 -- Beginner: Register a chat/console command. Event/command: "setdonecutscene".
-cmgCall6(cmgCall7, textValue6, workValue9)
-cmgCall6 = vector3
-cmgCall7 = 949.37835693359
-textValue6 = -3185.8244628906
-workValue9 = 5.901008605957
-cmgCall6 = cmgCall6(cmgCall7, textValue6, workValue9)
-cmgCall7 = vector3
-textValue6 = 949.20098876953
-workValue9 = -3154.0915527344
-textValue7 = 5.9010066986084
-cmgCall7 = cmgCall7(textValue6, workValue9, textValue7)
-textValue6 = {}
+cmgOperation6(cmgOperation7, text6, workingValue9)
+cmgOperation6 = vector3
+cmgOperation7 = 949.37835693359
+text6 = -3185.8244628906
+workingValue9 = 5.901008605957
+cmgOperation6 = cmgOperation6(cmgOperation7, text6, workingValue9)
+cmgOperation7 = vector3
+text6 = 949.20098876953
+workingValue9 = -3154.0915527344
+text7 = 5.9010066986084
+cmgOperation7 = cmgOperation7(text6, workingValue9, text7)
+text6 = {}
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2
-  arg1 = CMG
-  arg1 = arg1.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: none) ===
+function workingValue9()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg1 = arg1()
-  arg2 = 25.0
-  arg3 = 0
-  arg4 = pairs
-  textValue13 = CMG
-  textValue13 = textValue13.getAllVehicles
-  textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2 = textValue13()
-  arg4, textValue13, iterator, numberValue13 = arg4(textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2)
-  for workValue11, numberValue14 in arg4, textValue13, iterator, numberValue13 do
-    numberValue15 = GetVehicleType
-    numberValue = numberValue14
-    numberValue15 = numberValue15(numberValue)
-    if "trailer" == numberValue15 then
-      numberValue15 = GetEntityCoords
-      numberValue = numberValue14
-      numberValue2 = true
+  localValue1 = localValue1()
+  localValue2 = 25.0
+  localValue3 = 0
+  localValue4 = pairs
+  text13 = CMG
+  text13 = text13.getAllVehicles
+  text13, iterator, number13, workingValue11, number14, number15, number, number2 = text13()
+  localValue4, text13, iterator, number13 = localValue4(text13, iterator, number13, workingValue11, number14, number15, number, number2)
+  for workingValue11, number14 in localValue4, text13, iterator, number13 do
+    number15 = GetVehicleType
+    number = number14
+    number15 = number15(number)
+    if "trailer" == number15 then
+      number15 = GetEntityCoords
+      number = number14
+      number2 = true
       -- Beginner: result below is entityCoords.
-      numberValue15 = numberValue15(numberValue, numberValue2)
-      numberValue15 = arg1 - numberValue15
-      numberValue15 = #numberValue15
-      if arg2 > numberValue15 then
-        arg2 = numberValue15
-        arg3 = numberValue14
+      number15 = number15(number, number2)
+      number15 = localValue1 - number15
+      number15 = #number15
+      if localValue2 > number15 then
+        localValue2 = number15
+        localValue3 = number14
       end
     end
   end
-  if 0 == arg3 then
-    arg4 = notify
-    textValue13 = "~r~No nearby trailer found."
+  if 0 == localValue3 then
+    localValue4 = notify
+    text13 = "~r~No nearby trailer found."
     -- Beginner: Show a notification to the player.
-    arg4(textValue13)
+    localValue4(text13)
     return
   end
-  arg4 = AttachVehicleToTrailer
-  textValue13 = CMG
-  textValue13 = textValue13.getPlayerVehicle
+  localValue4 = AttachVehicleToTrailer
+  text13 = CMG
+  text13 = text13.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  textValue13 = textValue13()
-  iterator = arg3
-  numberValue13 = 1.0
-  arg4(textValue13, iterator, numberValue13)
-  arg4 = notify
-  textValue13 = "~g~Attached closest trailer."
+  text13 = text13()
+  iterator = localValue3
+  number13 = 1.0
+  localValue4(text13, iterator, number13)
+  localValue4 = notify
+  text13 = "~g~Attached closest trailer."
   -- Beginner: Show a notification to the player.
-  arg4(textValue13)
+  localValue4(text13)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11, numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5, flag6, numberValue4, flag7, cmgCall5, textValue3
-  arg1 = 0
-  arg2 = pairs
-  arg3 = cmgCall.trucks
-  arg2, arg3, arg4, textValue13 = arg2(arg3)
-  for iterator, numberValue13 in arg2, arg3, arg4, textValue13 do
-    workValue11 = numberValue13.custom
-    if not workValue11 then
-      workValue11 = CMG
-      workValue11 = workValue11.spawnVehicle
-      numberValue14 = iterator
-      numberValue15 = cmgCall6.x
-      numberValue = arg1 * -4.1
-      numberValue15 = numberValue15 + numberValue
-      numberValue = cmgCall6.y
-      numberValue2 = cmgCall6.z
-      flag3 = 180.0
-      cmgCall2 = false
-      flag4 = false
-      flag5 = false
-      workValue11 = workValue11(numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5)
-      numberValue14 = table
-      numberValue14 = numberValue14.insert
-      numberValue15 = textValue6
-      numberValue = workValue11
-      numberValue14(numberValue15, numberValue)
-      arg1 = arg1 + 1
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11, number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5, stateFlag6, number4, stateFlag7, cmgOperation5, text3
+  localValue1 = 0
+  localValue2 = pairs
+  localValue3 = cmgOperation.trucks
+  localValue2, localValue3, localValue4, text13 = localValue2(localValue3)
+  for iterator, number13 in localValue2, localValue3, localValue4, text13 do
+    workingValue11 = number13.custom
+    if not workingValue11 then
+      workingValue11 = CMG
+      workingValue11 = workingValue11.spawnVehicle
+      number14 = iterator
+      number15 = cmgOperation6.x
+      number = localValue1 * -4.1
+      number15 = number15 + number
+      number = cmgOperation6.y
+      number2 = cmgOperation6.z
+      stateFlag3 = 180.0
+      cmgOperation2 = false
+      stateFlag4 = false
+      stateFlag5 = false
+      workingValue11 = workingValue11(number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5)
+      number14 = table
+      number14 = number14.insert
+      number15 = text6
+      number = workingValue11
+      number14(number15, number)
+      localValue1 = localValue1 + 1
     end
   end
-  arg2 = {}
-  arg3 = pairs
-  arg4 = cmgCall.jobs
-  arg3, arg4, textValue13, iterator = arg3(arg4)
-  for numberValue13, workValue11 in arg3, arg4, textValue13, iterator do
-    numberValue14 = pairs
-    numberValue15 = workValue11
-    numberValue14, numberValue15, numberValue, numberValue2 = numberValue14(numberValue15)
-    for flag3, cmgCall2 in numberValue14, numberValue15, numberValue, numberValue2 do
-      flag4 = type
-      flag5 = flag3
-      flag4 = flag4(flag5)
-      if "number" == flag4 then
-        flag4 = pairs
-        flag5 = cmgCall2.trailers
-        flag4, flag5, flag6, numberValue4 = flag4(flag5)
-        for flag7, cmgCall5 in flag4, flag5, flag6, numberValue4 do
-          textValue3 = cmgCall5[1]
-          arg2[textValue3] = true
+  localValue2 = {}
+  localValue3 = pairs
+  localValue4 = cmgOperation.jobs
+  localValue3, localValue4, text13, iterator = localValue3(localValue4)
+  for number13, workingValue11 in localValue3, localValue4, text13, iterator do
+    number14 = pairs
+    number15 = workingValue11
+    number14, number15, number, number2 = number14(number15)
+    for stateFlag3, cmgOperation2 in number14, number15, number, number2 do
+      stateFlag4 = type
+      stateFlag5 = stateFlag3
+      stateFlag4 = stateFlag4(stateFlag5)
+      if "number" == stateFlag4 then
+        stateFlag4 = pairs
+        stateFlag5 = cmgOperation2.trailers
+        stateFlag4, stateFlag5, stateFlag6, number4 = stateFlag4(stateFlag5)
+        for stateFlag7, cmgOperation5 in stateFlag4, stateFlag5, stateFlag6, number4 do
+          text3 = cmgOperation5[1]
+          localValue2[text3] = true
         end
       end
     end
   end
-  arg1 = 0
-  arg3 = pairs
-  arg4 = arg2
-  arg3, arg4, textValue13, iterator = arg3(arg4)
-  for numberValue13 in arg3, arg4, textValue13, iterator do
-    workValue11 = CMG
-    workValue11 = workValue11.spawnVehicle
-    numberValue14 = numberValue13
-    numberValue15 = cmgCall7.x
-    numberValue = arg1 * -4.1
-    numberValue15 = numberValue15 + numberValue
-    numberValue = cmgCall7.y
-    numberValue2 = cmgCall7.z
-    flag3 = 180.0
-    cmgCall2 = false
-    flag4 = false
-    flag5 = false
-    workValue11 = workValue11(numberValue14, numberValue15, numberValue, numberValue2, flag3, cmgCall2, flag4, flag5)
-    numberValue14 = table
-    numberValue14 = numberValue14.insert
-    numberValue15 = textValue6
-    numberValue = workValue11
-    numberValue14(numberValue15, numberValue)
-    arg1 = arg1 + 1
+  localValue1 = 0
+  localValue3 = pairs
+  localValue4 = localValue2
+  localValue3, localValue4, text13, iterator = localValue3(localValue4)
+  for number13 in localValue3, localValue4, text13, iterator do
+    workingValue11 = CMG
+    workingValue11 = workingValue11.spawnVehicle
+    number14 = number13
+    number15 = cmgOperation7.x
+    number = localValue1 * -4.1
+    number15 = number15 + number
+    number = cmgOperation7.y
+    number2 = cmgOperation7.z
+    stateFlag3 = 180.0
+    cmgOperation2 = false
+    stateFlag4 = false
+    stateFlag5 = false
+    workingValue11 = workingValue11(number14, number15, number, number2, stateFlag3, cmgOperation2, stateFlag4, stateFlag5)
+    number14 = table
+    number14 = number14.insert
+    number15 = text6
+    number = workingValue11
+    number14(number15, number)
+    localValue1 = localValue1 + 1
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
-function textValue8()
-  local arg1, arg2, arg3, arg4, textValue13, iterator, numberValue13, workValue11
-  arg1 = pairs
-  arg2 = textValue6
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for textValue13, iterator in arg1, arg2, arg3, arg4 do
-    numberValue13 = DeleteEntity
-    workValue11 = iterator
+-- === HELPER FUNCTION (decompiler name: text8; parameters: none) ===
+function text8()
+  local localValue1, localValue2, localValue3, localValue4, text13, iterator, number13, workingValue11
+  localValue1 = pairs
+  localValue2 = text6
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for text13, iterator in localValue1, localValue2, localValue3, localValue4 do
+    number13 = DeleteEntity
+    workingValue11 = iterator
     -- Beginner: Delete a GTA entity.
-    numberValue13(workValue11)
+    number13(workingValue11)
   end
-  arg1 = table
-  arg1 = arg1.clear
-  arg2 = textValue6
-  arg1(arg2)
+  localValue1 = table
+  localValue1 = localValue1.clear
+  localValue2 = text6
+  localValue1(localValue2)
 end
-cmgCall8 = CMG
-cmgCall8 = cmgCall8.registerDevMenuItems
-cmgCall9 = "Trucking"
+cmgOperation8 = CMG
+cmgOperation8 = cmgOperation8.registerDevMenuItems
+cmgOperation9 = "Trucking"
 
--- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
-function textValue9()
-  local arg1, arg2, arg3, arg4, textValue13
-  arg1 = RageUI
-  arg1 = arg1.Button
-  arg2 = "Attach Closest Trailer"
-  arg3 = ""
-  arg4 = true
+-- === HELPER FUNCTION (decompiler name: text9; parameters: none) ===
+function text9()
+  local localValue1, localValue2, localValue3, localValue4, text13
+  localValue1 = RageUI
+  localValue1 = localValue1.Button
+  localValue2 = "Attach Closest Trailer"
+  localValue3 = ""
+  localValue4 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg12, arg22, arg32) ===
-  function textValue13(arg12, arg22, arg32)
-    local dataTable5
-    if arg32 then
-      dataTable5 = workValue9
-      dataTable5()
+  -- === HELPER FUNCTION (decompiler name: text13; parameters: localValue12, localValue22, localValue32) ===
+  function text13(localValue12, localValue22, localValue32)
+    local dataCollection5
+    if localValue32 then
+      dataCollection5 = workingValue9
+      dataCollection5()
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, textValue13)
-  arg1 = RageUI
-  arg1 = arg1.Button
-  arg2 = "Spawn All Trucks & Trailers"
-  arg3 = ""
-  arg4 = true
+  localValue1(localValue2, localValue3, localValue4, text13)
+  localValue1 = RageUI
+  localValue1 = localValue1.Button
+  localValue2 = "Spawn All Trucks & Trailers"
+  localValue3 = ""
+  localValue4 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg12, arg22, arg32) ===
-  function textValue13(arg12, arg22, arg32)
-    local dataTable5
-    if arg32 then
-      dataTable5 = textValue7
-      dataTable5()
+  -- === HELPER FUNCTION (decompiler name: text13; parameters: localValue12, localValue22, localValue32) ===
+  function text13(localValue12, localValue22, localValue32)
+    local dataCollection5
+    if localValue32 then
+      dataCollection5 = text7
+      dataCollection5()
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, textValue13)
-  arg1 = RageUI
-  arg1 = arg1.Button
-  arg2 = "Delete All Trucks & Trailers"
-  arg3 = ""
-  arg4 = true
+  localValue1(localValue2, localValue3, localValue4, text13)
+  localValue1 = RageUI
+  localValue1 = localValue1.Button
+  localValue2 = "Delete All Trucks & Trailers"
+  localValue3 = ""
+  localValue4 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue13; parameters: arg12, arg22, arg32) ===
-  function textValue13(arg12, arg22, arg32)
-    local dataTable5
-    if arg32 then
-      dataTable5 = textValue8
-      dataTable5()
+  -- === HELPER FUNCTION (decompiler name: text13; parameters: localValue12, localValue22, localValue32) ===
+  function text13(localValue12, localValue22, localValue32)
+    local dataCollection5
+    if localValue32 then
+      dataCollection5 = text8
+      dataCollection5()
     end
   end
   -- Beginner: Draw a selectable RageUI menu button.
-  arg1(arg2, arg3, arg4, textValue13)
+  localValue1(localValue2, localValue3, localValue4, text13)
 end
-cmgCall8(cmgCall9, textValue9)
+cmgOperation8(cmgOperation9, text9)

@@ -932,7 +932,7 @@ local function useSoilBag(targetObject)
     SetPedCanRagdoll(playerPed, false)
 
     for _ = 1, loops do
-        TaskPlayAnim(playerPed, dict, anim, 2.0, 8.0, loopMs, 1, 0, false, false, false) -- flag 1: normal
+        TaskPlayAnim(playerPed, dict, anim, 2.0, 8.0, loopMs, 1, 0, false, false, false) -- stateFlag 1: normal
         Wait(loopMs)
         StopAnimTask(playerPed, dict, anim, 0.1)
         Wait(0)

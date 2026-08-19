@@ -32,9 +32,9 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
@@ -43,15 +43,15 @@
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local vendingConfig, addTextEntry, beginHelpText, endHelpText, getEntityCoords, world3dToScreen2d, setTextScale, setTextFont, setTextEntry, setTextCentre, addTextComponentString, drawText, triggerClientEvent, vendingRuntime, replaceTextTokens, numberValue4, numberValue6, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue26, workValue27, workValue29, workValue31, workValue33, workValue35, workValue36, workValue37, workValue38, workValue39, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, numberValue10, threadCall, threadCall2, numberValue11, workValue52, workValue53, workValue54, workValue55, dataTable6, workValue56, workValue57, workValue58, workValue62, workValue63, workValue64, workValue65, workValue66, workValue67, workValue68, workValue69, workValue70, workValue71, dataTable7, workValue74, workValue75, workValue76, workValue77, workValue78, workValue79, workValue80, workValue81, workValue82, workValue85, workValue86, eventRegistration, textValue8, workValue87, iterator3, workValue88, workValue89, workValue90, workValue91, workValue96, iterator4, dataTable8, workValue97, workValue98, workValue99, workValue100, workValue101
+local vendingConfig, addTextEntry, beginHelpText, endHelpText, getEntityCoords, world3dToScreen2d, setTextScale, setTextFont, setTextEntry, setTextCentre, addTextComponentString, drawText, triggerClientEvent, vendingRuntime, replaceTextTokens, number4, number6, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16, workingValue17, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue26, workingValue27, workingValue29, workingValue31, workingValue33, workingValue35, workingValue36, workingValue37, workingValue38, workingValue39, workingValue43, workingValue44, workingValue45, workingValue46, workingValue47, workingValue48, workingValue49, workingValue50, number10, backgroundThread, backgroundThread2, number11, workingValue52, workingValue53, workingValue54, workingValue55, dataCollection6, workingValue56, workingValue57, workingValue58, workingValue62, workingValue63, workingValue64, workingValue65, workingValue66, workingValue67, workingValue68, workingValue69, workingValue70, workingValue71, dataCollection7, workingValue74, workingValue75, workingValue76, workingValue77, workingValue78, workingValue79, workingValue80, workingValue81, workingValue82, workingValue85, workingValue86, eventHandler, text8, workingValue87, iterator3, workingValue88, workingValue89, workingValue90, workingValue91, workingValue96, iterator4, dataCollection8, workingValue97, workingValue98, workingValue99, workingValue100, workingValue101
 
 vendingConfig = CMG.loadModule("cfg/cfg_vending")
 addTextEntry = AddTextEntry
@@ -76,955 +76,955 @@ vendingRuntime = {
 }
 
 -- Replaces template tokens such as "%s" with values from the supplied list/table.
-function replaceTextTokens(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
-  arg4 = 1
-  arg5 = #arg2
-  arg6 = 1
-  for arg7 = arg4, arg5, arg6 do
-    arg8 = string
-    arg8 = arg8.gsub
-    workValue93 = arg1
-    workValue103 = arg2[arg7]
-    workValue2 = arg3[arg7]
-    if not workValue2 then
-      workValue2 = arg3
+function replaceTextTokens(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2
+  localValue4 = 1
+  localValue5 = #localValue2
+  localValue6 = 1
+  for localValue7 = localValue4, localValue5, localValue6 do
+    localValue8 = string
+    localValue8 = localValue8.gsub
+    workingValue93 = localValue1
+    workingValue103 = localValue2[localValue7]
+    workingValue2 = localValue3[localValue7]
+    if not workingValue2 then
+      workingValue2 = localValue3
     end
-    arg8 = arg8(workValue93, workValue103, workValue2)
-    arg1 = arg8
+    localValue8 = localValue8(workingValue93, workingValue103, workingValue2)
+    localValue1 = localValue8
   end
-  return arg1
+  return localValue1
 end
-numberValue4 = 100.0
-numberValue6 = 8100
-workValue12 = numberValue6 / numberValue4
+number4 = 100.0
+number6 = 8100
+workingValue12 = number6 / number4
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1) ===
-function workValue13(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = math
-  arg2 = arg2.floor
-  arg3 = arg1.x
-  arg4 = numberValue4
-  arg3 = arg3 / arg4
-  arg2 = arg2(arg3)
-  arg3 = math
-  arg3 = arg3.floor
-  arg4 = arg1.y
-  arg5 = numberValue4
-  arg4 = arg4 / arg5
-  arg3 = arg3(arg4)
-  arg4 = arg3
-  arg5 = arg2
-  return arg4, arg5
-end
-
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
-function workValue14(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = workValue13
-  arg3 = arg1
-  arg2, arg3 = arg2(arg3)
-  arg4 = math
-  arg4 = arg4.floor
-  arg5 = workValue12
-  arg5 = arg2 * arg5
-  arg5 = arg5 + arg3
-  return arg4(arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: localValue1) ===
+function workingValue13(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = math
+  localValue2 = localValue2.floor
+  localValue3 = localValue1.x
+  localValue4 = number4
+  localValue3 = localValue3 / localValue4
+  localValue2 = localValue2(localValue3)
+  localValue3 = math
+  localValue3 = localValue3.floor
+  localValue4 = localValue1.y
+  localValue5 = number4
+  localValue4 = localValue4 / localValue5
+  localValue3 = localValue3(localValue4)
+  localValue4 = localValue3
+  localValue5 = localValue2
+  return localValue4, localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, arg2, arg3
-  arg1 = workValue14
-  arg2 = GetEntityCoords
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: localValue1) ===
+function workingValue14(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = workingValue13
+  localValue3 = localValue1
+  localValue2, localValue3 = localValue2(localValue3)
+  localValue4 = math
+  localValue4 = localValue4.floor
+  localValue5 = workingValue12
+  localValue5 = localValue2 * localValue5
+  localValue5 = localValue5 + localValue3
+  return localValue4(localValue5)
+end
+
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, localValue2, localValue3
+  localValue1 = workingValue14
+  localValue2 = GetEntityCoords
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg2, arg3 = arg2(arg3)
-  return arg1(arg2, arg3)
+  localValue3 = localValue3()
+  localValue2, localValue3 = localValue2(localValue3)
+  return localValue1(localValue2, localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
-function workValue16(arg1)
-  local arg2
-  arg2 = vendingRuntime.SliceGroups
-  arg2 = arg2[arg1]
-  if not arg2 then
-    arg2 = false
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1) ===
+function workingValue16(localValue1)
+  local localValue2
+  localValue2 = vendingRuntime.SliceGroups
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
+    localValue2 = false
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue17; parameters: arg1, arg2) ===
-function workValue17(arg1, arg2)
-  local arg3, arg4
-  arg3 = tonumber
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  arg1 = arg3
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue17; parameters: localValue1, localValue2) ===
+function workingValue17(localValue1, localValue2)
+  local localValue3, localValue4
+  localValue3 = tonumber
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  localValue1 = localValue3
+  if not localValue1 then
     return
   end
-  if arg2 then
-    arg3 = vendingRuntime.SliceGroups
-    arg3[arg1] = arg2
+  if localValue2 then
+    localValue3 = vendingRuntime.SliceGroups
+    localValue3[localValue1] = localValue2
   else
-    arg3 = vendingRuntime.SliceGroups
-    arg3[arg1] = nil
+    localValue3 = vendingRuntime.SliceGroups
+    localValue3[localValue1] = nil
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
-function workValue18(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-  local workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3
-  workValue93 = HasAnimDictLoaded
-  workValue103 = arg2
-  workValue93 = workValue93(workValue103)
-  if not workValue93 then
-    workValue93 = RequestAnimDict
-    workValue103 = arg2
-    workValue93(workValue103)
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8) ===
+function workingValue18(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+  local workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3
+  workingValue93 = HasAnimDictLoaded
+  workingValue103 = localValue2
+  workingValue93 = workingValue93(workingValue103)
+  if not workingValue93 then
+    workingValue93 = RequestAnimDict
+    workingValue103 = localValue2
+    workingValue93(workingValue103)
     while true do
-      workValue93 = HasAnimDictLoaded
-      workValue103 = arg2
-      workValue93 = workValue93(workValue103)
-      if workValue93 then
+      workingValue93 = HasAnimDictLoaded
+      workingValue103 = localValue2
+      workingValue93 = workingValue93(workingValue103)
+      if workingValue93 then
         break
       end
-      workValue93 = Citizen
-      workValue93 = workValue93.Wait
-      workValue103 = 1
-      workValue93(workValue103)
+      workingValue93 = Citizen
+      workingValue93 = workingValue93.Wait
+      workingValue103 = 1
+      workingValue93(workingValue103)
     end
   end
-  workValue93 = TaskPlayAnim
-  workValue103 = arg1
-  workValue2 = arg2
-  workValue6 = arg3
-  numberValue = arg4 or numberValue
-  if not arg4 then
-    numberValue = 2.0
+  workingValue93 = TaskPlayAnim
+  workingValue103 = localValue1
+  workingValue2 = localValue2
+  workingValue6 = localValue3
+  number = localValue4 or number
+  if not localValue4 then
+    number = 2.0
   end
-  numberValue2 = arg5 or numberValue2
-  if not arg5 then
-    numberValue2 = 2.0
+  number2 = localValue5 or number2
+  if not localValue5 then
+    number2 = 2.0
   end
-  numberValue3 = arg6 or numberValue3
-  if not arg6 then
-    numberValue3 = -1
+  number3 = localValue6 or number3
+  if not localValue6 then
+    number3 = -1
   end
-  numberValue5 = arg7 or numberValue5
-  if not arg7 then
-    numberValue5 = 0
+  number5 = localValue7 or number5
+  if not localValue7 then
+    number5 = 0
   end
-  numberValue7 = arg8 or numberValue7
-  if not arg8 then
-    numberValue7 = 0
+  number7 = localValue8 or number7
+  if not localValue8 then
+    number7 = 0
   end
-  flag = false
-  flag2 = false
-  flag3 = false
+  stateFlag = false
+  stateFlag2 = false
+  stateFlag3 = false
   -- Beginner: Play an animation on a ped.
-  workValue93(workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3)
-  workValue93 = RemoveAnimDict
-  workValue103 = arg2
-  workValue93(workValue103)
+  workingValue93(workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3)
+  workingValue93 = RemoveAnimDict
+  workingValue103 = localValue2
+  workingValue93(workingValue103)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: arg1, arg2, arg3, arg4) ===
-function workValue19(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
-  if nil == arg3 then
-    arg3 = 51
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue19(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number
+  if nil == localValue3 then
+    localValue3 = 51
   end
-  if nil == arg4 then
-    arg4 = -1
+  if nil == localValue4 then
+    localValue4 = -1
   end
-  arg5 = workValue18
-  arg6 = PlayerPedId
+  localValue5 = workingValue18
+  localValue6 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg6 = arg6()
-  arg7 = arg1
-  arg8 = arg2
-  workValue93 = 2.0
-  workValue103 = 2.0
-  workValue2 = arg4
-  workValue6 = arg3
-  numberValue = 0
-  arg5(arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue)
+  localValue6 = localValue6()
+  localValue7 = localValue1
+  localValue8 = localValue2
+  workingValue93 = 2.0
+  workingValue103 = 2.0
+  workingValue2 = localValue4
+  workingValue6 = localValue3
+  number = 0
+  localValue5(localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue20(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag
-  if arg1 then
-    arg6 = world3dToScreen2d
-    arg7 = arg1.x
-    arg8 = arg1.y
-    workValue93 = arg1.z
-    arg6, arg7, arg8 = arg6(arg7, arg8, workValue93)
-    if arg6 then
-      workValue93 = setTextScale
-      workValue103 = arg3 or workValue103
-      if not arg3 then
-        workValue103 = 0.35
+-- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue20(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag
+  if localValue1 then
+    localValue6 = world3dToScreen2d
+    localValue7 = localValue1.x
+    localValue8 = localValue1.y
+    workingValue93 = localValue1.z
+    localValue6, localValue7, localValue8 = localValue6(localValue7, localValue8, workingValue93)
+    if localValue6 then
+      workingValue93 = setTextScale
+      workingValue103 = localValue3 or workingValue103
+      if not localValue3 then
+        workingValue103 = 0.35
       end
-      workValue2 = arg3 or workValue2
-      if not arg3 then
-        workValue2 = 0.35
+      workingValue2 = localValue3 or workingValue2
+      if not localValue3 then
+        workingValue2 = 0.35
       end
-      workValue93(workValue103, workValue2)
-      workValue93 = setTextFont
-      workValue103 = arg4 or workValue103
-      if not arg4 then
-        workValue103 = 4
+      workingValue93(workingValue103, workingValue2)
+      workingValue93 = setTextFont
+      workingValue103 = localValue4 or workingValue103
+      if not localValue4 then
+        workingValue103 = 4
       end
-      workValue93(workValue103)
-      workValue93 = setTextEntry
-      workValue103 = "STRING"
-      workValue93(workValue103)
-      workValue93 = setTextCentre
-      workValue103 = true
-      workValue93(workValue103)
-      workValue93 = addTextComponentString
-      workValue103 = arg2
-      workValue93(workValue103)
-      workValue93 = drawText
-      workValue103 = arg7
-      workValue2 = arg8
-      workValue93(workValue103, workValue2)
-      if arg5 then
-        workValue93 = string
-        workValue93 = workValue93.len
-        workValue103 = arg2
-        workValue93 = workValue93(workValue103)
-        workValue93 = workValue93 / 370
-        workValue103 = DrawRect
-        workValue2 = arg7
-        workValue6 = arg8 + 0.0125
-        numberValue = 0.025 + workValue93
-        numberValue2 = 0.025
-        numberValue3 = 0
-        numberValue5 = 0
-        numberValue7 = 0
-        flag = 90
-        workValue103(workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag)
+      workingValue93(workingValue103)
+      workingValue93 = setTextEntry
+      workingValue103 = "STRING"
+      workingValue93(workingValue103)
+      workingValue93 = setTextCentre
+      workingValue103 = true
+      workingValue93(workingValue103)
+      workingValue93 = addTextComponentString
+      workingValue103 = localValue2
+      workingValue93(workingValue103)
+      workingValue93 = drawText
+      workingValue103 = localValue7
+      workingValue2 = localValue8
+      workingValue93(workingValue103, workingValue2)
+      if localValue5 then
+        workingValue93 = string
+        workingValue93 = workingValue93.len
+        workingValue103 = localValue2
+        workingValue93 = workingValue93(workingValue103)
+        workingValue93 = workingValue93 / 370
+        workingValue103 = DrawRect
+        workingValue2 = localValue7
+        workingValue6 = localValue8 + 0.0125
+        number = 0.025 + workingValue93
+        number2 = 0.025
+        number3 = 0
+        number5 = 0
+        number7 = 0
+        stateFlag = 90
+        workingValue103(workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag)
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1, arg2) ===
-function workValue21(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  arg3 = addTextEntry
-  arg4 = "ButtonNotificationInternal"
-  arg5 = arg1
-  arg3(arg4, arg5)
-  arg3 = beginHelpText
-  arg4 = "ButtonNotificationInternal"
-  arg3(arg4)
-  arg3 = endHelpText
-  arg4 = 0
-  arg5 = true
-  arg6 = arg2 or arg6
-  if not arg2 then
-    arg6 = true
+-- === HELPER FUNCTION (decompiler name: workingValue21; parameters: localValue1, localValue2) ===
+function workingValue21(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue3 = addTextEntry
+  localValue4 = "ButtonNotificationInternal"
+  localValue5 = localValue1
+  localValue3(localValue4, localValue5)
+  localValue3 = beginHelpText
+  localValue4 = "ButtonNotificationInternal"
+  localValue3(localValue4)
+  localValue3 = endHelpText
+  localValue4 = 0
+  localValue5 = true
+  localValue6 = localValue2 or localValue6
+  if not localValue2 then
+    localValue6 = true
   end
-  arg7 = -1
-  arg3(arg4, arg5, arg6, arg7)
+  localValue7 = -1
+  localValue3(localValue4, localValue5, localValue6, localValue7)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue22; parameters: arg1, arg2) ===
-function workValue22(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7
-  arg3 = string
-  arg3 = arg3.match
-  arg4 = arg1
-  arg5 = "{.*}"
-  arg3 = arg3(arg4, arg5)
-  if arg3 then
-    arg3 = replaceTextTokens
-    arg4 = arg1
-    arg5 = {}
-    arg6 = "{A}"
-    arg7 = "{B}"
-    arg8 = "{C}"
-    workValue93 = "{D}"
-    workValue103 = "{E}"
-    workValue2 = "{F}"
-    workValue6 = "{G}"
-    numberValue = "{H}"
-    numberValue2 = "{L}"
-    numberValue3 = "{M}"
-    numberValue5 = "{N}"
-    numberValue7 = "{O}"
-    flag = "{P}"
-    flag2 = "{Q}"
-    flag3 = "{R}"
-    dataTable3 = "{S}"
-    textValue2 = "{T}"
-    textValue3 = "{U}"
-    textValue4 = "{V}"
-    textValue5 = "{W}"
-    dataTable4 = "{X}"
-    textValue6 = "{Y}"
+-- === HELPER FUNCTION (decompiler name: workingValue22; parameters: localValue1, localValue2) ===
+function workingValue22(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7
+  localValue3 = string
+  localValue3 = localValue3.match
+  localValue4 = localValue1
+  localValue5 = "{.*}"
+  localValue3 = localValue3(localValue4, localValue5)
+  if localValue3 then
+    localValue3 = replaceTextTokens
+    localValue4 = localValue1
+    localValue5 = {}
+    localValue6 = "{A}"
+    localValue7 = "{B}"
+    localValue8 = "{C}"
+    workingValue93 = "{D}"
+    workingValue103 = "{E}"
+    workingValue2 = "{F}"
+    workingValue6 = "{G}"
+    number = "{H}"
+    number2 = "{L}"
+    number3 = "{M}"
+    number5 = "{N}"
+    number7 = "{O}"
+    stateFlag = "{P}"
+    stateFlag2 = "{Q}"
+    stateFlag3 = "{R}"
+    dataCollection3 = "{S}"
+    text2 = "{T}"
+    text3 = "{U}"
+    text4 = "{V}"
+    text5 = "{W}"
+    dataCollection4 = "{X}"
+    text6 = "{Y}"
     iterator = "{Z}"
-    arg5[1] = arg6
-    arg5[2] = arg7
-    arg5[3] = arg8
-    arg5[4] = workValue93
-    arg5[5] = workValue103
-    arg5[6] = workValue2
-    arg5[7] = workValue6
-    arg5[8] = numberValue
-    arg5[9] = numberValue2
-    arg5[10] = numberValue3
-    arg5[11] = numberValue5
-    arg5[12] = numberValue7
-    arg5[13] = flag
-    arg5[14] = flag2
-    arg5[15] = flag3
-    arg5[16] = dataTable3
-    arg5[17] = textValue2
-    arg5[18] = textValue3
-    arg5[19] = textValue4
-    arg5[20] = textValue5
-    arg5[21] = dataTable4
-    arg5[22] = textValue6
-    arg5[23] = iterator
-    arg6 = {}
-    arg7 = "~INPUT_VEH_FLY_YAW_LEFT~"
-    arg8 = "~INPUT_SPECIAL_ABILITY_SECONDARY~"
-    workValue93 = "~INPUT_LOOK_BEHIND~"
-    workValue103 = "~INPUT_MOVE_RIGHT_ONLY~"
-    workValue2 = "~INPUT_CONTEXT~"
-    workValue6 = "~INPUT_ARREST~"
-    numberValue = "~INPUT_DETONATE~"
-    numberValue2 = "~INPUT_VEH_ROOF~"
-    numberValue3 = "~INPUT_CELLPHONE_CAMERA_FOCUS_LOCK~"
-    numberValue5 = "~INPUT_INTERACTION_MENU~"
-    numberValue7 = "~INPUT_REPLAY_ENDPOINT~"
-    flag = "~INPUT_FRONTEND_PAUSE~"
-    flag2 = "~INPUT_FRONTEND_LB~"
-    flag3 = "~INPUT_RELOAD~"
-    dataTable3 = "~INPUT_MOVE_DOWN_ONLY~"
-    textValue2 = "~INPUT_MP_TEXT_CHAT_ALL~"
-    textValue3 = "~INPUT_REPLAY_SCREENSHOT~"
-    textValue4 = "~INPUT_NEXT_CAMERA~"
-    textValue5 = "~INPUT_MOVE_UP_ONLY~"
-    dataTable4 = "~INPUT_VEH_HOTWIRE_LEFT~"
-    textValue6 = "~INPUT_VEH_DUCK~"
+    localValue5[1] = localValue6
+    localValue5[2] = localValue7
+    localValue5[3] = localValue8
+    localValue5[4] = workingValue93
+    localValue5[5] = workingValue103
+    localValue5[6] = workingValue2
+    localValue5[7] = workingValue6
+    localValue5[8] = number
+    localValue5[9] = number2
+    localValue5[10] = number3
+    localValue5[11] = number5
+    localValue5[12] = number7
+    localValue5[13] = stateFlag
+    localValue5[14] = stateFlag2
+    localValue5[15] = stateFlag3
+    localValue5[16] = dataCollection3
+    localValue5[17] = text2
+    localValue5[18] = text3
+    localValue5[19] = text4
+    localValue5[20] = text5
+    localValue5[21] = dataCollection4
+    localValue5[22] = text6
+    localValue5[23] = iterator
+    localValue6 = {}
+    localValue7 = "~INPUT_VEH_FLY_YAW_LEFT~"
+    localValue8 = "~INPUT_SPECIAL_ABILITY_SECONDARY~"
+    workingValue93 = "~INPUT_LOOK_BEHIND~"
+    workingValue103 = "~INPUT_MOVE_RIGHT_ONLY~"
+    workingValue2 = "~INPUT_CONTEXT~"
+    workingValue6 = "~INPUT_ARREST~"
+    number = "~INPUT_DETONATE~"
+    number2 = "~INPUT_VEH_ROOF~"
+    number3 = "~INPUT_CELLPHONE_CAMERA_FOCUS_LOCK~"
+    number5 = "~INPUT_INTERACTION_MENU~"
+    number7 = "~INPUT_REPLAY_ENDPOINT~"
+    stateFlag = "~INPUT_FRONTEND_PAUSE~"
+    stateFlag2 = "~INPUT_FRONTEND_LB~"
+    stateFlag3 = "~INPUT_RELOAD~"
+    dataCollection3 = "~INPUT_MOVE_DOWN_ONLY~"
+    text2 = "~INPUT_MP_TEXT_CHAT_ALL~"
+    text3 = "~INPUT_REPLAY_SCREENSHOT~"
+    text4 = "~INPUT_NEXT_CAMERA~"
+    text5 = "~INPUT_MOVE_UP_ONLY~"
+    dataCollection4 = "~INPUT_VEH_HOTWIRE_LEFT~"
+    text6 = "~INPUT_VEH_DUCK~"
     iterator = "~INPUT_MP_TEXT_CHAT_TEAM~"
-    textValue7 = "~INPUT_HUD_SPECIAL~"
-    arg6[1] = arg7
-    arg6[2] = arg8
-    arg6[3] = workValue93
-    arg6[4] = workValue103
-    arg6[5] = workValue2
-    arg6[6] = workValue6
-    arg6[7] = numberValue
-    arg6[8] = numberValue2
-    arg6[9] = numberValue3
-    arg6[10] = numberValue5
-    arg6[11] = numberValue7
-    arg6[12] = flag
-    arg6[13] = flag2
-    arg6[14] = flag3
-    arg6[15] = dataTable3
-    arg6[16] = textValue2
-    arg6[17] = textValue3
-    arg6[18] = textValue4
-    arg6[19] = textValue5
-    arg6[20] = dataTable4
-    arg6[21] = textValue6
-    arg6[22] = iterator
-    arg6[23] = textValue7
-    arg3 = arg3(arg4, arg5, arg6)
-    arg1 = arg3
+    text7 = "~INPUT_HUD_SPECIAL~"
+    localValue6[1] = localValue7
+    localValue6[2] = localValue8
+    localValue6[3] = workingValue93
+    localValue6[4] = workingValue103
+    localValue6[5] = workingValue2
+    localValue6[6] = workingValue6
+    localValue6[7] = number
+    localValue6[8] = number2
+    localValue6[9] = number3
+    localValue6[10] = number5
+    localValue6[11] = number7
+    localValue6[12] = stateFlag
+    localValue6[13] = stateFlag2
+    localValue6[14] = stateFlag3
+    localValue6[15] = dataCollection3
+    localValue6[16] = text2
+    localValue6[17] = text3
+    localValue6[18] = text4
+    localValue6[19] = text5
+    localValue6[20] = dataCollection4
+    localValue6[21] = text6
+    localValue6[22] = iterator
+    localValue6[23] = text7
+    localValue3 = localValue3(localValue4, localValue5, localValue6)
+    localValue1 = localValue3
   end
-  if nil == arg2 then
-    arg2 = true
+  if nil == localValue2 then
+    localValue2 = true
   end
-  arg3 = addTextEntry
-  arg4 = "ButtonNotification"
-  arg5 = string
-  arg5 = arg5.len
-  arg6 = arg1
-  arg5 = arg5(arg6)
-  arg4 = arg4 .. arg5
-  arg5 = arg1
-  arg3(arg4, arg5)
-  arg3 = beginHelpText
-  arg4 = "ButtonNotification"
-  arg5 = string
-  arg5 = arg5.len
-  arg6 = arg1
-  arg5 = arg5(arg6)
-  arg4 = arg4 .. arg5
-  arg3(arg4)
-  arg3 = endHelpText
-  arg4 = 0
-  arg5 = false
-  arg6 = arg2
-  arg7 = -1
-  arg3(arg4, arg5, arg6, arg7)
+  localValue3 = addTextEntry
+  localValue4 = "ButtonNotification"
+  localValue5 = string
+  localValue5 = localValue5.len
+  localValue6 = localValue1
+  localValue5 = localValue5(localValue6)
+  localValue4 = localValue4 .. localValue5
+  localValue5 = localValue1
+  localValue3(localValue4, localValue5)
+  localValue3 = beginHelpText
+  localValue4 = "ButtonNotification"
+  localValue5 = string
+  localValue5 = localValue5.len
+  localValue6 = localValue1
+  localValue5 = localValue5(localValue6)
+  localValue4 = localValue4 .. localValue5
+  localValue3(localValue4)
+  localValue3 = endHelpText
+  localValue4 = 0
+  localValue5 = false
+  localValue6 = localValue2
+  localValue7 = -1
+  localValue3(localValue4, localValue5, localValue6, localValue7)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue23; parameters: arg1, arg2) ===
-function workValue23(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue23; parameters: localValue1, localValue2) ===
+function workingValue23(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg3 = arg3()
-  arg4 = Citizen
-  arg4 = arg4.CreateThread
+  localValue3 = localValue3()
+  localValue4 = Citizen
+  localValue4 = localValue4.CreateThread
 
-  -- === HELPER FUNCTION: arg5() ===
-  function arg5()
-    local arg12, arg22
+  -- === HELPER FUNCTION: localValue5() ===
+  function localValue5()
+    local localValue12, localValue22
     while true do
-      arg12 = GetGameTimer
+      localValue12 = GetGameTimer
       -- Beginner: result below is gameTimeMs.
-      arg12 = arg12()
-      arg22 = arg3
-      arg12 = arg12 - arg22
-      arg22 = arg2
-      if not arg22 then
-        arg22 = 5000
+      localValue12 = localValue12()
+      localValue22 = localValue3
+      localValue12 = localValue12 - localValue22
+      localValue22 = localValue2
+      if not localValue22 then
+        localValue22 = 5000
       end
-      if not (arg12 < arg22) then
+      if not (localValue12 < localValue22) then
         break
       end
-      arg12 = workValue22
-      arg22 = arg1
-      arg12(arg22)
-      arg12 = Citizen
-      arg12 = arg12.Wait
-      arg22 = 1
-      arg12(arg22)
+      localValue12 = workingValue22
+      localValue22 = localValue1
+      localValue12(localValue22)
+      localValue12 = Citizen
+      localValue12 = localValue12.Wait
+      localValue22 = 1
+      localValue12(localValue22)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg4(arg5)
+  localValue4(localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue24; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue24(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30, workValue32, workValue34, flag4, flag5, flag6, flag7, workValue40
-  arg6 = 10
-  arg7 = 0.01
-  arg8 = 1.0E-7
-  workValue93 = 10
-  workValue103 = 11
-  workValue2 = workValue103 - 1.0
-  workValue6 = 1.0
-  workValue2 = workValue6 / workValue2
+-- === HELPER FUNCTION (decompiler name: workingValue24; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue24(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2, workingValue28, workingValue30, workingValue32, workingValue34, stateFlag4, stateFlag5, stateFlag6, stateFlag7, workingValue40
+  localValue6 = 10
+  localValue7 = 0.01
+  localValue8 = 1.0E-7
+  workingValue93 = 10
+  workingValue103 = 11
+  workingValue2 = workingValue103 - 1.0
+  workingValue6 = 1.0
+  workingValue2 = workingValue6 / workingValue2
 
-  -- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg12, arg22) ===
-  function workValue6(arg12, arg22)
-    local arg32, arg42
-    arg32 = 3.0 * arg22
-    arg42 = 1.0
-    arg32 = arg42 - arg32
-    arg42 = 3.0 * arg12
-    arg32 = arg32 + arg42
-    return arg32
+  -- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue12, localValue22) ===
+  function workingValue6(localValue12, localValue22)
+    local localValue32, localValue42
+    localValue32 = 3.0 * localValue22
+    localValue42 = 1.0
+    localValue32 = localValue42 - localValue32
+    localValue42 = 3.0 * localValue12
+    localValue32 = localValue32 + localValue42
+    return localValue32
   end
 
-  -- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg12, arg22) ===
-  function numberValue(arg12, arg22)
-    local arg32, arg42
-    arg32 = 3.0 * arg22
-    arg42 = 6.0 * arg12
-    arg32 = arg32 - arg42
-    return arg32
+  -- === HELPER FUNCTION (decompiler name: number; parameters: localValue12, localValue22) ===
+  function number(localValue12, localValue22)
+    local localValue32, localValue42
+    localValue32 = 3.0 * localValue22
+    localValue42 = 6.0 * localValue12
+    localValue32 = localValue32 - localValue42
+    return localValue32
   end
 
-  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: arg12) ===
-  function numberValue2(arg12)
-    local arg22
-    arg22 = 3.0 * arg12
-    return arg22
+  -- === HELPER FUNCTION (decompiler name: number2; parameters: localValue12) ===
+  function number2(localValue12)
+    local localValue22
+    localValue22 = 3.0 * localValue12
+    return localValue22
   end
 
-  -- === HELPER FUNCTION (decompiler name: numberValue3; parameters: arg12, arg22, arg32) ===
-  function numberValue3(arg12, arg22, arg32)
-    local arg42, arg52, workValue60, numberValue12
-    arg42 = workValue6
-    arg52 = arg22
-    workValue60 = arg32
-    arg42 = arg42(arg52, workValue60)
-    arg42 = arg42 * arg12
-    arg52 = numberValue
-    workValue60 = arg22
-    numberValue12 = arg32
-    arg52 = arg52(workValue60, numberValue12)
-    arg42 = arg42 + arg52
-    arg42 = arg42 * arg12
-    arg52 = numberValue2
-    workValue60 = arg22
-    arg52 = arg52(workValue60)
-    arg42 = arg42 + arg52
-    arg42 = arg42 * arg12
-    return arg42
+  -- === HELPER FUNCTION (decompiler name: number3; parameters: localValue12, localValue22, localValue32) ===
+  function number3(localValue12, localValue22, localValue32)
+    local localValue42, localValue52, workingValue60, number12
+    localValue42 = workingValue6
+    localValue52 = localValue22
+    workingValue60 = localValue32
+    localValue42 = localValue42(localValue52, workingValue60)
+    localValue42 = localValue42 * localValue12
+    localValue52 = number
+    workingValue60 = localValue22
+    number12 = localValue32
+    localValue52 = localValue52(workingValue60, number12)
+    localValue42 = localValue42 + localValue52
+    localValue42 = localValue42 * localValue12
+    localValue52 = number2
+    workingValue60 = localValue22
+    localValue52 = localValue52(workingValue60)
+    localValue42 = localValue42 + localValue52
+    localValue42 = localValue42 * localValue12
+    return localValue42
   end
 
-  -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg12, arg22, arg32) ===
-  function numberValue5(arg12, arg22, arg32)
-    local arg42, arg52, workValue60, numberValue12
-    arg42 = workValue6
-    arg52 = arg22
-    workValue60 = arg32
-    arg42 = arg42(arg52, workValue60)
-    arg42 = 3.0 * arg42
-    arg42 = arg42 * arg12
-    arg42 = arg42 * arg12
-    arg52 = numberValue
-    workValue60 = arg22
-    numberValue12 = arg32
-    arg52 = arg52(workValue60, numberValue12)
-    arg52 = 2.0 * arg52
-    arg52 = arg52 * arg12
-    arg42 = arg42 + arg52
-    arg52 = numberValue2
-    workValue60 = arg22
-    arg52 = arg52(workValue60)
-    arg42 = arg42 + arg52
-    return arg42
+  -- === HELPER FUNCTION (decompiler name: number5; parameters: localValue12, localValue22, localValue32) ===
+  function number5(localValue12, localValue22, localValue32)
+    local localValue42, localValue52, workingValue60, number12
+    localValue42 = workingValue6
+    localValue52 = localValue22
+    workingValue60 = localValue32
+    localValue42 = localValue42(localValue52, workingValue60)
+    localValue42 = 3.0 * localValue42
+    localValue42 = localValue42 * localValue12
+    localValue42 = localValue42 * localValue12
+    localValue52 = number
+    workingValue60 = localValue22
+    number12 = localValue32
+    localValue52 = localValue52(workingValue60, number12)
+    localValue52 = 2.0 * localValue52
+    localValue52 = localValue52 * localValue12
+    localValue42 = localValue42 + localValue52
+    localValue52 = number2
+    workingValue60 = localValue22
+    localValue52 = localValue52(workingValue60)
+    localValue42 = localValue42 + localValue52
+    return localValue42
   end
 
-  -- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg12, arg22, arg32, arg42, arg52) ===
-  function numberValue7(arg12, arg22, arg32, arg42, arg52)
-    local workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7
-    workValue60 = 0
-    numberValue12 = 0
-    numberValue13 = 0
+  -- === HELPER FUNCTION (decompiler name: number7; parameters: localValue12, localValue22, localValue32, localValue42, localValue52) ===
+  function number7(localValue12, localValue22, localValue32, localValue42, localValue52)
+    local workingValue60, number12, number13, workingValue94, workingValue104, workingValue3, workingValue7
+    workingValue60 = 0
+    number12 = 0
+    number13 = 0
     repeat
-      workValue94 = arg32 - arg22
-      workValue94 = workValue94 / 2.0
-      numberValue12 = arg22 + workValue94
-      workValue94 = numberValue3
-      workValue104 = numberValue12
-      workValue3 = arg42
-      workValue7 = arg52
-      workValue94 = workValue94(workValue104, workValue3, workValue7)
-      workValue60 = workValue94 - arg12
-      if workValue60 > 0.0 then
-        arg32 = numberValue12
+      workingValue94 = localValue32 - localValue22
+      workingValue94 = workingValue94 / 2.0
+      number12 = localValue22 + workingValue94
+      workingValue94 = number3
+      workingValue104 = number12
+      workingValue3 = localValue42
+      workingValue7 = localValue52
+      workingValue94 = workingValue94(workingValue104, workingValue3, workingValue7)
+      workingValue60 = workingValue94 - localValue12
+      if workingValue60 > 0.0 then
+        localValue32 = number12
       else
-        arg22 = numberValue12
+        localValue22 = number12
       end
-      numberValue13 = numberValue13 + 1
-      workValue94 = math
-      workValue94 = workValue94.abs
-      workValue104 = workValue60
-      workValue94 = workValue94(workValue104)
-      workValue104 = arg8
-      if workValue94 <= workValue104 then
+      number13 = number13 + 1
+      workingValue94 = math
+      workingValue94 = workingValue94.abs
+      workingValue104 = workingValue60
+      workingValue94 = workingValue94(workingValue104)
+      workingValue104 = localValue8
+      if workingValue94 <= workingValue104 then
         break
       end
-      workValue94 = workValue93
-    until numberValue13 >= workValue94
-    return numberValue12
+      workingValue94 = workingValue93
+    until number13 >= workingValue94
+    return number12
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag; parameters: arg12, arg22, arg32, arg42) ===
-  function flag(arg12, arg22, arg32, arg42)
-    local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7, workValue9
-    arg52 = 1
-    workValue60 = arg6
-    numberValue12 = 1
-    for numberValue13 = arg52, workValue60, numberValue12 do
-      workValue94 = numberValue5
-      workValue104 = arg22
-      workValue3 = arg32
-      workValue7 = arg42
-      workValue94 = workValue94(workValue104, workValue3, workValue7)
-      if 0.0 == workValue94 then
-        return arg22
+  -- === HELPER FUNCTION (decompiler name: stateFlag; parameters: localValue12, localValue22, localValue32, localValue42) ===
+  function stateFlag(localValue12, localValue22, localValue32, localValue42)
+    local localValue52, workingValue60, number12, number13, workingValue94, workingValue104, workingValue3, workingValue7, workingValue9
+    localValue52 = 1
+    workingValue60 = localValue6
+    number12 = 1
+    for number13 = localValue52, workingValue60, number12 do
+      workingValue94 = number5
+      workingValue104 = localValue22
+      workingValue3 = localValue32
+      workingValue7 = localValue42
+      workingValue94 = workingValue94(workingValue104, workingValue3, workingValue7)
+      if 0.0 == workingValue94 then
+        return localValue22
       end
-      workValue104 = numberValue3
-      workValue3 = arg22
-      workValue7 = arg32
-      workValue9 = arg42
-      workValue104 = workValue104(workValue3, workValue7, workValue9)
-      workValue104 = workValue104 - arg12
-      workValue104 = workValue104 / workValue94
-      arg22 = arg22 - workValue104
+      workingValue104 = number3
+      workingValue3 = localValue22
+      workingValue7 = localValue32
+      workingValue9 = localValue42
+      workingValue104 = workingValue104(workingValue3, workingValue7, workingValue9)
+      workingValue104 = workingValue104 - localValue12
+      workingValue104 = workingValue104 / workingValue94
+      localValue22 = localValue22 - workingValue104
     end
-    return arg22
+    return localValue22
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg12, arg22, arg32, arg42) ===
-  function flag2(arg12, arg22, arg32, arg42)
-    local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7, workValue9
-    if arg12 == arg22 and arg32 == arg42 then
+  -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue12, localValue22, localValue32, localValue42) ===
+  function stateFlag2(localValue12, localValue22, localValue32, localValue42)
+    local localValue52, workingValue60, number12, number13, workingValue94, workingValue104, workingValue3, workingValue7, workingValue9
+    if localValue12 == localValue22 and localValue32 == localValue42 then
 
-      -- === HELPER FUNCTION: arg52(arg13) ===
-      function arg52(arg13)
-        local numberValue8
-        return arg13
+      -- === HELPER FUNCTION: localValue52(localValue13) ===
+      function localValue52(localValue13)
+        local number8
+        return localValue13
       end
-      return arg52
+      return localValue52
     end
-    arg52 = {}
-    workValue60 = 1
-    numberValue12 = workValue103
-    numberValue13 = 1
-    for workValue94 = workValue60, numberValue12, numberValue13 do
-      workValue104 = numberValue3
-      workValue3 = workValue94 - 1
-      workValue7 = workValue2
-      workValue3 = workValue3 * workValue7
-      workValue7 = arg12
-      workValue9 = arg32
-      workValue104 = workValue104(workValue3, workValue7, workValue9)
-      arg52[workValue94] = workValue104
+    localValue52 = {}
+    workingValue60 = 1
+    number12 = workingValue103
+    number13 = 1
+    for workingValue94 = workingValue60, number12, number13 do
+      workingValue104 = number3
+      workingValue3 = workingValue94 - 1
+      workingValue7 = workingValue2
+      workingValue3 = workingValue3 * workingValue7
+      workingValue7 = localValue12
+      workingValue9 = localValue32
+      workingValue104 = workingValue104(workingValue3, workingValue7, workingValue9)
+      localValue52[workingValue94] = workingValue104
     end
 
-    -- === HELPER FUNCTION (decompiler name: workValue60; parameters: arg13) ===
-    function workValue60(arg13)
-      local numberValue8, numberValue9, workValue42, workValue51, workValue61, workValue73, workValue84, workValue95, workValue105, workValue4, workValue8, workValue10, workValue11
-      numberValue8 = 0.0
-      numberValue9 = 1
-      workValue42 = workValue103
-      workValue42 = workValue42 - 1
-      while numberValue9 ~= workValue42 do
-        workValue51 = arg52
-        workValue51 = workValue51[numberValue9]
-        if not (arg13 >= workValue51) then
+    -- === HELPER FUNCTION (decompiler name: workingValue60; parameters: localValue13) ===
+    function workingValue60(localValue13)
+      local number8, number9, workingValue42, workingValue51, workingValue61, workingValue73, workingValue84, workingValue95, workingValue105, workingValue4, workingValue8, workingValue10, workingValue11
+      number8 = 0.0
+      number9 = 1
+      workingValue42 = workingValue103
+      workingValue42 = workingValue42 - 1
+      while number9 ~= workingValue42 do
+        workingValue51 = localValue52
+        workingValue51 = workingValue51[number9]
+        if not (localValue13 >= workingValue51) then
           break
         end
-        workValue51 = workValue2
-        numberValue8 = numberValue8 + workValue51
-        numberValue9 = numberValue9 + 1
+        workingValue51 = workingValue2
+        number8 = number8 + workingValue51
+        number9 = number9 + 1
       end
-      numberValue9 = numberValue9 - 1
-      if numberValue9 < 1 then
-        numberValue9 = 1
+      number9 = number9 - 1
+      if number9 < 1 then
+        number9 = 1
       end
-      workValue51 = workValue103
-      if numberValue9 >= workValue51 then
-        workValue51 = workValue103
-        numberValue9 = workValue51 - 1
+      workingValue51 = workingValue103
+      if number9 >= workingValue51 then
+        workingValue51 = workingValue103
+        number9 = workingValue51 - 1
       end
-      workValue61 = numberValue9 + 1
-      workValue51 = arg52
-      workValue51 = workValue51[workValue61]
-      workValue61 = arg52
-      workValue61 = workValue61[numberValue9]
-      workValue51 = workValue51 - workValue61
-      if 0 == workValue51 then
-        return numberValue8
+      workingValue61 = number9 + 1
+      workingValue51 = localValue52
+      workingValue51 = workingValue51[workingValue61]
+      workingValue61 = localValue52
+      workingValue61 = workingValue61[number9]
+      workingValue51 = workingValue51 - workingValue61
+      if 0 == workingValue51 then
+        return number8
       end
-      workValue61 = arg52
-      workValue61 = workValue61[numberValue9]
-      workValue61 = arg13 - workValue61
-      workValue61 = workValue61 / workValue51
-      workValue73 = workValue2
-      workValue73 = workValue61 * workValue73
-      workValue73 = numberValue8 + workValue73
-      workValue84 = numberValue5
-      workValue95 = workValue73
-      workValue105 = arg12
-      workValue4 = arg32
-      workValue84 = workValue84(workValue95, workValue105, workValue4)
-      workValue95 = arg7
-      if workValue84 >= workValue95 then
-        workValue95 = flag
-        workValue105 = arg13
-        workValue4 = workValue73
-        workValue8 = arg12
-        workValue10 = arg32
-        return workValue95(workValue105, workValue4, workValue8, workValue10)
-      elseif 0.0 == workValue84 then
-        return workValue73
+      workingValue61 = localValue52
+      workingValue61 = workingValue61[number9]
+      workingValue61 = localValue13 - workingValue61
+      workingValue61 = workingValue61 / workingValue51
+      workingValue73 = workingValue2
+      workingValue73 = workingValue61 * workingValue73
+      workingValue73 = number8 + workingValue73
+      workingValue84 = number5
+      workingValue95 = workingValue73
+      workingValue105 = localValue12
+      workingValue4 = localValue32
+      workingValue84 = workingValue84(workingValue95, workingValue105, workingValue4)
+      workingValue95 = localValue7
+      if workingValue84 >= workingValue95 then
+        workingValue95 = stateFlag
+        workingValue105 = localValue13
+        workingValue4 = workingValue73
+        workingValue8 = localValue12
+        workingValue10 = localValue32
+        return workingValue95(workingValue105, workingValue4, workingValue8, workingValue10)
+      elseif 0.0 == workingValue84 then
+        return workingValue73
       else
-        workValue95 = numberValue7
-        workValue105 = arg13
-        workValue4 = numberValue8
-        workValue8 = workValue2
-        workValue8 = numberValue8 + workValue8
-        workValue10 = arg12
-        workValue11 = arg32
-        return workValue95(workValue105, workValue4, workValue8, workValue10, workValue11)
+        workingValue95 = number7
+        workingValue105 = localValue13
+        workingValue4 = number8
+        workingValue8 = workingValue2
+        workingValue8 = number8 + workingValue8
+        workingValue10 = localValue12
+        workingValue11 = localValue32
+        return workingValue95(workingValue105, workingValue4, workingValue8, workingValue10, workingValue11)
       end
     end
 
-    -- === HELPER FUNCTION (decompiler name: numberValue12; parameters: arg13) ===
-    function numberValue12(arg13)
-      local numberValue8, numberValue9, workValue42, workValue51
-      if arg13 <= 0 then
-        numberValue8 = 0
-        return numberValue8
+    -- === HELPER FUNCTION (decompiler name: number12; parameters: localValue13) ===
+    function number12(localValue13)
+      local number8, number9, workingValue42, workingValue51
+      if localValue13 <= 0 then
+        number8 = 0
+        return number8
       end
-      if arg13 >= 1 then
-        numberValue8 = 1
-        return numberValue8
+      if localValue13 >= 1 then
+        number8 = 1
+        return number8
       end
-      numberValue8 = numberValue3
-      numberValue9 = workValue60
-      workValue42 = arg13
-      numberValue9 = numberValue9(workValue42)
-      workValue42 = arg22
-      workValue51 = arg42
-      return numberValue8(numberValue9, workValue42, workValue51)
+      number8 = number3
+      number9 = workingValue60
+      workingValue42 = localValue13
+      number9 = number9(workingValue42)
+      workingValue42 = localValue22
+      workingValue51 = localValue42
+      return number8(number9, workingValue42, workingValue51)
     end
-    return numberValue12
+    return number12
   end
-  flag3 = {}
-  dataTable3 = {}
-  textValue2 = 0.25
-  textValue3 = 0.1
-  textValue4 = 0.25
-  textValue5 = 1
-  dataTable3[1] = textValue2
-  dataTable3[2] = textValue3
-  dataTable3[3] = textValue4
-  dataTable3[4] = textValue5
-  flag3.ease = dataTable3
-  dataTable3 = {}
-  textValue2 = 0.42
-  textValue3 = 0
-  textValue4 = 1
-  textValue5 = 1
-  dataTable3[1] = textValue2
-  dataTable3[2] = textValue3
-  dataTable3[3] = textValue4
-  dataTable3[4] = textValue5
-  flag3.easeIn = dataTable3
-  dataTable3 = {}
-  textValue2 = 0
-  textValue3 = 0
-  textValue4 = 0.58
-  textValue5 = 1
-  dataTable3[1] = textValue2
-  dataTable3[2] = textValue3
-  dataTable3[3] = textValue4
-  dataTable3[4] = textValue5
-  flag3.easeOut = dataTable3
-  dataTable3 = {}
-  textValue2 = 0.42
-  textValue3 = 0
-  textValue4 = 0.58
-  textValue5 = 1
-  dataTable3[1] = textValue2
-  dataTable3[2] = textValue3
-  dataTable3[3] = textValue4
-  dataTable3[4] = textValue5
-  flag3.easeInOut = dataTable3
-  if not arg5 then
-    dataTable3 = {}
-    textValue2 = 0.1
-    textValue3 = 0.1
-    textValue4 = 0.1
-    textValue5 = 0.1
-    dataTable3[1] = textValue2
-    dataTable3[2] = textValue3
-    dataTable3[3] = textValue4
-    dataTable3[4] = textValue5
-    arg5 = dataTable3
+  stateFlag3 = {}
+  dataCollection3 = {}
+  text2 = 0.25
+  text3 = 0.1
+  text4 = 0.25
+  text5 = 1
+  dataCollection3[1] = text2
+  dataCollection3[2] = text3
+  dataCollection3[3] = text4
+  dataCollection3[4] = text5
+  stateFlag3.ease = dataCollection3
+  dataCollection3 = {}
+  text2 = 0.42
+  text3 = 0
+  text4 = 1
+  text5 = 1
+  dataCollection3[1] = text2
+  dataCollection3[2] = text3
+  dataCollection3[3] = text4
+  dataCollection3[4] = text5
+  stateFlag3.easeIn = dataCollection3
+  dataCollection3 = {}
+  text2 = 0
+  text3 = 0
+  text4 = 0.58
+  text5 = 1
+  dataCollection3[1] = text2
+  dataCollection3[2] = text3
+  dataCollection3[3] = text4
+  dataCollection3[4] = text5
+  stateFlag3.easeOut = dataCollection3
+  dataCollection3 = {}
+  text2 = 0.42
+  text3 = 0
+  text4 = 0.58
+  text5 = 1
+  dataCollection3[1] = text2
+  dataCollection3[2] = text3
+  dataCollection3[3] = text4
+  dataCollection3[4] = text5
+  stateFlag3.easeInOut = dataCollection3
+  if not localValue5 then
+    dataCollection3 = {}
+    text2 = 0.1
+    text3 = 0.1
+    text4 = 0.1
+    text5 = 0.1
+    dataCollection3[1] = text2
+    dataCollection3[2] = text3
+    dataCollection3[3] = text4
+    dataCollection3[4] = text5
+    localValue5 = dataCollection3
   end
-  dataTable3 = type
-  textValue2 = arg5
-  dataTable3 = dataTable3(textValue2)
-  if "string" == dataTable3 then
-    arg5 = flag3[arg5]
-    if not arg5 then
-      dataTable3 = error
-      textValue2 = "translateObjectRotationCubicBezier: unknown predefined bezier"
-      dataTable3(textValue2)
+  dataCollection3 = type
+  text2 = localValue5
+  dataCollection3 = dataCollection3(text2)
+  if "string" == dataCollection3 then
+    localValue5 = stateFlag3[localValue5]
+    if not localValue5 then
+      dataCollection3 = error
+      text2 = "translateObjectRotationCubicBezier: unknown predefined bezier"
+      dataCollection3(text2)
       return
     end
   end
-  dataTable3 = flag2
-  textValue2 = table
-  textValue2 = textValue2.unpack
-  textValue3 = arg5
-  textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30, workValue32, workValue34, flag4, flag5, flag6, flag7, workValue40 = textValue2(textValue3)
-  dataTable3 = dataTable3(textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30, workValue32, workValue34, flag4, flag5, flag6, flag7, workValue40)
-  textValue2 = GetEntityRotation
-  textValue3 = arg1
-  textValue4 = arg4 or textValue4
-  if not arg4 then
-    textValue4 = 1
+  dataCollection3 = stateFlag2
+  text2 = table
+  text2 = text2.unpack
+  text3 = localValue5
+  text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2, workingValue28, workingValue30, workingValue32, workingValue34, stateFlag4, stateFlag5, stateFlag6, stateFlag7, workingValue40 = text2(text3)
+  dataCollection3 = dataCollection3(text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2, workingValue28, workingValue30, workingValue32, workingValue34, stateFlag4, stateFlag5, stateFlag6, stateFlag7, workingValue40)
+  text2 = GetEntityRotation
+  text3 = localValue1
+  text4 = localValue4 or text4
+  if not localValue4 then
+    text4 = 1
   end
-  textValue2 = textValue2(textValue3, textValue4)
-  textValue3 = GetEntityCoords
-  textValue4 = arg1
+  text2 = text2(text3, text4)
+  text3 = GetEntityCoords
+  text4 = localValue1
   -- Beginner: result below is entityCoords.
-  textValue3 = textValue3(textValue4)
-  textValue4 = GetNetworkTimeAccurate
-  textValue4 = textValue4()
-  textValue5 = GetNetworkTimeAccurate
-  textValue5 = textValue5()
-  dataTable4 = {}
-  textValue6 = "x"
+  text3 = text3(text4)
+  text4 = GetNetworkTimeAccurate
+  text4 = text4()
+  text5 = GetNetworkTimeAccurate
+  text5 = text5()
+  dataCollection4 = {}
+  text6 = "x"
   iterator = "y"
-  textValue7 = "z"
-  dataTable4[1] = textValue6
-  dataTable4[2] = iterator
-  dataTable4[3] = textValue7
-  textValue6 = {}
+  text7 = "z"
+  dataCollection4[1] = text6
+  dataCollection4[2] = iterator
+  dataCollection4[3] = text7
+  text6 = {}
   iterator = ipairs
-  textValue7 = dataTable4
-  iterator, textValue7, dataTable5, iterator2 = iterator(textValue7)
-  for workValue28, workValue30 in iterator, textValue7, dataTable5, iterator2 do
-    workValue32 = arg2[workValue30]
-    workValue34 = textValue2[workValue30]
-    workValue32 = workValue32 - workValue34
-    workValue32 = workValue32 + 180
-    workValue32 = workValue32 % 360
-    workValue32 = workValue32 - 180
-    textValue6[workValue30] = workValue32
+  text7 = dataCollection4
+  iterator, text7, dataCollection5, iterator2 = iterator(text7)
+  for workingValue28, workingValue30 in iterator, text7, dataCollection5, iterator2 do
+    workingValue32 = localValue2[workingValue30]
+    workingValue34 = text2[workingValue30]
+    workingValue32 = workingValue32 - workingValue34
+    workingValue32 = workingValue32 + 180
+    workingValue32 = workingValue32 % 360
+    workingValue32 = workingValue32 - 180
+    text6[workingValue30] = workingValue32
   end
   while true do
-    iterator = textValue5 - textValue4
-    if not (arg3 > iterator) then
+    iterator = text5 - text4
+    if not (localValue3 > iterator) then
       break
     end
     iterator = Citizen
     iterator = iterator.Wait
-    textValue7 = 0
-    iterator(textValue7)
+    text7 = 0
+    iterator(text7)
     iterator = GetNetworkTimeAccurate
     iterator = iterator()
-    textValue7 = iterator - textValue4
-    textValue7 = textValue7 / arg3
-    if textValue7 > 1 then
-      textValue7 = 1
+    text7 = iterator - text4
+    text7 = text7 / localValue3
+    if text7 > 1 then
+      text7 = 1
     end
-    if 0 ~= textValue5 then
-      dataTable5 = iterator - textValue5
-      if 0 ~= dataTable5 then
-        dataTable5 = {}
+    if 0 ~= text5 then
+      dataCollection5 = iterator - text5
+      if 0 ~= dataCollection5 then
+        dataCollection5 = {}
         iterator2 = ipairs
-        workValue28 = dataTable4
-        iterator2, workValue28, workValue30, workValue32 = iterator2(workValue28)
-        for workValue34, flag4 in iterator2, workValue28, workValue30, workValue32 do
-          flag5 = textValue2[flag4]
-          flag6 = textValue6[flag4]
-          flag7 = dataTable3
-          workValue40 = textValue7
-          flag7 = flag7(workValue40)
-          flag6 = flag6 * flag7
-          flag5 = flag5 + flag6
-          dataTable5[flag4] = flag5
+        workingValue28 = dataCollection4
+        iterator2, workingValue28, workingValue30, workingValue32 = iterator2(workingValue28)
+        for workingValue34, stateFlag4 in iterator2, workingValue28, workingValue30, workingValue32 do
+          stateFlag5 = text2[stateFlag4]
+          stateFlag6 = text6[stateFlag4]
+          stateFlag7 = dataCollection3
+          workingValue40 = text7
+          stateFlag7 = stateFlag7(workingValue40)
+          stateFlag6 = stateFlag6 * stateFlag7
+          stateFlag5 = stateFlag5 + stateFlag6
+          dataCollection5[stateFlag4] = stateFlag5
         end
         iterator2 = SetEntityRotation
-        workValue28 = arg1
-        workValue30 = dataTable5.x
-        workValue32 = dataTable5.y
-        workValue34 = dataTable5.z
-        flag4 = arg4 or flag4
-        if not arg4 then
-          flag4 = 1
+        workingValue28 = localValue1
+        workingValue30 = dataCollection5.x
+        workingValue32 = dataCollection5.y
+        workingValue34 = dataCollection5.z
+        stateFlag4 = localValue4 or stateFlag4
+        if not localValue4 then
+          stateFlag4 = 1
         end
-        flag5 = false
-        iterator2(workValue28, workValue30, workValue32, workValue34, flag4, flag5)
+        stateFlag5 = false
+        iterator2(workingValue28, workingValue30, workingValue32, workingValue34, stateFlag4, stateFlag5)
         iterator2 = SetEntityCoords
-        workValue28 = arg1
-        workValue30 = textValue3.x
-        workValue32 = textValue3.y
-        workValue34 = textValue3.z
-        flag4 = false
-        flag5 = false
-        flag6 = false
-        flag7 = false
+        workingValue28 = localValue1
+        workingValue30 = text3.x
+        workingValue32 = text3.y
+        workingValue34 = text3.z
+        stateFlag4 = false
+        stateFlag5 = false
+        stateFlag6 = false
+        stateFlag7 = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        iterator2(workValue28, workValue30, workValue32, workValue34, flag4, flag5, flag6, flag7)
+        iterator2(workingValue28, workingValue30, workingValue32, workingValue34, stateFlag4, stateFlag5, stateFlag6, stateFlag7)
       end
     end
-    textValue5 = iterator
+    text5 = iterator
   end
   iterator = SetEntityRotation
-  textValue7 = arg1
-  dataTable5 = arg2.x
-  iterator2 = arg2.y
-  workValue28 = arg2.z
-  workValue30 = arg4 or workValue30
-  if not arg4 then
-    workValue30 = 1
+  text7 = localValue1
+  dataCollection5 = localValue2.x
+  iterator2 = localValue2.y
+  workingValue28 = localValue2.z
+  workingValue30 = localValue4 or workingValue30
+  if not localValue4 then
+    workingValue30 = 1
   end
-  workValue32 = false
-  iterator(textValue7, dataTable5, iterator2, workValue28, workValue30, workValue32)
+  workingValue32 = false
+  iterator(text7, dataCollection5, iterator2, workingValue28, workingValue30, workingValue32)
   iterator = SetEntityCoords
-  textValue7 = arg1
-  dataTable5 = textValue3.x
-  iterator2 = textValue3.y
-  workValue28 = textValue3.z
-  workValue30 = false
-  workValue32 = false
-  workValue34 = false
-  flag4 = false
+  text7 = localValue1
+  dataCollection5 = text3.x
+  iterator2 = text3.y
+  workingValue28 = text3.z
+  workingValue30 = false
+  workingValue32 = false
+  workingValue34 = false
+  stateFlag4 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  iterator(textValue7, dataTable5, iterator2, workValue28, workValue30, workValue32, workValue34, flag4)
+  iterator(text7, dataCollection5, iterator2, workingValue28, workingValue30, workingValue32, workingValue34, stateFlag4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: none) ===
-function workValue26()
-  local arg1, arg2
-  arg1 = ClearHelp
-  arg2 = true
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: none) ===
+function workingValue26()
+  local localValue1, localValue2
+  localValue1 = ClearHelp
+  localValue2 = true
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg1, arg2, arg3) ===
-function workValue27(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
-  arg4 = vendingRuntime.SetData
-  arg4 = arg4[arg1]
-  if nil == arg4 then
-    arg4 = vendingRuntime.SetData
-    arg5 = {}
-    arg4[arg1] = arg5
+-- === HELPER FUNCTION (decompiler name: workingValue27; parameters: localValue1, localValue2, localValue3) ===
+function workingValue27(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103
+  localValue4 = vendingRuntime.SetData
+  localValue4 = localValue4[localValue1]
+  if nil == localValue4 then
+    localValue4 = vendingRuntime.SetData
+    localValue5 = {}
+    localValue4[localValue1] = localValue5
   end
-  arg4 = type
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  if "table" == arg4 then
-    arg4 = pairs
-    arg5 = arg2
-    arg4, arg5, arg6, arg7 = arg4(arg5)
-    for arg8, workValue93 in arg4, arg5, arg6, arg7 do
-      workValue103 = vendingRuntime.SetData
-      workValue103 = workValue103[arg1]
-      workValue103[arg8] = workValue93
+  localValue4 = type
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  if "table" == localValue4 then
+    localValue4 = pairs
+    localValue5 = localValue2
+    localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+    for localValue8, workingValue93 in localValue4, localValue5, localValue6, localValue7 do
+      workingValue103 = vendingRuntime.SetData
+      workingValue103 = workingValue103[localValue1]
+      workingValue103[localValue8] = workingValue93
     end
   else
-    arg4 = vendingRuntime.SetData
-    arg4 = arg4[arg1]
-    arg4[arg2] = arg3
+    localValue4 = vendingRuntime.SetData
+    localValue4 = localValue4[localValue1]
+    localValue4[localValue2] = localValue3
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue29; parameters: arg1, arg2) ===
-function workValue29(arg1, arg2)
-  local arg3
-  if nil == arg2 then
-    arg2 = "not defined"
+-- === HELPER FUNCTION (decompiler name: workingValue29; parameters: localValue1, localValue2) ===
+function workingValue29(localValue1, localValue2)
+  local localValue3
+  if nil == localValue2 then
+    localValue2 = "not defined"
   end
-  arg3 = vendingRuntime.SetData
-  arg3 = arg3[arg1]
-  if nil ~= arg3 then
-    if "not defined" == arg2 then
-      arg3 = vendingRuntime.SetData
-      arg3 = arg3[arg1]
-      return arg3
+  localValue3 = vendingRuntime.SetData
+  localValue3 = localValue3[localValue1]
+  if nil ~= localValue3 then
+    if "not defined" == localValue2 then
+      localValue3 = vendingRuntime.SetData
+      localValue3 = localValue3[localValue1]
+      return localValue3
     else
-      arg3 = vendingRuntime.SetData
-      arg3 = arg3[arg1]
-      arg3 = arg3[arg2]
-      return arg3
+      localValue3 = vendingRuntime.SetData
+      localValue3 = localValue3[localValue1]
+      localValue3 = localValue3[localValue2]
+      return localValue3
     end
   end
-  arg3 = nil
-  return arg3
+  localValue3 = nil
+  return localValue3
 end
 
-function workValue31(markerType, markerId)
+function workingValue31(markerType, markerId)
   local runtimeGroupName
   local markerTypeLower = markerType:lower()
 
@@ -1044,346 +1044,346 @@ function workValue31(markerType, markerId)
   return runtimeGroup
 end
 
--- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1) ===
-function workValue33(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  if not arg1 then
-    arg1 = 5
+-- === HELPER FUNCTION (decompiler name: workingValue33; parameters: localValue1) ===
+function workingValue33(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  if not localValue1 then
+    localValue1 = 5
   end
-  arg2 = ""
-  arg3 = 1
-  arg4 = arg1
-  arg5 = 1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = arg2
-    arg8 = "9"
-    arg7 = arg7 .. arg8
-    arg2 = arg7
+  localValue2 = ""
+  localValue3 = 1
+  localValue4 = localValue1
+  localValue5 = 1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = localValue2
+    localValue8 = "9"
+    localValue7 = localValue7 .. localValue8
+    localValue2 = localValue7
   end
-  arg3 = math
-  arg3 = arg3.random
-  arg4 = 0
-  arg5 = tonumber
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg5 = 0
+  localValue3 = math
+  localValue3 = localValue3.random
+  localValue4 = 0
+  localValue5 = tonumber
+  localValue6 = localValue2
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue5 = 0
   end
-  return arg3(arg4, arg5)
+  return localValue3(localValue4, localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue35; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue35(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30
-  arg6 = workValue31
-  arg7 = "m"
-  arg8 = arg1
-  arg6 = arg6(arg7, arg8)
-  if arg6 then
-    arg6 = Citizen
-    arg6 = arg6.Wait
-    arg7 = 100
-    arg6(arg7)
+-- === HELPER FUNCTION (decompiler name: workingValue35; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue35(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2, workingValue28, workingValue30
+  localValue6 = workingValue31
+  localValue7 = "m"
+  localValue8 = localValue1
+  localValue6 = localValue6(localValue7, localValue8)
+  if localValue6 then
+    localValue6 = Citizen
+    localValue6 = localValue6.Wait
+    localValue7 = 100
+    localValue6(localValue7)
     return
   end
-  if not (arg2 and arg2.x and arg2.y and arg2.z) then
+  if not (localValue2 and localValue2.x and localValue2.y and localValue2.z) then
     return
   end
 
-  arg6 = string
-  arg6 = arg6.gsub
-  arg7 = arg1
-  arg8 = "{r}"
-  workValue93 = workValue33
-  workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30 = workValue93()
-  arg6 = arg6(arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30)
-  arg1 = arg6
-  arg6 = {}
-  arg6.render_distance = arg3
-  arg6.interaction_distance = arg4
-  arg6.coords = arg2
-  if arg5 and arg5.slice == "ignore" then
-    arg7 = "ignore"
+  localValue6 = string
+  localValue6 = localValue6.gsub
+  localValue7 = localValue1
+  localValue8 = "{r}"
+  workingValue93 = workingValue33
+  workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2, workingValue28, workingValue30 = workingValue93()
+  localValue6 = localValue6(localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2, workingValue28, workingValue30)
+  localValue1 = localValue6
+  localValue6 = {}
+  localValue6.render_distance = localValue3
+  localValue6.interaction_distance = localValue4
+  localValue6.coords = localValue2
+  if localValue5 and localValue5.slice == "ignore" then
+    localValue7 = "ignore"
   else
-    arg7 = workValue14(arg2)
+    localValue7 = workingValue14(localValue2)
   end
-  arg6.slice = arg7
-  arg6.candraw = true
-  arg6.near = false
-  arg7 = type
-  arg8 = arg5
-  arg7 = arg7(arg8)
-  if "table" == arg7 then
-    arg7 = arg5.rgb
-    if nil ~= arg7 then
-      arg6.type = 1
-      arg7 = arg5.rgb
-      arg6.rgb = arg7
+  localValue6.slice = localValue7
+  localValue6.candraw = true
+  localValue6.near = false
+  localValue7 = type
+  localValue8 = localValue5
+  localValue7 = localValue7(localValue8)
+  if "table" == localValue7 then
+    localValue7 = localValue5.rgb
+    if nil ~= localValue7 then
+      localValue6.type = 1
+      localValue7 = localValue5.rgb
+      localValue6.rgb = localValue7
     else
-      arg7 = arg5.text
-      if nil ~= arg7 then
-        arg6.type = 0
-        arg7 = arg5.text
-        arg6.text = arg7
+      localValue7 = localValue5.text
+      if nil ~= localValue7 then
+        localValue6.type = 0
+        localValue7 = localValue5.text
+        localValue6.text = localValue7
       else
-        arg6.type = 1
-        arg7 = arg5.rgb
-        if not arg7 then
-          arg7 = {}
-          arg8 = arg5[1]
-          if not arg8 then
-            arg8 = 100
+        localValue6.type = 1
+        localValue7 = localValue5.rgb
+        if not localValue7 then
+          localValue7 = {}
+          localValue8 = localValue5[1]
+          if not localValue8 then
+            localValue8 = 100
           end
-          workValue93 = arg5[2]
-          if not workValue93 then
-            workValue93 = 100
+          workingValue93 = localValue5[2]
+          if not workingValue93 then
+            workingValue93 = 100
           end
-          workValue103 = arg5[3]
-          if not workValue103 then
-            workValue103 = 100
+          workingValue103 = localValue5[3]
+          if not workingValue103 then
+            workingValue103 = 100
           end
-          arg7[1] = arg8
-          arg7[2] = workValue93
-          arg7[3] = workValue103
+          localValue7[1] = localValue8
+          localValue7[2] = workingValue93
+          localValue7[3] = workingValue103
         end
-        arg6.rgb = arg7
+        localValue6.rgb = localValue7
       end
     end
-    arg7 = arg5.notify
-    if nil ~= arg7 then
-      arg7 = replaceTextTokens
-      arg8 = arg5.notify
-      workValue93 = {}
-      workValue103 = "{A}"
-      workValue2 = "{B}"
-      workValue6 = "{C}"
-      numberValue = "{D}"
-      numberValue2 = "{E}"
-      numberValue3 = "{F}"
-      numberValue5 = "{G}"
-      numberValue7 = "{H}"
-      flag = "{L}"
-      flag2 = "{M}"
-      flag3 = "{N}"
-      dataTable3 = "{O}"
-      textValue2 = "{P}"
-      textValue3 = "{Q}"
-      textValue4 = "{R}"
-      textValue5 = "{S}"
-      dataTable4 = "{T}"
-      textValue6 = "{U}"
+    localValue7 = localValue5.notify
+    if nil ~= localValue7 then
+      localValue7 = replaceTextTokens
+      localValue8 = localValue5.notify
+      workingValue93 = {}
+      workingValue103 = "{A}"
+      workingValue2 = "{B}"
+      workingValue6 = "{C}"
+      number = "{D}"
+      number2 = "{E}"
+      number3 = "{F}"
+      number5 = "{G}"
+      number7 = "{H}"
+      stateFlag = "{L}"
+      stateFlag2 = "{M}"
+      stateFlag3 = "{N}"
+      dataCollection3 = "{O}"
+      text2 = "{P}"
+      text3 = "{Q}"
+      text4 = "{R}"
+      text5 = "{S}"
+      dataCollection4 = "{T}"
+      text6 = "{U}"
       iterator = "{V}"
-      textValue7 = "{W}"
-      dataTable5 = "{X}"
+      text7 = "{W}"
+      dataCollection5 = "{X}"
       iterator2 = "{Y}"
-      workValue28 = "{Z}"
-      workValue93[1] = workValue103
-      workValue93[2] = workValue2
-      workValue93[3] = workValue6
-      workValue93[4] = numberValue
-      workValue93[5] = numberValue2
-      workValue93[6] = numberValue3
-      workValue93[7] = numberValue5
-      workValue93[8] = numberValue7
-      workValue93[9] = flag
-      workValue93[10] = flag2
-      workValue93[11] = flag3
-      workValue93[12] = dataTable3
-      workValue93[13] = textValue2
-      workValue93[14] = textValue3
-      workValue93[15] = textValue4
-      workValue93[16] = textValue5
-      workValue93[17] = dataTable4
-      workValue93[18] = textValue6
-      workValue93[19] = iterator
-      workValue93[20] = textValue7
-      workValue93[21] = dataTable5
-      workValue93[22] = iterator2
-      workValue93[23] = workValue28
-      workValue103 = {}
-      workValue2 = "~INPUT_VEH_FLY_YAW_LEFT~"
-      workValue6 = "~INPUT_SPECIAL_ABILITY_SECONDARY~"
-      numberValue = "~INPUT_LOOK_BEHIND~"
-      numberValue2 = "~INPUT_MOVE_LR~"
-      numberValue3 = "~INPUT_CONTEXT~"
-      numberValue5 = "~INPUT_ARREST~"
-      numberValue7 = "~INPUT_DETONATE~"
-      flag = "~INPUT_VEH_ROOF~"
-      flag2 = "~INPUT_CELLPHONE_CAMERA_FOCUS_LOCK~"
-      flag3 = "~INPUT_INTERACTION_MENU~"
-      dataTable3 = "~INPUT_REPLAY_ENDPOINT~"
-      textValue2 = "~INPUT_FRONTEND_PAUSE~"
-      textValue3 = "~INPUT_FRONTEND_LB~"
-      textValue4 = "~INPUT_RELOAD~"
-      textValue5 = "~INPUT_MOVE_DOWN_ONLY~"
-      dataTable4 = "~INPUT_MP_TEXT_CHAT_ALL~"
-      textValue6 = "~INPUT_REPLAY_SCREENSHOT~"
+      workingValue28 = "{Z}"
+      workingValue93[1] = workingValue103
+      workingValue93[2] = workingValue2
+      workingValue93[3] = workingValue6
+      workingValue93[4] = number
+      workingValue93[5] = number2
+      workingValue93[6] = number3
+      workingValue93[7] = number5
+      workingValue93[8] = number7
+      workingValue93[9] = stateFlag
+      workingValue93[10] = stateFlag2
+      workingValue93[11] = stateFlag3
+      workingValue93[12] = dataCollection3
+      workingValue93[13] = text2
+      workingValue93[14] = text3
+      workingValue93[15] = text4
+      workingValue93[16] = text5
+      workingValue93[17] = dataCollection4
+      workingValue93[18] = text6
+      workingValue93[19] = iterator
+      workingValue93[20] = text7
+      workingValue93[21] = dataCollection5
+      workingValue93[22] = iterator2
+      workingValue93[23] = workingValue28
+      workingValue103 = {}
+      workingValue2 = "~INPUT_VEH_FLY_YAW_LEFT~"
+      workingValue6 = "~INPUT_SPECIAL_ABILITY_SECONDARY~"
+      number = "~INPUT_LOOK_BEHIND~"
+      number2 = "~INPUT_MOVE_LR~"
+      number3 = "~INPUT_CONTEXT~"
+      number5 = "~INPUT_ARREST~"
+      number7 = "~INPUT_DETONATE~"
+      stateFlag = "~INPUT_VEH_ROOF~"
+      stateFlag2 = "~INPUT_CELLPHONE_CAMERA_FOCUS_LOCK~"
+      stateFlag3 = "~INPUT_INTERACTION_MENU~"
+      dataCollection3 = "~INPUT_REPLAY_ENDPOINT~"
+      text2 = "~INPUT_FRONTEND_PAUSE~"
+      text3 = "~INPUT_FRONTEND_LB~"
+      text4 = "~INPUT_RELOAD~"
+      text5 = "~INPUT_MOVE_DOWN_ONLY~"
+      dataCollection4 = "~INPUT_MP_TEXT_CHAT_ALL~"
+      text6 = "~INPUT_REPLAY_SCREENSHOT~"
       iterator = "~INPUT_NEXT_CAMERA~"
-      textValue7 = "~INPUT_MOVE_UP_ONLY~"
-      dataTable5 = "~INPUT_VEH_HOTWIRE_LEFT~"
+      text7 = "~INPUT_MOVE_UP_ONLY~"
+      dataCollection5 = "~INPUT_VEH_HOTWIRE_LEFT~"
       iterator2 = "~INPUT_VEH_DUCK~"
-      workValue28 = "~INPUT_MP_TEXT_CHAT_TEAM~"
-      workValue30 = "~INPUT_HUD_SPECIAL~"
-      workValue103[1] = workValue2
-      workValue103[2] = workValue6
-      workValue103[3] = numberValue
-      workValue103[4] = numberValue2
-      workValue103[5] = numberValue3
-      workValue103[6] = numberValue5
-      workValue103[7] = numberValue7
-      workValue103[8] = flag
-      workValue103[9] = flag2
-      workValue103[10] = flag3
-      workValue103[11] = dataTable3
-      workValue103[12] = textValue2
-      workValue103[13] = textValue3
-      workValue103[14] = textValue4
-      workValue103[15] = textValue5
-      workValue103[16] = dataTable4
-      workValue103[17] = textValue6
-      workValue103[18] = iterator
-      workValue103[19] = textValue7
-      workValue103[20] = dataTable5
-      workValue103[21] = iterator2
-      workValue103[22] = workValue28
-      workValue103[23] = workValue30
-      arg7 = arg7(arg8, workValue93, workValue103)
-      arg6.notify = arg7
+      workingValue28 = "~INPUT_MP_TEXT_CHAT_TEAM~"
+      workingValue30 = "~INPUT_HUD_SPECIAL~"
+      workingValue103[1] = workingValue2
+      workingValue103[2] = workingValue6
+      workingValue103[3] = number
+      workingValue103[4] = number2
+      workingValue103[5] = number3
+      workingValue103[6] = number5
+      workingValue103[7] = number7
+      workingValue103[8] = stateFlag
+      workingValue103[9] = stateFlag2
+      workingValue103[10] = stateFlag3
+      workingValue103[11] = dataCollection3
+      workingValue103[12] = text2
+      workingValue103[13] = text3
+      workingValue103[14] = text4
+      workingValue103[15] = text5
+      workingValue103[16] = dataCollection4
+      workingValue103[17] = text6
+      workingValue103[18] = iterator
+      workingValue103[19] = text7
+      workingValue103[20] = dataCollection5
+      workingValue103[21] = iterator2
+      workingValue103[22] = workingValue28
+      workingValue103[23] = workingValue30
+      localValue7 = localValue7(localValue8, workingValue93, workingValue103)
+      localValue6.notify = localValue7
     end
   else
-    arg7 = type
-    arg8 = arg5
-    arg7 = arg7(arg8)
-    if "string" == arg7 then
-      arg6.type = 0
-      arg6.text = arg5
+    localValue7 = type
+    localValue8 = localValue5
+    localValue7 = localValue7(localValue8)
+    if "string" == localValue7 then
+      localValue6.type = 0
+      localValue6.text = localValue5
     else
-      arg6.type = 1
-      arg7 = {}
-      arg8 = 100
-      workValue93 = 100
-      workValue103 = 100
-      arg7[1] = arg8
-      arg7[2] = workValue93
-      arg7[3] = workValue103
-      arg6.rgb = arg7
+      localValue6.type = 1
+      localValue7 = {}
+      localValue8 = 100
+      workingValue93 = 100
+      workingValue103 = 100
+      localValue7[1] = localValue8
+      localValue7[2] = workingValue93
+      localValue7[3] = workingValue103
+      localValue6.rgb = localValue7
     end
   end
-  arg7 = vendingRuntime.Marker
-  arg7[arg1] = arg6
-  arg7 = arg6.slice
-  if "ignore" ~= arg7 then
-    arg7 = workValue17
-    arg8 = arg6.slice
-    workValue93 = true
-    arg7(arg8, workValue93)
+  localValue7 = vendingRuntime.Marker
+  localValue7[localValue1] = localValue6
+  localValue7 = localValue6.slice
+  if "ignore" ~= localValue7 then
+    localValue7 = workingValue17
+    localValue8 = localValue6.slice
+    workingValue93 = true
+    localValue7(localValue8, workingValue93)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue36; parameters: arg1, arg2) ===
-function workValue36(arg1, arg2)
-  local arg3
-  arg3 = vendingRuntime.Marker
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg3 = vendingRuntime.Marker
-    arg3 = arg3[arg1]
-    arg3.interaction_distance = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue36; parameters: localValue1, localValue2) ===
+function workingValue36(localValue1, localValue2)
+  local localValue3
+  localValue3 = vendingRuntime.Marker
+  localValue3 = localValue3[localValue1]
+  if localValue3 then
+    localValue3 = vendingRuntime.Marker
+    localValue3 = localValue3[localValue1]
+    localValue3.interaction_distance = localValue2
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue37; parameters: arg1) ===
-function workValue37(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = workValue31
-  arg3 = "m"
-  arg4 = arg1
-  arg2 = arg2(arg3, arg4)
-  if not arg2 then
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 100
-    arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue37; parameters: localValue1) ===
+function workingValue37(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = workingValue31
+  localValue3 = "m"
+  localValue4 = localValue1
+  localValue2 = localValue2(localValue3, localValue4)
+  if not localValue2 then
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 100
+    localValue2(localValue3)
     return
   end
-  arg2 = vendingRuntime.Marker
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg3 = arg2.slice
-    if arg3 then
-      arg3 = arg2.slice
-      if "ignore" ~= arg3 then
-        arg3 = workValue17
-        arg4 = arg2.slice
-        arg5 = false
-        arg3(arg4, arg5)
+  localValue2 = vendingRuntime.Marker
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue3 = localValue2.slice
+    if localValue3 then
+      localValue3 = localValue2.slice
+      if "ignore" ~= localValue3 then
+        localValue3 = workingValue17
+        localValue4 = localValue2.slice
+        localValue5 = false
+        localValue3(localValue4, localValue5)
       end
     end
   end
-  arg3 = vendingRuntime.Marker
-  arg3[arg1] = nil
-  arg3 = workValue26
-  arg3()
+  localValue3 = vendingRuntime.Marker
+  localValue3[localValue1] = nil
+  localValue3 = workingValue26
+  localValue3()
 end
 
--- === HELPER FUNCTION (decompiler name: workValue38; parameters: arg1) ===
-function workValue38(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = GetEntityModel
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue38; parameters: localValue1) ===
+function workingValue38(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = GetEntityModel
+  localValue3 = localValue1
   -- Beginner: result below is modelHash.
-  arg2 = arg2(arg3)
-  arg3 = GetModelDimensions
-  arg4 = arg2
-  arg3, arg4 = arg3(arg4)
-  arg5 = arg4 - arg3
-  return arg5
+  localValue2 = localValue2(localValue3)
+  localValue3 = GetModelDimensions
+  localValue4 = localValue2
+  localValue3, localValue4 = localValue3(localValue4)
+  localValue5 = localValue4 - localValue3
+  return localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue39; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue39(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, arg8, workValue93
-  arg6 = AddBlipForCoord
-  arg7 = arg2.x
-  arg8 = arg2.y
-  workValue93 = arg2.z
+-- === HELPER FUNCTION (decompiler name: workingValue39; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue39(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, localValue8, workingValue93
+  localValue6 = AddBlipForCoord
+  localValue7 = localValue2.x
+  localValue8 = localValue2.y
+  workingValue93 = localValue2.z
   -- Beginner: result below is blipHandle.
-  arg6 = arg6(arg7, arg8, workValue93)
-  arg7 = SetBlipSprite
-  arg8 = arg6
-  workValue93 = arg3
-  arg7(arg8, workValue93)
-  arg7 = SetBlipScale
-  arg8 = arg6
-  workValue93 = arg5 or workValue93
-  if not arg5 then
-    workValue93 = 1.0
+  localValue6 = localValue6(localValue7, localValue8, workingValue93)
+  localValue7 = SetBlipSprite
+  localValue8 = localValue6
+  workingValue93 = localValue3
+  localValue7(localValue8, workingValue93)
+  localValue7 = SetBlipScale
+  localValue8 = localValue6
+  workingValue93 = localValue5 or workingValue93
+  if not localValue5 then
+    workingValue93 = 1.0
   end
-  arg7(arg8, workValue93)
-  arg7 = SetBlipColour
-  arg8 = arg6
-  workValue93 = arg4
-  arg7(arg8, workValue93)
-  arg7 = SetBlipAsShortRange
-  arg8 = arg6
-  workValue93 = true
-  arg7(arg8, workValue93)
-  arg7 = BeginTextCommandSetBlipName
-  arg8 = "STRING"
-  arg7(arg8)
-  arg7 = AddTextComponentSubstringPlayerName
-  arg8 = arg1 or arg8
-  if not arg1 then
-    arg8 = ""
+  localValue7(localValue8, workingValue93)
+  localValue7 = SetBlipColour
+  localValue8 = localValue6
+  workingValue93 = localValue4
+  localValue7(localValue8, workingValue93)
+  localValue7 = SetBlipAsShortRange
+  localValue8 = localValue6
+  workingValue93 = true
+  localValue7(localValue8, workingValue93)
+  localValue7 = BeginTextCommandSetBlipName
+  localValue8 = "STRING"
+  localValue7(localValue8)
+  localValue7 = AddTextComponentSubstringPlayerName
+  localValue8 = localValue1 or localValue8
+  if not localValue1 then
+    localValue8 = ""
   end
-  arg7(arg8)
-  arg7 = EndTextCommandSetBlipName
-  arg8 = arg6
-  arg7(arg8)
-  return arg6
+  localValue7(localValue8)
+  localValue7 = EndTextCommandSetBlipName
+  localValue8 = localValue6
+  localValue7(localValue8)
+  return localValue6
 end
 
-function workValue43(eventName, callback, useBangPrefix)
+function workingValue43(eventName, callback, useBangPrefix)
   local fullEventName = "Utility:On:" .. (useBangPrefix and "!" or "") .. eventName
 
   -- Beginner: Register a network event handler that the server/other clients can trigger.
@@ -1395,173 +1395,173 @@ function workValue43(eventName, callback, useBangPrefix)
 end
 -- Beginner: this function runs when client event (event above) fires.
 
-function workValue44(eventName, useBangPrefix, ...)
+function workingValue44(eventName, useBangPrefix, ...)
   local fullEventName = "Utility:On:" .. (useBangPrefix and "!" or "") .. eventName
 
   -- Beginner: Trigger another client-side event in this resource/framework.
   triggerClientEvent(fullEventName, ...)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue45; parameters: none) ===
-function workValue45()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
-  arg1 = pairs
-  arg2 = vendingRuntime.Marker
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = GetEntityCoords
-    arg8 = PlayerPedId
-    arg8, workValue93, workValue103, workValue2 = arg8()
+-- === HELPER FUNCTION (decompiler name: workingValue45; parameters: none) ===
+function workingValue45()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2
+  localValue1 = pairs
+  localValue2 = vendingRuntime.Marker
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = GetEntityCoords
+    localValue8 = PlayerPedId
+    localValue8, workingValue93, workingValue103, workingValue2 = localValue8()
     -- Beginner: result below is entityCoords.
-    arg7 = arg7(arg8, workValue93, workValue103, workValue2)
-    arg8 = arg6.coords
-    arg7 = arg7 - arg8
-    arg7 = #arg7
-    arg8 = arg6.near
-    if arg8 then
-      arg8 = arg6.interaction_distance
-      if arg7 < arg8 then
-        arg8 = workValue44
-        workValue93 = "marker"
-        workValue103 = false
-        workValue2 = arg5
-        arg8(workValue93, workValue103, workValue2)
-        arg6.near = false
+    localValue7 = localValue7(localValue8, workingValue93, workingValue103, workingValue2)
+    localValue8 = localValue6.coords
+    localValue7 = localValue7 - localValue8
+    localValue7 = #localValue7
+    localValue8 = localValue6.near
+    if localValue8 then
+      localValue8 = localValue6.interaction_distance
+      if localValue7 < localValue8 then
+        localValue8 = workingValue44
+        workingValue93 = "marker"
+        workingValue103 = false
+        workingValue2 = localValue5
+        localValue8(workingValue93, workingValue103, workingValue2)
+        localValue6.near = false
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue46; parameters: arg1, arg2) ===
-function workValue46(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2
-  if 0 == arg1 then
-    arg3 = arg2.text
-    if arg3 then
-      arg3 = arg2.text
-      if "" ~= arg3 then
-        arg3 = workValue20
-        arg4 = arg2.coords
-        arg5 = arg2.text
-        arg6 = arg2._scale
-        if not arg6 then
-          arg6 = 0.35
+-- === HELPER FUNCTION (decompiler name: workingValue46; parameters: localValue1, localValue2) ===
+function workingValue46(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2
+  if 0 == localValue1 then
+    localValue3 = localValue2.text
+    if localValue3 then
+      localValue3 = localValue2.text
+      if "" ~= localValue3 then
+        localValue3 = workingValue20
+        localValue4 = localValue2.coords
+        localValue5 = localValue2.text
+        localValue6 = localValue2._scale
+        if not localValue6 then
+          localValue6 = 0.35
         end
-        arg7 = arg2.font
-        if not arg7 then
-          arg7 = 4
+        localValue7 = localValue2.font
+        if not localValue7 then
+          localValue7 = 4
         end
-        arg8 = arg2.rect
-        if not arg8 then
-          arg8 = false
+        localValue8 = localValue2.rect
+        if not localValue8 then
+          localValue8 = false
         end
-        arg3(arg4, arg5, arg6, arg7, arg8)
+        localValue3(localValue4, localValue5, localValue6, localValue7, localValue8)
       end
     end
-  elseif 1 == arg1 then
-    arg3 = arg2._direction
-    if not arg3 then
-      arg3 = {}
-      arg3.x = 0.0
-      arg3.y = 0.0
-      arg3.z = 0.0
+  elseif 1 == localValue1 then
+    localValue3 = localValue2._direction
+    if not localValue3 then
+      localValue3 = {}
+      localValue3.x = 0.0
+      localValue3.y = 0.0
+      localValue3.z = 0.0
     end
-    arg4 = arg2._rot
-    if not arg4 then
-      arg4 = {}
-      arg4.x = 0.0
-      arg4.y = 0.0
-      arg4.z = 0.0
+    localValue4 = localValue2._rot
+    if not localValue4 then
+      localValue4 = {}
+      localValue4.x = 0.0
+      localValue4.y = 0.0
+      localValue4.z = 0.0
     end
-    arg5 = arg2._scale
-    if not arg5 then
-      arg5 = {}
-      arg5.x = 1.5
-      arg5.y = 1.5
-      arg5.z = 0.5
+    localValue5 = localValue2._scale
+    if not localValue5 then
+      localValue5 = {}
+      localValue5.x = 1.5
+      localValue5.y = 1.5
+      localValue5.z = 0.5
     end
-    arg6 = arg2.rgb
-    if not arg6 then
-      arg6 = {}
-      arg7 = 100
-      arg8 = 100
-      workValue93 = 100
-      arg6[1] = arg7
-      arg6[2] = arg8
-      arg6[3] = workValue93
+    localValue6 = localValue2.rgb
+    if not localValue6 then
+      localValue6 = {}
+      localValue7 = 100
+      localValue8 = 100
+      workingValue93 = 100
+      localValue6[1] = localValue7
+      localValue6[2] = localValue8
+      localValue6[3] = workingValue93
     end
-    arg7 = DrawMarker
-    arg8 = arg2._type
-    if not arg8 then
-      arg8 = 1
+    localValue7 = DrawMarker
+    localValue8 = localValue2._type
+    if not localValue8 then
+      localValue8 = 1
     end
-    workValue93 = arg2.coords
-    workValue93 = workValue93.x
-    workValue103 = arg2.coords
-    workValue103 = workValue103.y
-    workValue2 = arg2.coords
-    workValue2 = workValue2.z
-    workValue6 = arg3.x
-    if not workValue6 then
-      workValue6 = 0.0
+    workingValue93 = localValue2.coords
+    workingValue93 = workingValue93.x
+    workingValue103 = localValue2.coords
+    workingValue103 = workingValue103.y
+    workingValue2 = localValue2.coords
+    workingValue2 = workingValue2.z
+    workingValue6 = localValue3.x
+    if not workingValue6 then
+      workingValue6 = 0.0
     end
-    numberValue = arg3.y
-    if not numberValue then
-      numberValue = 0.0
+    number = localValue3.y
+    if not number then
+      number = 0.0
     end
-    numberValue2 = arg3.z
-    if not numberValue2 then
-      numberValue2 = 0.0
+    number2 = localValue3.z
+    if not number2 then
+      number2 = 0.0
     end
-    numberValue3 = arg4.x
-    if not numberValue3 then
-      numberValue3 = 0.0
+    number3 = localValue4.x
+    if not number3 then
+      number3 = 0.0
     end
-    numberValue5 = arg4.y
-    if not numberValue5 then
-      numberValue5 = 0.0
+    number5 = localValue4.y
+    if not number5 then
+      number5 = 0.0
     end
-    numberValue7 = arg4.z
-    if not numberValue7 then
-      numberValue7 = 0.0
+    number7 = localValue4.z
+    if not number7 then
+      number7 = 0.0
     end
-    flag = arg5.x
-    if not flag then
-      flag = 1.5
+    stateFlag = localValue5.x
+    if not stateFlag then
+      stateFlag = 1.5
     end
-    flag2 = arg5.y
-    if not flag2 then
-      flag2 = 1.5
+    stateFlag2 = localValue5.y
+    if not stateFlag2 then
+      stateFlag2 = 1.5
     end
-    flag3 = arg5.z
-    if not flag3 then
-      flag3 = 0.5
+    stateFlag3 = localValue5.z
+    if not stateFlag3 then
+      stateFlag3 = 0.5
     end
-    dataTable3 = arg6[1]
-    textValue2 = arg6[2]
-    textValue3 = arg6[3]
-    textValue4 = arg2.alpha
-    if not textValue4 then
-      textValue4 = 100
+    dataCollection3 = localValue6[1]
+    text2 = localValue6[2]
+    text3 = localValue6[3]
+    text4 = localValue2.alpha
+    if not text4 then
+      text4 = 100
     end
-    textValue5 = arg2.anim
-    if not textValue5 then
-      textValue5 = false
+    text5 = localValue2.anim
+    if not text5 then
+      text5 = false
     end
-    dataTable4 = false
-    textValue6 = 2
+    dataCollection4 = false
+    text6 = 2
     iterator = false
-    textValue7 = nil
-    dataTable5 = nil
-    iterator2 = arg2.draw_entity
+    text7 = nil
+    dataCollection5 = nil
+    iterator2 = localValue2.draw_entity
     if not iterator2 then
       iterator2 = false
     end
-    arg7(arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2)
+    localValue7(localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2)
   end
 end
 
-function workValue47(currentSlice)
+function workingValue47(currentSlice)
   local drewAnyMarker = false
 
   for markerId, markerData in pairs(vendingRuntime.Marker) do
@@ -1576,12 +1576,12 @@ function workValue47(currentSlice)
 
       if distance < renderDistance then
         drewAnyMarker = true
-        workValue46(markerData.type, markerData)
+        workingValue46(markerData.type, markerData)
       end
 
       if distance < markerData.interaction_distance then
         if markerData.notify ~= nil then
-          workValue21(markerData.notify, not markerData.near)
+          workingValue21(markerData.notify, not markerData.near)
         end
 
         if not markerData.near then
@@ -1589,422 +1589,422 @@ function workValue47(currentSlice)
         end
       elseif markerData.near then
         markerData.near = false
-        workValue26()
+        workingValue26()
       end
     end
   end
 
   return drewAnyMarker
 end
-workValue48 = RequestScaleformMovie
+workingValue48 = RequestScaleformMovie
 
--- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg1) ===
-function workValue49(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = pcall
-  arg3 = workValue48
-  arg4 = arg1
-  arg2, arg3 = arg2(arg3, arg4)
-  while not arg2 do
-    arg4 = pcall
-    arg5 = workValue48
-    arg6 = arg1
-    arg4, arg5 = arg4(arg5, arg6)
-    arg3 = arg5
-    arg2 = arg4
-    arg4 = Citizen
-    arg4 = arg4.Wait
-    arg5 = 1
-    arg4(arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue49; parameters: localValue1) ===
+function workingValue49(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = pcall
+  localValue3 = workingValue48
+  localValue4 = localValue1
+  localValue2, localValue3 = localValue2(localValue3, localValue4)
+  while not localValue2 do
+    localValue4 = pcall
+    localValue5 = workingValue48
+    localValue6 = localValue1
+    localValue4, localValue5 = localValue4(localValue5, localValue6)
+    localValue3 = localValue5
+    localValue2 = localValue4
+    localValue4 = Citizen
+    localValue4 = localValue4.Wait
+    localValue5 = 1
+    localValue4(localValue5)
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue50; parameters: arg1, arg2) ===
-function workValue50(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6
-  arg3 = tostring
-  arg4 = math
-  arg4 = arg4.random
-  arg5 = 0
-  arg6 = 9999
-  arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6 = arg4(arg5, arg6)
-  arg3 = arg3(arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6)
-  arg4 = vendingRuntime.N3d
-  arg5 = {}
-  arg5.txd = false
-  arg5.show = false
-  arg6 = {}
-  arg5.rotation = arg6
-  arg4[arg3] = arg5
-  arg4 = workValue49
-  arg5 = arg1
-  arg4 = arg4(arg5)
-  arg5 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue50; parameters: localValue1, localValue2) ===
+function workingValue50(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6
+  localValue3 = tostring
+  localValue4 = math
+  localValue4 = localValue4.random
+  localValue5 = 0
+  localValue6 = 9999
+  localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6 = localValue4(localValue5, localValue6)
+  localValue3 = localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6)
+  localValue4 = vendingRuntime.N3d
+  localValue5 = {}
+  localValue5.txd = false
+  localValue5.show = false
+  localValue6 = {}
+  localValue5.rotation = localValue6
+  localValue4[localValue3] = localValue5
+  localValue4 = workingValue49
+  localValue5 = localValue1
+  localValue4 = localValue4(localValue5)
+  localValue5 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg5 = arg5()
+  localValue5 = localValue5()
   while true do
-    arg6 = HasScaleformMovieLoaded
-    arg7 = arg4
-    arg6 = arg6(arg7)
-    if arg6 then
+    localValue6 = HasScaleformMovieLoaded
+    localValue7 = localValue4
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
       break
     end
-    arg6 = GetGameTimer
+    localValue6 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg6 = arg6()
-    arg6 = arg6 - arg5
-    arg7 = 4000
-    if not (arg6 < arg7) then
+    localValue6 = localValue6()
+    localValue6 = localValue6 - localValue5
+    localValue7 = 4000
+    if not (localValue6 < localValue7) then
       break
     end
-    arg6 = Citizen
-    arg6 = arg6.Wait
-    arg7 = 0
-    arg6(arg7)
+    localValue6 = Citizen
+    localValue6 = localValue6.Wait
+    localValue7 = 0
+    localValue6(localValue7)
   end
-  arg6 = GetGameTimer
+  localValue6 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg6 = arg6()
-  arg6 = arg6 - arg5
-  arg7 = 4000
-  if arg6 <= arg7 then
-    arg6 = vendingRuntime.N3d
-    arg6 = arg6[arg3]
-    arg6.scaleform = arg4
+  localValue6 = localValue6()
+  localValue6 = localValue6 - localValue5
+  localValue7 = 4000
+  if localValue6 <= localValue7 then
+    localValue6 = vendingRuntime.N3d
+    localValue6 = localValue6[localValue3]
+    localValue6.scaleform = localValue4
   end
-  if nil ~= arg2 then
-    arg6 = CreateRuntimeTxd
-    arg7 = "txd"
-    arg8 = arg3
-    arg7 = arg7 .. arg8
-    arg6 = arg6(arg7)
-    arg7 = vendingRuntime.N3d
-    arg7 = arg7[arg3]
-    arg8 = CreateDui
-    workValue93 = "nui://"
-    workValue103 = GetCurrentResourceName
-    workValue103 = workValue103()
-    workValue2 = "/"
-    workValue6 = arg2
-    workValue93 = workValue93 .. workValue103 .. workValue2 .. workValue6
-    workValue103 = 1920
-    workValue2 = 1080
-    arg8 = arg8(workValue93, workValue103, workValue2)
-    arg7.dui = arg8
+  if nil ~= localValue2 then
+    localValue6 = CreateRuntimeTxd
+    localValue7 = "txd"
+    localValue8 = localValue3
+    localValue7 = localValue7 .. localValue8
+    localValue6 = localValue6(localValue7)
+    localValue7 = vendingRuntime.N3d
+    localValue7 = localValue7[localValue3]
+    localValue8 = CreateDui
+    workingValue93 = "nui://"
+    workingValue103 = GetCurrentResourceName
+    workingValue103 = workingValue103()
+    workingValue2 = "/"
+    workingValue6 = localValue2
+    workingValue93 = workingValue93 .. workingValue103 .. workingValue2 .. workingValue6
+    workingValue103 = 1920
+    workingValue2 = 1080
+    localValue8 = localValue8(workingValue93, workingValue103, workingValue2)
+    localValue7.dui = localValue8
     while true do
-      arg7 = IsDuiAvailable
-      arg8 = vendingRuntime.N3d
-      arg8 = arg8[arg3]
-      arg8 = arg8.dui
-      arg7 = arg7(arg8)
-      if arg7 then
+      localValue7 = IsDuiAvailable
+      localValue8 = vendingRuntime.N3d
+      localValue8 = localValue8[localValue3]
+      localValue8 = localValue8.dui
+      localValue7 = localValue7(localValue8)
+      if localValue7 then
         break
       end
-      arg7 = Citizen
-      arg7 = arg7.Wait
-      arg8 = 1
-      arg7(arg8)
+      localValue7 = Citizen
+      localValue7 = localValue7.Wait
+      localValue8 = 1
+      localValue7(localValue8)
     end
-    arg7 = GetDuiHandle
-    arg8 = vendingRuntime.N3d
-    arg8 = arg8[arg3]
-    arg8 = arg8.dui
-    arg7 = arg7(arg8)
-    arg8 = CreateRuntimeTextureFromDuiHandle
-    workValue93 = arg6
-    workValue103 = "txn"
-    workValue2 = arg3
-    workValue103 = workValue103 .. workValue2
-    workValue2 = arg7
-    arg8(workValue93, workValue103, workValue2)
-    arg8 = vendingRuntime.N3d
-    arg8 = arg8[arg3]
-    arg8 = arg8.scaleform
-    if nil ~= arg8 then
-      arg8 = BeginScaleformMovieMethod
-      workValue93 = vendingRuntime.N3d
-      workValue93 = workValue93[arg3]
-      workValue93 = workValue93.scaleform
-      workValue103 = "SET_TEXTURE"
-      arg8(workValue93, workValue103)
-      arg8 = _ENV
-      workValue93 = "ScaleformMovieMethodAddParamTextureNameString"
-      arg8 = arg8[workValue93]
-      workValue93 = "txd"
-      workValue103 = arg3
-      workValue93 = workValue93 .. workValue103
-      arg8(workValue93)
-      arg8 = _ENV
-      workValue93 = "ScaleformMovieMethodAddParamTextureNameString"
-      arg8 = arg8[workValue93]
-      workValue93 = "txn"
-      workValue103 = arg3
-      workValue93 = workValue93 .. workValue103
-      arg8(workValue93)
-      arg8 = ScaleformMovieMethodAddParamInt
-      workValue93 = 0
-      arg8(workValue93)
-      arg8 = ScaleformMovieMethodAddParamInt
-      workValue93 = 0
-      arg8(workValue93)
-      arg8 = ScaleformMovieMethodAddParamInt
-      workValue93 = 1920
-      arg8(workValue93)
-      arg8 = ScaleformMovieMethodAddParamInt
-      workValue93 = 1080
-      arg8(workValue93)
-      arg8 = EndScaleformMovieMethod
-      arg8()
+    localValue7 = GetDuiHandle
+    localValue8 = vendingRuntime.N3d
+    localValue8 = localValue8[localValue3]
+    localValue8 = localValue8.dui
+    localValue7 = localValue7(localValue8)
+    localValue8 = CreateRuntimeTextureFromDuiHandle
+    workingValue93 = localValue6
+    workingValue103 = "txn"
+    workingValue2 = localValue3
+    workingValue103 = workingValue103 .. workingValue2
+    workingValue2 = localValue7
+    localValue8(workingValue93, workingValue103, workingValue2)
+    localValue8 = vendingRuntime.N3d
+    localValue8 = localValue8[localValue3]
+    localValue8 = localValue8.scaleform
+    if nil ~= localValue8 then
+      localValue8 = BeginScaleformMovieMethod
+      workingValue93 = vendingRuntime.N3d
+      workingValue93 = workingValue93[localValue3]
+      workingValue93 = workingValue93.scaleform
+      workingValue103 = "SET_TEXTURE"
+      localValue8(workingValue93, workingValue103)
+      localValue8 = _ENV
+      workingValue93 = "ScaleformMovieMethodAddParamTextureNameString"
+      localValue8 = localValue8[workingValue93]
+      workingValue93 = "txd"
+      workingValue103 = localValue3
+      workingValue93 = workingValue93 .. workingValue103
+      localValue8(workingValue93)
+      localValue8 = _ENV
+      workingValue93 = "ScaleformMovieMethodAddParamTextureNameString"
+      localValue8 = localValue8[workingValue93]
+      workingValue93 = "txn"
+      workingValue103 = localValue3
+      workingValue93 = workingValue93 .. workingValue103
+      localValue8(workingValue93)
+      localValue8 = ScaleformMovieMethodAddParamInt
+      workingValue93 = 0
+      localValue8(workingValue93)
+      localValue8 = ScaleformMovieMethodAddParamInt
+      workingValue93 = 0
+      localValue8(workingValue93)
+      localValue8 = ScaleformMovieMethodAddParamInt
+      workingValue93 = 1920
+      localValue8(workingValue93)
+      localValue8 = ScaleformMovieMethodAddParamInt
+      workingValue93 = 1080
+      localValue8(workingValue93)
+      localValue8 = EndScaleformMovieMethod
+      localValue8()
     end
   end
-  arg6 = {}
-  arg6.__index = arg6
+  localValue6 = {}
+  localValue6.__index = localValue6
 
-  -- === HELPER FUNCTION: arg7(arg12, arg22, arg32, arg42) ===
-  function arg7(arg12, arg22, arg32, arg42)
-    local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3
-    arg52 = CreateRuntimeTxd
-    workValue60 = "txd"
-    numberValue12 = arg3
-    workValue60 = workValue60 .. numberValue12
-    arg52 = arg52(workValue60)
-    workValue60 = vendingRuntime.N3d
-    numberValue12 = arg3
-    workValue60 = workValue60[numberValue12]
-    numberValue12 = CreateDui
-    numberValue13 = "nui://"
-    workValue94 = GetCurrentResourceName
-    workValue94 = workValue94()
-    workValue104 = "/"
-    workValue3 = arg22
-    numberValue13 = numberValue13 .. workValue94 .. workValue104 .. workValue3
-    workValue94 = arg32 or workValue94
-    if not arg32 then
-      workValue94 = 1920
+  -- === HELPER FUNCTION: localValue7(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue7(localValue12, localValue22, localValue32, localValue42)
+    local localValue52, workingValue60, number12, number13, workingValue94, workingValue104, workingValue3
+    localValue52 = CreateRuntimeTxd
+    workingValue60 = "txd"
+    number12 = localValue3
+    workingValue60 = workingValue60 .. number12
+    localValue52 = localValue52(workingValue60)
+    workingValue60 = vendingRuntime.N3d
+    number12 = localValue3
+    workingValue60 = workingValue60[number12]
+    number12 = CreateDui
+    number13 = "nui://"
+    workingValue94 = GetCurrentResourceName
+    workingValue94 = workingValue94()
+    workingValue104 = "/"
+    workingValue3 = localValue22
+    number13 = number13 .. workingValue94 .. workingValue104 .. workingValue3
+    workingValue94 = localValue32 or workingValue94
+    if not localValue32 then
+      workingValue94 = 1920
     end
-    workValue104 = arg42 or workValue104
-    if not arg42 then
-      workValue104 = 1080
+    workingValue104 = localValue42 or workingValue104
+    if not localValue42 then
+      workingValue104 = 1080
     end
-    numberValue12 = numberValue12(numberValue13, workValue94, workValue104)
-    workValue60.dui = numberValue12
+    number12 = number12(number13, workingValue94, workingValue104)
+    workingValue60.dui = number12
     while true do
-      workValue60 = IsDuiAvailable
-      numberValue12 = vendingRuntime.N3d
-      numberValue13 = arg3
-      numberValue12 = numberValue12[numberValue13]
-      numberValue12 = numberValue12.dui
-      workValue60 = workValue60(numberValue12)
-      if workValue60 then
+      workingValue60 = IsDuiAvailable
+      number12 = vendingRuntime.N3d
+      number13 = localValue3
+      number12 = number12[number13]
+      number12 = number12.dui
+      workingValue60 = workingValue60(number12)
+      if workingValue60 then
         break
       end
-      workValue60 = Citizen
-      workValue60 = workValue60.Wait
-      numberValue12 = 1
-      workValue60(numberValue12)
+      workingValue60 = Citizen
+      workingValue60 = workingValue60.Wait
+      number12 = 1
+      workingValue60(number12)
     end
-    workValue60 = GetDuiHandle
-    numberValue12 = vendingRuntime.N3d
-    numberValue13 = arg3
-    numberValue12 = numberValue12[numberValue13]
-    numberValue12 = numberValue12.dui
-    workValue60 = workValue60(numberValue12)
-    numberValue12 = CreateRuntimeTextureFromDuiHandle
-    numberValue13 = arg52
-    workValue94 = "txn"
-    workValue104 = arg3
-    workValue94 = workValue94 .. workValue104
-    workValue104 = workValue60
-    numberValue12(numberValue13, workValue94, workValue104)
-    numberValue12 = vendingRuntime.N3d
-    numberValue13 = arg3
-    numberValue12 = numberValue12[numberValue13]
-    numberValue12 = numberValue12.scaleform
-    if nil ~= numberValue12 then
-      numberValue12 = BeginScaleformMovieMethod
-      numberValue13 = vendingRuntime.N3d
-      workValue94 = arg3
-      numberValue13 = numberValue13[workValue94]
-      numberValue13 = numberValue13.scaleform
-      workValue94 = "SET_TEXTURE"
-      numberValue12(numberValue13, workValue94)
-      numberValue12 = _ENV
-      numberValue13 = "ScaleformMovieMethodAddParamTextureNameString"
-      numberValue12 = numberValue12[numberValue13]
-      numberValue13 = "txd"
-      workValue94 = arg3
-      numberValue13 = numberValue13 .. workValue94
-      numberValue12(numberValue13)
-      numberValue12 = _ENV
-      numberValue13 = "ScaleformMovieMethodAddParamTextureNameString"
-      numberValue12 = numberValue12[numberValue13]
-      numberValue13 = "txn"
-      workValue94 = arg3
-      numberValue13 = numberValue13 .. workValue94
-      numberValue12(numberValue13)
-      numberValue12 = ScaleformMovieMethodAddParamInt
-      numberValue13 = 0
-      numberValue12(numberValue13)
-      numberValue12 = ScaleformMovieMethodAddParamInt
-      numberValue13 = 0
-      numberValue12(numberValue13)
-      numberValue12 = ScaleformMovieMethodAddParamInt
-      numberValue13 = arg32 or numberValue13
-      if not arg32 then
-        numberValue13 = 1920
+    workingValue60 = GetDuiHandle
+    number12 = vendingRuntime.N3d
+    number13 = localValue3
+    number12 = number12[number13]
+    number12 = number12.dui
+    workingValue60 = workingValue60(number12)
+    number12 = CreateRuntimeTextureFromDuiHandle
+    number13 = localValue52
+    workingValue94 = "txn"
+    workingValue104 = localValue3
+    workingValue94 = workingValue94 .. workingValue104
+    workingValue104 = workingValue60
+    number12(number13, workingValue94, workingValue104)
+    number12 = vendingRuntime.N3d
+    number13 = localValue3
+    number12 = number12[number13]
+    number12 = number12.scaleform
+    if nil ~= number12 then
+      number12 = BeginScaleformMovieMethod
+      number13 = vendingRuntime.N3d
+      workingValue94 = localValue3
+      number13 = number13[workingValue94]
+      number13 = number13.scaleform
+      workingValue94 = "SET_TEXTURE"
+      number12(number13, workingValue94)
+      number12 = _ENV
+      number13 = "ScaleformMovieMethodAddParamTextureNameString"
+      number12 = number12[number13]
+      number13 = "txd"
+      workingValue94 = localValue3
+      number13 = number13 .. workingValue94
+      number12(number13)
+      number12 = _ENV
+      number13 = "ScaleformMovieMethodAddParamTextureNameString"
+      number12 = number12[number13]
+      number13 = "txn"
+      workingValue94 = localValue3
+      number13 = number13 .. workingValue94
+      number12(number13)
+      number12 = ScaleformMovieMethodAddParamInt
+      number13 = 0
+      number12(number13)
+      number12 = ScaleformMovieMethodAddParamInt
+      number13 = 0
+      number12(number13)
+      number12 = ScaleformMovieMethodAddParamInt
+      number13 = localValue32 or number13
+      if not localValue32 then
+        number13 = 1920
       end
-      numberValue12(numberValue13)
-      numberValue12 = ScaleformMovieMethodAddParamInt
-      numberValue13 = arg42 or numberValue13
-      if not arg42 then
-        numberValue13 = 1080
+      number12(number13)
+      number12 = ScaleformMovieMethodAddParamInt
+      number13 = localValue42 or number13
+      if not localValue42 then
+        number13 = 1080
       end
-      numberValue12(numberValue13)
-      numberValue12 = EndScaleformMovieMethod
-      numberValue12()
+      number12(number13)
+      number12 = EndScaleformMovieMethod
+      number12()
     end
   end
-  arg6.init = arg7
+  localValue6.init = localValue7
 
-  -- === HELPER FUNCTION: arg7(arg12, arg22) ===
-  function arg7(arg12, arg22)
-    local arg32, arg42, arg52, workValue60
-    arg32 = vendingRuntime.N3d
-    arg42 = arg3
-    arg32 = arg32[arg42]
-    if arg32 then
-      arg32 = vendingRuntime.N3d
-      arg42 = arg3
-      arg32 = arg32[arg42]
-      arg32 = arg32.dui
-      if arg32 then
-        arg32 = SendDuiMessage
-        arg42 = vendingRuntime.N3d
-        arg52 = arg3
-        arg42 = arg42[arg52]
-        arg42 = arg42.dui
-        arg52 = json
-        arg52 = arg52.encode
-        workValue60 = arg22
-        arg52, workValue60 = arg52(workValue60)
-        arg32(arg42, arg52, workValue60)
+  -- === HELPER FUNCTION: localValue7(localValue12, localValue22) ===
+  function localValue7(localValue12, localValue22)
+    local localValue32, localValue42, localValue52, workingValue60
+    localValue32 = vendingRuntime.N3d
+    localValue42 = localValue3
+    localValue32 = localValue32[localValue42]
+    if localValue32 then
+      localValue32 = vendingRuntime.N3d
+      localValue42 = localValue3
+      localValue32 = localValue32[localValue42]
+      localValue32 = localValue32.dui
+      if localValue32 then
+        localValue32 = SendDuiMessage
+        localValue42 = vendingRuntime.N3d
+        localValue52 = localValue3
+        localValue42 = localValue42[localValue52]
+        localValue42 = localValue42.dui
+        localValue52 = json
+        localValue52 = localValue52.encode
+        workingValue60 = localValue22
+        localValue52, workingValue60 = localValue52(workingValue60)
+        localValue32(localValue42, localValue52, workingValue60)
       end
     end
   end
-  arg6.msg = arg7
+  localValue6.msg = localValue7
 
-  -- === HELPER FUNCTION: arg7(arg12, arg22, arg32, arg42) ===
-  function arg7(arg12, arg22, arg32, arg42)
-    local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104
-    if arg42 then
-      arg52 = Citizen
-      arg52 = arg52.Wait
-      workValue60 = arg42
-      arg52(workValue60)
+  -- === HELPER FUNCTION: localValue7(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue7(localValue12, localValue22, localValue32, localValue42)
+    local localValue52, workingValue60, number12, number13, workingValue94, workingValue104
+    if localValue42 then
+      localValue52 = Citizen
+      localValue52 = localValue52.Wait
+      workingValue60 = localValue42
+      localValue52(workingValue60)
     end
-    arg52 = AddReplaceTexture
-    workValue60 = arg22
-    numberValue12 = arg32
-    numberValue13 = "txd"
-    workValue94 = arg3
-    numberValue13 = numberValue13 .. workValue94
-    workValue94 = "txn"
-    workValue104 = arg3
-    workValue94 = workValue94 .. workValue104
-    arg52(workValue60, numberValue12, numberValue13, workValue94)
+    localValue52 = AddReplaceTexture
+    workingValue60 = localValue22
+    number12 = localValue32
+    number13 = "txd"
+    workingValue94 = localValue3
+    number13 = number13 .. workingValue94
+    workingValue94 = "txn"
+    workingValue104 = localValue3
+    workingValue94 = workingValue94 .. workingValue104
+    localValue52(workingValue60, number12, number13, workingValue94)
   end
-  arg6.replaceTexture = arg7
+  localValue6.replaceTexture = localValue7
 
-  -- === HELPER FUNCTION: arg7(arg12) ===
-  function arg7(arg12)
-    local arg22, arg32, arg42
-    arg22 = vendingRuntime.N3d
-    arg32 = arg3
-    arg22 = arg22[arg32]
-    if arg22 then
-      arg22 = vendingRuntime.N3d
-      arg32 = arg3
-      arg22 = arg22[arg32]
-      arg22 = arg22.dui
-      if arg22 then
-        arg22 = DestroyDui
-        arg32 = vendingRuntime.N3d
-        arg42 = arg3
-        arg32 = arg32[arg42]
-        arg32 = arg32.dui
-        arg22(arg32)
-        arg22 = vendingRuntime.N3d
-        arg32 = arg3
-        arg22 = arg22[arg32]
-        arg22 = arg22.scaleform
-        if arg22 then
-          arg22 = SetScaleformMovieAsNoLongerNeeded
-          arg32 = vendingRuntime.N3d
-          arg42 = arg3
-          arg32 = arg32[arg42]
-          arg32 = arg32.scaleform
-          arg22(arg32)
+  -- === HELPER FUNCTION: localValue7(localValue12) ===
+  function localValue7(localValue12)
+    local localValue22, localValue32, localValue42
+    localValue22 = vendingRuntime.N3d
+    localValue32 = localValue3
+    localValue22 = localValue22[localValue32]
+    if localValue22 then
+      localValue22 = vendingRuntime.N3d
+      localValue32 = localValue3
+      localValue22 = localValue22[localValue32]
+      localValue22 = localValue22.dui
+      if localValue22 then
+        localValue22 = DestroyDui
+        localValue32 = vendingRuntime.N3d
+        localValue42 = localValue3
+        localValue32 = localValue32[localValue42]
+        localValue32 = localValue32.dui
+        localValue22(localValue32)
+        localValue22 = vendingRuntime.N3d
+        localValue32 = localValue3
+        localValue22 = localValue22[localValue32]
+        localValue22 = localValue22.scaleform
+        if localValue22 then
+          localValue22 = SetScaleformMovieAsNoLongerNeeded
+          localValue32 = vendingRuntime.N3d
+          localValue42 = localValue3
+          localValue32 = localValue32[localValue42]
+          localValue32 = localValue32.scaleform
+          localValue22(localValue32)
         end
-        arg22 = vendingRuntime.N3d
-        arg32 = arg3
-        arg22[arg32] = nil
+        localValue22 = vendingRuntime.N3d
+        localValue32 = localValue3
+        localValue22[localValue32] = nil
       end
     end
   end
-  arg6.destroy = arg7
-  arg7 = setmetatable
-  arg8 = {}
-  workValue93 = arg6
-  arg7 = arg7(arg8, workValue93)
-  arg8 = arg3
-  return arg7, arg8
+  localValue6.destroy = localValue7
+  localValue7 = setmetatable
+  localValue8 = {}
+  workingValue93 = localValue6
+  localValue7 = localValue7(localValue8, workingValue93)
+  localValue8 = localValue3
+  return localValue7, localValue8
 end
-numberValue10 = 0
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+number10 = 0
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
-function threadCall2()
-  local arg1, arg2
+-- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: none) ===
+function backgroundThread2()
+  local localValue1, localValue2
   while true do
-    arg1 = workValue15
-    arg1 = arg1()
-    numberValue10 = arg1
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 500
-    arg1(arg2)
+    localValue1 = workingValue15
+    localValue1 = localValue1()
+    number10 = localValue1
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 500
+    localValue1(localValue2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(threadCall2)
+backgroundThread(backgroundThread2)
 
--- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
-function threadCall()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = pairs
-  arg2 = vendingRuntime.Marker
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = arg6.slice
-    if "ignore" == arg7 then
-      arg7 = true
-      return arg7
+-- === HELPER FUNCTION (decompiler name: backgroundThread; parameters: none) ===
+function backgroundThread()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = pairs
+  localValue2 = vendingRuntime.Marker
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = localValue6.slice
+    if "ignore" == localValue7 then
+      localValue7 = true
+      return localValue7
     end
   end
-  arg1 = false
-  return arg1
+  localValue1 = false
+  return localValue1
 end
-threadCall2 = Citizen
-threadCall2 = threadCall2.CreateThread
+backgroundThread2 = Citizen
+backgroundThread2 = backgroundThread2.CreateThread
 
-function numberValue11()
+function number11()
   while true do
     local drewAnyMarker = false
 
-    if workValue16(numberValue10) or threadCall() then
-      drewAnyMarker = workValue47(numberValue10)
+    if workingValue16(number10) or backgroundThread() then
+      drewAnyMarker = workingValue47(number10)
     end
 
     if not drewAnyMarker then
@@ -2015,97 +2015,97 @@ function numberValue11()
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall2(numberValue11)
-threadCall2 = Citizen
-threadCall2 = threadCall2.CreateThread
+backgroundThread2(number11)
+backgroundThread2 = Citizen
+backgroundThread2 = backgroundThread2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
-function numberValue11()
-  local arg1, arg2, arg3
+-- === HELPER FUNCTION (decompiler name: number11; parameters: none) ===
+function number11()
+  local localValue1, localValue2, localValue3
   while true do
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 0
-    arg1(arg2)
-    arg1 = IsControlJustPressed
-    arg2 = 0
-    arg3 = 38
-    arg1 = arg1(arg2, arg3)
-    if arg1 then
-      arg1 = workValue45
-      arg1()
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 0
+    localValue1(localValue2)
+    localValue1 = IsControlJustPressed
+    localValue2 = 0
+    localValue3 = 38
+    localValue1 = localValue1(localValue2, localValue3)
+    if localValue1 then
+      localValue1 = workingValue45
+      localValue1()
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall2(numberValue11)
-threadCall2 = {}
-threadCall2.Debug = false
-numberValue11 = vendingConfig.renderDistance
-if not numberValue11 then
-  numberValue11 = 40.0
+backgroundThread2(number11)
+backgroundThread2 = {}
+backgroundThread2.Debug = false
+number11 = vendingConfig.renderDistance
+if not number11 then
+  number11 = 40.0
 end
-threadCall2.RenderDistance = numberValue11
-numberValue11 = vendingConfig.defaultInteractionDistance
-if not numberValue11 then
-  numberValue11 = 2.0
+backgroundThread2.RenderDistance = number11
+number11 = vendingConfig.defaultInteractionDistance
+if not number11 then
+  number11 = 2.0
 end
-threadCall2.DefaultInteractionDistance = numberValue11
-numberValue11 = vendingConfig.blips
-numberValue11 = false ~= numberValue11
-threadCall2.Blips = numberValue11
-numberValue11 = vendingConfig.sounds
-numberValue11 = false ~= numberValue11
-threadCall2.Sounds = numberValue11
-numberValue11 = vendingConfig.overrideExhibition
-if not numberValue11 then
-  numberValue11 = {}
+backgroundThread2.DefaultInteractionDistance = number11
+number11 = vendingConfig.blips
+number11 = false ~= number11
+backgroundThread2.Blips = number11
+number11 = vendingConfig.sounds
+number11 = false ~= number11
+backgroundThread2.Sounds = number11
+number11 = vendingConfig.overrideExhibition
+if not number11 then
+  number11 = {}
 end
-threadCall2.OverrideExhibition = numberValue11
-numberValue11 = vendingConfig.items
-if not numberValue11 then
-  numberValue11 = {}
+backgroundThread2.OverrideExhibition = number11
+number11 = vendingConfig.items
+if not number11 then
+  number11 = {}
 end
-threadCall2.Items = numberValue11
-numberValue11 = {}
-threadCall2.Vendings = numberValue11
-numberValue11 = vendingConfig.translations
-if not numberValue11 then
-  numberValue11 = {}
+backgroundThread2.Items = number11
+number11 = {}
+backgroundThread2.Vendings = number11
+number11 = vendingConfig.translations
+if not number11 then
+  number11 = {}
 end
-threadCall2.Translations = numberValue11
-numberValue11 = vendingConfig.audiosVolumes
-if not numberValue11 then
-  numberValue11 = {}
+backgroundThread2.Translations = number11
+number11 = vendingConfig.audiosVolumes
+if not number11 then
+  number11 = {}
 end
-threadCall2.AudiosVolumes = numberValue11
-numberValue11 = vendingConfig.placeVendings
-if not numberValue11 then
-  numberValue11 = {}
+backgroundThread2.AudiosVolumes = number11
+number11 = vendingConfig.placeVendings
+if not number11 then
+  number11 = {}
 end
-threadCall2.PlaceVendings = numberValue11
-numberValue11 = {}
+backgroundThread2.PlaceVendings = number11
+number11 = {}
 
--- === HELPER FUNCTION (decompiler name: workValue52; parameters: none) ===
-function workValue52()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2
-  arg1 = pairs
-  arg2 = threadCall2.Vendings
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg7 = arg6.parent
-    if arg7 then
-      arg7 = threadCall2.Vendings
-      arg8 = arg6.parent
-      arg7 = arg7[arg8]
-      if arg7 then
-        arg8 = pairs
-        workValue93 = arg7
-        arg8, workValue93, workValue103, workValue2 = arg8(workValue93)
-        for workValue6, numberValue in arg8, workValue93, workValue103, workValue2 do
-          numberValue2 = arg6[workValue6]
-          if nil == numberValue2 then
-            arg6[workValue6] = numberValue
+-- === HELPER FUNCTION (decompiler name: workingValue52; parameters: none) ===
+function workingValue52()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2
+  localValue1 = pairs
+  localValue2 = backgroundThread2.Vendings
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue7 = localValue6.parent
+    if localValue7 then
+      localValue7 = backgroundThread2.Vendings
+      localValue8 = localValue6.parent
+      localValue7 = localValue7[localValue8]
+      if localValue7 then
+        localValue8 = pairs
+        workingValue93 = localValue7
+        localValue8, workingValue93, workingValue103, workingValue2 = localValue8(workingValue93)
+        for workingValue6, number in localValue8, workingValue93, workingValue103, workingValue2 do
+          number2 = localValue6[workingValue6]
+          if nil == number2 then
+            localValue6[workingValue6] = number
           end
         end
       end
@@ -2113,134 +2113,134 @@ function workValue52()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue53; parameters: none) ===
-function workValue53()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = pairs
-  arg2 = threadCall2.Vendings
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, arg6 in arg1, arg2, arg3, arg4 do
-    arg6.name = arg5
+-- === HELPER FUNCTION (decompiler name: workingValue53; parameters: none) ===
+function workingValue53()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = pairs
+  localValue2 = backgroundThread2.Vendings
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+    localValue6.name = localValue5
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue54; parameters: arg1, arg2) ===
-function workValue54(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
-  arg3 = GetEntityCoords
-  arg4 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue54; parameters: localValue1, localValue2) ===
+function workingValue54(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2
+  localValue3 = GetEntityCoords
+  localValue4 = localValue2
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(arg4)
-  arg4 = pairs
-  arg5 = threadCall2.OverrideExhibition
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for arg8, workValue93 in arg4, arg5, arg6, arg7 do
-    workValue103 = workValue93.name
-    workValue2 = arg1.name
-    if workValue103 == workValue2 then
-      workValue103 = workValue93.coords
-      workValue103 = workValue103 - arg3
-      workValue103 = #workValue103
-      workValue2 = workValue93.radius
-      if not workValue2 then
-        workValue2 = 2.0
+  localValue3 = localValue3(localValue4)
+  localValue4 = pairs
+  localValue5 = backgroundThread2.OverrideExhibition
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for localValue8, workingValue93 in localValue4, localValue5, localValue6, localValue7 do
+    workingValue103 = workingValue93.name
+    workingValue2 = localValue1.name
+    if workingValue103 == workingValue2 then
+      workingValue103 = workingValue93.coords
+      workingValue103 = workingValue103 - localValue3
+      workingValue103 = #workingValue103
+      workingValue2 = workingValue93.radius
+      if not workingValue2 then
+        workingValue2 = 2.0
       end
-      if workValue103 < workValue2 then
-        workValue103 = workValue93.exhibition
-        return workValue103
+      if workingValue103 < workingValue2 then
+        workingValue103 = workingValue93.exhibition
+        return workingValue103
       end
     end
   end
-  arg4 = arg1.exhibition
-  return arg4
+  localValue4 = localValue1.exhibition
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue55; parameters: arg1, arg2) ===
-function workValue55(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93
-  if not arg2 then
-    arg2 = "vending"
+-- === HELPER FUNCTION (decompiler name: workingValue55; parameters: localValue1, localValue2) ===
+function workingValue55(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93
+  if not localValue2 then
+    localValue2 = "vending"
   end
-  arg3 = GetEntityCoords
-  arg4 = arg1
+  localValue3 = GetEntityCoords
+  localValue4 = localValue1
   -- Beginner: result below is entityCoords.
-  arg3 = arg3(arg4)
-  arg4 = GetHashKey
-  arg5 = arg3.x
-  arg6 = ":"
-  arg7 = arg3.y
-  arg8 = ":"
-  workValue93 = arg3.z
-  arg5 = arg5 .. arg6 .. arg7 .. arg8 .. workValue93
+  localValue3 = localValue3(localValue4)
+  localValue4 = GetHashKey
+  localValue5 = localValue3.x
+  localValue6 = ":"
+  localValue7 = localValue3.y
+  localValue8 = ":"
+  workingValue93 = localValue3.z
+  localValue5 = localValue5 .. localValue6 .. localValue7 .. localValue8 .. workingValue93
   -- Beginner: result below is hash.
-  arg4 = arg4(arg5)
-  arg5 = arg2
-  arg6 = ":"
-  arg7 = arg4
-  arg5 = arg5 .. arg6 .. arg7
-  return arg5
+  localValue4 = localValue4(localValue5)
+  localValue5 = localValue2
+  localValue6 = ":"
+  localValue7 = localValue4
+  localValue5 = localValue5 .. localValue6 .. localValue7
+  return localValue5
 end
-dataTable6 = {}
+dataCollection6 = {}
 
--- === HELPER FUNCTION (decompiler name: workValue56; parameters: none) ===
-function workValue56()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2
-  arg1 = next
-  arg2 = dataTable6
-  arg1 = arg1(arg2)
-  if nil == arg1 then
-    arg1 = pairs
-    arg2 = threadCall2.Vendings
-    arg1, arg2, arg3, arg4 = arg1(arg2)
-    for arg5, arg6 in arg1, arg2, arg3, arg4 do
-      arg7 = pairs
-      arg8 = arg6.models
-      arg7, arg8, workValue93, workValue103 = arg7(arg8)
-      for workValue2, workValue6 in arg7, arg8, workValue93, workValue103 do
-        numberValue = tostring
-        numberValue2 = workValue6
-        numberValue = numberValue(numberValue2)
-        numberValue2 = dataTable6
-        numberValue2[numberValue] = arg5
+-- === HELPER FUNCTION (decompiler name: workingValue56; parameters: none) ===
+function workingValue56()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2
+  localValue1 = next
+  localValue2 = dataCollection6
+  localValue1 = localValue1(localValue2)
+  if nil == localValue1 then
+    localValue1 = pairs
+    localValue2 = backgroundThread2.Vendings
+    localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+    for localValue5, localValue6 in localValue1, localValue2, localValue3, localValue4 do
+      localValue7 = pairs
+      localValue8 = localValue6.models
+      localValue7, localValue8, workingValue93, workingValue103 = localValue7(localValue8)
+      for workingValue2, workingValue6 in localValue7, localValue8, workingValue93, workingValue103 do
+        number = tostring
+        number2 = workingValue6
+        number = number(number2)
+        number2 = dataCollection6
+        number2[number] = localValue5
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue57; parameters: arg1) ===
-function workValue57(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3
-  arg2 = workValue56
-  arg2()
-  arg2 = GetGamePool
-  arg3 = "CObject"
-  arg2 = arg2(arg3)
-  arg3 = pairs
-  arg4 = arg2
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    workValue93 = GetEntityModel
-    workValue103 = arg8
+-- === HELPER FUNCTION (decompiler name: workingValue57; parameters: localValue1) ===
+function workingValue57(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3
+  localValue2 = workingValue56
+  localValue2()
+  localValue2 = GetGamePool
+  localValue3 = "CObject"
+  localValue2 = localValue2(localValue3)
+  localValue3 = pairs
+  localValue4 = localValue2
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    workingValue93 = GetEntityModel
+    workingValue103 = localValue8
     -- Beginner: result below is modelHash.
-    workValue93 = workValue93(workValue103)
-    workValue103 = tostring
-    workValue2 = workValue93
-    workValue103 = workValue103(workValue2)
-    workValue2 = dataTable6
-    workValue103 = workValue2[workValue103]
-    if workValue103 then
-      workValue2 = threadCall2.Vendings
-      workValue2 = workValue2[workValue103]
-      workValue6 = arg1
-      numberValue = workValue103
-      numberValue2 = workValue2
-      numberValue3 = arg8
-      workValue6(numberValue, numberValue2, numberValue3)
+    workingValue93 = workingValue93(workingValue103)
+    workingValue103 = tostring
+    workingValue2 = workingValue93
+    workingValue103 = workingValue103(workingValue2)
+    workingValue2 = dataCollection6
+    workingValue103 = workingValue2[workingValue103]
+    if workingValue103 then
+      workingValue2 = backgroundThread2.Vendings
+      workingValue2 = workingValue2[workingValue103]
+      workingValue6 = localValue1
+      number = workingValue103
+      number2 = workingValue2
+      number3 = localValue8
+      workingValue6(number, number2, number3)
     end
   end
 end
 
-function workValue58(parentEntity, model, offset)
+function workingValue58(parentEntity, model, offset)
   local parentCoords = GetEntityCoords(parentEntity)
   local modelHash = type(model) == "string" and GetHashKey(model) or model
 
@@ -2267,3351 +2267,3351 @@ function workValue58(parentEntity, model, offset)
   return objectEntity
 end
 
--- === HELPER FUNCTION (decompiler name: workValue62; parameters: arg1, arg2) ===
-function workValue62(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  arg3 = GetEntityBoneIndexByName
-  arg4 = arg1
-  arg5 = arg2
-  arg3 = arg3(arg4, arg5)
-  arg4 = GetWorldPositionOfEntityBone
-  arg5 = arg1
-  arg6 = arg3
-  return arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue62; parameters: localValue1, localValue2) ===
+function workingValue62(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  localValue3 = GetEntityBoneIndexByName
+  localValue4 = localValue1
+  localValue5 = localValue2
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = GetWorldPositionOfEntityBone
+  localValue5 = localValue1
+  localValue6 = localValue3
+  return localValue4(localValue5, localValue6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue63; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function workValue63(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator
-  arg8 = threadCall2.Vendings
-  arg8 = arg8[arg5]
-  if not (arg8 and arg8.stands and arg8.stands[arg2] and arg8.slots and arg8.slots[arg3]) then
+-- === HELPER FUNCTION (decompiler name: workingValue63; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function workingValue63(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator
+  localValue8 = backgroundThread2.Vendings
+  localValue8 = localValue8[localValue5]
+  if not (localValue8 and localValue8.stands and localValue8.stands[localValue2] and localValue8.slots and localValue8.slots[localValue3]) then
     return nil
   end
 
-  workValue93 = arg8.stands
-  workValue93 = workValue93[arg2]
-  workValue103 = workValue62
-  workValue2 = arg4
-  workValue6 = workValue93
-  workValue103 = workValue103(workValue2, workValue6)
-  workValue2 = GetOffsetFromEntityGivenWorldCoords
-  workValue6 = arg4
-  numberValue = workValue103.x
-  numberValue2 = workValue103.y
-  numberValue3 = workValue103.z
-  workValue2 = workValue2(workValue6, numberValue, numberValue2, numberValue3)
-  workValue6 = arg8.slots
-  workValue6 = workValue6[arg3]
-  numberValue = workValue6.x
-  if not numberValue then
-    numberValue = workValue6[1]
-    if not numberValue then
-      numberValue = 0
+  workingValue93 = localValue8.stands
+  workingValue93 = workingValue93[localValue2]
+  workingValue103 = workingValue62
+  workingValue2 = localValue4
+  workingValue6 = workingValue93
+  workingValue103 = workingValue103(workingValue2, workingValue6)
+  workingValue2 = GetOffsetFromEntityGivenWorldCoords
+  workingValue6 = localValue4
+  number = workingValue103.x
+  number2 = workingValue103.y
+  number3 = workingValue103.z
+  workingValue2 = workingValue2(workingValue6, number, number2, number3)
+  workingValue6 = localValue8.slots
+  workingValue6 = workingValue6[localValue3]
+  number = workingValue6.x
+  if not number then
+    number = workingValue6[1]
+    if not number then
+      number = 0
     end
   end
-  numberValue2 = workValue6.y
-  if not numberValue2 then
-    numberValue2 = workValue6[2]
-    if not numberValue2 then
-      numberValue2 = 0
+  number2 = workingValue6.y
+  if not number2 then
+    number2 = workingValue6[2]
+    if not number2 then
+      number2 = 0
     end
   end
-  numberValue3 = workValue6.z
-  if not numberValue3 then
-    numberValue3 = workValue6[3]
-    if not numberValue3 then
-      numberValue3 = 0
+  number3 = workingValue6.z
+  if not number3 then
+    number3 = workingValue6[3]
+    if not number3 then
+      number3 = 0
     end
   end
-  numberValue5 = workValue6.w
-  if not numberValue5 then
-    numberValue5 = workValue6[4]
-    if not numberValue5 then
-      numberValue5 = 0
+  number5 = workingValue6.w
+  if not number5 then
+    number5 = workingValue6[4]
+    if not number5 then
+      number5 = 0
     end
   end
-  numberValue7 = vector3
-  flag = workValue2.x
-  flag = flag + numberValue
-  flag2 = workValue2.y
-  flag2 = flag2 + numberValue2
-  flag3 = workValue2.z
-  flag3 = flag3 + numberValue3
-  numberValue7 = numberValue7(flag, flag2, flag3)
-  flag = GetOffsetFromEntityInWorldCoords
-  flag2 = arg4
-  flag3 = numberValue7.x
-  dataTable3 = numberValue7.y
-  textValue2 = numberValue7.z
-  flag = flag(flag2, flag3, dataTable3, textValue2)
-  flag2 = vector3
-  flag3 = flag.x
-  dataTable3 = flag.y
-  textValue2 = flag.z
-  textValue3 = arg6 or textValue3
-  if not arg6 then
-    textValue3 = 0
+  number7 = vector3
+  stateFlag = workingValue2.x
+  stateFlag = stateFlag + number
+  stateFlag2 = workingValue2.y
+  stateFlag2 = stateFlag2 + number2
+  stateFlag3 = workingValue2.z
+  stateFlag3 = stateFlag3 + number3
+  number7 = number7(stateFlag, stateFlag2, stateFlag3)
+  stateFlag = GetOffsetFromEntityInWorldCoords
+  stateFlag2 = localValue4
+  stateFlag3 = number7.x
+  dataCollection3 = number7.y
+  text2 = number7.z
+  stateFlag = stateFlag(stateFlag2, stateFlag3, dataCollection3, text2)
+  stateFlag2 = vector3
+  stateFlag3 = stateFlag.x
+  dataCollection3 = stateFlag.y
+  text2 = stateFlag.z
+  text3 = localValue6 or text3
+  if not localValue6 then
+    text3 = 0
   end
-  textValue2 = textValue2 + textValue3
-  flag2 = flag2(flag3, dataTable3, textValue2)
-  flag = flag2
-  flag2 = workValue58
-  flag3 = arg4
-  dataTable3 = arg1
-  flag2 = flag2(flag3, dataTable3)
-  flag3 = SetEntityCoords
-  dataTable3 = flag2
-  textValue2 = flag.x
-  textValue3 = flag.y
-  textValue4 = flag.z
-  textValue5 = false
-  dataTable4 = false
-  textValue6 = false
+  text2 = text2 + text3
+  stateFlag2 = stateFlag2(stateFlag3, dataCollection3, text2)
+  stateFlag = stateFlag2
+  stateFlag2 = workingValue58
+  stateFlag3 = localValue4
+  dataCollection3 = localValue1
+  stateFlag2 = stateFlag2(stateFlag3, dataCollection3)
+  stateFlag3 = SetEntityCoords
+  dataCollection3 = stateFlag2
+  text2 = stateFlag.x
+  text3 = stateFlag.y
+  text4 = stateFlag.z
+  text5 = false
+  dataCollection4 = false
+  text6 = false
   iterator = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  flag3(dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator)
-  flag3 = arg7 or flag3
-  if not arg7 then
-    flag3 = vec3
-    dataTable3 = 0
-    textValue2 = 0
-    textValue3 = 0
-    flag3 = flag3(dataTable3, textValue2, textValue3)
+  stateFlag3(dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator)
+  stateFlag3 = localValue7 or stateFlag3
+  if not localValue7 then
+    stateFlag3 = vec3
+    dataCollection3 = 0
+    text2 = 0
+    text3 = 0
+    stateFlag3 = stateFlag3(dataCollection3, text2, text3)
   end
-  dataTable3 = GetEntityRotation
-  textValue2 = flag2
-  textValue3 = 1
-  dataTable3 = dataTable3(textValue2, textValue3)
-  textValue2 = vec3
-  textValue3 = numberValue5
-  textValue4 = 0
-  textValue5 = 0
-  textValue2 = textValue2(textValue3, textValue4, textValue5)
-  dataTable3 = dataTable3 + textValue2
-  dataTable3 = dataTable3 + flag3
-  textValue2 = SetEntityRotation
-  textValue3 = flag2
-  textValue4 = dataTable3.x
-  textValue5 = dataTable3.y
-  dataTable4 = dataTable3.z
-  textValue6 = 1
+  dataCollection3 = GetEntityRotation
+  text2 = stateFlag2
+  text3 = 1
+  dataCollection3 = dataCollection3(text2, text3)
+  text2 = vec3
+  text3 = number5
+  text4 = 0
+  text5 = 0
+  text2 = text2(text3, text4, text5)
+  dataCollection3 = dataCollection3 + text2
+  dataCollection3 = dataCollection3 + stateFlag3
+  text2 = SetEntityRotation
+  text3 = stateFlag2
+  text4 = dataCollection3.x
+  text5 = dataCollection3.y
+  dataCollection4 = dataCollection3.z
+  text6 = 1
   iterator = false
-  textValue2(textValue3, textValue4, textValue5, dataTable4, textValue6, iterator)
-  return flag2
+  text2(text3, text4, text5, dataCollection4, text6, iterator)
+  return stateFlag2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue64; parameters: arg1, arg2, arg3, arg4) ===
-function workValue64(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
-  arg5 = GetEntityCoords
-  arg6 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue64; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue64(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number
+  localValue5 = GetEntityCoords
+  localValue6 = localValue1
   -- Beginner: result below is entityCoords.
-  arg5 = arg5(arg6)
-  arg6 = GetEntityModel
-  arg7 = arg1
+  localValue5 = localValue5(localValue6)
+  localValue6 = GetEntityModel
+  localValue7 = localValue1
   -- Beginner: result below is modelHash.
-  arg6 = arg6(arg7)
-  arg7 = TriggerServerEvent
-  arg8 = "60eadad9f8"
-  workValue93 = arg5
-  workValue103 = arg6
-  workValue2 = arg2
-  workValue6 = arg3
-  numberValue = arg4
+  localValue6 = localValue6(localValue7)
+  localValue7 = TriggerServerEvent
+  localValue8 = "60eadad9f8"
+  workingValue93 = localValue5
+  workingValue103 = localValue6
+  workingValue2 = localValue2
+  workingValue6 = localValue3
+  number = localValue4
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "60eadad9f8".
-  arg7(arg8, workValue93, workValue103, workValue2, workValue6, numberValue)
+  localValue7(localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue65; parameters: arg1, arg2, arg3) ===
-function workValue65(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
-  arg4 = GetEntityCoords
-  arg5 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue65; parameters: localValue1, localValue2, localValue3) ===
+function workingValue65(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2
+  localValue4 = GetEntityCoords
+  localValue5 = localValue1
   -- Beginner: result below is entityCoords.
-  arg4 = arg4(arg5)
-  arg5 = GetEntityModel
-  arg6 = arg1
+  localValue4 = localValue4(localValue5)
+  localValue5 = GetEntityModel
+  localValue6 = localValue1
   -- Beginner: result below is modelHash.
-  arg5 = arg5(arg6)
-  arg6 = TriggerServerEvent
-  arg7 = "4e2aeb078b"
-  arg8 = arg4
-  workValue93 = arg5
-  workValue103 = arg2
-  workValue2 = arg3
-  arg6(arg7, arg8, workValue93, workValue103, workValue2)
+  localValue5 = localValue5(localValue6)
+  localValue6 = TriggerServerEvent
+  localValue7 = "4e2aeb078b"
+  localValue8 = localValue4
+  workingValue93 = localValue5
+  workingValue103 = localValue2
+  workingValue2 = localValue3
+  localValue6(localValue7, localValue8, workingValue93, workingValue103, workingValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue66; parameters: arg1, arg2, arg3) ===
-function workValue66(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2
-  arg4 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue66; parameters: localValue1, localValue2, localValue3) ===
+function workingValue66(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2
+  localValue4 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg4 = arg4()
-  arg5 = PlayerPedId
+  localValue4 = localValue4()
+  localValue5 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg5 = arg5()
-  arg6 = TaskPedSlideToCoord
-  arg7 = arg5
-  arg8 = arg1.x
-  workValue93 = arg1.y
-  workValue103 = arg1.z
-  workValue2 = arg2
-  workValue6 = -1
-  arg6(arg7, arg8, workValue93, workValue103, workValue2, workValue6)
+  localValue5 = localValue5()
+  localValue6 = TaskPedSlideToCoord
+  localValue7 = localValue5
+  localValue8 = localValue1.x
+  workingValue93 = localValue1.y
+  workingValue103 = localValue1.z
+  workingValue2 = localValue2
+  workingValue6 = -1
+  localValue6(localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6)
   while true do
-    arg6 = GetIsTaskActive
-    arg7 = arg5
-    arg8 = 234
-    arg6 = arg6(arg7, arg8)
-    if arg6 then
+    localValue6 = GetIsTaskActive
+    localValue7 = localValue5
+    localValue8 = 234
+    localValue6 = localValue6(localValue7, localValue8)
+    if localValue6 then
       break
     end
-    arg6 = GetGameTimer
+    localValue6 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg6 = arg6()
-    arg6 = arg6 - arg4
-    if arg3 < arg6 then
+    localValue6 = localValue6()
+    localValue6 = localValue6 - localValue4
+    if localValue3 < localValue6 then
       break
     end
-    arg6 = Citizen
-    arg6 = arg6.Wait
-    arg7 = 1
-    arg6(arg7)
+    localValue6 = Citizen
+    localValue6 = localValue6.Wait
+    localValue7 = 1
+    localValue6(localValue7)
   end
   while true do
-    arg6 = GetIsTaskActive
-    arg7 = arg5
-    arg8 = 234
-    arg6 = arg6(arg7, arg8)
-    if not arg6 then
+    localValue6 = GetIsTaskActive
+    localValue7 = localValue5
+    localValue8 = 234
+    localValue6 = localValue6(localValue7, localValue8)
+    if not localValue6 then
       break
     end
-    arg6 = GetGameTimer
+    localValue6 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg6 = arg6()
-    arg6 = arg6 - arg4
-    if arg3 < arg6 then
+    localValue6 = localValue6()
+    localValue6 = localValue6 - localValue4
+    if localValue3 < localValue6 then
       break
     end
-    arg6 = Citizen
-    arg6 = arg6.Wait
-    arg7 = 1
-    arg6(arg7)
+    localValue6 = Citizen
+    localValue6 = localValue6.Wait
+    localValue7 = 1
+    localValue6(localValue7)
   end
-  arg6 = ClearPedTasks
-  arg7 = arg5
-  arg6(arg7)
-  arg6 = GetGameTimer
+  localValue6 = ClearPedTasks
+  localValue7 = localValue5
+  localValue6(localValue7)
+  localValue6 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg6 = arg6()
-  arg6 = arg6 - arg4
-  if arg3 < arg6 then
-    arg6 = GetEntityCoords
-    arg7 = arg5
+  localValue6 = localValue6()
+  localValue6 = localValue6 - localValue4
+  if localValue3 < localValue6 then
+    localValue6 = GetEntityCoords
+    localValue7 = localValue5
     -- Beginner: result below is entityCoords.
-    arg6 = arg6(arg7)
-    arg6 = arg6 - arg1
-    arg6 = #arg6
-    arg7 = 1.3
-    if arg6 > arg7 then
-      arg6 = SetEntityCoords
-      arg7 = arg5
-      arg8 = arg1.x
-      workValue93 = arg1.y
-      workValue103 = arg1.z
-      workValue2 = false
-      workValue6 = false
-      numberValue = false
-      numberValue2 = false
+    localValue6 = localValue6(localValue7)
+    localValue6 = localValue6 - localValue1
+    localValue6 = #localValue6
+    localValue7 = 1.3
+    if localValue6 > localValue7 then
+      localValue6 = SetEntityCoords
+      localValue7 = localValue5
+      localValue8 = localValue1.x
+      workingValue93 = localValue1.y
+      workingValue103 = localValue1.z
+      workingValue2 = false
+      workingValue6 = false
+      number = false
+      number2 = false
       -- Beginner: Move/teleport an entity to new coordinates.
-      arg6(arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2)
-      arg6 = SetEntityHeading
-      arg7 = arg5
-      arg8 = arg2
+      localValue6(localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2)
+      localValue6 = SetEntityHeading
+      localValue7 = localValue5
+      localValue8 = localValue2
       -- Beginner: Change the direction an entity is facing.
-      arg6(arg7, arg8)
+      localValue6(localValue7, localValue8)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue67; parameters: arg1) ===
-function workValue67(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue67; parameters: localValue1) ===
+function workingValue67(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
+  localValue2 = localValue2()
   while true do
-    arg3 = GetGameTimer
+    localValue3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg3 = arg3()
-    arg3 = arg3 - arg2
-    if not (arg1 > arg3) then
+    localValue3 = localValue3()
+    localValue3 = localValue3 - localValue2
+    if not (localValue1 > localValue3) then
       break
     end
-    arg3 = DisableAllControlActions
-    arg4 = 0
-    arg3(arg4)
-    arg3 = EnableControlAction
-    arg4 = 0
-    arg5 = 0
-    arg6 = true
-    arg3(arg4, arg5, arg6)
-    arg3 = EnableControlAction
-    arg4 = 0
-    arg5 = 1
-    arg6 = true
-    arg3(arg4, arg5, arg6)
-    arg3 = EnableControlAction
-    arg4 = 0
-    arg5 = 2
-    arg6 = true
-    arg3(arg4, arg5, arg6)
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 1
-    arg3(arg4)
+    localValue3 = DisableAllControlActions
+    localValue4 = 0
+    localValue3(localValue4)
+    localValue3 = EnableControlAction
+    localValue4 = 0
+    localValue5 = 0
+    localValue6 = true
+    localValue3(localValue4, localValue5, localValue6)
+    localValue3 = EnableControlAction
+    localValue4 = 0
+    localValue5 = 1
+    localValue6 = true
+    localValue3(localValue4, localValue5, localValue6)
+    localValue3 = EnableControlAction
+    localValue4 = 0
+    localValue5 = 2
+    localValue6 = true
+    localValue3(localValue4, localValue5, localValue6)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 1
+    localValue3(localValue4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue68; parameters: arg1, arg2, arg3, arg4) ===
-function workValue68(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28
-  arg5 = Entity
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  arg5 = arg5.state
-  arg6 = {}
-  arg7 = workValue54
-  arg8 = arg1
-  workValue93 = arg2
-  arg7 = arg7(arg8, workValue93)
-  arg8 = pairs
-  workValue93 = arg1.stands
-  arg8, workValue93, workValue103, workValue2 = arg8(workValue93)
-  for workValue6, numberValue in arg8, workValue93, workValue103, workValue2 do
-    numberValue2 = {}
-    arg6[workValue6] = numberValue2
-    numberValue2 = pairs
-    numberValue3 = arg1.slots
-    numberValue2, numberValue3, numberValue5, numberValue7 = numberValue2(numberValue3)
-    for flag, flag2 in numberValue2, numberValue3, numberValue5, numberValue7 do
-      if arg7 then
-        flag3 = arg7[workValue6]
-        if flag3 then
-          flag3 = threadCall2.Items
-          dataTable3 = arg7[workValue6]
-          flag3 = flag3[dataTable3]
-          if flag3 then
-            dataTable3 = flag3.model
-            if dataTable3 then
-              dataTable3 = arg6[workValue6]
-              textValue2 = workValue63
-              textValue3 = flag3.model
-              textValue4 = workValue6
-              textValue5 = flag
-              dataTable4 = arg4
-              textValue6 = arg3
-              iterator = flag3.zoffset
+-- === HELPER FUNCTION (decompiler name: workingValue68; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue68(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2, workingValue28
+  localValue5 = Entity
+  localValue6 = localValue2
+  localValue5 = localValue5(localValue6)
+  localValue5 = localValue5.state
+  localValue6 = {}
+  localValue7 = workingValue54
+  localValue8 = localValue1
+  workingValue93 = localValue2
+  localValue7 = localValue7(localValue8, workingValue93)
+  localValue8 = pairs
+  workingValue93 = localValue1.stands
+  localValue8, workingValue93, workingValue103, workingValue2 = localValue8(workingValue93)
+  for workingValue6, number in localValue8, workingValue93, workingValue103, workingValue2 do
+    number2 = {}
+    localValue6[workingValue6] = number2
+    number2 = pairs
+    number3 = localValue1.slots
+    number2, number3, number5, number7 = number2(number3)
+    for stateFlag, stateFlag2 in number2, number3, number5, number7 do
+      if localValue7 then
+        stateFlag3 = localValue7[workingValue6]
+        if stateFlag3 then
+          stateFlag3 = backgroundThread2.Items
+          dataCollection3 = localValue7[workingValue6]
+          stateFlag3 = stateFlag3[dataCollection3]
+          if stateFlag3 then
+            dataCollection3 = stateFlag3.model
+            if dataCollection3 then
+              dataCollection3 = localValue6[workingValue6]
+              text2 = workingValue63
+              text3 = stateFlag3.model
+              text4 = workingValue6
+              text5 = stateFlag
+              dataCollection4 = localValue4
+              text6 = localValue3
+              iterator = stateFlag3.zoffset
               if not iterator then
                 iterator = 0
               end
-              textValue7 = flag3.rotation
-              if not textValue7 then
-                textValue7 = vec3
-                dataTable5 = 0
+              text7 = stateFlag3.rotation
+              if not text7 then
+                text7 = vec3
+                dataCollection5 = 0
                 iterator2 = 0
-                workValue28 = 0
-                textValue7 = textValue7(dataTable5, iterator2, workValue28)
+                workingValue28 = 0
+                text7 = text7(dataCollection5, iterator2, workingValue28)
               end
-              textValue2 = textValue2(textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7)
-              dataTable3[flag] = textValue2
+              text2 = text2(text3, text4, text5, dataCollection4, text6, iterator, text7)
+              dataCollection3[stateFlag] = text2
             end
           end
         end
       end
     end
   end
-  workValue93 = arg5
-  arg8 = arg5.set
-  workValue103 = "objects"
-  workValue2 = arg6
-  workValue6 = false
-  arg8(workValue93, workValue103, workValue2, workValue6)
+  workingValue93 = localValue5
+  localValue8 = localValue5.set
+  workingValue103 = "objects"
+  workingValue2 = localValue6
+  workingValue6 = false
+  localValue8(workingValue93, workingValue103, workingValue2, workingValue6)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue69; parameters: arg1, arg2) ===
-function workValue69(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2
-  arg3 = Entity
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  arg3 = arg3.state
-  arg4 = arg3.objects
-  if arg4 then
-    arg4 = pairs
-    arg5 = arg3.objects
-    arg4, arg5, arg6, arg7 = arg4(arg5)
-    for arg8, workValue93 in arg4, arg5, arg6, arg7 do
-      workValue103 = pairs
-      workValue2 = workValue93
-      workValue103, workValue2, workValue6, numberValue = workValue103(workValue2)
-      for numberValue2, numberValue3 in workValue103, workValue2, workValue6, numberValue do
-        numberValue5 = DoesEntityExist
-        numberValue7 = numberValue3
-        numberValue5 = numberValue5(numberValue7)
-        if numberValue5 then
-          numberValue5 = SetEntityAsMissionEntity
-          numberValue7 = numberValue3
-          flag = true
-          flag2 = true
-          numberValue5(numberValue7, flag, flag2)
-          numberValue5 = DeleteEntity
-          numberValue7 = numberValue3
+-- === HELPER FUNCTION (decompiler name: workingValue69; parameters: localValue1, localValue2) ===
+function workingValue69(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2
+  localValue3 = Entity
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  localValue3 = localValue3.state
+  localValue4 = localValue3.objects
+  if localValue4 then
+    localValue4 = pairs
+    localValue5 = localValue3.objects
+    localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+    for localValue8, workingValue93 in localValue4, localValue5, localValue6, localValue7 do
+      workingValue103 = pairs
+      workingValue2 = workingValue93
+      workingValue103, workingValue2, workingValue6, number = workingValue103(workingValue2)
+      for number2, number3 in workingValue103, workingValue2, workingValue6, number do
+        number5 = DoesEntityExist
+        number7 = number3
+        number5 = number5(number7)
+        if number5 then
+          number5 = SetEntityAsMissionEntity
+          number7 = number3
+          stateFlag = true
+          stateFlag2 = true
+          number5(number7, stateFlag, stateFlag2)
+          number5 = DeleteEntity
+          number7 = number3
           -- Beginner: Delete a GTA entity.
-          numberValue5(numberValue7)
+          number5(number7)
         end
       end
     end
   end
-  arg5 = arg3
-  arg4 = arg3.set
-  arg6 = "objects"
-  arg7 = nil
-  arg8 = false
-  arg4(arg5, arg6, arg7, arg8)
+  localValue5 = localValue3
+  localValue4 = localValue3.set
+  localValue6 = "objects"
+  localValue7 = nil
+  localValue8 = false
+  localValue4(localValue5, localValue6, localValue7, localValue8)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue70; parameters: arg1) ===
-function workValue70(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93
-  arg2 = nil
-  arg3 = nil
-  arg4 = IsCamActive
-  arg5 = arg1.code
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg2 = arg1.code
-    arg3 = arg1.products
+-- === HELPER FUNCTION (decompiler name: workingValue70; parameters: localValue1) ===
+function workingValue70(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93
+  localValue2 = nil
+  localValue3 = nil
+  localValue4 = IsCamActive
+  localValue5 = localValue1.code
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue2 = localValue1.code
+    localValue3 = localValue1.products
   else
-    arg2 = arg1.products
-    arg3 = arg1.code
+    localValue2 = localValue1.products
+    localValue3 = localValue1.code
   end
-  arg4 = SetCamActive
-  arg5 = arg2
-  arg6 = false
-  arg4(arg5, arg6)
-  arg4 = SetCamActive
-  arg5 = arg3
-  arg6 = true
-  arg4(arg5, arg6)
-  arg4 = SetCamActiveWithInterp
-  arg5 = arg3
-  arg6 = arg2
-  arg7 = 1500
-  arg8 = 1
-  workValue93 = 1
-  arg4(arg5, arg6, arg7, arg8, workValue93)
+  localValue4 = SetCamActive
+  localValue5 = localValue2
+  localValue6 = false
+  localValue4(localValue5, localValue6)
+  localValue4 = SetCamActive
+  localValue5 = localValue3
+  localValue6 = true
+  localValue4(localValue5, localValue6)
+  localValue4 = SetCamActiveWithInterp
+  localValue5 = localValue3
+  localValue6 = localValue2
+  localValue7 = 1500
+  localValue8 = 1
+  workingValue93 = 1
+  localValue4(localValue5, localValue6, localValue7, localValue8, workingValue93)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue71; parameters: arg1, arg2) ===
-function workValue71(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2
-  arg3 = workValue50
-  arg4 = "utility_lib_4"
-  arg5 = nil
-  arg3, arg4 = arg3(arg4, arg5)
-  arg6 = arg3
-  arg5 = arg3.init
-  arg7 = "ui/vending/dui/index.html"
-  arg8 = 256
-  workValue93 = 64
-  arg5(arg6, arg7, arg8, workValue93)
-  arg5 = SetEntityAlpha
-  arg6 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue71; parameters: localValue1, localValue2) ===
+function workingValue71(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2
+  localValue3 = workingValue50
+  localValue4 = "utility_lib_4"
+  localValue5 = nil
+  localValue3, localValue4 = localValue3(localValue4, localValue5)
+  localValue6 = localValue3
+  localValue5 = localValue3.init
+  localValue7 = "ui/vending/dui/index.html"
+  localValue8 = 256
+  workingValue93 = 64
+  localValue5(localValue6, localValue7, localValue8, workingValue93)
+  localValue5 = SetEntityAlpha
+  localValue6 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg6 = arg6()
-  arg7 = 0
-  arg8 = false
-  arg5(arg6, arg7, arg8)
-  arg5 = "code"
-  arg6 = ""
-  arg7 = {}
+  localValue6 = localValue6()
+  localValue7 = 0
+  localValue8 = false
+  localValue5(localValue6, localValue7, localValue8)
+  localValue5 = "code"
+  localValue6 = ""
+  localValue7 = {}
 
-  -- === HELPER FUNCTION: arg8() ===
-  function arg8()
-    local arg12, arg22, arg32, arg42
-    arg12 = arg3
-    arg22 = arg12
-    arg12 = arg12.msg
-    arg32 = {}
-    arg32.action = "update"
-    arg42 = arg6
-    arg32.code = arg42
-    arg12(arg22, arg32)
+  -- === HELPER FUNCTION: localValue8() ===
+  function localValue8()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = localValue3
+    localValue22 = localValue12
+    localValue12 = localValue12.msg
+    localValue32 = {}
+    localValue32.action = "update"
+    localValue42 = localValue6
+    localValue32.code = localValue42
+    localValue12(localValue22, localValue32)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue93; parameters: arg12) ===
-  function workValue93(arg12)
-    local arg22, arg32, arg42, arg52
-    arg22 = arg6
-    arg32 = arg22
-    arg22 = arg22.len
-    arg22 = arg22(arg32)
-    if arg22 >= 2 then
-      arg32 = arg12
-      arg22 = arg12.match
-      arg42 = "%d"
-      arg22 = arg22(arg32, arg42)
-      if arg22 then
-        arg22 = arg6
-        arg32 = arg22
-        arg22 = arg22.sub
-        arg42 = 1
-        arg52 = -2
-        arg22 = arg22(arg32, arg42, arg52)
-        arg6 = arg22
+  -- === HELPER FUNCTION (decompiler name: workingValue93; parameters: localValue12) ===
+  function workingValue93(localValue12)
+    local localValue22, localValue32, localValue42, localValue52
+    localValue22 = localValue6
+    localValue32 = localValue22
+    localValue22 = localValue22.len
+    localValue22 = localValue22(localValue32)
+    if localValue22 >= 2 then
+      localValue32 = localValue12
+      localValue22 = localValue12.match
+      localValue42 = "%d"
+      localValue22 = localValue22(localValue32, localValue42)
+      if localValue22 then
+        localValue22 = localValue6
+        localValue32 = localValue22
+        localValue22 = localValue22.sub
+        localValue42 = 1
+        localValue52 = -2
+        localValue22 = localValue22(localValue32, localValue42, localValue52)
+        localValue6 = localValue22
       else
-        arg22 = ""
-        arg6 = arg22
+        localValue22 = ""
+        localValue6 = localValue22
       end
     end
-    arg22 = arg6
-    arg32 = arg12
-    arg22 = arg22 .. arg32
-    arg6 = arg22
-    arg22 = arg8
-    arg22()
+    localValue22 = localValue6
+    localValue32 = localValue12
+    localValue22 = localValue22 .. localValue32
+    localValue6 = localValue22
+    localValue22 = localValue8
+    localValue22()
   end
-  workValue103 = GetOffsetFromEntityInWorldCoords
-  workValue2 = arg2
-  workValue6 = arg1.views
-  workValue6 = workValue6.code
-  workValue6 = workValue6.offset
-  workValue6 = workValue6.x
-  numberValue = arg1.views
-  numberValue = numberValue.code
-  numberValue = numberValue.offset
-  numberValue = numberValue.y
-  numberValue2 = arg1.views
-  numberValue2 = numberValue2.code
-  numberValue2 = numberValue2.offset
-  numberValue2 = numberValue2.z
-  workValue103 = workValue103(workValue2, workValue6, numberValue, numberValue2)
-  workValue2 = CreateCam
-  workValue6 = "DEFAULT_SCRIPTED_CAMERA"
-  numberValue = true
+  workingValue103 = GetOffsetFromEntityInWorldCoords
+  workingValue2 = localValue2
+  workingValue6 = localValue1.views
+  workingValue6 = workingValue6.code
+  workingValue6 = workingValue6.offset
+  workingValue6 = workingValue6.x
+  number = localValue1.views
+  number = number.code
+  number = number.offset
+  number = number.y
+  number2 = localValue1.views
+  number2 = number2.code
+  number2 = number2.offset
+  number2 = number2.z
+  workingValue103 = workingValue103(workingValue2, workingValue6, number, number2)
+  workingValue2 = CreateCam
+  workingValue6 = "DEFAULT_SCRIPTED_CAMERA"
+  number = true
   -- Beginner: result below is cameraHandle.
-  workValue2 = workValue2(workValue6, numberValue)
-  arg7.code = workValue2
-  workValue2 = SetCamCoord
-  workValue6 = arg7.code
-  numberValue = workValue103.x
-  numberValue2 = workValue103.y
-  numberValue3 = workValue103.z
-  workValue2(workValue6, numberValue, numberValue2, numberValue3)
-  workValue2 = SetCamRot
-  workValue6 = arg7.code
-  numberValue = 0.0
-  numberValue2 = 0.0
-  numberValue3 = GetEntityHeading
-  numberValue5 = arg2
+  workingValue2 = workingValue2(workingValue6, number)
+  localValue7.code = workingValue2
+  workingValue2 = SetCamCoord
+  workingValue6 = localValue7.code
+  number = workingValue103.x
+  number2 = workingValue103.y
+  number3 = workingValue103.z
+  workingValue2(workingValue6, number, number2, number3)
+  workingValue2 = SetCamRot
+  workingValue6 = localValue7.code
+  number = 0.0
+  number2 = 0.0
+  number3 = GetEntityHeading
+  number5 = localValue2
   -- Beginner: result below is heading.
-  numberValue3 = numberValue3(numberValue5)
-  numberValue5 = 2
-  workValue2(workValue6, numberValue, numberValue2, numberValue3, numberValue5)
-  workValue2 = SetCamFov
-  workValue6 = arg7.code
-  numberValue = arg1.views
-  numberValue = numberValue.code
-  numberValue = numberValue.fov
-  numberValue = numberValue + 0.0
-  workValue2(workValue6, numberValue)
-  workValue2 = GetOffsetFromEntityInWorldCoords
-  workValue6 = arg2
-  numberValue = arg1.views
-  numberValue = numberValue.products
-  numberValue = numberValue.offset
-  numberValue = numberValue.x
-  numberValue2 = arg1.views
-  numberValue2 = numberValue2.products
-  numberValue2 = numberValue2.offset
-  numberValue2 = numberValue2.y
-  numberValue3 = arg1.views
-  numberValue3 = numberValue3.products
-  numberValue3 = numberValue3.offset
-  numberValue3 = numberValue3.z
-  workValue2 = workValue2(workValue6, numberValue, numberValue2, numberValue3)
-  workValue103 = workValue2
-  workValue2 = CreateCam
-  workValue6 = "DEFAULT_SCRIPTED_CAMERA"
-  numberValue = true
+  number3 = number3(number5)
+  number5 = 2
+  workingValue2(workingValue6, number, number2, number3, number5)
+  workingValue2 = SetCamFov
+  workingValue6 = localValue7.code
+  number = localValue1.views
+  number = number.code
+  number = number.fov
+  number = number + 0.0
+  workingValue2(workingValue6, number)
+  workingValue2 = GetOffsetFromEntityInWorldCoords
+  workingValue6 = localValue2
+  number = localValue1.views
+  number = number.products
+  number = number.offset
+  number = number.x
+  number2 = localValue1.views
+  number2 = number2.products
+  number2 = number2.offset
+  number2 = number2.y
+  number3 = localValue1.views
+  number3 = number3.products
+  number3 = number3.offset
+  number3 = number3.z
+  workingValue2 = workingValue2(workingValue6, number, number2, number3)
+  workingValue103 = workingValue2
+  workingValue2 = CreateCam
+  workingValue6 = "DEFAULT_SCRIPTED_CAMERA"
+  number = true
   -- Beginner: result below is cameraHandle.
-  workValue2 = workValue2(workValue6, numberValue)
-  arg7.products = workValue2
-  workValue2 = SetCamCoord
-  workValue6 = arg7.products
-  numberValue = workValue103.x
-  numberValue2 = workValue103.y
-  numberValue3 = workValue103.z
-  workValue2(workValue6, numberValue, numberValue2, numberValue3)
-  workValue2 = SetCamRot
-  workValue6 = arg7.products
-  numberValue = 0.0
-  numberValue2 = 0.0
-  numberValue3 = GetEntityHeading
-  numberValue5 = arg2
+  workingValue2 = workingValue2(workingValue6, number)
+  localValue7.products = workingValue2
+  workingValue2 = SetCamCoord
+  workingValue6 = localValue7.products
+  number = workingValue103.x
+  number2 = workingValue103.y
+  number3 = workingValue103.z
+  workingValue2(workingValue6, number, number2, number3)
+  workingValue2 = SetCamRot
+  workingValue6 = localValue7.products
+  number = 0.0
+  number2 = 0.0
+  number3 = GetEntityHeading
+  number5 = localValue2
   -- Beginner: result below is heading.
-  numberValue3 = numberValue3(numberValue5)
-  numberValue5 = 2
-  workValue2(workValue6, numberValue, numberValue2, numberValue3, numberValue5)
-  workValue2 = SetCamFov
-  workValue6 = arg7.products
-  numberValue = arg1.views
-  numberValue = numberValue.products
-  numberValue = numberValue.fov
-  numberValue = numberValue + 0.0
-  workValue2(workValue6, numberValue)
-  workValue2 = SetCamActive
-  workValue6 = arg7.code
-  numberValue = true
-  workValue2(workValue6, numberValue)
-  workValue2 = RenderScriptCams
-  workValue6 = true
-  numberValue = true
-  numberValue2 = 1500
-  numberValue3 = true
-  numberValue5 = false
-  workValue2(workValue6, numberValue, numberValue2, numberValue3, numberValue5)
-  workValue2 = Citizen
-  workValue2 = workValue2.SetTimeout
-  workValue6 = 1500
+  number3 = number3(number5)
+  number5 = 2
+  workingValue2(workingValue6, number, number2, number3, number5)
+  workingValue2 = SetCamFov
+  workingValue6 = localValue7.products
+  number = localValue1.views
+  number = number.products
+  number = number.fov
+  number = number + 0.0
+  workingValue2(workingValue6, number)
+  workingValue2 = SetCamActive
+  workingValue6 = localValue7.code
+  number = true
+  workingValue2(workingValue6, number)
+  workingValue2 = RenderScriptCams
+  workingValue6 = true
+  number = true
+  number2 = 1500
+  number3 = true
+  number5 = false
+  workingValue2(workingValue6, number, number2, number3, number5)
+  workingValue2 = Citizen
+  workingValue2 = workingValue2.SetTimeout
+  workingValue6 = 1500
 
-  -- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-  function numberValue()
-    local arg12, arg22, arg32, arg42
-    arg12 = arg3
-    arg22 = arg12
-    arg12 = arg12.replaceTexture
-    arg32 = "mxc_vend_parts_props_ytd"
-    arg42 = "mxc_vendingmachine_display_d"
-    arg12(arg22, arg32, arg42)
+  -- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+  function number()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = localValue3
+    localValue22 = localValue12
+    localValue12 = localValue12.replaceTexture
+    localValue32 = "mxc_vend_parts_props_ytd"
+    localValue42 = "mxc_vendingmachine_display_d"
+    localValue12(localValue22, localValue32, localValue42)
   end
-  workValue2(workValue6, numberValue)
-  workValue2 = GetResourceState
-  workValue6 = "utility_pausemenu"
-  workValue2 = workValue2(workValue6)
-  if "started" == workValue2 then
-    workValue2 = exports
-    workValue2 = workValue2.utility_pausemenu
-    workValue6 = workValue2
-    workValue2 = workValue2.DisableMenus
-    numberValue = true
-    workValue2(workValue6, numberValue)
+  workingValue2(workingValue6, number)
+  workingValue2 = GetResourceState
+  workingValue6 = "utility_pausemenu"
+  workingValue2 = workingValue2(workingValue6)
+  if "started" == workingValue2 then
+    workingValue2 = exports
+    workingValue2 = workingValue2.utility_pausemenu
+    workingValue6 = workingValue2
+    workingValue2 = workingValue2.DisableMenus
+    number = true
+    workingValue2(workingValue6, number)
   end
-  workValue2 = LocalPlayer
-  workValue2 = workValue2.state
-  workValue2.invBusy = true
-  workValue2 = LocalPlayer
-  workValue2 = workValue2.state
-  workValue2 = workValue2.set
-  if workValue2 then
-    workValue2 = LocalPlayer
-    workValue2 = workValue2.state
-    workValue6 = workValue2
-    workValue2 = workValue2.set
-    numberValue = "inv_busy"
-    numberValue2 = true
-    numberValue3 = true
-    workValue2(workValue6, numberValue, numberValue2, numberValue3)
+  workingValue2 = LocalPlayer
+  workingValue2 = workingValue2.state
+  workingValue2.invBusy = true
+  workingValue2 = LocalPlayer
+  workingValue2 = workingValue2.state
+  workingValue2 = workingValue2.set
+  if workingValue2 then
+    workingValue2 = LocalPlayer
+    workingValue2 = workingValue2.state
+    workingValue6 = workingValue2
+    workingValue2 = workingValue2.set
+    number = "inv_busy"
+    number2 = true
+    number3 = true
+    workingValue2(workingValue6, number, number2, number3)
   end
-  workValue2 = workValue54
-  workValue6 = arg1
-  numberValue = arg2
-  workValue2 = workValue2(workValue6, numberValue)
+  workingValue2 = workingValue54
+  workingValue6 = localValue1
+  number = localValue2
+  workingValue2 = workingValue2(workingValue6, number)
   while true do
-    workValue6 = threadCall2.Translations
-    workValue6 = workValue6.vending_menu_helper
-    if not workValue6 then
-      workValue6 = ""
+    workingValue6 = backgroundThread2.Translations
+    workingValue6 = workingValue6.vending_menu_helper
+    if not workingValue6 then
+      workingValue6 = ""
     end
-    numberValue2 = arg6
-    numberValue = arg6.len
-    numberValue = numberValue(numberValue2)
-    if 2 == numberValue then
-      if workValue2 then
-        numberValue = workValue2[arg6]
-        if numberValue then
-          numberValue = workValue2[arg6]
-          numberValue2 = threadCall2.Items
-          numberValue2 = numberValue2[numberValue]
-          if numberValue2 then
-            numberValue3 = threadCall2.Translations
-            numberValue3 = numberValue3.selected_product_price
-            if not numberValue3 then
-              numberValue3 = "%s - ~g~\194\163%s~w~ \n"
+    number2 = localValue6
+    number = localValue6.len
+    number = number(number2)
+    if 2 == number then
+      if workingValue2 then
+        number = workingValue2[localValue6]
+        if number then
+          number = workingValue2[localValue6]
+          number2 = backgroundThread2.Items
+          number2 = number2[number]
+          if number2 then
+            number3 = backgroundThread2.Translations
+            number3 = number3.selected_product_price
+            if not number3 then
+              number3 = "%s - ~g~\194\163%s~w~ \n"
             end
-            numberValue5 = numberValue3
-            numberValue3 = numberValue3.format
-            numberValue7 = numberValue2.label
-            flag = numberValue2.price
-            numberValue3 = numberValue3(numberValue5, numberValue7, flag)
-            numberValue7 = workValue6
-            numberValue5 = workValue6.format
-            flag = numberValue3
-            numberValue5 = numberValue5(numberValue7, flag)
-            workValue6 = numberValue5
+            number5 = number3
+            number3 = number3.format
+            number7 = number2.label
+            stateFlag = number2.price
+            number3 = number3(number5, number7, stateFlag)
+            number7 = workingValue6
+            number5 = workingValue6.format
+            stateFlag = number3
+            number5 = number5(number7, stateFlag)
+            workingValue6 = number5
           else
-            numberValue5 = workValue6
-            numberValue3 = workValue6.format
-            numberValue7 = threadCall2.Translations
-            numberValue7 = numberValue7.invalid_product
-            if not numberValue7 then
-              numberValue7 = "~r~Invalid product.~w~"
+            number5 = workingValue6
+            number3 = workingValue6.format
+            number7 = backgroundThread2.Translations
+            number7 = number7.invalid_product
+            if not number7 then
+              number7 = "~r~Invalid product.~w~"
             end
-            numberValue3 = numberValue3(numberValue5, numberValue7)
-            workValue6 = numberValue3
+            number3 = number3(number5, number7)
+            workingValue6 = number3
           end
       end
       else
-        numberValue2 = workValue6
-        numberValue = workValue6.format
-        numberValue3 = threadCall2.Translations
-        numberValue3 = numberValue3.invalid_product
-        if not numberValue3 then
-          numberValue3 = "~r~Invalid product.~w~"
+        number2 = workingValue6
+        number = workingValue6.format
+        number3 = backgroundThread2.Translations
+        number3 = number3.invalid_product
+        if not number3 then
+          number3 = "~r~Invalid product.~w~"
         end
-        numberValue = numberValue(numberValue2, numberValue3)
-        workValue6 = numberValue
+        number = number(number2, number3)
+        workingValue6 = number
       end
     else
-      numberValue2 = workValue6
-      numberValue = workValue6.format
-      numberValue3 = ""
-      numberValue = numberValue(numberValue2, numberValue3)
-      workValue6 = numberValue
+      number2 = workingValue6
+      number = workingValue6.format
+      number3 = ""
+      number = number(number2, number3)
+      workingValue6 = number
     end
-    numberValue = workValue22
-    numberValue2 = workValue6
-    numberValue(numberValue2)
-    numberValue = DisableAllControlActions
-    numberValue2 = 0
-    numberValue(numberValue2)
-    numberValue = IsDisabledControlJustPressed
-    numberValue2 = 0
-    numberValue3 = 37
-    numberValue = numberValue(numberValue2, numberValue3)
-    if numberValue then
-      if arg5 == "code" then
-        arg5 = "products"
+    number = workingValue22
+    number2 = workingValue6
+    number(number2)
+    number = DisableAllControlActions
+    number2 = 0
+    number(number2)
+    number = IsDisabledControlJustPressed
+    number2 = 0
+    number3 = 37
+    number = number(number2, number3)
+    if number then
+      if localValue5 == "code" then
+        localValue5 = "products"
       else
-        arg5 = "code"
+        localValue5 = "code"
       end
 
-      numberValue = workValue70
-      numberValue2 = arg7
-      numberValue(numberValue2)
+      number = workingValue70
+      number2 = localValue7
+      number(number2)
     end
-    numberValue = IsDisabledControlJustPressed
-    numberValue2 = 0
-    numberValue3 = 177
-    numberValue = numberValue(numberValue2, numberValue3)
-    if numberValue then
-      arg6 = ""
+    number = IsDisabledControlJustPressed
+    number2 = 0
+    number3 = 177
+    number = number(number2, number3)
+    if number then
+      localValue6 = ""
       break
     end
-    numberValue = IsDisabledControlJustPressed
-    numberValue2 = 0
-    numberValue3 = 215
-    numberValue = numberValue(numberValue2, numberValue3)
-    if numberValue then
-      if workValue2 then
-        numberValue = workValue2[arg6]
+    number = IsDisabledControlJustPressed
+    number2 = 0
+    number3 = 215
+    number = number(number2, number3)
+    if number then
+      if workingValue2 then
+        number = workingValue2[localValue6]
       end
-      if not numberValue then
-        numberValue = workValue23
-        numberValue2 = threadCall2.Translations
-        numberValue2 = numberValue2.selection_not_valid
-        if not numberValue2 then
-          numberValue2 = "~r~Invalid.~w~"
+      if not number then
+        number = workingValue23
+        number2 = backgroundThread2.Translations
+        number2 = number2.selection_not_valid
+        if not number2 then
+          number2 = "~r~Invalid.~w~"
         end
-        numberValue3 = 2000
-        numberValue(numberValue2, numberValue3)
-        numberValue = Citizen
-        numberValue = numberValue.Wait
-        numberValue2 = 2000
-        numberValue(numberValue2)
-        arg6 = ""
-        numberValue = arg8
-        numberValue()
+        number3 = 2000
+        number(number2, number3)
+        number = Citizen
+        number = number.Wait
+        number2 = 2000
+        number(number2)
+        localValue6 = ""
+        number = localValue8
+        number()
       else
         break
       end
     end
-    numberValue = pairs
-    numberValue2 = arg1.inputs
-    numberValue, numberValue2, numberValue3, numberValue5 = numberValue(numberValue2)
-    for numberValue7, flag in numberValue, numberValue2, numberValue3, numberValue5 do
-      flag2 = IsDisabledControlJustPressed
-      flag3 = 0
-      dataTable3 = flag
-      flag2 = flag2(flag3, dataTable3)
-      if flag2 then
-        flag2 = threadCall2.Functions
-        flag2 = flag2.PlaySound
-        flag3 = "buttonClicked"
-        dataTable3 = nil
-        textValue2 = threadCall2.AudiosVolumes
-        textValue2 = textValue2.buttonClicked
-        if not textValue2 then
-          textValue2 = 0.15
+    number = pairs
+    number2 = localValue1.inputs
+    number, number2, number3, number5 = number(number2)
+    for number7, stateFlag in number, number2, number3, number5 do
+      stateFlag2 = IsDisabledControlJustPressed
+      stateFlag3 = 0
+      dataCollection3 = stateFlag
+      stateFlag2 = stateFlag2(stateFlag3, dataCollection3)
+      if stateFlag2 then
+        stateFlag2 = backgroundThread2.Functions
+        stateFlag2 = stateFlag2.PlaySound
+        stateFlag3 = "buttonClicked"
+        dataCollection3 = nil
+        text2 = backgroundThread2.AudiosVolumes
+        text2 = text2.buttonClicked
+        if not text2 then
+          text2 = 0.15
         end
-        flag2(flag3, dataTable3, textValue2)
-        flag2 = workValue93
-        flag3 = numberValue7
-        flag2(flag3)
+        stateFlag2(stateFlag3, dataCollection3, text2)
+        stateFlag2 = workingValue93
+        stateFlag3 = number7
+        stateFlag2(stateFlag3)
       end
     end
-    numberValue = Citizen
-    numberValue = numberValue.Wait
-    numberValue2 = 0
-    numberValue(numberValue2)
+    number = Citizen
+    number = number.Wait
+    number2 = 0
+    number(number2)
   end
-  workValue6 = RenderScriptCams
-  numberValue = false
-  numberValue2 = true
-  numberValue3 = 1500
-  numberValue5 = true
-  numberValue7 = false
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5, numberValue7)
-  workValue6 = Citizen
-  workValue6 = workValue6.SetTimeout
-  numberValue = 1500
+  workingValue6 = RenderScriptCams
+  number = false
+  number2 = true
+  number3 = 1500
+  number5 = true
+  number7 = false
+  workingValue6(number, number2, number3, number5, number7)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.SetTimeout
+  number = 1500
 
-  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
-  function numberValue2()
-    local arg12, arg22, arg32
-    arg12 = DestroyCam
-    arg22 = arg7.code
-    arg32 = true
-    arg12(arg22, arg32)
-    arg12 = DestroyCam
-    arg22 = arg7.products
-    arg32 = true
-    arg12(arg22, arg32)
+  -- === HELPER FUNCTION (decompiler name: number2; parameters: none) ===
+  function number2()
+    local localValue12, localValue22, localValue32
+    localValue12 = DestroyCam
+    localValue22 = localValue7.code
+    localValue32 = true
+    localValue12(localValue22, localValue32)
+    localValue12 = DestroyCam
+    localValue22 = localValue7.products
+    localValue32 = true
+    localValue12(localValue22, localValue32)
   end
-  workValue6(numberValue, numberValue2)
-  workValue6 = Citizen
-  workValue6 = workValue6.SetTimeout
-  numberValue = 2000
+  workingValue6(number, number2)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.SetTimeout
+  number = 2000
 
-  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
-  function numberValue2()
-    local arg12, arg22, arg32
-    arg12 = arg3
-    arg22 = arg12
-    arg12 = arg12.destroy
-    arg12(arg22)
-    arg12 = RemoveReplaceTexture
-    arg22 = "mxc_vend_parts_props_ytd"
-    arg32 = "mxc_vendingmachine_display_d"
-    arg12(arg22, arg32)
+  -- === HELPER FUNCTION (decompiler name: number2; parameters: none) ===
+  function number2()
+    local localValue12, localValue22, localValue32
+    localValue12 = localValue3
+    localValue22 = localValue12
+    localValue12 = localValue12.destroy
+    localValue12(localValue22)
+    localValue12 = RemoveReplaceTexture
+    localValue22 = "mxc_vend_parts_props_ytd"
+    localValue32 = "mxc_vendingmachine_display_d"
+    localValue12(localValue22, localValue32)
   end
-  workValue6(numberValue, numberValue2)
-  workValue6 = LocalPlayer
-  workValue6 = workValue6.state
-  workValue6.invBusy = false
-  workValue6 = LocalPlayer
-  workValue6 = workValue6.state
-  workValue6 = workValue6.set
-  if workValue6 then
-    workValue6 = LocalPlayer
-    workValue6 = workValue6.state
-    numberValue = workValue6
-    workValue6 = workValue6.set
-    numberValue2 = "inv_busy"
-    numberValue3 = false
-    numberValue5 = true
-    workValue6(numberValue, numberValue2, numberValue3, numberValue5)
+  workingValue6(number, number2)
+  workingValue6 = LocalPlayer
+  workingValue6 = workingValue6.state
+  workingValue6.invBusy = false
+  workingValue6 = LocalPlayer
+  workingValue6 = workingValue6.state
+  workingValue6 = workingValue6.set
+  if workingValue6 then
+    workingValue6 = LocalPlayer
+    workingValue6 = workingValue6.state
+    number = workingValue6
+    workingValue6 = workingValue6.set
+    number2 = "inv_busy"
+    number3 = false
+    number5 = true
+    workingValue6(number, number2, number3, number5)
   end
-  workValue6 = GetResourceState
-  numberValue = "utility_pausemenu"
-  workValue6 = workValue6(numberValue)
-  if "started" == workValue6 then
-    workValue6 = exports
-    workValue6 = workValue6.utility_pausemenu
-    numberValue = workValue6
-    workValue6 = workValue6.DisableMenus
-    numberValue2 = false
-    workValue6(numberValue, numberValue2)
+  workingValue6 = GetResourceState
+  number = "utility_pausemenu"
+  workingValue6 = workingValue6(number)
+  if "started" == workingValue6 then
+    workingValue6 = exports
+    workingValue6 = workingValue6.utility_pausemenu
+    number = workingValue6
+    workingValue6 = workingValue6.DisableMenus
+    number2 = false
+    workingValue6(number, number2)
   end
-  workValue6 = SetEntityAlpha
-  numberValue = PlayerPedId
+  workingValue6 = SetEntityAlpha
+  number = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  numberValue = numberValue()
-  numberValue2 = 255
-  numberValue3 = false
-  workValue6(numberValue, numberValue2, numberValue3)
-  return arg6
+  number = number()
+  number2 = 255
+  number3 = false
+  workingValue6(number, number2, number3)
+  return localValue6
 end
-dataTable7 = {}
+dataCollection7 = {}
 
--- === HELPER FUNCTION (decompiler name: workValue74; parameters: arg1, arg2, arg3, arg4) ===
-function workValue74(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, workValue93
-  arg5 = CMG
-  arg5 = arg5.TriggerServerCallback
-  arg6 = "a3f2099a04"
-  arg7 = arg1.name
-  arg8 = arg2
-  arg5 = arg5(arg6, arg7, arg8)
-  if arg5 then
-    arg6 = TriggerServerEvent
-    arg7 = "32e4f00ebc"
-    arg8 = arg3
-    workValue93 = true
+-- === HELPER FUNCTION (decompiler name: workingValue74; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue74(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, workingValue93
+  localValue5 = CMG
+  localValue5 = localValue5.TriggerServerCallback
+  localValue6 = "a3f2099a04"
+  localValue7 = localValue1.name
+  localValue8 = localValue2
+  localValue5 = localValue5(localValue6, localValue7, localValue8)
+  if localValue5 then
+    localValue6 = TriggerServerEvent
+    localValue7 = "32e4f00ebc"
+    localValue8 = localValue3
+    workingValue93 = true
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-    arg6(arg7, arg8, workValue93)
-    arg6 = arg4
-    arg6()
-    arg6 = TriggerServerEvent
-    arg7 = "32e4f00ebc"
-    arg8 = arg3
-    workValue93 = false
+    localValue6(localValue7, localValue8, workingValue93)
+    localValue6 = localValue4
+    localValue6()
+    localValue6 = TriggerServerEvent
+    localValue7 = "32e4f00ebc"
+    localValue8 = localValue3
+    workingValue93 = false
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-    arg6(arg7, arg8, workValue93)
-    arg6 = TriggerServerEvent
-    arg7 = "6b2c902639"
-    arg8 = arg1.name
-    workValue93 = arg2
-    arg6(arg7, arg8, workValue93)
+    localValue6(localValue7, localValue8, workingValue93)
+    localValue6 = TriggerServerEvent
+    localValue7 = "6b2c902639"
+    localValue8 = localValue1.name
+    workingValue93 = localValue2
+    localValue6(localValue7, localValue8, workingValue93)
   else
-    arg6 = workValue23
-    arg7 = threadCall2.Translations
-    arg7 = arg7.not_enough_money
-    if not arg7 then
-      arg7 = "~r~Not enough money.~w~"
+    localValue6 = workingValue23
+    localValue7 = backgroundThread2.Translations
+    localValue7 = localValue7.not_enough_money
+    if not localValue7 then
+      localValue7 = "~r~Not enough money.~w~"
     end
-    arg8 = 2000
-    arg6(arg7, arg8)
-    arg6 = TriggerServerEvent
-    arg7 = "32e4f00ebc"
-    arg8 = arg3
-    workValue93 = false
+    localValue8 = 2000
+    localValue6(localValue7, localValue8)
+    localValue6 = TriggerServerEvent
+    localValue7 = "32e4f00ebc"
+    localValue8 = localValue3
+    workingValue93 = false
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-    arg6(arg7, arg8, workValue93)
+    localValue6(localValue7, localValue8, workingValue93)
   end
 end
-dataTable7.TryToBuy = workValue74
+dataCollection7.TryToBuy = workingValue74
 
--- === HELPER FUNCTION (decompiler name: workValue74; parameters: arg1, arg2, arg3) ===
-function workValue74(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8
-  arg4 = threadCall2.Sounds
-  if arg4 then
-    if "buttonClicked" == arg1 then
-      arg4 = PlaySoundFrontend
-      arg5 = -1
-      arg6 = "SELECT"
-      arg7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-      arg8 = false
-      arg4(arg5, arg6, arg7, arg8)
+-- === HELPER FUNCTION (decompiler name: workingValue74; parameters: localValue1, localValue2, localValue3) ===
+function workingValue74(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue4 = backgroundThread2.Sounds
+  if localValue4 then
+    if "buttonClicked" == localValue1 then
+      localValue4 = PlaySoundFrontend
+      localValue5 = -1
+      localValue6 = "SELECT"
+      localValue7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+      localValue8 = false
+      localValue4(localValue5, localValue6, localValue7, localValue8)
       return
     end
-    arg4 = {}
-    arg4.snackSprings = "vending_snack_springs"
-    arg4.snackDroppingItem = "vending_snack_dropping_item"
-    arg4.snackDoorPickup = "vending_snack_door_pickup"
-    arg4.sodaBottleDropped = "vending_soda_bottle_dropped"
-    arg4.coffeMachine = "vending_coffe_machine"
-    arg4.waterPouring = "vending_water_pouring"
-    arg5 = arg4[arg1]
-    if arg5 then
-      arg6 = SendNUIMessage
-      arg7 = {}
-      arg7.transactionType = arg5
-      arg7.volumeOverride = arg3
+    localValue4 = {}
+    localValue4.snackSprings = "vending_snack_springs"
+    localValue4.snackDroppingItem = "vending_snack_dropping_item"
+    localValue4.snackDoorPickup = "vending_snack_door_pickup"
+    localValue4.sodaBottleDropped = "vending_soda_bottle_dropped"
+    localValue4.coffeMachine = "vending_coffe_machine"
+    localValue4.waterPouring = "vending_water_pouring"
+    localValue5 = localValue4[localValue1]
+    if localValue5 then
+      localValue6 = SendNUIMessage
+      localValue7 = {}
+      localValue7.transactionType = localValue5
+      localValue7.volumeOverride = localValue3
       -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-      arg6(arg7)
+      localValue6(localValue7)
     end
   end
 end
-dataTable7.PlaySound = workValue74
-threadCall2.Functions = dataTable7
+dataCollection7.PlaySound = workingValue74
+backgroundThread2.Functions = dataCollection7
 
--- === HELPER FUNCTION (decompiler name: dataTable7; parameters: arg1, arg2) ===
-function dataTable7(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
-  arg3 = Entity
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  arg3 = arg3.state
-  arg4 = workValue58
-  arg5 = arg2
-  arg6 = "mxc_vend_prop_snak_springs"
-  arg4 = arg4(arg5, arg6)
-  arg5 = workValue58
-  arg6 = arg2
-  arg7 = "mxc_vend_prop_snak_door"
-  arg8 = vec3
-  workValue93 = -0.085311
-  workValue103 = -0.457828
-  workValue2 = -0.336695
-  arg8, workValue93, workValue103, workValue2 = arg8(workValue93, workValue103, workValue2)
-  arg5 = arg5(arg6, arg7, arg8, workValue93, workValue103, workValue2)
-  arg7 = arg3
-  arg6 = arg3.set
-  arg8 = "springs"
-  workValue93 = arg4
-  workValue103 = false
-  arg6(arg7, arg8, workValue93, workValue103)
-  arg7 = arg3
-  arg6 = arg3.set
-  arg8 = "door"
-  workValue93 = arg5
-  workValue103 = false
-  arg6(arg7, arg8, workValue93, workValue103)
-  arg6 = workValue68
-  arg7 = arg1
-  arg8 = arg2
-  workValue93 = "snack"
-  workValue103 = arg4
-  arg6(arg7, arg8, workValue93, workValue103)
+-- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: localValue1, localValue2) ===
+function dataCollection7(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2
+  localValue3 = Entity
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  localValue3 = localValue3.state
+  localValue4 = workingValue58
+  localValue5 = localValue2
+  localValue6 = "mxc_vend_prop_snak_springs"
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = workingValue58
+  localValue6 = localValue2
+  localValue7 = "mxc_vend_prop_snak_door"
+  localValue8 = vec3
+  workingValue93 = -0.085311
+  workingValue103 = -0.457828
+  workingValue2 = -0.336695
+  localValue8, workingValue93, workingValue103, workingValue2 = localValue8(workingValue93, workingValue103, workingValue2)
+  localValue5 = localValue5(localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2)
+  localValue7 = localValue3
+  localValue6 = localValue3.set
+  localValue8 = "springs"
+  workingValue93 = localValue4
+  workingValue103 = false
+  localValue6(localValue7, localValue8, workingValue93, workingValue103)
+  localValue7 = localValue3
+  localValue6 = localValue3.set
+  localValue8 = "door"
+  workingValue93 = localValue5
+  workingValue103 = false
+  localValue6(localValue7, localValue8, workingValue93, workingValue103)
+  localValue6 = workingValue68
+  localValue7 = localValue1
+  localValue8 = localValue2
+  workingValue93 = "snack"
+  workingValue103 = localValue4
+  localValue6(localValue7, localValue8, workingValue93, workingValue103)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue74; parameters: arg1, arg2) ===
-function workValue74(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8
-  arg3 = Entity
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  arg3 = arg3.state
-  arg4 = workValue69
-  arg5 = arg1
-  arg6 = arg2
-  arg4(arg5, arg6)
-  arg4 = arg3.springs
-  if arg4 then
-    arg4 = DoesEntityExist
-    arg5 = arg3.springs
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = DeleteEntity
-      arg5 = arg3.springs
+-- === HELPER FUNCTION (decompiler name: workingValue74; parameters: localValue1, localValue2) ===
+function workingValue74(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue3 = Entity
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  localValue3 = localValue3.state
+  localValue4 = workingValue69
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
+  localValue4 = localValue3.springs
+  if localValue4 then
+    localValue4 = DoesEntityExist
+    localValue5 = localValue3.springs
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = DeleteEntity
+      localValue5 = localValue3.springs
       -- Beginner: Delete a GTA entity.
-      arg4(arg5)
+      localValue4(localValue5)
     end
   end
-  arg4 = arg3.door
-  if arg4 then
-    arg4 = DoesEntityExist
-    arg5 = arg3.door
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = DeleteEntity
-      arg5 = arg3.door
-      arg4(arg5)
+  localValue4 = localValue3.door
+  if localValue4 then
+    localValue4 = DoesEntityExist
+    localValue5 = localValue3.door
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = DeleteEntity
+      localValue5 = localValue3.door
+      localValue4(localValue5)
     end
   end
-  arg5 = arg3
-  arg4 = arg3.set
-  arg6 = "springs"
-  arg7 = nil
-  arg8 = false
-  arg4(arg5, arg6, arg7, arg8)
-  arg5 = arg3
-  arg4 = arg3.set
-  arg6 = "door"
-  arg7 = nil
-  arg8 = false
-  arg4(arg5, arg6, arg7, arg8)
+  localValue5 = localValue3
+  localValue4 = localValue3.set
+  localValue6 = "springs"
+  localValue7 = nil
+  localValue8 = false
+  localValue4(localValue5, localValue6, localValue7, localValue8)
+  localValue5 = localValue3
+  localValue4 = localValue3.set
+  localValue6 = "door"
+  localValue7 = nil
+  localValue8 = false
+  localValue4(localValue5, localValue6, localValue7, localValue8)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue75; parameters: arg1, arg2, arg3) ===
-function workValue75(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6
-  arg4 = Entity
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  arg4 = arg4.state
-  arg6 = arg3
-  arg5 = arg3.sub
-  arg7 = 1
-  arg8 = 1
-  arg5 = arg5(arg6, arg7, arg8)
-  arg6 = RequestAnimDict
-  arg7 = "clip@snakfall_gen"
-  arg6(arg7)
+-- === HELPER FUNCTION (decompiler name: workingValue75; parameters: localValue1, localValue2, localValue3) ===
+function workingValue75(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6
+  localValue4 = Entity
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  localValue4 = localValue4.state
+  localValue6 = localValue3
+  localValue5 = localValue3.sub
+  localValue7 = 1
+  localValue8 = 1
+  localValue5 = localValue5(localValue6, localValue7, localValue8)
+  localValue6 = RequestAnimDict
+  localValue7 = "clip@snakfall_gen"
+  localValue6(localValue7)
   while true do
-    arg6 = HasAnimDictLoaded
-    arg7 = "clip@snakfall_gen"
-    arg6 = arg6(arg7)
-    if arg6 then
+    localValue6 = HasAnimDictLoaded
+    localValue7 = "clip@snakfall_gen"
+    localValue6 = localValue6(localValue7)
+    if localValue6 then
       break
     end
-    arg6 = Citizen
-    arg6 = arg6.Wait
-    arg7 = 0
-    arg6(arg7)
+    localValue6 = Citizen
+    localValue6 = localValue6.Wait
+    localValue7 = 0
+    localValue6(localValue7)
   end
-  arg6 = GetAnimDuration
-  arg7 = "clip@snakfall_gen"
-  arg8 = "snakfall_gen_"
-  workValue93 = arg5
-  arg8 = arg8 .. workValue93
-  arg6 = arg6(arg7, arg8)
-  arg6 = arg6 * 1000
-  arg7 = RemoveAnimDict
-  arg8 = "clip@snakfall_gen"
-  arg7(arg8)
-  arg7 = PlayerPedId
+  localValue6 = GetAnimDuration
+  localValue7 = "clip@snakfall_gen"
+  localValue8 = "snakfall_gen_"
+  workingValue93 = localValue5
+  localValue8 = localValue8 .. workingValue93
+  localValue6 = localValue6(localValue7, localValue8)
+  localValue6 = localValue6 * 1000
+  localValue7 = RemoveAnimDict
+  localValue8 = "clip@snakfall_gen"
+  localValue7(localValue8)
+  localValue7 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg7 = arg7()
-  arg8 = arg4.springs
-  if not (arg8 and DoesEntityExist(arg4.springs)) then
+  localValue7 = localValue7()
+  localValue8 = localValue4.springs
+  if not (localValue8 and DoesEntityExist(localValue4.springs)) then
     return
   end
 
-  arg8 = arg4.objects
-  if not (arg8 and arg4.objects[arg3]) then
+  localValue8 = localValue4.objects
+  if not (localValue8 and localValue4.objects[localValue3]) then
     return
   end
 
-  arg8 = GetOffsetFromEntityInWorldCoords
-  workValue93 = arg4.springs
-  workValue103 = 0.0
-  workValue2 = -1.0
-  workValue6 = -1.1
-  arg8 = arg8(workValue93, workValue103, workValue2, workValue6)
-  workValue93 = GetEntityRotation
-  workValue103 = arg4.springs
-  workValue93 = workValue93(workValue103)
-  workValue103 = workValue66
-  workValue2 = arg8
-  workValue6 = workValue93.z
-  numberValue = 3000
-  workValue103(workValue2, workValue6, numberValue)
-  workValue103 = workValue19
-  workValue2 = "mini@sprunk"
-  workValue6 = "plyr_buy_drink_pt1"
-  numberValue = 16
-  workValue103(workValue2, workValue6, numberValue)
-  workValue103 = Citizen
-  workValue103 = workValue103.Wait
-  workValue2 = 1400
-  workValue103(workValue2)
-  workValue103 = ClearPedTasks
-  workValue2 = arg7
-  workValue103(workValue2)
-  workValue103 = workValue64
-  workValue2 = arg4.springs
-  workValue6 = "clip@snaksprings"
-  numberValue = "mxc_vend_prop_snak_springs"
-  numberValue2 = arg3
-  numberValue = numberValue .. numberValue2
-  numberValue2 = false
-  workValue103(workValue2, workValue6, numberValue, numberValue2)
-  workValue103 = workValue64
-  workValue2 = arg4.objects
-  workValue2 = workValue2[arg3]
-  workValue2 = workValue2[1]
-  workValue6 = "clip@snakfall_gen"
-  numberValue = "snakfall_gen_"
-  numberValue2 = arg5
-  numberValue = numberValue .. numberValue2
-  numberValue2 = false
-  workValue103(workValue2, workValue6, numberValue, numberValue2)
-  workValue103 = workValue64
-  workValue2 = arg4.objects
-  workValue2 = workValue2[arg3]
-  workValue2 = workValue2[2]
-  workValue6 = "clip@snakfall_gen"
-  numberValue = "slot_swap_gen_abcde"
-  numberValue2 = false
-  workValue103(workValue2, workValue6, numberValue, numberValue2)
-  workValue103 = workValue64
-  workValue2 = arg4.objects
-  workValue2 = workValue2[arg3]
-  workValue2 = workValue2[3]
-  workValue6 = "clip@snakfall_gen"
-  numberValue = "slot_swap_gen_abcde"
-  numberValue2 = false
-  workValue103(workValue2, workValue6, numberValue, numberValue2)
-  workValue103 = GetEntityModel
-  workValue2 = arg4.objects
-  workValue2 = workValue2[arg3]
-  workValue2 = workValue2[1]
+  localValue8 = GetOffsetFromEntityInWorldCoords
+  workingValue93 = localValue4.springs
+  workingValue103 = 0.0
+  workingValue2 = -1.0
+  workingValue6 = -1.1
+  localValue8 = localValue8(workingValue93, workingValue103, workingValue2, workingValue6)
+  workingValue93 = GetEntityRotation
+  workingValue103 = localValue4.springs
+  workingValue93 = workingValue93(workingValue103)
+  workingValue103 = workingValue66
+  workingValue2 = localValue8
+  workingValue6 = workingValue93.z
+  number = 3000
+  workingValue103(workingValue2, workingValue6, number)
+  workingValue103 = workingValue19
+  workingValue2 = "mini@sprunk"
+  workingValue6 = "plyr_buy_drink_pt1"
+  number = 16
+  workingValue103(workingValue2, workingValue6, number)
+  workingValue103 = Citizen
+  workingValue103 = workingValue103.Wait
+  workingValue2 = 1400
+  workingValue103(workingValue2)
+  workingValue103 = ClearPedTasks
+  workingValue2 = localValue7
+  workingValue103(workingValue2)
+  workingValue103 = workingValue64
+  workingValue2 = localValue4.springs
+  workingValue6 = "clip@snaksprings"
+  number = "mxc_vend_prop_snak_springs"
+  number2 = localValue3
+  number = number .. number2
+  number2 = false
+  workingValue103(workingValue2, workingValue6, number, number2)
+  workingValue103 = workingValue64
+  workingValue2 = localValue4.objects
+  workingValue2 = workingValue2[localValue3]
+  workingValue2 = workingValue2[1]
+  workingValue6 = "clip@snakfall_gen"
+  number = "snakfall_gen_"
+  number2 = localValue5
+  number = number .. number2
+  number2 = false
+  workingValue103(workingValue2, workingValue6, number, number2)
+  workingValue103 = workingValue64
+  workingValue2 = localValue4.objects
+  workingValue2 = workingValue2[localValue3]
+  workingValue2 = workingValue2[2]
+  workingValue6 = "clip@snakfall_gen"
+  number = "slot_swap_gen_abcde"
+  number2 = false
+  workingValue103(workingValue2, workingValue6, number, number2)
+  workingValue103 = workingValue64
+  workingValue2 = localValue4.objects
+  workingValue2 = workingValue2[localValue3]
+  workingValue2 = workingValue2[3]
+  workingValue6 = "clip@snakfall_gen"
+  number = "slot_swap_gen_abcde"
+  number2 = false
+  workingValue103(workingValue2, workingValue6, number, number2)
+  workingValue103 = GetEntityModel
+  workingValue2 = localValue4.objects
+  workingValue2 = workingValue2[localValue3]
+  workingValue2 = workingValue2[1]
   -- Beginner: result below is modelHash.
-  workValue103 = workValue103(workValue2)
-  workValue2 = CMG
-  workValue2 = workValue2.requestEntitySpawn
-  workValue6 = "vending_pickup"
-  numberValue = workValue103
-  numberValue2 = arg8
-  workValue2(workValue6, numberValue, numberValue2)
-  workValue2 = CreateObject
-  workValue6 = workValue103
-  numberValue = arg8.x
-  numberValue2 = arg8.y
-  numberValue3 = arg8.z
-  numberValue3 = numberValue3 - 10.0
-  numberValue5 = true
-  numberValue7 = true
-  flag = false
+  workingValue103 = workingValue103(workingValue2)
+  workingValue2 = CMG
+  workingValue2 = workingValue2.requestEntitySpawn
+  workingValue6 = "vending_pickup"
+  number = workingValue103
+  number2 = localValue8
+  workingValue2(workingValue6, number, number2)
+  workingValue2 = CreateObject
+  workingValue6 = workingValue103
+  number = localValue8.x
+  number2 = localValue8.y
+  number3 = localValue8.z
+  number3 = number3 - 10.0
+  number5 = true
+  number7 = true
+  stateFlag = false
   -- Beginner: result below is objectEntity.
-  workValue2 = workValue2(workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag)
-  workValue6 = threadCall2.Functions
-  workValue6 = workValue6.PlaySound
-  numberValue = "snackSprings"
-  numberValue2 = nil
-  numberValue3 = threadCall2.AudiosVolumes
-  numberValue3 = numberValue3.snackSprings
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = Citizen
-  workValue6 = workValue6.SetTimeout
-  numberValue = arg6 - 300
+  workingValue2 = workingValue2(workingValue6, number, number2, number3, number5, number7, stateFlag)
+  workingValue6 = backgroundThread2.Functions
+  workingValue6 = workingValue6.PlaySound
+  number = "snackSprings"
+  number2 = nil
+  number3 = backgroundThread2.AudiosVolumes
+  number3 = number3.snackSprings
+  workingValue6(number, number2, number3)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.SetTimeout
+  number = localValue6 - 300
 
-  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
-  function numberValue2()
-    local arg12, arg22, arg32, arg42
-    arg12 = threadCall2.Functions
-    arg12 = arg12.PlaySound
-    arg22 = "snackDroppingItem"
-    arg32 = nil
-    arg42 = threadCall2.AudiosVolumes
-    arg42 = arg42.snackDroppingItem
-    arg12(arg22, arg32, arg42)
+  -- === HELPER FUNCTION (decompiler name: number2; parameters: none) ===
+  function number2()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = backgroundThread2.Functions
+    localValue12 = localValue12.PlaySound
+    localValue22 = "snackDroppingItem"
+    localValue32 = nil
+    localValue42 = backgroundThread2.AudiosVolumes
+    localValue42 = localValue42.snackDroppingItem
+    localValue12(localValue22, localValue32, localValue42)
   end
-  workValue6(numberValue, numberValue2)
-  workValue6 = workValue67
-  numberValue = arg6
-  workValue6(numberValue)
-  workValue6 = workValue18
-  numberValue = arg7
-  numberValue2 = "mini@sprunk"
-  numberValue3 = "plyr_buy_drink_pt1"
-  numberValue5 = 2.0
-  numberValue7 = 2.0
-  flag = -1
-  flag2 = 0
-  flag3 = 0.3
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3)
-  workValue6 = Citizen
-  workValue6 = workValue6.Wait
-  numberValue = 1200
-  workValue6(numberValue)
-  workValue6 = workValue65
-  numberValue = arg4.springs
-  numberValue2 = "clip@snaksprings"
-  numberValue3 = "mxc_vend_prop_snak_springs"
-  numberValue5 = arg3
-  numberValue3 = numberValue3 .. numberValue5
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue65
-  numberValue = arg4.objects
-  numberValue = numberValue[arg3]
-  numberValue = numberValue[1]
-  numberValue2 = "clip@snakfall_gen"
-  numberValue3 = "snakfall_gen_"
-  numberValue5 = arg5
-  numberValue3 = numberValue3 .. numberValue5
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue65
-  numberValue = arg4.objects
-  numberValue = numberValue[arg3]
-  numberValue = numberValue[2]
-  numberValue2 = "clip@snakfall_gen"
-  numberValue3 = "slot_swap_gen_abcde"
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue65
-  numberValue = arg4.objects
-  numberValue = numberValue[arg3]
-  numberValue = numberValue[3]
-  numberValue2 = "clip@snakfall_gen"
-  numberValue3 = "slot_swap_gen_abcde"
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = AttachEntityToEntity
-  numberValue = workValue2
-  numberValue2 = arg7
-  numberValue3 = GetPedBoneIndex
-  numberValue5 = arg7
-  numberValue7 = 28422
-  numberValue3 = numberValue3(numberValue5, numberValue7)
-  numberValue5 = 0.0
-  numberValue7 = 0.0
-  flag = 0.0
-  flag2 = 0.0
-  flag3 = 0.0
-  dataTable3 = 130.0
-  textValue2 = true
-  textValue3 = true
-  textValue4 = false
-  textValue5 = false
-  dataTable4 = 2
-  textValue6 = true
+  workingValue6(number, number2)
+  workingValue6 = workingValue67
+  number = localValue6
+  workingValue6(number)
+  workingValue6 = workingValue18
+  number = localValue7
+  number2 = "mini@sprunk"
+  number3 = "plyr_buy_drink_pt1"
+  number5 = 2.0
+  number7 = 2.0
+  stateFlag = -1
+  stateFlag2 = 0
+  stateFlag3 = 0.3
+  workingValue6(number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.Wait
+  number = 1200
+  workingValue6(number)
+  workingValue6 = workingValue65
+  number = localValue4.springs
+  number2 = "clip@snaksprings"
+  number3 = "mxc_vend_prop_snak_springs"
+  number5 = localValue3
+  number3 = number3 .. number5
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue65
+  number = localValue4.objects
+  number = number[localValue3]
+  number = number[1]
+  number2 = "clip@snakfall_gen"
+  number3 = "snakfall_gen_"
+  number5 = localValue5
+  number3 = number3 .. number5
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue65
+  number = localValue4.objects
+  number = number[localValue3]
+  number = number[2]
+  number2 = "clip@snakfall_gen"
+  number3 = "slot_swap_gen_abcde"
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue65
+  number = localValue4.objects
+  number = number[localValue3]
+  number = number[3]
+  number2 = "clip@snakfall_gen"
+  number3 = "slot_swap_gen_abcde"
+  workingValue6(number, number2, number3)
+  workingValue6 = AttachEntityToEntity
+  number = workingValue2
+  number2 = localValue7
+  number3 = GetPedBoneIndex
+  number5 = localValue7
+  number7 = 28422
+  number3 = number3(number5, number7)
+  number5 = 0.0
+  number7 = 0.0
+  stateFlag = 0.0
+  stateFlag2 = 0.0
+  stateFlag3 = 0.0
+  dataCollection3 = 130.0
+  text2 = true
+  text3 = true
+  text4 = false
+  text5 = false
+  dataCollection4 = 2
+  text6 = true
   -- Beginner: Attach one entity to another entity.
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6)
-  workValue6 = threadCall2.Functions
-  workValue6 = workValue6.PlaySound
-  numberValue = "snackDoorPickup"
-  numberValue2 = nil
-  numberValue3 = threadCall2.AudiosVolumes
-  numberValue3 = numberValue3.snackDoorPickup
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = TriggerServerEvent
-  numberValue = "1bb98aff8b"
-  numberValue2 = GetEntityCoords
-  numberValue3 = arg4.door
-  numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6 = numberValue2(numberValue3)
+  workingValue6(number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6)
+  workingValue6 = backgroundThread2.Functions
+  workingValue6 = workingValue6.PlaySound
+  number = "snackDoorPickup"
+  number2 = nil
+  number3 = backgroundThread2.AudiosVolumes
+  number3 = number3.snackDoorPickup
+  workingValue6(number, number2, number3)
+  workingValue6 = TriggerServerEvent
+  number = "1bb98aff8b"
+  number2 = GetEntityCoords
+  number3 = localValue4.door
+  number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6 = number2(number3)
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1bb98aff8b".
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6)
-  workValue6 = Citizen
-  workValue6 = workValue6.Wait
-  numberValue = 500
-  workValue6(numberValue)
-  workValue6 = ClearPedTasks
-  numberValue = arg7
-  workValue6(numberValue)
-  workValue6 = workValue19
-  numberValue = "mp_common_miss"
-  numberValue2 = "put_away_coke"
-  workValue6(numberValue, numberValue2)
-  workValue6 = Citizen
-  workValue6 = workValue6.Wait
-  numberValue = 700
-  workValue6(numberValue)
-  workValue6 = ClearPedTasks
-  numberValue = arg7
-  workValue6(numberValue)
-  workValue6 = SetEntityAsMissionEntity
-  numberValue = workValue2
-  numberValue2 = true
-  numberValue3 = true
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = DeleteEntity
-  numberValue = workValue2
+  workingValue6(number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.Wait
+  number = 500
+  workingValue6(number)
+  workingValue6 = ClearPedTasks
+  number = localValue7
+  workingValue6(number)
+  workingValue6 = workingValue19
+  number = "mp_common_miss"
+  number2 = "put_away_coke"
+  workingValue6(number, number2)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.Wait
+  number = 700
+  workingValue6(number)
+  workingValue6 = ClearPedTasks
+  number = localValue7
+  workingValue6(number)
+  workingValue6 = SetEntityAsMissionEntity
+  number = workingValue2
+  number2 = true
+  number3 = true
+  workingValue6(number, number2, number3)
+  workingValue6 = DeleteEntity
+  number = workingValue2
   -- Beginner: Delete a GTA entity.
-  workValue6(numberValue)
-  workValue6 = workValue54
-  numberValue = arg1
-  numberValue2 = arg2
-  workValue6 = workValue6(numberValue, numberValue2)
-  numberValue = workValue6 or numberValue
-  if workValue6 then
-    numberValue = workValue6[arg3]
+  workingValue6(number)
+  workingValue6 = workingValue54
+  number = localValue1
+  number2 = localValue2
+  workingValue6 = workingValue6(number, number2)
+  number = workingValue6 or number
+  if workingValue6 then
+    number = workingValue6[localValue3]
   end
-  if numberValue then
-    numberValue2 = TriggerEvent
-    numberValue3 = "c82f62b8de"
-    numberValue5 = numberValue
+  if number then
+    number2 = TriggerEvent
+    number3 = "c82f62b8de"
+    number5 = number
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c82f62b8de".
-    numberValue2(numberValue3, numberValue5)
+    number2(number3, number5)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue76; parameters: arg1, arg2, arg3) ===
-function workValue76(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
-  arg4 = Entity
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  arg4 = arg4.state
-  arg5 = workValue58
-  arg6 = arg2
-  arg7 = arg3
-  arg5 = arg5(arg6, arg7)
-  arg7 = arg4
-  arg6 = arg4.set
-  arg8 = "shelf"
-  workValue93 = arg5
-  workValue103 = false
-  arg6(arg7, arg8, workValue93, workValue103)
-  arg6 = workValue68
-  arg7 = arg1
-  arg8 = arg2
-  workValue93 = "soda"
-  workValue103 = arg5
-  arg6(arg7, arg8, workValue93, workValue103)
+-- === HELPER FUNCTION (decompiler name: workingValue76; parameters: localValue1, localValue2, localValue3) ===
+function workingValue76(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103
+  localValue4 = Entity
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  localValue4 = localValue4.state
+  localValue5 = workingValue58
+  localValue6 = localValue2
+  localValue7 = localValue3
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue7 = localValue4
+  localValue6 = localValue4.set
+  localValue8 = "shelf"
+  workingValue93 = localValue5
+  workingValue103 = false
+  localValue6(localValue7, localValue8, workingValue93, workingValue103)
+  localValue6 = workingValue68
+  localValue7 = localValue1
+  localValue8 = localValue2
+  workingValue93 = "soda"
+  workingValue103 = localValue5
+  localValue6(localValue7, localValue8, workingValue93, workingValue103)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue77; parameters: arg1, arg2) ===
-function workValue77(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8
-  arg3 = Entity
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  arg3 = arg3.state
-  arg4 = workValue69
-  arg5 = arg1
-  arg6 = arg2
-  arg4(arg5, arg6)
-  arg4 = arg3.shelf
-  if arg4 then
-    arg4 = DoesEntityExist
-    arg5 = arg3.shelf
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = DeleteEntity
-      arg5 = arg3.shelf
+-- === HELPER FUNCTION (decompiler name: workingValue77; parameters: localValue1, localValue2) ===
+function workingValue77(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue3 = Entity
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  localValue3 = localValue3.state
+  localValue4 = workingValue69
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
+  localValue4 = localValue3.shelf
+  if localValue4 then
+    localValue4 = DoesEntityExist
+    localValue5 = localValue3.shelf
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = DeleteEntity
+      localValue5 = localValue3.shelf
       -- Beginner: Delete a GTA entity.
-      arg4(arg5)
+      localValue4(localValue5)
     end
   end
-  arg5 = arg3
-  arg4 = arg3.set
-  arg6 = "shelf"
-  arg7 = nil
-  arg8 = false
-  arg4(arg5, arg6, arg7, arg8)
+  localValue5 = localValue3
+  localValue4 = localValue3.set
+  localValue6 = "shelf"
+  localValue7 = nil
+  localValue8 = false
+  localValue4(localValue5, localValue6, localValue7, localValue8)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue78; parameters: arg1, arg2, arg3) ===
-function workValue78(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6
-  arg4 = Entity
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  arg4 = arg4.state
-  arg5 = RequestAnimDict
-  arg6 = "clip@sodashelf"
-  arg5(arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue78; parameters: localValue1, localValue2, localValue3) ===
+function workingValue78(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6
+  localValue4 = Entity
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  localValue4 = localValue4.state
+  localValue5 = RequestAnimDict
+  localValue6 = "clip@sodashelf"
+  localValue5(localValue6)
   while true do
-    arg5 = HasAnimDictLoaded
-    arg6 = "clip@sodashelf"
-    arg5 = arg5(arg6)
-    if arg5 then
+    localValue5 = HasAnimDictLoaded
+    localValue6 = "clip@sodashelf"
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
       break
     end
-    arg5 = Citizen
-    arg5 = arg5.Wait
-    arg6 = 0
-    arg5(arg6)
+    localValue5 = Citizen
+    localValue5 = localValue5.Wait
+    localValue6 = 0
+    localValue5(localValue6)
   end
-  arg5 = RequestAnimDict
-  arg6 = "clip@sodatravel"
-  arg5(arg6)
+  localValue5 = RequestAnimDict
+  localValue6 = "clip@sodatravel"
+  localValue5(localValue6)
   while true do
-    arg5 = HasAnimDictLoaded
-    arg6 = "clip@sodatravel"
-    arg5 = arg5(arg6)
-    if arg5 then
+    localValue5 = HasAnimDictLoaded
+    localValue6 = "clip@sodatravel"
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
       break
     end
-    arg5 = Citizen
-    arg5 = arg5.Wait
-    arg6 = 0
-    arg5(arg6)
+    localValue5 = Citizen
+    localValue5 = localValue5.Wait
+    localValue6 = 0
+    localValue5(localValue6)
   end
-  arg5 = GetAnimDuration
-  arg6 = "clip@sodashelf"
-  arg7 = "soda_shelf_"
-  arg8 = arg3
-  arg7 = arg7 .. arg8
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5 * 1000
-  arg6 = RemoveAnimDict
-  arg7 = "clip@sodashelf"
-  arg6(arg7)
-  arg6 = PlayerPedId
+  localValue5 = GetAnimDuration
+  localValue6 = "clip@sodashelf"
+  localValue7 = "soda_shelf_"
+  localValue8 = localValue3
+  localValue7 = localValue7 .. localValue8
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5 * 1000
+  localValue6 = RemoveAnimDict
+  localValue7 = "clip@sodashelf"
+  localValue6(localValue7)
+  localValue6 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg6 = arg6()
-  arg7 = arg4.shelf
-  if not (arg7 and DoesEntityExist(arg4.shelf)) then
+  localValue6 = localValue6()
+  localValue7 = localValue4.shelf
+  if not (localValue7 and DoesEntityExist(localValue4.shelf)) then
     return
   end
 
-  arg7 = arg4.objects
-  if not (arg7 and arg4.objects[arg3]) then
+  localValue7 = localValue4.objects
+  if not (localValue7 and localValue4.objects[localValue3]) then
     return
   end
 
-  arg7 = GetOffsetFromEntityInWorldCoords
-  arg8 = arg4.shelf
-  workValue93 = 0.0
-  workValue103 = -1.0
-  workValue2 = -1.1
-  arg7 = arg7(arg8, workValue93, workValue103, workValue2)
-  arg8 = GetEntityRotation
-  workValue93 = arg4.shelf
-  arg8 = arg8(workValue93)
-  workValue93 = workValue66
-  workValue103 = arg7
-  workValue2 = arg8.z
-  workValue6 = 3000
-  workValue93(workValue103, workValue2, workValue6)
-  workValue93 = workValue19
-  workValue103 = "mini@sprunk"
-  workValue2 = "plyr_buy_drink_pt1"
-  workValue6 = 16
-  workValue93(workValue103, workValue2, workValue6)
-  workValue93 = Citizen
-  workValue93 = workValue93.Wait
-  workValue103 = 1400
-  workValue93(workValue103)
-  workValue93 = ClearPedTasks
-  workValue103 = arg6
-  workValue93(workValue103)
-  workValue93 = workValue64
-  workValue103 = arg4.shelf
-  workValue2 = "clip@sodashelf"
-  workValue6 = "soda_shelf_"
-  numberValue = arg3
-  workValue6 = workValue6 .. numberValue
-  numberValue = false
-  workValue93(workValue103, workValue2, workValue6, numberValue)
-  workValue93 = workValue64
-  workValue103 = arg4.objects
-  workValue103 = workValue103[arg3]
-  workValue103 = workValue103[1]
-  workValue2 = "clip@sodatravel"
-  workValue6 = "soda_travel_"
-  numberValue = arg3
-  workValue6 = workValue6 .. numberValue
-  numberValue = false
-  workValue93(workValue103, workValue2, workValue6, numberValue)
-  workValue93 = Citizen
-  workValue93 = workValue93.Wait
-  workValue103 = 800
-  workValue93(workValue103)
-  workValue93 = workValue64
-  workValue103 = arg4.objects
-  workValue103 = workValue103[arg3]
-  workValue103 = workValue103[2]
-  workValue2 = "clip@sodatravel"
-  workValue6 = "soda_swap_gen"
-  numberValue = false
-  workValue93(workValue103, workValue2, workValue6, numberValue)
-  workValue93 = workValue64
-  workValue103 = arg4.objects
-  workValue103 = workValue103[arg3]
-  workValue103 = workValue103[3]
-  workValue2 = "clip@sodatravel"
-  workValue6 = "soda_swap_gen"
-  numberValue = false
-  workValue93(workValue103, workValue2, workValue6, numberValue)
-  workValue93 = GetEntityModel
-  workValue103 = arg4.objects
-  workValue103 = workValue103[arg3]
-  workValue103 = workValue103[1]
+  localValue7 = GetOffsetFromEntityInWorldCoords
+  localValue8 = localValue4.shelf
+  workingValue93 = 0.0
+  workingValue103 = -1.0
+  workingValue2 = -1.1
+  localValue7 = localValue7(localValue8, workingValue93, workingValue103, workingValue2)
+  localValue8 = GetEntityRotation
+  workingValue93 = localValue4.shelf
+  localValue8 = localValue8(workingValue93)
+  workingValue93 = workingValue66
+  workingValue103 = localValue7
+  workingValue2 = localValue8.z
+  workingValue6 = 3000
+  workingValue93(workingValue103, workingValue2, workingValue6)
+  workingValue93 = workingValue19
+  workingValue103 = "mini@sprunk"
+  workingValue2 = "plyr_buy_drink_pt1"
+  workingValue6 = 16
+  workingValue93(workingValue103, workingValue2, workingValue6)
+  workingValue93 = Citizen
+  workingValue93 = workingValue93.Wait
+  workingValue103 = 1400
+  workingValue93(workingValue103)
+  workingValue93 = ClearPedTasks
+  workingValue103 = localValue6
+  workingValue93(workingValue103)
+  workingValue93 = workingValue64
+  workingValue103 = localValue4.shelf
+  workingValue2 = "clip@sodashelf"
+  workingValue6 = "soda_shelf_"
+  number = localValue3
+  workingValue6 = workingValue6 .. number
+  number = false
+  workingValue93(workingValue103, workingValue2, workingValue6, number)
+  workingValue93 = workingValue64
+  workingValue103 = localValue4.objects
+  workingValue103 = workingValue103[localValue3]
+  workingValue103 = workingValue103[1]
+  workingValue2 = "clip@sodatravel"
+  workingValue6 = "soda_travel_"
+  number = localValue3
+  workingValue6 = workingValue6 .. number
+  number = false
+  workingValue93(workingValue103, workingValue2, workingValue6, number)
+  workingValue93 = Citizen
+  workingValue93 = workingValue93.Wait
+  workingValue103 = 800
+  workingValue93(workingValue103)
+  workingValue93 = workingValue64
+  workingValue103 = localValue4.objects
+  workingValue103 = workingValue103[localValue3]
+  workingValue103 = workingValue103[2]
+  workingValue2 = "clip@sodatravel"
+  workingValue6 = "soda_swap_gen"
+  number = false
+  workingValue93(workingValue103, workingValue2, workingValue6, number)
+  workingValue93 = workingValue64
+  workingValue103 = localValue4.objects
+  workingValue103 = workingValue103[localValue3]
+  workingValue103 = workingValue103[3]
+  workingValue2 = "clip@sodatravel"
+  workingValue6 = "soda_swap_gen"
+  number = false
+  workingValue93(workingValue103, workingValue2, workingValue6, number)
+  workingValue93 = GetEntityModel
+  workingValue103 = localValue4.objects
+  workingValue103 = workingValue103[localValue3]
+  workingValue103 = workingValue103[1]
   -- Beginner: result below is modelHash.
-  workValue93 = workValue93(workValue103)
-  workValue103 = CMG
-  workValue103 = workValue103.requestEntitySpawn
-  workValue2 = "vending_pickup"
-  workValue6 = workValue93
-  numberValue = arg7
-  workValue103(workValue2, workValue6, numberValue)
-  workValue103 = CreateObject
-  workValue2 = workValue93
-  workValue6 = arg7.x
-  numberValue = arg7.y
-  numberValue2 = arg7.z
-  numberValue2 = numberValue2 - 10.0
-  numberValue3 = true
-  numberValue5 = true
-  numberValue7 = false
+  workingValue93 = workingValue93(workingValue103)
+  workingValue103 = CMG
+  workingValue103 = workingValue103.requestEntitySpawn
+  workingValue2 = "vending_pickup"
+  workingValue6 = workingValue93
+  number = localValue7
+  workingValue103(workingValue2, workingValue6, number)
+  workingValue103 = CreateObject
+  workingValue2 = workingValue93
+  workingValue6 = localValue7.x
+  number = localValue7.y
+  number2 = localValue7.z
+  number2 = number2 - 10.0
+  number3 = true
+  number5 = true
+  number7 = false
   -- Beginner: result below is objectEntity.
-  workValue103 = workValue103(workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7)
-  workValue2 = Citizen
-  workValue2 = workValue2.SetTimeout
-  workValue6 = arg5 - 3000
+  workingValue103 = workingValue103(workingValue2, workingValue6, number, number2, number3, number5, number7)
+  workingValue2 = Citizen
+  workingValue2 = workingValue2.SetTimeout
+  workingValue6 = localValue5 - 3000
 
-  -- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
-  function numberValue()
-    local arg12, arg22, arg32, arg42
-    arg12 = threadCall2.Functions
-    arg12 = arg12.PlaySound
-    arg22 = "sodaBottleDropped"
-    arg32 = nil
-    arg42 = threadCall2.AudiosVolumes
-    arg42 = arg42.sodaBottleDropped
-    arg12(arg22, arg32, arg42)
+  -- === HELPER FUNCTION (decompiler name: number; parameters: none) ===
+  function number()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = backgroundThread2.Functions
+    localValue12 = localValue12.PlaySound
+    localValue22 = "sodaBottleDropped"
+    localValue32 = nil
+    localValue42 = backgroundThread2.AudiosVolumes
+    localValue42 = localValue42.sodaBottleDropped
+    localValue12(localValue22, localValue32, localValue42)
   end
-  workValue2(workValue6, numberValue)
-  workValue2 = Citizen
-  workValue2 = workValue2.Wait
-  workValue6 = arg5
-  workValue2(workValue6)
-  workValue2 = GetOffsetFromEntityInWorldCoords
-  workValue6 = arg4.shelf
-  numberValue = 0.3
-  numberValue2 = -1.0
-  numberValue3 = -1.1
-  workValue2 = workValue2(workValue6, numberValue, numberValue2, numberValue3)
-  workValue6 = workValue66
-  numberValue = workValue2
-  numberValue2 = arg8.z
-  numberValue3 = 3000
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue19
-  numberValue = "pickup_object"
-  numberValue2 = "putdown_low"
-  workValue6(numberValue, numberValue2)
-  workValue6 = workValue67
-  numberValue = 800
-  workValue6(numberValue)
-  workValue6 = workValue65
-  numberValue = arg4.shelf
-  numberValue2 = "clip@sodashelf"
-  numberValue3 = "soda_shelf_"
-  numberValue5 = arg3
-  numberValue3 = numberValue3 .. numberValue5
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue65
-  numberValue = arg4.objects
-  numberValue = numberValue[arg3]
-  numberValue = numberValue[1]
-  numberValue2 = "clip@sodatravel"
-  numberValue3 = "soda_travel_"
-  numberValue5 = arg3
-  numberValue3 = numberValue3 .. numberValue5
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue65
-  numberValue = arg4.objects
-  numberValue = numberValue[arg3]
-  numberValue = numberValue[2]
-  numberValue2 = "clip@sodatravel"
-  numberValue3 = "soda_swap_gen"
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue65
-  numberValue = arg4.objects
-  numberValue = numberValue[arg3]
-  numberValue = numberValue[3]
-  numberValue2 = "clip@sodatravel"
-  numberValue3 = "soda_swap_gen"
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = AttachEntityToEntity
-  numberValue = workValue103
-  numberValue2 = arg6
-  numberValue3 = GetPedBoneIndex
-  numberValue5 = arg6
-  numberValue7 = 28422
-  numberValue3 = numberValue3(numberValue5, numberValue7)
-  numberValue5 = 0.04
-  numberValue7 = 0.01
-  flag = -0.04
-  flag2 = -73.89
-  flag3 = 27.8
-  dataTable3 = 10.47
-  textValue2 = true
-  textValue3 = true
-  textValue4 = false
-  textValue5 = false
-  dataTable4 = 1
-  textValue6 = true
+  workingValue2(workingValue6, number)
+  workingValue2 = Citizen
+  workingValue2 = workingValue2.Wait
+  workingValue6 = localValue5
+  workingValue2(workingValue6)
+  workingValue2 = GetOffsetFromEntityInWorldCoords
+  workingValue6 = localValue4.shelf
+  number = 0.3
+  number2 = -1.0
+  number3 = -1.1
+  workingValue2 = workingValue2(workingValue6, number, number2, number3)
+  workingValue6 = workingValue66
+  number = workingValue2
+  number2 = localValue8.z
+  number3 = 3000
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue19
+  number = "pickup_object"
+  number2 = "putdown_low"
+  workingValue6(number, number2)
+  workingValue6 = workingValue67
+  number = 800
+  workingValue6(number)
+  workingValue6 = workingValue65
+  number = localValue4.shelf
+  number2 = "clip@sodashelf"
+  number3 = "soda_shelf_"
+  number5 = localValue3
+  number3 = number3 .. number5
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue65
+  number = localValue4.objects
+  number = number[localValue3]
+  number = number[1]
+  number2 = "clip@sodatravel"
+  number3 = "soda_travel_"
+  number5 = localValue3
+  number3 = number3 .. number5
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue65
+  number = localValue4.objects
+  number = number[localValue3]
+  number = number[2]
+  number2 = "clip@sodatravel"
+  number3 = "soda_swap_gen"
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue65
+  number = localValue4.objects
+  number = number[localValue3]
+  number = number[3]
+  number2 = "clip@sodatravel"
+  number3 = "soda_swap_gen"
+  workingValue6(number, number2, number3)
+  workingValue6 = AttachEntityToEntity
+  number = workingValue103
+  number2 = localValue6
+  number3 = GetPedBoneIndex
+  number5 = localValue6
+  number7 = 28422
+  number3 = number3(number5, number7)
+  number5 = 0.04
+  number7 = 0.01
+  stateFlag = -0.04
+  stateFlag2 = -73.89
+  stateFlag3 = 27.8
+  dataCollection3 = 10.47
+  text2 = true
+  text3 = true
+  text4 = false
+  text5 = false
+  dataCollection4 = 1
+  text6 = true
   -- Beginner: Attach one entity to another entity.
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6)
-  workValue6 = Citizen
-  workValue6 = workValue6.Wait
-  numberValue = 0
-  workValue6(numberValue)
-  workValue6 = ClearPedTasks
-  numberValue = arg6
-  workValue6(numberValue)
-  workValue6 = workValue19
-  numberValue = "mp_common_miss"
-  numberValue2 = "put_away_coke"
-  workValue6(numberValue, numberValue2)
-  workValue6 = Citizen
-  workValue6 = workValue6.Wait
-  numberValue = 0
-  workValue6(numberValue)
-  workValue6 = ClearPedTasks
-  numberValue = arg6
-  workValue6(numberValue)
-  workValue6 = SetEntityAsMissionEntity
-  numberValue = workValue103
-  numberValue2 = true
-  numberValue3 = true
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = DeleteEntity
-  numberValue = workValue103
+  workingValue6(number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.Wait
+  number = 0
+  workingValue6(number)
+  workingValue6 = ClearPedTasks
+  number = localValue6
+  workingValue6(number)
+  workingValue6 = workingValue19
+  number = "mp_common_miss"
+  number2 = "put_away_coke"
+  workingValue6(number, number2)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.Wait
+  number = 0
+  workingValue6(number)
+  workingValue6 = ClearPedTasks
+  number = localValue6
+  workingValue6(number)
+  workingValue6 = SetEntityAsMissionEntity
+  number = workingValue103
+  number2 = true
+  number3 = true
+  workingValue6(number, number2, number3)
+  workingValue6 = DeleteEntity
+  number = workingValue103
   -- Beginner: Delete a GTA entity.
-  workValue6(numberValue)
-  workValue6 = workValue54
-  numberValue = arg1
-  numberValue2 = arg2
-  workValue6 = workValue6(numberValue, numberValue2)
-  numberValue = workValue6 or numberValue
-  if workValue6 then
-    numberValue = workValue6[arg3]
+  workingValue6(number)
+  workingValue6 = workingValue54
+  number = localValue1
+  number2 = localValue2
+  workingValue6 = workingValue6(number, number2)
+  number = workingValue6 or number
+  if workingValue6 then
+    number = workingValue6[localValue3]
   end
-  if numberValue then
-    numberValue2 = TriggerEvent
-    numberValue3 = "c82f62b8de"
-    numberValue5 = numberValue
+  if number then
+    number2 = TriggerEvent
+    number3 = "c82f62b8de"
+    number5 = number
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c82f62b8de".
-    numberValue2(numberValue3, numberValue5)
+    number2(number3, number5)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue79; parameters: arg1, arg2, arg3) ===
-function workValue79(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2
-  arg4 = RequestAnimDict
-  arg5 = "clip@cofferefill"
-  arg4(arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue79; parameters: localValue1, localValue2, localValue3) ===
+function workingValue79(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2
+  localValue4 = RequestAnimDict
+  localValue5 = "clip@cofferefill"
+  localValue4(localValue5)
   while true do
-    arg4 = HasAnimDictLoaded
-    arg5 = "clip@cofferefill"
-    arg4 = arg4(arg5)
-    if arg4 then
+    localValue4 = HasAnimDictLoaded
+    localValue5 = "clip@cofferefill"
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
       break
     end
-    arg4 = Citizen
-    arg4 = arg4.Wait
-    arg5 = 0
-    arg4(arg5)
+    localValue4 = Citizen
+    localValue4 = localValue4.Wait
+    localValue5 = 0
+    localValue4(localValue5)
   end
-  arg4 = GetAnimDuration
-  arg5 = "clip@cofferefill"
-  arg6 = "coffe_refill"
-  arg4 = arg4(arg5, arg6)
-  arg4 = arg4 * 1000
-  arg5 = RemoveAnimDict
-  arg6 = "clip@cofferefill"
-  arg5(arg6)
-  arg5 = PlayerPedId
+  localValue4 = GetAnimDuration
+  localValue5 = "clip@cofferefill"
+  localValue6 = "coffe_refill"
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue4 = localValue4 * 1000
+  localValue5 = RemoveAnimDict
+  localValue6 = "clip@cofferefill"
+  localValue5(localValue6)
+  localValue5 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg5 = arg5()
-  arg6 = GetOffsetFromEntityInWorldCoords
-  arg7 = arg2
-  arg8 = -0.2
-  workValue93 = -0.8
-  workValue103 = 0.0
-  arg6 = arg6(arg7, arg8, workValue93, workValue103)
-  arg7 = GetEntityRotation
-  arg8 = arg2
-  arg7 = arg7(arg8)
-  arg8 = workValue66
-  workValue93 = arg6
-  workValue103 = arg7.z
-  workValue2 = 3000
-  arg8(workValue93, workValue103, workValue2)
-  arg8 = workValue19
-  workValue93 = "mini@sprunk"
-  workValue103 = "plyr_buy_drink_pt1"
-  workValue2 = 16
-  arg8(workValue93, workValue103, workValue2)
-  arg8 = workValue67
-  workValue93 = 1400
-  arg8(workValue93)
-  arg8 = ClearPedTasks
-  workValue93 = arg5
-  arg8(workValue93)
-  arg8 = GetOffsetFromEntityInWorldCoords
-  workValue93 = arg2
-  workValue103 = -0.087544
-  workValue2 = -0.242745
-  workValue6 = 0.662735
-  arg8 = arg8(workValue93, workValue103, workValue2, workValue6)
-  workValue93 = CMG
-  workValue93 = workValue93.requestEntitySpawn
-  workValue103 = "vending_pickup"
-  workValue2 = GetHashKey
-  workValue6 = "mxc_vend_prop_coffecup"
+  localValue5 = localValue5()
+  localValue6 = GetOffsetFromEntityInWorldCoords
+  localValue7 = localValue2
+  localValue8 = -0.2
+  workingValue93 = -0.8
+  workingValue103 = 0.0
+  localValue6 = localValue6(localValue7, localValue8, workingValue93, workingValue103)
+  localValue7 = GetEntityRotation
+  localValue8 = localValue2
+  localValue7 = localValue7(localValue8)
+  localValue8 = workingValue66
+  workingValue93 = localValue6
+  workingValue103 = localValue7.z
+  workingValue2 = 3000
+  localValue8(workingValue93, workingValue103, workingValue2)
+  localValue8 = workingValue19
+  workingValue93 = "mini@sprunk"
+  workingValue103 = "plyr_buy_drink_pt1"
+  workingValue2 = 16
+  localValue8(workingValue93, workingValue103, workingValue2)
+  localValue8 = workingValue67
+  workingValue93 = 1400
+  localValue8(workingValue93)
+  localValue8 = ClearPedTasks
+  workingValue93 = localValue5
+  localValue8(workingValue93)
+  localValue8 = GetOffsetFromEntityInWorldCoords
+  workingValue93 = localValue2
+  workingValue103 = -0.087544
+  workingValue2 = -0.242745
+  workingValue6 = 0.662735
+  localValue8 = localValue8(workingValue93, workingValue103, workingValue2, workingValue6)
+  workingValue93 = CMG
+  workingValue93 = workingValue93.requestEntitySpawn
+  workingValue103 = "vending_pickup"
+  workingValue2 = GetHashKey
+  workingValue6 = "mxc_vend_prop_coffecup"
   -- Beginner: result below is hash.
-  workValue2 = workValue2(workValue6)
-  workValue6 = arg8
-  workValue93(workValue103, workValue2, workValue6)
-  workValue93 = GetHashKey
-  workValue103 = "mxc_vend_prop_coffecup"
+  workingValue2 = workingValue2(workingValue6)
+  workingValue6 = localValue8
+  workingValue93(workingValue103, workingValue2, workingValue6)
+  workingValue93 = GetHashKey
+  workingValue103 = "mxc_vend_prop_coffecup"
   -- Beginner: result below is hash.
-  workValue93 = workValue93(workValue103)
-  workValue103 = HasModelLoaded
-  workValue2 = workValue93
-  workValue103 = workValue103(workValue2)
-  if not workValue103 then
-    workValue103 = RequestModel
-    workValue2 = workValue93
-    workValue103(workValue2)
+  workingValue93 = workingValue93(workingValue103)
+  workingValue103 = HasModelLoaded
+  workingValue2 = workingValue93
+  workingValue103 = workingValue103(workingValue2)
+  if not workingValue103 then
+    workingValue103 = RequestModel
+    workingValue2 = workingValue93
+    workingValue103(workingValue2)
     while true do
-      workValue103 = HasModelLoaded
-      workValue2 = workValue93
-      workValue103 = workValue103(workValue2)
-      if workValue103 then
+      workingValue103 = HasModelLoaded
+      workingValue2 = workingValue93
+      workingValue103 = workingValue103(workingValue2)
+      if workingValue103 then
         break
       end
-      workValue103 = Citizen
-      workValue103 = workValue103.Wait
-      workValue2 = 1
-      workValue103(workValue2)
+      workingValue103 = Citizen
+      workingValue103 = workingValue103.Wait
+      workingValue2 = 1
+      workingValue103(workingValue2)
     end
   end
-  workValue103 = CreateObject
-  workValue2 = workValue93
-  workValue6 = arg8.x
-  numberValue = arg8.y
-  numberValue2 = arg8.z
-  numberValue3 = true
-  numberValue5 = true
-  numberValue7 = false
+  workingValue103 = CreateObject
+  workingValue2 = workingValue93
+  workingValue6 = localValue8.x
+  number = localValue8.y
+  number2 = localValue8.z
+  number3 = true
+  number5 = true
+  number7 = false
   -- Beginner: result below is objectEntity.
-  workValue103 = workValue103(workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7)
-  workValue2 = SetModelAsNoLongerNeeded
-  workValue6 = workValue93
-  workValue2(workValue6)
-  workValue2 = SetEntityVisible
-  workValue6 = workValue103
-  numberValue = false
-  numberValue2 = false
-  workValue2(workValue6, numberValue, numberValue2)
-  workValue2 = SetEntityCoords
-  workValue6 = workValue103
-  numberValue = arg8.x
-  numberValue2 = arg8.y
-  numberValue3 = arg8.z
-  numberValue5 = false
-  numberValue7 = false
-  flag = false
-  flag2 = false
+  workingValue103 = workingValue103(workingValue2, workingValue6, number, number2, number3, number5, number7)
+  workingValue2 = SetModelAsNoLongerNeeded
+  workingValue6 = workingValue93
+  workingValue2(workingValue6)
+  workingValue2 = SetEntityVisible
+  workingValue6 = workingValue103
+  number = false
+  number2 = false
+  workingValue2(workingValue6, number, number2)
+  workingValue2 = SetEntityCoords
+  workingValue6 = workingValue103
+  number = localValue8.x
+  number2 = localValue8.y
+  number3 = localValue8.z
+  number5 = false
+  number7 = false
+  stateFlag = false
+  stateFlag2 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  workValue2(workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2)
-  workValue2 = GetEntityRotation
-  workValue6 = arg2
-  numberValue = 1
-  workValue2 = workValue2(workValue6, numberValue)
-  workValue6 = SetEntityRotation
-  numberValue = workValue103
-  numberValue2 = workValue2.x
-  numberValue3 = workValue2.y
-  numberValue5 = workValue2.z
-  numberValue7 = 1
-  flag = false
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag)
-  workValue6 = workValue64
-  numberValue = arg2
-  numberValue2 = "clip@cofferefill"
-  numberValue3 = "coffe_door"
-  numberValue5 = false
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5)
-  workValue6 = workValue64
-  numberValue = workValue103
-  numberValue2 = "clip@cofferefill"
-  numberValue3 = "coffe_refill"
-  numberValue5 = false
-  workValue6(numberValue, numberValue2, numberValue3, numberValue5)
-  workValue6 = Citizen
-  workValue6 = workValue6.Wait
-  numberValue = 100
-  workValue6(numberValue)
-  workValue6 = SetEntityVisible
-  numberValue = workValue103
-  numberValue2 = true
-  numberValue3 = false
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = Citizen
-  workValue6 = workValue6.SetTimeout
-  numberValue = 2500
+  workingValue2(workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2)
+  workingValue2 = GetEntityRotation
+  workingValue6 = localValue2
+  number = 1
+  workingValue2 = workingValue2(workingValue6, number)
+  workingValue6 = SetEntityRotation
+  number = workingValue103
+  number2 = workingValue2.x
+  number3 = workingValue2.y
+  number5 = workingValue2.z
+  number7 = 1
+  stateFlag = false
+  workingValue6(number, number2, number3, number5, number7, stateFlag)
+  workingValue6 = workingValue64
+  number = localValue2
+  number2 = "clip@cofferefill"
+  number3 = "coffe_door"
+  number5 = false
+  workingValue6(number, number2, number3, number5)
+  workingValue6 = workingValue64
+  number = workingValue103
+  number2 = "clip@cofferefill"
+  number3 = "coffe_refill"
+  number5 = false
+  workingValue6(number, number2, number3, number5)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.Wait
+  number = 100
+  workingValue6(number)
+  workingValue6 = SetEntityVisible
+  number = workingValue103
+  number2 = true
+  number3 = false
+  workingValue6(number, number2, number3)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.SetTimeout
+  number = 2500
 
-  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
-  function numberValue2()
-    local arg12, arg22, arg32, arg42
-    arg12 = threadCall2.Functions
-    arg12 = arg12.PlaySound
-    arg22 = "coffeMachine"
-    arg32 = nil
-    arg42 = threadCall2.AudiosVolumes
-    arg42 = arg42.coffeMachine
-    arg12(arg22, arg32, arg42)
+  -- === HELPER FUNCTION (decompiler name: number2; parameters: none) ===
+  function number2()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = backgroundThread2.Functions
+    localValue12 = localValue12.PlaySound
+    localValue22 = "coffeMachine"
+    localValue32 = nil
+    localValue42 = backgroundThread2.AudiosVolumes
+    localValue42 = localValue42.coffeMachine
+    localValue12(localValue22, localValue32, localValue42)
   end
-  workValue6(numberValue, numberValue2)
-  workValue6 = Citizen
-  workValue6 = workValue6.Wait
-  numberValue = arg4
-  workValue6(numberValue)
-  workValue6 = GetOffsetFromEntityInWorldCoords
-  numberValue = arg2
-  numberValue2 = -0.3
-  numberValue3 = -0.8
-  numberValue5 = 0.0
-  workValue6 = workValue6(numberValue, numberValue2, numberValue3, numberValue5)
-  numberValue = workValue66
-  numberValue2 = workValue6
-  numberValue3 = arg7.z
-  numberValue5 = 3000
-  numberValue(numberValue2, numberValue3, numberValue5)
-  numberValue = workValue19
-  numberValue2 = "pickup_object"
-  numberValue3 = "putdown_low"
-  numberValue(numberValue2, numberValue3)
-  numberValue = workValue67
-  numberValue2 = 800
-  numberValue(numberValue2)
-  numberValue = workValue65
-  numberValue2 = arg2
-  numberValue3 = "clip@cofferefill"
-  numberValue5 = "coffe_door"
-  numberValue(numberValue2, numberValue3, numberValue5)
-  numberValue = workValue65
-  numberValue2 = workValue103
-  numberValue3 = "clip@cofferefill"
-  numberValue5 = "coffe_refill"
-  numberValue(numberValue2, numberValue3, numberValue5)
-  if arg3 then
-    numberValue = "prop_fib_coffee"
+  workingValue6(number, number2)
+  workingValue6 = Citizen
+  workingValue6 = workingValue6.Wait
+  number = localValue4
+  workingValue6(number)
+  workingValue6 = GetOffsetFromEntityInWorldCoords
+  number = localValue2
+  number2 = -0.3
+  number3 = -0.8
+  number5 = 0.0
+  workingValue6 = workingValue6(number, number2, number3, number5)
+  number = workingValue66
+  number2 = workingValue6
+  number3 = localValue7.z
+  number5 = 3000
+  number(number2, number3, number5)
+  number = workingValue19
+  number2 = "pickup_object"
+  number3 = "putdown_low"
+  number(number2, number3)
+  number = workingValue67
+  number2 = 800
+  number(number2)
+  number = workingValue65
+  number2 = localValue2
+  number3 = "clip@cofferefill"
+  number5 = "coffe_door"
+  number(number2, number3, number5)
+  number = workingValue65
+  number2 = workingValue103
+  number3 = "clip@cofferefill"
+  number5 = "coffe_refill"
+  number(number2, number3, number5)
+  if localValue3 then
+    number = "prop_fib_coffee"
   else
-    numberValue = "mxc_vend_prop_item_cofferefill"
+    number = "mxc_vend_prop_item_cofferefill"
   end
 
-  numberValue2 = GetHashKey
-  numberValue3 = numberValue
+  number2 = GetHashKey
+  number3 = number
   -- Beginner: result below is hash.
-  numberValue2 = numberValue2(numberValue3)
-  numberValue3 = CMG
-  numberValue3 = numberValue3.requestEntitySpawn
-  numberValue5 = "vending_pickup"
-  numberValue7 = numberValue2
-  flag = arg8
-  numberValue3(numberValue5, numberValue7, flag)
-  numberValue3 = CreateObject
-  numberValue5 = numberValue2
-  numberValue7 = arg8.x
-  flag = arg8.y
-  flag2 = arg8.z
-  flag3 = true
-  dataTable3 = true
-  textValue2 = false
+  number2 = number2(number3)
+  number3 = CMG
+  number3 = number3.requestEntitySpawn
+  number5 = "vending_pickup"
+  number7 = number2
+  stateFlag = localValue8
+  number3(number5, number7, stateFlag)
+  number3 = CreateObject
+  number5 = number2
+  number7 = localValue8.x
+  stateFlag = localValue8.y
+  stateFlag2 = localValue8.z
+  stateFlag3 = true
+  dataCollection3 = true
+  text2 = false
   -- Beginner: result below is objectEntity.
-  numberValue3 = numberValue3(numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2)
-  numberValue5 = AttachEntityToEntity
-  numberValue7 = numberValue3
-  flag = arg5
-  flag2 = GetPedBoneIndex
-  flag3 = arg5
-  dataTable3 = 28422
-  flag2 = flag2(flag3, dataTable3)
-  flag3 = 0.04
-  dataTable3 = 0.01
-  textValue2 = -0.04
-  textValue3 = -73.89
-  textValue4 = 27.8
-  textValue5 = 10.47
-  dataTable4 = true
-  textValue6 = true
+  number3 = number3(number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2)
+  number5 = AttachEntityToEntity
+  number7 = number3
+  stateFlag = localValue5
+  stateFlag2 = GetPedBoneIndex
+  stateFlag3 = localValue5
+  dataCollection3 = 28422
+  stateFlag2 = stateFlag2(stateFlag3, dataCollection3)
+  stateFlag3 = 0.04
+  dataCollection3 = 0.01
+  text2 = -0.04
+  text3 = -73.89
+  text4 = 27.8
+  text5 = 10.47
+  dataCollection4 = true
+  text6 = true
   iterator = false
-  textValue7 = false
-  dataTable5 = 1
+  text7 = false
+  dataCollection5 = 1
   iterator2 = true
   -- Beginner: Attach one entity to another entity.
-  numberValue5(numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2)
-  numberValue5 = DeleteEntity
-  numberValue7 = workValue103
+  number5(number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator, text7, dataCollection5, iterator2)
+  number5 = DeleteEntity
+  number7 = workingValue103
   -- Beginner: Delete a GTA entity.
-  numberValue5(numberValue7)
-  numberValue5 = Citizen
-  numberValue5 = numberValue5.Wait
-  numberValue7 = 0
-  numberValue5(numberValue7)
-  numberValue5 = ClearPedTasks
-  numberValue7 = arg5
-  numberValue5(numberValue7)
-  numberValue5 = workValue19
-  numberValue7 = "mp_common_miss"
-  flag = "put_away_coke"
-  numberValue5(numberValue7, flag)
-  numberValue5 = Citizen
-  numberValue5 = numberValue5.Wait
-  numberValue7 = 0
-  numberValue5(numberValue7)
-  numberValue5 = ClearPedTasks
-  numberValue7 = arg5
-  numberValue5(numberValue7)
-  numberValue5 = SetEntityAsMissionEntity
-  numberValue7 = numberValue3
-  flag = true
-  flag2 = true
-  numberValue5(numberValue7, flag, flag2)
-  numberValue5 = DeleteEntity
-  numberValue7 = numberValue3
+  number5(number7)
+  number5 = Citizen
+  number5 = number5.Wait
+  number7 = 0
+  number5(number7)
+  number5 = ClearPedTasks
+  number7 = localValue5
+  number5(number7)
+  number5 = workingValue19
+  number7 = "mp_common_miss"
+  stateFlag = "put_away_coke"
+  number5(number7, stateFlag)
+  number5 = Citizen
+  number5 = number5.Wait
+  number7 = 0
+  number5(number7)
+  number5 = ClearPedTasks
+  number7 = localValue5
+  number5(number7)
+  number5 = SetEntityAsMissionEntity
+  number7 = number3
+  stateFlag = true
+  stateFlag2 = true
+  number5(number7, stateFlag, stateFlag2)
+  number5 = DeleteEntity
+  number7 = number3
   -- Beginner: Delete a GTA entity.
-  numberValue5(numberValue7)
-  numberValue5 = arg1.item
-  if numberValue5 then
-    numberValue5 = TriggerEvent
-    numberValue7 = "c82f62b8de"
-    flag = arg1.item
+  number5(number7)
+  number5 = localValue1.item
+  if number5 then
+    number5 = TriggerEvent
+    number7 = "c82f62b8de"
+    stateFlag = localValue1.item
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c82f62b8de".
-    numberValue5(numberValue7, flag)
+    number5(number7, stateFlag)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue80; parameters: arg1, arg2) ===
-function workValue80(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator
-  arg3 = RequestAnimDict
-  arg4 = "clip@waterrefill"
-  arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue80; parameters: localValue1, localValue2) ===
+function workingValue80(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator
+  localValue3 = RequestAnimDict
+  localValue4 = "clip@waterrefill"
+  localValue3(localValue4)
   while true do
-    arg3 = HasAnimDictLoaded
-    arg4 = "clip@waterrefill"
-    arg3 = arg3(arg4)
-    if arg3 then
+    localValue3 = HasAnimDictLoaded
+    localValue4 = "clip@waterrefill"
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
       break
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 0
-    arg3(arg4)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 0
+    localValue3(localValue4)
   end
-  arg3 = GetAnimDuration
-  arg4 = "clip@waterrefill"
-  arg5 = "water_refill"
-  arg3 = arg3(arg4, arg5)
-  arg3 = arg3 * 1000
-  arg4 = RemoveAnimDict
-  arg5 = "clip@waterrefill"
-  arg4(arg5)
-  arg4 = PlayerPedId
+  localValue3 = GetAnimDuration
+  localValue4 = "clip@waterrefill"
+  localValue5 = "water_refill"
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue3 = localValue3 * 1000
+  localValue4 = RemoveAnimDict
+  localValue5 = "clip@waterrefill"
+  localValue4(localValue5)
+  localValue4 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg4 = arg4()
-  arg5 = GetOffsetFromEntityInWorldCoords
-  arg6 = arg2
-  arg7 = -0.056371
-  arg8 = -0.12243
-  workValue93 = 0.603425
-  arg5 = arg5(arg6, arg7, arg8, workValue93)
-  arg6 = CMG
-  arg6 = arg6.requestEntitySpawn
-  arg7 = "vending_pickup"
-  arg8 = GetHashKey
-  workValue93 = "mxc_vend_prop_watercup"
+  localValue4 = localValue4()
+  localValue5 = GetOffsetFromEntityInWorldCoords
+  localValue6 = localValue2
+  localValue7 = -0.056371
+  localValue8 = -0.12243
+  workingValue93 = 0.603425
+  localValue5 = localValue5(localValue6, localValue7, localValue8, workingValue93)
+  localValue6 = CMG
+  localValue6 = localValue6.requestEntitySpawn
+  localValue7 = "vending_pickup"
+  localValue8 = GetHashKey
+  workingValue93 = "mxc_vend_prop_watercup"
   -- Beginner: result below is hash.
-  arg8 = arg8(workValue93)
-  workValue93 = arg5
-  arg6(arg7, arg8, workValue93)
-  arg6 = GetHashKey
-  arg7 = "mxc_vend_prop_watercup"
+  localValue8 = localValue8(workingValue93)
+  workingValue93 = localValue5
+  localValue6(localValue7, localValue8, workingValue93)
+  localValue6 = GetHashKey
+  localValue7 = "mxc_vend_prop_watercup"
   -- Beginner: result below is hash.
-  arg6 = arg6(arg7)
-  arg7 = HasModelLoaded
-  arg8 = arg6
-  arg7 = arg7(arg8)
-  if not arg7 then
-    arg7 = RequestModel
-    arg8 = arg6
-    arg7(arg8)
+  localValue6 = localValue6(localValue7)
+  localValue7 = HasModelLoaded
+  localValue8 = localValue6
+  localValue7 = localValue7(localValue8)
+  if not localValue7 then
+    localValue7 = RequestModel
+    localValue8 = localValue6
+    localValue7(localValue8)
     while true do
-      arg7 = HasModelLoaded
-      arg8 = arg6
-      arg7 = arg7(arg8)
-      if arg7 then
+      localValue7 = HasModelLoaded
+      localValue8 = localValue6
+      localValue7 = localValue7(localValue8)
+      if localValue7 then
         break
       end
-      arg7 = Citizen
-      arg7 = arg7.Wait
-      arg8 = 1
-      arg7(arg8)
+      localValue7 = Citizen
+      localValue7 = localValue7.Wait
+      localValue8 = 1
+      localValue7(localValue8)
     end
   end
-  arg7 = CreateObject
-  arg8 = arg6
-  workValue93 = arg5.x
-  workValue103 = arg5.y
-  workValue2 = arg5.z
-  workValue6 = true
-  numberValue = true
-  numberValue2 = false
+  localValue7 = CreateObject
+  localValue8 = localValue6
+  workingValue93 = localValue5.x
+  workingValue103 = localValue5.y
+  workingValue2 = localValue5.z
+  workingValue6 = true
+  number = true
+  number2 = false
   -- Beginner: result below is objectEntity.
-  arg7 = arg7(arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2)
-  arg8 = SetModelAsNoLongerNeeded
-  workValue93 = arg6
-  arg8(workValue93)
-  arg8 = SetEntityCoords
-  workValue93 = arg7
-  workValue103 = arg5.x
-  workValue2 = arg5.y
-  workValue6 = arg5.z
-  numberValue = false
-  numberValue2 = false
-  numberValue3 = false
-  numberValue5 = false
+  localValue7 = localValue7(localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2)
+  localValue8 = SetModelAsNoLongerNeeded
+  workingValue93 = localValue6
+  localValue8(workingValue93)
+  localValue8 = SetEntityCoords
+  workingValue93 = localValue7
+  workingValue103 = localValue5.x
+  workingValue2 = localValue5.y
+  workingValue6 = localValue5.z
+  number = false
+  number2 = false
+  number3 = false
+  number5 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  arg8(workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5)
-  arg8 = GetEntityRotation
-  workValue93 = arg2
-  workValue103 = 1
-  arg8 = arg8(workValue93, workValue103)
-  workValue93 = SetEntityRotation
-  workValue103 = arg7
-  workValue2 = arg8.x
-  workValue6 = arg8.y
-  numberValue = arg8.z
-  numberValue2 = 1
-  numberValue3 = false
-  workValue93(workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3)
-  workValue93 = workValue64
-  workValue103 = arg7
-  workValue2 = "clip@waterrefill"
-  workValue6 = "water_refill"
-  numberValue = false
-  workValue93(workValue103, workValue2, workValue6, numberValue)
-  workValue93 = Citizen
-  workValue93 = workValue93.SetTimeout
-  workValue103 = 500
+  localValue8(workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5)
+  localValue8 = GetEntityRotation
+  workingValue93 = localValue2
+  workingValue103 = 1
+  localValue8 = localValue8(workingValue93, workingValue103)
+  workingValue93 = SetEntityRotation
+  workingValue103 = localValue7
+  workingValue2 = localValue8.x
+  workingValue6 = localValue8.y
+  number = localValue8.z
+  number2 = 1
+  number3 = false
+  workingValue93(workingValue103, workingValue2, workingValue6, number, number2, number3)
+  workingValue93 = workingValue64
+  workingValue103 = localValue7
+  workingValue2 = "clip@waterrefill"
+  workingValue6 = "water_refill"
+  number = false
+  workingValue93(workingValue103, workingValue2, workingValue6, number)
+  workingValue93 = Citizen
+  workingValue93 = workingValue93.SetTimeout
+  workingValue103 = 500
 
-  -- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-  function workValue2()
-    local arg12, arg22, arg32, arg42
-    arg12 = threadCall2.Functions
-    arg12 = arg12.PlaySound
-    arg22 = "waterPouring"
-    arg32 = nil
-    arg42 = threadCall2.AudiosVolumes
-    arg42 = arg42.waterPouring
-    arg12(arg22, arg32, arg42)
+  -- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+  function workingValue2()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = backgroundThread2.Functions
+    localValue12 = localValue12.PlaySound
+    localValue22 = "waterPouring"
+    localValue32 = nil
+    localValue42 = backgroundThread2.AudiosVolumes
+    localValue42 = localValue42.waterPouring
+    localValue12(localValue22, localValue32, localValue42)
   end
-  workValue93(workValue103, workValue2)
-  workValue93 = Citizen
-  workValue93 = workValue93.Wait
-  workValue103 = arg3
-  workValue93(workValue103)
-  workValue93 = GetOffsetFromEntityInWorldCoords
-  workValue103 = arg2
-  workValue2 = -0.3
-  workValue6 = -0.8
-  numberValue = 0.0
-  workValue93 = workValue93(workValue103, workValue2, workValue6, numberValue)
-  workValue103 = GetEntityCoords
-  workValue2 = arg2
+  workingValue93(workingValue103, workingValue2)
+  workingValue93 = Citizen
+  workingValue93 = workingValue93.Wait
+  workingValue103 = localValue3
+  workingValue93(workingValue103)
+  workingValue93 = GetOffsetFromEntityInWorldCoords
+  workingValue103 = localValue2
+  workingValue2 = -0.3
+  workingValue6 = -0.8
+  number = 0.0
+  workingValue93 = workingValue93(workingValue103, workingValue2, workingValue6, number)
+  workingValue103 = GetEntityCoords
+  workingValue2 = localValue2
   -- Beginner: result below is entityCoords.
-  workValue103 = workValue103(workValue2)
-  workValue2 = GetEntityRotation
-  workValue6 = arg2
-  workValue2 = workValue2(workValue6)
-  workValue6 = workValue66
-  numberValue = workValue93
-  numberValue2 = workValue2.z
-  numberValue3 = 3000
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = workValue19
-  numberValue = "pickup_object"
-  numberValue2 = "putdown_low"
-  workValue6(numberValue, numberValue2)
-  workValue6 = workValue67
-  numberValue = 800
-  workValue6(numberValue)
-  workValue6 = workValue65
-  numberValue = arg7
-  numberValue2 = "clip@waterrefill"
-  numberValue3 = "water_refill"
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = CMG
-  workValue6 = workValue6.requestEntitySpawn
-  numberValue = "vending_pickup"
-  numberValue2 = GetHashKey
-  numberValue3 = "mxc_vend_prop_item_waterfill"
+  workingValue103 = workingValue103(workingValue2)
+  workingValue2 = GetEntityRotation
+  workingValue6 = localValue2
+  workingValue2 = workingValue2(workingValue6)
+  workingValue6 = workingValue66
+  number = workingValue93
+  number2 = workingValue2.z
+  number3 = 3000
+  workingValue6(number, number2, number3)
+  workingValue6 = workingValue19
+  number = "pickup_object"
+  number2 = "putdown_low"
+  workingValue6(number, number2)
+  workingValue6 = workingValue67
+  number = 800
+  workingValue6(number)
+  workingValue6 = workingValue65
+  number = localValue7
+  number2 = "clip@waterrefill"
+  number3 = "water_refill"
+  workingValue6(number, number2, number3)
+  workingValue6 = CMG
+  workingValue6 = workingValue6.requestEntitySpawn
+  number = "vending_pickup"
+  number2 = GetHashKey
+  number3 = "mxc_vend_prop_item_waterfill"
   -- Beginner: result below is hash.
-  numberValue2 = numberValue2(numberValue3)
-  numberValue3 = arg5
-  workValue6(numberValue, numberValue2, numberValue3)
-  workValue6 = CreateObject
-  numberValue = GetHashKey
-  numberValue2 = "mxc_vend_prop_item_waterfill"
+  number2 = number2(number3)
+  number3 = localValue5
+  workingValue6(number, number2, number3)
+  workingValue6 = CreateObject
+  number = GetHashKey
+  number2 = "mxc_vend_prop_item_waterfill"
   -- Beginner: result below is hash.
-  numberValue = numberValue(numberValue2)
-  numberValue2 = arg5.x
-  numberValue3 = arg5.y
-  numberValue5 = arg5.z
-  numberValue7 = true
-  flag = true
-  flag2 = false
+  number = number(number2)
+  number2 = localValue5.x
+  number3 = localValue5.y
+  number5 = localValue5.z
+  number7 = true
+  stateFlag = true
+  stateFlag2 = false
   -- Beginner: result below is objectEntity.
-  workValue6 = workValue6(numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2)
-  numberValue = AttachEntityToEntity
-  numberValue2 = workValue6
-  numberValue3 = arg4
-  numberValue5 = GetPedBoneIndex
-  numberValue7 = arg4
-  flag = 28422
-  numberValue5 = numberValue5(numberValue7, flag)
-  numberValue7 = 0.04
-  flag = 0.01
-  flag2 = -0.04
-  flag3 = -73.89
-  dataTable3 = 27.8
-  textValue2 = 10.47
-  textValue3 = true
-  textValue4 = true
-  textValue5 = false
-  dataTable4 = false
-  textValue6 = 1
+  workingValue6 = workingValue6(number, number2, number3, number5, number7, stateFlag, stateFlag2)
+  number = AttachEntityToEntity
+  number2 = workingValue6
+  number3 = localValue4
+  number5 = GetPedBoneIndex
+  number7 = localValue4
+  stateFlag = 28422
+  number5 = number5(number7, stateFlag)
+  number7 = 0.04
+  stateFlag = 0.01
+  stateFlag2 = -0.04
+  stateFlag3 = -73.89
+  dataCollection3 = 27.8
+  text2 = 10.47
+  text3 = true
+  text4 = true
+  text5 = false
+  dataCollection4 = false
+  text6 = 1
   iterator = true
   -- Beginner: Attach one entity to another entity.
-  numberValue(numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator)
-  numberValue = DeleteEntity
-  numberValue2 = arg7
+  number(number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator)
+  number = DeleteEntity
+  number2 = localValue7
   -- Beginner: Delete a GTA entity.
-  numberValue(numberValue2)
-  numberValue = Citizen
-  numberValue = numberValue.Wait
-  numberValue2 = 500
-  numberValue(numberValue2)
-  numberValue = ClearPedTasks
-  numberValue2 = arg4
-  numberValue(numberValue2)
-  numberValue = AttachEntityToEntity
-  numberValue2 = workValue6
-  numberValue3 = arg4
-  numberValue5 = GetPedBoneIndex
-  numberValue7 = arg4
-  flag = 28422
-  numberValue5 = numberValue5(numberValue7, flag)
-  numberValue7 = 0.0
-  flag = 0.0
-  flag2 = 0.0
-  flag3 = 0.0
-  dataTable3 = 0.0
-  textValue2 = 0.0
-  textValue3 = true
-  textValue4 = true
-  textValue5 = false
-  dataTable4 = false
-  textValue6 = 1
+  number(number2)
+  number = Citizen
+  number = number.Wait
+  number2 = 500
+  number(number2)
+  number = ClearPedTasks
+  number2 = localValue4
+  number(number2)
+  number = AttachEntityToEntity
+  number2 = workingValue6
+  number3 = localValue4
+  number5 = GetPedBoneIndex
+  number7 = localValue4
+  stateFlag = 28422
+  number5 = number5(number7, stateFlag)
+  number7 = 0.0
+  stateFlag = 0.0
+  stateFlag2 = 0.0
+  stateFlag3 = 0.0
+  dataCollection3 = 0.0
+  text2 = 0.0
+  text3 = true
+  text4 = true
+  text5 = false
+  dataCollection4 = false
+  text6 = 1
   iterator = true
   -- Beginner: Attach one entity to another entity.
-  numberValue(numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator)
-  numberValue = workValue19
-  numberValue2 = "amb@world_human_drinking@coffee@male@idle_a"
-  numberValue3 = "idle_b"
-  numberValue(numberValue2, numberValue3)
-  numberValue = Citizen
-  numberValue = numberValue.Wait
-  numberValue2 = 5000
-  numberValue(numberValue2)
-  numberValue = ClearPedTasks
-  numberValue2 = arg4
-  numberValue(numberValue2)
-  numberValue = workValue19
-  numberValue2 = "amb@world_human_drinking@coffee@male@exit"
-  numberValue3 = "exit"
-  numberValue(numberValue2, numberValue3)
-  numberValue = Citizen
-  numberValue = numberValue.Wait
-  numberValue2 = 1500
-  numberValue(numberValue2)
-  numberValue = ClearPedTasks
-  numberValue2 = arg4
-  numberValue(numberValue2)
-  numberValue = DetachEntity
-  numberValue2 = workValue6
-  numberValue3 = true
-  numberValue5 = true
-  numberValue(numberValue2, numberValue3, numberValue5)
-  numberValue = SetEntityAsNoLongerNeeded
-  numberValue2 = workValue6
-  numberValue(numberValue2)
-  numberValue = Citizen
-  numberValue = numberValue.Wait
-  numberValue2 = 500
-  numberValue(numberValue2)
-  numberValue = FreezeEntityPosition
-  numberValue2 = workValue6
-  numberValue3 = true
+  number(number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2, text3, text4, text5, dataCollection4, text6, iterator)
+  number = workingValue19
+  number2 = "amb@world_human_drinking@coffee@male@idle_a"
+  number3 = "idle_b"
+  number(number2, number3)
+  number = Citizen
+  number = number.Wait
+  number2 = 5000
+  number(number2)
+  number = ClearPedTasks
+  number2 = localValue4
+  number(number2)
+  number = workingValue19
+  number2 = "amb@world_human_drinking@coffee@male@exit"
+  number3 = "exit"
+  number(number2, number3)
+  number = Citizen
+  number = number.Wait
+  number2 = 1500
+  number(number2)
+  number = ClearPedTasks
+  number2 = localValue4
+  number(number2)
+  number = DetachEntity
+  number2 = workingValue6
+  number3 = true
+  number5 = true
+  number(number2, number3, number5)
+  number = SetEntityAsNoLongerNeeded
+  number2 = workingValue6
+  number(number2)
+  number = Citizen
+  number = number.Wait
+  number2 = 500
+  number(number2)
+  number = FreezeEntityPosition
+  number2 = workingValue6
+  number3 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  numberValue(numberValue2, numberValue3)
-  numberValue = TriggerEvent
-  numberValue2 = "c82f62b8de"
-  numberValue3 = "water"
+  number(number2, number3)
+  number = TriggerEvent
+  number2 = "c82f62b8de"
+  number3 = "water"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c82f62b8de".
-  numberValue(numberValue2, numberValue3)
+  number(number2, number3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue81; parameters: arg1, arg2) ===
-function workValue81(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue81; parameters: localValue1, localValue2) ===
+function workingValue81(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = threadCall2.Vendings
-  arg4 = arg4.cigarettes
-  arg4 = arg4.startAnimXOffset
-  if arg4 and threadCall2.Vendings.cigarettes.startAnimXOffset[arg2] then
-    arg4 = threadCall2.Vendings.cigarettes.startAnimXOffset[arg2]
+  localValue3 = localValue3()
+  localValue4 = backgroundThread2.Vendings
+  localValue4 = localValue4.cigarettes
+  localValue4 = localValue4.startAnimXOffset
+  if localValue4 and backgroundThread2.Vendings.cigarettes.startAnimXOffset[localValue2] then
+    localValue4 = backgroundThread2.Vendings.cigarettes.startAnimXOffset[localValue2]
   else
-    arg4 = -0.5
+    localValue4 = -0.5
   end
 
-  arg5 = GetOffsetFromEntityInWorldCoords
-  arg6 = arg1
-  arg7 = arg4
-  arg8 = -0.6
-  workValue93 = -1.1
-  arg5 = arg5(arg6, arg7, arg8, workValue93)
-  arg6 = GetEntityRotation
-  arg7 = arg1
-  arg6 = arg6(arg7)
-  arg7 = workValue66
-  arg8 = arg5
-  workValue93 = arg6.z
-  workValue103 = 3000
-  arg7(arg8, workValue93, workValue103)
-  arg7 = workValue19
-  arg8 = "mini@sprunk"
-  workValue93 = "plyr_buy_drink_pt1"
-  workValue103 = 16
-  arg7(arg8, workValue93, workValue103)
-  arg7 = Citizen
-  arg7 = arg7.Wait
-  arg8 = 1400
-  arg7(arg8)
-  arg7 = ClearPedTasks
-  arg8 = arg3
-  arg7(arg8)
+  localValue5 = GetOffsetFromEntityInWorldCoords
+  localValue6 = localValue1
+  localValue7 = localValue4
+  localValue8 = -0.6
+  workingValue93 = -1.1
+  localValue5 = localValue5(localValue6, localValue7, localValue8, workingValue93)
+  localValue6 = GetEntityRotation
+  localValue7 = localValue1
+  localValue6 = localValue6(localValue7)
+  localValue7 = workingValue66
+  localValue8 = localValue5
+  workingValue93 = localValue6.z
+  workingValue103 = 3000
+  localValue7(localValue8, workingValue93, workingValue103)
+  localValue7 = workingValue19
+  localValue8 = "mini@sprunk"
+  workingValue93 = "plyr_buy_drink_pt1"
+  workingValue103 = 16
+  localValue7(localValue8, workingValue93, workingValue103)
+  localValue7 = Citizen
+  localValue7 = localValue7.Wait
+  localValue8 = 1400
+  localValue7(localValue8)
+  localValue7 = ClearPedTasks
+  localValue8 = localValue3
+  localValue7(localValue8)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue82; parameters: arg1, arg2, arg3) ===
-function workValue82(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag
-  arg4 = workValue54
-  arg5 = arg1
-  arg6 = arg2
-  arg4 = arg4(arg5, arg6)
-  arg5 = arg4 or arg5
-  if arg4 then
-    arg5 = arg4[arg3]
+-- === HELPER FUNCTION (decompiler name: workingValue82; parameters: localValue1, localValue2, localValue3) ===
+function workingValue82(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag
+  localValue4 = workingValue54
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = localValue4 or localValue5
+  if localValue4 then
+    localValue5 = localValue4[localValue3]
   end
-  if arg5 and threadCall2.Items[arg5] and threadCall2.Items[arg5].model then
-    arg6 = threadCall2.Items[arg5].model
+  if localValue5 and backgroundThread2.Items[localValue5] and backgroundThread2.Items[localValue5].model then
+    localValue6 = backgroundThread2.Items[localValue5].model
   else
-    arg6 = "v_ret_ml_cigs"
+    localValue6 = "v_ret_ml_cigs"
   end
 
-  arg7 = GetEntityCoords
-  arg8 = arg2
+  localValue7 = GetEntityCoords
+  localValue8 = localValue2
   -- Beginner: result below is entityCoords.
-  arg7 = arg7(arg8)
-  arg8 = GetHashKey
-  workValue93 = arg6
+  localValue7 = localValue7(localValue8)
+  localValue8 = GetHashKey
+  workingValue93 = localValue6
   -- Beginner: result below is hash.
-  arg8 = arg8(workValue93)
-  workValue93 = HasModelLoaded
-  workValue103 = arg8
-  workValue93 = workValue93(workValue103)
-  if not workValue93 then
-    workValue93 = RequestModel
-    workValue103 = arg8
-    workValue93(workValue103)
+  localValue8 = localValue8(workingValue93)
+  workingValue93 = HasModelLoaded
+  workingValue103 = localValue8
+  workingValue93 = workingValue93(workingValue103)
+  if not workingValue93 then
+    workingValue93 = RequestModel
+    workingValue103 = localValue8
+    workingValue93(workingValue103)
     while true do
-      workValue93 = HasModelLoaded
-      workValue103 = arg8
-      workValue93 = workValue93(workValue103)
-      if workValue93 then
+      workingValue93 = HasModelLoaded
+      workingValue103 = localValue8
+      workingValue93 = workingValue93(workingValue103)
+      if workingValue93 then
         break
       end
-      workValue93 = Citizen
-      workValue93 = workValue93.Wait
-      workValue103 = 1
-      workValue93(workValue103)
+      workingValue93 = Citizen
+      workingValue93 = workingValue93.Wait
+      workingValue103 = 1
+      workingValue93(workingValue103)
     end
   end
-  workValue93 = CMG
-  workValue93 = workValue93.requestEntitySpawn
-  workValue103 = "vending_pickup"
-  workValue2 = arg8
-  workValue6 = arg7
-  workValue93(workValue103, workValue2, workValue6)
-  workValue93 = CreateObject
-  workValue103 = arg8
-  workValue2 = arg7.x
-  workValue6 = arg7.y
-  numberValue = arg7.z
-  numberValue2 = true
-  numberValue3 = true
-  numberValue5 = false
+  workingValue93 = CMG
+  workingValue93 = workingValue93.requestEntitySpawn
+  workingValue103 = "vending_pickup"
+  workingValue2 = localValue8
+  workingValue6 = localValue7
+  workingValue93(workingValue103, workingValue2, workingValue6)
+  workingValue93 = CreateObject
+  workingValue103 = localValue8
+  workingValue2 = localValue7.x
+  workingValue6 = localValue7.y
+  number = localValue7.z
+  number2 = true
+  number3 = true
+  number5 = false
   -- Beginner: result below is objectEntity.
-  workValue93 = workValue93(workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5)
-  workValue103 = SetModelAsNoLongerNeeded
-  workValue2 = arg8
-  workValue103(workValue2)
-  workValue103 = SetEntityCoords
-  workValue2 = workValue93
-  workValue6 = arg7.x
-  numberValue = arg7.y
-  numberValue2 = arg7.z
-  numberValue3 = false
-  numberValue5 = false
-  numberValue7 = false
-  flag = false
+  workingValue93 = workingValue93(workingValue103, workingValue2, workingValue6, number, number2, number3, number5)
+  workingValue103 = SetModelAsNoLongerNeeded
+  workingValue2 = localValue8
+  workingValue103(workingValue2)
+  workingValue103 = SetEntityCoords
+  workingValue2 = workingValue93
+  workingValue6 = localValue7.x
+  number = localValue7.y
+  number2 = localValue7.z
+  number3 = false
+  number5 = false
+  number7 = false
+  stateFlag = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  workValue103(workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag)
-  workValue103 = GetEntityRotation
-  workValue2 = arg2
-  workValue6 = 2
-  workValue103 = workValue103(workValue2, workValue6)
-  workValue2 = SetEntityRotation
-  workValue6 = workValue93
-  numberValue = workValue103.x
-  numberValue2 = workValue103.y
-  numberValue3 = workValue103.z
-  numberValue5 = 2
-  numberValue7 = false
-  workValue2(workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7)
-  return workValue93
+  workingValue103(workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag)
+  workingValue103 = GetEntityRotation
+  workingValue2 = localValue2
+  workingValue6 = 2
+  workingValue103 = workingValue103(workingValue2, workingValue6)
+  workingValue2 = SetEntityRotation
+  workingValue6 = workingValue93
+  number = workingValue103.x
+  number2 = workingValue103.y
+  number3 = workingValue103.z
+  number5 = 2
+  number7 = false
+  workingValue2(workingValue6, number, number2, number3, number5, number7)
+  return workingValue93
 end
 
--- === HELPER FUNCTION (decompiler name: workValue85; parameters: arg1) ===
-function workValue85(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = GetOffsetFromEntityInWorldCoords
-  arg3 = arg1
-  arg4 = -0.1
-  arg5 = -0.6
-  arg6 = -1.1
-  arg2 = arg2(arg3, arg4, arg5, arg6)
-  arg3 = GetEntityRotation
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  arg4 = workValue66
-  arg5 = arg2
-  arg6 = arg3.z
-  arg7 = 3000
-  arg4(arg5, arg6, arg7)
-  arg4 = workValue19
-  arg5 = "pickup_object"
-  arg6 = "putdown_low"
-  arg4(arg5, arg6)
-  arg4 = Citizen
-  arg4 = arg4.Wait
-  arg5 = 1200
-  arg4(arg5)
+-- === HELPER FUNCTION (decompiler name: workingValue85; parameters: localValue1) ===
+function workingValue85(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = GetOffsetFromEntityInWorldCoords
+  localValue3 = localValue1
+  localValue4 = -0.1
+  localValue5 = -0.6
+  localValue6 = -1.1
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6)
+  localValue3 = GetEntityRotation
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  localValue4 = workingValue66
+  localValue5 = localValue2
+  localValue6 = localValue3.z
+  localValue7 = 3000
+  localValue4(localValue5, localValue6, localValue7)
+  localValue4 = workingValue19
+  localValue5 = "pickup_object"
+  localValue6 = "putdown_low"
+  localValue4(localValue5, localValue6)
+  localValue4 = Citizen
+  localValue4 = localValue4.Wait
+  localValue5 = 1200
+  localValue4(localValue5)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue86; parameters: arg1, arg2, arg3) ===
-function workValue86(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2
-  arg4 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue86; parameters: localValue1, localValue2, localValue3) ===
+function workingValue86(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2
+  localValue4 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg4 = arg4()
-  arg5 = workValue81
-  arg6 = arg2
-  arg7 = arg3
-  arg5(arg6, arg7)
-  arg5 = workValue82
-  arg6 = arg1
-  arg7 = arg2
-  arg8 = arg3
-  arg5 = arg5(arg6, arg7, arg8)
-  arg6 = workValue64
-  arg7 = arg5
-  arg8 = "clip@fagsfall_gen"
-  workValue93 = "fags_fall_gen"
-  workValue103 = false
-  arg6(arg7, arg8, workValue93, workValue103)
-  arg6 = Citizen
-  arg6 = arg6.Wait
-  arg7 = 1000
-  arg6(arg7)
-  arg6 = workValue85
-  arg7 = arg2
-  arg6(arg7)
-  arg6 = GetPedBoneIndex
-  arg7 = arg4
-  arg8 = 28422
-  arg6 = arg6(arg7, arg8)
-  arg7 = workValue65
-  arg8 = arg5
-  workValue93 = "clip@fagsfall_gen"
-  workValue103 = "fags_fall_gen"
-  arg7(arg8, workValue93, workValue103)
-  arg7 = AttachEntityToEntity
-  arg8 = arg5
-  workValue93 = arg4
-  workValue103 = arg6
-  workValue2 = 0.0
-  workValue6 = 0.0
-  numberValue = 0.0
-  numberValue2 = 0.0
-  numberValue3 = 0.0
-  numberValue5 = 130.0
-  numberValue7 = true
-  flag = true
-  flag2 = false
-  flag3 = false
-  dataTable3 = 2
-  textValue2 = true
+  localValue4 = localValue4()
+  localValue5 = workingValue81
+  localValue6 = localValue2
+  localValue7 = localValue3
+  localValue5(localValue6, localValue7)
+  localValue5 = workingValue82
+  localValue6 = localValue1
+  localValue7 = localValue2
+  localValue8 = localValue3
+  localValue5 = localValue5(localValue6, localValue7, localValue8)
+  localValue6 = workingValue64
+  localValue7 = localValue5
+  localValue8 = "clip@fagsfall_gen"
+  workingValue93 = "fags_fall_gen"
+  workingValue103 = false
+  localValue6(localValue7, localValue8, workingValue93, workingValue103)
+  localValue6 = Citizen
+  localValue6 = localValue6.Wait
+  localValue7 = 1000
+  localValue6(localValue7)
+  localValue6 = workingValue85
+  localValue7 = localValue2
+  localValue6(localValue7)
+  localValue6 = GetPedBoneIndex
+  localValue7 = localValue4
+  localValue8 = 28422
+  localValue6 = localValue6(localValue7, localValue8)
+  localValue7 = workingValue65
+  localValue8 = localValue5
+  workingValue93 = "clip@fagsfall_gen"
+  workingValue103 = "fags_fall_gen"
+  localValue7(localValue8, workingValue93, workingValue103)
+  localValue7 = AttachEntityToEntity
+  localValue8 = localValue5
+  workingValue93 = localValue4
+  workingValue103 = localValue6
+  workingValue2 = 0.0
+  workingValue6 = 0.0
+  number = 0.0
+  number2 = 0.0
+  number3 = 0.0
+  number5 = 130.0
+  number7 = true
+  stateFlag = true
+  stateFlag2 = false
+  stateFlag3 = false
+  dataCollection3 = 2
+  text2 = true
   -- Beginner: Attach one entity to another entity.
-  arg7(arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2)
-  arg7 = ClearPedTasks
-  arg8 = arg4
-  arg7(arg8)
-  arg7 = workValue19
-  arg8 = "mp_common_miss"
-  workValue93 = "put_away_coke"
-  arg7(arg8, workValue93)
-  arg7 = Citizen
-  arg7 = arg7.Wait
-  arg8 = 700
-  arg7(arg8)
-  arg7 = ClearPedTasks
-  arg8 = arg4
-  arg7(arg8)
-  arg7 = SetEntityAsMissionEntity
-  arg8 = arg5
-  workValue93 = true
-  workValue103 = true
-  arg7(arg8, workValue93, workValue103)
-  arg7 = DeleteEntity
-  arg8 = arg5
+  localValue7(localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5, number7, stateFlag, stateFlag2, stateFlag3, dataCollection3, text2)
+  localValue7 = ClearPedTasks
+  localValue8 = localValue4
+  localValue7(localValue8)
+  localValue7 = workingValue19
+  localValue8 = "mp_common_miss"
+  workingValue93 = "put_away_coke"
+  localValue7(localValue8, workingValue93)
+  localValue7 = Citizen
+  localValue7 = localValue7.Wait
+  localValue8 = 700
+  localValue7(localValue8)
+  localValue7 = ClearPedTasks
+  localValue8 = localValue4
+  localValue7(localValue8)
+  localValue7 = SetEntityAsMissionEntity
+  localValue8 = localValue5
+  workingValue93 = true
+  workingValue103 = true
+  localValue7(localValue8, workingValue93, workingValue103)
+  localValue7 = DeleteEntity
+  localValue8 = localValue5
   -- Beginner: Delete a GTA entity.
-  arg7(arg8)
-  arg7 = workValue54
-  arg8 = arg1
-  workValue93 = arg2
-  arg7 = arg7(arg8, workValue93)
-  arg8 = arg7 or arg8
-  if arg7 then
-    arg8 = arg7[arg3]
+  localValue7(localValue8)
+  localValue7 = workingValue54
+  localValue8 = localValue1
+  workingValue93 = localValue2
+  localValue7 = localValue7(localValue8, workingValue93)
+  localValue8 = localValue7 or localValue8
+  if localValue7 then
+    localValue8 = localValue7[localValue3]
   end
-  if arg8 then
-    workValue93 = TriggerEvent
-    workValue103 = "c82f62b8de"
-    workValue2 = arg8
+  if localValue8 then
+    workingValue93 = TriggerEvent
+    workingValue103 = "c82f62b8de"
+    workingValue2 = localValue8
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c82f62b8de".
-    workValue93(workValue103, workValue2)
+    workingValue93(workingValue103, workingValue2)
   end
 end
-eventRegistration = RegisterNetEvent
-textValue8 = "60eadad9f8"
+eventHandler = RegisterNetEvent
+text8 = "60eadad9f8"
 -- Beginner: this function handles network event "60eadad9f8".
 
--- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue87(arg1, arg2, arg3, arg4, arg5)
-  local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5
-  arg6 = GetClosestObjectOfType
-  arg7 = arg1.x
-  arg8 = arg1.y
-  workValue93 = arg1.z
-  workValue103 = 3.0
-  workValue2 = arg2
-  workValue6 = false
-  numberValue = false
-  numberValue2 = false
+-- === HELPER FUNCTION (decompiler name: workingValue87; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue87(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5
+  localValue6 = GetClosestObjectOfType
+  localValue7 = localValue1.x
+  localValue8 = localValue1.y
+  workingValue93 = localValue1.z
+  workingValue103 = 3.0
+  workingValue2 = localValue2
+  workingValue6 = false
+  number = false
+  number2 = false
   -- Beginner: result below is objectEntity.
-  arg6 = arg6(arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2)
-  arg7 = DoesEntityExist
-  arg8 = arg6
-  arg7 = arg7(arg8)
-  if arg7 then
-    arg7 = RequestAnimDict
-    arg8 = arg3
-    arg7(arg8)
+  localValue6 = localValue6(localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2)
+  localValue7 = DoesEntityExist
+  localValue8 = localValue6
+  localValue7 = localValue7(localValue8)
+  if localValue7 then
+    localValue7 = RequestAnimDict
+    localValue8 = localValue3
+    localValue7(localValue8)
     while true do
-      arg7 = HasAnimDictLoaded
-      arg8 = arg3
-      arg7 = arg7(arg8)
-      if arg7 then
+      localValue7 = HasAnimDictLoaded
+      localValue8 = localValue3
+      localValue7 = localValue7(localValue8)
+      if localValue7 then
         break
       end
-      arg7 = Citizen
-      arg7 = arg7.Wait
-      arg8 = 0
-      arg7(arg8)
+      localValue7 = Citizen
+      localValue7 = localValue7.Wait
+      localValue8 = 0
+      localValue7(localValue8)
     end
-    arg7 = PlayEntityAnim
-    arg8 = arg6
-    workValue93 = arg4
-    workValue103 = arg3
-    workValue2 = 8.0
-    workValue6 = arg5 or workValue6
-    if not arg5 then
-      workValue6 = false
+    localValue7 = PlayEntityAnim
+    localValue8 = localValue6
+    workingValue93 = localValue4
+    workingValue103 = localValue3
+    workingValue2 = 8.0
+    workingValue6 = localValue5 or workingValue6
+    if not localValue5 then
+      workingValue6 = false
     end
-    numberValue = true
-    numberValue2 = false
-    numberValue3 = 0.0
-    numberValue5 = 0
-    arg7(arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5)
-    arg7 = RemoveAnimDict
-    arg8 = arg3
-    arg7(arg8)
+    number = true
+    number2 = false
+    number3 = 0.0
+    number5 = 0
+    localValue7(localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number, number2, number3, number5)
+    localValue7 = RemoveAnimDict
+    localValue8 = localValue3
+    localValue7(localValue8)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "60eadad9f8".
-eventRegistration(textValue8, workValue87)
-eventRegistration = RegisterNetEvent
-textValue8 = "4e2aeb078b"
+eventHandler(text8, workingValue87)
+eventHandler = RegisterNetEvent
+text8 = "4e2aeb078b"
 -- Beginner: this function handles network event "4e2aeb078b".
 
--- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2, arg3, arg4) ===
-function workValue87(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
-  arg5 = GetClosestObjectOfType
-  arg6 = arg1.x
-  arg7 = arg1.y
-  arg8 = arg1.z
-  workValue93 = 3.0
-  workValue103 = arg2
-  workValue2 = false
-  workValue6 = false
-  numberValue = false
+-- === HELPER FUNCTION (decompiler name: workingValue87; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function workingValue87(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number
+  localValue5 = GetClosestObjectOfType
+  localValue6 = localValue1.x
+  localValue7 = localValue1.y
+  localValue8 = localValue1.z
+  workingValue93 = 3.0
+  workingValue103 = localValue2
+  workingValue2 = false
+  workingValue6 = false
+  number = false
   -- Beginner: result below is objectEntity.
-  arg5 = arg5(arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue)
-  arg6 = DoesEntityExist
-  arg7 = arg5
-  arg6 = arg6(arg7)
-  if arg6 then
-    arg6 = StopEntityAnim
-    arg7 = arg5
-    arg8 = arg4
-    workValue93 = arg3
-    workValue103 = 0.0
-    arg6(arg7, arg8, workValue93, workValue103)
+  localValue5 = localValue5(localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number)
+  localValue6 = DoesEntityExist
+  localValue7 = localValue5
+  localValue6 = localValue6(localValue7)
+  if localValue6 then
+    localValue6 = StopEntityAnim
+    localValue7 = localValue5
+    localValue8 = localValue4
+    workingValue93 = localValue3
+    workingValue103 = 0.0
+    localValue6(localValue7, localValue8, workingValue93, workingValue103)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4e2aeb078b".
-eventRegistration(textValue8, workValue87)
-eventRegistration = RegisterNetEvent
-textValue8 = "1bb98aff8b"
+eventHandler(text8, workingValue87)
+eventHandler = RegisterNetEvent
+text8 = "1bb98aff8b"
 -- Beginner: this function handles network event "1bb98aff8b".
 
--- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1) ===
-function workValue87(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
-  arg2 = GetClosestObjectOfType
-  arg3 = arg1.x
-  arg4 = arg1.y
-  arg5 = arg1.z
-  arg6 = 5.0
-  arg7 = GetHashKey
-  arg8 = "mxc_vend_prop_snak_door"
+-- === HELPER FUNCTION (decompiler name: workingValue87; parameters: localValue1) ===
+function workingValue87(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103
+  localValue2 = GetClosestObjectOfType
+  localValue3 = localValue1.x
+  localValue4 = localValue1.y
+  localValue5 = localValue1.z
+  localValue6 = 5.0
+  localValue7 = GetHashKey
+  localValue8 = "mxc_vend_prop_snak_door"
   -- Beginner: result below is hash.
-  arg7 = arg7(arg8)
-  arg8 = false
-  workValue93 = false
-  workValue103 = false
+  localValue7 = localValue7(localValue8)
+  localValue8 = false
+  workingValue93 = false
+  workingValue103 = false
   -- Beginner: result below is objectEntity.
-  arg2 = arg2(arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103)
-  arg3 = DoesEntityExist
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if not arg3 then
-    arg3 = print
-    arg4 = "Failed to find snack door for opening animation."
-    arg3(arg4)
+  localValue2 = localValue2(localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103)
+  localValue3 = DoesEntityExist
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
+    localValue3 = print
+    localValue4 = "Failed to find snack door for opening animation."
+    localValue3(localValue4)
     return
   end
-  arg3 = GetEntityRotation
-  arg4 = arg2
-  arg5 = 1
-  arg3 = arg3(arg4, arg5)
-  arg4 = workValue24
-  arg5 = arg2
-  arg6 = vec3
-  arg7 = 30.0
-  arg8 = 0.0
-  workValue93 = 0.0
-  arg6 = arg6(arg7, arg8, workValue93)
-  arg6 = arg3 + arg6
-  arg7 = 200
-  arg8 = 1
-  workValue93 = "easeInOut"
-  arg4(arg5, arg6, arg7, arg8, workValue93)
-  arg4 = Citizen
-  arg4 = arg4.Wait
-  arg5 = 200
-  arg4(arg5)
-  arg4 = workValue24
-  arg5 = arg2
-  arg6 = arg3
-  arg7 = 200
-  arg8 = 1
-  workValue93 = "easeInOut"
-  arg4(arg5, arg6, arg7, arg8, workValue93)
+  localValue3 = GetEntityRotation
+  localValue4 = localValue2
+  localValue5 = 1
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = workingValue24
+  localValue5 = localValue2
+  localValue6 = vec3
+  localValue7 = 30.0
+  localValue8 = 0.0
+  workingValue93 = 0.0
+  localValue6 = localValue6(localValue7, localValue8, workingValue93)
+  localValue6 = localValue3 + localValue6
+  localValue7 = 200
+  localValue8 = 1
+  workingValue93 = "easeInOut"
+  localValue4(localValue5, localValue6, localValue7, localValue8, workingValue93)
+  localValue4 = Citizen
+  localValue4 = localValue4.Wait
+  localValue5 = 200
+  localValue4(localValue5)
+  localValue4 = workingValue24
+  localValue5 = localValue2
+  localValue6 = localValue3
+  localValue7 = 200
+  localValue8 = 1
+  workingValue93 = "easeInOut"
+  localValue4(localValue5, localValue6, localValue7, localValue8, workingValue93)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1bb98aff8b".
-eventRegistration(textValue8, workValue87)
-eventRegistration = RegisterNetEvent
-textValue8 = "32e4f00ebc"
+eventHandler(text8, workingValue87)
+eventHandler = RegisterNetEvent
+text8 = "32e4f00ebc"
 -- Beginner: this function handles network event "32e4f00ebc".
 
--- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2) ===
-function workValue87(arg1, arg2)
-  local arg3
-  arg3 = numberValue11
-  arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue87; parameters: localValue1, localValue2) ===
+function workingValue87(localValue1, localValue2)
+  local localValue3
+  localValue3 = number11
+  localValue3[localValue1] = localValue2
 end
-eventRegistration(textValue8, workValue87)
+eventHandler(text8, workingValue87)
 -- Beginner: this function handles network event "32e4f00ebc".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2, arg3, arg4) ===
-function eventRegistration(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
-  arg5 = workValue27
-  arg6 = arg3
-  arg7 = "obj"
-  arg8 = arg1
-  arg5(arg6, arg7, arg8)
-  arg5 = workValue27
-  arg6 = arg3
-  arg7 = "vendingName"
-  arg8 = arg2
-  arg5(arg6, arg7, arg8)
-  arg5 = threadCall2.Vendings
-  arg5 = arg5[arg2]
-  arg5 = arg5.interaction
-  arg5 = arg5.vanilla
-  arg5 = arg5.distance
-  if not arg5 then
-    arg5 = threadCall2.DefaultInteractionDistance
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function eventHandler(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, workingValue93, workingValue103, workingValue2, workingValue6, number
+  localValue5 = workingValue27
+  localValue6 = localValue3
+  localValue7 = "obj"
+  localValue8 = localValue1
+  localValue5(localValue6, localValue7, localValue8)
+  localValue5 = workingValue27
+  localValue6 = localValue3
+  localValue7 = "vendingName"
+  localValue8 = localValue2
+  localValue5(localValue6, localValue7, localValue8)
+  localValue5 = backgroundThread2.Vendings
+  localValue5 = localValue5[localValue2]
+  localValue5 = localValue5.interaction
+  localValue5 = localValue5.vanilla
+  localValue5 = localValue5.distance
+  if not localValue5 then
+    localValue5 = backgroundThread2.DefaultInteractionDistance
   end
-  arg6 = workValue38
-  arg7 = arg1
-  arg6 = arg6(arg7)
-  arg7 = GetOffsetFromEntityInWorldCoords
-  arg8 = arg1
-  workValue93 = 0.0
-  workValue103 = arg6.y
-  workValue103 = -workValue103
-  workValue2 = 0.0
-  arg7 = arg7(arg8, workValue93, workValue103, workValue2)
-  arg8 = workValue35
-  workValue93 = "vending:"
-  workValue103 = arg3
-  workValue93 = workValue93 .. workValue103
-  workValue103 = arg7
-  workValue2 = 0.0
-  workValue6 = arg5
-  numberValue = {}
-  numberValue.notify = arg4
-  numberValue.slice = "ignore"
-  arg8(workValue93, workValue103, workValue2, workValue6, numberValue)
+  localValue6 = workingValue38
+  localValue7 = localValue1
+  localValue6 = localValue6(localValue7)
+  localValue7 = GetOffsetFromEntityInWorldCoords
+  localValue8 = localValue1
+  workingValue93 = 0.0
+  workingValue103 = localValue6.y
+  workingValue103 = -workingValue103
+  workingValue2 = 0.0
+  localValue7 = localValue7(localValue8, workingValue93, workingValue103, workingValue2)
+  localValue8 = workingValue35
+  workingValue93 = "vending:"
+  workingValue103 = localValue3
+  workingValue93 = workingValue93 .. workingValue103
+  workingValue103 = localValue7
+  workingValue2 = 0.0
+  workingValue6 = localValue5
+  number = {}
+  number.notify = localValue4
+  number.slice = "ignore"
+  localValue8(workingValue93, workingValue103, workingValue2, workingValue6, number)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1) ===
-function textValue8(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = workValue27
-  arg3 = arg1
-  arg4 = "obj"
-  arg5 = nil
-  arg2(arg3, arg4, arg5)
-  arg2 = workValue27
-  arg3 = arg1
-  arg4 = "vendingName"
-  arg5 = nil
-  arg2(arg3, arg4, arg5)
-  arg2 = workValue37
-  arg3 = "vending:"
-  arg4 = arg1
-  arg3 = arg3 .. arg4
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: text8; parameters: localValue1) ===
+function text8(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = workingValue27
+  localValue3 = localValue1
+  localValue4 = "obj"
+  localValue5 = nil
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = workingValue27
+  localValue3 = localValue1
+  localValue4 = "vendingName"
+  localValue5 = nil
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = workingValue37
+  localValue3 = "vending:"
+  localValue4 = localValue1
+  localValue3 = localValue3 .. localValue4
+  localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2, arg3) ===
-function workValue87(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = LocalPlayer
-  arg4 = arg4.state
-  arg4 = arg4.interactingVending
-  if arg4 then
+-- === HELPER FUNCTION (decompiler name: workingValue87; parameters: localValue1, localValue2, localValue3) ===
+function workingValue87(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = LocalPlayer
+  localValue4 = localValue4.state
+  localValue4 = localValue4.interactingVending
+  if localValue4 then
     return
   end
-  arg4 = workValue26
-  arg4()
-  arg4 = numberValue11
-  arg4 = arg4[arg3]
-  if arg4 then
-    arg4 = workValue23
-    arg5 = threadCall2.Translations
-    arg5 = arg5.already_used
-    if not arg5 then
-      arg5 = "~r~In use.~w~"
+  localValue4 = workingValue26
+  localValue4()
+  localValue4 = number11
+  localValue4 = localValue4[localValue3]
+  if localValue4 then
+    localValue4 = workingValue23
+    localValue5 = backgroundThread2.Translations
+    localValue5 = localValue5.already_used
+    if not localValue5 then
+      localValue5 = "~r~In use.~w~"
     end
-    arg6 = 2000
-    arg4(arg5, arg6)
+    localValue6 = 2000
+    localValue4(localValue5, localValue6)
     return
   end
-  arg4 = workValue36
-  arg5 = "vending:"
-  arg6 = arg3
-  arg5 = arg5 .. arg6
-  arg6 = 0.0
-  arg4(arg5, arg6)
-  arg4 = workValue26
-  arg4()
-  arg4 = TriggerServerEvent
-  arg5 = "32e4f00ebc"
-  arg6 = arg3
-  arg7 = true
+  localValue4 = workingValue36
+  localValue5 = "vending:"
+  localValue6 = localValue3
+  localValue5 = localValue5 .. localValue6
+  localValue6 = 0.0
+  localValue4(localValue5, localValue6)
+  localValue4 = workingValue26
+  localValue4()
+  localValue4 = TriggerServerEvent
+  localValue5 = "32e4f00ebc"
+  localValue6 = localValue3
+  localValue7 = true
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-  arg4(arg5, arg6, arg7)
-  arg4 = LocalPlayer
-  arg4 = arg4.state
-  arg4.interactingVending = true
-  arg4 = threadCall2.Vendings
-  arg4 = arg4[arg2]
-  arg5 = arg4
-  arg4 = arg4.OnInteraction
-  arg6 = arg1
-  arg7 = arg3
-  arg4(arg5, arg6, arg7)
-  arg4 = threadCall2.Vendings
-  arg4 = arg4[arg2]
-  arg4 = arg4.interaction
-  arg4 = arg4.vanilla
-  arg4 = arg4.distance
-  if not arg4 then
-    arg4 = threadCall2.DefaultInteractionDistance
+  localValue4(localValue5, localValue6, localValue7)
+  localValue4 = LocalPlayer
+  localValue4 = localValue4.state
+  localValue4.interactingVending = true
+  localValue4 = backgroundThread2.Vendings
+  localValue4 = localValue4[localValue2]
+  localValue5 = localValue4
+  localValue4 = localValue4.OnInteraction
+  localValue6 = localValue1
+  localValue7 = localValue3
+  localValue4(localValue5, localValue6, localValue7)
+  localValue4 = backgroundThread2.Vendings
+  localValue4 = localValue4[localValue2]
+  localValue4 = localValue4.interaction
+  localValue4 = localValue4.vanilla
+  localValue4 = localValue4.distance
+  if not localValue4 then
+    localValue4 = backgroundThread2.DefaultInteractionDistance
   end
-  arg5 = workValue36
-  arg6 = "vending:"
-  arg7 = arg3
-  arg6 = arg6 .. arg7
-  arg7 = arg4
-  arg5(arg6, arg7)
-  arg5 = LocalPlayer
-  arg5 = arg5.state
-  arg5.interactingVending = false
+  localValue5 = workingValue36
+  localValue6 = "vending:"
+  localValue7 = localValue3
+  localValue6 = localValue6 .. localValue7
+  localValue7 = localValue4
+  localValue5(localValue6, localValue7)
+  localValue5 = LocalPlayer
+  localValue5 = localValue5.state
+  localValue5.interactingVending = false
 end
 iterator3 = pairs
-workValue88 = vendingConfig.vendings
-iterator3, workValue88, workValue89, workValue90 = iterator3(workValue88)
-for workValue91, workValue96 in iterator3, workValue88, workValue89, workValue90 do
-  iterator4 = threadCall2.Vendings
-  dataTable8 = {}
-  iterator4[workValue91] = dataTable8
+workingValue88 = vendingConfig.vendings
+iterator3, workingValue88, workingValue89, workingValue90 = iterator3(workingValue88)
+for workingValue91, workingValue96 in iterator3, workingValue88, workingValue89, workingValue90 do
+  iterator4 = backgroundThread2.Vendings
+  dataCollection8 = {}
+  iterator4[workingValue91] = dataCollection8
   iterator4 = pairs
-  dataTable8 = workValue96
-  iterator4, dataTable8, workValue97, workValue98 = iterator4(dataTable8)
-  for workValue99, workValue100 in iterator4, dataTable8, workValue97, workValue98 do
-    workValue101 = threadCall2.Vendings
-    workValue101 = workValue101[workValue91]
-    workValue101[workValue99] = workValue100
+  dataCollection8 = workingValue96
+  iterator4, dataCollection8, workingValue97, workingValue98 = iterator4(dataCollection8)
+  for workingValue99, workingValue100 in iterator4, dataCollection8, workingValue97, workingValue98 do
+    workingValue101 = backgroundThread2.Vendings
+    workingValue101 = workingValue101[workingValue91]
+    workingValue101[workingValue99] = workingValue100
   end
 end
-iterator3 = threadCall2.Vendings
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.snack
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6
-  arg4 = dataTable7
-  arg5 = arg1
-  arg6 = arg2
-  arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6
+  localValue4 = dataCollection7
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
 end
-iterator3.Near = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.Near = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.snack
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6
-  arg4 = workValue74
-  arg5 = arg1
-  arg6 = arg2
-  arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6
+  localValue4 = workingValue74
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
 end
-iterator3.Far = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.Far = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.snack
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93
-  arg4 = workValue71
-  arg5 = arg1
-  arg6 = arg2
-  arg4 = arg4(arg5, arg6)
-  if arg4 and "" ~= arg4 then
-    arg5 = threadCall2.Functions
-    arg5 = arg5.TryToBuy
-    arg6 = arg1
-    arg7 = arg4
-    arg8 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93
+  localValue4 = workingValue71
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 and "" ~= localValue4 then
+    localValue5 = backgroundThread2.Functions
+    localValue5 = localValue5.TryToBuy
+    localValue6 = localValue1
+    localValue7 = localValue4
+    localValue8 = localValue3
 
-    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
-    function workValue93()
-      local arg12, arg22, arg32, arg42
-      arg12 = workValue75
-      arg22 = arg1
-      arg32 = arg2
-      arg42 = arg4
-      arg12(arg22, arg32, arg42)
+    -- === HELPER FUNCTION (decompiler name: workingValue93; parameters: none) ===
+    function workingValue93()
+      local localValue12, localValue22, localValue32, localValue42
+      localValue12 = workingValue75
+      localValue22 = localValue1
+      localValue32 = localValue2
+      localValue42 = localValue4
+      localValue12(localValue22, localValue32, localValue42)
     end
-    arg5(arg6, arg7, arg8, workValue93)
+    localValue5(localValue6, localValue7, localValue8, workingValue93)
   else
-    arg5 = TriggerServerEvent
-    arg6 = "32e4f00ebc"
-    arg7 = arg3
-    arg8 = false
+    localValue5 = TriggerServerEvent
+    localValue6 = "32e4f00ebc"
+    localValue7 = localValue3
+    localValue8 = false
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-    arg5(arg6, arg7, arg8)
+    localValue5(localValue6, localValue7, localValue8)
   end
 end
-iterator3.OnInteraction = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.OnInteraction = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.soda
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = workValue76
-  arg5 = arg1
-  arg6 = arg2
-  arg7 = arg1.sodaArm
-  if not arg7 then
-    arg7 = "mxc_vend_prop_soda_shelf"
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = workingValue76
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue7 = localValue1.sodaArm
+  if not localValue7 then
+    localValue7 = "mxc_vend_prop_soda_shelf"
   end
-  arg4(arg5, arg6, arg7)
+  localValue4(localValue5, localValue6, localValue7)
 end
-iterator3.Near = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.Near = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.soda
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6
-  arg4 = workValue77
-  arg5 = arg1
-  arg6 = arg2
-  arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6
+  localValue4 = workingValue77
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
 end
-iterator3.Far = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.Far = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.soda
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93
-  arg4 = workValue71
-  arg5 = arg1
-  arg6 = arg2
-  arg4 = arg4(arg5, arg6)
-  if arg4 and "" ~= arg4 then
-    arg5 = threadCall2.Functions
-    arg5 = arg5.TryToBuy
-    arg6 = arg1
-    arg7 = arg4
-    arg8 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93
+  localValue4 = workingValue71
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 and "" ~= localValue4 then
+    localValue5 = backgroundThread2.Functions
+    localValue5 = localValue5.TryToBuy
+    localValue6 = localValue1
+    localValue7 = localValue4
+    localValue8 = localValue3
 
-    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
-    function workValue93()
-      local arg12, arg22, arg32, arg42
-      arg12 = workValue78
-      arg22 = arg1
-      arg32 = arg2
-      arg42 = arg4
-      arg12(arg22, arg32, arg42)
+    -- === HELPER FUNCTION (decompiler name: workingValue93; parameters: none) ===
+    function workingValue93()
+      local localValue12, localValue22, localValue32, localValue42
+      localValue12 = workingValue78
+      localValue22 = localValue1
+      localValue32 = localValue2
+      localValue42 = localValue4
+      localValue12(localValue22, localValue32, localValue42)
     end
-    arg5(arg6, arg7, arg8, workValue93)
+    localValue5(localValue6, localValue7, localValue8, workingValue93)
   else
-    arg5 = TriggerServerEvent
-    arg6 = "32e4f00ebc"
-    arg7 = arg3
-    arg8 = false
+    localValue5 = TriggerServerEvent
+    localValue6 = "32e4f00ebc"
+    localValue7 = localValue3
+    localValue8 = false
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-    arg5(arg6, arg7, arg8)
+    localValue5(localValue6, localValue7, localValue8)
   end
 end
-iterator3.OnInteraction = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.OnInteraction = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.soda_2
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = workValue76
-  arg5 = arg1
-  arg6 = arg2
-  arg7 = arg1.sodaArm
-  if not arg7 then
-    arg7 = "mxc_vend_prop_soda_shelf2"
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = workingValue76
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue7 = localValue1.sodaArm
+  if not localValue7 then
+    localValue7 = "mxc_vend_prop_soda_shelf2"
   end
-  arg4(arg5, arg6, arg7)
+  localValue4(localValue5, localValue6, localValue7)
 end
-iterator3.Near = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.Near = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.soda_2
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6
-  arg4 = workValue77
-  arg5 = arg1
-  arg6 = arg2
-  arg4(arg5, arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6
+  localValue4 = workingValue77
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4(localValue5, localValue6)
 end
-iterator3.Far = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.Far = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.soda_2
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93
-  arg4 = workValue71
-  arg5 = arg1
-  arg6 = arg2
-  arg4 = arg4(arg5, arg6)
-  if arg4 and "" ~= arg4 then
-    arg5 = threadCall2.Functions
-    arg5 = arg5.TryToBuy
-    arg6 = arg1
-    arg7 = arg4
-    arg8 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93
+  localValue4 = workingValue71
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 and "" ~= localValue4 then
+    localValue5 = backgroundThread2.Functions
+    localValue5 = localValue5.TryToBuy
+    localValue6 = localValue1
+    localValue7 = localValue4
+    localValue8 = localValue3
 
-    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
-    function workValue93()
-      local arg12, arg22, arg32, arg42
-      arg12 = workValue78
-      arg22 = arg1
-      arg32 = arg2
-      arg42 = arg4
-      arg12(arg22, arg32, arg42)
+    -- === HELPER FUNCTION (decompiler name: workingValue93; parameters: none) ===
+    function workingValue93()
+      local localValue12, localValue22, localValue32, localValue42
+      localValue12 = workingValue78
+      localValue22 = localValue1
+      localValue32 = localValue2
+      localValue42 = localValue4
+      localValue12(localValue22, localValue32, localValue42)
     end
-    arg5(arg6, arg7, arg8, workValue93)
+    localValue5(localValue6, localValue7, localValue8, workingValue93)
   else
-    arg5 = TriggerServerEvent
-    arg6 = "32e4f00ebc"
-    arg7 = arg3
-    arg8 = false
+    localValue5 = TriggerServerEvent
+    localValue6 = "32e4f00ebc"
+    localValue7 = localValue3
+    localValue8 = false
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-    arg5(arg6, arg7, arg8)
+    localValue5(localValue6, localValue7, localValue8)
   end
 end
-iterator3.OnInteraction = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.OnInteraction = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.coffee
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8
-  arg4 = threadCall2.Functions
-  arg4 = arg4.TryToBuy
-  arg5 = arg1
-  arg6 = arg1.item
-  arg7 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue4 = backgroundThread2.Functions
+  localValue4 = localValue4.TryToBuy
+  localValue5 = localValue1
+  localValue6 = localValue1.item
+  localValue7 = localValue3
 
-  -- === HELPER FUNCTION: arg8() ===
-  function arg8()
-    local arg12, arg22, arg32, arg42
-    arg12 = workValue79
-    arg22 = arg1
-    arg32 = arg2
-    arg42 = true
-    arg12(arg22, arg32, arg42)
+  -- === HELPER FUNCTION: localValue8() ===
+  function localValue8()
+    local localValue12, localValue22, localValue32, localValue42
+    localValue12 = workingValue79
+    localValue22 = localValue1
+    localValue32 = localValue2
+    localValue42 = true
+    localValue12(localValue22, localValue32, localValue42)
   end
-  arg4(arg5, arg6, arg7, arg8)
+  localValue4(localValue5, localValue6, localValue7, localValue8)
 end
-iterator3.OnInteraction = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.OnInteraction = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.water
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8
-  arg4 = threadCall2.Functions
-  arg4 = arg4.TryToBuy
-  arg5 = arg1
-  arg6 = arg1.item
-  arg7 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue4 = backgroundThread2.Functions
+  localValue4 = localValue4.TryToBuy
+  localValue5 = localValue1
+  localValue6 = localValue1.item
+  localValue7 = localValue3
 
-  -- === HELPER FUNCTION: arg8() ===
-  function arg8()
-    local arg12, arg22, arg32
-    arg12 = workValue80
-    arg22 = arg1
-    arg32 = arg2
-    arg12(arg22, arg32)
+  -- === HELPER FUNCTION: localValue8() ===
+  function localValue8()
+    local localValue12, localValue22, localValue32
+    localValue12 = workingValue80
+    localValue22 = localValue1
+    localValue32 = localValue2
+    localValue12(localValue22, localValue32)
   end
-  arg4(arg5, arg6, arg7, arg8)
+  localValue4(localValue5, localValue6, localValue7, localValue8)
 end
-iterator3.OnInteraction = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.OnInteraction = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.cigarettes
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
-function workValue88(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93
-  arg4 = workValue71
-  arg5 = arg1
-  arg6 = arg2
-  arg4 = arg4(arg5, arg6)
-  if arg4 and "" ~= arg4 then
-    arg5 = threadCall2.Functions
-    arg5 = arg5.TryToBuy
-    arg6 = arg1
-    arg7 = arg4
-    arg8 = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: localValue1, localValue2, localValue3) ===
+function workingValue88(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, workingValue93
+  localValue4 = workingValue71
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue4 = localValue4(localValue5, localValue6)
+  if localValue4 and "" ~= localValue4 then
+    localValue5 = backgroundThread2.Functions
+    localValue5 = localValue5.TryToBuy
+    localValue6 = localValue1
+    localValue7 = localValue4
+    localValue8 = localValue3
 
-    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
-    function workValue93()
-      local arg12, arg22, arg32, arg42
-      arg12 = workValue86
-      arg22 = arg1
-      arg32 = arg2
-      arg42 = arg4
-      arg12(arg22, arg32, arg42)
+    -- === HELPER FUNCTION (decompiler name: workingValue93; parameters: none) ===
+    function workingValue93()
+      local localValue12, localValue22, localValue32, localValue42
+      localValue12 = workingValue86
+      localValue22 = localValue1
+      localValue32 = localValue2
+      localValue42 = localValue4
+      localValue12(localValue22, localValue32, localValue42)
     end
-    arg5(arg6, arg7, arg8, workValue93)
+    localValue5(localValue6, localValue7, localValue8, workingValue93)
   else
-    arg5 = TriggerServerEvent
-    arg6 = "32e4f00ebc"
-    arg7 = arg3
-    arg8 = false
+    localValue5 = TriggerServerEvent
+    localValue6 = "32e4f00ebc"
+    localValue7 = localValue3
+    localValue8 = false
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "32e4f00ebc".
-    arg5(arg6, arg7, arg8)
+    localValue5(localValue6, localValue7, localValue8)
   end
 end
-iterator3.OnInteraction = workValue88
-iterator3 = threadCall2.Vendings
+iterator3.OnInteraction = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.svapo
-workValue88 = threadCall2.Vendings
-workValue88 = workValue88.snack
-workValue88 = workValue88.Near
-iterator3.Near = workValue88
-iterator3 = threadCall2.Vendings
+workingValue88 = backgroundThread2.Vendings
+workingValue88 = workingValue88.snack
+workingValue88 = workingValue88.Near
+iterator3.Near = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.svapo
-workValue88 = threadCall2.Vendings
-workValue88 = workValue88.snack
-workValue88 = workValue88.Far
-iterator3.Far = workValue88
-iterator3 = threadCall2.Vendings
+workingValue88 = backgroundThread2.Vendings
+workingValue88 = workingValue88.snack
+workingValue88 = workingValue88.Far
+iterator3.Far = workingValue88
+iterator3 = backgroundThread2.Vendings
 iterator3 = iterator3.svapo
-workValue88 = threadCall2.Vendings
-workValue88 = workValue88.snack
-workValue88 = workValue88.OnInteraction
-iterator3.OnInteraction = workValue88
-iterator3 = workValue52
+workingValue88 = backgroundThread2.Vendings
+workingValue88 = workingValue88.snack
+workingValue88 = workingValue88.OnInteraction
+iterator3.OnInteraction = workingValue88
+iterator3 = workingValue52
 iterator3()
-iterator3 = workValue53
+iterator3 = workingValue53
 iterator3()
 iterator3 = LocalPlayer
 iterator3 = iterator3.state
 iterator3.interactingVending = false
-iterator3 = workValue43
-workValue88 = "marker"
+iterator3 = workingValue43
+workingValue88 = "marker"
 
--- === HELPER FUNCTION (decompiler name: workValue89; parameters: arg1) ===
-function workValue89(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg3 = arg1
-  arg2 = arg1.find
-  arg4 = "vending"
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg3 = arg1
-    arg2 = arg1.match
-    arg4 = "vending:(.+)"
-    arg2 = arg2(arg3, arg4)
-    arg3 = workValue29
-    arg4 = arg2
-    arg5 = "obj"
-    arg3 = arg3(arg4, arg5)
-    arg4 = workValue29
-    arg5 = arg2
-    arg6 = "vendingName"
-    arg4 = arg4(arg5, arg6)
-    if arg3 and arg4 then
-      arg5 = workValue87
-      arg6 = arg3
-      arg7 = arg4
-      arg8 = arg2
-      arg5(arg6, arg7, arg8)
+-- === HELPER FUNCTION (decompiler name: workingValue89; parameters: localValue1) ===
+function workingValue89(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue3 = localValue1
+  localValue2 = localValue1.find
+  localValue4 = "vending"
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue3 = localValue1
+    localValue2 = localValue1.match
+    localValue4 = "vending:(.+)"
+    localValue2 = localValue2(localValue3, localValue4)
+    localValue3 = workingValue29
+    localValue4 = localValue2
+    localValue5 = "obj"
+    localValue3 = localValue3(localValue4, localValue5)
+    localValue4 = workingValue29
+    localValue5 = localValue2
+    localValue6 = "vendingName"
+    localValue4 = localValue4(localValue5, localValue6)
+    if localValue3 and localValue4 then
+      localValue5 = workingValue87
+      localValue6 = localValue3
+      localValue7 = localValue4
+      localValue8 = localValue2
+      localValue5(localValue6, localValue7, localValue8)
     end
   end
 end
-iterator3(workValue88, workValue89)
+iterator3(workingValue88, workingValue89)
 iterator3 = Citizen
 iterator3 = iterator3.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue88; parameters: none) ===
-function workValue88()
-  local arg1, arg2, arg3
+-- === HELPER FUNCTION (decompiler name: workingValue88; parameters: none) ===
+function workingValue88()
+  local localValue1, localValue2, localValue3
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerCoords
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg1 = arg1()
-    arg2 = workValue57
+    localValue1 = localValue1()
+    localValue2 = workingValue57
 
-    -- === HELPER FUNCTION: arg3(arg12, arg22, arg32) ===
-    function arg3(arg12, arg22, arg32)
-      local arg42, arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7, workValue9
-      arg42 = GetEntityCoords
-      arg52 = arg32
+    -- === HELPER FUNCTION: localValue3(localValue12, localValue22, localValue32) ===
+    function localValue3(localValue12, localValue22, localValue32)
+      local localValue42, localValue52, workingValue60, number12, number13, workingValue94, workingValue104, workingValue3, workingValue7, workingValue9
+      localValue42 = GetEntityCoords
+      localValue52 = localValue32
       -- Beginner: result below is entityCoords.
-      arg42 = arg42(arg52)
-      arg52 = arg1
-      arg52 = arg42 - arg52
-      arg52 = #arg52
-      workValue60 = workValue55
-      numberValue12 = arg32
-      numberValue13 = arg12
-      workValue60 = workValue60(numberValue12, numberValue13)
-      numberValue12 = Entity
-      numberValue13 = arg32
-      numberValue12 = numberValue12(numberValue13)
-      numberValue12 = numberValue12.state
-      numberValue13 = threadCall2.RenderDistance
-      if arg52 < numberValue13 then
-        numberValue13 = numberValue12.isNear
-        if not numberValue13 then
-          numberValue13 = arg22.interaction
-          if numberValue13 then
-            numberValue13 = eventRegistration
-            workValue94 = arg32
-            workValue104 = arg12
-            workValue3 = workValue60
-            workValue7 = threadCall2.Translations
-            workValue9 = arg22.interaction
-            workValue9 = workValue9.vanilla
-            workValue9 = workValue9.notify
-            workValue7 = workValue7[workValue9]
-            if not workValue7 then
-              workValue7 = "Press E"
+      localValue42 = localValue42(localValue52)
+      localValue52 = localValue1
+      localValue52 = localValue42 - localValue52
+      localValue52 = #localValue52
+      workingValue60 = workingValue55
+      number12 = localValue32
+      number13 = localValue12
+      workingValue60 = workingValue60(number12, number13)
+      number12 = Entity
+      number13 = localValue32
+      number12 = number12(number13)
+      number12 = number12.state
+      number13 = backgroundThread2.RenderDistance
+      if localValue52 < number13 then
+        number13 = number12.isNear
+        if not number13 then
+          number13 = localValue22.interaction
+          if number13 then
+            number13 = eventHandler
+            workingValue94 = localValue32
+            workingValue104 = localValue12
+            workingValue3 = workingValue60
+            workingValue7 = backgroundThread2.Translations
+            workingValue9 = localValue22.interaction
+            workingValue9 = workingValue9.vanilla
+            workingValue9 = workingValue9.notify
+            workingValue7 = workingValue7[workingValue9]
+            if not workingValue7 then
+              workingValue7 = "Press E"
             end
             -- Beginner: Register a network event handler that the server/other clients can trigger.
-            numberValue13(workValue94, workValue104, workValue3, workValue7)
+            number13(workingValue94, workingValue104, workingValue3, workingValue7)
           end
-          numberValue13 = arg22.blip
-          if numberValue13 then
-            numberValue13 = threadCall2.Blips
-            if numberValue13 then
-              numberValue13 = workValue39
-              workValue94 = nil
-              workValue104 = arg42
-              workValue3 = arg22.blip
-              workValue3 = workValue3.sprite
-              workValue7 = arg22.blip
-              workValue7 = workValue7.color
-              workValue9 = arg22.blip
-              workValue9 = workValue9.size
-              numberValue13 = numberValue13(workValue94, workValue104, workValue3, workValue7, workValue9)
-              workValue94 = SetBlipDisplay
-              workValue104 = numberValue13
-              workValue3 = 5
-              workValue94(workValue104, workValue3)
-              workValue104 = numberValue12
-              workValue94 = numberValue12.set
-              workValue3 = "blip"
-              workValue7 = numberValue13
-              workValue9 = false
-              workValue94(workValue104, workValue3, workValue7, workValue9)
+          number13 = localValue22.blip
+          if number13 then
+            number13 = backgroundThread2.Blips
+            if number13 then
+              number13 = workingValue39
+              workingValue94 = nil
+              workingValue104 = localValue42
+              workingValue3 = localValue22.blip
+              workingValue3 = workingValue3.sprite
+              workingValue7 = localValue22.blip
+              workingValue7 = workingValue7.color
+              workingValue9 = localValue22.blip
+              workingValue9 = workingValue9.size
+              number13 = number13(workingValue94, workingValue104, workingValue3, workingValue7, workingValue9)
+              workingValue94 = SetBlipDisplay
+              workingValue104 = number13
+              workingValue3 = 5
+              workingValue94(workingValue104, workingValue3)
+              workingValue104 = number12
+              workingValue94 = number12.set
+              workingValue3 = "blip"
+              workingValue7 = number13
+              workingValue9 = false
+              workingValue94(workingValue104, workingValue3, workingValue7, workingValue9)
             end
           end
-          numberValue13 = arg22.Near
-          if numberValue13 then
-            workValue94 = arg22
-            numberValue13 = arg22.Near
-            workValue104 = arg32
-            workValue3 = workValue60
-            numberValue13(workValue94, workValue104, workValue3)
+          number13 = localValue22.Near
+          if number13 then
+            workingValue94 = localValue22
+            number13 = localValue22.Near
+            workingValue104 = localValue32
+            workingValue3 = workingValue60
+            number13(workingValue94, workingValue104, workingValue3)
           end
-          workValue94 = numberValue12
-          numberValue13 = numberValue12.set
-          workValue104 = "isNear"
-          workValue3 = true
-          workValue7 = false
-          numberValue13(workValue94, workValue104, workValue3, workValue7)
+          workingValue94 = number12
+          number13 = number12.set
+          workingValue104 = "isNear"
+          workingValue3 = true
+          workingValue7 = false
+          number13(workingValue94, workingValue104, workingValue3, workingValue7)
         end
       else
-        numberValue13 = numberValue12.isNear
-        if numberValue13 then
-          numberValue13 = arg22.interaction
-          if numberValue13 then
-            numberValue13 = textValue8
-            workValue94 = workValue60
-            numberValue13(workValue94)
+        number13 = number12.isNear
+        if number13 then
+          number13 = localValue22.interaction
+          if number13 then
+            number13 = text8
+            workingValue94 = workingValue60
+            number13(workingValue94)
           end
-          numberValue13 = arg22.blip
-          if numberValue13 then
-            numberValue13 = threadCall2.Blips
-            if numberValue13 then
-              numberValue13 = numberValue12.blip
-              if numberValue13 then
-                numberValue13 = RemoveBlip
-                workValue94 = numberValue12.blip
-                numberValue13(workValue94)
+          number13 = localValue22.blip
+          if number13 then
+            number13 = backgroundThread2.Blips
+            if number13 then
+              number13 = number12.blip
+              if number13 then
+                number13 = RemoveBlip
+                workingValue94 = number12.blip
+                number13(workingValue94)
               end
-              workValue94 = numberValue12
-              numberValue13 = numberValue12.set
-              workValue104 = "blip"
-              workValue3 = nil
-              workValue7 = false
-              numberValue13(workValue94, workValue104, workValue3, workValue7)
+              workingValue94 = number12
+              number13 = number12.set
+              workingValue104 = "blip"
+              workingValue3 = nil
+              workingValue7 = false
+              number13(workingValue94, workingValue104, workingValue3, workingValue7)
             end
           end
-          numberValue13 = arg22.Far
-          if numberValue13 then
-            workValue94 = arg22
-            numberValue13 = arg22.Far
-            workValue104 = arg32
-            workValue3 = workValue60
-            numberValue13(workValue94, workValue104, workValue3)
+          number13 = localValue22.Far
+          if number13 then
+            workingValue94 = localValue22
+            number13 = localValue22.Far
+            workingValue104 = localValue32
+            workingValue3 = workingValue60
+            number13(workingValue94, workingValue104, workingValue3)
           end
-          workValue94 = numberValue12
-          numberValue13 = numberValue12.set
-          workValue104 = "isNear"
-          workValue3 = nil
-          workValue7 = false
-          numberValue13(workValue94, workValue104, workValue3, workValue7)
+          workingValue94 = number12
+          number13 = number12.set
+          workingValue104 = "isNear"
+          workingValue3 = nil
+          workingValue7 = false
+          number13(workingValue94, workingValue104, workingValue3, workingValue7)
         end
       end
     end
-    arg2(arg3)
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 2000
-    arg2(arg3)
+    localValue2(localValue3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 2000
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-iterator3(workValue88)
+iterator3(workingValue88)
 iterator3 = AddEventHandler
-workValue88 = "onResourceStop"
+workingValue88 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue89; parameters: arg1) ===
-function workValue89(arg1)
-  local arg2, arg3
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg1 == arg2 then
-    arg2 = workValue26
-    arg2()
-    arg2 = workValue57
+-- === HELPER FUNCTION (decompiler name: workingValue89; parameters: localValue1) ===
+function workingValue89(localValue1)
+  local localValue2, localValue3
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue1 == localValue2 then
+    localValue2 = workingValue26
+    localValue2()
+    localValue2 = workingValue57
     -- Beginner: this function runs when client event "onResourceStop" fires.
 
-    -- === HELPER FUNCTION: arg3(arg12, arg22, arg32) ===
-    function arg3(arg12, arg22, arg32)
-      local arg42, arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104
-      arg42 = workValue55
-      arg52 = arg32
-      workValue60 = arg12
-      arg42 = arg42(arg52, workValue60)
-      arg52 = Entity
-      workValue60 = arg32
-      arg52 = arg52(workValue60)
-      arg52 = arg52.state
-      workValue60 = arg52.isNear
-      if workValue60 then
-        workValue60 = arg22.interaction
-        if workValue60 then
-          workValue60 = textValue8
-          numberValue12 = arg42
-          workValue60(numberValue12)
+    -- === HELPER FUNCTION: localValue3(localValue12, localValue22, localValue32) ===
+    function localValue3(localValue12, localValue22, localValue32)
+      local localValue42, localValue52, workingValue60, number12, number13, workingValue94, workingValue104
+      localValue42 = workingValue55
+      localValue52 = localValue32
+      workingValue60 = localValue12
+      localValue42 = localValue42(localValue52, workingValue60)
+      localValue52 = Entity
+      workingValue60 = localValue32
+      localValue52 = localValue52(workingValue60)
+      localValue52 = localValue52.state
+      workingValue60 = localValue52.isNear
+      if workingValue60 then
+        workingValue60 = localValue22.interaction
+        if workingValue60 then
+          workingValue60 = text8
+          number12 = localValue42
+          workingValue60(number12)
         end
-        workValue60 = arg22.Far
-        if workValue60 then
-          numberValue12 = arg22
-          workValue60 = arg22.Far
-          numberValue13 = arg32
-          workValue94 = arg42
-          workValue60(numberValue12, numberValue13, workValue94)
+        workingValue60 = localValue22.Far
+        if workingValue60 then
+          number12 = localValue22
+          workingValue60 = localValue22.Far
+          number13 = localValue32
+          workingValue94 = localValue42
+          workingValue60(number12, number13, workingValue94)
         end
-        numberValue12 = arg52
-        workValue60 = arg52.set
-        numberValue13 = "isNear"
-        workValue94 = nil
-        workValue104 = false
-        workValue60(numberValue12, numberValue13, workValue94, workValue104)
+        number12 = localValue52
+        workingValue60 = localValue52.set
+        number13 = "isNear"
+        workingValue94 = nil
+        workingValue104 = false
+        workingValue60(number12, number13, workingValue94, workingValue104)
       end
     end
-    arg2(arg3)
+    localValue2(localValue3)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-iterator3(workValue88, workValue89)
+iterator3(workingValue88, workingValue89)

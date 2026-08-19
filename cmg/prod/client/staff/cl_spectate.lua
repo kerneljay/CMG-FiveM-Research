@@ -32,1530 +32,1530 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local flag, workValue3, numberValue7, numberValue12, numberValue13, workValue39, vector3Builder, flag6, vector3Builder2, numberValue23, numberValue, numberValue2, dataTable, dataTable2, numberValue4, dataTable3, cmgCall, textValue, eventRegistration, eventRegistration2, textValue2, workValue5, workValue7, workValue9, workValue11, cmgCall2, eventRegistration3, cmgCall3, textValue3, textValue4
-flag = false
-workValue3 = nil
-numberValue7 = 0
-numberValue12 = 90
-numberValue13 = -3.5
-workValue39 = nil
-vector3Builder = vector3
-flag6 = 5218.9399414062
-vector3Builder2 = -5393.2563476562
-numberValue23 = 67.318588256836
-vector3Builder = vector3Builder(flag6, vector3Builder2, numberValue23)
-flag6 = false
-vector3Builder2 = vector3
-numberValue23 = 0.0
-numberValue = 0.0
-numberValue2 = 0.0
-vector3Builder2 = vector3Builder2(numberValue23, numberValue, numberValue2)
-numberValue23 = 0.0
-numberValue = 0
-numberValue2 = 0
-dataTable = {}
-dataTable2 = {}
-numberValue4 = 0
-dataTable3 = {}
-cmgCall = CMG
-cmgCall = cmgCall.registerDevMenuState
-textValue = "Spectate"
-eventRegistration = {}
-eventRegistration.enabled = false
-cmgCall = cmgCall(textValue, eventRegistration)
+local stateFlag, workingValue3, number7, number12, number13, workingValue39, createVector3, stateFlag6, createVector32, number23, number, number2, dataCollection, dataCollection2, number4, dataCollection3, cmgOperation, text, eventHandler, eventHandler2, text2, workingValue5, workingValue7, workingValue9, workingValue11, cmgOperation2, eventHandler3, cmgOperation3, text3, text4
+stateFlag = false
+workingValue3 = nil
+number7 = 0
+number12 = 90
+number13 = -3.5
+workingValue39 = nil
+createVector3 = vector3
+stateFlag6 = 5218.9399414062
+createVector32 = -5393.2563476562
+number23 = 67.318588256836
+createVector3 = createVector3(stateFlag6, createVector32, number23)
+stateFlag6 = false
+createVector32 = vector3
+number23 = 0.0
+number = 0.0
+number2 = 0.0
+createVector32 = createVector32(number23, number, number2)
+number23 = 0.0
+number = 0
+number2 = 0
+dataCollection = {}
+dataCollection2 = {}
+number4 = 0
+dataCollection3 = {}
+cmgOperation = CMG
+cmgOperation = cmgOperation.registerDevMenuState
+text = "Spectate"
+eventHandler = {}
+eventHandler.enabled = false
+cmgOperation = cmgOperation(text, eventHandler)
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2, arg3, arg4) ===
-function textValue(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3
-  arg5 = math
-  arg5 = arg5.rad
-  arg6 = arg3
-  arg5 = arg5(arg6)
-  arg6 = math
-  arg6 = arg6.rad
-  arg7 = arg4
-  arg6 = arg6(arg7)
-  arg7 = vector3
-  arg8 = arg1.x
-  arg9 = math
-  arg9 = arg9.sin
-  arg10 = arg6
-  arg9 = arg9(arg10)
-  arg10 = math
-  arg10 = arg10.cos
-  mathHelper = arg5
-  arg10 = arg10(mathHelper)
-  arg9 = arg9 * arg10
-  arg9 = arg2 * arg9
-  arg8 = arg8 + arg9
-  arg9 = arg1.y
-  arg10 = math
-  arg10 = arg10.sin
-  mathHelper = arg6
-  arg10 = arg10(mathHelper)
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function text(localValue1, localValue2, localValue3, localValue4)
+  local localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3
+  localValue5 = math
+  localValue5 = localValue5.rad
+  localValue6 = localValue3
+  localValue5 = localValue5(localValue6)
+  localValue6 = math
+  localValue6 = localValue6.rad
+  localValue7 = localValue4
+  localValue6 = localValue6(localValue7)
+  localValue7 = vector3
+  localValue8 = localValue1.x
+  localValue9 = math
+  localValue9 = localValue9.sin
+  localValue10 = localValue6
+  localValue9 = localValue9(localValue10)
+  localValue10 = math
+  localValue10 = localValue10.cos
+  mathHelper = localValue5
+  localValue10 = localValue10(mathHelper)
+  localValue9 = localValue9 * localValue10
+  localValue9 = localValue2 * localValue9
+  localValue8 = localValue8 + localValue9
+  localValue9 = localValue1.y
+  localValue10 = math
+  localValue10 = localValue10.sin
+  mathHelper = localValue6
+  localValue10 = localValue10(mathHelper)
   mathHelper = math
   mathHelper = mathHelper.sin
-  numberValue3 = arg5
-  mathHelper = mathHelper(numberValue3)
-  arg10 = arg10 * mathHelper
-  arg10 = arg2 * arg10
-  arg9 = arg9 - arg10
-  arg10 = arg1.z
+  number3 = localValue5
+  mathHelper = mathHelper(number3)
+  localValue10 = localValue10 * mathHelper
+  localValue10 = localValue2 * localValue10
+  localValue9 = localValue9 - localValue10
+  localValue10 = localValue1.z
   mathHelper = math
   mathHelper = mathHelper.cos
-  numberValue3 = arg6
-  mathHelper = mathHelper(numberValue3)
-  mathHelper = arg2 * mathHelper
-  arg10 = arg10 - mathHelper
-  return arg7(arg8, arg9, arg10)
+  number3 = localValue6
+  mathHelper = mathHelper(number3)
+  mathHelper = localValue2 * mathHelper
+  localValue10 = localValue10 - mathHelper
+  return localValue7(localValue8, localValue9, localValue10)
 end
-eventRegistration = RegisterNetEvent
-eventRegistration2 = "d3ac8df566"
+eventHandler = RegisterNetEvent
+eventHandler2 = "d3ac8df566"
 -- Beginner: this function handles network event "d3ac8df566".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2, arg3) ===
-function textValue2(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4
-  arg4 = CMG
-  arg4 = arg4.hasClientPermission
-  arg5 = "admin.espspectate"
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg4 = 0
-    numberValue = arg4
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1, localValue2, localValue3) ===
+function text2(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4
+  localValue4 = CMG
+  localValue4 = localValue4.hasClientPermission
+  localValue5 = "admin.espspectate"
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue4 = 0
+    number = localValue4
   end
-  arg4 = PlayerPedId
+  localValue4 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg4 = arg4()
-  arg5 = FreezeEntityPosition
-  arg6 = arg4
-  arg7 = true
+  localValue4 = localValue4()
+  localValue5 = FreezeEntityPosition
+  localValue6 = localValue4
+  localValue7 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg5(arg6, arg7)
-  arg5 = SetEntityCollision
-  arg6 = arg4
-  arg7 = false
-  arg8 = false
-  arg5(arg6, arg7, arg8)
-  arg5 = SetEntityVisible
-  arg6 = arg4
-  arg7 = false
-  arg8 = false
-  arg5(arg6, arg7, arg8)
-  arg5 = SetEntityInvincible
-  arg6 = arg4
-  arg7 = true
-  arg5(arg6, arg7)
-  arg5 = math
-  arg5 = arg5.random
-  arg6 = 7500
-  arg7 = 8900
-  arg5 = arg5(arg6, arg7)
-  arg6 = math
-  arg6 = arg6.random
-  arg7 = 7500
-  arg8 = 8900
-  arg6 = arg6(arg7, arg8)
-  arg7 = math
-  arg7 = arg7.random
-  arg8 = 1
-  arg9 = 2
-  arg7 = arg7(arg8, arg9)
-  arg7 = 2 == arg7
-  if arg7 then
-    arg5 = -arg5
-    arg6 = -arg6
+  localValue5(localValue6, localValue7)
+  localValue5 = SetEntityCollision
+  localValue6 = localValue4
+  localValue7 = false
+  localValue8 = false
+  localValue5(localValue6, localValue7, localValue8)
+  localValue5 = SetEntityVisible
+  localValue6 = localValue4
+  localValue7 = false
+  localValue8 = false
+  localValue5(localValue6, localValue7, localValue8)
+  localValue5 = SetEntityInvincible
+  localValue6 = localValue4
+  localValue7 = true
+  localValue5(localValue6, localValue7)
+  localValue5 = math
+  localValue5 = localValue5.random
+  localValue6 = 7500
+  localValue7 = 8900
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue6 = math
+  localValue6 = localValue6.random
+  localValue7 = 7500
+  localValue8 = 8900
+  localValue6 = localValue6(localValue7, localValue8)
+  localValue7 = math
+  localValue7 = localValue7.random
+  localValue8 = 1
+  localValue9 = 2
+  localValue7 = localValue7(localValue8, localValue9)
+  localValue7 = 2 == localValue7
+  if localValue7 then
+    localValue5 = -localValue5
+    localValue6 = -localValue6
   end
-  arg8 = SetEntityCoordsNoOffset
-  arg9 = arg4
-  arg10 = arg5 + 0.0
-  mathHelper = arg6 + 0.0
-  numberValue3 = 1000.0
-  flag2 = false
-  flag3 = false
-  flag4 = false
+  localValue8 = SetEntityCoordsNoOffset
+  localValue9 = localValue4
+  localValue10 = localValue5 + 0.0
+  mathHelper = localValue6 + 0.0
+  number3 = 1000.0
+  stateFlag2 = false
+  stateFlag3 = false
+  stateFlag4 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  arg8(arg9, arg10, mathHelper, numberValue3, flag2, flag3, flag4)
-  arg8 = CreateCamWithParams
-  arg9 = "DEFAULT_SCRIPTED_CAMERA"
-  arg10 = arg2.x
-  mathHelper = arg2.y
-  numberValue3 = arg2.z
-  flag2 = 0.0
-  flag3 = 0.0
-  flag4 = 0.0
-  numberValue5 = GetGameplayCamFov
-  numberValue5 = numberValue5()
-  flag5 = false
-  dataTable4 = 2
-  arg8 = arg8(arg9, arg10, mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4)
-  workValue39 = arg8
-  arg8 = SetCamActive
-  arg9 = workValue39
-  arg10 = true
-  arg8(arg9, arg10)
-  arg8 = RenderScriptCams
-  arg9 = true
-  arg10 = false
+  localValue8(localValue9, localValue10, mathHelper, number3, stateFlag2, stateFlag3, stateFlag4)
+  localValue8 = CreateCamWithParams
+  localValue9 = "DEFAULT_SCRIPTED_CAMERA"
+  localValue10 = localValue2.x
+  mathHelper = localValue2.y
+  number3 = localValue2.z
+  stateFlag2 = 0.0
+  stateFlag3 = 0.0
+  stateFlag4 = 0.0
+  number5 = GetGameplayCamFov
+  number5 = number5()
+  stateFlag5 = false
+  dataCollection4 = 2
+  localValue8 = localValue8(localValue9, localValue10, mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4)
+  workingValue39 = localValue8
+  localValue8 = SetCamActive
+  localValue9 = workingValue39
+  localValue10 = true
+  localValue8(localValue9, localValue10)
+  localValue8 = RenderScriptCams
+  localValue9 = true
+  localValue10 = false
   mathHelper = 0
-  numberValue3 = true
-  flag2 = true
-  arg8(arg9, arg10, mathHelper, numberValue3, flag2)
-  workValue3 = arg1
+  number3 = true
+  stateFlag2 = true
+  localValue8(localValue9, localValue10, mathHelper, number3, stateFlag2)
+  workingValue3 = localValue1
   while true do
-    arg8 = workValue3
-    if not arg8 then
+    localValue8 = workingValue3
+    if not localValue8 then
       return
     end
-    arg8 = SetFocusPosAndVel
-    arg9 = arg2.x
-    arg10 = arg2.y
-    mathHelper = arg2.z
-    numberValue3 = 0.0
-    flag2 = 0.0
-    flag3 = 0.0
-    arg8(arg9, arg10, mathHelper, numberValue3, flag2, flag3)
-    arg8 = LockMinimapPosition
-    arg9 = arg2.x
-    arg10 = arg2.y
-    arg8(arg9, arg10)
-    arg8 = SetPlayerBlipPositionThisFrame
-    arg9 = arg2.x
-    arg10 = arg2.y
-    arg8(arg9, arg10)
-    arg8 = GetPlayerFromServerId
-    arg9 = arg1
+    localValue8 = SetFocusPosAndVel
+    localValue9 = localValue2.x
+    localValue10 = localValue2.y
+    mathHelper = localValue2.z
+    number3 = 0.0
+    stateFlag2 = 0.0
+    stateFlag3 = 0.0
+    localValue8(localValue9, localValue10, mathHelper, number3, stateFlag2, stateFlag3)
+    localValue8 = LockMinimapPosition
+    localValue9 = localValue2.x
+    localValue10 = localValue2.y
+    localValue8(localValue9, localValue10)
+    localValue8 = SetPlayerBlipPositionThisFrame
+    localValue9 = localValue2.x
+    localValue10 = localValue2.y
+    localValue8(localValue9, localValue10)
+    localValue8 = GetPlayerFromServerId
+    localValue9 = localValue1
     -- Beginner: result below is playerIndex.
-    arg8 = arg8(arg9)
-    if -1 ~= arg8 then
+    localValue8 = localValue8(localValue9)
+    if -1 ~= localValue8 then
       break
     end
-    arg8 = Citizen
-    arg8 = arg8.Wait
-    arg9 = 0
-    arg8(arg9)
+    localValue8 = Citizen
+    localValue8 = localValue8.Wait
+    localValue9 = 0
+    localValue8(localValue9)
   end
-  arg8 = true
-  flag = arg8
-  if not arg3 then
-    arg8 = CMG
-    arg8 = arg8.setPlayerNameDistance
-    arg9 = 10000.0
-    arg8(arg9)
-    arg8 = true
-    flag6 = arg8
+  localValue8 = true
+  stateFlag = localValue8
+  if not localValue3 then
+    localValue8 = CMG
+    localValue8 = localValue8.setPlayerNameDistance
+    localValue9 = 10000.0
+    localValue8(localValue9)
+    localValue8 = true
+    stateFlag6 = localValue8
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d3ac8df566".
-eventRegistration(eventRegistration2, textValue2)
+eventHandler(eventHandler2, text2)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
-function eventRegistration(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3
-  arg2 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1) ===
+function eventHandler(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
-  arg3 = pairs
-  arg4 = dataTable3
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    if not arg1 then
-      arg9 = arg2 - arg8
-      arg10 = 1000
-      if not (arg9 > arg10) then
-        goto flow_label_29
+  localValue2 = localValue2()
+  localValue3 = pairs
+  localValue4 = dataCollection3
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    if not localValue1 then
+      localValue9 = localValue2 - localValue8
+      localValue10 = 1000
+      if not (localValue9 > localValue10) then
+        goto continueAtStep29
       end
     end
-    arg9 = cmgCall.enabled
-    if arg9 then
-      arg9 = print
-      arg10 = string
-      arg10 = arg10.format
+    localValue9 = cmgOperation.enabled
+    if localValue9 then
+      localValue9 = print
+      localValue10 = string
+      localValue10 = localValue10.format
       mathHelper = "[Spectate] Unpinning interior %s"
-      numberValue3 = arg7
-      arg10, mathHelper, numberValue3 = arg10(mathHelper, numberValue3)
-      arg9(arg10, mathHelper, numberValue3)
+      number3 = localValue7
+      localValue10, mathHelper, number3 = localValue10(mathHelper, number3)
+      localValue9(localValue10, mathHelper, number3)
     end
-    arg9 = UnpinInterior
-    arg10 = arg7
-    arg9(arg10)
-    arg9 = dataTable3
-    arg9[arg7] = nil
-    ::flow_label_29::
+    localValue9 = UnpinInterior
+    localValue10 = localValue7
+    localValue9(localValue10)
+    localValue9 = dataCollection3
+    localValue9[localValue7] = nil
+    ::continueAtStep29::
   end
 end
-eventRegistration2 = RegisterNetEvent
-textValue2 = "9ea813a9a7"
+eventHandler2 = RegisterNetEvent
+text2 = "9ea813a9a7"
 -- Beginner: this function handles network event "9ea813a9a7".
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = false
-  flag = arg1
-  arg1 = ClearFocus
-  arg1()
-  arg1 = nil
-  workValue3 = arg1
-  arg1 = UnlockMinimapPosition
-  arg1()
-  arg1 = workValue39
-  if arg1 then
-    arg1 = SetCamActive
-    arg2 = workValue39
-    arg3 = false
-    arg1(arg2, arg3)
-    arg1 = RenderScriptCams
-    arg2 = false
-    arg3 = false
-    arg4 = 0
-    arg5 = false
-    arg6 = false
-    arg1(arg2, arg3, arg4, arg5, arg6)
-    arg1 = DestroyCam
-    arg2 = workValue39
-    arg3 = false
-    arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = false
+  stateFlag = localValue1
+  localValue1 = ClearFocus
+  localValue1()
+  localValue1 = nil
+  workingValue3 = localValue1
+  localValue1 = UnlockMinimapPosition
+  localValue1()
+  localValue1 = workingValue39
+  if localValue1 then
+    localValue1 = SetCamActive
+    localValue2 = workingValue39
+    localValue3 = false
+    localValue1(localValue2, localValue3)
+    localValue1 = RenderScriptCams
+    localValue2 = false
+    localValue3 = false
+    localValue4 = 0
+    localValue5 = false
+    localValue6 = false
+    localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
+    localValue1 = DestroyCam
+    localValue2 = workingValue39
+    localValue3 = false
+    localValue1(localValue2, localValue3)
   end
-  arg1 = PlayerPedId
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = SetEntityInvincible
-  arg3 = arg1
-  arg4 = false
-  arg2(arg3, arg4)
-  arg2 = SetEntityVisible
-  arg3 = arg1
-  arg4 = true
-  arg5 = false
-  arg2(arg3, arg4, arg5)
-  arg2 = SetEntityCollision
-  arg3 = arg1
-  arg4 = true
-  arg5 = true
-  arg2(arg3, arg4, arg5)
-  arg2 = FreezeEntityPosition
-  arg3 = arg1
-  arg4 = false
+  localValue1 = localValue1()
+  localValue2 = SetEntityInvincible
+  localValue3 = localValue1
+  localValue4 = false
+  localValue2(localValue3, localValue4)
+  localValue2 = SetEntityVisible
+  localValue3 = localValue1
+  localValue4 = true
+  localValue5 = false
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = SetEntityCollision
+  localValue3 = localValue1
+  localValue4 = true
+  localValue5 = true
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = FreezeEntityPosition
+  localValue3 = localValue1
+  localValue4 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg2(arg3, arg4)
-  arg2 = CMG
-  arg2 = arg2.getPlayerCoords
+  localValue2(localValue3, localValue4)
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  arg2 = arg2()
-  arg3 = vector3Builder
-  arg2 = arg2 - arg3
-  arg2 = #arg2
-  arg3 = 2142.0
-  if arg2 > arg3 then
-    arg2 = CMG
-    arg2 = arg2.isInCayoPerico
-    arg2 = arg2()
-    if arg2 then
-      arg2 = DisableCayoPerico
-      arg3 = true
-      arg2(arg3)
+  localValue2 = localValue2()
+  localValue3 = createVector3
+  localValue2 = localValue2 - localValue3
+  localValue2 = #localValue2
+  localValue3 = 2142.0
+  if localValue2 > localValue3 then
+    localValue2 = CMG
+    localValue2 = localValue2.isInCayoPerico
+    localValue2 = localValue2()
+    if localValue2 then
+      localValue2 = DisableCayoPerico
+      localValue3 = true
+      localValue2(localValue3)
     end
   end
-  arg2 = flag6
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.setPlayerNameDistance
-    arg3 = -1
-    arg2(arg3)
-    arg2 = false
-    flag6 = arg2
+  localValue2 = stateFlag6
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.setPlayerNameDistance
+    localValue3 = -1
+    localValue2(localValue3)
+    localValue2 = false
+    stateFlag6 = localValue2
   end
-  arg2 = eventRegistration
-  arg3 = true
+  localValue2 = eventHandler
+  localValue3 = true
   -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: true.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-eventRegistration2(textValue2, workValue5)
+eventHandler2(text2, workingValue5)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10) ===
-function eventRegistration2(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
-  local mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6
+-- === HELPER FUNCTION (decompiler name: eventHandler2; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10) ===
+function eventHandler2(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10)
+  local mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6
   mathHelper = CMG
   mathHelper = mathHelper.DrawText
-  numberValue3 = arg3 / 2
-  numberValue3 = arg1 - numberValue3
-  flag2 = arg4 / 2
-  flag2 = arg2 - flag2
-  flag2 = flag2 + 0.005
-  flag3 = arg6
-  flag4 = arg5
-  numberValue5 = 0
-  flag5 = 1
-  dataTable4 = {}
-  workValue = arg7
-  workValue2 = arg8
-  workValue4 = arg9
-  workValue6 = arg10
-  dataTable4[1] = workValue
-  dataTable4[2] = workValue2
-  dataTable4[3] = workValue4
-  dataTable4[4] = workValue6
-  mathHelper(numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4)
+  number3 = localValue3 / 2
+  number3 = localValue1 - number3
+  stateFlag2 = localValue4 / 2
+  stateFlag2 = localValue2 - stateFlag2
+  stateFlag2 = stateFlag2 + 0.005
+  stateFlag3 = localValue6
+  stateFlag4 = localValue5
+  number5 = 0
+  stateFlag5 = 1
+  dataCollection4 = {}
+  workingValue = localValue7
+  workingValue2 = localValue8
+  workingValue4 = localValue9
+  workingValue6 = localValue10
+  dataCollection4[1] = workingValue
+  dataCollection4[2] = workingValue2
+  dataCollection4[3] = workingValue4
+  dataCollection4[4] = workingValue6
+  mathHelper(number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg2 = GetScreenCoordFromWorldCoord
-  arg3 = arg1.x
-  arg4 = arg1.y
-  arg5 = arg1.z
-  arg2, arg3, arg4 = arg2(arg3, arg4, arg5)
-  arg5 = arg2
-  arg6 = vector2
-  arg7 = arg3
-  arg8 = arg4
-  arg6, arg7, arg8 = arg6(arg7, arg8)
-  return arg5, arg6, arg7, arg8
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue2 = GetScreenCoordFromWorldCoord
+  localValue3 = localValue1.x
+  localValue4 = localValue1.y
+  localValue5 = localValue1.z
+  localValue2, localValue3, localValue4 = localValue2(localValue3, localValue4, localValue5)
+  localValue5 = localValue2
+  localValue6 = vector2
+  localValue7 = localValue3
+  localValue8 = localValue4
+  localValue6, localValue7, localValue8 = localValue6(localValue7, localValue8)
+  return localValue5, localValue6, localValue7, localValue8
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
-function workValue5(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3, flag2
-  arg3 = math
-  arg3 = arg3.min
-  arg4 = math
-  arg4 = arg4.max
-  arg5 = numberValue23
-  arg5 = arg5 / 50.0
-  arg6 = 1.0
-  arg5 = arg6 - arg5
-  arg6 = 0.1
-  arg4 = arg4(arg5, arg6)
-  arg5 = 1.0
-  arg3 = arg3(arg4, arg5)
-  arg4 = DrawLine_2d
-  arg5 = arg1.x
-  arg6 = arg1.y
-  arg7 = arg2.x
-  arg8 = arg2.y
-  arg9 = 0.001 * arg3
-  arg10 = 255
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue1, localValue2) ===
+function workingValue5(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3, stateFlag2
+  localValue3 = math
+  localValue3 = localValue3.min
+  localValue4 = math
+  localValue4 = localValue4.max
+  localValue5 = number23
+  localValue5 = localValue5 / 50.0
+  localValue6 = 1.0
+  localValue5 = localValue6 - localValue5
+  localValue6 = 0.1
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = 1.0
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = DrawLine_2d
+  localValue5 = localValue1.x
+  localValue6 = localValue1.y
+  localValue7 = localValue2.x
+  localValue8 = localValue2.y
+  localValue9 = 0.001 * localValue3
+  localValue10 = 255
   mathHelper = 255
-  numberValue3 = 0
-  flag2 = 255
-  arg4(arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3, flag2)
+  number3 = 0
+  stateFlag2 = 255
+  localValue4(localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3, stateFlag2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9, numberValue10, numberValue11, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue27, workValue28, workValue29, workValue30, workValue31, workValue32, workValue33, workValue34, workValue35, numberValue14, workValue36, workValue37, workValue38, numberValue15, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, numberValue21, numberValue22
-  arg2 = GetEntityCoords
-  arg3 = arg1
-  arg4 = true
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1) ===
+function workingValue7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9, number10, number11, workingValue17, workingValue18, workingValue19, workingValue20, workingValue21, workingValue22, workingValue23, workingValue24, workingValue25, workingValue26, workingValue27, workingValue28, workingValue29, workingValue30, workingValue31, workingValue32, workingValue33, workingValue34, workingValue35, number14, workingValue36, workingValue37, workingValue38, number15, number16, number17, number18, number19, number20, number21, number22
+  localValue2 = GetEntityCoords
+  localValue3 = localValue1
+  localValue4 = true
   -- Beginner: result below is entityCoords.
-  arg2 = arg2(arg3, arg4)
-  arg3 = textValue2
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if not arg3 then
+  localValue2 = localValue2(localValue3, localValue4)
+  localValue3 = text2
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if not localValue3 then
     return
   end
-  arg3 = GetPedBoneIndex
-  arg4 = arg1
-  arg5 = 39317
-  arg3 = arg3(arg4, arg5)
-  arg4 = GetPedBoneIndex
-  arg5 = arg1
-  arg6 = 45509
-  arg4 = arg4(arg5, arg6)
-  arg5 = GetPedBoneIndex
-  arg6 = arg1
-  arg7 = 40269
-  arg5 = arg5(arg6, arg7)
-  arg6 = GetPedBoneIndex
-  arg7 = arg1
-  arg8 = 22711
-  arg6 = arg6(arg7, arg8)
-  arg7 = GetPedBoneIndex
-  arg8 = arg1
-  arg9 = 2992
-  arg7 = arg7(arg8, arg9)
-  arg8 = GetPedBoneIndex
-  arg9 = arg1
-  arg10 = 18905
-  arg8 = arg8(arg9, arg10)
-  arg9 = GetPedBoneIndex
-  arg10 = arg1
+  localValue3 = GetPedBoneIndex
+  localValue4 = localValue1
+  localValue5 = 39317
+  localValue3 = localValue3(localValue4, localValue5)
+  localValue4 = GetPedBoneIndex
+  localValue5 = localValue1
+  localValue6 = 45509
+  localValue4 = localValue4(localValue5, localValue6)
+  localValue5 = GetPedBoneIndex
+  localValue6 = localValue1
+  localValue7 = 40269
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue6 = GetPedBoneIndex
+  localValue7 = localValue1
+  localValue8 = 22711
+  localValue6 = localValue6(localValue7, localValue8)
+  localValue7 = GetPedBoneIndex
+  localValue8 = localValue1
+  localValue9 = 2992
+  localValue7 = localValue7(localValue8, localValue9)
+  localValue8 = GetPedBoneIndex
+  localValue9 = localValue1
+  localValue10 = 18905
+  localValue8 = localValue8(localValue9, localValue10)
+  localValue9 = GetPedBoneIndex
+  localValue10 = localValue1
   mathHelper = 57005
-  arg9 = arg9(arg10, mathHelper)
-  arg10 = GetPedBoneIndex
-  mathHelper = arg1
-  numberValue3 = 11816
-  arg10 = arg10(mathHelper, numberValue3)
+  localValue9 = localValue9(localValue10, mathHelper)
+  localValue10 = GetPedBoneIndex
+  mathHelper = localValue1
+  number3 = 11816
+  localValue10 = localValue10(mathHelper, number3)
   mathHelper = GetPedBoneIndex
-  numberValue3 = arg1
-  flag2 = 46078
-  mathHelper = mathHelper(numberValue3, flag2)
-  numberValue3 = GetPedBoneIndex
-  flag2 = arg1
-  flag3 = 16335
-  numberValue3 = numberValue3(flag2, flag3)
-  flag2 = GetPedBoneIndex
-  flag3 = arg1
-  flag4 = 14201
-  flag2 = flag2(flag3, flag4)
-  flag3 = GetPedBoneIndex
-  flag4 = arg1
-  numberValue5 = 52301
-  flag3 = flag3(flag4, numberValue5)
-  flag4 = GetPedBoneIndex
-  numberValue5 = arg1
-  flag5 = 31086
-  flag4 = flag4(numberValue5, flag5)
-  numberValue5 = GetWorldPositionOfEntityBone
-  flag5 = arg1
-  dataTable4 = arg3
-  numberValue5 = numberValue5(flag5, dataTable4)
-  flag5 = GetWorldPositionOfEntityBone
-  dataTable4 = arg1
-  workValue = arg4
-  flag5 = flag5(dataTable4, workValue)
-  dataTable4 = GetWorldPositionOfEntityBone
-  workValue = arg1
-  workValue2 = arg5
-  dataTable4 = dataTable4(workValue, workValue2)
-  workValue = GetWorldPositionOfEntityBone
-  workValue2 = arg1
-  workValue4 = arg6
-  workValue = workValue(workValue2, workValue4)
-  workValue2 = GetWorldPositionOfEntityBone
-  workValue4 = arg1
-  workValue6 = arg7
-  workValue2 = workValue2(workValue4, workValue6)
-  workValue4 = GetWorldPositionOfEntityBone
-  workValue6 = arg1
-  workValue8 = arg8
-  workValue4 = workValue4(workValue6, workValue8)
-  workValue6 = GetWorldPositionOfEntityBone
-  workValue8 = arg1
-  workValue10 = arg9
-  workValue6 = workValue6(workValue8, workValue10)
-  workValue8 = GetWorldPositionOfEntityBone
-  workValue10 = arg1
-  workValue12 = arg10
-  workValue8 = workValue8(workValue10, workValue12)
-  workValue10 = GetWorldPositionOfEntityBone
-  workValue12 = arg1
-  workValue13 = mathHelper
-  workValue10 = workValue10(workValue12, workValue13)
-  workValue12 = GetWorldPositionOfEntityBone
-  workValue13 = arg1
-  workValue14 = numberValue3
-  workValue12 = workValue12(workValue13, workValue14)
-  workValue13 = GetWorldPositionOfEntityBone
-  workValue14 = arg1
-  workValue15 = flag2
-  workValue13 = workValue13(workValue14, workValue15)
-  workValue14 = GetWorldPositionOfEntityBone
-  workValue15 = arg1
-  workValue16 = flag3
-  workValue14 = workValue14(workValue15, workValue16)
-  workValue15 = GetWorldPositionOfEntityBone
-  workValue16 = arg1
-  numberValue6 = flag4
-  workValue15 = workValue15(workValue16, numberValue6)
-  workValue16 = textValue2
-  numberValue6 = numberValue5
-  workValue16, numberValue6 = workValue16(numberValue6)
-  numberValue8 = textValue2
-  stringHelper = flag5
-  numberValue8, stringHelper = numberValue8(stringHelper)
-  textValue5 = textValue2
-  numberValue9 = dataTable4
-  textValue5, numberValue9 = textValue5(numberValue9)
-  numberValue10 = textValue2
-  numberValue11 = workValue
-  numberValue10, numberValue11 = numberValue10(numberValue11)
-  workValue17 = textValue2
-  workValue18 = workValue2
-  workValue17, workValue18 = workValue17(workValue18)
-  workValue19 = textValue2
-  workValue20 = workValue4
-  workValue19, workValue20 = workValue19(workValue20)
-  workValue21 = textValue2
-  workValue22 = workValue6
-  workValue21, workValue22 = workValue21(workValue22)
-  workValue23 = textValue2
-  workValue24 = workValue8
-  workValue23, workValue24 = workValue23(workValue24)
-  workValue25 = textValue2
-  workValue26 = workValue10
-  workValue25, workValue26 = workValue25(workValue26)
-  workValue27 = textValue2
-  workValue28 = workValue12
-  workValue27, workValue28 = workValue27(workValue28)
-  workValue29 = textValue2
-  workValue30 = workValue13
-  workValue29, workValue30 = workValue29(workValue30)
-  workValue31 = textValue2
-  workValue32 = workValue14
-  workValue31, workValue32 = workValue31(workValue32)
-  workValue33 = GetFinalRenderedCamCoord
-  workValue33 = workValue33()
-  workValue33 = workValue33 - arg2
-  workValue33 = #workValue33
-  numberValue23 = workValue33
-  workValue33 = numberValue
-  if 1 ~= workValue33 then
-    workValue33 = numberValue
-    if 2 ~= workValue33 then
-      goto flow_label_251
+  number3 = localValue1
+  stateFlag2 = 46078
+  mathHelper = mathHelper(number3, stateFlag2)
+  number3 = GetPedBoneIndex
+  stateFlag2 = localValue1
+  stateFlag3 = 16335
+  number3 = number3(stateFlag2, stateFlag3)
+  stateFlag2 = GetPedBoneIndex
+  stateFlag3 = localValue1
+  stateFlag4 = 14201
+  stateFlag2 = stateFlag2(stateFlag3, stateFlag4)
+  stateFlag3 = GetPedBoneIndex
+  stateFlag4 = localValue1
+  number5 = 52301
+  stateFlag3 = stateFlag3(stateFlag4, number5)
+  stateFlag4 = GetPedBoneIndex
+  number5 = localValue1
+  stateFlag5 = 31086
+  stateFlag4 = stateFlag4(number5, stateFlag5)
+  number5 = GetWorldPositionOfEntityBone
+  stateFlag5 = localValue1
+  dataCollection4 = localValue3
+  number5 = number5(stateFlag5, dataCollection4)
+  stateFlag5 = GetWorldPositionOfEntityBone
+  dataCollection4 = localValue1
+  workingValue = localValue4
+  stateFlag5 = stateFlag5(dataCollection4, workingValue)
+  dataCollection4 = GetWorldPositionOfEntityBone
+  workingValue = localValue1
+  workingValue2 = localValue5
+  dataCollection4 = dataCollection4(workingValue, workingValue2)
+  workingValue = GetWorldPositionOfEntityBone
+  workingValue2 = localValue1
+  workingValue4 = localValue6
+  workingValue = workingValue(workingValue2, workingValue4)
+  workingValue2 = GetWorldPositionOfEntityBone
+  workingValue4 = localValue1
+  workingValue6 = localValue7
+  workingValue2 = workingValue2(workingValue4, workingValue6)
+  workingValue4 = GetWorldPositionOfEntityBone
+  workingValue6 = localValue1
+  workingValue8 = localValue8
+  workingValue4 = workingValue4(workingValue6, workingValue8)
+  workingValue6 = GetWorldPositionOfEntityBone
+  workingValue8 = localValue1
+  workingValue10 = localValue9
+  workingValue6 = workingValue6(workingValue8, workingValue10)
+  workingValue8 = GetWorldPositionOfEntityBone
+  workingValue10 = localValue1
+  workingValue12 = localValue10
+  workingValue8 = workingValue8(workingValue10, workingValue12)
+  workingValue10 = GetWorldPositionOfEntityBone
+  workingValue12 = localValue1
+  workingValue13 = mathHelper
+  workingValue10 = workingValue10(workingValue12, workingValue13)
+  workingValue12 = GetWorldPositionOfEntityBone
+  workingValue13 = localValue1
+  workingValue14 = number3
+  workingValue12 = workingValue12(workingValue13, workingValue14)
+  workingValue13 = GetWorldPositionOfEntityBone
+  workingValue14 = localValue1
+  workingValue15 = stateFlag2
+  workingValue13 = workingValue13(workingValue14, workingValue15)
+  workingValue14 = GetWorldPositionOfEntityBone
+  workingValue15 = localValue1
+  workingValue16 = stateFlag3
+  workingValue14 = workingValue14(workingValue15, workingValue16)
+  workingValue15 = GetWorldPositionOfEntityBone
+  workingValue16 = localValue1
+  number6 = stateFlag4
+  workingValue15 = workingValue15(workingValue16, number6)
+  workingValue16 = text2
+  number6 = number5
+  workingValue16, number6 = workingValue16(number6)
+  number8 = text2
+  stringHelper = stateFlag5
+  number8, stringHelper = number8(stringHelper)
+  text5 = text2
+  number9 = dataCollection4
+  text5, number9 = text5(number9)
+  number10 = text2
+  number11 = workingValue
+  number10, number11 = number10(number11)
+  workingValue17 = text2
+  workingValue18 = workingValue2
+  workingValue17, workingValue18 = workingValue17(workingValue18)
+  workingValue19 = text2
+  workingValue20 = workingValue4
+  workingValue19, workingValue20 = workingValue19(workingValue20)
+  workingValue21 = text2
+  workingValue22 = workingValue6
+  workingValue21, workingValue22 = workingValue21(workingValue22)
+  workingValue23 = text2
+  workingValue24 = workingValue8
+  workingValue23, workingValue24 = workingValue23(workingValue24)
+  workingValue25 = text2
+  workingValue26 = workingValue10
+  workingValue25, workingValue26 = workingValue25(workingValue26)
+  workingValue27 = text2
+  workingValue28 = workingValue12
+  workingValue27, workingValue28 = workingValue27(workingValue28)
+  workingValue29 = text2
+  workingValue30 = workingValue13
+  workingValue29, workingValue30 = workingValue29(workingValue30)
+  workingValue31 = text2
+  workingValue32 = workingValue14
+  workingValue31, workingValue32 = workingValue31(workingValue32)
+  workingValue33 = GetFinalRenderedCamCoord
+  workingValue33 = workingValue33()
+  workingValue33 = workingValue33 - localValue2
+  workingValue33 = #workingValue33
+  number23 = workingValue33
+  workingValue33 = number
+  if 1 ~= workingValue33 then
+    workingValue33 = number
+    if 2 ~= workingValue33 then
+      goto continueAtStep251
     end
   end
-  if workValue16 and numberValue8 then
-    workValue33 = workValue5
-    workValue34 = numberValue6
-    workValue35 = stringHelper
-    workValue33(workValue34, workValue35)
+  if workingValue16 and number8 then
+    workingValue33 = workingValue5
+    workingValue34 = number6
+    workingValue35 = stringHelper
+    workingValue33(workingValue34, workingValue35)
   end
-  if numberValue8 and numberValue10 then
-    workValue33 = workValue5
-    workValue34 = stringHelper
-    workValue35 = numberValue11
-    workValue33(workValue34, workValue35)
+  if number8 and number10 then
+    workingValue33 = workingValue5
+    workingValue34 = stringHelper
+    workingValue35 = number11
+    workingValue33(workingValue34, workingValue35)
   end
-  if numberValue10 and workValue19 then
-    workValue33 = workValue5
-    workValue34 = numberValue11
-    workValue35 = workValue20
-    workValue33(workValue34, workValue35)
+  if number10 and workingValue19 then
+    workingValue33 = workingValue5
+    workingValue34 = number11
+    workingValue35 = workingValue20
+    workingValue33(workingValue34, workingValue35)
   end
-  if workValue16 and textValue5 then
-    workValue33 = workValue5
-    workValue34 = numberValue6
-    workValue35 = numberValue9
-    workValue33(workValue34, workValue35)
+  if workingValue16 and text5 then
+    workingValue33 = workingValue5
+    workingValue34 = number6
+    workingValue35 = number9
+    workingValue33(workingValue34, workingValue35)
   end
-  if textValue5 and workValue17 then
-    workValue33 = workValue5
-    workValue34 = numberValue9
-    workValue35 = workValue18
-    workValue33(workValue34, workValue35)
+  if text5 and workingValue17 then
+    workingValue33 = workingValue5
+    workingValue34 = number9
+    workingValue35 = workingValue18
+    workingValue33(workingValue34, workingValue35)
   end
-  if workValue17 and workValue21 then
-    workValue33 = workValue5
-    workValue34 = workValue18
-    workValue35 = workValue22
-    workValue33(workValue34, workValue35)
+  if workingValue17 and workingValue21 then
+    workingValue33 = workingValue5
+    workingValue34 = workingValue18
+    workingValue35 = workingValue22
+    workingValue33(workingValue34, workingValue35)
   end
-  if workValue16 and workValue23 then
-    workValue33 = workValue5
-    workValue34 = numberValue6
-    workValue35 = workValue24
-    workValue33(workValue34, workValue35)
+  if workingValue16 and workingValue23 then
+    workingValue33 = workingValue5
+    workingValue34 = number6
+    workingValue35 = workingValue24
+    workingValue33(workingValue34, workingValue35)
   end
-  if workValue23 and workValue25 then
-    workValue33 = workValue5
-    workValue34 = workValue24
-    workValue35 = workValue26
-    workValue33(workValue34, workValue35)
+  if workingValue23 and workingValue25 then
+    workingValue33 = workingValue5
+    workingValue34 = workingValue24
+    workingValue35 = workingValue26
+    workingValue33(workingValue34, workingValue35)
   end
-  if workValue25 and workValue29 then
-    workValue33 = workValue5
-    workValue34 = workValue26
-    workValue35 = workValue30
-    workValue33(workValue34, workValue35)
+  if workingValue25 and workingValue29 then
+    workingValue33 = workingValue5
+    workingValue34 = workingValue26
+    workingValue35 = workingValue30
+    workingValue33(workingValue34, workingValue35)
   end
-  if workValue23 and workValue27 then
-    workValue33 = workValue5
-    workValue34 = workValue24
-    workValue35 = workValue28
-    workValue33(workValue34, workValue35)
+  if workingValue23 and workingValue27 then
+    workingValue33 = workingValue5
+    workingValue34 = workingValue24
+    workingValue35 = workingValue28
+    workingValue33(workingValue34, workingValue35)
   end
-  if workValue27 and workValue31 then
-    workValue33 = workValue5
-    workValue34 = workValue28
-    workValue35 = workValue32
-    workValue33(workValue34, workValue35)
+  if workingValue27 and workingValue31 then
+    workingValue33 = workingValue5
+    workingValue34 = workingValue28
+    workingValue35 = workingValue32
+    workingValue33(workingValue34, workingValue35)
   end
-  ::flow_label_251::
-  workValue33 = numberValue
-  if 1 == workValue33 then
-    workValue33 = DrawLine
-    workValue34 = vector3Builder2.x
-    workValue35 = vector3Builder2.y
-    numberValue14 = vector3Builder2.z
-    workValue36 = arg2.x
-    workValue37 = arg2.y
-    workValue38 = arg2.z
-    numberValue15 = 255
-    numberValue16 = 0
-    numberValue17 = 0
-    numberValue18 = 255
-    workValue33(workValue34, workValue35, numberValue14, workValue36, workValue37, workValue38, numberValue15, numberValue16, numberValue17, numberValue18)
+  ::continueAtStep251::
+  workingValue33 = number
+  if 1 == workingValue33 then
+    workingValue33 = DrawLine
+    workingValue34 = createVector32.x
+    workingValue35 = createVector32.y
+    number14 = createVector32.z
+    workingValue36 = localValue2.x
+    workingValue37 = localValue2.y
+    workingValue38 = localValue2.z
+    number15 = 255
+    number16 = 0
+    number17 = 0
+    number18 = 255
+    workingValue33(workingValue34, workingValue35, number14, workingValue36, workingValue37, workingValue38, number15, number16, number17, number18)
   end
-  workValue33 = NetworkGetPlayerIndexFromPed
-  workValue34 = arg1
-  workValue33 = workValue33(workValue34)
-  if workValue33 >= 0 then
-    workValue34 = GetFinalRenderedInWhenFriendlyRot
-    workValue35 = workValue33
-    numberValue14 = 2
-    workValue34 = workValue34(workValue35, numberValue14)
-    workValue35 = #workValue34
-    numberValue14 = 0.1
-    if workValue35 > numberValue14 then
-      workValue35 = CMG
-      workValue35 = workValue35.rotationToDirection
-      numberValue14 = workValue34
-      workValue35 = workValue35(numberValue14)
-      numberValue14 = workValue35 * 3.0
-      numberValue14 = workValue15 + numberValue14
-      workValue36 = DrawLine
-      workValue37 = workValue15.x
-      workValue38 = workValue15.y
-      numberValue15 = workValue15.z
-      numberValue16 = numberValue14.x
-      numberValue17 = numberValue14.y
-      numberValue18 = numberValue14.z
-      numberValue19 = 0
-      numberValue20 = 0
-      numberValue21 = 255
-      numberValue22 = 255
-      workValue36(workValue37, workValue38, numberValue15, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, numberValue21, numberValue22)
+  workingValue33 = NetworkGetPlayerIndexFromPed
+  workingValue34 = localValue1
+  workingValue33 = workingValue33(workingValue34)
+  if workingValue33 >= 0 then
+    workingValue34 = GetFinalRenderedInWhenFriendlyRot
+    workingValue35 = workingValue33
+    number14 = 2
+    workingValue34 = workingValue34(workingValue35, number14)
+    workingValue35 = #workingValue34
+    number14 = 0.1
+    if workingValue35 > number14 then
+      workingValue35 = CMG
+      workingValue35 = workingValue35.rotationToDirection
+      number14 = workingValue34
+      workingValue35 = workingValue35(number14)
+      number14 = workingValue35 * 3.0
+      number14 = workingValue15 + number14
+      workingValue36 = DrawLine
+      workingValue37 = workingValue15.x
+      workingValue38 = workingValue15.y
+      number15 = workingValue15.z
+      number16 = number14.x
+      number17 = number14.y
+      number18 = number14.z
+      number19 = 0
+      number20 = 0
+      number21 = 255
+      number22 = 255
+      workingValue36(workingValue37, workingValue38, number15, number16, number17, number18, number19, number20, number21, number22)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper
-  arg2 = GetEntityCoords
-  arg3 = arg1
-  arg4 = true
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1) ===
+function workingValue9(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper
+  localValue2 = GetEntityCoords
+  localValue3 = localValue1
+  localValue4 = true
   -- Beginner: result below is entityCoords.
-  arg2 = arg2(arg3, arg4)
-  vector3Builder2 = arg2
-  arg2 = IsControlJustPressed
-  arg3 = 0
-  arg4 = 121
-  arg2 = arg2(arg3, arg4)
-  if arg2 then
-    arg2 = TriggerServerEvent
-    arg3 = "38142e1d4b"
+  localValue2 = localValue2(localValue3, localValue4)
+  createVector32 = localValue2
+  localValue2 = IsControlJustPressed
+  localValue3 = 0
+  localValue4 = 121
+  localValue2 = localValue2(localValue3, localValue4)
+  if localValue2 then
+    localValue2 = TriggerServerEvent
+    localValue3 = "38142e1d4b"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "38142e1d4b".
-    arg2(arg3)
-    arg2 = numberValue
-    if 0 == arg2 then
-      arg2 = 1
-      numberValue = arg2
+    localValue2(localValue3)
+    localValue2 = number
+    if 0 == localValue2 then
+      localValue2 = 1
+      number = localValue2
     else
-      arg2 = numberValue
-      if 1 == arg2 then
-        arg2 = 2
-        numberValue = arg2
+      localValue2 = number
+      if 1 == localValue2 then
+        localValue2 = 2
+        number = localValue2
       else
-        arg2 = numberValue
-        if 2 == arg2 then
-          arg2 = 3
-          numberValue = arg2
+        localValue2 = number
+        if 2 == localValue2 then
+          localValue2 = 3
+          number = localValue2
         else
-          arg2 = numberValue
-          if 3 == arg2 then
-            arg2 = 0
-            numberValue = arg2
+          localValue2 = number
+          if 3 == localValue2 then
+            localValue2 = 0
+            number = localValue2
           end
         end
       end
     end
-    arg2 = TriggerServerEvent
-    arg3 = "07f615539e"
-    arg4 = numberValue
-    arg4 = 0 ~= arg4
-    arg2(arg3, arg4)
+    localValue2 = TriggerServerEvent
+    localValue3 = "07f615539e"
+    localValue4 = number
+    localValue4 = 0 ~= localValue4
+    localValue2(localValue3, localValue4)
   end
-  arg2 = numberValue
-  if arg2 > 0 then
-    arg2 = PlayerPedId
+  localValue2 = number
+  if localValue2 > 0 then
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
-    arg3 = pairs
-    arg4 = GetActivePlayers
-    arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper = arg4()
-    arg3, arg4, arg5, arg6 = arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper)
-    for arg7, arg8 in arg3, arg4, arg5, arg6 do
-      arg9 = GetPlayerPed
-      arg10 = arg8
+    localValue2 = localValue2()
+    localValue3 = pairs
+    localValue4 = GetActivePlayers
+    localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper = localValue4()
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper)
+    for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+      localValue9 = GetPlayerPed
+      localValue10 = localValue8
       -- Beginner: result below is playerPed.
-      arg9 = arg9(arg10)
-      if 0 ~= arg9 and arg9 ~= arg2 then
-        arg10 = workValue7
-        mathHelper = arg9
-        arg10(mathHelper)
+      localValue9 = localValue9(localValue10)
+      if 0 ~= localValue9 and localValue9 ~= localValue2 then
+        localValue10 = workingValue7
+        mathHelper = localValue9
+        localValue10(mathHelper)
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9, numberValue10, numberValue11
-  arg1 = flag
-  if arg1 then
-    arg1 = workValue3
-    if arg1 then
-      arg1 = GetPlayerFromServerId
-      arg2 = workValue3
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9, number10, number11
+  localValue1 = stateFlag
+  if localValue1 then
+    localValue1 = workingValue3
+    if localValue1 then
+      localValue1 = GetPlayerFromServerId
+      localValue2 = workingValue3
       -- Beginner: result below is playerIndex.
-      arg1 = arg1(arg2)
-      if -1 ~= arg1 then
-        arg2 = CMG
-        arg2 = arg2.getPlayerPed
+      localValue1 = localValue1(localValue2)
+      if -1 ~= localValue1 then
+        localValue2 = CMG
+        localValue2 = localValue2.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        arg2 = arg2()
-        arg3 = GetPlayerPed
-        arg4 = arg1
+        localValue2 = localValue2()
+        localValue3 = GetPlayerPed
+        localValue4 = localValue1
         -- Beginner: result below is playerPed.
-        arg3 = arg3(arg4)
-        if 0 ~= arg3 then
-          arg4 = GetEntityCoords
-          arg5 = arg3
+        localValue3 = localValue3(localValue4)
+        if 0 ~= localValue3 then
+          localValue4 = GetEntityCoords
+          localValue5 = localValue3
           -- Beginner: result below is entityCoords.
-          arg4 = arg4(arg5)
-          arg5 = GetEntityHealth
-          arg6 = arg3
+          localValue4 = localValue4(localValue5)
+          localValue5 = GetEntityHealth
+          localValue6 = localValue3
           -- Beginner: result below is health.
-          arg5 = arg5(arg6)
-          arg6 = GetEntityMaxHealth
-          arg7 = arg3
-          arg6 = arg6(arg7)
-          arg7 = GetSelectedPedWeapon
-          arg8 = arg3
+          localValue5 = localValue5(localValue6)
+          localValue6 = GetEntityMaxHealth
+          localValue7 = localValue3
+          localValue6 = localValue6(localValue7)
+          localValue7 = GetSelectedPedWeapon
+          localValue8 = localValue3
           -- Beginner: result below is weaponHash.
-          arg7 = arg7(arg8)
-          arg8 = GetVehiclePedIsUsing
-          arg9 = arg3
-          arg8 = arg8(arg9)
-          arg9 = GetInteriorAtCoords
-          arg10 = arg4.x
-          mathHelper = arg4.y
-          numberValue3 = arg4.z
+          localValue7 = localValue7(localValue8)
+          localValue8 = GetVehiclePedIsUsing
+          localValue9 = localValue3
+          localValue8 = localValue8(localValue9)
+          localValue9 = GetInteriorAtCoords
+          localValue10 = localValue4.x
+          mathHelper = localValue4.y
+          number3 = localValue4.z
           -- Beginner: result below is interiorId.
-          arg9 = arg9(arg10, mathHelper, numberValue3)
-          if 0 ~= arg9 then
-            arg10 = cmgCall.enabled
-            if arg10 then
-              arg10 = dataTable3
-              arg10 = arg10[arg9]
-              if not arg10 then
-                arg10 = print
+          localValue9 = localValue9(localValue10, mathHelper, number3)
+          if 0 ~= localValue9 then
+            localValue10 = cmgOperation.enabled
+            if localValue10 then
+              localValue10 = dataCollection3
+              localValue10 = localValue10[localValue9]
+              if not localValue10 then
+                localValue10 = print
                 mathHelper = string
                 mathHelper = mathHelper.format
-                numberValue3 = "[Spectate] Pinning interior %s"
-                flag2 = arg9
-                mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9, numberValue10, numberValue11 = mathHelper(numberValue3, flag2)
-                arg10(mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9, numberValue10, numberValue11)
+                number3 = "[Spectate] Pinning interior %s"
+                stateFlag2 = localValue9
+                mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9, number10, number11 = mathHelper(number3, stateFlag2)
+                localValue10(mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9, number10, number11)
               end
             end
-            arg10 = dataTable3
+            localValue10 = dataCollection3
             mathHelper = GetGameTimer
             -- Beginner: result below is gameTimeMs.
             mathHelper = mathHelper()
-            arg10[arg9] = mathHelper
-            arg10 = PinInteriorInMemory
-            mathHelper = arg9
-            arg10(mathHelper)
+            localValue10[localValue9] = mathHelper
+            localValue10 = PinInteriorInMemory
+            mathHelper = localValue9
+            localValue10(mathHelper)
           end
-          arg10 = cmgCall.enabled
-          if arg10 then
-            arg10 = CMG
-            arg10 = arg10.drawDebugText
+          localValue10 = cmgOperation.enabled
+          if localValue10 then
+            localValue10 = CMG
+            localValue10 = localValue10.drawDebugText
             mathHelper = "---------- Spectate ----------"
-            arg10(mathHelper)
-            arg10 = CMG
-            arg10 = arg10.drawDebugText
+            localValue10(mathHelper)
+            localValue10 = CMG
+            localValue10 = localValue10.drawDebugText
             mathHelper = "Interior ID: %s"
-            numberValue3 = arg9
-            arg10(mathHelper, numberValue3)
-            arg10 = 1
+            number3 = localValue9
+            localValue10(mathHelper, number3)
+            localValue10 = 1
             mathHelper = pairs
-            numberValue3 = dataTable3
-            mathHelper, numberValue3, flag2, flag3 = mathHelper(numberValue3)
-            for flag4 in mathHelper, numberValue3, flag2, flag3 do
-              numberValue5 = CMG
-              numberValue5 = numberValue5.drawDebugText
-              flag5 = "Pinned (%s): %s"
-              dataTable4 = arg10
-              workValue = flag4
-              numberValue5(flag5, dataTable4, workValue)
-              arg10 = arg10 + 1
+            number3 = dataCollection3
+            mathHelper, number3, stateFlag2, stateFlag3 = mathHelper(number3)
+            for stateFlag4 in mathHelper, number3, stateFlag2, stateFlag3 do
+              number5 = CMG
+              number5 = number5.drawDebugText
+              stateFlag5 = "Pinned (%s): %s"
+              dataCollection4 = localValue10
+              workingValue = stateFlag4
+              number5(stateFlag5, dataCollection4, workingValue)
+              localValue10 = localValue10 + 1
             end
           end
-          arg10 = PinInteriorInMemory
-          mathHelper = arg9
-          arg10(mathHelper)
-          arg10 = CMG
-          arg10 = arg10.getOrganRoomKeyFromInteriorId
-          mathHelper = arg9
-          arg10 = arg10(mathHelper)
-          if arg10 then
+          localValue10 = PinInteriorInMemory
+          mathHelper = localValue9
+          localValue10(mathHelper)
+          localValue10 = CMG
+          localValue10 = localValue10.getOrganRoomKeyFromInteriorId
+          mathHelper = localValue9
+          localValue10 = localValue10(mathHelper)
+          if localValue10 then
             mathHelper = ForceRoomForGameViewport
-            numberValue3 = arg9
-            flag2 = arg10
-            mathHelper(numberValue3, flag2)
+            number3 = localValue9
+            stateFlag2 = localValue10
+            mathHelper(number3, stateFlag2)
           end
           mathHelper = GetPedArmour
-          numberValue3 = arg3
-          mathHelper = mathHelper(numberValue3)
-          numberValue3 = GetAmmoInPedWeapon
-          flag2 = arg3
-          flag3 = arg7
-          numberValue3 = numberValue3(flag2, flag3)
-          if 0 == arg8 then
-            flag2 = eventRegistration2
-            flag3 = 0.76
-            flag4 = 1.465
-            numberValue5 = 1.0
-            flag5 = 1.0
-            dataTable4 = 0.4
-            workValue = string
-            workValue = workValue.format
-            workValue2 = "Player Speed: %.2f MPH"
-            workValue4 = GetEntitySpeed
-            workValue6 = arg3
+          number3 = localValue3
+          mathHelper = mathHelper(number3)
+          number3 = GetAmmoInPedWeapon
+          stateFlag2 = localValue3
+          stateFlag3 = localValue7
+          number3 = number3(stateFlag2, stateFlag3)
+          if 0 == localValue8 then
+            stateFlag2 = eventHandler2
+            stateFlag3 = 0.76
+            stateFlag4 = 1.465
+            number5 = 1.0
+            stateFlag5 = 1.0
+            dataCollection4 = 0.4
+            workingValue = string
+            workingValue = workingValue.format
+            workingValue2 = "Player Speed: %.2f MPH"
+            workingValue4 = GetEntitySpeed
+            workingValue6 = localValue3
             -- Beginner: result below is speed.
-            workValue4 = workValue4(workValue6)
-            workValue4 = workValue4 * 2.236936
-            workValue = workValue(workValue2, workValue4)
-            workValue2 = 51
-            workValue4 = 153
-            workValue6 = 255
-            workValue8 = 200
+            workingValue4 = workingValue4(workingValue6)
+            workingValue4 = workingValue4 * 2.236936
+            workingValue = workingValue(workingValue2, workingValue4)
+            workingValue2 = 51
+            workingValue4 = 153
+            workingValue6 = 255
+            workingValue8 = 200
             -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: 0.76.
-            flag2(flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8)
+            stateFlag2(stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8)
           else
-            flag2 = eventRegistration2
-            flag3 = 0.76
-            flag4 = 1.465
-            numberValue5 = 1.0
-            flag5 = 1.0
-            dataTable4 = 0.4
-            workValue = string
-            workValue = workValue.format
-            workValue2 = "Vehicle Speed: %.2f MPH"
-            workValue4 = GetEntitySpeed
-            workValue6 = arg8
+            stateFlag2 = eventHandler2
+            stateFlag3 = 0.76
+            stateFlag4 = 1.465
+            number5 = 1.0
+            stateFlag5 = 1.0
+            dataCollection4 = 0.4
+            workingValue = string
+            workingValue = workingValue.format
+            workingValue2 = "Vehicle Speed: %.2f MPH"
+            workingValue4 = GetEntitySpeed
+            workingValue6 = localValue8
             -- Beginner: result below is speed.
-            workValue4 = workValue4(workValue6)
-            workValue4 = workValue4 * 2.236936
-            workValue = workValue(workValue2, workValue4)
-            workValue2 = 51
-            workValue4 = 153
-            workValue6 = 255
-            workValue8 = 200
-            flag2(flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8)
+            workingValue4 = workingValue4(workingValue6)
+            workingValue4 = workingValue4 * 2.236936
+            workingValue = workingValue(workingValue2, workingValue4)
+            workingValue2 = 51
+            workingValue4 = 153
+            workingValue6 = 255
+            workingValue8 = 200
+            stateFlag2(stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8)
           end
-          flag2 = eventRegistration2
-          flag3 = 0.76
-          flag4 = 1.44
-          numberValue5 = 1.0
-          flag5 = 1.0
-          dataTable4 = 0.4
-          workValue = "Health: "
-          workValue2 = arg5
-          workValue4 = "/"
-          workValue6 = arg6
-          workValue = workValue .. workValue2 .. workValue4 .. workValue6
-          workValue2 = 51
-          workValue4 = 153
-          workValue6 = 255
-          workValue8 = 200
+          stateFlag2 = eventHandler2
+          stateFlag3 = 0.76
+          stateFlag4 = 1.44
+          number5 = 1.0
+          stateFlag5 = 1.0
+          dataCollection4 = 0.4
+          workingValue = "Health: "
+          workingValue2 = localValue5
+          workingValue4 = "/"
+          workingValue6 = localValue6
+          workingValue = workingValue .. workingValue2 .. workingValue4 .. workingValue6
+          workingValue2 = 51
+          workingValue4 = 153
+          workingValue6 = 255
+          workingValue8 = 200
           -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: 0.76.
-          flag2(flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8)
-          flag2 = eventRegistration2
-          flag3 = 0.76
-          flag4 = 1.415
-          numberValue5 = 1.0
-          flag5 = 1.0
-          dataTable4 = 0.4
-          workValue = "Armor: "
-          workValue2 = mathHelper
-          workValue = workValue .. workValue2
-          workValue2 = 51
-          workValue4 = 153
-          workValue6 = 255
-          workValue8 = 200
-          flag2(flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8)
-          flag2 = eventRegistration2
-          flag3 = 0.76
-          flag4 = 1.39
-          numberValue5 = 1.0
-          flag5 = 1.0
-          dataTable4 = 0.4
-          workValue = "Vehicle Health: "
-          workValue2 = GetEntityHealth
-          workValue4 = GetVehiclePedIsIn
-          workValue6 = arg3
-          workValue8 = false
-          workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9, numberValue10, numberValue11 = workValue4(workValue6, workValue8)
+          stateFlag2(stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8)
+          stateFlag2 = eventHandler2
+          stateFlag3 = 0.76
+          stateFlag4 = 1.415
+          number5 = 1.0
+          stateFlag5 = 1.0
+          dataCollection4 = 0.4
+          workingValue = "Armor: "
+          workingValue2 = mathHelper
+          workingValue = workingValue .. workingValue2
+          workingValue2 = 51
+          workingValue4 = 153
+          workingValue6 = 255
+          workingValue8 = 200
+          stateFlag2(stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8)
+          stateFlag2 = eventHandler2
+          stateFlag3 = 0.76
+          stateFlag4 = 1.39
+          number5 = 1.0
+          stateFlag5 = 1.0
+          dataCollection4 = 0.4
+          workingValue = "Vehicle Health: "
+          workingValue2 = GetEntityHealth
+          workingValue4 = GetVehiclePedIsIn
+          workingValue6 = localValue3
+          workingValue8 = false
+          workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9, number10, number11 = workingValue4(workingValue6, workingValue8)
           -- Beginner: result below is health.
-          workValue2 = workValue2(workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9, numberValue10, numberValue11)
-          workValue = workValue .. workValue2
-          workValue2 = 51
-          workValue4 = 153
-          workValue6 = 255
-          workValue8 = 200
+          workingValue2 = workingValue2(workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9, number10, number11)
+          workingValue = workingValue .. workingValue2
+          workingValue2 = 51
+          workingValue4 = 153
+          workingValue6 = 255
+          workingValue8 = 200
           -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: 0.76.
-          flag2(flag3, flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8)
-          flag2 = tostring
-          flag3 = WeaponNames
-          flag3 = flag3[arg7]
-          flag2 = flag2(flag3)
-          flag3 = eventRegistration2
-          flag4 = 0.76
-          numberValue5 = 1.365
-          flag5 = 1.0
-          dataTable4 = 1.0
-          workValue = 0.4
-          workValue2 = "Weapon: "
-          workValue4 = flag2 or workValue4
-          if not flag2 then
-            workValue4 = "N/A"
+          stateFlag2(stateFlag3, stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8)
+          stateFlag2 = tostring
+          stateFlag3 = WeaponNames
+          stateFlag3 = stateFlag3[localValue7]
+          stateFlag2 = stateFlag2(stateFlag3)
+          stateFlag3 = eventHandler2
+          stateFlag4 = 0.76
+          number5 = 1.365
+          stateFlag5 = 1.0
+          dataCollection4 = 1.0
+          workingValue = 0.4
+          workingValue2 = "Weapon: "
+          workingValue4 = stateFlag2 or workingValue4
+          if not stateFlag2 then
+            workingValue4 = "N/A"
           end
-          workValue2 = workValue2 .. workValue4
-          workValue4 = 51
-          workValue6 = 153
-          workValue8 = 255
-          workValue10 = 200
-          flag3(flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8, workValue10)
-          flag3 = eventRegistration2
-          flag4 = 0.76
-          numberValue5 = 1.34
-          flag5 = 1.0
-          dataTable4 = 1.0
-          workValue = 0.4
-          workValue2 = "Ammo: "
-          workValue4 = numberValue3 or workValue4
-          if not numberValue3 then
-            workValue4 = "N/A"
+          workingValue2 = workingValue2 .. workingValue4
+          workingValue4 = 51
+          workingValue6 = 153
+          workingValue8 = 255
+          workingValue10 = 200
+          stateFlag3(stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10)
+          stateFlag3 = eventHandler2
+          stateFlag4 = 0.76
+          number5 = 1.34
+          stateFlag5 = 1.0
+          dataCollection4 = 1.0
+          workingValue = 0.4
+          workingValue2 = "Ammo: "
+          workingValue4 = number3 or workingValue4
+          if not number3 then
+            workingValue4 = "N/A"
           end
-          workValue2 = workValue2 .. workValue4
-          workValue4 = 51
-          workValue6 = 153
-          workValue8 = 255
-          workValue10 = 200
+          workingValue2 = workingValue2 .. workingValue4
+          workingValue4 = 51
+          workingValue6 = 153
+          workingValue8 = 255
+          workingValue10 = 200
           -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: 0.76.
-          flag3(flag4, numberValue5, flag5, dataTable4, workValue, workValue2, workValue4, workValue6, workValue8, workValue10)
-          flag3 = GetActivePlayers
-          flag3 = flag3()
-          flag4 = pairs
-          numberValue5 = flag3
-          flag4, numberValue5, flag5, dataTable4 = flag4(numberValue5)
-          for workValue, workValue2 in flag4, numberValue5, flag5, dataTable4 do
-            workValue4 = GetPlayerPed
-            workValue6 = workValue2
+          stateFlag3(stateFlag4, number5, stateFlag5, dataCollection4, workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10)
+          stateFlag3 = GetActivePlayers
+          stateFlag3 = stateFlag3()
+          stateFlag4 = pairs
+          number5 = stateFlag3
+          stateFlag4, number5, stateFlag5, dataCollection4 = stateFlag4(number5)
+          for workingValue, workingValue2 in stateFlag4, number5, stateFlag5, dataCollection4 do
+            workingValue4 = GetPlayerPed
+            workingValue6 = workingValue2
             -- Beginner: result below is playerPed.
-            workValue4 = workValue4(workValue6)
-            workValue6 = SetEntityNoCollisionEntity
-            workValue8 = arg2
-            workValue10 = workValue4
-            workValue12 = true
-            workValue6(workValue8, workValue10, workValue12)
+            workingValue4 = workingValue4(workingValue6)
+            workingValue6 = SetEntityNoCollisionEntity
+            workingValue8 = localValue2
+            workingValue10 = workingValue4
+            workingValue12 = true
+            workingValue6(workingValue8, workingValue10, workingValue12)
           end
-          flag4 = DisableControlAction
-          numberValue5 = 2
-          flag5 = 15
-          dataTable4 = true
-          flag4(numberValue5, flag5, dataTable4)
-          flag4 = DisableControlAction
-          numberValue5 = 2
-          flag5 = 17
-          dataTable4 = true
-          flag4(numberValue5, flag5, dataTable4)
-          flag4 = IsControlPressed
-          numberValue5 = 2
-          flag5 = 241
-          flag4 = flag4(numberValue5, flag5)
-          if flag4 then
-            flag4 = numberValue13
-            flag4 = flag4 + 0.5
-            numberValue13 = flag4
+          stateFlag4 = DisableControlAction
+          number5 = 2
+          stateFlag5 = 15
+          dataCollection4 = true
+          stateFlag4(number5, stateFlag5, dataCollection4)
+          stateFlag4 = DisableControlAction
+          number5 = 2
+          stateFlag5 = 17
+          dataCollection4 = true
+          stateFlag4(number5, stateFlag5, dataCollection4)
+          stateFlag4 = IsControlPressed
+          number5 = 2
+          stateFlag5 = 241
+          stateFlag4 = stateFlag4(number5, stateFlag5)
+          if stateFlag4 then
+            stateFlag4 = number13
+            stateFlag4 = stateFlag4 + 0.5
+            number13 = stateFlag4
           end
-          flag4 = DisableControlAction
-          numberValue5 = 2
-          flag5 = 14
-          dataTable4 = true
-          flag4(numberValue5, flag5, dataTable4)
-          flag4 = DisableControlAction
-          numberValue5 = 2
-          flag5 = 16
-          dataTable4 = true
-          flag4(numberValue5, flag5, dataTable4)
-          flag4 = IsControlPressed
-          numberValue5 = 2
-          flag5 = 242
-          flag4 = flag4(numberValue5, flag5)
-          if flag4 then
-            flag4 = numberValue13
-            flag4 = flag4 - 0.5
-            numberValue13 = flag4
+          stateFlag4 = DisableControlAction
+          number5 = 2
+          stateFlag5 = 14
+          dataCollection4 = true
+          stateFlag4(number5, stateFlag5, dataCollection4)
+          stateFlag4 = DisableControlAction
+          number5 = 2
+          stateFlag5 = 16
+          dataCollection4 = true
+          stateFlag4(number5, stateFlag5, dataCollection4)
+          stateFlag4 = IsControlPressed
+          number5 = 2
+          stateFlag5 = 242
+          stateFlag4 = stateFlag4(number5, stateFlag5)
+          if stateFlag4 then
+            stateFlag4 = number13
+            stateFlag4 = stateFlag4 - 0.5
+            number13 = stateFlag4
           end
-          flag4 = numberValue13
-          if flag4 > -1 then
-            flag4 = -1
-            numberValue13 = flag4
+          stateFlag4 = number13
+          if stateFlag4 > -1 then
+            stateFlag4 = -1
+            number13 = stateFlag4
           end
-          flag4 = GetDisabledControlNormal
-          numberValue5 = 0
-          flag5 = 1
-          flag4 = flag4(numberValue5, flag5)
-          numberValue5 = GetDisabledControlNormal
-          flag5 = 0
-          dataTable4 = 2
-          numberValue5 = numberValue5(flag5, dataTable4)
-          flag5 = numberValue7
-          dataTable4 = flag4 * 10
-          flag5 = flag5 + dataTable4
-          numberValue7 = flag5
-          flag5 = numberValue7
-          dataTable4 = 360
-          if flag5 >= dataTable4 then
-            flag5 = 0
-            numberValue7 = flag5
+          stateFlag4 = GetDisabledControlNormal
+          number5 = 0
+          stateFlag5 = 1
+          stateFlag4 = stateFlag4(number5, stateFlag5)
+          number5 = GetDisabledControlNormal
+          stateFlag5 = 0
+          dataCollection4 = 2
+          number5 = number5(stateFlag5, dataCollection4)
+          stateFlag5 = number7
+          dataCollection4 = stateFlag4 * 10
+          stateFlag5 = stateFlag5 + dataCollection4
+          number7 = stateFlag5
+          stateFlag5 = number7
+          dataCollection4 = 360
+          if stateFlag5 >= dataCollection4 then
+            stateFlag5 = 0
+            number7 = stateFlag5
           end
-          flag5 = numberValue12
-          dataTable4 = numberValue5 * 10
-          flag5 = flag5 - dataTable4
-          numberValue12 = flag5
-          flag5 = numberValue12
-          dataTable4 = 360
-          if flag5 >= dataTable4 then
-            flag5 = 0
-            numberValue12 = flag5
+          stateFlag5 = number12
+          dataCollection4 = number5 * 10
+          stateFlag5 = stateFlag5 - dataCollection4
+          number12 = stateFlag5
+          stateFlag5 = number12
+          dataCollection4 = 360
+          if stateFlag5 >= dataCollection4 then
+            stateFlag5 = 0
+            number12 = stateFlag5
           end
-          flag5 = textValue
-          dataTable4 = arg4
-          workValue = numberValue13
-          workValue2 = numberValue7
-          workValue4 = numberValue12
-          flag5 = flag5(dataTable4, workValue, workValue2, workValue4)
-          dataTable4 = workValue39
-          if dataTable4 then
-            dataTable4 = SetCamCoord
-            workValue = workValue39
-            workValue2 = flag5.x
-            workValue4 = flag5.y
-            workValue6 = flag5.z
-            dataTable4(workValue, workValue2, workValue4, workValue6)
-            dataTable4 = PointCamAtEntity
-            workValue = workValue39
-            workValue2 = arg3
-            workValue4 = 0.0
-            workValue6 = 0.0
-            workValue8 = 0.0
-            workValue10 = false
-            dataTable4(workValue, workValue2, workValue4, workValue6, workValue8, workValue10)
+          stateFlag5 = text
+          dataCollection4 = localValue4
+          workingValue = number13
+          workingValue2 = number7
+          workingValue4 = number12
+          stateFlag5 = stateFlag5(dataCollection4, workingValue, workingValue2, workingValue4)
+          dataCollection4 = workingValue39
+          if dataCollection4 then
+            dataCollection4 = SetCamCoord
+            workingValue = workingValue39
+            workingValue2 = stateFlag5.x
+            workingValue4 = stateFlag5.y
+            workingValue6 = stateFlag5.z
+            dataCollection4(workingValue, workingValue2, workingValue4, workingValue6)
+            dataCollection4 = PointCamAtEntity
+            workingValue = workingValue39
+            workingValue2 = localValue3
+            workingValue4 = 0.0
+            workingValue6 = 0.0
+            workingValue8 = 0.0
+            workingValue10 = false
+            dataCollection4(workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10)
           end
-          dataTable4 = SetFocusPosAndVel
-          workValue = arg4.x
-          workValue2 = arg4.y
-          workValue4 = arg4.z
-          workValue6 = 0.0
-          workValue8 = 0.0
-          workValue10 = 0.0
-          dataTable4(workValue, workValue2, workValue4, workValue6, workValue8, workValue10)
-          dataTable4 = LockMinimapPosition
-          workValue = arg4.x
-          workValue2 = arg4.y
-          dataTable4(workValue, workValue2)
-          dataTable4 = SetPlayerBlipPositionThisFrame
-          workValue = arg4.x
-          workValue2 = arg4.y
-          dataTable4(workValue, workValue2)
-          dataTable4 = GetFinalRenderedCamCoord
-          dataTable4 = dataTable4()
-          workValue = vector3Builder
-          dataTable4 = dataTable4 - workValue
-          dataTable4 = #dataTable4
-          workValue = 2142.0
-          if dataTable4 < workValue then
-            dataTable4 = CMG
-            dataTable4 = dataTable4.isInCayoPerico
-            dataTable4 = dataTable4()
-            if not dataTable4 then
-              dataTable4 = EnableCayoPerico
-              workValue = true
-              dataTable4(workValue)
+          dataCollection4 = SetFocusPosAndVel
+          workingValue = localValue4.x
+          workingValue2 = localValue4.y
+          workingValue4 = localValue4.z
+          workingValue6 = 0.0
+          workingValue8 = 0.0
+          workingValue10 = 0.0
+          dataCollection4(workingValue, workingValue2, workingValue4, workingValue6, workingValue8, workingValue10)
+          dataCollection4 = LockMinimapPosition
+          workingValue = localValue4.x
+          workingValue2 = localValue4.y
+          dataCollection4(workingValue, workingValue2)
+          dataCollection4 = SetPlayerBlipPositionThisFrame
+          workingValue = localValue4.x
+          workingValue2 = localValue4.y
+          dataCollection4(workingValue, workingValue2)
+          dataCollection4 = GetFinalRenderedCamCoord
+          dataCollection4 = dataCollection4()
+          workingValue = createVector3
+          dataCollection4 = dataCollection4 - workingValue
+          dataCollection4 = #dataCollection4
+          workingValue = 2142.0
+          if dataCollection4 < workingValue then
+            dataCollection4 = CMG
+            dataCollection4 = dataCollection4.isInCayoPerico
+            dataCollection4 = dataCollection4()
+            if not dataCollection4 then
+              dataCollection4 = EnableCayoPerico
+              workingValue = true
+              dataCollection4(workingValue)
             end
           else
-            dataTable4 = CMG
-            dataTable4 = dataTable4.isInCayoPerico
-            dataTable4 = dataTable4()
-            if dataTable4 then
-              dataTable4 = DisableCayoPerico
-              workValue = true
-              dataTable4(workValue)
+            dataCollection4 = CMG
+            dataCollection4 = dataCollection4.isInCayoPerico
+            dataCollection4 = dataCollection4()
+            if dataCollection4 then
+              dataCollection4 = DisableCayoPerico
+              workingValue = true
+              dataCollection4(workingValue)
             end
           end
-          dataTable4 = CMG
-          dataTable4 = dataTable4.hasClientPermission
-          workValue = "admin.espspectate"
-          dataTable4 = dataTable4(workValue)
-          if dataTable4 then
-            dataTable4 = CMG
-            dataTable4 = dataTable4.isStreamerMode
-            dataTable4 = dataTable4()
-            if not dataTable4 then
-              dataTable4 = workValue9
-              workValue = arg3
-              dataTable4(workValue)
+          dataCollection4 = CMG
+          dataCollection4 = dataCollection4.hasClientPermission
+          workingValue = "admin.espspectate"
+          dataCollection4 = dataCollection4(workingValue)
+          if dataCollection4 then
+            dataCollection4 = CMG
+            dataCollection4 = dataCollection4.isStreamerMode
+            dataCollection4 = dataCollection4()
+            if not dataCollection4 then
+              dataCollection4 = workingValue9
+              workingValue = localValue3
+              dataCollection4(workingValue)
             end
           end
-          dataTable4 = GetGameTimer
+          dataCollection4 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          dataTable4 = dataTable4()
-          workValue = numberValue2
-          workValue = dataTable4 - workValue
-          workValue2 = 2000
-          if workValue > workValue2 then
-            workValue = TriggerServerEvent
-            workValue2 = "933f9e09bb"
+          dataCollection4 = dataCollection4()
+          workingValue = number2
+          workingValue = dataCollection4 - workingValue
+          workingValue2 = 2000
+          if workingValue > workingValue2 then
+            workingValue = TriggerServerEvent
+            workingValue2 = "933f9e09bb"
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "933f9e09bb".
-            workValue(workValue2)
-            numberValue2 = dataTable4
+            workingValue(workingValue2)
+            number2 = dataCollection4
           end
-          workValue = dataTable
-          workValue = #workValue
-          if workValue > 0 then
-            workValue = CMG
-            workValue = workValue.hasClientPermission
-            workValue2 = "admin.spectatingnames"
-            workValue = workValue(workValue2)
-            if workValue then
-              workValue = eventRegistration2
-              workValue2 = 0.76
-              workValue4 = 0.5
-              workValue6 = 1.0
-              workValue8 = 1.0
-              workValue10 = 0.4
-              workValue12 = "Staff Spectating:"
-              workValue13 = 255
-              workValue14 = 143
-              workValue15 = 27
-              workValue16 = 255
+          workingValue = dataCollection
+          workingValue = #workingValue
+          if workingValue > 0 then
+            workingValue = CMG
+            workingValue = workingValue.hasClientPermission
+            workingValue2 = "admin.spectatingnames"
+            workingValue = workingValue(workingValue2)
+            if workingValue then
+              workingValue = eventHandler2
+              workingValue2 = 0.76
+              workingValue4 = 0.5
+              workingValue6 = 1.0
+              workingValue8 = 1.0
+              workingValue10 = 0.4
+              workingValue12 = "Staff Spectating:"
+              workingValue13 = 255
+              workingValue14 = 143
+              workingValue15 = 27
+              workingValue16 = 255
               -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: 0.76.
-              workValue(workValue2, workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16)
-              workValue = pairs
-              workValue2 = dataTable
-              workValue, workValue2, workValue4, workValue6 = workValue(workValue2)
-              for workValue8, workValue10 in workValue, workValue2, workValue4, workValue6 do
-                workValue12 = fullPlayerListData
-                workValue12 = workValue12[workValue10]
-                if workValue12 then
-                  workValue13 = eventRegistration2
-                  workValue14 = 0.76
-                  workValue15 = workValue8 / 30.0
-                  workValue15 = 0.5 + workValue15
-                  workValue16 = 1.0
-                  numberValue6 = 1.0
-                  numberValue8 = 0.4
+              workingValue(workingValue2, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16)
+              workingValue = pairs
+              workingValue2 = dataCollection
+              workingValue, workingValue2, workingValue4, workingValue6 = workingValue(workingValue2)
+              for workingValue8, workingValue10 in workingValue, workingValue2, workingValue4, workingValue6 do
+                workingValue12 = fullPlayerListData
+                workingValue12 = workingValue12[workingValue10]
+                if workingValue12 then
+                  workingValue13 = eventHandler2
+                  workingValue14 = 0.76
+                  workingValue15 = workingValue8 / 30.0
+                  workingValue15 = 0.5 + workingValue15
+                  workingValue16 = 1.0
+                  number6 = 1.0
+                  number8 = 0.4
                   stringHelper = string
                   stringHelper = stringHelper.format
-                  textValue5 = "%s (%s)"
-                  numberValue9 = workValue12[2]
-                  numberValue10 = workValue10
-                  stringHelper = stringHelper(textValue5, numberValue9, numberValue10)
-                  textValue5 = 255
-                  numberValue9 = 143
-                  numberValue10 = 27
-                  numberValue11 = 255
-                  workValue13(workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9, numberValue10, numberValue11)
+                  text5 = "%s (%s)"
+                  number9 = workingValue12[2]
+                  number10 = workingValue10
+                  stringHelper = stringHelper(text5, number9, number10)
+                  text5 = 255
+                  number9 = 143
+                  number10 = 27
+                  number11 = 255
+                  workingValue13(workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9, number10, number11)
                 end
               end
             else
-              workValue = eventRegistration2
-              workValue2 = 0.76
-              workValue4 = 0.5
-              workValue6 = 1.0
-              workValue8 = 1.0
-              workValue10 = 0.4
-              workValue12 = tostring
-              workValue13 = dataTable
-              workValue13 = #workValue13
-              workValue12 = workValue12(workValue13)
-              workValue13 = " Staff Spectating"
-              workValue12 = workValue12 .. workValue13
-              workValue13 = 255
-              workValue14 = 143
-              workValue15 = 27
-              workValue16 = 255
+              workingValue = eventHandler2
+              workingValue2 = 0.76
+              workingValue4 = 0.5
+              workingValue6 = 1.0
+              workingValue8 = 1.0
+              workingValue10 = 0.4
+              workingValue12 = tostring
+              workingValue13 = dataCollection
+              workingValue13 = #workingValue13
+              workingValue12 = workingValue12(workingValue13)
+              workingValue13 = " Staff Spectating"
+              workingValue12 = workingValue12 .. workingValue13
+              workingValue13 = 255
+              workingValue14 = 143
+              workingValue15 = 27
+              workingValue16 = 255
               -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: 0.76.
-              workValue(workValue2, workValue4, workValue6, workValue8, workValue10, workValue12, workValue13, workValue14, workValue15, workValue16)
+              workingValue(workingValue2, workingValue4, workingValue6, workingValue8, workingValue10, workingValue12, workingValue13, workingValue14, workingValue15, workingValue16)
             end
           end
-          workValue = dataTable2
-          workValue = #workValue
-          if workValue > 0 then
-            workValue2 = workValue
-            workValue4 = 1
-            workValue6 = -1
-            for workValue8 = workValue2, workValue4, workValue6 do
-              workValue10 = dataTable2
-              workValue10 = workValue10[workValue8]
-              workValue12 = workValue10[2]
-              workValue12 = dataTable4 - workValue12
-              workValue13 = 3000
-              if workValue12 > workValue13 then
-                workValue12 = table
-                workValue12 = workValue12.remove
-                workValue13 = dataTable2
-                workValue14 = workValue8
-                workValue12(workValue13, workValue14)
+          workingValue = dataCollection2
+          workingValue = #workingValue
+          if workingValue > 0 then
+            workingValue2 = workingValue
+            workingValue4 = 1
+            workingValue6 = -1
+            for workingValue8 = workingValue2, workingValue4, workingValue6 do
+              workingValue10 = dataCollection2
+              workingValue10 = workingValue10[workingValue8]
+              workingValue12 = workingValue10[2]
+              workingValue12 = dataCollection4 - workingValue12
+              workingValue13 = 3000
+              if workingValue12 > workingValue13 then
+                workingValue12 = table
+                workingValue12 = workingValue12.remove
+                workingValue13 = dataCollection2
+                workingValue14 = workingValue8
+                workingValue12(workingValue13, workingValue14)
               end
             end
-            workValue2 = pairs
-            workValue4 = dataTable2
-            workValue2, workValue4, workValue6, workValue8 = workValue2(workValue4)
-            for workValue10, workValue12 in workValue2, workValue4, workValue6, workValue8 do
-              workValue13 = CMG
-              workValue13 = workValue13.DrawText
-              workValue14 = 0.7
-              workValue15 = workValue10 / 45.0
-              workValue15 = 0.4 + workValue15
-              workValue16 = workValue12[1]
-              numberValue6 = 0.4
-              numberValue8 = nil
+            workingValue2 = pairs
+            workingValue4 = dataCollection2
+            workingValue2, workingValue4, workingValue6, workingValue8 = workingValue2(workingValue4)
+            for workingValue10, workingValue12 in workingValue2, workingValue4, workingValue6, workingValue8 do
+              workingValue13 = CMG
+              workingValue13 = workingValue13.DrawText
+              workingValue14 = 0.7
+              workingValue15 = workingValue10 / 45.0
+              workingValue15 = 0.4 + workingValue15
+              workingValue16 = workingValue12[1]
+              number6 = 0.4
+              number8 = nil
               stringHelper = nil
-              textValue5 = nil
-              numberValue9 = true
-              workValue13(workValue14, workValue15, workValue16, numberValue6, numberValue8, stringHelper, textValue5, numberValue9)
+              text5 = nil
+              number9 = true
+              workingValue13(workingValue14, workingValue15, workingValue16, number6, number8, stringHelper, text5, number9)
             end
           end
         end
       else
-        arg2 = GetGameTimer
+        localValue2 = GetGameTimer
         -- Beginner: result below is gameTimeMs.
-        arg2 = arg2()
-        arg3 = numberValue4
-        arg3 = arg2 - arg3
-        arg4 = 5000
-        if arg3 >= arg4 then
-          numberValue4 = arg2
-          arg3 = tCMG
-          arg3 = arg3.notify
-          arg4 = "~r~Couldn't spectate, person not in your zone"
+        localValue2 = localValue2()
+        localValue3 = number4
+        localValue3 = localValue2 - localValue3
+        localValue4 = 5000
+        if localValue3 >= localValue4 then
+          number4 = localValue2
+          localValue3 = tCMG
+          localValue3 = localValue3.notify
+          localValue4 = "~r~Couldn't spectate, person not in your zone"
           -- Beginner: Show a notification to the player.
-          arg3(arg4)
+          localValue3(localValue4)
         end
       end
-      arg2 = eventRegistration
-      arg3 = false
+      localValue2 = eventHandler
+      localValue3 = false
       -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: false.
-      arg2(arg3)
+      localValue2(localValue3)
     end
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-eventRegistration3 = workValue11
-cmgCall3 = "Staff Spectator"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+eventHandler3 = workingValue11
+cmgOperation3 = "Staff Spectator"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(eventRegistration3, cmgCall3)
-cmgCall2 = {}
-eventRegistration3 = AddStateBagChangeHandler
-cmgCall3 = "conceal"
-textValue3 = nil
+cmgOperation2(eventHandler3, cmgOperation3)
+cmgOperation2 = {}
+eventHandler3 = AddStateBagChangeHandler
+cmgOperation3 = "conceal"
+text3 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2, arg3) ===
-function textValue4(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, arg9
-  arg4 = tonumber
-  arg5 = stringsplit
-  arg6 = arg1
-  arg7 = ":"
-  arg5 = arg5(arg6, arg7)
-  arg5 = arg5[2]
-  arg4 = arg4(arg5)
-  if not arg4 then
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1, localValue2, localValue3) ===
+function text4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue4 = tonumber
+  localValue5 = stringsplit
+  localValue6 = localValue1
+  localValue7 = ":"
+  localValue5 = localValue5(localValue6, localValue7)
+  localValue5 = localValue5[2]
+  localValue4 = localValue4(localValue5)
+  if not localValue4 then
     return
   end
-  if arg3 then
-    arg5 = cmgCall2
-    arg5[arg4] = true
+  if localValue3 then
+    localValue5 = cmgOperation2
+    localValue5[localValue4] = true
   else
-    arg5 = GetPlayerFromServerId
-    arg6 = arg4
+    localValue5 = GetPlayerFromServerId
+    localValue6 = localValue4
     -- Beginner: result below is playerIndex.
-    arg5 = arg5(arg6)
-    if -1 ~= arg5 then
-      arg6 = PlayerId
+    localValue5 = localValue5(localValue6)
+    if -1 ~= localValue5 then
+      localValue6 = PlayerId
       -- Beginner: result below is localPlayerIndex.
-      arg6 = arg6()
-      if arg5 ~= arg6 then
-        arg6 = NetworkConcealPlayer
-        arg7 = arg5
-        arg8 = false
-        arg9 = false
-        arg6(arg7, arg8, arg9)
+      localValue6 = localValue6()
+      if localValue5 ~= localValue6 then
+        localValue6 = NetworkConcealPlayer
+        localValue7 = localValue5
+        localValue8 = false
+        localValue9 = false
+        localValue6(localValue7, localValue8, localValue9)
       end
     end
-    arg6 = cmgCall2
-    arg6[arg4] = nil
+    localValue6 = cmgOperation2
+    localValue6[localValue4] = nil
   end
 end
-eventRegistration3(cmgCall3, textValue3, textValue4)
-eventRegistration3 = RegisterNetEvent
-cmgCall3 = "onPlayerDropped"
+eventHandler3(cmgOperation3, text3, text4)
+eventHandler3 = RegisterNetEvent
+cmgOperation3 = "onPlayerDropped"
 -- Beginner: this function handles network event "onPlayerDropped".
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2
-  arg2 = cmgCall2
-  arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2
+  localValue2 = cmgOperation2
+  localValue2[localValue1] = nil
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "onPlayerDropped".
-eventRegistration3(cmgCall3, textValue3)
+eventHandler3(cmgOperation3, text3)
 -- Beginner: this function handles network event "onPlayerDropped".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: none) ===
-function eventRegistration3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg1 = pairs
-  arg2 = cmgCall2
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5 in arg1, arg2, arg3, arg4 do
-    arg6 = GetPlayerFromServerId
-    arg7 = arg5
+-- === HELPER FUNCTION (decompiler name: eventHandler3; parameters: none) ===
+function eventHandler3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue1 = pairs
+  localValue2 = cmgOperation2
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5 in localValue1, localValue2, localValue3, localValue4 do
+    localValue6 = GetPlayerFromServerId
+    localValue7 = localValue5
     -- Beginner: result below is playerIndex.
-    arg6 = arg6(arg7)
-    if -1 ~= arg6 then
-      arg7 = PlayerId
+    localValue6 = localValue6(localValue7)
+    if -1 ~= localValue6 then
+      localValue7 = PlayerId
       -- Beginner: result below is localPlayerIndex.
-      arg7 = arg7()
-      if arg6 ~= arg7 then
-        arg7 = NetworkConcealPlayer
-        arg8 = arg6
-        arg9 = true
-        arg10 = true
-        arg7(arg8, arg9, arg10)
+      localValue7 = localValue7()
+      if localValue6 ~= localValue7 then
+        localValue7 = NetworkConcealPlayer
+        localValue8 = localValue6
+        localValue9 = true
+        localValue10 = true
+        localValue7(localValue8, localValue9, localValue10)
       end
     end
   end
 end
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.createThreadOnTick
-textValue3 = eventRegistration3
-textValue4 = "Staff Spectator Concealing"
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.createThreadOnTick
+text3 = eventHandler3
+text4 = "Staff Spectator Concealing"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-function textValue3()
-  local arg1, arg2
-  arg1 = flag
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+function text3()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  return localValue1
 end
-cmgCall3.isInSpectate = textValue3
-cmgCall3 = RegisterNetEvent
-textValue3 = "5126fa6ac5"
+cmgOperation3.isInSpectate = text3
+cmgOperation3 = RegisterNetEvent
+text3 = "5126fa6ac5"
 -- Beginner: this function handles network event "5126fa6ac5".
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3
-  arg2 = CMG
-  arg2 = arg2.hasClientPermission
-  arg3 = "admin.tickets"
-  arg2 = arg2(arg3)
-  if arg2 then
-    dataTable = arg1
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3
+  localValue2 = CMG
+  localValue2 = localValue2.hasClientPermission
+  localValue3 = "admin.tickets"
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    dataCollection = localValue1
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5126fa6ac5".
-cmgCall3(textValue3, textValue4)
-cmgCall3 = RegisterNetEvent
-textValue3 = "90dc9c490b"
+cmgOperation3(text3, text4)
+cmgOperation3 = RegisterNetEvent
+text3 = "90dc9c490b"
 -- Beginner: this function handles network event "90dc9c490b".
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, mathHelper, numberValue3, flag2, flag3, flag4, numberValue5, flag5
-  arg2 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, mathHelper, number3, stateFlag2, stateFlag3, stateFlag4, number5, stateFlag5
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
-  arg3 = pairs
-  arg4 = arg1
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    arg9 = CMG
-    arg9 = arg9.isKeyboardKeyCaptured
-    arg10 = arg8[1]
-    arg9 = arg9(arg10)
-    if arg9 then
-      arg9 = "~r~"
-      if arg9 then
-        goto flow_label_17
+  localValue2 = localValue2()
+  localValue3 = pairs
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, localValue8 in localValue3, localValue4, localValue5, localValue6 do
+    localValue9 = CMG
+    localValue9 = localValue9.isKeyboardKeyCaptured
+    localValue10 = localValue8[1]
+    localValue9 = localValue9(localValue10)
+    if localValue9 then
+      localValue9 = "~r~"
+      if localValue9 then
+        goto continueAtStep17
       end
     end
-    arg9 = "~g~"
-    ::flow_label_17::
-    arg10 = arg8[1]
+    localValue9 = "~g~"
+    ::continueAtStep17::
+    localValue10 = localValue8[1]
     mathHelper = table
     mathHelper = mathHelper.insert
-    numberValue3 = dataTable2
-    flag2 = {}
-    flag3 = string
-    flag3 = flag3.format
-    flag4 = "%s%s"
-    numberValue5 = arg9
-    flag5 = arg10
-    flag3 = flag3(flag4, numberValue5, flag5)
-    flag4 = arg2
-    flag2[1] = flag3
-    flag2[2] = flag4
-    mathHelper(numberValue3, flag2)
+    number3 = dataCollection2
+    stateFlag2 = {}
+    stateFlag3 = string
+    stateFlag3 = stateFlag3.format
+    stateFlag4 = "%s%s"
+    number5 = localValue9
+    stateFlag5 = localValue10
+    stateFlag3 = stateFlag3(stateFlag4, number5, stateFlag5)
+    stateFlag4 = localValue2
+    stateFlag2[1] = stateFlag3
+    stateFlag2[2] = stateFlag4
+    mathHelper(number3, stateFlag2)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "90dc9c490b".
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.registerDevMenuItems
-textValue3 = "Spectate"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.registerDevMenuItems
+text3 = "Spectate"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = RageUI
-  arg1 = arg1.Checkbox
-  arg2 = "Debug"
-  arg3 = "Display debug information for spectate."
-  arg4 = cmgCall.enabled
-  arg5 = {}
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = RageUI
+  localValue1 = localValue1.Checkbox
+  localValue2 = "Debug"
+  localValue3 = "Display debug information for spectate."
+  localValue4 = cmgOperation.enabled
+  localValue5 = {}
 
-  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
-  function arg6(arg12, arg22, arg32, arg42)
-    cmgCall.enabled = arg42
+  -- === HELPER FUNCTION: localValue6(localValue12, localValue22, localValue32, localValue42) ===
+  function localValue6(localValue12, localValue22, localValue32, localValue42)
+    cmgOperation.enabled = localValue42
   end
   -- Beginner: Draw a RageUI checkbox.
-  arg1(arg2, arg3, arg4, arg5, arg6)
+  localValue1(localValue2, localValue3, localValue4, localValue5, localValue6)
 end
-cmgCall3(textValue3, textValue4)
+cmgOperation3(text3, text4)

@@ -32,3751 +32,3751 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, cmgCall4, textValue8, workValue8, workValue9, workValue11, workValue13, workValue15, workValue17, workValue19, workValue, workValue3, workValue4, cmgCall2, workValue5, eventRegistration, textValue2, cmgCall3, textValue3, textValue4, textValue6, textValue7, workValue7
-cmgCall = CMG
-cmgCall.gangUseNui = true
-cmgCall = CMG
-cmgCall.gangMembershipTiles = nil
-cmgCall = 0
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.loadModule
-textValue8 = "cfg/cfg_gang"
+local cmgOperation, cmgOperation4, text8, workingValue8, workingValue9, workingValue11, workingValue13, workingValue15, workingValue17, workingValue19, workingValue, workingValue3, workingValue4, cmgOperation2, workingValue5, eventHandler, text2, cmgOperation3, text3, text4, text6, text7, workingValue7
+cmgOperation = CMG
+cmgOperation.gangUseNui = true
+cmgOperation = CMG
+cmgOperation.gangMembershipTiles = nil
+cmgOperation = 0
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.loadModule
+text8 = "cfg/cfg_gang"
 -- Beginner: result below is config.
-cmgCall4 = cmgCall4(textValue8)
+cmgOperation4 = cmgOperation4(text8)
 
--- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
-function textValue8()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20
-  arg1 = CMG
-  arg1 = arg1.gangPinnedPlayers
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.gangPinnedPlayers
-    return arg1
+-- === HELPER FUNCTION (decompiler name: text8; parameters: none) ===
+function text8()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20
+  localValue1 = CMG
+  localValue1 = localValue1.gangPinnedPlayers
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.gangPinnedPlayers
+    return localValue1
   end
-  arg1 = GetResourceKvpString
-  arg2 = "cmg_gang_pinned"
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = "{}"
+  localValue1 = GetResourceKvpString
+  localValue2 = "cmg_gang_pinned"
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = "{}"
   end
-  arg2 = json
-  arg2 = arg2.decode
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = {}
+  localValue2 = json
+  localValue2 = localValue2.decode
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = {}
   end
-  arg3 = {}
-  arg4 = pairs
-  arg5 = arg2
-  arg4, arg5, arg6, arg7 = arg4(arg5)
-  for workValue16 in arg4, arg5, arg6, arg7 do
-    dataTable6 = tonumber
-    workValue20 = workValue16
-    dataTable6 = dataTable6(workValue20)
-    arg3[dataTable6] = true
+  localValue3 = {}
+  localValue4 = pairs
+  localValue5 = localValue2
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+  for workingValue16 in localValue4, localValue5, localValue6, localValue7 do
+    dataCollection6 = tonumber
+    workingValue20 = workingValue16
+    dataCollection6 = dataCollection6(workingValue20)
+    localValue3[dataCollection6] = true
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
-    arg2 = {}
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = textValue8
-  arg2 = arg2()
-  arg3 = {}
-  arg4 = arg1.members
-  if arg4 then
-    arg4 = pairs
-    arg5 = arg1.members
-    arg4, arg5, arg6, arg7 = arg4(arg5)
-    for workValue16, dataTable6 in arg4, arg5, arg6, arg7 do
-      workValue20 = tonumber
-      workValue2 = workValue16
-      workValue20 = workValue20(workValue2)
-      if not workValue20 then
-        workValue20 = workValue16
+  localValue2 = text8
+  localValue2 = localValue2()
+  localValue3 = {}
+  localValue4 = localValue1.members
+  if localValue4 then
+    localValue4 = pairs
+    localValue5 = localValue1.members
+    localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+    for workingValue16, dataCollection6 in localValue4, localValue5, localValue6, localValue7 do
+      workingValue20 = tonumber
+      workingValue2 = workingValue16
+      workingValue20 = workingValue20(workingValue2)
+      if not workingValue20 then
+        workingValue20 = workingValue16
       end
-      workValue2 = #arg3
-      workValue2 = workValue2 + 1
-      dataTable = {}
-      dataTable.user_id = workValue20
-      textValue = dataTable6.name
-      if not textValue then
-        textValue = "Unknown"
+      workingValue2 = #localValue3
+      workingValue2 = workingValue2 + 1
+      dataCollection = {}
+      dataCollection.user_id = workingValue20
+      text = dataCollection6.name
+      if not text then
+        text = "Unknown"
       end
-      dataTable.name = textValue
-      textValue = dataTable6.lastLogin
-      if not textValue then
-        textValue = "Offline"
+      dataCollection.name = text
+      text = dataCollection6.lastLogin
+      if not text then
+        text = "Offline"
       end
-      dataTable.lastLogin = textValue
-      textValue = dataTable6.permissions
-      if not textValue then
-        textValue = {}
+      dataCollection.lastLogin = text
+      text = dataCollection6.permissions
+      if not text then
+        text = {}
       end
-      dataTable.permissions = textValue
-      dataTable.isGuest = false
-      textValue = arg2[workValue20]
-      textValue = true == textValue
-      dataTable.isPinned = textValue
-      textValue = dataTable6.gangRank
-      dataTable.gangRank = textValue
-      arg3[workValue2] = dataTable
+      dataCollection.permissions = text
+      dataCollection.isGuest = false
+      text = localValue2[workingValue20]
+      text = true == text
+      dataCollection.isPinned = text
+      text = dataCollection6.gangRank
+      dataCollection.gangRank = text
+      localValue3[workingValue2] = dataCollection
     end
   end
-  arg4 = arg1.guests
-  if arg4 then
-    arg4 = pairs
-    arg5 = arg1.guests
-    arg4, arg5, arg6, arg7 = arg4(arg5)
-    for workValue16, dataTable6 in arg4, arg5, arg6, arg7 do
-      workValue20 = tonumber
-      workValue2 = workValue16
-      workValue20 = workValue20(workValue2)
-      if not workValue20 then
-        workValue20 = workValue16
+  localValue4 = localValue1.guests
+  if localValue4 then
+    localValue4 = pairs
+    localValue5 = localValue1.guests
+    localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+    for workingValue16, dataCollection6 in localValue4, localValue5, localValue6, localValue7 do
+      workingValue20 = tonumber
+      workingValue2 = workingValue16
+      workingValue20 = workingValue20(workingValue2)
+      if not workingValue20 then
+        workingValue20 = workingValue16
       end
-      workValue2 = #arg3
-      workValue2 = workValue2 + 1
-      dataTable = {}
-      dataTable.user_id = workValue20
-      textValue = dataTable6.name
-      if not textValue then
-        textValue = "Unknown"
+      workingValue2 = #localValue3
+      workingValue2 = workingValue2 + 1
+      dataCollection = {}
+      dataCollection.user_id = workingValue20
+      text = dataCollection6.name
+      if not text then
+        text = "Unknown"
       end
-      dataTable.name = textValue
-      dataTable.lastLogin = "Offline"
-      textValue = dataTable6.permissions
-      if not textValue then
-        textValue = {}
+      dataCollection.name = text
+      dataCollection.lastLogin = "Offline"
+      text = dataCollection6.permissions
+      if not text then
+        text = {}
       end
-      dataTable.permissions = textValue
-      dataTable.isGuest = true
-      textValue = arg2[workValue20]
-      textValue = true == textValue
-      dataTable.isPinned = textValue
-      textValue = dataTable6.gangRank
-      dataTable.gangRank = textValue
-      arg3[workValue2] = dataTable
+      dataCollection.permissions = text
+      dataCollection.isGuest = true
+      text = localValue2[workingValue20]
+      text = true == text
+      dataCollection.isPinned = text
+      text = dataCollection6.gangRank
+      dataCollection.gangRank = text
+      localValue3[workingValue2] = dataCollection
     end
   end
-  arg4 = cmgCall4
-  if arg4 then
-    arg4 = cmgCall4.permissions
-    if arg4 then
-      arg4 = cmgCall4.permissions
-      arg4 = #arg4
-      if arg4 then
-        goto flow_label_115
+  localValue4 = cmgOperation4
+  if localValue4 then
+    localValue4 = cmgOperation4.permissions
+    if localValue4 then
+      localValue4 = cmgOperation4.permissions
+      localValue4 = #localValue4
+      if localValue4 then
+        goto continueAtStep115
       end
     end
   end
-  arg4 = 0
-  ::flow_label_115::
+  localValue4 = 0
+  ::continueAtStep115::
 
-  -- === HELPER FUNCTION: arg5(arg12) ===
-  function arg5(arg12)
-    local arg22, iterator, dataTable4, workValue10, workValue12, workValue14, dataTable5, workValue18
-    arg22 = arg12.isGuest
-    if arg22 then
-      arg22 = -1
-      return arg22
+  -- === HELPER FUNCTION: localValue5(localValue12) ===
+  function localValue5(localValue12)
+    local localValue22, iterator, dataCollection4, workingValue10, workingValue12, workingValue14, dataCollection5, workingValue18
+    localValue22 = localValue12.isGuest
+    if localValue22 then
+      localValue22 = -1
+      return localValue22
     end
-    arg22 = 0
+    localValue22 = 0
     iterator = pairs
-    dataTable4 = arg12.permissions
-    if not dataTable4 then
-      dataTable4 = {}
+    dataCollection4 = localValue12.permissions
+    if not dataCollection4 then
+      dataCollection4 = {}
     end
-    iterator, dataTable4, workValue10, workValue12 = iterator(dataTable4)
-    for workValue14, dataTable5 in iterator, dataTable4, workValue10, workValue12 do
-      if dataTable5 then
-        arg22 = arg22 + 1
+    iterator, dataCollection4, workingValue10, workingValue12 = iterator(dataCollection4)
+    for workingValue14, dataCollection5 in iterator, dataCollection4, workingValue10, workingValue12 do
+      if dataCollection5 then
+        localValue22 = localValue22 + 1
       end
     end
-    iterator = arg4
+    iterator = localValue4
     if iterator > 0 then
-      iterator = arg4
-      iterator = arg22 / iterator
+      iterator = localValue4
+      iterator = localValue22 / iterator
       if iterator then
-        goto flow_label_31
+        goto continueAtStep31
       end
     end
     iterator = 0
-    ::flow_label_31::
+    ::continueAtStep31::
     return iterator
   end
-  arg6 = table
-  arg6 = arg6.sort
-  arg7 = arg3
+  localValue6 = table
+  localValue6 = localValue6.sort
+  localValue7 = localValue3
 
-  -- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg12, arg22) ===
-  function workValue16(arg12, arg22)
-    local iterator, dataTable4, workValue10, workValue12
-    iterator = arg5
-    dataTable4 = arg12
-    iterator = iterator(dataTable4)
-    dataTable4 = arg5
-    workValue10 = arg22
-    dataTable4 = dataTable4(workValue10)
-    if iterator ~= dataTable4 then
-      workValue10 = iterator > dataTable4
-      return workValue10
+  -- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue12, localValue22) ===
+  function workingValue16(localValue12, localValue22)
+    local iterator, dataCollection4, workingValue10, workingValue12
+    iterator = localValue5
+    dataCollection4 = localValue12
+    iterator = iterator(dataCollection4)
+    dataCollection4 = localValue5
+    workingValue10 = localValue22
+    dataCollection4 = dataCollection4(workingValue10)
+    if iterator ~= dataCollection4 then
+      workingValue10 = iterator > dataCollection4
+      return workingValue10
     end
-    workValue10 = arg12.user_id
-    workValue12 = arg22.user_id
-    workValue10 = workValue10 < workValue12
-    return workValue10
+    workingValue10 = localValue12.user_id
+    workingValue12 = localValue22.user_id
+    workingValue10 = workingValue10 < workingValue12
+    return workingValue10
   end
-  arg6(arg7, workValue16)
-  return arg3
+  localValue6(localValue7, workingValue16)
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20
-  arg1 = cmgCall4
-  if arg1 then
-    arg1 = cmgCall4.permissions
-    if arg1 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: none) ===
+function workingValue9()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20
+  localValue1 = cmgOperation4
+  if localValue1 then
+    localValue1 = cmgOperation4.permissions
+    if localValue1 then
+      goto continueAtStep10
     end
   end
-  arg1 = {}
-  return arg1
-  ::flow_label_10::
-  arg1 = {}
-  arg2 = ipairs
-  arg3 = cmgCall4.permissions
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    workValue16 = #arg1
-    workValue16 = workValue16 + 1
-    dataTable6 = {}
-    workValue20 = arg7.id
-    dataTable6.id = workValue20
-    workValue20 = arg7.name
-    if not workValue20 then
-      workValue20 = arg7.id
+  localValue1 = {}
+  return localValue1
+  ::continueAtStep10::
+  localValue1 = {}
+  localValue2 = ipairs
+  localValue3 = cmgOperation4.permissions
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for localValue6, localValue7 in localValue2, localValue3, localValue4, localValue5 do
+    workingValue16 = #localValue1
+    workingValue16 = workingValue16 + 1
+    dataCollection6 = {}
+    workingValue20 = localValue7.id
+    dataCollection6.id = workingValue20
+    workingValue20 = localValue7.name
+    if not workingValue20 then
+      workingValue20 = localValue7.id
     end
-    dataTable6.name = workValue20
-    workValue20 = arg7.description
-    if not workValue20 then
-      workValue20 = ""
+    dataCollection6.name = workingValue20
+    workingValue20 = localValue7.description
+    if not workingValue20 then
+      workingValue20 = ""
     end
-    dataTable6.description = workValue20
-    arg1[workValue16] = dataTable6
+    dataCollection6.description = workingValue20
+    localValue1[workingValue16] = dataCollection6
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = CMG
-  arg2 = arg2.gangCachedData
-  if arg2 then
-    arg3 = arg2.members
-    if arg3 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = CMG
+  localValue2 = localValue2.gangCachedData
+  if localValue2 then
+    localValue3 = localValue2.members
+    if localValue3 then
+      goto continueAtStep10
     end
   end
-  arg3 = false
-  return arg3
-  ::flow_label_10::
-  arg3 = CMG
-  arg3 = arg3.getClientUserId
+  localValue3 = false
+  return localValue3
+  ::continueAtStep10::
+  localValue3 = CMG
+  localValue3 = localValue3.getClientUserId
   -- Beginner: result below is userId.
-  arg3 = arg3()
-  arg4 = arg2.members
-  arg4 = arg4[arg3]
-  if not arg4 then
-    arg4 = arg2.members
-    arg5 = tostring
-    arg6 = arg3
-    arg5 = arg5(arg6)
-    arg4 = arg4[arg5]
+  localValue3 = localValue3()
+  localValue4 = localValue2.members
+  localValue4 = localValue4[localValue3]
+  if not localValue4 then
+    localValue4 = localValue2.members
+    localValue5 = tostring
+    localValue6 = localValue3
+    localValue5 = localValue5(localValue6)
+    localValue4 = localValue4[localValue5]
   end
-  if arg4 then
-    arg5 = arg4.permissions
-    if arg5 then
-      goto flow_label_29
+  if localValue4 then
+    localValue5 = localValue4.permissions
+    if localValue5 then
+      goto continueAtStep29
     end
   end
-  arg5 = false
-  return arg5
-  ::flow_label_29::
-  arg5 = arg4.permissions
-  arg5 = arg5[arg1]
-  arg5 = arg4.permissions
-  arg5 = arg5.leader
-  arg5 = not arg5
-  arg5 = arg5 or arg5
-  return arg5
+  localValue5 = false
+  return localValue5
+  ::continueAtStep29::
+  localValue5 = localValue4.permissions
+  localValue5 = localValue5[localValue1]
+  localValue5 = localValue4.permissions
+  localValue5 = localValue5.leader
+  localValue5 = not localValue5
+  localValue5 = localValue5 or localValue5
+  return localValue5
 end
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
-    arg2 = nil
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
+    localValue2 = nil
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.gangRecognisedGangs
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.gangRecognisedGangs
-    arg3 = arg1.id
-    arg2 = arg2[arg3]
-    if arg2 then
-      goto flow_label_18
+  localValue2 = CMG
+  localValue2 = localValue2.gangRecognisedGangs
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.gangRecognisedGangs
+    localValue3 = localValue1.id
+    localValue2 = localValue2[localValue3]
+    if localValue2 then
+      goto continueAtStep18
     end
   end
-  arg2 = nil
-  ::flow_label_18::
-  arg3 = {}
-  arg4 = cmgCall4
-  if arg4 then
-    arg4 = cmgCall4.colourLookup
-    if arg4 then
-      arg4 = pairs
-      arg5 = cmgCall4.colourLookup
-      arg4, arg5, arg6, arg7 = arg4(arg5)
-      for workValue16 in arg4, arg5, arg6, arg7 do
-        dataTable6 = #arg3
-        dataTable6 = dataTable6 + 1
-        arg3[dataTable6] = workValue16
+  localValue2 = nil
+  ::continueAtStep18::
+  localValue3 = {}
+  localValue4 = cmgOperation4
+  if localValue4 then
+    localValue4 = cmgOperation4.colourLookup
+    if localValue4 then
+      localValue4 = pairs
+      localValue5 = cmgOperation4.colourLookup
+      localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+      for workingValue16 in localValue4, localValue5, localValue6, localValue7 do
+        dataCollection6 = #localValue3
+        dataCollection6 = dataCollection6 + 1
+        localValue3[dataCollection6] = workingValue16
       end
-      arg4 = table
-      arg4 = arg4.sort
-      arg5 = arg3
-      arg4(arg5)
+      localValue4 = table
+      localValue4 = localValue4.sort
+      localValue5 = localValue3
+      localValue4(localValue5)
     end
   end
-  arg4 = nil
-  arg5 = CMG
-  arg5 = arg5.getClientUserId
+  localValue4 = nil
+  localValue5 = CMG
+  localValue5 = localValue5.getClientUserId
   -- Beginner: result below is userId.
-  arg5 = arg5()
-  arg6 = arg1.members
-  if arg6 then
-    arg6 = arg1.members
-    arg6 = arg6[arg5]
-    if not arg6 then
-      arg6 = arg1.members
-      arg7 = tostring
-      workValue16 = arg5
-      arg7 = arg7(workValue16)
-      arg6 = arg6[arg7]
+  localValue5 = localValue5()
+  localValue6 = localValue1.members
+  if localValue6 then
+    localValue6 = localValue1.members
+    localValue6 = localValue6[localValue5]
+    if not localValue6 then
+      localValue6 = localValue1.members
+      localValue7 = tostring
+      workingValue16 = localValue5
+      localValue7 = localValue7(workingValue16)
+      localValue6 = localValue6[localValue7]
     end
-    if arg6 then
-      arg7 = type
-      workValue16 = arg6.colour
-      arg7 = arg7(workValue16)
-      if "string" == arg7 then
-        arg7 = cmgCall4
-        if arg7 then
-          arg7 = cmgCall4.colourLookup
-          if arg7 then
-            arg7 = cmgCall4.colourLookup
-            workValue16 = arg6.colour
-            arg7 = arg7[workValue16]
-            if arg7 then
-              arg4 = arg6.colour
+    if localValue6 then
+      localValue7 = type
+      workingValue16 = localValue6.colour
+      localValue7 = localValue7(workingValue16)
+      if "string" == localValue7 then
+        localValue7 = cmgOperation4
+        if localValue7 then
+          localValue7 = cmgOperation4.colourLookup
+          if localValue7 then
+            localValue7 = cmgOperation4.colourLookup
+            workingValue16 = localValue6.colour
+            localValue7 = localValue7[workingValue16]
+            if localValue7 then
+              localValue4 = localValue6.colour
             end
           end
         end
       end
     end
   end
-  if not arg4 then
-    arg6 = GetResourceKvpString
-    arg7 = "cmg_gang_colour"
-    arg6 = arg6(arg7)
-    arg7 = type
-    workValue16 = arg6
-    arg7 = arg7(workValue16)
-    if "string" == arg7 then
-      arg7 = cmgCall4
-      if arg7 then
-        arg7 = cmgCall4.colourLookup
-        if arg7 then
-          arg7 = cmgCall4.colourLookup
-          arg7 = arg7[arg6]
-          if arg7 then
-            arg4 = arg6
+  if not localValue4 then
+    localValue6 = GetResourceKvpString
+    localValue7 = "cmg_gang_colour"
+    localValue6 = localValue6(localValue7)
+    localValue7 = type
+    workingValue16 = localValue6
+    localValue7 = localValue7(workingValue16)
+    if "string" == localValue7 then
+      localValue7 = cmgOperation4
+      if localValue7 then
+        localValue7 = cmgOperation4.colourLookup
+        if localValue7 then
+          localValue7 = cmgOperation4.colourLookup
+          localValue7 = localValue7[localValue6]
+          if localValue7 then
+            localValue4 = localValue6
           end
         end
       end
     end
   end
-  if not arg4 then
-    arg4 = "Red"
+  if not localValue4 then
+    localValue4 = "Red"
   end
-  arg6 = CMG
-  arg6 = arg6.gangClientSettings
-  if not arg6 then
-    arg6 = {}
+  localValue6 = CMG
+  localValue6 = localValue6.gangClientSettings
+  if not localValue6 then
+    localValue6 = {}
   end
-  arg7 = {}
-  workValue16 = arg1.isAdvanced
-  workValue16 = true == workValue16
-  arg7.isAdvanced = workValue16
-  workValue16 = nil ~= arg2
-  arg7.isRecognised = workValue16
-  workValue16 = workValue11
-  dataTable6 = "leader"
-  workValue16 = workValue16(dataTable6)
-  arg7.isLeader = workValue16
-  workValue16 = workValue11
-  dataTable6 = "security"
-  workValue16 = workValue16(dataTable6)
-  arg7.hasSecurity = workValue16
-  workValue16 = arg1.maxWithdraw
-  if not workValue16 then
-    workValue16 = 0
+  localValue7 = {}
+  workingValue16 = localValue1.isAdvanced
+  workingValue16 = true == workingValue16
+  localValue7.isAdvanced = workingValue16
+  workingValue16 = nil ~= localValue2
+  localValue7.isRecognised = workingValue16
+  workingValue16 = workingValue11
+  dataCollection6 = "leader"
+  workingValue16 = workingValue16(dataCollection6)
+  localValue7.isLeader = workingValue16
+  workingValue16 = workingValue11
+  dataCollection6 = "security"
+  workingValue16 = workingValue16(dataCollection6)
+  localValue7.hasSecurity = workingValue16
+  workingValue16 = localValue1.maxWithdraw
+  if not workingValue16 then
+    workingValue16 = 0
   end
-  arg7.maxWithdraw = workValue16
-  workValue16 = arg1.limitWithdrawDeposit
-  workValue16 = true == workValue16
-  arg7.limitWithdrawDeposit = workValue16
-  if arg2 then
-    workValue16 = arg2.tagName
-    if workValue16 then
-      goto flow_label_147
+  localValue7.maxWithdraw = workingValue16
+  workingValue16 = localValue1.limitWithdrawDeposit
+  workingValue16 = true == workingValue16
+  localValue7.limitWithdrawDeposit = workingValue16
+  if localValue2 then
+    workingValue16 = localValue2.tagName
+    if workingValue16 then
+      goto continueAtStep147
     end
   end
-  workValue16 = arg1.tagName
-  if not workValue16 then
-    workValue16 = ""
+  workingValue16 = localValue1.tagName
+  if not workingValue16 then
+    workingValue16 = ""
   end
-  ::flow_label_147::
-  arg7.tagName = workValue16
-  if arg2 then
-    workValue16 = arg2.turfColour
-    if workValue16 then
-      goto flow_label_154
+  ::continueAtStep147::
+  localValue7.tagName = workingValue16
+  if localValue2 then
+    workingValue16 = localValue2.turfColour
+    if workingValue16 then
+      goto continueAtStep154
     end
   end
-  workValue16 = "Red"
-  ::flow_label_154::
-  arg7.turfColour = workValue16
-  arg7.availableColours = arg3
-  workValue16 = arg6.blips
-  workValue16 = true == workValue16
-  arg7.blips = workValue16
-  workValue16 = arg6.pings
-  workValue16 = true == workValue16
-  arg7.pings = workValue16
-  workValue16 = arg6.names
-  workValue16 = true == workValue16
-  arg7.names = workValue16
-  arg7.personalBlipColour = arg4
-  return arg7
+  workingValue16 = "Red"
+  ::continueAtStep154::
+  localValue7.turfColour = workingValue16
+  localValue7.availableColours = localValue3
+  workingValue16 = localValue6.blips
+  workingValue16 = true == workingValue16
+  localValue7.blips = workingValue16
+  workingValue16 = localValue6.pings
+  workingValue16 = true == workingValue16
+  localValue7.pings = workingValue16
+  workingValue16 = localValue6.names
+  workingValue16 = true == workingValue16
+  localValue7.names = workingValue16
+  localValue7.personalBlipColour = localValue4
+  return localValue7
 end
 
--- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
-function workValue15()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6, stringHelper, numberValue
-  arg1 = {}
-  arg2 = CMG
-  arg2 = arg2.gangCachedData
-  if arg2 then
-    arg3 = ipairs
-    arg4 = CMG
-    arg4 = arg4.getDrugTurfsUiPayload
-    arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6, stringHelper, numberValue = arg4()
-    arg3, arg4, arg5, arg6 = arg3(arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6, stringHelper, numberValue)
-    for arg7, workValue16 in arg3, arg4, arg5, arg6 do
-      dataTable6 = #arg1
-      dataTable6 = dataTable6 + 1
-      arg1[dataTable6] = workValue16
+-- === HELPER FUNCTION (decompiler name: workingValue15; parameters: none) ===
+function workingValue15()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6, stringHelper, number
+  localValue1 = {}
+  localValue2 = CMG
+  localValue2 = localValue2.gangCachedData
+  if localValue2 then
+    localValue3 = ipairs
+    localValue4 = CMG
+    localValue4 = localValue4.getDrugTurfsUiPayload
+    localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6, stringHelper, number = localValue4()
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6, stringHelper, number)
+    for localValue7, workingValue16 in localValue3, localValue4, localValue5, localValue6 do
+      dataCollection6 = #localValue1
+      dataCollection6 = dataCollection6 + 1
+      localValue1[dataCollection6] = workingValue16
     end
   end
-  if not arg2 then
-    return arg1
+  if not localValue2 then
+    return localValue1
   end
-  arg3 = CMG
-  arg3 = arg3.gangCapturedTurfs
-  if not arg3 then
-    arg3 = {}
+  localValue3 = CMG
+  localValue3 = localValue3.gangCapturedTurfs
+  if not localValue3 then
+    localValue3 = {}
   end
-  arg4 = CMG
-  arg4 = arg4.gangRecognisedGangs
-  if not arg4 then
-    arg4 = {}
+  localValue4 = CMG
+  localValue4 = localValue4.gangRecognisedGangs
+  if not localValue4 then
+    localValue4 = {}
   end
-  arg5 = cmgCall4
-  if arg5 then
-    arg5 = cmgCall4.turfs
-    if arg5 then
-      goto flow_label_42
+  localValue5 = cmgOperation4
+  if localValue5 then
+    localValue5 = cmgOperation4.turfs
+    if localValue5 then
+      goto continueAtStep42
     end
   end
-  return arg1
-  ::flow_label_42::
-  arg5 = arg2.id
-  arg5 = arg4[arg5]
-  if not arg5 then
-    return arg1
+  return localValue1
+  ::continueAtStep42::
+  localValue5 = localValue2.id
+  localValue5 = localValue4[localValue5]
+  if not localValue5 then
+    return localValue1
   end
-  arg6 = ipairs
-  arg7 = cmgCall4.turfs
-  arg6, arg7, workValue16, dataTable6 = arg6(arg7)
-  for workValue20, workValue2 in arg6, arg7, workValue16, dataTable6 do
-    dataTable = workValue2.name
-    dataTable = arg3[dataTable]
-    textValue = ""
-    dataTable2 = false
-    if dataTable then
-      workValue6 = dataTable.ownedByGangId
-      if workValue6 then
-        workValue6 = dataTable.ownedByGangId
-        workValue6 = arg4[workValue6]
-        if workValue6 then
-          workValue6 = dataTable.ownedByGangId
-          workValue6 = arg4[workValue6]
-          workValue6 = workValue6.name
-          textValue = workValue6 or textValue
-          if not workValue6 then
-            textValue = ""
+  localValue6 = ipairs
+  localValue7 = cmgOperation4.turfs
+  localValue6, localValue7, workingValue16, dataCollection6 = localValue6(localValue7)
+  for workingValue20, workingValue2 in localValue6, localValue7, workingValue16, dataCollection6 do
+    dataCollection = workingValue2.name
+    dataCollection = localValue3[dataCollection]
+    text = ""
+    dataCollection2 = false
+    if dataCollection then
+      workingValue6 = dataCollection.ownedByGangId
+      if workingValue6 then
+        workingValue6 = dataCollection.ownedByGangId
+        workingValue6 = localValue4[workingValue6]
+        if workingValue6 then
+          workingValue6 = dataCollection.ownedByGangId
+          workingValue6 = localValue4[workingValue6]
+          workingValue6 = workingValue6.name
+          text = workingValue6 or text
+          if not workingValue6 then
+            text = ""
           end
-          workValue6 = dataTable.ownedByGangId
-          stringHelper = arg2.id
-          dataTable2 = workValue6 == stringHelper
+          workingValue6 = dataCollection.ownedByGangId
+          stringHelper = localValue2.id
+          dataCollection2 = workingValue6 == stringHelper
         end
       end
-      workValue6 = dataTable.topGangName
-      if workValue6 then
-        workValue6 = dataTable.topGangName
-        if "" ~= workValue6 then
-          textValue = dataTable.topGangName
+      workingValue6 = dataCollection.topGangName
+      if workingValue6 then
+        workingValue6 = dataCollection.topGangName
+        if "" ~= workingValue6 then
+          text = dataCollection.topGangName
         end
       end
     end
-    workValue6 = #arg1
-    workValue6 = workValue6 + 1
+    workingValue6 = #localValue1
+    workingValue6 = workingValue6 + 1
     stringHelper = {}
     stringHelper.turfType = "street"
-    numberValue = workValue2.name
-    stringHelper.name = numberValue
-    stringHelper.ownedByGangName = textValue
-    stringHelper.ownedByUs = dataTable2
-    if dataTable then
-      numberValue = dataTable.ourStreetCred
-      if numberValue then
-        goto flow_label_99
+    number = workingValue2.name
+    stringHelper.name = number
+    stringHelper.ownedByGangName = text
+    stringHelper.ownedByUs = dataCollection2
+    if dataCollection then
+      number = dataCollection.ourStreetCred
+      if number then
+        goto continueAtStep99
       end
     end
-    numberValue = 0
-    ::flow_label_99::
-    stringHelper.ourStreetCred = numberValue
-    if dataTable then
-      numberValue = dataTable.topGangStreetCred
-      if numberValue then
-        goto flow_label_106
+    number = 0
+    ::continueAtStep99::
+    stringHelper.ourStreetCred = number
+    if dataCollection then
+      number = dataCollection.topGangStreetCred
+      if number then
+        goto continueAtStep106
       end
     end
-    numberValue = 0
-    ::flow_label_106::
-    stringHelper.topGangStreetCred = numberValue
-    if dataTable then
-      numberValue = dataTable.topGangName
-      if numberValue then
-        goto flow_label_113
+    number = 0
+    ::continueAtStep106::
+    stringHelper.topGangStreetCred = number
+    if dataCollection then
+      number = dataCollection.topGangName
+      if number then
+        goto continueAtStep113
       end
     end
-    numberValue = ""
-    ::flow_label_113::
-    stringHelper.topGangName = numberValue
-    arg1[workValue6] = stringHelper
+    number = ""
+    ::continueAtStep113::
+    stringHelper.topGangName = number
+    localValue1[workingValue6] = stringHelper
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
-function workValue17()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
-    arg2 = {}
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue17; parameters: none) ===
+function workingValue17()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = {}
-  arg3 = arg1.isAdvanced
-  if arg3 then
-    arg3 = #arg2
-    arg3 = arg3 + 1
-    arg4 = {}
-    arg4.id = 0
-    arg5 = string
-    arg5 = arg5.format
-    arg6 = "%s (Default)"
-    arg7 = arg1.name
-    arg5 = arg5(arg6, arg7)
-    arg4.name = arg5
-    arg2[arg3] = arg4
+  localValue2 = {}
+  localValue3 = localValue1.isAdvanced
+  if localValue3 then
+    localValue3 = #localValue2
+    localValue3 = localValue3 + 1
+    localValue4 = {}
+    localValue4.id = 0
+    localValue5 = string
+    localValue5 = localValue5.format
+    localValue6 = "%s (Default)"
+    localValue7 = localValue1.name
+    localValue5 = localValue5(localValue6, localValue7)
+    localValue4.name = localValue5
+    localValue2[localValue3] = localValue4
   end
-  arg3 = arg1.additionalRadios
-  if arg3 then
-    arg3 = ipairs
-    arg4 = arg1.additionalRadios
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7, workValue16 in arg3, arg4, arg5, arg6 do
-      dataTable6 = #arg2
-      dataTable6 = dataTable6 + 1
-      workValue20 = {}
-      workValue2 = workValue16.id
-      workValue20.id = workValue2
-      workValue2 = workValue16.name
-      workValue20.name = workValue2
-      arg2[dataTable6] = workValue20
+  localValue3 = localValue1.additionalRadios
+  if localValue3 then
+    localValue3 = ipairs
+    localValue4 = localValue1.additionalRadios
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7, workingValue16 in localValue3, localValue4, localValue5, localValue6 do
+      dataCollection6 = #localValue2
+      dataCollection6 = dataCollection6 + 1
+      workingValue20 = {}
+      workingValue2 = workingValue16.id
+      workingValue20.id = workingValue2
+      workingValue2 = workingValue16.name
+      workingValue20.name = workingValue2
+      localValue2[dataCollection6] = workingValue20
     end
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
-function workValue19()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6, stringHelper, numberValue
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
-    arg2 = {}
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: none) ===
+function workingValue19()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6, stringHelper, number
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.gangRecognisedGangs
-  if not arg2 then
-    arg2 = {}
+  localValue2 = CMG
+  localValue2 = localValue2.gangRecognisedGangs
+  if not localValue2 then
+    localValue2 = {}
   end
-  arg3 = arg1.id
-  arg3 = arg2[arg3]
-  if not arg3 then
-    arg4 = {}
-    return arg4
+  localValue3 = localValue1.id
+  localValue3 = localValue2[localValue3]
+  if not localValue3 then
+    localValue4 = {}
+    return localValue4
   end
-  arg4 = {}
-  arg5 = pairs
-  arg6 = arg2
-  arg5, arg6, arg7, workValue16 = arg5(arg6)
-  for dataTable6, workValue20 in arg5, arg6, arg7, workValue16 do
-    workValue2 = arg1.id
-    if dataTable6 ~= workValue2 then
-      workValue2 = arg3.relationships
-      if workValue2 then
-        workValue2 = arg3.relationships
-        workValue2 = workValue2[dataTable6]
-        if workValue2 then
-          goto flow_label_38
+  localValue4 = {}
+  localValue5 = pairs
+  localValue6 = localValue2
+  localValue5, localValue6, localValue7, workingValue16 = localValue5(localValue6)
+  for dataCollection6, workingValue20 in localValue5, localValue6, localValue7, workingValue16 do
+    workingValue2 = localValue1.id
+    if dataCollection6 ~= workingValue2 then
+      workingValue2 = localValue3.relationships
+      if workingValue2 then
+        workingValue2 = localValue3.relationships
+        workingValue2 = workingValue2[dataCollection6]
+        if workingValue2 then
+          goto continueAtStep38
         end
       end
-      workValue2 = "Neutral"
-      ::flow_label_38::
-      dataTable = workValue20.relationships
-      if dataTable then
-        dataTable = workValue20.relationships
-        textValue = arg1.id
-        dataTable = dataTable[textValue]
-        if dataTable then
-          goto flow_label_47
+      workingValue2 = "Neutral"
+      ::continueAtStep38::
+      dataCollection = workingValue20.relationships
+      if dataCollection then
+        dataCollection = workingValue20.relationships
+        text = localValue1.id
+        dataCollection = dataCollection[text]
+        if dataCollection then
+          goto continueAtStep47
         end
       end
-      dataTable = "Neutral"
-      ::flow_label_47::
-      textValue = #arg4
-      textValue = textValue + 1
-      dataTable2 = {}
-      dataTable2.gangId = dataTable6
-      workValue6 = workValue20.name
-      if not workValue6 then
-        workValue6 = "Gang "
+      dataCollection = "Neutral"
+      ::continueAtStep47::
+      text = #localValue4
+      text = text + 1
+      dataCollection2 = {}
+      dataCollection2.gangId = dataCollection6
+      workingValue6 = workingValue20.name
+      if not workingValue6 then
+        workingValue6 = "Gang "
         stringHelper = tostring
-        numberValue = dataTable6
-        stringHelper = stringHelper(numberValue)
-        workValue6 = workValue6 .. stringHelper
+        number = dataCollection6
+        stringHelper = stringHelper(number)
+        workingValue6 = workingValue6 .. stringHelper
       end
-      dataTable2.gangName = workValue6
-      dataTable2.ourRelationship = workValue2
-      dataTable2.theirRelationship = dataTable
-      arg4[textValue] = dataTable2
+      dataCollection2.gangName = workingValue6
+      dataCollection2.ourRelationship = workingValue2
+      dataCollection2.theirRelationship = dataCollection
+      localValue4[text] = dataCollection2
     end
   end
-  arg5 = table
-  arg5 = arg5.sort
-  arg6 = arg4
+  localValue5 = table
+  localValue5 = localValue5.sort
+  localValue6 = localValue4
 
-  -- === HELPER FUNCTION: arg7(arg12, arg22) ===
-  function arg7(arg12, arg22)
-    local iterator, dataTable4
-    iterator = arg12.gangName
-    dataTable4 = arg22.gangName
-    iterator = iterator < dataTable4
+  -- === HELPER FUNCTION: localValue7(localValue12, localValue22) ===
+  function localValue7(localValue12, localValue22)
+    local iterator, dataCollection4
+    iterator = localValue12.gangName
+    dataCollection4 = localValue22.gangName
+    iterator = iterator < dataCollection4
     return iterator
   end
-  arg5(arg6, arg7)
-  return arg4
+  localValue5(localValue6, localValue7)
+  return localValue4
 end
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6
-  arg1 = CMG
-  arg1 = arg1.gangMembershipTiles
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.gangMembershipTiles
-    arg1 = #arg1
-    if arg1 > 0 then
-      arg1 = CMG
-      arg1 = arg1.gangMembershipTiles
-      return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6
+  localValue1 = CMG
+  localValue1 = localValue1.gangMembershipTiles
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.gangMembershipTiles
+    localValue1 = #localValue1
+    if localValue1 > 0 then
+      localValue1 = CMG
+      localValue1 = localValue1.gangMembershipTiles
+      return localValue1
     end
   end
-  arg1 = {}
-  arg2 = CMG
-  arg2 = arg2.gangCachedData
-  arg3 = CMG
-  arg3 = arg3.gangRecognisedGangs
-  if not arg3 then
-    arg3 = {}
+  localValue1 = {}
+  localValue2 = CMG
+  localValue2 = localValue2.gangCachedData
+  localValue3 = CMG
+  localValue3 = localValue3.gangRecognisedGangs
+  if not localValue3 then
+    localValue3 = {}
   end
-  arg4 = CMG
-  arg4 = arg4.gangCapturedTurfs
-  if not arg4 then
-    arg4 = {}
+  localValue4 = CMG
+  localValue4 = localValue4.gangCapturedTurfs
+  if not localValue4 then
+    localValue4 = {}
   end
-  if arg2 then
-    arg5 = 0
-    arg6 = arg2.members
-    if arg6 then
-      arg6 = pairs
-      arg7 = arg2.members
-      arg6, arg7, workValue16, dataTable6 = arg6(arg7)
-      for workValue20 in arg6, arg7, workValue16, dataTable6 do
-        arg5 = arg5 + 1
+  if localValue2 then
+    localValue5 = 0
+    localValue6 = localValue2.members
+    if localValue6 then
+      localValue6 = pairs
+      localValue7 = localValue2.members
+      localValue6, localValue7, workingValue16, dataCollection6 = localValue6(localValue7)
+      for workingValue20 in localValue6, localValue7, workingValue16, dataCollection6 do
+        localValue5 = localValue5 + 1
       end
     end
-    arg6 = arg2.guests
-    if arg6 then
-      arg6 = pairs
-      arg7 = arg2.guests
-      arg6, arg7, workValue16, dataTable6 = arg6(arg7)
-      for workValue20 in arg6, arg7, workValue16, dataTable6 do
-        arg5 = arg5 + 1
+    localValue6 = localValue2.guests
+    if localValue6 then
+      localValue6 = pairs
+      localValue7 = localValue2.guests
+      localValue6, localValue7, workingValue16, dataCollection6 = localValue6(localValue7)
+      for workingValue20 in localValue6, localValue7, workingValue16, dataCollection6 do
+        localValue5 = localValue5 + 1
       end
     end
-    arg6 = arg2.id
-    arg6 = arg3[arg6]
-    arg7 = 0
-    workValue16 = pairs
-    dataTable6 = arg4
-    workValue16, dataTable6, workValue20, workValue2 = workValue16(dataTable6)
-    for dataTable, textValue in workValue16, dataTable6, workValue20, workValue2 do
-      dataTable2 = textValue.ownedByGangId
-      workValue6 = arg2.id
-      if dataTable2 == workValue6 then
-        arg7 = arg7 + 1
+    localValue6 = localValue2.id
+    localValue6 = localValue3[localValue6]
+    localValue7 = 0
+    workingValue16 = pairs
+    dataCollection6 = localValue4
+    workingValue16, dataCollection6, workingValue20, workingValue2 = workingValue16(dataCollection6)
+    for dataCollection, text in workingValue16, dataCollection6, workingValue20, workingValue2 do
+      dataCollection2 = text.ownedByGangId
+      workingValue6 = localValue2.id
+      if dataCollection2 == workingValue6 then
+        localValue7 = localValue7 + 1
       end
     end
-    workValue16 = CMG
-    workValue16 = workValue16.gangOrgClientState
-    dataTable6 = arg2.organised
-    dataTable6 = true == dataTable6
-    if not dataTable6 and workValue16 then
-      workValue20 = workValue16.hasOrgPack
-      if true == workValue20 then
-        workValue20 = workValue16.organised
-        if true == workValue20 then
-          workValue20 = CMG
-          workValue20 = workValue20.getGangId
-          workValue20 = workValue20()
-          workValue2 = arg2.id
-          if workValue20 == workValue2 then
-            dataTable6 = true
+    workingValue16 = CMG
+    workingValue16 = workingValue16.gangOrgClientState
+    dataCollection6 = localValue2.organised
+    dataCollection6 = true == dataCollection6
+    if not dataCollection6 and workingValue16 then
+      workingValue20 = workingValue16.hasOrgPack
+      if true == workingValue20 then
+        workingValue20 = workingValue16.organised
+        if true == workingValue20 then
+          workingValue20 = CMG
+          workingValue20 = workingValue20.getGangId
+          workingValue20 = workingValue20()
+          workingValue2 = localValue2.id
+          if workingValue20 == workingValue2 then
+            dataCollection6 = true
           end
         end
       end
     end
-    workValue20 = #arg1
-    workValue20 = workValue20 + 1
-    workValue2 = {}
-    dataTable = arg2.id
-    workValue2.gangId = dataTable
-    dataTable = arg2.name
-    if not dataTable then
-      dataTable = "Unknown"
+    workingValue20 = #localValue1
+    workingValue20 = workingValue20 + 1
+    workingValue2 = {}
+    dataCollection = localValue2.id
+    workingValue2.gangId = dataCollection
+    dataCollection = localValue2.name
+    if not dataCollection then
+      dataCollection = "Unknown"
     end
-    workValue2.gangName = dataTable
-    workValue2.memberCount = arg5
-    dataTable = arg2.isAdvanced
-    dataTable = true == dataTable
-    workValue2.isAdvanced = dataTable
-    workValue2.isOrganised = dataTable6
-    dataTable = nil ~= arg6
-    workValue2.isRecognised = dataTable
-    workValue2.isActive = true
-    workValue2.role = "member"
-    dataTable = arg2.displayMoney
-    if not dataTable then
-      dataTable = 0
+    workingValue2.gangName = dataCollection
+    workingValue2.memberCount = localValue5
+    dataCollection = localValue2.isAdvanced
+    dataCollection = true == dataCollection
+    workingValue2.isAdvanced = dataCollection
+    workingValue2.isOrganised = dataCollection6
+    dataCollection = nil ~= localValue6
+    workingValue2.isRecognised = dataCollection
+    workingValue2.isActive = true
+    workingValue2.role = "member"
+    dataCollection = localValue2.displayMoney
+    if not dataCollection then
+      dataCollection = 0
     end
-    workValue2.balance = dataTable
-    if arg6 then
-      dataTable = arg6.tagName
-      if dataTable then
-        goto flow_label_137
+    workingValue2.balance = dataCollection
+    if localValue6 then
+      dataCollection = localValue6.tagName
+      if dataCollection then
+        goto continueAtStep137
       end
     end
-    dataTable = arg2.tagName
-    if not dataTable then
-      dataTable = ""
+    dataCollection = localValue2.tagName
+    if not dataCollection then
+      dataCollection = ""
     end
-    ::flow_label_137::
-    workValue2.tagName = dataTable
-    workValue2.turfsOwned = arg7
-    arg1[workValue20] = workValue2
+    ::continueAtStep137::
+    workingValue2.tagName = dataCollection
+    workingValue2.turfsOwned = localValue7
+    localValue1[workingValue20] = workingValue2
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
-function workValue3(arg1)
-  local arg2, arg3
-  arg2 = tonumber
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg1 = arg2 or arg1
-  if not arg2 then
-    arg1 = 1
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1) ===
+function workingValue3(localValue1)
+  local localValue2, localValue3
+  localValue2 = tonumber
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue1 = localValue2 or localValue1
+  if not localValue2 then
+    localValue1 = 1
   end
-  if arg1 < 1 then
-    arg1 = 1
+  if localValue1 < 1 then
+    localValue1 = 1
   end
-  arg2 = 10000
-  return arg2
+  localValue2 = 10000
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6, stringHelper, numberValue, mathHelper, dataTable3, textValue5
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
-    arg2 = nil
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6, stringHelper, number, mathHelper, dataCollection3, text5
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
+    localValue2 = nil
+    return localValue2
   end
-  arg2 = 0
-  arg3 = arg1.members
-  if arg3 then
-    arg3 = pairs
-    arg4 = arg1.members
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7 in arg3, arg4, arg5, arg6 do
-      arg2 = arg2 + 1
+  localValue2 = 0
+  localValue3 = localValue1.members
+  if localValue3 then
+    localValue3 = pairs
+    localValue4 = localValue1.members
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7 in localValue3, localValue4, localValue5, localValue6 do
+      localValue2 = localValue2 + 1
     end
   end
-  arg3 = arg1.guests
-  if arg3 then
-    arg3 = pairs
-    arg4 = arg1.guests
-    arg3, arg4, arg5, arg6 = arg3(arg4)
-    for arg7 in arg3, arg4, arg5, arg6 do
-      arg2 = arg2 + 1
+  localValue3 = localValue1.guests
+  if localValue3 then
+    localValue3 = pairs
+    localValue4 = localValue1.guests
+    localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+    for localValue7 in localValue3, localValue4, localValue5, localValue6 do
+      localValue2 = localValue2 + 1
     end
   end
-  arg3 = CMG
-  arg3 = arg3.getClientGangDepositFeeDisplayPercent
-  arg3 = arg3()
-  arg4 = CMG
-  arg4 = arg4.getClientUserId
+  localValue3 = CMG
+  localValue3 = localValue3.getClientGangDepositFeeDisplayPercent
+  localValue3 = localValue3()
+  localValue4 = CMG
+  localValue4 = localValue4.getClientUserId
   -- Beginner: result below is userId.
-  arg4 = arg4()
-  arg5 = arg1.members
-  if arg5 then
-    arg5 = arg1.members
-    arg5 = arg5[arg4]
-    if not arg5 then
-      arg5 = arg1.members
-      arg6 = tostring
-      arg7 = arg4
-      arg6 = arg6(arg7)
-      arg5 = arg5[arg6]
+  localValue4 = localValue4()
+  localValue5 = localValue1.members
+  if localValue5 then
+    localValue5 = localValue1.members
+    localValue5 = localValue5[localValue4]
+    if not localValue5 then
+      localValue5 = localValue1.members
+      localValue6 = tostring
+      localValue7 = localValue4
+      localValue6 = localValue6(localValue7)
+      localValue5 = localValue5[localValue6]
     end
   end
-  arg6 = {}
-  arg6.deposit = false
-  arg6.withdraw = false
-  arg6.withdrawturf = false
-  if arg5 then
-    arg7 = arg5.permissions
-    if arg7 then
-      arg7 = arg5.permissions
-      arg7 = arg7.deposit
-      if not arg7 then
-        arg7 = arg5.permissions
-        arg7 = arg7.leader
+  localValue6 = {}
+  localValue6.deposit = false
+  localValue6.withdraw = false
+  localValue6.withdrawturf = false
+  if localValue5 then
+    localValue7 = localValue5.permissions
+    if localValue7 then
+      localValue7 = localValue5.permissions
+      localValue7 = localValue7.deposit
+      if not localValue7 then
+        localValue7 = localValue5.permissions
+        localValue7 = localValue7.leader
       end
-      arg6.deposit = arg7
-      arg7 = arg5.permissions
-      arg7 = arg7.withdraw
-      if not arg7 then
-        arg7 = arg5.permissions
-        arg7 = arg7.leader
+      localValue6.deposit = localValue7
+      localValue7 = localValue5.permissions
+      localValue7 = localValue7.withdraw
+      if not localValue7 then
+        localValue7 = localValue5.permissions
+        localValue7 = localValue7.leader
       end
-      arg6.withdraw = arg7
-      arg7 = arg5.permissions
-      arg7 = arg7.withdrawturf
-      if not arg7 then
-        arg7 = arg5.permissions
-        arg7 = arg7.leader
+      localValue6.withdraw = localValue7
+      localValue7 = localValue5.permissions
+      localValue7 = localValue7.withdrawturf
+      if not localValue7 then
+        localValue7 = localValue5.permissions
+        localValue7 = localValue7.leader
       end
-      arg6.withdrawturf = arg7
+      localValue6.withdrawturf = localValue7
     end
   end
-  arg7 = CMG
-  arg7 = arg7.getClientDisplayMoney
-  arg7, workValue16 = arg7()
-  dataTable6 = 0
-  workValue20 = CMG
-  workValue20 = workValue20.gangCapturedTurfs
-  if not workValue20 then
-    workValue20 = {}
+  localValue7 = CMG
+  localValue7 = localValue7.getClientDisplayMoney
+  localValue7, workingValue16 = localValue7()
+  dataCollection6 = 0
+  workingValue20 = CMG
+  workingValue20 = workingValue20.gangCapturedTurfs
+  if not workingValue20 then
+    workingValue20 = {}
   end
-  workValue2 = pairs
-  dataTable = workValue20
-  workValue2, dataTable, textValue, dataTable2 = workValue2(dataTable)
-  for workValue6, stringHelper in workValue2, dataTable, textValue, dataTable2 do
-    numberValue = stringHelper.ownedByGangId
-    mathHelper = arg1.id
-    if numberValue == mathHelper then
-      dataTable6 = dataTable6 + 1
+  workingValue2 = pairs
+  dataCollection = workingValue20
+  workingValue2, dataCollection, text, dataCollection2 = workingValue2(dataCollection)
+  for workingValue6, stringHelper in workingValue2, dataCollection, text, dataCollection2 do
+    number = stringHelper.ownedByGangId
+    mathHelper = localValue1.id
+    if number == mathHelper then
+      dataCollection6 = dataCollection6 + 1
     end
   end
-  workValue2 = tonumber
-  dataTable = arg1.gangPublicLevel
-  workValue2 = workValue2(dataTable)
-  if not workValue2 then
-    workValue2 = 1
+  workingValue2 = tonumber
+  dataCollection = localValue1.gangPublicLevel
+  workingValue2 = workingValue2(dataCollection)
+  if not workingValue2 then
+    workingValue2 = 1
   end
-  dataTable = tonumber
-  textValue = arg1.gangPublicXp
-  dataTable = dataTable(textValue)
-  if not dataTable then
-    dataTable = 0
+  dataCollection = tonumber
+  text = localValue1.gangPublicXp
+  dataCollection = dataCollection(text)
+  if not dataCollection then
+    dataCollection = 0
   end
-  textValue = workValue3
-  dataTable2 = workValue2
-  textValue = textValue(dataTable2)
-  dataTable2 = math
-  dataTable2 = dataTable2.max
-  workValue6 = 0
-  stringHelper = textValue - dataTable
-  dataTable2 = dataTable2(workValue6, stringHelper)
-  workValue6 = tonumber
-  stringHelper = arg1.gangRpLevel
-  workValue6 = workValue6(stringHelper)
-  if not workValue6 then
-    workValue6 = 1
+  text = workingValue3
+  dataCollection2 = workingValue2
+  text = text(dataCollection2)
+  dataCollection2 = math
+  dataCollection2 = dataCollection2.max
+  workingValue6 = 0
+  stringHelper = text - dataCollection
+  dataCollection2 = dataCollection2(workingValue6, stringHelper)
+  workingValue6 = tonumber
+  stringHelper = localValue1.gangRpLevel
+  workingValue6 = workingValue6(stringHelper)
+  if not workingValue6 then
+    workingValue6 = 1
   end
   stringHelper = tonumber
-  numberValue = arg1.gangRpXp
-  stringHelper = stringHelper(numberValue)
+  number = localValue1.gangRpXp
+  stringHelper = stringHelper(number)
   if not stringHelper then
     stringHelper = 0
   end
-  numberValue = workValue3
-  mathHelper = workValue6
-  numberValue = numberValue(mathHelper)
+  number = workingValue3
+  mathHelper = workingValue6
+  number = number(mathHelper)
   mathHelper = math
   mathHelper = mathHelper.max
-  dataTable3 = 0
-  textValue5 = numberValue - stringHelper
-  mathHelper = mathHelper(dataTable3, textValue5)
-  dataTable3 = {}
-  textValue5 = arg1.name
-  if not textValue5 then
-    textValue5 = ""
+  dataCollection3 = 0
+  text5 = number - stringHelper
+  mathHelper = mathHelper(dataCollection3, text5)
+  dataCollection3 = {}
+  text5 = localValue1.name
+  if not text5 then
+    text5 = ""
   end
-  dataTable3.gangName = textValue5
-  dataTable3.turfsOwned = dataTable6
-  textValue5 = arg1.displayMoney
-  if not textValue5 then
-    textValue5 = 0
+  dataCollection3.gangName = text5
+  dataCollection3.turfsOwned = dataCollection6
+  text5 = localValue1.displayMoney
+  if not text5 then
+    text5 = 0
   end
-  dataTable3.gangMoney = textValue5
-  dataTable3.totalMembers = arg2
-  textValue5 = CMG
-  textValue5 = textValue5.getClientGangMaxMemberLimit
-  textValue5 = textValue5()
-  dataTable3.maxMemberLimit = textValue5
-  dataTable3.gangXpLevel = workValue2
-  dataTable3.gangXpToNext = dataTable2
-  dataTable3.gangXpCurrent = dataTable
-  dataTable3.rpXpLevel = workValue6
-  dataTable3.rpXpToNext = mathHelper
-  dataTable3.rpXpCurrent = stringHelper
-  textValue5 = arg1.announcements
-  if not textValue5 then
-    textValue5 = {}
+  dataCollection3.gangMoney = text5
+  dataCollection3.totalMembers = localValue2
+  text5 = CMG
+  text5 = text5.getClientGangMaxMemberLimit
+  text5 = text5()
+  dataCollection3.maxMemberLimit = text5
+  dataCollection3.gangXpLevel = workingValue2
+  dataCollection3.gangXpToNext = dataCollection2
+  dataCollection3.gangXpCurrent = dataCollection
+  dataCollection3.rpXpLevel = workingValue6
+  dataCollection3.rpXpToNext = mathHelper
+  dataCollection3.rpXpCurrent = stringHelper
+  text5 = localValue1.announcements
+  if not text5 then
+    text5 = {}
   end
-  dataTable3.announcements = textValue5
-  dataTable3.depositFeePercent = arg3
-  dataTable3.fundsPermissions = arg6
-  textValue5 = workValue16 or textValue5
-  if not workValue16 then
-    textValue5 = 0
+  dataCollection3.announcements = text5
+  dataCollection3.depositFeePercent = localValue3
+  dataCollection3.fundsPermissions = localValue6
+  text5 = workingValue16 or text5
+  if not workingValue16 then
+    text5 = 0
   end
-  dataTable3.playerBankMoney = textValue5
-  textValue5 = arg1.requireWithdrawReason
-  textValue5 = true == textValue5
-  dataTable3.requireWithdrawReason = textValue5
-  textValue5 = CMG
-  textValue5 = textValue5.gangActivityLeaderboard
-  if not textValue5 then
-    textValue5 = {}
+  dataCollection3.playerBankMoney = text5
+  text5 = localValue1.requireWithdrawReason
+  text5 = true == text5
+  dataCollection3.requireWithdrawReason = text5
+  text5 = CMG
+  text5 = text5.gangActivityLeaderboard
+  if not text5 then
+    text5 = {}
   end
-  dataTable3.activityLeaderboard = textValue5
-  textValue5 = CMG
-  textValue5 = textValue5.gangActivityLeaderboardPending
-  textValue5 = true == textValue5
-  dataTable3.activityLeaderboardLoading = textValue5
-  return dataTable3
+  dataCollection3.activityLeaderboard = text5
+  text5 = CMG
+  text5 = text5.gangActivityLeaderboardPending
+  text5 = true == text5
+  dataCollection3.activityLeaderboardLoading = text5
+  return dataCollection3
 end
-cmgCall2 = CMG
-cmgCall2.gangNuiOpen = false
-cmgCall2 = CMG
-cmgCall2.gangPaycheckNuiPreview = nil
-cmgCall2 = CMG
-cmgCall2.gangActivityLeaderboard = nil
-cmgCall2 = CMG
-cmgCall2.gangActivityLeaderboardPending = false
+cmgOperation2 = CMG
+cmgOperation2.gangNuiOpen = false
+cmgOperation2 = CMG
+cmgOperation2.gangPaycheckNuiPreview = nil
+cmgOperation2 = CMG
+cmgOperation2.gangActivityLeaderboard = nil
+cmgOperation2 = CMG
+cmgOperation2.gangActivityLeaderboardPending = false
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
-function cmgCall2()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: none) ===
+function cmgOperation2()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if not localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
     return
   end
-  arg1 = CMG
-  arg1.gangActivityLeaderboardPending = true
-  arg1 = TriggerServerEvent
-  arg2 = "cf2a446fae"
+  localValue1 = CMG
+  localValue1.gangActivityLeaderboardPending = true
+  localValue1 = TriggerServerEvent
+  localValue2 = "cf2a446fae"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cf2a446fae".
-  arg1(arg2)
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if not localValue1 then
     return
   end
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
-    arg1 = CMG
-    arg1.gangActivityLeaderboard = nil
-    arg1 = CMG
-    arg1.gangActivityLeaderboardPending = false
-    arg1 = workValue
-    arg1 = arg1()
-    if arg1 then
-      arg2 = #arg1
-      if arg2 > 0 then
-        arg2 = CMG
-        arg2 = arg2.uiSendMessage
-        arg3 = {}
-        arg3.action = "GANG_SET_DATA"
-        arg4 = {}
-        arg4.gangTiles = arg1
-        arg5 = CMG
-        arg5 = arg5.gangPendingInvites
-        if not arg5 then
-          arg5 = {}
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
+    localValue1 = CMG
+    localValue1.gangActivityLeaderboard = nil
+    localValue1 = CMG
+    localValue1.gangActivityLeaderboardPending = false
+    localValue1 = workingValue
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue2 = #localValue1
+      if localValue2 > 0 then
+        localValue2 = CMG
+        localValue2 = localValue2.uiSendMessage
+        localValue3 = {}
+        localValue3.action = "GANG_SET_DATA"
+        localValue4 = {}
+        localValue4.gangTiles = localValue1
+        localValue5 = CMG
+        localValue5 = localValue5.gangPendingInvites
+        if not localValue5 then
+          localValue5 = {}
         end
-        arg4.pendingInvites = arg5
-        arg4.currentPage = "gangs"
-        arg5 = CMG
-        arg5 = arg5.gangPaycheckNuiPreview
-        arg4.paycheckPreview = arg5
-        arg3.payload = arg4
-        arg2(arg3)
+        localValue4.pendingInvites = localValue5
+        localValue4.currentPage = "gangs"
+        localValue5 = CMG
+        localValue5 = localValue5.gangPaycheckNuiPreview
+        localValue4.paycheckPreview = localValue5
+        localValue3.payload = localValue4
+        localValue2(localValue3)
         return
       end
     end
-    arg2 = CMG
-    arg2 = arg2.uiSendMessage
-    arg3 = {}
-    arg3.action = "GANG_SET_DATA"
-    arg4 = {}
-    arg5 = {}
-    arg4.gangTiles = arg5
-    arg5 = CMG
-    arg5 = arg5.gangPendingInvites
-    if not arg5 then
-      arg5 = {}
+    localValue2 = CMG
+    localValue2 = localValue2.uiSendMessage
+    localValue3 = {}
+    localValue3.action = "GANG_SET_DATA"
+    localValue4 = {}
+    localValue5 = {}
+    localValue4.gangTiles = localValue5
+    localValue5 = CMG
+    localValue5 = localValue5.gangPendingInvites
+    if not localValue5 then
+      localValue5 = {}
     end
-    arg4.pendingInvites = arg5
-    arg4.currentPage = "gangs"
-    arg5 = CMG
-    arg5 = arg5.gangPaycheckNuiPreview
-    arg4.paycheckPreview = arg5
-    arg3.payload = arg4
-    arg2(arg3)
+    localValue4.pendingInvites = localValue5
+    localValue4.currentPage = "gangs"
+    localValue5 = CMG
+    localValue5 = localValue5.gangPaycheckNuiPreview
+    localValue4.paycheckPreview = localValue5
+    localValue3.payload = localValue4
+    localValue2(localValue3)
     return
   end
-  arg1 = workValue4
-  arg1 = arg1()
-  arg2 = workValue8
-  arg2 = arg2()
-  arg3 = workValue9
-  arg3 = arg3()
-  arg4 = CMG
-  arg4 = arg4.gangOrgClientState
-  arg5 = {}
-  arg5.dashboard = arg1
-  arg5.members = arg2
-  arg5.permissionsConfig = arg3
-  arg6 = workValue13
-  arg6 = arg6()
-  arg5.settings = arg6
-  arg6 = workValue15
-  arg6 = arg6()
-  arg5.turfs = arg6
-  arg6 = CMG
-  arg6 = arg6.getNextMoneyTurfPayoutEpoch
-  arg6 = arg6()
-  arg5.nextMoneyTurfPayout = arg6
-  arg6 = workValue17
-  arg6 = arg6()
-  arg5.radios = arg6
-  arg6 = workValue19
-  arg6 = arg6()
-  arg5.relationships = arg6
-  arg6 = workValue
-  arg6 = arg6()
-  arg5.gangTiles = arg6
-  arg6 = CMG
-  arg6 = arg6.gangPendingInvites
-  if not arg6 then
-    arg6 = {}
+  localValue1 = workingValue4
+  localValue1 = localValue1()
+  localValue2 = workingValue8
+  localValue2 = localValue2()
+  localValue3 = workingValue9
+  localValue3 = localValue3()
+  localValue4 = CMG
+  localValue4 = localValue4.gangOrgClientState
+  localValue5 = {}
+  localValue5.dashboard = localValue1
+  localValue5.members = localValue2
+  localValue5.permissionsConfig = localValue3
+  localValue6 = workingValue13
+  localValue6 = localValue6()
+  localValue5.settings = localValue6
+  localValue6 = workingValue15
+  localValue6 = localValue6()
+  localValue5.turfs = localValue6
+  localValue6 = CMG
+  localValue6 = localValue6.getNextMoneyTurfPayoutEpoch
+  localValue6 = localValue6()
+  localValue5.nextMoneyTurfPayout = localValue6
+  localValue6 = workingValue17
+  localValue6 = localValue6()
+  localValue5.radios = localValue6
+  localValue6 = workingValue19
+  localValue6 = localValue6()
+  localValue5.relationships = localValue6
+  localValue6 = workingValue
+  localValue6 = localValue6()
+  localValue5.gangTiles = localValue6
+  localValue6 = CMG
+  localValue6 = localValue6.gangPendingInvites
+  if not localValue6 then
+    localValue6 = {}
   end
-  arg5.pendingInvites = arg6
-  arg6 = CMG
-  arg6 = arg6.gangPaycheckNuiPreview
-  arg5.paycheckPreview = arg6
-  if nil ~= arg4 then
-    arg6 = {}
-    arg7 = pairs
-    workValue16 = arg4
-    arg7, workValue16, dataTable6, workValue20 = arg7(workValue16)
-    for workValue2, dataTable in arg7, workValue16, dataTable6, workValue20 do
-      arg6[workValue2] = dataTable
+  localValue5.pendingInvites = localValue6
+  localValue6 = CMG
+  localValue6 = localValue6.gangPaycheckNuiPreview
+  localValue5.paycheckPreview = localValue6
+  if nil ~= localValue4 then
+    localValue6 = {}
+    localValue7 = pairs
+    workingValue16 = localValue4
+    localValue7, workingValue16, dataCollection6, workingValue20 = localValue7(workingValue16)
+    for workingValue2, dataCollection in localValue7, workingValue16, dataCollection6, workingValue20 do
+      localValue6[workingValue2] = dataCollection
     end
-    arg7 = CMG
-    arg7 = arg7.getGangRankOutfitSlotMax
-    arg7 = arg7()
-    arg6.rankOutfitSlotMax = arg7
-    arg5.gangOrg = arg6
+    localValue7 = CMG
+    localValue7 = localValue7.getGangRankOutfitSlotMax
+    localValue7 = localValue7()
+    localValue6.rankOutfitSlotMax = localValue7
+    localValue5.gangOrg = localValue6
   end
-  arg6 = CMG
-  arg6 = arg6.uiSendMessage
-  arg7 = {}
-  arg7.action = "GANG_SET_DATA"
-  arg7.payload = arg5
-  arg6(arg7)
+  localValue6 = CMG
+  localValue6 = localValue6.uiSendMessage
+  localValue7 = {}
+  localValue7.action = "GANG_SET_DATA"
+  localValue7.payload = localValue5
+  localValue6(localValue7)
 end
-eventRegistration = RegisterNetEvent
-textValue2 = "89ec0abbf0"
+eventHandler = RegisterNetEvent
+text2 = "89ec0abbf0"
 -- Beginner: this function handles network event "89ec0abbf0".
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
-function cmgCall3(arg1)
-  local arg2
-  arg2 = CMG
-  arg2.gangPaycheckNuiPreview = arg1
-  arg2 = CMG
-  arg2 = arg2.gangNuiOpen
-  if arg2 then
-    arg2 = workValue5
-    arg2()
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1) ===
+function cmgOperation3(localValue1)
+  local localValue2
+  localValue2 = CMG
+  localValue2.gangPaycheckNuiPreview = localValue1
+  localValue2 = CMG
+  localValue2 = localValue2.gangNuiOpen
+  if localValue2 then
+    localValue2 = workingValue5
+    localValue2()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "89ec0abbf0".
-eventRegistration(textValue2, cmgCall3)
+eventHandler(text2, cmgOperation3)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2, arg3, arg4
-  arg1 = CMG
-  arg1.gangNuiOpen = true
-  arg1 = CMG
-  arg1 = arg1.hideHud
-  arg1()
-  arg1 = TriggerServerEvent
-  arg2 = "c4e52b6139"
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = CMG
+  localValue1.gangNuiOpen = true
+  localValue1 = CMG
+  localValue1 = localValue1.hideHud
+  localValue1()
+  localValue1 = TriggerServerEvent
+  localValue2 = "c4e52b6139"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c4e52b6139".
-  arg1(arg2)
-  arg1 = TriggerServerEvent
-  arg2 = "e78941ef83"
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "APP_TOGGLE"
-  arg2.app = "gang"
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSetFocus
-  arg2 = true
-  arg3 = true
-  arg4 = false
-  arg1(arg2, arg3, arg4)
-  arg1 = TriggerServerEvent
-  arg2 = "a058b23a4e"
+  localValue1(localValue2)
+  localValue1 = TriggerServerEvent
+  localValue2 = "e78941ef83"
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "APP_TOGGLE"
+  localValue2.app = "gang"
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSetFocus
+  localValue2 = true
+  localValue3 = true
+  localValue4 = false
+  localValue1(localValue2, localValue3, localValue4)
+  localValue1 = TriggerServerEvent
+  localValue2 = "a058b23a4e"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a058b23a4e".
-  arg1(arg2)
-  arg1 = cmgCall2
-  arg1()
-  arg1 = workValue5
-  arg1()
-  arg1 = TriggerServerEvent
-  arg2 = "3c3c3b9444"
+  localValue1(localValue2)
+  localValue1 = cmgOperation2
+  localValue1()
+  localValue1 = workingValue5
+  localValue1()
+  localValue1 = TriggerServerEvent
+  localValue2 = "3c3c3b9444"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3c3c3b9444".
-  arg1(arg2)
-  arg1 = TriggerServerEvent
-  arg2 = "5b6e20cdd5"
-  arg1(arg2)
+  localValue1(localValue2)
+  localValue1 = TriggerServerEvent
+  localValue2 = "5b6e20cdd5"
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, arg4
-  arg1 = CMG
-  arg1.gangNuiOpen = false
-  arg1 = CMG
-  arg1.gangActivityLeaderboard = nil
-  arg1 = CMG
-  arg1.gangActivityLeaderboardPending = false
-  arg1 = CMG
-  arg1 = arg1.showHud
-  arg1()
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "APP_TOGGLE"
-  arg2.app = ""
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSetFocus
-  arg2 = false
-  arg3 = false
-  arg4 = false
-  arg1(arg2, arg3, arg4)
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = CMG
+  localValue1.gangNuiOpen = false
+  localValue1 = CMG
+  localValue1.gangActivityLeaderboard = nil
+  localValue1 = CMG
+  localValue1.gangActivityLeaderboardPending = false
+  localValue1 = CMG
+  localValue1 = localValue1.showHud
+  localValue1()
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "APP_TOGGLE"
+  localValue2.app = ""
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSetFocus
+  localValue2 = false
+  localValue3 = false
+  localValue4 = false
+  localValue1(localValue2, localValue3, localValue4)
 end
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangRefreshPaycheckPreview"
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangRefreshPaycheckPreview"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "c4e52b6139"
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "c4e52b6139"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c4e52b6139".
-  arg1(arg2)
-  arg1 = {}
-  return arg1
+  localValue1(localValue2)
+  localValue1 = {}
+  return localValue1
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangClose"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangClose"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = textValue2
-  arg1()
-  arg1 = {}
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = text2
+  localValue1()
+  localValue1 = {}
+  return localValue1
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangInvitePlayer"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangInvitePlayer"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.userId
-    if not arg2 then
-      arg2 = arg1.permId
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.userId
+    if not localValue2 then
+      localValue2 = localValue1.permId
     end
   end
-  if arg2 then
-    arg3 = TriggerServerEvent
-    arg4 = "a3ebe947dd"
-    arg5 = tonumber
-    arg6 = arg2
-    arg5, arg6 = arg5(arg6)
+  if localValue2 then
+    localValue3 = TriggerServerEvent
+    localValue4 = "a3ebe947dd"
+    localValue5 = tonumber
+    localValue6 = localValue2
+    localValue5, localValue6 = localValue5(localValue6)
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a3ebe947dd".
-    arg3(arg4, arg5, arg6)
+    localValue3(localValue4, localValue5, localValue6)
   end
-  arg3 = {}
-  return arg3
+  localValue3 = {}
+  return localValue3
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangAcceptInvite"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangAcceptInvite"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.gangName
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.gangName
   end
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = arg1.isGuest
-    arg3 = true == arg3
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = localValue1.isGuest
+    localValue3 = true == localValue3
   end
-  arg4 = type
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  if "string" == arg4 then
-    arg4 = CMG
-    arg4 = arg4.gangAcceptInvite
-    if arg4 then
-      arg4 = CMG
-      arg4 = arg4.gangAcceptInvite
-      arg5 = arg2
-      arg6 = arg3
-      arg4(arg5, arg6)
-      arg4 = workValue5
-      arg4()
+  localValue4 = type
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  if "string" == localValue4 then
+    localValue4 = CMG
+    localValue4 = localValue4.gangAcceptInvite
+    if localValue4 then
+      localValue4 = CMG
+      localValue4 = localValue4.gangAcceptInvite
+      localValue5 = localValue2
+      localValue6 = localValue3
+      localValue4(localValue5, localValue6)
+      localValue4 = workingValue5
+      localValue4()
     end
   end
-  arg4 = {}
-  return arg4
+  localValue4 = {}
+  return localValue4
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangPostAnnouncement"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangPostAnnouncement"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.title
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.title
   end
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = arg1.description
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = localValue1.description
   end
-  arg4 = type
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  if "string" == arg4 then
-    arg4 = type
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if "string" == arg4 then
-      goto flow_label_20
+  localValue4 = type
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  if "string" == localValue4 then
+    localValue4 = type
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if "string" == localValue4 then
+      goto continueAtStep20
     end
   end
-  arg4 = {}
-  return arg4
-  ::flow_label_20::
-  arg4 = TriggerServerEvent
-  arg5 = "aee924bc24"
-  arg6 = arg2
-  arg7 = arg3
+  localValue4 = {}
+  return localValue4
+  ::continueAtStep20::
+  localValue4 = TriggerServerEvent
+  localValue5 = "aee924bc24"
+  localValue6 = localValue2
+  localValue7 = localValue3
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "aee924bc24".
-  arg4(arg5, arg6, arg7)
-  arg4 = {}
-  return arg4
+  localValue4(localValue5, localValue6, localValue7)
+  localValue4 = {}
+  return localValue4
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangCreateGang"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangCreateGang"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.name
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.name
   end
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" ~= arg3 then
-    arg3 = {}
-    return arg3
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" ~= localValue3 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "^%s+"
-  arg6 = ""
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2 = arg3
-  arg3 = string
-  arg3 = arg3.gsub
-  arg4 = arg2
-  arg5 = "%s+$"
-  arg6 = ""
-  arg3 = arg3(arg4, arg5, arg6)
-  arg2 = arg3
-  arg3 = #arg2
-  if arg3 < 1 then
-    arg3 = {}
-    return arg3
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "^%s+"
+  localValue6 = ""
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2 = localValue3
+  localValue3 = string
+  localValue3 = localValue3.gsub
+  localValue4 = localValue2
+  localValue5 = "%s+$"
+  localValue6 = ""
+  localValue3 = localValue3(localValue4, localValue5, localValue6)
+  localValue2 = localValue3
+  localValue3 = #localValue2
+  if localValue3 < 1 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = TriggerServerEvent
-  arg4 = "36ca78a1b5"
-  arg5 = arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "36ca78a1b5"
+  localValue5 = localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "36ca78a1b5".
-  arg3(arg4, arg5)
-  arg3 = {}
-  return arg3
+  localValue3(localValue4, localValue5)
+  localValue3 = {}
+  return localValue3
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangDeclineInvite"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangDeclineInvite"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.gangName
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.gangName
   end
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" == arg3 then
-    arg3 = CMG
-    arg3 = arg3.gangDeclineInvite
-    if arg3 then
-      arg3 = CMG
-      arg3 = arg3.gangDeclineInvite
-      arg4 = arg2
-      arg3(arg4)
-      arg3 = workValue5
-      arg3()
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" == localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.gangDeclineInvite
+    if localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.gangDeclineInvite
+      localValue4 = localValue2
+      localValue3(localValue4)
+      localValue3 = workingValue5
+      localValue3()
     end
   end
-  arg3 = {}
-  return arg3
+  localValue3 = {}
+  return localValue3
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.uiRegisterCallback
-textValue3 = "gangSearchPlayers"
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.uiRegisterCallback
+text3 = "gangSearchPlayers"
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.query
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.query
   end
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" == arg3 then
-    arg3 = TriggerServerEvent
-    arg4 = "66ff06be33"
-    arg5 = arg2
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" == localValue3 then
+    localValue3 = TriggerServerEvent
+    localValue4 = "66ff06be33"
+    localValue5 = localValue2
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "66ff06be33".
-    arg3(arg4, arg5)
+    localValue3(localValue4, localValue5)
   end
-  arg3 = {}
-  return arg3
+  localValue3 = {}
+  return localValue3
 end
-cmgCall3(textValue3, textValue4)
-cmgCall3 = RegisterNetEvent
-textValue3 = "c2f28c01bd"
+cmgOperation3(text3, text4)
+cmgOperation3 = RegisterNetEvent
+text3 = "c2f28c01bd"
 -- Beginner: this function handles network event "c2f28c01bd".
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
-function textValue4(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
-  arg3 = {}
-  arg3.action = "GANG_SEARCH_RESULT"
-  arg4 = {}
-  arg5 = arg1 or arg5
-  if not arg1 then
-    arg5 = {}
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1) ===
+function text4(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
+  localValue3 = {}
+  localValue3.action = "GANG_SEARCH_RESULT"
+  localValue4 = {}
+  localValue5 = localValue1 or localValue5
+  if not localValue1 then
+    localValue5 = {}
   end
-  arg4.players = arg5
-  arg3.payload = arg4
-  arg2(arg3)
+  localValue4.players = localValue5
+  localValue3.payload = localValue4
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c2f28c01bd".
-cmgCall3(textValue3, textValue4)
-cmgCall3 = CMG
+cmgOperation3(text3, text4)
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1, arg2) ===
-function textValue3(arg1, arg2)
-  local arg3, arg4, arg5, arg6
-  if not arg2 or "" == arg2 then
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1, localValue2) ===
+function text3(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6
+  if not localValue2 or "" == localValue2 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.gangNuiOpen
-  if arg3 then
-    arg3 = CMG
-    arg3 = arg3.uiSendMessage
-    arg4 = {}
-    arg4.action = "GANG_NOTIFICATION"
-    arg5 = {}
-    arg5.success = arg1
-    arg5.message = arg2
-    arg4.payload = arg5
-    arg3(arg4)
+  localValue3 = CMG
+  localValue3 = localValue3.gangNuiOpen
+  if localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.uiSendMessage
+    localValue4 = {}
+    localValue4.action = "GANG_NOTIFICATION"
+    localValue5 = {}
+    localValue5.success = localValue1
+    localValue5.message = localValue2
+    localValue4.payload = localValue5
+    localValue3(localValue4)
   else
-    if arg1 then
-      arg3 = "~g~"
-      if arg3 then
-        goto flow_label_28
+    if localValue1 then
+      localValue3 = "~g~"
+      if localValue3 then
+        goto continueAtStep28
       end
     end
-    arg3 = "~r~"
-    ::flow_label_28::
-    arg4 = tCMG
-    arg4 = arg4.notify
-    arg5 = arg3
-    arg6 = arg2
-    arg5 = arg5 .. arg6
+    localValue3 = "~r~"
+    ::continueAtStep28::
+    localValue4 = tCMG
+    localValue4 = localValue4.notify
+    localValue5 = localValue3
+    localValue6 = localValue2
+    localValue5 = localValue5 .. localValue6
     -- Beginner: Show a notification to the player.
-    arg4(arg5)
+    localValue4(localValue5)
   end
 end
-cmgCall3.showGangNuiNotify = textValue3
-cmgCall3 = RegisterNetEvent
-textValue3 = "bbe75200c0"
+cmgOperation3.showGangNuiNotify = text3
+cmgOperation3 = RegisterNetEvent
+text3 = "bbe75200c0"
 -- Beginner: this function handles network event "bbe75200c0".
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2) ===
-function textValue4(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = CMG
-  arg3 = arg3.showGangNuiNotify
-  arg4 = arg1
-  arg5 = arg2 or arg5
-  if not arg2 then
-    if arg1 then
-      arg5 = "Invite sent."
-      if arg5 then
-        goto flow_label_12
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1, localValue2) ===
+function text4(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = CMG
+  localValue3 = localValue3.showGangNuiNotify
+  localValue4 = localValue1
+  localValue5 = localValue2 or localValue5
+  if not localValue2 then
+    if localValue1 then
+      localValue5 = "Invite sent."
+      if localValue5 then
+        goto continueAtStep12
       end
     end
-    arg5 = "Failed to send invite."
+    localValue5 = "Failed to send invite."
   end
-  ::flow_label_12::
-  arg3(arg4, arg5)
+  ::continueAtStep12::
+  localValue3(localValue4, localValue5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "bbe75200c0".
-cmgCall3(textValue3, textValue4)
-cmgCall3 = RegisterNetEvent
-textValue3 = "38cce5f704"
+cmgOperation3(text3, text4)
+cmgOperation3 = RegisterNetEvent
+text3 = "38cce5f704"
 -- Beginner: this function handles network event "38cce5f704".
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2) ===
-function textValue4(arg1, arg2)
-  local arg3, arg4, arg5
-  arg3 = CMG
-  arg3 = arg3.showGangNuiNotify
-  arg4 = arg1
-  arg5 = arg2
-  arg3(arg4, arg5)
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1, localValue2) ===
+function text4(localValue1, localValue2)
+  local localValue3, localValue4, localValue5
+  localValue3 = CMG
+  localValue3 = localValue3.showGangNuiNotify
+  localValue4 = localValue1
+  localValue5 = localValue2
+  localValue3(localValue4, localValue5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "38cce5f704".
-cmgCall3(textValue3, textValue4)
-cmgCall3 = AddEventHandler
-textValue3 = "e394af4876"
+cmgOperation3(text3, text4)
+cmgOperation3 = AddEventHandler
+text3 = "e394af4876"
 -- Beginner: this function runs when client event "e394af4876" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = workValue5
-    arg1()
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = workingValue5
+    localValue1()
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "e394af4876".
-cmgCall3(textValue3, textValue4)
-cmgCall3 = AddEventHandler
-textValue3 = "c89367ffd9"
+cmgOperation3(text3, text4)
+cmgOperation3 = AddEventHandler
+text3 = "c89367ffd9"
 -- Beginner: this function runs when client event "c89367ffd9" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = workValue5
-    arg1()
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = workingValue5
+    localValue1()
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "c89367ffd9".
-cmgCall3(textValue3, textValue4)
+cmgOperation3(text3, text4)
 -- Beginner: this function runs when client event "c89367ffd9" fires.
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
     return
   end
-  arg1 = workValue8
-  arg1 = arg1()
-  arg2 = workValue4
-  arg2 = arg2()
-  arg3 = workValue9
-  arg3 = arg3()
-  arg4 = CMG
-  arg4 = arg4.uiSendMessage
-  arg5 = {}
-  arg5.action = "GANG_SET_DATA"
-  arg6 = {}
-  arg6.dashboard = arg2
-  arg6.members = arg1
-  arg6.permissionsConfig = arg3
-  arg7 = CMG
-  arg7 = arg7.gangPaycheckNuiPreview
-  arg6.paycheckPreview = arg7
-  arg5.payload = arg6
-  arg4(arg5)
+  localValue1 = workingValue8
+  localValue1 = localValue1()
+  localValue2 = workingValue4
+  localValue2 = localValue2()
+  localValue3 = workingValue9
+  localValue3 = localValue3()
+  localValue4 = CMG
+  localValue4 = localValue4.uiSendMessage
+  localValue5 = {}
+  localValue5.action = "GANG_SET_DATA"
+  localValue6 = {}
+  localValue6.dashboard = localValue2
+  localValue6.members = localValue1
+  localValue6.permissionsConfig = localValue3
+  localValue7 = CMG
+  localValue7 = localValue7.gangPaycheckNuiPreview
+  localValue6.paycheckPreview = localValue7
+  localValue5.payload = localValue6
+  localValue4(localValue5)
 end
-textValue3 = RegisterNetEvent
-textValue4 = "6998c9a240"
+text3 = RegisterNetEvent
+text4 = "6998c9a240"
 -- Beginner: this function handles network event "6998c9a240".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = cmgCall3
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = cmgOperation3
     -- Beginner: Register a client-side event handler.
-    arg1()
+    localValue1()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6998c9a240".
-textValue3(textValue4, textValue6)
-textValue3 = RegisterNetEvent
-textValue4 = "f71d7949c0"
+text3(text4, text6)
+text3 = RegisterNetEvent
+text4 = "f71d7949c0"
 -- Beginner: this function handles network event "f71d7949c0".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = cmgCall3
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = cmgOperation3
     -- Beginner: Register a client-side event handler.
-    arg1()
+    localValue1()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f71d7949c0".
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangPinMember"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangPinMember"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.userId
-    if not arg2 then
-      arg2 = arg1.user_id
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.userId
+    if not localValue2 then
+      localValue2 = localValue1.user_id
     end
   end
-  if not arg2 then
-    arg3 = {}
-    return arg3
+  if not localValue2 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = tonumber
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  arg2 = arg3
-  arg3 = CMG
-  arg3 = arg3.gangPinnedPlayers
-  if not arg3 then
-    arg4 = GetResourceKvpString
-    arg5 = "cmg_gang_pinned"
-    arg4 = arg4(arg5)
-    if not arg4 then
-      arg4 = "{}"
+  localValue3 = tonumber
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  localValue2 = localValue3
+  localValue3 = CMG
+  localValue3 = localValue3.gangPinnedPlayers
+  if not localValue3 then
+    localValue4 = GetResourceKvpString
+    localValue5 = "cmg_gang_pinned"
+    localValue4 = localValue4(localValue5)
+    if not localValue4 then
+      localValue4 = "{}"
     end
-    arg5 = json
-    arg5 = arg5.decode
-    arg6 = arg4
-    arg5 = arg5(arg6)
-    if not arg5 then
-      arg5 = {}
+    localValue5 = json
+    localValue5 = localValue5.decode
+    localValue6 = localValue4
+    localValue5 = localValue5(localValue6)
+    if not localValue5 then
+      localValue5 = {}
     end
-    arg6 = {}
-    arg3 = arg6
-    arg6 = pairs
-    arg7 = arg5
-    arg6, arg7, workValue16, dataTable6 = arg6(arg7)
-    for workValue20 in arg6, arg7, workValue16, dataTable6 do
-      workValue2 = tonumber
-      dataTable = workValue20
-      workValue2 = workValue2(dataTable)
-      arg3[workValue2] = true
+    localValue6 = {}
+    localValue3 = localValue6
+    localValue6 = pairs
+    localValue7 = localValue5
+    localValue6, localValue7, workingValue16, dataCollection6 = localValue6(localValue7)
+    for workingValue20 in localValue6, localValue7, workingValue16, dataCollection6 do
+      workingValue2 = tonumber
+      dataCollection = workingValue20
+      workingValue2 = workingValue2(dataCollection)
+      localValue3[workingValue2] = true
     end
-    arg6 = CMG
-    arg6.gangPinnedPlayers = arg3
+    localValue6 = CMG
+    localValue6.gangPinnedPlayers = localValue3
   end
-  if arg2 then
-    arg4 = arg3[arg2]
-    if arg4 then
-      arg3[arg2] = nil
+  if localValue2 then
+    localValue4 = localValue3[localValue2]
+    if localValue4 then
+      localValue3[localValue2] = nil
     else
-      arg3[arg2] = true
+      localValue3[localValue2] = true
     end
   end
-  arg4 = SetResourceKvp
-  arg5 = "cmg_gang_pinned"
-  arg6 = json
-  arg6 = arg6.encode
-  arg7 = arg3
-  arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable = arg6(arg7)
-  arg4(arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable)
-  arg4 = TriggerEvent
-  arg5 = "e713d91b70"
+  localValue4 = SetResourceKvp
+  localValue5 = "cmg_gang_pinned"
+  localValue6 = json
+  localValue6 = localValue6.encode
+  localValue7 = localValue3
+  localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection = localValue6(localValue7)
+  localValue4(localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection)
+  localValue4 = TriggerEvent
+  localValue5 = "e713d91b70"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-  arg4(arg5)
-  arg4 = CMG
-  arg4 = arg4.gangCachedData
-  if arg4 then
-    arg4 = CMG
-    arg4 = arg4.gangCachedData
-    arg4 = arg4.isAdvanced
-    if arg4 then
-      arg4 = GetResourceKvpString
-      arg5 = "cmg_gang_blips"
-      arg4 = arg4(arg5)
-      arg4 = "true" == arg4
-      if arg4 then
-        arg5 = TriggerServerEvent
-        arg6 = "f9c26121e2"
-        arg7 = "own"
+  localValue4(localValue5)
+  localValue4 = CMG
+  localValue4 = localValue4.gangCachedData
+  if localValue4 then
+    localValue4 = CMG
+    localValue4 = localValue4.gangCachedData
+    localValue4 = localValue4.isAdvanced
+    if localValue4 then
+      localValue4 = GetResourceKvpString
+      localValue5 = "cmg_gang_blips"
+      localValue4 = localValue4(localValue5)
+      localValue4 = "true" == localValue4
+      if localValue4 then
+        localValue5 = TriggerServerEvent
+        localValue6 = "f9c26121e2"
+        localValue7 = "own"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-        arg5(arg6, arg7)
+        localValue5(localValue6, localValue7)
       end
     end
   end
-  arg4 = cmgCall3
+  localValue4 = cmgOperation3
   -- Beginner: Register a client-side event handler.
-  arg4()
-  arg4 = {}
-  return arg4
+  localValue4()
+  localValue4 = {}
+  return localValue4
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangKickMember"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangKickMember"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.userId
-    if not arg2 then
-      arg2 = arg1.user_id
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.userId
+    if not localValue2 then
+      localValue2 = localValue1.user_id
     end
   end
-  if not arg2 then
-    arg3 = {}
-    return arg3
+  if not localValue2 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = tonumber
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  arg2 = arg3
-  arg3 = arg1.isGuest
-  if arg3 then
-    arg3 = TriggerServerEvent
-    arg4 = "550d5b91c6"
-    arg5 = arg2
+  localValue3 = tonumber
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  localValue2 = localValue3
+  localValue3 = localValue1.isGuest
+  if localValue3 then
+    localValue3 = TriggerServerEvent
+    localValue4 = "550d5b91c6"
+    localValue5 = localValue2
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "550d5b91c6".
-    arg3(arg4, arg5)
+    localValue3(localValue4, localValue5)
   else
-    arg3 = TriggerServerEvent
-    arg4 = "85c0cc23f6"
-    arg5 = arg2
-    arg3(arg4, arg5)
+    localValue3 = TriggerServerEvent
+    localValue4 = "85c0cc23f6"
+    localValue5 = localValue2
+    localValue3(localValue4, localValue5)
   end
-  arg3 = Citizen
-  arg3 = arg3.SetTimeout
-  arg4 = 500
+  localValue3 = Citizen
+  localValue3 = localValue3.SetTimeout
+  localValue4 = 500
 
-  -- === HELPER FUNCTION: arg5() ===
-  function arg5()
-    local arg12, arg22
-    arg12 = cmgCall3
+  -- === HELPER FUNCTION: localValue5() ===
+  function localValue5()
+    local localValue12, localValue22
+    localValue12 = cmgOperation3
     -- Beginner: Register a client-side event handler.
-    arg12()
+    localValue12()
   end
-  arg3(arg4, arg5)
-  arg3 = {}
-  return arg3
+  localValue3(localValue4, localValue5)
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetMemberPermission"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetMemberPermission"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  if arg1 then
-    arg2 = arg1.userId
-    if arg2 then
-      arg2 = arg1.permissionId
-      if nil ~= arg2 then
-        arg2 = TriggerServerEvent
-        arg3 = "a6cd82c68e"
-        arg4 = tonumber
-        arg5 = arg1.userId
-        arg4 = arg4(arg5)
-        arg5 = arg1.permissionId
-        arg6 = arg1.enabled
-        arg6 = true == arg6
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  if localValue1 then
+    localValue2 = localValue1.userId
+    if localValue2 then
+      localValue2 = localValue1.permissionId
+      if nil ~= localValue2 then
+        localValue2 = TriggerServerEvent
+        localValue3 = "a6cd82c68e"
+        localValue4 = tonumber
+        localValue5 = localValue1.userId
+        localValue4 = localValue4(localValue5)
+        localValue5 = localValue1.permissionId
+        localValue6 = localValue1.enabled
+        localValue6 = true == localValue6
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a6cd82c68e".
-        arg2(arg3, arg4, arg5, arg6)
+        localValue2(localValue3, localValue4, localValue5, localValue6)
       end
     end
   end
-  arg2 = {}
-  return arg2
+  localValue2 = {}
+  return localValue2
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangDeposit"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangDeposit"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.amount
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.amount
   end
-  if nil == arg2 then
-    arg3 = {}
-    return arg3
+  if nil == localValue2 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = TriggerServerEvent
-  arg4 = "36ba8d4574"
-  arg5 = tonumber
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg5 = arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "36ba8d4574"
+  localValue5 = tonumber
+  localValue6 = localValue2
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue5 = localValue2
   end
-  arg6 = arg1.reason
+  localValue6 = localValue1.reason
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "36ba8d4574".
-  arg3(arg4, arg5, arg6)
-  arg3 = {}
-  return arg3
+  localValue3(localValue4, localValue5, localValue6)
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangDepositAll"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangDepositAll"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4
-  arg2 = TriggerServerEvent
-  arg3 = "8536953bae"
-  arg4 = arg1 or arg4
-  if arg1 then
-    arg4 = arg1.reason
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = TriggerServerEvent
+  localValue3 = "8536953bae"
+  localValue4 = localValue1 or localValue4
+  if localValue1 then
+    localValue4 = localValue1.reason
   end
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8536953bae".
-  arg2(arg3, arg4)
-  arg2 = {}
-  return arg2
+  localValue2(localValue3, localValue4)
+  localValue2 = {}
+  return localValue2
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangWithdraw"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangWithdraw"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.amount
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.amount
   end
-  if nil == arg2 then
-    arg3 = {}
-    return arg3
+  if nil == localValue2 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = TriggerServerEvent
-  arg4 = "21cfbc3c22"
-  arg5 = tonumber
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  if not arg5 then
-    arg5 = arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "21cfbc3c22"
+  localValue5 = tonumber
+  localValue6 = localValue2
+  localValue5 = localValue5(localValue6)
+  if not localValue5 then
+    localValue5 = localValue2
   end
-  arg6 = arg1.reason
+  localValue6 = localValue1.reason
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "21cfbc3c22".
-  arg3(arg4, arg5, arg6)
-  arg3 = {}
-  return arg3
+  localValue3(localValue4, localValue5, localValue6)
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangWithdrawAll"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangWithdrawAll"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4
-  arg2 = TriggerServerEvent
-  arg3 = "be7d1bceb0"
-  arg4 = arg1 or arg4
-  if arg1 then
-    arg4 = arg1.reason
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = TriggerServerEvent
+  localValue3 = "be7d1bceb0"
+  localValue4 = localValue1 or localValue4
+  if localValue1 then
+    localValue4 = localValue1.reason
   end
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "be7d1bceb0".
-  arg2(arg3, arg4)
-  arg2 = {}
-  return arg2
+  localValue2(localValue3, localValue4)
+  localValue2 = {}
+  return localValue2
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangWithdrawTurf"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangWithdrawTurf"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.amount
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.amount
   end
-  if nil == arg2 then
-    arg3 = {}
-    return arg3
+  if nil == localValue2 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = tonumber
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if arg3 and arg3 > 0 then
-    arg4 = TriggerServerEvent
-    arg5 = "6aac8fd738"
-    arg6 = math
-    arg6 = arg6.floor
-    arg7 = arg3
-    arg6, arg7 = arg6(arg7)
+  localValue3 = tonumber
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if localValue3 and localValue3 > 0 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "6aac8fd738"
+    localValue6 = math
+    localValue6 = localValue6.floor
+    localValue7 = localValue3
+    localValue6, localValue7 = localValue6(localValue7)
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6aac8fd738".
-    arg4(arg5, arg6, arg7)
+    localValue4(localValue5, localValue6, localValue7)
   end
-  arg4 = {}
-  return arg4
+  localValue4 = {}
+  return localValue4
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangRequestContributions"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangRequestContributions"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "cef5792c69"
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "cef5792c69"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cef5792c69".
-  arg1(arg2)
-  arg1 = {}
-  return arg1
+  localValue1(localValue2)
+  localValue1 = {}
+  return localValue1
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangRequestLogs"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangRequestLogs"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  if arg1 then
-    arg2 = arg1.page
-    if arg2 then
-      goto flow_label_7
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  if localValue1 then
+    localValue2 = localValue1.page
+    if localValue2 then
+      goto continueAtStep7
     end
   end
-  arg2 = 1
-  ::flow_label_7::
-  if arg1 then
-    arg3 = arg1.hideTurf
-    if arg3 then
-      goto flow_label_13
+  localValue2 = 1
+  ::continueAtStep7::
+  if localValue1 then
+    localValue3 = localValue1.hideTurf
+    if localValue3 then
+      goto continueAtStep13
     end
   end
-  arg3 = false
-  ::flow_label_13::
-  arg4 = tonumber
-  arg5 = arg2
-  arg4 = arg4(arg5)
-  arg2 = arg4 or arg2
-  if not arg4 then
-    arg2 = 1
+  localValue3 = false
+  ::continueAtStep13::
+  localValue4 = tonumber
+  localValue5 = localValue2
+  localValue4 = localValue4(localValue5)
+  localValue2 = localValue4 or localValue2
+  if not localValue4 then
+    localValue2 = 1
   end
-  arg4 = TriggerServerEvent
-  arg5 = "3f8f33322f"
-  arg6 = arg2
-  arg7 = true == arg3
+  localValue4 = TriggerServerEvent
+  localValue5 = "3f8f33322f"
+  localValue6 = localValue2
+  localValue7 = true == localValue3
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
-  arg4(arg5, arg6, arg7)
-  arg4 = {}
-  return arg4
+  localValue4(localValue5, localValue6, localValue7)
+  localValue4 = {}
+  return localValue4
 end
-textValue3(textValue4, textValue6)
-textValue3 = RegisterNetEvent
-textValue4 = "38c659d0a7"
+text3(text4, text6)
+text3 = RegisterNetEvent
+text4 = "38c659d0a7"
 -- Beginner: this function handles network event "38c659d0a7".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2
-  arg2 = CMG
-  arg2 = arg2.gangCachedData
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.gangCachedData
-    arg2.displayMoney = arg1
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2
+  localValue2 = CMG
+  localValue2 = localValue2.gangCachedData
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.gangCachedData
+    localValue2.displayMoney = localValue1
   end
-  arg2 = CMG
-  arg2 = arg2.gangNuiOpen
-  if arg2 then
-    arg2 = workValue5
-    arg2()
+  localValue2 = CMG
+  localValue2 = localValue2.gangNuiOpen
+  if localValue2 then
+    localValue2 = workingValue5
+    localValue2()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "38c659d0a7".
-textValue3(textValue4, textValue6)
-textValue3 = RegisterNetEvent
-textValue4 = "bb3efd07e8"
+text3(text4, text6)
+text3 = RegisterNetEvent
+text4 = "bb3efd07e8"
 -- Beginner: this function handles network event "bb3efd07e8".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4
-  arg2 = CMG
-  arg2 = arg2.gangNuiOpen
-  if arg2 and arg1 then
-    arg2 = CMG
-    arg2 = arg2.uiSendMessage
-    arg3 = {}
-    arg3.action = "GANG_SET_CONTRIBUTIONS"
-    arg4 = {}
-    arg4.contributions = arg1
-    arg3.payload = arg4
-    arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = CMG
+  localValue2 = localValue2.gangNuiOpen
+  if localValue2 and localValue1 then
+    localValue2 = CMG
+    localValue2 = localValue2.uiSendMessage
+    localValue3 = {}
+    localValue3.action = "GANG_SET_CONTRIBUTIONS"
+    localValue4 = {}
+    localValue4.contributions = localValue1
+    localValue3.payload = localValue4
+    localValue2(localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "bb3efd07e8".
-textValue3(textValue4, textValue6)
-textValue3 = RegisterNetEvent
-textValue4 = "b6d14a58c2"
+text3(text4, text6)
+text3 = RegisterNetEvent
+text4 = "b6d14a58c2"
 -- Beginner: this function handles network event "b6d14a58c2".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1, arg2, arg3) ===
-function textValue6(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7
-  arg4 = CMG
-  arg4 = arg4.gangNuiOpen
-  if not arg4 then
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1, localValue2, localValue3) ===
+function text6(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, localValue6, localValue7
+  localValue4 = CMG
+  localValue4 = localValue4.gangNuiOpen
+  if not localValue4 then
     return
   end
-  arg4 = CMG
-  arg4 = arg4.uiSendMessage
-  arg5 = {}
-  arg5.action = "GANG_SET_LOGS"
-  arg6 = {}
-  arg6.pageNumber = arg1
-  arg7 = arg2 or arg7
-  if not arg2 then
-    arg7 = {}
+  localValue4 = CMG
+  localValue4 = localValue4.uiSendMessage
+  localValue5 = {}
+  localValue5.action = "GANG_SET_LOGS"
+  localValue6 = {}
+  localValue6.pageNumber = localValue1
+  localValue7 = localValue2 or localValue7
+  if not localValue2 then
+    localValue7 = {}
   end
-  arg6.logs = arg7
-  arg7 = arg3 or arg7
-  if not arg3 then
-    arg7 = 0
+  localValue6.logs = localValue7
+  localValue7 = localValue3 or localValue7
+  if not localValue3 then
+    localValue7 = 0
   end
-  arg6.totalCount = arg7
-  arg5.payload = arg6
-  arg4(arg5)
+  localValue6.totalCount = localValue7
+  localValue5.payload = localValue6
+  localValue4(localValue5)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b6d14a58c2".
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetMaxWithdraw"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetMaxWithdraw"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.amount
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.amount
   end
-  if nil ~= arg2 then
-    arg3 = TriggerServerEvent
-    arg4 = "b674c758b8"
-    arg5 = tonumber
-    arg6 = arg2
-    arg5 = arg5(arg6)
-    if not arg5 then
-      arg5 = 0
+  if nil ~= localValue2 then
+    localValue3 = TriggerServerEvent
+    localValue4 = "b674c758b8"
+    localValue5 = tonumber
+    localValue6 = localValue2
+    localValue5 = localValue5(localValue6)
+    if not localValue5 then
+      localValue5 = 0
     end
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b674c758b8".
-    arg3(arg4, arg5)
+    localValue3(localValue4, localValue5)
   end
-  arg3 = {}
-  return arg3
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetLimitWithdrawDeposit"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetLimitWithdrawDeposit"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.enabled
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.enabled
   end
-  arg3 = TriggerServerEvent
-  arg4 = "58d834d15a"
-  arg5 = true == arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "58d834d15a"
+  localValue5 = true == localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "58d834d15a".
-  arg3(arg4, arg5)
-  arg3 = {}
-  return arg3
+  localValue3(localValue4, localValue5)
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetRequireWithdrawReason"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetRequireWithdrawReason"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.enabled
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.enabled
   end
-  arg3 = TriggerServerEvent
-  arg4 = "5d7f40bb9d"
-  arg5 = true == arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "5d7f40bb9d"
+  localValue5 = true == localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5d7f40bb9d".
-  arg3(arg4, arg5)
-  arg3 = {}
-  return arg3
+  localValue3(localValue4, localValue5)
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetTag"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetTag"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.tag
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.tag
   end
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" == arg3 then
-    arg3 = #arg2
-    if arg3 > 0 then
-      arg3 = TriggerServerEvent
-      arg4 = "9dad3c2a94"
-      arg5 = arg2
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" == localValue3 then
+    localValue3 = #localValue2
+    if localValue3 > 0 then
+      localValue3 = TriggerServerEvent
+      localValue4 = "9dad3c2a94"
+      localValue5 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9dad3c2a94".
-      arg3(arg4, arg5)
+      localValue3(localValue4, localValue5)
     end
   end
-  arg3 = {}
-  return arg3
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangRenameGang"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangRenameGang"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.name
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.name
   end
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" == arg3 then
-    arg3 = #arg2
-    if arg3 > 0 then
-      arg3 = TriggerServerEvent
-      arg4 = "7a95907fc0"
-      arg5 = arg2
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" == localValue3 then
+    localValue3 = #localValue2
+    if localValue3 > 0 then
+      localValue3 = TriggerServerEvent
+      localValue4 = "7a95907fc0"
+      localValue5 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7a95907fc0".
-      arg3(arg4, arg5)
+      localValue3(localValue4, localValue5)
     end
   end
-  arg3 = {}
-  return arg3
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangPurchaseAdvancedLicense"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangPurchaseAdvancedLicense"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "40cb8bd46d"
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "40cb8bd46d"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "40cb8bd46d".
-  arg1(arg2)
-  arg1 = {}
-  return arg1
+  localValue1(localValue2)
+  localValue1 = {}
+  return localValue1
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetTurfColour"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetTurfColour"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.colour
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.colour
   end
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" == arg3 then
-    arg3 = #arg2
-    if arg3 > 0 then
-      arg3 = TriggerServerEvent
-      arg4 = "adb903a8eb"
-      arg5 = arg2
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" == localValue3 then
+    localValue3 = #localValue2
+    if localValue3 > 0 then
+      localValue3 = TriggerServerEvent
+      localValue4 = "adb903a8eb"
+      localValue5 = localValue2
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "adb903a8eb".
-      arg3(arg4, arg5)
+      localValue3(localValue4, localValue5)
     end
   end
-  arg3 = {}
-  return arg3
+  localValue3 = {}
+  return localValue3
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetPersonalBlipColour"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetPersonalBlipColour"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.colour
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.colour
   end
-  arg3 = type
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if "string" ~= arg3 or "" == arg2 then
-    arg3 = {}
-    return arg3
+  localValue3 = type
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if "string" ~= localValue3 or "" == localValue2 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = cmgCall4
-  if arg3 then
-    arg3 = cmgCall4.colourLookup
-    if arg3 then
-      arg3 = cmgCall4.colourLookup
-      arg3 = arg3[arg2]
-      if arg3 then
-        goto flow_label_27
+  localValue3 = cmgOperation4
+  if localValue3 then
+    localValue3 = cmgOperation4.colourLookup
+    if localValue3 then
+      localValue3 = cmgOperation4.colourLookup
+      localValue3 = localValue3[localValue2]
+      if localValue3 then
+        goto continueAtStep27
       end
     end
   end
-  arg3 = {}
-  return arg3
-  ::flow_label_27::
-  arg3 = SetResourceKvp
-  arg4 = "cmg_gang_colour"
-  arg5 = arg2
-  arg3(arg4, arg5)
-  arg3 = CMG
-  arg3 = arg3.getClientUserId
+  localValue3 = {}
+  return localValue3
+  ::continueAtStep27::
+  localValue3 = SetResourceKvp
+  localValue4 = "cmg_gang_colour"
+  localValue5 = localValue2
+  localValue3(localValue4, localValue5)
+  localValue3 = CMG
+  localValue3 = localValue3.getClientUserId
   -- Beginner: result below is userId.
-  arg3 = arg3()
-  arg4 = CMG
-  arg4 = arg4.gangCachedData
-  if arg4 then
-    arg5 = arg4.members
-    if arg5 and arg3 then
-      arg5 = arg4.members
-      arg5 = arg5[arg3]
-      if not arg5 then
-        arg5 = arg4.members
-        arg6 = tostring
-        arg7 = arg3
-        arg6 = arg6(arg7)
-        arg5 = arg5[arg6]
+  localValue3 = localValue3()
+  localValue4 = CMG
+  localValue4 = localValue4.gangCachedData
+  if localValue4 then
+    localValue5 = localValue4.members
+    if localValue5 and localValue3 then
+      localValue5 = localValue4.members
+      localValue5 = localValue5[localValue3]
+      if not localValue5 then
+        localValue5 = localValue4.members
+        localValue6 = tostring
+        localValue7 = localValue3
+        localValue6 = localValue6(localValue7)
+        localValue5 = localValue5[localValue6]
       end
-      if arg5 then
-        arg5.colour = arg2
+      if localValue5 then
+        localValue5.colour = localValue2
       end
     end
   end
-  arg5 = TriggerServerEvent
-  arg6 = "a74c553948"
-  arg7 = arg2
+  localValue5 = TriggerServerEvent
+  localValue6 = "a74c553948"
+  localValue7 = localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a74c553948".
-  arg5(arg6, arg7)
-  arg5 = workValue5
-  arg5()
-  arg5 = {}
-  return arg5
+  localValue5(localValue6, localValue7)
+  localValue5 = workingValue5
+  localValue5()
+  localValue5 = {}
+  return localValue5
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangToggleBlips"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangToggleBlips"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = CMG
-  arg1 = arg1.gangClientSettings
-  if not arg1 then
-    arg2 = {}
-    return arg2
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = CMG
+  localValue1 = localValue1.gangClientSettings
+  if not localValue1 then
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = arg1.blips
-  arg2 = not arg2
-  arg1.blips = arg2
-  arg2 = TriggerEvent
-  arg3 = "e713d91b70"
+  localValue2 = localValue1.blips
+  localValue2 = not localValue2
+  localValue1.blips = localValue2
+  localValue2 = TriggerEvent
+  localValue3 = "e713d91b70"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-  arg2(arg3)
-  arg2 = arg1.blips
-  if arg2 then
-    arg2 = "own"
-    arg3 = TriggerServerEvent
-    arg4 = "f9c26121e2"
-    arg5 = arg2
-    arg6 = true
+  localValue2(localValue3)
+  localValue2 = localValue1.blips
+  if localValue2 then
+    localValue2 = "own"
+    localValue3 = TriggerServerEvent
+    localValue4 = "f9c26121e2"
+    localValue5 = localValue2
+    localValue6 = true
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-    arg3(arg4, arg5, arg6)
+    localValue3(localValue4, localValue5, localValue6)
   else
-    arg2 = TriggerServerEvent
-    arg3 = "f9c26121e2"
-    arg4 = nil
-    arg2(arg3, arg4)
+    localValue2 = TriggerServerEvent
+    localValue3 = "f9c26121e2"
+    localValue4 = nil
+    localValue2(localValue3, localValue4)
   end
-  arg2 = SetResourceKvp
-  arg3 = "cmg_gang_blips"
-  arg4 = tostring
-  arg5 = arg1.blips
-  arg4, arg5, arg6 = arg4(arg5)
-  arg2(arg3, arg4, arg5, arg6)
-  arg2 = workValue5
-  arg2()
-  arg2 = {}
-  return arg2
+  localValue2 = SetResourceKvp
+  localValue3 = "cmg_gang_blips"
+  localValue4 = tostring
+  localValue5 = localValue1.blips
+  localValue4, localValue5, localValue6 = localValue4(localValue5)
+  localValue2(localValue3, localValue4, localValue5, localValue6)
+  localValue2 = workingValue5
+  localValue2()
+  localValue2 = {}
+  return localValue2
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangTogglePings"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangTogglePings"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.gangClientSettings
-  if not arg1 then
-    arg2 = {}
-    return arg2
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.gangClientSettings
+  if not localValue1 then
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = arg1.pings
-  arg2 = not arg2
-  arg1.pings = arg2
-  arg2 = SetResourceKvp
-  arg3 = "cmg_gang_pings"
-  arg4 = tostring
-  arg5 = arg1.pings
-  arg4, arg5 = arg4(arg5)
-  arg2(arg3, arg4, arg5)
-  arg2 = workValue5
-  arg2()
-  arg2 = {}
-  return arg2
+  localValue2 = localValue1.pings
+  localValue2 = not localValue2
+  localValue1.pings = localValue2
+  localValue2 = SetResourceKvp
+  localValue3 = "cmg_gang_pings"
+  localValue4 = tostring
+  localValue5 = localValue1.pings
+  localValue4, localValue5 = localValue4(localValue5)
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = workingValue5
+  localValue2()
+  localValue2 = {}
+  return localValue2
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangToggleNames"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangToggleNames"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, arg3, arg4, arg5
-  arg1 = CMG
-  arg1 = arg1.gangClientSettings
-  if not arg1 then
-    arg2 = {}
-    return arg2
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, localValue3, localValue4, localValue5
+  localValue1 = CMG
+  localValue1 = localValue1.gangClientSettings
+  if not localValue1 then
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = arg1.names
-  arg2 = not arg2
-  arg1.names = arg2
-  arg2 = SetResourceKvp
-  arg3 = "cmg_gang_names"
-  arg4 = tostring
-  arg5 = arg1.names
-  arg4, arg5 = arg4(arg5)
-  arg2(arg3, arg4, arg5)
-  arg2 = workValue5
-  arg2()
-  arg2 = {}
-  return arg2
+  localValue2 = localValue1.names
+  localValue2 = not localValue2
+  localValue1.names = localValue2
+  localValue2 = SetResourceKvp
+  localValue3 = "cmg_gang_names"
+  localValue4 = tostring
+  localValue5 = localValue1.names
+  localValue4, localValue5 = localValue4(localValue5)
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = workingValue5
+  localValue2()
+  localValue2 = {}
+  return localValue2
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetActiveGang"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetActiveGang"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = tonumber
-    arg3 = arg1.gangId
-    arg2 = arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = tonumber
+    localValue3 = localValue1.gangId
+    localValue2 = localValue2(localValue3)
   end
-  if not arg2 or arg2 <= 0 then
-    arg3 = {}
-    return arg3
+  if not localValue2 or localValue2 <= 0 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = TriggerServerEvent
-  arg4 = "bb20e42129"
-  arg5 = arg2
+  localValue3 = TriggerServerEvent
+  localValue4 = "bb20e42129"
+  localValue5 = localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bb20e42129".
-  arg3(arg4, arg5)
-  arg3 = TriggerEvent
-  arg4 = "e713d91b70"
+  localValue3(localValue4, localValue5)
+  localValue3 = TriggerEvent
+  localValue4 = "e713d91b70"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
-  arg3(arg4)
-  arg3 = CMG
-  arg3 = arg3.gangClientSettings
-  if not arg3 then
-    arg3 = {}
+  localValue3(localValue4)
+  localValue3 = CMG
+  localValue3 = localValue3.gangClientSettings
+  if not localValue3 then
+    localValue3 = {}
   end
-  arg4 = arg3.blips
-  if arg4 then
-    arg4 = TriggerServerEvent
-    arg5 = "f9c26121e2"
-    arg6 = "own"
-    arg7 = true
+  localValue4 = localValue3.blips
+  if localValue4 then
+    localValue4 = TriggerServerEvent
+    localValue5 = "f9c26121e2"
+    localValue6 = "own"
+    localValue7 = true
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
-    arg4(arg5, arg6, arg7)
+    localValue4(localValue5, localValue6, localValue7)
   end
-  arg4 = {}
-  return arg4
+  localValue4 = {}
+  return localValue4
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangLeaveGang"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangLeaveGang"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "4d87711de5"
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "4d87711de5"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4d87711de5".
-  arg1(arg2)
-  arg1 = {}
-  return arg1
+  localValue1(localValue2)
+  localValue1 = {}
+  return localValue1
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangDisbandGang"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangDisbandGang"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "2b85de9de2"
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "2b85de9de2"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2b85de9de2".
-  arg1(arg2)
-  arg1 = {}
-  return arg1
+  localValue1(localValue2)
+  localValue1 = {}
+  return localValue1
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangRenameRadioChannel"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangRenameRadioChannel"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.channelId
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.channelId
   end
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = arg1.name
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = localValue1.name
   end
-  if nil ~= arg2 then
-    arg4 = type
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if "string" == arg4 then
-      arg4 = #arg3
-      if arg4 > 0 then
-        arg4 = TriggerServerEvent
-        arg5 = "8a2894785e"
-        arg6 = tonumber
-        arg7 = arg2
-        arg6 = arg6(arg7)
-        arg7 = arg3
+  if nil ~= localValue2 then
+    localValue4 = type
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if "string" == localValue4 then
+      localValue4 = #localValue3
+      if localValue4 > 0 then
+        localValue4 = TriggerServerEvent
+        localValue5 = "8a2894785e"
+        localValue6 = tonumber
+        localValue7 = localValue2
+        localValue6 = localValue6(localValue7)
+        localValue7 = localValue3
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8a2894785e".
-        arg4(arg5, arg6, arg7)
+        localValue4(localValue5, localValue6, localValue7)
       end
     end
   end
-  arg4 = {}
-  return arg4
+  localValue4 = {}
+  return localValue4
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangPurchaseRadioChannel"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangPurchaseRadioChannel"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "5b98fcee62"
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "5b98fcee62"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5b98fcee62".
-  arg1(arg2)
-  arg1 = {}
-  return arg1
+  localValue1(localValue2)
+  localValue1 = {}
+  return localValue1
 end
-textValue3(textValue4, textValue6)
-textValue3 = CMG
-textValue3 = textValue3.uiRegisterCallback
-textValue4 = "gangSetRelationship"
+text3(text4, text6)
+text3 = CMG
+text3 = text3.uiRegisterCallback
+text4 = "gangSetRelationship"
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
-function textValue6(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = arg1 or nil
-  if arg1 then
-    arg2 = arg1.gangId
+-- === HELPER FUNCTION (decompiler name: text6; parameters: localValue1) ===
+function text6(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = localValue1 or nil
+  if localValue1 then
+    localValue2 = localValue1.gangId
   end
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = arg1.relationship
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = localValue1.relationship
   end
-  if arg2 then
-    arg4 = type
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if "string" == arg4 then
-      arg4 = TriggerServerEvent
-      arg5 = "bdbde03161"
-      arg6 = tonumber
-      arg7 = arg2
-      arg6 = arg6(arg7)
-      arg7 = arg3
+  if localValue2 then
+    localValue4 = type
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if "string" == localValue4 then
+      localValue4 = TriggerServerEvent
+      localValue5 = "bdbde03161"
+      localValue6 = tonumber
+      localValue7 = localValue2
+      localValue6 = localValue6(localValue7)
+      localValue7 = localValue3
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bdbde03161".
-      arg4(arg5, arg6, arg7)
+      localValue4(localValue5, localValue6, localValue7)
     end
   end
-  arg4 = {}
-  return arg4
+  localValue4 = {}
+  return localValue4
 end
-textValue3(textValue4, textValue6)
-textValue3 = RegisterNetEvent
-textValue4 = "f9904fb04b"
+text3(text4, text6)
+text3 = RegisterNetEvent
+text4 = "f9904fb04b"
 -- Beginner: this function handles network event "f9904fb04b".
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = CMG
-    arg1.gangActivityLeaderboard = nil
-    arg1 = CMG
-    arg1.gangActivityLeaderboardPending = true
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = CMG
+    localValue1.gangActivityLeaderboard = nil
+    localValue1 = CMG
+    localValue1.gangActivityLeaderboardPending = true
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
-      arg12 = cmgCall2
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
+      localValue12 = cmgOperation2
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f9904fb04b".
-textValue3(textValue4, textValue6)
+text3(text4, text6)
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20
-  arg2 = {}
-  arg3 = type
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  if "table" ~= arg3 then
-    return arg2
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20
+  localValue2 = {}
+  localValue3 = type
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  if "table" ~= localValue3 then
+    return localValue2
   end
-  arg3 = 1
-  arg4 = #arg1
-  arg5 = 1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = #arg2
-    arg7 = arg7 + 1
-    workValue16 = arg1[arg6]
-    arg2[arg7] = workValue16
+  localValue3 = 1
+  localValue4 = #localValue1
+  localValue5 = 1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = #localValue2
+    localValue7 = localValue7 + 1
+    workingValue16 = localValue1[localValue6]
+    localValue2[localValue7] = workingValue16
   end
-  arg3 = #arg2
-  if arg3 > 0 then
-    return arg2
+  localValue3 = #localValue2
+  if localValue3 > 0 then
+    return localValue2
   end
-  arg3 = pairs
-  arg4 = arg1
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, workValue16 in arg3, arg4, arg5, arg6 do
-    dataTable6 = type
-    workValue20 = workValue16
-    dataTable6 = dataTable6(workValue20)
-    if "table" == dataTable6 then
-      dataTable6 = workValue16.userId
-      if nil == dataTable6 then
-        dataTable6 = workValue16.user_id
-        if nil == dataTable6 then
-          goto flow_label_42
+  localValue3 = pairs
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7, workingValue16 in localValue3, localValue4, localValue5, localValue6 do
+    dataCollection6 = type
+    workingValue20 = workingValue16
+    dataCollection6 = dataCollection6(workingValue20)
+    if "table" == dataCollection6 then
+      dataCollection6 = workingValue16.userId
+      if nil == dataCollection6 then
+        dataCollection6 = workingValue16.user_id
+        if nil == dataCollection6 then
+          goto continueAtStep42
         end
       end
-      dataTable6 = #arg2
-      dataTable6 = dataTable6 + 1
-      arg2[dataTable6] = workValue16
+      dataCollection6 = #localValue2
+      dataCollection6 = dataCollection6 + 1
+      localValue2[dataCollection6] = workingValue16
     end
-    ::flow_label_42::
+    ::continueAtStep42::
   end
-  return arg2
+  return localValue2
 end
-textValue4 = RegisterNetEvent
-textValue6 = "b01ff8ce87"
+text4 = RegisterNetEvent
+text6 = "b01ff8ce87"
 -- Beginner: this function handles network event "b01ff8ce87".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2, arg3, arg4
-  arg2 = CMG
-  arg2.gangActivityLeaderboardPending = false
-  arg2 = CMG
-  arg3 = textValue3
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  arg2.gangActivityLeaderboard = arg3
-  arg2 = CMG
-  arg2 = arg2.gangNuiOpen
-  if arg2 then
-    arg2 = workValue5
-    arg2()
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = CMG
+  localValue2.gangActivityLeaderboardPending = false
+  localValue2 = CMG
+  localValue3 = text3
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  localValue2.gangActivityLeaderboard = localValue3
+  localValue2 = CMG
+  localValue2 = localValue2.gangNuiOpen
+  if localValue2 then
+    localValue2 = workingValue5
+    localValue2()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b01ff8ce87".
-textValue4(textValue6, textValue7)
-textValue4 = AddEventHandler
-textValue6 = "238e25c639"
+text4(text6, text7)
+text4 = AddEventHandler
+text6 = "238e25c639"
 -- Beginner: this function runs when client event "238e25c639" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function runs when client event "238e25c639" fires.
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "238e25c639".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "53c0495633"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "53c0495633"
 -- Beginner: this function handles network event "53c0495633".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2, arg3, arg4
-  arg2 = CMG
-  if arg1 then
-    arg3 = arg1.gangs
-    if arg3 then
-      goto flow_label_8
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = CMG
+  if localValue1 then
+    localValue3 = localValue1.gangs
+    if localValue3 then
+      goto continueAtStep8
     end
   end
-  arg3 = nil
-  ::flow_label_8::
-  arg2.gangMembershipTiles = arg3
-  arg2 = CMG
-  arg2 = arg2.gangNuiOpen
-  if arg2 then
-    arg2 = Citizen
-    arg2 = arg2.SetTimeout
-    arg3 = 100
+  localValue3 = nil
+  ::continueAtStep8::
+  localValue2.gangMembershipTiles = localValue3
+  localValue2 = CMG
+  localValue2 = localValue2.gangNuiOpen
+  if localValue2 then
+    localValue2 = Citizen
+    localValue2 = localValue2.SetTimeout
+    localValue3 = 100
 
-    -- === HELPER FUNCTION: arg4() ===
-    function arg4()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue4() ===
+    function localValue4()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg2(arg3, arg4)
+    localValue2(localValue3, localValue4)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "53c0495633".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "4a773cc562"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "4a773cc562"
 -- Beginner: this function handles network event "4a773cc562".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "4a773cc562".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4a773cc562".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "e35812009c"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "e35812009c"
 -- Beginner: this function handles network event "e35812009c".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "e35812009c".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e35812009c".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "bdbde03161"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "bdbde03161"
 -- Beginner: this function handles network event "bdbde03161".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "bdbde03161".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "bdbde03161".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "adb903a8eb"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "adb903a8eb"
 -- Beginner: this function handles network event "adb903a8eb".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "adb903a8eb".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "adb903a8eb".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "d59e8e8fd8"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "d59e8e8fd8"
 -- Beginner: this function handles network event "d59e8e8fd8".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "d59e8e8fd8".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d59e8e8fd8".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "b674c758b8"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "b674c758b8"
 -- Beginner: this function handles network event "b674c758b8".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "b674c758b8".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b674c758b8".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "58d834d15a"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "58d834d15a"
 -- Beginner: this function handles network event "58d834d15a".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "58d834d15a".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "58d834d15a".
-textValue4(textValue6, textValue7)
-textValue4 = RegisterNetEvent
-textValue6 = "5d7f40bb9d"
+text4(text6, text7)
+text4 = RegisterNetEvent
+text6 = "5d7f40bb9d"
 -- Beginner: this function handles network event "5d7f40bb9d".
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.gangNuiOpen
-  if arg1 then
-    arg1 = Citizen
-    arg1 = arg1.SetTimeout
-    arg2 = 100
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.gangNuiOpen
+  if localValue1 then
+    localValue1 = Citizen
+    localValue1 = localValue1.SetTimeout
+    localValue2 = 100
     -- Beginner: this function handles network event "5d7f40bb9d".
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    arg1(arg2, arg3)
+    localValue1(localValue2, localValue3)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5d7f40bb9d".
-textValue4(textValue6, textValue7)
-textValue4 = CMG
-textValue4 = textValue4.uiRegisterCallback
-textValue6 = "gangGetSkillCategories"
+text4(text6, text7)
+text4 = CMG
+text4 = text4.uiRegisterCallback
+text6 = "gangGetSkillCategories"
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
-function textValue7()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6, stringHelper, numberValue, mathHelper, dataTable3
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if not arg1 then
-    arg2 = {}
-    return arg2
+-- === HELPER FUNCTION (decompiler name: text7; parameters: none) ===
+function text7()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6, stringHelper, number, mathHelper, dataCollection3
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if not localValue1 then
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = arg1.gangPerksUnlocked
-  if not arg2 then
-    arg2 = {}
+  localValue2 = localValue1.gangPerksUnlocked
+  if not localValue2 then
+    localValue2 = {}
   end
-  arg3 = {}
-  arg4 = cmgCall4
-  if arg4 then
-    arg4 = cmgCall4.gangSkillCategories
-    if arg4 then
-      arg4 = ipairs
-      arg5 = cmgCall4.gangSkillCategories
-      arg4, arg5, arg6, arg7 = arg4(arg5)
-      for workValue16, dataTable6 in arg4, arg5, arg6, arg7 do
-        workValue20 = 0
-        workValue2 = 0
-        dataTable = cmgCall4.gangSkills
-        if dataTable then
-          dataTable = pairs
-          textValue = cmgCall4.gangSkills
-          dataTable, textValue, dataTable2, workValue6 = dataTable(textValue)
-          for stringHelper, numberValue in dataTable, textValue, dataTable2, workValue6 do
-            mathHelper = numberValue.skillCategory
-            dataTable3 = dataTable6.id
-            if mathHelper == dataTable3 then
-              workValue2 = workValue2 + 1
-              mathHelper = arg2[stringHelper]
+  localValue3 = {}
+  localValue4 = cmgOperation4
+  if localValue4 then
+    localValue4 = cmgOperation4.gangSkillCategories
+    if localValue4 then
+      localValue4 = ipairs
+      localValue5 = cmgOperation4.gangSkillCategories
+      localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5)
+      for workingValue16, dataCollection6 in localValue4, localValue5, localValue6, localValue7 do
+        workingValue20 = 0
+        workingValue2 = 0
+        dataCollection = cmgOperation4.gangSkills
+        if dataCollection then
+          dataCollection = pairs
+          text = cmgOperation4.gangSkills
+          dataCollection, text, dataCollection2, workingValue6 = dataCollection(text)
+          for stringHelper, number in dataCollection, text, dataCollection2, workingValue6 do
+            mathHelper = number.skillCategory
+            dataCollection3 = dataCollection6.id
+            if mathHelper == dataCollection3 then
+              workingValue2 = workingValue2 + 1
+              mathHelper = localValue2[stringHelper]
               if mathHelper then
-                workValue20 = workValue20 + 1
+                workingValue20 = workingValue20 + 1
               end
             end
           end
         end
-        dataTable = #arg3
-        dataTable = dataTable + 1
-        textValue = {}
-        dataTable2 = dataTable6.id
-        textValue.id = dataTable2
-        dataTable2 = dataTable6.title
-        textValue.title = dataTable2
-        dataTable2 = dataTable6.description
-        textValue.description = dataTable2
-        dataTable2 = dataTable6.requireRecognised
-        dataTable2 = true == dataTable2
-        textValue.requireRecognised = dataTable2
-        textValue.perksUsed = workValue20
-        textValue.perksMax = workValue2
-        dataTable2 = dataTable6.id
-        if "gang_rp" == dataTable2 then
-          dataTable2 = arg1.gangRpSkillPoints
-          if dataTable2 then
-            goto flow_label_80
+        dataCollection = #localValue3
+        dataCollection = dataCollection + 1
+        text = {}
+        dataCollection2 = dataCollection6.id
+        text.id = dataCollection2
+        dataCollection2 = dataCollection6.title
+        text.title = dataCollection2
+        dataCollection2 = dataCollection6.description
+        text.description = dataCollection2
+        dataCollection2 = dataCollection6.requireRecognised
+        dataCollection2 = true == dataCollection2
+        text.requireRecognised = dataCollection2
+        text.perksUsed = workingValue20
+        text.perksMax = workingValue2
+        dataCollection2 = dataCollection6.id
+        if "gang_rp" == dataCollection2 then
+          dataCollection2 = localValue1.gangRpSkillPoints
+          if dataCollection2 then
+            goto continueAtStep80
           end
-          dataTable2 = 0
-          if dataTable2 then
-            goto flow_label_80
+          dataCollection2 = 0
+          if dataCollection2 then
+            goto continueAtStep80
           end
         end
-        dataTable2 = arg1.gangPublicSkillPoints
-        if not dataTable2 then
-          dataTable2 = 0
+        dataCollection2 = localValue1.gangPublicSkillPoints
+        if not dataCollection2 then
+          dataCollection2 = 0
         end
-        ::flow_label_80::
-        textValue.skillPoints = dataTable2
-        arg3[dataTable] = textValue
+        ::continueAtStep80::
+        text.skillPoints = dataCollection2
+        localValue3[dataCollection] = text
       end
     end
   end
-  arg4 = CMG
-  arg4 = arg4.uiSendMessage
-  arg5 = {}
-  arg5.action = "GANG_SET_SKILL_CATEGORIES"
-  arg6 = {}
-  arg6.categories = arg3
-  arg5.payload = arg6
-  arg4(arg5)
-  arg4 = {}
-  return arg4
+  localValue4 = CMG
+  localValue4 = localValue4.uiSendMessage
+  localValue5 = {}
+  localValue5.action = "GANG_SET_SKILL_CATEGORIES"
+  localValue6 = {}
+  localValue6.categories = localValue3
+  localValue5.payload = localValue6
+  localValue4(localValue5)
+  localValue4 = {}
+  return localValue4
 end
-textValue4(textValue6, textValue7)
-textValue4 = CMG
-textValue4 = textValue4.uiRegisterCallback
-textValue6 = "gangSelectSkillTree"
+text4(text6, text7)
+text4 = CMG
+text4 = text4.uiRegisterCallback
+text6 = "gangSelectSkillTree"
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable, textValue, dataTable2, workValue6, stringHelper, numberValue, mathHelper
-  arg2 = CMG
-  arg2 = arg2.gangCachedData
-  if not arg2 then
-    arg3 = {}
-    return arg3
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text, dataCollection2, workingValue6, stringHelper, number, mathHelper
+  localValue2 = CMG
+  localValue2 = localValue2.gangCachedData
+  if not localValue2 then
+    localValue3 = {}
+    return localValue3
   end
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = arg1.categoryId
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = localValue1.categoryId
   end
-  arg4 = type
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if "string" ~= arg4 then
-    arg4 = {}
-    return arg4
+  localValue4 = type
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if "string" ~= localValue4 then
+    localValue4 = {}
+    return localValue4
   end
-  arg4 = CMG
-  arg4.gangViewedSkillCategory = arg3
-  arg4 = arg2.gangPerksUnlocked
-  if not arg4 then
-    arg4 = {}
+  localValue4 = CMG
+  localValue4.gangViewedSkillCategory = localValue3
+  localValue4 = localValue2.gangPerksUnlocked
+  if not localValue4 then
+    localValue4 = {}
   end
-  if "gang_rp" == arg3 then
-    arg5 = arg2.gangRpSkillPoints
-    if arg5 then
-      goto flow_label_38
+  if "gang_rp" == localValue3 then
+    localValue5 = localValue2.gangRpSkillPoints
+    if localValue5 then
+      goto continueAtStep38
     end
-    arg5 = 0
-    if arg5 then
-      goto flow_label_38
+    localValue5 = 0
+    if localValue5 then
+      goto continueAtStep38
     end
   end
-  arg5 = arg2.gangPublicSkillPoints
-  if not arg5 then
-    arg5 = 0
+  localValue5 = localValue2.gangPublicSkillPoints
+  if not localValue5 then
+    localValue5 = 0
   end
-  ::flow_label_38::
-  arg6 = {}
-  arg7 = {}
-  workValue16 = cmgCall4
-  if workValue16 then
-    workValue16 = cmgCall4.gangSkills
-    if workValue16 then
-      workValue16 = pairs
-      dataTable6 = cmgCall4.gangSkills
-      workValue16, dataTable6, workValue20, workValue2 = workValue16(dataTable6)
-      for dataTable, textValue in workValue16, dataTable6, workValue20, workValue2 do
-        dataTable2 = textValue.skillCategory
-        if dataTable2 == arg3 then
-          dataTable2 = arg4[dataTable]
-          dataTable2 = true == dataTable2
-          workValue6 = #arg6
-          workValue6 = workValue6 + 1
+  ::continueAtStep38::
+  localValue6 = {}
+  localValue7 = {}
+  workingValue16 = cmgOperation4
+  if workingValue16 then
+    workingValue16 = cmgOperation4.gangSkills
+    if workingValue16 then
+      workingValue16 = pairs
+      dataCollection6 = cmgOperation4.gangSkills
+      workingValue16, dataCollection6, workingValue20, workingValue2 = workingValue16(dataCollection6)
+      for dataCollection, text in workingValue16, dataCollection6, workingValue20, workingValue2 do
+        dataCollection2 = text.skillCategory
+        if dataCollection2 == localValue3 then
+          dataCollection2 = localValue4[dataCollection]
+          dataCollection2 = true == dataCollection2
+          workingValue6 = #localValue6
+          workingValue6 = workingValue6 + 1
           stringHelper = {}
-          stringHelper.id = dataTable
-          numberValue = textValue.name
-          if not numberValue then
-            numberValue = dataTable
+          stringHelper.id = dataCollection
+          number = text.name
+          if not number then
+            number = dataCollection
           end
-          stringHelper.title = numberValue
-          numberValue = textValue.description
-          stringHelper.desc = numberValue
-          numberValue = textValue.cost
-          if not numberValue then
-            numberValue = 1
+          stringHelper.title = number
+          number = text.description
+          stringHelper.desc = number
+          number = text.cost
+          if not number then
+            number = 1
           end
-          stringHelper.cost = numberValue
-          stringHelper.unlocked = dataTable2
-          numberValue = textValue.icon
-          if not numberValue then
-            numberValue = "bolt"
+          stringHelper.cost = number
+          stringHelper.unlocked = dataCollection2
+          number = text.icon
+          if not number then
+            number = "bolt"
           end
-          stringHelper.icon = numberValue
-          numberValue = textValue.implemented
-          numberValue = false ~= numberValue
-          stringHelper.implemented = numberValue
-          arg6[workValue6] = stringHelper
+          stringHelper.icon = number
+          number = text.implemented
+          number = false ~= number
+          stringHelper.implemented = number
+          localValue6[workingValue6] = stringHelper
         end
       end
     end
   end
-  workValue16 = table
-  workValue16 = workValue16.sort
-  dataTable6 = arg6
+  workingValue16 = table
+  workingValue16 = workingValue16.sort
+  dataCollection6 = localValue6
 
-  -- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg12, arg22) ===
-  function workValue20(arg12, arg22)
-    local iterator, dataTable4
-    iterator = arg12.id
-    dataTable4 = arg22.id
-    iterator = iterator < dataTable4
+  -- === HELPER FUNCTION (decompiler name: workingValue20; parameters: localValue12, localValue22) ===
+  function workingValue20(localValue12, localValue22)
+    local iterator, dataCollection4
+    iterator = localValue12.id
+    dataCollection4 = localValue22.id
+    iterator = iterator < dataCollection4
     return iterator
   end
-  workValue16(dataTable6, workValue20)
-  workValue16 = cmgCall4
-  if workValue16 then
-    workValue16 = cmgCall4.gangSkillTrees
-    if workValue16 then
-      workValue16 = cmgCall4.gangSkillTrees
-      workValue16 = workValue16[arg3]
+  workingValue16(dataCollection6, workingValue20)
+  workingValue16 = cmgOperation4
+  if workingValue16 then
+    workingValue16 = cmgOperation4.gangSkillTrees
+    if workingValue16 then
+      workingValue16 = cmgOperation4.gangSkillTrees
+      workingValue16 = workingValue16[localValue3]
     end
   end
-  if workValue16 then
-    dataTable6 = workValue16.edges
-    if dataTable6 then
-      dataTable6 = ipairs
-      workValue20 = workValue16.edges
-      dataTable6, workValue20, workValue2, dataTable = dataTable6(workValue20)
-      for textValue, dataTable2 in dataTable6, workValue20, workValue2, dataTable do
-        workValue6 = #arg7
-        workValue6 = workValue6 + 1
+  if workingValue16 then
+    dataCollection6 = workingValue16.edges
+    if dataCollection6 then
+      dataCollection6 = ipairs
+      workingValue20 = workingValue16.edges
+      dataCollection6, workingValue20, workingValue2, dataCollection = dataCollection6(workingValue20)
+      for text, dataCollection2 in dataCollection6, workingValue20, workingValue2, dataCollection do
+        workingValue6 = #localValue7
+        workingValue6 = workingValue6 + 1
         stringHelper = {}
-        numberValue = dataTable2.from
-        stringHelper.from = numberValue
-        numberValue = dataTable2.to
-        stringHelper.to = numberValue
-        arg7[workValue6] = stringHelper
+        number = dataCollection2.from
+        stringHelper.from = number
+        number = dataCollection2.to
+        stringHelper.to = number
+        localValue7[workingValue6] = stringHelper
       end
     end
   end
-  dataTable6 = {}
-  workValue20 = ipairs
-  workValue2 = arg7
-  workValue20, workValue2, dataTable, textValue = workValue20(workValue2)
-  for dataTable2, workValue6 in workValue20, workValue2, dataTable, textValue do
-    stringHelper = workValue6.to
+  dataCollection6 = {}
+  workingValue20 = ipairs
+  workingValue2 = localValue7
+  workingValue20, workingValue2, dataCollection, text = workingValue20(workingValue2)
+  for dataCollection2, workingValue6 in workingValue20, workingValue2, dataCollection, text do
+    stringHelper = workingValue6.to
     if stringHelper then
-      stringHelper = workValue6.to
-      dataTable6[stringHelper] = true
+      stringHelper = workingValue6.to
+      dataCollection6[stringHelper] = true
     end
   end
-  workValue20 = nil
-  workValue2 = ipairs
-  dataTable = arg6
-  workValue2, dataTable, textValue, dataTable2 = workValue2(dataTable)
-  for workValue6, stringHelper in workValue2, dataTable, textValue, dataTable2 do
-    numberValue = stringHelper.id
-    numberValue = dataTable6[numberValue]
-    if not numberValue then
-      workValue20 = stringHelper.id
+  workingValue20 = nil
+  workingValue2 = ipairs
+  dataCollection = localValue6
+  workingValue2, dataCollection, text, dataCollection2 = workingValue2(dataCollection)
+  for workingValue6, stringHelper in workingValue2, dataCollection, text, dataCollection2 do
+    number = stringHelper.id
+    number = dataCollection6[number]
+    if not number then
+      workingValue20 = stringHelper.id
       break
     end
   end
-  if not workValue20 then
-    workValue2 = arg6[1]
-    if workValue2 then
-      workValue2 = arg6[1]
-      workValue20 = workValue2.id
+  if not workingValue20 then
+    workingValue2 = localValue6[1]
+    if workingValue2 then
+      workingValue2 = localValue6[1]
+      workingValue20 = workingValue2.id
     end
   end
-  workValue2 = arg3
-  dataTable = cmgCall4
-  if dataTable then
-    dataTable = cmgCall4.gangSkillCategories
-    if dataTable then
-      dataTable = ipairs
-      textValue = cmgCall4.gangSkillCategories
-      dataTable, textValue, dataTable2, workValue6 = dataTable(textValue)
-      for stringHelper, numberValue in dataTable, textValue, dataTable2, workValue6 do
-        mathHelper = numberValue.id
-        if mathHelper == arg3 then
-          workValue2 = numberValue.title
+  workingValue2 = localValue3
+  dataCollection = cmgOperation4
+  if dataCollection then
+    dataCollection = cmgOperation4.gangSkillCategories
+    if dataCollection then
+      dataCollection = ipairs
+      text = cmgOperation4.gangSkillCategories
+      dataCollection, text, dataCollection2, workingValue6 = dataCollection(text)
+      for stringHelper, number in dataCollection, text, dataCollection2, workingValue6 do
+        mathHelper = number.id
+        if mathHelper == localValue3 then
+          workingValue2 = number.title
           break
         end
       end
     end
   end
-  dataTable = CMG
-  dataTable = dataTable.uiSendMessage
-  textValue = {}
-  textValue.action = "GANG_OPEN_SKILL_TREE"
-  dataTable2 = {}
-  dataTable2.categoryId = arg3
-  dataTable2.categoryTitle = workValue2
-  dataTable2.points = arg5
-  dataTable2.nodes = arg6
-  dataTable2.edges = arg7
-  dataTable2.selectedNodeId = workValue20
-  textValue.payload = dataTable2
-  dataTable(textValue)
-  dataTable = {}
-  return dataTable
+  dataCollection = CMG
+  dataCollection = dataCollection.uiSendMessage
+  text = {}
+  text.action = "GANG_OPEN_SKILL_TREE"
+  dataCollection2 = {}
+  dataCollection2.categoryId = localValue3
+  dataCollection2.categoryTitle = workingValue2
+  dataCollection2.points = localValue5
+  dataCollection2.nodes = localValue6
+  dataCollection2.edges = localValue7
+  dataCollection2.selectedNodeId = workingValue20
+  text.payload = dataCollection2
+  dataCollection(text)
+  dataCollection = {}
+  return dataCollection
 end
-textValue4(textValue6, textValue7)
+text4(text6, text7)
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.gangCachedData
-  if arg1 then
-    arg2 = arg1.id
-    if arg2 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.gangCachedData
+  if localValue1 then
+    localValue2 = localValue1.id
+    if localValue2 then
+      goto continueAtStep9
     end
   end
-  arg2 = nil
-  ::flow_label_9::
-  return arg2
+  localValue2 = nil
+  ::continueAtStep9::
+  return localValue2
 end
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangOrgCreateRank"
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangOrgCreateRank"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, arg3, arg4
-  arg1 = textValue4
-  arg1 = arg1()
-  if arg1 then
-    arg2 = TriggerServerEvent
-    arg3 = "dc44c30fb0"
-    arg4 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = text4
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = TriggerServerEvent
+    localValue3 = "dc44c30fb0"
+    localValue4 = localValue1
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "dc44c30fb0".
-    arg2(arg3, arg4)
+    localValue2(localValue3, localValue4)
   end
-  arg2 = {}
-  return arg2
+  localValue2 = {}
+  return localValue2
 end
-textValue6(textValue7, workValue7)
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangOrgDeleteRank"
+text6(text7, workingValue7)
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangOrgDeleteRank"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = textValue4
-  arg2 = arg2()
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = arg1.rankName
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1) ===
+function workingValue7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = text4
+  localValue2 = localValue2()
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = localValue1.rankName
   end
-  if arg2 then
-    arg4 = type
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if "string" == arg4 then
-      arg4 = TriggerServerEvent
-      arg5 = "be906f2085"
-      arg6 = arg2
-      arg7 = arg3
+  if localValue2 then
+    localValue4 = type
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if "string" == localValue4 then
+      localValue4 = TriggerServerEvent
+      localValue5 = "be906f2085"
+      localValue6 = localValue2
+      localValue7 = localValue3
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "be906f2085".
-      arg4(arg5, arg6, arg7)
+      localValue4(localValue5, localValue6, localValue7)
     end
   end
-  arg4 = {}
-  return arg4
+  localValue4 = {}
+  return localValue4
 end
-textValue6(textValue7, workValue7)
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangOrgChangeRank"
+text6(text7, workingValue7)
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangOrgChangeRank"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6
-  arg2 = textValue4
-  arg2 = arg2()
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = tonumber
-    arg4 = arg1.userId
-    arg3 = arg3(arg4)
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1) ===
+function workingValue7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6
+  localValue2 = text4
+  localValue2 = localValue2()
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = tonumber
+    localValue4 = localValue1.userId
+    localValue3 = localValue3(localValue4)
   end
-  arg4 = arg1 or arg4
-  if arg1 then
-    arg4 = arg1.rankName
+  localValue4 = localValue1 or localValue4
+  if localValue1 then
+    localValue4 = localValue1.rankName
   end
-  if arg2 and arg3 then
-    arg5 = type
-    arg6 = arg4
-    arg5 = arg5(arg6)
-    if "string" == arg5 then
-      arg5 = TriggerServerEvent
-      arg6 = "a310f50e5f"
-      arg7 = arg2
-      workValue16 = arg3
-      dataTable6 = arg4
+  if localValue2 and localValue3 then
+    localValue5 = type
+    localValue6 = localValue4
+    localValue5 = localValue5(localValue6)
+    if "string" == localValue5 then
+      localValue5 = TriggerServerEvent
+      localValue6 = "a310f50e5f"
+      localValue7 = localValue2
+      workingValue16 = localValue3
+      dataCollection6 = localValue4
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a310f50e5f".
-      arg5(arg6, arg7, workValue16, dataTable6)
+      localValue5(localValue6, localValue7, workingValue16, dataCollection6)
     end
   end
-  arg5 = {}
-  return arg5
+  localValue5 = {}
+  return localValue5
 end
-textValue6(textValue7, workValue7)
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangOrgSetClockPoint"
+text6(text7, workingValue7)
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangOrgSetClockPoint"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = textValue4
-  arg1 = arg1()
-  if arg1 then
-    arg2 = CMG
-    arg2 = arg2.getPlayerCoords
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = text4
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    arg2 = arg2()
-    arg3 = TriggerServerEvent
-    arg4 = "3bcedbf249"
-    arg5 = arg1
-    arg6 = {}
-    arg7 = arg2.x
-    arg6.x = arg7
-    arg7 = arg2.y
-    arg6.y = arg7
-    arg7 = arg2.z
-    arg6.z = arg7
+    localValue2 = localValue2()
+    localValue3 = TriggerServerEvent
+    localValue4 = "3bcedbf249"
+    localValue5 = localValue1
+    localValue6 = {}
+    localValue7 = localValue2.x
+    localValue6.x = localValue7
+    localValue7 = localValue2.y
+    localValue6.y = localValue7
+    localValue7 = localValue2.z
+    localValue6.z = localValue7
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3bcedbf249".
-    arg3(arg4, arg5, arg6)
+    localValue3(localValue4, localValue5, localValue6)
   end
-  arg2 = {}
-  return arg2
+  localValue2 = {}
+  return localValue2
 end
-textValue6(textValue7, workValue7)
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangOrgClockOn"
+text6(text7, workingValue7)
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangOrgClockOn"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, arg3, arg4
-  arg1 = textValue4
-  arg1 = arg1()
-  if arg1 then
-    arg2 = TriggerServerEvent
-    arg3 = "6db7399c62"
-    arg4 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = text4
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue2 = TriggerServerEvent
+    localValue3 = "6db7399c62"
+    localValue4 = localValue1
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6db7399c62".
-    arg2(arg3, arg4)
+    localValue2(localValue3, localValue4)
   end
-  arg2 = {}
-  return arg2
+  localValue2 = {}
+  return localValue2
 end
-textValue6(textValue7, workValue7)
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangOrgClockOff"
+text6(text7, workingValue7)
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangOrgClockOff"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2
-  arg1 = TriggerServerEvent
-  arg2 = "1117763922"
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2
+  localValue1 = TriggerServerEvent
+  localValue2 = "1117763922"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1117763922".
-  arg1(arg2)
-  arg1 = {}
-  return arg1
+  localValue1(localValue2)
+  localValue1 = {}
+  return localValue1
 end
-textValue6(textValue7, workValue7)
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangOrgSaveRankOutfit"
+text6(text7, workingValue7)
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangOrgSaveRankOutfit"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, workValue16, dataTable6, workValue20, workValue2, dataTable
-  arg2 = textValue4
-  arg2 = arg2()
-  arg3 = arg1 or arg3
-  if arg1 then
-    arg3 = arg1.rankName
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1) ===
+function workingValue7(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection
+  localValue2 = text4
+  localValue2 = localValue2()
+  localValue3 = localValue1 or localValue3
+  if localValue1 then
+    localValue3 = localValue1.rankName
   end
-  arg4 = arg1 or arg4
-  if arg1 then
-    arg4 = arg1.update
-    arg4 = true == arg4
+  localValue4 = localValue1 or localValue4
+  if localValue1 then
+    localValue4 = localValue1.update
+    localValue4 = true == localValue4
   end
-  if arg1 then
-    arg5 = tonumber
-    arg6 = arg1.outfitId
-    arg5 = arg5(arg6)
-    if arg5 then
-      goto flow_label_21
+  if localValue1 then
+    localValue5 = tonumber
+    localValue6 = localValue1.outfitId
+    localValue5 = localValue5(localValue6)
+    if localValue5 then
+      goto continueAtStep21
     end
   end
-  arg5 = 1
-  ::flow_label_21::
-  arg6 = CMG
-  arg6 = arg6.getGangRankOutfitSlotMax
-  arg6 = arg6()
-  if arg5 < 1 or arg5 > arg6 then
-    arg7 = {}
-    return arg7
+  localValue5 = 1
+  ::continueAtStep21::
+  localValue6 = CMG
+  localValue6 = localValue6.getGangRankOutfitSlotMax
+  localValue6 = localValue6()
+  if localValue5 < 1 or localValue5 > localValue6 then
+    localValue7 = {}
+    return localValue7
   end
-  if arg2 then
-    arg7 = type
-    workValue16 = arg3
-    arg7 = arg7(workValue16)
-    if "string" == arg7 then
-      arg7 = TriggerServerEvent
-      workValue16 = "63443bd729"
-      dataTable6 = arg2
-      workValue20 = arg3
-      workValue2 = arg4
-      dataTable = arg5
+  if localValue2 then
+    localValue7 = type
+    workingValue16 = localValue3
+    localValue7 = localValue7(workingValue16)
+    if "string" == localValue7 then
+      localValue7 = TriggerServerEvent
+      workingValue16 = "63443bd729"
+      dataCollection6 = localValue2
+      workingValue20 = localValue3
+      workingValue2 = localValue4
+      dataCollection = localValue5
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "63443bd729".
-      arg7(workValue16, dataTable6, workValue20, workValue2, dataTable)
+      localValue7(workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection)
     end
   end
-  arg7 = {}
-  return arg7
+  localValue7 = {}
+  return localValue7
 end
-textValue6(textValue7, workValue7)
-textValue6 = CMG
-textValue6 = textValue6.uiRegisterCallback
-textValue7 = "gangBuySkillNode"
+text6(text7, workingValue7)
+text6 = CMG
+text6 = text6.uiRegisterCallback
+text7 = "gangBuySkillNode"
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
-function workValue7(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, workValue16
-  arg3 = arg1 or nil
-  if arg1 then
-    arg3 = arg1.categoryId
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1, localValue2) ===
+function workingValue7(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, workingValue16
+  localValue3 = localValue1 or nil
+  if localValue1 then
+    localValue3 = localValue1.categoryId
   end
-  arg4 = arg1 or arg4
-  if arg1 then
-    arg4 = arg1.nodeId
+  localValue4 = localValue1 or localValue4
+  if localValue1 then
+    localValue4 = localValue1.nodeId
   end
-  arg5 = type
-  arg6 = arg3
-  arg5 = arg5(arg6)
-  if "string" == arg5 then
-    arg5 = type
-    arg6 = arg4
-    arg5 = arg5(arg6)
-    if "string" == arg5 then
-      goto flow_label_25
+  localValue5 = type
+  localValue6 = localValue3
+  localValue5 = localValue5(localValue6)
+  if "string" == localValue5 then
+    localValue5 = type
+    localValue6 = localValue4
+    localValue5 = localValue5(localValue6)
+    if "string" == localValue5 then
+      goto continueAtStep25
     end
   end
-  if arg2 then
-    arg5 = arg2
-    arg6 = {}
-    arg6.ok = false
-    arg5(arg6)
+  if localValue2 then
+    localValue5 = localValue2
+    localValue6 = {}
+    localValue6.ok = false
+    localValue5(localValue6)
   end
   return
-  ::flow_label_25::
-  arg5 = TriggerServerEvent
-  arg6 = "ddad9cd813"
-  arg7 = arg3
-  workValue16 = arg4
+  ::continueAtStep25::
+  localValue5 = TriggerServerEvent
+  localValue6 = "ddad9cd813"
+  localValue7 = localValue3
+  workingValue16 = localValue4
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ddad9cd813".
-  arg5(arg6, arg7, workValue16)
-  if arg2 then
-    arg5 = arg2
-    arg6 = {}
-    arg6.ok = true
-    arg5(arg6)
+  localValue5(localValue6, localValue7, workingValue16)
+  if localValue2 then
+    localValue5 = localValue2
+    localValue6 = {}
+    localValue6.ok = true
+    localValue5(localValue6)
   end
-  arg5 = {}
-  return arg5
+  localValue5 = {}
+  return localValue5
 end
-textValue6(textValue7, workValue7)
-textValue6 = RegisterNetEvent
-textValue7 = "e1bb552050"
+text6(text7, workingValue7)
+text6 = RegisterNetEvent
+text7 = "e1bb552050"
 -- Beginner: this function handles network event "e1bb552050".
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function workValue7(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local workValue16, dataTable6, workValue20, workValue2, dataTable, textValue
-  workValue16 = CMG
-  workValue16 = workValue16.gangCachedData
-  if workValue16 then
-    workValue16 = CMG
-    workValue16 = workValue16.gangCachedData
-    workValue16.gangPublicSkillPoints = arg1
-    workValue16 = CMG
-    workValue16 = workValue16.gangCachedData
-    dataTable6 = arg7 or dataTable6
-    if not arg7 then
-      dataTable6 = 0
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7) ===
+function workingValue7(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7)
+  local workingValue16, dataCollection6, workingValue20, workingValue2, dataCollection, text
+  workingValue16 = CMG
+  workingValue16 = workingValue16.gangCachedData
+  if workingValue16 then
+    workingValue16 = CMG
+    workingValue16 = workingValue16.gangCachedData
+    workingValue16.gangPublicSkillPoints = localValue1
+    workingValue16 = CMG
+    workingValue16 = workingValue16.gangCachedData
+    dataCollection6 = localValue7 or dataCollection6
+    if not localValue7 then
+      dataCollection6 = 0
     end
-    workValue16.gangRpSkillPoints = dataTable6
-    workValue16 = CMG
-    workValue16 = workValue16.gangCachedData
-    workValue16.gangPerksUnlocked = arg2
-    if nil ~= arg3 then
-      workValue16 = CMG
-      workValue16 = workValue16.gangCachedData
-      workValue16.gangPublicLevel = arg3
+    workingValue16.gangRpSkillPoints = dataCollection6
+    workingValue16 = CMG
+    workingValue16 = workingValue16.gangCachedData
+    workingValue16.gangPerksUnlocked = localValue2
+    if nil ~= localValue3 then
+      workingValue16 = CMG
+      workingValue16 = workingValue16.gangCachedData
+      workingValue16.gangPublicLevel = localValue3
     end
-    if nil ~= arg4 then
-      workValue16 = CMG
-      workValue16 = workValue16.gangCachedData
-      workValue16.gangPublicXp = arg4
+    if nil ~= localValue4 then
+      workingValue16 = CMG
+      workingValue16 = workingValue16.gangCachedData
+      workingValue16.gangPublicXp = localValue4
     end
-    if nil ~= arg5 then
-      workValue16 = CMG
-      workValue16 = workValue16.gangCachedData
-      workValue16.gangRpLevel = arg5
+    if nil ~= localValue5 then
+      workingValue16 = CMG
+      workingValue16 = workingValue16.gangCachedData
+      workingValue16.gangRpLevel = localValue5
     end
-    if nil ~= arg6 then
-      workValue16 = CMG
-      workValue16 = workValue16.gangCachedData
-      workValue16.gangRpXp = arg6
+    if nil ~= localValue6 then
+      workingValue16 = CMG
+      workingValue16 = workingValue16.gangCachedData
+      workingValue16.gangRpXp = localValue6
     end
   end
-  workValue16 = CMG
-  workValue16 = workValue16.gangNuiOpen
-  if workValue16 then
-    workValue16 = CMG
-    workValue16 = workValue16.gangViewedSkillCategory
-    if "gang_rp" == workValue16 then
-      if arg7 then
-        goto flow_label_51
-        dataTable6 = arg7 or dataTable6
+  workingValue16 = CMG
+  workingValue16 = workingValue16.gangNuiOpen
+  if workingValue16 then
+    workingValue16 = CMG
+    workingValue16 = workingValue16.gangViewedSkillCategory
+    if "gang_rp" == workingValue16 then
+      if localValue7 then
+        goto continueAtStep51
+        dataCollection6 = localValue7 or dataCollection6
       end
-      dataTable6 = 0
-      if dataTable6 then
-        goto flow_label_51
+      dataCollection6 = 0
+      if dataCollection6 then
+        goto continueAtStep51
       end
     end
-    dataTable6 = arg1
-    ::flow_label_51::
-    workValue20 = CMG
-    workValue20 = workValue20.uiSendMessage
-    workValue2 = {}
-    workValue2.action = "GANG_UPDATE_SKILL_TREE"
-    dataTable = {}
-    dataTable.points = dataTable6
-    textValue = CMG
-    textValue = textValue.getClientGangMaxMemberLimit
-    textValue = textValue()
-    dataTable.maxMemberLimit = textValue
-    textValue = CMG
-    textValue = textValue.getClientGangDepositFeeDisplayPercent
-    textValue = textValue()
-    dataTable.depositFeePercent = textValue
+    dataCollection6 = localValue1
+    ::continueAtStep51::
+    workingValue20 = CMG
+    workingValue20 = workingValue20.uiSendMessage
+    workingValue2 = {}
+    workingValue2.action = "GANG_UPDATE_SKILL_TREE"
+    dataCollection = {}
+    dataCollection.points = dataCollection6
+    text = CMG
+    text = text.getClientGangMaxMemberLimit
+    text = text()
+    dataCollection.maxMemberLimit = text
+    text = CMG
+    text = text.getClientGangDepositFeeDisplayPercent
+    text = text()
+    dataCollection.depositFeePercent = text
 
-    -- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-    function textValue()
-      local arg12, arg22, iterator, dataTable4, workValue10, workValue12, workValue14, dataTable5
-      arg12 = {}
-      arg22 = pairs
-      iterator = arg2
+    -- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+    function text()
+      local localValue12, localValue22, iterator, dataCollection4, workingValue10, workingValue12, workingValue14, dataCollection5
+      localValue12 = {}
+      localValue22 = pairs
+      iterator = localValue2
       if not iterator then
         iterator = {}
       end
-      arg22, iterator, dataTable4, workValue10 = arg22(iterator)
-      for workValue12 in arg22, iterator, dataTable4, workValue10 do
-        workValue14 = #arg12
-        workValue14 = workValue14 + 1
-        dataTable5 = {}
-        dataTable5.id = workValue12
-        dataTable5.unlocked = true
-        arg12[workValue14] = dataTable5
+      localValue22, iterator, dataCollection4, workingValue10 = localValue22(iterator)
+      for workingValue12 in localValue22, iterator, dataCollection4, workingValue10 do
+        workingValue14 = #localValue12
+        workingValue14 = workingValue14 + 1
+        dataCollection5 = {}
+        dataCollection5.id = workingValue12
+        dataCollection5.unlocked = true
+        localValue12[workingValue14] = dataCollection5
       end
-      return arg12
+      return localValue12
     end
-    textValue = textValue()
-    dataTable.nodes = textValue
-    workValue2.payload = dataTable
-    workValue20(workValue2)
-    workValue20 = Citizen
-    workValue20 = workValue20.SetTimeout
-    workValue2 = 0
+    text = text()
+    dataCollection.nodes = text
+    workingValue2.payload = dataCollection
+    workingValue20(workingValue2)
+    workingValue20 = Citizen
+    workingValue20 = workingValue20.SetTimeout
+    workingValue2 = 0
 
-    -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
-    function dataTable()
-      local arg12, arg22
-      arg12 = workValue5
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: dataCollection; parameters: none) ===
+    function dataCollection()
+      local localValue12, localValue22
+      localValue12 = workingValue5
+      localValue12()
     end
-    workValue20(workValue2, dataTable)
+    workingValue20(workingValue2, dataCollection)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e1bb552050".
-textValue6(textValue7, workValue7)
+text6(text7, workingValue7)
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, arg3
-  arg1 = IsControlJustPressed
-  arg2 = 0
-  arg3 = 166
-  arg1 = arg1(arg2, arg3)
-  if not arg1 then
-    arg1 = IsDisabledControlJustPressed
-    arg2 = 0
-    arg3 = 166
-    arg1 = arg1(arg2, arg3)
-    if not arg1 then
-      goto flow_label_32
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, localValue3
+  localValue1 = IsControlJustPressed
+  localValue2 = 0
+  localValue3 = 166
+  localValue1 = localValue1(localValue2, localValue3)
+  if not localValue1 then
+    localValue1 = IsDisabledControlJustPressed
+    localValue2 = 0
+    localValue3 = 166
+    localValue1 = localValue1(localValue2, localValue3)
+    if not localValue1 then
+      goto continueAtStep32
     end
   end
-  arg1 = GetGameTimer
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  arg2 = cmgCall
-  arg1 = arg1 - arg2
-  if arg1 < 100 then
+  localValue1 = localValue1()
+  localValue2 = cmgOperation
+  localValue1 = localValue1 - localValue2
+  if localValue1 < 100 then
     return
   end
-  arg1 = tCMG
-  arg1 = arg1.isInComa
-  arg1 = arg1()
-  if arg1 then
+  localValue1 = tCMG
+  localValue1 = localValue1.isInComa
+  localValue1 = localValue1()
+  if localValue1 then
     return
   end
-  arg1 = GetGameTimer
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
-  cmgCall = arg1
-  arg1 = eventRegistration
-  arg1()
-  ::flow_label_32::
+  localValue1 = localValue1()
+  cmgOperation = localValue1
+  localValue1 = eventHandler
+  localValue1()
+  ::continueAtStep32::
 end
-textValue7 = Citizen
-textValue7 = textValue7.CreateThread
+text7 = Citizen
+text7 = text7.CreateThread
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.createThreadOnTick
-  arg2 = textValue6
-  arg3 = "Gang NUI Key Controls"
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.createThreadOnTick
+  localValue2 = text6
+  localValue3 = "Gang NUI Key Controls"
   -- Beginner: Run a helper every game frame while this script is active.
-  arg1(arg2, arg3)
+  localValue1(localValue2, localValue3)
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue7(workValue7)
+text7(workingValue7)

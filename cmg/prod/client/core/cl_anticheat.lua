@@ -986,7 +986,7 @@ local function recordShootingInput()
         attackInputTimestamps.put(GetNetworkTime())
         attackWasPressed = false
     elseif GetGameTimer() - lastArmedAttackTime < 500 then
-        -- Ped config flag 78 = still in the firing animation.
+        -- Ped config stateFlag 78 = still in the firing animation.
         if GetPedConfigFlag(ped, 78, false) then
             attackInputTimestamps.put(GetNetworkTime())
         else

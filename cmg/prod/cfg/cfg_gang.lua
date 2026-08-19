@@ -378,7 +378,7 @@ cfg.gangSkillCategories = {
 }
 
 -- Per-node `implemented`: false = perk not applied in gameplay yet (gang skill tree shows purple outline); true when wired.
--- Purchasing still works regardless; this flag is UI + documentation only until hooks exist.
+-- Purchasing still works regardless; this stateFlag is UI + documentation only until hooks exist.
 cfg.gangSkills = {
 	-- ===== PUBLIC TREE =====
 	-- Gun Discount chain (root branch 1)

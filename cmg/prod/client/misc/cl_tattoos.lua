@@ -32,911 +32,911 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, cmgCall2, flag6, rageUiCall2, dataTable8, dataTable9, rageUiCall3, rageUiCall4, dataTable10, dataTable11, dataTable, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, workValue7, workValue8, workValue9, workValue10, eventRegistration, rageUiCall, numberValue8, workValue11, workValue12, cmgCall3, textValue3
-cmgCall = RMenu
-cmgCall = cmgCall.Add
-cmgCall2 = "CMGtattoos"
-flag6 = "mainMenu"
-rageUiCall2 = RageUI
-rageUiCall2 = rageUiCall2.CreateMenu
-dataTable8 = ""
-dataTable9 = "Tattoo Store"
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-dataTable10 = "shopui_title_tattoos2"
-dataTable11 = "shopui_title_tattoos2"
-rageUiCall2, dataTable8, dataTable9, rageUiCall3, rageUiCall4, dataTable10, dataTable11, dataTable, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, workValue7, workValue8, workValue9, workValue10, eventRegistration, rageUiCall, numberValue8, workValue11, workValue12, cmgCall3, textValue3 = rageUiCall2(dataTable8, dataTable9, rageUiCall3, rageUiCall4, dataTable10, dataTable11)
-cmgCall(cmgCall2, flag6, rageUiCall2, dataTable8, dataTable9, rageUiCall3, rageUiCall4, dataTable10, dataTable11, dataTable, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, workValue7, workValue8, workValue9, workValue10, eventRegistration, rageUiCall, numberValue8, workValue11, workValue12, cmgCall3, textValue3)
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-cmgCall2 = "cfg/ped_cfg/cfg_tattoos"
+local cmgOperation, cmgOperation2, stateFlag6, rageUiOperation2, dataCollection8, dataCollection9, rageUiOperation3, rageUiOperation4, dataCollection10, dataCollection11, dataCollection, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, workingValue7, workingValue8, workingValue9, workingValue10, eventHandler, rageUiOperation, number8, workingValue11, workingValue12, cmgOperation3, text3
+cmgOperation = RMenu
+cmgOperation = cmgOperation.Add
+cmgOperation2 = "CMGtattoos"
+stateFlag6 = "mainMenu"
+rageUiOperation2 = RageUI
+rageUiOperation2 = rageUiOperation2.CreateMenu
+dataCollection8 = ""
+dataCollection9 = "Tattoo Store"
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+dataCollection10 = "shopui_title_tattoos2"
+dataCollection11 = "shopui_title_tattoos2"
+rageUiOperation2, dataCollection8, dataCollection9, rageUiOperation3, rageUiOperation4, dataCollection10, dataCollection11, dataCollection, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, workingValue7, workingValue8, workingValue9, workingValue10, eventHandler, rageUiOperation, number8, workingValue11, workingValue12, cmgOperation3, text3 = rageUiOperation2(dataCollection8, dataCollection9, rageUiOperation3, rageUiOperation4, dataCollection10, dataCollection11)
+cmgOperation(cmgOperation2, stateFlag6, rageUiOperation2, dataCollection8, dataCollection9, rageUiOperation3, rageUiOperation4, dataCollection10, dataCollection11, dataCollection, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, workingValue7, workingValue8, workingValue9, workingValue10, eventHandler, rageUiOperation, number8, workingValue11, workingValue12, cmgOperation3, text3)
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+cmgOperation2 = "cfg/ped_cfg/cfg_tattoos"
 -- Beginner: result below is config.
-cmgCall = cmgCall(cmgCall2)
-cmgCall2 = -1
-flag6 = false
-rageUiCall2 = {}
-dataTable8 = {}
-dataTable8.name = "Part 1"
-dataTable8.value = "mpbeach_overlays"
-dataTable8.currentListIndex = 1
-dataTable9 = {}
-dataTable9.name = "Part 2"
-dataTable9.value = "mpbusiness_overlays"
-dataTable9.currentListIndex = 1
-rageUiCall3 = {}
-rageUiCall3.name = "Part 3"
-rageUiCall3.value = "mphipster_overlays"
-rageUiCall3.currentListIndex = 1
-rageUiCall4 = {}
-rageUiCall4.name = "Part 4"
-rageUiCall4.value = "mpbiker_overlays"
-rageUiCall4.currentListIndex = 1
-dataTable10 = {}
-dataTable10.name = "Part 5"
-dataTable10.value = "mpairraces_overlays"
-dataTable10.currentListIndex = 1
-dataTable11 = {}
-dataTable11.name = "Part 6"
-dataTable11.value = "mpbeach_overlays"
-dataTable11.currentListIndex = 1
-dataTable = {}
-dataTable.name = "Part 7"
-dataTable.value = "mpchristmas2_overlays"
-dataTable.currentListIndex = 1
-dataTable3 = {}
-dataTable3.name = "Part 8"
-dataTable3.value = "mpgunrunning_overlays"
-dataTable3.currentListIndex = 1
-dataTable4 = {}
-dataTable4.name = "Part 9"
-dataTable4.value = "mpimportexport_overlays"
-dataTable4.currentListIndex = 1
-dataTable5 = {}
-dataTable5.name = "Part 10"
-dataTable5.value = "mplowrider2_overlays"
-dataTable5.currentListIndex = 1
-dataTable6 = {}
-dataTable6.name = "Part 11"
-dataTable6.value = "mplowrider_overlays"
-dataTable6.currentListIndex = 1
-dataTable7 = {}
-dataTable7.name = "Custom Tattoos"
-dataTable7.value = "new_overlays"
-dataTable7.currentListIndex = 1
-rageUiCall2[1] = dataTable8
-rageUiCall2[2] = dataTable9
-rageUiCall2[3] = rageUiCall3
-rageUiCall2[4] = rageUiCall4
-rageUiCall2[5] = dataTable10
-rageUiCall2[6] = dataTable11
-rageUiCall2[7] = dataTable
-rageUiCall2[8] = dataTable3
-rageUiCall2[9] = dataTable4
-rageUiCall2[10] = dataTable5
-rageUiCall2[11] = dataTable6
-rageUiCall2[12] = dataTable7
-dataTable8 = cmgCall.tattoosList
-dataTable9 = cmgCall.tattoosShops
-rageUiCall3 = {}
-rageUiCall4 = {}
-dataTable10 = nil
-dataTable11 = false
-dataTable = false
-dataTable3 = {}
-dataTable4 = {}
-dataTable5 = false
-dataTable6 = false
+cmgOperation = cmgOperation(cmgOperation2)
+cmgOperation2 = -1
+stateFlag6 = false
+rageUiOperation2 = {}
+dataCollection8 = {}
+dataCollection8.name = "Part 1"
+dataCollection8.value = "mpbeach_overlays"
+dataCollection8.currentListIndex = 1
+dataCollection9 = {}
+dataCollection9.name = "Part 2"
+dataCollection9.value = "mpbusiness_overlays"
+dataCollection9.currentListIndex = 1
+rageUiOperation3 = {}
+rageUiOperation3.name = "Part 3"
+rageUiOperation3.value = "mphipster_overlays"
+rageUiOperation3.currentListIndex = 1
+rageUiOperation4 = {}
+rageUiOperation4.name = "Part 4"
+rageUiOperation4.value = "mpbiker_overlays"
+rageUiOperation4.currentListIndex = 1
+dataCollection10 = {}
+dataCollection10.name = "Part 5"
+dataCollection10.value = "mpairraces_overlays"
+dataCollection10.currentListIndex = 1
+dataCollection11 = {}
+dataCollection11.name = "Part 6"
+dataCollection11.value = "mpbeach_overlays"
+dataCollection11.currentListIndex = 1
+dataCollection = {}
+dataCollection.name = "Part 7"
+dataCollection.value = "mpchristmas2_overlays"
+dataCollection.currentListIndex = 1
+dataCollection3 = {}
+dataCollection3.name = "Part 8"
+dataCollection3.value = "mpgunrunning_overlays"
+dataCollection3.currentListIndex = 1
+dataCollection4 = {}
+dataCollection4.name = "Part 9"
+dataCollection4.value = "mpimportexport_overlays"
+dataCollection4.currentListIndex = 1
+dataCollection5 = {}
+dataCollection5.name = "Part 10"
+dataCollection5.value = "mplowrider2_overlays"
+dataCollection5.currentListIndex = 1
+dataCollection6 = {}
+dataCollection6.name = "Part 11"
+dataCollection6.value = "mplowrider_overlays"
+dataCollection6.currentListIndex = 1
+dataCollection7 = {}
+dataCollection7.name = "Custom Tattoos"
+dataCollection7.value = "new_overlays"
+dataCollection7.currentListIndex = 1
+rageUiOperation2[1] = dataCollection8
+rageUiOperation2[2] = dataCollection9
+rageUiOperation2[3] = rageUiOperation3
+rageUiOperation2[4] = rageUiOperation4
+rageUiOperation2[5] = dataCollection10
+rageUiOperation2[6] = dataCollection11
+rageUiOperation2[7] = dataCollection
+rageUiOperation2[8] = dataCollection3
+rageUiOperation2[9] = dataCollection4
+rageUiOperation2[10] = dataCollection5
+rageUiOperation2[11] = dataCollection6
+rageUiOperation2[12] = dataCollection7
+dataCollection8 = cmgOperation.tattoosList
+dataCollection9 = cmgOperation.tattoosShops
+rageUiOperation3 = {}
+rageUiOperation4 = {}
+dataCollection10 = nil
+dataCollection11 = false
+dataCollection = false
+dataCollection3 = {}
+dataCollection4 = {}
+dataCollection5 = false
+dataCollection6 = false
 
--- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
-function dataTable7()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.GetRageInputText
-  arg2 = "Enter tattoo ID you want to wear"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg2 = false
-    dataTable = arg2
-    arg2 = tonumber
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if nil ~= arg2 then
-      arg3 = arg2 + 1
-      dataTable3.id = arg3
+-- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: none) ===
+function dataCollection7()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.GetRageInputText
+  localValue2 = "Enter tattoo ID you want to wear"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue2 = false
+    dataCollection = localValue2
+    localValue2 = tonumber
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if nil ~= localValue2 then
+      localValue3 = localValue2 + 1
+      dataCollection3.id = localValue3
     else
-      arg3 = dataTable4.index
-      dataTable3.id = arg3
+      localValue3 = dataCollection4.index
+      dataCollection3.id = localValue3
     end
-    arg3 = true
-    dataTable11 = arg3
-    return arg1
+    localValue3 = true
+    dataCollection11 = localValue3
+    return localValue1
   end
-  arg2 = false
-  dataTable = arg2
+  localValue2 = false
+  dataCollection = localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2
-  arg2 = type
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = nil
-  if "table" == arg2 then
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: localValue1) ===
+function workingValue7(localValue1)
+  local localValue2, localValue3, tableHelper, workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2
+  localValue2 = type
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = nil
+  if "table" == localValue2 then
     tableHelper = {}
-    arg3 = tableHelper
+    localValue3 = tableHelper
     tableHelper = next
-    workValue13 = arg1
-    numberValue15 = nil
+    workingValue13 = localValue1
+    number15 = nil
     hashValue = nil
-    for workValue15, cmgCall5 in tableHelper, workValue13, numberValue15, hashValue do
-      textValue8 = workValue7
-      workValue = workValue15
-      textValue8 = textValue8(workValue)
-      workValue = workValue7
-      workValue2 = cmgCall5
-      workValue = workValue(workValue2)
-      arg3[textValue8] = workValue
+    for workingValue15, cmgOperation5 in tableHelper, workingValue13, number15, hashValue do
+      text8 = workingValue7
+      workingValue = workingValue15
+      text8 = text8(workingValue)
+      workingValue = workingValue7
+      workingValue2 = cmgOperation5
+      workingValue = workingValue(workingValue2)
+      localValue3[text8] = workingValue
     end
     tableHelper = setmetatable
-    workValue13 = arg3
-    numberValue15 = workValue7
+    workingValue13 = localValue3
+    number15 = workingValue7
     hashValue = getmetatable
-    workValue15 = arg1
-    hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2 = hashValue(workValue15)
-    numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2 = numberValue15(hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2)
-    tableHelper(workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2)
+    workingValue15 = localValue1
+    hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2 = hashValue(workingValue15)
+    number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2 = number15(hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2)
+    tableHelper(workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2)
   else
-    arg3 = arg1
+    localValue3 = localValue1
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local arg2, arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue
-  arg2 = dataTable8
-  arg2 = arg2[arg1]
-  arg2 = #arg2
-  arg2 = arg2 - 1
-  arg3 = {}
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local localValue2, localValue3, tableHelper, workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue
+  localValue2 = dataCollection8
+  localValue2 = localValue2[localValue1]
+  localValue2 = #localValue2
+  localValue2 = localValue2 - 1
+  localValue3 = {}
   tableHelper = "0/"
-  workValue13 = arg2
-  tableHelper = tableHelper .. workValue13
-  arg3[1] = tableHelper
+  workingValue13 = localValue2
+  tableHelper = tableHelper .. workingValue13
+  localValue3[1] = tableHelper
   tableHelper = 1
-  workValue13 = dataTable8
-  workValue13 = workValue13[arg1]
-  workValue13 = #workValue13
-  workValue13 = workValue13 - 1
-  numberValue15 = 1
-  for hashValue = tableHelper, workValue13, numberValue15 do
-    workValue15 = #arg3
-    workValue15 = workValue15 + 1
-    cmgCall5 = hashValue
-    textValue8 = "/"
-    workValue = arg2
-    cmgCall5 = cmgCall5 .. textValue8 .. workValue
-    arg3[workValue15] = cmgCall5
+  workingValue13 = dataCollection8
+  workingValue13 = workingValue13[localValue1]
+  workingValue13 = #workingValue13
+  workingValue13 = workingValue13 - 1
+  number15 = 1
+  for hashValue = tableHelper, workingValue13, number15 do
+    workingValue15 = #localValue3
+    workingValue15 = workingValue15 + 1
+    cmgOperation5 = hashValue
+    text8 = "/"
+    workingValue = localValue2
+    cmgOperation5 = cmgOperation5 .. text8 .. workingValue
+    localValue3[workingValue15] = cmgOperation5
   end
-  return arg3
+  return localValue3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2, arg3) ===
-function workValue9(arg1, arg2, arg3)
-  local tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2, localValue3) ===
+function workingValue9(localValue1, localValue2, localValue3)
+  local tableHelper, workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3
   tableHelper = SetEntityHeading
-  workValue13 = CMG
-  workValue13 = workValue13.getPlayerPed
+  workingValue13 = CMG
+  workingValue13 = workingValue13.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  workValue13 = workValue13()
-  numberValue15 = 297.7296
+  workingValue13 = workingValue13()
+  number15 = 297.7296
   -- Beginner: Change the direction an entity is facing.
-  tableHelper(workValue13, numberValue15)
-  if nil ~= arg1 and nil ~= arg2 and nil ~= arg3 then
-    tableHelper = dataTable6
+  tableHelper(workingValue13, number15)
+  if nil ~= localValue1 and nil ~= localValue2 and nil ~= localValue3 then
+    tableHelper = dataCollection6
     if tableHelper then
       tableHelper = 1
-      workValue13 = rageUiCall4
-      workValue13 = #workValue13
-      numberValue15 = 1
-      for hashValue = tableHelper, workValue13, numberValue15 do
-        workValue15 = rageUiCall4
-        workValue15 = workValue15[hashValue]
-        if nil ~= workValue15 then
-          workValue15 = rageUiCall4
-          workValue15 = workValue15[hashValue]
-          workValue15 = workValue15.current
-          if workValue15 == arg1 then
-            workValue15 = table
-            workValue15 = workValue15.remove
-            cmgCall5 = rageUiCall4
-            textValue8 = hashValue
-            workValue15(cmgCall5, textValue8)
+      workingValue13 = rageUiOperation4
+      workingValue13 = #workingValue13
+      number15 = 1
+      for hashValue = tableHelper, workingValue13, number15 do
+        workingValue15 = rageUiOperation4
+        workingValue15 = workingValue15[hashValue]
+        if nil ~= workingValue15 then
+          workingValue15 = rageUiOperation4
+          workingValue15 = workingValue15[hashValue]
+          workingValue15 = workingValue15.current
+          if workingValue15 == localValue1 then
+            workingValue15 = table
+            workingValue15 = workingValue15.remove
+            cmgOperation5 = rageUiOperation4
+            text8 = hashValue
+            workingValue15(cmgOperation5, text8)
           end
         end
       end
       tableHelper = ClearPedDecorations
-      workValue13 = CMG
-      workValue13 = workValue13.getPlayerPed
-      workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3 = workValue13()
-      tableHelper(workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3)
+      workingValue13 = CMG
+      workingValue13 = workingValue13.getPlayerPed
+      workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3 = workingValue13()
+      tableHelper(workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3)
       tableHelper = 1
-      workValue13 = rageUiCall4
-      workValue13 = #workValue13
-      numberValue15 = 1
-      for hashValue = tableHelper, workValue13, numberValue15 do
-        workValue15 = AddPedDecorationFromHashes
-        cmgCall5 = CMG
-        cmgCall5 = cmgCall5.getPlayerPed
+      workingValue13 = rageUiOperation4
+      workingValue13 = #workingValue13
+      number15 = 1
+      for hashValue = tableHelper, workingValue13, number15 do
+        workingValue15 = AddPedDecorationFromHashes
+        cmgOperation5 = CMG
+        cmgOperation5 = cmgOperation5.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        cmgCall5 = cmgCall5()
-        textValue8 = GetHashKey
-        workValue = rageUiCall4
-        workValue = workValue[hashValue]
-        workValue = workValue.collection
+        cmgOperation5 = cmgOperation5()
+        text8 = GetHashKey
+        workingValue = rageUiOperation4
+        workingValue = workingValue[hashValue]
+        workingValue = workingValue.collection
         -- Beginner: result below is hash.
-        textValue8 = textValue8(workValue)
-        workValue = GetHashKey
-        workValue2 = rageUiCall4
-        workValue2 = workValue2[hashValue]
-        workValue3 = workValue2.collection
-        workValue2 = dataTable8
-        workValue2 = workValue2[workValue3]
-        workValue3 = rageUiCall4
-        workValue3 = workValue3[hashValue]
-        workValue3 = workValue3.current
-        workValue2 = workValue2[workValue3]
-        workValue2 = workValue2.nameHash
-        workValue, workValue2, workValue3 = workValue(workValue2)
-        workValue15(cmgCall5, textValue8, workValue, workValue2, workValue3)
+        text8 = text8(workingValue)
+        workingValue = GetHashKey
+        workingValue2 = rageUiOperation4
+        workingValue2 = workingValue2[hashValue]
+        workingValue3 = workingValue2.collection
+        workingValue2 = dataCollection8
+        workingValue2 = workingValue2[workingValue3]
+        workingValue3 = rageUiOperation4
+        workingValue3 = workingValue3[hashValue]
+        workingValue3 = workingValue3.current
+        workingValue2 = workingValue2[workingValue3]
+        workingValue2 = workingValue2.nameHash
+        workingValue, workingValue2, workingValue3 = workingValue(workingValue2)
+        workingValue15(cmgOperation5, text8, workingValue, workingValue2, workingValue3)
       end
       tableHelper = false
-      dataTable6 = tableHelper
+      dataCollection6 = tableHelper
     else
       tableHelper = GetEntityModel
-      workValue13 = CMG
-      workValue13 = workValue13.getPlayerPed
-      workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3 = workValue13()
+      workingValue13 = CMG
+      workingValue13 = workingValue13.getPlayerPed
+      workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3 = workingValue13()
       -- Beginner: result below is modelHash.
-      tableHelper = tableHelper(workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3)
+      tableHelper = tableHelper(workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3)
       if -1667301416 == tableHelper then
         tableHelper = CMG
         tableHelper = tableHelper.loadCustomisationPreset
-        workValue13 = "TattooMale"
-        tableHelper(workValue13)
+        workingValue13 = "TattooMale"
+        tableHelper(workingValue13)
       else
         tableHelper = CMG
         tableHelper = tableHelper.loadCustomisationPreset
-        workValue13 = "TattooFemale"
-        tableHelper(workValue13)
+        workingValue13 = "TattooFemale"
+        tableHelper(workingValue13)
       end
       tableHelper = ClearPedDecorations
-      workValue13 = CMG
-      workValue13 = workValue13.getPlayerPed
-      workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3 = workValue13()
-      tableHelper(workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3)
+      workingValue13 = CMG
+      workingValue13 = workingValue13.getPlayerPed
+      workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3 = workingValue13()
+      tableHelper(workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3)
       tableHelper = 1
-      workValue13 = rageUiCall4
-      workValue13 = #workValue13
-      numberValue15 = 1
-      for hashValue = tableHelper, workValue13, numberValue15 do
-        workValue15 = AddPedDecorationFromHashes
-        cmgCall5 = CMG
-        cmgCall5 = cmgCall5.getPlayerPed
+      workingValue13 = rageUiOperation4
+      workingValue13 = #workingValue13
+      number15 = 1
+      for hashValue = tableHelper, workingValue13, number15 do
+        workingValue15 = AddPedDecorationFromHashes
+        cmgOperation5 = CMG
+        cmgOperation5 = cmgOperation5.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        cmgCall5 = cmgCall5()
-        textValue8 = GetHashKey
-        workValue = rageUiCall4
-        workValue = workValue[hashValue]
-        workValue = workValue.collection
+        cmgOperation5 = cmgOperation5()
+        text8 = GetHashKey
+        workingValue = rageUiOperation4
+        workingValue = workingValue[hashValue]
+        workingValue = workingValue.collection
         -- Beginner: result below is hash.
-        textValue8 = textValue8(workValue)
-        workValue = GetHashKey
-        workValue2 = rageUiCall4
-        workValue2 = workValue2[hashValue]
-        workValue3 = workValue2.collection
-        workValue2 = dataTable8
-        workValue2 = workValue2[workValue3]
-        workValue3 = rageUiCall4
-        workValue3 = workValue3[hashValue]
-        workValue3 = workValue3.current
-        workValue2 = workValue2[workValue3]
-        workValue2 = workValue2.nameHash
-        workValue, workValue2, workValue3 = workValue(workValue2)
-        workValue15(cmgCall5, textValue8, workValue, workValue2, workValue3)
+        text8 = text8(workingValue)
+        workingValue = GetHashKey
+        workingValue2 = rageUiOperation4
+        workingValue2 = workingValue2[hashValue]
+        workingValue3 = workingValue2.collection
+        workingValue2 = dataCollection8
+        workingValue2 = workingValue2[workingValue3]
+        workingValue3 = rageUiOperation4
+        workingValue3 = workingValue3[hashValue]
+        workingValue3 = workingValue3.current
+        workingValue2 = workingValue2[workingValue3]
+        workingValue2 = workingValue2.nameHash
+        workingValue, workingValue2, workingValue3 = workingValue(workingValue2)
+        workingValue15(cmgOperation5, text8, workingValue, workingValue2, workingValue3)
       end
       tableHelper = AddPedDecorationFromHashes
-      workValue13 = CMG
-      workValue13 = workValue13.getPlayerPed
+      workingValue13 = CMG
+      workingValue13 = workingValue13.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      workValue13 = workValue13()
-      numberValue15 = GetHashKey
-      hashValue = arg2
+      workingValue13 = workingValue13()
+      number15 = GetHashKey
+      hashValue = localValue2
       -- Beginner: result below is hash.
-      numberValue15 = numberValue15(hashValue)
+      number15 = number15(hashValue)
       hashValue = GetHashKey
-      workValue15 = dataTable8
-      workValue15 = workValue15[arg2]
-      workValue15 = workValue15[arg1]
-      workValue15 = workValue15.nameHash
-      hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3 = hashValue(workValue15)
-      tableHelper(workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3)
+      workingValue15 = dataCollection8
+      workingValue15 = workingValue15[localValue2]
+      workingValue15 = workingValue15[localValue1]
+      workingValue15 = workingValue15.nameHash
+      hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3 = hashValue(workingValue15)
+      tableHelper(workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3)
       tableHelper = DoesCamExist
-      workValue13 = cmgCall2
-      tableHelper = tableHelper(workValue13)
+      workingValue13 = cmgOperation2
+      tableHelper = tableHelper(workingValue13)
       if not tableHelper then
         tableHelper = CreateCam
-        workValue13 = "DEFAULT_SCRIPTED_CAMERA"
-        numberValue15 = true
+        workingValue13 = "DEFAULT_SCRIPTED_CAMERA"
+        number15 = true
         -- Beginner: result below is cameraHandle.
-        tableHelper = tableHelper(workValue13, numberValue15)
-        cmgCall2 = tableHelper
+        tableHelper = tableHelper(workingValue13, number15)
+        cmgOperation2 = tableHelper
         tableHelper = GetEntityCoords
-        workValue13 = CMG
-        workValue13 = workValue13.getPlayerPed
-        workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3 = workValue13()
+        workingValue13 = CMG
+        workingValue13 = workingValue13.getPlayerPed
+        workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3 = workingValue13()
         -- Beginner: result below is entityCoords.
-        tableHelper = tableHelper(workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3)
-        workValue13 = SetCamCoord
-        numberValue15 = cmgCall2
+        tableHelper = tableHelper(workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3)
+        workingValue13 = SetCamCoord
+        number15 = cmgOperation2
         hashValue = tableHelper.x
-        workValue15 = tableHelper.y
-        cmgCall5 = tableHelper.z
-        workValue13(numberValue15, hashValue, workValue15, cmgCall5)
-        workValue13 = SetCamRot
-        numberValue15 = cmgCall2
+        workingValue15 = tableHelper.y
+        cmgOperation5 = tableHelper.z
+        workingValue13(number15, hashValue, workingValue15, cmgOperation5)
+        workingValue13 = SetCamRot
+        number15 = cmgOperation2
         hashValue = 0.0
-        workValue15 = 0.0
-        cmgCall5 = 0.0
-        textValue8 = 2
-        workValue13(numberValue15, hashValue, workValue15, cmgCall5, textValue8)
-        workValue13 = SetCamActive
-        numberValue15 = cmgCall2
+        workingValue15 = 0.0
+        cmgOperation5 = 0.0
+        text8 = 2
+        workingValue13(number15, hashValue, workingValue15, cmgOperation5, text8)
+        workingValue13 = SetCamActive
+        number15 = cmgOperation2
         hashValue = true
-        workValue13(numberValue15, hashValue)
-        workValue13 = RenderScriptCams
-        numberValue15 = true
+        workingValue13(number15, hashValue)
+        workingValue13 = RenderScriptCams
+        number15 = true
         hashValue = false
-        workValue15 = 0
-        cmgCall5 = true
-        textValue8 = true
-        workValue13(numberValue15, hashValue, workValue15, cmgCall5, textValue8)
-        workValue13 = SetCamCoord
-        numberValue15 = cmgCall2
+        workingValue15 = 0
+        cmgOperation5 = true
+        text8 = true
+        workingValue13(number15, hashValue, workingValue15, cmgOperation5, text8)
+        workingValue13 = SetCamCoord
+        number15 = cmgOperation2
         hashValue = tableHelper.x
-        workValue15 = tableHelper.y
-        cmgCall5 = tableHelper.z
-        workValue13(numberValue15, hashValue, workValue15, cmgCall5)
+        workingValue15 = tableHelper.y
+        cmgOperation5 = tableHelper.z
+        workingValue13(number15, hashValue, workingValue15, cmgOperation5)
       end
       tableHelper = table
       tableHelper = tableHelper.unpack
-      workValue13 = GetEntityCoords
-      numberValue15 = CMG
-      numberValue15 = numberValue15.getPlayerPed
-      numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3 = numberValue15()
-      workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3 = workValue13(numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3)
-      tableHelper, workValue13, numberValue15 = tableHelper(workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3)
+      workingValue13 = GetEntityCoords
+      number15 = CMG
+      number15 = number15.getPlayerPed
+      number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3 = number15()
+      workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3 = workingValue13(number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3)
+      tableHelper, workingValue13, number15 = tableHelper(workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3)
       hashValue = SetCamCoord
-      workValue15 = cmgCall2
-      cmgCall5 = dataTable8
-      cmgCall5 = cmgCall5[arg2]
-      cmgCall5 = cmgCall5[arg1]
-      cmgCall5 = cmgCall5.addedX
-      cmgCall5 = tableHelper + cmgCall5
-      textValue8 = dataTable8
-      textValue8 = textValue8[arg2]
-      textValue8 = textValue8[arg1]
-      textValue8 = textValue8.addedY
-      textValue8 = workValue13 + textValue8
-      workValue = dataTable8
-      workValue = workValue[arg2]
-      workValue = workValue[arg1]
-      workValue = workValue.addedZ
-      workValue = numberValue15 + workValue
-      hashValue(workValue15, cmgCall5, textValue8, workValue)
+      workingValue15 = cmgOperation2
+      cmgOperation5 = dataCollection8
+      cmgOperation5 = cmgOperation5[localValue2]
+      cmgOperation5 = cmgOperation5[localValue1]
+      cmgOperation5 = cmgOperation5.addedX
+      cmgOperation5 = tableHelper + cmgOperation5
+      text8 = dataCollection8
+      text8 = text8[localValue2]
+      text8 = text8[localValue1]
+      text8 = text8.addedY
+      text8 = workingValue13 + text8
+      workingValue = dataCollection8
+      workingValue = workingValue[localValue2]
+      workingValue = workingValue[localValue1]
+      workingValue = workingValue.addedZ
+      workingValue = number15 + workingValue
+      hashValue(workingValue15, cmgOperation5, text8, workingValue)
       hashValue = SetCamRot
-      workValue15 = cmgCall2
-      cmgCall5 = 0.0
-      textValue8 = 0.0
-      workValue = dataTable8
-      workValue = workValue[arg2]
-      workValue = workValue[arg1]
-      workValue = workValue.rotZ
-      workValue2 = 2
-      hashValue(workValue15, cmgCall5, textValue8, workValue, workValue2)
+      workingValue15 = cmgOperation2
+      cmgOperation5 = 0.0
+      text8 = 0.0
+      workingValue = dataCollection8
+      workingValue = workingValue[localValue2]
+      workingValue = workingValue[localValue1]
+      workingValue = workingValue.rotZ
+      workingValue2 = 2
+      hashValue(workingValue15, cmgOperation5, text8, workingValue, workingValue2)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-function workValue10()
-  local arg1, arg2, arg3, tableHelper, workValue13, numberValue15
-  arg1 = {}
-  arg2 = {}
-  arg2.label = "Enter Tattoo ID "
-  arg2.button = "~INPUT_CELLPHONE_EXTRA_OPTION~"
-  arg3 = {}
-  arg3.label = "Remove Current Tattoo "
-  arg3.button = "~INPUT_CELLPHONE_OPTION~"
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+function workingValue10()
+  local localValue1, localValue2, localValue3, tableHelper, workingValue13, number15
+  localValue1 = {}
+  localValue2 = {}
+  localValue2.label = "Enter Tattoo ID "
+  localValue2.button = "~INPUT_CELLPHONE_EXTRA_OPTION~"
+  localValue3 = {}
+  localValue3.label = "Remove Current Tattoo "
+  localValue3.button = "~INPUT_CELLPHONE_OPTION~"
   tableHelper = {}
   tableHelper.label = "Purchase Current Tattoo "
   tableHelper.button = "~INPUT_CELLPHONE_SELECT~"
-  workValue13 = {}
-  workValue13.label = "Next Index "
-  workValue13.button = "~INPUT_CELLPHONE_RIGHT~"
-  numberValue15 = {}
-  numberValue15.label = "Previous Index "
-  numberValue15.button = "~INPUT_CELLPHONE_LEFT~"
-  arg1[1] = arg2
-  arg1[2] = arg3
-  arg1[3] = tableHelper
-  arg1[4] = workValue13
-  arg1[5] = numberValue15
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  workingValue13 = {}
+  workingValue13.label = "Next Index "
+  workingValue13.button = "~INPUT_CELLPHONE_RIGHT~"
+  number15 = {}
+  number15.label = "Previous Index "
+  number15.button = "~INPUT_CELLPHONE_LEFT~"
+  localValue1[1] = localValue2
+  localValue1[2] = localValue3
+  localValue1[3] = tableHelper
+  localValue1[4] = workingValue13
+  localValue1[5] = number15
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local serverEventCall, textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local serverEventCall, text2, number12, text6, stateFlag7, cmgOperation4, hashValue2, workingValue16, text7, text9
     serverEventCall = Wait
-    textValue2 = 0
-    serverEventCall(textValue2)
+    text2 = 0
+    serverEventCall(text2)
     serverEventCall = RequestScaleformMovie
-    textValue2 = "instructional_buttons"
+    text2 = "instructional_buttons"
     -- Beginner: result below is scaleformHandle.
-    serverEventCall = serverEventCall(textValue2)
+    serverEventCall = serverEventCall(text2)
     while true do
-      textValue2 = HasScaleformMovieLoaded
-      numberValue12 = serverEventCall
-      textValue2 = textValue2(numberValue12)
-      if textValue2 then
+      text2 = HasScaleformMovieLoaded
+      number12 = serverEventCall
+      text2 = text2(number12)
+      if text2 then
         break
       end
-      textValue2 = Wait
-      numberValue12 = 0
-      textValue2(numberValue12)
+      text2 = Wait
+      number12 = 0
+      text2(number12)
     end
-    textValue2 = BeginScaleformMovieMethod
-    numberValue12 = serverEventCall
-    textValue6 = "CLEAR_ALL"
-    textValue2(numberValue12, textValue6)
-    textValue2 = BeginScaleformMovieMethod
-    numberValue12 = serverEventCall
-    textValue6 = "TOGGLE_MOUSE_BUTTONS"
-    textValue2(numberValue12, textValue6)
-    textValue2 = ScaleformMovieMethodAddParamBool
-    numberValue12 = false
-    textValue2(numberValue12)
-    textValue2 = EndScaleformMovieMethod
-    textValue2()
-    textValue2 = ipairs
-    numberValue12 = arg1
-    textValue2, numberValue12, textValue6, flag7 = textValue2(numberValue12)
-    for cmgCall4, hashValue2 in textValue2, numberValue12, textValue6, flag7 do
-      workValue16 = BeginScaleformMovieMethod
-      textValue7 = serverEventCall
-      textValue9 = "SET_DATA_SLOT"
-      workValue16(textValue7, textValue9)
-      workValue16 = ScaleformMovieMethodAddParamInt
-      textValue7 = cmgCall4 - 1
-      workValue16(textValue7)
-      workValue16 = _ENV
-      textValue7 = "ScaleformMovieMethodAddParamPlayerNameString"
-      workValue16 = workValue16[textValue7]
-      textValue7 = hashValue2.button
-      workValue16(textValue7)
-      workValue16 = _ENV
-      textValue7 = "ScaleformMovieMethodAddParamTextureNameString"
-      workValue16 = workValue16[textValue7]
-      textValue7 = hashValue2.label
-      workValue16(textValue7)
-      workValue16 = EndScaleformMovieMethod
-      workValue16()
+    text2 = BeginScaleformMovieMethod
+    number12 = serverEventCall
+    text6 = "CLEAR_ALL"
+    text2(number12, text6)
+    text2 = BeginScaleformMovieMethod
+    number12 = serverEventCall
+    text6 = "TOGGLE_MOUSE_BUTTONS"
+    text2(number12, text6)
+    text2 = ScaleformMovieMethodAddParamBool
+    number12 = false
+    text2(number12)
+    text2 = EndScaleformMovieMethod
+    text2()
+    text2 = ipairs
+    number12 = localValue1
+    text2, number12, text6, stateFlag7 = text2(number12)
+    for cmgOperation4, hashValue2 in text2, number12, text6, stateFlag7 do
+      workingValue16 = BeginScaleformMovieMethod
+      text7 = serverEventCall
+      text9 = "SET_DATA_SLOT"
+      workingValue16(text7, text9)
+      workingValue16 = ScaleformMovieMethodAddParamInt
+      text7 = cmgOperation4 - 1
+      workingValue16(text7)
+      workingValue16 = _ENV
+      text7 = "ScaleformMovieMethodAddParamPlayerNameString"
+      workingValue16 = workingValue16[text7]
+      text7 = hashValue2.button
+      workingValue16(text7)
+      workingValue16 = _ENV
+      text7 = "ScaleformMovieMethodAddParamTextureNameString"
+      workingValue16 = workingValue16[text7]
+      text7 = hashValue2.label
+      workingValue16(text7)
+      workingValue16 = EndScaleformMovieMethod
+      workingValue16()
     end
-    textValue2 = BeginScaleformMovieMethod
-    numberValue12 = serverEventCall
-    textValue6 = "DRAW_INSTRUCTIONAL_BUTTONS"
-    textValue2(numberValue12, textValue6)
-    textValue2 = ScaleformMovieMethodAddParamInt
-    numberValue12 = -1
-    textValue2(numberValue12)
-    textValue2 = EndScaleformMovieMethod
-    textValue2()
+    text2 = BeginScaleformMovieMethod
+    number12 = serverEventCall
+    text6 = "DRAW_INSTRUCTIONAL_BUTTONS"
+    text2(number12, text6)
+    text2 = ScaleformMovieMethodAddParamInt
+    number12 = -1
+    text2(number12)
+    text2 = EndScaleformMovieMethod
+    text2()
     while true do
-      textValue2 = flag6
-      if not textValue2 then
+      text2 = stateFlag6
+      if not text2 then
         break
       end
-      textValue2 = Wait
-      numberValue12 = 0
-      textValue2(numberValue12)
-      textValue2 = DrawScaleformMovieFullscreen
-      numberValue12 = serverEventCall
-      textValue6 = 255
-      flag7 = 255
-      cmgCall4 = 255
+      text2 = Wait
+      number12 = 0
+      text2(number12)
+      text2 = DrawScaleformMovieFullscreen
+      number12 = serverEventCall
+      text6 = 255
+      stateFlag7 = 255
+      cmgOperation4 = 255
       hashValue2 = 255
-      workValue16 = 0
-      textValue2(numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16)
+      workingValue16 = 0
+      text2(number12, text6, stateFlag7, cmgOperation4, hashValue2, workingValue16)
     end
-    textValue2 = false
-    dataTable5 = textValue2
+    text2 = false
+    dataCollection5 = text2
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-eventRegistration = AddEventHandler
-rageUiCall = "CMG:onClientSpawn"
+eventHandler = AddEventHandler
+rageUiOperation = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: numberValue8; parameters: arg1, arg2) ===
-function numberValue8(arg1, arg2)
-  local arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3, flag2, numberValue, numberValue2, numberValue3, textValue, numberValue4, numberValue5, numberValue6, numberValue7, numberValue9, numberValue10, flag3, flag4, flag5, textValue4, textValue5, numberValue11, numberValue13, numberValue14
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: number8; parameters: localValue1, localValue2) ===
+function number8(localValue1, localValue2)
+  local localValue3, tableHelper, workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2, workingValue3, stateFlag2, number, number2, number3, text, number4, number5, number6, number7, number9, number10, stateFlag3, stateFlag4, stateFlag5, text4, text5, number11, number13, number14
+  if localValue2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local serverEventCall, textValue2, numberValue12, textValue6, flag7
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local serverEventCall, text2, number12, text6, stateFlag7
       serverEventCall = TriggerServerEvent
-      textValue2 = "195b53ce8c"
+      text2 = "195b53ce8c"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "195b53ce8c".
-      serverEventCall(textValue2)
+      serverEventCall(text2)
       serverEventCall = Citizen
       serverEventCall = serverEventCall.Wait
-      textValue2 = 500
-      serverEventCall(textValue2)
+      text2 = 500
+      serverEventCall(text2)
       serverEventCall = true
-      flag6 = serverEventCall
-      serverEventCall = workValue7
-      textValue2 = rageUiCall3
-      serverEventCall = serverEventCall(textValue2)
-      rageUiCall4 = serverEventCall
+      stateFlag6 = serverEventCall
+      serverEventCall = workingValue7
+      text2 = rageUiOperation3
+      serverEventCall = serverEventCall(text2)
+      rageUiOperation4 = serverEventCall
       serverEventCall = tCMG
       serverEventCall = serverEventCall.getCustomization
       serverEventCall = serverEventCall()
-      dataTable10 = serverEventCall
+      dataCollection10 = serverEventCall
       serverEventCall = RageUI
       serverEventCall = serverEventCall.Visible
-      textValue2 = RMenu
-      numberValue12 = textValue2
-      textValue2 = textValue2.Get
-      textValue6 = "CMGtattoos"
-      flag7 = "mainMenu"
+      text2 = RMenu
+      number12 = text2
+      text2 = text2.Get
+      text6 = "CMGtattoos"
+      stateFlag7 = "mainMenu"
       -- Beginner: result below is menu.
-      textValue2 = textValue2(numberValue12, textValue6, flag7)
-      numberValue12 = true
-      serverEventCall(textValue2, numberValue12)
+      text2 = text2(number12, text6, stateFlag7)
+      number12 = true
+      serverEventCall(text2, number12)
     end
 
     -- === HELPER FUNCTION: tableHelper() ===
     function tableHelper()
-      local serverEventCall, textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9
+      local serverEventCall, text2, number12, text6, stateFlag7, cmgOperation4, hashValue2, workingValue16, text7, text9
       serverEventCall = DoesCamExist
-      textValue2 = cmgCall2
-      serverEventCall = serverEventCall(textValue2)
+      text2 = cmgOperation2
+      serverEventCall = serverEventCall(text2)
       if serverEventCall then
         serverEventCall = RenderScriptCams
-        textValue2 = false
-        numberValue12 = false
-        textValue6 = 0
-        flag7 = true
-        cmgCall4 = false
-        serverEventCall(textValue2, numberValue12, textValue6, flag7, cmgCall4)
+        text2 = false
+        number12 = false
+        text6 = 0
+        stateFlag7 = true
+        cmgOperation4 = false
+        serverEventCall(text2, number12, text6, stateFlag7, cmgOperation4)
         serverEventCall = DestroyCam
-        textValue2 = cmgCall2
-        numberValue12 = false
-        serverEventCall(textValue2, numberValue12)
+        text2 = cmgOperation2
+        number12 = false
+        serverEventCall(text2, number12)
       end
       serverEventCall = RageUI
       serverEventCall = serverEventCall.Visible
-      textValue2 = RMenu
-      numberValue12 = textValue2
-      textValue2 = textValue2.Get
-      textValue6 = "CMGtattoos"
-      flag7 = "mainMenu"
+      text2 = RMenu
+      number12 = text2
+      text2 = text2.Get
+      text6 = "CMGtattoos"
+      stateFlag7 = "mainMenu"
       -- Beginner: result below is menu.
-      textValue2 = textValue2(numberValue12, textValue6, flag7)
-      numberValue12 = false
-      serverEventCall(textValue2, numberValue12)
+      text2 = text2(number12, text6, stateFlag7)
+      number12 = false
+      serverEventCall(text2, number12)
       serverEventCall = tCMG
       serverEventCall = serverEventCall.setCustomization
-      textValue2 = dataTable10
-      serverEventCall(textValue2)
+      text2 = dataCollection10
+      serverEventCall(text2)
       serverEventCall = nil
-      dataTable10 = serverEventCall
+      dataCollection10 = serverEventCall
       serverEventCall = ClearPedDecorations
-      textValue2 = CMG
-      textValue2 = textValue2.getPlayerPed
-      textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9 = textValue2()
-      serverEventCall(textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9)
+      text2 = CMG
+      text2 = text2.getPlayerPed
+      text2, number12, text6, stateFlag7, cmgOperation4, hashValue2, workingValue16, text7, text9 = text2()
+      serverEventCall(text2, number12, text6, stateFlag7, cmgOperation4, hashValue2, workingValue16, text7, text9)
       serverEventCall = 1
-      textValue2 = rageUiCall4
-      textValue2 = #textValue2
-      numberValue12 = 1
-      for textValue6 = serverEventCall, textValue2, numberValue12 do
-        flag7 = AddPedDecorationFromHashes
-        cmgCall4 = CMG
-        cmgCall4 = cmgCall4.getPlayerPed
+      text2 = rageUiOperation4
+      text2 = #text2
+      number12 = 1
+      for text6 = serverEventCall, text2, number12 do
+        stateFlag7 = AddPedDecorationFromHashes
+        cmgOperation4 = CMG
+        cmgOperation4 = cmgOperation4.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        cmgCall4 = cmgCall4()
+        cmgOperation4 = cmgOperation4()
         hashValue2 = GetHashKey
-        workValue16 = rageUiCall4
-        workValue16 = workValue16[textValue6]
-        workValue16 = workValue16.collection
+        workingValue16 = rageUiOperation4
+        workingValue16 = workingValue16[text6]
+        workingValue16 = workingValue16.collection
         -- Beginner: result below is hash.
-        hashValue2 = hashValue2(workValue16)
-        workValue16 = GetHashKey
-        textValue7 = rageUiCall4
-        textValue7 = textValue7[textValue6]
-        textValue9 = textValue7.collection
-        textValue7 = dataTable8
-        textValue7 = textValue7[textValue9]
-        textValue9 = rageUiCall4
-        textValue9 = textValue9[textValue6]
-        textValue9 = textValue9.current
-        textValue7 = textValue7[textValue9]
-        textValue7 = textValue7.nameHash
-        workValue16, textValue7, textValue9 = workValue16(textValue7)
-        flag7(cmgCall4, hashValue2, workValue16, textValue7, textValue9)
+        hashValue2 = hashValue2(workingValue16)
+        workingValue16 = GetHashKey
+        text7 = rageUiOperation4
+        text7 = text7[text6]
+        text9 = text7.collection
+        text7 = dataCollection8
+        text7 = text7[text9]
+        text9 = rageUiOperation4
+        text9 = text9[text6]
+        text9 = text9.current
+        text7 = text7[text9]
+        text7 = text7.nameHash
+        workingValue16, text7, text9 = workingValue16(text7)
+        stateFlag7(cmgOperation4, hashValue2, workingValue16, text7, text9)
       end
       serverEventCall = false
-      flag6 = serverEventCall
+      stateFlag6 = serverEventCall
       serverEventCall = {}
-      rageUiCall3 = serverEventCall
+      rageUiOperation3 = serverEventCall
     end
 
-    -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-    function workValue13()
-      local serverEventCall, textValue2, numberValue12, textValue6, flag7
-      serverEventCall = flag6
+    -- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+    function workingValue13()
+      local serverEventCall, text2, number12, text6, stateFlag7
+      serverEventCall = stateFlag6
       if serverEventCall then
-        serverEventCall = dataTable5
+        serverEventCall = dataCollection5
         if not serverEventCall then
-          serverEventCall = workValue10
+          serverEventCall = workingValue10
           serverEventCall()
           serverEventCall = true
-          dataTable5 = serverEventCall
+          dataCollection5 = serverEventCall
         end
       end
       serverEventCall = RageUI
       serverEventCall = serverEventCall.Visible
-      textValue2 = RMenu
-      numberValue12 = textValue2
-      textValue2 = textValue2.Get
-      textValue6 = "CMGtattoos"
-      flag7 = "mainMenu"
-      textValue2, numberValue12, textValue6, flag7 = textValue2(numberValue12, textValue6, flag7)
+      text2 = RMenu
+      number12 = text2
+      text2 = text2.Get
+      text6 = "CMGtattoos"
+      stateFlag7 = "mainMenu"
+      text2, number12, text6, stateFlag7 = text2(number12, text6, stateFlag7)
       -- Beginner: result below is menuVisible.
-      serverEventCall = serverEventCall(textValue2, numberValue12, textValue6, flag7)
+      serverEventCall = serverEventCall(text2, number12, text6, stateFlag7)
       if serverEventCall then
         serverEventCall = IsControlJustPressed
-        textValue2 = 0
-        numberValue12 = 179
-        serverEventCall = serverEventCall(textValue2, numberValue12)
+        text2 = 0
+        number12 = 179
+        serverEventCall = serverEventCall(text2, number12)
         if serverEventCall then
-          serverEventCall = dataTable
+          serverEventCall = dataCollection
           if not serverEventCall then
             serverEventCall = true
-            dataTable = serverEventCall
-            serverEventCall = dataTable7
+            dataCollection = serverEventCall
+            serverEventCall = dataCollection7
             serverEventCall()
           end
         end
       end
     end
-    numberValue15 = pairs
-    hashValue = dataTable9
-    numberValue15, hashValue, workValue15, cmgCall5 = numberValue15(hashValue)
-    for textValue8, workValue in numberValue15, hashValue, workValue15, cmgCall5 do
-      workValue2 = RequestStreamedTextureDict
-      workValue3 = "mptattoos1"
-      flag2 = false
-      workValue2(workValue3, flag2)
-      workValue2 = Wait
-      workValue3 = 100
-      workValue2(workValue3)
-      workValue2 = CMG
-      workValue2 = workValue2.createArea
-      workValue3 = "tattoParlour_"
-      flag2 = textValue8
-      workValue3 = workValue3 .. flag2
-      flag2 = workValue
-      numberValue = 1.5
-      numberValue2 = 6
-      numberValue3 = arg3
-      textValue = tableHelper
-      numberValue4 = workValue13
+    number15 = pairs
+    hashValue = dataCollection9
+    number15, hashValue, workingValue15, cmgOperation5 = number15(hashValue)
+    for text8, workingValue in number15, hashValue, workingValue15, cmgOperation5 do
+      workingValue2 = RequestStreamedTextureDict
+      workingValue3 = "mptattoos1"
+      stateFlag2 = false
+      workingValue2(workingValue3, stateFlag2)
+      workingValue2 = Wait
+      workingValue3 = 100
+      workingValue2(workingValue3)
+      workingValue2 = CMG
+      workingValue2 = workingValue2.createArea
+      workingValue3 = "tattoParlour_"
+      stateFlag2 = text8
+      workingValue3 = workingValue3 .. stateFlag2
+      stateFlag2 = workingValue
+      number = 1.5
+      number2 = 6
+      number3 = localValue3
+      text = tableHelper
+      number4 = workingValue13
       -- Beginner: Create an interaction area around a world position.
-      workValue2(workValue3, flag2, numberValue, numberValue2, numberValue3, textValue, numberValue4)
-      workValue2 = tCMG
-      workValue2 = workValue2.addBlip
-      workValue3 = workValue.x
-      flag2 = workValue.y
-      numberValue = workValue.z
-      numberValue2 = 75
-      numberValue3 = 0
-      textValue = "Tattoo Parlour"
+      workingValue2(workingValue3, stateFlag2, number, number2, number3, text, number4)
+      workingValue2 = tCMG
+      workingValue2 = workingValue2.addBlip
+      workingValue3 = workingValue.x
+      stateFlag2 = workingValue.y
+      number = workingValue.z
+      number2 = 75
+      number3 = 0
+      text = "Tattoo Parlour"
       -- Beginner: Create a minimap blip.
-      workValue2(workValue3, flag2, numberValue, numberValue2, numberValue3, textValue)
-      workValue2 = tCMG
-      workValue2 = workValue2.addMarker
-      workValue3 = workValue.x
-      flag2 = workValue.y
-      numberValue = workValue.z
-      numberValue2 = 0.6
-      numberValue3 = 0.6
-      textValue = 0.6
-      numberValue4 = 10
-      numberValue5 = 255
-      numberValue6 = 81
-      numberValue7 = 170
-      numberValue9 = 50
-      numberValue10 = 9
-      flag3 = false
-      flag4 = false
-      flag5 = true
-      textValue4 = "mptattoos1"
-      textValue5 = "tattoo_defend_safehouse"
-      numberValue11 = 90.0
-      numberValue13 = 90.0
-      numberValue14 = 0.0
+      workingValue2(workingValue3, stateFlag2, number, number2, number3, text)
+      workingValue2 = tCMG
+      workingValue2 = workingValue2.addMarker
+      workingValue3 = workingValue.x
+      stateFlag2 = workingValue.y
+      number = workingValue.z
+      number2 = 0.6
+      number3 = 0.6
+      text = 0.6
+      number4 = 10
+      number5 = 255
+      number6 = 81
+      number7 = 170
+      number9 = 50
+      number10 = 9
+      stateFlag3 = false
+      stateFlag4 = false
+      stateFlag5 = true
+      text4 = "mptattoos1"
+      text5 = "tattoo_defend_safehouse"
+      number11 = 90.0
+      number13 = 90.0
+      number14 = 0.0
       -- Beginner: Create a world marker.
-      workValue2(workValue3, flag2, numberValue, numberValue2, numberValue3, textValue, numberValue4, numberValue5, numberValue6, numberValue7, numberValue9, numberValue10, flag3, flag4, flag5, textValue4, textValue5, numberValue11, numberValue13, numberValue14)
+      workingValue2(workingValue3, stateFlag2, number, number2, number3, text, number4, number5, number6, number7, number9, number10, stateFlag3, stateFlag4, stateFlag5, text4, text5, number11, number13, number14)
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-eventRegistration(rageUiCall, numberValue8)
-eventRegistration = Citizen
-eventRegistration = eventRegistration.CreateThread
+eventHandler(rageUiOperation, number8)
+eventHandler = Citizen
+eventHandler = eventHandler.CreateThread
 
--- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
-function rageUiCall()
-  local arg1, arg2, arg3
-  arg1 = false
+-- === HELPER FUNCTION (decompiler name: rageUiOperation; parameters: none) ===
+function rageUiOperation()
+  local localValue1, localValue2, localValue3
+  localValue1 = false
   while true do
-    arg2 = Wait
-    arg3 = 500
-    arg2(arg3)
-    arg2 = tCMG
-    arg2 = arg2.isInComa
-    arg2 = arg2()
-    if arg2 and not arg1 then
-      arg1 = true
+    localValue2 = Wait
+    localValue3 = 500
+    localValue2(localValue3)
+    localValue2 = tCMG
+    localValue2 = localValue2.isInComa
+    localValue2 = localValue2()
+    if localValue2 and not localValue1 then
+      localValue1 = true
     end
-    arg2 = tCMG
-    arg2 = arg2.isInComa
-    arg2 = arg2()
-    if not arg2 and arg1 then
-      arg2 = Wait
-      arg3 = 5000
-      arg2(arg3)
-      arg2 = TriggerServerEvent
-      arg3 = "195b53ce8c"
+    localValue2 = tCMG
+    localValue2 = localValue2.isInComa
+    localValue2 = localValue2()
+    if not localValue2 and localValue1 then
+      localValue2 = Wait
+      localValue3 = 5000
+      localValue2(localValue3)
+      localValue2 = TriggerServerEvent
+      localValue3 = "195b53ce8c"
       -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "195b53ce8c".
-      arg2(arg3)
-      arg1 = false
+      localValue2(localValue3)
+      localValue1 = false
     end
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-eventRegistration(rageUiCall)
-eventRegistration = RegisterNetEvent
-rageUiCall = "9bb006b498"
+eventHandler(rageUiOperation)
+eventHandler = RegisterNetEvent
+rageUiOperation = "9bb006b498"
 -- Beginner: this function handles network event "9bb006b498".
 
--- === HELPER FUNCTION (decompiler name: numberValue8; parameters: arg1) ===
-function numberValue8(arg1)
-  local arg2, arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2
-  arg2 = Citizen
-  arg2 = arg2.Wait
-  arg3 = 500
-  arg2(arg3)
-  arg2 = CMG
-  arg2 = arg2.unpackTable
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: number8; parameters: localValue1) ===
+function number8(localValue1)
+  local localValue2, localValue3, tableHelper, workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8, workingValue, workingValue2
+  localValue2 = Citizen
+  localValue2 = localValue2.Wait
+  localValue3 = 500
+  localValue2(localValue3)
+  localValue2 = CMG
+  localValue2 = localValue2.unpackTable
+  localValue3 = localValue1
   tableHelper = {}
-  workValue13 = "current"
-  numberValue15 = "part"
+  workingValue13 = "current"
+  number15 = "part"
   hashValue = "collection"
-  tableHelper[1] = workValue13
-  tableHelper[2] = numberValue15
+  tableHelper[1] = workingValue13
+  tableHelper[2] = number15
   tableHelper[3] = hashValue
-  arg2 = arg2(arg3, tableHelper)
-  arg3 = 1
-  tableHelper = #arg2
-  workValue13 = 1
-  for numberValue15 = arg3, tableHelper, workValue13 do
+  localValue2 = localValue2(localValue3, tableHelper)
+  localValue3 = 1
+  tableHelper = #localValue2
+  workingValue13 = 1
+  for number15 = localValue3, tableHelper, workingValue13 do
     hashValue = 1
-    workValue15 = rageUiCall2
-    workValue15 = #workValue15
-    cmgCall5 = 1
-    for textValue8 = hashValue, workValue15, cmgCall5 do
-      workValue = rageUiCall2
-      workValue = workValue[textValue8]
-      workValue = workValue.name
-      workValue2 = arg2[numberValue15]
-      workValue2 = workValue2.part
-      if workValue == workValue2 then
-        workValue = rageUiCall2
-        workValue = workValue[textValue8]
-        workValue2 = arg2[numberValue15]
-        workValue2 = workValue2.current
-        workValue.currentListIndex = workValue2
+    workingValue15 = rageUiOperation2
+    workingValue15 = #workingValue15
+    cmgOperation5 = 1
+    for text8 = hashValue, workingValue15, cmgOperation5 do
+      workingValue = rageUiOperation2
+      workingValue = workingValue[text8]
+      workingValue = workingValue.name
+      workingValue2 = localValue2[number15]
+      workingValue2 = workingValue2.part
+      if workingValue == workingValue2 then
+        workingValue = rageUiOperation2
+        workingValue = workingValue[text8]
+        workingValue2 = localValue2[number15]
+        workingValue2 = workingValue2.current
+        workingValue.currentListIndex = workingValue2
       end
     end
     hashValue = AddPedDecorationFromHashes
-    workValue15 = CMG
-    workValue15 = workValue15.getPlayerPed
+    workingValue15 = CMG
+    workingValue15 = workingValue15.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    workValue15 = workValue15()
-    cmgCall5 = GetHashKey
-    textValue8 = arg2[numberValue15]
-    textValue8 = textValue8.collection
+    workingValue15 = workingValue15()
+    cmgOperation5 = GetHashKey
+    text8 = localValue2[number15]
+    text8 = text8.collection
     -- Beginner: result below is hash.
-    cmgCall5 = cmgCall5(textValue8)
-    textValue8 = GetHashKey
-    workValue = arg2[numberValue15]
-    workValue2 = workValue.collection
-    workValue = dataTable8
-    workValue = workValue[workValue2]
-    workValue2 = arg2[numberValue15]
-    workValue2 = workValue2.current
-    workValue = workValue[workValue2]
-    workValue = workValue.nameHash
-    textValue8, workValue, workValue2 = textValue8(workValue)
-    hashValue(workValue15, cmgCall5, textValue8, workValue, workValue2)
+    cmgOperation5 = cmgOperation5(text8)
+    text8 = GetHashKey
+    workingValue = localValue2[number15]
+    workingValue2 = workingValue.collection
+    workingValue = dataCollection8
+    workingValue = workingValue[workingValue2]
+    workingValue2 = localValue2[number15]
+    workingValue2 = workingValue2.current
+    workingValue = workingValue[workingValue2]
+    workingValue = workingValue.nameHash
+    text8, workingValue, workingValue2 = text8(workingValue)
+    hashValue(workingValue15, cmgOperation5, text8, workingValue, workingValue2)
     hashValue = table
     hashValue = hashValue.insert
-    workValue15 = rageUiCall3
-    cmgCall5 = arg2[numberValue15]
-    hashValue(workValue15, cmgCall5)
+    workingValue15 = rageUiOperation3
+    cmgOperation5 = localValue2[number15]
+    hashValue(workingValue15, cmgOperation5)
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9bb006b498".
-eventRegistration(rageUiCall, numberValue8)
+eventHandler(rageUiOperation, number8)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2, arg3) ===
-function eventRegistration(arg1, arg2, arg3)
-  local tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1, localValue2, localValue3) ===
+function eventHandler(localValue1, localValue2, localValue3)
+  local tableHelper, workingValue13, number15, hashValue, workingValue15, cmgOperation5, text8
   tableHelper = pairs
-  workValue13 = rageUiCall3
-  tableHelper, workValue13, numberValue15, hashValue = tableHelper(workValue13)
-  for workValue15, cmgCall5 in tableHelper, workValue13, numberValue15, hashValue do
-    textValue8 = cmgCall5.part
-    if textValue8 == arg1 then
-      textValue8 = cmgCall5.collection
-      if textValue8 == arg2 then
-        textValue8 = cmgCall5.current
-        if textValue8 == arg3 then
-          textValue8 = true
-          return textValue8
+  workingValue13 = rageUiOperation3
+  tableHelper, workingValue13, number15, hashValue = tableHelper(workingValue13)
+  for workingValue15, cmgOperation5 in tableHelper, workingValue13, number15, hashValue do
+    text8 = cmgOperation5.part
+    if text8 == localValue1 then
+      text8 = cmgOperation5.collection
+      if text8 == localValue2 then
+        text8 = cmgOperation5.current
+        if text8 == localValue3 then
+          text8 = true
+          return text8
         end
       end
     end
@@ -944,247 +944,247 @@ function eventRegistration(arg1, arg2, arg3)
   tableHelper = false
   return tableHelper
 end
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateWhile
-numberValue8 = 1.0
-workValue11 = RMenu
-workValue12 = workValue11
-workValue11 = workValue11.Get
-cmgCall3 = "CMGtattoos"
-textValue3 = "mainMenu"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateWhile
+number8 = 1.0
+workingValue11 = RMenu
+workingValue12 = workingValue11
+workingValue11 = workingValue11.Get
+cmgOperation3 = "CMGtattoos"
+text3 = "mainMenu"
 -- Beginner: result below is menu.
-workValue11 = workValue11(workValue12, cmgCall3, textValue3)
-workValue12 = nil
+workingValue11 = workingValue11(workingValue12, cmgOperation3, text3)
+workingValue12 = nil
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, arg3, tableHelper, workValue13, numberValue15
-  arg1 = dataTable
-  if not arg1 then
-    arg1 = RageUI
-    arg1 = arg1.IsVisible
-    arg2 = RMenu
-    arg3 = arg2
-    arg2 = arg2.Get
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, localValue3, tableHelper, workingValue13, number15
+  localValue1 = dataCollection
+  if not localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.IsVisible
+    localValue2 = RMenu
+    localValue3 = localValue2
+    localValue2 = localValue2.Get
     tableHelper = "CMGtattoos"
-    workValue13 = "mainMenu"
+    workingValue13 = "mainMenu"
     -- Beginner: result below is menu.
-    arg2 = arg2(arg3, tableHelper, workValue13)
-    arg3 = true
+    localValue2 = localValue2(localValue3, tableHelper, workingValue13)
+    localValue3 = true
     tableHelper = false
-    workValue13 = true
+    workingValue13 = true
 
-    -- === HELPER FUNCTION (decompiler name: numberValue15; parameters: none) ===
-    function numberValue15()
-      local serverEventCall, textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9, dataTable2, flag, workValue4, workValue5, workValue6
+    -- === HELPER FUNCTION (decompiler name: number15; parameters: none) ===
+    function number15()
+      local serverEventCall, text2, number12, text6, stateFlag7, cmgOperation4, hashValue2, workingValue16, text7, text9, dataCollection2, stateFlag, workingValue4, workingValue5, workingValue6
       serverEventCall = 1
-      textValue2 = rageUiCall2
-      textValue2 = #textValue2
-      numberValue12 = 1
-      for textValue6 = serverEventCall, textValue2, numberValue12 do
-        flag7 = rageUiCall2
-        flag7 = flag7[textValue6]
-        dataTable4 = flag7
-        cmgCall4 = RageUI
-        cmgCall4 = cmgCall4.List
-        hashValue2 = flag7.name
-        workValue16 = workValue8
-        textValue7 = flag7.value
-        workValue16 = workValue16(textValue7)
-        textValue7 = rageUiCall2
-        textValue7 = textValue7[textValue6]
-        textValue7 = textValue7.currentListIndex
-        textValue9 = "Tattoo Add/Removal Price: \194\1631,000"
-        dataTable2 = {}
-        flag = true
+      text2 = rageUiOperation2
+      text2 = #text2
+      number12 = 1
+      for text6 = serverEventCall, text2, number12 do
+        stateFlag7 = rageUiOperation2
+        stateFlag7 = stateFlag7[text6]
+        dataCollection4 = stateFlag7
+        cmgOperation4 = RageUI
+        cmgOperation4 = cmgOperation4.List
+        hashValue2 = stateFlag7.name
+        workingValue16 = workingValue8
+        text7 = stateFlag7.value
+        workingValue16 = workingValue16(text7)
+        text7 = rageUiOperation2
+        text7 = text7[text6]
+        text7 = text7.currentListIndex
+        text9 = "Tattoo Add/Removal Price: \194\1631,000"
+        dataCollection2 = {}
+        stateFlag = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg12, arg22, arg32, arg4) ===
-        function workValue4(arg12, arg22, arg32, arg4)
-          local workValue14, numberValue16, numberValue17, numberValue18, flag8, flag9
-          if arg22 then
-            workValue14 = IsControlJustPressed
-            numberValue16 = 0
-            numberValue17 = 177
-            workValue14 = workValue14(numberValue16, numberValue17)
-            if not workValue14 then
-              workValue14 = IsControlJustPressed
-              numberValue16 = 0
-              numberValue17 = 194
-              workValue14 = workValue14(numberValue16, numberValue17)
-              if not workValue14 then
-                workValue14 = IsControlJustPressed
-                numberValue16 = 0
-                numberValue17 = 202
-                workValue14 = workValue14(numberValue16, numberValue17)
-                if not workValue14 then
-                  goto flow_label_37
+        -- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue12, localValue22, localValue32, localValue4) ===
+        function workingValue4(localValue12, localValue22, localValue32, localValue4)
+          local workingValue14, number16, number17, number18, stateFlag8, stateFlag9
+          if localValue22 then
+            workingValue14 = IsControlJustPressed
+            number16 = 0
+            number17 = 177
+            workingValue14 = workingValue14(number16, number17)
+            if not workingValue14 then
+              workingValue14 = IsControlJustPressed
+              number16 = 0
+              number17 = 194
+              workingValue14 = workingValue14(number16, number17)
+              if not workingValue14 then
+                workingValue14 = IsControlJustPressed
+                number16 = 0
+                number17 = 202
+                workingValue14 = workingValue14(number16, number17)
+                if not workingValue14 then
+                  goto continueAtStep37
                 end
               end
             end
-            workValue14 = DoesCamExist
-            numberValue16 = cmgCall2
-            workValue14 = workValue14(numberValue16)
-            if workValue14 then
-              workValue14 = RenderScriptCams
-              numberValue16 = false
-              numberValue17 = false
-              numberValue18 = 0
-              flag8 = true
-              flag9 = false
-              workValue14(numberValue16, numberValue17, numberValue18, flag8, flag9)
-              workValue14 = DestroyCam
-              numberValue16 = cmgCall2
-              numberValue17 = false
-              workValue14(numberValue16, numberValue17)
+            workingValue14 = DoesCamExist
+            number16 = cmgOperation2
+            workingValue14 = workingValue14(number16)
+            if workingValue14 then
+              workingValue14 = RenderScriptCams
+              number16 = false
+              number17 = false
+              number18 = 0
+              stateFlag8 = true
+              stateFlag9 = false
+              workingValue14(number16, number17, number18, stateFlag8, stateFlag9)
+              workingValue14 = DestroyCam
+              number16 = cmgOperation2
+              number17 = false
+              workingValue14(number16, number17)
             end
-            ::flow_label_37::
-            workValue14 = IsControlJustPressed
-            numberValue16 = 0
-            numberValue17 = 172
-            workValue14 = workValue14(numberValue16, numberValue17)
-            if not workValue14 then
-              workValue14 = IsControlJustPressed
-              numberValue16 = 0
-              numberValue17 = 241
-              workValue14 = workValue14(numberValue16, numberValue17)
-              if not workValue14 then
-                workValue14 = IsControlJustPressed
-                numberValue16 = 0
-                numberValue17 = 173
-                workValue14 = workValue14(numberValue16, numberValue17)
-                if not workValue14 then
-                  workValue14 = IsControlJustPressed
-                  numberValue16 = 0
-                  numberValue17 = 242
-                  workValue14 = workValue14(numberValue16, numberValue17)
-                  if not workValue14 then
-                    goto flow_label_67
+            ::continueAtStep37::
+            workingValue14 = IsControlJustPressed
+            number16 = 0
+            number17 = 172
+            workingValue14 = workingValue14(number16, number17)
+            if not workingValue14 then
+              workingValue14 = IsControlJustPressed
+              number16 = 0
+              number17 = 241
+              workingValue14 = workingValue14(number16, number17)
+              if not workingValue14 then
+                workingValue14 = IsControlJustPressed
+                number16 = 0
+                number17 = 173
+                workingValue14 = workingValue14(number16, number17)
+                if not workingValue14 then
+                  workingValue14 = IsControlJustPressed
+                  number16 = 0
+                  number17 = 242
+                  workingValue14 = workingValue14(number16, number17)
+                  if not workingValue14 then
+                    goto continueAtStep67
                   end
                 end
               end
             end
-            workValue14 = flag7.index
-            numberValue16 = dataTable4.index
-            if workValue14 ~= numberValue16 then
-              workValue14 = flag7
-              dataTable4 = workValue14
+            workingValue14 = stateFlag7.index
+            number16 = dataCollection4.index
+            if workingValue14 ~= number16 then
+              workingValue14 = stateFlag7
+              dataCollection4 = workingValue14
             end
-            ::flow_label_67::
-            workValue14 = flag7.name
-            numberValue16 = dataTable4.name
-            if workValue14 == numberValue16 then
-              workValue14 = dataTable11
-              if workValue14 then
-                workValue14 = dataTable3
-                if nil ~= workValue14 then
-                  workValue14 = dataTable3.id
-                  numberValue16 = workValue8
-                  numberValue17 = flag7.value
-                  numberValue16 = numberValue16(numberValue17)
-                  numberValue16 = #numberValue16
-                  if workValue14 <= numberValue16 then
-                    workValue14 = dataTable3.id
-                    if workValue14 >= 0 then
-                      arg4 = dataTable3.id
-                      workValue14 = workValue9
-                      numberValue16 = arg4
-                      numberValue17 = dataTable4.value
-                      numberValue18 = flag7.name
-                      workValue14(numberValue16, numberValue17, numberValue18)
-                      workValue14 = false
-                      dataTable11 = workValue14
+            ::continueAtStep67::
+            workingValue14 = stateFlag7.name
+            number16 = dataCollection4.name
+            if workingValue14 == number16 then
+              workingValue14 = dataCollection11
+              if workingValue14 then
+                workingValue14 = dataCollection3
+                if nil ~= workingValue14 then
+                  workingValue14 = dataCollection3.id
+                  number16 = workingValue8
+                  number17 = stateFlag7.value
+                  number16 = number16(number17)
+                  number16 = #number16
+                  if workingValue14 <= number16 then
+                    workingValue14 = dataCollection3.id
+                    if workingValue14 >= 0 then
+                      localValue4 = dataCollection3.id
+                      workingValue14 = workingValue9
+                      number16 = localValue4
+                      number17 = dataCollection4.value
+                      number18 = stateFlag7.name
+                      workingValue14(number16, number17, number18)
+                      workingValue14 = false
+                      dataCollection11 = workingValue14
                   end
                 end
                 else
-                  workValue14 = false
-                  dataTable11 = workValue14
+                  workingValue14 = false
+                  dataCollection11 = workingValue14
                 end
               else
-                numberValue16 = textValue6
-                workValue14 = rageUiCall2
-                workValue14 = workValue14[numberValue16]
-                workValue14 = workValue14.currentListIndex
-                if workValue14 ~= arg4 then
-                  workValue14 = workValue9
-                  numberValue16 = arg4
-                  numberValue17 = dataTable4.value
-                  numberValue18 = flag7.name
-                  workValue14(numberValue16, numberValue17, numberValue18)
+                number16 = text6
+                workingValue14 = rageUiOperation2
+                workingValue14 = workingValue14[number16]
+                workingValue14 = workingValue14.currentListIndex
+                if workingValue14 ~= localValue4 then
+                  workingValue14 = workingValue9
+                  number16 = localValue4
+                  number17 = dataCollection4.value
+                  number18 = stateFlag7.name
+                  workingValue14(number16, number17, number18)
                 end
               end
-              numberValue16 = textValue6
-              workValue14 = rageUiCall2
-              workValue14 = workValue14[numberValue16]
-              workValue14.currentListIndex = arg4
+              number16 = text6
+              workingValue14 = rageUiOperation2
+              workingValue14 = workingValue14[number16]
+              workingValue14.currentListIndex = localValue4
             end
-            workValue14 = flag6
-            if workValue14 then
-              workValue14 = dataTable
-              if not workValue14 then
-                workValue14 = IsControlJustReleased
-                numberValue16 = 0
-                numberValue17 = 178
-                workValue14 = workValue14(numberValue16, numberValue17)
-                if workValue14 then
-                  workValue14 = true
-                  dataTable6 = workValue14
-                  workValue14 = workValue9
-                  numberValue16 = arg4
-                  numberValue17 = dataTable4.value
-                  numberValue18 = dataTable4.name
-                  workValue14(numberValue16, numberValue17, numberValue18)
-                  workValue14 = TriggerServerEvent
-                  numberValue16 = "4e23f069b7"
-                  numberValue17 = rageUiCall4
-                  numberValue18 = 1000
+            workingValue14 = stateFlag6
+            if workingValue14 then
+              workingValue14 = dataCollection
+              if not workingValue14 then
+                workingValue14 = IsControlJustReleased
+                number16 = 0
+                number17 = 178
+                workingValue14 = workingValue14(number16, number17)
+                if workingValue14 then
+                  workingValue14 = true
+                  dataCollection6 = workingValue14
+                  workingValue14 = workingValue9
+                  number16 = localValue4
+                  number17 = dataCollection4.value
+                  number18 = dataCollection4.name
+                  workingValue14(number16, number17, number18)
+                  workingValue14 = TriggerServerEvent
+                  number16 = "4e23f069b7"
+                  number17 = rageUiOperation4
+                  number18 = 1000
                   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4e23f069b7".
-                  workValue14(numberValue16, numberValue17, numberValue18)
+                  workingValue14(number16, number17, number18)
                 end
               end
             end
           end
-          if arg32 then
-            workValue14 = eventRegistration
-            numberValue16 = flag7.name
-            numberValue17 = dataTable4.value
-            numberValue18 = arg4
-            workValue14 = workValue14(numberValue16, numberValue17, numberValue18)
-            if not workValue14 then
-              workValue14 = table
-              workValue14 = workValue14.insert
-              numberValue16 = rageUiCall4
-              numberValue17 = {}
-              numberValue18 = flag7.name
-              numberValue17.part = numberValue18
-              numberValue18 = dataTable4.value
-              numberValue17.collection = numberValue18
-              numberValue17.current = arg4
-              workValue14(numberValue16, numberValue17)
-              workValue14 = TriggerServerEvent
-              numberValue16 = "4e23f069b7"
-              numberValue17 = rageUiCall4
-              numberValue18 = 1000
+          if localValue32 then
+            workingValue14 = eventHandler
+            number16 = stateFlag7.name
+            number17 = dataCollection4.value
+            number18 = localValue4
+            workingValue14 = workingValue14(number16, number17, number18)
+            if not workingValue14 then
+              workingValue14 = table
+              workingValue14 = workingValue14.insert
+              number16 = rageUiOperation4
+              number17 = {}
+              number18 = stateFlag7.name
+              number17.part = number18
+              number18 = dataCollection4.value
+              number17.collection = number18
+              number17.current = localValue4
+              workingValue14(number16, number17)
+              workingValue14 = TriggerServerEvent
+              number16 = "4e23f069b7"
+              number17 = rageUiOperation4
+              number18 = 1000
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4e23f069b7".
-              workValue14(numberValue16, numberValue17, numberValue18)
+              workingValue14(number16, number17, number18)
             else
-              workValue14 = notify
-              numberValue16 = "~r~You have already purchased this tattoo."
+              workingValue14 = notify
+              number16 = "~r~You have already purchased this tattoo."
               -- Beginner: Show a notification to the player.
-              workValue14(numberValue16)
+              workingValue14(number16)
             end
           end
         end
 
-        -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-        function workValue5()
-          local arg12, arg22
+        -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+        function workingValue5()
+          local localValue12, localValue22
         end
-        workValue6 = nil
+        workingValue6 = nil
         -- Beginner: Draw a RageUI list selector.
-        cmgCall4(hashValue2, workValue16, textValue7, textValue9, dataTable2, flag, workValue4, workValue5, workValue6)
+        cmgOperation4(hashValue2, workingValue16, text7, text9, dataCollection2, stateFlag, workingValue4, workingValue5, workingValue6)
       end
     end
-    arg1(arg2, arg3, tableHelper, workValue13, numberValue15)
+    localValue1(localValue2, localValue3, tableHelper, workingValue13, number15)
   end
 end
-rageUiCall(numberValue8, workValue11, workValue12, cmgCall3)
+rageUiOperation(number8, workingValue11, workingValue12, cmgOperation3)

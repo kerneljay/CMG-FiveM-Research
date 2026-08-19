@@ -32,1072 +32,1072 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local flag, dataTable, dataTable2, dataTable3, workValue2
-flag = false
-dataTable = {}
-dataTable2 = {}
-dataTable2.val1 = 0.4
-dataTable[1] = dataTable2
-dataTable2 = {}
-dataTable2.val1 = 0.4
-dataTable[2] = dataTable2
-dataTable2 = {}
-dataTable2.val1 = 0.4
-dataTable[3] = dataTable2
-dataTable2 = {}
-dataTable2.val1 = 0.4
-dataTable[4] = dataTable2
-dataTable2 = {}
-dataTable2.val1 = 0.4
-dataTable[5] = dataTable2
-dataTable2 = {}
-dataTable2.val1 = 0.4
-dataTable[6] = dataTable2
-dataTable2 = {}
-dataTable2.val1 = 0.4
-dataTable[7] = dataTable2
-dataTable2 = {}
-dataTable3 = {}
-dataTable3.val0 = 1
-dataTable3.val1 = 0.011000000000000001
-dataTable3.val2 = 0
-dataTable3.val3 = 1
-dataTable3.val4 = true
-dataTable2[1] = dataTable3
-dataTable3 = {}
-dataTable3.val0 = 1
-dataTable3.val1 = 0.013750000000000002
-dataTable3.val2 = 0
-dataTable3.val3 = 1
-dataTable3.val4 = true
-dataTable2[2] = dataTable3
-dataTable3 = {}
-dataTable3.val0 = 1
-dataTable3.val1 = 0.0165
-dataTable3.val2 = 0
-dataTable3.val3 = 1
-dataTable3.val4 = true
-dataTable2[3] = dataTable3
-dataTable3 = {}
-dataTable3.val0 = 1
-dataTable3.val1 = 0.019250000000000003
-dataTable3.val2 = 0
-dataTable3.val3 = 1
-dataTable3.val4 = true
-dataTable2[4] = dataTable3
-dataTable3 = {}
-dataTable3.val0 = 1
-dataTable3.val1 = 0.022000000000000002
-dataTable3.val2 = 0
-dataTable3.val3 = 1
-dataTable3.val4 = true
-dataTable2[5] = dataTable3
-dataTable3 = {}
-dataTable3.val0 = 1
-dataTable3.val1 = 0.02475
-dataTable3.val2 = 0
-dataTable3.val3 = 1
-dataTable3.val4 = true
-dataTable2[6] = dataTable3
-dataTable3 = {}
-dataTable3.val0 = 1
-dataTable3.val1 = 0.027500000000000004
-dataTable3.val2 = 0
-dataTable3.val3 = 1
-dataTable3.val4 = true
-dataTable2[7] = dataTable3
+local stateFlag, dataCollection, dataCollection2, dataCollection3, workingValue2
+stateFlag = false
+dataCollection = {}
+dataCollection2 = {}
+dataCollection2.val1 = 0.4
+dataCollection[1] = dataCollection2
+dataCollection2 = {}
+dataCollection2.val1 = 0.4
+dataCollection[2] = dataCollection2
+dataCollection2 = {}
+dataCollection2.val1 = 0.4
+dataCollection[3] = dataCollection2
+dataCollection2 = {}
+dataCollection2.val1 = 0.4
+dataCollection[4] = dataCollection2
+dataCollection2 = {}
+dataCollection2.val1 = 0.4
+dataCollection[5] = dataCollection2
+dataCollection2 = {}
+dataCollection2.val1 = 0.4
+dataCollection[6] = dataCollection2
+dataCollection2 = {}
+dataCollection2.val1 = 0.4
+dataCollection[7] = dataCollection2
+dataCollection2 = {}
+dataCollection3 = {}
+dataCollection3.val0 = 1
+dataCollection3.val1 = 0.011000000000000001
+dataCollection3.val2 = 0
+dataCollection3.val3 = 1
+dataCollection3.val4 = true
+dataCollection2[1] = dataCollection3
+dataCollection3 = {}
+dataCollection3.val0 = 1
+dataCollection3.val1 = 0.013750000000000002
+dataCollection3.val2 = 0
+dataCollection3.val3 = 1
+dataCollection3.val4 = true
+dataCollection2[2] = dataCollection3
+dataCollection3 = {}
+dataCollection3.val0 = 1
+dataCollection3.val1 = 0.0165
+dataCollection3.val2 = 0
+dataCollection3.val3 = 1
+dataCollection3.val4 = true
+dataCollection2[3] = dataCollection3
+dataCollection3 = {}
+dataCollection3.val0 = 1
+dataCollection3.val1 = 0.019250000000000003
+dataCollection3.val2 = 0
+dataCollection3.val3 = 1
+dataCollection3.val4 = true
+dataCollection2[4] = dataCollection3
+dataCollection3 = {}
+dataCollection3.val0 = 1
+dataCollection3.val1 = 0.022000000000000002
+dataCollection3.val2 = 0
+dataCollection3.val3 = 1
+dataCollection3.val4 = true
+dataCollection2[5] = dataCollection3
+dataCollection3 = {}
+dataCollection3.val0 = 1
+dataCollection3.val1 = 0.02475
+dataCollection3.val2 = 0
+dataCollection3.val3 = 1
+dataCollection3.val4 = true
+dataCollection2[6] = dataCollection3
+dataCollection3 = {}
+dataCollection3.val0 = 1
+dataCollection3.val1 = 0.027500000000000004
+dataCollection3.val2 = 0
+dataCollection3.val3 = 1
+dataCollection3.val4 = true
+dataCollection2[7] = dataCollection3
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: arg1) ===
-function dataTable3(arg1)
-  local arg2, arg3, flag2, flag3, numberValue6
-  arg2 = BeginTextCommandDisplayHelp
-  arg3 = "STRING"
-  arg2(arg3)
-  arg2 = AddTextComponentSubstringPlayerName
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = EndTextCommandDisplayHelp
-  arg3 = 0
-  flag2 = false
-  flag3 = true
-  numberValue6 = -1
-  arg2(arg3, flag2, flag3, numberValue6)
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: localValue1) ===
+function dataCollection3(localValue1)
+  local localValue2, localValue3, stateFlag2, stateFlag3, number6
+  localValue2 = BeginTextCommandDisplayHelp
+  localValue3 = "STRING"
+  localValue2(localValue3)
+  localValue2 = AddTextComponentSubstringPlayerName
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = EndTextCommandDisplayHelp
+  localValue3 = 0
+  stateFlag2 = false
+  stateFlag3 = true
+  number6 = -1
+  localValue2(localValue3, stateFlag2, stateFlag3, number6)
 end
-F_02536 = dataTable3
+F_02536 = dataCollection3
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-function dataTable3()
-  local arg1, arg2, arg3, flag2
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 73
-  flag2 = false
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 24
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 257
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 25
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 263
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 32
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 34
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 31
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 30
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 45
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 22
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 44
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 37
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 23
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 288
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 289
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 170
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 167
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 73
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 2
-  arg3 = 199
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 47
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 264
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 257
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 140
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 141
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 142
-  flag2 = true
-  arg1(arg2, arg3, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  arg3 = 143
-  flag2 = true
-  arg1(arg2, arg3, flag2)
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+function dataCollection3()
+  local localValue1, localValue2, localValue3, stateFlag2
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 73
+  stateFlag2 = false
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 24
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 257
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 25
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 263
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 32
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 34
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 31
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 30
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 45
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 22
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 44
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 37
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 23
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 288
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 289
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 170
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 167
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 73
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 2
+  localValue3 = 199
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 47
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 264
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 257
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 140
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 141
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 142
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  localValue3 = 143
+  stateFlag2 = true
+  localValue1(localValue2, localValue3, stateFlag2)
 end
-F_02539 = dataTable3
+F_02539 = dataCollection3
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: arg1) ===
-function dataTable3(arg1)
-  local arg2, arg3
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  arg2 = arg2.val1
-  arg3 = 0.51
-  if arg2 >= arg3 then
-    arg2 = dataTable
-    arg2 = arg2[arg1]
-    arg2 = arg2.val1
-    arg3 = 0.62
-    if arg2 <= arg3 then
-      arg2 = true
-      return arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: localValue1) ===
+function dataCollection3(localValue1)
+  local localValue2, localValue3
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2.val1
+  localValue3 = 0.51
+  if localValue2 >= localValue3 then
+    localValue2 = dataCollection
+    localValue2 = localValue2[localValue1]
+    localValue2 = localValue2.val1
+    localValue3 = 0.62
+    if localValue2 <= localValue3 then
+      localValue2 = true
+      return localValue2
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-F_02540 = dataTable3
+F_02540 = dataCollection3
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: arg1, arg2, arg3) ===
-function dataTable3(arg1, arg2, arg3)
-  local flag2, flag3, numberValue6, workValue3
-  flag2 = nil
-  flag3 = Cos
-  numberValue6 = F_02542
-  workValue3 = arg3 * 3.141593
-  numberValue6, workValue3 = numberValue6(workValue3)
-  flag3 = flag3(numberValue6, workValue3)
-  numberValue6 = 1.0
-  flag3 = numberValue6 - flag3
-  flag2 = flag3 * 0.5
-  flag3 = 1
-  flag3 = flag3 - flag2
-  flag3 = arg1 * flag3
-  numberValue6 = arg2 * flag2
-  flag3 = flag3 + numberValue6
-  return flag3
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: localValue1, localValue2, localValue3) ===
+function dataCollection3(localValue1, localValue2, localValue3)
+  local stateFlag2, stateFlag3, number6, workingValue3
+  stateFlag2 = nil
+  stateFlag3 = Cos
+  number6 = F_02542
+  workingValue3 = localValue3 * 3.141593
+  number6, workingValue3 = number6(workingValue3)
+  stateFlag3 = stateFlag3(number6, workingValue3)
+  number6 = 1.0
+  stateFlag3 = number6 - stateFlag3
+  stateFlag2 = stateFlag3 * 0.5
+  stateFlag3 = 1
+  stateFlag3 = stateFlag3 - stateFlag2
+  stateFlag3 = localValue1 * stateFlag3
+  number6 = localValue2 * stateFlag2
+  stateFlag3 = stateFlag3 + number6
+  return stateFlag3
 end
-F_02541 = dataTable3
+F_02541 = dataCollection3
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: arg1) ===
-function dataTable3(arg1)
-  local arg2
-  arg2 = arg1 * 57.29578
-  return arg2
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: localValue1) ===
+function dataCollection3(localValue1)
+  local localValue2
+  localValue2 = localValue1 * 57.29578
+  return localValue2
 end
-F_02542 = dataTable3
-dataTable3 = CMG
+F_02542 = dataCollection3
+dataCollection3 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
-function workValue2(arg1, arg2)
-  local arg3, flag2, flag3
-  arg3 = nil
-  if nil == arg1 then
-    arg3 = 25
-  elseif arg1 < 2 then
-    arg3 = 25
-  elseif arg1 > 5 then
-    arg3 = 25
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, localValue2) ===
+function workingValue2(localValue1, localValue2)
+  local localValue3, stateFlag2, stateFlag3
+  localValue3 = nil
+  if nil == localValue1 then
+    localValue3 = 25
+  elseif localValue1 < 2 then
+    localValue3 = 25
+  elseif localValue1 > 5 then
+    localValue3 = 25
   else
-    arg3 = arg1 * 10
+    localValue3 = localValue1 * 10
   end
-  flag2 = {}
-  flag3 = {}
-  flag3.val1 = 0.4
-  flag2[1] = flag3
-  flag3 = {}
-  flag3.val1 = 0.4
-  flag2[2] = flag3
-  flag3 = {}
-  flag3.val1 = 0.4
-  flag2[3] = flag3
-  flag3 = {}
-  flag3.val1 = 0.4
-  flag2[4] = flag3
-  flag3 = {}
-  flag3.val1 = 0.4
-  flag2[5] = flag3
-  flag3 = {}
-  flag3.val1 = 0.4
-  flag2[6] = flag3
-  flag3 = {}
-  flag3.val1 = 0.4
-  flag2[7] = flag3
-  dataTable = flag2
-  flag2 = {}
-  flag3 = {}
-  flag3.val0 = 1
-  flag3.val1 = 0.011000000000000001
-  flag3.val2 = 0
-  flag3.val3 = 1
-  flag3.val4 = true
-  flag2[1] = flag3
-  flag3 = {}
-  flag3.val0 = 1
-  flag3.val1 = 0.013750000000000002
-  flag3.val2 = 0
-  flag3.val3 = 1
-  flag3.val4 = true
-  flag2[2] = flag3
-  flag3 = {}
-  flag3.val0 = 1
-  flag3.val1 = 0.0165
-  flag3.val2 = 0
-  flag3.val3 = 1
-  flag3.val4 = true
-  flag2[3] = flag3
-  flag3 = {}
-  flag3.val0 = 1
-  flag3.val1 = 0.019250000000000003
-  flag3.val2 = 0
-  flag3.val3 = 1
-  flag3.val4 = true
-  flag2[4] = flag3
-  flag3 = {}
-  flag3.val0 = 1
-  flag3.val1 = 0.022000000000000002
-  flag3.val2 = 0
-  flag3.val3 = 1
-  flag3.val4 = true
-  flag2[5] = flag3
-  flag3 = {}
-  flag3.val0 = 1
-  flag3.val1 = 0.02475
-  flag3.val2 = 0
-  flag3.val3 = 1
-  flag3.val4 = true
-  flag2[6] = flag3
-  flag3 = {}
-  flag3.val0 = 1
-  flag3.val1 = 0.027500000000000004
-  flag3.val2 = 0
-  flag3.val3 = 1
-  flag3.val4 = true
-  flag2[7] = flag3
-  dataTable2 = flag2
-  flag2 = false
-  flag = flag2
-  flag2 = Citizen
-  flag2 = flag2.CreateThread
+  stateFlag2 = {}
+  stateFlag3 = {}
+  stateFlag3.val1 = 0.4
+  stateFlag2[1] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val1 = 0.4
+  stateFlag2[2] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val1 = 0.4
+  stateFlag2[3] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val1 = 0.4
+  stateFlag2[4] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val1 = 0.4
+  stateFlag2[5] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val1 = 0.4
+  stateFlag2[6] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val1 = 0.4
+  stateFlag2[7] = stateFlag3
+  dataCollection = stateFlag2
+  stateFlag2 = {}
+  stateFlag3 = {}
+  stateFlag3.val0 = 1
+  stateFlag3.val1 = 0.011000000000000001
+  stateFlag3.val2 = 0
+  stateFlag3.val3 = 1
+  stateFlag3.val4 = true
+  stateFlag2[1] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val0 = 1
+  stateFlag3.val1 = 0.013750000000000002
+  stateFlag3.val2 = 0
+  stateFlag3.val3 = 1
+  stateFlag3.val4 = true
+  stateFlag2[2] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val0 = 1
+  stateFlag3.val1 = 0.0165
+  stateFlag3.val2 = 0
+  stateFlag3.val3 = 1
+  stateFlag3.val4 = true
+  stateFlag2[3] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val0 = 1
+  stateFlag3.val1 = 0.019250000000000003
+  stateFlag3.val2 = 0
+  stateFlag3.val3 = 1
+  stateFlag3.val4 = true
+  stateFlag2[4] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val0 = 1
+  stateFlag3.val1 = 0.022000000000000002
+  stateFlag3.val2 = 0
+  stateFlag3.val3 = 1
+  stateFlag3.val4 = true
+  stateFlag2[5] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val0 = 1
+  stateFlag3.val1 = 0.02475
+  stateFlag3.val2 = 0
+  stateFlag3.val3 = 1
+  stateFlag3.val4 = true
+  stateFlag2[6] = stateFlag3
+  stateFlag3 = {}
+  stateFlag3.val0 = 1
+  stateFlag3.val1 = 0.027500000000000004
+  stateFlag3.val2 = 0
+  stateFlag3.val3 = 1
+  stateFlag3.val4 = true
+  stateFlag2[7] = stateFlag3
+  dataCollection2 = stateFlag2
+  stateFlag2 = false
+  stateFlag = stateFlag2
+  stateFlag2 = Citizen
+  stateFlag2 = stateFlag2.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
-  function flag3()
-    local numberValue, workValue, textValue, numberValue5, textValue2, flag4
-    numberValue = 1
-    workValue = dataTable2
-    workValue = workValue[numberValue]
-    workValue.val0 = 0
+  -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: none) ===
+  function stateFlag3()
+    local number, workingValue, text, number5, text2, stateFlag4
+    number = 1
+    workingValue = dataCollection2
+    workingValue = workingValue[number]
+    workingValue.val0 = 0
     while true do
-      workValue = F_02539
-      workValue()
-      workValue = F_02536
-      textValue = "Press ~INPUT_FRONTEND_CANCEL~ to abort hack"
-      workValue(textValue)
-      workValue = IsControlJustReleased
-      textValue = 2
-      numberValue5 = 237
-      workValue = workValue(textValue, numberValue5)
-      if not workValue then
-        workValue = IsControlJustReleased
-        textValue = 2
-        numberValue5 = 176
-        workValue = workValue(textValue, numberValue5)
-        if not workValue then
-          workValue = IsControlJustReleased
-          textValue = 2
-          numberValue5 = 179
-          workValue = workValue(textValue, numberValue5)
-          if not workValue then
-            goto flow_label_96
+      workingValue = F_02539
+      workingValue()
+      workingValue = F_02536
+      text = "Press ~INPUT_FRONTEND_CANCEL~ to abort hack"
+      workingValue(text)
+      workingValue = IsControlJustReleased
+      text = 2
+      number5 = 237
+      workingValue = workingValue(text, number5)
+      if not workingValue then
+        workingValue = IsControlJustReleased
+        text = 2
+        number5 = 176
+        workingValue = workingValue(text, number5)
+        if not workingValue then
+          workingValue = IsControlJustReleased
+          text = 2
+          number5 = 179
+          workingValue = workingValue(text, number5)
+          if not workingValue then
+            goto continueAtStep96
           end
         end
       end
-      workValue = F_02540
-      textValue = numberValue
-      workValue = workValue(textValue)
-      if workValue then
-        workValue = PlaySoundFrontend
-        textValue = -1
-        numberValue5 = "Pin_Good"
-        textValue2 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-        flag4 = true
-        workValue(textValue, numberValue5, textValue2, flag4)
-        workValue = dataTable2
-        workValue = workValue[numberValue]
-        workValue.val0 = 1
-        workValue = dataTable2
-        workValue = workValue[numberValue]
-        workValue.val4 = false
-        workValue = dataTable
-        workValue = workValue[numberValue]
-        workValue.val1 = 0.572
-        if numberValue < 7 then
-          textValue = numberValue + 1
-          workValue = dataTable2
-          workValue = workValue[textValue]
-          workValue.val0 = 0
+      workingValue = F_02540
+      text = number
+      workingValue = workingValue(text)
+      if workingValue then
+        workingValue = PlaySoundFrontend
+        text = -1
+        number5 = "Pin_Good"
+        text2 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
+        stateFlag4 = true
+        workingValue(text, number5, text2, stateFlag4)
+        workingValue = dataCollection2
+        workingValue = workingValue[number]
+        workingValue.val0 = 1
+        workingValue = dataCollection2
+        workingValue = workingValue[number]
+        workingValue.val4 = false
+        workingValue = dataCollection
+        workingValue = workingValue[number]
+        workingValue.val1 = 0.572
+        if number < 7 then
+          text = number + 1
+          workingValue = dataCollection2
+          workingValue = workingValue[text]
+          workingValue.val0 = 0
         end
-        numberValue = numberValue + 1
-        if numberValue > 7 then
+        number = number + 1
+        if number > 7 then
           return
         end
       else
-        workValue = PlaySoundFrontend
-        textValue = -1
-        numberValue5 = "Pin_Bad"
-        textValue2 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-        flag4 = true
-        workValue(textValue, numberValue5, textValue2, flag4)
-        if numberValue > 1 then
-          workValue = dataTable2
-          workValue = workValue[numberValue]
-          workValue.val0 = 1
-          numberValue = numberValue - 1
-          workValue = dataTable2
-          workValue = workValue[numberValue]
-          workValue.val0 = 0
-          workValue = dataTable
-          workValue = workValue[numberValue]
-          workValue.val1 = 0.572
-          workValue = dataTable2
-          workValue = workValue[numberValue]
-          workValue.val4 = true
-        elseif 1 == numberValue then
-          workValue = true
-          flag = workValue
-          workValue = arg2
-          textValue = false
-          workValue(textValue)
+        workingValue = PlaySoundFrontend
+        text = -1
+        number5 = "Pin_Bad"
+        text2 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
+        stateFlag4 = true
+        workingValue(text, number5, text2, stateFlag4)
+        if number > 1 then
+          workingValue = dataCollection2
+          workingValue = workingValue[number]
+          workingValue.val0 = 1
+          number = number - 1
+          workingValue = dataCollection2
+          workingValue = workingValue[number]
+          workingValue.val0 = 0
+          workingValue = dataCollection
+          workingValue = workingValue[number]
+          workingValue.val1 = 0.572
+          workingValue = dataCollection2
+          workingValue = workingValue[number]
+          workingValue.val4 = true
+        elseif 1 == number then
+          workingValue = true
+          stateFlag = workingValue
+          workingValue = localValue2
+          text = false
+          workingValue(text)
         end
-        workValue = flag
-        if workValue then
+        workingValue = stateFlag
+        if workingValue then
           return
-          goto flow_label_107
-          ::flow_label_96::
-          workValue = IsControlJustReleased
-          textValue = 2
-          numberValue5 = 202
-          workValue = workValue(textValue, numberValue5)
-          if workValue then
-            workValue = true
-            flag = workValue
-            workValue = arg2
-            textValue = false
-            workValue(textValue)
+          goto continueAtStep107
+          ::continueAtStep96::
+          workingValue = IsControlJustReleased
+          text = 2
+          number5 = 202
+          workingValue = workingValue(text, number5)
+          if workingValue then
+            workingValue = true
+            stateFlag = workingValue
+            workingValue = localValue2
+            text = false
+            workingValue(text)
           end
         end
       end
-      ::flow_label_107::
-      workValue = flag
-      if workValue then
+      ::continueAtStep107::
+      workingValue = stateFlag
+      if workingValue then
         return
       end
-      workValue = Citizen
-      workValue = workValue.Wait
-      textValue = 1
-      workValue(textValue)
+      workingValue = Citizen
+      workingValue = workingValue.Wait
+      text = 1
+      workingValue(text)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  flag2(flag3)
-  flag2 = Citizen
-  flag2 = flag2.CreateThread
+  stateFlag2(stateFlag3)
+  stateFlag2 = Citizen
+  stateFlag2 = stateFlag2.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
-  function flag3()
-    local numberValue, workValue, textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6
+  -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: none) ===
+  function stateFlag3()
+    local number, workingValue, text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6
     while true do
-      numberValue = 1
-      workValue = dataTable2
-      workValue = #workValue
-      textValue = 1
-      for numberValue5 = numberValue, workValue, textValue do
-        textValue2 = dataTable2
-        textValue2 = textValue2[numberValue5]
-        textValue2 = textValue2.val3
-        if 1 == textValue2 then
-          textValue2 = dataTable2
-          textValue2 = textValue2[numberValue5]
-          textValue2 = textValue2.val2
-          if textValue2 < 1.0 then
-            textValue2 = dataTable2
-            textValue2 = textValue2[numberValue5]
-            flag4 = dataTable2
-            flag4 = flag4[numberValue5]
-            flag4 = flag4.val2
-            workValue4 = dataTable2
-            workValue4 = workValue4[numberValue5]
-            workValue4 = workValue4.val1
-            workValue5 = Timestep
-            workValue5 = workValue5()
-            workValue4 = workValue4 * workValue5
-            workValue5 = arg3
-            workValue5 = workValue5 * 1.0
-            workValue4 = workValue4 * workValue5
-            flag4 = flag4 + workValue4
-            textValue2.val2 = flag4
+      number = 1
+      workingValue = dataCollection2
+      workingValue = #workingValue
+      text = 1
+      for number5 = number, workingValue, text do
+        text2 = dataCollection2
+        text2 = text2[number5]
+        text2 = text2.val3
+        if 1 == text2 then
+          text2 = dataCollection2
+          text2 = text2[number5]
+          text2 = text2.val2
+          if text2 < 1.0 then
+            text2 = dataCollection2
+            text2 = text2[number5]
+            stateFlag4 = dataCollection2
+            stateFlag4 = stateFlag4[number5]
+            stateFlag4 = stateFlag4.val2
+            workingValue4 = dataCollection2
+            workingValue4 = workingValue4[number5]
+            workingValue4 = workingValue4.val1
+            workingValue5 = Timestep
+            workingValue5 = workingValue5()
+            workingValue4 = workingValue4 * workingValue5
+            workingValue5 = localValue3
+            workingValue5 = workingValue5 * 1.0
+            workingValue4 = workingValue4 * workingValue5
+            stateFlag4 = stateFlag4 + workingValue4
+            text2.val2 = stateFlag4
           else
-            textValue2 = dataTable2
-            textValue2 = textValue2[numberValue5]
-            textValue2.val3 = 0
+            text2 = dataCollection2
+            text2 = text2[number5]
+            text2.val3 = 0
           end
         else
-          textValue2 = dataTable2
-          textValue2 = textValue2[numberValue5]
-          textValue2 = textValue2.val2
-          if textValue2 > 0.0 then
-            textValue2 = dataTable2
-            textValue2 = textValue2[numberValue5]
-            flag4 = dataTable2
-            flag4 = flag4[numberValue5]
-            flag4 = flag4.val2
-            workValue4 = dataTable2
-            workValue4 = workValue4[numberValue5]
-            workValue4 = workValue4.val1
-            workValue5 = Timestep
-            workValue5 = workValue5()
-            workValue4 = workValue4 * workValue5
-            workValue5 = arg3
-            workValue5 = workValue5 * 1.0
-            workValue4 = workValue4 * workValue5
-            flag4 = flag4 - workValue4
-            textValue2.val2 = flag4
+          text2 = dataCollection2
+          text2 = text2[number5]
+          text2 = text2.val2
+          if text2 > 0.0 then
+            text2 = dataCollection2
+            text2 = text2[number5]
+            stateFlag4 = dataCollection2
+            stateFlag4 = stateFlag4[number5]
+            stateFlag4 = stateFlag4.val2
+            workingValue4 = dataCollection2
+            workingValue4 = workingValue4[number5]
+            workingValue4 = workingValue4.val1
+            workingValue5 = Timestep
+            workingValue5 = workingValue5()
+            workingValue4 = workingValue4 * workingValue5
+            workingValue5 = localValue3
+            workingValue5 = workingValue5 * 1.0
+            workingValue4 = workingValue4 * workingValue5
+            stateFlag4 = stateFlag4 - workingValue4
+            text2.val2 = stateFlag4
           else
-            textValue2 = dataTable2
-            textValue2 = textValue2[numberValue5]
-            textValue2.val3 = 1
+            text2 = dataCollection2
+            text2 = text2[number5]
+            text2.val3 = 1
           end
         end
-        textValue2 = dataTable2
-        textValue2 = textValue2[numberValue5]
-        textValue2 = textValue2.val0
-        if 0 ~= textValue2 then
-          textValue2 = dataTable2
-          textValue2 = textValue2[numberValue5]
-          textValue2 = textValue2.val4
-          if not textValue2 then
-            goto flow_label_90
+        text2 = dataCollection2
+        text2 = text2[number5]
+        text2 = text2.val0
+        if 0 ~= text2 then
+          text2 = dataCollection2
+          text2 = text2[number5]
+          text2 = text2.val4
+          if not text2 then
+            goto continueAtStep90
           end
         end
-        textValue2 = dataTable
-        textValue2 = textValue2[numberValue5]
-        flag4 = F_02541
-        workValue4 = 0.744
-        workValue5 = 0.4
-        workValue6 = dataTable2
-        workValue6 = workValue6[numberValue5]
-        workValue6 = workValue6.val2
-        flag4 = flag4(workValue4, workValue5, workValue6)
-        textValue2.val1 = flag4
-        ::flow_label_90::
-        textValue2 = flag
-        if textValue2 then
+        text2 = dataCollection
+        text2 = text2[number5]
+        stateFlag4 = F_02541
+        workingValue4 = 0.744
+        workingValue5 = 0.4
+        workingValue6 = dataCollection2
+        workingValue6 = workingValue6[number5]
+        workingValue6 = workingValue6.val2
+        stateFlag4 = stateFlag4(workingValue4, workingValue5, workingValue6)
+        text2.val1 = stateFlag4
+        ::continueAtStep90::
+        text2 = stateFlag
+        if text2 then
           return
         end
       end
-      numberValue = Citizen
-      numberValue = numberValue.Wait
-      workValue = 1
-      numberValue(workValue)
+      number = Citizen
+      number = number.Wait
+      workingValue = 1
+      number(workingValue)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  flag2(flag3)
-  flag2 = Citizen
-  flag2 = flag2.CreateThread
+  stateFlag2(stateFlag3)
+  stateFlag2 = Citizen
+  stateFlag2 = stateFlag2.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
-  function flag3()
-    local numberValue, workValue, textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4
-    numberValue = RequestStreamedTextureDict
-    workValue = "HACKING_PC_desktop_0"
-    textValue = false
-    numberValue(workValue, textValue)
-    numberValue = RequestStreamedTextureDict
-    workValue = "hackingNG"
-    textValue = false
-    numberValue(workValue, textValue)
-    numberValue = RequestScaleformMovieInteractive
-    workValue = "HACKING_PC"
-    numberValue = numberValue(workValue)
+  -- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: none) ===
+  function stateFlag3()
+    local number, workingValue, text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4
+    number = RequestStreamedTextureDict
+    workingValue = "HACKING_PC_desktop_0"
+    text = false
+    number(workingValue, text)
+    number = RequestStreamedTextureDict
+    workingValue = "hackingNG"
+    text = false
+    number(workingValue, text)
+    number = RequestScaleformMovieInteractive
+    workingValue = "HACKING_PC"
+    number = number(workingValue)
     while true do
-      workValue = HasScaleformMovieLoaded
-      textValue = numberValue
-      workValue = workValue(textValue)
-      if workValue then
+      workingValue = HasScaleformMovieLoaded
+      text = number
+      workingValue = workingValue(text)
+      if workingValue then
         break
       end
-      workValue = Citizen
-      workValue = workValue.Wait
-      textValue = 0
-      workValue(textValue)
+      workingValue = Citizen
+      workingValue = workingValue.Wait
+      text = 0
+      workingValue(text)
     end
-    workValue = BeginScaleformMovieMethod
-    textValue = numberValue
-    numberValue5 = "ADD_PROGRAM"
-    workValue(textValue, numberValue5)
-    workValue = ScaleformMovieMethodAddParamFloat
-    textValue = 1.0
-    workValue(textValue)
-    workValue = ScaleformMovieMethodAddParamFloat
-    textValue = 4.0
-    workValue(textValue)
-    workValue = _ENV
-    textValue = "ScaleformMovieMethodAddParamTextureNameString"
-    workValue = workValue[textValue]
-    textValue = "My Computer"
-    workValue(textValue)
-    workValue = EndScaleformMovieMethod
-    workValue()
-    workValue = BeginScaleformMovieMethod
-    textValue = numberValue
-    numberValue5 = "ADD_PROGRAM"
-    workValue(textValue, numberValue5)
-    workValue = ScaleformMovieMethodAddParamFloat
-    textValue = 6.0
-    workValue(textValue)
-    workValue = ScaleformMovieMethodAddParamFloat
-    textValue = 6.0
-    workValue(textValue)
-    workValue = _ENV
-    textValue = "ScaleformMovieMethodAddParamTextureNameString"
-    workValue = workValue[textValue]
-    textValue = "Power Off"
-    workValue(textValue)
-    workValue = EndScaleformMovieMethod
-    workValue()
-    workValue = BeginScaleformMovieMethod
-    textValue = numberValue
-    numberValue5 = "SET_BACKGROUND"
-    workValue(textValue, numberValue5)
-    workValue = ScaleformMovieMethodAddParamInt
-    textValue = 1
-    workValue(textValue)
-    workValue = EndScaleformMovieMethod
-    workValue()
+    workingValue = BeginScaleformMovieMethod
+    text = number
+    number5 = "ADD_PROGRAM"
+    workingValue(text, number5)
+    workingValue = ScaleformMovieMethodAddParamFloat
+    text = 1.0
+    workingValue(text)
+    workingValue = ScaleformMovieMethodAddParamFloat
+    text = 4.0
+    workingValue(text)
+    workingValue = _ENV
+    text = "ScaleformMovieMethodAddParamTextureNameString"
+    workingValue = workingValue[text]
+    text = "My Computer"
+    workingValue(text)
+    workingValue = EndScaleformMovieMethod
+    workingValue()
+    workingValue = BeginScaleformMovieMethod
+    text = number
+    number5 = "ADD_PROGRAM"
+    workingValue(text, number5)
+    workingValue = ScaleformMovieMethodAddParamFloat
+    text = 6.0
+    workingValue(text)
+    workingValue = ScaleformMovieMethodAddParamFloat
+    text = 6.0
+    workingValue(text)
+    workingValue = _ENV
+    text = "ScaleformMovieMethodAddParamTextureNameString"
+    workingValue = workingValue[text]
+    text = "Power Off"
+    workingValue(text)
+    workingValue = EndScaleformMovieMethod
+    workingValue()
+    workingValue = BeginScaleformMovieMethod
+    text = number
+    number5 = "SET_BACKGROUND"
+    workingValue(text, number5)
+    workingValue = ScaleformMovieMethodAddParamInt
+    text = 1
+    workingValue(text)
+    workingValue = EndScaleformMovieMethod
+    workingValue()
     while true do
-      workValue = HasStreamedTextureDictLoaded
-      textValue = "hackingNG"
-      workValue = workValue(textValue)
-      if workValue then
+      workingValue = HasStreamedTextureDictLoaded
+      text = "hackingNG"
+      workingValue = workingValue(text)
+      if workingValue then
         break
       end
-      workValue = Citizen
-      workValue = workValue.Wait
-      textValue = 1
-      workValue(textValue)
+      workingValue = Citizen
+      workingValue = workingValue.Wait
+      text = 1
+      workingValue(text)
     end
     while true do
-      workValue = DrawScaleformMovieFullscreen
-      textValue = numberValue
-      numberValue5 = 255
-      textValue2 = 255
-      flag4 = 255
-      workValue4 = 255
-      workValue5 = 0
-      workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5)
-      workValue = DrawSprite
-      textValue = "hackingNG"
-      numberValue5 = "DHMain"
-      textValue2 = 0.5
-      flag4 = 0.5
-      workValue4 = 0.731
-      workValue5 = 1.306
-      workValue6 = 0
-      numberValue7 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      numberValue4 = 255
-      workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
-      workValue = dataTable2
-      workValue = workValue[1]
-      workValue = workValue.val0
-      if 1 == workValue then
-        workValue = DrawSprite
-        textValue = "hackingNG"
-        numberValue5 = "DHComp"
-        textValue2 = 0.35
-        flag4 = dataTable
-        flag4 = flag4[1]
-        flag4 = flag4.val1
-        workValue4 = 0.4
-        workValue5 = 0.4
-        workValue6 = 0
-        numberValue7 = 255
-        numberValue2 = 255
-        numberValue3 = 255
-        numberValue4 = 255
-        workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+      workingValue = DrawScaleformMovieFullscreen
+      text = number
+      number5 = 255
+      text2 = 255
+      stateFlag4 = 255
+      workingValue4 = 255
+      workingValue5 = 0
+      workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5)
+      workingValue = DrawSprite
+      text = "hackingNG"
+      number5 = "DHMain"
+      text2 = 0.5
+      stateFlag4 = 0.5
+      workingValue4 = 0.731
+      workingValue5 = 1.306
+      workingValue6 = 0
+      number7 = 255
+      number2 = 255
+      number3 = 255
+      number4 = 255
+      workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
+      workingValue = dataCollection2
+      workingValue = workingValue[1]
+      workingValue = workingValue.val0
+      if 1 == workingValue then
+        workingValue = DrawSprite
+        text = "hackingNG"
+        number5 = "DHComp"
+        text2 = 0.35
+        stateFlag4 = dataCollection
+        stateFlag4 = stateFlag4[1]
+        stateFlag4 = stateFlag4.val1
+        workingValue4 = 0.4
+        workingValue5 = 0.4
+        workingValue6 = 0
+        number7 = 255
+        number2 = 255
+        number3 = 255
+        number4 = 255
+        workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
       else
-        workValue = dataTable2
-        workValue = workValue[1]
-        workValue = workValue.val0
-        if 0 == workValue then
-          workValue = DrawSprite
-          textValue = "hackingNG"
-          numberValue5 = "DHCompHi"
-          textValue2 = 0.35
-          flag4 = dataTable
-          flag4 = flag4[1]
-          flag4 = flag4.val1
-          workValue4 = 0.4
-          workValue5 = 0.4
-          workValue6 = 0
-          numberValue7 = 255
-          numberValue2 = 255
-          numberValue3 = 255
-          numberValue4 = 255
-          workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+        workingValue = dataCollection2
+        workingValue = workingValue[1]
+        workingValue = workingValue.val0
+        if 0 == workingValue then
+          workingValue = DrawSprite
+          text = "hackingNG"
+          number5 = "DHCompHi"
+          text2 = 0.35
+          stateFlag4 = dataCollection
+          stateFlag4 = stateFlag4[1]
+          stateFlag4 = stateFlag4.val1
+          workingValue4 = 0.4
+          workingValue5 = 0.4
+          workingValue6 = 0
+          number7 = 255
+          number2 = 255
+          number3 = 255
+          number4 = 255
+          workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
         end
       end
-      workValue = dataTable2
-      workValue = workValue[2]
-      workValue = workValue.val0
-      if 1 == workValue then
-        workValue = DrawSprite
-        textValue = "hackingNG"
-        numberValue5 = "DHComp"
-        textValue2 = 0.4
-        flag4 = dataTable
-        flag4 = flag4[2]
-        flag4 = flag4.val1
-        workValue4 = 0.4
-        workValue5 = 0.4
-        workValue6 = 0
-        numberValue7 = 255
-        numberValue2 = 255
-        numberValue3 = 255
-        numberValue4 = 255
-        workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+      workingValue = dataCollection2
+      workingValue = workingValue[2]
+      workingValue = workingValue.val0
+      if 1 == workingValue then
+        workingValue = DrawSprite
+        text = "hackingNG"
+        number5 = "DHComp"
+        text2 = 0.4
+        stateFlag4 = dataCollection
+        stateFlag4 = stateFlag4[2]
+        stateFlag4 = stateFlag4.val1
+        workingValue4 = 0.4
+        workingValue5 = 0.4
+        workingValue6 = 0
+        number7 = 255
+        number2 = 255
+        number3 = 255
+        number4 = 255
+        workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
       else
-        workValue = dataTable2
-        workValue = workValue[2]
-        workValue = workValue.val0
-        if 0 == workValue then
-          workValue = DrawSprite
-          textValue = "hackingNG"
-          numberValue5 = "DHCompHi"
-          textValue2 = 0.4
-          flag4 = dataTable
-          flag4 = flag4[2]
-          flag4 = flag4.val1
-          workValue4 = 0.4
-          workValue5 = 0.4
-          workValue6 = 0
-          numberValue7 = 255
-          numberValue2 = 255
-          numberValue3 = 255
-          numberValue4 = 255
-          workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+        workingValue = dataCollection2
+        workingValue = workingValue[2]
+        workingValue = workingValue.val0
+        if 0 == workingValue then
+          workingValue = DrawSprite
+          text = "hackingNG"
+          number5 = "DHCompHi"
+          text2 = 0.4
+          stateFlag4 = dataCollection
+          stateFlag4 = stateFlag4[2]
+          stateFlag4 = stateFlag4.val1
+          workingValue4 = 0.4
+          workingValue5 = 0.4
+          workingValue6 = 0
+          number7 = 255
+          number2 = 255
+          number3 = 255
+          number4 = 255
+          workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
         end
       end
-      workValue = dataTable2
-      workValue = workValue[3]
-      workValue = workValue.val0
-      if 1 == workValue then
-        workValue = DrawSprite
-        textValue = "hackingNG"
-        numberValue5 = "DHComp"
-        textValue2 = 0.45
-        flag4 = dataTable
-        flag4 = flag4[3]
-        flag4 = flag4.val1
-        workValue4 = 0.4
-        workValue5 = 0.4
-        workValue6 = 0
-        numberValue7 = 255
-        numberValue2 = 255
-        numberValue3 = 255
-        numberValue4 = 255
-        workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+      workingValue = dataCollection2
+      workingValue = workingValue[3]
+      workingValue = workingValue.val0
+      if 1 == workingValue then
+        workingValue = DrawSprite
+        text = "hackingNG"
+        number5 = "DHComp"
+        text2 = 0.45
+        stateFlag4 = dataCollection
+        stateFlag4 = stateFlag4[3]
+        stateFlag4 = stateFlag4.val1
+        workingValue4 = 0.4
+        workingValue5 = 0.4
+        workingValue6 = 0
+        number7 = 255
+        number2 = 255
+        number3 = 255
+        number4 = 255
+        workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
       else
-        workValue = dataTable2
-        workValue = workValue[3]
-        workValue = workValue.val0
-        if 0 == workValue then
-          workValue = DrawSprite
-          textValue = "hackingNG"
-          numberValue5 = "DHCompHi"
-          textValue2 = 0.45
-          flag4 = dataTable
-          flag4 = flag4[3]
-          flag4 = flag4.val1
-          workValue4 = 0.4
-          workValue5 = 0.4
-          workValue6 = 0
-          numberValue7 = 255
-          numberValue2 = 255
-          numberValue3 = 255
-          numberValue4 = 255
-          workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+        workingValue = dataCollection2
+        workingValue = workingValue[3]
+        workingValue = workingValue.val0
+        if 0 == workingValue then
+          workingValue = DrawSprite
+          text = "hackingNG"
+          number5 = "DHCompHi"
+          text2 = 0.45
+          stateFlag4 = dataCollection
+          stateFlag4 = stateFlag4[3]
+          stateFlag4 = stateFlag4.val1
+          workingValue4 = 0.4
+          workingValue5 = 0.4
+          workingValue6 = 0
+          number7 = 255
+          number2 = 255
+          number3 = 255
+          number4 = 255
+          workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
         end
       end
-      workValue = dataTable2
-      workValue = workValue[4]
-      workValue = workValue.val0
-      if 1 == workValue then
-        workValue = DrawSprite
-        textValue = "hackingNG"
-        numberValue5 = "DHComp"
-        textValue2 = 0.5
-        flag4 = dataTable
-        flag4 = flag4[4]
-        flag4 = flag4.val1
-        workValue4 = 0.4
-        workValue5 = 0.4
-        workValue6 = 0
-        numberValue7 = 255
-        numberValue2 = 255
-        numberValue3 = 255
-        numberValue4 = 255
-        workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+      workingValue = dataCollection2
+      workingValue = workingValue[4]
+      workingValue = workingValue.val0
+      if 1 == workingValue then
+        workingValue = DrawSprite
+        text = "hackingNG"
+        number5 = "DHComp"
+        text2 = 0.5
+        stateFlag4 = dataCollection
+        stateFlag4 = stateFlag4[4]
+        stateFlag4 = stateFlag4.val1
+        workingValue4 = 0.4
+        workingValue5 = 0.4
+        workingValue6 = 0
+        number7 = 255
+        number2 = 255
+        number3 = 255
+        number4 = 255
+        workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
       else
-        workValue = dataTable2
-        workValue = workValue[4]
-        workValue = workValue.val0
-        if 0 == workValue then
-          workValue = DrawSprite
-          textValue = "hackingNG"
-          numberValue5 = "DHCompHi"
-          textValue2 = 0.5
-          flag4 = dataTable
-          flag4 = flag4[4]
-          flag4 = flag4.val1
-          workValue4 = 0.4
-          workValue5 = 0.4
-          workValue6 = 0
-          numberValue7 = 255
-          numberValue2 = 255
-          numberValue3 = 255
-          numberValue4 = 255
-          workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+        workingValue = dataCollection2
+        workingValue = workingValue[4]
+        workingValue = workingValue.val0
+        if 0 == workingValue then
+          workingValue = DrawSprite
+          text = "hackingNG"
+          number5 = "DHCompHi"
+          text2 = 0.5
+          stateFlag4 = dataCollection
+          stateFlag4 = stateFlag4[4]
+          stateFlag4 = stateFlag4.val1
+          workingValue4 = 0.4
+          workingValue5 = 0.4
+          workingValue6 = 0
+          number7 = 255
+          number2 = 255
+          number3 = 255
+          number4 = 255
+          workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
         end
       end
-      workValue = dataTable2
-      workValue = workValue[5]
-      workValue = workValue.val0
-      if 1 == workValue then
-        workValue = DrawSprite
-        textValue = "hackingNG"
-        numberValue5 = "DHComp"
-        textValue2 = 0.55
-        flag4 = dataTable
-        flag4 = flag4[5]
-        flag4 = flag4.val1
-        workValue4 = 0.4
-        workValue5 = 0.4
-        workValue6 = 0
-        numberValue7 = 255
-        numberValue2 = 255
-        numberValue3 = 255
-        numberValue4 = 255
-        workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+      workingValue = dataCollection2
+      workingValue = workingValue[5]
+      workingValue = workingValue.val0
+      if 1 == workingValue then
+        workingValue = DrawSprite
+        text = "hackingNG"
+        number5 = "DHComp"
+        text2 = 0.55
+        stateFlag4 = dataCollection
+        stateFlag4 = stateFlag4[5]
+        stateFlag4 = stateFlag4.val1
+        workingValue4 = 0.4
+        workingValue5 = 0.4
+        workingValue6 = 0
+        number7 = 255
+        number2 = 255
+        number3 = 255
+        number4 = 255
+        workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
       else
-        workValue = dataTable2
-        workValue = workValue[5]
-        workValue = workValue.val0
-        if 0 == workValue then
-          workValue = DrawSprite
-          textValue = "hackingNG"
-          numberValue5 = "DHCompHi"
-          textValue2 = 0.55
-          flag4 = dataTable
-          flag4 = flag4[5]
-          flag4 = flag4.val1
-          workValue4 = 0.4
-          workValue5 = 0.4
-          workValue6 = 0
-          numberValue7 = 255
-          numberValue2 = 255
-          numberValue3 = 255
-          numberValue4 = 255
-          workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+        workingValue = dataCollection2
+        workingValue = workingValue[5]
+        workingValue = workingValue.val0
+        if 0 == workingValue then
+          workingValue = DrawSprite
+          text = "hackingNG"
+          number5 = "DHCompHi"
+          text2 = 0.55
+          stateFlag4 = dataCollection
+          stateFlag4 = stateFlag4[5]
+          stateFlag4 = stateFlag4.val1
+          workingValue4 = 0.4
+          workingValue5 = 0.4
+          workingValue6 = 0
+          number7 = 255
+          number2 = 255
+          number3 = 255
+          number4 = 255
+          workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
         end
       end
-      workValue = dataTable2
-      workValue = workValue[6]
-      workValue = workValue.val0
-      if 1 == workValue then
-        workValue = DrawSprite
-        textValue = "hackingNG"
-        numberValue5 = "DHComp"
-        textValue2 = 0.6
-        flag4 = dataTable
-        flag4 = flag4[6]
-        flag4 = flag4.val1
-        workValue4 = 0.4
-        workValue5 = 0.4
-        workValue6 = 0
-        numberValue7 = 255
-        numberValue2 = 255
-        numberValue3 = 255
-        numberValue4 = 255
-        workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+      workingValue = dataCollection2
+      workingValue = workingValue[6]
+      workingValue = workingValue.val0
+      if 1 == workingValue then
+        workingValue = DrawSprite
+        text = "hackingNG"
+        number5 = "DHComp"
+        text2 = 0.6
+        stateFlag4 = dataCollection
+        stateFlag4 = stateFlag4[6]
+        stateFlag4 = stateFlag4.val1
+        workingValue4 = 0.4
+        workingValue5 = 0.4
+        workingValue6 = 0
+        number7 = 255
+        number2 = 255
+        number3 = 255
+        number4 = 255
+        workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
       else
-        workValue = dataTable2
-        workValue = workValue[6]
-        workValue = workValue.val0
-        if 0 == workValue then
-          workValue = DrawSprite
-          textValue = "hackingNG"
-          numberValue5 = "DHCompHi"
-          textValue2 = 0.6
-          flag4 = dataTable
-          flag4 = flag4[6]
-          flag4 = flag4.val1
-          workValue4 = 0.4
-          workValue5 = 0.4
-          workValue6 = 0
-          numberValue7 = 255
-          numberValue2 = 255
-          numberValue3 = 255
-          numberValue4 = 255
-          workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+        workingValue = dataCollection2
+        workingValue = workingValue[6]
+        workingValue = workingValue.val0
+        if 0 == workingValue then
+          workingValue = DrawSprite
+          text = "hackingNG"
+          number5 = "DHCompHi"
+          text2 = 0.6
+          stateFlag4 = dataCollection
+          stateFlag4 = stateFlag4[6]
+          stateFlag4 = stateFlag4.val1
+          workingValue4 = 0.4
+          workingValue5 = 0.4
+          workingValue6 = 0
+          number7 = 255
+          number2 = 255
+          number3 = 255
+          number4 = 255
+          workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
         end
       end
-      workValue = dataTable2
-      workValue = workValue[7]
-      workValue = workValue.val0
-      if 1 == workValue then
-        workValue = DrawSprite
-        textValue = "hackingNG"
-        numberValue5 = "DHComp"
-        textValue2 = 0.65
-        flag4 = dataTable
-        flag4 = flag4[7]
-        flag4 = flag4.val1
-        workValue4 = 0.4
-        workValue5 = 0.4
-        workValue6 = 0
-        numberValue7 = 255
-        numberValue2 = 255
-        numberValue3 = 255
-        numberValue4 = 255
-        workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+      workingValue = dataCollection2
+      workingValue = workingValue[7]
+      workingValue = workingValue.val0
+      if 1 == workingValue then
+        workingValue = DrawSprite
+        text = "hackingNG"
+        number5 = "DHComp"
+        text2 = 0.65
+        stateFlag4 = dataCollection
+        stateFlag4 = stateFlag4[7]
+        stateFlag4 = stateFlag4.val1
+        workingValue4 = 0.4
+        workingValue5 = 0.4
+        workingValue6 = 0
+        number7 = 255
+        number2 = 255
+        number3 = 255
+        number4 = 255
+        workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
       else
-        workValue = dataTable2
-        workValue = workValue[7]
-        workValue = workValue.val0
-        if 0 == workValue then
-          workValue = DrawSprite
-          textValue = "hackingNG"
-          numberValue5 = "DHCompHi"
-          textValue2 = 0.65
-          flag4 = dataTable
-          flag4 = flag4[7]
-          flag4 = flag4.val1
-          workValue4 = 0.4
-          workValue5 = 0.4
-          workValue6 = 0
-          numberValue7 = 255
-          numberValue2 = 255
-          numberValue3 = 255
-          numberValue4 = 255
-          workValue(textValue, numberValue5, textValue2, flag4, workValue4, workValue5, workValue6, numberValue7, numberValue2, numberValue3, numberValue4)
+        workingValue = dataCollection2
+        workingValue = workingValue[7]
+        workingValue = workingValue.val0
+        if 0 == workingValue then
+          workingValue = DrawSprite
+          text = "hackingNG"
+          number5 = "DHCompHi"
+          text2 = 0.65
+          stateFlag4 = dataCollection
+          stateFlag4 = stateFlag4[7]
+          stateFlag4 = stateFlag4.val1
+          workingValue4 = 0.4
+          workingValue5 = 0.4
+          workingValue6 = 0
+          number7 = 255
+          number2 = 255
+          number3 = 255
+          number4 = 255
+          workingValue(text, number5, text2, stateFlag4, workingValue4, workingValue5, workingValue6, number7, number2, number3, number4)
         end
       end
-      workValue = flag
-      if true == workValue then
+      workingValue = stateFlag
+      if true == workingValue then
         return
       end
-      workValue = dataTable2
-      workValue = workValue[1]
-      workValue = workValue.val4
-      if false == workValue then
-        workValue = dataTable2
-        workValue = workValue[2]
-        workValue = workValue.val4
-        if false == workValue then
-          workValue = dataTable2
-          workValue = workValue[3]
-          workValue = workValue.val4
-          if false == workValue then
-            workValue = dataTable2
-            workValue = workValue[4]
-            workValue = workValue.val4
-            if false == workValue then
-              workValue = dataTable2
-              workValue = workValue[5]
-              workValue = workValue.val4
-              if false == workValue then
-                workValue = dataTable2
-                workValue = workValue[6]
-                workValue = workValue.val4
-                if false == workValue then
-                  workValue = dataTable2
-                  workValue = workValue[7]
-                  workValue = workValue.val4
-                  if false == workValue then
-                    workValue = PlaySoundFrontend
-                    textValue = -1
-                    numberValue5 = "HACKING_SUCCESS"
-                    textValue2 = ""
-                    flag4 = true
-                    workValue(textValue, numberValue5, textValue2, flag4)
-                    workValue = Citizen
-                    workValue = workValue.Wait
-                    textValue = 2500
-                    workValue(textValue)
-                    workValue = true
-                    flag = workValue
-                    workValue = TriggerEvent
-                    textValue = "datacrack"
-                    numberValue5 = true
+      workingValue = dataCollection2
+      workingValue = workingValue[1]
+      workingValue = workingValue.val4
+      if false == workingValue then
+        workingValue = dataCollection2
+        workingValue = workingValue[2]
+        workingValue = workingValue.val4
+        if false == workingValue then
+          workingValue = dataCollection2
+          workingValue = workingValue[3]
+          workingValue = workingValue.val4
+          if false == workingValue then
+            workingValue = dataCollection2
+            workingValue = workingValue[4]
+            workingValue = workingValue.val4
+            if false == workingValue then
+              workingValue = dataCollection2
+              workingValue = workingValue[5]
+              workingValue = workingValue.val4
+              if false == workingValue then
+                workingValue = dataCollection2
+                workingValue = workingValue[6]
+                workingValue = workingValue.val4
+                if false == workingValue then
+                  workingValue = dataCollection2
+                  workingValue = workingValue[7]
+                  workingValue = workingValue.val4
+                  if false == workingValue then
+                    workingValue = PlaySoundFrontend
+                    text = -1
+                    number5 = "HACKING_SUCCESS"
+                    text2 = ""
+                    stateFlag4 = true
+                    workingValue(text, number5, text2, stateFlag4)
+                    workingValue = Citizen
+                    workingValue = workingValue.Wait
+                    text = 2500
+                    workingValue(text)
+                    workingValue = true
+                    stateFlag = workingValue
+                    workingValue = TriggerEvent
+                    text = "datacrack"
+                    number5 = true
                     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "datacrack".
-                    workValue(textValue, numberValue5)
-                    workValue = arg2
-                    textValue = true
-                    workValue(textValue)
+                    workingValue(text, number5)
+                    workingValue = localValue2
+                    text = true
+                    workingValue(text)
                     return
                   end
                 end
@@ -1106,13 +1106,13 @@ function workValue2(arg1, arg2)
           end
         end
       end
-      workValue = Citizen
-      workValue = workValue.Wait
-      textValue = 1
-      workValue(textValue)
+      workingValue = Citizen
+      workingValue = workingValue.Wait
+      text = 1
+      workingValue(text)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  flag2(flag3)
+  stateFlag2(stateFlag3)
 end
-dataTable3.startDataCrackMinigame = workValue2
+dataCollection3.startDataCrackMinigame = workingValue2

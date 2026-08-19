@@ -32,946 +32,946 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local vector3Builder, vector3Builder2, flag5, dataTable2, dataTable3, dataTable4, textValue13, dataTable5, vector3Builder3, textValue14, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12
-vector3Builder = vector3
-vector3Builder2 = 987.5367
-flag5 = 79.6912
-dataTable2 = 80.9905
-vector3Builder = vector3Builder(vector3Builder2, flag5, dataTable2)
-vector3Builder2 = vector3
-flag5 = 1578.3608
-dataTable2 = 253.3105
-dataTable3 = -46.0051
-vector3Builder2 = vector3Builder2(flag5, dataTable2, dataTable3)
-flag5 = false
-dataTable2 = {}
-dataTable3 = {}
-dataTable4 = "h4_int_placement_h4_interior_1_dlc_int_02_h4_milo_"
-textValue13 = "ba_int_placement_ba_interior_0_dlc_int_01_ba_milo_"
-dataTable3[1] = dataTable4
-dataTable3[2] = textValue13
-dataTable4 = {}
-textValue13 = "h4_int_placement_h4_interior_1_dlc_int_02_h4_milo_"
-dataTable5 = {}
-vector3Builder3 = "EntitySet_DJ_Lighting"
-textValue14 = "int01_ba_bar_content"
-textValue = "dj_01_lights_02"
-textValue2 = "int01_ba_booze_0"
-textValue3 = "int01_ba_dj_moodyman"
-textValue4 = "int01_ba_dry_ice"
-textValue5 = "int01_ba_equipment_upgrade"
-textValue6 = "int01_ba_lightgrid_01"
-textValue7 = "int01_ba_lights_screen"
-textValue8 = "int01_ba_security_upgrade"
-textValue9 = "int01_ba_style02_podium"
-dataTable5[1] = vector3Builder3
-dataTable5[2] = textValue14
-dataTable5[3] = textValue
-dataTable5[4] = textValue2
-dataTable5[5] = textValue3
-dataTable5[6] = textValue4
-dataTable5[7] = textValue5
-dataTable5[8] = textValue6
-dataTable5[9] = textValue7
-dataTable5[10] = textValue8
-dataTable5[11] = textValue9
-dataTable4[textValue13] = dataTable5
-textValue13 = "ba_int_placement_ba_interior_0_dlc_int_01_ba_milo_"
-dataTable5 = {}
-vector3Builder3 = "Int01_ba_clubname_0"
-textValue14 = "Int01_ba_Style03"
-textValue = "Int01_ba_style03_podium"
-textValue2 = "Int01_ba_equipment_setup"
-textValue3 = "Int01_ba_equipment_upgrade"
-textValue4 = "Int01_ba_security_upgrade"
-textValue5 = "Int01_ba_dj04"
-textValue6 = "Int01_ba_trad_lights"
-textValue7 = "Int01_ba_bar_content"
-textValue8 = "Int01_ba_booze_03"
-textValue9 = "Int01_ba_trophy03"
-textValue10 = "Int01_ba_lightgrid_01"
-textValue11 = "Int01_ba_dry_ice"
-textValue12 = "DJ_04_Lights_03"
-dataTable5[1] = vector3Builder3
-dataTable5[2] = textValue14
-dataTable5[3] = textValue
-dataTable5[4] = textValue2
-dataTable5[5] = textValue3
-dataTable5[6] = textValue4
-dataTable5[7] = textValue5
-dataTable5[8] = textValue6
-dataTable5[9] = textValue7
-dataTable5[10] = textValue8
-dataTable5[11] = textValue9
-dataTable5[12] = textValue10
-dataTable5[13] = textValue11
-dataTable5[14] = textValue12
-dataTable4[textValue13] = dataTable5
-textValue13 = {}
-dataTable5 = "h4_int_placement_h4_interior_1_dlc_int_02_h4_milo_"
-vector3Builder3 = vector3
-textValue14 = 1550.0
-textValue = 250.0
-textValue2 = -48.0
-vector3Builder3 = vector3Builder3(textValue14, textValue, textValue2)
-textValue13[dataTable5] = vector3Builder3
-dataTable5 = "ba_int_placement_ba_interior_0_dlc_int_01_ba_milo_"
-vector3Builder3 = vector3
-textValue14 = -1602.932
-textValue = -3019.1
-textValue2 = -79.99
-vector3Builder3 = vector3Builder3(textValue14, textValue, textValue2)
-textValue13[dataTable5] = vector3Builder3
-dataTable5 = {}
-vector3Builder3 = {}
-textValue14 = vector3
-textValue = 3.7219
-textValue2 = 3.4921
-textValue3 = 5.721
-textValue14 = textValue14(textValue, textValue2, textValue3)
-textValue = vector3
-textValue2 = 3.7219
-textValue3 = 2.1514
-textValue4 = 5.4099
-textValue = textValue(textValue2, textValue3, textValue4)
-textValue2 = vector3
-textValue3 = 3.7219
-textValue4 = 0.7985
-textValue5 = 5.721
-textValue2 = textValue2(textValue3, textValue4, textValue5)
-textValue3 = vector3
-textValue4 = 3.7219
-textValue5 = -1.0028
-textValue6 = 5.721
-textValue3 = textValue3(textValue4, textValue5, textValue6)
-textValue4 = vector3
-textValue5 = 3.7219
-textValue6 = -2.3244
-textValue7 = 5.4099
-textValue4 = textValue4(textValue5, textValue6, textValue7)
-textValue5 = vector3
-textValue6 = 3.7219
-textValue7 = -3.7085
-textValue8 = 5.721
-textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12 = textValue5(textValue6, textValue7, textValue8)
-vector3Builder3[1] = textValue14
-vector3Builder3[2] = textValue
-vector3Builder3[3] = textValue2
-vector3Builder3[4] = textValue3
-vector3Builder3[5] = textValue4
-vector3Builder3[6] = textValue5
-vector3Builder3[7] = textValue6
-vector3Builder3[8] = textValue7
-vector3Builder3[9] = textValue8
-vector3Builder3[10] = textValue9
-vector3Builder3[11] = textValue10
-vector3Builder3[12] = textValue11
-vector3Builder3[13] = textValue12
-dataTable5[1] = vector3Builder3
-vector3Builder3 = {}
-textValue14 = vector3
-textValue = 5.8927
-textValue2 = 3.4921
-textValue3 = 5.721
-textValue14 = textValue14(textValue, textValue2, textValue3)
-textValue = vector3
-textValue2 = 5.8927
-textValue3 = 2.1514
-textValue4 = 5.4099
-textValue = textValue(textValue2, textValue3, textValue4)
-textValue2 = vector3
-textValue3 = 5.8927
-textValue4 = 0.7985
-textValue5 = 5.721
-textValue2 = textValue2(textValue3, textValue4, textValue5)
-textValue3 = vector3
-textValue4 = 5.8927
-textValue5 = -1.0028
-textValue6 = 5.721
-textValue3 = textValue3(textValue4, textValue5, textValue6)
-textValue4 = vector3
-textValue5 = 5.8927
-textValue6 = -2.3244
-textValue7 = 5.4099
-textValue4 = textValue4(textValue5, textValue6, textValue7)
-textValue5 = vector3
-textValue6 = 5.8927
-textValue7 = -3.7085
-textValue8 = 5.721
-textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12 = textValue5(textValue6, textValue7, textValue8)
-vector3Builder3[1] = textValue14
-vector3Builder3[2] = textValue
-vector3Builder3[3] = textValue2
-vector3Builder3[4] = textValue3
-vector3Builder3[5] = textValue4
-vector3Builder3[6] = textValue5
-vector3Builder3[7] = textValue6
-vector3Builder3[8] = textValue7
-vector3Builder3[9] = textValue8
-vector3Builder3[10] = textValue9
-vector3Builder3[11] = textValue10
-vector3Builder3[12] = textValue11
-vector3Builder3[13] = textValue12
-dataTable5[2] = vector3Builder3
-vector3Builder3 = {}
-textValue14 = vector3
-textValue = 8.0635
-textValue2 = 3.4921
-textValue3 = 5.721
-textValue14 = textValue14(textValue, textValue2, textValue3)
-textValue = vector3
-textValue2 = 8.0635
-textValue3 = 2.1514
-textValue4 = 5.4099
-textValue = textValue(textValue2, textValue3, textValue4)
-textValue2 = vector3
-textValue3 = 8.0635
-textValue4 = 0.7985
-textValue5 = 5.721
-textValue2 = textValue2(textValue3, textValue4, textValue5)
-textValue3 = vector3
-textValue4 = 8.0635
-textValue5 = -1.0028
-textValue6 = 5.721
-textValue3 = textValue3(textValue4, textValue5, textValue6)
-textValue4 = vector3
-textValue5 = 8.0635
-textValue6 = -2.3244
-textValue7 = 5.4099
-textValue4 = textValue4(textValue5, textValue6, textValue7)
-textValue5 = vector3
-textValue6 = 8.0635
-textValue7 = -3.7085
-textValue8 = 5.721
-textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12 = textValue5(textValue6, textValue7, textValue8)
-vector3Builder3[1] = textValue14
-vector3Builder3[2] = textValue
-vector3Builder3[3] = textValue2
-vector3Builder3[4] = textValue3
-vector3Builder3[5] = textValue4
-vector3Builder3[6] = textValue5
-vector3Builder3[7] = textValue6
-vector3Builder3[8] = textValue7
-vector3Builder3[9] = textValue8
-vector3Builder3[10] = textValue9
-vector3Builder3[11] = textValue10
-vector3Builder3[12] = textValue11
-vector3Builder3[13] = textValue12
-dataTable5[3] = vector3Builder3
-vector3Builder3 = {}
-textValue14 = vector3
-textValue = 10.2343
-textValue2 = 3.4921
-textValue3 = 5.721
-textValue14 = textValue14(textValue, textValue2, textValue3)
-textValue = vector3
-textValue2 = 10.2343
-textValue3 = 2.1514
-textValue4 = 5.4099
-textValue = textValue(textValue2, textValue3, textValue4)
-textValue2 = vector3
-textValue3 = 10.2343
-textValue4 = 0.7985
-textValue5 = 5.721
-textValue2 = textValue2(textValue3, textValue4, textValue5)
-textValue3 = vector3
-textValue4 = 10.2343
-textValue5 = -1.0028
-textValue6 = 5.721
-textValue3 = textValue3(textValue4, textValue5, textValue6)
-textValue4 = vector3
-textValue5 = 10.2343
-textValue6 = -2.3244
-textValue7 = 5.4099
-textValue4 = textValue4(textValue5, textValue6, textValue7)
-textValue5 = vector3
-textValue6 = 10.2343
-textValue7 = -3.7085
-textValue8 = 5.721
-textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12 = textValue5(textValue6, textValue7, textValue8)
-vector3Builder3[1] = textValue14
-vector3Builder3[2] = textValue
-vector3Builder3[3] = textValue2
-vector3Builder3[4] = textValue3
-vector3Builder3[5] = textValue4
-vector3Builder3[6] = textValue5
-vector3Builder3[7] = textValue6
-vector3Builder3[8] = textValue7
-vector3Builder3[9] = textValue8
-vector3Builder3[10] = textValue9
-vector3Builder3[11] = textValue10
-vector3Builder3[12] = textValue11
-vector3Builder3[13] = textValue12
-dataTable5[4] = vector3Builder3
-vector3Builder3 = {}
-textValue14 = vector3
-textValue = 12.4051
-textValue2 = 3.4921
-textValue3 = 5.721
-textValue14 = textValue14(textValue, textValue2, textValue3)
-textValue = vector3
-textValue2 = 12.4051
-textValue3 = 2.1514
-textValue4 = 5.4099
-textValue = textValue(textValue2, textValue3, textValue4)
-textValue2 = vector3
-textValue3 = 12.4051
-textValue4 = 0.7985
-textValue5 = 5.721
-textValue2 = textValue2(textValue3, textValue4, textValue5)
-textValue3 = vector3
-textValue4 = 12.4051
-textValue5 = -1.0028
-textValue6 = 5.721
-textValue3 = textValue3(textValue4, textValue5, textValue6)
-textValue4 = vector3
-textValue5 = 12.4051
-textValue6 = -2.3244
-textValue7 = 5.4099
-textValue4 = textValue4(textValue5, textValue6, textValue7)
-textValue5 = vector3
-textValue6 = 12.4051
-textValue7 = -3.7085
-textValue8 = 5.721
-textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12 = textValue5(textValue6, textValue7, textValue8)
-vector3Builder3[1] = textValue14
-vector3Builder3[2] = textValue
-vector3Builder3[3] = textValue2
-vector3Builder3[4] = textValue3
-vector3Builder3[5] = textValue4
-vector3Builder3[6] = textValue5
-vector3Builder3[7] = textValue6
-vector3Builder3[8] = textValue7
-vector3Builder3[9] = textValue8
-vector3Builder3[10] = textValue9
-vector3Builder3[11] = textValue10
-vector3Builder3[12] = textValue11
-vector3Builder3[13] = textValue12
-dataTable5[5] = vector3Builder3
-vector3Builder3 = {}
-textValue14 = {}
+local createVector3, createVector32, stateFlag5, dataCollection2, dataCollection3, dataCollection4, text13, dataCollection5, createVector33, text14, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12
+createVector3 = vector3
+createVector32 = 987.5367
+stateFlag5 = 79.6912
+dataCollection2 = 80.9905
+createVector3 = createVector3(createVector32, stateFlag5, dataCollection2)
+createVector32 = vector3
+stateFlag5 = 1578.3608
+dataCollection2 = 253.3105
+dataCollection3 = -46.0051
+createVector32 = createVector32(stateFlag5, dataCollection2, dataCollection3)
+stateFlag5 = false
+dataCollection2 = {}
+dataCollection3 = {}
+dataCollection4 = "h4_int_placement_h4_interior_1_dlc_int_02_h4_milo_"
+text13 = "ba_int_placement_ba_interior_0_dlc_int_01_ba_milo_"
+dataCollection3[1] = dataCollection4
+dataCollection3[2] = text13
+dataCollection4 = {}
+text13 = "h4_int_placement_h4_interior_1_dlc_int_02_h4_milo_"
+dataCollection5 = {}
+createVector33 = "EntitySet_DJ_Lighting"
+text14 = "int01_ba_bar_content"
+text = "dj_01_lights_02"
+text2 = "int01_ba_booze_0"
+text3 = "int01_ba_dj_moodyman"
+text4 = "int01_ba_dry_ice"
+text5 = "int01_ba_equipment_upgrade"
+text6 = "int01_ba_lightgrid_01"
+text7 = "int01_ba_lights_screen"
+text8 = "int01_ba_security_upgrade"
+text9 = "int01_ba_style02_podium"
+dataCollection5[1] = createVector33
+dataCollection5[2] = text14
+dataCollection5[3] = text
+dataCollection5[4] = text2
+dataCollection5[5] = text3
+dataCollection5[6] = text4
+dataCollection5[7] = text5
+dataCollection5[8] = text6
+dataCollection5[9] = text7
+dataCollection5[10] = text8
+dataCollection5[11] = text9
+dataCollection4[text13] = dataCollection5
+text13 = "ba_int_placement_ba_interior_0_dlc_int_01_ba_milo_"
+dataCollection5 = {}
+createVector33 = "Int01_ba_clubname_0"
+text14 = "Int01_ba_Style03"
+text = "Int01_ba_style03_podium"
+text2 = "Int01_ba_equipment_setup"
+text3 = "Int01_ba_equipment_upgrade"
+text4 = "Int01_ba_security_upgrade"
+text5 = "Int01_ba_dj04"
+text6 = "Int01_ba_trad_lights"
+text7 = "Int01_ba_bar_content"
+text8 = "Int01_ba_booze_03"
+text9 = "Int01_ba_trophy03"
+text10 = "Int01_ba_lightgrid_01"
+text11 = "Int01_ba_dry_ice"
+text12 = "DJ_04_Lights_03"
+dataCollection5[1] = createVector33
+dataCollection5[2] = text14
+dataCollection5[3] = text
+dataCollection5[4] = text2
+dataCollection5[5] = text3
+dataCollection5[6] = text4
+dataCollection5[7] = text5
+dataCollection5[8] = text6
+dataCollection5[9] = text7
+dataCollection5[10] = text8
+dataCollection5[11] = text9
+dataCollection5[12] = text10
+dataCollection5[13] = text11
+dataCollection5[14] = text12
+dataCollection4[text13] = dataCollection5
+text13 = {}
+dataCollection5 = "h4_int_placement_h4_interior_1_dlc_int_02_h4_milo_"
+createVector33 = vector3
+text14 = 1550.0
+text = 250.0
+text2 = -48.0
+createVector33 = createVector33(text14, text, text2)
+text13[dataCollection5] = createVector33
+dataCollection5 = "ba_int_placement_ba_interior_0_dlc_int_01_ba_milo_"
+createVector33 = vector3
+text14 = -1602.932
+text = -3019.1
+text2 = -79.99
+createVector33 = createVector33(text14, text, text2)
+text13[dataCollection5] = createVector33
+dataCollection5 = {}
+createVector33 = {}
+text14 = vector3
+text = 3.7219
+text2 = 3.4921
+text3 = 5.721
+text14 = text14(text, text2, text3)
+text = vector3
+text2 = 3.7219
+text3 = 2.1514
+text4 = 5.4099
+text = text(text2, text3, text4)
+text2 = vector3
+text3 = 3.7219
+text4 = 0.7985
+text5 = 5.721
+text2 = text2(text3, text4, text5)
+text3 = vector3
+text4 = 3.7219
+text5 = -1.0028
+text6 = 5.721
+text3 = text3(text4, text5, text6)
+text4 = vector3
+text5 = 3.7219
+text6 = -2.3244
+text7 = 5.4099
+text4 = text4(text5, text6, text7)
+text5 = vector3
+text6 = 3.7219
+text7 = -3.7085
+text8 = 5.721
+text5, text6, text7, text8, text9, text10, text11, text12 = text5(text6, text7, text8)
+createVector33[1] = text14
+createVector33[2] = text
+createVector33[3] = text2
+createVector33[4] = text3
+createVector33[5] = text4
+createVector33[6] = text5
+createVector33[7] = text6
+createVector33[8] = text7
+createVector33[9] = text8
+createVector33[10] = text9
+createVector33[11] = text10
+createVector33[12] = text11
+createVector33[13] = text12
+dataCollection5[1] = createVector33
+createVector33 = {}
+text14 = vector3
+text = 5.8927
+text2 = 3.4921
+text3 = 5.721
+text14 = text14(text, text2, text3)
+text = vector3
+text2 = 5.8927
+text3 = 2.1514
+text4 = 5.4099
+text = text(text2, text3, text4)
+text2 = vector3
+text3 = 5.8927
+text4 = 0.7985
+text5 = 5.721
+text2 = text2(text3, text4, text5)
+text3 = vector3
+text4 = 5.8927
+text5 = -1.0028
+text6 = 5.721
+text3 = text3(text4, text5, text6)
+text4 = vector3
+text5 = 5.8927
+text6 = -2.3244
+text7 = 5.4099
+text4 = text4(text5, text6, text7)
+text5 = vector3
+text6 = 5.8927
+text7 = -3.7085
+text8 = 5.721
+text5, text6, text7, text8, text9, text10, text11, text12 = text5(text6, text7, text8)
+createVector33[1] = text14
+createVector33[2] = text
+createVector33[3] = text2
+createVector33[4] = text3
+createVector33[5] = text4
+createVector33[6] = text5
+createVector33[7] = text6
+createVector33[8] = text7
+createVector33[9] = text8
+createVector33[10] = text9
+createVector33[11] = text10
+createVector33[12] = text11
+createVector33[13] = text12
+dataCollection5[2] = createVector33
+createVector33 = {}
+text14 = vector3
+text = 8.0635
+text2 = 3.4921
+text3 = 5.721
+text14 = text14(text, text2, text3)
+text = vector3
+text2 = 8.0635
+text3 = 2.1514
+text4 = 5.4099
+text = text(text2, text3, text4)
+text2 = vector3
+text3 = 8.0635
+text4 = 0.7985
+text5 = 5.721
+text2 = text2(text3, text4, text5)
+text3 = vector3
+text4 = 8.0635
+text5 = -1.0028
+text6 = 5.721
+text3 = text3(text4, text5, text6)
+text4 = vector3
+text5 = 8.0635
+text6 = -2.3244
+text7 = 5.4099
+text4 = text4(text5, text6, text7)
+text5 = vector3
+text6 = 8.0635
+text7 = -3.7085
+text8 = 5.721
+text5, text6, text7, text8, text9, text10, text11, text12 = text5(text6, text7, text8)
+createVector33[1] = text14
+createVector33[2] = text
+createVector33[3] = text2
+createVector33[4] = text3
+createVector33[5] = text4
+createVector33[6] = text5
+createVector33[7] = text6
+createVector33[8] = text7
+createVector33[9] = text8
+createVector33[10] = text9
+createVector33[11] = text10
+createVector33[12] = text11
+createVector33[13] = text12
+dataCollection5[3] = createVector33
+createVector33 = {}
+text14 = vector3
+text = 10.2343
+text2 = 3.4921
+text3 = 5.721
+text14 = text14(text, text2, text3)
+text = vector3
+text2 = 10.2343
+text3 = 2.1514
+text4 = 5.4099
+text = text(text2, text3, text4)
+text2 = vector3
+text3 = 10.2343
+text4 = 0.7985
+text5 = 5.721
+text2 = text2(text3, text4, text5)
+text3 = vector3
+text4 = 10.2343
+text5 = -1.0028
+text6 = 5.721
+text3 = text3(text4, text5, text6)
+text4 = vector3
+text5 = 10.2343
+text6 = -2.3244
+text7 = 5.4099
+text4 = text4(text5, text6, text7)
+text5 = vector3
+text6 = 10.2343
+text7 = -3.7085
+text8 = 5.721
+text5, text6, text7, text8, text9, text10, text11, text12 = text5(text6, text7, text8)
+createVector33[1] = text14
+createVector33[2] = text
+createVector33[3] = text2
+createVector33[4] = text3
+createVector33[5] = text4
+createVector33[6] = text5
+createVector33[7] = text6
+createVector33[8] = text7
+createVector33[9] = text8
+createVector33[10] = text9
+createVector33[11] = text10
+createVector33[12] = text11
+createVector33[13] = text12
+dataCollection5[4] = createVector33
+createVector33 = {}
+text14 = vector3
+text = 12.4051
+text2 = 3.4921
+text3 = 5.721
+text14 = text14(text, text2, text3)
+text = vector3
+text2 = 12.4051
+text3 = 2.1514
+text4 = 5.4099
+text = text(text2, text3, text4)
+text2 = vector3
+text3 = 12.4051
+text4 = 0.7985
+text5 = 5.721
+text2 = text2(text3, text4, text5)
+text3 = vector3
+text4 = 12.4051
+text5 = -1.0028
+text6 = 5.721
+text3 = text3(text4, text5, text6)
+text4 = vector3
+text5 = 12.4051
+text6 = -2.3244
+text7 = 5.4099
+text4 = text4(text5, text6, text7)
+text5 = vector3
+text6 = 12.4051
+text7 = -3.7085
+text8 = 5.721
+text5, text6, text7, text8, text9, text10, text11, text12 = text5(text6, text7, text8)
+createVector33[1] = text14
+createVector33[2] = text
+createVector33[3] = text2
+createVector33[4] = text3
+createVector33[5] = text4
+createVector33[6] = text5
+createVector33[7] = text6
+createVector33[8] = text7
+createVector33[9] = text8
+createVector33[10] = text9
+createVector33[11] = text10
+createVector33[12] = text11
+createVector33[13] = text12
+dataCollection5[5] = createVector33
+createVector33 = {}
+text14 = {}
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8, numberValue15, numberValue, numberValue3, numberValue4, dataTable, workValue, workValue2, workValue3, flag, numberValue6, flag2, flag3, flag4
-  arg1 = true
-  flag5 = arg1
-  arg1 = CMG
-  arg1 = arg1.loadModel
-  arg2 = "BA_PROP_CLUB_EMIS_RIG_10"
-  arg1 = arg1(arg2)
-  arg2 = pairs
-  numberValue8 = dataTable5
-  arg2, numberValue8, iterator2, workValue5 = arg2(numberValue8)
-  for cmgCall, flag6 in arg2, numberValue8, iterator2, workValue5 do
-    threadCall2 = pairs
-    flag8 = flag6
-    threadCall2, flag8, numberValue15, numberValue = threadCall2(flag8)
-    for numberValue3, numberValue4 in threadCall2, flag8, numberValue15, numberValue do
-      dataTable = GetObjectOffsetFromCoords
-      workValue = numberValue4.x
-      workValue2 = numberValue4.y
-      workValue3 = numberValue4.z
-      flag = 0
-      numberValue6 = 1550.0
-      flag2 = 250.0
-      flag3 = -50.0
-      dataTable = dataTable(workValue, workValue2, workValue3, flag, numberValue6, flag2, flag3)
-      workValue = CreateObjectNoOffset
-      workValue2 = arg1
-      workValue3 = dataTable.x
-      flag = dataTable.y
-      numberValue6 = dataTable.z
-      flag2 = false
-      flag3 = false
-      flag4 = false
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8, number15, number, number3, number4, dataCollection, workingValue, workingValue2, workingValue3, stateFlag, number6, stateFlag2, stateFlag3, stateFlag4
+  localValue1 = true
+  stateFlag5 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.loadModel
+  localValue2 = "BA_PROP_CLUB_EMIS_RIG_10"
+  localValue1 = localValue1(localValue2)
+  localValue2 = pairs
+  number8 = dataCollection5
+  localValue2, number8, iterator2, workingValue5 = localValue2(number8)
+  for cmgOperation, stateFlag6 in localValue2, number8, iterator2, workingValue5 do
+    backgroundThread2 = pairs
+    stateFlag8 = stateFlag6
+    backgroundThread2, stateFlag8, number15, number = backgroundThread2(stateFlag8)
+    for number3, number4 in backgroundThread2, stateFlag8, number15, number do
+      dataCollection = GetObjectOffsetFromCoords
+      workingValue = number4.x
+      workingValue2 = number4.y
+      workingValue3 = number4.z
+      stateFlag = 0
+      number6 = 1550.0
+      stateFlag2 = 250.0
+      stateFlag3 = -50.0
+      dataCollection = dataCollection(workingValue, workingValue2, workingValue3, stateFlag, number6, stateFlag2, stateFlag3)
+      workingValue = CreateObjectNoOffset
+      workingValue2 = localValue1
+      workingValue3 = dataCollection.x
+      stateFlag = dataCollection.y
+      number6 = dataCollection.z
+      stateFlag2 = false
+      stateFlag3 = false
+      stateFlag4 = false
       -- Beginner: result below is objectEntity.
-      workValue = workValue(workValue2, workValue3, flag, numberValue6, flag2, flag3, flag4)
-      workValue2 = SetObjectLightColor
-      workValue3 = workValue
-      flag = true
-      numberValue6 = 141
-      flag2 = 20
-      flag3 = 178
-      workValue2(workValue3, flag, numberValue6, flag2, flag3)
-      workValue2 = vector3Builder3
-      workValue2 = #workValue2
-      workValue3 = workValue2 + 1
-      workValue2 = vector3Builder3
-      workValue2[workValue3] = workValue
+      workingValue = workingValue(workingValue2, workingValue3, stateFlag, number6, stateFlag2, stateFlag3, stateFlag4)
+      workingValue2 = SetObjectLightColor
+      workingValue3 = workingValue
+      stateFlag = true
+      number6 = 141
+      stateFlag2 = 20
+      stateFlag3 = 178
+      workingValue2(workingValue3, stateFlag, number6, stateFlag2, stateFlag3)
+      workingValue2 = createVector33
+      workingValue2 = #workingValue2
+      workingValue3 = workingValue2 + 1
+      workingValue2 = createVector33
+      workingValue2[workingValue3] = workingValue
     end
   end
-  arg2 = SetModelAsNoLongerNeeded
-  numberValue8 = arg1
-  arg2(numberValue8)
-  arg2 = {}
-  numberValue8 = 1
+  localValue2 = SetModelAsNoLongerNeeded
+  number8 = localValue1
+  localValue2(number8)
+  localValue2 = {}
+  number8 = 1
   iterator2 = pairs
-  workValue5 = vector3Builder3
-  iterator2, workValue5, cmgCall, flag6 = iterator2(workValue5)
-  for threadCall2, flag8 in iterator2, workValue5, cmgCall, flag6 do
-    arg2[numberValue8] = flag8
-    numberValue8 = numberValue8 + 1
+  workingValue5 = createVector33
+  iterator2, workingValue5, cmgOperation, stateFlag6 = iterator2(workingValue5)
+  for backgroundThread2, stateFlag8 in iterator2, workingValue5, cmgOperation, stateFlag6 do
+    localValue2[number8] = stateFlag8
+    number8 = number8 + 1
   end
 
-  -- === HELPER FUNCTION: iterator2(arg12) ===
-  function iterator2(arg12)
-    local arg22, arg3, arg4, workValue6
-    arg22 = #arg12
-    arg3 = 1
-    while arg22 > arg3 do
-      arg4 = arg12[arg22]
-      workValue6 = arg12[arg3]
-      arg12[arg22] = workValue6
-      arg12[arg3] = arg4
-      arg3 = arg3 + 1
-      arg22 = arg22 - 1
+  -- === HELPER FUNCTION: iterator2(localValue12) ===
+  function iterator2(localValue12)
+    local localValue22, localValue3, localValue4, workingValue6
+    localValue22 = #localValue12
+    localValue3 = 1
+    while localValue22 > localValue3 do
+      localValue4 = localValue12[localValue22]
+      workingValue6 = localValue12[localValue3]
+      localValue12[localValue22] = workingValue6
+      localValue12[localValue3] = localValue4
+      localValue3 = localValue3 + 1
+      localValue22 = localValue22 - 1
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg12) ===
-  function workValue5(arg12)
-    local arg22, arg3
-    arg22 = Citizen
-    arg22 = arg22.CreateThread
+  -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: localValue12) ===
+  function workingValue5(localValue12)
+    local localValue22, localValue3
+    localValue22 = Citizen
+    localValue22 = localValue22.CreateThread
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local iterator, numberValue7, numberValue9, workValue4, waitCall, numberValue10, workValue7, flag7
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local iterator, number7, number9, workingValue4, waitCall, number10, workingValue7, stateFlag7
       iterator = 0
-      numberValue7 = 64
-      numberValue9 = 1
-      for workValue4 = iterator, numberValue7, numberValue9 do
+      number7 = 64
+      number9 = 1
+      for workingValue4 = iterator, number7, number9 do
         waitCall = SetEntityAlpha
-        numberValue10 = arg12
-        workValue7 = numberValue8
-        workValue7 = workValue7 * 4
-        flag7 = false
-        waitCall(numberValue10, workValue7, flag7)
+        number10 = localValue12
+        workingValue7 = number8
+        workingValue7 = workingValue7 * 4
+        stateFlag7 = false
+        waitCall(number10, workingValue7, stateFlag7)
         waitCall = Citizen
         waitCall = waitCall.Wait
-        numberValue10 = 0
-        waitCall(numberValue10)
+        number10 = 0
+        waitCall(number10)
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    arg22(arg3)
+    localValue22(localValue3)
   end
 
-  -- === HELPER FUNCTION (decompiler name: cmgCall; parameters: arg12) ===
-  function cmgCall(arg12)
-    local arg22, arg3
-    arg22 = Citizen
-    arg22 = arg22.CreateThread
+  -- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: localValue12) ===
+  function cmgOperation(localValue12)
+    local localValue22, localValue3
+    localValue22 = Citizen
+    localValue22 = localValue22.CreateThread
 
-    -- === HELPER FUNCTION: arg3() ===
-    function arg3()
-      local iterator, numberValue7, numberValue9, workValue4, waitCall, numberValue10, workValue7, flag7
+    -- === HELPER FUNCTION: localValue3() ===
+    function localValue3()
+      local iterator, number7, number9, workingValue4, waitCall, number10, workingValue7, stateFlag7
       iterator = 64
-      numberValue7 = 0
-      numberValue9 = -1
-      for workValue4 = iterator, numberValue7, numberValue9 do
+      number7 = 0
+      number9 = -1
+      for workingValue4 = iterator, number7, number9 do
         waitCall = SetEntityAlpha
-        numberValue10 = arg12
-        workValue7 = numberValue8
-        workValue7 = workValue7 * 4
-        flag7 = false
-        waitCall(numberValue10, workValue7, flag7)
+        number10 = localValue12
+        workingValue7 = number8
+        workingValue7 = workingValue7 * 4
+        stateFlag7 = false
+        waitCall(number10, workingValue7, stateFlag7)
         waitCall = Citizen
         waitCall = waitCall.Wait
-        numberValue10 = 0
-        waitCall(numberValue10)
+        number10 = 0
+        waitCall(number10)
       end
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    arg22(arg3)
+    localValue22(localValue3)
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag6; parameters: arg12, arg22, arg3, arg4) ===
-  function flag6(arg12, arg22, arg3, arg4)
-    local workValue6, iterator3, numberValue11, numberValue12, numberValue13, numberValue16, numberValue2, threadCall, numberValue5
+  -- === HELPER FUNCTION (decompiler name: stateFlag6; parameters: localValue12, localValue22, localValue3, localValue4) ===
+  function stateFlag6(localValue12, localValue22, localValue3, localValue4)
+    local workingValue6, iterator3, number11, number12, number13, number16, number2, backgroundThread, number5
     while true do
-      workValue6 = flag5
-      if workValue6 then
-        workValue6 = arg12
+      workingValue6 = stateFlag5
+      if workingValue6 then
+        workingValue6 = localValue12
         iterator3 = pairs
-        numberValue11 = workValue6
-        iterator3, numberValue11, numberValue12, numberValue13 = iterator3(numberValue11)
-        for numberValue16, numberValue2 in iterator3, numberValue11, numberValue12, numberValue13 do
-          threadCall = Citizen
-          threadCall = threadCall.CreateThread
+        number11 = workingValue6
+        iterator3, number11, number12, number13 = iterator3(number11)
+        for number16, number2 in iterator3, number11, number12, number13 do
+          backgroundThread = Citizen
+          backgroundThread = backgroundThread.CreateThread
 
-          -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
-          function numberValue5()
-            local iterator, numberValue7, numberValue9, workValue4, waitCall, numberValue10, workValue7, flag7, numberValue14, flag9
+          -- === HELPER FUNCTION (decompiler name: number5; parameters: none) ===
+          function number5()
+            local iterator, number7, number9, workingValue4, waitCall, number10, workingValue7, stateFlag7, number14, stateFlag9
             iterator = pairs
-            numberValue7 = numberValue2
-            iterator, numberValue7, numberValue9, workValue4 = iterator(numberValue7)
-            for waitCall, numberValue10 in iterator, numberValue7, numberValue9, workValue4 do
-              workValue7 = arg22
-              if "hard" == workValue7 then
-                workValue7 = ResetEntityAlpha
-                flag7 = arg2
-                flag7 = flag7[numberValue10]
-                workValue7(flag7)
+            number7 = number2
+            iterator, number7, number9, workingValue4 = iterator(number7)
+            for waitCall, number10 in iterator, number7, number9, workingValue4 do
+              workingValue7 = localValue22
+              if "hard" == workingValue7 then
+                workingValue7 = ResetEntityAlpha
+                stateFlag7 = localValue2
+                stateFlag7 = stateFlag7[number10]
+                workingValue7(stateFlag7)
               end
-              workValue7 = arg22
-              if "fade" == workValue7 then
-                workValue7 = workValue5
-                flag7 = arg2
-                flag7 = flag7[numberValue10]
-                workValue7(flag7)
+              workingValue7 = localValue22
+              if "fade" == workingValue7 then
+                workingValue7 = workingValue5
+                stateFlag7 = localValue2
+                stateFlag7 = stateFlag7[number10]
+                workingValue7(stateFlag7)
               end
             end
             iterator = Citizen
             iterator = iterator.Wait
-            numberValue7 = 150
-            iterator(numberValue7)
+            number7 = 150
+            iterator(number7)
             iterator = pairs
-            numberValue7 = numberValue2
-            iterator, numberValue7, numberValue9, workValue4 = iterator(numberValue7)
-            for waitCall, numberValue10 in iterator, numberValue7, numberValue9, workValue4 do
-              workValue7 = arg22
-              if "hard" == workValue7 then
-                workValue7 = SetEntityAlpha
-                flag7 = arg2
-                flag7 = flag7[numberValue10]
-                numberValue14 = 255
-                flag9 = false
-                workValue7(flag7, numberValue14, flag9)
+            number7 = number2
+            iterator, number7, number9, workingValue4 = iterator(number7)
+            for waitCall, number10 in iterator, number7, number9, workingValue4 do
+              workingValue7 = localValue22
+              if "hard" == workingValue7 then
+                workingValue7 = SetEntityAlpha
+                stateFlag7 = localValue2
+                stateFlag7 = stateFlag7[number10]
+                number14 = 255
+                stateFlag9 = false
+                workingValue7(stateFlag7, number14, stateFlag9)
               end
-              workValue7 = arg22
-              if "fade" == workValue7 then
-                workValue7 = cmgCall
-                flag7 = arg2
-                flag7 = flag7[numberValue10]
-                workValue7(flag7)
+              workingValue7 = localValue22
+              if "fade" == workingValue7 then
+                workingValue7 = cmgOperation
+                stateFlag7 = localValue2
+                stateFlag7 = stateFlag7[number10]
+                workingValue7(stateFlag7)
               end
             end
           end
           -- Beginner: Start a separate FiveM thread so this code can run independently.
-          threadCall(numberValue5)
-          threadCall = Citizen
-          threadCall = threadCall.Wait
-          numberValue5 = arg4 or numberValue5
-          if not arg4 then
-            numberValue5 = 200
+          backgroundThread(number5)
+          backgroundThread = Citizen
+          backgroundThread = backgroundThread.Wait
+          number5 = localValue4 or number5
+          if not localValue4 then
+            number5 = 200
           end
-          threadCall(numberValue5)
+          backgroundThread(number5)
         end
-        if arg3 then
+        if localValue3 then
           iterator3 = iterator2
-          numberValue11 = workValue6
-          iterator3 = iterator3(numberValue11)
-          workValue6 = iterator3
+          number11 = workingValue6
+          iterator3 = iterator3(number11)
+          workingValue6 = iterator3
         end
       end
-      workValue6 = Citizen
-      workValue6 = workValue6.Wait
+      workingValue6 = Citizen
+      workingValue6 = workingValue6.Wait
       iterator3 = 0
-      workValue6(iterator3)
+      workingValue6(iterator3)
     end
   end
-  threadCall2 = Citizen
-  threadCall2 = threadCall2.CreateThread
+  backgroundThread2 = Citizen
+  backgroundThread2 = backgroundThread2.CreateThread
 
-  -- === HELPER FUNCTION (decompiler name: flag8; parameters: none) ===
-  function flag8()
-    local arg12, arg22, arg3, arg4, workValue6, iterator3, numberValue11, numberValue12, numberValue13, numberValue16, numberValue2, threadCall
-    arg12 = {}
-    arg22 = {}
-    arg3 = 6
-    arg22[1] = arg3
-    arg3 = {}
-    arg4 = 5
-    workValue6 = 12
-    arg3[1] = arg4
-    arg3[2] = workValue6
-    arg4 = {}
-    workValue6 = 18
+  -- === HELPER FUNCTION (decompiler name: stateFlag8; parameters: none) ===
+  function stateFlag8()
+    local localValue12, localValue22, localValue3, localValue4, workingValue6, iterator3, number11, number12, number13, number16, number2, backgroundThread
+    localValue12 = {}
+    localValue22 = {}
+    localValue3 = 6
+    localValue22[1] = localValue3
+    localValue3 = {}
+    localValue4 = 5
+    workingValue6 = 12
+    localValue3[1] = localValue4
+    localValue3[2] = workingValue6
+    localValue4 = {}
+    workingValue6 = 18
     iterator3 = 11
-    numberValue11 = 4
-    arg4[1] = workValue6
-    arg4[2] = iterator3
-    arg4[3] = numberValue11
-    workValue6 = {}
+    number11 = 4
+    localValue4[1] = workingValue6
+    localValue4[2] = iterator3
+    localValue4[3] = number11
+    workingValue6 = {}
     iterator3 = 3
-    numberValue11 = 10
-    numberValue12 = 17
-    numberValue13 = 24
-    workValue6[1] = iterator3
-    workValue6[2] = numberValue11
-    workValue6[3] = numberValue12
-    workValue6[4] = numberValue13
+    number11 = 10
+    number12 = 17
+    number13 = 24
+    workingValue6[1] = iterator3
+    workingValue6[2] = number11
+    workingValue6[3] = number12
+    workingValue6[4] = number13
     iterator3 = {}
-    numberValue11 = 30
-    numberValue12 = 23
-    numberValue13 = 16
-    numberValue16 = 9
-    numberValue2 = 2
-    iterator3[1] = numberValue11
-    iterator3[2] = numberValue12
-    iterator3[3] = numberValue13
-    iterator3[4] = numberValue16
-    iterator3[5] = numberValue2
-    numberValue11 = {}
-    numberValue12 = 1
-    numberValue13 = 8
-    numberValue16 = 15
-    numberValue2 = 22
-    threadCall = 29
-    numberValue11[1] = numberValue12
-    numberValue11[2] = numberValue13
-    numberValue11[3] = numberValue16
-    numberValue11[4] = numberValue2
-    numberValue11[5] = threadCall
-    numberValue12 = {}
-    numberValue13 = 28
-    numberValue16 = 21
-    numberValue2 = 14
-    threadCall = 7
-    numberValue12[1] = numberValue13
-    numberValue12[2] = numberValue16
-    numberValue12[3] = numberValue2
-    numberValue12[4] = threadCall
-    numberValue13 = {}
-    numberValue16 = 13
-    numberValue2 = 20
-    threadCall = 27
-    numberValue13[1] = numberValue16
-    numberValue13[2] = numberValue2
-    numberValue13[3] = threadCall
-    numberValue16 = {}
-    numberValue2 = 19
-    threadCall = 26
-    numberValue16[1] = numberValue2
-    numberValue16[2] = threadCall
-    numberValue2 = {}
-    threadCall = 25
-    numberValue2[1] = threadCall
-    arg12[1] = arg22
-    arg12[2] = arg3
-    arg12[3] = arg4
-    arg12[4] = workValue6
-    arg12[5] = iterator3
-    arg12[6] = numberValue11
-    arg12[7] = numberValue12
-    arg12[8] = numberValue13
-    arg12[9] = numberValue16
-    arg12[10] = numberValue2
-    arg22 = flag6
-    arg3 = arg12
-    arg4 = "fade"
-    workValue6 = true
+    number11 = 30
+    number12 = 23
+    number13 = 16
+    number16 = 9
+    number2 = 2
+    iterator3[1] = number11
+    iterator3[2] = number12
+    iterator3[3] = number13
+    iterator3[4] = number16
+    iterator3[5] = number2
+    number11 = {}
+    number12 = 1
+    number13 = 8
+    number16 = 15
+    number2 = 22
+    backgroundThread = 29
+    number11[1] = number12
+    number11[2] = number13
+    number11[3] = number16
+    number11[4] = number2
+    number11[5] = backgroundThread
+    number12 = {}
+    number13 = 28
+    number16 = 21
+    number2 = 14
+    backgroundThread = 7
+    number12[1] = number13
+    number12[2] = number16
+    number12[3] = number2
+    number12[4] = backgroundThread
+    number13 = {}
+    number16 = 13
+    number2 = 20
+    backgroundThread = 27
+    number13[1] = number16
+    number13[2] = number2
+    number13[3] = backgroundThread
+    number16 = {}
+    number2 = 19
+    backgroundThread = 26
+    number16[1] = number2
+    number16[2] = backgroundThread
+    number2 = {}
+    backgroundThread = 25
+    number2[1] = backgroundThread
+    localValue12[1] = localValue22
+    localValue12[2] = localValue3
+    localValue12[3] = localValue4
+    localValue12[4] = workingValue6
+    localValue12[5] = iterator3
+    localValue12[6] = number11
+    localValue12[7] = number12
+    localValue12[8] = number13
+    localValue12[9] = number16
+    localValue12[10] = number2
+    localValue22 = stateFlag6
+    localValue3 = localValue12
+    localValue4 = "fade"
+    workingValue6 = true
     iterator3 = 200
-    arg22(arg3, arg4, workValue6, iterator3)
+    localValue22(localValue3, localValue4, workingValue6, iterator3)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  threadCall2(flag8)
+  backgroundThread2(stateFlag8)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2
-  arg1 = false
-  flag5 = arg1
-  arg1 = DeleteEntity
-  arg2 = dataTable2.Bouncer
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2
+  localValue1 = false
+  stateFlag5 = localValue1
+  localValue1 = DeleteEntity
+  localValue2 = dataCollection2.Bouncer
   -- Beginner: Delete a GTA entity.
-  arg1(arg2)
-  arg1 = pairs
-  arg2 = vector3Builder3
-  arg1, arg2, numberValue8, iterator2 = arg1(arg2)
-  for workValue5, cmgCall in arg1, arg2, numberValue8, iterator2 do
-    flag6 = DeleteEntity
-    threadCall2 = cmgCall
-    flag6(threadCall2)
+  localValue1(localValue2)
+  localValue1 = pairs
+  localValue2 = createVector33
+  localValue1, localValue2, number8, iterator2 = localValue1(localValue2)
+  for workingValue5, cmgOperation in localValue1, localValue2, number8, iterator2 do
+    stateFlag6 = DeleteEntity
+    backgroundThread2 = cmgOperation
+    stateFlag6(backgroundThread2)
   end
-  arg1 = pairs
-  arg2 = textValue14
-  arg1, arg2, numberValue8, iterator2 = arg1(arg2)
-  for workValue5, cmgCall in arg1, arg2, numberValue8, iterator2 do
-    flag6 = DeleteEntity
-    threadCall2 = cmgCall
+  localValue1 = pairs
+  localValue2 = text14
+  localValue1, localValue2, number8, iterator2 = localValue1(localValue2)
+  for workingValue5, cmgOperation in localValue1, localValue2, number8, iterator2 do
+    stateFlag6 = DeleteEntity
+    backgroundThread2 = cmgOperation
     -- Beginner: Delete a GTA entity.
-    flag6(threadCall2)
+    stateFlag6(backgroundThread2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-function textValue3()
-  local arg1, arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8
-  arg1 = drawNativeNotification
-  arg2 = "Press ~INPUT_CONTEXT~ to enter the Diamond Casino Nightclub"
+-- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+function text3()
+  local localValue1, localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8
+  localValue1 = drawNativeNotification
+  localValue2 = "Press ~INPUT_CONTEXT~ to enter the Diamond Casino Nightclub"
   -- Beginner: Show a GTA-style notification/help prompt.
-  arg1(arg2)
-  arg1 = IsControlJustPressed
-  arg2 = 1
-  numberValue8 = 51
-  arg1 = arg1(arg2, numberValue8)
-  if arg1 then
-    arg1 = DoScreenFadeOut
-    arg2 = 1000
-    arg1(arg2)
+  localValue1(localValue2)
+  localValue1 = IsControlJustPressed
+  localValue2 = 1
+  number8 = 51
+  localValue1 = localValue1(localValue2, number8)
+  if localValue1 then
+    localValue1 = DoScreenFadeOut
+    localValue2 = 1000
+    localValue1(localValue2)
     while true do
-      arg1 = IsScreenFadedOut
-      arg1 = arg1()
-      if arg1 then
+      localValue1 = IsScreenFadedOut
+      localValue1 = localValue1()
+      if localValue1 then
         break
       end
-      arg1 = Citizen
-      arg1 = arg1.Wait
-      arg2 = 1.0
-      arg1(arg2)
+      localValue1 = Citizen
+      localValue1 = localValue1.Wait
+      localValue2 = 1.0
+      localValue1(localValue2)
     end
-    arg1 = textValue
-    arg1()
-    arg1 = SetEntityCoords
-    arg2 = PlayerPedId
+    localValue1 = text
+    localValue1()
+    localValue1 = SetEntityCoords
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
-    numberValue8 = vector3Builder2.x
-    iterator2 = vector3Builder2.y
-    workValue5 = vector3Builder2.z
-    cmgCall = false
-    flag6 = false
-    threadCall2 = false
-    flag8 = false
+    localValue2 = localValue2()
+    number8 = createVector32.x
+    iterator2 = createVector32.y
+    workingValue5 = createVector32.z
+    cmgOperation = false
+    stateFlag6 = false
+    backgroundThread2 = false
+    stateFlag8 = false
     -- Beginner: Move/teleport an entity to new coordinates.
-    arg1(arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8)
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 200
-    arg1(arg2)
-    arg1 = DoScreenFadeIn
-    arg2 = 1000
-    arg1(arg2)
+    localValue1(localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 200
+    localValue1(localValue2)
+    localValue1 = DoScreenFadeIn
+    localValue2 = 1000
+    localValue1(localValue2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
-function textValue4()
-  local arg1, arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8
-  arg1 = drawNativeNotification
-  arg2 = "Press ~INPUT_CONTEXT~ to exit the Diamond Casino Nightclub"
+-- === HELPER FUNCTION (decompiler name: text4; parameters: none) ===
+function text4()
+  local localValue1, localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8
+  localValue1 = drawNativeNotification
+  localValue2 = "Press ~INPUT_CONTEXT~ to exit the Diamond Casino Nightclub"
   -- Beginner: Show a GTA-style notification/help prompt.
-  arg1(arg2)
-  arg1 = IsControlJustPressed
-  arg2 = 1
-  numberValue8 = 51
-  arg1 = arg1(arg2, numberValue8)
-  if arg1 then
-    arg1 = DoScreenFadeOut
-    arg2 = 1000
-    arg1(arg2)
+  localValue1(localValue2)
+  localValue1 = IsControlJustPressed
+  localValue2 = 1
+  number8 = 51
+  localValue1 = localValue1(localValue2, number8)
+  if localValue1 then
+    localValue1 = DoScreenFadeOut
+    localValue2 = 1000
+    localValue1(localValue2)
     while true do
-      arg1 = IsScreenFadedOut
-      arg1 = arg1()
-      if arg1 then
+      localValue1 = IsScreenFadedOut
+      localValue1 = localValue1()
+      if localValue1 then
         break
       end
-      arg1 = Citizen
-      arg1 = arg1.Wait
-      arg2 = 1.0
-      arg1(arg2)
+      localValue1 = Citizen
+      localValue1 = localValue1.Wait
+      localValue2 = 1.0
+      localValue1(localValue2)
     end
-    arg1 = textValue2
-    arg1()
-    arg1 = SetEntityCoords
-    arg2 = PlayerPedId
+    localValue1 = text2
+    localValue1()
+    localValue1 = SetEntityCoords
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
-    numberValue8 = vector3Builder.x
-    iterator2 = vector3Builder.y
-    workValue5 = vector3Builder.z
-    cmgCall = false
-    flag6 = false
-    threadCall2 = false
-    flag8 = false
+    localValue2 = localValue2()
+    number8 = createVector3.x
+    iterator2 = createVector3.y
+    workingValue5 = createVector3.z
+    cmgOperation = false
+    stateFlag6 = false
+    backgroundThread2 = false
+    stateFlag8 = false
     -- Beginner: Move/teleport an entity to new coordinates.
-    arg1(arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8)
-    arg1 = Citizen
-    arg1 = arg1.Wait
-    arg2 = 200
-    arg1(arg2)
-    arg1 = DoScreenFadeIn
-    arg2 = 1000
-    arg1(arg2)
+    localValue1(localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8)
+    localValue1 = Citizen
+    localValue1 = localValue1.Wait
+    localValue2 = 200
+    localValue1(localValue2)
+    localValue1 = DoScreenFadeIn
+    localValue2 = 1000
+    localValue1(localValue2)
   end
 end
-textValue5 = AddEventHandler
-textValue6 = "CMG:onClientSpawn"
+text5 = AddEventHandler
+text6 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1, arg2) ===
-function textValue7(arg1, arg2)
-  local numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8, numberValue15, numberValue, numberValue3, numberValue4, dataTable, workValue, workValue2, workValue3
-  if arg2 then
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1, localValue2) ===
+function text7(localValue1, localValue2)
+  local number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8, number15, number, number3, number4, dataCollection, workingValue, workingValue2, workingValue3
+  if localValue2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION (decompiler name: numberValue8; parameters: none) ===
-    function numberValue8()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: number8; parameters: none) ===
+    function number8()
+      local localValue12, localValue22
     end
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
     -- === HELPER FUNCTION: iterator2() ===
     function iterator2()
-      local arg12, arg22
+      local localValue12, localValue22
     end
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
 
-    -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-    function workValue5()
-      local arg12, arg22
-      arg12 = textValue3
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+    function workingValue5()
+      local localValue12, localValue22
+      localValue12 = text3
+      localValue12()
     end
-    cmgCall = CMG
-    cmgCall = cmgCall.createArea
-    flag6 = "nightclub_entrance"
-    threadCall2 = vector3Builder
-    flag8 = 1.0
-    numberValue15 = 6
-    numberValue = numberValue8
-    numberValue3 = iterator2
-    numberValue4 = workValue5
-    dataTable = {}
+    cmgOperation = CMG
+    cmgOperation = cmgOperation.createArea
+    stateFlag6 = "nightclub_entrance"
+    backgroundThread2 = createVector3
+    stateFlag8 = 1.0
+    number15 = 6
+    number = number8
+    number3 = iterator2
+    number4 = workingValue5
+    dataCollection = {}
     -- Beginner: Create an interaction area around a world position.
-    cmgCall(flag6, threadCall2, flag8, numberValue15, numberValue, numberValue3, numberValue4, dataTable)
-    cmgCall = CMG
-    cmgCall = cmgCall.createArea
-    flag6 = "nightclub_entrance"
-    threadCall2 = vector3
-    flag8 = 950.79626464844
-    numberValue15 = 45.225772857666
-    numberValue = 81.000747680664
-    threadCall2 = threadCall2(flag8, numberValue15, numberValue)
-    flag8 = 1.0
-    numberValue15 = 6
-    numberValue = numberValue8
-    numberValue3 = iterator2
-    numberValue4 = workValue5
-    dataTable = {}
-    cmgCall(flag6, threadCall2, flag8, numberValue15, numberValue, numberValue3, numberValue4, dataTable)
+    cmgOperation(stateFlag6, backgroundThread2, stateFlag8, number15, number, number3, number4, dataCollection)
+    cmgOperation = CMG
+    cmgOperation = cmgOperation.createArea
+    stateFlag6 = "nightclub_entrance"
+    backgroundThread2 = vector3
+    stateFlag8 = 950.79626464844
+    number15 = 45.225772857666
+    number = 81.000747680664
+    backgroundThread2 = backgroundThread2(stateFlag8, number15, number)
+    stateFlag8 = 1.0
+    number15 = 6
+    number = number8
+    number3 = iterator2
+    number4 = workingValue5
+    dataCollection = {}
+    cmgOperation(stateFlag6, backgroundThread2, stateFlag8, number15, number, number3, number4, dataCollection)
 
-    -- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
-    function cmgCall()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: none) ===
+    function cmgOperation()
+      local localValue12, localValue22
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
-    function flag6()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: stateFlag6; parameters: none) ===
+    function stateFlag6()
+      local localValue12, localValue22
     end
 
-    -- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
-    function threadCall2()
-      local arg12, arg22
-      arg12 = textValue4
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: none) ===
+    function backgroundThread2()
+      local localValue12, localValue22
+      localValue12 = text4
+      localValue12()
     end
-    flag8 = CMG
-    flag8 = flag8.createArea
-    numberValue15 = "nightclub_exit"
-    numberValue = vector3Builder2
-    numberValue3 = 3.0
-    numberValue4 = 6
-    dataTable = cmgCall
-    workValue = flag6
-    workValue2 = threadCall2
-    workValue3 = {}
+    stateFlag8 = CMG
+    stateFlag8 = stateFlag8.createArea
+    number15 = "nightclub_exit"
+    number = createVector32
+    number3 = 3.0
+    number4 = 6
+    dataCollection = cmgOperation
+    workingValue = stateFlag6
+    workingValue2 = backgroundThread2
+    workingValue3 = {}
     -- Beginner: Create an interaction area around a world position.
-    flag8(numberValue15, numberValue, numberValue3, numberValue4, dataTable, workValue, workValue2, workValue3)
+    stateFlag8(number15, number, number3, number4, dataCollection, workingValue, workingValue2, workingValue3)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
-textValue5(textValue6, textValue7)
-textValue5 = Citizen
-textValue5 = textValue5.CreateThread
+text5(text6, text7)
+text5 = Citizen
+text5 = text5.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
-function textValue6()
-  local arg1, arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8, numberValue15, numberValue, numberValue3, numberValue4, dataTable, workValue, workValue2, workValue3
-  arg1 = tCMG
-  arg1 = arg1.addBlip
-  arg2 = 987.6535
-  numberValue8 = 80.3114
+-- === HELPER FUNCTION (decompiler name: text6; parameters: none) ===
+function text6()
+  local localValue1, localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8, number15, number, number3, number4, dataCollection, workingValue, workingValue2, workingValue3
+  localValue1 = tCMG
+  localValue1 = localValue1.addBlip
+  localValue2 = 987.6535
+  number8 = 80.3114
   iterator2 = 80.9905
-  workValue5 = 136
-  cmgCall = 0
-  flag6 = "The Diamond Casino NightClub"
-  threadCall2 = 0.5
-  flag8 = false
+  workingValue5 = 136
+  cmgOperation = 0
+  stateFlag6 = "The Diamond Casino NightClub"
+  backgroundThread2 = 0.5
+  stateFlag8 = false
   -- Beginner: Create a minimap blip.
-  arg1(arg2, numberValue8, iterator2, workValue5, cmgCall, flag6, threadCall2, flag8)
-  arg1 = pairs
-  arg2 = dataTable3
-  arg1, arg2, numberValue8, iterator2 = arg1(arg2)
-  for workValue5, cmgCall in arg1, arg2, numberValue8, iterator2 do
-    flag6 = IsIplActive
-    threadCall2 = cmgCall
-    flag6 = flag6(threadCall2)
-    if not flag6 then
-      flag6 = RequestIpl
-      threadCall2 = cmgCall
-      flag6(threadCall2)
+  localValue1(localValue2, number8, iterator2, workingValue5, cmgOperation, stateFlag6, backgroundThread2, stateFlag8)
+  localValue1 = pairs
+  localValue2 = dataCollection3
+  localValue1, localValue2, number8, iterator2 = localValue1(localValue2)
+  for workingValue5, cmgOperation in localValue1, localValue2, number8, iterator2 do
+    stateFlag6 = IsIplActive
+    backgroundThread2 = cmgOperation
+    stateFlag6 = stateFlag6(backgroundThread2)
+    if not stateFlag6 then
+      stateFlag6 = RequestIpl
+      backgroundThread2 = cmgOperation
+      stateFlag6(backgroundThread2)
     end
-    flag6 = dataTable4
-    flag6 = flag6[cmgCall]
-    if flag6 then
-      flag6 = textValue13
-      flag6 = flag6[cmgCall]
-      if flag6 then
-        flag6 = IsIplActive
-        threadCall2 = cmgCall
-        flag6 = flag6(threadCall2)
-        if flag6 then
-          flag6 = textValue13
-          flag6 = flag6[cmgCall]
-          threadCall2 = GetInteriorAtCoords
-          flag8 = flag6.x
-          numberValue15 = flag6.y
-          numberValue = flag6.z
+    stateFlag6 = dataCollection4
+    stateFlag6 = stateFlag6[cmgOperation]
+    if stateFlag6 then
+      stateFlag6 = text13
+      stateFlag6 = stateFlag6[cmgOperation]
+      if stateFlag6 then
+        stateFlag6 = IsIplActive
+        backgroundThread2 = cmgOperation
+        stateFlag6 = stateFlag6(backgroundThread2)
+        if stateFlag6 then
+          stateFlag6 = text13
+          stateFlag6 = stateFlag6[cmgOperation]
+          backgroundThread2 = GetInteriorAtCoords
+          stateFlag8 = stateFlag6.x
+          number15 = stateFlag6.y
+          number = stateFlag6.z
           -- Beginner: result below is interiorId.
-          threadCall2 = threadCall2(flag8, numberValue15, numberValue)
-          flag8 = IsValidInterior
-          numberValue15 = threadCall2
-          flag8 = flag8(numberValue15)
-          if flag8 then
-            flag8 = pairs
-            numberValue15 = dataTable4
-            numberValue15 = numberValue15[cmgCall]
-            flag8, numberValue15, numberValue, numberValue3 = flag8(numberValue15)
-            for numberValue4, dataTable in flag8, numberValue15, numberValue, numberValue3 do
-              workValue = ActivateInteriorEntitySet
-              workValue2 = threadCall2
-              workValue3 = dataTable
-              workValue(workValue2, workValue3)
+          backgroundThread2 = backgroundThread2(stateFlag8, number15, number)
+          stateFlag8 = IsValidInterior
+          number15 = backgroundThread2
+          stateFlag8 = stateFlag8(number15)
+          if stateFlag8 then
+            stateFlag8 = pairs
+            number15 = dataCollection4
+            number15 = number15[cmgOperation]
+            stateFlag8, number15, number, number3 = stateFlag8(number15)
+            for number4, dataCollection in stateFlag8, number15, number, number3 do
+              workingValue = ActivateInteriorEntitySet
+              workingValue2 = backgroundThread2
+              workingValue3 = dataCollection
+              workingValue(workingValue2, workingValue3)
             end
-            flag8 = RefreshInterior
-            numberValue15 = threadCall2
-            flag8(numberValue15)
+            stateFlag8 = RefreshInterior
+            number15 = backgroundThread2
+            stateFlag8(number15)
           end
         end
       end
@@ -979,50 +979,50 @@ function textValue6()
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-textValue5(textValue6)
-textValue5 = AddEventHandler
-textValue6 = "onResourceStop"
+text5(text6)
+text5 = AddEventHandler
+text6 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg2 ~= arg1 then
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue2 ~= localValue1 then
     return
   end
-  arg2 = textValue2
-  arg2()
+  localValue2 = text2
+  localValue2()
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-textValue5(textValue6, textValue7)
-textValue5 = AddEventHandler
-textValue6 = "onResourceStart"
+text5(text6, text7)
+text5 = AddEventHandler
+text6 = "onResourceStart"
 -- Beginner: this function runs when client event "onResourceStart" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
-function textValue7(arg1)
-  local arg2, numberValue8
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg2 ~= arg1 then
+-- === HELPER FUNCTION (decompiler name: text7; parameters: localValue1) ===
+function text7(localValue1)
+  local localValue2, number8
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue2 ~= localValue1 then
     return
   end
-  arg2 = Citizen
-  arg2 = arg2.Wait
-  numberValue8 = 1000
-  arg2(numberValue8)
-  arg2 = GetInteriorFromEntity
-  numberValue8 = PlayerPedId
+  localValue2 = Citizen
+  localValue2 = localValue2.Wait
+  number8 = 1000
+  localValue2(number8)
+  localValue2 = GetInteriorFromEntity
+  number8 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  numberValue8 = numberValue8()
+  number8 = number8()
   -- Beginner: result below is interiorId.
-  arg2 = arg2(numberValue8)
-  if 281089 == arg2 then
-    arg2 = textValue
-    arg2()
+  localValue2 = localValue2(number8)
+  if 281089 == localValue2 then
+    localValue2 = text
+    localValue2()
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStart".
-textValue5(textValue6, textValue7)
+text5(text6, text7)

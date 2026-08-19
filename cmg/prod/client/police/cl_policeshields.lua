@@ -32,768 +32,768 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, dataTable2, dataTable3, dataTable4, dataTable5, numberValue5, numberValue7, numberValue8, numberValue10, numberValue12, textValue, rageUiCall, textValue2, textValue3, rageUiCall2, rageUiCall3
-dataTable = {}
-dataTable.active = false
-dataTable.id = 0
-dataTable.prop = 0
-dataTable.inVehicle = false
-dataTable2 = {}
-dataTable3 = {}
-dataTable3.name = "CTSFO"
-dataTable3.model = -498279143
-dataTable4 = {}
-dataTable5 = -0.59
-numberValue5 = 0.29
-numberValue7 = 0.15
-dataTable4[1] = dataTable5
-dataTable4[2] = numberValue5
-dataTable4[3] = numberValue7
-dataTable3.offSet = dataTable4
-dataTable4 = {}
-dataTable5 = 0.16
-numberValue5 = 79.04
-numberValue7 = 41.39
-dataTable4[1] = dataTable5
-dataTable4[2] = numberValue5
-dataTable4[3] = numberValue7
-dataTable3.rotation = dataTable4
-dataTable3.boneIndex = 24818
-dataTable3.collision = true
-dataTable3.allowPistol = "hmp"
-dataTable3.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
-dataTable3.animName = "180"
-dataTable4 = {}
-dataTable4.name = "Firearms"
-dataTable4.model = -374466906
-dataTable5 = {}
-numberValue5 = -0.59
-numberValue7 = 0.29
-numberValue8 = 0.15
-dataTable5[1] = numberValue5
-dataTable5[2] = numberValue7
-dataTable5[3] = numberValue8
-dataTable4.offSet = dataTable5
-dataTable5 = {}
-numberValue5 = 0.16
-numberValue7 = 79.04
-numberValue8 = 41.39
-dataTable5[1] = numberValue5
-dataTable5[2] = numberValue7
-dataTable5[3] = numberValue8
-dataTable4.rotation = dataTable5
-dataTable4.boneIndex = 24818
-dataTable4.collision = true
-dataTable4.allowPistol = "hmp"
-dataTable4.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
-dataTable4.animName = "180"
-dataTable5 = {}
-dataTable5.name = "Long"
-dataTable5.model = 751198732
-numberValue5 = {}
-numberValue7 = -1.27
-numberValue8 = 0.31
-numberValue10 = -0.05
-numberValue5[1] = numberValue7
-numberValue5[2] = numberValue8
-numberValue5[3] = numberValue10
-dataTable5.offSet = numberValue5
-numberValue5 = {}
-numberValue7 = 1.0
-numberValue8 = 74.39
-numberValue10 = 41.39
-numberValue5[1] = numberValue7
-numberValue5[2] = numberValue8
-numberValue5[3] = numberValue10
-dataTable5.rotation = numberValue5
-dataTable5.boneIndex = 24818
-dataTable5.collision = false
-dataTable5.allowPistol = "none"
-dataTable5.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
-dataTable5.animName = "180"
-numberValue5 = {}
-numberValue5.name = "Short"
-numberValue5.model = -1967882881
-numberValue7 = {}
-numberValue8 = -0.68
-numberValue10 = 0.22
-numberValue12 = 0.15
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue10
-numberValue7[3] = numberValue12
-numberValue5.offSet = numberValue7
-numberValue7 = {}
-numberValue8 = 0.52
-numberValue10 = 79.28
-numberValue12 = 41.39
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue10
-numberValue7[3] = numberValue12
-numberValue5.rotation = numberValue7
-numberValue5.boneIndex = 24818
-numberValue5.collision = true
-numberValue5.allowPistol = "none"
-numberValue5.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
-numberValue5.animName = "180"
-dataTable2[1] = dataTable3
-dataTable2[2] = dataTable4
-dataTable2[3] = dataTable5
-dataTable2[4] = numberValue5
-dataTable3 = {}
-dataTable4 = 911657153
-dataTable5 = -273849285
-numberValue5 = -1206412243
-numberValue7 = 1093864856
-numberValue8 = 782720368
-numberValue10 = -976419591
-numberValue12 = 1838304326
-textValue = 1313457450
-dataTable3[1] = dataTable4
-dataTable3[2] = dataTable5
-dataTable3[3] = numberValue5
-dataTable3[4] = numberValue7
-dataTable3[5] = numberValue8
-dataTable3[6] = numberValue10
-dataTable3[7] = numberValue12
-dataTable3[8] = textValue
-dataTable4 = ""
+local dataCollection, dataCollection2, dataCollection3, dataCollection4, dataCollection5, number5, number7, number8, number10, number12, text, rageUiOperation, text2, text3, rageUiOperation2, rageUiOperation3
+dataCollection = {}
+dataCollection.active = false
+dataCollection.id = 0
+dataCollection.prop = 0
+dataCollection.inVehicle = false
+dataCollection2 = {}
+dataCollection3 = {}
+dataCollection3.name = "CTSFO"
+dataCollection3.model = -498279143
+dataCollection4 = {}
+dataCollection5 = -0.59
+number5 = 0.29
+number7 = 0.15
+dataCollection4[1] = dataCollection5
+dataCollection4[2] = number5
+dataCollection4[3] = number7
+dataCollection3.offSet = dataCollection4
+dataCollection4 = {}
+dataCollection5 = 0.16
+number5 = 79.04
+number7 = 41.39
+dataCollection4[1] = dataCollection5
+dataCollection4[2] = number5
+dataCollection4[3] = number7
+dataCollection3.rotation = dataCollection4
+dataCollection3.boneIndex = 24818
+dataCollection3.collision = true
+dataCollection3.allowPistol = "hmp"
+dataCollection3.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
+dataCollection3.animName = "180"
+dataCollection4 = {}
+dataCollection4.name = "Firearms"
+dataCollection4.model = -374466906
+dataCollection5 = {}
+number5 = -0.59
+number7 = 0.29
+number8 = 0.15
+dataCollection5[1] = number5
+dataCollection5[2] = number7
+dataCollection5[3] = number8
+dataCollection4.offSet = dataCollection5
+dataCollection5 = {}
+number5 = 0.16
+number7 = 79.04
+number8 = 41.39
+dataCollection5[1] = number5
+dataCollection5[2] = number7
+dataCollection5[3] = number8
+dataCollection4.rotation = dataCollection5
+dataCollection4.boneIndex = 24818
+dataCollection4.collision = true
+dataCollection4.allowPistol = "hmp"
+dataCollection4.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
+dataCollection4.animName = "180"
+dataCollection5 = {}
+dataCollection5.name = "Long"
+dataCollection5.model = 751198732
+number5 = {}
+number7 = -1.27
+number8 = 0.31
+number10 = -0.05
+number5[1] = number7
+number5[2] = number8
+number5[3] = number10
+dataCollection5.offSet = number5
+number5 = {}
+number7 = 1.0
+number8 = 74.39
+number10 = 41.39
+number5[1] = number7
+number5[2] = number8
+number5[3] = number10
+dataCollection5.rotation = number5
+dataCollection5.boneIndex = 24818
+dataCollection5.collision = false
+dataCollection5.allowPistol = "none"
+dataCollection5.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
+dataCollection5.animName = "180"
+number5 = {}
+number5.name = "Short"
+number5.model = -1967882881
+number7 = {}
+number8 = -0.68
+number10 = 0.22
+number12 = 0.15
+number7[1] = number8
+number7[2] = number10
+number7[3] = number12
+number5.offSet = number7
+number7 = {}
+number8 = 0.52
+number10 = 79.28
+number12 = 41.39
+number7[1] = number8
+number7[2] = number10
+number7[3] = number12
+number5.rotation = number7
+number5.boneIndex = 24818
+number5.collision = true
+number5.allowPistol = "none"
+number5.animDict = "combat@combat_reactions@pistol_1h_hillbilly"
+number5.animName = "180"
+dataCollection2[1] = dataCollection3
+dataCollection2[2] = dataCollection4
+dataCollection2[3] = dataCollection5
+dataCollection2[4] = number5
+dataCollection3 = {}
+dataCollection4 = 911657153
+dataCollection5 = -273849285
+number5 = -1206412243
+number7 = 1093864856
+number8 = 782720368
+number10 = -976419591
+number12 = 1838304326
+text = 1313457450
+dataCollection3[1] = dataCollection4
+dataCollection3[2] = dataCollection5
+dataCollection3[3] = number5
+dataCollection3[4] = number7
+dataCollection3[5] = number8
+dataCollection3[6] = number10
+dataCollection3[7] = number12
+dataCollection3[8] = text
+dataCollection4 = ""
 
--- === HELPER FUNCTION (decompiler name: dataTable5; parameters: arg1) ===
-function dataTable5(arg1)
-  local cmgCall, workValue2, workValue4, flag11, flag13
-  cmgCall = DoesEntityExist
-  workValue2 = dataTable.prop
-  cmgCall = cmgCall(workValue2)
-  if cmgCall then
-    cmgCall = CMG
-    cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: dataCollection5; parameters: localValue1) ===
+function dataCollection5(localValue1)
+  local cmgOperation, workingValue2, workingValue4, stateFlag11, stateFlag13
+  cmgOperation = DoesEntityExist
+  workingValue2 = dataCollection.prop
+  cmgOperation = cmgOperation(workingValue2)
+  if cmgOperation then
+    cmgOperation = CMG
+    cmgOperation = cmgOperation.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    cmgCall = cmgCall()
-    workValue2 = DetachEntity
-    workValue4 = dataTable.prop
-    flag11 = false
-    flag13 = false
-    workValue2(workValue4, flag11, flag13)
-    workValue2 = DeleteEntity
-    workValue4 = dataTable.prop
+    cmgOperation = cmgOperation()
+    workingValue2 = DetachEntity
+    workingValue4 = dataCollection.prop
+    stateFlag11 = false
+    stateFlag13 = false
+    workingValue2(workingValue4, stateFlag11, stateFlag13)
+    workingValue2 = DeleteEntity
+    workingValue4 = dataCollection.prop
     -- Beginner: Delete a GTA entity.
-    workValue2(workValue4)
-    dataTable.id = 0
-    dataTable.active = false
-    workValue2 = ClearPedTasks
-    workValue4 = cmgCall
-    workValue2(workValue4)
-    workValue2 = ClearPedTasksImmediately
-    workValue4 = cmgCall
-    workValue2(workValue4)
-    workValue2 = SetWeaponAnimationOverride
-    workValue4 = cmgCall
-    flag11 = -455129387
-    workValue2(workValue4, flag11)
-    if arg1 then
-      workValue2 = tCMG
-      workValue2 = workValue2.notify
-      workValue4 = "~g~Success~w~: Shield removed"
+    workingValue2(workingValue4)
+    dataCollection.id = 0
+    dataCollection.active = false
+    workingValue2 = ClearPedTasks
+    workingValue4 = cmgOperation
+    workingValue2(workingValue4)
+    workingValue2 = ClearPedTasksImmediately
+    workingValue4 = cmgOperation
+    workingValue2(workingValue4)
+    workingValue2 = SetWeaponAnimationOverride
+    workingValue4 = cmgOperation
+    stateFlag11 = -455129387
+    workingValue2(workingValue4, stateFlag11)
+    if localValue1 then
+      workingValue2 = tCMG
+      workingValue2 = workingValue2.notify
+      workingValue4 = "~g~Success~w~: Shield removed"
       -- Beginner: Show a notification to the player.
-      workValue2(workValue4)
+      workingValue2(workingValue4)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
-function numberValue5(arg1)
-  local cmgCall, workValue2, workValue4, flag11, flag13, flag14, flag15, numberValue11, flag16, flag, flag3, numberValue, flag5, flag6, flag7, flag8, workValue, flag9, numberValue2, flag10
-  cmgCall = CMG
-  cmgCall = cmgCall.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: number5; parameters: localValue1) ===
+function number5(localValue1)
+  local cmgOperation, workingValue2, workingValue4, stateFlag11, stateFlag13, stateFlag14, stateFlag15, number11, stateFlag16, stateFlag, stateFlag3, number, stateFlag5, stateFlag6, stateFlag7, stateFlag8, workingValue, stateFlag9, number2, stateFlag10
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall = cmgCall()
-  workValue2 = CMG
-  workValue2 = workValue2.getPlayerCoords
+  cmgOperation = cmgOperation()
+  workingValue2 = CMG
+  workingValue2 = workingValue2.getPlayerCoords
   -- Beginner: result below is playerCoords.
-  workValue2 = workValue2()
-  workValue4 = dataTable.active
-  if workValue4 then
-    workValue4 = dataTable5
-    flag11 = false
-    workValue4(flag11)
+  workingValue2 = workingValue2()
+  workingValue4 = dataCollection.active
+  if workingValue4 then
+    workingValue4 = dataCollection5
+    stateFlag11 = false
+    workingValue4(stateFlag11)
   end
-  dataTable.id = arg1
-  workValue4 = CMG
-  workValue4 = workValue4.loadModel
-  flag11 = dataTable2
-  flag11 = flag11[arg1]
-  flag11 = flag11.model
-  workValue4 = workValue4(flag11)
-  if not workValue4 then
+  dataCollection.id = localValue1
+  workingValue4 = CMG
+  workingValue4 = workingValue4.loadModel
+  stateFlag11 = dataCollection2
+  stateFlag11 = stateFlag11[localValue1]
+  stateFlag11 = stateFlag11.model
+  workingValue4 = workingValue4(stateFlag11)
+  if not workingValue4 then
     return
   end
-  flag11 = CMG
-  flag11 = flag11.requestEntitySpawn
-  flag13 = "police_shield"
-  flag14 = workValue4
-  flag11(flag13, flag14)
-  flag11 = CreateObject
-  flag13 = workValue4
-  flag14 = workValue2.x
-  flag15 = workValue2.y
-  numberValue11 = workValue2.z
-  flag16 = true
-  flag = true
-  flag3 = true
+  stateFlag11 = CMG
+  stateFlag11 = stateFlag11.requestEntitySpawn
+  stateFlag13 = "police_shield"
+  stateFlag14 = workingValue4
+  stateFlag11(stateFlag13, stateFlag14)
+  stateFlag11 = CreateObject
+  stateFlag13 = workingValue4
+  stateFlag14 = workingValue2.x
+  stateFlag15 = workingValue2.y
+  number11 = workingValue2.z
+  stateFlag16 = true
+  stateFlag = true
+  stateFlag3 = true
   -- Beginner: result below is objectEntity.
-  flag11 = flag11(flag13, flag14, flag15, numberValue11, flag16, flag, flag3)
-  dataTable.prop = flag11
+  stateFlag11 = stateFlag11(stateFlag13, stateFlag14, stateFlag15, number11, stateFlag16, stateFlag, stateFlag3)
+  dataCollection.prop = stateFlag11
   while true do
-    flag11 = DoesEntityExist
-    flag13 = dataTable.prop
-    flag11 = flag11(flag13)
-    if flag11 then
+    stateFlag11 = DoesEntityExist
+    stateFlag13 = dataCollection.prop
+    stateFlag11 = stateFlag11(stateFlag13)
+    if stateFlag11 then
       break
     end
-    flag11 = Wait
-    flag13 = 0
-    flag11(flag13)
+    stateFlag11 = Wait
+    stateFlag13 = 0
+    stateFlag11(stateFlag13)
   end
-  flag11 = SetModelAsNoLongerNeeded
-  flag13 = workValue4
-  flag11(flag13)
-  flag11 = dataTable2
-  flag11 = flag11[arg1]
-  flag11 = flag11.collision
-  if not flag11 then
-    flag11 = SetEntityCompletelyDisableCollision
-    flag13 = dataTable.prop
-    flag14 = true
-    flag15 = true
-    flag11(flag13, flag14, flag15)
+  stateFlag11 = SetModelAsNoLongerNeeded
+  stateFlag13 = workingValue4
+  stateFlag11(stateFlag13)
+  stateFlag11 = dataCollection2
+  stateFlag11 = stateFlag11[localValue1]
+  stateFlag11 = stateFlag11.collision
+  if not stateFlag11 then
+    stateFlag11 = SetEntityCompletelyDisableCollision
+    stateFlag13 = dataCollection.prop
+    stateFlag14 = true
+    stateFlag15 = true
+    stateFlag11(stateFlag13, stateFlag14, stateFlag15)
   end
-  flag11 = SetWeaponAnimationOverride
-  flag13 = cmgCall
-  flag14 = 1917483703
-  flag11(flag13, flag14)
-  flag11 = CMG
-  flag11 = flag11.loadAnimDict
-  flag13 = dataTable2
-  flag13 = flag13[arg1]
-  flag13 = flag13.animDict
+  stateFlag11 = SetWeaponAnimationOverride
+  stateFlag13 = cmgOperation
+  stateFlag14 = 1917483703
+  stateFlag11(stateFlag13, stateFlag14)
+  stateFlag11 = CMG
+  stateFlag11 = stateFlag11.loadAnimDict
+  stateFlag13 = dataCollection2
+  stateFlag13 = stateFlag13[localValue1]
+  stateFlag13 = stateFlag13.animDict
   -- Beginner: Load a GTA animation dictionary before using it.
-  flag11(flag13)
-  flag11 = TaskPlayAnim
-  flag13 = cmgCall
-  flag14 = dataTable2
-  flag14 = flag14[arg1]
-  flag14 = flag14.animDict
-  flag15 = dataTable2
-  flag15 = flag15[arg1]
-  flag15 = flag15.animName
-  numberValue11 = 8.0
-  flag16 = -8.0
-  flag = -1
-  flag3 = 50
-  numberValue = 0.0
-  flag5 = false
-  flag6 = false
-  flag7 = false
+  stateFlag11(stateFlag13)
+  stateFlag11 = TaskPlayAnim
+  stateFlag13 = cmgOperation
+  stateFlag14 = dataCollection2
+  stateFlag14 = stateFlag14[localValue1]
+  stateFlag14 = stateFlag14.animDict
+  stateFlag15 = dataCollection2
+  stateFlag15 = stateFlag15[localValue1]
+  stateFlag15 = stateFlag15.animName
+  number11 = 8.0
+  stateFlag16 = -8.0
+  stateFlag = -1
+  stateFlag3 = 50
+  number = 0.0
+  stateFlag5 = false
+  stateFlag6 = false
+  stateFlag7 = false
   -- Beginner: Play an animation on a ped.
-  flag11(flag13, flag14, flag15, numberValue11, flag16, flag, flag3, numberValue, flag5, flag6, flag7)
-  flag11 = RemoveAnimDict
-  flag13 = dataTable2
-  flag13 = flag13[arg1]
-  flag13 = flag13.animDict
-  flag11(flag13)
-  flag11 = GetPedBoneIndex
-  flag13 = cmgCall
-  flag14 = dataTable2
-  flag14 = flag14[arg1]
-  flag14 = flag14.boneIndex
-  flag11 = flag11(flag13, flag14)
-  flag13 = AttachEntityToEntity
-  flag14 = dataTable.prop
-  flag15 = cmgCall
-  numberValue11 = flag11
-  flag16 = dataTable2
-  flag16 = flag16[arg1]
-  flag16 = flag16.offSet
-  flag16 = flag16[1]
-  flag = dataTable2
-  flag = flag[arg1]
-  flag = flag.offSet
-  flag = flag[2]
-  flag3 = dataTable2
-  flag3 = flag3[arg1]
-  flag3 = flag3.offSet
-  flag3 = flag3[3]
-  numberValue = dataTable2
-  numberValue = numberValue[arg1]
-  numberValue = numberValue.rotation
-  numberValue = numberValue[1]
-  flag5 = dataTable2
-  flag5 = flag5[arg1]
-  flag5 = flag5.rotation
-  flag5 = flag5[2]
-  flag6 = dataTable2
-  flag6 = flag6[arg1]
-  flag6 = flag6.rotation
-  flag6 = flag6[3]
-  flag7 = true
-  flag8 = true
-  workValue = dataTable2
-  workValue = workValue[arg1]
-  workValue = workValue.collision
-  flag9 = false
-  numberValue2 = 1
-  flag10 = true
+  stateFlag11(stateFlag13, stateFlag14, stateFlag15, number11, stateFlag16, stateFlag, stateFlag3, number, stateFlag5, stateFlag6, stateFlag7)
+  stateFlag11 = RemoveAnimDict
+  stateFlag13 = dataCollection2
+  stateFlag13 = stateFlag13[localValue1]
+  stateFlag13 = stateFlag13.animDict
+  stateFlag11(stateFlag13)
+  stateFlag11 = GetPedBoneIndex
+  stateFlag13 = cmgOperation
+  stateFlag14 = dataCollection2
+  stateFlag14 = stateFlag14[localValue1]
+  stateFlag14 = stateFlag14.boneIndex
+  stateFlag11 = stateFlag11(stateFlag13, stateFlag14)
+  stateFlag13 = AttachEntityToEntity
+  stateFlag14 = dataCollection.prop
+  stateFlag15 = cmgOperation
+  number11 = stateFlag11
+  stateFlag16 = dataCollection2
+  stateFlag16 = stateFlag16[localValue1]
+  stateFlag16 = stateFlag16.offSet
+  stateFlag16 = stateFlag16[1]
+  stateFlag = dataCollection2
+  stateFlag = stateFlag[localValue1]
+  stateFlag = stateFlag.offSet
+  stateFlag = stateFlag[2]
+  stateFlag3 = dataCollection2
+  stateFlag3 = stateFlag3[localValue1]
+  stateFlag3 = stateFlag3.offSet
+  stateFlag3 = stateFlag3[3]
+  number = dataCollection2
+  number = number[localValue1]
+  number = number.rotation
+  number = number[1]
+  stateFlag5 = dataCollection2
+  stateFlag5 = stateFlag5[localValue1]
+  stateFlag5 = stateFlag5.rotation
+  stateFlag5 = stateFlag5[2]
+  stateFlag6 = dataCollection2
+  stateFlag6 = stateFlag6[localValue1]
+  stateFlag6 = stateFlag6.rotation
+  stateFlag6 = stateFlag6[3]
+  stateFlag7 = true
+  stateFlag8 = true
+  workingValue = dataCollection2
+  workingValue = workingValue[localValue1]
+  workingValue = workingValue.collision
+  stateFlag9 = false
+  number2 = 1
+  stateFlag10 = true
   -- Beginner: Attach one entity to another entity.
-  flag13(flag14, flag15, numberValue11, flag16, flag, flag3, numberValue, flag5, flag6, flag7, flag8, workValue, flag9, numberValue2, flag10)
-  dataTable.active = true
+  stateFlag13(stateFlag14, stateFlag15, number11, stateFlag16, stateFlag, stateFlag3, number, stateFlag5, stateFlag6, stateFlag7, stateFlag8, workingValue, stateFlag9, number2, stateFlag10)
+  dataCollection.active = true
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
-function numberValue7()
-  local arg1, cmgCall, workValue2
-  cmgCall = dataTable.id
-  arg1 = dataTable2
-  arg1 = arg1[cmgCall]
-  arg1 = arg1.allowPistol
-  if "hmp" == arg1 then
-    cmgCall = CMG
-    cmgCall = cmgCall.hasClientPermission
-    workValue2 = "prisonguard.onduty.permission"
-    cmgCall = cmgCall(workValue2)
-    if cmgCall then
-      cmgCall = true
-      return cmgCall
+-- === HELPER FUNCTION (decompiler name: number7; parameters: none) ===
+function number7()
+  local localValue1, cmgOperation, workingValue2
+  cmgOperation = dataCollection.id
+  localValue1 = dataCollection2
+  localValue1 = localValue1[cmgOperation]
+  localValue1 = localValue1.allowPistol
+  if "hmp" == localValue1 then
+    cmgOperation = CMG
+    cmgOperation = cmgOperation.hasClientPermission
+    workingValue2 = "prisonguard.onduty.permission"
+    cmgOperation = cmgOperation(workingValue2)
+    if cmgOperation then
+      cmgOperation = true
+      return cmgOperation
   end
-  elseif "police" == arg1 then
-    cmgCall = CMG
-    cmgCall = cmgCall.hasClientPermission
-    workValue2 = "police.onduty.permission"
-    cmgCall = cmgCall(workValue2)
-    if cmgCall then
-      cmgCall = true
-      return cmgCall
+  elseif "police" == localValue1 then
+    cmgOperation = CMG
+    cmgOperation = cmgOperation.hasClientPermission
+    workingValue2 = "police.onduty.permission"
+    cmgOperation = cmgOperation(workingValue2)
+    if cmgOperation then
+      cmgOperation = true
+      return cmgOperation
     end
   end
-  cmgCall = false
-  return cmgCall
+  cmgOperation = false
+  return cmgOperation
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue8; parameters: none) ===
-function numberValue8()
-  local arg1, cmgCall, workValue2, workValue4, flag11, flag13, flag14, flag15, numberValue11, flag16, flag, flag3, numberValue
-  arg1 = dataTable.active
-  if arg1 then
-    arg1 = dataTable.id
-    if 0 ~= arg1 then
-      arg1 = CMG
-      arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: number8; parameters: none) ===
+function number8()
+  local localValue1, cmgOperation, workingValue2, workingValue4, stateFlag11, stateFlag13, stateFlag14, stateFlag15, number11, stateFlag16, stateFlag, stateFlag3, number
+  localValue1 = dataCollection.active
+  if localValue1 then
+    localValue1 = dataCollection.id
+    if 0 ~= localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      cmgCall = IsPedInAnyVehicle
-      workValue2 = arg1
-      workValue4 = true
-      cmgCall = cmgCall(workValue2, workValue4)
-      if cmgCall then
-        cmgCall = dataTable.inVehicle
-        if not cmgCall then
-          cmgCall = SetEntityCollision
-          workValue2 = dataTable.prop
-          workValue4 = false
-          flag11 = true
-          cmgCall(workValue2, workValue4, flag11)
-          dataTable.inVehicle = true
-          workValue2 = dataTable.id
-          cmgCall = dataTable2
-          cmgCall = cmgCall[workValue2]
-          cmgCall = cmgCall.collision
-          if not cmgCall then
-            cmgCall = SetEntityCollision
-            workValue2 = dataTable.prop
-            workValue4 = false
-            flag11 = true
-            cmgCall(workValue2, workValue4, flag11)
+      localValue1 = localValue1()
+      cmgOperation = IsPedInAnyVehicle
+      workingValue2 = localValue1
+      workingValue4 = true
+      cmgOperation = cmgOperation(workingValue2, workingValue4)
+      if cmgOperation then
+        cmgOperation = dataCollection.inVehicle
+        if not cmgOperation then
+          cmgOperation = SetEntityCollision
+          workingValue2 = dataCollection.prop
+          workingValue4 = false
+          stateFlag11 = true
+          cmgOperation(workingValue2, workingValue4, stateFlag11)
+          dataCollection.inVehicle = true
+          workingValue2 = dataCollection.id
+          cmgOperation = dataCollection2
+          cmgOperation = cmgOperation[workingValue2]
+          cmgOperation = cmgOperation.collision
+          if not cmgOperation then
+            cmgOperation = SetEntityCollision
+            workingValue2 = dataCollection.prop
+            workingValue4 = false
+            stateFlag11 = true
+            cmgOperation(workingValue2, workingValue4, stateFlag11)
           end
         end
       else
-        cmgCall = dataTable.inVehicle
-        if cmgCall then
-          cmgCall = SetEntityCollision
-          workValue2 = dataTable.prop
-          flag11 = dataTable.id
-          workValue4 = dataTable2
-          workValue4 = workValue4[flag11]
-          workValue4 = workValue4.collision
-          flag11 = true
-          cmgCall(workValue2, workValue4, flag11)
-          workValue2 = dataTable.id
-          cmgCall = dataTable2
-          cmgCall = cmgCall[workValue2]
-          cmgCall = cmgCall.collision
-          if not cmgCall then
-            cmgCall = SetEntityCompletelyDisableCollision
-            workValue2 = dataTable.prop
-            workValue4 = true
-            flag11 = true
-            cmgCall(workValue2, workValue4, flag11)
+        cmgOperation = dataCollection.inVehicle
+        if cmgOperation then
+          cmgOperation = SetEntityCollision
+          workingValue2 = dataCollection.prop
+          stateFlag11 = dataCollection.id
+          workingValue4 = dataCollection2
+          workingValue4 = workingValue4[stateFlag11]
+          workingValue4 = workingValue4.collision
+          stateFlag11 = true
+          cmgOperation(workingValue2, workingValue4, stateFlag11)
+          workingValue2 = dataCollection.id
+          cmgOperation = dataCollection2
+          cmgOperation = cmgOperation[workingValue2]
+          cmgOperation = cmgOperation.collision
+          if not cmgOperation then
+            cmgOperation = SetEntityCompletelyDisableCollision
+            workingValue2 = dataCollection.prop
+            workingValue4 = true
+            stateFlag11 = true
+            cmgOperation(workingValue2, workingValue4, stateFlag11)
           end
-          dataTable.inVehicle = false
-          cmgCall = Citizen
-          cmgCall = cmgCall.CreateThread
+          dataCollection.inVehicle = false
+          cmgOperation = Citizen
+          cmgOperation = cmgOperation.CreateThread
 
-          -- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-          function workValue2()
-            local waitCall, numberValue3, workValue3, workValue5, numberValue4, numberValue6, rageUiCall4, numberValue9, textValue4, flag17, flag2, flag4
+          -- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+          function workingValue2()
+            local waitCall, number3, workingValue3, workingValue5, number4, number6, rageUiOperation4, number9, text4, stateFlag17, stateFlag2, stateFlag4
             waitCall = Wait
-            numberValue3 = 200
-            waitCall(numberValue3)
+            number3 = 200
+            waitCall(number3)
             waitCall = TaskPlayAnim
-            numberValue3 = arg1
-            workValue5 = dataTable.id
-            workValue3 = dataTable2
-            workValue3 = workValue3[workValue5]
-            workValue3 = workValue3.animDict
-            numberValue4 = dataTable.id
-            workValue5 = dataTable2
-            workValue5 = workValue5[numberValue4]
-            workValue5 = workValue5.animName
-            numberValue4 = 8.0
-            numberValue6 = -8.0
-            rageUiCall4 = -1
-            numberValue9 = 50
-            textValue4 = 0.0
-            flag17 = false
-            flag2 = false
-            flag4 = false
+            number3 = localValue1
+            workingValue5 = dataCollection.id
+            workingValue3 = dataCollection2
+            workingValue3 = workingValue3[workingValue5]
+            workingValue3 = workingValue3.animDict
+            number4 = dataCollection.id
+            workingValue5 = dataCollection2
+            workingValue5 = workingValue5[number4]
+            workingValue5 = workingValue5.animName
+            number4 = 8.0
+            number6 = -8.0
+            rageUiOperation4 = -1
+            number9 = 50
+            text4 = 0.0
+            stateFlag17 = false
+            stateFlag2 = false
+            stateFlag4 = false
             -- Beginner: Play an animation on a ped.
-            waitCall(numberValue3, workValue3, workValue5, numberValue4, numberValue6, rageUiCall4, numberValue9, textValue4, flag17, flag2, flag4)
-            numberValue3 = dataTable.id
-            waitCall = dataTable2
-            waitCall = waitCall[numberValue3]
+            waitCall(number3, workingValue3, workingValue5, number4, number6, rageUiOperation4, number9, text4, stateFlag17, stateFlag2, stateFlag4)
+            number3 = dataCollection.id
+            waitCall = dataCollection2
+            waitCall = waitCall[number3]
             waitCall = waitCall.collision
             if not waitCall then
               waitCall = SetEntityCollision
-              numberValue3 = dataTable.prop
-              workValue3 = false
-              workValue5 = true
-              waitCall(numberValue3, workValue3, workValue5)
+              number3 = dataCollection.prop
+              workingValue3 = false
+              workingValue5 = true
+              waitCall(number3, workingValue3, workingValue5)
             end
           end
           -- Beginner: Start a separate FiveM thread so this code can run independently.
-          cmgCall(workValue2)
+          cmgOperation(workingValue2)
         end
       end
-      cmgCall = dataTable.inVehicle
-      if not cmgCall then
-        workValue2 = dataTable.id
-        cmgCall = dataTable2
-        cmgCall = cmgCall[workValue2]
-        if nil ~= cmgCall then
-          workValue2 = dataTable.id
-          cmgCall = dataTable2
-          cmgCall = cmgCall[workValue2]
-          cmgCall = cmgCall.animDict
-          if nil ~= cmgCall then
-            workValue2 = dataTable.id
-            cmgCall = dataTable2
-            cmgCall = cmgCall[workValue2]
-            cmgCall = cmgCall.animName
-            if nil ~= cmgCall then
-              cmgCall = IsEntityPlayingAnim
-              workValue2 = arg1
-              flag11 = dataTable.id
-              workValue4 = dataTable2
-              workValue4 = workValue4[flag11]
-              workValue4 = workValue4.animDict
-              flag13 = dataTable.id
-              flag11 = dataTable2
-              flag11 = flag11[flag13]
-              flag11 = flag11.animName
-              flag13 = 3
-              cmgCall = cmgCall(workValue2, workValue4, flag11, flag13)
-              if not cmgCall then
-                cmgCall = tCMG
-                cmgCall = cmgCall.isInComa
-                cmgCall = cmgCall()
-                if not cmgCall then
-                  cmgCall = CMG
-                  cmgCall = cmgCall.isKnockedOut
-                  cmgCall = cmgCall()
-                  if not cmgCall then
-                    cmgCall = TaskPlayAnim
-                    workValue2 = arg1
-                    flag11 = dataTable.id
-                    workValue4 = dataTable2
-                    workValue4 = workValue4[flag11]
-                    workValue4 = workValue4.animDict
-                    flag13 = dataTable.id
-                    flag11 = dataTable2
-                    flag11 = flag11[flag13]
-                    flag11 = flag11.animName
-                    flag13 = 8.0
-                    flag14 = -8.0
-                    flag15 = -1
-                    numberValue11 = 50
-                    flag16 = 0.0
-                    flag = false
-                    flag3 = false
-                    numberValue = false
+      cmgOperation = dataCollection.inVehicle
+      if not cmgOperation then
+        workingValue2 = dataCollection.id
+        cmgOperation = dataCollection2
+        cmgOperation = cmgOperation[workingValue2]
+        if nil ~= cmgOperation then
+          workingValue2 = dataCollection.id
+          cmgOperation = dataCollection2
+          cmgOperation = cmgOperation[workingValue2]
+          cmgOperation = cmgOperation.animDict
+          if nil ~= cmgOperation then
+            workingValue2 = dataCollection.id
+            cmgOperation = dataCollection2
+            cmgOperation = cmgOperation[workingValue2]
+            cmgOperation = cmgOperation.animName
+            if nil ~= cmgOperation then
+              cmgOperation = IsEntityPlayingAnim
+              workingValue2 = localValue1
+              stateFlag11 = dataCollection.id
+              workingValue4 = dataCollection2
+              workingValue4 = workingValue4[stateFlag11]
+              workingValue4 = workingValue4.animDict
+              stateFlag13 = dataCollection.id
+              stateFlag11 = dataCollection2
+              stateFlag11 = stateFlag11[stateFlag13]
+              stateFlag11 = stateFlag11.animName
+              stateFlag13 = 3
+              cmgOperation = cmgOperation(workingValue2, workingValue4, stateFlag11, stateFlag13)
+              if not cmgOperation then
+                cmgOperation = tCMG
+                cmgOperation = cmgOperation.isInComa
+                cmgOperation = cmgOperation()
+                if not cmgOperation then
+                  cmgOperation = CMG
+                  cmgOperation = cmgOperation.isKnockedOut
+                  cmgOperation = cmgOperation()
+                  if not cmgOperation then
+                    cmgOperation = TaskPlayAnim
+                    workingValue2 = localValue1
+                    stateFlag11 = dataCollection.id
+                    workingValue4 = dataCollection2
+                    workingValue4 = workingValue4[stateFlag11]
+                    workingValue4 = workingValue4.animDict
+                    stateFlag13 = dataCollection.id
+                    stateFlag11 = dataCollection2
+                    stateFlag11 = stateFlag11[stateFlag13]
+                    stateFlag11 = stateFlag11.animName
+                    stateFlag13 = 8.0
+                    stateFlag14 = -8.0
+                    stateFlag15 = -1
+                    number11 = 50
+                    stateFlag16 = 0.0
+                    stateFlag = false
+                    stateFlag3 = false
+                    number = false
                     -- Beginner: Play an animation on a ped.
-                    cmgCall(workValue2, workValue4, flag11, flag13, flag14, flag15, numberValue11, flag16, flag, flag3, numberValue)
+                    cmgOperation(workingValue2, workingValue4, stateFlag11, stateFlag13, stateFlag14, stateFlag15, number11, stateFlag16, stateFlag, stateFlag3, number)
                   end
                 end
               end
             end
           end
         end
-        workValue2 = dataTable.id
-        cmgCall = dataTable2
-        cmgCall = cmgCall[workValue2]
-        cmgCall = cmgCall.collision
-        if not cmgCall then
-          cmgCall = SetEntityCollision
-          workValue2 = dataTable.prop
-          workValue4 = false
-          flag11 = true
-          cmgCall(workValue2, workValue4, flag11)
+        workingValue2 = dataCollection.id
+        cmgOperation = dataCollection2
+        cmgOperation = cmgOperation[workingValue2]
+        cmgOperation = cmgOperation.collision
+        if not cmgOperation then
+          cmgOperation = SetEntityCollision
+          workingValue2 = dataCollection.prop
+          workingValue4 = false
+          stateFlag11 = true
+          cmgOperation(workingValue2, workingValue4, stateFlag11)
         end
       end
-      cmgCall = GetSelectedPedWeapon
-      workValue2 = arg1
+      cmgOperation = GetSelectedPedWeapon
+      workingValue2 = localValue1
       -- Beginner: result below is weaponHash.
-      cmgCall = cmgCall(workValue2)
-      if -1569615261 ~= cmgCall then
-        workValue2 = numberValue7
-        workValue2 = workValue2()
-        if workValue2 then
-          workValue2 = table
-          workValue2 = workValue2.has
-          workValue4 = dataTable3
-          flag11 = cmgCall
-          workValue2 = workValue2(workValue4, flag11)
-          if workValue2 then
-            goto flow_label_160
+      cmgOperation = cmgOperation(workingValue2)
+      if -1569615261 ~= cmgOperation then
+        workingValue2 = number7
+        workingValue2 = workingValue2()
+        if workingValue2 then
+          workingValue2 = table
+          workingValue2 = workingValue2.has
+          workingValue4 = dataCollection3
+          stateFlag11 = cmgOperation
+          workingValue2 = workingValue2(workingValue4, stateFlag11)
+          if workingValue2 then
+            goto continueAtStep160
           end
         end
-        workValue2 = CMG
-        workValue2 = workValue2.setWeapon
-        workValue4 = arg1
-        flag11 = -1569615261
-        flag13 = true
-        workValue2(workValue4, flag11, flag13)
+        workingValue2 = CMG
+        workingValue2 = workingValue2.setWeapon
+        workingValue4 = localValue1
+        stateFlag11 = -1569615261
+        stateFlag13 = true
+        workingValue2(workingValue4, stateFlag11, stateFlag13)
       end
-      ::flow_label_160::
-      workValue2 = DisableControlAction
-      workValue4 = 0
-      flag11 = 210
-      flag13 = true
-      workValue2(workValue4, flag11, flag13)
-      workValue2 = DisableControlAction
-      workValue4 = 1
-      flag11 = 210
-      flag13 = true
-      workValue2(workValue4, flag11, flag13)
-      workValue2 = DisableControlAction
-      workValue4 = 0
-      flag11 = 36
-      flag13 = true
-      workValue2(workValue4, flag11, flag13)
-      workValue2 = DisableControlAction
-      workValue4 = 1
-      flag11 = 36
-      flag13 = true
-      workValue2(workValue4, flag11, flag13)
-      workValue4 = dataTable.id
-      workValue2 = dataTable2
-      workValue2 = workValue2[workValue4]
-      workValue2 = workValue2.collision
-      if not workValue2 then
-        workValue2 = SetEntityCollision
-        workValue4 = dataTable.prop
-        flag11 = false
-        flag13 = true
-        workValue2(workValue4, flag11, flag13)
+      ::continueAtStep160::
+      workingValue2 = DisableControlAction
+      workingValue4 = 0
+      stateFlag11 = 210
+      stateFlag13 = true
+      workingValue2(workingValue4, stateFlag11, stateFlag13)
+      workingValue2 = DisableControlAction
+      workingValue4 = 1
+      stateFlag11 = 210
+      stateFlag13 = true
+      workingValue2(workingValue4, stateFlag11, stateFlag13)
+      workingValue2 = DisableControlAction
+      workingValue4 = 0
+      stateFlag11 = 36
+      stateFlag13 = true
+      workingValue2(workingValue4, stateFlag11, stateFlag13)
+      workingValue2 = DisableControlAction
+      workingValue4 = 1
+      stateFlag11 = 36
+      stateFlag13 = true
+      workingValue2(workingValue4, stateFlag11, stateFlag13)
+      workingValue4 = dataCollection.id
+      workingValue2 = dataCollection2
+      workingValue2 = workingValue2[workingValue4]
+      workingValue2 = workingValue2.collision
+      if not workingValue2 then
+        workingValue2 = SetEntityCollision
+        workingValue4 = dataCollection.prop
+        stateFlag11 = false
+        stateFlag13 = true
+        workingValue2(workingValue4, stateFlag11, stateFlag13)
       end
     end
   end
 end
-numberValue10 = Citizen
-numberValue10 = numberValue10.CreateThread
+number10 = Citizen
+number10 = number10.CreateThread
 
--- === HELPER FUNCTION (decompiler name: numberValue12; parameters: none) ===
-function numberValue12()
-  local arg1, cmgCall, workValue2, workValue4, flag11, flag13, flag14, flag15, numberValue11
-  arg1 = pairs
-  cmgCall = dataTable2
-  arg1, cmgCall, workValue2, workValue4 = arg1(cmgCall)
-  for flag11, flag13 in arg1, cmgCall, workValue2, workValue4 do
-    flag14 = dataTable4
-    if "" == flag14 then
-      flag14 = flag13.name
-      dataTable4 = flag14
+-- === HELPER FUNCTION (decompiler name: number12; parameters: none) ===
+function number12()
+  local localValue1, cmgOperation, workingValue2, workingValue4, stateFlag11, stateFlag13, stateFlag14, stateFlag15, number11
+  localValue1 = pairs
+  cmgOperation = dataCollection2
+  localValue1, cmgOperation, workingValue2, workingValue4 = localValue1(cmgOperation)
+  for stateFlag11, stateFlag13 in localValue1, cmgOperation, workingValue2, workingValue4 do
+    stateFlag14 = dataCollection4
+    if "" == stateFlag14 then
+      stateFlag14 = stateFlag13.name
+      dataCollection4 = stateFlag14
     else
-      flag14 = dataTable4
-      flag15 = ", "
-      numberValue11 = flag13.name
-      flag14 = flag14 .. flag15 .. numberValue11
-      dataTable4 = flag14
+      stateFlag14 = dataCollection4
+      stateFlag15 = ", "
+      number11 = stateFlag13.name
+      stateFlag14 = stateFlag14 .. stateFlag15 .. number11
+      dataCollection4 = stateFlag14
     end
   end
-  arg1 = TriggerEvent
-  cmgCall = "chat:addSuggestion"
-  workValue2 = "/shield"
-  workValue4 = "Use a police shield"
+  localValue1 = TriggerEvent
+  cmgOperation = "chat:addSuggestion"
+  workingValue2 = "/shield"
+  workingValue4 = "Use a police shield"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-  arg1(cmgCall, workValue2, workValue4)
-  arg1 = CMG
-  arg1 = arg1.createThreadOnTick
-  cmgCall = numberValue8
-  workValue2 = "Police Shields"
+  localValue1(cmgOperation, workingValue2, workingValue4)
+  localValue1 = CMG
+  localValue1 = localValue1.createThreadOnTick
+  cmgOperation = number8
+  workingValue2 = "Police Shields"
   -- Beginner: Run a helper every game frame while this script is active.
-  arg1(cmgCall, workValue2)
+  localValue1(cmgOperation, workingValue2)
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-numberValue10(numberValue12)
-numberValue10 = RMenu
-numberValue10 = numberValue10.Add
-numberValue12 = "policeshields"
-textValue = "main"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue2 = "Police Shields"
-textValue3 = "~b~Shield Management"
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-rageUiCall, textValue2, textValue3, rageUiCall2, rageUiCall3 = rageUiCall(textValue2, textValue3, rageUiCall2, rageUiCall3)
-numberValue10(numberValue12, textValue, rageUiCall, textValue2, textValue3, rageUiCall2, rageUiCall3)
-numberValue10 = RageUI
-numberValue10 = numberValue10.CreateWhile
-numberValue12 = 1.0
-textValue = RMenu
-rageUiCall = textValue
-textValue = textValue.Get
-textValue2 = "policeshields"
-textValue3 = "main"
+number10(number12)
+number10 = RMenu
+number10 = number10.Add
+number12 = "policeshields"
+text = "main"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text2 = "Police Shields"
+text3 = "~b~Shield Management"
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation, text2, text3, rageUiOperation2, rageUiOperation3 = rageUiOperation(text2, text3, rageUiOperation2, rageUiOperation3)
+number10(number12, text, rageUiOperation, text2, text3, rageUiOperation2, rageUiOperation3)
+number10 = RageUI
+number10 = number10.CreateWhile
+number12 = 1.0
+text = RMenu
+rageUiOperation = text
+text = text.Get
+text2 = "policeshields"
+text3 = "main"
 -- Beginner: result below is menu.
-textValue = textValue(rageUiCall, textValue2, textValue3)
-rageUiCall = nil
+text = text(rageUiOperation, text2, text3)
+rageUiOperation = nil
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, cmgCall, workValue2, workValue4, flag11, flag13, flag14
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  cmgCall = RMenu
-  workValue2 = cmgCall
-  cmgCall = cmgCall.Get
-  workValue4 = "policeshields"
-  flag11 = "main"
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, cmgOperation, workingValue2, workingValue4, stateFlag11, stateFlag13, stateFlag14
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  cmgOperation = RMenu
+  workingValue2 = cmgOperation
+  cmgOperation = cmgOperation.Get
+  workingValue4 = "policeshields"
+  stateFlag11 = "main"
   -- Beginner: result below is menu.
-  cmgCall = cmgCall(workValue2, workValue4, flag11)
-  workValue2 = true
-  workValue4 = false
-  flag11 = true
+  cmgOperation = cmgOperation(workingValue2, workingValue4, stateFlag11)
+  workingValue2 = true
+  workingValue4 = false
+  stateFlag11 = true
 
-  -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-  function flag13()
-    local waitCall, numberValue3, workValue3, workValue5, numberValue4, numberValue6, rageUiCall4, numberValue9, textValue4, flag17, flag2
+  -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+  function stateFlag13()
+    local waitCall, number3, workingValue3, workingValue5, number4, number6, rageUiOperation4, number9, text4, stateFlag17, stateFlag2
     waitCall = pairs
-    numberValue3 = dataTable2
-    waitCall, numberValue3, workValue3, workValue5 = waitCall(numberValue3)
-    for numberValue4, numberValue6 in waitCall, numberValue3, workValue3, workValue5 do
-      rageUiCall4 = RageUI
-      rageUiCall4 = rageUiCall4.Button
-      numberValue9 = numberValue6.name
-      textValue4 = " Shield"
-      numberValue9 = numberValue9 .. textValue4
-      textValue4 = "Use the "
-      flag17 = numberValue6.name
-      flag2 = " Shield"
-      textValue4 = textValue4 .. flag17 .. flag2
-      flag17 = true
+    number3 = dataCollection2
+    waitCall, number3, workingValue3, workingValue5 = waitCall(number3)
+    for number4, number6 in waitCall, number3, workingValue3, workingValue5 do
+      rageUiOperation4 = RageUI
+      rageUiOperation4 = rageUiOperation4.Button
+      number9 = number6.name
+      text4 = " Shield"
+      number9 = number9 .. text4
+      text4 = "Use the "
+      stateFlag17 = number6.name
+      stateFlag2 = " Shield"
+      text4 = text4 .. stateFlag17 .. stateFlag2
+      stateFlag17 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg12, arg2, arg3) ===
-      function flag2(arg12, arg2, arg3)
-        local workValue6, flag12
-        if arg3 then
-          workValue6 = numberValue5
-          flag12 = numberValue4
-          workValue6(flag12)
+      -- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue12, localValue2, localValue3) ===
+      function stateFlag2(localValue12, localValue2, localValue3)
+        local workingValue6, stateFlag12
+        if localValue3 then
+          workingValue6 = number5
+          stateFlag12 = number4
+          workingValue6(stateFlag12)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      rageUiCall4(numberValue9, textValue4, flag17, flag2)
+      rageUiOperation4(number9, text4, stateFlag17, stateFlag2)
     end
-    waitCall = dataTable.active
+    waitCall = dataCollection.active
     if waitCall then
       waitCall = RageUI
       waitCall = waitCall.Button
-      numberValue3 = "Remove Shield"
-      workValue3 = "Removes your current shield"
-      workValue5 = true
+      number3 = "Remove Shield"
+      workingValue3 = "Removes your current shield"
+      workingValue5 = true
 
-      -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: arg12, arg2, arg3) ===
-      function numberValue4(arg12, arg2, arg3)
-        local workValue6, flag12
-        if arg3 then
-          workValue6 = dataTable5
-          flag12 = true
-          workValue6(flag12)
+      -- === HELPER FUNCTION (decompiler name: number4; parameters: localValue12, localValue2, localValue3) ===
+      function number4(localValue12, localValue2, localValue3)
+        local workingValue6, stateFlag12
+        if localValue3 then
+          workingValue6 = dataCollection5
+          stateFlag12 = true
+          workingValue6(stateFlag12)
         end
       end
       -- Beginner: Draw a selectable RageUI menu button.
-      waitCall(numberValue3, workValue3, workValue5, numberValue4)
+      waitCall(number3, workingValue3, workingValue5, number4)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: flag14; parameters: none) ===
-  function flag14()
-    local waitCall, numberValue3
+  -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: none) ===
+  function stateFlag14()
+    local waitCall, number3
   end
-  arg1(cmgCall, workValue2, workValue4, flag11, flag13, flag14)
+  localValue1(cmgOperation, workingValue2, workingValue4, stateFlag11, stateFlag13, stateFlag14)
 end
-numberValue10(numberValue12, textValue, rageUiCall, textValue2)
-numberValue10 = RegisterNetEvent
-numberValue12 = "a71cafbef1"
+number10(number12, text, rageUiOperation, text2)
+number10 = RegisterNetEvent
+number12 = "a71cafbef1"
 -- Beginner: this function handles network event "a71cafbef1".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, cmgCall, workValue2, workValue4, flag11
-  arg1 = RageUI
-  arg1 = arg1.Visible
-  cmgCall = RMenu
-  workValue2 = cmgCall
-  cmgCall = cmgCall.Get
-  workValue4 = "policeshields"
-  flag11 = "main"
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, cmgOperation, workingValue2, workingValue4, stateFlag11
+  localValue1 = RageUI
+  localValue1 = localValue1.Visible
+  cmgOperation = RMenu
+  workingValue2 = cmgOperation
+  cmgOperation = cmgOperation.Get
+  workingValue4 = "policeshields"
+  stateFlag11 = "main"
   -- Beginner: result below is menu.
-  cmgCall = cmgCall(workValue2, workValue4, flag11)
-  workValue2 = true
-  arg1(cmgCall, workValue2)
+  cmgOperation = cmgOperation(workingValue2, workingValue4, stateFlag11)
+  workingValue2 = true
+  localValue1(cmgOperation, workingValue2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a71cafbef1".
-numberValue10(numberValue12, textValue)
+number10(number12, text)

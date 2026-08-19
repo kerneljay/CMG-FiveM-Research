@@ -32,1104 +32,1104 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, dataTable2, vector3Builder, numberValue7, numberValue8, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, cmgCall, textValue, workValue8
-dataTable = {}
-dataTable2 = {}
-vector3Builder = vector3
-numberValue7 = -9.8369
-numberValue8 = -1474.088
-numberValue9 = 29.5453
-vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
-dataTable2.position = vector3Builder
-dataTable2.heading = 5.4894
-vector3Builder = vector3
-numberValue7 = -3.0097
-numberValue8 = -1484.3165
-numberValue9 = 41.1898
-vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
-dataTable2.cameraStartPosition = vector3Builder
-vector3Builder = vector3
-numberValue7 = 0.5292
-numberValue8 = 0.0
-numberValue8 = -numberValue8
-numberValue9 = 24.6248
-vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
-dataTable2.cameraStartRotation = vector3Builder
-vector3Builder = vector3
-numberValue7 = -13.842
-numberValue8 = -1454.4639
-numberValue9 = 32.9113
-vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
-dataTable2.cameraEndPosition = vector3Builder
-vector3Builder = vector3
-numberValue7 = -2.4231
-numberValue8 = 0.0
-numberValue9 = 1.8101
-vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
-dataTable2.cameraEndRotation = vector3Builder
-dataTable2.weather = "EXTRASUNNY"
-vector3Builder = {}
-numberValue7 = vector3
-numberValue8 = 806.0358
-numberValue9 = 1101.2482
-numberValue11 = 306.0945
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
-vector3Builder.position = numberValue7
-vector3Builder.heading = 348.7347
-numberValue7 = vector3
-numberValue8 = 804.6505
-numberValue9 = 1184.0697
-numberValue11 = 347.4004
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
-vector3Builder.cameraStartPosition = numberValue7
-numberValue7 = vector3
-numberValue8 = -7.4378
-numberValue9 = 0.0
-numberValue9 = -numberValue9
-numberValue11 = 110.8038
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
-vector3Builder.cameraStartRotation = numberValue7
-numberValue7 = vector3
-numberValue8 = 771.2347
-numberValue9 = 1091.1151
-numberValue11 = 337.3588
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
-vector3Builder.cameraEndPosition = numberValue7
-numberValue7 = vector3
-numberValue8 = -4.9158
-numberValue9 = 0.0
-numberValue9 = -numberValue9
-numberValue11 = 22.8592
-numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
-vector3Builder.cameraEndRotation = numberValue7
-vector3Builder.weather = "SMOG"
-numberValue7 = {}
-numberValue8 = vector3
-numberValue9 = 2005.9663
-numberValue11 = 3803.6094
-numberValue12 = 31.1808
-numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
-numberValue7.position = numberValue8
-numberValue7.heading = 60.1616
-numberValue8 = vector3
-numberValue9 = 1987.1251
-numberValue11 = 3810.7661
-numberValue12 = 33.2256
-numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
-numberValue7.cameraStartPosition = numberValue8
-numberValue8 = vector3
-numberValue9 = -2.1421
-numberValue11 = 0.0
-numberValue11 = -numberValue11
-numberValue12 = 37.1211
-numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
-numberValue7.cameraStartRotation = numberValue8
-numberValue8 = vector3
-numberValue9 = 1967.3821
-numberValue11 = 3840.4832
-numberValue12 = 54.8269
-numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
-numberValue7.cameraEndPosition = numberValue8
-numberValue8 = vector3
-numberValue9 = -1.2952
-numberValue11 = 0.0
-numberValue11 = -numberValue11
-numberValue12 = 62.8825
-numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
-numberValue7.cameraEndRotation = numberValue8
-numberValue7.weather = "RAIN"
-numberValue8 = {}
-numberValue9 = vector3
-numberValue11 = -1713.2614
-numberValue12 = -1077.4807
-numberValue13 = 12.0172
-numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
-numberValue8.position = numberValue9
-numberValue8.heading = 18.823
-numberValue9 = vector3
-numberValue11 = -1705.3199
-numberValue12 = -1074.6646
-numberValue13 = 21.6983
-numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
-numberValue8.cameraStartPosition = numberValue9
-numberValue9 = vector3
-numberValue11 = 1.5777
-numberValue12 = 0.0
-numberValue12 = -numberValue12
-numberValue13 = -163.0528
-numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
-numberValue8.cameraStartRotation = numberValue9
-numberValue9 = vector3
-numberValue11 = -1731.1056
-numberValue12 = -1098.6263
-numberValue13 = 24.3947
-numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
-numberValue8.cameraEndPosition = numberValue9
-numberValue9 = vector3
-numberValue11 = -3.393
-numberValue12 = 0.0
-numberValue12 = -numberValue12
-numberValue13 = -109.8041
-numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
-numberValue8.cameraEndRotation = numberValue9
-numberValue8.weather = "CLEAR"
-numberValue9 = {}
-numberValue11 = vector3
-numberValue12 = -663.8303
-numberValue13 = 4484.105
-numberValue14 = 69.2669
-numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
-numberValue9.position = numberValue11
-numberValue9.heading = 238.4128
-numberValue11 = vector3
-numberValue12 = -608.3302
-numberValue13 = 4463.3027
-numberValue14 = 23.4348
-numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
-numberValue9.cameraStartPosition = numberValue11
-numberValue11 = vector3
-numberValue12 = -1.9612
-numberValue13 = 0.0
-numberValue14 = -127.5001
-numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
-numberValue9.cameraStartRotation = numberValue11
-numberValue11 = vector3
-numberValue12 = -615.5822
-numberValue13 = 4508.3086
-numberValue14 = 110.3908
-numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
-numberValue9.cameraEndPosition = numberValue11
-numberValue11 = vector3
-numberValue12 = -22.87
-numberValue13 = 0.0
-numberValue14 = -133.0594
-numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
-numberValue9.cameraEndRotation = numberValue11
-numberValue9.weather = "EXTRASUNNY"
-numberValue11 = {}
-numberValue12 = vector3
-numberValue13 = 234.57510375977
-numberValue14 = -1144.5062255859
-numberValue = 29.47513961792
-numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
-numberValue11.position = numberValue12
-numberValue11.heading = 0.0
-numberValue12 = vector3
-numberValue13 = 216.51281738281
-numberValue14 = -1282.3959960938
-numberValue = 32.077880859375
-numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
-numberValue11.cameraStartPosition = numberValue12
-numberValue12 = vector3
-numberValue13 = -0.98468792438507
-numberValue14 = 0.0
-numberValue14 = -numberValue14
-numberValue = -0.036672409623861
-numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
-numberValue11.cameraStartRotation = numberValue12
-numberValue12 = vector3
-numberValue13 = 241.12530517578
-numberValue14 = -995.49108886719
-numberValue = 31.893032073975
-numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
-numberValue11.cameraEndPosition = numberValue12
-numberValue12 = vector3
-numberValue13 = 9.3380908966064
-numberValue14 = 0.0
-numberValue14 = -numberValue14
-numberValue = 82.739128112793
-numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
-numberValue11.cameraEndRotation = numberValue12
-numberValue11.weather = "XMAS"
-dataTable[1] = dataTable2
-dataTable[2] = vector3Builder
-dataTable[3] = numberValue7
-dataTable[4] = numberValue8
-dataTable[5] = numberValue9
-dataTable[6] = numberValue11
-dataTable2 = {}
-dataTable2.handle = 0
-dataTable2.name = "pc_bench"
-vector3Builder = 0
-numberValue7 = false
-numberValue8 = vector3
-numberValue9 = 0.0
-numberValue11 = 0.0
-numberValue12 = 0.0
-numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
-numberValue9 = {}
-numberValue11 = 25
-numberValue12 = 1
-numberValue13 = 0.0
-numberValue14 = {}
-numberValue = 1
+local dataCollection, dataCollection2, createVector3, number7, number8, number9, number11, number12, number13, number14, number, workingValue, workingValue2, workingValue3, workingValue4, workingValue5, workingValue6, workingValue7, cmgOperation, text, workingValue8
+dataCollection = {}
+dataCollection2 = {}
+createVector3 = vector3
+number7 = -9.8369
+number8 = -1474.088
+number9 = 29.5453
+createVector3 = createVector3(number7, number8, number9)
+dataCollection2.position = createVector3
+dataCollection2.heading = 5.4894
+createVector3 = vector3
+number7 = -3.0097
+number8 = -1484.3165
+number9 = 41.1898
+createVector3 = createVector3(number7, number8, number9)
+dataCollection2.cameraStartPosition = createVector3
+createVector3 = vector3
+number7 = 0.5292
+number8 = 0.0
+number8 = -number8
+number9 = 24.6248
+createVector3 = createVector3(number7, number8, number9)
+dataCollection2.cameraStartRotation = createVector3
+createVector3 = vector3
+number7 = -13.842
+number8 = -1454.4639
+number9 = 32.9113
+createVector3 = createVector3(number7, number8, number9)
+dataCollection2.cameraEndPosition = createVector3
+createVector3 = vector3
+number7 = -2.4231
+number8 = 0.0
+number9 = 1.8101
+createVector3 = createVector3(number7, number8, number9)
+dataCollection2.cameraEndRotation = createVector3
+dataCollection2.weather = "EXTRASUNNY"
+createVector3 = {}
+number7 = vector3
+number8 = 806.0358
+number9 = 1101.2482
+number11 = 306.0945
+number7 = number7(number8, number9, number11)
+createVector3.position = number7
+createVector3.heading = 348.7347
+number7 = vector3
+number8 = 804.6505
+number9 = 1184.0697
+number11 = 347.4004
+number7 = number7(number8, number9, number11)
+createVector3.cameraStartPosition = number7
+number7 = vector3
+number8 = -7.4378
+number9 = 0.0
+number9 = -number9
+number11 = 110.8038
+number7 = number7(number8, number9, number11)
+createVector3.cameraStartRotation = number7
+number7 = vector3
+number8 = 771.2347
+number9 = 1091.1151
+number11 = 337.3588
+number7 = number7(number8, number9, number11)
+createVector3.cameraEndPosition = number7
+number7 = vector3
+number8 = -4.9158
+number9 = 0.0
+number9 = -number9
+number11 = 22.8592
+number7 = number7(number8, number9, number11)
+createVector3.cameraEndRotation = number7
+createVector3.weather = "SMOG"
+number7 = {}
+number8 = vector3
+number9 = 2005.9663
+number11 = 3803.6094
+number12 = 31.1808
+number8 = number8(number9, number11, number12)
+number7.position = number8
+number7.heading = 60.1616
+number8 = vector3
+number9 = 1987.1251
+number11 = 3810.7661
+number12 = 33.2256
+number8 = number8(number9, number11, number12)
+number7.cameraStartPosition = number8
+number8 = vector3
+number9 = -2.1421
+number11 = 0.0
+number11 = -number11
+number12 = 37.1211
+number8 = number8(number9, number11, number12)
+number7.cameraStartRotation = number8
+number8 = vector3
+number9 = 1967.3821
+number11 = 3840.4832
+number12 = 54.8269
+number8 = number8(number9, number11, number12)
+number7.cameraEndPosition = number8
+number8 = vector3
+number9 = -1.2952
+number11 = 0.0
+number11 = -number11
+number12 = 62.8825
+number8 = number8(number9, number11, number12)
+number7.cameraEndRotation = number8
+number7.weather = "RAIN"
+number8 = {}
+number9 = vector3
+number11 = -1713.2614
+number12 = -1077.4807
+number13 = 12.0172
+number9 = number9(number11, number12, number13)
+number8.position = number9
+number8.heading = 18.823
+number9 = vector3
+number11 = -1705.3199
+number12 = -1074.6646
+number13 = 21.6983
+number9 = number9(number11, number12, number13)
+number8.cameraStartPosition = number9
+number9 = vector3
+number11 = 1.5777
+number12 = 0.0
+number12 = -number12
+number13 = -163.0528
+number9 = number9(number11, number12, number13)
+number8.cameraStartRotation = number9
+number9 = vector3
+number11 = -1731.1056
+number12 = -1098.6263
+number13 = 24.3947
+number9 = number9(number11, number12, number13)
+number8.cameraEndPosition = number9
+number9 = vector3
+number11 = -3.393
+number12 = 0.0
+number12 = -number12
+number13 = -109.8041
+number9 = number9(number11, number12, number13)
+number8.cameraEndRotation = number9
+number8.weather = "CLEAR"
+number9 = {}
+number11 = vector3
+number12 = -663.8303
+number13 = 4484.105
+number14 = 69.2669
+number11 = number11(number12, number13, number14)
+number9.position = number11
+number9.heading = 238.4128
+number11 = vector3
+number12 = -608.3302
+number13 = 4463.3027
+number14 = 23.4348
+number11 = number11(number12, number13, number14)
+number9.cameraStartPosition = number11
+number11 = vector3
+number12 = -1.9612
+number13 = 0.0
+number14 = -127.5001
+number11 = number11(number12, number13, number14)
+number9.cameraStartRotation = number11
+number11 = vector3
+number12 = -615.5822
+number13 = 4508.3086
+number14 = 110.3908
+number11 = number11(number12, number13, number14)
+number9.cameraEndPosition = number11
+number11 = vector3
+number12 = -22.87
+number13 = 0.0
+number14 = -133.0594
+number11 = number11(number12, number13, number14)
+number9.cameraEndRotation = number11
+number9.weather = "EXTRASUNNY"
+number11 = {}
+number12 = vector3
+number13 = 234.57510375977
+number14 = -1144.5062255859
+number = 29.47513961792
+number12 = number12(number13, number14, number)
+number11.position = number12
+number11.heading = 0.0
+number12 = vector3
+number13 = 216.51281738281
+number14 = -1282.3959960938
+number = 32.077880859375
+number12 = number12(number13, number14, number)
+number11.cameraStartPosition = number12
+number12 = vector3
+number13 = -0.98468792438507
+number14 = 0.0
+number14 = -number14
+number = -0.036672409623861
+number12 = number12(number13, number14, number)
+number11.cameraStartRotation = number12
+number12 = vector3
+number13 = 241.12530517578
+number14 = -995.49108886719
+number = 31.893032073975
+number12 = number12(number13, number14, number)
+number11.cameraEndPosition = number12
+number12 = vector3
+number13 = 9.3380908966064
+number14 = 0.0
+number14 = -number14
+number = 82.739128112793
+number12 = number12(number13, number14, number)
+number11.cameraEndRotation = number12
+number11.weather = "XMAS"
+dataCollection[1] = dataCollection2
+dataCollection[2] = createVector3
+dataCollection[3] = number7
+dataCollection[4] = number8
+dataCollection[5] = number9
+dataCollection[6] = number11
+dataCollection2 = {}
+dataCollection2.handle = 0
+dataCollection2.name = "pc_bench"
+createVector3 = 0
+number7 = false
+number8 = vector3
+number9 = 0.0
+number11 = 0.0
+number12 = 0.0
+number8 = number8(number9, number11, number12)
+number9 = {}
+number11 = 25
+number12 = 1
+number13 = 0.0
+number14 = {}
+number = 1
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
-function workValue()
-  local arg1, arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4
-  arg1 = InvalidateIdleCam
-  arg1()
-  arg1 = InvalidateVehicleIdleCam
-  arg1()
-  arg1 = HideHudAndRadarThisFrame
-  arg1()
-  arg1 = DisableControlAction
-  arg2 = 0
-  numberValue6 = 199
-  flag2 = true
-  arg1(arg2, numberValue6, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  numberValue6 = 217
-  flag2 = true
-  arg1(arg2, numberValue6, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  numberValue6 = 211
-  flag2 = true
-  arg1(arg2, numberValue6, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  numberValue6 = 212
-  flag2 = true
-  arg1(arg2, numberValue6, flag2)
-  arg1 = DisableControlAction
-  arg2 = 0
-  numberValue6 = 213
-  flag2 = true
-  arg1(arg2, numberValue6, flag2)
-  arg1 = RageUI
-  arg1 = arg1.CloseAll
-  arg1()
-  arg1 = IsScreenFadedOut
-  arg1 = arg1()
-  if not arg1 then
-    arg1 = IsScreenFadingOut
-    arg1 = arg1()
-    if not arg1 then
-      arg1 = IsScreenFadingIn
-      arg1 = arg1()
-      if not arg1 then
-        arg1 = Citizen
-        arg1 = arg1.InvokeNative
-        arg2 = 8406597705123953709
-        numberValue6 = Citizen
-        numberValue6 = numberValue6.ResultAsFloat
-        numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4 = numberValue6()
-        arg1 = arg1(arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
-        arg2 = 1
-        arg1 = arg2 / arg1
-        numberValue6 = numberValue
-        arg2 = numberValue14
-        arg2[numberValue6] = arg1
-        arg2 = numberValue
-        arg2 = arg2 + 1
-        numberValue = arg2
-        numberValue6 = numberValue12
-        arg2 = numberValue9
-        arg2[numberValue6] = arg1
-        arg2 = numberValue12
-        arg2 = arg2 + 1
-        numberValue12 = arg2
-        arg2 = numberValue12
-        numberValue6 = numberValue11
-        if arg2 > numberValue6 then
-          arg2 = 1
-          numberValue12 = arg2
-          arg2 = 0.0
-          numberValue13 = arg2
-          arg2 = pairs
-          numberValue6 = numberValue9
-          arg2, numberValue6, flag2, flag3 = arg2(numberValue6)
-          for numberValue10, flag4 in arg2, numberValue6, flag2, flag3 do
-            stringHelper = numberValue13
-            stringHelper = stringHelper + flag4
-            numberValue13 = stringHelper
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: none) ===
+function workingValue()
+  local localValue1, localValue2, number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4
+  localValue1 = InvalidateIdleCam
+  localValue1()
+  localValue1 = InvalidateVehicleIdleCam
+  localValue1()
+  localValue1 = HideHudAndRadarThisFrame
+  localValue1()
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  number6 = 199
+  stateFlag2 = true
+  localValue1(localValue2, number6, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  number6 = 217
+  stateFlag2 = true
+  localValue1(localValue2, number6, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  number6 = 211
+  stateFlag2 = true
+  localValue1(localValue2, number6, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  number6 = 212
+  stateFlag2 = true
+  localValue1(localValue2, number6, stateFlag2)
+  localValue1 = DisableControlAction
+  localValue2 = 0
+  number6 = 213
+  stateFlag2 = true
+  localValue1(localValue2, number6, stateFlag2)
+  localValue1 = RageUI
+  localValue1 = localValue1.CloseAll
+  localValue1()
+  localValue1 = IsScreenFadedOut
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue1 = IsScreenFadingOut
+    localValue1 = localValue1()
+    if not localValue1 then
+      localValue1 = IsScreenFadingIn
+      localValue1 = localValue1()
+      if not localValue1 then
+        localValue1 = Citizen
+        localValue1 = localValue1.InvokeNative
+        localValue2 = 8406597705123953709
+        number6 = Citizen
+        number6 = number6.ResultAsFloat
+        number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4 = number6()
+        localValue1 = localValue1(localValue2, number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4)
+        localValue2 = 1
+        localValue1 = localValue2 / localValue1
+        number6 = number
+        localValue2 = number14
+        localValue2[number6] = localValue1
+        localValue2 = number
+        localValue2 = localValue2 + 1
+        number = localValue2
+        number6 = number12
+        localValue2 = number9
+        localValue2[number6] = localValue1
+        localValue2 = number12
+        localValue2 = localValue2 + 1
+        number12 = localValue2
+        localValue2 = number12
+        number6 = number11
+        if localValue2 > number6 then
+          localValue2 = 1
+          number12 = localValue2
+          localValue2 = 0.0
+          number13 = localValue2
+          localValue2 = pairs
+          number6 = number9
+          localValue2, number6, stateFlag2, stateFlag3 = localValue2(number6)
+          for number10, stateFlag4 in localValue2, number6, stateFlag2, stateFlag3 do
+            stringHelper = number13
+            stringHelper = stringHelper + stateFlag4
+            number13 = stringHelper
           end
-          arg2 = numberValue13
-          numberValue6 = numberValue11
-          numberValue6 = numberValue6 + 0.0
-          arg2 = arg2 / numberValue6
-          numberValue13 = arg2
+          localValue2 = number13
+          number6 = number11
+          number6 = number6 + 0.0
+          localValue2 = localValue2 / number6
+          number13 = localValue2
         end
-        arg2 = numberValue13
-        if arg2 > 0.0 then
-          arg2 = DrawAdvancedText
-          numberValue6 = 0.5
-          flag2 = 0.8
-          flag3 = 0.0
-          numberValue10 = 0.0
-          flag4 = 2.0
+        localValue2 = number13
+        if localValue2 > 0.0 then
+          localValue2 = DrawAdvancedText
+          number6 = 0.5
+          stateFlag2 = 0.8
+          stateFlag3 = 0.0
+          number10 = 0.0
+          stateFlag4 = 2.0
           stringHelper = "FPS:"
           mathHelper = 255
-          numberValue15 = 255
-          numberValue2 = 255
-          flag = 255
-          numberValue3 = 0
-          numberValue4 = 0
-          arg2(numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
-          arg2 = DrawAdvancedText
-          numberValue6 = 0.65
-          flag2 = 0.8
-          flag3 = 0.0
-          numberValue10 = 0.0
-          flag4 = 2.0
+          number15 = 255
+          number2 = 255
+          stateFlag = 255
+          number3 = 0
+          number4 = 0
+          localValue2(number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4)
+          localValue2 = DrawAdvancedText
+          number6 = 0.65
+          stateFlag2 = 0.8
+          stateFlag3 = 0.0
+          number10 = 0.0
+          stateFlag4 = 2.0
           stringHelper = tostring
           mathHelper = math
           mathHelper = mathHelper.round
-          numberValue15 = numberValue13
-          numberValue2 = 1
-          mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4 = mathHelper(numberValue15, numberValue2)
-          stringHelper = stringHelper(mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
+          number15 = number13
+          number2 = 1
+          mathHelper, number15, number2, stateFlag, number3, number4 = mathHelper(number15, number2)
+          stringHelper = stringHelper(mathHelper, number15, number2, stateFlag, number3, number4)
           mathHelper = 255
-          numberValue15 = 255
-          numberValue2 = 255
-          flag = 255
-          numberValue3 = 0
-          numberValue4 = 0
-          arg2(numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
+          number15 = 255
+          number2 = 255
+          stateFlag = 255
+          number3 = 0
+          number4 = 0
+          localValue2(number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4)
         end
       end
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
-function workValue2(arg1, arg2)
-  local numberValue6, flag2
-  numberValue6 = IsScreenFadedIn
-  numberValue6 = numberValue6()
-  if not numberValue6 then
-    numberValue6 = IsScreenFadingOut
-    numberValue6 = numberValue6()
-    if not numberValue6 then
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1, localValue2) ===
+function workingValue2(localValue1, localValue2)
+  local number6, stateFlag2
+  number6 = IsScreenFadedIn
+  number6 = number6()
+  if not number6 then
+    number6 = IsScreenFadingOut
+    number6 = number6()
+    if not number6 then
       return
     end
   end
-  numberValue6 = DoScreenFadeOut
-  flag2 = arg1
-  numberValue6(flag2)
-  if not arg2 then
+  number6 = DoScreenFadeOut
+  stateFlag2 = localValue1
+  number6(stateFlag2)
+  if not localValue2 then
     return
   end
   while true do
-    numberValue6 = IsScreenFadedOut
-    numberValue6 = numberValue6()
-    if numberValue6 then
+    number6 = IsScreenFadedOut
+    number6 = number6()
+    if number6 then
       break
     end
-    numberValue6 = Wait
-    flag2 = 0
-    numberValue6(flag2)
+    number6 = Wait
+    stateFlag2 = 0
+    number6(stateFlag2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2) ===
-function workValue3(arg1, arg2)
-  local numberValue6, flag2
-  numberValue6 = IsScreenFadedOut
-  numberValue6 = numberValue6()
-  if not numberValue6 then
-    numberValue6 = IsScreenFadingOut
-    numberValue6 = numberValue6()
-    if not numberValue6 then
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1, localValue2) ===
+function workingValue3(localValue1, localValue2)
+  local number6, stateFlag2
+  number6 = IsScreenFadedOut
+  number6 = number6()
+  if not number6 then
+    number6 = IsScreenFadingOut
+    number6 = number6()
+    if not number6 then
       return
     end
   end
-  numberValue6 = IsScreenFadingIn
-  numberValue6 = numberValue6()
-  if not numberValue6 then
-    numberValue6 = DoScreenFadeIn
-    flag2 = arg1
-    numberValue6(flag2)
+  number6 = IsScreenFadingIn
+  number6 = number6()
+  if not number6 then
+    number6 = DoScreenFadeIn
+    stateFlag2 = localValue1
+    number6(stateFlag2)
   end
-  if arg2 then
+  if localValue2 then
     while true do
-      numberValue6 = IsScreenFadingIn
-      numberValue6 = numberValue6()
-      if not numberValue6 then
+      number6 = IsScreenFadingIn
+      number6 = number6()
+      if not number6 then
         break
       end
-      numberValue6 = Wait
-      flag2 = 0
-      numberValue6(flag2)
+      number6 = Wait
+      stateFlag2 = 0
+      number6(stateFlag2)
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4, numberValue5
-  arg2 = dataTable
-  arg2 = arg2[arg1]
-  numberValue6 = workValue2
-  flag2 = 500
-  flag3 = true
-  numberValue6(flag2, flag3)
-  numberValue6 = RenderScriptCams
-  flag2 = false
-  flag3 = false
-  numberValue10 = 0
-  flag4 = false
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4, number5
+  localValue2 = dataCollection
+  localValue2 = localValue2[localValue1]
+  number6 = workingValue2
+  stateFlag2 = 500
+  stateFlag3 = true
+  number6(stateFlag2, stateFlag3)
+  number6 = RenderScriptCams
+  stateFlag2 = false
+  stateFlag3 = false
+  number10 = 0
+  stateFlag4 = false
   stringHelper = false
-  numberValue6(flag2, flag3, numberValue10, flag4, stringHelper)
-  numberValue6 = DestroyAllCams
-  flag2 = false
-  numberValue6(flag2)
-  numberValue6 = PlayerPedId
+  number6(stateFlag2, stateFlag3, number10, stateFlag4, stringHelper)
+  number6 = DestroyAllCams
+  stateFlag2 = false
+  number6(stateFlag2)
+  number6 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  numberValue6 = numberValue6()
-  flag2 = SetEntityCoords
-  flag3 = numberValue6
-  numberValue10 = arg2.position
-  numberValue10 = numberValue10.x
-  flag4 = arg2.position
-  flag4 = flag4.y
-  stringHelper = arg2.position
+  number6 = number6()
+  stateFlag2 = SetEntityCoords
+  stateFlag3 = number6
+  number10 = localValue2.position
+  number10 = number10.x
+  stateFlag4 = localValue2.position
+  stateFlag4 = stateFlag4.y
+  stringHelper = localValue2.position
   stringHelper = stringHelper.z
   mathHelper = true
-  numberValue15 = false
-  numberValue2 = false
-  flag = true
+  number15 = false
+  number2 = false
+  stateFlag = true
   -- Beginner: Move/teleport an entity to new coordinates.
-  flag2(flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag)
-  flag2 = SetEntityHeading
-  flag3 = numberValue6
-  numberValue10 = arg2.heading
+  stateFlag2(stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag)
+  stateFlag2 = SetEntityHeading
+  stateFlag3 = number6
+  number10 = localValue2.heading
   -- Beginner: Change the direction an entity is facing.
-  flag2(flag3, numberValue10)
-  flag2 = FreezeEntityPosition
-  flag3 = numberValue6
-  numberValue10 = true
+  stateFlag2(stateFlag3, number10)
+  stateFlag2 = FreezeEntityPosition
+  stateFlag3 = number6
+  number10 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  flag2(flag3, numberValue10)
-  flag2 = ForcePedAiAndAnimationUpdate
-  flag3 = numberValue6
-  numberValue10 = true
-  flag4 = true
-  flag2(flag3, numberValue10, flag4)
-  flag2 = SetGameplayCamRelativePitch
-  flag3 = 0.0
-  numberValue10 = 1.0
-  flag2(flag3, numberValue10)
-  flag2 = SetGameplayCamRelativeHeading
-  flag3 = 0.0
-  flag2(flag3)
-  flag2 = ClearArea
-  flag3 = arg2.position
-  flag3 = flag3.x
-  numberValue10 = arg2.position
-  numberValue10 = numberValue10.y
-  flag4 = arg2.position
-  flag4 = flag4.z
+  stateFlag2(stateFlag3, number10)
+  stateFlag2 = ForcePedAiAndAnimationUpdate
+  stateFlag3 = number6
+  number10 = true
+  stateFlag4 = true
+  stateFlag2(stateFlag3, number10, stateFlag4)
+  stateFlag2 = SetGameplayCamRelativePitch
+  stateFlag3 = 0.0
+  number10 = 1.0
+  stateFlag2(stateFlag3, number10)
+  stateFlag2 = SetGameplayCamRelativeHeading
+  stateFlag3 = 0.0
+  stateFlag2(stateFlag3)
+  stateFlag2 = ClearArea
+  stateFlag3 = localValue2.position
+  stateFlag3 = stateFlag3.x
+  number10 = localValue2.position
+  number10 = number10.y
+  stateFlag4 = localValue2.position
+  stateFlag4 = stateFlag4.z
   stringHelper = 100.0
   mathHelper = true
-  numberValue15 = false
-  numberValue2 = false
-  flag = false
-  flag2(flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag)
-  flag2 = GetGameTimer
+  number15 = false
+  number2 = false
+  stateFlag = false
+  stateFlag2(stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag)
+  stateFlag2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  flag2 = flag2()
+  stateFlag2 = stateFlag2()
   while true do
-    flag3 = GetNumberOfStreamingRequests
-    flag3 = flag3()
-    if not (flag3 > 0) then
+    stateFlag3 = GetNumberOfStreamingRequests
+    stateFlag3 = stateFlag3()
+    if not (stateFlag3 > 0) then
       break
     end
-    flag3 = GetGameTimer
+    stateFlag3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    flag3 = flag3()
-    flag3 = flag3 - flag2
-    numberValue10 = 5000
-    if flag3 > numberValue10 then
+    stateFlag3 = stateFlag3()
+    stateFlag3 = stateFlag3 - stateFlag2
+    number10 = 5000
+    if stateFlag3 > number10 then
       break
     end
-    flag3 = Wait
-    numberValue10 = 0
-    flag3(numberValue10)
+    stateFlag3 = Wait
+    number10 = 0
+    stateFlag3(number10)
   end
-  flag3 = LoadAllObjectsNow
-  flag3()
-  flag3 = CMG
-  flag3 = flag3.setWeather
-  numberValue10 = arg2.weather
-  flag4 = false
-  flag3(numberValue10, flag4)
-  flag3 = CMG
-  flag3 = flag3.overrideTime
-  numberValue10 = 12
-  flag4 = 0
+  stateFlag3 = LoadAllObjectsNow
+  stateFlag3()
+  stateFlag3 = CMG
+  stateFlag3 = stateFlag3.setWeather
+  number10 = localValue2.weather
+  stateFlag4 = false
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = CMG
+  stateFlag3 = stateFlag3.overrideTime
+  number10 = 12
+  stateFlag4 = 0
   stringHelper = 0
-  flag3(numberValue10, flag4, stringHelper)
-  flag3 = CreateCam
-  numberValue10 = "DEFAULT_SPLINE_CAMERA"
-  flag4 = false
+  stateFlag3(number10, stateFlag4, stringHelper)
+  stateFlag3 = CreateCam
+  number10 = "DEFAULT_SPLINE_CAMERA"
+  stateFlag4 = false
   -- Beginner: result below is cameraHandle.
-  flag3 = flag3(numberValue10, flag4)
-  vector3Builder = flag3
-  flag3 = AddCamSplineNode
-  numberValue10 = vector3Builder
-  flag4 = arg2.cameraStartPosition
-  flag4 = flag4.x
-  stringHelper = arg2.cameraStartPosition
+  stateFlag3 = stateFlag3(number10, stateFlag4)
+  createVector3 = stateFlag3
+  stateFlag3 = AddCamSplineNode
+  number10 = createVector3
+  stateFlag4 = localValue2.cameraStartPosition
+  stateFlag4 = stateFlag4.x
+  stringHelper = localValue2.cameraStartPosition
   stringHelper = stringHelper.y
-  mathHelper = arg2.cameraStartPosition
+  mathHelper = localValue2.cameraStartPosition
   mathHelper = mathHelper.z
-  numberValue15 = arg2.cameraStartRotation
-  numberValue15 = numberValue15.x
-  numberValue2 = arg2.cameraStartRotation
-  numberValue2 = numberValue2.y
-  flag = arg2.cameraStartRotation
-  flag = flag.z
-  numberValue3 = 15000
-  numberValue4 = 3
-  numberValue5 = 2
-  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4, numberValue5)
-  flag3 = AddCamSplineNode
-  numberValue10 = vector3Builder
-  flag4 = arg2.cameraEndPosition
-  flag4 = flag4.x
-  stringHelper = arg2.cameraEndPosition
+  number15 = localValue2.cameraStartRotation
+  number15 = number15.x
+  number2 = localValue2.cameraStartRotation
+  number2 = number2.y
+  stateFlag = localValue2.cameraStartRotation
+  stateFlag = stateFlag.z
+  number3 = 15000
+  number4 = 3
+  number5 = 2
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4, number5)
+  stateFlag3 = AddCamSplineNode
+  number10 = createVector3
+  stateFlag4 = localValue2.cameraEndPosition
+  stateFlag4 = stateFlag4.x
+  stringHelper = localValue2.cameraEndPosition
   stringHelper = stringHelper.y
-  mathHelper = arg2.cameraEndPosition
+  mathHelper = localValue2.cameraEndPosition
   mathHelper = mathHelper.z
-  numberValue15 = arg2.cameraEndRotation
-  numberValue15 = numberValue15.x
-  numberValue2 = arg2.cameraEndRotation
-  numberValue2 = numberValue2.y
-  flag = arg2.cameraEndRotation
-  flag = flag.z
-  numberValue3 = 15000
-  numberValue4 = 3
-  numberValue5 = 2
-  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4, numberValue5)
-  flag3 = SetCamSplinePhase
-  numberValue10 = vector3Builder
-  flag4 = 0.0
-  flag3(numberValue10, flag4)
-  flag3 = SetCamFov
-  numberValue10 = vector3Builder
-  flag4 = 50.0
-  flag3(numberValue10, flag4)
-  flag3 = SetCamSplineSmoothingStyle
-  numberValue10 = vector3Builder
-  flag4 = 3
-  flag3(numberValue10, flag4)
-  flag3 = SetCamActive
-  numberValue10 = vector3Builder
-  flag4 = true
-  flag3(numberValue10, flag4)
-  flag3 = RenderScriptCams
-  numberValue10 = true
-  flag4 = false
+  number15 = localValue2.cameraEndRotation
+  number15 = number15.x
+  number2 = localValue2.cameraEndRotation
+  number2 = number2.y
+  stateFlag = localValue2.cameraEndRotation
+  stateFlag = stateFlag.z
+  number3 = 15000
+  number4 = 3
+  number5 = 2
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4, number5)
+  stateFlag3 = SetCamSplinePhase
+  number10 = createVector3
+  stateFlag4 = 0.0
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetCamFov
+  number10 = createVector3
+  stateFlag4 = 50.0
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetCamSplineSmoothingStyle
+  number10 = createVector3
+  stateFlag4 = 3
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetCamActive
+  number10 = createVector3
+  stateFlag4 = true
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = RenderScriptCams
+  number10 = true
+  stateFlag4 = false
   stringHelper = 0
   mathHelper = false
-  numberValue15 = false
-  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15)
+  number15 = false
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper, number15)
   while true do
-    flag3 = GetCamSplinePhase
-    numberValue10 = vector3Builder
-    flag3 = flag3(numberValue10)
-    numberValue10 = 0.05
-    if not (flag3 < numberValue10) then
+    stateFlag3 = GetCamSplinePhase
+    number10 = createVector3
+    stateFlag3 = stateFlag3(number10)
+    number10 = 0.05
+    if not (stateFlag3 < number10) then
       break
     end
-    flag3 = Wait
-    numberValue10 = 0
-    flag3(numberValue10)
+    stateFlag3 = Wait
+    number10 = 0
+    stateFlag3(number10)
   end
-  flag3 = workValue3
-  numberValue10 = 500
-  flag4 = false
-  flag3(numberValue10, flag4)
+  stateFlag3 = workingValue3
+  number10 = 500
+  stateFlag4 = false
+  stateFlag3(number10, stateFlag4)
   while true do
-    flag3 = GetCamSplinePhase
-    numberValue10 = vector3Builder
-    flag3 = flag3(numberValue10)
-    numberValue10 = 0.88
-    if flag3 > numberValue10 then
+    stateFlag3 = GetCamSplinePhase
+    number10 = createVector3
+    stateFlag3 = stateFlag3(number10)
+    number10 = 0.88
+    if stateFlag3 > number10 then
       break
     end
-    numberValue10 = flag3 - 0.05
-    numberValue10 = numberValue10 / 0.83
-    flag4 = math
-    flag4 = flag4.floor
-    stringHelper = 1440 * numberValue10
-    flag4 = flag4(stringHelper)
-    flag4 = flag4 + 720
+    number10 = stateFlag3 - 0.05
+    number10 = number10 / 0.83
+    stateFlag4 = math
+    stateFlag4 = stateFlag4.floor
+    stringHelper = 1440 * number10
+    stateFlag4 = stateFlag4(stringHelper)
+    stateFlag4 = stateFlag4 + 720
     stringHelper = math
     stringHelper = stringHelper.floor
-    mathHelper = flag4 / 60
+    mathHelper = stateFlag4 / 60
     stringHelper = stringHelper(mathHelper)
-    mathHelper = flag4 % 60
+    mathHelper = stateFlag4 % 60
     if stringHelper >= 24 then
       stringHelper = stringHelper - 24
     end
-    numberValue15 = CMG
-    numberValue15 = numberValue15.overrideTime
-    numberValue2 = stringHelper
-    flag = mathHelper
-    numberValue3 = 0
-    numberValue15(numberValue2, flag, numberValue3)
-    numberValue15 = Wait
-    numberValue2 = 0
-    numberValue15(numberValue2)
+    number15 = CMG
+    number15 = number15.overrideTime
+    number2 = stringHelper
+    stateFlag = mathHelper
+    number3 = 0
+    number15(number2, stateFlag, number3)
+    number15 = Wait
+    number2 = 0
+    number15(number2)
   end
-  if 5 ~= arg1 then
-    flag3 = workValue2
-    numberValue10 = 500
-    flag4 = true
-    flag3(numberValue10, flag4)
+  if 5 ~= localValue1 then
+    stateFlag3 = workingValue2
+    number10 = 500
+    stateFlag4 = true
+    stateFlag3(number10, stateFlag4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4
-  arg1 = CMG
-  arg1 = arg1.loadModel
-  arg2 = -1281684762
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4
+  localValue1 = CMG
+  localValue1 = localValue1.loadModel
+  localValue2 = -1281684762
   -- Beginner: Request/load a GTA model before spawning or applying it.
-  arg1(arg2)
-  arg1 = RequestVehicleRecording
-  arg2 = dataTable2.handle
-  numberValue6 = dataTable2.name
-  arg1(arg2, numberValue6)
+  localValue1(localValue2)
+  localValue1 = RequestVehicleRecording
+  localValue2 = dataCollection2.handle
+  number6 = dataCollection2.name
+  localValue1(localValue2, number6)
   while true do
-    arg1 = HasVehicleRecordingBeenLoaded
-    arg2 = dataTable2.handle
-    numberValue6 = dataTable2.name
-    arg1 = arg1(arg2, numberValue6)
-    if arg1 then
+    localValue1 = HasVehicleRecordingBeenLoaded
+    localValue2 = dataCollection2.handle
+    number6 = dataCollection2.name
+    localValue1 = localValue1(localValue2, number6)
+    if localValue1 then
       break
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
-  arg1 = CMG
-  arg1 = arg1.overrideTime
-  arg2 = 12
-  numberValue6 = 0
-  flag2 = 0
-  arg1(arg2, numberValue6, flag2)
-  arg1 = CMG
-  arg1 = arg1.setWeather
-  arg2 = "EXTRASUNNY"
-  arg1(arg2)
-  arg1 = GetVehicleRecordingId
-  arg2 = dataTable2.handle
-  numberValue6 = dataTable2.name
-  arg1 = arg1(arg2, numberValue6)
-  arg2 = GetPositionOfVehicleRecordingAtTime
-  numberValue6 = arg1
-  flag2 = 4500.0
-  flag3 = nil
-  arg2 = arg2(numberValue6, flag2, flag3)
-  numberValue6 = GetRotationOfVehicleRecordingAtTime
-  flag2 = arg1
-  flag3 = 4500.0
-  numberValue10 = nil
-  numberValue6 = numberValue6(flag2, flag3, numberValue10)
-  flag2 = CMG
-  flag2 = flag2.spawnVehicle
-  flag3 = -1281684762
-  numberValue10 = arg2.x
-  flag4 = arg2.y
-  stringHelper = arg2.z
-  mathHelper = numberValue6.z
-  numberValue15 = false
-  numberValue2 = false
-  flag = false
-  flag2 = flag2(flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag)
-  flag3 = SetEntityInvincible
-  numberValue10 = flag2
-  flag4 = true
-  flag3(numberValue10, flag4)
-  flag3 = SetVehicleEngineOn
-  numberValue10 = flag2
-  flag4 = true
+  localValue1 = CMG
+  localValue1 = localValue1.overrideTime
+  localValue2 = 12
+  number6 = 0
+  stateFlag2 = 0
+  localValue1(localValue2, number6, stateFlag2)
+  localValue1 = CMG
+  localValue1 = localValue1.setWeather
+  localValue2 = "EXTRASUNNY"
+  localValue1(localValue2)
+  localValue1 = GetVehicleRecordingId
+  localValue2 = dataCollection2.handle
+  number6 = dataCollection2.name
+  localValue1 = localValue1(localValue2, number6)
+  localValue2 = GetPositionOfVehicleRecordingAtTime
+  number6 = localValue1
+  stateFlag2 = 4500.0
+  stateFlag3 = nil
+  localValue2 = localValue2(number6, stateFlag2, stateFlag3)
+  number6 = GetRotationOfVehicleRecordingAtTime
+  stateFlag2 = localValue1
+  stateFlag3 = 4500.0
+  number10 = nil
+  number6 = number6(stateFlag2, stateFlag3, number10)
+  stateFlag2 = CMG
+  stateFlag2 = stateFlag2.spawnVehicle
+  stateFlag3 = -1281684762
+  number10 = localValue2.x
+  stateFlag4 = localValue2.y
+  stringHelper = localValue2.z
+  mathHelper = number6.z
+  number15 = false
+  number2 = false
+  stateFlag = false
+  stateFlag2 = stateFlag2(stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag)
+  stateFlag3 = SetEntityInvincible
+  number10 = stateFlag2
+  stateFlag4 = true
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetVehicleEngineOn
+  number10 = stateFlag2
+  stateFlag4 = true
   stringHelper = true
   mathHelper = false
-  flag3(numberValue10, flag4, stringHelper, mathHelper)
-  flag3 = SetVehicleCanBeVisiblyDamaged
-  numberValue10 = flag2
-  flag4 = false
-  flag3(numberValue10, flag4)
-  flag3 = SetVehicleCanBreak
-  numberValue10 = flag2
-  flag4 = false
-  flag3(numberValue10, flag4)
-  flag3 = SetEntityProofs
-  numberValue10 = flag2
-  flag4 = true
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper)
+  stateFlag3 = SetVehicleCanBeVisiblyDamaged
+  number10 = stateFlag2
+  stateFlag4 = false
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetVehicleCanBreak
+  number10 = stateFlag2
+  stateFlag4 = false
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetEntityProofs
+  number10 = stateFlag2
+  stateFlag4 = true
   stringHelper = true
   mathHelper = true
-  numberValue15 = true
-  numberValue2 = true
-  flag = true
-  numberValue3 = true
-  numberValue4 = true
-  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
-  flag3 = ControlLandingGear
-  numberValue10 = flag2
-  flag4 = 3
-  flag3(numberValue10, flag4)
-  flag3 = SetEntityLodDist
-  numberValue10 = flag2
-  flag4 = 500
-  flag3(numberValue10, flag4)
-  flag3 = StartPlaybackRecordedVehicle
-  numberValue10 = flag2
-  flag4 = dataTable2.handle
-  stringHelper = dataTable2.name
+  number15 = true
+  number2 = true
+  stateFlag = true
+  number3 = true
+  number4 = true
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4)
+  stateFlag3 = ControlLandingGear
+  number10 = stateFlag2
+  stateFlag4 = 3
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetEntityLodDist
+  number10 = stateFlag2
+  stateFlag4 = 500
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = StartPlaybackRecordedVehicle
+  number10 = stateFlag2
+  stateFlag4 = dataCollection2.handle
+  stringHelper = dataCollection2.name
   mathHelper = true
-  flag3(numberValue10, flag4, stringHelper, mathHelper)
-  flag3 = SkipTimeInPlaybackRecordedVehicle
-  numberValue10 = flag2
-  flag4 = 4500.0
-  flag3(numberValue10, flag4)
-  flag3 = SetPedIntoVehicle
-  numberValue10 = PlayerPedId
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper)
+  stateFlag3 = SkipTimeInPlaybackRecordedVehicle
+  number10 = stateFlag2
+  stateFlag4 = 4500.0
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = SetPedIntoVehicle
+  number10 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  numberValue10 = numberValue10()
-  flag4 = flag2
+  number10 = number10()
+  stateFlag4 = stateFlag2
   stringHelper = -1
-  flag3(numberValue10, flag4, stringHelper)
-  flag3 = RenderScriptCams
-  numberValue10 = false
-  flag4 = true
+  stateFlag3(number10, stateFlag4, stringHelper)
+  stateFlag3 = RenderScriptCams
+  number10 = false
+  stateFlag4 = true
   stringHelper = 10000
   mathHelper = true
-  numberValue15 = false
-  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15)
-  flag3 = workValue3
-  numberValue10 = 500
-  flag4 = false
-  flag3(numberValue10, flag4)
+  number15 = false
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper, number15)
+  stateFlag3 = workingValue3
+  number10 = 500
+  stateFlag4 = false
+  stateFlag3(number10, stateFlag4)
   while true do
-    flag3 = DoesEntityExist
-    numberValue10 = flag2
-    flag3 = flag3(numberValue10)
-    if not flag3 then
+    stateFlag3 = DoesEntityExist
+    number10 = stateFlag2
+    stateFlag3 = stateFlag3(number10)
+    if not stateFlag3 then
       break
     end
-    flag3 = SetPlaybackSpeed
-    numberValue10 = flag2
-    flag4 = 2.0
-    flag3(numberValue10, flag4)
-    flag3 = SetGameplayCamRelativePitch
-    numberValue10 = 0.0
-    flag4 = 1.0
-    flag3(numberValue10, flag4)
-    flag3 = SetGameplayCamRelativeHeading
-    numberValue10 = 0.0
-    flag3(numberValue10)
-    flag3 = math
-    flag3 = flag3.floor
-    numberValue10 = GetTimePositionInRecording
-    flag4 = flag2
-    numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4 = numberValue10(flag4)
-    flag3 = flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
-    numberValue10 = 104000
-    if flag3 > numberValue10 then
+    stateFlag3 = SetPlaybackSpeed
+    number10 = stateFlag2
+    stateFlag4 = 2.0
+    stateFlag3(number10, stateFlag4)
+    stateFlag3 = SetGameplayCamRelativePitch
+    number10 = 0.0
+    stateFlag4 = 1.0
+    stateFlag3(number10, stateFlag4)
+    stateFlag3 = SetGameplayCamRelativeHeading
+    number10 = 0.0
+    stateFlag3(number10)
+    stateFlag3 = math
+    stateFlag3 = stateFlag3.floor
+    number10 = GetTimePositionInRecording
+    stateFlag4 = stateFlag2
+    number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4 = number10(stateFlag4)
+    stateFlag3 = stateFlag3(number10, stateFlag4, stringHelper, mathHelper, number15, number2, stateFlag, number3, number4)
+    number10 = 104000
+    if stateFlag3 > number10 then
       break
     end
-    numberValue10 = Wait
-    flag4 = 0
-    numberValue10(flag4)
+    number10 = Wait
+    stateFlag4 = 0
+    number10(stateFlag4)
   end
-  flag3 = workValue2
-  numberValue10 = 500
-  flag4 = true
-  flag3(numberValue10, flag4)
-  flag3 = PlayerPedId
+  stateFlag3 = workingValue2
+  number10 = 500
+  stateFlag4 = true
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  flag3 = flag3()
-  numberValue10 = DoesEntityExist
-  flag4 = flag2
-  numberValue10 = numberValue10(flag4)
-  if numberValue10 then
-    numberValue10 = IsPedInVehicle
-    flag4 = flag3
-    stringHelper = flag2
+  stateFlag3 = stateFlag3()
+  number10 = DoesEntityExist
+  stateFlag4 = stateFlag2
+  number10 = number10(stateFlag4)
+  if number10 then
+    number10 = IsPedInVehicle
+    stateFlag4 = stateFlag3
+    stringHelper = stateFlag2
     mathHelper = false
-    numberValue10 = numberValue10(flag4, stringHelper, mathHelper)
-    if numberValue10 then
-      numberValue10 = TaskLeaveVehicle
-      flag4 = flag3
-      stringHelper = flag2
+    number10 = number10(stateFlag4, stringHelper, mathHelper)
+    if number10 then
+      number10 = TaskLeaveVehicle
+      stateFlag4 = stateFlag3
+      stringHelper = stateFlag2
       mathHelper = 16
-      numberValue10(flag4, stringHelper, mathHelper)
-      numberValue10 = Wait
-      flag4 = 0
-      numberValue10(flag4)
+      number10(stateFlag4, stringHelper, mathHelper)
+      number10 = Wait
+      stateFlag4 = 0
+      number10(stateFlag4)
     end
-    numberValue10 = StopPlaybackRecordedVehicle
-    flag4 = flag2
-    numberValue10(flag4)
-    numberValue10 = DeleteEntity
-    flag4 = flag2
+    number10 = StopPlaybackRecordedVehicle
+    stateFlag4 = stateFlag2
+    number10(stateFlag4)
+    number10 = DeleteEntity
+    stateFlag4 = stateFlag2
     -- Beginner: Delete a GTA entity.
-    numberValue10(flag4)
+    number10(stateFlag4)
   end
-  numberValue10 = SetModelAsNoLongerNeeded
-  flag4 = -1281684762
-  numberValue10(flag4)
-  numberValue10 = RemoveVehicleRecording
-  flag4 = dataTable2.handle
-  stringHelper = dataTable2.name
-  numberValue10(flag4, stringHelper)
+  number10 = SetModelAsNoLongerNeeded
+  stateFlag4 = -1281684762
+  number10(stateFlag4)
+  number10 = RemoveVehicleRecording
+  stateFlag4 = dataCollection2.handle
+  stringHelper = dataCollection2.name
+  number10(stateFlag4, stringHelper)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
-function workValue6()
-  local arg1, arg2, numberValue6, flag2, flag3, numberValue10
-  arg1 = true
-  numberValue7 = arg1
-  arg1 = table
-  arg1 = arg1.create
-  arg2 = 60000
-  numberValue6 = 0
-  arg1 = arg1(arg2, numberValue6)
-  numberValue14 = arg1
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: none) ===
+function workingValue6()
+  local localValue1, localValue2, number6, stateFlag2, stateFlag3, number10
+  localValue1 = true
+  number7 = localValue1
+  localValue1 = table
+  localValue1 = localValue1.create
+  localValue2 = 60000
+  number6 = 0
+  localValue1 = localValue1(localValue2, number6)
+  number14 = localValue1
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = SetEntityInvincible
-  numberValue6 = arg1
-  flag2 = false
-  arg2(numberValue6, flag2)
-  arg2 = GetEntityCoords
-  numberValue6 = arg1
-  flag2 = true
+  localValue1 = localValue1()
+  localValue2 = SetEntityInvincible
+  number6 = localValue1
+  stateFlag2 = false
+  localValue2(number6, stateFlag2)
+  localValue2 = GetEntityCoords
+  number6 = localValue1
+  stateFlag2 = true
   -- Beginner: result below is entityCoords.
-  arg2 = arg2(numberValue6, flag2)
-  numberValue8 = arg2
-  arg2 = PlayerId
+  localValue2 = localValue2(number6, stateFlag2)
+  number8 = localValue2
+  localValue2 = PlayerId
   -- Beginner: result below is localPlayerIndex.
-  arg2 = arg2()
-  numberValue6 = SetPlayerControl
-  flag2 = arg2
-  flag3 = false
-  numberValue10 = 0
-  numberValue6(flag2, flag3, numberValue10)
-  numberValue6 = SetEveryoneIgnorePlayer
-  flag2 = arg2
-  flag3 = true
-  numberValue6(flag2, flag3)
-  numberValue6 = CMG
-  numberValue6 = numberValue6.createThreadOnTick
-  flag2 = workValue
-  flag3 = "Benchmark"
+  localValue2 = localValue2()
+  number6 = SetPlayerControl
+  stateFlag2 = localValue2
+  stateFlag3 = false
+  number10 = 0
+  number6(stateFlag2, stateFlag3, number10)
+  number6 = SetEveryoneIgnorePlayer
+  stateFlag2 = localValue2
+  stateFlag3 = true
+  number6(stateFlag2, stateFlag3)
+  number6 = CMG
+  number6 = number6.createThreadOnTick
+  stateFlag2 = workingValue
+  stateFlag3 = "Benchmark"
   -- Beginner: Run a helper every game frame while this script is active.
-  numberValue6(flag2, flag3)
-  numberValue6 = CMG
-  numberValue6 = numberValue6.hideAllDisplays
-  flag2 = "benchmark"
-  numberValue6(flag2)
-  numberValue6 = workValue2
-  flag2 = 500
-  flag3 = true
-  numberValue6(flag2, flag3)
-  numberValue6 = AnimpostfxStopAll
-  numberValue6()
+  number6(stateFlag2, stateFlag3)
+  number6 = CMG
+  number6 = number6.hideAllDisplays
+  stateFlag2 = "benchmark"
+  number6(stateFlag2)
+  number6 = workingValue2
+  stateFlag2 = 500
+  stateFlag3 = true
+  number6(stateFlag2, stateFlag3)
+  number6 = AnimpostfxStopAll
+  number6()
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15
-  arg1 = CMG
-  arg1 = arg1.deleteThreadOnTick
-  arg2 = workValue
-  arg1(arg2)
-  arg1 = RenderScriptCams
-  arg2 = false
-  numberValue6 = false
-  flag2 = 0
-  flag3 = false
-  numberValue10 = false
-  arg1(arg2, numberValue6, flag2, flag3, numberValue10)
-  arg1 = SetCamActive
-  arg2 = vector3Builder
-  numberValue6 = false
-  arg1(arg2, numberValue6)
-  arg1 = DestroyCam
-  arg2 = vector3Builder
-  numberValue6 = false
-  arg1(arg2, numberValue6)
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15
+  localValue1 = CMG
+  localValue1 = localValue1.deleteThreadOnTick
+  localValue2 = workingValue
+  localValue1(localValue2)
+  localValue1 = RenderScriptCams
+  localValue2 = false
+  number6 = false
+  stateFlag2 = 0
+  stateFlag3 = false
+  number10 = false
+  localValue1(localValue2, number6, stateFlag2, stateFlag3, number10)
+  localValue1 = SetCamActive
+  localValue2 = createVector3
+  number6 = false
+  localValue1(localValue2, number6)
+  localValue1 = DestroyCam
+  localValue2 = createVector3
+  number6 = false
+  localValue1(localValue2, number6)
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = SetEntityInvincible
-  numberValue6 = arg1
-  flag2 = false
-  arg2(numberValue6, flag2)
-  arg2 = SetEntityCoords
-  numberValue6 = arg1
-  flag2 = numberValue8.x
-  flag3 = numberValue8.y
-  numberValue10 = numberValue8.z
-  flag4 = true
+  localValue1 = localValue1()
+  localValue2 = SetEntityInvincible
+  number6 = localValue1
+  stateFlag2 = false
+  localValue2(number6, stateFlag2)
+  localValue2 = SetEntityCoords
+  number6 = localValue1
+  stateFlag2 = number8.x
+  stateFlag3 = number8.y
+  number10 = number8.z
+  stateFlag4 = true
   stringHelper = false
   mathHelper = false
-  numberValue15 = false
+  number15 = false
   -- Beginner: Move/teleport an entity to new coordinates.
-  arg2(numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15)
-  arg2 = FreezeEntityPosition
-  numberValue6 = arg1
-  flag2 = false
+  localValue2(number6, stateFlag2, stateFlag3, number10, stateFlag4, stringHelper, mathHelper, number15)
+  localValue2 = FreezeEntityPosition
+  number6 = localValue1
+  stateFlag2 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg2(numberValue6, flag2)
-  arg2 = PlayerId
+  localValue2(number6, stateFlag2)
+  localValue2 = PlayerId
   -- Beginner: result below is localPlayerIndex.
-  arg2 = arg2()
-  numberValue6 = SetPlayerControl
-  flag2 = arg2
-  flag3 = true
-  numberValue10 = 0
-  numberValue6(flag2, flag3, numberValue10)
-  numberValue6 = SetEveryoneIgnorePlayer
-  flag2 = arg2
-  flag3 = false
-  numberValue6(flag2, flag3)
-  numberValue6 = workValue3
-  flag2 = 500
-  flag3 = false
-  numberValue6(flag2, flag3)
-  numberValue6 = 0.0
-  flag2 = pairs
-  flag3 = numberValue14
-  flag2, flag3, numberValue10, flag4 = flag2(flag3)
-  for stringHelper, mathHelper in flag2, flag3, numberValue10, flag4 do
-    numberValue15 = numberValue
-    if stringHelper >= numberValue15 then
+  localValue2 = localValue2()
+  number6 = SetPlayerControl
+  stateFlag2 = localValue2
+  stateFlag3 = true
+  number10 = 0
+  number6(stateFlag2, stateFlag3, number10)
+  number6 = SetEveryoneIgnorePlayer
+  stateFlag2 = localValue2
+  stateFlag3 = false
+  number6(stateFlag2, stateFlag3)
+  number6 = workingValue3
+  stateFlag2 = 500
+  stateFlag3 = false
+  number6(stateFlag2, stateFlag3)
+  number6 = 0.0
+  stateFlag2 = pairs
+  stateFlag3 = number14
+  stateFlag2, stateFlag3, number10, stateFlag4 = stateFlag2(stateFlag3)
+  for stringHelper, mathHelper in stateFlag2, stateFlag3, number10, stateFlag4 do
+    number15 = number
+    if stringHelper >= number15 then
       break
     end
-    numberValue6 = numberValue6 + mathHelper
+    number6 = number6 + mathHelper
   end
-  flag2 = numberValue
-  flag2 = flag2 + 0.0
-  numberValue6 = numberValue6 / flag2
-  flag2 = math
-  flag2 = flag2.round
-  flag3 = numberValue6
-  numberValue10 = 1
-  flag2 = flag2(flag3, numberValue10)
-  flag3 = CMG
-  flag3 = flag3.showWarningMessage
-  numberValue10 = "BENCHMARK"
-  flag4 = string
-  flag4 = flag4.format
+  stateFlag2 = number
+  stateFlag2 = stateFlag2 + 0.0
+  number6 = number6 / stateFlag2
+  stateFlag2 = math
+  stateFlag2 = stateFlag2.round
+  stateFlag3 = number6
+  number10 = 1
+  stateFlag2 = stateFlag2(stateFlag3, number10)
+  stateFlag3 = CMG
+  stateFlag3 = stateFlag3.showWarningMessage
+  number10 = "BENCHMARK"
+  stateFlag4 = string
+  stateFlag4 = stateFlag4.format
   stringHelper = "Average FPS: %s"
-  mathHelper = flag2
-  flag4, stringHelper, mathHelper, numberValue15 = flag4(stringHelper, mathHelper)
-  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15)
-  flag3 = TriggerServerEvent
-  numberValue10 = "fc507140b6"
-  flag4 = flag2
+  mathHelper = stateFlag2
+  stateFlag4, stringHelper, mathHelper, number15 = stateFlag4(stringHelper, mathHelper)
+  stateFlag3(number10, stateFlag4, stringHelper, mathHelper, number15)
+  stateFlag3 = TriggerServerEvent
+  number10 = "fc507140b6"
+  stateFlag4 = stateFlag2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "fc507140b6".
-  flag3(numberValue10, flag4)
-  flag3 = CMG
-  flag3 = flag3.cancelOverrideTimeWeather
-  flag3()
-  flag3 = CMG
-  flag3 = flag3.showAllDisplays
-  numberValue10 = "benchmark"
-  flag3(numberValue10)
-  flag3 = table
-  flag3 = flag3.clear
-  numberValue10 = numberValue9
-  flag3(numberValue10)
-  flag3 = 1
-  numberValue12 = flag3
-  flag3 = {}
-  numberValue14 = flag3
-  flag3 = 1
-  numberValue = flag3
-  flag3 = false
-  numberValue7 = flag3
+  stateFlag3(number10, stateFlag4)
+  stateFlag3 = CMG
+  stateFlag3 = stateFlag3.cancelOverrideTimeWeather
+  stateFlag3()
+  stateFlag3 = CMG
+  stateFlag3 = stateFlag3.showAllDisplays
+  number10 = "benchmark"
+  stateFlag3(number10)
+  stateFlag3 = table
+  stateFlag3 = stateFlag3.clear
+  number10 = number9
+  stateFlag3(number10)
+  stateFlag3 = 1
+  number12 = stateFlag3
+  stateFlag3 = {}
+  number14 = stateFlag3
+  stateFlag3 = 1
+  number = stateFlag3
+  stateFlag3 = false
+  number7 = stateFlag3
 end
-cmgCall = RegisterNetEvent
-textValue = "1b2bb2e289"
+cmgOperation = RegisterNetEvent
+text = "1b2bb2e289"
 -- Beginner: this function handles network event "1b2bb2e289".
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, arg2
-  arg1 = workValue6
-  arg1()
-  arg1 = workValue4
-  arg2 = 1
-  arg1(arg2)
-  arg1 = workValue4
-  arg2 = 2
-  arg1(arg2)
-  arg1 = workValue4
-  arg2 = 3
-  arg1(arg2)
-  arg1 = workValue4
-  arg2 = 4
-  arg1(arg2)
-  arg1 = workValue4
-  arg2 = 5
-  arg1(arg2)
-  arg1 = workValue5
-  arg1()
-  arg1 = workValue4
-  arg2 = 6
-  arg1(arg2)
-  arg1 = workValue7
-  arg1()
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, localValue2
+  localValue1 = workingValue6
+  localValue1()
+  localValue1 = workingValue4
+  localValue2 = 1
+  localValue1(localValue2)
+  localValue1 = workingValue4
+  localValue2 = 2
+  localValue1(localValue2)
+  localValue1 = workingValue4
+  localValue2 = 3
+  localValue1(localValue2)
+  localValue1 = workingValue4
+  localValue2 = 4
+  localValue1(localValue2)
+  localValue1 = workingValue4
+  localValue2 = 5
+  localValue1(localValue2)
+  localValue1 = workingValue5
+  localValue1()
+  localValue1 = workingValue4
+  localValue2 = 6
+  localValue1(localValue2)
+  localValue1 = workingValue7
+  localValue1()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1b2bb2e289".
-cmgCall(textValue, workValue8)
-cmgCall = CMG
+cmgOperation(text, workingValue8)
+cmgOperation = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2
-  arg1 = numberValue7
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2
+  localValue1 = number7
+  return localValue1
 end
-cmgCall.isBenchmarking = textValue
-cmgCall = AddEventHandler
-textValue = "onResourceStop"
+cmgOperation.isBenchmarking = text
+cmgOperation = AddEventHandler
+text = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local arg2
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg2 == arg1 then
-    arg2 = numberValue7
-    if arg2 then
-      arg2 = workValue7
-      arg2()
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local localValue2
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue2 == localValue1 then
+    localValue2 = number7
+    if localValue2 then
+      localValue2 = workingValue7
+      localValue2()
     end
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-cmgCall(textValue, workValue8)
+cmgOperation(text, workingValue8)

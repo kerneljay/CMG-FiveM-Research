@@ -32,35 +32,35 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local numberValue, numberValue4, localEventCall, cmgCall3, textValue2, textValue3, threadCall, threadCall2, eventRegistration, textValue4, workValue2, cmgCall, workValue3, textValue
-numberValue = 948655685
-numberValue4 = 190.0
+local number, number4, localEventCall, cmgOperation3, text2, text3, backgroundThread, backgroundThread2, eventHandler, text4, workingValue2, cmgOperation, workingValue3, text
+number = 948655685
+number4 = 190.0
 localEventCall = TriggerEvent
-cmgCall3 = "chat:addSuggestion"
-textValue2 = "/drone"
-textValue3 = "Create or delete a remote controlled drone"
+cmgOperation3 = "chat:addSuggestion"
+text2 = "/drone"
+text3 = "Create or delete a remote controlled drone"
 -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
-localEventCall(cmgCall3, textValue2, textValue3)
+localEventCall(cmgOperation3, text2, text3)
 localEventCall = {}
 localEventCall.active = false
 localEventCall.vehicleHandle = 0
@@ -71,1469 +71,1469 @@ localEventCall.nightVisionEnabled = false
 localEventCall.thermalEnabled = false
 localEventCall.landing = false
 localEventCall.tablet = 0
-cmgCall3 = CMG
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, workValue4
-  arg1 = localEventCall.active
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, workingValue4
+  localValue1 = localEventCall.active
+  return localValue1
 end
-cmgCall3.isPlayerInDrone = textValue2
+cmgOperation3.isPlayerInDrone = text2
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8, flag9, heading, numberValue2, flag10
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, workingValue4, cmgOperation2, coords, stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9, heading, number2, stateFlag10
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  workValue4 = localEventCall.cameraEnabled
-  if workValue4 then
-    workValue4 = DoesEntityExist
-    cmgCall2 = localEventCall.tablet
-    workValue4 = workValue4(cmgCall2)
-    if workValue4 then
-      workValue4 = DeleteEntity
-      cmgCall2 = localEventCall.tablet
+  localValue1 = localValue1()
+  workingValue4 = localEventCall.cameraEnabled
+  if workingValue4 then
+    workingValue4 = DoesEntityExist
+    cmgOperation2 = localEventCall.tablet
+    workingValue4 = workingValue4(cmgOperation2)
+    if workingValue4 then
+      workingValue4 = DeleteEntity
+      cmgOperation2 = localEventCall.tablet
       -- Beginner: Delete a GTA entity.
-      workValue4(cmgCall2)
-      workValue4 = ClearPedTasks
-      cmgCall2 = arg1
-      workValue4(cmgCall2)
+      workingValue4(cmgOperation2)
+      workingValue4 = ClearPedTasks
+      cmgOperation2 = localValue1
+      workingValue4(cmgOperation2)
     end
-    workValue4 = math
-    workValue4 = workValue4.ceil
-    cmgCall2 = CMG
-    cmgCall2 = cmgCall2.getPlayerCoords
+    workingValue4 = math
+    workingValue4 = workingValue4.ceil
+    cmgOperation2 = CMG
+    cmgOperation2 = cmgOperation2.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    cmgCall2 = cmgCall2()
+    cmgOperation2 = cmgOperation2()
     coords = GetEntityCoords
-    flag11 = localEventCall.vehicleHandle
+    stateFlag11 = localEventCall.vehicleHandle
     -- Beginner: result below is entityCoords.
-    coords = coords(flag11)
-    cmgCall2 = cmgCall2 - coords
-    cmgCall2 = #cmgCall2
-    cmgCall2 = cmgCall2 / 10
-    workValue4 = workValue4(cmgCall2)
-    workValue4 = 500 * workValue4
-    cmgCall2 = RenderScriptCams
+    coords = coords(stateFlag11)
+    cmgOperation2 = cmgOperation2 - coords
+    cmgOperation2 = #cmgOperation2
+    cmgOperation2 = cmgOperation2 / 10
+    workingValue4 = workingValue4(cmgOperation2)
+    workingValue4 = 500 * workingValue4
+    cmgOperation2 = RenderScriptCams
     coords = false
-    flag11 = false
-    tableHelper = workValue4
-    flag13 = true
-    flag14 = false
-    cmgCall2(coords, flag11, tableHelper, flag13, flag14)
-    cmgCall2 = ClearTimecycleModifier
-    cmgCall2()
-    cmgCall2 = DoesCamExist
+    stateFlag11 = false
+    tableHelper = workingValue4
+    stateFlag13 = true
+    stateFlag14 = false
+    cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13, stateFlag14)
+    cmgOperation2 = ClearTimecycleModifier
+    cmgOperation2()
+    cmgOperation2 = DoesCamExist
     coords = localEventCall.cameraHandle
-    cmgCall2 = cmgCall2(coords)
-    if cmgCall2 then
-      cmgCall2 = DestroyCam
+    cmgOperation2 = cmgOperation2(coords)
+    if cmgOperation2 then
+      cmgOperation2 = DestroyCam
       coords = localEventCall.cameraHandle
-      flag11 = false
-      cmgCall2(coords, flag11)
+      stateFlag11 = false
+      cmgOperation2(coords, stateFlag11)
     end
     localEventCall.cameraEnabled = false
-    cmgCall2 = localEventCall.nightVisionEnabled
-    if cmgCall2 then
-      cmgCall2 = SetNightvision
+    cmgOperation2 = localEventCall.nightVisionEnabled
+    if cmgOperation2 then
+      cmgOperation2 = SetNightvision
       coords = false
-      cmgCall2(coords)
+      cmgOperation2(coords)
       localEventCall.nightVisionEnabled = false
     end
-    cmgCall2 = localEventCall.thermalEnabled
-    if cmgCall2 then
-      cmgCall2 = SetSeethrough
+    cmgOperation2 = localEventCall.thermalEnabled
+    if cmgOperation2 then
+      cmgOperation2 = SetSeethrough
       coords = false
-      cmgCall2(coords)
+      cmgOperation2(coords)
       localEventCall.thermalEnabled = false
     end
-    cmgCall2 = FreezeEntityPosition
-    coords = arg1
-    flag11 = false
+    cmgOperation2 = FreezeEntityPosition
+    coords = localValue1
+    stateFlag11 = false
     -- Beginner: Freeze or unfreeze an entity in place.
-    cmgCall2(coords, flag11)
+    cmgOperation2(coords, stateFlag11)
   else
-    workValue4 = CMG
-    workValue4 = workValue4.loadModel
-    cmgCall2 = -1585232418
-    workValue4 = workValue4(cmgCall2)
-    if not workValue4 then
+    workingValue4 = CMG
+    workingValue4 = workingValue4.loadModel
+    cmgOperation2 = -1585232418
+    workingValue4 = workingValue4(cmgOperation2)
+    if not workingValue4 then
       return
     end
-    cmgCall2 = CMG
-    cmgCall2 = cmgCall2.getPlayerCoords
+    cmgOperation2 = CMG
+    cmgOperation2 = cmgOperation2.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    cmgCall2 = cmgCall2()
+    cmgOperation2 = cmgOperation2()
     coords = CMG
     coords = coords.requestEntitySpawn
-    flag11 = "drone_tablet"
-    coords(flag11)
+    stateFlag11 = "drone_tablet"
+    coords(stateFlag11)
     coords = CreateObject
-    flag11 = workValue4
-    tableHelper = cmgCall2.x
-    flag13 = cmgCall2.y
-    flag14 = cmgCall2.z
-    flag15 = true
-    flag16 = false
-    flag = false
+    stateFlag11 = workingValue4
+    tableHelper = cmgOperation2.x
+    stateFlag13 = cmgOperation2.y
+    stateFlag14 = cmgOperation2.z
+    stateFlag15 = true
+    stateFlag16 = false
+    stateFlag = false
     -- Beginner: result below is objectEntity.
-    coords = coords(flag11, tableHelper, flag13, flag14, flag15, flag16, flag)
+    coords = coords(stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag)
     localEventCall.tablet = coords
     coords = SetModelAsNoLongerNeeded
-    flag11 = workValue4
-    coords(flag11)
+    stateFlag11 = workingValue4
+    coords(stateFlag11)
     coords = AttachEntityToEntity
-    flag11 = localEventCall.tablet
-    tableHelper = arg1
-    flag13 = GetPedBoneIndex
-    flag14 = arg1
-    flag15 = 28422
-    flag13 = flag13(flag14, flag15)
-    flag14 = -0.03
-    flag15 = 0.0
-    flag16 = 0.0
-    flag = 0.0
-    flag3 = 0.0
-    flag5 = 0.0
-    flag7 = true
-    flag8 = true
-    flag9 = false
+    stateFlag11 = localEventCall.tablet
+    tableHelper = localValue1
+    stateFlag13 = GetPedBoneIndex
+    stateFlag14 = localValue1
+    stateFlag15 = 28422
+    stateFlag13 = stateFlag13(stateFlag14, stateFlag15)
+    stateFlag14 = -0.03
+    stateFlag15 = 0.0
+    stateFlag16 = 0.0
+    stateFlag = 0.0
+    stateFlag3 = 0.0
+    stateFlag5 = 0.0
+    stateFlag7 = true
+    stateFlag8 = true
+    stateFlag9 = false
     heading = true
-    numberValue2 = 1
-    flag10 = true
+    number2 = 1
+    stateFlag10 = true
     -- Beginner: Attach one entity to another entity.
-    coords(flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8, flag9, heading, numberValue2, flag10)
+    coords(stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9, heading, number2, stateFlag10)
     coords = CMG
     coords = coords.loadAnimDict
-    flag11 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
+    stateFlag11 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
     -- Beginner: Load a GTA animation dictionary before using it.
-    coords(flag11)
+    coords(stateFlag11)
     coords = TaskPlayAnim
-    flag11 = arg1
+    stateFlag11 = localValue1
     tableHelper = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
-    flag13 = "idle_a"
-    flag14 = 3.0
-    flag15 = -8
-    flag16 = -1
-    flag = 63
-    flag3 = 0
-    flag5 = false
-    flag7 = false
-    flag8 = false
+    stateFlag13 = "idle_a"
+    stateFlag14 = 3.0
+    stateFlag15 = -8
+    stateFlag16 = -1
+    stateFlag = 63
+    stateFlag3 = 0
+    stateFlag5 = false
+    stateFlag7 = false
+    stateFlag8 = false
     -- Beginner: Play an animation on a ped.
-    coords(flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8)
+    coords(stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8)
     localEventCall.cameraEnabled = true
     coords = CreateCam
-    flag11 = "DEFAULT_SCRIPTED_CAMERA"
+    stateFlag11 = "DEFAULT_SCRIPTED_CAMERA"
     tableHelper = true
     -- Beginner: result below is cameraHandle.
-    coords = coords(flag11, tableHelper)
+    coords = coords(stateFlag11, tableHelper)
     localEventCall.cameraHandle = coords
     coords = {}
     coords.x = 0.0
     coords.z = 0.0
-    flag11 = 70.0
+    stateFlag11 = 70.0
     tableHelper = AttachCamToEntity
-    flag13 = localEventCall.cameraHandle
-    flag14 = localEventCall.vehicleHandle
-    flag15 = 0.0
-    flag16 = 0.1
-    flag = -0.1
-    flag3 = true
-    tableHelper(flag13, flag14, flag15, flag16, flag, flag3)
+    stateFlag13 = localEventCall.cameraHandle
+    stateFlag14 = localEventCall.vehicleHandle
+    stateFlag15 = 0.0
+    stateFlag16 = 0.1
+    stateFlag = -0.1
+    stateFlag3 = true
+    tableHelper(stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3)
     tableHelper = Citizen
     tableHelper = tableHelper.CreateThread
 
-    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
-    function flag13()
-      local workValue, workValue5, numberValue6, numberValue7, flag12, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, flag2, flag4, flag6
+    -- === HELPER FUNCTION (decompiler name: stateFlag13; parameters: none) ===
+    function stateFlag13()
+      local workingValue, workingValue5, number6, number7, stateFlag12, number8, number9, number10, number11, number12, stateFlag2, stateFlag4, stateFlag6
       while true do
-        workValue = DoesCamExist
-        workValue5 = localEventCall.cameraHandle
-        workValue = workValue(workValue5)
-        if not workValue then
+        workingValue = DoesCamExist
+        workingValue5 = localEventCall.cameraHandle
+        workingValue = workingValue(workingValue5)
+        if not workingValue then
           break
         end
-        workValue = GetEntityRotation
-        workValue5 = localEventCall.vehicleHandle
-        numberValue6 = 2
-        workValue = workValue(workValue5, numberValue6)
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 32
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 33
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 34
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 35
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 157
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 158
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = IsDisabledControlPressed
-        numberValue6 = 0
-        numberValue7 = 32
-        workValue5 = workValue5(numberValue6, numberValue7)
-        if workValue5 then
-          workValue5 = coords.x
-          workValue5 = workValue5 + 1.0
-          coords.x = workValue5
+        workingValue = GetEntityRotation
+        workingValue5 = localEventCall.vehicleHandle
+        number6 = 2
+        workingValue = workingValue(workingValue5, number6)
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 32
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 33
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 34
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 35
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 157
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 158
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = IsDisabledControlPressed
+        number6 = 0
+        number7 = 32
+        workingValue5 = workingValue5(number6, number7)
+        if workingValue5 then
+          workingValue5 = coords.x
+          workingValue5 = workingValue5 + 1.0
+          coords.x = workingValue5
         end
-        workValue5 = IsDisabledControlPressed
-        numberValue6 = 0
-        numberValue7 = 33
-        workValue5 = workValue5(numberValue6, numberValue7)
-        if workValue5 then
-          workValue5 = coords.x
-          workValue5 = workValue5 - 1.0
-          coords.x = workValue5
+        workingValue5 = IsDisabledControlPressed
+        number6 = 0
+        number7 = 33
+        workingValue5 = workingValue5(number6, number7)
+        if workingValue5 then
+          workingValue5 = coords.x
+          workingValue5 = workingValue5 - 1.0
+          coords.x = workingValue5
         end
-        workValue5 = IsDisabledControlPressed
-        numberValue6 = 0
-        numberValue7 = 34
-        workValue5 = workValue5(numberValue6, numberValue7)
-        if workValue5 then
-          workValue5 = coords.z
-          workValue5 = workValue5 + 1.0
-          coords.z = workValue5
+        workingValue5 = IsDisabledControlPressed
+        number6 = 0
+        number7 = 34
+        workingValue5 = workingValue5(number6, number7)
+        if workingValue5 then
+          workingValue5 = coords.z
+          workingValue5 = workingValue5 + 1.0
+          coords.z = workingValue5
         end
-        workValue5 = IsDisabledControlPressed
-        numberValue6 = 0
-        numberValue7 = 35
-        workValue5 = workValue5(numberValue6, numberValue7)
-        if workValue5 then
-          workValue5 = coords.z
-          workValue5 = workValue5 - 1.0
-          coords.z = workValue5
+        workingValue5 = IsDisabledControlPressed
+        number6 = 0
+        number7 = 35
+        workingValue5 = workingValue5(number6, number7)
+        if workingValue5 then
+          workingValue5 = coords.z
+          workingValue5 = workingValue5 - 1.0
+          coords.z = workingValue5
         end
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 45
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = DisableControlAction
-        numberValue6 = 0
-        numberValue7 = 51
-        flag12 = true
-        workValue5(numberValue6, numberValue7, flag12)
-        workValue5 = IsDisabledControlPressed
-        numberValue6 = 0
-        numberValue7 = 45
-        workValue5 = workValue5(numberValue6, numberValue7)
-        if workValue5 then
-          workValue5 = math
-          workValue5 = workValue5.max
-          numberValue6 = 20.0
-          numberValue7 = flag11
-          flag12 = GetFrameTime
-          flag12 = flag12()
-          flag12 = 100.0 * flag12
-          numberValue7 = numberValue7 - flag12
-          workValue5 = workValue5(numberValue6, numberValue7)
-          flag11 = workValue5
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 45
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = DisableControlAction
+        number6 = 0
+        number7 = 51
+        stateFlag12 = true
+        workingValue5(number6, number7, stateFlag12)
+        workingValue5 = IsDisabledControlPressed
+        number6 = 0
+        number7 = 45
+        workingValue5 = workingValue5(number6, number7)
+        if workingValue5 then
+          workingValue5 = math
+          workingValue5 = workingValue5.max
+          number6 = 20.0
+          number7 = stateFlag11
+          stateFlag12 = GetFrameTime
+          stateFlag12 = stateFlag12()
+          stateFlag12 = 100.0 * stateFlag12
+          number7 = number7 - stateFlag12
+          workingValue5 = workingValue5(number6, number7)
+          stateFlag11 = workingValue5
         end
-        workValue5 = IsDisabledControlPressed
-        numberValue6 = 0
-        numberValue7 = 49
-        workValue5 = workValue5(numberValue6, numberValue7)
-        if workValue5 then
-          workValue5 = math
-          workValue5 = workValue5.min
-          numberValue6 = 70.0
-          numberValue7 = flag11
-          flag12 = GetFrameTime
-          flag12 = flag12()
-          flag12 = 100.0 * flag12
-          numberValue7 = numberValue7 + flag12
-          workValue5 = workValue5(numberValue6, numberValue7)
-          flag11 = workValue5
+        workingValue5 = IsDisabledControlPressed
+        number6 = 0
+        number7 = 49
+        workingValue5 = workingValue5(number6, number7)
+        if workingValue5 then
+          workingValue5 = math
+          workingValue5 = workingValue5.min
+          number6 = 70.0
+          number7 = stateFlag11
+          stateFlag12 = GetFrameTime
+          stateFlag12 = stateFlag12()
+          stateFlag12 = 100.0 * stateFlag12
+          number7 = number7 + stateFlag12
+          workingValue5 = workingValue5(number6, number7)
+          stateFlag11 = workingValue5
         end
-        workValue5 = SetCamRot
-        numberValue6 = localEventCall.cameraHandle
-        numberValue7 = workValue.x
-        flag12 = coords.x
-        numberValue7 = numberValue7 + flag12
-        flag12 = workValue.y
-        numberValue8 = workValue.z
-        numberValue9 = coords.z
-        numberValue8 = numberValue8 + numberValue9
-        numberValue9 = 2
-        workValue5(numberValue6, numberValue7, flag12, numberValue8, numberValue9)
-        workValue5 = SetCamFov
-        numberValue6 = localEventCall.cameraHandle
-        numberValue7 = flag11
-        workValue5(numberValue6, numberValue7)
-        workValue5 = IsEntityPlayingAnim
-        numberValue6 = arg1
-        numberValue7 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
-        flag12 = "idle_a"
-        numberValue8 = 3
-        workValue5 = workValue5(numberValue6, numberValue7, flag12, numberValue8)
-        if not workValue5 then
-          workValue5 = TaskPlayAnim
-          numberValue6 = arg1
-          numberValue7 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
-          flag12 = "idle_a"
-          numberValue8 = 3.0
-          numberValue9 = -8
-          numberValue10 = -1
-          numberValue11 = 63
-          numberValue12 = 0
-          flag2 = false
-          flag4 = false
-          flag6 = false
+        workingValue5 = SetCamRot
+        number6 = localEventCall.cameraHandle
+        number7 = workingValue.x
+        stateFlag12 = coords.x
+        number7 = number7 + stateFlag12
+        stateFlag12 = workingValue.y
+        number8 = workingValue.z
+        number9 = coords.z
+        number8 = number8 + number9
+        number9 = 2
+        workingValue5(number6, number7, stateFlag12, number8, number9)
+        workingValue5 = SetCamFov
+        number6 = localEventCall.cameraHandle
+        number7 = stateFlag11
+        workingValue5(number6, number7)
+        workingValue5 = IsEntityPlayingAnim
+        number6 = localValue1
+        number7 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
+        stateFlag12 = "idle_a"
+        number8 = 3
+        workingValue5 = workingValue5(number6, number7, stateFlag12, number8)
+        if not workingValue5 then
+          workingValue5 = TaskPlayAnim
+          number6 = localValue1
+          number7 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
+          stateFlag12 = "idle_a"
+          number8 = 3.0
+          number9 = -8
+          number10 = -1
+          number11 = 63
+          number12 = 0
+          stateFlag2 = false
+          stateFlag4 = false
+          stateFlag6 = false
           -- Beginner: Play an animation on a ped.
-          workValue5(numberValue6, numberValue7, flag12, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, flag2, flag4, flag6)
+          workingValue5(number6, number7, stateFlag12, number8, number9, number10, number11, number12, stateFlag2, stateFlag4, stateFlag6)
         end
-        workValue5 = Citizen
-        workValue5 = workValue5.Wait
-        numberValue6 = 0
-        workValue5(numberValue6)
+        workingValue5 = Citizen
+        workingValue5 = workingValue5.Wait
+        number6 = 0
+        workingValue5(number6)
       end
-      workValue = RemoveAnimDict
-      workValue5 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
-      workValue(workValue5)
-      workValue = ClearPedTasks
-      workValue5 = arg1
-      workValue(workValue5)
+      workingValue = RemoveAnimDict
+      workingValue5 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
+      workingValue(workingValue5)
+      workingValue = ClearPedTasks
+      workingValue5 = localValue1
+      workingValue(workingValue5)
     end
     -- Beginner: Start a separate FiveM thread so this code can run independently.
-    tableHelper(flag13)
+    tableHelper(stateFlag13)
     tableHelper = math
     tableHelper = tableHelper.ceil
-    flag13 = CMG
-    flag13 = flag13.getPlayerCoords
+    stateFlag13 = CMG
+    stateFlag13 = stateFlag13.getPlayerCoords
     -- Beginner: result below is playerCoords.
-    flag13 = flag13()
-    flag14 = GetEntityCoords
-    flag15 = localEventCall.vehicleHandle
+    stateFlag13 = stateFlag13()
+    stateFlag14 = GetEntityCoords
+    stateFlag15 = localEventCall.vehicleHandle
     -- Beginner: result below is entityCoords.
-    flag14 = flag14(flag15)
-    flag13 = flag13 - flag14
-    flag13 = #flag13
-    flag13 = flag13 / 10
-    tableHelper = tableHelper(flag13)
+    stateFlag14 = stateFlag14(stateFlag15)
+    stateFlag13 = stateFlag13 - stateFlag14
+    stateFlag13 = #stateFlag13
+    stateFlag13 = stateFlag13 / 10
+    tableHelper = tableHelper(stateFlag13)
     tableHelper = 500 * tableHelper
-    flag13 = RenderScriptCams
-    flag14 = true
-    flag15 = true
-    flag16 = tableHelper
-    flag = true
-    flag3 = true
-    flag13(flag14, flag15, flag16, flag, flag3)
-    flag13 = Wait
-    flag14 = tableHelper
-    flag13(flag14)
-    flag13 = FreezeEntityPosition
-    flag14 = arg1
-    flag15 = true
+    stateFlag13 = RenderScriptCams
+    stateFlag14 = true
+    stateFlag15 = true
+    stateFlag16 = tableHelper
+    stateFlag = true
+    stateFlag3 = true
+    stateFlag13(stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3)
+    stateFlag13 = Wait
+    stateFlag14 = tableHelper
+    stateFlag13(stateFlag14)
+    stateFlag13 = FreezeEntityPosition
+    stateFlag14 = localValue1
+    stateFlag15 = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    flag13(flag14, flag15)
-    flag13 = SetTimecycleModifier
-    flag14 = "scanline_cam_cheap"
-    flag13(flag14)
-    flag13 = SetTimecycleModifierStrength
-    flag14 = 0.7
-    flag13(flag14)
+    stateFlag13(stateFlag14, stateFlag15)
+    stateFlag13 = SetTimecycleModifier
+    stateFlag14 = "scanline_cam_cheap"
+    stateFlag13(stateFlag14)
+    stateFlag13 = SetTimecycleModifierStrength
+    stateFlag14 = 0.7
+    stateFlag13(stateFlag14)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, workValue4, cmgCall2, coords
-  arg1 = Wait
-  workValue4 = 500
-  arg1(workValue4)
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, workingValue4, cmgOperation2, coords
+  localValue1 = Wait
+  workingValue4 = 500
+  localValue1(workingValue4)
   localEventCall.active = false
-  arg1 = DeletePed
-  workValue4 = localEventCall.driverHandle
-  arg1(workValue4)
-  arg1 = SetEntityAsMissionEntity
-  workValue4 = localEventCall.vehicleHandle
-  cmgCall2 = false
+  localValue1 = DeletePed
+  workingValue4 = localEventCall.driverHandle
+  localValue1(workingValue4)
+  localValue1 = SetEntityAsMissionEntity
+  workingValue4 = localEventCall.vehicleHandle
+  cmgOperation2 = false
   coords = false
-  arg1(workValue4, cmgCall2, coords)
-  arg1 = DeleteEntity
-  workValue4 = localEventCall.vehicleHandle
+  localValue1(workingValue4, cmgOperation2, coords)
+  localValue1 = DeleteEntity
+  workingValue4 = localEventCall.vehicleHandle
   -- Beginner: Delete a GTA entity.
-  arg1(workValue4)
-  arg1 = SetModelAsNoLongerNeeded
-  workValue4 = numberValue
-  arg1(workValue4)
-  arg1 = localEventCall.cameraEnabled
-  if arg1 then
-    arg1 = cmgCall3
-    arg1()
+  localValue1(workingValue4)
+  localValue1 = SetModelAsNoLongerNeeded
+  workingValue4 = number
+  localValue1(workingValue4)
+  localValue1 = localEventCall.cameraEnabled
+  if localValue1 then
+    localValue1 = cmgOperation3
+    localValue1()
   end
-  arg1 = tCMG
-  arg1 = arg1.notify
-  workValue4 = "Drone ~b~removed~w~."
+  localValue1 = tCMG
+  localValue1 = localValue1.notify
+  workingValue4 = "Drone ~b~removed~w~."
   -- Beginner: Show a notification to the player.
-  arg1(workValue4)
+  localValue1(workingValue4)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local workValue4, cmgCall2, coords, flag11, tableHelper, flag13
-  workValue4 = RequestScaleformMovie
-  cmgCall2 = arg1
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local workingValue4, cmgOperation2, coords, stateFlag11, tableHelper, stateFlag13
+  workingValue4 = RequestScaleformMovie
+  cmgOperation2 = localValue1
   -- Beginner: result below is scaleformHandle.
-  workValue4 = workValue4(cmgCall2)
+  workingValue4 = workingValue4(cmgOperation2)
   while true do
-    cmgCall2 = HasScaleformMovieLoaded
-    coords = workValue4
-    cmgCall2 = cmgCall2(coords)
-    if cmgCall2 then
+    cmgOperation2 = HasScaleformMovieLoaded
+    coords = workingValue4
+    cmgOperation2 = cmgOperation2(coords)
+    if cmgOperation2 then
       break
     end
-    cmgCall2 = Citizen
-    cmgCall2 = cmgCall2.Wait
+    cmgOperation2 = Citizen
+    cmgOperation2 = cmgOperation2.Wait
     coords = 0
-    cmgCall2(coords)
+    cmgOperation2(coords)
   end
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "CLEAR_ALL"
-  cmgCall2(coords, flag11)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_CLEAR_SPACE"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "CLEAR_ALL"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_CLEAR_SPACE"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 200
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 0
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 44
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Up"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 1
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 175
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Right"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 2
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 174
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Left"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 3
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 173
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Backward"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 4
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 172
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Forward"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 5
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 191
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Camera"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 6
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 158
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Night Vision"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 7
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 157
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Thermal"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 8
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 45
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Zoom In"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 9
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 49
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Zoom Out"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_DATA_SLOT"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_DATA_SLOT"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 10
-  cmgCall2(coords)
-  cmgCall2 = Button
+  cmgOperation2(coords)
+  cmgOperation2 = Button
   coords = GetControlInstructionalButton
-  flag11 = 0
+  stateFlag11 = 0
   tableHelper = 121
-  flag13 = true
-  coords, flag11, tableHelper, flag13 = coords(flag11, tableHelper, flag13)
-  cmgCall2(coords, flag11, tableHelper, flag13)
-  cmgCall2 = ButtonMessage
+  stateFlag13 = true
+  coords, stateFlag11, tableHelper, stateFlag13 = coords(stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13)
+  cmgOperation2 = ButtonMessage
   coords = "Land"
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  cmgCall2(coords, flag11)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  cmgCall2 = BeginScaleformMovieMethod
-  coords = workValue4
-  flag11 = "SET_BACKGROUND_COLOUR"
-  cmgCall2(coords, flag11)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  cmgOperation2 = BeginScaleformMovieMethod
+  coords = workingValue4
+  stateFlag11 = "SET_BACKGROUND_COLOUR"
+  cmgOperation2(coords, stateFlag11)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 0
-  cmgCall2(coords)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 0
-  cmgCall2(coords)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 0
-  cmgCall2(coords)
-  cmgCall2 = ScaleformMovieMethodAddParamInt
+  cmgOperation2(coords)
+  cmgOperation2 = ScaleformMovieMethodAddParamInt
   coords = 80
-  cmgCall2(coords)
-  cmgCall2 = EndScaleformMovieMethod
-  cmgCall2()
-  return workValue4
+  cmgOperation2(coords)
+  cmgOperation2 = EndScaleformMovieMethod
+  cmgOperation2()
+  return workingValue4
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
-function threadCall2()
-  local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8, flag9, heading, numberValue2, flag10, numberValue3, numberValue5
-  arg1 = textValue3
-  workValue4 = "instructional_buttons"
-  arg1 = arg1(workValue4)
+-- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: none) ===
+function backgroundThread2()
+  local localValue1, workingValue4, cmgOperation2, coords, stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9, heading, number2, stateFlag10, number3, number5
+  localValue1 = text3
+  workingValue4 = "instructional_buttons"
+  localValue1 = localValue1(workingValue4)
   while true do
-    workValue4 = localEventCall.active
-    if workValue4 then
-      workValue4 = DrawScaleformMovieFullscreen
-      cmgCall2 = arg1
+    workingValue4 = localEventCall.active
+    if workingValue4 then
+      workingValue4 = DrawScaleformMovieFullscreen
+      cmgOperation2 = localValue1
       coords = 255
-      flag11 = 255
+      stateFlag11 = 255
       tableHelper = 255
-      flag13 = 255
-      flag14 = 0
-      workValue4(cmgCall2, coords, flag11, tableHelper, flag13, flag14)
-      workValue4 = NetworkHasControlOfEntity
-      cmgCall2 = localEventCall.driverHandle
-      workValue4 = workValue4(cmgCall2)
-      if workValue4 then
-        workValue4 = NetworkHasControlOfEntity
-        cmgCall2 = localEventCall.vehicleHandle
-        workValue4 = workValue4(cmgCall2)
-        if workValue4 then
-          goto flow_label_31
+      stateFlag13 = 255
+      stateFlag14 = 0
+      workingValue4(cmgOperation2, coords, stateFlag11, tableHelper, stateFlag13, stateFlag14)
+      workingValue4 = NetworkHasControlOfEntity
+      cmgOperation2 = localEventCall.driverHandle
+      workingValue4 = workingValue4(cmgOperation2)
+      if workingValue4 then
+        workingValue4 = NetworkHasControlOfEntity
+        cmgOperation2 = localEventCall.vehicleHandle
+        workingValue4 = workingValue4(cmgOperation2)
+        if workingValue4 then
+          goto continueAtStep31
         end
       end
-      workValue4 = tCMG
-      workValue4 = workValue4.notify
-      cmgCall2 = "You have ~b~lost control ~w~of the drone, after going out of range"
+      workingValue4 = tCMG
+      workingValue4 = workingValue4.notify
+      cmgOperation2 = "You have ~b~lost control ~w~of the drone, after going out of range"
       -- Beginner: Show a notification to the player.
-      workValue4(cmgCall2)
-      workValue4 = textValue2
-      workValue4()
-      ::flow_label_31::
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      workingValue4(cmgOperation2)
+      workingValue4 = text2
+      workingValue4()
+      ::continueAtStep31::
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 172
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 1
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 1
       coords = 172
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 300
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 27
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 1
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 1
       coords = 27
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 188
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 1
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 1
       coords = 188
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 191
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 208
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 207
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 174
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 175
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 173
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = DisableControlAction
-      cmgCall2 = 0
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = DisableControlAction
+      cmgOperation2 = 0
       coords = 121
-      flag11 = true
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = GetEntityHeading
-      cmgCall2 = localEventCall.vehicleHandle
+      stateFlag11 = true
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = GetEntityHeading
+      cmgOperation2 = localEventCall.vehicleHandle
       -- Beginner: result below is heading.
-      workValue4 = workValue4(cmgCall2)
-      cmgCall2 = GetEntityCoords
+      workingValue4 = workingValue4(cmgOperation2)
+      cmgOperation2 = GetEntityCoords
       coords = localEventCall.vehicleHandle
       -- Beginner: result below is entityCoords.
-      cmgCall2 = cmgCall2(coords)
+      cmgOperation2 = cmgOperation2(coords)
       coords = 0
-      flag11 = IsDisabledControlPressed
+      stateFlag11 = IsDisabledControlPressed
       tableHelper = 0
-      flag13 = 44
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
+      stateFlag13 = 44
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
         localEventCall.landing = false
         coords = 3.0
       end
-      flag11 = IsDisabledControlPressed
+      stateFlag11 = IsDisabledControlPressed
       tableHelper = 0
-      flag13 = 48
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
+      stateFlag13 = 48
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
         coords = -3.0
       end
-      flag11 = IsDisabledControlPressed
+      stateFlag11 = IsDisabledControlPressed
       tableHelper = 0
-      flag13 = 46
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
+      stateFlag13 = 46
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
         coords = -3.0
       end
-      flag11 = IsDisabledControlPressed
+      stateFlag11 = IsDisabledControlPressed
       tableHelper = 0
-      flag13 = 172
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
-        flag11 = GetOffsetFromEntityInWorldCoords
+      stateFlag13 = 172
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
+        stateFlag11 = GetOffsetFromEntityInWorldCoords
         tableHelper = localEventCall.vehicleHandle
-        flag13 = 0.0
-        flag14 = 5.0
-        flag15 = 0.0
-        flag11 = flag11(tableHelper, flag13, flag14, flag15)
-        cmgCall2 = flag11
+        stateFlag13 = 0.0
+        stateFlag14 = 5.0
+        stateFlag15 = 0.0
+        stateFlag11 = stateFlag11(tableHelper, stateFlag13, stateFlag14, stateFlag15)
+        cmgOperation2 = stateFlag11
       end
-      flag11 = IsDisabledControlPressed
+      stateFlag11 = IsDisabledControlPressed
       tableHelper = 0
-      flag13 = 173
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
-        flag11 = GetOffsetFromEntityInWorldCoords
+      stateFlag13 = 173
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
+        stateFlag11 = GetOffsetFromEntityInWorldCoords
         tableHelper = localEventCall.vehicleHandle
-        flag13 = 0.0
-        flag14 = -5.0
-        flag15 = 0.0
-        flag11 = flag11(tableHelper, flag13, flag14, flag15)
-        cmgCall2 = flag11
+        stateFlag13 = 0.0
+        stateFlag14 = -5.0
+        stateFlag15 = 0.0
+        stateFlag11 = stateFlag11(tableHelper, stateFlag13, stateFlag14, stateFlag15)
+        cmgOperation2 = stateFlag11
       end
-      flag11 = IsDisabledControlPressed
+      stateFlag11 = IsDisabledControlPressed
       tableHelper = 0
-      flag13 = 174
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
-        workValue4 = workValue4 + 45.0
+      stateFlag13 = 174
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
+        workingValue4 = workingValue4 + 45.0
       end
-      flag11 = IsDisabledControlPressed
+      stateFlag11 = IsDisabledControlPressed
       tableHelper = 0
-      flag13 = 175
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
-        workValue4 = workValue4 - 45.0
-        if workValue4 < 0.0 then
-          workValue4 = 360.0
+      stateFlag13 = 175
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
+        workingValue4 = workingValue4 - 45.0
+        if workingValue4 < 0.0 then
+          workingValue4 = 360.0
         end
       end
-      flag11 = localEventCall.landing
-      if not flag11 then
-        flag11 = TaskHeliMission
+      stateFlag11 = localEventCall.landing
+      if not stateFlag11 then
+        stateFlag11 = TaskHeliMission
         tableHelper = localEventCall.driverHandle
-        flag13 = localEventCall.vehicleHandle
-        flag14 = nil
-        flag15 = nil
-        flag16 = cmgCall2.x
-        flag = cmgCall2.y
-        flag3 = cmgCall2.z
-        flag3 = flag3 + coords
-        flag5 = 4
-        flag7 = numberValue4
-        flag8 = 1.0
-        flag9 = workValue4
+        stateFlag13 = localEventCall.vehicleHandle
+        stateFlag14 = nil
+        stateFlag15 = nil
+        stateFlag16 = cmgOperation2.x
+        stateFlag = cmgOperation2.y
+        stateFlag3 = cmgOperation2.z
+        stateFlag3 = stateFlag3 + coords
+        stateFlag5 = 4
+        stateFlag7 = number4
+        stateFlag8 = 1.0
+        stateFlag9 = workingValue4
         heading = -1
-        numberValue2 = -1
-        flag10 = -1
-        numberValue3 = 0
-        flag11(tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8, flag9, heading, numberValue2, flag10, numberValue3)
+        number2 = -1
+        stateFlag10 = -1
+        number3 = 0
+        stateFlag11(tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9, heading, number2, stateFlag10, number3)
       end
-      flag11 = IsDisabledControlJustPressed
+      stateFlag11 = IsDisabledControlJustPressed
       tableHelper = 0
-      flag13 = 121
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
+      stateFlag13 = 121
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
         localEventCall.landing = true
-        flag11 = GetOffsetFromEntityInWorldCoords
+        stateFlag11 = GetOffsetFromEntityInWorldCoords
         tableHelper = localEventCall.driverHandle
-        flag13 = 0.0
-        flag14 = 3.0
-        flag15 = 0.0
-        flag11 = flag11(tableHelper, flag13, flag14, flag15)
+        stateFlag13 = 0.0
+        stateFlag14 = 3.0
+        stateFlag15 = 0.0
+        stateFlag11 = stateFlag11(tableHelper, stateFlag13, stateFlag14, stateFlag15)
         tableHelper = TaskHeliMission
-        flag13 = localEventCall.driverHandle
-        flag14 = localEventCall.vehicleHandle
-        flag15 = 0
-        flag16 = 0
-        flag = flag11.x
-        flag3 = flag11.y
-        flag5 = flag11.z
-        flag5 = flag5 + 2.0
-        flag7 = 20
-        flag8 = numberValue4
-        flag9 = 10.0
+        stateFlag13 = localEventCall.driverHandle
+        stateFlag14 = localEventCall.vehicleHandle
+        stateFlag15 = 0
+        stateFlag16 = 0
+        stateFlag = stateFlag11.x
+        stateFlag3 = stateFlag11.y
+        stateFlag5 = stateFlag11.z
+        stateFlag5 = stateFlag5 + 2.0
+        stateFlag7 = 20
+        stateFlag8 = number4
+        stateFlag9 = 10.0
         heading = GetEntityHeading
-        numberValue2 = localEventCall.driverHandle
+        number2 = localEventCall.driverHandle
         -- Beginner: result below is heading.
-        heading = heading(numberValue2)
-        numberValue2 = -1
-        flag10 = -1
-        numberValue3 = -1
-        numberValue5 = 32
-        tableHelper(flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8, flag9, heading, numberValue2, flag10, numberValue3, numberValue5)
+        heading = heading(number2)
+        number2 = -1
+        stateFlag10 = -1
+        number3 = -1
+        number5 = 32
+        tableHelper(stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8, stateFlag9, heading, number2, stateFlag10, number3, number5)
       end
-      flag11 = IsDisabledControlJustPressed
+      stateFlag11 = IsDisabledControlJustPressed
       tableHelper = 0
-      flag13 = 158
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
-        flag11 = localEventCall.cameraEnabled
-        if flag11 then
-          flag11 = localEventCall.nightVisionEnabled
-          if flag11 then
-            flag11 = SetNightvision
+      stateFlag13 = 158
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
+        stateFlag11 = localEventCall.cameraEnabled
+        if stateFlag11 then
+          stateFlag11 = localEventCall.nightVisionEnabled
+          if stateFlag11 then
+            stateFlag11 = SetNightvision
             tableHelper = false
-            flag11(tableHelper)
+            stateFlag11(tableHelper)
             localEventCall.nightVisionEnabled = false
           else
-            flag11 = SetNightvision
+            stateFlag11 = SetNightvision
             tableHelper = true
-            flag11(tableHelper)
+            stateFlag11(tableHelper)
             localEventCall.nightVisionEnabled = true
           end
         end
       end
-      flag11 = IsDisabledControlJustPressed
+      stateFlag11 = IsDisabledControlJustPressed
       tableHelper = 0
-      flag13 = 157
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
-        flag11 = localEventCall.cameraEnabled
-        if flag11 then
-          flag11 = localEventCall.thermalEnabled
-          if flag11 then
-            flag11 = SetSeethrough
+      stateFlag13 = 157
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
+        stateFlag11 = localEventCall.cameraEnabled
+        if stateFlag11 then
+          stateFlag11 = localEventCall.thermalEnabled
+          if stateFlag11 then
+            stateFlag11 = SetSeethrough
             tableHelper = false
-            flag11(tableHelper)
+            stateFlag11(tableHelper)
             localEventCall.thermalEnabled = false
           else
-            flag11 = SetSeethrough
+            stateFlag11 = SetSeethrough
             tableHelper = true
-            flag11(tableHelper)
+            stateFlag11(tableHelper)
             localEventCall.thermalEnabled = true
           end
         end
       end
-      flag11 = IsDisabledControlJustPressed
+      stateFlag11 = IsDisabledControlJustPressed
       tableHelper = 0
-      flag13 = 191
-      flag11 = flag11(tableHelper, flag13)
-      if flag11 then
-        flag11 = cmgCall3
-        flag11()
+      stateFlag13 = 191
+      stateFlag11 = stateFlag11(tableHelper, stateFlag13)
+      if stateFlag11 then
+        stateFlag11 = cmgOperation3
+        stateFlag11()
       end
     end
-    workValue4 = Wait
-    cmgCall2 = 0
-    workValue4(cmgCall2)
+    workingValue4 = Wait
+    cmgOperation2 = 0
+    workingValue4(cmgOperation2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(threadCall2)
-threadCall = 0
-threadCall2 = Citizen
-threadCall2 = threadCall2.CreateThread
+backgroundThread(backgroundThread2)
+backgroundThread = 0
+backgroundThread2 = Citizen
+backgroundThread2 = backgroundThread2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, workingValue4, cmgOperation2, coords, stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerVehicle
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg1 = arg1()
-    if 0 ~= arg1 then
-      workValue4 = GetEntityModel
-      cmgCall2 = arg1
+    localValue1 = localValue1()
+    if 0 ~= localValue1 then
+      workingValue4 = GetEntityModel
+      cmgOperation2 = localValue1
       -- Beginner: result below is modelHash.
-      workValue4 = workValue4(cmgCall2)
-      cmgCall2 = numberValue
-      if workValue4 == cmgCall2 then
-        cmgCall2 = threadCall
-        cmgCall2 = cmgCall2 + 1
-        threadCall = cmgCall2
-        cmgCall2 = threadCall
-        if cmgCall2 > 3 then
-          cmgCall2 = tCMG
-          cmgCall2 = cmgCall2.notify
+      workingValue4 = workingValue4(cmgOperation2)
+      cmgOperation2 = number
+      if workingValue4 == cmgOperation2 then
+        cmgOperation2 = backgroundThread
+        cmgOperation2 = cmgOperation2 + 1
+        backgroundThread = cmgOperation2
+        cmgOperation2 = backgroundThread
+        if cmgOperation2 > 3 then
+          cmgOperation2 = tCMG
+          cmgOperation2 = cmgOperation2.notify
           coords = "~r~Access Denied~w~: Engaging defences in 3, 2, 1..."
           -- Beginner: Show a notification to the player.
-          cmgCall2(coords)
-          cmgCall2 = Wait
+          cmgOperation2(coords)
+          cmgOperation2 = Wait
           coords = 500
-          cmgCall2(coords)
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.getPlayerCoords
+          cmgOperation2(coords)
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.getPlayerCoords
           -- Beginner: result below is playerCoords.
-          cmgCall2 = cmgCall2()
+          cmgOperation2 = cmgOperation2()
           coords = AddOwnedExplosion
-          flag11 = CMG
-          flag11 = flag11.getPlayerPed
+          stateFlag11 = CMG
+          stateFlag11 = stateFlag11.getPlayerPed
           -- Beginner: result below is localPlayerPed.
-          flag11 = flag11()
-          tableHelper = cmgCall2.x
-          flag13 = cmgCall2.y
-          flag14 = cmgCall2.z
-          flag15 = 4
-          flag16 = 17.0
-          flag = true
-          flag3 = false
-          flag5 = 10.0
-          coords(flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5)
+          stateFlag11 = stateFlag11()
+          tableHelper = cmgOperation2.x
+          stateFlag13 = cmgOperation2.y
+          stateFlag14 = cmgOperation2.z
+          stateFlag15 = 4
+          stateFlag16 = 17.0
+          stateFlag = true
+          stateFlag3 = false
+          stateFlag5 = 10.0
+          coords(stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5)
           coords = ExplodeVehicle
-          flag11 = arg1
+          stateFlag11 = localValue1
           tableHelper = true
-          flag13 = false
-          coords(flag11, tableHelper, flag13)
+          stateFlag13 = false
+          coords(stateFlag11, tableHelper, stateFlag13)
           coords = PlaySoundFrontend
-          flag11 = -1
+          stateFlag11 = -1
           tableHelper = "EMP_Blast"
-          flag13 = "DLC_HEISTS_BIOLAB_FINALE_SOUNDS"
-          flag14 = true
-          coords(flag11, tableHelper, flag13, flag14)
+          stateFlag13 = "DLC_HEISTS_BIOLAB_FINALE_SOUNDS"
+          stateFlag14 = true
+          coords(stateFlag11, tableHelper, stateFlag13, stateFlag14)
           coords = Wait
-          flag11 = 2000
-          coords(flag11)
+          stateFlag11 = 2000
+          coords(stateFlag11)
           coords = PlaySoundFrontend
-          flag11 = -1
+          stateFlag11 = -1
           tableHelper = "Beep_Red"
-          flag13 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-          flag14 = true
-          coords(flag11, tableHelper, flag13, flag14)
+          stateFlag13 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
+          stateFlag14 = true
+          coords(stateFlag11, tableHelper, stateFlag13, stateFlag14)
           coords = Wait
-          flag11 = 2000
-          coords(flag11)
+          stateFlag11 = 2000
+          coords(stateFlag11)
           coords = PlaySoundFrontend
-          flag11 = -1
+          stateFlag11 = -1
           tableHelper = "Bed"
-          flag13 = "WastedSounds"
-          flag14 = true
-          coords(flag11, tableHelper, flag13, flag14)
+          stateFlag13 = "WastedSounds"
+          stateFlag14 = true
+          coords(stateFlag11, tableHelper, stateFlag13, stateFlag14)
           coords = CMG
           coords = coords.getPlayerVehicle
           -- Beginner: result below is currentVehicle.
           coords = coords()
           if nil ~= coords then
             coords = DoesEntityExist
-            flag11 = CMG
-            flag11 = flag11.getPlayerVehicle
-            flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5 = flag11()
-            coords = coords(flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5)
+            stateFlag11 = CMG
+            stateFlag11 = stateFlag11.getPlayerVehicle
+            stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5 = stateFlag11()
+            coords = coords(stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5)
             if coords then
               coords = DeleteEntity
-              flag11 = CMG
-              flag11 = flag11.getPlayerVehicle
-              flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5 = flag11()
+              stateFlag11 = CMG
+              stateFlag11 = stateFlag11.getPlayerVehicle
+              stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5 = stateFlag11()
               -- Beginner: Delete a GTA entity.
-              coords(flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5)
+              coords(stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5)
             end
           end
         end
       end
     end
-    workValue4 = Wait
-    cmgCall2 = 5000
-    workValue4(cmgCall2)
+    workingValue4 = Wait
+    cmgOperation2 = 5000
+    workingValue4(cmgOperation2)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall2(eventRegistration)
+backgroundThread2(eventHandler)
 
--- === HELPER FUNCTION (decompiler name: threadCall2; parameters: arg1) ===
-function threadCall2(arg1)
-  local workValue4, cmgCall2
-  workValue4 = BeginTextCommandScaleformString
-  cmgCall2 = "STRING"
-  workValue4(cmgCall2)
-  workValue4 = AddTextComponentSubstringKeyboardDisplay
-  cmgCall2 = arg1
-  workValue4(cmgCall2)
-  workValue4 = EndTextCommandScaleformString
-  workValue4()
+-- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: localValue1) ===
+function backgroundThread2(localValue1)
+  local workingValue4, cmgOperation2
+  workingValue4 = BeginTextCommandScaleformString
+  cmgOperation2 = "STRING"
+  workingValue4(cmgOperation2)
+  workingValue4 = AddTextComponentSubstringKeyboardDisplay
+  cmgOperation2 = localValue1
+  workingValue4(cmgOperation2)
+  workingValue4 = EndTextCommandScaleformString
+  workingValue4()
 end
-ButtonMessage = threadCall2
+ButtonMessage = backgroundThread2
 
--- === HELPER FUNCTION (decompiler name: threadCall2; parameters: arg1) ===
-function threadCall2(arg1)
-  local workValue4, cmgCall2
-  workValue4 = _ENV
-  cmgCall2 = "ScaleformMovieMethodAddParamPlayerNameString"
-  workValue4 = workValue4[cmgCall2]
-  cmgCall2 = arg1
-  workValue4(cmgCall2)
+-- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: localValue1) ===
+function backgroundThread2(localValue1)
+  local workingValue4, cmgOperation2
+  workingValue4 = _ENV
+  cmgOperation2 = "ScaleformMovieMethodAddParamPlayerNameString"
+  workingValue4 = workingValue4[cmgOperation2]
+  cmgOperation2 = localValue1
+  workingValue4(cmgOperation2)
 end
-Button = threadCall2
+Button = backgroundThread2
 
--- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
-function threadCall2()
-  local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8
-  arg1 = CMG
-  arg1 = arg1.loadModel
-  workValue4 = numberValue
-  arg1 = arg1(workValue4)
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: backgroundThread2; parameters: none) ===
+function backgroundThread2()
+  local localValue1, workingValue4, cmgOperation2, coords, stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8
+  localValue1 = CMG
+  localValue1 = localValue1.loadModel
+  workingValue4 = number
+  localValue1 = localValue1(workingValue4)
+  if not localValue1 then
     return
   end
-  workValue4 = CMG
-  workValue4 = workValue4.loadModel
-  cmgCall2 = -1613485779
-  workValue4 = workValue4(cmgCall2)
-  if not workValue4 then
+  workingValue4 = CMG
+  workingValue4 = workingValue4.loadModel
+  cmgOperation2 = -1613485779
+  workingValue4 = workingValue4(cmgOperation2)
+  if not workingValue4 then
     return
   end
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.getPlayerPed
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  cmgCall2 = cmgCall2()
+  cmgOperation2 = cmgOperation2()
   coords = GetOffsetFromEntityInWorldCoords
-  flag11 = cmgCall2
+  stateFlag11 = cmgOperation2
   tableHelper = 0.0
-  flag13 = 4.0
-  flag14 = 0.0
-  coords = coords(flag11, tableHelper, flag13, flag14)
-  flag11 = GetEntityHeading
-  tableHelper = cmgCall2
+  stateFlag13 = 4.0
+  stateFlag14 = 0.0
+  coords = coords(stateFlag11, tableHelper, stateFlag13, stateFlag14)
+  stateFlag11 = GetEntityHeading
+  tableHelper = cmgOperation2
   -- Beginner: result below is heading.
-  flag11 = flag11(tableHelper)
+  stateFlag11 = stateFlag11(tableHelper)
   tableHelper = CMG
   tableHelper = tableHelper.requestEntitySpawn
-  flag13 = "policedrone"
-  flag14 = coords
-  tableHelper(flag13, flag14)
+  stateFlag13 = "policedrone"
+  stateFlag14 = coords
+  tableHelper(stateFlag13, stateFlag14)
   tableHelper = CMG
   tableHelper = tableHelper.spawnVehicle
-  flag13 = numberValue
-  flag14 = coords.x
-  flag15 = coords.y
-  flag16 = coords.z
-  flag = flag11
-  flag3 = false
-  flag5 = true
-  tableHelper = tableHelper(flag13, flag14, flag15, flag16, flag, flag3, flag5)
+  stateFlag13 = number
+  stateFlag14 = coords.x
+  stateFlag15 = coords.y
+  stateFlag16 = coords.z
+  stateFlag = stateFlag11
+  stateFlag3 = false
+  stateFlag5 = true
+  tableHelper = tableHelper(stateFlag13, stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5)
   localEventCall.vehicleHandle = tableHelper
   tableHelper = SetModelAsNoLongerNeeded
-  flag13 = arg1
-  tableHelper(flag13)
+  stateFlag13 = localValue1
+  tableHelper(stateFlag13)
   tableHelper = SetEntityNoCollisionEntity
-  flag13 = CMG
-  flag13 = flag13.getPlayerPed
+  stateFlag13 = CMG
+  stateFlag13 = stateFlag13.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  flag13 = flag13()
-  flag14 = localEventCall.vehicleHandle
-  flag15 = true
-  tableHelper(flag13, flag14, flag15)
+  stateFlag13 = stateFlag13()
+  stateFlag14 = localEventCall.vehicleHandle
+  stateFlag15 = true
+  tableHelper(stateFlag13, stateFlag14, stateFlag15)
   tableHelper = Wait
-  flag13 = 1000
-  tableHelper(flag13)
+  stateFlag13 = 1000
+  tableHelper(stateFlag13)
   tableHelper = SetEntityAsMissionEntity
-  flag13 = localEventCall.vehicleHandle
-  flag14 = true
-  flag15 = true
-  tableHelper(flag13, flag14, flag15)
+  stateFlag13 = localEventCall.vehicleHandle
+  stateFlag14 = true
+  stateFlag15 = true
+  tableHelper(stateFlag13, stateFlag14, stateFlag15)
   tableHelper = NetworkGetNetworkIdFromEntity
-  flag13 = localEventCall.vehicleHandle
-  tableHelper = tableHelper(flag13)
-  flag13 = NetworkUseHighPrecisionBlending
-  flag14 = tableHelper
-  flag15 = true
-  flag13(flag14, flag15)
-  flag13 = SetNetworkIdCanMigrate
-  flag14 = tableHelper
-  flag15 = true
-  flag13(flag14, flag15)
-  flag13 = SetNetworkIdExistsOnAllMachines
-  flag14 = tableHelper
-  flag15 = true
-  flag13(flag14, flag15)
-  flag13 = CMG
-  flag13 = flag13.requestEntitySpawn
-  flag14 = "policedrone_ped"
-  flag15 = coords
-  flag13(flag14, flag15)
-  flag13 = CreatePed
-  flag14 = 4
-  flag15 = workValue4
-  flag16 = coords.x
-  flag = coords.y
-  flag3 = coords.z
-  flag5 = flag11
-  flag7 = true
-  flag8 = false
+  stateFlag13 = localEventCall.vehicleHandle
+  tableHelper = tableHelper(stateFlag13)
+  stateFlag13 = NetworkUseHighPrecisionBlending
+  stateFlag14 = tableHelper
+  stateFlag15 = true
+  stateFlag13(stateFlag14, stateFlag15)
+  stateFlag13 = SetNetworkIdCanMigrate
+  stateFlag14 = tableHelper
+  stateFlag15 = true
+  stateFlag13(stateFlag14, stateFlag15)
+  stateFlag13 = SetNetworkIdExistsOnAllMachines
+  stateFlag14 = tableHelper
+  stateFlag15 = true
+  stateFlag13(stateFlag14, stateFlag15)
+  stateFlag13 = CMG
+  stateFlag13 = stateFlag13.requestEntitySpawn
+  stateFlag14 = "policedrone_ped"
+  stateFlag15 = coords
+  stateFlag13(stateFlag14, stateFlag15)
+  stateFlag13 = CreatePed
+  stateFlag14 = 4
+  stateFlag15 = workingValue4
+  stateFlag16 = coords.x
+  stateFlag = coords.y
+  stateFlag3 = coords.z
+  stateFlag5 = stateFlag11
+  stateFlag7 = true
+  stateFlag8 = false
   -- Beginner: result below is pedEntity.
-  flag13 = flag13(flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8)
-  localEventCall.driverHandle = flag13
+  stateFlag13 = stateFlag13(stateFlag14, stateFlag15, stateFlag16, stateFlag, stateFlag3, stateFlag5, stateFlag7, stateFlag8)
+  localEventCall.driverHandle = stateFlag13
   while true do
-    flag13 = DoesEntityExist
-    flag14 = localEventCall.driverHandle
-    flag13 = flag13(flag14)
-    if flag13 then
+    stateFlag13 = DoesEntityExist
+    stateFlag14 = localEventCall.driverHandle
+    stateFlag13 = stateFlag13(stateFlag14)
+    if stateFlag13 then
       break
     end
-    flag13 = Wait
-    flag14 = 0
-    flag13(flag14)
+    stateFlag13 = Wait
+    stateFlag14 = 0
+    stateFlag13(stateFlag14)
   end
-  flag13 = SetModelAsNoLongerNeeded
-  flag14 = workValue4
-  flag13(flag14)
-  flag13 = SetEntityInvincible
-  flag14 = localEventCall.driverHandle
-  flag15 = true
-  flag13(flag14, flag15)
-  flag13 = SetEntityVisible
-  flag14 = localEventCall.driverHandle
-  flag15 = false
-  flag16 = false
-  flag13(flag14, flag15, flag16)
-  flag13 = FreezeEntityPosition
-  flag14 = localEventCall.driverHandle
-  flag15 = true
+  stateFlag13 = SetModelAsNoLongerNeeded
+  stateFlag14 = workingValue4
+  stateFlag13(stateFlag14)
+  stateFlag13 = SetEntityInvincible
+  stateFlag14 = localEventCall.driverHandle
+  stateFlag15 = true
+  stateFlag13(stateFlag14, stateFlag15)
+  stateFlag13 = SetEntityVisible
+  stateFlag14 = localEventCall.driverHandle
+  stateFlag15 = false
+  stateFlag16 = false
+  stateFlag13(stateFlag14, stateFlag15, stateFlag16)
+  stateFlag13 = FreezeEntityPosition
+  stateFlag14 = localEventCall.driverHandle
+  stateFlag15 = true
   -- Beginner: Freeze or unfreeze an entity in place.
-  flag13(flag14, flag15)
-  flag13 = SetPedAlertness
-  flag14 = localEventCall.driverHandle
-  flag15 = 0.0
-  flag13(flag14, flag15)
-  flag13 = TaskWarpPedIntoVehicle
-  flag14 = localEventCall.driverHandle
-  flag15 = localEventCall.vehicleHandle
-  flag16 = -1
-  flag13(flag14, flag15, flag16)
-  flag13 = SetVehicleDoorsLocked
-  flag14 = localEventCall.vehicleHandle
-  flag15 = 2
-  flag13(flag14, flag15)
+  stateFlag13(stateFlag14, stateFlag15)
+  stateFlag13 = SetPedAlertness
+  stateFlag14 = localEventCall.driverHandle
+  stateFlag15 = 0.0
+  stateFlag13(stateFlag14, stateFlag15)
+  stateFlag13 = TaskWarpPedIntoVehicle
+  stateFlag14 = localEventCall.driverHandle
+  stateFlag15 = localEventCall.vehicleHandle
+  stateFlag16 = -1
+  stateFlag13(stateFlag14, stateFlag15, stateFlag16)
+  stateFlag13 = SetVehicleDoorsLocked
+  stateFlag14 = localEventCall.vehicleHandle
+  stateFlag15 = 2
+  stateFlag13(stateFlag14, stateFlag15)
   while true do
-    flag13 = IsPedInVehicle
-    flag14 = localEventCall.driverHandle
-    flag15 = localEventCall.vehicleHandle
-    flag16 = false
-    flag13 = flag13(flag14, flag15, flag16)
-    if flag13 then
+    stateFlag13 = IsPedInVehicle
+    stateFlag14 = localEventCall.driverHandle
+    stateFlag15 = localEventCall.vehicleHandle
+    stateFlag16 = false
+    stateFlag13 = stateFlag13(stateFlag14, stateFlag15, stateFlag16)
+    if stateFlag13 then
       break
     end
-    flag13 = Wait
-    flag14 = 0
-    flag13(flag14)
+    stateFlag13 = Wait
+    stateFlag14 = 0
+    stateFlag13(stateFlag14)
   end
   localEventCall.active = true
-  flag13 = tCMG
-  flag13 = flag13.notify
-  flag14 = "Drone ~b~created~w~."
+  stateFlag13 = tCMG
+  stateFlag13 = stateFlag13.notify
+  stateFlag14 = "Drone ~b~created~w~."
   -- Beginner: Show a notification to the player.
-  flag13(flag14)
-  flag13 = Wait
-  flag14 = 1000
-  flag13(flag14)
-  flag13 = tCMG
-  flag13 = flag13.notify
-  flag14 = "To remove your drone, use ~b~/drone"
+  stateFlag13(stateFlag14)
+  stateFlag13 = Wait
+  stateFlag14 = 1000
+  stateFlag13(stateFlag14)
+  stateFlag13 = tCMG
+  stateFlag13 = stateFlag13.notify
+  stateFlag14 = "To remove your drone, use ~b~/drone"
   -- Beginner: Show a notification to the player.
-  flag13(flag14)
+  stateFlag13(stateFlag14)
 end
-eventRegistration = RegisterNetEvent
-textValue4 = "toggleDrone"
+eventHandler = RegisterNetEvent
+text4 = "toggleDrone"
 -- Beginner: this function handles network event "toggleDrone".
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, workValue4, cmgCall2
-  arg1 = localEventCall.active
-  if not arg1 then
-    arg1 = CMG
-    arg1 = arg1.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, workingValue4, cmgOperation2
+  localValue1 = localEventCall.active
+  if not localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg1 = arg1()
-    if 0 == arg1 then
-      arg1 = tCMG
-      arg1 = arg1.isInComa
-      arg1 = arg1()
-      if not arg1 then
-        arg1 = TriggerServerEvent
-        workValue4 = "2af187bc60"
-        cmgCall2 = "Powered on their DJI Inspire Drone"
+    localValue1 = localValue1()
+    if 0 == localValue1 then
+      localValue1 = tCMG
+      localValue1 = localValue1.isInComa
+      localValue1 = localValue1()
+      if not localValue1 then
+        localValue1 = TriggerServerEvent
+        workingValue4 = "2af187bc60"
+        cmgOperation2 = "Powered on their DJI Inspire Drone"
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2af187bc60".
-        arg1(workValue4, cmgCall2)
-        arg1 = threadCall2
+        localValue1(workingValue4, cmgOperation2)
+        localValue1 = backgroundThread2
         -- Beginner: Start a separate FiveM thread so this code can run independently.
-        arg1()
+        localValue1()
     end
     else
-      arg1 = tCMG
-      arg1 = arg1.notify
-      workValue4 = "You are not able to use a drone right now."
+      localValue1 = tCMG
+      localValue1 = localValue1.notify
+      workingValue4 = "You are not able to use a drone right now."
       -- Beginner: Show a notification to the player.
-      arg1(workValue4)
+      localValue1(workingValue4)
     end
   else
-    arg1 = TriggerServerEvent
-    workValue4 = "2af187bc60"
-    cmgCall2 = "Powered off their DJI Inspire Drone"
+    localValue1 = TriggerServerEvent
+    workingValue4 = "2af187bc60"
+    cmgOperation2 = "Powered off their DJI Inspire Drone"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2af187bc60".
-    arg1(workValue4, cmgCall2)
-    arg1 = textValue2
-    arg1()
+    localValue1(workingValue4, cmgOperation2)
+    localValue1 = text2
+    localValue1()
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "toggleDrone".
-eventRegistration(textValue4, workValue2)
-eventRegistration = nil
-textValue4 = nil
+eventHandler(text4, workingValue2)
+eventHandler = nil
+text4 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+function workingValue2()
+  local localValue1, workingValue4, cmgOperation2, coords, stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg1 = arg1()
-  if 0 == arg1 then
-    workValue4 = eventRegistration
-    if workValue4 then
-      workValue4 = eventRegistration
-      cmgCall2 = CMG
-      cmgCall2 = cmgCall2.getPlayerCoords
+  localValue1 = localValue1()
+  if 0 == localValue1 then
+    workingValue4 = eventHandler
+    if workingValue4 then
+      workingValue4 = eventHandler
+      cmgOperation2 = CMG
+      cmgOperation2 = cmgOperation2.getPlayerCoords
       -- Beginner: result below is playerCoords.
-      cmgCall2 = cmgCall2()
-      workValue4 = workValue4 - cmgCall2
-      workValue4 = #workValue4
-      if workValue4 > 20.0 then
-        workValue4 = PlayerPedId
+      cmgOperation2 = cmgOperation2()
+      workingValue4 = workingValue4 - cmgOperation2
+      workingValue4 = #workingValue4
+      if workingValue4 > 20.0 then
+        workingValue4 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        workValue4 = workValue4()
-        cmgCall2 = SetEntityCoordsNoOffset
-        coords = workValue4
-        flag11 = eventRegistration.x
-        tableHelper = eventRegistration.y
-        flag13 = eventRegistration.z
-        flag14 = false
-        flag15 = false
-        flag16 = false
+        workingValue4 = workingValue4()
+        cmgOperation2 = SetEntityCoordsNoOffset
+        coords = workingValue4
+        stateFlag11 = eventHandler.x
+        tableHelper = eventHandler.y
+        stateFlag13 = eventHandler.z
+        stateFlag14 = false
+        stateFlag15 = false
+        stateFlag16 = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        cmgCall2(coords, flag11, tableHelper, flag13, flag14, flag15, flag16)
-        cmgCall2 = ClearPedTasksImmediately
-        coords = workValue4
-        cmgCall2(coords)
+        cmgOperation2(coords, stateFlag11, tableHelper, stateFlag13, stateFlag14, stateFlag15, stateFlag16)
+        cmgOperation2 = ClearPedTasksImmediately
+        coords = workingValue4
+        cmgOperation2(coords)
       end
-      workValue4 = SetEntityVisible
-      cmgCall2 = PlayerPedId
+      workingValue4 = SetEntityVisible
+      cmgOperation2 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      cmgCall2 = cmgCall2()
+      cmgOperation2 = cmgOperation2()
       coords = true
-      flag11 = false
-      workValue4(cmgCall2, coords, flag11)
-      workValue4 = nil
-      eventRegistration = workValue4
-      workValue4 = RemoveBlip
-      cmgCall2 = textValue4
-      workValue4(cmgCall2)
+      stateFlag11 = false
+      workingValue4(cmgOperation2, coords, stateFlag11)
+      workingValue4 = nil
+      eventHandler = workingValue4
+      workingValue4 = RemoveBlip
+      cmgOperation2 = text4
+      workingValue4(cmgOperation2)
     end
     return
   end
-  workValue4 = GetEntityModel
-  cmgCall2 = arg1
+  workingValue4 = GetEntityModel
+  cmgOperation2 = localValue1
   -- Beginner: result below is modelHash.
-  workValue4 = workValue4(cmgCall2)
-  cmgCall2 = CMG
-  cmgCall2 = cmgCall2.isVehicleRemoteControlled
-  coords = workValue4
-  cmgCall2 = cmgCall2(coords)
-  if not cmgCall2 then
+  workingValue4 = workingValue4(cmgOperation2)
+  cmgOperation2 = CMG
+  cmgOperation2 = cmgOperation2.isVehicleRemoteControlled
+  coords = workingValue4
+  cmgOperation2 = cmgOperation2(coords)
+  if not cmgOperation2 then
     return
   end
-  cmgCall2 = GetEntityCoords
-  coords = arg1
-  flag11 = true
+  cmgOperation2 = GetEntityCoords
+  coords = localValue1
+  stateFlag11 = true
   -- Beginner: result below is entityCoords.
-  cmgCall2 = cmgCall2(coords, flag11)
-  coords = eventRegistration
+  cmgOperation2 = cmgOperation2(coords, stateFlag11)
+  coords = eventHandler
   if not coords then
-    eventRegistration = cmgCall2
+    eventHandler = cmgOperation2
     coords = SetEntityVisible
-    flag11 = PlayerPedId
+    stateFlag11 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    flag11 = flag11()
+    stateFlag11 = stateFlag11()
     tableHelper = false
-    flag13 = false
-    coords(flag11, tableHelper, flag13)
+    stateFlag13 = false
+    coords(stateFlag11, tableHelper, stateFlag13)
     coords = AddBlipForRadius
-    flag11 = cmgCall2.x
-    tableHelper = cmgCall2.y
-    flag13 = cmgCall2.z
-    flag14 = 20.0
+    stateFlag11 = cmgOperation2.x
+    tableHelper = cmgOperation2.y
+    stateFlag13 = cmgOperation2.z
+    stateFlag14 = 20.0
     -- Beginner: result below is blipHandle.
-    coords = coords(flag11, tableHelper, flag13, flag14)
-    textValue4 = coords
+    coords = coords(stateFlag11, tableHelper, stateFlag13, stateFlag14)
+    text4 = coords
     coords = SetBlipColour
-    flag11 = textValue4
+    stateFlag11 = text4
     tableHelper = 5
-    coords(flag11, tableHelper)
+    coords(stateFlag11, tableHelper)
   end
-  coords = eventRegistration
-  coords = coords - cmgCall2
+  coords = eventHandler
+  coords = coords - cmgOperation2
   coords = #coords
   if coords > 20.0 then
     coords = DisableControlAction
-    flag11 = 0
+    stateFlag11 = 0
     tableHelper = 23
-    flag13 = true
-    coords(flag11, tableHelper, flag13)
+    stateFlag13 = true
+    coords(stateFlag11, tableHelper, stateFlag13)
     coords = DisableControlAction
-    flag11 = 0
+    stateFlag11 = 0
     tableHelper = 75
-    flag13 = true
-    coords(flag11, tableHelper, flag13)
+    stateFlag13 = true
+    coords(stateFlag11, tableHelper, stateFlag13)
     coords = IsDisabledControlJustPressed
-    flag11 = 0
+    stateFlag11 = 0
     tableHelper = 23
-    coords = coords(flag11, tableHelper)
+    coords = coords(stateFlag11, tableHelper)
     if not coords then
       coords = IsDisabledControlJustPressed
-      flag11 = 0
+      stateFlag11 = 0
       tableHelper = 75
-      coords = coords(flag11, tableHelper)
+      coords = coords(stateFlag11, tableHelper)
       if not coords then
-        goto flow_label_110
+        goto continueAtStep110
       end
     end
     coords = notify
-    flag11 = "You must be near the ~y~start position~w~ to exit."
+    stateFlag11 = "You must be near the ~y~start position~w~ to exit."
     -- Beginner: Show a notification to the player.
-    coords(flag11)
+    coords(stateFlag11)
   end
-  ::flow_label_110::
+  ::continueAtStep110::
 end
-cmgCall = CMG
-cmgCall = cmgCall.createThreadOnTick
-workValue3 = workValue2
-textValue = "Drones"
+cmgOperation = CMG
+cmgOperation = cmgOperation.createThreadOnTick
+workingValue3 = workingValue2
+text = "Drones"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall(workValue3, textValue)
+cmgOperation(workingValue3, text)

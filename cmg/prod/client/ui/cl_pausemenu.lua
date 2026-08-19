@@ -32,727 +32,727 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local flag, flag2, dataTable, flag3, workValue3, workValue4, cmgCall2, textValue2, cmgCall4, textValue3, textValue, workValue2
-flag = false
-flag2 = false
-dataTable = {}
-flag3 = false
+local stateFlag, stateFlag2, dataCollection, stateFlag3, workingValue3, workingValue4, cmgOperation2, text2, cmgOperation4, text3, text, workingValue2
+stateFlag = false
+stateFlag2 = false
+dataCollection = {}
+stateFlag3 = false
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-function workValue3()
-  local arg1, arg2, arg3, dataTable2
-  arg1 = CMG
-  arg1 = arg1.showAllDisplays
-  arg2 = "pausemenu"
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "APP_TOGGLE"
-  arg2.app = ""
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSetFocus
-  arg2 = false
-  arg3 = false
-  dataTable2 = false
-  arg1(arg2, arg3, dataTable2)
-  arg1 = TriggerScreenblurFadeOut
-  arg2 = 0.0
-  arg1(arg2)
-  arg1 = false
-  flag = arg1
-  arg1 = TriggerEvent
-  arg2 = "3ee4eff5d1"
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+function workingValue3()
+  local localValue1, localValue2, localValue3, dataCollection2
+  localValue1 = CMG
+  localValue1 = localValue1.showAllDisplays
+  localValue2 = "pausemenu"
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "APP_TOGGLE"
+  localValue2.app = ""
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSetFocus
+  localValue2 = false
+  localValue3 = false
+  dataCollection2 = false
+  localValue1(localValue2, localValue3, dataCollection2)
+  localValue1 = TriggerScreenblurFadeOut
+  localValue2 = 0.0
+  localValue1(localValue2)
+  localValue1 = false
+  stateFlag = localValue1
+  localValue1 = TriggerEvent
+  localValue2 = "3ee4eff5d1"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "3ee4eff5d1".
-  arg1(arg2)
+  localValue1(localValue2)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, dataTable2, cmgCall, dataTable3, cmgCall3, tableHelper, workValue5, numberValue, workValue
-  arg1 = CMG
-  arg1 = arg1.getClientUserId
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, dataCollection2, cmgOperation, dataCollection3, cmgOperation3, tableHelper, workingValue5, number, workingValue
+  localValue1 = CMG
+  localValue1 = localValue1.getClientUserId
   -- Beginner: result below is userId.
-  arg1 = arg1()
-  arg2 = fullPlayerListData
-  arg2 = arg2[arg1]
-  if not arg2 then
+  localValue1 = localValue1()
+  localValue2 = fullPlayerListData
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.hideAllDisplays
-  dataTable2 = "pausemenu"
-  arg3(dataTable2)
-  arg3 = CMG
-  arg3 = arg3.uiSendMessage
-  dataTable2 = {}
-  dataTable2.type = "APP_TOGGLE"
-  dataTable2.app = "pausemenu"
-  arg3(dataTable2)
-  arg3 = arg2[3]
-  if arg3 then
-    dataTable2 = #arg3
-    if 0 ~= dataTable2 then
-      goto flow_label_27
+  localValue3 = CMG
+  localValue3 = localValue3.hideAllDisplays
+  dataCollection2 = "pausemenu"
+  localValue3(dataCollection2)
+  localValue3 = CMG
+  localValue3 = localValue3.uiSendMessage
+  dataCollection2 = {}
+  dataCollection2.type = "APP_TOGGLE"
+  dataCollection2.app = "pausemenu"
+  localValue3(dataCollection2)
+  localValue3 = localValue2[3]
+  if localValue3 then
+    dataCollection2 = #localValue3
+    if 0 ~= dataCollection2 then
+      goto continueAtStep27
     end
   end
-  arg3 = "Unemployed"
-  ::flow_label_27::
-  dataTable2 = 32
-  cmgCall = pairs
-  dataTable3 = fullPlayerListData
-  cmgCall, dataTable3, cmgCall3, tableHelper = cmgCall(dataTable3)
-  for workValue5, numberValue in cmgCall, dataTable3, cmgCall3, tableHelper do
-    if "_meta" == workValue5 then
-      dataTable2 = numberValue[4]
+  localValue3 = "Unemployed"
+  ::continueAtStep27::
+  dataCollection2 = 32
+  cmgOperation = pairs
+  dataCollection3 = fullPlayerListData
+  cmgOperation, dataCollection3, cmgOperation3, tableHelper = cmgOperation(dataCollection3)
+  for workingValue5, number in cmgOperation, dataCollection3, cmgOperation3, tableHelper do
+    if "_meta" == workingValue5 then
+      dataCollection2 = number[4]
       break
     end
   end
-  cmgCall = CMG
-  cmgCall = cmgCall.uiSendMessage
-  dataTable3 = {}
-  dataTable3.type = "PAUSE_MENU_SET_DATA"
-  cmgCall3 = {}
-  tableHelper = arg2[2]
-  cmgCall3.name = tableHelper
-  cmgCall3.permId = arg1
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.uiSendMessage
+  dataCollection3 = {}
+  dataCollection3.type = "PAUSE_MENU_SET_DATA"
+  cmgOperation3 = {}
+  tableHelper = localValue2[2]
+  cmgOperation3.name = tableHelper
+  cmgOperation3.permId = localValue1
   tableHelper = getMoneyStringFormatted
-  workValue5 = arg2[4]
-  tableHelper = tableHelper(workValue5)
-  cmgCall3.playtime = tableHelper
-  cmgCall3.employment = arg3
+  workingValue5 = localValue2[4]
+  tableHelper = tableHelper(workingValue5)
+  cmgOperation3.playtime = tableHelper
+  cmgOperation3.employment = localValue3
   tableHelper = table
   tableHelper = tableHelper.count
-  workValue5 = fullPlayerListData
+  workingValue5 = fullPlayerListData
   -- Beginner: result below is count.
-  tableHelper = tableHelper(workValue5)
+  tableHelper = tableHelper(workingValue5)
   tableHelper = tableHelper - 1
-  cmgCall3.playerCount = tableHelper
-  cmgCall3.maxPlayerCount = dataTable2
+  cmgOperation3.playerCount = tableHelper
+  cmgOperation3.maxPlayerCount = dataCollection2
   tableHelper = GlobalState
   tableHelper = tableHelper.minigamesPlayerCount
-  cmgCall3.minigamesPlayerCount = tableHelper
+  cmgOperation3.minigamesPlayerCount = tableHelper
   tableHelper = CMG
   tableHelper = tableHelper.getSecondsUntilChallengesReset
   tableHelper = tableHelper()
-  cmgCall3.secondsUntilChallengeReset = tableHelper
-  dataTable3.info = cmgCall3
-  cmgCall(dataTable3)
-  cmgCall = CMG
-  cmgCall = cmgCall.uiSetFocus
-  dataTable3 = true
-  cmgCall3 = true
+  cmgOperation3.secondsUntilChallengeReset = tableHelper
+  dataCollection3.info = cmgOperation3
+  cmgOperation(dataCollection3)
+  cmgOperation = CMG
+  cmgOperation = cmgOperation.uiSetFocus
+  dataCollection3 = true
+  cmgOperation3 = true
   tableHelper = false
-  cmgCall(dataTable3, cmgCall3, tableHelper)
-  cmgCall = TriggerScreenblurFadeIn
-  dataTable3 = 0.0
-  cmgCall(dataTable3)
-  cmgCall = TriggerEvent
-  dataTable3 = "7ad2e2f656"
+  cmgOperation(dataCollection3, cmgOperation3, tableHelper)
+  cmgOperation = TriggerScreenblurFadeIn
+  dataCollection3 = 0.0
+  cmgOperation(dataCollection3)
+  cmgOperation = TriggerEvent
+  dataCollection3 = "7ad2e2f656"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "7ad2e2f656".
-  cmgCall(dataTable3)
-  cmgCall = true
-  flag = cmgCall
+  cmgOperation(dataCollection3)
+  cmgOperation = true
+  stateFlag = cmgOperation
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.uiRegisterCallback
-textValue2 = "mapsButtonClicked"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.uiRegisterCallback
+text2 = "mapsButtonClicked"
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, dataTable2
-  arg1 = workValue3
-  arg1()
-  arg1 = ActivateFrontendMenu
-  arg2 = -1171018317
-  arg3 = true
-  dataTable2 = 0
-  arg1(arg2, arg3, dataTable2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, dataCollection2
+  localValue1 = workingValue3
+  localValue1()
+  localValue1 = ActivateFrontendMenu
+  localValue2 = -1171018317
+  localValue3 = true
+  dataCollection2 = 0
+  localValue1(localValue2, localValue3, dataCollection2)
 end
-cmgCall2(textValue2, cmgCall4)
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.uiRegisterCallback
-textValue2 = "settingsButtonClicked"
+cmgOperation2(text2, cmgOperation4)
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.uiRegisterCallback
+text2 = "settingsButtonClicked"
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, dataTable2
-  arg1 = workValue3
-  arg1()
-  arg1 = ActivateFrontendMenu
-  arg2 = -1171018317
-  arg3 = true
-  dataTable2 = 6
-  arg1(arg2, arg3, dataTable2)
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, dataCollection2
+  localValue1 = workingValue3
+  localValue1()
+  localValue1 = ActivateFrontendMenu
+  localValue2 = -1171018317
+  localValue3 = true
+  dataCollection2 = 6
+  localValue1(localValue2, localValue3, dataCollection2)
 end
-cmgCall2(textValue2, cmgCall4)
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.uiRegisterCallback
-textValue2 = "disconnectButtonClicked"
+cmgOperation2(text2, cmgOperation4)
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.uiRegisterCallback
+text2 = "disconnectButtonClicked"
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2
-  arg1 = workValue3
-  arg1()
-  arg1 = true
-  flag3 = arg1
-  arg1 = TriggerServerEvent
-  arg2 = "4e3937e06c"
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2
+  localValue1 = workingValue3
+  localValue1()
+  localValue1 = true
+  stateFlag3 = localValue1
+  localValue1 = TriggerServerEvent
+  localValue2 = "4e3937e06c"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4e3937e06c".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-cmgCall2(textValue2, cmgCall4)
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.uiRegisterCallback
-textValue2 = "pauseMenuClosed"
+cmgOperation2(text2, cmgOperation4)
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.uiRegisterCallback
+text2 = "pauseMenuClosed"
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2
-  arg1 = workValue3
-  arg1()
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2
+  localValue1 = workingValue3
+  localValue1()
 end
-cmgCall2(textValue2, cmgCall4)
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.uiRegisterCallback
-textValue2 = "openDisputeUI"
+cmgOperation2(text2, cmgOperation4)
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.uiRegisterCallback
+text2 = "openDisputeUI"
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "APP_TOGGLE"
-  arg2.app = "dispute"
-  arg1(arg2)
-  arg1 = flag2
-  if not arg1 then
-    arg1 = TriggerServerEvent
-    arg2 = "cf221d5214"
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "APP_TOGGLE"
+  localValue2.app = "dispute"
+  localValue1(localValue2)
+  localValue1 = stateFlag2
+  if not localValue1 then
+    localValue1 = TriggerServerEvent
+    localValue2 = "cf221d5214"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cf221d5214".
-    arg1(arg2)
+    localValue1(localValue2)
   end
 end
-cmgCall2(textValue2, cmgCall4)
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.uiRegisterCallback
-textValue2 = "minigamesIP"
+cmgOperation2(text2, cmgOperation4)
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.uiRegisterCallback
+text2 = "minigamesIP"
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, arg3, dataTable2
-  arg1 = CMG
-  arg1 = arg1.copyToClipboard
-  arg2 = "connect minigames.cmg.city"
-  arg1(arg2)
-  arg1 = TriggerEvent
-  arg2 = "371eab1d3a"
-  arg3 = {}
-  arg3.text = "IP Copied To Clipboard"
-  arg3.height = "200px"
-  arg3.width = "auto"
-  arg3.colour = "#FFF"
-  arg3.background = "#32CD32"
-  arg3.pos = "bottom-right"
-  arg3.icon = "success"
-  dataTable2 = 5000
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, localValue3, dataCollection2
+  localValue1 = CMG
+  localValue1 = localValue1.copyToClipboard
+  localValue2 = "connect minigames.cmg.city"
+  localValue1(localValue2)
+  localValue1 = TriggerEvent
+  localValue2 = "371eab1d3a"
+  localValue3 = {}
+  localValue3.text = "IP Copied To Clipboard"
+  localValue3.height = "200px"
+  localValue3.width = "auto"
+  localValue3.colour = "#FFF"
+  localValue3.background = "#32CD32"
+  localValue3.pos = "bottom-right"
+  localValue3.icon = "success"
+  dataCollection2 = 5000
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "371eab1d3a".
-  arg1(arg2, arg3, dataTable2)
+  localValue1(localValue2, localValue3, dataCollection2)
 end
-cmgCall2(textValue2, cmgCall4)
+cmgOperation2(text2, cmgOperation4)
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, arg3, dataTable2, cmgCall
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
-  arg3 = {}
-  arg3.type = "DISPUTE_UI_SET_NOTIFICATIONS"
-  dataTable2 = {}
-  cmgCall = dataTable
-  dataTable2.notifications = cmgCall
-  dataTable2.makeNoise = arg1
-  arg3.info = dataTable2
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, localValue3, dataCollection2, cmgOperation
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
+  localValue3 = {}
+  localValue3.type = "DISPUTE_UI_SET_NOTIFICATIONS"
+  dataCollection2 = {}
+  cmgOperation = dataCollection
+  dataCollection2.notifications = cmgOperation
+  dataCollection2.makeNoise = localValue1
+  localValue3.info = dataCollection2
+  localValue2(localValue3)
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, dataTable2, cmgCall, dataTable3, cmgCall3, tableHelper, workValue5, numberValue, workValue
-  arg1 = flag
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.isNewPlayer
-    arg1 = arg1()
-    if arg1 then
-      arg1 = drawNativeNotification
-      arg2 = "Press ~INPUT_FRONTEND_PAUSE_ALTERNATE~ to toggle the pause menu."
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, dataCollection2, cmgOperation, dataCollection3, cmgOperation3, tableHelper, workingValue5, number, workingValue
+  localValue1 = stateFlag
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.isNewPlayer
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = drawNativeNotification
+      localValue2 = "Press ~INPUT_FRONTEND_PAUSE_ALTERNATE~ to toggle the pause menu."
       -- Beginner: Show a GTA-style notification/help prompt.
-      arg1(arg2)
+      localValue1(localValue2)
     end
-    arg1 = InvalidateIdleCam
-    arg1()
-    arg1 = InvalidateVehicleIdleCam
-    arg1()
+    localValue1 = InvalidateIdleCam
+    localValue1()
+    localValue1 = InvalidateVehicleIdleCam
+    localValue1()
   end
-  arg1 = dataTable
-  arg1 = #arg1
-  if arg1 > 0 then
-    arg1 = GetGameTimer
+  localValue1 = dataCollection
+  localValue1 = #localValue1
+  if localValue1 > 0 then
+    localValue1 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg1 = arg1()
-    arg2 = false
-    arg3 = pairs
-    dataTable2 = dataTable
-    arg3, dataTable2, cmgCall, dataTable3 = arg3(dataTable2)
-    for cmgCall3, tableHelper in arg3, dataTable2, cmgCall, dataTable3 do
-      workValue5 = tableHelper.startTime
-      workValue5 = arg1 - workValue5
-      numberValue = 5000
-      if workValue5 > numberValue then
-        workValue5 = table
-        workValue5 = workValue5.remove
-        numberValue = dataTable
-        workValue = cmgCall3
-        workValue5(numberValue, workValue)
-        arg2 = true
+    localValue1 = localValue1()
+    localValue2 = false
+    localValue3 = pairs
+    dataCollection2 = dataCollection
+    localValue3, dataCollection2, cmgOperation, dataCollection3 = localValue3(dataCollection2)
+    for cmgOperation3, tableHelper in localValue3, dataCollection2, cmgOperation, dataCollection3 do
+      workingValue5 = tableHelper.startTime
+      workingValue5 = localValue1 - workingValue5
+      number = 5000
+      if workingValue5 > number then
+        workingValue5 = table
+        workingValue5 = workingValue5.remove
+        number = dataCollection
+        workingValue = cmgOperation3
+        workingValue5(number, workingValue)
+        localValue2 = true
         break
       end
     end
-    if arg2 then
-      arg3 = cmgCall2
-      dataTable2 = false
-      arg3(dataTable2)
+    if localValue2 then
+      localValue3 = cmgOperation2
+      dataCollection2 = false
+      localValue3(dataCollection2)
     end
   end
-  arg1 = IsPauseMenuActive
-  arg1 = arg1()
-  if not arg1 then
-    arg1 = RageUI
-    arg1 = arg1.IsAnyMenuVisible
-    arg1 = arg1()
-    if not arg1 then
-      arg1 = SetPauseMenuActive
-      arg2 = false
-      arg1(arg2)
-      arg1 = CMG
-      arg1 = arg1.isPhoneOpen
-      arg1 = arg1()
-      if not arg1 then
-        arg1 = IsControlJustPressed
-        arg2 = 0
-        arg3 = 200
-        arg1 = arg1(arg2, arg3)
-        if arg1 then
-          arg1 = CMG
-          arg1 = arg1.isOnRadioMenu
-          arg1 = arg1()
-          if not arg1 then
-            arg1 = CMG
-            arg1 = arg1.isDrawingInventoryUI
-            arg1 = arg1()
-            if not arg1 then
-              arg1 = workValue4
-              arg1()
+  localValue1 = IsPauseMenuActive
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue1 = RageUI
+    localValue1 = localValue1.IsAnyMenuVisible
+    localValue1 = localValue1()
+    if not localValue1 then
+      localValue1 = SetPauseMenuActive
+      localValue2 = false
+      localValue1(localValue2)
+      localValue1 = CMG
+      localValue1 = localValue1.isPhoneOpen
+      localValue1 = localValue1()
+      if not localValue1 then
+        localValue1 = IsControlJustPressed
+        localValue2 = 0
+        localValue3 = 200
+        localValue1 = localValue1(localValue2, localValue3)
+        if localValue1 then
+          localValue1 = CMG
+          localValue1 = localValue1.isOnRadioMenu
+          localValue1 = localValue1()
+          if not localValue1 then
+            localValue1 = CMG
+            localValue1 = localValue1.isDrawingInventoryUI
+            localValue1 = localValue1()
+            if not localValue1 then
+              localValue1 = workingValue4
+              localValue1()
           end
         end
         else
-          arg1 = IsControlJustReleased
-          arg2 = 0
-          arg3 = 199
-          arg1 = arg1(arg2, arg3)
-          if arg1 then
-            arg1 = SetPauseMenuActive
-            arg2 = true
-            arg1(arg2)
-            arg1 = ActivateFrontendMenu
-            arg2 = -1171018317
-            arg3 = true
-            dataTable2 = -1
-            arg1(arg2, arg3, dataTable2)
+          localValue1 = IsControlJustReleased
+          localValue2 = 0
+          localValue3 = 199
+          localValue1 = localValue1(localValue2, localValue3)
+          if localValue1 then
+            localValue1 = SetPauseMenuActive
+            localValue2 = true
+            localValue1(localValue2)
+            localValue1 = ActivateFrontendMenu
+            localValue2 = -1171018317
+            localValue3 = true
+            dataCollection2 = -1
+            localValue1(localValue2, localValue3, dataCollection2)
           end
         end
       end
     end
   end
 end
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.createThreadOnTick
-textValue3 = textValue2
-textValue = "Pause Menu"
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.createThreadOnTick
+text3 = text2
+text = "Pause Menu"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall4(textValue3, textValue)
-cmgCall4 = CMG
+cmgOperation4(text3, text)
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
-function textValue3()
-  local arg1, arg2
-  arg1 = flag
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text3; parameters: none) ===
+function text3()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  return localValue1
 end
-cmgCall4.isPauseMenuOpen = textValue3
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.uiRegisterCallback
-textValue3 = "disputeSendMessage"
+cmgOperation4.isPauseMenuOpen = text3
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.uiRegisterCallback
+text3 = "disputeSendMessage"
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, dataTable2, cmgCall
-  arg2 = TriggerServerEvent
-  arg3 = "10b4fb3796"
-  dataTable2 = arg1.targetUserId
-  cmgCall = arg1.content
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, dataCollection2, cmgOperation
+  localValue2 = TriggerServerEvent
+  localValue3 = "10b4fb3796"
+  dataCollection2 = localValue1.targetUserId
+  cmgOperation = localValue1.content
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "10b4fb3796".
-  arg2(arg3, dataTable2, cmgCall)
+  localValue2(localValue3, dataCollection2, cmgOperation)
 end
-cmgCall4(textValue3, textValue)
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.uiRegisterCallback
-textValue3 = "disputeSetMuted"
+cmgOperation4(text3, text)
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.uiRegisterCallback
+text3 = "disputeSetMuted"
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, dataTable2, cmgCall
-  arg2 = TriggerServerEvent
-  arg3 = "27c55677f1"
-  dataTable2 = arg1.targetUserId
-  cmgCall = arg1.isMuted
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, dataCollection2, cmgOperation
+  localValue2 = TriggerServerEvent
+  localValue3 = "27c55677f1"
+  dataCollection2 = localValue1.targetUserId
+  cmgOperation = localValue1.isMuted
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "27c55677f1".
-  arg2(arg3, dataTable2, cmgCall)
+  localValue2(localValue3, dataCollection2, cmgOperation)
 end
-cmgCall4(textValue3, textValue)
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.uiRegisterCallback
-textValue3 = "disputeSetBlocked"
+cmgOperation4(text3, text)
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.uiRegisterCallback
+text3 = "disputeSetBlocked"
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, dataTable2, cmgCall
-  arg2 = TriggerServerEvent
-  arg3 = "c50fd01afe"
-  dataTable2 = arg1.targetUserId
-  cmgCall = arg1.isBlocked
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, dataCollection2, cmgOperation
+  localValue2 = TriggerServerEvent
+  localValue3 = "c50fd01afe"
+  dataCollection2 = localValue1.targetUserId
+  cmgOperation = localValue1.isBlocked
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c50fd01afe".
-  arg2(arg3, dataTable2, cmgCall)
+  localValue2(localValue3, dataCollection2, cmgOperation)
 end
-cmgCall4(textValue3, textValue)
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.uiRegisterCallback
-textValue3 = "disputeDelete"
+cmgOperation4(text3, text)
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.uiRegisterCallback
+text3 = "disputeDelete"
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, dataTable2
-  arg2 = TriggerServerEvent
-  arg3 = "970e626ed0"
-  dataTable2 = arg1.targetUserId
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, dataCollection2
+  localValue2 = TriggerServerEvent
+  localValue3 = "970e626ed0"
+  dataCollection2 = localValue1.targetUserId
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "970e626ed0".
-  arg2(arg3, dataTable2)
+  localValue2(localValue3, dataCollection2)
 end
-cmgCall4(textValue3, textValue)
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.uiRegisterCallback
-textValue3 = "disputeMakePayment"
+cmgOperation4(text3, text)
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.uiRegisterCallback
+text3 = "disputeMakePayment"
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, dataTable2
-  arg2 = TriggerServerEvent
-  arg3 = "574cbfaa43"
-  dataTable2 = arg1.messageId
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, dataCollection2
+  localValue2 = TriggerServerEvent
+  localValue3 = "574cbfaa43"
+  dataCollection2 = localValue1.messageId
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "574cbfaa43".
-  arg2(arg3, dataTable2)
+  localValue2(localValue3, dataCollection2)
 end
-cmgCall4(textValue3, textValue)
-cmgCall4 = RegisterNetEvent
-textValue3 = "31952662d5"
+cmgOperation4(text3, text)
+cmgOperation4 = RegisterNetEvent
+text3 = "31952662d5"
 -- Beginner: this function handles network event "31952662d5".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2, arg3) ===
-function textValue(arg1, arg2, arg3)
-  local dataTable2, cmgCall, dataTable3, cmgCall3
-  dataTable2 = flag2
-  if dataTable2 and not arg3 then
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2, localValue3) ===
+function text(localValue1, localValue2, localValue3)
+  local dataCollection2, cmgOperation, dataCollection3, cmgOperation3
+  dataCollection2 = stateFlag2
+  if dataCollection2 and not localValue3 then
     return
   end
-  dataTable2 = true
-  flag2 = dataTable2
-  dataTable2 = CMG
-  dataTable2 = dataTable2.uiSendMessage
-  cmgCall = {}
-  cmgCall.type = "DISPUTE_UI_SET_DATA"
-  dataTable3 = {}
-  cmgCall3 = CMG
-  cmgCall3 = cmgCall3.getClientUserId
+  dataCollection2 = true
+  stateFlag2 = dataCollection2
+  dataCollection2 = CMG
+  dataCollection2 = dataCollection2.uiSendMessage
+  cmgOperation = {}
+  cmgOperation.type = "DISPUTE_UI_SET_DATA"
+  dataCollection3 = {}
+  cmgOperation3 = CMG
+  cmgOperation3 = cmgOperation3.getClientUserId
   -- Beginner: result below is userId.
-  cmgCall3 = cmgCall3()
-  dataTable3.localUserId = cmgCall3
-  dataTable3.disputesResult = arg1
-  dataTable3.messagesResult = arg2
-  cmgCall.info = dataTable3
-  dataTable2(cmgCall)
+  cmgOperation3 = cmgOperation3()
+  dataCollection3.localUserId = cmgOperation3
+  dataCollection3.disputesResult = localValue1
+  dataCollection3.messagesResult = localValue2
+  cmgOperation.info = dataCollection3
+  dataCollection2(cmgOperation)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "31952662d5".
-cmgCall4(textValue3, textValue)
-cmgCall4 = RegisterNetEvent
-textValue3 = "27c55677f1"
+cmgOperation4(text3, text)
+cmgOperation4 = RegisterNetEvent
+text3 = "27c55677f1"
 -- Beginner: this function handles network event "27c55677f1".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
-function textValue(arg1, arg2)
-  local arg3, dataTable2, cmgCall
-  arg3 = flag2
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2) ===
+function text(localValue1, localValue2)
+  local localValue3, dataCollection2, cmgOperation
+  localValue3 = stateFlag2
+  if not localValue3 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.uiSendMessage
-  dataTable2 = {}
-  dataTable2.type = "DISPUTE_UI_SET_MUTED"
-  cmgCall = {}
-  cmgCall.targetUserId = arg1
-  cmgCall.isMuted = arg2
-  dataTable2.info = cmgCall
-  arg3(dataTable2)
+  localValue3 = CMG
+  localValue3 = localValue3.uiSendMessage
+  dataCollection2 = {}
+  dataCollection2.type = "DISPUTE_UI_SET_MUTED"
+  cmgOperation = {}
+  cmgOperation.targetUserId = localValue1
+  cmgOperation.isMuted = localValue2
+  dataCollection2.info = cmgOperation
+  localValue3(dataCollection2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "27c55677f1".
-cmgCall4(textValue3, textValue)
-cmgCall4 = RegisterNetEvent
-textValue3 = "c50fd01afe"
+cmgOperation4(text3, text)
+cmgOperation4 = RegisterNetEvent
+text3 = "c50fd01afe"
 -- Beginner: this function handles network event "c50fd01afe".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
-function textValue(arg1, arg2)
-  local arg3, dataTable2, cmgCall
-  arg3 = flag2
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2) ===
+function text(localValue1, localValue2)
+  local localValue3, dataCollection2, cmgOperation
+  localValue3 = stateFlag2
+  if not localValue3 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.uiSendMessage
-  dataTable2 = {}
-  dataTable2.type = "DISPUTE_UI_SET_BLOCKED"
-  cmgCall = {}
-  cmgCall.targetUserId = arg1
-  cmgCall.isBlocked = arg2
-  dataTable2.info = cmgCall
-  arg3(dataTable2)
+  localValue3 = CMG
+  localValue3 = localValue3.uiSendMessage
+  dataCollection2 = {}
+  dataCollection2.type = "DISPUTE_UI_SET_BLOCKED"
+  cmgOperation = {}
+  cmgOperation.targetUserId = localValue1
+  cmgOperation.isBlocked = localValue2
+  dataCollection2.info = cmgOperation
+  localValue3(dataCollection2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c50fd01afe".
-cmgCall4(textValue3, textValue)
-cmgCall4 = RegisterNetEvent
-textValue3 = "5abfdd0563"
+cmgOperation4(text3, text)
+cmgOperation4 = RegisterNetEvent
+text3 = "5abfdd0563"
 -- Beginner: this function handles network event "5abfdd0563".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
-function textValue(arg1, arg2)
-  local arg3, dataTable2, cmgCall
-  arg3 = flag2
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2) ===
+function text(localValue1, localValue2)
+  local localValue3, dataCollection2, cmgOperation
+  localValue3 = stateFlag2
+  if not localValue3 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.uiSendMessage
-  dataTable2 = {}
-  dataTable2.type = "DISPUTE_UI_SET_MUTED_BY_OTHER"
-  cmgCall = {}
-  cmgCall.targetUserId = arg1
-  cmgCall.isMuted = arg2
-  dataTable2.info = cmgCall
-  arg3(dataTable2)
+  localValue3 = CMG
+  localValue3 = localValue3.uiSendMessage
+  dataCollection2 = {}
+  dataCollection2.type = "DISPUTE_UI_SET_MUTED_BY_OTHER"
+  cmgOperation = {}
+  cmgOperation.targetUserId = localValue1
+  cmgOperation.isMuted = localValue2
+  dataCollection2.info = cmgOperation
+  localValue3(dataCollection2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5abfdd0563".
-cmgCall4(textValue3, textValue)
-cmgCall4 = RegisterNetEvent
-textValue3 = "82d1d19438"
+cmgOperation4(text3, text)
+cmgOperation4 = RegisterNetEvent
+text3 = "82d1d19438"
 -- Beginner: this function handles network event "82d1d19438".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
-function textValue(arg1, arg2)
-  local arg3, dataTable2, cmgCall
-  arg3 = flag2
-  if not arg3 then
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2) ===
+function text(localValue1, localValue2)
+  local localValue3, dataCollection2, cmgOperation
+  localValue3 = stateFlag2
+  if not localValue3 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.uiSendMessage
-  dataTable2 = {}
-  dataTable2.type = "DISPUTE_UI_SET_BLOCKED_BY_OTHER"
-  cmgCall = {}
-  cmgCall.targetUserId = arg1
-  cmgCall.isBlocked = arg2
-  dataTable2.info = cmgCall
-  arg3(dataTable2)
+  localValue3 = CMG
+  localValue3 = localValue3.uiSendMessage
+  dataCollection2 = {}
+  dataCollection2.type = "DISPUTE_UI_SET_BLOCKED_BY_OTHER"
+  cmgOperation = {}
+  cmgOperation.targetUserId = localValue1
+  cmgOperation.isBlocked = localValue2
+  dataCollection2.info = cmgOperation
+  localValue3(dataCollection2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "82d1d19438".
-cmgCall4(textValue3, textValue)
-cmgCall4 = RegisterNetEvent
-textValue3 = "10b4fb3796"
+cmgOperation4(text3, text)
+cmgOperation4 = RegisterNetEvent
+text3 = "10b4fb3796"
 -- Beginner: this function handles network event "10b4fb3796".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
-function textValue(arg1, arg2)
-  local arg3, dataTable2, cmgCall, dataTable3
-  if not arg2 then
-    arg3 = table
-    arg3 = arg3.insert
-    dataTable2 = dataTable
-    cmgCall = {}
-    dataTable3 = arg1.name
-    cmgCall.name = dataTable3
-    dataTable3 = arg1.message
-    cmgCall.content = dataTable3
-    dataTable3 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1, localValue2) ===
+function text(localValue1, localValue2)
+  local localValue3, dataCollection2, cmgOperation, dataCollection3
+  if not localValue2 then
+    localValue3 = table
+    localValue3 = localValue3.insert
+    dataCollection2 = dataCollection
+    cmgOperation = {}
+    dataCollection3 = localValue1.name
+    cmgOperation.name = dataCollection3
+    dataCollection3 = localValue1.message
+    cmgOperation.content = dataCollection3
+    dataCollection3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    dataTable3 = dataTable3()
-    cmgCall.startTime = dataTable3
-    arg3(dataTable2, cmgCall)
-    arg3 = cmgCall2
-    dataTable2 = true
-    arg3(dataTable2)
+    dataCollection3 = dataCollection3()
+    cmgOperation.startTime = dataCollection3
+    localValue3(dataCollection2, cmgOperation)
+    localValue3 = cmgOperation2
+    dataCollection2 = true
+    localValue3(dataCollection2)
   end
-  arg3 = flag2
-  if not arg3 then
+  localValue3 = stateFlag2
+  if not localValue3 then
     return
   end
-  arg3 = CMG
-  arg3 = arg3.getClientUserId
+  localValue3 = CMG
+  localValue3 = localValue3.getClientUserId
   -- Beginner: result below is userId.
-  arg3 = arg3()
-  arg1.localUserId = arg3
-  arg3 = CMG
-  arg3 = arg3.uiSendMessage
-  dataTable2 = {}
-  dataTable2.type = "DISPUTE_UI_ADD_MESSAGE"
-  dataTable2.info = arg1
-  arg3(dataTable2)
+  localValue3 = localValue3()
+  localValue1.localUserId = localValue3
+  localValue3 = CMG
+  localValue3 = localValue3.uiSendMessage
+  dataCollection2 = {}
+  dataCollection2.type = "DISPUTE_UI_ADD_MESSAGE"
+  dataCollection2.info = localValue1
+  localValue3(dataCollection2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "10b4fb3796".
-cmgCall4(textValue3, textValue)
-cmgCall4 = RegisterNetEvent
-textValue3 = "970e626ed0"
+cmgOperation4(text3, text)
+cmgOperation4 = RegisterNetEvent
+text3 = "970e626ed0"
 -- Beginner: this function handles network event "970e626ed0".
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, dataTable2
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
-  arg3 = {}
-  arg3.type = "DISPUTE_UI_DELETE_USER"
-  dataTable2 = {}
-  dataTable2.targetUserId = arg1
-  arg3.info = dataTable2
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, dataCollection2
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
+  localValue3 = {}
+  localValue3.type = "DISPUTE_UI_DELETE_USER"
+  dataCollection2 = {}
+  dataCollection2.targetUserId = localValue1
+  localValue3.info = dataCollection2
+  localValue2(localValue3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "970e626ed0".
-cmgCall4(textValue3, textValue)
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.uiRegisterCallback
-textValue3 = "notification"
+cmgOperation4(text3, text)
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.uiRegisterCallback
+text3 = "notification"
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, arg3, dataTable2, cmgCall
-  arg2 = arg1.colour
-  if "red" == arg2 then
-    arg2 = TriggerEvent
-    arg3 = "371eab1d3a"
-    dataTable2 = {}
-    cmgCall = arg1.message
-    dataTable2.text = cmgCall
-    dataTable2.height = "60px"
-    dataTable2.width = "auto"
-    dataTable2.colour = "#FFF"
-    dataTable2.background = "#ff0000"
-    dataTable2.pos = "bottom-right"
-    dataTable2.icon = "bad"
-    cmgCall = 5000
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, localValue3, dataCollection2, cmgOperation
+  localValue2 = localValue1.colour
+  if "red" == localValue2 then
+    localValue2 = TriggerEvent
+    localValue3 = "371eab1d3a"
+    dataCollection2 = {}
+    cmgOperation = localValue1.message
+    dataCollection2.text = cmgOperation
+    dataCollection2.height = "60px"
+    dataCollection2.width = "auto"
+    dataCollection2.colour = "#FFF"
+    dataCollection2.background = "#ff0000"
+    dataCollection2.pos = "bottom-right"
+    dataCollection2.icon = "bad"
+    cmgOperation = 5000
     -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "371eab1d3a".
-    arg2(arg3, dataTable2, cmgCall)
+    localValue2(localValue3, dataCollection2, cmgOperation)
   else
-    arg2 = TriggerEvent
-    arg3 = "371eab1d3a"
-    dataTable2 = {}
-    cmgCall = arg1.message
-    dataTable2.text = cmgCall
-    dataTable2.height = "200px"
-    dataTable2.width = "auto"
-    dataTable2.colour = "#FFF"
-    dataTable2.background = "#32CD32"
-    dataTable2.pos = "bottom-right"
-    dataTable2.icon = "success"
-    cmgCall = 5000
-    arg2(arg3, dataTable2, cmgCall)
+    localValue2 = TriggerEvent
+    localValue3 = "371eab1d3a"
+    dataCollection2 = {}
+    cmgOperation = localValue1.message
+    dataCollection2.text = cmgOperation
+    dataCollection2.height = "200px"
+    dataCollection2.width = "auto"
+    dataCollection2.colour = "#FFF"
+    dataCollection2.background = "#32CD32"
+    dataCollection2.pos = "bottom-right"
+    dataCollection2.icon = "success"
+    cmgOperation = 5000
+    localValue2(localValue3, dataCollection2, cmgOperation)
   end
 end
-cmgCall4(textValue3, textValue)
-cmgCall4 = nil
-textValue3 = AddEventHandler
-textValue = "1e1208e937"
+cmgOperation4(text3, text)
+cmgOperation4 = nil
+text3 = AddEventHandler
+text = "1e1208e937"
 -- Beginner: this function runs when client event "1e1208e937" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
-function workValue2(arg1)
-  local arg2, arg3, dataTable2, cmgCall, dataTable3, cmgCall3, tableHelper
-  arg2 = IsPedAPlayer
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = NetworkGetPlayerIndexFromPed
-    arg3 = arg1
-    arg2 = arg2(arg3)
-    if arg2 >= 0 then
-      arg3 = GetPlayerServerId
-      dataTable2 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1) ===
+function workingValue2(localValue1)
+  local localValue2, localValue3, dataCollection2, cmgOperation, dataCollection3, cmgOperation3, tableHelper
+  localValue2 = IsPedAPlayer
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = NetworkGetPlayerIndexFromPed
+    localValue3 = localValue1
+    localValue2 = localValue2(localValue3)
+    if localValue2 >= 0 then
+      localValue3 = GetPlayerServerId
+      dataCollection2 = localValue2
       -- Beginner: result below is serverId.
-      arg3 = arg3(dataTable2)
-      if arg3 > 0 then
-        dataTable2 = CMG
-        dataTable2 = dataTable2.getPlayerName
-        cmgCall = arg2
-        dataTable2 = dataTable2(cmgCall)
-        cmgCall = CMG
-        cmgCall = cmgCall.clientGetUserIdFromSource
-        dataTable3 = arg3
+      localValue3 = localValue3(dataCollection2)
+      if localValue3 > 0 then
+        dataCollection2 = CMG
+        dataCollection2 = dataCollection2.getPlayerName
+        cmgOperation = localValue2
+        dataCollection2 = dataCollection2(cmgOperation)
+        cmgOperation = CMG
+        cmgOperation = cmgOperation.clientGetUserIdFromSource
+        dataCollection3 = localValue3
         -- Beginner: result below is userId.
-        cmgCall = cmgCall(dataTable3)
-        if dataTable2 and cmgCall then
-          dataTable3 = cmgCall4
-          if cmgCall ~= dataTable3 then
-            dataTable3 = CMG
-            dataTable3 = dataTable3.uiSendMessage
-            cmgCall3 = {}
-            cmgCall3.type = "DISPUTE_UI_ADD_RECENT"
+        cmgOperation = cmgOperation(dataCollection3)
+        if dataCollection2 and cmgOperation then
+          dataCollection3 = cmgOperation4
+          if cmgOperation ~= dataCollection3 then
+            dataCollection3 = CMG
+            dataCollection3 = dataCollection3.uiSendMessage
+            cmgOperation3 = {}
+            cmgOperation3.type = "DISPUTE_UI_ADD_RECENT"
             tableHelper = {}
-            tableHelper.targetUserId = cmgCall
-            tableHelper.name = dataTable2
-            cmgCall3.info = tableHelper
-            dataTable3(cmgCall3)
-            cmgCall4 = cmgCall
+            tableHelper.targetUserId = cmgOperation
+            tableHelper.name = dataCollection2
+            cmgOperation3.info = tableHelper
+            dataCollection3(cmgOperation3)
+            cmgOperation4 = cmgOperation
           end
         end
       end
@@ -760,13 +760,13 @@ function workValue2(arg1)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "1e1208e937".
-textValue3(textValue, workValue2)
-textValue3 = CMG
+text3(text, workingValue2)
+text3 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
-function textValue()
-  local arg1, arg2
-  arg1 = flag3
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text; parameters: none) ===
+function text()
+  local localValue1, localValue2
+  localValue1 = stateFlag3
+  return localValue1
 end
-textValue3.isQuittingGame = textValue
+text3.isQuittingGame = text

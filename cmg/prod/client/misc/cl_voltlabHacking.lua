@@ -32,2088 +32,2088 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local workValue, workValue16, flag, flag2, workValue27, numberValue23, numberValue26, dataTable10, numberValue29, dataTable11, numberValue, dataTable, dataTable2, dataTable3, textValue, workValue7, dataTable4, dataTable5, dataTable6, dataTable7, numberValue9, numberValue10, numberValue11, dataTable9, textValue2, textValue3, textValue4, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, textValue6, workValue23, workValue24, eventHandlerRegistration, textValue7, workValue26
-workValue = DrawSprite
-workValue16 = DrawRect
-flag = false
-flag2 = false
-workValue27 = nil
-numberValue23 = 1
-numberValue26 = 0
-dataTable10 = {}
-numberValue29 = 0
-dataTable11 = {}
-numberValue = 0
-dataTable = {}
-dataTable2 = "0"
-dataTable3 = "0"
-textValue = "0"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = {}
-textValue = 6
-workValue7 = nil
-dataTable4 = {}
-dataTable5 = {}
-dataTable6 = 250
-dataTable7 = 172
-numberValue9 = 54
-dataTable5[1] = dataTable6
-dataTable5[2] = dataTable7
-dataTable5[3] = numberValue9
-dataTable6 = {}
-dataTable7 = 247
-numberValue9 = 49
-numberValue10 = 49
-dataTable6[1] = dataTable7
-dataTable6[2] = numberValue9
-dataTable6[3] = numberValue10
-dataTable7 = {}
-numberValue9 = 58
-numberValue10 = 53
-numberValue11 = 212
-dataTable7[1] = numberValue9
-dataTable7[2] = numberValue10
-dataTable7[3] = numberValue11
-dataTable4[1] = dataTable5
-dataTable4[2] = dataTable6
-dataTable4[3] = dataTable7
-dataTable5 = {}
-dataTable6 = {}
-dataTable7 = 191
-numberValue9 = 191
-numberValue10 = 191
-dataTable6[1] = dataTable7
-dataTable6[2] = numberValue9
-dataTable6[3] = numberValue10
-dataTable7 = {}
-numberValue9 = 88
-numberValue10 = 204
-numberValue11 = 102
-dataTable7[1] = numberValue9
-dataTable7[2] = numberValue10
-dataTable7[3] = numberValue11
-dataTable5[1] = dataTable6
-dataTable5[2] = dataTable7
-dataTable6 = 255
-dataTable7 = {}
-numberValue9 = 255
-numberValue10 = 255
-numberValue11 = 255
-dataTable7[1] = numberValue9
-dataTable7[2] = numberValue10
-dataTable7[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Icons__x1"
-numberValue11 = "Icons__x2"
-dataTable9 = "Icons__x3"
-textValue2 = "Icons__x5"
-textValue3 = "Icons__x10"
-textValue4 = "Icons__x15"
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = dataTable9
-numberValue9[4] = textValue2
-numberValue9[5] = textValue3
-numberValue9[6] = textValue4
-numberValue10 = {}
-numberValue11 = 1
-dataTable9 = 10
-textValue2 = 50
-numberValue10[1] = numberValue11
-numberValue10[2] = dataTable9
-numberValue10[3] = textValue2
-numberValue11 = {}
-dataTable9 = {}
-textValue2 = 0.383
-textValue3 = 0.815
-textValue4 = 0.0145
-numberValue12 = 0.05
-dataTable9[1] = textValue2
-dataTable9[2] = textValue3
-dataTable9[3] = textValue4
-dataTable9[4] = numberValue12
-textValue2 = {}
-textValue3 = 0.373
-textValue4 = 0.815
-numberValue12 = 0.0145
-numberValue13 = 0.05
-textValue2[1] = textValue3
-textValue2[2] = textValue4
-textValue2[3] = numberValue12
-textValue2[4] = numberValue13
-textValue3 = {}
-textValue4 = 0.363
-numberValue12 = 0.815
-numberValue13 = 0.0145
-numberValue14 = 0.05
-textValue3[1] = textValue4
-textValue3[2] = numberValue12
-textValue3[3] = numberValue13
-textValue3[4] = numberValue14
-textValue4 = {}
-numberValue12 = 0.353
-numberValue13 = 0.815
-numberValue14 = 0.0145
-numberValue16 = 0.05
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-numberValue12 = {}
-numberValue13 = 0.343
-numberValue14 = 0.815
-numberValue16 = 0.0145
-numberValue17 = 0.05
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue16
-numberValue12[4] = numberValue17
-numberValue13 = {}
-numberValue14 = 0.333
-numberValue16 = 0.815
-numberValue17 = 0.0145
-numberValue18 = 0.05
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue16
-numberValue13[3] = numberValue17
-numberValue13[4] = numberValue18
-numberValue11[1] = dataTable9
-numberValue11[2] = textValue2
-numberValue11[3] = textValue3
-numberValue11[4] = textValue4
-numberValue11[5] = numberValue12
-numberValue11[6] = numberValue13
-dataTable9 = {}
-textValue2 = {}
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.307
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.658
-numberValue13 = 0.307
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square2 = textValue4
-textValue4 = {}
-numberValue12 = 0.49
-numberValue13 = 0.307
-numberValue14 = 0.33
-numberValue16 = 0.004
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line = textValue4
-textValue2["1"] = textValue3
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.307
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.49
-numberValue13 = 0.307
-numberValue14 = 0.007
-numberValue16 = 0.0135
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.sqaure2 = textValue4
-textValue4 = {}
-numberValue12 = 0.49
-numberValue13 = 0.501
-numberValue14 = 0.007
-numberValue16 = 0.0128
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square3 = textValue4
-textValue4 = {}
-numberValue12 = 0.657
-numberValue13 = 0.501
-numberValue14 = 0.007
-numberValue16 = 0.0128
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square4 = textValue4
-textValue4 = {}
-numberValue12 = 0.407
-numberValue13 = 0.307
-numberValue14 = 0.16
-numberValue16 = 0.004
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line1 = textValue4
-textValue4 = {}
-numberValue12 = 0.4905
-numberValue13 = 0.404
-numberValue14 = 0.002
-numberValue16 = 0.18
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line2 = textValue4
-textValue4 = {}
-numberValue12 = 0.574
-numberValue13 = 0.501
-numberValue14 = 0.16
-numberValue16 = 0.004
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line3 = textValue4
-textValue2["2"] = textValue3
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.307
-numberValue14 = 0.007
-numberValue16 = 0.0128
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.397
-numberValue13 = 0.307
-numberValue14 = 0.007
-numberValue16 = 0.0128
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.square2 = textValue4
-textValue4 = {}
-numberValue12 = 0.397
-numberValue13 = 0.502
-numberValue14 = 0.007
-numberValue16 = 0.0128
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.square3 = textValue4
-textValue4 = {}
-numberValue12 = 0.49
-numberValue13 = 0.502
-numberValue14 = 0.007
-numberValue16 = 0.0128
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.square4 = textValue4
-textValue4 = {}
-numberValue12 = 0.49
-numberValue13 = 0.694
-numberValue14 = 0.007
-numberValue16 = 0.0128
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.square5 = textValue4
-textValue4 = {}
-numberValue12 = 0.657
-numberValue13 = 0.694
-numberValue14 = 0.007
-numberValue16 = 0.0128
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.square6 = textValue4
-textValue4 = {}
-numberValue12 = 0.36
-numberValue13 = 0.307
-numberValue14 = 0.07
-numberValue16 = 0.004
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.line1 = textValue4
-textValue4 = {}
-numberValue12 = 0.3965
-numberValue13 = 0.404
-numberValue14 = 0.002
-numberValue16 = 0.182
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.line2 = textValue4
-textValue4 = {}
-numberValue12 = 0.445
-numberValue13 = 0.502
-numberValue14 = 0.09
-numberValue16 = 0.004
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.line3 = textValue4
-textValue4 = {}
-numberValue12 = 0.4905
-numberValue13 = 0.598
-numberValue14 = 0.002
-numberValue16 = 0.182
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.line4 = textValue4
-textValue4 = {}
-numberValue12 = 0.574
-numberValue13 = 0.694
-numberValue14 = 0.16
-numberValue16 = 0.004
-numberValue17 = 250
-numberValue18 = 172
-numberValue19 = 54
-numberValue20 = 255
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue4[5] = numberValue17
-textValue4[6] = numberValue18
-textValue4[7] = numberValue19
-textValue4[8] = numberValue20
-textValue3.line5 = textValue4
-textValue2["3"] = textValue3
-dataTable9["1"] = textValue2
-textValue2 = {}
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.5
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.46
-numberValue13 = 0.5
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square2 = textValue4
-textValue4 = {}
-numberValue12 = 0.46
-numberValue13 = 0.39
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square3 = textValue4
-textValue4 = {}
-numberValue12 = 0.551
-numberValue13 = 0.39
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square4 = textValue4
-textValue4 = {}
-numberValue12 = 0.551
-numberValue13 = 0.307
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square5 = textValue4
-textValue4 = {}
-numberValue12 = 0.658
-numberValue13 = 0.307
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square6 = textValue4
-textValue4 = {}
-numberValue12 = 0.392
-numberValue13 = 0.5
-numberValue14 = 0.129
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line1 = textValue4
-textValue4 = {}
-numberValue12 = 0.46
-numberValue13 = 0.444
-numberValue14 = 0.003
-numberValue16 = 0.1
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line2 = textValue4
-textValue4 = {}
-numberValue12 = 0.508
-numberValue13 = 0.39
-numberValue14 = 0.09
-numberValue16 = 0.004
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line3 = textValue4
-textValue4 = {}
-numberValue12 = 0.508
-numberValue13 = 0.39
-numberValue14 = 0.09
-numberValue16 = 0.0025
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line4 = textValue4
-textValue4 = {}
-numberValue12 = 0.605
-numberValue13 = 0.307
-numberValue14 = 0.108
-numberValue16 = 0.004
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line5 = textValue4
-textValue4 = {}
-numberValue12 = 0.551
-numberValue13 = 0.35
-numberValue14 = 0.0025
-numberValue16 = 0.08
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line6 = textValue4
-textValue2["1"] = textValue3
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.5
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.657
-numberValue13 = 0.5
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square2 = textValue4
-textValue4 = {}
-numberValue12 = 0.49
-numberValue13 = 0.5
-numberValue14 = 0.33
-numberValue16 = 0.004
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line1 = textValue4
-textValue2["2"] = textValue3
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.5
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.429
-numberValue13 = 0.5
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square2 = textValue4
-textValue4 = {}
-numberValue12 = 0.429
-numberValue13 = 0.694
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square3 = textValue4
-textValue4 = {}
-numberValue12 = 0.657
-numberValue13 = 0.694
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square4 = textValue4
-textValue4 = {}
-numberValue12 = 0.376
-numberValue13 = 0.5
-numberValue14 = 0.1
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line1 = textValue4
-textValue4 = {}
-numberValue12 = 0.429
-numberValue13 = 0.6
-numberValue14 = 0.003
-numberValue16 = 0.2
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line2 = textValue4
-textValue4 = {}
-numberValue12 = 0.543
-numberValue13 = 0.694
-numberValue14 = 0.22
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line3 = textValue4
-textValue2["3"] = textValue3
-dataTable9["2"] = textValue2
-textValue2 = {}
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.694
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.521
-numberValue13 = 0.694
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square2 = textValue4
-textValue4 = {}
-numberValue12 = 0.521
-numberValue13 = 0.61
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square3 = textValue4
-textValue4 = {}
-numberValue12 = 0.582
-numberValue13 = 0.61
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square4 = textValue4
-textValue4 = {}
-numberValue12 = 0.582
-numberValue13 = 0.3085
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square5 = textValue4
-textValue4 = {}
-numberValue12 = 0.6565
-numberValue13 = 0.307
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square6 = textValue4
-textValue4 = {}
-numberValue12 = 0.421
-numberValue13 = 0.694
-numberValue14 = 0.19
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line1 = textValue4
-textValue4 = {}
-numberValue12 = 0.521
-numberValue13 = 0.652
-numberValue14 = 0.00222
-numberValue16 = 0.074
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line2 = textValue4
-textValue4 = {}
-numberValue12 = 0.55
-numberValue13 = 0.61
-numberValue14 = 0.06
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line3 = textValue4
-textValue4 = {}
-numberValue12 = 0.582
-numberValue13 = 0.46
-numberValue14 = 0.00222
-numberValue16 = 0.29
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line4 = textValue4
-textValue4 = {}
-numberValue12 = 0.62
-numberValue13 = 0.307
-numberValue14 = 0.07
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line5 = textValue4
-textValue2["1"] = textValue3
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.694
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.sqaure1 = textValue4
-textValue4 = {}
-numberValue12 = 0.521
-numberValue13 = 0.694
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.sqaure2 = textValue4
-textValue4 = {}
-numberValue12 = 0.521
-numberValue13 = 0.61
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.sqaure3 = textValue4
-textValue4 = {}
-numberValue12 = 0.582
-numberValue13 = 0.61
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.sqaure4 = textValue4
-textValue4 = {}
-numberValue12 = 0.582
-numberValue13 = 0.5
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.sqaure5 = textValue4
-textValue4 = {}
-numberValue12 = 0.6565
-numberValue13 = 0.5
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.sqaure6 = textValue4
-textValue4 = {}
-numberValue12 = 0.421
-numberValue13 = 0.694
-numberValue14 = 0.19
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line1 = textValue4
-textValue4 = {}
-numberValue12 = 0.521
-numberValue13 = 0.652
-numberValue14 = 0.00222
-numberValue16 = 0.074
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line2 = textValue4
-textValue4 = {}
-numberValue12 = 0.55
-numberValue13 = 0.61
-numberValue14 = 0.06
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line3 = textValue4
-textValue4 = {}
-numberValue12 = 0.582
-numberValue13 = 0.55
-numberValue14 = 0.00222
-numberValue16 = 0.11
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line4 = textValue4
-textValue4 = {}
-numberValue12 = 0.62
-numberValue13 = 0.5
-numberValue14 = 0.07
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line5 = textValue4
-textValue2["2"] = textValue3
-textValue3 = {}
-textValue4 = {}
-numberValue12 = 0.324
-numberValue13 = 0.694
-numberValue14 = 0.006
-numberValue16 = 0.01
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square1 = textValue4
-textValue4 = {}
-numberValue12 = 0.6565
-numberValue13 = 0.694
-numberValue14 = 0.007
-numberValue16 = 0.01281
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.square2 = textValue4
-textValue4 = {}
-numberValue12 = 0.49
-numberValue13 = 0.694
-numberValue14 = 0.33
-numberValue16 = 0.0035
-textValue4[1] = numberValue12
-textValue4[2] = numberValue13
-textValue4[3] = numberValue14
-textValue4[4] = numberValue16
-textValue3.line1 = textValue4
-textValue2["3"] = textValue3
-dataTable9["3"] = textValue2
+local workingValue, workingValue16, stateFlag, stateFlag2, workingValue27, number23, number26, dataCollection10, number29, dataCollection11, number, dataCollection, dataCollection2, dataCollection3, text, workingValue7, dataCollection4, dataCollection5, dataCollection6, dataCollection7, number9, number10, number11, dataCollection9, text2, text3, text4, number12, number13, number14, number16, number17, number18, number19, number20, text6, workingValue23, workingValue24, eventHandlerRegistration, text7, workingValue26
+workingValue = DrawSprite
+workingValue16 = DrawRect
+stateFlag = false
+stateFlag2 = false
+workingValue27 = nil
+number23 = 1
+number26 = 0
+dataCollection10 = {}
+number29 = 0
+dataCollection11 = {}
+number = 0
+dataCollection = {}
+dataCollection2 = "0"
+dataCollection3 = "0"
+text = "0"
+dataCollection[1] = dataCollection2
+dataCollection[2] = dataCollection3
+dataCollection[3] = text
+dataCollection2 = {}
+dataCollection3 = {}
+text = 6
+workingValue7 = nil
+dataCollection4 = {}
+dataCollection5 = {}
+dataCollection6 = 250
+dataCollection7 = 172
+number9 = 54
+dataCollection5[1] = dataCollection6
+dataCollection5[2] = dataCollection7
+dataCollection5[3] = number9
+dataCollection6 = {}
+dataCollection7 = 247
+number9 = 49
+number10 = 49
+dataCollection6[1] = dataCollection7
+dataCollection6[2] = number9
+dataCollection6[3] = number10
+dataCollection7 = {}
+number9 = 58
+number10 = 53
+number11 = 212
+dataCollection7[1] = number9
+dataCollection7[2] = number10
+dataCollection7[3] = number11
+dataCollection4[1] = dataCollection5
+dataCollection4[2] = dataCollection6
+dataCollection4[3] = dataCollection7
+dataCollection5 = {}
+dataCollection6 = {}
+dataCollection7 = 191
+number9 = 191
+number10 = 191
+dataCollection6[1] = dataCollection7
+dataCollection6[2] = number9
+dataCollection6[3] = number10
+dataCollection7 = {}
+number9 = 88
+number10 = 204
+number11 = 102
+dataCollection7[1] = number9
+dataCollection7[2] = number10
+dataCollection7[3] = number11
+dataCollection5[1] = dataCollection6
+dataCollection5[2] = dataCollection7
+dataCollection6 = 255
+dataCollection7 = {}
+number9 = 255
+number10 = 255
+number11 = 255
+dataCollection7[1] = number9
+dataCollection7[2] = number10
+dataCollection7[3] = number11
+number9 = {}
+number10 = "Icons__x1"
+number11 = "Icons__x2"
+dataCollection9 = "Icons__x3"
+text2 = "Icons__x5"
+text3 = "Icons__x10"
+text4 = "Icons__x15"
+number9[1] = number10
+number9[2] = number11
+number9[3] = dataCollection9
+number9[4] = text2
+number9[5] = text3
+number9[6] = text4
+number10 = {}
+number11 = 1
+dataCollection9 = 10
+text2 = 50
+number10[1] = number11
+number10[2] = dataCollection9
+number10[3] = text2
+number11 = {}
+dataCollection9 = {}
+text2 = 0.383
+text3 = 0.815
+text4 = 0.0145
+number12 = 0.05
+dataCollection9[1] = text2
+dataCollection9[2] = text3
+dataCollection9[3] = text4
+dataCollection9[4] = number12
+text2 = {}
+text3 = 0.373
+text4 = 0.815
+number12 = 0.0145
+number13 = 0.05
+text2[1] = text3
+text2[2] = text4
+text2[3] = number12
+text2[4] = number13
+text3 = {}
+text4 = 0.363
+number12 = 0.815
+number13 = 0.0145
+number14 = 0.05
+text3[1] = text4
+text3[2] = number12
+text3[3] = number13
+text3[4] = number14
+text4 = {}
+number12 = 0.353
+number13 = 0.815
+number14 = 0.0145
+number16 = 0.05
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+number12 = {}
+number13 = 0.343
+number14 = 0.815
+number16 = 0.0145
+number17 = 0.05
+number12[1] = number13
+number12[2] = number14
+number12[3] = number16
+number12[4] = number17
+number13 = {}
+number14 = 0.333
+number16 = 0.815
+number17 = 0.0145
+number18 = 0.05
+number13[1] = number14
+number13[2] = number16
+number13[3] = number17
+number13[4] = number18
+number11[1] = dataCollection9
+number11[2] = text2
+number11[3] = text3
+number11[4] = text4
+number11[5] = number12
+number11[6] = number13
+dataCollection9 = {}
+text2 = {}
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.307
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square1 = text4
+text4 = {}
+number12 = 0.658
+number13 = 0.307
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square2 = text4
+text4 = {}
+number12 = 0.49
+number13 = 0.307
+number14 = 0.33
+number16 = 0.004
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line = text4
+text2["1"] = text3
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.307
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square1 = text4
+text4 = {}
+number12 = 0.49
+number13 = 0.307
+number14 = 0.007
+number16 = 0.0135
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.sqaure2 = text4
+text4 = {}
+number12 = 0.49
+number13 = 0.501
+number14 = 0.007
+number16 = 0.0128
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square3 = text4
+text4 = {}
+number12 = 0.657
+number13 = 0.501
+number14 = 0.007
+number16 = 0.0128
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square4 = text4
+text4 = {}
+number12 = 0.407
+number13 = 0.307
+number14 = 0.16
+number16 = 0.004
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line1 = text4
+text4 = {}
+number12 = 0.4905
+number13 = 0.404
+number14 = 0.002
+number16 = 0.18
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line2 = text4
+text4 = {}
+number12 = 0.574
+number13 = 0.501
+number14 = 0.16
+number16 = 0.004
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line3 = text4
+text2["2"] = text3
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.307
+number14 = 0.007
+number16 = 0.0128
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.square1 = text4
+text4 = {}
+number12 = 0.397
+number13 = 0.307
+number14 = 0.007
+number16 = 0.0128
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.square2 = text4
+text4 = {}
+number12 = 0.397
+number13 = 0.502
+number14 = 0.007
+number16 = 0.0128
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.square3 = text4
+text4 = {}
+number12 = 0.49
+number13 = 0.502
+number14 = 0.007
+number16 = 0.0128
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.square4 = text4
+text4 = {}
+number12 = 0.49
+number13 = 0.694
+number14 = 0.007
+number16 = 0.0128
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.square5 = text4
+text4 = {}
+number12 = 0.657
+number13 = 0.694
+number14 = 0.007
+number16 = 0.0128
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.square6 = text4
+text4 = {}
+number12 = 0.36
+number13 = 0.307
+number14 = 0.07
+number16 = 0.004
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.line1 = text4
+text4 = {}
+number12 = 0.3965
+number13 = 0.404
+number14 = 0.002
+number16 = 0.182
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.line2 = text4
+text4 = {}
+number12 = 0.445
+number13 = 0.502
+number14 = 0.09
+number16 = 0.004
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.line3 = text4
+text4 = {}
+number12 = 0.4905
+number13 = 0.598
+number14 = 0.002
+number16 = 0.182
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.line4 = text4
+text4 = {}
+number12 = 0.574
+number13 = 0.694
+number14 = 0.16
+number16 = 0.004
+number17 = 250
+number18 = 172
+number19 = 54
+number20 = 255
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text4[5] = number17
+text4[6] = number18
+text4[7] = number19
+text4[8] = number20
+text3.line5 = text4
+text2["3"] = text3
+dataCollection9["1"] = text2
+text2 = {}
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.5
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square1 = text4
+text4 = {}
+number12 = 0.46
+number13 = 0.5
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square2 = text4
+text4 = {}
+number12 = 0.46
+number13 = 0.39
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square3 = text4
+text4 = {}
+number12 = 0.551
+number13 = 0.39
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square4 = text4
+text4 = {}
+number12 = 0.551
+number13 = 0.307
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square5 = text4
+text4 = {}
+number12 = 0.658
+number13 = 0.307
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square6 = text4
+text4 = {}
+number12 = 0.392
+number13 = 0.5
+number14 = 0.129
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line1 = text4
+text4 = {}
+number12 = 0.46
+number13 = 0.444
+number14 = 0.003
+number16 = 0.1
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line2 = text4
+text4 = {}
+number12 = 0.508
+number13 = 0.39
+number14 = 0.09
+number16 = 0.004
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line3 = text4
+text4 = {}
+number12 = 0.508
+number13 = 0.39
+number14 = 0.09
+number16 = 0.0025
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line4 = text4
+text4 = {}
+number12 = 0.605
+number13 = 0.307
+number14 = 0.108
+number16 = 0.004
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line5 = text4
+text4 = {}
+number12 = 0.551
+number13 = 0.35
+number14 = 0.0025
+number16 = 0.08
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line6 = text4
+text2["1"] = text3
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.5
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square1 = text4
+text4 = {}
+number12 = 0.657
+number13 = 0.5
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square2 = text4
+text4 = {}
+number12 = 0.49
+number13 = 0.5
+number14 = 0.33
+number16 = 0.004
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line1 = text4
+text2["2"] = text3
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.5
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square1 = text4
+text4 = {}
+number12 = 0.429
+number13 = 0.5
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square2 = text4
+text4 = {}
+number12 = 0.429
+number13 = 0.694
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square3 = text4
+text4 = {}
+number12 = 0.657
+number13 = 0.694
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square4 = text4
+text4 = {}
+number12 = 0.376
+number13 = 0.5
+number14 = 0.1
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line1 = text4
+text4 = {}
+number12 = 0.429
+number13 = 0.6
+number14 = 0.003
+number16 = 0.2
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line2 = text4
+text4 = {}
+number12 = 0.543
+number13 = 0.694
+number14 = 0.22
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line3 = text4
+text2["3"] = text3
+dataCollection9["2"] = text2
+text2 = {}
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.694
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square1 = text4
+text4 = {}
+number12 = 0.521
+number13 = 0.694
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square2 = text4
+text4 = {}
+number12 = 0.521
+number13 = 0.61
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square3 = text4
+text4 = {}
+number12 = 0.582
+number13 = 0.61
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square4 = text4
+text4 = {}
+number12 = 0.582
+number13 = 0.3085
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square5 = text4
+text4 = {}
+number12 = 0.6565
+number13 = 0.307
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square6 = text4
+text4 = {}
+number12 = 0.421
+number13 = 0.694
+number14 = 0.19
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line1 = text4
+text4 = {}
+number12 = 0.521
+number13 = 0.652
+number14 = 0.00222
+number16 = 0.074
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line2 = text4
+text4 = {}
+number12 = 0.55
+number13 = 0.61
+number14 = 0.06
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line3 = text4
+text4 = {}
+number12 = 0.582
+number13 = 0.46
+number14 = 0.00222
+number16 = 0.29
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line4 = text4
+text4 = {}
+number12 = 0.62
+number13 = 0.307
+number14 = 0.07
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line5 = text4
+text2["1"] = text3
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.694
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.sqaure1 = text4
+text4 = {}
+number12 = 0.521
+number13 = 0.694
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.sqaure2 = text4
+text4 = {}
+number12 = 0.521
+number13 = 0.61
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.sqaure3 = text4
+text4 = {}
+number12 = 0.582
+number13 = 0.61
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.sqaure4 = text4
+text4 = {}
+number12 = 0.582
+number13 = 0.5
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.sqaure5 = text4
+text4 = {}
+number12 = 0.6565
+number13 = 0.5
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.sqaure6 = text4
+text4 = {}
+number12 = 0.421
+number13 = 0.694
+number14 = 0.19
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line1 = text4
+text4 = {}
+number12 = 0.521
+number13 = 0.652
+number14 = 0.00222
+number16 = 0.074
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line2 = text4
+text4 = {}
+number12 = 0.55
+number13 = 0.61
+number14 = 0.06
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line3 = text4
+text4 = {}
+number12 = 0.582
+number13 = 0.55
+number14 = 0.00222
+number16 = 0.11
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line4 = text4
+text4 = {}
+number12 = 0.62
+number13 = 0.5
+number14 = 0.07
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line5 = text4
+text2["2"] = text3
+text3 = {}
+text4 = {}
+number12 = 0.324
+number13 = 0.694
+number14 = 0.006
+number16 = 0.01
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square1 = text4
+text4 = {}
+number12 = 0.6565
+number13 = 0.694
+number14 = 0.007
+number16 = 0.01281
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.square2 = text4
+text4 = {}
+number12 = 0.49
+number13 = 0.694
+number14 = 0.33
+number16 = 0.0035
+text4[1] = number12
+text4[2] = number13
+text4[3] = number14
+text4[4] = number16
+text3.line1 = text4
+text2["3"] = text3
+dataCollection9["3"] = text2
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg2 = {}
-  arg3 = 1
-  arg4 = #arg1
-  arg5 = 1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = arg1[arg6]
-    arg2[arg6] = arg7
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue2 = {}
+  localValue3 = 1
+  localValue4 = #localValue1
+  localValue5 = 1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = localValue1[localValue6]
+    localValue2[localValue6] = localValue7
   end
-  arg3 = #arg2
-  arg4 = 2
-  arg5 = -1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = math
-    arg7 = arg7.random
-    arg8 = arg6
-    arg7 = arg7(arg8)
-    arg8 = arg2[arg7]
-    arg9 = arg2[arg6]
-    arg2[arg7] = arg9
-    arg2[arg6] = arg8
+  localValue3 = #localValue2
+  localValue4 = 2
+  localValue5 = -1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = math
+    localValue7 = localValue7.random
+    localValue8 = localValue6
+    localValue7 = localValue7(localValue8)
+    localValue8 = localValue2[localValue7]
+    localValue9 = localValue2[localValue6]
+    localValue2[localValue7] = localValue9
+    localValue2[localValue6] = localValue8
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-  arg2 = 0
-  arg3 = pairs
-  arg4 = arg1
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7 in arg3, arg4, arg5, arg6 do
-    arg2 = arg2 + 1
+-- === HELPER FUNCTION (decompiler name: text3; parameters: localValue1) ===
+function text3(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9
+  localValue2 = 0
+  localValue3 = pairs
+  localValue4 = localValue1
+  localValue3, localValue4, localValue5, localValue6 = localValue3(localValue4)
+  for localValue7 in localValue3, localValue4, localValue5, localValue6 do
+    localValue2 = localValue2 + 1
   end
-  return arg2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2) ===
-function textValue4(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7
-  arg3 = PlaySoundFrontend
-  arg4 = -1
-  arg5 = arg1
-  arg6 = arg2
-  arg7 = true
-  arg3(arg4, arg5, arg6, arg7)
+-- === HELPER FUNCTION (decompiler name: text4; parameters: localValue1, localValue2) ===
+function text4(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue3 = PlaySoundFrontend
+  localValue4 = -1
+  localValue5 = localValue1
+  localValue6 = localValue2
+  localValue7 = true
+  localValue3(localValue4, localValue5, localValue6, localValue7)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue12; parameters: none) ===
-function numberValue12()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
-  arg1 = 0
-  numberValue29 = arg1
-  arg1 = 1
-  arg2 = 3
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
-    arg5 = dataTable10
-    arg6 = math
-    arg6 = arg6.random
-    arg7 = 1
-    arg8 = 8
-    arg6 = arg6(arg7, arg8)
-    arg5[arg4] = arg6
+-- === HELPER FUNCTION (decompiler name: number12; parameters: none) ===
+function number12()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8
+  localValue1 = 0
+  number29 = localValue1
+  localValue1 = 1
+  localValue2 = 3
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
+    localValue5 = dataCollection10
+    localValue6 = math
+    localValue6 = localValue6.random
+    localValue7 = 1
+    localValue8 = 8
+    localValue6 = localValue6(localValue7, localValue8)
+    localValue5[localValue4] = localValue6
   end
-  arg1 = 1
-  arg2 = 3
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
-    arg5 = numberValue29
-    arg6 = dataTable10
-    arg6 = arg6[arg4]
-    arg7 = numberValue10
-    arg7 = arg7[arg4]
-    arg6 = arg6 * arg7
-    arg5 = arg5 + arg6
-    numberValue29 = arg5
+  localValue1 = 1
+  localValue2 = 3
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
+    localValue5 = number29
+    localValue6 = dataCollection10
+    localValue6 = localValue6[localValue4]
+    localValue7 = number10
+    localValue7 = localValue7[localValue4]
+    localValue6 = localValue6 * localValue7
+    localValue5 = localValue5 + localValue6
+    number29 = localValue5
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue13; parameters: arg1) ===
-function numberValue13(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
-  if not arg1 then
-    arg1 = numberValue
+-- === HELPER FUNCTION (decompiler name: number13; parameters: localValue1) ===
+function number13(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11
+  if not localValue1 then
+    localValue1 = number
   end
-  arg2 = tostring
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg3 = string
-  arg3 = arg3.len
-  arg4 = arg2
-  arg3 = arg3(arg4)
-  if arg3 < 3 then
-    arg3 = 1
-    arg4 = string
-    arg4 = arg4.len
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    arg5 = 3
-    arg4 = arg5 - arg4
-    arg5 = 1
-    for arg6 = arg3, arg4, arg5 do
-      arg7 = "0"
-      arg8 = arg2
-      arg7 = arg7 .. arg8
-      arg2 = arg7
+  localValue2 = tostring
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue3 = string
+  localValue3 = localValue3.len
+  localValue4 = localValue2
+  localValue3 = localValue3(localValue4)
+  if localValue3 < 3 then
+    localValue3 = 1
+    localValue4 = string
+    localValue4 = localValue4.len
+    localValue5 = localValue2
+    localValue4 = localValue4(localValue5)
+    localValue5 = 3
+    localValue4 = localValue5 - localValue4
+    localValue5 = 1
+    for localValue6 = localValue3, localValue4, localValue5 do
+      localValue7 = "0"
+      localValue8 = localValue2
+      localValue7 = localValue7 .. localValue8
+      localValue2 = localValue7
     end
   end
-  arg3 = 1
-  arg4 = 3
-  arg5 = 1
-  for arg6 = arg3, arg4, arg5 do
-    arg7 = dataTable
-    arg9 = arg2
-    arg8 = arg2.sub
-    arg10 = arg6
-    arg11 = arg6
-    arg8 = arg8(arg9, arg10, arg11)
-    arg7[arg6] = arg8
+  localValue3 = 1
+  localValue4 = 3
+  localValue5 = 1
+  for localValue6 = localValue3, localValue4, localValue5 do
+    localValue7 = dataCollection
+    localValue9 = localValue2
+    localValue8 = localValue2.sub
+    localValue10 = localValue6
+    localValue11 = localValue6
+    localValue8 = localValue8(localValue9, localValue10, localValue11)
+    localValue7[localValue6] = localValue8
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue14; parameters: none) ===
-function numberValue14()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg1 = tostring
-  arg2 = numberValue29
-  arg1 = arg1(arg2)
-  arg2 = string
-  arg2 = arg2.len
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 < 3 then
-    arg2 = 1
-    arg3 = string
-    arg3 = arg3.len
-    arg4 = arg1
-    arg3 = arg3(arg4)
-    arg4 = 3
-    arg3 = arg4 - arg3
-    arg4 = 1
-    for arg5 = arg2, arg3, arg4 do
-      arg6 = "0"
-      arg7 = arg1
-      arg6 = arg6 .. arg7
-      arg1 = arg6
+-- === HELPER FUNCTION (decompiler name: number14; parameters: none) ===
+function number14()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue1 = tostring
+  localValue2 = number29
+  localValue1 = localValue1(localValue2)
+  localValue2 = string
+  localValue2 = localValue2.len
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 < 3 then
+    localValue2 = 1
+    localValue3 = string
+    localValue3 = localValue3.len
+    localValue4 = localValue1
+    localValue3 = localValue3(localValue4)
+    localValue4 = 3
+    localValue3 = localValue4 - localValue3
+    localValue4 = 1
+    for localValue5 = localValue2, localValue3, localValue4 do
+      localValue6 = "0"
+      localValue7 = localValue1
+      localValue6 = localValue6 .. localValue7
+      localValue1 = localValue6
     end
   end
-  arg2 = 1
-  arg3 = 3
-  arg4 = 1
-  for arg5 = arg2, arg3, arg4 do
-    arg6 = dataTable11
-    arg8 = arg1
-    arg7 = arg1.sub
-    arg9 = arg5
-    arg10 = arg5
-    arg7 = arg7(arg8, arg9, arg10)
-    arg6[arg5] = arg7
+  localValue2 = 1
+  localValue3 = 3
+  localValue4 = 1
+  for localValue5 = localValue2, localValue3, localValue4 do
+    localValue6 = dataCollection11
+    localValue8 = localValue1
+    localValue7 = localValue1.sub
+    localValue9 = localValue5
+    localValue10 = localValue5
+    localValue7 = localValue7(localValue8, localValue9, localValue10)
+    localValue6[localValue5] = localValue7
   end
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue16; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
-function numberValue16(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-  local arg9, arg10, arg11, workValue2, workValue3, workValue5, workValue6, workValue8, workValue9
-  arg9 = workValue16
-  arg10 = arg1
-  arg11 = arg2
-  workValue2 = arg3
-  workValue3 = arg4
-  workValue5 = arg5
-  workValue6 = arg6
-  workValue8 = arg7
-  workValue9 = arg8
-  arg9(arg10, arg11, workValue2, workValue3, workValue5, workValue6, workValue8, workValue9)
+-- === HELPER FUNCTION (decompiler name: number16; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8) ===
+function number16(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8)
+  local localValue9, localValue10, localValue11, workingValue2, workingValue3, workingValue5, workingValue6, workingValue8, workingValue9
+  localValue9 = workingValue16
+  localValue10 = localValue1
+  localValue11 = localValue2
+  workingValue2 = localValue3
+  workingValue3 = localValue4
+  workingValue5 = localValue5
+  workingValue6 = localValue6
+  workingValue8 = localValue7
+  workingValue9 = localValue8
+  localValue9(localValue10, localValue11, workingValue2, workingValue3, workingValue5, workingValue6, workingValue8, workingValue9)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue17; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) ===
-function numberValue17(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-  local workValue2, workValue3, workValue5, workValue6, workValue8, workValue9, workValue10, workValue12, workValue14, workValue17, workValue19, workValue21
-  workValue2 = workValue
-  workValue3 = arg1
-  workValue5 = arg2
-  workValue6 = arg3
-  workValue8 = arg4
-  workValue9 = arg5
-  workValue10 = arg6
-  workValue12 = arg7
-  workValue14 = arg8
-  workValue17 = arg9
-  workValue19 = arg10
-  workValue21 = arg11
-  workValue2(workValue3, workValue5, workValue6, workValue8, workValue9, workValue10, workValue12, workValue14, workValue17, workValue19, workValue21)
+-- === HELPER FUNCTION (decompiler name: number17; parameters: localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11) ===
+function number17(localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10, localValue11)
+  local workingValue2, workingValue3, workingValue5, workingValue6, workingValue8, workingValue9, workingValue10, workingValue12, workingValue14, workingValue17, workingValue19, workingValue21
+  workingValue2 = workingValue
+  workingValue3 = localValue1
+  workingValue5 = localValue2
+  workingValue6 = localValue3
+  workingValue8 = localValue4
+  workingValue9 = localValue5
+  workingValue10 = localValue6
+  workingValue12 = localValue7
+  workingValue14 = localValue8
+  workingValue17 = localValue9
+  workingValue19 = localValue10
+  workingValue21 = localValue11
+  workingValue2(workingValue3, workingValue5, workingValue6, workingValue8, workingValue9, workingValue10, workingValue12, workingValue14, workingValue17, workingValue19, workingValue21)
 end
 
--- === HELPER FUNCTION (decompiler name: numberValue18; parameters: arg1) ===
-function numberValue18(arg1)
-  local arg2, arg3
-  arg2 = BeginTextCommandScaleformString
-  arg3 = "STRING"
-  arg2(arg3)
-  arg2 = AddTextComponentSubstringKeyboardDisplay
-  arg3 = arg1
-  arg2(arg3)
-  arg2 = EndTextCommandScaleformString
-  arg2()
+-- === HELPER FUNCTION (decompiler name: number18; parameters: localValue1) ===
+function number18(localValue1)
+  local localValue2, localValue3
+  localValue2 = BeginTextCommandScaleformString
+  localValue3 = "STRING"
+  localValue2(localValue3)
+  localValue2 = AddTextComponentSubstringKeyboardDisplay
+  localValue3 = localValue1
+  localValue2(localValue3)
+  localValue2 = EndTextCommandScaleformString
+  localValue2()
 end
-ButtonMessage = numberValue18
+ButtonMessage = number18
 
--- === HELPER FUNCTION (decompiler name: numberValue18; parameters: arg1) ===
-function numberValue18(arg1)
-  local arg2, arg3
-  arg2 = _ENV
-  arg3 = "ScaleformMovieMethodAddParamPlayerNameString"
-  arg2 = arg2[arg3]
-  arg3 = arg1
-  arg2(arg3)
+-- === HELPER FUNCTION (decompiler name: number18; parameters: localValue1) ===
+function number18(localValue1)
+  local localValue2, localValue3
+  localValue2 = _ENV
+  localValue3 = "ScaleformMovieMethodAddParamPlayerNameString"
+  localValue2 = localValue2[localValue3]
+  localValue3 = localValue1
+  localValue2(localValue3)
 end
-Button = numberValue18
+Button = number18
 
--- === HELPER FUNCTION (decompiler name: numberValue18; parameters: arg1) ===
-function numberValue18(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7
-  arg2 = RequestScaleformMovie
-  arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: number18; parameters: localValue1) ===
+function number18(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue2 = RequestScaleformMovie
+  localValue3 = localValue1
   -- Beginner: result below is scaleformHandle.
-  arg2 = arg2(arg3)
+  localValue2 = localValue2(localValue3)
   while true do
-    arg3 = HasScaleformMovieLoaded
-    arg4 = arg2
-    arg3 = arg3(arg4)
-    if arg3 then
+    localValue3 = HasScaleformMovieLoaded
+    localValue4 = localValue2
+    localValue3 = localValue3(localValue4)
+    if localValue3 then
       break
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 0
-    arg3(arg4)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 0
+    localValue3(localValue4)
   end
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "CLEAR_ALL"
-  arg3(arg4, arg5)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_CLEAR_SPACE"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 200
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = Button
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 194
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = ButtonMessage
-  arg4 = "Abort Hack"
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 1
-  arg3(arg4)
-  arg3 = Button
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 191
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = ButtonMessage
-  arg4 = "Confirm selection (Irrevertible)"
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_DATA_SLOT"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 2
-  arg3(arg4)
-  arg3 = Button
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 307
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = Button
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 308
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = Button
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 299
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = Button
-  arg4 = GetControlInstructionalButton
-  arg5 = 2
-  arg6 = 300
-  arg7 = true
-  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
-  arg3(arg4, arg5, arg6, arg7)
-  arg3 = ButtonMessage
-  arg4 = "Select"
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  arg3(arg4, arg5)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  arg3 = BeginScaleformMovieMethod
-  arg4 = arg2
-  arg5 = "SET_BACKGROUND_COLOUR"
-  arg3(arg4, arg5)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 0
-  arg3(arg4)
-  arg3 = ScaleformMovieMethodAddParamInt
-  arg4 = 80
-  arg3(arg4)
-  arg3 = EndScaleformMovieMethod
-  arg3()
-  return arg2
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "CLEAR_ALL"
+  localValue3(localValue4, localValue5)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_CLEAR_SPACE"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 200
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = Button
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 194
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = ButtonMessage
+  localValue4 = "Abort Hack"
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 1
+  localValue3(localValue4)
+  localValue3 = Button
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 191
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = ButtonMessage
+  localValue4 = "Confirm selection (Irrevertible)"
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_DATA_SLOT"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 2
+  localValue3(localValue4)
+  localValue3 = Button
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 307
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = Button
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 308
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = Button
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 299
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = Button
+  localValue4 = GetControlInstructionalButton
+  localValue5 = 2
+  localValue6 = 300
+  localValue7 = true
+  localValue4, localValue5, localValue6, localValue7 = localValue4(localValue5, localValue6, localValue7)
+  localValue3(localValue4, localValue5, localValue6, localValue7)
+  localValue3 = ButtonMessage
+  localValue4 = "Select"
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  localValue3(localValue4, localValue5)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  localValue3 = BeginScaleformMovieMethod
+  localValue4 = localValue2
+  localValue5 = "SET_BACKGROUND_COLOUR"
+  localValue3(localValue4, localValue5)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 0
+  localValue3(localValue4)
+  localValue3 = ScaleformMovieMethodAddParamInt
+  localValue4 = 80
+  localValue3(localValue4)
+  localValue3 = EndScaleformMovieMethod
+  localValue3()
+  return localValue2
 end
-numberValue19 = {}
-numberValue20 = "MPIsland_Voltage"
-textValue6 = "MPIsland_Voltage_BG"
-numberValue19[1] = numberValue20
-numberValue19[2] = textValue6
-numberValue20 = "DLC_HEI4\\DLC_HEI4_V_MG"
-textValue6 = "DLC_HEI4\\DLC_HEI4_FH_MG"
+number19 = {}
+number20 = "MPIsland_Voltage"
+text6 = "MPIsland_Voltage_BG"
+number19[1] = number20
+number19[2] = text6
+number20 = "DLC_HEI4\\DLC_HEI4_V_MG"
+text6 = "DLC_HEI4\\DLC_HEI4_FH_MG"
 
--- === HELPER FUNCTION (decompiler name: workValue23; parameters: none) ===
-function workValue23()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = 1
-  arg2 = numberValue19
-  arg2 = #arg2
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
-    arg5 = RequestStreamedTextureDict
-    arg6 = numberValue19
-    arg6 = arg6[arg4]
-    arg7 = false
-    arg5(arg6, arg7)
+-- === HELPER FUNCTION (decompiler name: workingValue23; parameters: none) ===
+function workingValue23()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6, localValue7
+  localValue1 = 1
+  localValue2 = number19
+  localValue2 = #localValue2
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
+    localValue5 = RequestStreamedTextureDict
+    localValue6 = number19
+    localValue6 = localValue6[localValue4]
+    localValue7 = false
+    localValue5(localValue6, localValue7)
   end
-  arg1 = 1
-  arg2 = numberValue19
-  arg2 = #arg2
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
+  localValue1 = 1
+  localValue2 = number19
+  localValue2 = #localValue2
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
     while true do
-      arg5 = HasStreamedTextureDictLoaded
-      arg6 = numberValue19
-      arg6 = arg6[arg4]
-      arg5 = arg5(arg6)
-      if arg5 then
+      localValue5 = HasStreamedTextureDictLoaded
+      localValue6 = number19
+      localValue6 = localValue6[localValue4]
+      localValue5 = localValue5(localValue6)
+      if localValue5 then
         break
       end
-      arg5 = Wait
-      arg6 = 10
-      arg5(arg6)
+      localValue5 = Wait
+      localValue6 = 10
+      localValue5(localValue6)
     end
   end
-  arg1 = GetGameTimer
+  localValue1 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg1 = arg1()
+  localValue1 = localValue1()
   while true do
-    arg2 = RequestScriptAudioBank
-    arg3 = numberValue20
-    arg4 = false
-    arg2 = arg2(arg3, arg4)
-    if arg2 then
+    localValue2 = RequestScriptAudioBank
+    localValue3 = number20
+    localValue4 = false
+    localValue2 = localValue2(localValue3, localValue4)
+    if localValue2 then
       break
     end
-    arg2 = GetGameTimer
+    localValue2 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg2 = arg2()
-    arg2 = arg2 - arg1
-    arg3 = 1500
-    if arg2 > arg3 then
-      arg2 = ReleaseNamedScriptAudioBank
-      arg3 = numberValue20
-      arg2(arg3)
+    localValue2 = localValue2()
+    localValue2 = localValue2 - localValue1
+    localValue3 = 1500
+    if localValue2 > localValue3 then
+      localValue2 = ReleaseNamedScriptAudioBank
+      localValue3 = number20
+      localValue2(localValue3)
       break
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 0
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 0
+    localValue2(localValue3)
   end
-  arg2 = GetGameTimer
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
+  localValue2 = localValue2()
   while true do
-    arg3 = RequestScriptAudioBank
-    arg4 = textValue6
-    arg5 = false
-    arg3 = arg3(arg4, arg5)
-    if arg3 then
+    localValue3 = RequestScriptAudioBank
+    localValue4 = text6
+    localValue5 = false
+    localValue3 = localValue3(localValue4, localValue5)
+    if localValue3 then
       break
     end
-    arg3 = GetGameTimer
+    localValue3 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg3 = arg3()
-    arg3 = arg3 - arg2
-    arg4 = 1500
-    if arg3 > arg4 then
-      arg3 = ReleaseNamedScriptAudioBank
-      arg4 = textValue6
-      arg3(arg4)
+    localValue3 = localValue3()
+    localValue3 = localValue3 - localValue2
+    localValue4 = 1500
+    if localValue3 > localValue4 then
+      localValue3 = ReleaseNamedScriptAudioBank
+      localValue4 = text6
+      localValue3(localValue4)
       break
     end
-    arg3 = Citizen
-    arg3 = arg3.Wait
-    arg4 = 0
-    arg3(arg4)
+    localValue3 = Citizen
+    localValue3 = localValue3.Wait
+    localValue4 = 0
+    localValue3(localValue4)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue24; parameters: none) ===
-function workValue24()
-  local arg1, arg2, arg3, arg4, arg5, arg6
-  arg1 = ReleaseNamedScriptAudioBank
-  arg2 = textValue6
-  arg1(arg2)
-  arg1 = ReleaseNamedScriptAudioBank
-  arg2 = numberValue20
-  arg1(arg2)
-  arg1 = 1
-  arg2 = numberValue19
-  arg2 = #arg2
-  arg3 = 1
-  for arg4 = arg1, arg2, arg3 do
-    arg5 = SetStreamedTextureDictAsNoLongerNeeded
-    arg6 = numberValue19
-    arg6 = arg6[arg4]
-    arg5(arg6)
+-- === HELPER FUNCTION (decompiler name: workingValue24; parameters: none) ===
+function workingValue24()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, localValue6
+  localValue1 = ReleaseNamedScriptAudioBank
+  localValue2 = text6
+  localValue1(localValue2)
+  localValue1 = ReleaseNamedScriptAudioBank
+  localValue2 = number20
+  localValue1(localValue2)
+  localValue1 = 1
+  localValue2 = number19
+  localValue2 = #localValue2
+  localValue3 = 1
+  for localValue4 = localValue1, localValue2, localValue3 do
+    localValue5 = SetStreamedTextureDictAsNoLongerNeeded
+    localValue6 = number19
+    localValue6 = localValue6[localValue4]
+    localValue5(localValue6)
   end
 end
 eventHandlerRegistration = AddEventHandler
-textValue7 = "ultra-voltlab"
+text7 = "ultra-voltlab"
 -- Beginner: this function runs when client event "ultra-voltlab" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue26; parameters: arg1, arg2) ===
-function workValue26(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
-  arg3 = workValue23
-  arg3()
-  arg3 = false
-  flag2 = arg3
-  arg3 = {}
-  dataTable2 = arg3
-  arg3 = {}
-  dataTable3 = arg3
-  arg3 = 1
-  numberValue23 = arg3
-  arg3 = 0
-  numberValue26 = arg3
-  arg3 = 6
-  textValue = arg3
+-- === HELPER FUNCTION (decompiler name: workingValue26; parameters: localValue1, localValue2) ===
+function workingValue26(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, localValue6, localValue7, localValue8, localValue9, localValue10
+  localValue3 = workingValue23
+  localValue3()
+  localValue3 = false
+  stateFlag2 = localValue3
+  localValue3 = {}
+  dataCollection2 = localValue3
+  localValue3 = {}
+  dataCollection3 = localValue3
+  localValue3 = 1
+  number23 = localValue3
+  localValue3 = 0
+  number26 = localValue3
+  localValue3 = 6
+  text = localValue3
 
-  -- === HELPER FUNCTION: arg3(...) ===
-  function arg3(...)
-    local waitCall, dataTable8
-    waitCall = workValue24
+  -- === HELPER FUNCTION: localValue3(...) ===
+  function localValue3(...)
+    local waitCall, dataCollection8
+    waitCall = workingValue24
     waitCall()
-    waitCall = arg2
-    dataTable8 = ...
-    waitCall(dataTable8)
+    waitCall = localValue2
+    dataCollection8 = ...
+    waitCall(dataCollection8)
   end
-  workValue27 = arg3
-  arg3 = tonumber
-  arg4 = arg1
-  arg3 = arg3(arg4)
-  arg4 = arg3
-  if arg3 < 10 or arg3 > 60 then
-    arg5 = workValue27
-    arg6 = -1
-    arg7 = "Entered time is out of range"
-    arg5(arg6, arg7)
-    arg5 = true
-    flag2 = arg5
+  workingValue27 = localValue3
+  localValue3 = tonumber
+  localValue4 = localValue1
+  localValue3 = localValue3(localValue4)
+  localValue4 = localValue3
+  if localValue3 < 10 or localValue3 > 60 then
+    localValue5 = workingValue27
+    localValue6 = -1
+    localValue7 = "Entered time is out of range"
+    localValue5(localValue6, localValue7)
+    localValue5 = true
+    stateFlag2 = localValue5
     return
   end
-  arg5 = numberValue12
-  arg5()
-  arg5 = numberValue14
-  arg5()
+  localValue5 = number12
+  localValue5()
+  localValue5 = number14
+  localValue5()
   while true do
-    arg5 = numberValue29
-    arg6 = 999
-    if not (arg5 > arg6) then
-      arg5 = numberValue29
-      if not (arg5 <= 0) then
+    localValue5 = number29
+    localValue6 = 999
+    if not (localValue5 > localValue6) then
+      localValue5 = number29
+      if not (localValue5 <= 0) then
         break
       end
     end
-    arg5 = Wait
-    arg6 = 10
-    arg5(arg6)
-    arg5 = numberValue12
-    arg5()
+    localValue5 = Wait
+    localValue6 = 10
+    localValue5(localValue6)
+    localValue5 = number12
+    localValue5()
   end
-  arg5 = textValue2
-  arg6 = dataTable10
-  arg5 = arg5(arg6)
-  dataTable10 = arg5
-  arg5 = textValue2
-  arg6 = numberValue10
-  arg5 = arg5(arg6)
-  numberValue10 = arg5
-  arg5 = textValue2
-  arg6 = numberValue9
-  arg5 = arg5(arg6)
-  numberValue9 = arg5
-  arg5 = 0
-  arg6 = 1
-  arg7 = 3
-  arg8 = 1
-  for arg9 = arg6, arg7, arg8 do
-    arg10 = numberValue10
-    arg10 = arg10[arg9]
-    arg5 = arg5 + arg10
+  localValue5 = text2
+  localValue6 = dataCollection10
+  localValue5 = localValue5(localValue6)
+  dataCollection10 = localValue5
+  localValue5 = text2
+  localValue6 = number10
+  localValue5 = localValue5(localValue6)
+  number10 = localValue5
+  localValue5 = text2
+  localValue6 = number9
+  localValue5 = localValue5(localValue6)
+  number9 = localValue5
+  localValue5 = 0
+  localValue6 = 1
+  localValue7 = 3
+  localValue8 = 1
+  for localValue9 = localValue6, localValue7, localValue8 do
+    localValue10 = number10
+    localValue10 = localValue10[localValue9]
+    localValue5 = localValue5 + localValue10
   end
-  if arg5 > 111 or arg5 <= 0 then
-    arg6 = workValue27
-    arg7 = -1
-    arg8 = "Icon values are out of range in config"
-    arg6(arg7, arg8)
-    arg6 = true
-    flag2 = arg6
+  if localValue5 > 111 or localValue5 <= 0 then
+    localValue6 = workingValue27
+    localValue7 = -1
+    localValue8 = "Icon values are out of range in config"
+    localValue6(localValue7, localValue8)
+    localValue6 = true
+    stateFlag2 = localValue6
     return
   end
-  arg6 = numberValue14
-  arg6()
-  arg6 = true
-  flag = arg6
-  arg6 = print
-  arg7 = "Creating first Voltlab hacking thread"
-  arg6(arg7)
-  arg6 = CreateThread
+  localValue6 = number14
+  localValue6()
+  localValue6 = true
+  stateFlag = localValue6
+  localValue6 = print
+  localValue7 = "Creating first Voltlab hacking thread"
+  localValue6(localValue7)
+  localValue6 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local waitCall, dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4, numberValue4, numberValue5, numberValue6, numberValue7, workValue11, workValue13, workValue15, workValue18, workValue20, workValue22
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local waitCall, dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4, number4, number5, number6, number7, workingValue11, workingValue13, workingValue15, workingValue18, workingValue20, workingValue22
     waitCall = Wait
-    dataTable8 = 100
-    waitCall(dataTable8)
+    dataCollection8 = 100
+    waitCall(dataCollection8)
     waitCall = SendNUIMessage
-    dataTable8 = {}
-    dataTable8.type = "intro"
+    dataCollection8 = {}
+    dataCollection8.type = "intro"
     -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-    waitCall(dataTable8)
-    waitCall = textValue4
-    dataTable8 = "Loading_Bink"
-    textValue5 = "DLC_H4_Voltage_Minigame_Sounds"
-    waitCall(dataTable8, textValue5)
+    waitCall(dataCollection8)
+    waitCall = text4
+    dataCollection8 = "Loading_Bink"
+    text5 = "DLC_H4_Voltage_Minigame_Sounds"
+    waitCall(dataCollection8, text5)
     while true do
-      waitCall = flag
+      waitCall = stateFlag
       if not waitCall then
         break
       end
       waitCall = Wait
-      dataTable8 = 1
-      waitCall(dataTable8)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage_BG"
-      textValue5 = "PHONE_BACKGROUND"
-      numberValue21 = 0.5
-      numberValue22 = 0.5
-      numberValue24 = 1.0
-      numberValue27 = 1.0
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage_BG"
-      textValue5 = "target_text"
-      numberValue21 = 0.498
-      numberValue22 = 0.12
-      numberValue24 = 0.04
-      numberValue27 = 0.014
-      numberValue28 = 0
-      numberValue30 = 231
-      numberValue31 = 99
-      numberValue2 = 99
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage_BG"
-      textValue5 = "result_text"
-      numberValue21 = 0.498
-      numberValue22 = 0.88
-      numberValue24 = 0.04
-      numberValue27 = 0.014
-      numberValue28 = 0
-      numberValue30 = 88
-      numberValue31 = 204
-      numberValue2 = 102
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = "Phone_Icons"
-      numberValue21 = 0.95
-      numberValue22 = 0.03
-      numberValue24 = 0.08
-      numberValue27 = 0.04
-      numberValue28 = 0
-      numberValue30 = 160
-      numberValue31 = 160
-      numberValue2 = 160
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = "MainInterface_BG"
-      numberValue21 = 0.5
-      numberValue22 = 0.5
-      numberValue24 = 0.5
-      numberValue27 = 0.73
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = dataTable11
-      textValue5 = textValue5[1]
-      numberValue21 = 0.457
-      numberValue22 = 0.185
-      numberValue24 = 0.03
-      numberValue27 = 0.09
-      numberValue28 = 0
-      numberValue30 = 231
-      numberValue31 = 99
-      numberValue2 = 99
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = dataTable11
-      textValue5 = textValue5[2]
-      numberValue21 = 0.497
-      numberValue22 = 0.185
-      numberValue24 = 0.03
-      numberValue27 = 0.09
-      numberValue28 = 0
-      numberValue30 = 231
-      numberValue31 = 99
-      numberValue2 = 99
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = dataTable11
-      textValue5 = textValue5[3]
-      numberValue21 = 0.539
-      numberValue22 = 0.185
-      numberValue24 = 0.03
-      numberValue27 = 0.09
-      numberValue28 = 0
-      numberValue30 = 231
-      numberValue31 = 99
-      numberValue2 = 99
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = dataTable10
-      textValue5 = textValue5[1]
-      numberValue21 = 0.29
-      numberValue22 = 0.307
-      numberValue24 = 0.03
-      numberValue27 = 0.09
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = dataTable10
-      textValue5 = textValue5[2]
-      numberValue21 = 0.29
-      numberValue22 = 0.5
-      numberValue24 = 0.03
-      numberValue27 = 0.09
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = dataTable10
-      textValue5 = textValue5[3]
-      numberValue21 = 0.29
-      numberValue22 = 0.694
-      numberValue24 = 0.03
-      numberValue27 = 0.09
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = numberValue9
-      textValue5 = textValue5[1]
-      numberValue21 = 0.699
-      numberValue22 = 0.307
-      numberValue24 = 0.06
-      numberValue27 = 0.08
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = numberValue9
-      textValue5 = textValue5[2]
-      numberValue21 = 0.7
-      numberValue22 = 0.503
-      numberValue24 = 0.05
-      numberValue27 = 0.08
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
-      waitCall = numberValue17
-      dataTable8 = "MPIsland_Voltage"
-      textValue5 = numberValue9
-      textValue5 = textValue5[3]
-      numberValue21 = 0.7
-      numberValue22 = 0.698
-      numberValue24 = 0.04
-      numberValue27 = 0.06
-      numberValue28 = 0
-      numberValue30 = 255
-      numberValue31 = 255
-      numberValue2 = 255
-      numberValue3 = 255
-      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      dataCollection8 = 1
+      waitCall(dataCollection8)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage_BG"
+      text5 = "PHONE_BACKGROUND"
+      number21 = 0.5
+      number22 = 0.5
+      number24 = 1.0
+      number27 = 1.0
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage_BG"
+      text5 = "target_text"
+      number21 = 0.498
+      number22 = 0.12
+      number24 = 0.04
+      number27 = 0.014
+      number28 = 0
+      number30 = 231
+      number31 = 99
+      number2 = 99
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage_BG"
+      text5 = "result_text"
+      number21 = 0.498
+      number22 = 0.88
+      number24 = 0.04
+      number27 = 0.014
+      number28 = 0
+      number30 = 88
+      number31 = 204
+      number2 = 102
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = "Phone_Icons"
+      number21 = 0.95
+      number22 = 0.03
+      number24 = 0.08
+      number27 = 0.04
+      number28 = 0
+      number30 = 160
+      number31 = 160
+      number2 = 160
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = "MainInterface_BG"
+      number21 = 0.5
+      number22 = 0.5
+      number24 = 0.5
+      number27 = 0.73
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = dataCollection11
+      text5 = text5[1]
+      number21 = 0.457
+      number22 = 0.185
+      number24 = 0.03
+      number27 = 0.09
+      number28 = 0
+      number30 = 231
+      number31 = 99
+      number2 = 99
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = dataCollection11
+      text5 = text5[2]
+      number21 = 0.497
+      number22 = 0.185
+      number24 = 0.03
+      number27 = 0.09
+      number28 = 0
+      number30 = 231
+      number31 = 99
+      number2 = 99
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = dataCollection11
+      text5 = text5[3]
+      number21 = 0.539
+      number22 = 0.185
+      number24 = 0.03
+      number27 = 0.09
+      number28 = 0
+      number30 = 231
+      number31 = 99
+      number2 = 99
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = dataCollection10
+      text5 = text5[1]
+      number21 = 0.29
+      number22 = 0.307
+      number24 = 0.03
+      number27 = 0.09
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = dataCollection10
+      text5 = text5[2]
+      number21 = 0.29
+      number22 = 0.5
+      number24 = 0.03
+      number27 = 0.09
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = dataCollection10
+      text5 = text5[3]
+      number21 = 0.29
+      number22 = 0.694
+      number24 = 0.03
+      number27 = 0.09
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = number9
+      text5 = text5[1]
+      number21 = 0.699
+      number22 = 0.307
+      number24 = 0.06
+      number27 = 0.08
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = number9
+      text5 = text5[2]
+      number21 = 0.7
+      number22 = 0.503
+      number24 = 0.05
+      number27 = 0.08
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
+      waitCall = number17
+      dataCollection8 = "MPIsland_Voltage"
+      text5 = number9
+      text5 = text5[3]
+      number21 = 0.7
+      number22 = 0.698
+      number24 = 0.04
+      number27 = 0.06
+      number28 = 0
+      number30 = 255
+      number31 = 255
+      number2 = 255
+      number3 = 255
+      waitCall(dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31, number2, number3)
       waitCall = 0
-      dataTable8 = numberValue
-      textValue5 = numberValue29
-      if dataTable8 == textValue5 then
+      dataCollection8 = number
+      text5 = number29
+      if dataCollection8 == text5 then
         waitCall = 2
       else
         waitCall = 1
       end
-      dataTable8 = numberValue17
-      textValue5 = "MPIsland_Voltage"
-      numberValue21 = tostring
-      numberValue22 = dataTable
-      numberValue22 = numberValue22[1]
-      numberValue21 = numberValue21(numberValue22)
-      numberValue22 = 0.457
-      numberValue24 = 0.815
-      numberValue27 = 0.03
-      numberValue28 = 0.09
-      numberValue30 = 0
-      numberValue31 = dataTable5
-      numberValue31 = numberValue31[waitCall]
-      numberValue31 = numberValue31[1]
-      numberValue2 = dataTable5
-      numberValue2 = numberValue2[waitCall]
-      numberValue2 = numberValue2[2]
-      numberValue3 = dataTable5
-      numberValue3 = numberValue3[waitCall]
-      numberValue3 = numberValue3[3]
-      workValue4 = dataTable6
-      dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
-      dataTable8 = numberValue17
-      textValue5 = "MPIsland_Voltage"
-      numberValue21 = tostring
-      numberValue22 = dataTable
-      numberValue22 = numberValue22[2]
-      numberValue21 = numberValue21(numberValue22)
-      numberValue22 = 0.497
-      numberValue24 = 0.815
-      numberValue27 = 0.03
-      numberValue28 = 0.09
-      numberValue30 = 0
-      numberValue31 = dataTable5
-      numberValue31 = numberValue31[waitCall]
-      numberValue31 = numberValue31[1]
-      numberValue2 = dataTable5
-      numberValue2 = numberValue2[waitCall]
-      numberValue2 = numberValue2[2]
-      numberValue3 = dataTable5
-      numberValue3 = numberValue3[waitCall]
-      numberValue3 = numberValue3[3]
-      workValue4 = dataTable6
-      dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
-      dataTable8 = numberValue17
-      textValue5 = "MPIsland_Voltage"
-      numberValue21 = tostring
-      numberValue22 = dataTable
-      numberValue22 = numberValue22[3]
-      numberValue21 = numberValue21(numberValue22)
-      numberValue22 = 0.539
-      numberValue24 = 0.815
-      numberValue27 = 0.03
-      numberValue28 = 0.09
-      numberValue30 = 0
-      numberValue31 = dataTable5
-      numberValue31 = numberValue31[waitCall]
-      numberValue31 = numberValue31[1]
-      numberValue2 = dataTable5
-      numberValue2 = numberValue2[waitCall]
-      numberValue2 = numberValue2[2]
-      numberValue3 = dataTable5
-      numberValue3 = numberValue3[waitCall]
-      numberValue3 = numberValue3[3]
-      workValue4 = dataTable6
-      dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
-      dataTable8 = 1
-      textValue5 = textValue
-      numberValue21 = 1
-      for numberValue22 = dataTable8, textValue5, numberValue21 do
-        numberValue24 = numberValue17
-        numberValue27 = "MPIsland_Voltage"
-        numberValue28 = "maininterface_progress_highlight"
-        numberValue30 = numberValue11
-        numberValue30 = numberValue30[numberValue22]
-        numberValue30 = numberValue30[1]
-        numberValue31 = numberValue11
-        numberValue31 = numberValue31[numberValue22]
-        numberValue31 = numberValue31[2]
-        numberValue2 = numberValue11
-        numberValue2 = numberValue2[numberValue22]
-        numberValue2 = numberValue2[3]
-        numberValue3 = numberValue11
-        numberValue3 = numberValue3[numberValue22]
-        numberValue3 = numberValue3[4]
-        workValue4 = 0
-        numberValue4 = 88
-        numberValue5 = 204
-        numberValue6 = 102
-        numberValue7 = 255
-        numberValue24(numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4, numberValue4, numberValue5, numberValue6, numberValue7)
+      dataCollection8 = number17
+      text5 = "MPIsland_Voltage"
+      number21 = tostring
+      number22 = dataCollection
+      number22 = number22[1]
+      number21 = number21(number22)
+      number22 = 0.457
+      number24 = 0.815
+      number27 = 0.03
+      number28 = 0.09
+      number30 = 0
+      number31 = dataCollection5
+      number31 = number31[waitCall]
+      number31 = number31[1]
+      number2 = dataCollection5
+      number2 = number2[waitCall]
+      number2 = number2[2]
+      number3 = dataCollection5
+      number3 = number3[waitCall]
+      number3 = number3[3]
+      workingValue4 = dataCollection6
+      dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
+      dataCollection8 = number17
+      text5 = "MPIsland_Voltage"
+      number21 = tostring
+      number22 = dataCollection
+      number22 = number22[2]
+      number21 = number21(number22)
+      number22 = 0.497
+      number24 = 0.815
+      number27 = 0.03
+      number28 = 0.09
+      number30 = 0
+      number31 = dataCollection5
+      number31 = number31[waitCall]
+      number31 = number31[1]
+      number2 = dataCollection5
+      number2 = number2[waitCall]
+      number2 = number2[2]
+      number3 = dataCollection5
+      number3 = number3[waitCall]
+      number3 = number3[3]
+      workingValue4 = dataCollection6
+      dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
+      dataCollection8 = number17
+      text5 = "MPIsland_Voltage"
+      number21 = tostring
+      number22 = dataCollection
+      number22 = number22[3]
+      number21 = number21(number22)
+      number22 = 0.539
+      number24 = 0.815
+      number27 = 0.03
+      number28 = 0.09
+      number30 = 0
+      number31 = dataCollection5
+      number31 = number31[waitCall]
+      number31 = number31[1]
+      number2 = dataCollection5
+      number2 = number2[waitCall]
+      number2 = number2[2]
+      number3 = dataCollection5
+      number3 = number3[waitCall]
+      number3 = number3[3]
+      workingValue4 = dataCollection6
+      dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
+      dataCollection8 = 1
+      text5 = text
+      number21 = 1
+      for number22 = dataCollection8, text5, number21 do
+        number24 = number17
+        number27 = "MPIsland_Voltage"
+        number28 = "maininterface_progress_highlight"
+        number30 = number11
+        number30 = number30[number22]
+        number30 = number30[1]
+        number31 = number11
+        number31 = number31[number22]
+        number31 = number31[2]
+        number2 = number11
+        number2 = number2[number22]
+        number2 = number2[3]
+        number3 = number11
+        number3 = number3[number22]
+        number3 = number3[4]
+        workingValue4 = 0
+        number4 = 88
+        number5 = 204
+        number6 = 102
+        number7 = 255
+        number24(number27, number28, number30, number31, number2, number3, workingValue4, number4, number5, number6, number7)
       end
-      dataTable8 = numberValue23
-      if 1 == dataTable8 then
-        dataTable8 = numberValue17
-        textValue5 = "MPIsland_Voltage"
-        numberValue21 = "NUMBER_NODE"
-        numberValue22 = 0.298
-        numberValue24 = 0.307
-        numberValue27 = 0.06
-        numberValue28 = 0.098
-        numberValue30 = 0
-        numberValue31 = 250
-        numberValue2 = 172
-        numberValue3 = 54
-        workValue4 = 255
-        dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+      dataCollection8 = number23
+      if 1 == dataCollection8 then
+        dataCollection8 = number17
+        text5 = "MPIsland_Voltage"
+        number21 = "NUMBER_NODE"
+        number22 = 0.298
+        number24 = 0.307
+        number27 = 0.06
+        number28 = 0.098
+        number30 = 0
+        number31 = 250
+        number2 = 172
+        number3 = 54
+        workingValue4 = 255
+        dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
       else
-        dataTable8 = numberValue23
-        if 2 == dataTable8 then
-          dataTable8 = numberValue17
-          textValue5 = "MPIsland_Voltage"
-          numberValue21 = "NUMBER_NODE"
-          numberValue22 = 0.298
-          numberValue24 = 0.5
-          numberValue27 = 0.06
-          numberValue28 = 0.098
-          numberValue30 = 0
-          numberValue31 = 247
-          numberValue2 = 49
-          numberValue3 = 49
-          workValue4 = 255
-          dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+        dataCollection8 = number23
+        if 2 == dataCollection8 then
+          dataCollection8 = number17
+          text5 = "MPIsland_Voltage"
+          number21 = "NUMBER_NODE"
+          number22 = 0.298
+          number24 = 0.5
+          number27 = 0.06
+          number28 = 0.098
+          number30 = 0
+          number31 = 247
+          number2 = 49
+          number3 = 49
+          workingValue4 = 255
+          dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
         else
-          dataTable8 = numberValue23
-          if 3 == dataTable8 then
-            dataTable8 = numberValue17
-            textValue5 = "MPIsland_Voltage"
-            numberValue21 = "NUMBER_NODE"
-            numberValue22 = 0.298
-            numberValue24 = 0.693
-            numberValue27 = 0.06
-            numberValue28 = 0.098
-            numberValue30 = 0
-            numberValue31 = 58
-            numberValue2 = 53
-            numberValue3 = 212
-            workValue4 = 255
-            dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+          dataCollection8 = number23
+          if 3 == dataCollection8 then
+            dataCollection8 = number17
+            text5 = "MPIsland_Voltage"
+            number21 = "NUMBER_NODE"
+            number22 = 0.298
+            number24 = 0.693
+            number27 = 0.06
+            number28 = 0.098
+            number30 = 0
+            number31 = 58
+            number2 = 53
+            number3 = 212
+            workingValue4 = 255
+            dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
           end
         end
       end
-      dataTable8 = numberValue26
-      if 1 == dataTable8 then
-        dataTable8 = numberValue17
-        textValue5 = "MPIsland_Voltage"
-        numberValue21 = "CIRCLE_NODE"
-        numberValue22 = 0.691
-        numberValue24 = 0.307
-        numberValue27 = 0.078
-        numberValue28 = 0.13
-        numberValue30 = 0
-        numberValue2 = numberValue23
-        numberValue31 = dataTable4
-        numberValue31 = numberValue31[numberValue2]
-        numberValue31 = numberValue31[1]
-        numberValue3 = numberValue23
-        numberValue2 = dataTable4
-        numberValue2 = numberValue2[numberValue3]
-        numberValue2 = numberValue2[2]
-        workValue4 = numberValue23
-        numberValue3 = dataTable4
-        numberValue3 = numberValue3[workValue4]
-        numberValue3 = numberValue3[3]
-        workValue4 = 255
-        dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+      dataCollection8 = number26
+      if 1 == dataCollection8 then
+        dataCollection8 = number17
+        text5 = "MPIsland_Voltage"
+        number21 = "CIRCLE_NODE"
+        number22 = 0.691
+        number24 = 0.307
+        number27 = 0.078
+        number28 = 0.13
+        number30 = 0
+        number2 = number23
+        number31 = dataCollection4
+        number31 = number31[number2]
+        number31 = number31[1]
+        number3 = number23
+        number2 = dataCollection4
+        number2 = number2[number3]
+        number2 = number2[2]
+        workingValue4 = number23
+        number3 = dataCollection4
+        number3 = number3[workingValue4]
+        number3 = number3[3]
+        workingValue4 = 255
+        dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
       else
-        dataTable8 = numberValue26
-        if 2 == dataTable8 then
-          dataTable8 = numberValue17
-          textValue5 = "MPIsland_Voltage"
-          numberValue21 = "CIRCLE_NODE"
-          numberValue22 = 0.691
-          numberValue24 = 0.5
-          numberValue27 = 0.078
-          numberValue28 = 0.125
-          numberValue30 = 0
-          numberValue2 = numberValue23
-          numberValue31 = dataTable4
-          numberValue31 = numberValue31[numberValue2]
-          numberValue31 = numberValue31[1]
-          numberValue3 = numberValue23
-          numberValue2 = dataTable4
-          numberValue2 = numberValue2[numberValue3]
-          numberValue2 = numberValue2[2]
-          workValue4 = numberValue23
-          numberValue3 = dataTable4
-          numberValue3 = numberValue3[workValue4]
-          numberValue3 = numberValue3[3]
-          workValue4 = 255
-          dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+        dataCollection8 = number26
+        if 2 == dataCollection8 then
+          dataCollection8 = number17
+          text5 = "MPIsland_Voltage"
+          number21 = "CIRCLE_NODE"
+          number22 = 0.691
+          number24 = 0.5
+          number27 = 0.078
+          number28 = 0.125
+          number30 = 0
+          number2 = number23
+          number31 = dataCollection4
+          number31 = number31[number2]
+          number31 = number31[1]
+          number3 = number23
+          number2 = dataCollection4
+          number2 = number2[number3]
+          number2 = number2[2]
+          workingValue4 = number23
+          number3 = dataCollection4
+          number3 = number3[workingValue4]
+          number3 = number3[3]
+          workingValue4 = 255
+          dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
         else
-          dataTable8 = numberValue26
-          if 3 == dataTable8 then
-            dataTable8 = numberValue17
-            textValue5 = "MPIsland_Voltage"
-            numberValue21 = "CIRCLE_NODE"
-            numberValue22 = 0.691
-            numberValue24 = 0.694
-            numberValue27 = 0.078
-            numberValue28 = 0.125
-            numberValue30 = 0
-            numberValue2 = numberValue23
-            numberValue31 = dataTable4
-            numberValue31 = numberValue31[numberValue2]
-            numberValue31 = numberValue31[1]
-            numberValue3 = numberValue23
-            numberValue2 = dataTable4
-            numberValue2 = numberValue2[numberValue3]
-            numberValue2 = numberValue2[2]
-            workValue4 = numberValue23
-            numberValue3 = dataTable4
-            numberValue3 = numberValue3[workValue4]
-            numberValue3 = numberValue3[3]
-            workValue4 = 255
-            dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+          dataCollection8 = number26
+          if 3 == dataCollection8 then
+            dataCollection8 = number17
+            text5 = "MPIsland_Voltage"
+            number21 = "CIRCLE_NODE"
+            number22 = 0.691
+            number24 = 0.694
+            number27 = 0.078
+            number28 = 0.125
+            number30 = 0
+            number2 = number23
+            number31 = dataCollection4
+            number31 = number31[number2]
+            number31 = number31[1]
+            number3 = number23
+            number2 = dataCollection4
+            number2 = number2[number3]
+            number2 = number2[2]
+            workingValue4 = number23
+            number3 = dataCollection4
+            number3 = number3[workingValue4]
+            number3 = number3[3]
+            workingValue4 = 255
+            dataCollection8(text5, number21, number22, number24, number27, number28, number30, number31, number2, number3, workingValue4)
           end
         end
       end
-      dataTable8 = numberValue23
-      if 0 ~= dataTable8 then
-        dataTable8 = numberValue26
-        if 0 ~= dataTable8 then
-          dataTable8 = pairs
-          textValue5 = tostring
-          numberValue21 = numberValue23
-          textValue5 = textValue5(numberValue21)
-          numberValue21 = dataTable9
-          textValue5 = numberValue21[textValue5]
-          numberValue21 = tostring
-          numberValue22 = numberValue26
-          numberValue21 = numberValue21(numberValue22)
-          textValue5 = textValue5[numberValue21]
-          dataTable8, textValue5, numberValue21, numberValue22 = dataTable8(textValue5)
-          for numberValue24, numberValue27 in dataTable8, textValue5, numberValue21, numberValue22 do
-            numberValue28 = numberValue23
-            if numberValue28 then
-              numberValue28 = numberValue26
-              if numberValue28 then
-                numberValue28 = numberValue16
-                numberValue30 = numberValue27[1]
-                numberValue31 = numberValue27[2]
-                numberValue2 = numberValue27[3]
-                numberValue3 = numberValue27[4]
-                numberValue4 = numberValue23
-                workValue4 = dataTable4
-                workValue4 = workValue4[numberValue4]
-                workValue4 = workValue4[1]
-                numberValue5 = numberValue23
-                numberValue4 = dataTable4
-                numberValue4 = numberValue4[numberValue5]
-                numberValue4 = numberValue4[2]
-                numberValue6 = numberValue23
-                numberValue5 = dataTable4
-                numberValue5 = numberValue5[numberValue6]
-                numberValue5 = numberValue5[3]
-                numberValue7 = numberValue23
-                numberValue6 = dataTable7
-                numberValue6 = numberValue6[numberValue7]
-                numberValue28(numberValue30, numberValue31, numberValue2, numberValue3, workValue4, numberValue4, numberValue5, numberValue6)
+      dataCollection8 = number23
+      if 0 ~= dataCollection8 then
+        dataCollection8 = number26
+        if 0 ~= dataCollection8 then
+          dataCollection8 = pairs
+          text5 = tostring
+          number21 = number23
+          text5 = text5(number21)
+          number21 = dataCollection9
+          text5 = number21[text5]
+          number21 = tostring
+          number22 = number26
+          number21 = number21(number22)
+          text5 = text5[number21]
+          dataCollection8, text5, number21, number22 = dataCollection8(text5)
+          for number24, number27 in dataCollection8, text5, number21, number22 do
+            number28 = number23
+            if number28 then
+              number28 = number26
+              if number28 then
+                number28 = number16
+                number30 = number27[1]
+                number31 = number27[2]
+                number2 = number27[3]
+                number3 = number27[4]
+                number4 = number23
+                workingValue4 = dataCollection4
+                workingValue4 = workingValue4[number4]
+                workingValue4 = workingValue4[1]
+                number5 = number23
+                number4 = dataCollection4
+                number4 = number4[number5]
+                number4 = number4[2]
+                number6 = number23
+                number5 = dataCollection4
+                number5 = number5[number6]
+                number5 = number5[3]
+                number7 = number23
+                number6 = dataCollection7
+                number6 = number6[number7]
+                number28(number30, number31, number2, number3, workingValue4, number4, number5, number6)
               end
             end
           end
         end
       end
-      dataTable8 = textValue3
-      textValue5 = dataTable3
-      dataTable8 = dataTable8(textValue5)
-      if 0 ~= dataTable8 then
-        dataTable8 = pairs
-        textValue5 = dataTable3
-        dataTable8, textValue5, numberValue21, numberValue22 = dataTable8(textValue5)
-        for numberValue24, numberValue27 in dataTable8, textValue5, numberValue21, numberValue22 do
-          numberValue28 = pairs
-          numberValue30 = tostring
-          numberValue31 = numberValue27[1]
-          numberValue30 = numberValue30(numberValue31)
-          numberValue31 = dataTable9
-          numberValue30 = numberValue31[numberValue30]
-          numberValue31 = tostring
-          numberValue2 = numberValue27[2]
-          numberValue31 = numberValue31(numberValue2)
-          numberValue30 = numberValue30[numberValue31]
-          numberValue28, numberValue30, numberValue31, numberValue2 = numberValue28(numberValue30)
-          for numberValue3, workValue4 in numberValue28, numberValue30, numberValue31, numberValue2 do
-            numberValue4 = numberValue27[1]
-            if numberValue4 then
-              numberValue4 = numberValue27[2]
-              if numberValue4 then
-                numberValue4 = numberValue16
-                numberValue5 = workValue4[1]
-                numberValue6 = workValue4[2]
-                numberValue7 = workValue4[3]
-                workValue11 = workValue4[4]
-                workValue15 = numberValue27[1]
-                workValue13 = dataTable4
-                workValue13 = workValue13[workValue15]
-                workValue13 = workValue13[1]
-                workValue18 = numberValue27[1]
-                workValue15 = dataTable4
-                workValue15 = workValue15[workValue18]
-                workValue15 = workValue15[2]
-                workValue20 = numberValue27[1]
-                workValue18 = dataTable4
-                workValue18 = workValue18[workValue20]
-                workValue18 = workValue18[3]
-                workValue22 = numberValue27[1]
-                workValue20 = dataTable7
-                workValue20 = workValue20[workValue22]
-                numberValue4(numberValue5, numberValue6, numberValue7, workValue11, workValue13, workValue15, workValue18, workValue20)
+      dataCollection8 = text3
+      text5 = dataCollection3
+      dataCollection8 = dataCollection8(text5)
+      if 0 ~= dataCollection8 then
+        dataCollection8 = pairs
+        text5 = dataCollection3
+        dataCollection8, text5, number21, number22 = dataCollection8(text5)
+        for number24, number27 in dataCollection8, text5, number21, number22 do
+          number28 = pairs
+          number30 = tostring
+          number31 = number27[1]
+          number30 = number30(number31)
+          number31 = dataCollection9
+          number30 = number31[number30]
+          number31 = tostring
+          number2 = number27[2]
+          number31 = number31(number2)
+          number30 = number30[number31]
+          number28, number30, number31, number2 = number28(number30)
+          for number3, workingValue4 in number28, number30, number31, number2 do
+            number4 = number27[1]
+            if number4 then
+              number4 = number27[2]
+              if number4 then
+                number4 = number16
+                number5 = workingValue4[1]
+                number6 = workingValue4[2]
+                number7 = workingValue4[3]
+                workingValue11 = workingValue4[4]
+                workingValue15 = number27[1]
+                workingValue13 = dataCollection4
+                workingValue13 = workingValue13[workingValue15]
+                workingValue13 = workingValue13[1]
+                workingValue18 = number27[1]
+                workingValue15 = dataCollection4
+                workingValue15 = workingValue15[workingValue18]
+                workingValue15 = workingValue15[2]
+                workingValue20 = number27[1]
+                workingValue18 = dataCollection4
+                workingValue18 = workingValue18[workingValue20]
+                workingValue18 = workingValue18[3]
+                workingValue22 = number27[1]
+                workingValue20 = dataCollection7
+                workingValue20 = workingValue20[workingValue22]
+                number4(number5, number6, number7, workingValue11, workingValue13, workingValue15, workingValue18, workingValue20)
               end
             end
           end
@@ -2121,439 +2121,439 @@ function workValue26(arg1, arg2)
       end
     end
     waitCall = print
-    dataTable8 = "Ended first Voltlab hacking thread"
-    waitCall(dataTable8)
+    dataCollection8 = "Ended first Voltlab hacking thread"
+    waitCall(dataCollection8)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg6(arg7)
-  arg6 = Wait
-  arg7 = 100
-  arg6(arg7)
-  arg6 = print
-  arg7 = "Creating second Voltlab hacking thread"
-  arg6(arg7)
-  arg6 = CreateThread
+  localValue6(localValue7)
+  localValue6 = Wait
+  localValue7 = 100
+  localValue6(localValue7)
+  localValue6 = print
+  localValue7 = "Creating second Voltlab hacking thread"
+  localValue6(localValue7)
+  localValue6 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local waitCall, dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local waitCall, dataCollection8, text5, number21, number22, number24, number27, number28, number30, number31
     waitCall = 0
-    dataTable8 = 0
-    textValue5 = numberValue18
-    numberValue21 = "instructional_buttons"
-    textValue5 = textValue5(numberValue21)
+    dataCollection8 = 0
+    text5 = number18
+    number21 = "instructional_buttons"
+    text5 = text5(number21)
     while true do
-      numberValue21 = flag
-      if not numberValue21 then
+      number21 = stateFlag
+      if not number21 then
         break
       end
-      numberValue21 = Wait
-      numberValue22 = 5
-      numberValue21(numberValue22)
-      numberValue21 = DrawScaleformMovieFullscreen
-      numberValue22 = textValue5
-      numberValue24 = 255
-      numberValue27 = 255
-      numberValue28 = 255
-      numberValue30 = 255
-      numberValue31 = 0
-      numberValue21(numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 172
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 173
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 174
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 175
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 194
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 191
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 24
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = DisableControlAction
-      numberValue22 = 0
-      numberValue24 = 25
-      numberValue27 = true
-      numberValue21(numberValue22, numberValue24, numberValue27)
-      numberValue21 = IsDisabledControlJustPressed
-      numberValue22 = 0
-      numberValue24 = 172
-      numberValue21 = numberValue21(numberValue22, numberValue24)
-      if numberValue21 then
-        numberValue21 = numberValue23
-        if numberValue21 > 1 then
-          numberValue21 = numberValue23
-          if numberValue21 < 4 then
-            numberValue21 = numberValue23
-            numberValue21 = numberValue21 - 1
-            numberValue23 = numberValue21
-            numberValue21 = textValue4
-            numberValue22 = "Disconnect_Wire"
-            numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
-            numberValue21(numberValue22, numberValue24)
-            numberValue21 = numberValue26
-            if 0 ~= numberValue21 then
-              numberValue22 = numberValue23
-              numberValue21 = dataTable10
-              numberValue21 = numberValue21[numberValue22]
-              numberValue24 = numberValue26
-              numberValue22 = numberValue10
-              numberValue22 = numberValue22[numberValue24]
-              numberValue21 = numberValue21 * numberValue22
-              waitCall = dataTable8 + numberValue21
-              numberValue21 = numberValue13
-              numberValue22 = waitCall
-              numberValue21(numberValue22)
+      number21 = Wait
+      number22 = 5
+      number21(number22)
+      number21 = DrawScaleformMovieFullscreen
+      number22 = text5
+      number24 = 255
+      number27 = 255
+      number28 = 255
+      number30 = 255
+      number31 = 0
+      number21(number22, number24, number27, number28, number30, number31)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 172
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 173
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 174
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 175
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 194
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 191
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 24
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = DisableControlAction
+      number22 = 0
+      number24 = 25
+      number27 = true
+      number21(number22, number24, number27)
+      number21 = IsDisabledControlJustPressed
+      number22 = 0
+      number24 = 172
+      number21 = number21(number22, number24)
+      if number21 then
+        number21 = number23
+        if number21 > 1 then
+          number21 = number23
+          if number21 < 4 then
+            number21 = number23
+            number21 = number21 - 1
+            number23 = number21
+            number21 = text4
+            number22 = "Disconnect_Wire"
+            number24 = "DLC_H4_Voltage_Minigame_Sounds"
+            number21(number22, number24)
+            number21 = number26
+            if 0 ~= number21 then
+              number22 = number23
+              number21 = dataCollection10
+              number21 = number21[number22]
+              number24 = number26
+              number22 = number10
+              number22 = number22[number24]
+              number21 = number21 * number22
+              waitCall = dataCollection8 + number21
+              number21 = number13
+              number22 = waitCall
+              number21(number22)
             end
           end
         end
       else
-        numberValue21 = IsDisabledControlJustPressed
-        numberValue22 = 0
-        numberValue24 = 173
-        numberValue21 = numberValue21(numberValue22, numberValue24)
-        if numberValue21 then
-          numberValue21 = numberValue23
-          if numberValue21 < 3 then
-            numberValue21 = numberValue23
-            if numberValue21 >= 0 then
-              numberValue21 = numberValue23
-              numberValue21 = numberValue21 + 1
-              numberValue23 = numberValue21
-              numberValue21 = textValue4
-              numberValue22 = "Disconnect_Wire"
-              numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
-              numberValue21(numberValue22, numberValue24)
-              numberValue21 = numberValue26
-              if 0 ~= numberValue21 then
-                numberValue22 = numberValue23
-                numberValue21 = dataTable10
-                numberValue21 = numberValue21[numberValue22]
-                numberValue24 = numberValue26
-                numberValue22 = numberValue10
-                numberValue22 = numberValue22[numberValue24]
-                numberValue21 = numberValue21 * numberValue22
-                waitCall = dataTable8 + numberValue21
-                numberValue21 = numberValue13
-                numberValue22 = waitCall
-                numberValue21(numberValue22)
+        number21 = IsDisabledControlJustPressed
+        number22 = 0
+        number24 = 173
+        number21 = number21(number22, number24)
+        if number21 then
+          number21 = number23
+          if number21 < 3 then
+            number21 = number23
+            if number21 >= 0 then
+              number21 = number23
+              number21 = number21 + 1
+              number23 = number21
+              number21 = text4
+              number22 = "Disconnect_Wire"
+              number24 = "DLC_H4_Voltage_Minigame_Sounds"
+              number21(number22, number24)
+              number21 = number26
+              if 0 ~= number21 then
+                number22 = number23
+                number21 = dataCollection10
+                number21 = number21[number22]
+                number24 = number26
+                number22 = number10
+                number22 = number22[number24]
+                number21 = number21 * number22
+                waitCall = dataCollection8 + number21
+                number21 = number13
+                number22 = waitCall
+                number21(number22)
               end
             end
           end
         else
-          numberValue21 = IsDisabledControlJustPressed
-          numberValue22 = 0
-          numberValue24 = 174
-          numberValue21 = numberValue21(numberValue22, numberValue24)
-          if numberValue21 then
-            numberValue21 = numberValue26
-            if numberValue21 > 1 then
-              numberValue21 = numberValue26
-              if numberValue21 < 4 then
-                numberValue21 = numberValue26
-                numberValue21 = numberValue21 - 1
-                numberValue26 = numberValue21
-                numberValue21 = textValue4
-                numberValue22 = "Disconnect_Wire"
-                numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
-                numberValue21(numberValue22, numberValue24)
-                numberValue22 = numberValue23
-                numberValue21 = dataTable10
-                numberValue21 = numberValue21[numberValue22]
-                numberValue24 = numberValue26
-                numberValue22 = numberValue10
-                numberValue22 = numberValue22[numberValue24]
-                numberValue21 = numberValue21 * numberValue22
-                waitCall = dataTable8 + numberValue21
-                numberValue21 = numberValue13
-                numberValue22 = waitCall
-                numberValue21(numberValue22)
+          number21 = IsDisabledControlJustPressed
+          number22 = 0
+          number24 = 174
+          number21 = number21(number22, number24)
+          if number21 then
+            number21 = number26
+            if number21 > 1 then
+              number21 = number26
+              if number21 < 4 then
+                number21 = number26
+                number21 = number21 - 1
+                number26 = number21
+                number21 = text4
+                number22 = "Disconnect_Wire"
+                number24 = "DLC_H4_Voltage_Minigame_Sounds"
+                number21(number22, number24)
+                number22 = number23
+                number21 = dataCollection10
+                number21 = number21[number22]
+                number24 = number26
+                number22 = number10
+                number22 = number22[number24]
+                number21 = number21 * number22
+                waitCall = dataCollection8 + number21
+                number21 = number13
+                number22 = waitCall
+                number21(number22)
               end
             end
           else
-            numberValue21 = IsDisabledControlJustPressed
-            numberValue22 = 0
-            numberValue24 = 175
-            numberValue21 = numberValue21(numberValue22, numberValue24)
-            if numberValue21 then
-              numberValue21 = numberValue26
-              if numberValue21 < 3 then
-                numberValue21 = numberValue26
-                if numberValue21 >= 0 then
-                  numberValue21 = numberValue26
-                  numberValue21 = numberValue21 + 1
-                  numberValue26 = numberValue21
-                  numberValue21 = textValue4
-                  numberValue22 = "Disconnect_Wire"
-                  numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
-                  numberValue21(numberValue22, numberValue24)
-                  numberValue22 = numberValue23
-                  numberValue21 = dataTable10
-                  numberValue21 = numberValue21[numberValue22]
-                  numberValue24 = numberValue26
-                  numberValue22 = numberValue10
-                  numberValue22 = numberValue22[numberValue24]
-                  numberValue21 = numberValue21 * numberValue22
-                  waitCall = dataTable8 + numberValue21
-                  numberValue21 = numberValue13
-                  numberValue22 = waitCall
-                  numberValue21(numberValue22)
+            number21 = IsDisabledControlJustPressed
+            number22 = 0
+            number24 = 175
+            number21 = number21(number22, number24)
+            if number21 then
+              number21 = number26
+              if number21 < 3 then
+                number21 = number26
+                if number21 >= 0 then
+                  number21 = number26
+                  number21 = number21 + 1
+                  number26 = number21
+                  number21 = text4
+                  number22 = "Disconnect_Wire"
+                  number24 = "DLC_H4_Voltage_Minigame_Sounds"
+                  number21(number22, number24)
+                  number22 = number23
+                  number21 = dataCollection10
+                  number21 = number21[number22]
+                  number24 = number26
+                  number22 = number10
+                  number22 = number22[number24]
+                  number21 = number21 * number22
+                  waitCall = dataCollection8 + number21
+                  number21 = number13
+                  number22 = waitCall
+                  number21(number22)
                 end
               end
             else
-              numberValue21 = IsDisabledControlJustPressed
-              numberValue22 = 0
-              numberValue24 = 194
-              numberValue21 = numberValue21(numberValue22, numberValue24)
-              if numberValue21 then
-                numberValue21 = false
-                workValue7 = numberValue21
-                numberValue21 = false
-                flag = numberValue21
-                numberValue21 = textValue4
-                numberValue22 = "Minigame_Failure"
-                numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
-                numberValue21(numberValue22, numberValue24)
-                numberValue21 = SendNUIMessage
-                numberValue22 = {}
-                numberValue22.type = "fail"
+              number21 = IsDisabledControlJustPressed
+              number22 = 0
+              number24 = 194
+              number21 = number21(number22, number24)
+              if number21 then
+                number21 = false
+                workingValue7 = number21
+                number21 = false
+                stateFlag = number21
+                number21 = text4
+                number22 = "Minigame_Failure"
+                number24 = "DLC_H4_Voltage_Minigame_Sounds"
+                number21(number22, number24)
+                number21 = SendNUIMessage
+                number22 = {}
+                number22.type = "fail"
                 -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-                numberValue21(numberValue22)
-                numberValue21 = true
-                flag2 = numberValue21
-                numberValue21 = workValue27
-                numberValue22 = 0
-                numberValue24 = "Hack cancelled"
-                numberValue21(numberValue22, numberValue24)
+                number21(number22)
+                number21 = true
+                stateFlag2 = number21
+                number21 = workingValue27
+                number22 = 0
+                number24 = "Hack cancelled"
+                number21(number22, number24)
               else
-                numberValue21 = IsDisabledControlJustPressed
-                numberValue22 = 0
-                numberValue24 = 191
-                numberValue21 = numberValue21(numberValue22, numberValue24)
-                if numberValue21 then
-                  numberValue21 = numberValue26
-                  if 0 ~= numberValue21 then
-                    numberValue21 = tostring
-                    numberValue22 = numberValue26
-                    numberValue21 = numberValue21(numberValue22)
-                    numberValue22 = dataTable2
-                    numberValue21 = numberValue22[numberValue21]
-                    if nil ~= numberValue21 then
-                      numberValue21 = tostring
-                      numberValue22 = numberValue26
-                      numberValue21 = numberValue21(numberValue22)
-                      numberValue22 = dataTable2
-                      numberValue21 = numberValue22[numberValue21]
-                      if false ~= numberValue21 then
-                        goto flow_label_367
+                number21 = IsDisabledControlJustPressed
+                number22 = 0
+                number24 = 191
+                number21 = number21(number22, number24)
+                if number21 then
+                  number21 = number26
+                  if 0 ~= number21 then
+                    number21 = tostring
+                    number22 = number26
+                    number21 = number21(number22)
+                    number22 = dataCollection2
+                    number21 = number22[number21]
+                    if nil ~= number21 then
+                      number21 = tostring
+                      number22 = number26
+                      number21 = number21(number22)
+                      number22 = dataCollection2
+                      number21 = number22[number21]
+                      if false ~= number21 then
+                        goto continueAtStep367
                       end
                     end
-                    numberValue21 = tostring
-                    numberValue22 = numberValue23
-                    numberValue21 = numberValue21(numberValue22)
-                    numberValue22 = dataTable3
-                    numberValue21 = numberValue22[numberValue21]
-                    if nil ~= numberValue21 then
-                      numberValue21 = tostring
-                      numberValue22 = numberValue23
-                      numberValue21 = numberValue21(numberValue22)
-                      numberValue22 = dataTable3
-                      numberValue21 = numberValue22[numberValue21]
-                      if false ~= numberValue21 then
-                        goto flow_label_367
+                    number21 = tostring
+                    number22 = number23
+                    number21 = number21(number22)
+                    number22 = dataCollection3
+                    number21 = number22[number21]
+                    if nil ~= number21 then
+                      number21 = tostring
+                      number22 = number23
+                      number21 = number21(number22)
+                      number22 = dataCollection3
+                      number21 = number22[number21]
+                      if false ~= number21 then
+                        goto continueAtStep367
                       end
                     end
-                    numberValue21 = 1
-                    numberValue22 = 255
-                    numberValue24 = textValue4
-                    numberValue27 = "OS_Draw"
-                    numberValue28 = "DLC_H4_Voltage_Minigame_Sounds"
-                    numberValue24(numberValue27, numberValue28)
-                    numberValue24 = CreateThread
+                    number21 = 1
+                    number22 = 255
+                    number24 = text4
+                    number27 = "OS_Draw"
+                    number28 = "DLC_H4_Voltage_Minigame_Sounds"
+                    number24(number27, number28)
+                    number24 = CreateThread
                     -- Beginner: this function is the body of a background FiveM thread.
 
-                    -- === HELPER FUNCTION (decompiler name: numberValue27; parameters: none) ===
-                    function numberValue27()
-                      local waitCall2, numberValue8, numberValue15, workValue25, workValue28, numberValue25
+                    -- === HELPER FUNCTION (decompiler name: number27; parameters: none) ===
+                    function number27()
+                      local waitCall2, number8, number15, workingValue25, workingValue28, number25
                       while true do
-                        waitCall2 = numberValue21
+                        waitCall2 = number21
                         if not (waitCall2 > 0) then
                           break
                         end
                         waitCall2 = 1
-                        numberValue8 = dataTable7
-                        numberValue8 = #numberValue8
-                        numberValue15 = 1
-                        for workValue25 = waitCall2, numberValue8, numberValue15 do
-                          workValue28 = dataTable7
-                          numberValue25 = numberValue22
-                          workValue28[workValue25] = numberValue25
-                          workValue28 = numberValue22
-                          numberValue25 = 255
-                          if workValue28 < numberValue25 then
-                            workValue28 = numberValue22
-                            workValue28 = workValue28 + 85
-                            numberValue22 = workValue28
+                        number8 = dataCollection7
+                        number8 = #number8
+                        number15 = 1
+                        for workingValue25 = waitCall2, number8, number15 do
+                          workingValue28 = dataCollection7
+                          number25 = number22
+                          workingValue28[workingValue25] = number25
+                          workingValue28 = number22
+                          number25 = 255
+                          if workingValue28 < number25 then
+                            workingValue28 = number22
+                            workingValue28 = workingValue28 + 85
+                            number22 = workingValue28
                           else
-                            workValue28 = numberValue22
-                            workValue28 = workValue28 - 85
-                            numberValue22 = workValue28
+                            workingValue28 = number22
+                            workingValue28 = workingValue28 - 85
+                            number22 = workingValue28
                           end
                         end
                         waitCall2 = Wait
-                        numberValue8 = 100
-                        waitCall2(numberValue8)
+                        number8 = 100
+                        waitCall2(number8)
                       end
                       waitCall2 = 1
-                      numberValue8 = dataTable7
-                      numberValue8 = #numberValue8
-                      numberValue15 = 1
-                      for workValue25 = waitCall2, numberValue8, numberValue15 do
-                        workValue28 = dataTable7
-                        workValue28[workValue25] = 255
+                      number8 = dataCollection7
+                      number8 = #number8
+                      number15 = 1
+                      for workingValue25 = waitCall2, number8, number15 do
+                        workingValue28 = dataCollection7
+                        workingValue28[workingValue25] = 255
                       end
                     end
                     -- Beginner: Start a separate FiveM thread so this code can run independently.
-                    numberValue24(numberValue27)
-                    numberValue24 = Wait
-                    numberValue27 = 1000
-                    numberValue24(numberValue27)
-                    numberValue21 = 0
-                    numberValue27 = numberValue23
-                    numberValue24 = dataTable10
-                    numberValue24 = numberValue24[numberValue27]
-                    numberValue28 = numberValue26
-                    numberValue27 = numberValue10
-                    numberValue27 = numberValue27[numberValue28]
-                    numberValue24 = numberValue24 * numberValue27
-                    dataTable8 = dataTable8 + numberValue24
-                    numberValue = dataTable8
-                    numberValue24 = tostring
-                    numberValue27 = numberValue26
-                    numberValue24 = numberValue24(numberValue27)
-                    numberValue27 = dataTable2
-                    numberValue27[numberValue24] = true
-                    numberValue24 = tostring
-                    numberValue27 = numberValue23
-                    numberValue24 = numberValue24(numberValue27)
-                    numberValue27 = dataTable3
-                    numberValue28 = {}
-                    numberValue30 = numberValue23
-                    numberValue31 = numberValue26
-                    numberValue28[1] = numberValue30
-                    numberValue28[2] = numberValue31
-                    numberValue27[numberValue24] = numberValue28
-                    numberValue24 = textValue3
-                    numberValue27 = dataTable3
-                    numberValue24 = numberValue24(numberValue27)
-                    if numberValue24 >= 3 then
-                      numberValue24 = numberValue29
-                      if dataTable8 == numberValue24 then
-                        numberValue24 = true
-                        workValue7 = numberValue24
-                        numberValue24 = textValue4
-                        numberValue27 = "All_Connected_Correct"
-                        numberValue28 = "DLC_H4_Voltage_Minigame_Sounds"
-                        numberValue24(numberValue27, numberValue28)
-                        numberValue24 = 1
-                        numberValue27 = CreateThread
+                    number24(number27)
+                    number24 = Wait
+                    number27 = 1000
+                    number24(number27)
+                    number21 = 0
+                    number27 = number23
+                    number24 = dataCollection10
+                    number24 = number24[number27]
+                    number28 = number26
+                    number27 = number10
+                    number27 = number27[number28]
+                    number24 = number24 * number27
+                    dataCollection8 = dataCollection8 + number24
+                    number = dataCollection8
+                    number24 = tostring
+                    number27 = number26
+                    number24 = number24(number27)
+                    number27 = dataCollection2
+                    number27[number24] = true
+                    number24 = tostring
+                    number27 = number23
+                    number24 = number24(number27)
+                    number27 = dataCollection3
+                    number28 = {}
+                    number30 = number23
+                    number31 = number26
+                    number28[1] = number30
+                    number28[2] = number31
+                    number27[number24] = number28
+                    number24 = text3
+                    number27 = dataCollection3
+                    number24 = number24(number27)
+                    if number24 >= 3 then
+                      number24 = number29
+                      if dataCollection8 == number24 then
+                        number24 = true
+                        workingValue7 = number24
+                        number24 = text4
+                        number27 = "All_Connected_Correct"
+                        number28 = "DLC_H4_Voltage_Minigame_Sounds"
+                        number24(number27, number28)
+                        number24 = 1
+                        number27 = CreateThread
                         -- Beginner: this function is the body of a background FiveM thread.
 
-                        -- === HELPER FUNCTION (decompiler name: numberValue28; parameters: none) ===
-                        function numberValue28()
-                          local waitCall2, numberValue8
+                        -- === HELPER FUNCTION (decompiler name: number28; parameters: none) ===
+                        function number28()
+                          local waitCall2, number8
                           while true do
-                            waitCall2 = numberValue24
+                            waitCall2 = number24
                             if not (waitCall2 > 0) then
                               break
                             end
-                            waitCall2 = dataTable6
-                            numberValue8 = 255
-                            if waitCall2 < numberValue8 then
-                              waitCall2 = dataTable6
+                            waitCall2 = dataCollection6
+                            number8 = 255
+                            if waitCall2 < number8 then
+                              waitCall2 = dataCollection6
                               waitCall2 = waitCall2 + 85
-                              dataTable6 = waitCall2
+                              dataCollection6 = waitCall2
                             else
-                              waitCall2 = dataTable6
+                              waitCall2 = dataCollection6
                               waitCall2 = waitCall2 - 85
-                              dataTable6 = waitCall2
+                              dataCollection6 = waitCall2
                             end
                             waitCall2 = Wait
-                            numberValue8 = 100
-                            waitCall2(numberValue8)
+                            number8 = 100
+                            waitCall2(number8)
                           end
                           waitCall2 = 255
-                          dataTable6 = waitCall2
+                          dataCollection6 = waitCall2
                         end
                         -- Beginner: Start a separate FiveM thread so this code can run independently.
-                        numberValue27(numberValue28)
-                        numberValue27 = Wait
-                        numberValue28 = 1000
-                        numberValue27(numberValue28)
-                        numberValue24 = 0
-                        numberValue27 = textValue4
-                        numberValue28 = "Minigame_Success"
-                        numberValue30 = "DLC_H4_Voltage_Minigame_Sounds"
-                        numberValue27(numberValue28, numberValue30)
-                        numberValue27 = SendNUIMessage
-                        numberValue28 = {}
-                        numberValue28.type = "success"
+                        number27(number28)
+                        number27 = Wait
+                        number28 = 1000
+                        number27(number28)
+                        number24 = 0
+                        number27 = text4
+                        number28 = "Minigame_Success"
+                        number30 = "DLC_H4_Voltage_Minigame_Sounds"
+                        number27(number28, number30)
+                        number27 = SendNUIMessage
+                        number28 = {}
+                        number28.type = "success"
                         -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-                        numberValue27(numberValue28)
-                        numberValue27 = false
-                        flag = numberValue27
-                        numberValue27 = true
-                        flag2 = numberValue27
-                        numberValue27 = workValue27
-                        numberValue28 = 1
-                        numberValue27(numberValue28)
+                        number27(number28)
+                        number27 = false
+                        stateFlag = number27
+                        number27 = true
+                        stateFlag2 = number27
+                        number27 = workingValue27
+                        number28 = 1
+                        number27(number28)
                       else
-                        numberValue24 = Wait
-                        numberValue27 = 1000
-                        numberValue24(numberValue27)
-                        numberValue24 = false
-                        workValue7 = numberValue24
-                        numberValue24 = false
-                        flag = numberValue24
-                        numberValue24 = textValue4
-                        numberValue27 = "Minigame_Failure"
-                        numberValue28 = "DLC_H4_Voltage_Minigame_Sounds"
-                        numberValue24(numberValue27, numberValue28)
-                        numberValue24 = SendNUIMessage
-                        numberValue27 = {}
-                        numberValue27.type = "fail"
+                        number24 = Wait
+                        number27 = 1000
+                        number24(number27)
+                        number24 = false
+                        workingValue7 = number24
+                        number24 = false
+                        stateFlag = number24
+                        number24 = text4
+                        number27 = "Minigame_Failure"
+                        number28 = "DLC_H4_Voltage_Minigame_Sounds"
+                        number24(number27, number28)
+                        number24 = SendNUIMessage
+                        number27 = {}
+                        number27.type = "fail"
                         -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-                        numberValue24(numberValue27)
-                        numberValue24 = true
-                        flag2 = numberValue24
-                        numberValue24 = workValue27
-                        numberValue27 = 0
-                        numberValue28 = "Hack failed"
-                        numberValue24(numberValue27, numberValue28)
+                        number24(number27)
+                        number24 = true
+                        stateFlag2 = number24
+                        number24 = workingValue27
+                        number27 = 0
+                        number28 = "Hack failed"
+                        number24(number27, number28)
                       end
                     end
                   end
@@ -2563,73 +2563,73 @@ function workValue26(arg1, arg2)
           end
         end
       end
-      ::flow_label_367::
+      ::continueAtStep367::
     end
-    numberValue21 = print
-    numberValue22 = "Ended second Voltlab hacking thread"
-    numberValue21(numberValue22)
+    number21 = print
+    number22 = "Ended second Voltlab hacking thread"
+    number21(number22)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg6(arg7)
-  arg6 = print
-  arg7 = "Creating third Voltlab hacking thread"
-  arg6(arg7)
-  arg6 = CreateThread
+  localValue6(localValue7)
+  localValue6 = print
+  localValue7 = "Creating third Voltlab hacking thread"
+  localValue6(localValue7)
+  localValue6 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
 
-  -- === HELPER FUNCTION: arg7() ===
-  function arg7()
-    local waitCall, dataTable8, textValue5, numberValue21
+  -- === HELPER FUNCTION: localValue7() ===
+  function localValue7()
+    local waitCall, dataCollection8, text5, number21
     waitCall = Wait
-    dataTable8 = 5000
-    waitCall(dataTable8)
-    waitCall = arg4
+    dataCollection8 = 5000
+    waitCall(dataCollection8)
+    waitCall = localValue4
     waitCall = waitCall / 6
     while true do
-      dataTable8 = arg4
-      if not (dataTable8 > 0) then
+      dataCollection8 = localValue4
+      if not (dataCollection8 > 0) then
         break
       end
-      dataTable8 = Wait
-      textValue5 = waitCall * 1000
-      dataTable8(textValue5)
-      dataTable8 = arg4
-      dataTable8 = dataTable8 - waitCall
-      arg4 = dataTable8
-      dataTable8 = textValue
-      dataTable8 = dataTable8 - 1
-      textValue = dataTable8
+      dataCollection8 = Wait
+      text5 = waitCall * 1000
+      dataCollection8(text5)
+      dataCollection8 = localValue4
+      dataCollection8 = dataCollection8 - waitCall
+      localValue4 = dataCollection8
+      dataCollection8 = text
+      dataCollection8 = dataCollection8 - 1
+      text = dataCollection8
     end
-    dataTable8 = Wait
-    textValue5 = 2000
-    dataTable8(textValue5)
-    dataTable8 = workValue7
-    if nil == dataTable8 then
-      dataTable8 = false
-      flag = dataTable8
-      dataTable8 = textValue4
-      textValue5 = "Minigame_Failure"
-      numberValue21 = "DLC_H4_Voltage_Minigame_Sounds"
-      dataTable8(textValue5, numberValue21)
-      dataTable8 = SendNUIMessage
-      textValue5 = {}
-      textValue5.type = "fail"
+    dataCollection8 = Wait
+    text5 = 2000
+    dataCollection8(text5)
+    dataCollection8 = workingValue7
+    if nil == dataCollection8 then
+      dataCollection8 = false
+      stateFlag = dataCollection8
+      dataCollection8 = text4
+      text5 = "Minigame_Failure"
+      number21 = "DLC_H4_Voltage_Minigame_Sounds"
+      dataCollection8(text5, number21)
+      dataCollection8 = SendNUIMessage
+      text5 = {}
+      text5.type = "fail"
       -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-      dataTable8(textValue5)
-      dataTable8 = flag2
-      if not dataTable8 then
-        dataTable8 = workValue27
-        textValue5 = 2
-        numberValue21 = "Hack timeout out"
-        dataTable8(textValue5, numberValue21)
+      dataCollection8(text5)
+      dataCollection8 = stateFlag2
+      if not dataCollection8 then
+        dataCollection8 = workingValue27
+        text5 = 2
+        number21 = "Hack timeout out"
+        dataCollection8(text5, number21)
       end
     end
-    dataTable8 = print
-    textValue5 = "Ended third Voltlab hacking thread"
-    dataTable8(textValue5)
+    dataCollection8 = print
+    text5 = "Ended third Voltlab hacking thread"
+    dataCollection8(text5)
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg6(arg7)
+  localValue6(localValue7)
 end
 -- Beginner: Register a client-side event handler. Event/command: "ultra-voltlab".
-eventHandlerRegistration(textValue7, workValue26)
+eventHandlerRegistration(text7, workingValue26)

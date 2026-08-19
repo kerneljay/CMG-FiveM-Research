@@ -32,618 +32,618 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, textValue3, workValue13, cmgCall7, textValue5, dataTable7, flag2, textValue6, workValue14, flag3, dataTable, dataTable2, cmgCall2, cmgCall3, cmgCall4, cmgCall5, cmgCall6, textValue, eventRegistration, textValue2, flag, textValue4
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-textValue3 = "cfg/cfg_jobs"
+local cmgOperation, text3, workingValue13, cmgOperation7, text5, dataCollection7, stateFlag2, text6, workingValue14, stateFlag3, dataCollection, dataCollection2, cmgOperation2, cmgOperation3, cmgOperation4, cmgOperation5, cmgOperation6, text, eventHandler, text2, stateFlag, text4
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+text3 = "cfg/cfg_jobs"
 -- Beginner: result below is config.
-cmgCall = cmgCall(textValue3)
-textValue3 = nil
+cmgOperation = cmgOperation(text3)
+text3 = nil
 
--- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
-function workValue13()
-  local arg1, arg2, mathHelper, dataTable6
-  arg1 = GetActiveScreenResolution
-  arg1, arg2 = arg1()
-  if 1920 == arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue13; parameters: none) ===
+function workingValue13()
+  local localValue1, localValue2, mathHelper, dataCollection6
+  localValue1 = GetActiveScreenResolution
+  localValue1, localValue2 = localValue1()
+  if 1920 == localValue1 then
     mathHelper = 350
     return mathHelper
-  elseif 3440 == arg1 and 1440 == arg2 then
+  elseif 3440 == localValue1 and 1440 == localValue2 then
     mathHelper = math
     mathHelper = mathHelper.floor
-    dataTable6 = arg1 * 0.1
-    return mathHelper(dataTable6)
+    dataCollection6 = localValue1 * 0.1
+    return mathHelper(dataCollection6)
   end
   mathHelper = math
   mathHelper = mathHelper.floor
-  dataTable6 = arg1 * 0.135
-  return mathHelper(dataTable6)
+  dataCollection6 = localValue1 * 0.135
+  return mathHelper(dataCollection6)
 end
-cmgCall7 = CMG
-cmgCall7 = cmgCall7.uiRegisterCallback
-textValue5 = "questLogClosed"
+cmgOperation7 = CMG
+cmgOperation7 = cmgOperation7.uiRegisterCallback
+text5 = "questLogClosed"
 
--- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
-function dataTable7()
-  local arg1, arg2
-  arg1 = TriggerEvent
-  arg2 = "0140c9970e"
+-- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: none) ===
+function dataCollection7()
+  local localValue1, localValue2
+  localValue1 = TriggerEvent
+  localValue2 = "0140c9970e"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "0140c9970e".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-cmgCall7(textValue5, dataTable7)
-cmgCall7 = AddEventHandler
-textValue5 = "0140c9970e"
+cmgOperation7(text5, dataCollection7)
+cmgOperation7 = AddEventHandler
+text5 = "0140c9970e"
 -- Beginner: this function runs when client event "0140c9970e" fires.
 
--- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
-function dataTable7()
-  local arg1, arg2
-  arg1 = RageUI
-  if arg1 then
-    arg1 = RageUI
-    arg1.QuestLogXOffset = 0
+-- === HELPER FUNCTION (decompiler name: dataCollection7; parameters: none) ===
+function dataCollection7()
+  local localValue1, localValue2
+  localValue1 = RageUI
+  if localValue1 then
+    localValue1 = RageUI
+    localValue1.QuestLogXOffset = 0
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "0140c9970e".
-cmgCall7(textValue5, dataTable7)
-cmgCall7 = nil
-textValue5 = nil
-dataTable7 = {}
-flag2 = false
-textValue6 = "JOB TUTORIAL"
-workValue14 = nil
-flag3 = false
-dataTable = {}
-dataTable["Health Service"] = true
-dataTable2 = {}
-dataTable2.Trapper = true
-dataTable2.Garbage = true
-dataTable2.Mechanic = true
-cmgCall2 = CMG
+cmgOperation7(text5, dataCollection7)
+cmgOperation7 = nil
+text5 = nil
+dataCollection7 = {}
+stateFlag2 = false
+text6 = "JOB TUTORIAL"
+workingValue14 = nil
+stateFlag3 = false
+dataCollection = {}
+dataCollection["Health Service"] = true
+dataCollection2 = {}
+dataCollection2.Trapper = true
+dataCollection2.Garbage = true
+dataCollection2.Mechanic = true
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2, mathHelper
-  arg1 = CMG
-  arg1 = arg1.getClientJob
-  arg1 = arg1()
-  if not arg1 then
-    arg2 = CMG
-    arg2 = arg2.warn
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2, mathHelper
+  localValue1 = CMG
+  localValue1 = localValue1.getClientJob
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue2 = CMG
+    localValue2 = localValue2.warn
     mathHelper = "getCurrentJobTheme called but player has no job"
-    arg2(mathHelper)
-    arg2 = {}
-    return arg2
+    localValue2(mathHelper)
+    localValue2 = {}
+    return localValue2
   end
-  arg2 = cmgCall.jobs
-  arg2 = arg2[arg1]
-  arg2 = arg2._config
-  arg2 = arg2.theme
-  return arg2
+  localValue2 = cmgOperation.jobs
+  localValue2 = localValue2[localValue1]
+  localValue2 = localValue2._config
+  localValue2 = localValue2.theme
+  return localValue2
 end
-cmgCall2.getCurrentJobTheme = cmgCall3
-cmgCall2 = CMG
+cmgOperation2.getCurrentJobTheme = cmgOperation3
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
-function cmgCall3()
-  local arg1, arg2
-  arg1 = cmgCall7
-  arg1 = nil ~= arg1
-  return arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: none) ===
+function cmgOperation3()
+  local localValue1, localValue2
+  localValue1 = cmgOperation7
+  localValue1 = nil ~= localValue1
+  return localValue1
 end
-cmgCall2.isJobTutorialRunning = cmgCall3
+cmgOperation2.isJobTutorialRunning = cmgOperation3
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, mathHelper, dataTable6, numberValue7
-  arg2 = CMG
-  arg2 = arg2.uiSendMessage
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, mathHelper, dataCollection6, number7
+  localValue2 = CMG
+  localValue2 = localValue2.uiSendMessage
   mathHelper = {}
   mathHelper.type = "JOB_MENU_TUTORIAL_RUNNING"
-  dataTable6 = {}
-  numberValue7 = true == arg1
-  dataTable6.running = numberValue7
-  mathHelper.info = dataTable6
-  arg2(mathHelper)
+  dataCollection6 = {}
+  number7 = true == localValue1
+  dataCollection6.running = number7
+  mathHelper.info = dataCollection6
+  localValue2(mathHelper)
 end
-cmgCall3 = CMG
+cmgOperation3 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, mathHelper, dataTable6, numberValue7, numberValue8, numberValue9, numberValue10
-  arg1 = cmgCall7
-  if not arg1 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, mathHelper, dataCollection6, number7, number8, number9, number10
+  localValue1 = cmgOperation7
+  if not localValue1 then
     return
   end
   while true do
-    arg1 = flag3
-    if not arg1 then
+    localValue1 = stateFlag3
+    if not localValue1 then
       break
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
-  arg1 = textValue5
-  if arg1 then
-    arg1 = tCMG
-    arg1 = arg1.removeMarker
-    arg2 = textValue5
-    arg1(arg2)
-    arg1 = nil
-    textValue5 = arg1
+  localValue1 = text5
+  if localValue1 then
+    localValue1 = tCMG
+    localValue1 = localValue1.removeMarker
+    localValue2 = text5
+    localValue1(localValue2)
+    localValue1 = nil
+    text5 = localValue1
   end
-  arg1 = pairs
-  arg2 = dataTable7
-  arg1, arg2, mathHelper, dataTable6 = arg1(arg2)
-  for numberValue7, numberValue8 in arg1, arg2, mathHelper, dataTable6 do
-    numberValue9 = DeleteCheckpoint
-    numberValue10 = numberValue8
-    numberValue9(numberValue10)
+  localValue1 = pairs
+  localValue2 = dataCollection7
+  localValue1, localValue2, mathHelper, dataCollection6 = localValue1(localValue2)
+  for number7, number8 in localValue1, localValue2, mathHelper, dataCollection6 do
+    number9 = DeleteCheckpoint
+    number10 = number8
+    number9(number10)
   end
-  arg1 = {}
-  dataTable7 = arg1
-  arg1 = tCMG
-  arg1 = arg1.removeArea
-  arg2 = "job_tutorial_step_marker"
-  arg1(arg2)
-  arg1 = nil
-  cmgCall7 = arg1
-  arg1 = nil
-  textValue3 = arg1
-  arg1 = nil
-  workValue14 = arg1
-  arg1 = RageUI
-  if arg1 then
-    arg1 = RageUI
-    arg1.QuestLogXOffset = 0
+  localValue1 = {}
+  dataCollection7 = localValue1
+  localValue1 = tCMG
+  localValue1 = localValue1.removeArea
+  localValue2 = "job_tutorial_step_marker"
+  localValue1(localValue2)
+  localValue1 = nil
+  cmgOperation7 = localValue1
+  localValue1 = nil
+  text3 = localValue1
+  localValue1 = nil
+  workingValue14 = localValue1
+  localValue1 = RageUI
+  if localValue1 then
+    localValue1 = RageUI
+    localValue1.QuestLogXOffset = 0
   end
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "QUEST_LOG_CLEAR_ALL"
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "QUEST_LOG_CLEAR_ALL"
   mathHelper = {}
-  arg2.info = mathHelper
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "QUEST_LOG_SET_OPEN"
+  localValue2.info = mathHelper
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "QUEST_LOG_SET_OPEN"
   mathHelper = {}
   mathHelper.isOpen = false
-  arg2.info = mathHelper
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "QUEST_LOG_SET_TITLE"
+  localValue2.info = mathHelper
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "QUEST_LOG_SET_TITLE"
   mathHelper = {}
   mathHelper.title = "QUEST LOG"
-  arg2.info = mathHelper
-  arg1(arg2)
-  arg1 = cmgCall2
-  arg2 = false
-  arg1(arg2)
-  arg1 = TriggerServerEvent
-  arg2 = "ca6a8a2b4f"
+  localValue2.info = mathHelper
+  localValue1(localValue2)
+  localValue1 = cmgOperation2
+  localValue2 = false
+  localValue1(localValue2)
+  localValue1 = TriggerServerEvent
+  localValue2 = "ca6a8a2b4f"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ca6a8a2b4f".
-  arg1(arg2)
+  localValue1(localValue2)
 end
-cmgCall3.cancelJobTutorial = cmgCall4
+cmgOperation3.cancelJobTutorial = cmgOperation4
 
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
-function cmgCall3(arg1)
-  local arg2, mathHelper, dataTable6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, workValue15, workValue, workValue2, numberValue, numberValue2, tableHelper, workValue3, workValue4, dataTable3, numberValue3, workValue5, numberValue4, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, numberValue5, numberValue6
-  arg2 = textValue5
-  if arg2 then
-    arg2 = tCMG
-    arg2 = arg2.removeMarker
-    mathHelper = textValue5
-    arg2(mathHelper)
-    arg2 = nil
-    textValue5 = arg2
+-- === HELPER FUNCTION (decompiler name: cmgOperation3; parameters: localValue1) ===
+function cmgOperation3(localValue1)
+  local localValue2, mathHelper, dataCollection6, number7, number8, number9, number10, number11, workingValue15, workingValue, workingValue2, number, number2, tableHelper, workingValue3, workingValue4, dataCollection3, number3, workingValue5, number4, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, workingValue12, number5, number6
+  localValue2 = text5
+  if localValue2 then
+    localValue2 = tCMG
+    localValue2 = localValue2.removeMarker
+    mathHelper = text5
+    localValue2(mathHelper)
+    localValue2 = nil
+    text5 = localValue2
   end
-  arg2 = pairs
-  mathHelper = dataTable7
-  arg2, mathHelper, dataTable6, numberValue7 = arg2(mathHelper)
-  for numberValue8, numberValue9 in arg2, mathHelper, dataTable6, numberValue7 do
-    numberValue10 = DeleteCheckpoint
-    numberValue11 = numberValue9
-    numberValue10(numberValue11)
+  localValue2 = pairs
+  mathHelper = dataCollection7
+  localValue2, mathHelper, dataCollection6, number7 = localValue2(mathHelper)
+  for number8, number9 in localValue2, mathHelper, dataCollection6, number7 do
+    number10 = DeleteCheckpoint
+    number11 = number9
+    number10(number11)
   end
-  arg2 = {}
-  dataTable7 = arg2
-  if arg1 then
-    arg2 = arg1.locationMarker
-    if arg2 then
-      arg2 = arg1.locationMarker
-      arg2 = arg2.x
-      if nil ~= arg2 then
-        arg2 = arg1.locationMarker
-        arg2 = arg2.y
-        if nil ~= arg2 then
-          arg2 = arg1.locationMarker
-          arg2 = arg2.z
-          if nil ~= arg2 then
-            goto flow_label_41
+  localValue2 = {}
+  dataCollection7 = localValue2
+  if localValue1 then
+    localValue2 = localValue1.locationMarker
+    if localValue2 then
+      localValue2 = localValue1.locationMarker
+      localValue2 = localValue2.x
+      if nil ~= localValue2 then
+        localValue2 = localValue1.locationMarker
+        localValue2 = localValue2.y
+        if nil ~= localValue2 then
+          localValue2 = localValue1.locationMarker
+          localValue2 = localValue2.z
+          if nil ~= localValue2 then
+            goto continueAtStep41
           end
         end
       end
     end
   end
   return
-  ::flow_label_41::
-  arg2 = CMG
-  arg2 = arg2.getCurrentJobTheme
-  arg2 = arg2()
+  ::continueAtStep41::
+  localValue2 = CMG
+  localValue2 = localValue2.getCurrentJobTheme
+  localValue2 = localValue2()
   mathHelper = 1.0
-  dataTable6 = 1.0
-  numberValue7 = 0.4
-  numberValue8 = 2.0
-  numberValue9 = 2.0
-  numberValue10 = 30
-  numberValue11 = arg1.markerForVehicle
-  if numberValue11 then
-    numberValue11 = 4.0
-    dataTable6 = 4.0
-    mathHelper = numberValue11
-    numberValue11 = 8.0
-    numberValue9 = 8.0
-    numberValue8 = numberValue11
-    numberValue10 = 150
+  dataCollection6 = 1.0
+  number7 = 0.4
+  number8 = 2.0
+  number9 = 2.0
+  number10 = 30
+  number11 = localValue1.markerForVehicle
+  if number11 then
+    number11 = 4.0
+    dataCollection6 = 4.0
+    mathHelper = number11
+    number11 = 8.0
+    number9 = 8.0
+    number8 = number11
+    number10 = 150
   end
-  numberValue11 = tCMG
-  numberValue11 = numberValue11.addMarker
-  workValue15 = arg1.locationMarker
-  workValue15 = workValue15.x
-  workValue = arg1.locationMarker
-  workValue = workValue.y
-  workValue2 = arg1.locationMarker
-  workValue2 = workValue2.z
-  workValue2 = workValue2 - 1.0
-  numberValue = mathHelper
-  numberValue2 = dataTable6
-  tableHelper = numberValue7
-  workValue3 = arg2.r
-  workValue4 = arg2.g
-  dataTable3 = arg2.b
-  numberValue3 = 150
-  workValue5 = numberValue10
-  numberValue4 = 1
-  numberValue11 = numberValue11(workValue15, workValue, workValue2, numberValue, numberValue2, tableHelper, workValue3, workValue4, dataTable3, numberValue3, workValue5, numberValue4)
-  textValue5 = numberValue11
-  numberValue11 = pairs
-  workValue15 = arg1.checkpoints
-  if not workValue15 then
-    workValue15 = {}
+  number11 = tCMG
+  number11 = number11.addMarker
+  workingValue15 = localValue1.locationMarker
+  workingValue15 = workingValue15.x
+  workingValue = localValue1.locationMarker
+  workingValue = workingValue.y
+  workingValue2 = localValue1.locationMarker
+  workingValue2 = workingValue2.z
+  workingValue2 = workingValue2 - 1.0
+  number = mathHelper
+  number2 = dataCollection6
+  tableHelper = number7
+  workingValue3 = localValue2.r
+  workingValue4 = localValue2.g
+  dataCollection3 = localValue2.b
+  number3 = 150
+  workingValue5 = number10
+  number4 = 1
+  number11 = number11(workingValue15, workingValue, workingValue2, number, number2, tableHelper, workingValue3, workingValue4, dataCollection3, number3, workingValue5, number4)
+  text5 = number11
+  number11 = pairs
+  workingValue15 = localValue1.checkpoints
+  if not workingValue15 then
+    workingValue15 = {}
   end
-  numberValue11, workValue15, workValue, workValue2 = numberValue11(workValue15)
-  for numberValue, numberValue2 in numberValue11, workValue15, workValue, workValue2 do
+  number11, workingValue15, workingValue, workingValue2 = number11(workingValue15)
+  for number, number2 in number11, workingValue15, workingValue, workingValue2 do
     tableHelper = table
     tableHelper = tableHelper.insert
-    workValue3 = dataTable7
-    workValue4 = CreateCheckpoint
-    dataTable3 = 0
-    numberValue3 = numberValue2.x
-    workValue5 = numberValue2.y
-    numberValue4 = numberValue2.z
-    numberValue4 = numberValue4 - 1.0
-    workValue6 = arg1.locationMarker
-    workValue6 = workValue6.x
-    workValue7 = arg1.locationMarker
-    workValue7 = workValue7.y
-    workValue8 = arg1.locationMarker
-    workValue8 = workValue8.z
-    workValue9 = numberValue9
-    workValue10 = arg2.r
-    workValue11 = arg2.g
-    workValue12 = arg2.b
-    numberValue5 = 100
-    numberValue6 = 0
-    workValue4, dataTable3, numberValue3, workValue5, numberValue4, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, numberValue5, numberValue6 = workValue4(dataTable3, numberValue3, workValue5, numberValue4, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, numberValue5, numberValue6)
-    tableHelper(workValue3, workValue4, dataTable3, numberValue3, workValue5, numberValue4, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, numberValue5, numberValue6)
+    workingValue3 = dataCollection7
+    workingValue4 = CreateCheckpoint
+    dataCollection3 = 0
+    number3 = number2.x
+    workingValue5 = number2.y
+    number4 = number2.z
+    number4 = number4 - 1.0
+    workingValue6 = localValue1.locationMarker
+    workingValue6 = workingValue6.x
+    workingValue7 = localValue1.locationMarker
+    workingValue7 = workingValue7.y
+    workingValue8 = localValue1.locationMarker
+    workingValue8 = workingValue8.z
+    workingValue9 = number9
+    workingValue10 = localValue2.r
+    workingValue11 = localValue2.g
+    workingValue12 = localValue2.b
+    number5 = 100
+    number6 = 0
+    workingValue4, dataCollection3, number3, workingValue5, number4, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, workingValue12, number5, number6 = workingValue4(dataCollection3, number3, workingValue5, number4, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, workingValue12, number5, number6)
+    tableHelper(workingValue3, workingValue4, dataCollection3, number3, workingValue5, number4, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, workingValue11, workingValue12, number5, number6)
   end
-  numberValue11 = SetNewWaypoint
-  workValue15 = arg1.locationMarker
-  workValue15 = workValue15.x
-  workValue = arg1.locationMarker
-  workValue = workValue.y
-  numberValue11(workValue15, workValue)
-  numberValue11 = tCMG
-  numberValue11 = numberValue11.removeArea
-  workValue15 = "job_tutorial_step_marker"
-  numberValue11(workValue15)
-  numberValue11 = arg1.ignoreAreaCheck
-  if not numberValue11 then
-    numberValue11 = arg1.markerVisualOnly
+  number11 = SetNewWaypoint
+  workingValue15 = localValue1.locationMarker
+  workingValue15 = workingValue15.x
+  workingValue = localValue1.locationMarker
+  workingValue = workingValue.y
+  number11(workingValue15, workingValue)
+  number11 = tCMG
+  number11 = number11.removeArea
+  workingValue15 = "job_tutorial_step_marker"
+  number11(workingValue15)
+  number11 = localValue1.ignoreAreaCheck
+  if not number11 then
+    number11 = localValue1.markerVisualOnly
   end
-  if not numberValue11 then
-    workValue15 = CMG
-    workValue15 = workValue15.createArea
-    workValue = "job_tutorial_step_marker"
-    workValue2 = arg1.locationMarker
-    numberValue = numberValue8
-    numberValue2 = 6
+  if not number11 then
+    workingValue15 = CMG
+    workingValue15 = workingValue15.createArea
+    workingValue = "job_tutorial_step_marker"
+    workingValue2 = localValue1.locationMarker
+    number = number8
+    number2 = 6
 
     -- === HELPER FUNCTION: tableHelper() ===
     function tableHelper()
-      local gameTime, dataTable4
+      local gameTime, dataCollection4
     end
 
-    -- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
-    function workValue3()
-      local gameTime, dataTable4
+    -- === HELPER FUNCTION (decompiler name: workingValue3; parameters: none) ===
+    function workingValue3()
+      local gameTime, dataCollection4
     end
 
-    -- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-    function workValue4()
-      local gameTime, dataTable4, dataTable5
+    -- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+    function workingValue4()
+      local gameTime, dataCollection4, dataCollection5
       gameTime = CMG
       gameTime = gameTime.addJobTutorialProgress
-      dataTable4 = arg1.id
-      dataTable5 = 1
-      gameTime(dataTable4, dataTable5)
+      dataCollection4 = localValue1.id
+      dataCollection5 = 1
+      gameTime(dataCollection4, dataCollection5)
     end
-    dataTable3 = {}
+    dataCollection3 = {}
     -- Beginner: Create an interaction area around a world position.
-    workValue15(workValue, workValue2, numberValue, numberValue2, tableHelper, workValue3, workValue4, dataTable3)
+    workingValue15(workingValue, workingValue2, number, number2, tableHelper, workingValue3, workingValue4, dataCollection3)
   end
 end
-cmgCall4 = CMG
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
-function cmgCall5(arg1)
-  local arg2, mathHelper, dataTable6
-  arg2 = cmgCall7
-  if arg2 then
-    arg2 = textValue3
-    if arg2 then
-      goto flow_label_8
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1) ===
+function cmgOperation5(localValue1)
+  local localValue2, mathHelper, dataCollection6
+  localValue2 = cmgOperation7
+  if localValue2 then
+    localValue2 = text3
+    if localValue2 then
+      goto continueAtStep8
     end
   end
   return
-  ::flow_label_8::
-  arg2 = textValue3
-  mathHelper = arg2 + 1
-  arg2 = cmgCall7
-  arg2 = arg2[mathHelper]
-  if arg2 then
-    arg2.locationMarker = arg1
-    mathHelper = cmgCall3
-    dataTable6 = arg2
-    mathHelper(dataTable6)
+  ::continueAtStep8::
+  localValue2 = text3
+  mathHelper = localValue2 + 1
+  localValue2 = cmgOperation7
+  localValue2 = localValue2[mathHelper]
+  if localValue2 then
+    localValue2.locationMarker = localValue1
+    mathHelper = cmgOperation3
+    dataCollection6 = localValue2
+    mathHelper(dataCollection6)
   end
 end
-cmgCall4.setNextStepLocationMarker = cmgCall5
-cmgCall4 = CMG
+cmgOperation4.setNextStepLocationMarker = cmgOperation5
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
-function cmgCall5()
-  local arg1, arg2
-  arg1 = cmgCall7
-  if arg1 then
-    arg1 = textValue3
-    if arg1 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: none) ===
+function cmgOperation5()
+  local localValue1, localValue2
+  localValue1 = cmgOperation7
+  if localValue1 then
+    localValue1 = text3
+    if localValue1 then
+      goto continueAtStep9
     end
   end
-  arg1 = nil
-  return arg1
-  ::flow_label_9::
-  arg2 = textValue3
-  arg1 = cmgCall7
-  arg1 = arg1[arg2]
-  if arg1 then
-    arg2 = arg1.id
-    if arg2 then
-      goto flow_label_18
+  localValue1 = nil
+  return localValue1
+  ::continueAtStep9::
+  localValue2 = text3
+  localValue1 = cmgOperation7
+  localValue1 = localValue1[localValue2]
+  if localValue1 then
+    localValue2 = localValue1.id
+    if localValue2 then
+      goto continueAtStep18
     end
   end
-  arg2 = nil
-  ::flow_label_18::
-  return arg2
+  localValue2 = nil
+  ::continueAtStep18::
+  return localValue2
 end
-cmgCall4.getCurrentQuestStepId = cmgCall5
-cmgCall4 = CMG
+cmgOperation4.getCurrentQuestStepId = cmgOperation5
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
-function cmgCall5(arg1)
-  local arg2, mathHelper, dataTable6
-  arg2 = cmgCall7
-  if arg2 then
-    arg2 = textValue3
-    if arg2 then
-      goto flow_label_8
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1) ===
+function cmgOperation5(localValue1)
+  local localValue2, mathHelper, dataCollection6
+  localValue2 = cmgOperation7
+  if localValue2 then
+    localValue2 = text3
+    if localValue2 then
+      goto continueAtStep8
     end
   end
   return
-  ::flow_label_8::
-  mathHelper = textValue3
-  arg2 = cmgCall7
-  arg2 = arg2[mathHelper]
-  if arg2 then
-    arg2.locationMarker = arg1
-    mathHelper = cmgCall3
-    dataTable6 = arg2
-    mathHelper(dataTable6)
+  ::continueAtStep8::
+  mathHelper = text3
+  localValue2 = cmgOperation7
+  localValue2 = localValue2[mathHelper]
+  if localValue2 then
+    localValue2.locationMarker = localValue1
+    mathHelper = cmgOperation3
+    dataCollection6 = localValue2
+    mathHelper(dataCollection6)
   end
 end
-cmgCall4.setCurrentStepLocationMarker = cmgCall5
+cmgOperation4.setCurrentStepLocationMarker = cmgOperation5
 
--- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
-function cmgCall4()
-  local arg1, arg2, mathHelper, dataTable6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, workValue15, workValue, workValue2, numberValue
-  arg1 = RequestScaleformMovie
-  arg2 = "mp_mission_name_freemode"
+-- === HELPER FUNCTION (decompiler name: cmgOperation4; parameters: none) ===
+function cmgOperation4()
+  local localValue1, localValue2, mathHelper, dataCollection6, number7, number8, number9, number10, number11, workingValue15, workingValue, workingValue2, number
+  localValue1 = RequestScaleformMovie
+  localValue2 = "mp_mission_name_freemode"
   -- Beginner: result below is scaleformHandle.
-  arg1 = arg1(arg2)
+  localValue1 = localValue1(localValue2)
   while true do
-    arg2 = HasScaleformMovieLoaded
-    mathHelper = arg1
-    arg2 = arg2(mathHelper)
-    if arg2 then
+    localValue2 = HasScaleformMovieLoaded
+    mathHelper = localValue1
+    localValue2 = localValue2(mathHelper)
+    if localValue2 then
       break
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
     mathHelper = 0
-    arg2(mathHelper)
+    localValue2(mathHelper)
   end
-  arg2 = BeginScaleformMovieMethod
-  mathHelper = arg1
-  dataTable6 = "SET_MISSION_INFO"
-  arg2(mathHelper, dataTable6)
-  arg2 = _ENV
+  localValue2 = BeginScaleformMovieMethod
+  mathHelper = localValue1
+  dataCollection6 = "SET_MISSION_INFO"
+  localValue2(mathHelper, dataCollection6)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
-  mathHelper = textValue6
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2 = localValue2[mathHelper]
+  mathHelper = text6
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = "~g~Tutorial Complete"
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = "0"
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = ""
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = ""
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = ""
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = ""
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = "0"
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = "0"
-  arg2(mathHelper)
-  arg2 = _ENV
+  localValue2(mathHelper)
+  localValue2 = _ENV
   mathHelper = "ScaleformMovieMethodAddParamTextureNameString"
-  arg2 = arg2[mathHelper]
+  localValue2 = localValue2[mathHelper]
   mathHelper = ""
-  arg2(mathHelper)
-  arg2 = EndScaleformMovieMethod
-  arg2()
-  arg2 = SendNUIMessage
+  localValue2(mathHelper)
+  localValue2 = EndScaleformMovieMethod
+  localValue2()
+  localValue2 = SendNUIMessage
   mathHelper = {}
   mathHelper.transactionType = "questcomplete"
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg2(mathHelper)
-  arg2 = nil
-  workValue14 = arg2
-  arg2 = TriggerServerEvent
+  localValue2(mathHelper)
+  localValue2 = nil
+  workingValue14 = localValue2
+  localValue2 = TriggerServerEvent
   mathHelper = "6932434e21"
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6932434e21".
-  arg2(mathHelper)
-  arg2 = GetGameTimer
+  localValue2(mathHelper)
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
+  localValue2 = localValue2()
   while true do
     mathHelper = GetGameTimer
     -- Beginner: result below is gameTimeMs.
     mathHelper = mathHelper()
-    mathHelper = mathHelper - arg2
-    dataTable6 = 7000
-    if not (mathHelper < dataTable6) then
+    mathHelper = mathHelper - localValue2
+    dataCollection6 = 7000
+    if not (mathHelper < dataCollection6) then
       break
     end
     mathHelper = DrawScaleformMovie
-    dataTable6 = arg1
-    numberValue7 = 0.5
-    numberValue8 = 0.35
-    numberValue9 = 0.3
-    numberValue10 = 0.4615
-    numberValue11 = 255
-    workValue15 = 255
-    workValue = 255
-    workValue2 = 255
-    numberValue = 0
-    mathHelper(dataTable6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, workValue15, workValue, workValue2, numberValue)
+    dataCollection6 = localValue1
+    number7 = 0.5
+    number8 = 0.35
+    number9 = 0.3
+    number10 = 0.4615
+    number11 = 255
+    workingValue15 = 255
+    workingValue = 255
+    workingValue2 = 255
+    number = 0
+    mathHelper(dataCollection6, number7, number8, number9, number10, number11, workingValue15, workingValue, workingValue2, number)
     mathHelper = Citizen
     mathHelper = mathHelper.Wait
-    dataTable6 = 0
-    mathHelper(dataTable6)
+    dataCollection6 = 0
+    mathHelper(dataCollection6)
   end
   mathHelper = SetScaleformMovieAsNoLongerNeeded
-  dataTable6 = arg1
-  mathHelper(dataTable6)
+  dataCollection6 = localValue1
+  mathHelper(dataCollection6)
 end
-cmgCall5 = CMG
+cmgOperation5 = CMG
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
-function cmgCall6(arg1, arg2)
-  local mathHelper, dataTable6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, workValue15, workValue
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: localValue1, localValue2) ===
+function cmgOperation6(localValue1, localValue2)
+  local mathHelper, dataCollection6, number7, number8, number9, number10, number11, workingValue15, workingValue
   while true do
-    mathHelper = flag3
+    mathHelper = stateFlag3
     if not mathHelper then
       break
     end
     mathHelper = Wait
-    dataTable6 = 0
-    mathHelper(dataTable6)
+    dataCollection6 = 0
+    mathHelper(dataCollection6)
   end
   mathHelper = true
-  flag3 = mathHelper
-  mathHelper = cmgCall7
+  stateFlag3 = mathHelper
+  mathHelper = cmgOperation7
   if mathHelper then
-    mathHelper = textValue3
+    mathHelper = text3
     if mathHelper then
-      goto flow_label_19
+      goto continueAtStep19
     end
   end
   mathHelper = false
-  flag3 = mathHelper
+  stateFlag3 = mathHelper
   return
-  ::flow_label_19::
-  dataTable6 = textValue3
-  mathHelper = cmgCall7
-  mathHelper = mathHelper[dataTable6]
+  ::continueAtStep19::
+  dataCollection6 = text3
+  mathHelper = cmgOperation7
+  mathHelper = mathHelper[dataCollection6]
   mathHelper = mathHelper.id
-  if mathHelper ~= arg1 then
+  if mathHelper ~= localValue1 then
     mathHelper = false
-    flag3 = mathHelper
+    stateFlag3 = mathHelper
     return
   end
   mathHelper = CMG
@@ -652,637 +652,637 @@ function cmgCall6(arg1, arg2)
   if not mathHelper then
     mathHelper = CMG
     mathHelper = mathHelper.warn
-    dataTable6 = "currentJobTheme is nil in job tutorial start"
-    numberValue7 = arg1
-    numberValue8 = arg2
-    mathHelper(dataTable6, numberValue7, numberValue8)
+    dataCollection6 = "currentJobTheme is nil in job tutorial start"
+    number7 = localValue1
+    number8 = localValue2
+    mathHelper(dataCollection6, number7, number8)
     mathHelper = false
-    flag3 = mathHelper
+    stateFlag3 = mathHelper
     return
   end
-  dataTable6 = textValue3
-  mathHelper = cmgCall7
-  mathHelper = mathHelper[dataTable6]
-  dataTable6 = mathHelper.current
-  dataTable6 = dataTable6 + arg2
-  mathHelper.current = dataTable6
-  dataTable6 = CMG
-  dataTable6 = dataTable6.uiSendMessage
-  numberValue7 = {}
-  numberValue7.type = "QUEST_LOG_UPDATE_PROGRESS"
-  numberValue8 = {}
-  numberValue9 = mathHelper.current
-  numberValue8.current = numberValue9
-  numberValue7.info = numberValue8
-  dataTable6(numberValue7)
-  dataTable6 = Wait
-  numberValue7 = 500
-  dataTable6(numberValue7)
-  dataTable6 = mathHelper.current
-  numberValue7 = mathHelper.required
-  if dataTable6 >= numberValue7 then
-    dataTable6 = textValue3
-    dataTable6 = dataTable6 + 1
-    textValue3 = dataTable6
-    dataTable6 = CMG
-    dataTable6 = dataTable6.uiSendMessage
-    numberValue7 = {}
-    numberValue7.type = "QUEST_LOG_COMPLETE_CURRENT"
-    numberValue8 = {}
-    numberValue8.completedAt = "\226\156\133"
-    numberValue7.info = numberValue8
-    dataTable6(numberValue7)
-    numberValue7 = textValue3
-    dataTable6 = cmgCall7
-    dataTable6 = dataTable6[numberValue7]
-    if dataTable6 then
-      numberValue7 = textValue3
-      dataTable6 = cmgCall7
-      dataTable6 = dataTable6[numberValue7]
-      numberValue7 = CMG
-      numberValue7 = numberValue7.uiSendMessage
-      numberValue8 = {}
-      numberValue8.type = "QUEST_LOG_SET_CURRENT"
-      numberValue9 = {}
-      numberValue10 = {}
-      numberValue11 = dataTable6.id
-      numberValue10.id = numberValue11
-      numberValue11 = dataTable6.title
-      numberValue10.title = numberValue11
-      numberValue11 = dataTable6.description
-      numberValue10.description = numberValue11
-      numberValue10.current = 0
-      numberValue11 = dataTable6.required
-      numberValue10.required = numberValue11
-      numberValue9.quest = numberValue10
-      numberValue8.info = numberValue9
-      numberValue7(numberValue8)
-      numberValue7 = RageUI
-      if numberValue7 then
-        numberValue7 = RageUI
-        numberValue8 = workValue13
-        numberValue8 = numberValue8()
-        numberValue7.QuestLogXOffset = numberValue8
+  dataCollection6 = text3
+  mathHelper = cmgOperation7
+  mathHelper = mathHelper[dataCollection6]
+  dataCollection6 = mathHelper.current
+  dataCollection6 = dataCollection6 + localValue2
+  mathHelper.current = dataCollection6
+  dataCollection6 = CMG
+  dataCollection6 = dataCollection6.uiSendMessage
+  number7 = {}
+  number7.type = "QUEST_LOG_UPDATE_PROGRESS"
+  number8 = {}
+  number9 = mathHelper.current
+  number8.current = number9
+  number7.info = number8
+  dataCollection6(number7)
+  dataCollection6 = Wait
+  number7 = 500
+  dataCollection6(number7)
+  dataCollection6 = mathHelper.current
+  number7 = mathHelper.required
+  if dataCollection6 >= number7 then
+    dataCollection6 = text3
+    dataCollection6 = dataCollection6 + 1
+    text3 = dataCollection6
+    dataCollection6 = CMG
+    dataCollection6 = dataCollection6.uiSendMessage
+    number7 = {}
+    number7.type = "QUEST_LOG_COMPLETE_CURRENT"
+    number8 = {}
+    number8.completedAt = "\226\156\133"
+    number7.info = number8
+    dataCollection6(number7)
+    number7 = text3
+    dataCollection6 = cmgOperation7
+    dataCollection6 = dataCollection6[number7]
+    if dataCollection6 then
+      number7 = text3
+      dataCollection6 = cmgOperation7
+      dataCollection6 = dataCollection6[number7]
+      number7 = CMG
+      number7 = number7.uiSendMessage
+      number8 = {}
+      number8.type = "QUEST_LOG_SET_CURRENT"
+      number9 = {}
+      number10 = {}
+      number11 = dataCollection6.id
+      number10.id = number11
+      number11 = dataCollection6.title
+      number10.title = number11
+      number11 = dataCollection6.description
+      number10.description = number11
+      number10.current = 0
+      number11 = dataCollection6.required
+      number10.required = number11
+      number9.quest = number10
+      number8.info = number9
+      number7(number8)
+      number7 = RageUI
+      if number7 then
+        number7 = RageUI
+        number8 = workingValue13
+        number8 = number8()
+        number7.QuestLogXOffset = number8
       end
-      numberValue7 = cmgCall3
-      numberValue8 = dataTable6
-      numberValue7(numberValue8)
+      number7 = cmgOperation3
+      number8 = dataCollection6
+      number7(number8)
     else
-      dataTable6 = textValue5
-      if dataTable6 then
-        dataTable6 = tCMG
-        dataTable6 = dataTable6.removeMarker
-        numberValue7 = textValue5
-        dataTable6(numberValue7)
-        dataTable6 = nil
-        textValue5 = dataTable6
+      dataCollection6 = text5
+      if dataCollection6 then
+        dataCollection6 = tCMG
+        dataCollection6 = dataCollection6.removeMarker
+        number7 = text5
+        dataCollection6(number7)
+        dataCollection6 = nil
+        text5 = dataCollection6
       end
-      dataTable6 = pairs
-      numberValue7 = dataTable7
-      dataTable6, numberValue7, numberValue8, numberValue9 = dataTable6(numberValue7)
-      for numberValue10, numberValue11 in dataTable6, numberValue7, numberValue8, numberValue9 do
-        workValue15 = DeleteCheckpoint
-        workValue = numberValue11
-        workValue15(workValue)
+      dataCollection6 = pairs
+      number7 = dataCollection7
+      dataCollection6, number7, number8, number9 = dataCollection6(number7)
+      for number10, number11 in dataCollection6, number7, number8, number9 do
+        workingValue15 = DeleteCheckpoint
+        workingValue = number11
+        workingValue15(workingValue)
       end
-      dataTable6 = {}
-      dataTable7 = dataTable6
-      dataTable6 = tCMG
-      dataTable6 = dataTable6.removeArea
-      numberValue7 = "job_tutorial_step_marker"
-      dataTable6(numberValue7)
-      dataTable6 = CMG
-      dataTable6 = dataTable6.uiSendMessage
-      numberValue7 = {}
-      numberValue7.type = "QUEST_LOG_QUEST_FULLY_COMPLETE"
-      numberValue8 = {}
-      numberValue7.info = numberValue8
-      dataTable6(numberValue7)
-      dataTable6 = cmgCall4
-      dataTable6()
-      dataTable6 = nil
-      cmgCall7 = dataTable6
-      dataTable6 = nil
-      textValue3 = dataTable6
-      dataTable6 = cmgCall2
-      numberValue7 = false
-      dataTable6(numberValue7)
+      dataCollection6 = {}
+      dataCollection7 = dataCollection6
+      dataCollection6 = tCMG
+      dataCollection6 = dataCollection6.removeArea
+      number7 = "job_tutorial_step_marker"
+      dataCollection6(number7)
+      dataCollection6 = CMG
+      dataCollection6 = dataCollection6.uiSendMessage
+      number7 = {}
+      number7.type = "QUEST_LOG_QUEST_FULLY_COMPLETE"
+      number8 = {}
+      number7.info = number8
+      dataCollection6(number7)
+      dataCollection6 = cmgOperation4
+      dataCollection6()
+      dataCollection6 = nil
+      cmgOperation7 = dataCollection6
+      dataCollection6 = nil
+      text3 = dataCollection6
+      dataCollection6 = cmgOperation2
+      number7 = false
+      dataCollection6(number7)
     end
   end
-  dataTable6 = cmgCall7
-  if dataTable6 then
-    dataTable6 = textValue3
-    if dataTable6 then
-      dataTable6 = workValue14
-      if dataTable6 then
-        dataTable6 = TriggerServerEvent
-        numberValue7 = "75b4c18f3c"
-        numberValue8 = workValue14
-        numberValue9 = textValue3
-        numberValue11 = textValue3
-        numberValue10 = cmgCall7
-        numberValue10 = numberValue10[numberValue11]
-        numberValue10 = numberValue10.current
+  dataCollection6 = cmgOperation7
+  if dataCollection6 then
+    dataCollection6 = text3
+    if dataCollection6 then
+      dataCollection6 = workingValue14
+      if dataCollection6 then
+        dataCollection6 = TriggerServerEvent
+        number7 = "75b4c18f3c"
+        number8 = workingValue14
+        number9 = text3
+        number11 = text3
+        number10 = cmgOperation7
+        number10 = number10[number11]
+        number10 = number10.current
         -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "75b4c18f3c".
-        dataTable6(numberValue7, numberValue8, numberValue9, numberValue10)
+        dataCollection6(number7, number8, number9, number10)
       end
     end
   end
-  dataTable6 = false
-  flag3 = dataTable6
+  dataCollection6 = false
+  stateFlag3 = dataCollection6
 end
-cmgCall5.addJobTutorialProgress = cmgCall6
+cmgOperation5.addJobTutorialProgress = cmgOperation6
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
-function cmgCall5()
-  local arg1, arg2, mathHelper, dataTable6
-  arg1 = false
-  flag2 = arg1
-  arg1 = CMG
-  arg1 = arg1.uiSendMessage
-  arg2 = {}
-  arg2.type = "APP_TOGGLE"
-  arg2.app = ""
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.uiSetFocus
-  arg2 = false
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: none) ===
+function cmgOperation5()
+  local localValue1, localValue2, mathHelper, dataCollection6
+  localValue1 = false
+  stateFlag2 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.uiSendMessage
+  localValue2 = {}
+  localValue2.type = "APP_TOGGLE"
+  localValue2.app = ""
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.uiSetFocus
+  localValue2 = false
   mathHelper = false
-  dataTable6 = false
-  arg1(arg2, mathHelper, dataTable6)
-  arg1 = TriggerScreenblurFadeOut
-  arg2 = 0.0
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.showAllDisplays
-  arg2 = "jobterminal"
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.showHud
-  arg1()
+  dataCollection6 = false
+  localValue1(localValue2, mathHelper, dataCollection6)
+  localValue1 = TriggerScreenblurFadeOut
+  localValue2 = 0.0
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.showAllDisplays
+  localValue2 = "jobterminal"
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.showHud
+  localValue1()
 end
-cmgCall6 = RegisterNetEvent
-textValue = "08da92f592"
+cmgOperation6 = RegisterNetEvent
+text = "08da92f592"
 -- Beginner: this function handles network event "08da92f592".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2) ===
-function eventRegistration(arg1, arg2)
-  local mathHelper, dataTable6, numberValue7
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1, localValue2) ===
+function eventHandler(localValue1, localValue2)
+  local mathHelper, dataCollection6, number7
   mathHelper = CMG
   mathHelper = mathHelper.addJobTutorialProgress
-  dataTable6 = arg1
-  numberValue7 = arg2 or numberValue7
-  if not arg2 then
-    numberValue7 = 1
+  dataCollection6 = localValue1
+  number7 = localValue2 or number7
+  if not localValue2 then
+    number7 = 1
   end
-  mathHelper(dataTable6, numberValue7)
+  mathHelper(dataCollection6, number7)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "08da92f592".
-cmgCall6(textValue, eventRegistration)
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.uiRegisterCallback
-textValue = "jobMenuStartTutorial"
+cmgOperation6(text, eventHandler)
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.uiRegisterCallback
+text = "jobMenuStartTutorial"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
-function eventRegistration(arg1)
-  local arg2, mathHelper, dataTable6, numberValue7
-  arg2 = cmgCall5
-  arg2()
-  if arg1 then
-    arg2 = arg1.job
-    if arg2 then
-      goto flow_label_11
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1) ===
+function eventHandler(localValue1)
+  local localValue2, mathHelper, dataCollection6, number7
+  localValue2 = cmgOperation5
+  localValue2()
+  if localValue1 then
+    localValue2 = localValue1.job
+    if localValue2 then
+      goto continueAtStep11
     end
   end
-  arg2 = CMG
-  arg2 = arg2.getClientJob
-  arg2 = arg2()
-  ::flow_label_11::
+  localValue2 = CMG
+  localValue2 = localValue2.getClientJob
+  localValue2 = localValue2()
+  ::continueAtStep11::
   mathHelper = TriggerServerEvent
-  dataTable6 = "e9f6f243dd"
-  numberValue7 = arg2
+  dataCollection6 = "e9f6f243dd"
+  number7 = localValue2
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e9f6f243dd".
-  mathHelper(dataTable6, numberValue7)
+  mathHelper(dataCollection6, number7)
 end
-cmgCall6(textValue, eventRegistration)
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.uiRegisterCallback
-textValue = "jobMenuCancelTutorial"
+cmgOperation6(text, eventHandler)
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.uiRegisterCallback
+text = "jobMenuCancelTutorial"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.cancelJobTutorial
-  arg1()
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.cancelJobTutorial
+  localValue1()
 end
-cmgCall6(textValue, eventRegistration)
-cmgCall6 = RegisterNetEvent
-textValue = "e9f6f243dd"
+cmgOperation6(text, eventHandler)
+cmgOperation6 = RegisterNetEvent
+text = "e9f6f243dd"
 -- Beginner: this function handles network event "e9f6f243dd".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2) ===
-function eventRegistration(arg1, arg2)
-  local mathHelper, dataTable6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, workValue15, workValue, workValue2, numberValue
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: localValue1, localValue2) ===
+function eventHandler(localValue1, localValue2)
+  local mathHelper, dataCollection6, number7, number8, number9, number10, number11, workingValue15, workingValue, workingValue2, number
   mathHelper = CMG
   mathHelper = mathHelper.getCurrentJobTheme
   mathHelper = mathHelper()
   if not mathHelper then
     mathHelper = CMG
     mathHelper = mathHelper.warn
-    dataTable6 = "currentJobTheme is nil in job tutorial start"
-    mathHelper(dataTable6)
+    dataCollection6 = "currentJobTheme is nil in job tutorial start"
+    mathHelper(dataCollection6)
     return
   end
   mathHelper = CMG
   mathHelper = mathHelper.uiSendMessage
-  dataTable6 = {}
-  dataTable6.type = "QUEST_LOG_CLEAR_ALL"
-  numberValue7 = {}
-  dataTable6.info = numberValue7
-  mathHelper(dataTable6)
+  dataCollection6 = {}
+  dataCollection6.type = "QUEST_LOG_CLEAR_ALL"
+  number7 = {}
+  dataCollection6.info = number7
+  mathHelper(dataCollection6)
   mathHelper = type
-  dataTable6 = arg1
-  mathHelper = mathHelper(dataTable6)
+  dataCollection6 = localValue1
+  mathHelper = mathHelper(dataCollection6)
   if "table" == mathHelper then
-    mathHelper = arg1.tutorial
+    mathHelper = localValue1.tutorial
     if mathHelper then
-      mathHelper = arg1.tutorial
-      cmgCall7 = mathHelper
-      mathHelper = arg1.title
+      mathHelper = localValue1.tutorial
+      cmgOperation7 = mathHelper
+      mathHelper = localValue1.title
       if not mathHelper then
-        mathHelper = textValue6
+        mathHelper = text6
       end
-      textValue6 = mathHelper
-      mathHelper = arg1.title
+      text6 = mathHelper
+      mathHelper = localValue1.title
       if not mathHelper then
         mathHelper = "JOB TUTORIAL"
       end
-      workValue14 = mathHelper
+      workingValue14 = mathHelper
   end
   else
-    cmgCall7 = arg1
+    cmgOperation7 = localValue1
     mathHelper = "TRAPPER TUTORIAL"
-    textValue6 = mathHelper
+    text6 = mathHelper
     mathHelper = "Trapper"
-    workValue14 = mathHelper
+    workingValue14 = mathHelper
   end
-  mathHelper = arg2 or mathHelper
-  if arg2 then
-    mathHelper = arg2.stepIndex
+  mathHelper = localValue2 or mathHelper
+  if localValue2 then
+    mathHelper = localValue2.stepIndex
     if mathHelper then
-      dataTable6 = arg2.stepIndex
-      mathHelper = cmgCall7
-      mathHelper = mathHelper[dataTable6]
+      dataCollection6 = localValue2.stepIndex
+      mathHelper = cmgOperation7
+      mathHelper = mathHelper[dataCollection6]
       mathHelper = nil ~= mathHelper
     end
   end
   if mathHelper then
-    dataTable6 = arg2.stepIndex
-    textValue3 = dataTable6
-    numberValue7 = textValue3
-    dataTable6 = cmgCall7
-    dataTable6 = dataTable6[numberValue7]
-    numberValue7 = arg2.currentStepProgress
-    if not numberValue7 then
-      numberValue7 = 0
+    dataCollection6 = localValue2.stepIndex
+    text3 = dataCollection6
+    number7 = text3
+    dataCollection6 = cmgOperation7
+    dataCollection6 = dataCollection6[number7]
+    number7 = localValue2.currentStepProgress
+    if not number7 then
+      number7 = 0
     end
-    dataTable6.current = numberValue7
-    dataTable6 = 1
-    numberValue7 = textValue3
-    numberValue7 = numberValue7 - 1
-    numberValue8 = 1
-    for numberValue9 = dataTable6, numberValue7, numberValue8 do
-      numberValue10 = cmgCall7
-      numberValue10 = numberValue10[numberValue9]
-      numberValue11 = CMG
-      numberValue11 = numberValue11.uiSendMessage
-      workValue15 = {}
-      workValue15.type = "QUEST_LOG_SET_CURRENT"
-      workValue = {}
-      workValue2 = {}
-      numberValue = numberValue10.id
-      workValue2.id = numberValue
-      numberValue = numberValue10.title
-      workValue2.title = numberValue
-      numberValue = numberValue10.description
-      workValue2.description = numberValue
-      workValue2.current = 0
-      numberValue = numberValue10.required
-      workValue2.required = numberValue
-      workValue.quest = workValue2
-      workValue15.info = workValue
-      numberValue11(workValue15)
-      numberValue11 = CMG
-      numberValue11 = numberValue11.uiSendMessage
-      workValue15 = {}
-      workValue15.type = "QUEST_LOG_COMPLETE_CURRENT"
-      workValue = {}
-      workValue.completedAt = "\226\156\133"
-      workValue15.info = workValue
-      numberValue11(workValue15)
+    dataCollection6.current = number7
+    dataCollection6 = 1
+    number7 = text3
+    number7 = number7 - 1
+    number8 = 1
+    for number9 = dataCollection6, number7, number8 do
+      number10 = cmgOperation7
+      number10 = number10[number9]
+      number11 = CMG
+      number11 = number11.uiSendMessage
+      workingValue15 = {}
+      workingValue15.type = "QUEST_LOG_SET_CURRENT"
+      workingValue = {}
+      workingValue2 = {}
+      number = number10.id
+      workingValue2.id = number
+      number = number10.title
+      workingValue2.title = number
+      number = number10.description
+      workingValue2.description = number
+      workingValue2.current = 0
+      number = number10.required
+      workingValue2.required = number
+      workingValue.quest = workingValue2
+      workingValue15.info = workingValue
+      number11(workingValue15)
+      number11 = CMG
+      number11 = number11.uiSendMessage
+      workingValue15 = {}
+      workingValue15.type = "QUEST_LOG_COMPLETE_CURRENT"
+      workingValue = {}
+      workingValue.completedAt = "\226\156\133"
+      workingValue15.info = workingValue
+      number11(workingValue15)
     end
-    numberValue7 = textValue3
-    dataTable6 = cmgCall7
-    dataTable6 = dataTable6[numberValue7]
-    numberValue7 = CMG
-    numberValue7 = numberValue7.uiSendMessage
-    numberValue8 = {}
-    numberValue8.type = "QUEST_LOG_SET_CURRENT"
-    numberValue9 = {}
-    numberValue10 = {}
-    numberValue11 = dataTable6.id
-    numberValue10.id = numberValue11
-    numberValue11 = dataTable6.title
-    numberValue10.title = numberValue11
-    numberValue11 = dataTable6.description
-    numberValue10.description = numberValue11
-    numberValue11 = dataTable6.current
-    numberValue10.current = numberValue11
-    numberValue11 = dataTable6.required
-    numberValue10.required = numberValue11
-    numberValue9.quest = numberValue10
-    numberValue8.info = numberValue9
-    numberValue7(numberValue8)
-    numberValue7 = dataTable6.current
-    if numberValue7 > 0 then
-      numberValue7 = CMG
-      numberValue7 = numberValue7.uiSendMessage
-      numberValue8 = {}
-      numberValue8.type = "QUEST_LOG_UPDATE_PROGRESS"
-      numberValue9 = {}
-      numberValue10 = dataTable6.current
-      numberValue9.current = numberValue10
-      numberValue8.info = numberValue9
-      numberValue7(numberValue8)
+    number7 = text3
+    dataCollection6 = cmgOperation7
+    dataCollection6 = dataCollection6[number7]
+    number7 = CMG
+    number7 = number7.uiSendMessage
+    number8 = {}
+    number8.type = "QUEST_LOG_SET_CURRENT"
+    number9 = {}
+    number10 = {}
+    number11 = dataCollection6.id
+    number10.id = number11
+    number11 = dataCollection6.title
+    number10.title = number11
+    number11 = dataCollection6.description
+    number10.description = number11
+    number11 = dataCollection6.current
+    number10.current = number11
+    number11 = dataCollection6.required
+    number10.required = number11
+    number9.quest = number10
+    number8.info = number9
+    number7(number8)
+    number7 = dataCollection6.current
+    if number7 > 0 then
+      number7 = CMG
+      number7 = number7.uiSendMessage
+      number8 = {}
+      number8.type = "QUEST_LOG_UPDATE_PROGRESS"
+      number9 = {}
+      number10 = dataCollection6.current
+      number9.current = number10
+      number8.info = number9
+      number7(number8)
     end
   else
-    dataTable6 = 1
-    textValue3 = dataTable6
-    numberValue7 = textValue3
-    dataTable6 = cmgCall7
-    dataTable6 = dataTable6[numberValue7]
-    numberValue7 = CMG
-    numberValue7 = numberValue7.uiSendMessage
-    numberValue8 = {}
-    numberValue8.type = "QUEST_LOG_SET_CURRENT"
-    numberValue9 = {}
-    numberValue10 = {}
-    numberValue11 = dataTable6.id
-    numberValue10.id = numberValue11
-    numberValue11 = dataTable6.title
-    numberValue10.title = numberValue11
-    numberValue11 = dataTable6.description
-    numberValue10.description = numberValue11
-    numberValue10.current = 0
-    numberValue11 = dataTable6.required
-    numberValue10.required = numberValue11
-    numberValue9.quest = numberValue10
-    numberValue8.info = numberValue9
-    numberValue7(numberValue8)
+    dataCollection6 = 1
+    text3 = dataCollection6
+    number7 = text3
+    dataCollection6 = cmgOperation7
+    dataCollection6 = dataCollection6[number7]
+    number7 = CMG
+    number7 = number7.uiSendMessage
+    number8 = {}
+    number8.type = "QUEST_LOG_SET_CURRENT"
+    number9 = {}
+    number10 = {}
+    number11 = dataCollection6.id
+    number10.id = number11
+    number11 = dataCollection6.title
+    number10.title = number11
+    number11 = dataCollection6.description
+    number10.description = number11
+    number10.current = 0
+    number11 = dataCollection6.required
+    number10.required = number11
+    number9.quest = number10
+    number8.info = number9
+    number7(number8)
   end
-  dataTable6 = RageUI
-  if dataTable6 then
-    dataTable6 = RageUI
-    numberValue7 = workValue13
-    numberValue7 = numberValue7()
-    dataTable6.QuestLogXOffset = numberValue7
+  dataCollection6 = RageUI
+  if dataCollection6 then
+    dataCollection6 = RageUI
+    number7 = workingValue13
+    number7 = number7()
+    dataCollection6.QuestLogXOffset = number7
   end
-  dataTable6 = cmgCall3
-  numberValue8 = textValue3
-  numberValue7 = cmgCall7
-  numberValue7 = numberValue7[numberValue8]
-  dataTable6(numberValue7)
-  dataTable6 = CMG
-  dataTable6 = dataTable6.uiSendMessage
-  numberValue7 = {}
-  numberValue7.type = "QUEST_LOG_SET_TITLE"
-  numberValue8 = {}
-  numberValue9 = textValue6
-  numberValue8.title = numberValue9
-  numberValue7.info = numberValue8
-  dataTable6(numberValue7)
-  dataTable6 = cmgCall2
-  numberValue7 = true
-  dataTable6(numberValue7)
+  dataCollection6 = cmgOperation3
+  number8 = text3
+  number7 = cmgOperation7
+  number7 = number7[number8]
+  dataCollection6(number7)
+  dataCollection6 = CMG
+  dataCollection6 = dataCollection6.uiSendMessage
+  number7 = {}
+  number7.type = "QUEST_LOG_SET_TITLE"
+  number8 = {}
+  number9 = text6
+  number8.title = number9
+  number7.info = number8
+  dataCollection6(number7)
+  dataCollection6 = cmgOperation2
+  number7 = true
+  dataCollection6(number7)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e9f6f243dd".
-cmgCall6(textValue, eventRegistration)
-cmgCall6 = CMG
-cmgCall6 = cmgCall6.uiRegisterCallback
-textValue = "jobMenuClosed"
+cmgOperation6(text, eventHandler)
+cmgOperation6 = CMG
+cmgOperation6 = cmgOperation6.uiRegisterCallback
+text = "jobMenuClosed"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2
-  arg1 = cmgCall5
-  arg1()
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2
+  localValue1 = cmgOperation5
+  localValue1()
 end
-cmgCall6(textValue, eventRegistration)
-cmgCall6 = AddEventHandler
-textValue = "b4fcca60d5"
+cmgOperation6(text, eventHandler)
+cmgOperation6 = AddEventHandler
+text = "b4fcca60d5"
 -- Beginner: this function runs when client event "b4fcca60d5" fires.
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2
-  arg1 = false
-  flag2 = arg1
-  arg1 = cmgCall5
-  arg1()
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2
+  localValue1 = false
+  stateFlag2 = localValue1
+  localValue1 = cmgOperation5
+  localValue1()
 end
 -- Beginner: Register a client-side event handler. Event/command: "b4fcca60d5".
-cmgCall6(textValue, eventRegistration)
-cmgCall6 = CMG
+cmgOperation6(text, eventHandler)
+cmgOperation6 = CMG
 -- Beginner: this function runs when client event "b4fcca60d5" fires.
 
--- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
-function textValue(arg1)
-  local arg2, mathHelper, dataTable6, numberValue7, numberValue8, numberValue9, numberValue10
-  arg2 = true
-  flag2 = arg2
-  arg2 = TriggerScreenblurFadeIn
+-- === HELPER FUNCTION (decompiler name: text; parameters: localValue1) ===
+function text(localValue1)
+  local localValue2, mathHelper, dataCollection6, number7, number8, number9, number10
+  localValue2 = true
+  stateFlag2 = localValue2
+  localValue2 = TriggerScreenblurFadeIn
   mathHelper = 0.0
-  arg2(mathHelper)
-  arg2 = CMG
-  arg2 = arg2.uiSetFocus
+  localValue2(mathHelper)
+  localValue2 = CMG
+  localValue2 = localValue2.uiSetFocus
   mathHelper = true
-  dataTable6 = true
-  numberValue7 = false
-  arg2(mathHelper, dataTable6, numberValue7)
-  arg2 = CMG
-  arg2 = arg2.hideAllDisplays
+  dataCollection6 = true
+  number7 = false
+  localValue2(mathHelper, dataCollection6, number7)
+  localValue2 = CMG
+  localValue2 = localValue2.hideAllDisplays
   mathHelper = "jobterminal"
-  arg2(mathHelper)
-  arg2 = CMG
-  arg2 = arg2.hideHud
-  arg2()
-  arg2 = CMG
-  arg2 = arg2.getClientJob
-  arg2 = arg2()
+  localValue2(mathHelper)
+  localValue2 = CMG
+  localValue2 = localValue2.hideHud
+  localValue2()
+  localValue2 = CMG
+  localValue2 = localValue2.getClientJob
+  localValue2 = localValue2()
   mathHelper = CMG
   mathHelper = mathHelper.getClientFaction
   mathHelper = mathHelper()
   if mathHelper then
-    dataTable6 = dataTable
-    dataTable6 = dataTable6[mathHelper]
-    if dataTable6 and mathHelper then
-      goto flow_label_34
-      dataTable6 = mathHelper or dataTable6
+    dataCollection6 = dataCollection
+    dataCollection6 = dataCollection6[mathHelper]
+    if dataCollection6 and mathHelper then
+      goto continueAtStep34
+      dataCollection6 = mathHelper or dataCollection6
     end
   end
-  dataTable6 = arg2
-  ::flow_label_34::
-  numberValue7 = CMG
-  numberValue7 = numberValue7.uiSendMessage
-  numberValue8 = {}
-  numberValue8.type = "APP_TOGGLE"
-  numberValue8.app = dataTable6
-  numberValue9 = dataTable2
-  numberValue9 = numberValue9[arg2]
-  numberValue9 = numberValue9 and true == arg1 or numberValue9
-  numberValue8.atWarehouseSeller = numberValue9
-  numberValue7(numberValue8)
-  if "Trapper" == arg2 then
-    numberValue7 = TriggerServerEvent
-    numberValue8 = "2319d6cab8"
+  dataCollection6 = localValue2
+  ::continueAtStep34::
+  number7 = CMG
+  number7 = number7.uiSendMessage
+  number8 = {}
+  number8.type = "APP_TOGGLE"
+  number8.app = dataCollection6
+  number9 = dataCollection2
+  number9 = number9[localValue2]
+  number9 = number9 and true == localValue1 or number9
+  number8.atWarehouseSeller = number9
+  number7(number8)
+  if "Trapper" == localValue2 then
+    number7 = TriggerServerEvent
+    number8 = "2319d6cab8"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2319d6cab8".
-    numberValue7(numberValue8)
-    numberValue7 = cmgCall2
-    numberValue8 = CMG
-    numberValue8 = numberValue8.isJobTutorialRunning
-    numberValue8, numberValue9, numberValue10 = numberValue8()
-    numberValue7(numberValue8, numberValue9, numberValue10)
+    number7(number8)
+    number7 = cmgOperation2
+    number8 = CMG
+    number8 = number8.isJobTutorialRunning
+    number8, number9, number10 = number8()
+    number7(number8, number9, number10)
   end
-  if "Mechanic" == arg2 then
-    numberValue7 = TriggerServerEvent
-    numberValue8 = "5c8eb44f1a"
+  if "Mechanic" == localValue2 then
+    number7 = TriggerServerEvent
+    number8 = "5c8eb44f1a"
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5c8eb44f1a".
-    numberValue7(numberValue8)
+    number7(number8)
   end
-  numberValue7 = TriggerEvent
-  numberValue8 = "a68d3374be"
-  numberValue9 = arg2
-  numberValue10 = arg1
+  number7 = TriggerEvent
+  number8 = "a68d3374be"
+  number9 = localValue2
+  number10 = localValue1
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "a68d3374be".
-  numberValue7(numberValue8, numberValue9, numberValue10)
+  number7(number8, number9, number10)
 end
-cmgCall6.openJobTerminal = textValue
+cmgOperation6.openJobTerminal = text
 
--- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
-function cmgCall6()
-  local arg1, arg2, mathHelper, dataTable6
-  arg1 = CMG
-  arg1 = arg1.isHudVehicleCursorEnabled
-  arg1 = arg1()
-  if arg1 then
+-- === HELPER FUNCTION (decompiler name: cmgOperation6; parameters: none) ===
+function cmgOperation6()
+  local localValue1, localValue2, mathHelper, dataCollection6
+  localValue1 = CMG
+  localValue1 = localValue1.isHudVehicleCursorEnabled
+  localValue1 = localValue1()
+  if localValue1 then
     return
   end
-  arg1 = flag2
-  arg1 = not arg1
-  flag2 = arg1
-  arg1 = CMG
-  arg1 = arg1.getClientJob
-  arg1 = arg1()
-  arg2 = CMG
-  arg2 = arg2.getClientFaction
-  arg2 = arg2()
+  localValue1 = stateFlag2
+  localValue1 = not localValue1
+  stateFlag2 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.getClientJob
+  localValue1 = localValue1()
+  localValue2 = CMG
+  localValue2 = localValue2.getClientFaction
+  localValue2 = localValue2()
   mathHelper = nil
-  if arg1 and not mathHelper then
-    dataTable6 = dataTable2
-    mathHelper = dataTable6[arg1]
+  if localValue1 and not mathHelper then
+    dataCollection6 = dataCollection2
+    mathHelper = dataCollection6[localValue1]
   end
-  if arg2 and not mathHelper then
-    dataTable6 = dataTable
-    mathHelper = dataTable6[arg2]
+  if localValue2 and not mathHelper then
+    dataCollection6 = dataCollection
+    mathHelper = dataCollection6[localValue2]
   end
   if mathHelper then
-    dataTable6 = flag2
-    if dataTable6 then
-      dataTable6 = CMG
-      dataTable6 = dataTable6.openJobTerminal
-      dataTable6()
+    dataCollection6 = stateFlag2
+    if dataCollection6 then
+      dataCollection6 = CMG
+      dataCollection6 = dataCollection6.openJobTerminal
+      dataCollection6()
     else
-      dataTable6 = cmgCall5
-      dataTable6()
+      dataCollection6 = cmgOperation5
+      dataCollection6()
     end
   end
 end
-textValue = RegisterCommand
-eventRegistration = "jobmenu"
-textValue2 = cmgCall6
-flag = false
+text = RegisterCommand
+eventHandler = "jobmenu"
+text2 = cmgOperation6
+stateFlag = false
 -- Beginner: Register a chat/console command. Event/command: "jobmenu".
-textValue(eventRegistration, textValue2, flag)
-textValue = RegisterKeyMapping
-eventRegistration = "jobmenu"
-textValue2 = "Open Job Menu"
-flag = "KEYBOARD"
-textValue4 = "F6"
+text(eventHandler, text2, stateFlag)
+text = RegisterKeyMapping
+eventHandler = "jobmenu"
+text2 = "Open Job Menu"
+stateFlag = "KEYBOARD"
+text4 = "F6"
 -- Beginner: Bind a command to a keyboard/controller key.
-textValue(eventRegistration, textValue2, flag, textValue4)
-textValue = CMG
+text(eventHandler, text2, stateFlag, text4)
+text = CMG
 -- Beginner: this function is the command handler for "jobmenu".
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2
-  arg1 = flag2
-  return arg1
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2
+  localValue1 = stateFlag2
+  return localValue1
 end
-textValue.isJobTerminalOpen = eventRegistration
-textValue = 0
-eventRegistration = RegisterNetEvent
-textValue2 = "45916a0093"
+text.isJobTerminalOpen = eventHandler
+text = 0
+eventHandler = RegisterNetEvent
+text2 = "45916a0093"
 -- Beginner: this function handles network event "45916a0093".
 
--- === HELPER FUNCTION (decompiler name: flag; parameters: arg1) ===
-function flag(arg1)
-  local arg2, mathHelper, dataTable6, numberValue7, numberValue8, numberValue9
-  arg2 = arg1 or nil
-  if not arg1 then
-    arg2 = 120
+-- === HELPER FUNCTION (decompiler name: stateFlag; parameters: localValue1) ===
+function stateFlag(localValue1)
+  local localValue2, mathHelper, dataCollection6, number7, number8, number9
+  localValue2 = localValue1 or nil
+  if not localValue1 then
+    localValue2 = 120
   end
   mathHelper = GetGameTimer
   -- Beginner: result below is gameTimeMs.
   mathHelper = mathHelper()
-  dataTable6 = arg2 * 1000
-  dataTable6 = mathHelper + dataTable6
-  numberValue7 = textValue
-  if dataTable6 <= numberValue7 then
+  dataCollection6 = localValue2 * 1000
+  dataCollection6 = mathHelper + dataCollection6
+  number7 = text
+  if dataCollection6 <= number7 then
     return
   end
-  textValue = dataTable6
-  numberValue7 = CMG
-  numberValue7 = numberValue7.uiSendMessage
-  numberValue8 = {}
-  numberValue8.type = "QUEST_LOG_DISPATCH_VISIBLE"
-  numberValue9 = {}
-  numberValue9.visible = true
-  numberValue8.info = numberValue9
-  numberValue7(numberValue8)
-  numberValue7 = SetTimeout
-  numberValue8 = arg2 * 1000
+  text = dataCollection6
+  number7 = CMG
+  number7 = number7.uiSendMessage
+  number8 = {}
+  number8.type = "QUEST_LOG_DISPATCH_VISIBLE"
+  number9 = {}
+  number9.visible = true
+  number8.info = number9
+  number7(number8)
+  number7 = SetTimeout
+  number8 = localValue2 * 1000
 
-  -- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
-  function numberValue9()
-    local gameTime, dataTable4, dataTable5
+  -- === HELPER FUNCTION (decompiler name: number9; parameters: none) ===
+  function number9()
+    local gameTime, dataCollection4, dataCollection5
     gameTime = GetGameTimer
     -- Beginner: result below is gameTimeMs.
     gameTime = gameTime()
-    dataTable4 = textValue
-    if gameTime >= dataTable4 then
+    dataCollection4 = text
+    if gameTime >= dataCollection4 then
       gameTime = CMG
       gameTime = gameTime.uiSendMessage
-      dataTable4 = {}
-      dataTable4.type = "QUEST_LOG_DISPATCH_VISIBLE"
-      dataTable5 = {}
-      dataTable5.visible = false
-      dataTable4.info = dataTable5
-      gameTime(dataTable4)
+      dataCollection4 = {}
+      dataCollection4.type = "QUEST_LOG_DISPATCH_VISIBLE"
+      dataCollection5 = {}
+      dataCollection5.visible = false
+      dataCollection4.info = dataCollection5
+      gameTime(dataCollection4)
     end
   end
-  numberValue7(numberValue8, numberValue9)
+  number7(number8, number9)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "45916a0093".
-eventRegistration(textValue2, flag)
+eventHandler(text2, stateFlag)

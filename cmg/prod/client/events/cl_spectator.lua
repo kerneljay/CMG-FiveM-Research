@@ -32,1136 +32,1136 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local flag, numberValue5, workValue12, numberValue7, dataTable, flag6, workValue16, workValue17, workValue18, workValue19, workValue2, workValue3, workValue4, workValue5, cmgCall2, textValue2, workValue6, workValue7, workValue8, workValue9, workValue10, gameTime, flag3, flag4, workValue11, cmgCall4, textValue4, textValue5
-flag = false
-numberValue5 = 1
-workValue12 = nil
-numberValue7 = 50
-dataTable = {}
-flag6 = false
+local stateFlag, number5, workingValue12, number7, dataCollection, stateFlag6, workingValue16, workingValue17, workingValue18, workingValue19, workingValue2, workingValue3, workingValue4, workingValue5, cmgOperation2, text2, workingValue6, workingValue7, workingValue8, workingValue9, workingValue10, gameTime, stateFlag3, stateFlag4, workingValue11, cmgOperation4, text4, text5
+stateFlag = false
+number5 = 1
+workingValue12 = nil
+number7 = 50
+dataCollection = {}
+stateFlag6 = false
 
--- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
-function workValue16(arg1)
-  local arg2, playerPed, workValue13, flag5, flag7
-  workValue12 = arg1
-  arg2 = GetPlayerFromServerId
-  playerPed = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue16; parameters: localValue1) ===
+function workingValue16(localValue1)
+  local localValue2, playerPed, workingValue13, stateFlag5, stateFlag7
+  workingValue12 = localValue1
+  localValue2 = GetPlayerFromServerId
+  playerPed = localValue1
   -- Beginner: result below is playerIndex.
-  arg2 = arg2(playerPed)
-  if -1 == arg2 then
+  localValue2 = localValue2(playerPed)
+  if -1 == localValue2 then
     return
   end
   playerPed = GetPlayerPed
-  workValue13 = arg2
+  workingValue13 = localValue2
   -- Beginner: result below is playerPed.
-  playerPed = playerPed(workValue13)
+  playerPed = playerPed(workingValue13)
   if 0 == playerPed then
     return
   end
-  workValue13 = NetworkSetInSpectatorMode
-  flag5 = true
-  flag7 = playerPed
-  workValue13(flag5, flag7)
-  workValue13 = SetMinimapInSpectatorMode
-  flag5 = true
-  flag7 = playerPed
-  workValue13(flag5, flag7)
+  workingValue13 = NetworkSetInSpectatorMode
+  stateFlag5 = true
+  stateFlag7 = playerPed
+  workingValue13(stateFlag5, stateFlag7)
+  workingValue13 = SetMinimapInSpectatorMode
+  stateFlag5 = true
+  stateFlag7 = playerPed
+  workingValue13(stateFlag5, stateFlag7)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
-function workValue17()
-  local arg1, arg2, playerPed
-  arg1 = nil
-  workValue12 = arg1
-  arg1 = NetworkSetInSpectatorMode
-  arg2 = false
+-- === HELPER FUNCTION (decompiler name: workingValue17; parameters: none) ===
+function workingValue17()
+  local localValue1, localValue2, playerPed
+  localValue1 = nil
+  workingValue12 = localValue1
+  localValue1 = NetworkSetInSpectatorMode
+  localValue2 = false
   playerPed = nil
-  arg1(arg2, playerPed)
-  arg1 = SetMinimapInSpectatorMode
-  arg2 = false
+  localValue1(localValue2, playerPed)
+  localValue1 = SetMinimapInSpectatorMode
+  localValue2 = false
   playerPed = nil
-  arg1(arg2, playerPed)
+  localValue1(localValue2, playerPed)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
-function workValue18(arg1)
-  local arg2
-  workValue12 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue18; parameters: localValue1) ===
+function workingValue18(localValue1)
+  local localValue2
+  workingValue12 = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
-function workValue19()
-  local arg1, arg2, playerPed, workValue13, flag5
-  arg1 = nil
-  workValue12 = arg1
-  arg1 = NetworkSetInSpectatorMode
-  arg2 = false
+-- === HELPER FUNCTION (decompiler name: workingValue19; parameters: none) ===
+function workingValue19()
+  local localValue1, localValue2, playerPed, workingValue13, stateFlag5
+  localValue1 = nil
+  workingValue12 = localValue1
+  localValue1 = NetworkSetInSpectatorMode
+  localValue2 = false
   playerPed = 0
-  arg1(arg2, playerPed)
-  arg1 = SetMinimapInSpectatorMode
-  arg2 = false
+  localValue1(localValue2, playerPed)
+  localValue1 = SetMinimapInSpectatorMode
+  localValue2 = false
   playerPed = 0
-  arg1(arg2, playerPed)
-  arg1 = false
-  flag6 = arg1
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
+  localValue1(localValue2, playerPed)
+  localValue1 = false
+  stateFlag6 = localValue1
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = SetEntityCollision
-  playerPed = arg1
-  workValue13 = true
-  flag5 = true
-  arg2(playerPed, workValue13, flag5)
-  arg2 = SetEntityVisible
-  playerPed = arg1
-  workValue13 = true
-  flag5 = false
-  arg2(playerPed, workValue13, flag5)
-  arg2 = FreezeEntityPosition
-  playerPed = arg1
-  workValue13 = false
+  localValue1 = localValue1()
+  localValue2 = SetEntityCollision
+  playerPed = localValue1
+  workingValue13 = true
+  stateFlag5 = true
+  localValue2(playerPed, workingValue13, stateFlag5)
+  localValue2 = SetEntityVisible
+  playerPed = localValue1
+  workingValue13 = true
+  stateFlag5 = false
+  localValue2(playerPed, workingValue13, stateFlag5)
+  localValue2 = FreezeEntityPosition
+  playerPed = localValue1
+  workingValue13 = false
   -- Beginner: Freeze or unfreeze an entity in place.
-  arg2(playerPed, workValue13)
+  localValue2(playerPed, workingValue13)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
-function workValue2(arg1)
-  local arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2
-  arg2 = FreezeEntityPosition
-  playerPed = arg1
-  workValue13 = true
-  arg2(playerPed, workValue13)
-  arg2 = SetEntityCollision
-  playerPed = arg1
-  workValue13 = false
-  flag5 = false
-  arg2(playerPed, workValue13, flag5)
-  arg2 = SetEntityVisible
-  playerPed = arg1
-  workValue13 = false
-  flag5 = false
-  arg2(playerPed, workValue13, flag5)
-  arg2 = SetEntityProofs
-  playerPed = arg1
-  workValue13 = true
-  flag5 = true
-  flag7 = true
-  flag8 = true
-  flag10 = true
-  flag12 = true
-  flag14 = true
-  flag2 = true
-  arg2(playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2)
-  arg2 = SetEntityInvincible
-  playerPed = arg1
-  workValue13 = true
-  arg2(playerPed, workValue13)
-  arg2 = SetPlayerInvincible
+-- === HELPER FUNCTION (decompiler name: workingValue2; parameters: localValue1) ===
+function workingValue2(localValue1)
+  local localValue2, playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2
+  localValue2 = FreezeEntityPosition
+  playerPed = localValue1
+  workingValue13 = true
+  localValue2(playerPed, workingValue13)
+  localValue2 = SetEntityCollision
+  playerPed = localValue1
+  workingValue13 = false
+  stateFlag5 = false
+  localValue2(playerPed, workingValue13, stateFlag5)
+  localValue2 = SetEntityVisible
+  playerPed = localValue1
+  workingValue13 = false
+  stateFlag5 = false
+  localValue2(playerPed, workingValue13, stateFlag5)
+  localValue2 = SetEntityProofs
+  playerPed = localValue1
+  workingValue13 = true
+  stateFlag5 = true
+  stateFlag7 = true
+  stateFlag8 = true
+  stateFlag10 = true
+  stateFlag12 = true
+  stateFlag14 = true
+  stateFlag2 = true
+  localValue2(playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2)
+  localValue2 = SetEntityInvincible
+  playerPed = localValue1
+  workingValue13 = true
+  localValue2(playerPed, workingValue13)
+  localValue2 = SetPlayerInvincible
   playerPed = PlayerId
   -- Beginner: result below is localPlayerIndex.
   playerPed = playerPed()
-  workValue13 = true
-  arg2(playerPed, workValue13)
-  arg2 = SetPedDiesInWater
-  playerPed = arg1
-  workValue13 = false
-  arg2(playerPed, workValue13)
+  workingValue13 = true
+  localValue2(playerPed, workingValue13)
+  localValue2 = SetPedDiesInWater
+  playerPed = localValue1
+  workingValue13 = false
+  localValue2(playerPed, workingValue13)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
-function workValue3(arg1)
-  local arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2
-  arg2 = SetEntityProofs
-  playerPed = arg1
-  workValue13 = false
-  flag5 = false
-  flag7 = false
-  flag8 = false
-  flag10 = false
-  flag12 = false
-  flag14 = false
-  flag2 = false
-  arg2(playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2)
-  arg2 = SetEntityInvincible
-  playerPed = arg1
-  workValue13 = false
-  arg2(playerPed, workValue13)
-  arg2 = SetPlayerInvincible
+-- === HELPER FUNCTION (decompiler name: workingValue3; parameters: localValue1) ===
+function workingValue3(localValue1)
+  local localValue2, playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2
+  localValue2 = SetEntityProofs
+  playerPed = localValue1
+  workingValue13 = false
+  stateFlag5 = false
+  stateFlag7 = false
+  stateFlag8 = false
+  stateFlag10 = false
+  stateFlag12 = false
+  stateFlag14 = false
+  stateFlag2 = false
+  localValue2(playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2)
+  localValue2 = SetEntityInvincible
+  playerPed = localValue1
+  workingValue13 = false
+  localValue2(playerPed, workingValue13)
+  localValue2 = SetPlayerInvincible
   playerPed = PlayerId
   -- Beginner: result below is localPlayerIndex.
   playerPed = playerPed()
-  workValue13 = false
-  arg2(playerPed, workValue13)
-  arg2 = SetPedDiesInWater
-  playerPed = arg1
-  workValue13 = true
-  arg2(playerPed, workValue13)
+  workingValue13 = false
+  localValue2(playerPed, workingValue13)
+  localValue2 = SetPedDiesInWater
+  playerPed = localValue1
+  workingValue13 = true
+  localValue2(playerPed, workingValue13)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14
-  arg1 = nil
-  arg2 = CMG
-  arg2 = arg2.inArena
-  arg2 = arg2()
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.getPlayersInWager
-    arg2 = arg2()
-    arg1 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14
+  localValue1 = nil
+  localValue2 = CMG
+  localValue2 = localValue2.inArena
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayersInWager
+    localValue2 = localValue2()
+    localValue1 = localValue2
   else
-    arg2 = CMG
-    arg2 = arg2.isArenaSpectating
-    arg2 = arg2()
-    if arg2 then
-      arg2 = CMG
-      arg2 = arg2.getArenaSpectatePlayers
-      arg2 = arg2()
-      arg1 = arg2
+    localValue2 = CMG
+    localValue2 = localValue2.isArenaSpectating
+    localValue2 = localValue2()
+    if localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.getArenaSpectatePlayers
+      localValue2 = localValue2()
+      localValue1 = localValue2
     else
-      arg2 = CMG
-      arg2 = arg2.getActiveEventPlayers
-      arg2 = arg2()
-      arg1 = arg2
+      localValue2 = CMG
+      localValue2 = localValue2.getActiveEventPlayers
+      localValue2 = localValue2()
+      localValue1 = localValue2
     end
   end
-  arg2 = GetPlayerServerId
+  localValue2 = GetPlayerServerId
   playerPed = PlayerId
-  playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14 = playerPed()
+  playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14 = playerPed()
   -- Beginner: result below is serverId.
-  arg2 = arg2(playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14)
+  localValue2 = localValue2(playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14)
   playerPed = {}
-  workValue13 = ipairs
-  flag5 = arg1
-  workValue13, flag5, flag7, flag8 = workValue13(flag5)
-  for flag10, flag12 in workValue13, flag5, flag7, flag8 do
-    flag14 = flag12.source
-    if flag14 ~= arg2 then
-      flag14 = flag12.alive
-      if false ~= flag14 then
-        flag14 = #playerPed
-        flag14 = flag14 + 1
-        playerPed[flag14] = flag12
+  workingValue13 = ipairs
+  stateFlag5 = localValue1
+  workingValue13, stateFlag5, stateFlag7, stateFlag8 = workingValue13(stateFlag5)
+  for stateFlag10, stateFlag12 in workingValue13, stateFlag5, stateFlag7, stateFlag8 do
+    stateFlag14 = stateFlag12.source
+    if stateFlag14 ~= localValue2 then
+      stateFlag14 = stateFlag12.alive
+      if false ~= stateFlag14 then
+        stateFlag14 = #playerPed
+        stateFlag14 = stateFlag14 + 1
+        playerPed[stateFlag14] = stateFlag12
       end
     end
   end
   return playerPed
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12
-  arg1 = workValue4
-  arg1 = arg1()
-  arg2 = #arg1
-  if 0 == arg2 then
-    arg2 = 0
-    numberValue5 = arg2
-    arg2 = nil
-    workValue12 = arg2
-    arg2 = workValue17
-    arg2()
-    arg2 = false
-    flag6 = arg2
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2, playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12
+  localValue1 = workingValue4
+  localValue1 = localValue1()
+  localValue2 = #localValue1
+  if 0 == localValue2 then
+    localValue2 = 0
+    number5 = localValue2
+    localValue2 = nil
+    workingValue12 = localValue2
+    localValue2 = workingValue17
+    localValue2()
+    localValue2 = false
+    stateFlag6 = localValue2
     return
   end
-  arg2 = ipairs
-  playerPed = arg1
-  arg2, playerPed, workValue13, flag5 = arg2(playerPed)
-  for flag7, flag8 in arg2, playerPed, workValue13, flag5 do
-    flag10 = flag8.source
-    flag12 = workValue12
-    if flag10 == flag12 then
-      numberValue5 = flag7
+  localValue2 = ipairs
+  playerPed = localValue1
+  localValue2, playerPed, workingValue13, stateFlag5 = localValue2(playerPed)
+  for stateFlag7, stateFlag8 in localValue2, playerPed, workingValue13, stateFlag5 do
+    stateFlag10 = stateFlag8.source
+    stateFlag12 = workingValue12
+    if stateFlag10 == stateFlag12 then
+      number5 = stateFlag7
       return
     end
   end
-  arg2 = 1
-  numberValue5 = arg2
-  arg2 = arg1[1]
-  arg2 = arg2.source
-  workValue12 = arg2
-  arg2 = false
-  flag6 = arg2
+  localValue2 = 1
+  number5 = localValue2
+  localValue2 = localValue1[1]
+  localValue2 = localValue2.source
+  workingValue12 = localValue2
+  localValue2 = false
+  stateFlag6 = localValue2
 end
-cmgCall2 = CMG
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, playerPed
-  flag = arg1
-  arg2 = flag
-  if arg2 then
-    arg2 = 0
-    numberValue5 = arg2
-    arg2 = workValue4
-    arg2 = arg2()
-    arg2 = arg2[1]
-    if arg2 then
-      arg2 = 1
-      numberValue5 = arg2
-      arg2 = workValue18
-      playerPed = workValue4
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, playerPed
+  stateFlag = localValue1
+  localValue2 = stateFlag
+  if localValue2 then
+    localValue2 = 0
+    number5 = localValue2
+    localValue2 = workingValue4
+    localValue2 = localValue2()
+    localValue2 = localValue2[1]
+    if localValue2 then
+      localValue2 = 1
+      number5 = localValue2
+      localValue2 = workingValue18
+      playerPed = workingValue4
       playerPed = playerPed()
       playerPed = playerPed[1]
       playerPed = playerPed.source
-      arg2(playerPed)
+      localValue2(playerPed)
     end
-    arg2 = workValue2
+    localValue2 = workingValue2
     playerPed = CMG
     playerPed = playerPed.getPlayerPed
     -- Beginner: result below is localPlayerPed.
     playerPed = playerPed()
-    arg2(playerPed)
+    localValue2(playerPed)
   else
-    arg2 = workValue3
+    localValue2 = workingValue3
     playerPed = PlayerPedId
     -- Beginner: result below is localPlayerPed.
     playerPed = playerPed()
-    arg2(playerPed)
-    arg2 = workValue19
-    arg2()
-    arg2 = ClearFocus
-    arg2()
+    localValue2(playerPed)
+    localValue2 = workingValue19
+    localValue2()
+    localValue2 = ClearFocus
+    localValue2()
   end
 end
-cmgCall2.setEventSpectatorMode = textValue2
-cmgCall2 = RegisterNetEvent
-textValue2 = "a963b1abb7"
+cmgOperation2.setEventSpectatorMode = text2
+cmgOperation2 = RegisterNetEvent
+text2 = "a963b1abb7"
 -- Beginner: this function handles network event "a963b1abb7".
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
-function workValue6(arg1)
-  local arg2, playerPed
-  arg2 = true
-  flag = arg2
-  arg2 = workValue18
-  playerPed = arg1
-  arg2(playerPed)
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue1) ===
+function workingValue6(localValue1)
+  local localValue2, playerPed
+  localValue2 = true
+  stateFlag = localValue2
+  localValue2 = workingValue18
+  playerPed = localValue1
+  localValue2(playerPed)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a963b1abb7".
-cmgCall2(textValue2, workValue6)
-cmgCall2 = CMG
+cmgOperation2(text2, workingValue6)
+cmgOperation2 = CMG
 -- Beginner: this function handles network event "a963b1abb7".
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2
-  arg1 = flag
-  return arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2
+  localValue1 = stateFlag
+  return localValue1
 end
-cmgCall2.isSpectatingEvent = textValue2
+cmgOperation2.isSpectatingEvent = text2
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
-function cmgCall2(arg1)
-  local arg2, playerPed
-  arg2 = BeginTextCommandScaleformString
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1) ===
+function cmgOperation2(localValue1)
+  local localValue2, playerPed
+  localValue2 = BeginTextCommandScaleformString
   playerPed = "STRING"
-  arg2(playerPed)
-  arg2 = AddTextComponentSubstringKeyboardDisplay
-  playerPed = arg1
-  arg2(playerPed)
-  arg2 = EndTextCommandScaleformString
-  arg2()
+  localValue2(playerPed)
+  localValue2 = AddTextComponentSubstringKeyboardDisplay
+  playerPed = localValue1
+  localValue2(playerPed)
+  localValue2 = EndTextCommandScaleformString
+  localValue2()
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, playerPed
-  arg2 = _ENV
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, playerPed
+  localValue2 = _ENV
   playerPed = "ScaleformMovieMethodAddParamPlayerNameString"
-  arg2 = arg2[playerPed]
-  playerPed = arg1
-  arg2(playerPed)
+  localValue2 = localValue2[playerPed]
+  playerPed = localValue1
+  localValue2(playerPed)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
-function workValue6(arg1, arg2)
-  local playerPed, workValue13, flag5, flag7, flag8, flag10, flag12
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue1, localValue2) ===
+function workingValue6(localValue1, localValue2)
+  local playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12
   playerPed = RequestScaleformMovie
-  workValue13 = arg1
+  workingValue13 = localValue1
   -- Beginner: result below is scaleformHandle.
-  playerPed = playerPed(workValue13)
+  playerPed = playerPed(workingValue13)
   while true do
-    workValue13 = HasScaleformMovieLoaded
-    flag5 = playerPed
-    workValue13 = workValue13(flag5)
-    if workValue13 then
+    workingValue13 = HasScaleformMovieLoaded
+    stateFlag5 = playerPed
+    workingValue13 = workingValue13(stateFlag5)
+    if workingValue13 then
       break
     end
-    workValue13 = Wait
-    flag5 = 0
-    workValue13(flag5)
+    workingValue13 = Wait
+    stateFlag5 = 0
+    workingValue13(stateFlag5)
   end
-  workValue13 = BeginScaleformMovieMethod
-  flag5 = playerPed
-  flag7 = "CLEAR_ALL"
-  workValue13(flag5, flag7)
-  workValue13 = EndScaleformMovieMethod
-  workValue13()
-  workValue13 = BeginScaleformMovieMethod
-  flag5 = playerPed
-  flag7 = "SET_DATA_SLOT"
-  workValue13(flag5, flag7)
-  workValue13 = ScaleformMovieMethodAddParamInt
-  flag5 = 0
-  workValue13(flag5)
-  workValue13 = textValue2
-  flag5 = GetControlInstructionalButton
-  flag7 = 0
-  flag8 = 0
-  flag10 = true
-  flag5, flag7, flag8, flag10, flag12 = flag5(flag7, flag8, flag10)
-  workValue13(flag5, flag7, flag8, flag10, flag12)
-  workValue13 = cmgCall2
-  flag5 = "Zoom"
-  workValue13(flag5)
-  workValue13 = EndScaleformMovieMethod
-  workValue13()
-  workValue13 = BeginScaleformMovieMethod
-  flag5 = playerPed
-  flag7 = "SET_DATA_SLOT"
-  workValue13(flag5, flag7)
-  workValue13 = ScaleformMovieMethodAddParamInt
-  flag5 = 1
-  workValue13(flag5)
-  workValue13 = textValue2
-  flag5 = GetControlInstructionalButton
-  flag7 = 2
-  flag8 = 175
-  flag10 = true
-  flag5, flag7, flag8, flag10, flag12 = flag5(flag7, flag8, flag10)
-  workValue13(flag5, flag7, flag8, flag10, flag12)
-  workValue13 = textValue2
-  flag5 = GetControlInstructionalButton
-  flag7 = 1
-  flag8 = 174
-  flag10 = true
-  flag5, flag7, flag8, flag10, flag12 = flag5(flag7, flag8, flag10)
-  workValue13(flag5, flag7, flag8, flag10, flag12)
-  workValue13 = cmgCall2
-  flag5 = "Switch player"
-  workValue13(flag5)
-  workValue13 = EndScaleformMovieMethod
-  workValue13()
-  workValue13 = BeginScaleformMovieMethod
-  flag5 = playerPed
-  flag7 = "SET_DATA_SLOT"
-  workValue13(flag5, flag7)
-  workValue13 = ScaleformMovieMethodAddParamInt
-  flag5 = 2
-  workValue13(flag5)
-  workValue13 = cmgCall2
-  flag5 = "["
-  flag7 = numberValue5
-  flag8 = "/"
-  flag10 = #arg2
-  flag12 = "]"
-  flag5 = flag5 .. flag7 .. flag8 .. flag10 .. flag12
-  workValue13(flag5)
-  workValue13 = EndScaleformMovieMethod
-  workValue13()
-  workValue13 = BeginScaleformMovieMethod
-  flag5 = playerPed
-  flag7 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  workValue13(flag5, flag7)
-  workValue13 = EndScaleformMovieMethod
-  workValue13()
-  workValue13 = BeginScaleformMovieMethod
-  flag5 = playerPed
-  flag7 = "SET_BACKGROUND_COLOUR"
-  workValue13(flag5, flag7)
-  workValue13 = ScaleformMovieMethodAddParamInt
-  flag5 = 0
-  workValue13(flag5)
-  workValue13 = ScaleformMovieMethodAddParamInt
-  flag5 = 0
-  workValue13(flag5)
-  workValue13 = ScaleformMovieMethodAddParamInt
-  flag5 = 0
-  workValue13(flag5)
-  workValue13 = ScaleformMovieMethodAddParamInt
-  flag5 = 80
-  workValue13(flag5)
-  workValue13 = EndScaleformMovieMethod
-  workValue13()
+  workingValue13 = BeginScaleformMovieMethod
+  stateFlag5 = playerPed
+  stateFlag7 = "CLEAR_ALL"
+  workingValue13(stateFlag5, stateFlag7)
+  workingValue13 = EndScaleformMovieMethod
+  workingValue13()
+  workingValue13 = BeginScaleformMovieMethod
+  stateFlag5 = playerPed
+  stateFlag7 = "SET_DATA_SLOT"
+  workingValue13(stateFlag5, stateFlag7)
+  workingValue13 = ScaleformMovieMethodAddParamInt
+  stateFlag5 = 0
+  workingValue13(stateFlag5)
+  workingValue13 = text2
+  stateFlag5 = GetControlInstructionalButton
+  stateFlag7 = 0
+  stateFlag8 = 0
+  stateFlag10 = true
+  stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12 = stateFlag5(stateFlag7, stateFlag8, stateFlag10)
+  workingValue13(stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12)
+  workingValue13 = cmgOperation2
+  stateFlag5 = "Zoom"
+  workingValue13(stateFlag5)
+  workingValue13 = EndScaleformMovieMethod
+  workingValue13()
+  workingValue13 = BeginScaleformMovieMethod
+  stateFlag5 = playerPed
+  stateFlag7 = "SET_DATA_SLOT"
+  workingValue13(stateFlag5, stateFlag7)
+  workingValue13 = ScaleformMovieMethodAddParamInt
+  stateFlag5 = 1
+  workingValue13(stateFlag5)
+  workingValue13 = text2
+  stateFlag5 = GetControlInstructionalButton
+  stateFlag7 = 2
+  stateFlag8 = 175
+  stateFlag10 = true
+  stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12 = stateFlag5(stateFlag7, stateFlag8, stateFlag10)
+  workingValue13(stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12)
+  workingValue13 = text2
+  stateFlag5 = GetControlInstructionalButton
+  stateFlag7 = 1
+  stateFlag8 = 174
+  stateFlag10 = true
+  stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12 = stateFlag5(stateFlag7, stateFlag8, stateFlag10)
+  workingValue13(stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12)
+  workingValue13 = cmgOperation2
+  stateFlag5 = "Switch player"
+  workingValue13(stateFlag5)
+  workingValue13 = EndScaleformMovieMethod
+  workingValue13()
+  workingValue13 = BeginScaleformMovieMethod
+  stateFlag5 = playerPed
+  stateFlag7 = "SET_DATA_SLOT"
+  workingValue13(stateFlag5, stateFlag7)
+  workingValue13 = ScaleformMovieMethodAddParamInt
+  stateFlag5 = 2
+  workingValue13(stateFlag5)
+  workingValue13 = cmgOperation2
+  stateFlag5 = "["
+  stateFlag7 = number5
+  stateFlag8 = "/"
+  stateFlag10 = #localValue2
+  stateFlag12 = "]"
+  stateFlag5 = stateFlag5 .. stateFlag7 .. stateFlag8 .. stateFlag10 .. stateFlag12
+  workingValue13(stateFlag5)
+  workingValue13 = EndScaleformMovieMethod
+  workingValue13()
+  workingValue13 = BeginScaleformMovieMethod
+  stateFlag5 = playerPed
+  stateFlag7 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  workingValue13(stateFlag5, stateFlag7)
+  workingValue13 = EndScaleformMovieMethod
+  workingValue13()
+  workingValue13 = BeginScaleformMovieMethod
+  stateFlag5 = playerPed
+  stateFlag7 = "SET_BACKGROUND_COLOUR"
+  workingValue13(stateFlag5, stateFlag7)
+  workingValue13 = ScaleformMovieMethodAddParamInt
+  stateFlag5 = 0
+  workingValue13(stateFlag5)
+  workingValue13 = ScaleformMovieMethodAddParamInt
+  stateFlag5 = 0
+  workingValue13(stateFlag5)
+  workingValue13 = ScaleformMovieMethodAddParamInt
+  stateFlag5 = 0
+  workingValue13(stateFlag5)
+  workingValue13 = ScaleformMovieMethodAddParamInt
+  stateFlag5 = 80
+  workingValue13(stateFlag5)
+  workingValue13 = EndScaleformMovieMethod
+  workingValue13()
   return playerPed
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3, numberValue3, numberValue4
-  arg1 = 0.3
-  arg2 = 0.075
+-- === HELPER FUNCTION (decompiler name: workingValue7; parameters: none) ===
+function workingValue7()
+  local localValue1, localValue2, playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2, cmgOperation, text, cmgOperation3, text3, number3, number4
+  localValue1 = 0.3
+  localValue2 = 0.075
   playerPed = 0.0
-  workValue13 = 0.7
-  flag5 = GetSafeZoneSize
-  flag5 = flag5()
-  flag7 = flag5 - playerPed
-  flag8 = flag5 - workValue13
-  flag10 = DrawSprite
-  flag12 = "timerbars"
-  flag14 = "all_black_bg"
-  flag2 = flag7
-  numberValue = flag8
-  numberValue2 = arg1
-  cmgCall = arg2
-  textValue = 0
-  cmgCall3 = 0
-  textValue3 = 0
-  numberValue3 = 0
-  numberValue4 = 200
-  flag10(flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3, numberValue3, numberValue4)
+  workingValue13 = 0.7
+  stateFlag5 = GetSafeZoneSize
+  stateFlag5 = stateFlag5()
+  stateFlag7 = stateFlag5 - playerPed
+  stateFlag8 = stateFlag5 - workingValue13
+  stateFlag10 = DrawSprite
+  stateFlag12 = "timerbars"
+  stateFlag14 = "all_black_bg"
+  stateFlag2 = stateFlag7
+  number = stateFlag8
+  number2 = localValue1
+  cmgOperation = localValue2
+  text = 0
+  cmgOperation3 = 0
+  text3 = 0
+  number3 = 0
+  number4 = 200
+  stateFlag10(stateFlag12, stateFlag14, stateFlag2, number, number2, cmgOperation, text, cmgOperation3, text3, number3, number4)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-function workValue8()
-  local arg1, arg2, playerPed
-  arg1 = workValue4
-  arg1 = arg1()
-  arg2 = numberValue5
-  arg2 = arg2 + 1
-  arg2 = arg1[arg2]
-  if arg2 then
-    arg2 = numberValue5
-    arg2 = arg2 + 1
-    numberValue5 = arg2
-    arg2 = numberValue5
-    arg2 = arg1[arg2]
-    if arg2 then
-      arg2 = numberValue5
-      arg2 = arg1[arg2]
-      arg2 = arg2.source
-      workValue12 = arg2
-      arg2 = workValue16
-      playerPed = workValue12
-      arg2(playerPed)
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: none) ===
+function workingValue8()
+  local localValue1, localValue2, playerPed
+  localValue1 = workingValue4
+  localValue1 = localValue1()
+  localValue2 = number5
+  localValue2 = localValue2 + 1
+  localValue2 = localValue1[localValue2]
+  if localValue2 then
+    localValue2 = number5
+    localValue2 = localValue2 + 1
+    number5 = localValue2
+    localValue2 = number5
+    localValue2 = localValue1[localValue2]
+    if localValue2 then
+      localValue2 = number5
+      localValue2 = localValue1[localValue2]
+      localValue2 = localValue2.source
+      workingValue12 = localValue2
+      localValue2 = workingValue16
+      playerPed = workingValue12
+      localValue2(playerPed)
     end
   else
-    arg2 = arg1[1]
-    if arg2 then
-      arg2 = 1
-      numberValue5 = arg2
-      arg2 = numberValue5
-      arg2 = arg1[arg2]
-      arg2 = arg2.source
-      workValue12 = arg2
-      arg2 = workValue16
-      playerPed = workValue12
-      arg2(playerPed)
+    localValue2 = localValue1[1]
+    if localValue2 then
+      localValue2 = 1
+      number5 = localValue2
+      localValue2 = number5
+      localValue2 = localValue1[localValue2]
+      localValue2 = localValue2.source
+      workingValue12 = localValue2
+      localValue2 = workingValue16
+      playerPed = workingValue12
+      localValue2(playerPed)
     else
-      arg2 = 0
-      numberValue5 = arg2
-      arg2 = workValue17
-      arg2()
+      localValue2 = 0
+      number5 = localValue2
+      localValue2 = workingValue17
+      localValue2()
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, arg2, playerPed
-  arg1 = workValue4
-  arg1 = arg1()
-  arg2 = numberValue5
-  arg2 = arg2 - 1
-  arg2 = arg1[arg2]
-  if arg2 then
-    arg2 = numberValue5
-    arg2 = arg2 - 1
-    numberValue5 = arg2
-    arg2 = numberValue5
-    arg2 = arg1[arg2]
-    if arg2 then
-      arg2 = numberValue5
-      arg2 = arg1[arg2]
-      arg2 = arg2.source
-      workValue12 = arg2
-      arg2 = workValue16
-      playerPed = workValue12
-      arg2(playerPed)
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: none) ===
+function workingValue9()
+  local localValue1, localValue2, playerPed
+  localValue1 = workingValue4
+  localValue1 = localValue1()
+  localValue2 = number5
+  localValue2 = localValue2 - 1
+  localValue2 = localValue1[localValue2]
+  if localValue2 then
+    localValue2 = number5
+    localValue2 = localValue2 - 1
+    number5 = localValue2
+    localValue2 = number5
+    localValue2 = localValue1[localValue2]
+    if localValue2 then
+      localValue2 = number5
+      localValue2 = localValue1[localValue2]
+      localValue2 = localValue2.source
+      workingValue12 = localValue2
+      localValue2 = workingValue16
+      playerPed = workingValue12
+      localValue2(playerPed)
     end
   else
-    arg2 = #arg1
-    numberValue5 = arg2
-    arg2 = numberValue5
-    arg2 = arg1[arg2]
-    if arg2 then
-      arg2 = numberValue5
-      arg2 = arg1[arg2]
-      arg2 = arg2.source
-      workValue12 = arg2
-      arg2 = workValue16
-      playerPed = workValue12
-      arg2(playerPed)
+    localValue2 = #localValue1
+    number5 = localValue2
+    localValue2 = number5
+    localValue2 = localValue1[localValue2]
+    if localValue2 then
+      localValue2 = number5
+      localValue2 = localValue1[localValue2]
+      localValue2 = localValue2.source
+      workingValue12 = localValue2
+      localValue2 = workingValue16
+      playerPed = workingValue12
+      localValue2(playerPed)
     end
   end
 end
-workValue10 = RequestStreamedTextureDict
+workingValue10 = RequestStreamedTextureDict
 gameTime = "mphud"
-flag3 = false
-workValue10(gameTime, flag3)
+stateFlag3 = false
+workingValue10(gameTime, stateFlag3)
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-function workValue10()
-  local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3
-  arg1 = flag
-  if arg1 then
-    arg1 = workValue5
-    arg1()
-    arg1 = workValue4
-    arg1 = arg1()
-    arg2 = workValue6
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+function workingValue10()
+  local localValue1, localValue2, playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2, cmgOperation, text, cmgOperation3, text3
+  localValue1 = stateFlag
+  if localValue1 then
+    localValue1 = workingValue5
+    localValue1()
+    localValue1 = workingValue4
+    localValue1 = localValue1()
+    localValue2 = workingValue6
     playerPed = "instructional_buttons"
-    workValue13 = arg1
-    arg2 = arg2(playerPed, workValue13)
+    workingValue13 = localValue1
+    localValue2 = localValue2(playerPed, workingValue13)
     playerPed = DrawScaleformMovieFullscreen
-    workValue13 = arg2
-    flag5 = 0
-    flag7 = 0
-    flag8 = 0
-    flag10 = 0
-    flag12 = 0
-    playerPed(workValue13, flag5, flag7, flag8, flag10, flag12)
-    playerPed = workValue7
+    workingValue13 = localValue2
+    stateFlag5 = 0
+    stateFlag7 = 0
+    stateFlag8 = 0
+    stateFlag10 = 0
+    stateFlag12 = 0
+    playerPed(workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12)
+    playerPed = workingValue7
     playerPed()
     playerPed = DrawAdvancedTextNoOutline
-    workValue13 = 1.054
-    flag5 = 0.247
-    flag7 = 0.005
-    flag8 = 0.0028
-    flag10 = 0.45
-    flag12 = "SPECTATING"
-    flag14 = 255
-    flag2 = 255
-    numberValue = 255
-    numberValue2 = 255
-    cmgCall = CMG
-    cmgCall = cmgCall.getFontId
-    textValue = "Akrobat-Regular"
-    cmgCall = cmgCall(textValue)
-    textValue = 0
-    playerPed(workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue)
+    workingValue13 = 1.054
+    stateFlag5 = 0.247
+    stateFlag7 = 0.005
+    stateFlag8 = 0.0028
+    stateFlag10 = 0.45
+    stateFlag12 = "SPECTATING"
+    stateFlag14 = 255
+    stateFlag2 = 255
+    number = 255
+    number2 = 255
+    cmgOperation = CMG
+    cmgOperation = cmgOperation.getFontId
+    text = "Akrobat-Regular"
+    cmgOperation = cmgOperation(text)
+    text = 0
+    playerPed(workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2, cmgOperation, text)
     playerPed = "N/A"
-    workValue13 = numberValue5
-    workValue13 = arg1[workValue13]
-    if workValue13 then
-      workValue13 = numberValue5
-      workValue13 = arg1[workValue13]
-      workValue13 = workValue13.name
-      if workValue13 then
-        workValue13 = numberValue5
-        workValue13 = arg1[workValue13]
-        playerPed = workValue13.name
+    workingValue13 = number5
+    workingValue13 = localValue1[workingValue13]
+    if workingValue13 then
+      workingValue13 = number5
+      workingValue13 = localValue1[workingValue13]
+      workingValue13 = workingValue13.name
+      if workingValue13 then
+        workingValue13 = number5
+        workingValue13 = localValue1[workingValue13]
+        playerPed = workingValue13.name
       end
-      workValue13 = numberValue5
-      workValue13 = arg1[workValue13]
-      workValue13 = workValue13.source
-      workValue12 = workValue13
+      workingValue13 = number5
+      workingValue13 = localValue1[workingValue13]
+      workingValue13 = workingValue13.source
+      workingValue12 = workingValue13
     end
-    workValue13 = string
-    workValue13 = workValue13.gsub
-    flag5 = playerPed
-    flag7 = "[^%a%d%p%s]"
-    flag8 = ""
-    workValue13 = workValue13(flag5, flag7, flag8)
-    flag5 = DrawAdvancedTextNoOutline
-    flag7 = 1.025
-    flag8 = 0.27
-    flag10 = 0.005
-    flag12 = 0.0028
-    flag14 = 0.71
-    flag2 = workValue13
-    numberValue = 255
-    numberValue2 = 255
-    cmgCall = 255
-    textValue = 255
-    cmgCall3 = CMG
-    cmgCall3 = cmgCall3.getFontId
-    textValue3 = "Akrobat-Regular"
-    cmgCall3 = cmgCall3(textValue3)
-    textValue3 = 0
-    flag5(flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3)
-    flag5 = SetScriptGfxDrawOrder
-    flag7 = 7
-    flag5(flag7)
-    flag5 = DrawRect
-    flag7 = 0.999
-    flag8 = 0.27
-    flag10 = -0.003
-    flag12 = 0.075
-    flag14 = 198
-    flag2 = 167
-    numberValue = 73
-    numberValue2 = 255
-    flag5(flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2)
-    flag5 = DrawSprite
-    flag7 = "mphud"
-    flag8 = "spectating"
-    flag10 = 0.915
-    flag12 = 0.249
-    flag14 = 0.018
-    flag2 = 0.036
-    numberValue = 0.0
-    numberValue2 = 255
-    cmgCall = 255
-    textValue = 255
-    cmgCall3 = 255
-    flag5(flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3)
-    flag5 = IsControlJustPressed
-    flag7 = 0
-    flag8 = 174
-    flag5 = flag5(flag7, flag8)
-    if flag5 then
-      flag5 = workValue9
-      flag5()
+    workingValue13 = string
+    workingValue13 = workingValue13.gsub
+    stateFlag5 = playerPed
+    stateFlag7 = "[^%a%d%p%s]"
+    stateFlag8 = ""
+    workingValue13 = workingValue13(stateFlag5, stateFlag7, stateFlag8)
+    stateFlag5 = DrawAdvancedTextNoOutline
+    stateFlag7 = 1.025
+    stateFlag8 = 0.27
+    stateFlag10 = 0.005
+    stateFlag12 = 0.0028
+    stateFlag14 = 0.71
+    stateFlag2 = workingValue13
+    number = 255
+    number2 = 255
+    cmgOperation = 255
+    text = 255
+    cmgOperation3 = CMG
+    cmgOperation3 = cmgOperation3.getFontId
+    text3 = "Akrobat-Regular"
+    cmgOperation3 = cmgOperation3(text3)
+    text3 = 0
+    stateFlag5(stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2, cmgOperation, text, cmgOperation3, text3)
+    stateFlag5 = SetScriptGfxDrawOrder
+    stateFlag7 = 7
+    stateFlag5(stateFlag7)
+    stateFlag5 = DrawRect
+    stateFlag7 = 0.999
+    stateFlag8 = 0.27
+    stateFlag10 = -0.003
+    stateFlag12 = 0.075
+    stateFlag14 = 198
+    stateFlag2 = 167
+    number = 73
+    number2 = 255
+    stateFlag5(stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2)
+    stateFlag5 = DrawSprite
+    stateFlag7 = "mphud"
+    stateFlag8 = "spectating"
+    stateFlag10 = 0.915
+    stateFlag12 = 0.249
+    stateFlag14 = 0.018
+    stateFlag2 = 0.036
+    number = 0.0
+    number2 = 255
+    cmgOperation = 255
+    text = 255
+    cmgOperation3 = 255
+    stateFlag5(stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2, cmgOperation, text, cmgOperation3)
+    stateFlag5 = IsControlJustPressed
+    stateFlag7 = 0
+    stateFlag8 = 174
+    stateFlag5 = stateFlag5(stateFlag7, stateFlag8)
+    if stateFlag5 then
+      stateFlag5 = workingValue9
+      stateFlag5()
     else
-      flag5 = IsControlJustPressed
-      flag7 = 0
-      flag8 = 175
-      flag5 = flag5(flag7, flag8)
-      if flag5 then
-        flag5 = workValue8
-        flag5()
+      stateFlag5 = IsControlJustPressed
+      stateFlag7 = 0
+      stateFlag8 = 175
+      stateFlag5 = stateFlag5(stateFlag7, stateFlag8)
+      if stateFlag5 then
+        stateFlag5 = workingValue8
+        stateFlag5()
       end
     end
-    flag5 = numberValue5
-    if 1 ~= flag5 then
-      flag5 = numberValue5
-      flag5 = arg1[flag5]
-      if not flag5 then
-        flag5 = workValue9
-        flag5()
+    stateFlag5 = number5
+    if 1 ~= stateFlag5 then
+      stateFlag5 = number5
+      stateFlag5 = localValue1[stateFlag5]
+      if not stateFlag5 then
+        stateFlag5 = workingValue9
+        stateFlag5()
       end
     end
-    flag5 = CMG
-    flag5 = flag5.getPlayerPed
+    stateFlag5 = CMG
+    stateFlag5 = stateFlag5.getPlayerPed
     -- Beginner: result below is localPlayerPed.
-    flag5 = flag5()
-    flag7 = workValue2
-    flag8 = flag5
-    flag7(flag8)
-    flag7 = DisablePlayerFiring
-    flag8 = PlayerId
+    stateFlag5 = stateFlag5()
+    stateFlag7 = workingValue2
+    stateFlag8 = stateFlag5
+    stateFlag7(stateFlag8)
+    stateFlag7 = DisablePlayerFiring
+    stateFlag8 = PlayerId
     -- Beginner: result below is localPlayerIndex.
-    flag8 = flag8()
-    flag10 = true
-    flag7(flag8, flag10)
-    flag7 = SetCurrentPedWeapon
-    flag8 = flag5
-    flag10 = -1569615261
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 24
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 25
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 37
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 44
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 47
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 58
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 140
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 141
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 142
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 257
-    flag12 = true
-    flag7(flag8, flag10, flag12)
-    flag7 = DisableControlAction
-    flag8 = 0
-    flag10 = 263
-    flag12 = true
-    flag7(flag8, flag10, flag12)
+    stateFlag8 = stateFlag8()
+    stateFlag10 = true
+    stateFlag7(stateFlag8, stateFlag10)
+    stateFlag7 = SetCurrentPedWeapon
+    stateFlag8 = stateFlag5
+    stateFlag10 = -1569615261
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 24
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 25
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 37
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 44
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 47
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 58
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 140
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 141
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 142
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 257
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
+    stateFlag7 = DisableControlAction
+    stateFlag8 = 0
+    stateFlag10 = 263
+    stateFlag12 = true
+    stateFlag7(stateFlag8, stateFlag10, stateFlag12)
   end
 end
 gameTime = CMG
 gameTime = gameTime.createThreadOnTick
-flag3 = workValue10
-flag4 = "Event Spectator UI"
+stateFlag3 = workingValue10
+stateFlag4 = "Event Spectator UI"
 -- Beginner: Run a helper every game frame while this script is active.
-gameTime(flag3, flag4)
+gameTime(stateFlag3, stateFlag4)
 gameTime = GetGameTimer
 -- Beginner: result below is gameTimeMs.
 gameTime = gameTime()
-flag3 = 0
-flag4 = false
+stateFlag3 = 0
+stateFlag4 = false
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3
-  arg1 = flag
-  if arg1 then
-    arg1 = workValue12
-    if arg1 then
-      arg1 = workValue5
-      arg1()
-      arg1 = workValue12
-      if not arg1 then
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2, playerPed, workingValue13, stateFlag5, stateFlag7, stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2, cmgOperation, text, cmgOperation3, text3
+  localValue1 = stateFlag
+  if localValue1 then
+    localValue1 = workingValue12
+    if localValue1 then
+      localValue1 = workingValue5
+      localValue1()
+      localValue1 = workingValue12
+      if not localValue1 then
         return
       end
-      arg1 = DisablePlayerFiring
-      arg2 = PlayerId
+      localValue1 = DisablePlayerFiring
+      localValue2 = PlayerId
       -- Beginner: result below is localPlayerIndex.
-      arg2 = arg2()
+      localValue2 = localValue2()
       playerPed = true
-      arg1(arg2, playerPed)
-      arg1 = DisableControlAction
-      arg2 = 0
+      localValue1(localValue2, playerPed)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 24
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 25
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 37
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 44
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 47
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 58
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 140
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 141
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 142
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 257
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = DisableControlAction
-      arg2 = 0
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = DisableControlAction
+      localValue2 = 0
       playerPed = 263
-      workValue13 = true
-      arg1(arg2, playerPed, workValue13)
-      arg1 = CMG
-      arg1 = arg1.isArenaSpectating
-      arg1 = arg1()
-      if arg1 then
+      workingValue13 = true
+      localValue1(localValue2, playerPed, workingValue13)
+      localValue1 = CMG
+      localValue1 = localValue1.isArenaSpectating
+      localValue1 = localValue1()
+      if localValue1 then
       else
-        arg1 = drawNativeNotification
-        arg2 = "To stop spectating and return to the main world run /leaveevent."
+        localValue1 = drawNativeNotification
+        localValue2 = "To stop spectating and return to the main world run /leaveevent."
         -- Beginner: Show a GTA-style notification/help prompt.
-        arg1(arg2)
+        localValue1(localValue2)
       end
-      arg1 = GetPlayerFromServerId
-      arg2 = workValue12
+      localValue1 = GetPlayerFromServerId
+      localValue2 = workingValue12
       -- Beginner: result below is playerIndex.
-      arg1 = arg1(arg2)
-      if -1 ~= arg1 then
-        arg2 = CMG
-        arg2 = arg2.getPlayerPed
+      localValue1 = localValue1(localValue2)
+      if -1 ~= localValue1 then
+        localValue2 = CMG
+        localValue2 = localValue2.getPlayerPed
         -- Beginner: result below is localPlayerPed.
-        arg2 = arg2()
-        playerPed = workValue2
-        workValue13 = arg2
-        playerPed(workValue13)
+        localValue2 = localValue2()
+        playerPed = workingValue2
+        workingValue13 = localValue2
+        playerPed(workingValue13)
         playerPed = GetPlayerPed
-        workValue13 = arg1
+        workingValue13 = localValue1
         -- Beginner: result below is playerPed.
-        playerPed = playerPed(workValue13)
-        workValue13 = GetEntityCoords
-        flag5 = playerPed
+        playerPed = playerPed(workingValue13)
+        workingValue13 = GetEntityCoords
+        stateFlag5 = playerPed
         -- Beginner: result below is entityCoords.
-        workValue13 = workValue13(flag5)
-        flag5 = CMG
-        flag5 = flag5.isArenaSpectating
-        flag5 = flag5()
-        if flag5 then
-          flag5 = CMG
-          flag5 = flag5.getArenaSpectatePedOffsetZ
-          flag5 = flag5()
-          if flag5 then
-            goto flow_label_110
+        workingValue13 = workingValue13(stateFlag5)
+        stateFlag5 = CMG
+        stateFlag5 = stateFlag5.isArenaSpectating
+        stateFlag5 = stateFlag5()
+        if stateFlag5 then
+          stateFlag5 = CMG
+          stateFlag5 = stateFlag5.getArenaSpectatePedOffsetZ
+          stateFlag5 = stateFlag5()
+          if stateFlag5 then
+            goto continueAtStep110
           end
         end
-        flag5 = numberValue7
-        ::flow_label_110::
-        flag7 = SetFocusPosAndVel
-        flag8 = workValue13.x
-        flag10 = workValue13.y
-        flag12 = workValue13.z
-        flag14 = 0.0
-        flag2 = 0.0
-        numberValue = 0.0
-        flag7(flag8, flag10, flag12, flag14, flag2, numberValue)
-        flag7 = SetEntityCoordsNoOffset
-        flag8 = arg2
-        flag10 = workValue13.x
-        flag12 = workValue13.y
-        flag14 = workValue13.z
-        flag14 = flag14 - flag5
-        flag2 = true
-        numberValue = false
-        numberValue2 = false
+        stateFlag5 = number7
+        ::continueAtStep110::
+        stateFlag7 = SetFocusPosAndVel
+        stateFlag8 = workingValue13.x
+        stateFlag10 = workingValue13.y
+        stateFlag12 = workingValue13.z
+        stateFlag14 = 0.0
+        stateFlag2 = 0.0
+        number = 0.0
+        stateFlag7(stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number)
+        stateFlag7 = SetEntityCoordsNoOffset
+        stateFlag8 = localValue2
+        stateFlag10 = workingValue13.x
+        stateFlag12 = workingValue13.y
+        stateFlag14 = workingValue13.z
+        stateFlag14 = stateFlag14 - stateFlag5
+        stateFlag2 = true
+        number = false
+        number2 = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        flag7(flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2)
-        flag7 = flag6
-        if not flag7 then
-          flag7 = workValue16
-          flag8 = workValue12
-          flag7(flag8)
-          flag7 = true
-          flag6 = flag7
+        stateFlag7(stateFlag8, stateFlag10, stateFlag12, stateFlag14, stateFlag2, number, number2)
+        stateFlag7 = stateFlag6
+        if not stateFlag7 then
+          stateFlag7 = workingValue16
+          stateFlag8 = workingValue12
+          stateFlag7(stateFlag8)
+          stateFlag7 = true
+          stateFlag6 = stateFlag7
         end
-        flag7 = GetActivePlayers
-        flag7 = flag7()
-        flag8 = pairs
-        flag10 = flag7
-        flag8, flag10, flag12, flag14 = flag8(flag10)
-        for flag2, numberValue in flag8, flag10, flag12, flag14 do
-          numberValue2 = GetPlayerPed
-          cmgCall = numberValue
+        stateFlag7 = GetActivePlayers
+        stateFlag7 = stateFlag7()
+        stateFlag8 = pairs
+        stateFlag10 = stateFlag7
+        stateFlag8, stateFlag10, stateFlag12, stateFlag14 = stateFlag8(stateFlag10)
+        for stateFlag2, number in stateFlag8, stateFlag10, stateFlag12, stateFlag14 do
+          number2 = GetPlayerPed
+          cmgOperation = number
           -- Beginner: result below is playerPed.
-          numberValue2 = numberValue2(cmgCall)
-          cmgCall = SetEntityNoCollisionEntity
-          textValue = arg2
-          cmgCall3 = numberValue2
-          textValue3 = true
-          cmgCall(textValue, cmgCall3, textValue3)
+          number2 = number2(cmgOperation)
+          cmgOperation = SetEntityNoCollisionEntity
+          text = localValue2
+          cmgOperation3 = number2
+          text3 = true
+          cmgOperation(text, cmgOperation3, text3)
         end
       else
-        arg2 = false
-        flag6 = arg2
-        arg2 = CMG
-        arg2 = arg2.isArenaSpectating
-        arg2 = arg2()
-        if not arg2 then
-          playerPed = workValue12
-          arg2 = dataTable
-          arg2 = arg2[playerPed]
-          if arg2 then
-            arg2 = flag4
-            if not arg2 then
-              arg2 = true
-              flag4 = arg2
-              arg2 = Citizen
-              arg2 = arg2.CreateThread
+        localValue2 = false
+        stateFlag6 = localValue2
+        localValue2 = CMG
+        localValue2 = localValue2.isArenaSpectating
+        localValue2 = localValue2()
+        if not localValue2 then
+          playerPed = workingValue12
+          localValue2 = dataCollection
+          localValue2 = localValue2[playerPed]
+          if localValue2 then
+            localValue2 = stateFlag4
+            if not localValue2 then
+              localValue2 = true
+              stateFlag4 = localValue2
+              localValue2 = Citizen
+              localValue2 = localValue2.CreateThread
 
               -- === HELPER FUNCTION: playerPed() ===
               function playerPed()
-                local workValue, numberValue6, playerPed2, workValue14, workValue15, numberValue8, flag9, flag11, flag13, flag15
-                workValue = DoScreenFadeOut
-                numberValue6 = 250
-                workValue(numberValue6)
-                numberValue6 = workValue12
-                workValue = dataTable
-                workValue = workValue[numberValue6]
-                numberValue6 = SetFocusPosAndVel
-                playerPed2 = workValue.x
-                workValue14 = workValue.y
-                workValue15 = workValue.z
-                numberValue8 = 0.0
-                flag9 = 0.0
-                flag11 = 0.0
-                numberValue6(playerPed2, workValue14, workValue15, numberValue8, flag9, flag11)
-                numberValue6 = SetEntityCoords
+                local workingValue, number6, playerPed2, workingValue14, workingValue15, number8, stateFlag9, stateFlag11, stateFlag13, stateFlag15
+                workingValue = DoScreenFadeOut
+                number6 = 250
+                workingValue(number6)
+                number6 = workingValue12
+                workingValue = dataCollection
+                workingValue = workingValue[number6]
+                number6 = SetFocusPosAndVel
+                playerPed2 = workingValue.x
+                workingValue14 = workingValue.y
+                workingValue15 = workingValue.z
+                number8 = 0.0
+                stateFlag9 = 0.0
+                stateFlag11 = 0.0
+                number6(playerPed2, workingValue14, workingValue15, number8, stateFlag9, stateFlag11)
+                number6 = SetEntityCoords
                 playerPed2 = PlayerPedId
                 -- Beginner: result below is localPlayerPed.
                 playerPed2 = playerPed2()
-                workValue14 = workValue.x
-                workValue15 = workValue.y
-                numberValue8 = workValue.z
-                flag9 = numberValue7
-                numberValue8 = numberValue8 - flag9
-                flag9 = true
-                flag11 = false
-                flag13 = false
-                flag15 = false
+                workingValue14 = workingValue.x
+                workingValue15 = workingValue.y
+                number8 = workingValue.z
+                stateFlag9 = number7
+                number8 = number8 - stateFlag9
+                stateFlag9 = true
+                stateFlag11 = false
+                stateFlag13 = false
+                stateFlag15 = false
                 -- Beginner: Move/teleport an entity to new coordinates.
-                numberValue6(playerPed2, workValue14, workValue15, numberValue8, flag9, flag11, flag13, flag15)
-                numberValue6 = Wait
+                number6(playerPed2, workingValue14, workingValue15, number8, stateFlag9, stateFlag11, stateFlag13, stateFlag15)
+                number6 = Wait
                 playerPed2 = 250
-                numberValue6(playerPed2)
-                numberValue6 = DoScreenFadeIn
+                number6(playerPed2)
+                number6 = DoScreenFadeIn
                 playerPed2 = 250
-                numberValue6(playerPed2)
-                numberValue6 = false
-                flag4 = numberValue6
+                number6(playerPed2)
+                number6 = false
+                stateFlag4 = number6
               end
               -- Beginner: Start a separate FiveM thread so this code can run independently.
-              arg2(playerPed)
+              localValue2(playerPed)
             end
           end
         end
-        arg2 = CMG
-        arg2 = arg2.isArenaSpectating
-        arg2 = arg2()
-        if not arg2 then
-          arg2 = GetGameTimer
+        localValue2 = CMG
+        localValue2 = localValue2.isArenaSpectating
+        localValue2 = localValue2()
+        if not localValue2 then
+          localValue2 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          arg2 = arg2()
+          localValue2 = localValue2()
           playerPed = gameTime
-          arg2 = arg2 - playerPed
+          localValue2 = localValue2 - playerPed
           playerPed = 5000
-          if arg2 > playerPed then
-            arg2 = TriggerServerEvent
+          if localValue2 > playerPed then
+            localValue2 = TriggerServerEvent
             playerPed = "b7ce7ba79c"
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b7ce7ba79c".
-            arg2(playerPed)
-            arg2 = GetGameTimer
+            localValue2(playerPed)
+            localValue2 = GetGameTimer
             -- Beginner: result below is gameTimeMs.
-            arg2 = arg2()
-            gameTime = arg2
+            localValue2 = localValue2()
+            gameTime = localValue2
           end
-          arg2 = GetGameTimer
+          localValue2 = GetGameTimer
           -- Beginner: result below is gameTimeMs.
-          arg2 = arg2()
-          playerPed = flag3
-          playerPed = arg2 - playerPed
-          workValue13 = 5000
-          if playerPed >= workValue13 then
-            flag3 = arg2
+          localValue2 = localValue2()
+          playerPed = stateFlag3
+          playerPed = localValue2 - playerPed
+          workingValue13 = 5000
+          if playerPed >= workingValue13 then
+            stateFlag3 = localValue2
             playerPed = notify
-            workValue13 = "~r~Couldn't spectate, person not in your zone"
+            workingValue13 = "~r~Couldn't spectate, person not in your zone"
             -- Beginner: Show a notification to the player.
-            playerPed(workValue13)
+            playerPed(workingValue13)
           end
         end
       end
     end
   end
 end
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.createThreadOnTick
-textValue4 = workValue11
-textValue5 = "Event Spectator Controls"
+cmgOperation4 = CMG
+cmgOperation4 = cmgOperation4.createThreadOnTick
+text4 = workingValue11
+text5 = "Event Spectator Controls"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall4(textValue4, textValue5)
-cmgCall4 = RegisterNetEvent
-textValue4 = "87a29fa0b5"
+cmgOperation4(text4, text5)
+cmgOperation4 = RegisterNetEvent
+text4 = "87a29fa0b5"
 -- Beginner: this function handles network event "87a29fa0b5".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
-function textValue5(arg1)
-  local arg2
-  dataTable = arg1
+-- === HELPER FUNCTION (decompiler name: text5; parameters: localValue1) ===
+function text5(localValue1)
+  local localValue2
+  dataCollection = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "87a29fa0b5".
-cmgCall4(textValue4, textValue5)
-cmgCall4 = RegisterNetEvent
-textValue4 = "e0d0f4d443"
+cmgOperation4(text4, text5)
+cmgOperation4 = RegisterNetEvent
+text4 = "e0d0f4d443"
 -- Beginner: this function handles network event "e0d0f4d443".
 
--- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
-function textValue5()
-  local arg1, arg2, playerPed, workValue13, flag5, flag7
-  arg1 = CMG
-  arg1 = arg1.markArenaPlayerDead
-  arg1()
-  arg1 = TriggerEvent
-  arg2 = "193ee4e15e"
+-- === HELPER FUNCTION (decompiler name: text5; parameters: none) ===
+function text5()
+  local localValue1, localValue2, playerPed, workingValue13, stateFlag5, stateFlag7
+  localValue1 = CMG
+  localValue1 = localValue1.markArenaPlayerDead
+  localValue1()
+  localValue1 = TriggerEvent
+  localValue2 = "193ee4e15e"
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "193ee4e15e".
-  arg1(arg2)
-  arg1 = CMG
-  arg1 = arg1.getPlayerVehicle
+  localValue1(localValue2)
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerVehicle
   -- Beginner: result below is currentVehicle.
-  arg1 = arg1()
-  if 0 ~= arg1 then
-    arg2 = DeleteEntity
-    playerPed = arg1
+  localValue1 = localValue1()
+  if 0 ~= localValue1 then
+    localValue2 = DeleteEntity
+    playerPed = localValue1
     -- Beginner: Delete a GTA entity.
-    arg2(playerPed)
+    localValue2(playerPed)
   end
-  arg2 = PlayerPedId
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
+  localValue2 = localValue2()
   playerPed = RemoveAllPedWeapons
-  workValue13 = arg2
-  flag5 = false
-  playerPed(workValue13, flag5)
+  workingValue13 = localValue2
+  stateFlag5 = false
+  playerPed(workingValue13, stateFlag5)
   playerPed = SetCurrentPedWeapon
-  workValue13 = arg2
-  flag5 = -1569615261
-  flag7 = true
-  playerPed(workValue13, flag5, flag7)
+  workingValue13 = localValue2
+  stateFlag5 = -1569615261
+  stateFlag7 = true
+  playerPed(workingValue13, stateFlag5, stateFlag7)
   playerPed = CMG
   playerPed = playerPed.setEventSpectatorMode
-  workValue13 = true
-  playerPed(workValue13)
+  workingValue13 = true
+  playerPed(workingValue13)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e0d0f4d443".
-cmgCall4(textValue4, textValue5)
+cmgOperation4(text4, text5)

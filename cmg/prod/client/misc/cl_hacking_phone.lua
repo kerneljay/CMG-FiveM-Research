@@ -32,813 +32,813 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local dataTable, dataTable12, dataTable23, dataTable31, eventRegistration, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8, dataTable9, dataTable10, dataTable11, dataTable13, dataTable14, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, dataTable21, dataTable22, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30
-dataTable = {}
-dataTable12 = {}
-dataTable23 = {}
-dataTable23.label = "Street cam 1"
-dataTable31 = {}
-dataTable31.x = 234.53869628906
-dataTable31.y = -394.37854003906
-dataTable31.z = 51.980960845947
-dataTable23.pos = dataTable31
-dataTable31 = {}
-dataTable31.x = -25.0
-dataTable31.y = 0.0
-dataTable31.z = 0.0
-dataTable23.rot = dataTable31
-dataTable31 = {}
-dataTable31.label = "Street cam 2"
-eventRegistration = {}
-eventRegistration.x = -130.69403076172
-eventRegistration.y = -237.51498413086
-eventRegistration.z = 46.375648498535
-dataTable31.pos = eventRegistration
-eventRegistration = {}
-eventRegistration.x = -25.0
-eventRegistration.y = 0.0
-eventRegistration.z = 0.0
-dataTable31.rot = eventRegistration
-eventRegistration = {}
-eventRegistration.label = "Street cam 3"
-dataTable32 = {}
-dataTable32.x = 228.79537963867
-dataTable32.y = 217.26516723633
-dataTable32.z = 111.65953826904
-eventRegistration.pos = dataTable32
-dataTable32 = {}
-dataTable32.x = -25.0
-dataTable32.y = 0.0
-dataTable32.z = 0.0
-eventRegistration.rot = dataTable32
-dataTable32 = {}
-dataTable32.label = "Street cam 4"
-dataTable33 = {}
-dataTable33.x = 276.10882568359
-dataTable33.y = 147.8564453125
-dataTable33.z = 108.54515075684
-dataTable32.pos = dataTable33
-dataTable33 = {}
-dataTable33.x = -25.0
-dataTable33.y = 0.0
-dataTable33.z = 0.0
-dataTable32.rot = dataTable33
-dataTable33 = {}
-dataTable33.label = "Street cam 5"
-dataTable34 = {}
-dataTable34.x = -697.13793945312
-dataTable34.y = 271.83880615234
-dataTable34.z = 92.289413452148
-dataTable33.pos = dataTable34
-dataTable34 = {}
-dataTable34.x = -25.0
-dataTable34.y = 0.0
-dataTable34.z = 0.0
-dataTable33.rot = dataTable34
-dataTable34 = {}
-dataTable34.label = "Street cam 6"
-dataTable35 = {}
-dataTable35.x = -717.26025390625
-dataTable35.y = -157.43000793457
-dataTable35.z = 41.1064453125
-dataTable34.pos = dataTable35
-dataTable35 = {}
-dataTable35.x = -25.0
-dataTable35.y = 0.0
-dataTable35.z = 0.0
-dataTable34.rot = dataTable35
-dataTable35 = {}
-dataTable35.label = "Street cam 7"
-dataTable36 = {}
-dataTable36.x = -638.20953369141
-dataTable36.y = -249.96182250977
-dataTable36.z = 42.848964691162
-dataTable35.pos = dataTable36
-dataTable36 = {}
-dataTable36.x = -25.0
-dataTable36.y = 0.0
-dataTable36.z = 0.0
-dataTable35.rot = dataTable36
-dataTable36 = {}
-dataTable36.label = "Street cam 8"
-dataTable2 = {}
-dataTable2.x = -2974.3278808594
-dataTable2.y = 395.2333984375
-dataTable2.z = 16.954597473145
-dataTable36.pos = dataTable2
-dataTable2 = {}
-dataTable2.x = -25.0
-dataTable2.y = 0.0
-dataTable2.z = 0.0
-dataTable36.rot = dataTable2
-dataTable2 = {}
-dataTable2.label = "Street cam 9"
-dataTable3 = {}
-dataTable3.x = -2966.9111328125
-dataTable3.y = 485.03805541992
-dataTable3.z = 17.149766921997
-dataTable2.pos = dataTable3
-dataTable3 = {}
-dataTable3.x = -25.0
-dataTable3.y = 0.0
-dataTable3.z = 0.0
-dataTable2.rot = dataTable3
-dataTable3 = {}
-dataTable3.label = "Street cam 10"
-dataTable4 = {}
-dataTable4.x = -2467.7106933594
-dataTable4.y = -218.71464538574
-dataTable4.z = 23.948993682861
-dataTable3.pos = dataTable4
-dataTable4 = {}
-dataTable4.x = -25.0
-dataTable4.y = 0.0
-dataTable4.z = 0.0
-dataTable3.rot = dataTable4
-dataTable4 = {}
-dataTable4.label = "Street cam 11"
-dataTable5 = {}
-dataTable5.x = -202.26121520996
-dataTable5.y = -864.77221679688
-dataTable5.z = 34.702033996582
-dataTable4.pos = dataTable5
-dataTable5 = {}
-dataTable5.x = -25.0
-dataTable5.y = 0.0
-dataTable5.z = 0.0
-dataTable4.rot = dataTable5
-dataTable5 = {}
-dataTable5.label = "Street cam 12"
-dataTable6 = {}
-dataTable6.x = 387.98492431641
-dataTable6.y = -974.71929931641
-dataTable6.z = 32.410995483398
-dataTable5.pos = dataTable6
-dataTable6 = {}
-dataTable6.x = -25.0
-dataTable6.y = 0.0
-dataTable6.z = 0.0
-dataTable5.rot = dataTable6
-dataTable6 = {}
-dataTable6.label = "Street cam 13"
-dataTable7 = {}
-dataTable7.x = 423.26708984375
-dataTable7.y = -997.22393798828
-dataTable7.z = 33.90548324585
-dataTable6.pos = dataTable7
-dataTable7 = {}
-dataTable7.x = -25.0
-dataTable7.y = 0.0
-dataTable7.z = 0.0
-dataTable6.rot = dataTable7
-dataTable7 = {}
-dataTable7.label = "Street cam 14"
-dataTable8 = {}
-dataTable8.x = 438.83123779297
-dataTable8.y = -1000.6759033203
-dataTable8.z = 32.538806915283
-dataTable7.pos = dataTable8
-dataTable8 = {}
-dataTable8.x = -25.0
-dataTable8.y = 0.0
-dataTable8.z = 0.0
-dataTable7.rot = dataTable8
-dataTable8 = {}
-dataTable8.label = "Street cam 15"
-dataTable9 = {}
-dataTable9.x = 467.33630371094
-dataTable9.y = -1015.2039794922
-dataTable9.z = 30.915859222412
-dataTable8.pos = dataTable9
-dataTable9 = {}
-dataTable9.x = -25.0
-dataTable9.y = 0.0
-dataTable9.z = 0.0
-dataTable8.rot = dataTable9
-dataTable9 = {}
-dataTable9.label = "Street cam 16"
-dataTable10 = {}
-dataTable10.x = 490.38217163086
-dataTable10.y = -1024.0905761719
-dataTable10.z = 31.309572219849
-dataTable9.pos = dataTable10
-dataTable10 = {}
-dataTable10.x = -25.0
-dataTable10.y = 0.0
-dataTable10.z = 0.0
-dataTable9.rot = dataTable10
-dataTable10 = {}
-dataTable10.label = "Street cam 17"
-dataTable11 = {}
-dataTable11.x = 489.91595458984
-dataTable11.y = -1003.3515625
-dataTable11.z = 29.712303161621
-dataTable10.pos = dataTable11
-dataTable11 = {}
-dataTable11.x = -25.0
-dataTable11.y = 0.0
-dataTable11.z = 0.0
-dataTable10.rot = dataTable11
-dataTable11 = {}
-dataTable11.label = "Street cam 18"
-dataTable13 = {}
-dataTable13.x = 481.11560058594
-dataTable13.y = -977.43322753906
-dataTable13.z = 29.869251251221
-dataTable11.pos = dataTable13
-dataTable13 = {}
-dataTable13.x = -25.0
-dataTable13.y = 0.0
-dataTable13.z = 0.0
-dataTable11.rot = dataTable13
-dataTable13 = {}
-dataTable13.label = "Street cam 19"
-dataTable14 = {}
-dataTable14.x = 432.4736328125
-dataTable14.y = -656.77960205078
-dataTable14.z = 30.912614822388
-dataTable13.pos = dataTable14
-dataTable14 = {}
-dataTable14.x = -25.0
-dataTable14.y = 0.0
-dataTable14.z = 0.0
-dataTable13.rot = dataTable14
-dataTable14 = {}
-dataTable14.label = "Street cam 20"
-dataTable15 = {}
-dataTable15.x = 353.97552490234
-dataTable15.y = -600.77154541016
-dataTable15.z = 32.244640350342
-dataTable14.pos = dataTable15
-dataTable15 = {}
-dataTable15.x = -25.0
-dataTable15.y = 0.0
-dataTable15.z = 0.0
-dataTable14.rot = dataTable15
-dataTable15 = {}
-dataTable15.label = "Street cam 21"
-dataTable16 = {}
-dataTable16.x = -128.30404663086
-dataTable16.y = -1023.4191894531
-dataTable16.z = 35.994411468506
-dataTable15.pos = dataTable16
-dataTable16 = {}
-dataTable16.x = -25.0
-dataTable16.y = 0.0
-dataTable16.z = 0.0
-dataTable15.rot = dataTable16
-dataTable16 = {}
-dataTable16.label = "Street cam 22"
-dataTable17 = {}
-dataTable17.x = -62.237995147705
-dataTable17.y = -1101.1270751953
-dataTable17.z = 32.561504364014
-dataTable16.pos = dataTable17
-dataTable17 = {}
-dataTable17.x = -25.0
-dataTable17.y = 0.0
-dataTable17.z = 0.0
-dataTable16.rot = dataTable17
-dataTable17 = {}
-dataTable17.label = "Street cam 23"
-dataTable18 = {}
-dataTable18.x = 24.420116424561
-dataTable18.y = -1350.7467041016
-dataTable18.z = 32.561325073242
-dataTable17.pos = dataTable18
-dataTable18 = {}
-dataTable18.x = -25.0
-dataTable18.y = 0.0
-dataTable18.z = 0.0
-dataTable17.rot = dataTable18
-dataTable18 = {}
-dataTable18.label = "Street cam 24"
-dataTable19 = {}
-dataTable19.x = 102.72190856934
-dataTable19.y = -1318.4841308594
-dataTable19.z = 33.93473815918
-dataTable18.pos = dataTable19
-dataTable19 = {}
-dataTable19.x = -25.0
-dataTable19.y = 0.0
-dataTable19.z = 0.0
-dataTable18.rot = dataTable19
-dataTable19 = {}
-dataTable19.label = "Street cam 25"
-dataTable20 = {}
-dataTable20.x = 68.04532623291
-dataTable20.y = -1720.1014404297
-dataTable20.z = 34.036998748779
-dataTable19.pos = dataTable20
-dataTable20 = {}
-dataTable20.x = -25.0
-dataTable20.y = 0.0
-dataTable20.z = 0.0
-dataTable19.rot = dataTable20
-dataTable20 = {}
-dataTable20.label = "Street cam 26"
-dataTable21 = {}
-dataTable21.x = -59.932559967041
-dataTable21.y = -1752.037109375
-dataTable21.z = 31.550285339355
-dataTable20.pos = dataTable21
-dataTable21 = {}
-dataTable21.x = -25.0
-dataTable21.y = 0.0
-dataTable21.z = 0.0
-dataTable20.rot = dataTable21
-dataTable21 = {}
-dataTable21.label = "Street cam 27"
-dataTable22 = {}
-dataTable22.x = 1301.2156982422
-dataTable22.y = 4317.45703125
-dataTable22.z = 41.211765289307
-dataTable21.pos = dataTable22
-dataTable22 = {}
-dataTable22.x = -25.0
-dataTable22.y = 0.0
-dataTable22.z = 0.0
-dataTable21.rot = dataTable22
-dataTable22 = {}
-dataTable22.label = "Street cam 28"
-dataTable24 = {}
-dataTable24.x = 3550.9475097656
-dataTable24.y = 3651.6000976562
-dataTable24.z = 46.954288482666
-dataTable22.pos = dataTable24
-dataTable24 = {}
-dataTable24.x = -25.0
-dataTable24.y = 0.0
-dataTable24.z = 0.0
-dataTable22.rot = dataTable24
-dataTable24 = {}
-dataTable24.label = "Street cam 29"
-dataTable25 = {}
-dataTable25.x = 1727.2385253906
-dataTable25.y = 6412.2392578125
-dataTable25.z = 36.611518859863
-dataTable24.pos = dataTable25
-dataTable25 = {}
-dataTable25.x = -25.0
-dataTable25.y = 0.0
-dataTable25.z = 0.0
-dataTable24.rot = dataTable25
-dataTable25 = {}
-dataTable25.label = "Street cam 30"
-dataTable26 = {}
-dataTable26.x = 130.58874511719
-dataTable26.y = 6525.1376953125
-dataTable26.z = 35.731548309326
-dataTable25.pos = dataTable26
-dataTable26 = {}
-dataTable26.x = -25.0
-dataTable26.y = 0.0
-dataTable26.z = 0.0
-dataTable25.rot = dataTable26
-dataTable26 = {}
-dataTable26.label = "Street cam 31"
-dataTable27 = {}
-dataTable27.x = -434.53747558594
-dataTable27.y = 6011.1416015625
-dataTable27.z = 34.472328186035
-dataTable26.pos = dataTable27
-dataTable27 = {}
-dataTable27.x = -25.0
-dataTable27.y = 0.0
-dataTable27.z = 0.0
-dataTable26.rot = dataTable27
-dataTable27 = {}
-dataTable27.label = "Street cam 32"
-dataTable28 = {}
-dataTable28.x = -1099.2557373047
-dataTable28.y = 4911.3217773438
-dataTable28.z = 218.9635925293
-dataTable27.pos = dataTable28
-dataTable28 = {}
-dataTable28.x = -25.0
-dataTable28.y = 0.0
-dataTable28.z = 0.0
-dataTable27.rot = dataTable28
-dataTable28 = {}
-dataTable28.label = "Street cam 33"
-dataTable29 = {}
-dataTable29.x = 1487.5465087891
-dataTable29.y = 6354.9409179688
-dataTable29.z = 27.180263519287
-dataTable28.pos = dataTable29
-dataTable29 = {}
-dataTable29.x = -25.0
-dataTable29.y = 0.0
-dataTable29.z = 0.0
-dataTable28.rot = dataTable29
-dataTable29 = {}
-dataTable29.label = "Street cam 34"
-dataTable30 = {}
-dataTable30.x = 232.71536254883
-dataTable30.y = -591.38494873047
-dataTable30.z = 47.335529327393
-dataTable29.pos = dataTable30
-dataTable30 = {}
-dataTable30.x = -25.0
-dataTable30.y = 0.0
-dataTable30.z = 0.0
-dataTable29.rot = dataTable30
-dataTable12[1] = dataTable23
-dataTable12[2] = dataTable31
-dataTable12[3] = eventRegistration
-dataTable12[4] = dataTable32
-dataTable12[5] = dataTable33
-dataTable12[6] = dataTable34
-dataTable12[7] = dataTable35
-dataTable12[8] = dataTable36
-dataTable12[9] = dataTable2
-dataTable12[10] = dataTable3
-dataTable12[11] = dataTable4
-dataTable12[12] = dataTable5
-dataTable12[13] = dataTable6
-dataTable12[14] = dataTable7
-dataTable12[15] = dataTable8
-dataTable12[16] = dataTable9
-dataTable12[17] = dataTable10
-dataTable12[18] = dataTable11
-dataTable12[19] = dataTable13
-dataTable12[20] = dataTable14
-dataTable12[21] = dataTable15
-dataTable12[22] = dataTable16
-dataTable12[23] = dataTable17
-dataTable12[24] = dataTable18
-dataTable12[25] = dataTable19
-dataTable12[26] = dataTable20
-dataTable12[27] = dataTable21
-dataTable12[28] = dataTable22
-dataTable12[29] = dataTable24
-dataTable12[30] = dataTable25
-dataTable12[31] = dataTable26
-dataTable12[32] = dataTable27
-dataTable12[33] = dataTable28
-dataTable12[34] = dataTable29
+local dataCollection, dataCollection12, dataCollection23, dataCollection31, eventHandler, dataCollection32, dataCollection33, dataCollection34, dataCollection35, dataCollection36, dataCollection2, dataCollection3, dataCollection4, dataCollection5, dataCollection6, dataCollection7, dataCollection8, dataCollection9, dataCollection10, dataCollection11, dataCollection13, dataCollection14, dataCollection15, dataCollection16, dataCollection17, dataCollection18, dataCollection19, dataCollection20, dataCollection21, dataCollection22, dataCollection24, dataCollection25, dataCollection26, dataCollection27, dataCollection28, dataCollection29, dataCollection30
+dataCollection = {}
+dataCollection12 = {}
+dataCollection23 = {}
+dataCollection23.label = "Street cam 1"
+dataCollection31 = {}
+dataCollection31.x = 234.53869628906
+dataCollection31.y = -394.37854003906
+dataCollection31.z = 51.980960845947
+dataCollection23.pos = dataCollection31
+dataCollection31 = {}
+dataCollection31.x = -25.0
+dataCollection31.y = 0.0
+dataCollection31.z = 0.0
+dataCollection23.rot = dataCollection31
+dataCollection31 = {}
+dataCollection31.label = "Street cam 2"
+eventHandler = {}
+eventHandler.x = -130.69403076172
+eventHandler.y = -237.51498413086
+eventHandler.z = 46.375648498535
+dataCollection31.pos = eventHandler
+eventHandler = {}
+eventHandler.x = -25.0
+eventHandler.y = 0.0
+eventHandler.z = 0.0
+dataCollection31.rot = eventHandler
+eventHandler = {}
+eventHandler.label = "Street cam 3"
+dataCollection32 = {}
+dataCollection32.x = 228.79537963867
+dataCollection32.y = 217.26516723633
+dataCollection32.z = 111.65953826904
+eventHandler.pos = dataCollection32
+dataCollection32 = {}
+dataCollection32.x = -25.0
+dataCollection32.y = 0.0
+dataCollection32.z = 0.0
+eventHandler.rot = dataCollection32
+dataCollection32 = {}
+dataCollection32.label = "Street cam 4"
+dataCollection33 = {}
+dataCollection33.x = 276.10882568359
+dataCollection33.y = 147.8564453125
+dataCollection33.z = 108.54515075684
+dataCollection32.pos = dataCollection33
+dataCollection33 = {}
+dataCollection33.x = -25.0
+dataCollection33.y = 0.0
+dataCollection33.z = 0.0
+dataCollection32.rot = dataCollection33
+dataCollection33 = {}
+dataCollection33.label = "Street cam 5"
+dataCollection34 = {}
+dataCollection34.x = -697.13793945312
+dataCollection34.y = 271.83880615234
+dataCollection34.z = 92.289413452148
+dataCollection33.pos = dataCollection34
+dataCollection34 = {}
+dataCollection34.x = -25.0
+dataCollection34.y = 0.0
+dataCollection34.z = 0.0
+dataCollection33.rot = dataCollection34
+dataCollection34 = {}
+dataCollection34.label = "Street cam 6"
+dataCollection35 = {}
+dataCollection35.x = -717.26025390625
+dataCollection35.y = -157.43000793457
+dataCollection35.z = 41.1064453125
+dataCollection34.pos = dataCollection35
+dataCollection35 = {}
+dataCollection35.x = -25.0
+dataCollection35.y = 0.0
+dataCollection35.z = 0.0
+dataCollection34.rot = dataCollection35
+dataCollection35 = {}
+dataCollection35.label = "Street cam 7"
+dataCollection36 = {}
+dataCollection36.x = -638.20953369141
+dataCollection36.y = -249.96182250977
+dataCollection36.z = 42.848964691162
+dataCollection35.pos = dataCollection36
+dataCollection36 = {}
+dataCollection36.x = -25.0
+dataCollection36.y = 0.0
+dataCollection36.z = 0.0
+dataCollection35.rot = dataCollection36
+dataCollection36 = {}
+dataCollection36.label = "Street cam 8"
+dataCollection2 = {}
+dataCollection2.x = -2974.3278808594
+dataCollection2.y = 395.2333984375
+dataCollection2.z = 16.954597473145
+dataCollection36.pos = dataCollection2
+dataCollection2 = {}
+dataCollection2.x = -25.0
+dataCollection2.y = 0.0
+dataCollection2.z = 0.0
+dataCollection36.rot = dataCollection2
+dataCollection2 = {}
+dataCollection2.label = "Street cam 9"
+dataCollection3 = {}
+dataCollection3.x = -2966.9111328125
+dataCollection3.y = 485.03805541992
+dataCollection3.z = 17.149766921997
+dataCollection2.pos = dataCollection3
+dataCollection3 = {}
+dataCollection3.x = -25.0
+dataCollection3.y = 0.0
+dataCollection3.z = 0.0
+dataCollection2.rot = dataCollection3
+dataCollection3 = {}
+dataCollection3.label = "Street cam 10"
+dataCollection4 = {}
+dataCollection4.x = -2467.7106933594
+dataCollection4.y = -218.71464538574
+dataCollection4.z = 23.948993682861
+dataCollection3.pos = dataCollection4
+dataCollection4 = {}
+dataCollection4.x = -25.0
+dataCollection4.y = 0.0
+dataCollection4.z = 0.0
+dataCollection3.rot = dataCollection4
+dataCollection4 = {}
+dataCollection4.label = "Street cam 11"
+dataCollection5 = {}
+dataCollection5.x = -202.26121520996
+dataCollection5.y = -864.77221679688
+dataCollection5.z = 34.702033996582
+dataCollection4.pos = dataCollection5
+dataCollection5 = {}
+dataCollection5.x = -25.0
+dataCollection5.y = 0.0
+dataCollection5.z = 0.0
+dataCollection4.rot = dataCollection5
+dataCollection5 = {}
+dataCollection5.label = "Street cam 12"
+dataCollection6 = {}
+dataCollection6.x = 387.98492431641
+dataCollection6.y = -974.71929931641
+dataCollection6.z = 32.410995483398
+dataCollection5.pos = dataCollection6
+dataCollection6 = {}
+dataCollection6.x = -25.0
+dataCollection6.y = 0.0
+dataCollection6.z = 0.0
+dataCollection5.rot = dataCollection6
+dataCollection6 = {}
+dataCollection6.label = "Street cam 13"
+dataCollection7 = {}
+dataCollection7.x = 423.26708984375
+dataCollection7.y = -997.22393798828
+dataCollection7.z = 33.90548324585
+dataCollection6.pos = dataCollection7
+dataCollection7 = {}
+dataCollection7.x = -25.0
+dataCollection7.y = 0.0
+dataCollection7.z = 0.0
+dataCollection6.rot = dataCollection7
+dataCollection7 = {}
+dataCollection7.label = "Street cam 14"
+dataCollection8 = {}
+dataCollection8.x = 438.83123779297
+dataCollection8.y = -1000.6759033203
+dataCollection8.z = 32.538806915283
+dataCollection7.pos = dataCollection8
+dataCollection8 = {}
+dataCollection8.x = -25.0
+dataCollection8.y = 0.0
+dataCollection8.z = 0.0
+dataCollection7.rot = dataCollection8
+dataCollection8 = {}
+dataCollection8.label = "Street cam 15"
+dataCollection9 = {}
+dataCollection9.x = 467.33630371094
+dataCollection9.y = -1015.2039794922
+dataCollection9.z = 30.915859222412
+dataCollection8.pos = dataCollection9
+dataCollection9 = {}
+dataCollection9.x = -25.0
+dataCollection9.y = 0.0
+dataCollection9.z = 0.0
+dataCollection8.rot = dataCollection9
+dataCollection9 = {}
+dataCollection9.label = "Street cam 16"
+dataCollection10 = {}
+dataCollection10.x = 490.38217163086
+dataCollection10.y = -1024.0905761719
+dataCollection10.z = 31.309572219849
+dataCollection9.pos = dataCollection10
+dataCollection10 = {}
+dataCollection10.x = -25.0
+dataCollection10.y = 0.0
+dataCollection10.z = 0.0
+dataCollection9.rot = dataCollection10
+dataCollection10 = {}
+dataCollection10.label = "Street cam 17"
+dataCollection11 = {}
+dataCollection11.x = 489.91595458984
+dataCollection11.y = -1003.3515625
+dataCollection11.z = 29.712303161621
+dataCollection10.pos = dataCollection11
+dataCollection11 = {}
+dataCollection11.x = -25.0
+dataCollection11.y = 0.0
+dataCollection11.z = 0.0
+dataCollection10.rot = dataCollection11
+dataCollection11 = {}
+dataCollection11.label = "Street cam 18"
+dataCollection13 = {}
+dataCollection13.x = 481.11560058594
+dataCollection13.y = -977.43322753906
+dataCollection13.z = 29.869251251221
+dataCollection11.pos = dataCollection13
+dataCollection13 = {}
+dataCollection13.x = -25.0
+dataCollection13.y = 0.0
+dataCollection13.z = 0.0
+dataCollection11.rot = dataCollection13
+dataCollection13 = {}
+dataCollection13.label = "Street cam 19"
+dataCollection14 = {}
+dataCollection14.x = 432.4736328125
+dataCollection14.y = -656.77960205078
+dataCollection14.z = 30.912614822388
+dataCollection13.pos = dataCollection14
+dataCollection14 = {}
+dataCollection14.x = -25.0
+dataCollection14.y = 0.0
+dataCollection14.z = 0.0
+dataCollection13.rot = dataCollection14
+dataCollection14 = {}
+dataCollection14.label = "Street cam 20"
+dataCollection15 = {}
+dataCollection15.x = 353.97552490234
+dataCollection15.y = -600.77154541016
+dataCollection15.z = 32.244640350342
+dataCollection14.pos = dataCollection15
+dataCollection15 = {}
+dataCollection15.x = -25.0
+dataCollection15.y = 0.0
+dataCollection15.z = 0.0
+dataCollection14.rot = dataCollection15
+dataCollection15 = {}
+dataCollection15.label = "Street cam 21"
+dataCollection16 = {}
+dataCollection16.x = -128.30404663086
+dataCollection16.y = -1023.4191894531
+dataCollection16.z = 35.994411468506
+dataCollection15.pos = dataCollection16
+dataCollection16 = {}
+dataCollection16.x = -25.0
+dataCollection16.y = 0.0
+dataCollection16.z = 0.0
+dataCollection15.rot = dataCollection16
+dataCollection16 = {}
+dataCollection16.label = "Street cam 22"
+dataCollection17 = {}
+dataCollection17.x = -62.237995147705
+dataCollection17.y = -1101.1270751953
+dataCollection17.z = 32.561504364014
+dataCollection16.pos = dataCollection17
+dataCollection17 = {}
+dataCollection17.x = -25.0
+dataCollection17.y = 0.0
+dataCollection17.z = 0.0
+dataCollection16.rot = dataCollection17
+dataCollection17 = {}
+dataCollection17.label = "Street cam 23"
+dataCollection18 = {}
+dataCollection18.x = 24.420116424561
+dataCollection18.y = -1350.7467041016
+dataCollection18.z = 32.561325073242
+dataCollection17.pos = dataCollection18
+dataCollection18 = {}
+dataCollection18.x = -25.0
+dataCollection18.y = 0.0
+dataCollection18.z = 0.0
+dataCollection17.rot = dataCollection18
+dataCollection18 = {}
+dataCollection18.label = "Street cam 24"
+dataCollection19 = {}
+dataCollection19.x = 102.72190856934
+dataCollection19.y = -1318.4841308594
+dataCollection19.z = 33.93473815918
+dataCollection18.pos = dataCollection19
+dataCollection19 = {}
+dataCollection19.x = -25.0
+dataCollection19.y = 0.0
+dataCollection19.z = 0.0
+dataCollection18.rot = dataCollection19
+dataCollection19 = {}
+dataCollection19.label = "Street cam 25"
+dataCollection20 = {}
+dataCollection20.x = 68.04532623291
+dataCollection20.y = -1720.1014404297
+dataCollection20.z = 34.036998748779
+dataCollection19.pos = dataCollection20
+dataCollection20 = {}
+dataCollection20.x = -25.0
+dataCollection20.y = 0.0
+dataCollection20.z = 0.0
+dataCollection19.rot = dataCollection20
+dataCollection20 = {}
+dataCollection20.label = "Street cam 26"
+dataCollection21 = {}
+dataCollection21.x = -59.932559967041
+dataCollection21.y = -1752.037109375
+dataCollection21.z = 31.550285339355
+dataCollection20.pos = dataCollection21
+dataCollection21 = {}
+dataCollection21.x = -25.0
+dataCollection21.y = 0.0
+dataCollection21.z = 0.0
+dataCollection20.rot = dataCollection21
+dataCollection21 = {}
+dataCollection21.label = "Street cam 27"
+dataCollection22 = {}
+dataCollection22.x = 1301.2156982422
+dataCollection22.y = 4317.45703125
+dataCollection22.z = 41.211765289307
+dataCollection21.pos = dataCollection22
+dataCollection22 = {}
+dataCollection22.x = -25.0
+dataCollection22.y = 0.0
+dataCollection22.z = 0.0
+dataCollection21.rot = dataCollection22
+dataCollection22 = {}
+dataCollection22.label = "Street cam 28"
+dataCollection24 = {}
+dataCollection24.x = 3550.9475097656
+dataCollection24.y = 3651.6000976562
+dataCollection24.z = 46.954288482666
+dataCollection22.pos = dataCollection24
+dataCollection24 = {}
+dataCollection24.x = -25.0
+dataCollection24.y = 0.0
+dataCollection24.z = 0.0
+dataCollection22.rot = dataCollection24
+dataCollection24 = {}
+dataCollection24.label = "Street cam 29"
+dataCollection25 = {}
+dataCollection25.x = 1727.2385253906
+dataCollection25.y = 6412.2392578125
+dataCollection25.z = 36.611518859863
+dataCollection24.pos = dataCollection25
+dataCollection25 = {}
+dataCollection25.x = -25.0
+dataCollection25.y = 0.0
+dataCollection25.z = 0.0
+dataCollection24.rot = dataCollection25
+dataCollection25 = {}
+dataCollection25.label = "Street cam 30"
+dataCollection26 = {}
+dataCollection26.x = 130.58874511719
+dataCollection26.y = 6525.1376953125
+dataCollection26.z = 35.731548309326
+dataCollection25.pos = dataCollection26
+dataCollection26 = {}
+dataCollection26.x = -25.0
+dataCollection26.y = 0.0
+dataCollection26.z = 0.0
+dataCollection25.rot = dataCollection26
+dataCollection26 = {}
+dataCollection26.label = "Street cam 31"
+dataCollection27 = {}
+dataCollection27.x = -434.53747558594
+dataCollection27.y = 6011.1416015625
+dataCollection27.z = 34.472328186035
+dataCollection26.pos = dataCollection27
+dataCollection27 = {}
+dataCollection27.x = -25.0
+dataCollection27.y = 0.0
+dataCollection27.z = 0.0
+dataCollection26.rot = dataCollection27
+dataCollection27 = {}
+dataCollection27.label = "Street cam 32"
+dataCollection28 = {}
+dataCollection28.x = -1099.2557373047
+dataCollection28.y = 4911.3217773438
+dataCollection28.z = 218.9635925293
+dataCollection27.pos = dataCollection28
+dataCollection28 = {}
+dataCollection28.x = -25.0
+dataCollection28.y = 0.0
+dataCollection28.z = 0.0
+dataCollection27.rot = dataCollection28
+dataCollection28 = {}
+dataCollection28.label = "Street cam 33"
+dataCollection29 = {}
+dataCollection29.x = 1487.5465087891
+dataCollection29.y = 6354.9409179688
+dataCollection29.z = 27.180263519287
+dataCollection28.pos = dataCollection29
+dataCollection29 = {}
+dataCollection29.x = -25.0
+dataCollection29.y = 0.0
+dataCollection29.z = 0.0
+dataCollection28.rot = dataCollection29
+dataCollection29 = {}
+dataCollection29.label = "Street cam 34"
+dataCollection30 = {}
+dataCollection30.x = 232.71536254883
+dataCollection30.y = -591.38494873047
+dataCollection30.z = 47.335529327393
+dataCollection29.pos = dataCollection30
+dataCollection30 = {}
+dataCollection30.x = -25.0
+dataCollection30.y = 0.0
+dataCollection30.z = 0.0
+dataCollection29.rot = dataCollection30
+dataCollection12[1] = dataCollection23
+dataCollection12[2] = dataCollection31
+dataCollection12[3] = eventHandler
+dataCollection12[4] = dataCollection32
+dataCollection12[5] = dataCollection33
+dataCollection12[6] = dataCollection34
+dataCollection12[7] = dataCollection35
+dataCollection12[8] = dataCollection36
+dataCollection12[9] = dataCollection2
+dataCollection12[10] = dataCollection3
+dataCollection12[11] = dataCollection4
+dataCollection12[12] = dataCollection5
+dataCollection12[13] = dataCollection6
+dataCollection12[14] = dataCollection7
+dataCollection12[15] = dataCollection8
+dataCollection12[16] = dataCollection9
+dataCollection12[17] = dataCollection10
+dataCollection12[18] = dataCollection11
+dataCollection12[19] = dataCollection13
+dataCollection12[20] = dataCollection14
+dataCollection12[21] = dataCollection15
+dataCollection12[22] = dataCollection16
+dataCollection12[23] = dataCollection17
+dataCollection12[24] = dataCollection18
+dataCollection12[25] = dataCollection19
+dataCollection12[26] = dataCollection20
+dataCollection12[27] = dataCollection21
+dataCollection12[28] = dataCollection22
+dataCollection12[29] = dataCollection24
+dataCollection12[30] = dataCollection25
+dataCollection12[31] = dataCollection26
+dataCollection12[32] = dataCollection27
+dataCollection12[33] = dataCollection28
+dataCollection12[34] = dataCollection29
 
--- === HELPER FUNCTION (decompiler name: dataTable23; parameters: none) ===
-function dataTable23()
-  local arg1, workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21
-  arg1 = ipairs
-  workValue9 = dataTable
-  arg1, workValue9, workValue12, workValue14 = arg1(workValue9)
-  for workValue16, workValue19 in arg1, workValue9, workValue12, workValue14 do
-    workValue20 = DoesBlipExist
-    workValue21 = workValue19
-    workValue20 = workValue20(workValue21)
-    if workValue20 then
-      workValue20 = RemoveBlip
-      workValue21 = workValue19
-      workValue20(workValue21)
+-- === HELPER FUNCTION (decompiler name: dataCollection23; parameters: none) ===
+function dataCollection23()
+  local localValue1, workingValue9, workingValue12, workingValue14, workingValue16, workingValue19, workingValue20, workingValue21
+  localValue1 = ipairs
+  workingValue9 = dataCollection
+  localValue1, workingValue9, workingValue12, workingValue14 = localValue1(workingValue9)
+  for workingValue16, workingValue19 in localValue1, workingValue9, workingValue12, workingValue14 do
+    workingValue20 = DoesBlipExist
+    workingValue21 = workingValue19
+    workingValue20 = workingValue20(workingValue21)
+    if workingValue20 then
+      workingValue20 = RemoveBlip
+      workingValue21 = workingValue19
+      workingValue20(workingValue21)
     end
   end
-  arg1 = {}
-  dataTable = arg1
+  localValue1 = {}
+  dataCollection = localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: dataTable31; parameters: arg1) ===
-function dataTable31(arg1)
-  local workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2
-  if arg1 then
-    workValue9 = type
-    workValue12 = arg1
-    workValue9 = workValue9(workValue12)
-    if "table" == workValue9 then
-      goto flow_label_10
+-- === HELPER FUNCTION (decompiler name: dataCollection31; parameters: localValue1) ===
+function dataCollection31(localValue1)
+  local workingValue9, workingValue12, workingValue14, workingValue16, workingValue19, workingValue20, workingValue21, workingValue23, workingValue24, workingValue, workingValue2
+  if localValue1 then
+    workingValue9 = type
+    workingValue12 = localValue1
+    workingValue9 = workingValue9(workingValue12)
+    if "table" == workingValue9 then
+      goto continueAtStep10
     end
   end
-  workValue9 = nil
-  return workValue9
-  ::flow_label_10::
-  workValue9 = type
-  workValue12 = arg1[1]
-  workValue9 = workValue9(workValue12)
-  if "number" == workValue9 then
-    workValue9 = arg1[2]
-    if workValue9 then
-      workValue9 = arg1[2]
-      workValue12 = tonumber
-      workValue14 = workValue9.x
-      if not workValue14 then
-        workValue14 = workValue9[1]
+  workingValue9 = nil
+  return workingValue9
+  ::continueAtStep10::
+  workingValue9 = type
+  workingValue12 = localValue1[1]
+  workingValue9 = workingValue9(workingValue12)
+  if "number" == workingValue9 then
+    workingValue9 = localValue1[2]
+    if workingValue9 then
+      workingValue9 = localValue1[2]
+      workingValue12 = tonumber
+      workingValue14 = workingValue9.x
+      if not workingValue14 then
+        workingValue14 = workingValue9[1]
       end
-      workValue12 = workValue12(workValue14)
-      workValue14 = tonumber
-      workValue16 = workValue9.y
-      if not workValue16 then
-        workValue16 = workValue9[2]
+      workingValue12 = workingValue12(workingValue14)
+      workingValue14 = tonumber
+      workingValue16 = workingValue9.y
+      if not workingValue16 then
+        workingValue16 = workingValue9[2]
       end
-      workValue14 = workValue14(workValue16)
-      workValue16 = tonumber
-      workValue19 = workValue9.z
-      if not workValue19 then
-        workValue19 = workValue9[3]
+      workingValue14 = workingValue14(workingValue16)
+      workingValue16 = tonumber
+      workingValue19 = workingValue9.z
+      if not workingValue19 then
+        workingValue19 = workingValue9[3]
       end
-      workValue16 = workValue16(workValue19)
-      if not workValue16 then
-        workValue16 = 0.0
+      workingValue16 = workingValue16(workingValue19)
+      if not workingValue16 then
+        workingValue16 = 0.0
       end
-      if not workValue12 or not workValue14 then
-        workValue19 = nil
-        return workValue19
+      if not workingValue12 or not workingValue14 then
+        workingValue19 = nil
+        return workingValue19
       end
-      workValue19 = workValue12
-      workValue20 = workValue14
-      workValue21 = workValue16
-      workValue23 = arg1[3]
-      workValue24 = arg1[4]
-      workValue = arg1[5]
-      workValue2 = arg1[6]
-      return workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2
+      workingValue19 = workingValue12
+      workingValue20 = workingValue14
+      workingValue21 = workingValue16
+      workingValue23 = localValue1[3]
+      workingValue24 = localValue1[4]
+      workingValue = localValue1[5]
+      workingValue2 = localValue1[6]
+      return workingValue19, workingValue20, workingValue21, workingValue23, workingValue24, workingValue, workingValue2
     end
   end
-  workValue9 = arg1.x
-  if workValue9 then
-    workValue9 = tonumber
-    workValue12 = arg1.x
-    workValue9 = workValue9(workValue12)
-    workValue12 = tonumber
-    workValue14 = arg1.y
-    workValue12 = workValue12(workValue14)
-    workValue14 = tonumber
-    workValue16 = arg1.z
-    workValue14 = workValue14(workValue16)
-    if not workValue14 then
-      workValue14 = 0.0
+  workingValue9 = localValue1.x
+  if workingValue9 then
+    workingValue9 = tonumber
+    workingValue12 = localValue1.x
+    workingValue9 = workingValue9(workingValue12)
+    workingValue12 = tonumber
+    workingValue14 = localValue1.y
+    workingValue12 = workingValue12(workingValue14)
+    workingValue14 = tonumber
+    workingValue16 = localValue1.z
+    workingValue14 = workingValue14(workingValue16)
+    if not workingValue14 then
+      workingValue14 = 0.0
     end
-    workValue16 = arg1.heading
-    workValue19 = arg1.dead
-    workValue20 = arg1.colour
-    workValue21 = arg1.bucket
-    return workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21
+    workingValue16 = localValue1.heading
+    workingValue19 = localValue1.dead
+    workingValue20 = localValue1.colour
+    workingValue21 = localValue1.bucket
+    return workingValue9, workingValue12, workingValue14, workingValue16, workingValue19, workingValue20, workingValue21
   end
-  workValue9 = nil
-  return workValue9
+  workingValue9 = nil
+  return workingValue9
 end
-eventRegistration = RegisterNetEvent
-dataTable32 = "f65acb9738"
+eventHandler = RegisterNetEvent
+dataCollection32 = "f65acb9738"
 -- Beginner: this function handles network event "f65acb9738".
 
--- === HELPER FUNCTION (decompiler name: dataTable33; parameters: arg1) ===
-function dataTable33(arg1)
-  local workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, numberValue, workValue7, workValue8, numberValue2, numberValue3
-  workValue9 = type
-  workValue12 = arg1
-  workValue9 = workValue9(workValue12)
-  if "table" ~= workValue9 then
+-- === HELPER FUNCTION (decompiler name: dataCollection33; parameters: localValue1) ===
+function dataCollection33(localValue1)
+  local workingValue9, workingValue12, workingValue14, workingValue16, workingValue19, workingValue20, workingValue21, workingValue23, workingValue24, workingValue, workingValue2, workingValue3, workingValue4, workingValue5, workingValue6, number, workingValue7, workingValue8, number2, number3
+  workingValue9 = type
+  workingValue12 = localValue1
+  workingValue9 = workingValue9(workingValue12)
+  if "table" ~= workingValue9 then
     return
   end
-  workValue9 = CMG
-  workValue9 = workValue9.getPlayerBucket
-  workValue9 = workValue9()
-  workValue12 = dataTable23
-  workValue12()
-  workValue12 = ipairs
-  workValue14 = arg1
-  workValue12, workValue14, workValue16, workValue19 = workValue12(workValue14)
-  for workValue20, workValue21 in workValue12, workValue14, workValue16, workValue19 do
-    workValue23 = dataTable31
-    workValue24 = workValue21
-    workValue23, workValue24, workValue, workValue2, workValue3, workValue4, workValue5 = workValue23(workValue24)
-    if workValue23 and workValue5 == workValue9 then
-      workValue6 = AddBlipForCoord
-      numberValue = workValue23 + 0.0
-      workValue7 = workValue24 + 0.0
-      workValue8 = workValue + 0.0
+  workingValue9 = CMG
+  workingValue9 = workingValue9.getPlayerBucket
+  workingValue9 = workingValue9()
+  workingValue12 = dataCollection23
+  workingValue12()
+  workingValue12 = ipairs
+  workingValue14 = localValue1
+  workingValue12, workingValue14, workingValue16, workingValue19 = workingValue12(workingValue14)
+  for workingValue20, workingValue21 in workingValue12, workingValue14, workingValue16, workingValue19 do
+    workingValue23 = dataCollection31
+    workingValue24 = workingValue21
+    workingValue23, workingValue24, workingValue, workingValue2, workingValue3, workingValue4, workingValue5 = workingValue23(workingValue24)
+    if workingValue23 and workingValue5 == workingValue9 then
+      workingValue6 = AddBlipForCoord
+      number = workingValue23 + 0.0
+      workingValue7 = workingValue24 + 0.0
+      workingValue8 = workingValue + 0.0
       -- Beginner: result below is blipHandle.
-      workValue6 = workValue6(numberValue, workValue7, workValue8)
-      numberValue = workValue4 or numberValue
-      if not workValue4 then
-        numberValue = 3
+      workingValue6 = workingValue6(number, workingValue7, workingValue8)
+      number = workingValue4 or number
+      if not workingValue4 then
+        number = 3
       end
-      if 1 == workValue3 then
-        workValue7 = SetBlipSprite
-        workValue8 = workValue6
-        numberValue2 = 274
-        workValue7(workValue8, numberValue2)
-      elseif 5 == numberValue then
-        workValue7 = SetBlipSprite
-        workValue8 = workValue6
-        numberValue2 = 15
-        workValue7(workValue8, numberValue2)
+      if 1 == workingValue3 then
+        workingValue7 = SetBlipSprite
+        workingValue8 = workingValue6
+        number2 = 274
+        workingValue7(workingValue8, number2)
+      elseif 5 == number then
+        workingValue7 = SetBlipSprite
+        workingValue8 = workingValue6
+        number2 = 15
+        workingValue7(workingValue8, number2)
       else
-        workValue7 = SetBlipSprite
-        workValue8 = workValue6
-        numberValue2 = 1
-        workValue7(workValue8, numberValue2)
+        workingValue7 = SetBlipSprite
+        workingValue8 = workingValue6
+        number2 = 1
+        workingValue7(workingValue8, number2)
       end
-      workValue7 = SetBlipColour
-      workValue8 = workValue6
-      numberValue2 = numberValue
-      workValue7(workValue8, numberValue2)
-      workValue7 = SetBlipScale
-      workValue8 = workValue6
-      numberValue2 = 0.85
-      workValue7(workValue8, numberValue2)
-      workValue7 = SetBlipAlpha
-      workValue8 = workValue6
-      numberValue2 = 255
-      workValue7(workValue8, numberValue2)
-      workValue7 = ShowHeadingIndicatorOnBlip
-      workValue8 = workValue6
-      numberValue2 = true
-      workValue7(workValue8, numberValue2)
-      workValue7 = SetBlipRotation
-      workValue8 = workValue6
-      numberValue2 = math
-      numberValue2 = numberValue2.floor
-      numberValue3 = workValue2 or numberValue3
-      if not workValue2 then
-        numberValue3 = 0.0
+      workingValue7 = SetBlipColour
+      workingValue8 = workingValue6
+      number2 = number
+      workingValue7(workingValue8, number2)
+      workingValue7 = SetBlipScale
+      workingValue8 = workingValue6
+      number2 = 0.85
+      workingValue7(workingValue8, number2)
+      workingValue7 = SetBlipAlpha
+      workingValue8 = workingValue6
+      number2 = 255
+      workingValue7(workingValue8, number2)
+      workingValue7 = ShowHeadingIndicatorOnBlip
+      workingValue8 = workingValue6
+      number2 = true
+      workingValue7(workingValue8, number2)
+      workingValue7 = SetBlipRotation
+      workingValue8 = workingValue6
+      number2 = math
+      number2 = number2.floor
+      number3 = workingValue2 or number3
+      if not workingValue2 then
+        number3 = 0.0
       end
-      numberValue2, numberValue3 = numberValue2(numberValue3)
-      workValue7(workValue8, numberValue2, numberValue3)
-      workValue7 = dataTable
-      workValue7 = #workValue7
-      workValue8 = workValue7 + 1
-      workValue7 = dataTable
-      workValue7[workValue8] = workValue6
+      number2, number3 = number2(number3)
+      workingValue7(workingValue8, number2, number3)
+      workingValue7 = dataCollection
+      workingValue7 = #workingValue7
+      workingValue8 = workingValue7 + 1
+      workingValue7 = dataCollection
+      workingValue7[workingValue8] = workingValue6
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f65acb9738".
-eventRegistration(dataTable32, dataTable33)
-eventRegistration = RegisterNetEvent
-dataTable32 = "70c51a178a"
+eventHandler(dataCollection32, dataCollection33)
+eventHandler = RegisterNetEvent
+dataCollection32 = "70c51a178a"
 -- Beginner: this function handles network event "70c51a178a".
 
--- === HELPER FUNCTION (decompiler name: dataTable33; parameters: none) ===
-function dataTable33()
-  local arg1, workValue9
-  arg1 = dataTable23
-  arg1()
+-- === HELPER FUNCTION (decompiler name: dataCollection33; parameters: none) ===
+function dataCollection33()
+  local localValue1, workingValue9
+  localValue1 = dataCollection23
+  localValue1()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "70c51a178a".
-eventRegistration(dataTable32, dataTable33)
-eventRegistration = RegisterNetEvent
-dataTable32 = "CMG:hackingPhoneActionResult"
+eventHandler(dataCollection32, dataCollection33)
+eventHandler = RegisterNetEvent
+dataCollection32 = "CMG:hackingPhoneActionResult"
 -- Beginner: this function handles network event "CMG:hackingPhoneActionResult".
 
--- === HELPER FUNCTION (decompiler name: dataTable33; parameters: arg1) ===
-function dataTable33(arg1)
-  local workValue9, workValue12, workValue14
-  if arg1 then
-    workValue9 = arg1.message
-    if workValue9 then
-      workValue9 = arg1.message
-      if "" ~= workValue9 then
-        workValue9 = arg1.ok
-        if workValue9 then
-          workValue9 = notify
-          workValue12 = "~g~"
-          workValue14 = arg1.message
-          workValue12 = workValue12 .. workValue14
+-- === HELPER FUNCTION (decompiler name: dataCollection33; parameters: localValue1) ===
+function dataCollection33(localValue1)
+  local workingValue9, workingValue12, workingValue14
+  if localValue1 then
+    workingValue9 = localValue1.message
+    if workingValue9 then
+      workingValue9 = localValue1.message
+      if "" ~= workingValue9 then
+        workingValue9 = localValue1.ok
+        if workingValue9 then
+          workingValue9 = notify
+          workingValue12 = "~g~"
+          workingValue14 = localValue1.message
+          workingValue12 = workingValue12 .. workingValue14
           -- Beginner: Show a notification to the player.
-          workValue9(workValue12)
+          workingValue9(workingValue12)
         else
-          workValue9 = notify
-          workValue12 = "~r~"
-          workValue14 = arg1.message
-          workValue12 = workValue12 .. workValue14
-          workValue9(workValue12)
+          workingValue9 = notify
+          workingValue12 = "~r~"
+          workingValue14 = localValue1.message
+          workingValue12 = workingValue12 .. workingValue14
+          workingValue9(workingValue12)
         end
       end
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "CMG:hackingPhoneActionResult".
-eventRegistration(dataTable32, dataTable33)
-eventRegistration = 0
-dataTable32 = RegisterNetEvent
-dataTable33 = "ee4d898632"
+eventHandler(dataCollection32, dataCollection33)
+eventHandler = 0
+dataCollection32 = RegisterNetEvent
+dataCollection33 = "ee4d898632"
 -- Beginner: this function handles network event "ee4d898632".
 
--- === HELPER FUNCTION (decompiler name: dataTable34; parameters: arg1) ===
-function dataTable34(arg1)
-  local workValue9, workValue12, workValue14, workValue16
-  workValue9 = tonumber
-  workValue12 = arg1
-  workValue9 = workValue9(workValue12)
-  if not workValue9 then
-    workValue9 = 0
+-- === HELPER FUNCTION (decompiler name: dataCollection34; parameters: localValue1) ===
+function dataCollection34(localValue1)
+  local workingValue9, workingValue12, workingValue14, workingValue16
+  workingValue9 = tonumber
+  workingValue12 = localValue1
+  workingValue9 = workingValue9(workingValue12)
+  if not workingValue9 then
+    workingValue9 = 0
   end
-  if workValue9 <= 0 then
+  if workingValue9 <= 0 then
     return
   end
-  workValue12 = eventRegistration
-  workValue12 = workValue12 + 1
-  eventRegistration = workValue12
-  workValue12 = eventRegistration
-  workValue14 = CreateThread
+  workingValue12 = eventHandler
+  workingValue12 = workingValue12 + 1
+  eventHandler = workingValue12
+  workingValue12 = eventHandler
+  workingValue14 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
 
-  -- === HELPER FUNCTION (decompiler name: workValue16; parameters: none) ===
-  function workValue16()
-    local playerPed, workValue10, flag3, gameTime, workValue17, flag4, gameTime2, workValue22, numberValue6, numberValue7, flag, flag2
+  -- === HELPER FUNCTION (decompiler name: workingValue16; parameters: none) ===
+  function workingValue16()
+    local playerPed, workingValue10, stateFlag3, gameTime, workingValue17, stateFlag4, gameTime2, workingValue22, number6, number7, stateFlag, stateFlag2
     playerPed = PlayerPedId
     -- Beginner: result below is localPlayerPed.
     playerPed = playerPed()
-    workValue10 = FreezeEntityPosition
-    flag3 = playerPed
+    workingValue10 = FreezeEntityPosition
+    stateFlag3 = playerPed
     gameTime = true
     -- Beginner: Freeze or unfreeze an entity in place.
-    workValue10(flag3, gameTime)
-    workValue10 = DisplayRadar
-    flag3 = false
-    workValue10(flag3)
-    workValue10 = SetTimecycleModifier
-    flag3 = "scanline_cam_cheap"
-    workValue10(flag3)
-    workValue10 = SetTimecycleModifierStrength
-    flag3 = 2.0
-    workValue10(flag3)
-    workValue10 = CreateCam
-    flag3 = "DEFAULT_SCRIPTED_CAMERA"
+    workingValue10(stateFlag3, gameTime)
+    workingValue10 = DisplayRadar
+    stateFlag3 = false
+    workingValue10(stateFlag3)
+    workingValue10 = SetTimecycleModifier
+    stateFlag3 = "scanline_cam_cheap"
+    workingValue10(stateFlag3)
+    workingValue10 = SetTimecycleModifierStrength
+    stateFlag3 = 2.0
+    workingValue10(stateFlag3)
+    workingValue10 = CreateCam
+    stateFlag3 = "DEFAULT_SCRIPTED_CAMERA"
     gameTime = true
     -- Beginner: result below is cameraHandle.
-    workValue10 = workValue10(flag3, gameTime)
-    flag3 = 1
+    workingValue10 = workingValue10(stateFlag3, gameTime)
+    stateFlag3 = 1
     gameTime = GetGameTimer
     -- Beginner: result below is gameTimeMs.
     gameTime = gameTime()
-    workValue17 = workValue9
-    gameTime = gameTime + workValue17
+    workingValue17 = workingValue9
+    gameTime = gameTime + workingValue17
 
-    -- === HELPER FUNCTION (decompiler name: workValue17; parameters: arg12) ===
-    function workValue17(arg12)
-      local workValue11, workValue13, workValue15, workValue18, numberValue4, flag5, numberValue5
-      if not arg12 then
+    -- === HELPER FUNCTION (decompiler name: workingValue17; parameters: localValue12) ===
+    function workingValue17(localValue12)
+      local workingValue11, workingValue13, workingValue15, workingValue18, number4, stateFlag5, number5
+      if not localValue12 then
         return
       end
-      workValue11 = SetFocusPosAndVel
-      workValue13 = arg12.pos
-      workValue13 = workValue13.x
-      workValue15 = arg12.pos
-      workValue15 = workValue15.y
-      workValue18 = arg12.pos
-      workValue18 = workValue18.z
-      numberValue4 = 0.0
-      flag5 = 0.0
-      numberValue5 = 0.0
-      workValue11(workValue13, workValue15, workValue18, numberValue4, flag5, numberValue5)
-      workValue11 = SetCamCoord
-      workValue13 = workValue10
-      workValue15 = arg12.pos
-      workValue15 = workValue15.x
-      workValue18 = arg12.pos
-      workValue18 = workValue18.y
-      numberValue4 = arg12.pos
-      numberValue4 = numberValue4.z
-      workValue11(workValue13, workValue15, workValue18, numberValue4)
-      workValue11 = SetCamRot
-      workValue13 = workValue10
-      workValue15 = arg12.rot
-      workValue15 = workValue15.x
-      workValue18 = arg12.rot
-      workValue18 = workValue18.y
-      numberValue4 = arg12.rot
-      numberValue4 = numberValue4.z
-      flag5 = 2
-      workValue11(workValue13, workValue15, workValue18, numberValue4, flag5)
-      workValue11 = SetCamFov
-      workValue13 = workValue10
-      workValue15 = 50.0
-      workValue11(workValue13, workValue15)
-      workValue11 = RenderScriptCams
-      workValue13 = true
-      workValue15 = false
-      workValue18 = 0
-      numberValue4 = true
-      flag5 = true
-      workValue11(workValue13, workValue15, workValue18, numberValue4, flag5)
+      workingValue11 = SetFocusPosAndVel
+      workingValue13 = localValue12.pos
+      workingValue13 = workingValue13.x
+      workingValue15 = localValue12.pos
+      workingValue15 = workingValue15.y
+      workingValue18 = localValue12.pos
+      workingValue18 = workingValue18.z
+      number4 = 0.0
+      stateFlag5 = 0.0
+      number5 = 0.0
+      workingValue11(workingValue13, workingValue15, workingValue18, number4, stateFlag5, number5)
+      workingValue11 = SetCamCoord
+      workingValue13 = workingValue10
+      workingValue15 = localValue12.pos
+      workingValue15 = workingValue15.x
+      workingValue18 = localValue12.pos
+      workingValue18 = workingValue18.y
+      number4 = localValue12.pos
+      number4 = number4.z
+      workingValue11(workingValue13, workingValue15, workingValue18, number4)
+      workingValue11 = SetCamRot
+      workingValue13 = workingValue10
+      workingValue15 = localValue12.rot
+      workingValue15 = workingValue15.x
+      workingValue18 = localValue12.rot
+      workingValue18 = workingValue18.y
+      number4 = localValue12.rot
+      number4 = number4.z
+      stateFlag5 = 2
+      workingValue11(workingValue13, workingValue15, workingValue18, number4, stateFlag5)
+      workingValue11 = SetCamFov
+      workingValue13 = workingValue10
+      workingValue15 = 50.0
+      workingValue11(workingValue13, workingValue15)
+      workingValue11 = RenderScriptCams
+      workingValue13 = true
+      workingValue15 = false
+      workingValue18 = 0
+      number4 = true
+      stateFlag5 = true
+      workingValue11(workingValue13, workingValue15, workingValue18, number4, stateFlag5)
     end
-    flag4 = true
+    stateFlag4 = true
     while true do
-      gameTime2 = workValue12
-      workValue22 = eventRegistration
-      if gameTime2 ~= workValue22 then
+      gameTime2 = workingValue12
+      workingValue22 = eventHandler
+      if gameTime2 ~= workingValue22 then
         break
       end
       gameTime2 = GetGameTimer
@@ -847,93 +847,93 @@ function dataTable34(arg1)
       if not (gameTime > gameTime2) then
         break
       end
-      gameTime2 = dataTable12
-      gameTime2 = gameTime2[flag3]
+      gameTime2 = dataCollection12
+      gameTime2 = gameTime2[stateFlag3]
       if not gameTime2 then
-        flag3 = 1
-        workValue22 = dataTable12
-        gameTime2 = workValue22[flag3]
+        stateFlag3 = 1
+        workingValue22 = dataCollection12
+        gameTime2 = workingValue22[stateFlag3]
       end
-      if flag4 then
-        workValue22 = workValue17
-        numberValue6 = gameTime2
-        workValue22(numberValue6)
-        flag4 = false
+      if stateFlag4 then
+        workingValue22 = workingValue17
+        number6 = gameTime2
+        workingValue22(number6)
+        stateFlag4 = false
       end
-      workValue22 = IsControlJustPressed
-      numberValue6 = 0
-      numberValue7 = 194
-      workValue22 = workValue22(numberValue6, numberValue7)
-      if workValue22 then
+      workingValue22 = IsControlJustPressed
+      number6 = 0
+      number7 = 194
+      workingValue22 = workingValue22(number6, number7)
+      if workingValue22 then
         break
       end
-      workValue22 = IsControlJustPressed
-      numberValue6 = 0
-      numberValue7 = 174
-      workValue22 = workValue22(numberValue6, numberValue7)
-      if workValue22 then
-        flag3 = flag3 - 1
-        if flag3 < 1 then
-          workValue22 = dataTable12
-          flag3 = #workValue22
+      workingValue22 = IsControlJustPressed
+      number6 = 0
+      number7 = 174
+      workingValue22 = workingValue22(number6, number7)
+      if workingValue22 then
+        stateFlag3 = stateFlag3 - 1
+        if stateFlag3 < 1 then
+          workingValue22 = dataCollection12
+          stateFlag3 = #workingValue22
         end
-        flag4 = true
+        stateFlag4 = true
       else
-        workValue22 = IsControlJustPressed
-        numberValue6 = 0
-        numberValue7 = 175
-        workValue22 = workValue22(numberValue6, numberValue7)
-        if workValue22 then
-          flag3 = flag3 + 1
-          workValue22 = dataTable12
-          workValue22 = #workValue22
-          if flag3 > workValue22 then
-            flag3 = 1
+        workingValue22 = IsControlJustPressed
+        number6 = 0
+        number7 = 175
+        workingValue22 = workingValue22(number6, number7)
+        if workingValue22 then
+          stateFlag3 = stateFlag3 + 1
+          workingValue22 = dataCollection12
+          workingValue22 = #workingValue22
+          if stateFlag3 > workingValue22 then
+            stateFlag3 = 1
           end
-          flag4 = true
+          stateFlag4 = true
         end
       end
-      workValue22 = Wait
-      numberValue6 = 0
-      workValue22(numberValue6)
+      workingValue22 = Wait
+      number6 = 0
+      workingValue22(number6)
     end
     gameTime2 = RenderScriptCams
-    workValue22 = false
-    numberValue6 = false
-    numberValue7 = 0
-    flag = true
-    flag2 = true
-    gameTime2(workValue22, numberValue6, numberValue7, flag, flag2)
+    workingValue22 = false
+    number6 = false
+    number7 = 0
+    stateFlag = true
+    stateFlag2 = true
+    gameTime2(workingValue22, number6, number7, stateFlag, stateFlag2)
     gameTime2 = DoesCamExist
-    workValue22 = workValue10
-    gameTime2 = gameTime2(workValue22)
+    workingValue22 = workingValue10
+    gameTime2 = gameTime2(workingValue22)
     if gameTime2 then
       gameTime2 = DestroyCam
-      workValue22 = workValue10
-      numberValue6 = false
-      gameTime2(workValue22, numberValue6)
+      workingValue22 = workingValue10
+      number6 = false
+      gameTime2(workingValue22, number6)
     end
     gameTime2 = ClearFocus
     gameTime2()
     gameTime2 = ClearTimecycleModifier
     gameTime2()
     gameTime2 = DisplayRadar
-    workValue22 = true
-    gameTime2(workValue22)
-    gameTime2 = workValue12
-    workValue22 = eventRegistration
-    if gameTime2 == workValue22 then
+    workingValue22 = true
+    gameTime2(workingValue22)
+    gameTime2 = workingValue12
+    workingValue22 = eventHandler
+    if gameTime2 == workingValue22 then
       gameTime2 = FreezeEntityPosition
-      workValue22 = PlayerPedId
+      workingValue22 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      workValue22 = workValue22()
-      numberValue6 = false
+      workingValue22 = workingValue22()
+      number6 = false
       -- Beginner: Freeze or unfreeze an entity in place.
-      gameTime2(workValue22, numberValue6)
+      gameTime2(workingValue22, number6)
     end
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  workValue14(workValue16)
+  workingValue14(workingValue16)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ee4d898632".
-dataTable32(dataTable33, dataTable34)
+dataCollection32(dataCollection33, dataCollection34)

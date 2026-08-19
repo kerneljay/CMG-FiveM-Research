@@ -54,7 +54,7 @@
 
     Event 222d547efd(searchStarted)
       If searchStarted is true, play the dumpster-search animation and a
-      five-second circular progress bar. Either way, unlock the local busy flag
+      five-second circular progress bar. Either way, unlock the local busy stateFlag
       afterwards.
 
     Server event hashes are deliberately unchanged.

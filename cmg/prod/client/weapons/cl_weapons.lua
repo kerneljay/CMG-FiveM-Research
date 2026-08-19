@@ -32,674 +32,674 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, cmgCall3, numberValue2, dataTable2, cmgCall4, dataTable3, textValue3, cmgCall5, workValue14, eventRegistration2, textValue, workValue, cmgCall2, textValue2, eventRegistration, flag, workValue4, flag4
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-cmgCall3 = "cfg/weapons"
+local cmgOperation, cmgOperation3, number2, dataCollection2, cmgOperation4, dataCollection3, text3, cmgOperation5, workingValue14, eventHandler2, text, workingValue, cmgOperation2, text2, eventHandler, stateFlag, workingValue4, stateFlag4
+cmgOperation = CMG
+cmgOperation = cmgOperation.loadModule
+cmgOperation3 = "cfg/weapons"
 -- Beginner: result below is config.
-cmgCall = cmgCall(cmgCall3)
-cmgCall3 = CMG
-cmgCall3 = cmgCall3.createCircularBuffer
-numberValue2 = 25
-dataTable2 = {}
-cmgCall4 = 0
-dataTable3 = 0
-textValue3 = ""
-dataTable2[1] = cmgCall4
-dataTable2[2] = dataTable3
-dataTable2[3] = textValue3
-cmgCall3 = cmgCall3(numberValue2, dataTable2)
-numberValue2 = 0
+cmgOperation = cmgOperation(cmgOperation3)
+cmgOperation3 = CMG
+cmgOperation3 = cmgOperation3.createCircularBuffer
+number2 = 25
+dataCollection2 = {}
+cmgOperation4 = 0
+dataCollection3 = 0
+text3 = ""
+dataCollection2[1] = cmgOperation4
+dataCollection2[2] = dataCollection3
+dataCollection2[3] = text3
+cmgOperation3 = cmgOperation3(number2, dataCollection2)
+number2 = 0
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
-function dataTable2(arg1)
-  local arg2, arg3, arg4, arg5
-  arg2 = cmgCall3.put
-  arg3 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: dataCollection2; parameters: localValue1) ===
+function dataCollection2(localValue1)
+  local localValue2, localValue3, localValue4, localValue5
+  localValue2 = cmgOperation3.put
+  localValue3 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg3 = arg3()
-  arg4 = numberValue2
-  arg5 = arg1
-  arg2(arg3, arg4, arg5)
-  arg2 = numberValue2
-  arg2 = arg2 + 1
-  numberValue2 = arg2
+  localValue3 = localValue3()
+  localValue4 = number2
+  localValue5 = localValue1
+  localValue2(localValue3, localValue4, localValue5)
+  localValue2 = number2
+  localValue2 = localValue2 + 1
+  number2 = localValue2
 end
-cmgCall4 = Citizen
-cmgCall4 = cmgCall4.CreateThread
+cmgOperation4 = Citizen
+cmgOperation4 = cmgOperation4.CreateThread
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-function dataTable3()
-  local arg1, arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health
-  arg1 = pairs
-  arg2 = cmgCall.weapons
-  arg1, arg2, arg3, arg4 = arg1(arg2)
-  for arg5, hashValue in arg1, arg2, arg3, arg4 do
-    workValue12 = AddTextEntry
-    workValue13 = arg5
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+function dataCollection3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health
+  localValue1 = pairs
+  localValue2 = cmgOperation.weapons
+  localValue1, localValue2, localValue3, localValue4 = localValue1(localValue2)
+  for localValue5, hashValue in localValue1, localValue2, localValue3, localValue4 do
+    workingValue12 = AddTextEntry
+    workingValue13 = localValue5
     health = hashValue.name
-    workValue12(workValue13, health)
+    workingValue12(workingValue13, health)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall4(dataTable3)
-cmgCall4 = CMG
+cmgOperation4(dataCollection3)
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: arg1, arg2) ===
-function dataTable3(arg1, arg2)
-  local arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2, workValue3, flag2, flag3, workValue5, workValue6, workValue7, workValue8, workValue9
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: localValue1, localValue2) ===
+function dataCollection3(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2, workingValue3, stateFlag2, stateFlag3, workingValue5, workingValue6, workingValue7, workingValue8, workingValue9
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  if arg2 then
-    arg4 = RemoveAllPedWeapons
-    arg5 = arg3
+  localValue3 = localValue3()
+  if localValue2 then
+    localValue4 = RemoveAllPedWeapons
+    localValue5 = localValue3
     hashValue = true
-    arg4(arg5, hashValue)
+    localValue4(localValue5, hashValue)
   end
-  arg4 = pairs
-  arg5 = arg1
-  arg4, arg5, hashValue, workValue12 = arg4(arg5)
-  for workValue13, health in arg4, arg5, hashValue, workValue12 do
+  localValue4 = pairs
+  localValue5 = localValue1
+  localValue4, localValue5, hashValue, workingValue12 = localValue4(localValue5)
+  for workingValue13, health in localValue4, localValue5, hashValue, workingValue12 do
     hashValue2 = GetHashKey
-    numberValue = workValue13
+    number = workingValue13
     -- Beginner: result below is hash.
-    hashValue2 = hashValue2(numberValue)
-    numberValue = health.ammo
-    if not numberValue then
-      numberValue = 0
+    hashValue2 = hashValue2(number)
+    number = health.ammo
+    if not number then
+      number = 0
     end
-    dataTable = GiveWeaponToPed
-    iterator = arg3
-    workValue2 = hashValue2
-    workValue3 = numberValue
-    flag2 = false
-    flag3 = false
-    dataTable(iterator, workValue2, workValue3, flag2, flag3)
-    dataTable = health.attachments
-    if not dataTable then
-      dataTable = {}
+    dataCollection = GiveWeaponToPed
+    iterator = localValue3
+    workingValue2 = hashValue2
+    workingValue3 = number
+    stateFlag2 = false
+    stateFlag3 = false
+    dataCollection(iterator, workingValue2, workingValue3, stateFlag2, stateFlag3)
+    dataCollection = health.attachments
+    if not dataCollection then
+      dataCollection = {}
     end
     iterator = pairs
-    workValue2 = dataTable
-    iterator, workValue2, workValue3, flag2 = iterator(workValue2)
-    for flag3, workValue5 in iterator, workValue2, workValue3, flag2 do
-      workValue6 = GiveWeaponComponentToPed
-      workValue7 = arg3
-      workValue8 = workValue13
-      workValue9 = workValue5
-      workValue6(workValue7, workValue8, workValue9)
+    workingValue2 = dataCollection
+    iterator, workingValue2, workingValue3, stateFlag2 = iterator(workingValue2)
+    for stateFlag3, workingValue5 in iterator, workingValue2, workingValue3, stateFlag2 do
+      workingValue6 = GiveWeaponComponentToPed
+      workingValue7 = localValue3
+      workingValue8 = workingValue13
+      workingValue9 = workingValue5
+      workingValue6(workingValue7, workingValue8, workingValue9)
     end
   end
 end
-cmgCall4.giveWeapons = dataTable3
-cmgCall4 = CMG
+cmgOperation4.giveWeapons = dataCollection3
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-function dataTable3()
-  local arg1, arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+function dataCollection3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = {}
-  arg3 = {}
-  arg4 = pairs
-  arg5 = cmgCall.weapons
-  arg4, arg5, hashValue, workValue12 = arg4(arg5)
-  for workValue13, health in arg4, arg5, hashValue, workValue12 do
+  localValue1 = localValue1()
+  localValue2 = {}
+  localValue3 = {}
+  localValue4 = pairs
+  localValue5 = cmgOperation.weapons
+  localValue4, localValue5, hashValue, workingValue12 = localValue4(localValue5)
+  for workingValue13, health in localValue4, localValue5, hashValue, workingValue12 do
     hashValue2 = HasPedGotWeapon
-    numberValue = arg1
-    dataTable = health.hash
+    number = localValue1
+    dataCollection = health.hash
     iterator = false
-    hashValue2 = hashValue2(numberValue, dataTable, iterator)
+    hashValue2 = hashValue2(number, dataCollection, iterator)
     if hashValue2 then
       hashValue2 = health.hash
       if -1569615261 ~= hashValue2 then
         hashValue2 = {}
-        numberValue = GetPedAmmoTypeFromWeapon
-        dataTable = arg1
+        number = GetPedAmmoTypeFromWeapon
+        dataCollection = localValue1
         iterator = health.hash
-        numberValue = numberValue(dataTable, iterator)
-        dataTable = arg2[numberValue]
-        if nil == dataTable then
-          arg2[numberValue] = true
-          dataTable = GetAmmoInPedWeapon
-          iterator = arg1
-          workValue2 = health.hash
-          dataTable = dataTable(iterator, workValue2)
-          hashValue2.ammo = dataTable
+        number = number(dataCollection, iterator)
+        dataCollection = localValue2[number]
+        if nil == dataCollection then
+          localValue2[number] = true
+          dataCollection = GetAmmoInPedWeapon
+          iterator = localValue1
+          workingValue2 = health.hash
+          dataCollection = dataCollection(iterator, workingValue2)
+          hashValue2.ammo = dataCollection
         else
           hashValue2.ammo = 0
         end
-        dataTable = CMG
-        dataTable = dataTable.getAllWeaponAttachments
-        iterator = workValue13
-        dataTable = dataTable(iterator)
-        hashValue2.attachments = dataTable
-        arg3[workValue13] = hashValue2
+        dataCollection = CMG
+        dataCollection = dataCollection.getAllWeaponAttachments
+        iterator = workingValue13
+        dataCollection = dataCollection(iterator)
+        hashValue2.attachments = dataCollection
+        localValue3[workingValue13] = hashValue2
       end
     end
   end
-  return arg3
+  return localValue3
 end
-cmgCall4.getWeapons = dataTable3
-cmgCall4 = CMG
+cmgOperation4.getWeapons = dataCollection3
+cmgOperation4 = CMG
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-function dataTable3()
-  local arg1, arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+function dataCollection3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = pairs
-  arg3 = cmgCall.weapons
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for hashValue, workValue12 in arg2, arg3, arg4, arg5 do
-    workValue13 = HasPedGotWeapon
-    health = arg1
-    hashValue2 = workValue12.hash
-    numberValue = false
-    workValue13 = workValue13(health, hashValue2, numberValue)
-    if workValue13 then
-      workValue13 = true
-      return workValue13
+  localValue1 = localValue1()
+  localValue2 = pairs
+  localValue3 = cmgOperation.weapons
+  localValue2, localValue3, localValue4, localValue5 = localValue2(localValue3)
+  for hashValue, workingValue12 in localValue2, localValue3, localValue4, localValue5 do
+    workingValue13 = HasPedGotWeapon
+    health = localValue1
+    hashValue2 = workingValue12.hash
+    number = false
+    workingValue13 = workingValue13(health, hashValue2, number)
+    if workingValue13 then
+      workingValue13 = true
+      return workingValue13
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
-cmgCall4.isPlayerArmed = dataTable3
-cmgCall4 = tCMG
+cmgOperation4.isPlayerArmed = dataCollection3
+cmgOperation4 = tCMG
 
--- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
-function dataTable3()
-  local arg1, arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: dataCollection3; parameters: none) ===
+function dataCollection3()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = {}
-  arg3 = {}
-  arg4 = pairs
-  arg5 = cmgCall.weapons
-  arg4, arg5, hashValue, workValue12 = arg4(arg5)
-  for workValue13, health in arg4, arg5, hashValue, workValue12 do
+  localValue1 = localValue1()
+  localValue2 = {}
+  localValue3 = {}
+  localValue4 = pairs
+  localValue5 = cmgOperation.weapons
+  localValue4, localValue5, hashValue, workingValue12 = localValue4(localValue5)
+  for workingValue13, health in localValue4, localValue5, hashValue, workingValue12 do
     hashValue2 = HasPedGotWeapon
-    numberValue = arg1
-    dataTable = health.hash
+    number = localValue1
+    dataCollection = health.hash
     iterator = false
-    hashValue2 = hashValue2(numberValue, dataTable, iterator)
+    hashValue2 = hashValue2(number, dataCollection, iterator)
     if hashValue2 then
       hashValue2 = health.hash
       if -1569615261 ~= hashValue2 then
         hashValue2 = {}
-        numberValue = GetPedAmmoTypeFromWeapon
-        dataTable = arg1
+        number = GetPedAmmoTypeFromWeapon
+        dataCollection = localValue1
         iterator = health.hash
-        numberValue = numberValue(dataTable, iterator)
-        dataTable = arg2[numberValue]
-        if nil == dataTable then
-          arg2[numberValue] = true
-          dataTable = GetAmmoInPedWeapon
-          iterator = arg1
-          workValue2 = health.hash
-          dataTable = dataTable(iterator, workValue2)
-          hashValue2.ammo = dataTable
+        number = number(dataCollection, iterator)
+        dataCollection = localValue2[number]
+        if nil == dataCollection then
+          localValue2[number] = true
+          dataCollection = GetAmmoInPedWeapon
+          iterator = localValue1
+          workingValue2 = health.hash
+          dataCollection = dataCollection(iterator, workingValue2)
+          hashValue2.ammo = dataCollection
         else
           hashValue2.ammo = 0
         end
-        dataTable = CMG
-        dataTable = dataTable.getAllWeaponAttachments
-        iterator = workValue13
-        dataTable = dataTable(iterator)
-        hashValue2.attachments = dataTable
-        arg3[workValue13] = hashValue2
+        dataCollection = CMG
+        dataCollection = dataCollection.getAllWeaponAttachments
+        iterator = workingValue13
+        dataCollection = dataCollection(iterator)
+        hashValue2.attachments = dataCollection
+        localValue3[workingValue13] = hashValue2
       end
     end
   end
-  return arg3
+  return localValue3
 end
-cmgCall4.getWeapons = dataTable3
-cmgCall4 = {}
-dataTable3 = {}
-textValue3 = 0
-cmgCall5 = CMG
+cmgOperation4.getWeapons = dataCollection3
+cmgOperation4 = {}
+dataCollection3 = {}
+text3 = 0
+cmgOperation5 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2
-  arg1 = dataTable3
-  return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2
+  localValue1 = dataCollection3
+  return localValue1
 end
-cmgCall5.getCachedWeaponStore = workValue14
+cmgOperation5.getCachedWeaponStore = workingValue14
 
--- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2) ===
-function cmgCall5(arg1, arg2)
-  local arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: cmgOperation5; parameters: localValue1, localValue2) ===
+function cmgOperation5(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = GetPedAmmoTypeFromWeapon
-  arg5 = arg3
+  localValue3 = localValue3()
+  localValue4 = GetPedAmmoTypeFromWeapon
+  localValue5 = localValue3
   hashValue = GetHashKey
-  workValue12 = arg1
-  hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator = hashValue(workValue12)
-  arg4 = arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator)
-  arg5 = pairs
+  workingValue12 = localValue1
+  hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator = hashValue(workingValue12)
+  localValue4 = localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator)
+  localValue5 = pairs
   hashValue = CMG
   hashValue = hashValue.getCachedWeaponStore
-  hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator = hashValue()
-  arg5, hashValue, workValue12, workValue13 = arg5(hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator)
-  for health, hashValue2 in arg5, hashValue, workValue12, workValue13 do
-    numberValue = GetPedAmmoTypeFromWeapon
-    dataTable = arg3
+  hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator = hashValue()
+  localValue5, hashValue, workingValue12, workingValue13 = localValue5(hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator)
+  for health, hashValue2 in localValue5, hashValue, workingValue12, workingValue13 do
+    number = GetPedAmmoTypeFromWeapon
+    dataCollection = localValue3
     iterator = hashValue2.weaponHash
-    numberValue = numberValue(dataTable, iterator)
-    if numberValue == arg4 then
-      hashValue2.ammo = arg2
-      numberValue = GetFrameCount
-      numberValue = numberValue()
-      hashValue2.setFrame = numberValue
+    number = number(dataCollection, iterator)
+    if number == localValue4 then
+      hashValue2.ammo = localValue2
+      number = GetFrameCount
+      number = number()
+      hashValue2.setFrame = number
     end
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
-function workValue14()
-  local arg1, arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue14; parameters: none) ===
+function workingValue14()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetPlayerPed
-  arg3 = -1
+  localValue1 = localValue1()
+  localValue2 = GetPlayerPed
+  localValue3 = -1
   -- Beginner: result below is playerPed.
-  arg2 = arg2(arg3)
-  arg3 = string
-  arg3 = arg3.format
-  arg4 = "(%s, %s, %s, %s, %s, %s, %s, %s)"
-  arg5 = arg1
-  hashValue = arg2
-  workValue12 = DoesEntityExist
-  workValue13 = arg1
-  workValue12 = workValue12(workValue13)
-  workValue13 = DoesEntityExist
-  health = arg2
-  workValue13 = workValue13(health)
+  localValue2 = localValue2(localValue3)
+  localValue3 = string
+  localValue3 = localValue3.format
+  localValue4 = "(%s, %s, %s, %s, %s, %s, %s, %s)"
+  localValue5 = localValue1
+  hashValue = localValue2
+  workingValue12 = DoesEntityExist
+  workingValue13 = localValue1
+  workingValue12 = workingValue12(workingValue13)
+  workingValue13 = DoesEntityExist
+  health = localValue2
+  workingValue13 = workingValue13(health)
   health = GetEntityHealth
-  hashValue2 = arg1
+  hashValue2 = localValue1
   -- Beginner: result below is health.
   health = health(hashValue2)
   hashValue2 = GetEntityHealth
-  numberValue = arg2
+  number = localValue2
   -- Beginner: result below is health.
-  hashValue2 = hashValue2(numberValue)
-  numberValue = IsEntityDead
-  dataTable = arg1
-  numberValue = numberValue(dataTable)
-  dataTable = IsEntityDead
-  iterator = arg2
-  dataTable, iterator = dataTable(iterator)
-  return arg3(arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator)
+  hashValue2 = hashValue2(number)
+  number = IsEntityDead
+  dataCollection = localValue1
+  number = number(dataCollection)
+  dataCollection = IsEntityDead
+  iterator = localValue2
+  dataCollection, iterator = dataCollection(iterator)
+  return localValue3(localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator)
 end
-eventRegistration2 = RegisterNetEvent
-textValue = "d962c43598"
+eventHandler2 = RegisterNetEvent
+text = "d962c43598"
 -- Beginner: this function handles network event "d962c43598".
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3, arg4, arg5) ===
-function workValue(arg1, arg2, arg3, arg4, arg5)
-  local hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2, localValue3, localValue4, localValue5) ===
+function workingValue(localValue1, localValue2, localValue3, localValue4, localValue5)
+  local hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2
   hashValue = GiveWeaponToPed
-  workValue12 = PlayerPedId
+  workingValue12 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  workValue12 = workValue12()
-  workValue13 = arg2
+  workingValue12 = workingValue12()
+  workingValue13 = localValue2
   health = math
   health = health.floor
-  hashValue2 = arg3
+  hashValue2 = localValue3
   health = health(hashValue2)
   hashValue2 = false
-  numberValue = arg4
-  hashValue(workValue12, workValue13, health, hashValue2, numberValue)
-  hashValue = dataTable2
-  workValue12 = string
-  workValue12 = workValue12.format
-  workValue13 = "addWeaponStore(%s, %s, %s) cachedWeaponStore was %s getWeapons was %s ped is %s"
-  health = arg1
-  hashValue2 = arg2
-  numberValue = arg5
-  dataTable = json
-  dataTable = dataTable.encode
-  iterator = dataTable3
-  dataTable = dataTable(iterator)
+  number = localValue4
+  hashValue(workingValue12, workingValue13, health, hashValue2, number)
+  hashValue = dataCollection2
+  workingValue12 = string
+  workingValue12 = workingValue12.format
+  workingValue13 = "addWeaponStore(%s, %s, %s) cachedWeaponStore was %s getWeapons was %s ped is %s"
+  health = localValue1
+  hashValue2 = localValue2
+  number = localValue5
+  dataCollection = json
+  dataCollection = dataCollection.encode
+  iterator = dataCollection3
+  dataCollection = dataCollection(iterator)
   iterator = json
   iterator = iterator.encode
-  workValue2 = CMG
-  workValue2 = workValue2.getWeapons
-  workValue2 = workValue2()
-  iterator = iterator(workValue2)
-  workValue2 = workValue14
-  workValue2 = workValue2()
-  workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2 = workValue12(workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2)
-  hashValue(workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2)
-  hashValue = dataTable3
-  hashValue = hashValue[arg1]
+  workingValue2 = CMG
+  workingValue2 = workingValue2.getWeapons
+  workingValue2 = workingValue2()
+  iterator = iterator(workingValue2)
+  workingValue2 = workingValue14
+  workingValue2 = workingValue2()
+  workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2 = workingValue12(workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2)
+  hashValue(workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2)
+  hashValue = dataCollection3
+  hashValue = hashValue[localValue1]
   if not hashValue then
-    hashValue = dataTable3
-    workValue12 = {}
-    workValue12.weaponHash = arg2
-    workValue12.ammo = 0
-    workValue13 = GetFrameCount
-    workValue13 = workValue13()
-    workValue12.setFrame = workValue13
-    hashValue[arg1] = workValue12
-    hashValue = cmgCall5
-    workValue12 = arg1
-    workValue13 = 0
-    hashValue(workValue12, workValue13)
+    hashValue = dataCollection3
+    workingValue12 = {}
+    workingValue12.weaponHash = localValue2
+    workingValue12.ammo = 0
+    workingValue13 = GetFrameCount
+    workingValue13 = workingValue13()
+    workingValue12.setFrame = workingValue13
+    hashValue[localValue1] = workingValue12
+    hashValue = cmgOperation5
+    workingValue12 = localValue1
+    workingValue13 = 0
+    hashValue(workingValue12, workingValue13)
   end
-  textValue3 = arg5
+  text3 = localValue5
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d962c43598".
-eventRegistration2(textValue, workValue)
-eventRegistration2 = RegisterNetEvent
-textValue = "ae100d6cc6"
+eventHandler2(text, workingValue)
+eventHandler2 = RegisterNetEvent
+text = "ae100d6cc6"
 -- Beginner: this function handles network event "ae100d6cc6".
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3) ===
-function workValue(arg1, arg2, arg3)
-  local arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable
-  arg4 = RemoveWeaponFromPed
-  arg5 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1, localValue2, localValue3) ===
+function workingValue(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection
+  localValue4 = RemoveWeaponFromPed
+  localValue5 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg5 = arg5()
+  localValue5 = localValue5()
   hashValue = GetHashKey
-  workValue12 = arg1
-  hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = hashValue(workValue12)
-  arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4 = dataTable2
-  arg5 = string
-  arg5 = arg5.format
+  workingValue12 = localValue1
+  hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = hashValue(workingValue12)
+  localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4 = dataCollection2
+  localValue5 = string
+  localValue5 = localValue5.format
   hashValue = "removeWeaponStore(%s, %s, %s) cachedWeaponStore was %s getWeapons was %s ped is %s"
-  workValue12 = arg1
-  workValue13 = arg2
-  health = arg3
+  workingValue12 = localValue1
+  workingValue13 = localValue2
+  health = localValue3
   hashValue2 = json
   hashValue2 = hashValue2.encode
-  numberValue = dataTable3
-  hashValue2 = hashValue2(numberValue)
-  numberValue = json
-  numberValue = numberValue.encode
-  dataTable = CMG
-  dataTable = dataTable.getWeapons
-  dataTable = dataTable()
-  numberValue = numberValue(dataTable)
-  dataTable = workValue14
-  dataTable = dataTable()
-  arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = arg5(hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4 = dataTable3
-  arg4[arg1] = nil
-  if arg2 then
-    arg4 = SetPedAmmoByType
-    arg5 = PlayerPedId
+  number = dataCollection3
+  hashValue2 = hashValue2(number)
+  number = json
+  number = number.encode
+  dataCollection = CMG
+  dataCollection = dataCollection.getWeapons
+  dataCollection = dataCollection()
+  number = number(dataCollection)
+  dataCollection = workingValue14
+  dataCollection = dataCollection()
+  localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = localValue5(hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4 = dataCollection3
+  localValue4[localValue1] = nil
+  if localValue2 then
+    localValue4 = SetPedAmmoByType
+    localValue5 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg5 = arg5()
+    localValue5 = localValue5()
     hashValue = GetPedAmmoTypeFromWeapon
-    workValue12 = PlayerPedId
+    workingValue12 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    workValue12 = workValue12()
-    workValue13 = GetHashKey
-    health = arg1
-    workValue13, health, hashValue2, numberValue, dataTable = workValue13(health)
-    hashValue = hashValue(workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-    workValue12 = 0
-    arg4(arg5, hashValue, workValue12)
+    workingValue12 = workingValue12()
+    workingValue13 = GetHashKey
+    health = localValue1
+    workingValue13, health, hashValue2, number, dataCollection = workingValue13(health)
+    hashValue = hashValue(workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+    workingValue12 = 0
+    localValue4(localValue5, hashValue, workingValue12)
   end
-  textValue3 = arg3
+  text3 = localValue3
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ae100d6cc6".
-eventRegistration2(textValue, workValue)
-eventRegistration2 = RegisterNetEvent
-textValue = "51f1965821"
+eventHandler2(text, workingValue)
+eventHandler2 = RegisterNetEvent
+text = "51f1965821"
 -- Beginner: this function handles network event "51f1965821".
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13
-  arg2 = RemoveAllPedWeapons
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13
+  localValue2 = RemoveAllPedWeapons
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = false
-  arg2(arg3, arg4)
-  arg2 = dataTable2
-  arg3 = string
-  arg3 = arg3.format
-  arg4 = "clearWeaponStore(%s) cachedWeaponStore was %s getWeapons was %s ped is %s"
-  arg5 = arg1
+  localValue3 = localValue3()
+  localValue4 = false
+  localValue2(localValue3, localValue4)
+  localValue2 = dataCollection2
+  localValue3 = string
+  localValue3 = localValue3.format
+  localValue4 = "clearWeaponStore(%s) cachedWeaponStore was %s getWeapons was %s ped is %s"
+  localValue5 = localValue1
   hashValue = json
   hashValue = hashValue.encode
-  workValue12 = dataTable3
-  hashValue = hashValue(workValue12)
-  workValue12 = json
-  workValue12 = workValue12.encode
-  workValue13 = CMG
-  workValue13 = workValue13.getWeapons
-  workValue13 = workValue13()
-  workValue12 = workValue12(workValue13)
-  workValue13 = workValue14
-  workValue13 = workValue13()
-  arg3, arg4, arg5, hashValue, workValue12, workValue13 = arg3(arg4, arg5, hashValue, workValue12, workValue13)
-  arg2(arg3, arg4, arg5, hashValue, workValue12, workValue13)
-  arg2 = {}
-  dataTable3 = arg2
-  textValue3 = arg1
+  workingValue12 = dataCollection3
+  hashValue = hashValue(workingValue12)
+  workingValue12 = json
+  workingValue12 = workingValue12.encode
+  workingValue13 = CMG
+  workingValue13 = workingValue13.getWeapons
+  workingValue13 = workingValue13()
+  workingValue12 = workingValue12(workingValue13)
+  workingValue13 = workingValue14
+  workingValue13 = workingValue13()
+  localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13 = localValue3(localValue4, localValue5, hashValue, workingValue12, workingValue13)
+  localValue2(localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13)
+  localValue2 = {}
+  dataCollection3 = localValue2
+  text3 = localValue1
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "51f1965821".
-eventRegistration2(textValue, workValue)
-eventRegistration2 = {}
-textValue = 911657153
-eventRegistration2[textValue] = true
-textValue = 1843015545
-eventRegistration2[textValue] = true
-textValue = 1953687840
-eventRegistration2[textValue] = true
-textValue = 126349499
-eventRegistration2[textValue] = true
-textValue = -2076048660
-eventRegistration2[textValue] = true
-textValue = 0
+eventHandler2(text, workingValue)
+eventHandler2 = {}
+text = 911657153
+eventHandler2[text] = true
+text = 1843015545
+eventHandler2[text] = true
+text = 1953687840
+eventHandler2[text] = true
+text = 126349499
+eventHandler2[text] = true
+text = -2076048660
+eventHandler2[text] = true
+text = 0
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2
-  arg2 = {}
-  arg3 = cmgCall3.iterator
-  arg3, arg4, arg5, hashValue = arg3()
-  for workValue12, workValue13 in arg3, arg4, arg5, hashValue do
-    health = workValue13[1]
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2
+  localValue2 = {}
+  localValue3 = cmgOperation3.iterator
+  localValue3, localValue4, localValue5, hashValue = localValue3()
+  for workingValue12, workingValue13 in localValue3, localValue4, localValue5, hashValue do
+    health = workingValue13[1]
     if 0 ~= health then
       health = table
       health = health.insert
-      hashValue2 = arg2
-      numberValue = workValue13
-      health(hashValue2, numberValue)
+      hashValue2 = localValue2
+      number = workingValue13
+      health(hashValue2, number)
     end
   end
-  arg3 = table
-  arg3 = arg3.sort
-  arg4 = arg2
+  localValue3 = table
+  localValue3 = localValue3.sort
+  localValue4 = localValue2
 
-  -- === HELPER FUNCTION: arg5(arg12, arg22) ===
-  function arg5(arg12, arg22)
-    local workValue10, workValue11
-    workValue10 = arg12[1]
-    workValue11 = arg22[1]
-    if workValue10 == workValue11 then
-      workValue10 = arg12[2]
-      workValue11 = arg22[2]
-      workValue10 = workValue10 < workValue11
-      return workValue10
+  -- === HELPER FUNCTION: localValue5(localValue12, localValue22) ===
+  function localValue5(localValue12, localValue22)
+    local workingValue10, workingValue11
+    workingValue10 = localValue12[1]
+    workingValue11 = localValue22[1]
+    if workingValue10 == workingValue11 then
+      workingValue10 = localValue12[2]
+      workingValue11 = localValue22[2]
+      workingValue10 = workingValue10 < workingValue11
+      return workingValue10
     else
-      workValue10 = arg12[1]
-      workValue11 = arg22[1]
-      workValue10 = workValue10 < workValue11
-      return workValue10
+      workingValue10 = localValue12[1]
+      workingValue11 = localValue22[1]
+      workingValue10 = workingValue10 < workingValue11
+      return workingValue10
     end
   end
-  arg3(arg4, arg5)
-  if arg1 then
-    arg3 = TriggerServerEvent
-    arg4 = "b46b0f245b"
-    arg5 = arg2
+  localValue3(localValue4, localValue5)
+  if localValue1 then
+    localValue3 = TriggerServerEvent
+    localValue4 = "b46b0f245b"
+    localValue5 = localValue2
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b46b0f245b".
-    arg3(arg4, arg5)
+    localValue3(localValue4, localValue5)
   else
-    arg3 = pairs
-    arg4 = arg2
-    arg3, arg4, arg5, hashValue = arg3(arg4)
-    for workValue12, workValue13 in arg3, arg4, arg5, hashValue do
+    localValue3 = pairs
+    localValue4 = localValue2
+    localValue3, localValue4, localValue5, hashValue = localValue3(localValue4)
+    for workingValue12, workingValue13 in localValue3, localValue4, localValue5, hashValue do
       health = print
       hashValue2 = string
       hashValue2 = hashValue2.format
-      numberValue = "[DEBUG] %s (%s) -> %s"
-      dataTable = workValue13[1]
-      iterator = workValue13[2]
-      workValue2 = workValue13[3]
-      hashValue2, numberValue, dataTable, iterator, workValue2 = hashValue2(numberValue, dataTable, iterator, workValue2)
-      health(hashValue2, numberValue, dataTable, iterator, workValue2)
+      number = "[DEBUG] %s (%s) -> %s"
+      dataCollection = workingValue13[1]
+      iterator = workingValue13[2]
+      workingValue2 = workingValue13[3]
+      hashValue2, number, dataCollection, iterator, workingValue2 = hashValue2(number, dataCollection, iterator, workingValue2)
+      health(hashValue2, number, dataCollection, iterator, workingValue2)
     end
   end
 end
-cmgCall2 = Citizen
-cmgCall2 = cmgCall2.CreateThread
+cmgOperation2 = Citizen
+cmgOperation2 = cmgOperation2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable, iterator, workValue2, workValue3, flag2, flag3, workValue5
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection, iterator, workingValue2, workingValue3, stateFlag2, stateFlag3, workingValue5
   while true do
-    arg1 = CMG
-    arg1 = arg1.isPlayerCustomisationSetup
-    arg1 = arg1()
-    if arg1 then
+    localValue1 = CMG
+    localValue1 = localValue1.isPlayerCustomisationSetup
+    localValue1 = localValue1()
+    if localValue1 then
       break
     end
-    arg1 = Wait
-    arg2 = 0
-    arg1(arg2)
+    localValue1 = Wait
+    localValue2 = 0
+    localValue1(localValue2)
   end
-  arg1 = Wait
-  arg2 = 0
-  arg1(arg2)
+  localValue1 = Wait
+  localValue2 = 0
+  localValue1(localValue2)
   while true do
-    arg1 = CMG
-    arg1 = arg1.getCachedWeaponStore
-    arg1 = arg1()
-    arg2 = GetFrameCount
-    arg2 = arg2()
-    arg3 = CMG
-    arg3 = arg3.isPedScriptGuidChanging
-    arg3 = arg3()
-    if not arg3 then
-      arg3 = CMG
-      arg3 = arg3.isPoliceHorse
-      arg3 = arg3()
+    localValue1 = CMG
+    localValue1 = localValue1.getCachedWeaponStore
+    localValue1 = localValue1()
+    localValue2 = GetFrameCount
+    localValue2 = localValue2()
+    localValue3 = CMG
+    localValue3 = localValue3.isPedScriptGuidChanging
+    localValue3 = localValue3()
+    if not localValue3 then
+      localValue3 = CMG
+      localValue3 = localValue3.isPoliceHorse
+      localValue3 = localValue3()
     end
-    arg4 = PlayerPedId
+    localValue4 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg4 = arg4()
-    arg5 = {}
+    localValue4 = localValue4()
+    localValue5 = {}
     hashValue = pairs
-    workValue12 = arg1
-    hashValue, workValue12, workValue13, health = hashValue(workValue12)
-    for hashValue2, numberValue in hashValue, workValue12, workValue13, health do
-      dataTable = GetPedAmmoTypeFromWeapon
-      iterator = arg4
-      workValue2 = numberValue.weaponHash
-      dataTable = dataTable(iterator, workValue2)
-      if 0 ~= dataTable then
+    workingValue12 = localValue1
+    hashValue, workingValue12, workingValue13, health = hashValue(workingValue12)
+    for hashValue2, number in hashValue, workingValue12, workingValue13, health do
+      dataCollection = GetPedAmmoTypeFromWeapon
+      iterator = localValue4
+      workingValue2 = number.weaponHash
+      dataCollection = dataCollection(iterator, workingValue2)
+      if 0 ~= dataCollection then
         iterator = HasPedGotWeapon
-        workValue2 = arg4
-        workValue3 = numberValue.weaponHash
-        flag2 = false
-        iterator = iterator(workValue2, workValue3, flag2)
+        workingValue2 = localValue4
+        workingValue3 = number.weaponHash
+        stateFlag2 = false
+        iterator = iterator(workingValue2, workingValue3, stateFlag2)
         if iterator then
-          iterator = arg5[dataTable]
+          iterator = localValue5[dataCollection]
           if nil == iterator then
-            arg5[dataTable] = true
-            iterator = arg1[hashValue2]
+            localValue5[dataCollection] = true
+            iterator = localValue1[hashValue2]
             iterator = iterator.setFrame
-            if arg2 > iterator and not arg3 then
+            if localValue2 > iterator and not localValue3 then
               iterator = CMG
               iterator = iterator.isInPaintball
               iterator = iterator()
               if not iterator then
                 iterator = GetAmmoInPedWeapon
-                workValue2 = arg4
-                workValue3 = numberValue.weaponHash
-                iterator = iterator(workValue2, workValue3)
-                workValue2 = arg1[hashValue2]
-                workValue2 = workValue2.ammo
-                if iterator > workValue2 then
-                  workValue3 = numberValue.weaponHash
-                  workValue2 = eventRegistration2
-                  workValue2 = workValue2[workValue3]
-                  if not workValue2 then
-                    workValue2 = CMG
-                    workValue2 = workValue2.isAimTraining
-                    workValue2 = workValue2()
-                    if not workValue2 then
-                      workValue2 = CMG
-                      workValue2 = workValue2.inArena
-                      workValue2 = workValue2()
-                      if not workValue2 then
-                        workValue2 = CMG
-                        workValue2 = workValue2.inArenaWarmup
-                        workValue2 = workValue2()
-                        if not workValue2 then
-                          workValue2 = TriggerServerEvent
-                          workValue3 = "101039c9d0"
-                          flag2 = hashValue2
-                          flag3 = iterator
-                          workValue5 = arg1[hashValue2]
-                          workValue5 = workValue5.ammo
+                workingValue2 = localValue4
+                workingValue3 = number.weaponHash
+                iterator = iterator(workingValue2, workingValue3)
+                workingValue2 = localValue1[hashValue2]
+                workingValue2 = workingValue2.ammo
+                if iterator > workingValue2 then
+                  workingValue3 = number.weaponHash
+                  workingValue2 = eventHandler2
+                  workingValue2 = workingValue2[workingValue3]
+                  if not workingValue2 then
+                    workingValue2 = CMG
+                    workingValue2 = workingValue2.isAimTraining
+                    workingValue2 = workingValue2()
+                    if not workingValue2 then
+                      workingValue2 = CMG
+                      workingValue2 = workingValue2.inArena
+                      workingValue2 = workingValue2()
+                      if not workingValue2 then
+                        workingValue2 = CMG
+                        workingValue2 = workingValue2.inArenaWarmup
+                        workingValue2 = workingValue2()
+                        if not workingValue2 then
+                          workingValue2 = TriggerServerEvent
+                          workingValue3 = "101039c9d0"
+                          stateFlag2 = hashValue2
+                          stateFlag3 = iterator
+                          workingValue5 = localValue1[hashValue2]
+                          workingValue5 = workingValue5.ammo
                           -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "101039c9d0".
-                          workValue2(workValue3, flag2, flag3, workValue5)
-                          workValue2 = workValue
-                          workValue3 = true
-                          workValue2(workValue3)
+                          workingValue2(workingValue3, stateFlag2, stateFlag3, workingValue5)
+                          workingValue2 = workingValue
+                          workingValue3 = true
+                          workingValue2(workingValue3)
                         end
                       end
                     end
                   end
                 end
                 if iterator >= 0 then
-                  workValue2 = arg1[hashValue2]
-                  workValue2.ammo = iterator
+                  workingValue2 = localValue1[hashValue2]
+                  workingValue2.ammo = iterator
                 end
               end
             end
           else
-            iterator = arg1[hashValue2]
+            iterator = localValue1[hashValue2]
             iterator.ammo = 0
           end
         end
@@ -707,17 +707,17 @@ function textValue2()
     end
     hashValue = table
     hashValue = hashValue.contentEquals
-    workValue12 = arg1
-    workValue13 = cmgCall4
-    hashValue = hashValue(workValue12, workValue13)
+    workingValue12 = localValue1
+    workingValue13 = cmgOperation4
+    hashValue = hashValue(workingValue12, workingValue13)
     if not hashValue then
       hashValue = GetGameTimer
       -- Beginner: result below is gameTimeMs.
       hashValue = hashValue()
-      workValue12 = textValue
-      hashValue = hashValue - workValue12
-      workValue12 = 5000
-      if hashValue >= workValue12 then
+      workingValue12 = text
+      hashValue = hashValue - workingValue12
+      workingValue12 = 5000
+      if hashValue >= workingValue12 then
         hashValue = CMG
         hashValue = hashValue.isInPaintball
         hashValue = hashValue()
@@ -731,15 +731,15 @@ function textValue2()
             hashValue = hashValue()
             if not hashValue then
               hashValue = TriggerServerEvent
-              workValue12 = "7f0ac25257"
-              workValue13 = arg1
-              health = textValue3
+              workingValue12 = "7f0ac25257"
+              workingValue13 = localValue1
+              health = text3
               -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7f0ac25257".
-              hashValue(workValue12, workValue13, health)
+              hashValue(workingValue12, workingValue13, health)
               hashValue = GetGameTimer
               -- Beginner: result below is gameTimeMs.
               hashValue = hashValue()
-              textValue = hashValue
+              text = hashValue
             end
           end
         end
@@ -747,471 +747,471 @@ function textValue2()
     end
     hashValue = table
     hashValue = hashValue.copy
-    workValue12 = arg1
-    hashValue = hashValue(workValue12)
-    cmgCall4 = hashValue
+    workingValue12 = localValue1
+    hashValue = hashValue(workingValue12)
+    cmgOperation4 = hashValue
     hashValue = Wait
-    workValue12 = 2000
-    hashValue(workValue12)
+    workingValue12 = 2000
+    hashValue(workingValue12)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-cmgCall2(textValue2)
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.registerCommand
-textValue2 = "printweapondebug"
+cmgOperation2(text2)
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.registerCommand
+text2 = "printweapondebug"
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
-function eventRegistration()
-  local arg1, arg2
-  arg1 = workValue
-  arg2 = false
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: eventHandler; parameters: none) ===
+function eventHandler()
+  local localValue1, localValue2
+  localValue1 = workingValue
+  localValue2 = false
+  localValue1(localValue2)
 end
-flag = false
-cmgCall2(textValue2, eventRegistration, flag)
-cmgCall2 = CMG
+stateFlag = false
+cmgOperation2(text2, eventHandler, stateFlag)
+cmgOperation2 = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3
-  arg1 = RemoveAllPedWeapons
-  arg2 = CMG
-  arg2 = arg2.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3
+  localValue1 = RemoveAllPedWeapons
+  localValue2 = CMG
+  localValue2 = localValue2.getPlayerPed
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = false
-  arg1(arg2, arg3)
+  localValue2 = localValue2()
+  localValue3 = false
+  localValue1(localValue2, localValue3)
 end
-cmgCall2.removeAllWeapons = textValue2
-cmgCall2 = GetGameTimer
+cmgOperation2.removeAllWeapons = text2
+cmgOperation2 = GetGameTimer
 -- Beginner: result below is gameTimeMs.
-cmgCall2 = cmgCall2()
+cmgOperation2 = cmgOperation2()
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2, arg3, arg4
-  arg1 = HasPedGotWeapon
-  arg2 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2, localValue3, localValue4
+  localValue1 = HasPedGotWeapon
+  localValue2 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = -1716589765
-  arg4 = false
-  arg1 = arg1(arg2, arg3, arg4)
-  if not arg1 then
-    arg1 = HasPedGotWeapon
-    arg2 = PlayerPedId
+  localValue2 = localValue2()
+  localValue3 = -1716589765
+  localValue4 = false
+  localValue1 = localValue1(localValue2, localValue3, localValue4)
+  if not localValue1 then
+    localValue1 = HasPedGotWeapon
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
-    arg3 = -619010992
-    arg4 = false
-    arg1 = arg1(arg2, arg3, arg4)
-    if not arg1 then
-      goto flow_label_19
+    localValue2 = localValue2()
+    localValue3 = -619010992
+    localValue4 = false
+    localValue1 = localValue1(localValue2, localValue3, localValue4)
+    if not localValue1 then
+      goto continueAtStep19
     end
   end
-  arg1 = false
-  return arg1
-  ::flow_label_19::
-  arg1 = CMG
-  arg1 = arg1.isHandcuffed
-  arg1 = arg1()
-  if arg1 then
-    arg1 = false
-    return arg1
+  localValue1 = false
+  return localValue1
+  ::continueAtStep19::
+  localValue1 = CMG
+  localValue1 = localValue1.isHandcuffed
+  localValue1 = localValue1()
+  if localValue1 then
+    localValue1 = false
+    return localValue1
   end
-  arg1 = true
-  return arg1
+  localValue1 = true
+  return localValue1
 end
-eventRegistration = RegisterCommand
-flag = "storecurrentweapon"
+eventHandler = RegisterCommand
+stateFlag = "storecurrentweapon"
 -- Beginner: this function is the command handler for "storecurrentweapon".
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2
-  arg1 = cmgCall2
-  arg1 = arg1 + 3000
-  arg2 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2
+  localValue1 = cmgOperation2
+  localValue1 = localValue1 + 3000
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
-  if arg1 < arg2 then
-    arg1 = GetGameTimer
+  localValue2 = localValue2()
+  if localValue1 < localValue2 then
+    localValue1 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg1 = arg1()
-    cmgCall2 = arg1
-    arg1 = textValue2
-    arg1 = arg1()
-    if not arg1 then
+    localValue1 = localValue1()
+    cmgOperation2 = localValue1
+    localValue1 = text2
+    localValue1 = localValue1()
+    if not localValue1 then
       return
     end
-    arg1 = GetCurrentPedWeapon
-    arg2 = PlayerPedId
+    localValue1 = GetCurrentPedWeapon
+    localValue2 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg2 = arg2()
-    arg3 = 0
-    arg4 = false
-    arg1, arg2 = arg1(arg2, arg3, arg4)
-    arg3 = cmgCall.weaponHashToModels
-    arg3 = arg3[arg2]
-    arg4 = TriggerServerEvent
-    arg5 = "23e533401c"
+    localValue2 = localValue2()
+    localValue3 = 0
+    localValue4 = false
+    localValue1, localValue2 = localValue1(localValue2, localValue3, localValue4)
+    localValue3 = cmgOperation.weaponHashToModels
+    localValue3 = localValue3[localValue2]
+    localValue4 = TriggerServerEvent
+    localValue5 = "23e533401c"
     hashValue = true
-    workValue12 = false
-    workValue13 = arg3
+    workingValue12 = false
+    workingValue13 = localValue3
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "23e533401c".
-    arg4(arg5, hashValue, workValue12, workValue13)
-    arg4 = dataTable2
-    arg5 = string
-    arg5 = arg5.format
+    localValue4(localValue5, hashValue, workingValue12, workingValue13)
+    localValue4 = dataCollection2
+    localValue5 = string
+    localValue5 = localValue5.format
     hashValue = "forceStoreSingleWeapon(%s) cachedWeaponStore was %s getWeapons was %s ped is %s"
-    workValue12 = arg3
-    workValue13 = json
-    workValue13 = workValue13.encode
-    health = dataTable3
-    workValue13 = workValue13(health)
+    workingValue12 = localValue3
+    workingValue13 = json
+    workingValue13 = workingValue13.encode
+    health = dataCollection3
+    workingValue13 = workingValue13(health)
     health = json
     health = health.encode
     hashValue2 = CMG
     hashValue2 = hashValue2.getWeapons
     hashValue2 = hashValue2()
     health = health(hashValue2)
-    hashValue2 = workValue14
+    hashValue2 = workingValue14
     hashValue2 = hashValue2()
-    arg5, hashValue, workValue12, workValue13, health, hashValue2 = arg5(hashValue, workValue12, workValue13, health, hashValue2)
-    arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2)
+    localValue5, hashValue, workingValue12, workingValue13, health, hashValue2 = localValue5(hashValue, workingValue12, workingValue13, health, hashValue2)
+    localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2)
   else
-    arg1 = tCMG
-    arg1 = arg1.notify
-    arg2 = "~r~Store weapons cooldown, please wait."
+    localValue1 = tCMG
+    localValue1 = localValue1.notify
+    localValue2 = "~r~Store weapons cooldown, please wait."
     -- Beginner: Show a notification to the player.
-    arg1(arg2)
+    localValue1(localValue2)
   end
 end
-flag4 = false
+stateFlag4 = false
 -- Beginner: Register a chat/console command. Event/command: "storecurrentweapon".
-eventRegistration(flag, workValue4, flag4)
-eventRegistration = RegisterCommand
-flag = "storeallweapons"
+eventHandler(stateFlag, workingValue4, stateFlag4)
+eventHandler = RegisterCommand
+stateFlag = "storeallweapons"
 -- Beginner: this function is the command handler for "storeallweapons".
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
-function workValue4()
-  local arg1, arg2, arg3, arg4, arg5, hashValue
-  arg1 = cmgCall2
-  arg1 = arg1 + 3000
-  arg2 = GetGameTimer
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: none) ===
+function workingValue4()
+  local localValue1, localValue2, localValue3, localValue4, localValue5, hashValue
+  localValue1 = cmgOperation2
+  localValue1 = localValue1 + 3000
+  localValue2 = GetGameTimer
   -- Beginner: result below is gameTimeMs.
-  arg2 = arg2()
-  if arg1 < arg2 then
-    arg1 = GetGameTimer
+  localValue2 = localValue2()
+  if localValue1 < localValue2 then
+    localValue1 = GetGameTimer
     -- Beginner: result below is gameTimeMs.
-    arg1 = arg1()
-    cmgCall2 = arg1
-    arg1 = textValue2
-    arg1 = arg1()
-    if not arg1 then
+    localValue1 = localValue1()
+    cmgOperation2 = localValue1
+    localValue1 = text2
+    localValue1 = localValue1()
+    if not localValue1 then
       return
     end
-    arg1 = TriggerServerEvent
-    arg2 = "868d29c333"
-    arg3 = true
-    arg4 = false
+    localValue1 = TriggerServerEvent
+    localValue2 = "868d29c333"
+    localValue3 = true
+    localValue4 = false
     -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "868d29c333".
-    arg1(arg2, arg3, arg4)
-    arg1 = dataTable2
-    arg2 = string
-    arg2 = arg2.format
-    arg3 = "forceStoreWeapons() cachedWeaponStore was %s getWeapons was %s ped is %s"
-    arg4 = json
-    arg4 = arg4.encode
-    arg5 = dataTable3
-    arg4 = arg4(arg5)
-    arg5 = json
-    arg5 = arg5.encode
+    localValue1(localValue2, localValue3, localValue4)
+    localValue1 = dataCollection2
+    localValue2 = string
+    localValue2 = localValue2.format
+    localValue3 = "forceStoreWeapons() cachedWeaponStore was %s getWeapons was %s ped is %s"
+    localValue4 = json
+    localValue4 = localValue4.encode
+    localValue5 = dataCollection3
+    localValue4 = localValue4(localValue5)
+    localValue5 = json
+    localValue5 = localValue5.encode
     hashValue = CMG
     hashValue = hashValue.getWeapons
     hashValue = hashValue()
-    arg5 = arg5(hashValue)
-    hashValue = workValue14
+    localValue5 = localValue5(hashValue)
+    hashValue = workingValue14
     hashValue = hashValue()
-    arg2, arg3, arg4, arg5, hashValue = arg2(arg3, arg4, arg5, hashValue)
-    arg1(arg2, arg3, arg4, arg5, hashValue)
+    localValue2, localValue3, localValue4, localValue5, hashValue = localValue2(localValue3, localValue4, localValue5, hashValue)
+    localValue1(localValue2, localValue3, localValue4, localValue5, hashValue)
   else
-    arg1 = tCMG
-    arg1 = arg1.notify
-    arg2 = "~r~Store weapons cooldown, please wait."
+    localValue1 = tCMG
+    localValue1 = localValue1.notify
+    localValue2 = "~r~Store weapons cooldown, please wait."
     -- Beginner: Show a notification to the player.
-    arg1(arg2)
+    localValue1(localValue2)
   end
 end
-flag4 = false
+stateFlag4 = false
 -- Beginner: Register a chat/console command. Event/command: "storeallweapons".
-eventRegistration(flag, workValue4, flag4)
-eventRegistration = RegisterNetEvent
-flag = "cd72e00d12"
+eventHandler(stateFlag, workingValue4, stateFlag4)
+eventHandler = RegisterNetEvent
+stateFlag = "cd72e00d12"
 -- Beginner: this function handles network event "cd72e00d12".
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
-function workValue4(arg1, arg2, arg3)
-  local arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable
-  arg4 = dataTable2
-  arg5 = string
-  arg5 = arg5.format
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2, localValue3) ===
+function workingValue4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection
+  localValue4 = dataCollection2
+  localValue5 = string
+  localValue5 = localValue5.format
   hashValue = "addStoredAmmo(%s, %s, %s) cachedWeaponStore was %s getWeapons was %s ped is %s"
-  workValue12 = arg1
-  workValue13 = arg2
-  health = arg3
+  workingValue12 = localValue1
+  workingValue13 = localValue2
+  health = localValue3
   hashValue2 = json
   hashValue2 = hashValue2.encode
-  numberValue = dataTable3
-  hashValue2 = hashValue2(numberValue)
-  numberValue = json
-  numberValue = numberValue.encode
-  dataTable = CMG
-  dataTable = dataTable.getWeapons
-  dataTable = dataTable()
-  numberValue = numberValue(dataTable)
-  dataTable = workValue14
-  dataTable = dataTable()
-  arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = arg5(hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4 = dataTable3
-  arg4 = arg4[arg1]
-  if arg4 then
-    arg4 = dataTable3
-    arg4 = arg4[arg1]
-    arg5 = dataTable3
-    arg5 = arg5[arg1]
-    arg5 = arg5.ammo
-    arg5 = arg5 + arg2
-    arg4.ammo = arg5
-    arg4 = dataTable3
-    arg4 = arg4[arg1]
-    arg5 = GetFrameCount
-    arg5 = arg5()
-    arg4.setFrame = arg5
+  number = dataCollection3
+  hashValue2 = hashValue2(number)
+  number = json
+  number = number.encode
+  dataCollection = CMG
+  dataCollection = dataCollection.getWeapons
+  dataCollection = dataCollection()
+  number = number(dataCollection)
+  dataCollection = workingValue14
+  dataCollection = dataCollection()
+  localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = localValue5(hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4 = dataCollection3
+  localValue4 = localValue4[localValue1]
+  if localValue4 then
+    localValue4 = dataCollection3
+    localValue4 = localValue4[localValue1]
+    localValue5 = dataCollection3
+    localValue5 = localValue5[localValue1]
+    localValue5 = localValue5.ammo
+    localValue5 = localValue5 + localValue2
+    localValue4.ammo = localValue5
+    localValue4 = dataCollection3
+    localValue4 = localValue4[localValue1]
+    localValue5 = GetFrameCount
+    localValue5 = localValue5()
+    localValue4.setFrame = localValue5
   else
-    arg4 = CMG
-    arg4 = arg4.logError
-    arg5 = "cd72e00d12"
+    localValue4 = CMG
+    localValue4 = localValue4.logError
+    localValue5 = "cd72e00d12"
     hashValue = "Failed to add "
-    workValue12 = tostring
-    workValue13 = arg2
-    workValue12 = workValue12(workValue13)
-    workValue13 = " ammo to "
-    health = arg1
-    hashValue = hashValue .. workValue12 .. workValue13 .. health
-    workValue12 = json
-    workValue12 = workValue12.encode
-    workValue13 = dataTable3
-    workValue12 = workValue12(workValue13)
-    if not workValue12 then
-      workValue12 = ""
+    workingValue12 = tostring
+    workingValue13 = localValue2
+    workingValue12 = workingValue12(workingValue13)
+    workingValue13 = " ammo to "
+    health = localValue1
+    hashValue = hashValue .. workingValue12 .. workingValue13 .. health
+    workingValue12 = json
+    workingValue12 = workingValue12.encode
+    workingValue13 = dataCollection3
+    workingValue12 = workingValue12(workingValue13)
+    if not workingValue12 then
+      workingValue12 = ""
     end
-    arg4(arg5, hashValue, workValue12)
+    localValue4(localValue5, hashValue, workingValue12)
   end
-  textValue3 = arg3
+  text3 = localValue3
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "cd72e00d12".
-eventRegistration(flag, workValue4)
-eventRegistration = RegisterNetEvent
-flag = "6af7c62f30"
+eventHandler(stateFlag, workingValue4)
+eventHandler = RegisterNetEvent
+stateFlag = "6af7c62f30"
 -- Beginner: this function handles network event "6af7c62f30".
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
-function workValue4(arg1, arg2, arg3)
-  local arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable
-  arg4 = SetPedAmmo
-  arg5 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2, localValue3) ===
+function workingValue4(localValue1, localValue2, localValue3)
+  local localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection
+  localValue4 = SetPedAmmo
+  localValue5 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg5 = arg5()
+  localValue5 = localValue5()
   hashValue = GetHashKey
-  workValue12 = arg1
+  workingValue12 = localValue1
   -- Beginner: result below is hash.
-  hashValue = hashValue(workValue12)
-  workValue12 = math
-  workValue12 = workValue12.floor
-  workValue13 = arg2
-  workValue12, workValue13, health, hashValue2, numberValue, dataTable = workValue12(workValue13)
-  arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4 = dataTable2
-  arg5 = string
-  arg5 = arg5.format
+  hashValue = hashValue(workingValue12)
+  workingValue12 = math
+  workingValue12 = workingValue12.floor
+  workingValue13 = localValue2
+  workingValue12, workingValue13, health, hashValue2, number, dataCollection = workingValue12(workingValue13)
+  localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4 = dataCollection2
+  localValue5 = string
+  localValue5 = localValue5.format
   hashValue = "setStoredAmmo(%s, %s, %s) cachedWeaponStore was %s getWeapons was %s ped is %s"
-  workValue12 = arg1
-  workValue13 = arg2
-  health = arg3
+  workingValue12 = localValue1
+  workingValue13 = localValue2
+  health = localValue3
   hashValue2 = json
   hashValue2 = hashValue2.encode
-  numberValue = dataTable3
-  hashValue2 = hashValue2(numberValue)
-  numberValue = json
-  numberValue = numberValue.encode
-  dataTable = CMG
-  dataTable = dataTable.getWeapons
-  dataTable = dataTable()
-  numberValue = numberValue(dataTable)
-  dataTable = workValue14
-  dataTable = dataTable()
-  arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = arg5(hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  arg4 = dataTable3
-  arg4 = arg4[arg1]
-  if arg4 then
-    arg4 = cmgCall5
-    arg5 = arg1
-    hashValue = arg2
-    arg4(arg5, hashValue)
+  number = dataCollection3
+  hashValue2 = hashValue2(number)
+  number = json
+  number = number.encode
+  dataCollection = CMG
+  dataCollection = dataCollection.getWeapons
+  dataCollection = dataCollection()
+  number = number(dataCollection)
+  dataCollection = workingValue14
+  dataCollection = dataCollection()
+  localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = localValue5(hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  localValue4 = dataCollection3
+  localValue4 = localValue4[localValue1]
+  if localValue4 then
+    localValue4 = cmgOperation5
+    localValue5 = localValue1
+    hashValue = localValue2
+    localValue4(localValue5, hashValue)
   else
-    arg4 = CMG
-    arg4 = arg4.logError
-    arg5 = "6af7c62f30"
+    localValue4 = CMG
+    localValue4 = localValue4.logError
+    localValue5 = "6af7c62f30"
     hashValue = "Failed to set the ammo of "
-    workValue12 = arg1
-    workValue13 = " to "
+    workingValue12 = localValue1
+    workingValue13 = " to "
     health = tostring
-    hashValue2 = arg2
+    hashValue2 = localValue2
     health = health(hashValue2)
-    hashValue = hashValue .. workValue12 .. workValue13 .. health
-    workValue12 = json
-    workValue12 = workValue12.encode
-    workValue13 = dataTable3
-    workValue12 = workValue12(workValue13)
-    if not workValue12 then
-      workValue12 = ""
+    hashValue = hashValue .. workingValue12 .. workingValue13 .. health
+    workingValue12 = json
+    workingValue12 = workingValue12.encode
+    workingValue13 = dataCollection3
+    workingValue12 = workingValue12(workingValue13)
+    if not workingValue12 then
+      workingValue12 = ""
     end
-    arg4(arg5, hashValue, workValue12)
+    localValue4(localValue5, hashValue, workingValue12)
   end
-  textValue3 = arg3
+  text3 = localValue3
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6af7c62f30".
-eventRegistration(flag, workValue4)
-eventRegistration = AddEventHandler
-flag = "onResourceStop"
+eventHandler(stateFlag, workingValue4)
+eventHandler = AddEventHandler
+stateFlag = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
-function workValue4(arg1)
-  local arg2, arg3, arg4
-  arg2 = GetCurrentResourceName
-  arg2 = arg2()
-  if arg1 == arg2 then
-    arg2 = RemoveAllPedWeapons
-    arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1) ===
+function workingValue4(localValue1)
+  local localValue2, localValue3, localValue4
+  localValue2 = GetCurrentResourceName
+  localValue2 = localValue2()
+  if localValue1 == localValue2 then
+    localValue2 = RemoveAllPedWeapons
+    localValue3 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    arg3 = arg3()
-    arg4 = true
-    arg2(arg3, arg4)
+    localValue3 = localValue3()
+    localValue4 = true
+    localValue2(localValue3, localValue4)
   end
 end
 -- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
-eventRegistration(flag, workValue4)
-eventRegistration = RegisterNetEvent
-flag = "4d5264442d"
+eventHandler(stateFlag, workingValue4)
+eventHandler = RegisterNetEvent
+stateFlag = "4d5264442d"
 -- Beginner: this function handles network event "4d5264442d".
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
-function workValue4(arg1, arg2)
-  local arg3, arg4, arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable
-  arg3 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: workingValue4; parameters: localValue1, localValue2) ===
+function workingValue4(localValue1, localValue2)
+  local localValue3, localValue4, localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection
+  localValue3 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = IsEntityDead
-  arg5 = arg3
-  arg4 = arg4(arg5)
-  if arg4 then
-    arg4 = print
-    arg5 = string
-    arg5 = arg5.format
+  localValue3 = localValue3()
+  localValue4 = IsEntityDead
+  localValue5 = localValue3
+  localValue4 = localValue4(localValue5)
+  if localValue4 then
+    localValue4 = print
+    localValue5 = string
+    localValue5 = localValue5.format
     hashValue = "[Headshot Fix] Ignoring, local player is already dead."
-    workValue12 = arg1
-    arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = arg5(hashValue, workValue12)
-    arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
+    workingValue12 = localValue1
+    localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = localValue5(hashValue, workingValue12)
+    localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
     return
   end
-  arg4 = select
-  arg5 = 2
+  localValue4 = select
+  localValue5 = 2
   hashValue = GetEntityProofs
-  workValue12 = arg3
-  hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = hashValue(workValue12)
-  arg4 = arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-  if 1 ~= arg4 then
-    arg4 = GetEntityCanBeDamaged
-    arg5 = arg3
-    arg4 = arg4(arg5)
-    if arg4 then
-      arg4 = GetPlayerInvincible
-      arg5 = PlayerId
-      arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = arg5()
-      arg4 = arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
-      if not arg4 then
-        goto flow_label_43
+  workingValue12 = localValue3
+  hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = hashValue(workingValue12)
+  localValue4 = localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+  if 1 ~= localValue4 then
+    localValue4 = GetEntityCanBeDamaged
+    localValue5 = localValue3
+    localValue4 = localValue4(localValue5)
+    if localValue4 then
+      localValue4 = GetPlayerInvincible
+      localValue5 = PlayerId
+      localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = localValue5()
+      localValue4 = localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
+      if not localValue4 then
+        goto continueAtStep43
       end
     end
   end
-  arg4 = print
-  arg5 = string
-  arg5 = arg5.format
+  localValue4 = print
+  localValue5 = string
+  localValue5 = localValue5.format
   hashValue = "[Headshot Fix] Ignoring, local player can not be damaged."
-  workValue12 = arg1
-  arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = arg5(hashValue, workValue12)
-  arg4(arg5, hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
+  workingValue12 = localValue1
+  localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = localValue5(hashValue, workingValue12)
+  localValue4(localValue5, hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
   return
-  ::flow_label_43::
-  arg4 = GetPlayerFromServerId
-  arg5 = arg1
+  ::continueAtStep43::
+  localValue4 = GetPlayerFromServerId
+  localValue5 = localValue1
   -- Beginner: result below is playerIndex.
-  arg4 = arg4(arg5)
-  if -1 == arg4 then
-    arg5 = print
+  localValue4 = localValue4(localValue5)
+  if -1 == localValue4 then
+    localValue5 = print
     hashValue = string
     hashValue = hashValue.format
-    workValue12 = "[Headshot Fix] Could not find attacker player index. Player source was %s."
-    workValue13 = arg1
-    hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable = hashValue(workValue12, workValue13)
-    arg5(hashValue, workValue12, workValue13, health, hashValue2, numberValue, dataTable)
+    workingValue12 = "[Headshot Fix] Could not find attacker player index. Player source was %s."
+    workingValue13 = localValue1
+    hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection = hashValue(workingValue12, workingValue13)
+    localValue5(hashValue, workingValue12, workingValue13, health, hashValue2, number, dataCollection)
     return
   end
-  arg5 = GetPlayerPed
-  hashValue = arg4
+  localValue5 = GetPlayerPed
+  hashValue = localValue4
   -- Beginner: result below is playerPed.
-  arg5 = arg5(hashValue)
-  if 0 == arg5 then
+  localValue5 = localValue5(hashValue)
+  if 0 == localValue5 then
     hashValue = print
-    workValue12 = string
-    workValue12 = workValue12.format
-    workValue13 = "[Headshot Fix] Could not find attacker player ped. Player source was %s, player index was %s."
-    health = arg1
-    hashValue2 = arg4
-    workValue12, workValue13, health, hashValue2, numberValue, dataTable = workValue12(workValue13, health, hashValue2)
-    hashValue(workValue12, workValue13, health, hashValue2, numberValue, dataTable)
+    workingValue12 = string
+    workingValue12 = workingValue12.format
+    workingValue13 = "[Headshot Fix] Could not find attacker player ped. Player source was %s, player index was %s."
+    health = localValue1
+    hashValue2 = localValue4
+    workingValue12, workingValue13, health, hashValue2, number, dataCollection = workingValue12(workingValue13, health, hashValue2)
+    hashValue(workingValue12, workingValue13, health, hashValue2, number, dataCollection)
     return
   end
   hashValue = CMG
   hashValue = hashValue.setPedAndWeaponKilledByOverride
-  workValue12 = arg5
-  workValue13 = GetHashKey
-  health = arg2
+  workingValue12 = localValue5
+  workingValue13 = GetHashKey
+  health = localValue2
   -- Beginner: result below is hash.
-  workValue13 = workValue13(health)
+  workingValue13 = workingValue13(health)
   health = true
-  hashValue(workValue12, workValue13, health)
+  hashValue(workingValue12, workingValue13, health)
   hashValue = ApplyDamageToPed
-  workValue12 = arg3
-  workValue13 = 500
+  workingValue12 = localValue3
+  workingValue13 = 500
   health = true
-  hashValue(workValue12, workValue13, health)
+  hashValue(workingValue12, workingValue13, health)
   hashValue = print
-  workValue12 = string
-  workValue12 = workValue12.format
-  workValue13 = "[Headshot Fix] Attacking local player with a %s. Player source was %s, player index was %s, player ped was %s."
-  health = arg2
-  hashValue2 = arg1
-  numberValue = arg4
-  dataTable = arg5
-  workValue12, workValue13, health, hashValue2, numberValue, dataTable = workValue12(workValue13, health, hashValue2, numberValue, dataTable)
-  hashValue(workValue12, workValue13, health, hashValue2, numberValue, dataTable)
+  workingValue12 = string
+  workingValue12 = workingValue12.format
+  workingValue13 = "[Headshot Fix] Attacking local player with a %s. Player source was %s, player index was %s, player ped was %s."
+  health = localValue2
+  hashValue2 = localValue1
+  number = localValue4
+  dataCollection = localValue5
+  workingValue12, workingValue13, health, hashValue2, number, dataCollection = workingValue12(workingValue13, health, hashValue2, number, dataCollection)
+  hashValue(workingValue12, workingValue13, health, hashValue2, number, dataCollection)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4d5264442d".
-eventRegistration(flag, workValue4)
+eventHandler(stateFlag, workingValue4)

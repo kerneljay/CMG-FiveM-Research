@@ -32,5807 +32,5807 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local workValue, textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "mainmenu"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateMenu
-textValue42 = ""
-textValue48 = ""
-rageUiCall2 = CMG
-rageUiCall2 = rageUiCall2.getRageUIMenuWidth
-rageUiCall2 = rageUiCall2()
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuHeight
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = "new_editor"
-textValue54 = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "mainmenu"
-rageUiCall = "cinematic"
+local workingValue, text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "mainmenu"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateMenu
+text42 = ""
+text48 = ""
+rageUiOperation2 = CMG
+rageUiOperation2 = rageUiOperation2.getRageUIMenuWidth
+rageUiOperation2 = rageUiOperation2()
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuHeight
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = "new_editor"
+text54 = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "mainmenu"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~CMG Cinematic Editor"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "load_scene"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "mainmenu"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~CMG Cinematic Editor"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "load_scene"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "mainmenu"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "load_scene"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "load_scene"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Load Scene"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "scene_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "load_scene"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Load Scene"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "scene_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "load_scene"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "scene_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "scene_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Scene Manager"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "camera_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "scene_manager"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Scene Manager"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "camera_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "scene_manager"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "camera_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "camera_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Camera Manager"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "screeneffect_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "camera_manager"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Camera Manager"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "screeneffect_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "camera_manager"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "screeneffect_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "screeneffect_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Screen Effect Manager"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "timecycle_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "camera_manager"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Screen Effect Manager"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "timecycle_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "camera_manager"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "timecycle_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "timecycle_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Timecycle Effect Manager"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "shake_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "camera_manager"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Timecycle Effect Manager"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "shake_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "camera_manager"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "shake_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "shake_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Shake Effect Manager"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "add_camera"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "scene_manager"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Shake Effect Manager"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "add_camera"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "scene_manager"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "add_camera"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "add_camera"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Add Camera"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "camera_focus_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "camera_manager"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Add Camera"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "camera_focus_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "camera_manager"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "camera_focus_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "camera_focus_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Camera Focus"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "weather_time_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "mainmenu"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Camera Focus"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "weather_time_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "mainmenu"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "weather_time_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "weather_time_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Time/Weather Manager"
-workValue(textValue11, cmgCall)
-workValue = RMenu
-workValue = workValue.Add
-textValue11 = "dof_manager"
-cmgCall = "cinematic"
-rageUiCall = RageUI
-rageUiCall = rageUiCall.CreateSubMenu
-textValue42 = RMenu
-textValue48 = textValue42
-textValue42 = textValue42.Get
-rageUiCall2 = "camera_manager"
-rageUiCall3 = "cinematic"
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Time/Weather Manager"
+workingValue(text11, cmgOperation)
+workingValue = RMenu
+workingValue = workingValue.Add
+text11 = "dof_manager"
+cmgOperation = "cinematic"
+rageUiOperation = RageUI
+rageUiOperation = rageUiOperation.CreateSubMenu
+text42 = RMenu
+text48 = text42
+text42 = text42.Get
+rageUiOperation2 = "camera_manager"
+rageUiOperation3 = "cinematic"
 -- Beginner: result below is menu.
-textValue42 = textValue42(textValue48, rageUiCall2, rageUiCall3)
-textValue48 = ""
-rageUiCall2 = ""
-rageUiCall3 = CMG
-rageUiCall3 = rageUiCall3.getRageUIMenuWidth
-rageUiCall3 = rageUiCall3()
-rageUiCall4 = CMG
-rageUiCall4 = rageUiCall4.getRageUIMenuHeight
-rageUiCall4 = rageUiCall4()
-textValue54 = "new_editor"
-textValue = "r_editor_header"
-rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47 = rageUiCall(textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue)
-workValue(textValue11, cmgCall, rageUiCall, textValue42, textValue48, rageUiCall2, rageUiCall3, rageUiCall4, textValue54, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue45, textValue46, textValue47)
-workValue = RMenu
-textValue11 = workValue
-workValue = workValue.Get
-cmgCall = "dof_manager"
-rageUiCall = "cinematic"
+text42 = text42(text48, rageUiOperation2, rageUiOperation3)
+text48 = ""
+rageUiOperation2 = ""
+rageUiOperation3 = CMG
+rageUiOperation3 = rageUiOperation3.getRageUIMenuWidth
+rageUiOperation3 = rageUiOperation3()
+rageUiOperation4 = CMG
+rageUiOperation4 = rageUiOperation4.getRageUIMenuHeight
+rageUiOperation4 = rageUiOperation4()
+text54 = "new_editor"
+text = "r_editor_header"
+rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47 = rageUiOperation(text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text)
+workingValue(text11, cmgOperation, rageUiOperation, text42, text48, rageUiOperation2, rageUiOperation3, rageUiOperation4, text54, text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24, text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, text41, text45, text46, text47)
+workingValue = RMenu
+text11 = workingValue
+workingValue = workingValue.Get
+cmgOperation = "dof_manager"
+rageUiOperation = "cinematic"
 -- Beginner: result below is menu.
-workValue = workValue(textValue11, cmgCall, rageUiCall)
-textValue11 = workValue
-workValue = workValue.SetSubtitle
-cmgCall = "~b~Depth of Field Manager"
-workValue(textValue11, cmgCall)
+workingValue = workingValue(text11, cmgOperation, rageUiOperation)
+text11 = workingValue
+workingValue = workingValue.SetSubtitle
+cmgOperation = "~b~Depth of Field Manager"
+workingValue(text11, cmgOperation)
 
--- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
-function workValue(arg1)
-  local arg2, arg3, arg4, textValue43, textValue49
-  arg2 = RageUI
-  arg2 = arg2.CloseAll
-  arg2()
-  arg2 = RageUI
-  arg2 = arg2.Visible
-  arg3 = RMenu
-  arg4 = arg3
-  arg3 = arg3.Get
-  textValue43 = "mainmenu"
-  textValue49 = "cinematic"
+-- === HELPER FUNCTION (decompiler name: workingValue; parameters: localValue1) ===
+function workingValue(localValue1)
+  local localValue2, localValue3, localValue4, text43, text49
+  localValue2 = RageUI
+  localValue2 = localValue2.CloseAll
+  localValue2()
+  localValue2 = RageUI
+  localValue2 = localValue2.Visible
+  localValue3 = RMenu
+  localValue4 = localValue3
+  localValue3 = localValue3.Get
+  text43 = "mainmenu"
+  text49 = "cinematic"
   -- Beginner: result below is menu.
-  arg3 = arg3(arg4, textValue43, textValue49)
-  arg4 = arg1
-  arg2(arg3, arg4)
+  localValue3 = localValue3(localValue4, text43, text49)
+  localValue4 = localValue1
+  localValue2(localValue3, localValue4)
 end
-textValue11 = {}
-cmgCall = "Default"
-rageUiCall = "DeadlineNeon"
-textValue42 = "PPPurple"
-textValue48 = "PPOrange"
-rageUiCall2 = "PPGreen"
-rageUiCall3 = "InchPickup"
-rageUiCall4 = "InchOrange"
-textValue54 = "MP_Bull_tost"
-textValue = "CrossLine"
-textValue2 = "ArenaWheelPurple"
-textValue3 = "SwitchHUDOut"
-textValue4 = "FocusIn"
-textValue5 = "FocusOut"
-textValue6 = "MinigameEndNeutral"
-textValue7 = "MinigameEndTrevor"
-textValue8 = "MinigameEndFranklin"
-textValue9 = "MinigameEndMichael"
-textValue10 = "MinigameTransitionOut"
-textValue12 = "MinigameTransitionIn"
-textValue13 = "SwitchShortNeutralIn"
-textValue14 = "SwitchShortFranklinIn"
-textValue15 = "SwitchShortTrevorIn"
-textValue16 = "SwitchShortMichaelIn"
-textValue17 = "SwitchOpenMichaelIn"
-textValue18 = "SwitchOpenFranklinIn"
-textValue19 = "SwitchOpenTrevorIn"
-textValue20 = "SwitchHUDMichaelOut"
-textValue21 = "SwitchHUDFranklinOut"
-textValue22 = "SwitchHUDTrevorOut"
-textValue23 = "SwitchShortFranklinMid"
-textValue24 = "SwitchShortMichaelMid"
-textValue25 = "SwitchShortTrevorMid"
-textValue26 = "DeathFailOut"
-textValue27 = "CamPushInNeutral"
-textValue28 = "CamPushInFranklin"
-textValue29 = "CamPushInMichael"
-textValue30 = "CamPushInTrevor"
-textValue31 = "SwitchOpenMichaelIn"
-textValue32 = "SwitchSceneFranklin"
-textValue33 = "SwitchSceneTrevor"
-textValue34 = "SwitchSceneMichael"
-textValue35 = "SwitchSceneNeutral"
-textValue36 = "MP_Celeb_Win"
-textValue37 = "MP_Celeb_Win_Out"
-textValue38 = "MP_Celeb_Lose"
-textValue39 = "MP_Celeb_Lose_Out"
-textValue40 = "DeathFailNeutralIn"
-textValue41 = "DeathFailMPDark"
-textValue45 = "DeathFailMPIn"
-textValue46 = "MP_Celeb_Preload_Fade"
-textValue11[1] = cmgCall
-textValue11[2] = rageUiCall
-textValue11[3] = textValue42
-textValue11[4] = textValue48
-textValue11[5] = rageUiCall2
-textValue11[6] = rageUiCall3
-textValue11[7] = rageUiCall4
-textValue11[8] = textValue54
-textValue11[9] = textValue
-textValue11[10] = textValue2
-textValue11[11] = textValue3
-textValue11[12] = textValue4
-textValue11[13] = textValue5
-textValue11[14] = textValue6
-textValue11[15] = textValue7
-textValue11[16] = textValue8
-textValue11[17] = textValue9
-textValue11[18] = textValue10
-textValue11[19] = textValue12
-textValue11[20] = textValue13
-textValue11[21] = textValue14
-textValue11[22] = textValue15
-textValue11[23] = textValue16
-textValue11[24] = textValue17
-textValue11[25] = textValue18
-textValue11[26] = textValue19
-textValue11[27] = textValue20
-textValue11[28] = textValue21
-textValue11[29] = textValue22
-textValue11[30] = textValue23
-textValue11[31] = textValue24
-textValue11[32] = textValue25
-textValue11[33] = textValue26
-textValue11[34] = textValue27
-textValue11[35] = textValue28
-textValue11[36] = textValue29
-textValue11[37] = textValue30
-textValue11[38] = textValue31
-textValue11[39] = textValue32
-textValue11[40] = textValue33
-textValue11[41] = textValue34
-textValue11[42] = textValue35
-textValue11[43] = textValue36
-textValue11[44] = textValue37
-textValue11[45] = textValue38
-textValue11[46] = textValue39
-textValue11[47] = textValue40
-textValue11[48] = textValue41
-textValue11[49] = textValue45
-textValue11[50] = textValue46
-cmgCall = "PeyoteEndOut"
-rageUiCall = "PeyoteEndIn"
-textValue42 = "PeyoteIn"
-textValue48 = "PeyoteOut"
-rageUiCall2 = "MP_race_crash"
-rageUiCall3 = "SuccessFranklin"
-rageUiCall4 = "SuccessTrevor"
-textValue54 = "SuccessMichael"
-textValue = "DrugsMichaelAliensFightIn"
-textValue2 = "DrugsMichaelAliensFight"
-textValue3 = "DrugsMichaelAliensFightOut"
-textValue4 = "DrugsTrevorClownsFightIn"
-textValue5 = "DrugsTrevorClownsFight"
-textValue6 = "DrugsTrevorClownsFightOut"
-textValue7 = "HeistCelebPass"
-textValue8 = "HeistCelebPassBW"
-textValue9 = "HeistCelebEnd"
-textValue10 = "HeistCelebToast"
-textValue12 = "MenuMGHeistIn"
-textValue13 = "MenuMGTournamentIn"
-textValue14 = "MenuMGSelectionIn"
-textValue15 = "ChopVision"
-textValue16 = "DMT_flight_intro"
-textValue17 = "DMT_flight"
-textValue18 = "DrugsDrivingIn"
-textValue19 = "DrugsDrivingOut"
-textValue20 = "SwitchOpenNeutralFIB5"
-textValue21 = "HeistLocate"
-textValue22 = "MP_job_load"
-textValue23 = "RaceTurbo"
-textValue24 = "MP_intro_logo"
-textValue25 = "HeistTripSkipFade"
-textValue26 = "MenuMGHeistOut"
-textValue27 = "MP_corona_switch"
-textValue28 = "MenuMGSelectionTint"
-textValue29 = "SuccessNeutral"
-textValue30 = "ExplosionJosh3"
-textValue31 = "SniperOverlay"
-textValue32 = "RampageOut"
-textValue33 = "Rampage"
-textValue34 = "Dont_tazeme_bro"
-textValue35 = "DeathFailOut"
-textValue11[51] = cmgCall
-textValue11[52] = rageUiCall
-textValue11[53] = textValue42
-textValue11[54] = textValue48
-textValue11[55] = rageUiCall2
-textValue11[56] = rageUiCall3
-textValue11[57] = rageUiCall4
-textValue11[58] = textValue54
-textValue11[59] = textValue
-textValue11[60] = textValue2
-textValue11[61] = textValue3
-textValue11[62] = textValue4
-textValue11[63] = textValue5
-textValue11[64] = textValue6
-textValue11[65] = textValue7
-textValue11[66] = textValue8
-textValue11[67] = textValue9
-textValue11[68] = textValue10
-textValue11[69] = textValue12
-textValue11[70] = textValue13
-textValue11[71] = textValue14
-textValue11[72] = textValue15
-textValue11[73] = textValue16
-textValue11[74] = textValue17
-textValue11[75] = textValue18
-textValue11[76] = textValue19
-textValue11[77] = textValue20
-textValue11[78] = textValue21
-textValue11[79] = textValue22
-textValue11[80] = textValue23
-textValue11[81] = textValue24
-textValue11[82] = textValue25
-textValue11[83] = textValue26
-textValue11[84] = textValue27
-textValue11[85] = textValue28
-textValue11[86] = textValue29
-textValue11[87] = textValue30
-textValue11[88] = textValue31
-textValue11[89] = textValue32
-textValue11[90] = textValue33
-textValue11[91] = textValue34
-textValue11[92] = textValue35
-cmgCall = {}
-rageUiCall = "None"
-textValue42 = "AP1_01_B_IntRefRange"
-textValue48 = "AP1_01_C_NoFog"
-rageUiCall2 = "AirRaceBoost01"
-rageUiCall3 = "AirRaceBoost02"
-rageUiCall4 = "AmbientPUSH"
-textValue54 = "ArenaEMP"
-textValue = "ArenaEMP_Blend"
-textValue2 = "ArenaWheelPurple01"
-textValue3 = "ArenaWheelPurple02"
-textValue4 = "Bank_HLWD"
-textValue5 = "Barry1_Stoned"
-textValue6 = "BarryFadeOut"
-textValue7 = "BeastIntro01"
-textValue8 = "BeastIntro02"
-textValue9 = "BeastLaunch01"
-textValue10 = "BeastLaunch02"
-textValue12 = "BikerFilter"
-textValue13 = "BikerForm01"
-textValue14 = "BikerFormFlash"
-textValue15 = "Bikers"
-textValue16 = "BikersSPLASH"
-textValue17 = "BlackOut"
-textValue18 = "BleepYellow01"
-textValue19 = "BleepYellow02"
-textValue20 = "Bloom"
-textValue21 = "BloomLight"
-textValue22 = "BloomMid"
-textValue23 = "BombCam01"
-textValue24 = "BombCamFlash"
-textValue25 = "Broken_camera_fuzz"
-textValue26 = "BulletTimeDark"
-textValue27 = "BulletTimeLight"
-textValue28 = "CAMERA_BW"
-textValue29 = "CAMERA_secuirity"
-textValue30 = "CAMERA_secuirity_FUZZ"
-textValue31 = "CH3_06_water"
-textValue32 = "CHOP"
-textValue33 = "CS1_railwayB_tunnel"
-textValue34 = "CS3_rail_tunnel"
-textValue35 = "CUSTOM_streetlight"
-textValue36 = "Carpark_MP_exit"
-textValue37 = "CopsSPLASH"
-textValue38 = "CrossLine01"
-textValue39 = "CrossLine02"
-textValue40 = "DONT_overide_sunpos"
-textValue41 = "DRUG_2_drive"
-textValue45 = "DRUG_gas_huffin"
-textValue46 = "DeadlineNeon01"
-textValue47 = "DefaultColorCode"
-cmgCall[1] = rageUiCall
-cmgCall[2] = textValue42
-cmgCall[3] = textValue48
-cmgCall[4] = rageUiCall2
-cmgCall[5] = rageUiCall3
-cmgCall[6] = rageUiCall4
-cmgCall[7] = textValue54
-cmgCall[8] = textValue
-cmgCall[9] = textValue2
-cmgCall[10] = textValue3
-cmgCall[11] = textValue4
-cmgCall[12] = textValue5
-cmgCall[13] = textValue6
-cmgCall[14] = textValue7
-cmgCall[15] = textValue8
-cmgCall[16] = textValue9
-cmgCall[17] = textValue10
-cmgCall[18] = textValue12
-cmgCall[19] = textValue13
-cmgCall[20] = textValue14
-cmgCall[21] = textValue15
-cmgCall[22] = textValue16
-cmgCall[23] = textValue17
-cmgCall[24] = textValue18
-cmgCall[25] = textValue19
-cmgCall[26] = textValue20
-cmgCall[27] = textValue21
-cmgCall[28] = textValue22
-cmgCall[29] = textValue23
-cmgCall[30] = textValue24
-cmgCall[31] = textValue25
-cmgCall[32] = textValue26
-cmgCall[33] = textValue27
-cmgCall[34] = textValue28
-cmgCall[35] = textValue29
-cmgCall[36] = textValue30
-cmgCall[37] = textValue31
-cmgCall[38] = textValue32
-cmgCall[39] = textValue33
-cmgCall[40] = textValue34
-cmgCall[41] = textValue35
-cmgCall[42] = textValue36
-cmgCall[43] = textValue37
-cmgCall[44] = textValue38
-cmgCall[45] = textValue39
-cmgCall[46] = textValue40
-cmgCall[47] = textValue41
-cmgCall[48] = textValue45
-cmgCall[49] = textValue46
-cmgCall[50] = textValue47
-rageUiCall = "Dont_tazeme_bro"
-textValue42 = "DrivingFocusDark"
-textValue48 = "DrivingFocusLight"
-rageUiCall2 = "Drone_FishEye_Lens"
-rageUiCall3 = "Drug_deadman"
-rageUiCall4 = "Drug_deadman_blend"
-textValue54 = "Drunk"
-textValue = "EXTRA_bouncelight"
-textValue2 = "EXT_FULLAmbientmult_art"
-textValue3 = "ExplosionJosh"
-textValue4 = "FIB_5"
-textValue5 = "FIB_6"
-textValue6 = "FIB_A"
-textValue7 = "FIB_B"
-textValue8 = "FIB_interview"
-textValue9 = "FIB_interview_optimise"
-textValue10 = "FORdoron_delete"
-textValue12 = "FRANKLIN"
-textValue13 = "Facebook_NEW"
-textValue14 = "FinaleBank"
-textValue15 = "FinaleBankMid"
-textValue16 = "FinaleBankexit"
-textValue17 = "Forest"
-textValue18 = "FrankilinsHOUSEhills"
-textValue19 = "FranklinColorCode"
-textValue20 = "FranklinColorCodeBasic"
-textValue21 = "FranklinColorCodeBright"
-textValue22 = "FullAmbientmult_interior"
-textValue23 = "Glasses_BlackOut"
-textValue24 = "Hanger_INTmods"
-textValue25 = "Hicksbar"
-textValue26 = "HicksbarNEW"
-textValue27 = "Hint_cam"
-textValue28 = "IMpExt_Interior_02"
-textValue29 = "IMpExt_Interior_02_stair_cage"
-textValue30 = "INT_FULLAmbientmult_art"
-textValue31 = "INT_FULLAmbientmult_both"
-textValue32 = "INT_FullAmbientmult"
-textValue33 = "INT_NO_fogALPHA"
-textValue34 = "INT_NOdirectLight"
-textValue35 = "INT_NoAmbientmult"
-textValue36 = "INT_NoAmbientmult_art"
-textValue37 = "INT_NoAmbientmult_both"
-textValue38 = "INT_garage"
-textValue39 = "INT_mall"
-textValue40 = "INT_nowaterREF"
-textValue41 = "INT_posh_hairdresser"
-textValue45 = "INT_smshop"
-textValue46 = "INT_smshop_inMOD"
-textValue47 = "INT_smshop_indoor_bloom"
-cmgCall[51] = rageUiCall
-cmgCall[52] = textValue42
-cmgCall[53] = textValue48
-cmgCall[54] = rageUiCall2
-cmgCall[55] = rageUiCall3
-cmgCall[56] = rageUiCall4
-cmgCall[57] = textValue54
-cmgCall[58] = textValue
-cmgCall[59] = textValue2
-cmgCall[60] = textValue3
-cmgCall[61] = textValue4
-cmgCall[62] = textValue5
-cmgCall[63] = textValue6
-cmgCall[64] = textValue7
-cmgCall[65] = textValue8
-cmgCall[66] = textValue9
-cmgCall[67] = textValue10
-cmgCall[68] = textValue12
-cmgCall[69] = textValue13
-cmgCall[70] = textValue14
-cmgCall[71] = textValue15
-cmgCall[72] = textValue16
-cmgCall[73] = textValue17
-cmgCall[74] = textValue18
-cmgCall[75] = textValue19
-cmgCall[76] = textValue20
-cmgCall[77] = textValue21
-cmgCall[78] = textValue22
-cmgCall[79] = textValue23
-cmgCall[80] = textValue24
-cmgCall[81] = textValue25
-cmgCall[82] = textValue26
-cmgCall[83] = textValue27
-cmgCall[84] = textValue28
-cmgCall[85] = textValue29
-cmgCall[86] = textValue30
-cmgCall[87] = textValue31
-cmgCall[88] = textValue32
-cmgCall[89] = textValue33
-cmgCall[90] = textValue34
-cmgCall[91] = textValue35
-cmgCall[92] = textValue36
-cmgCall[93] = textValue37
-cmgCall[94] = textValue38
-cmgCall[95] = textValue39
-cmgCall[96] = textValue40
-cmgCall[97] = textValue41
-cmgCall[98] = textValue45
-cmgCall[99] = textValue46
-cmgCall[100] = textValue47
-rageUiCall = "INT_smshop_outdoor_bloom"
-textValue42 = "INT_streetlighting"
-textValue48 = "INT_trailer_cinema"
-rageUiCall2 = "ImpExp_Interior_01"
-rageUiCall3 = "InchOrange01"
-rageUiCall4 = "InchOrange02"
-textValue54 = "InchPickup01"
-textValue = "InchPickup02"
-textValue2 = "InchPurple01"
-textValue3 = "InchPurple02"
-textValue4 = "KT_underpass"
-textValue5 = "Kifflom"
-textValue6 = "LIGHTSreduceFALLOFF"
-textValue7 = "LODmult_HD_orphan_LOD_reduce"
-textValue8 = "LODmult_HD_orphan_reduce"
-textValue9 = "LODmult_LOD_reduce"
-textValue10 = "LODmult_SLOD1_reduce"
-textValue12 = "LODmult_SLOD2_reduce"
-textValue13 = "LODmult_SLOD3_reduce"
-textValue14 = "LODmult_global_reduce"
-textValue15 = "LODmult_global_reduce_NOHD"
-textValue16 = "LectroDark"
-textValue17 = "LectroLight"
-textValue18 = "LifeInvaderLOD"
-textValue19 = "LightPollutionHills"
-textValue20 = "LostTimeDark"
-textValue21 = "LostTimeFlash"
-textValue22 = "LostTimeLight"
-textValue23 = "METRO_Tunnels"
-textValue24 = "METRO_Tunnels_entrance"
-textValue25 = "METRO_platform"
-textValue26 = "MPApartHigh"
-textValue27 = "MPApartHigh_palnning"
-textValue28 = "MPApart_H_01"
-textValue29 = "MPApart_H_01_gym"
-textValue30 = "MP_Arena_VIP"
-textValue31 = "MP_Arena_theme_atlantis"
-textValue32 = "MP_Arena_theme_evening"
-textValue33 = "MP_Arena_theme_hell"
-textValue34 = "MP_Arena_theme_midday"
-textValue35 = "MP_Arena_theme_morning"
-textValue36 = "MP_Arena_theme_night"
-textValue37 = "MP_Arena_theme_saccharine"
-textValue38 = "MP_Arena_theme_sandstorm"
-textValue39 = "MP_Arena_theme_scifi_night"
-textValue40 = "MP_Arena_theme_storm"
-textValue41 = "MP_Arena_theme_toxic"
-textValue45 = "MP_Bull_tost"
-textValue46 = "MP_Bull_tost_blend"
-textValue47 = "MP_Garage_L"
-cmgCall[101] = rageUiCall
-cmgCall[102] = textValue42
-cmgCall[103] = textValue48
-cmgCall[104] = rageUiCall2
-cmgCall[105] = rageUiCall3
-cmgCall[106] = rageUiCall4
-cmgCall[107] = textValue54
-cmgCall[108] = textValue
-cmgCall[109] = textValue2
-cmgCall[110] = textValue3
-cmgCall[111] = textValue4
-cmgCall[112] = textValue5
-cmgCall[113] = textValue6
-cmgCall[114] = textValue7
-cmgCall[115] = textValue8
-cmgCall[116] = textValue9
-cmgCall[117] = textValue10
-cmgCall[118] = textValue12
-cmgCall[119] = textValue13
-cmgCall[120] = textValue14
-cmgCall[121] = textValue15
-cmgCall[122] = textValue16
-cmgCall[123] = textValue17
-cmgCall[124] = textValue18
-cmgCall[125] = textValue19
-cmgCall[126] = textValue20
-cmgCall[127] = textValue21
-cmgCall[128] = textValue22
-cmgCall[129] = textValue23
-cmgCall[130] = textValue24
-cmgCall[131] = textValue25
-cmgCall[132] = textValue26
-cmgCall[133] = textValue27
-cmgCall[134] = textValue28
-cmgCall[135] = textValue29
-cmgCall[136] = textValue30
-cmgCall[137] = textValue31
-cmgCall[138] = textValue32
-cmgCall[139] = textValue33
-cmgCall[140] = textValue34
-cmgCall[141] = textValue35
-cmgCall[142] = textValue36
-cmgCall[143] = textValue37
-cmgCall[144] = textValue38
-cmgCall[145] = textValue39
-cmgCall[146] = textValue40
-cmgCall[147] = textValue41
-cmgCall[148] = textValue45
-cmgCall[149] = textValue46
-cmgCall[150] = textValue47
-rageUiCall = "MP_H_01_Bathroom"
-textValue42 = "MP_H_01_Bedroom"
-textValue48 = "MP_H_01_New"
-rageUiCall2 = "MP_H_01_New_Bathroom"
-rageUiCall3 = "MP_H_01_New_Bedroom"
-rageUiCall4 = "MP_H_01_New_Study"
-textValue54 = "MP_H_01_Study"
-textValue = "MP_H_02"
-textValue2 = "MP_H_04"
-textValue3 = "MP_H_06"
-textValue4 = "MP_Killstreak"
-textValue5 = "MP_Killstreak_blend"
-textValue6 = "MP_Loser"
-textValue7 = "MP_Loser_blend"
-textValue8 = "MP_MedGarage"
-textValue9 = "MP_Powerplay"
-textValue10 = "MP_Powerplay_blend"
-textValue12 = "MP_Studio_Lo"
-textValue13 = "MP_corona_heist"
-textValue14 = "MP_corona_heist_BW"
-textValue15 = "MP_corona_heist_BW_night"
-textValue16 = "MP_corona_heist_DOF"
-textValue17 = "MP_corona_heist_blend"
-textValue18 = "MP_corona_heist_night"
-textValue19 = "MP_corona_heist_night_blend"
-textValue20 = "MP_corona_selection"
-textValue21 = "MP_corona_switch"
-textValue22 = "MP_corona_tournament"
-textValue23 = "MP_corona_tournament_DOF"
-textValue24 = "MP_death_grade"
-textValue25 = "MP_death_grade_blend01"
-textValue26 = "MP_death_grade_blend02"
-textValue27 = "MP_deathfail_night"
-textValue28 = "MP_heli_cam"
-textValue29 = "MP_intro_logo"
-textValue30 = "MP_job_end_night"
-textValue31 = "MP_job_load"
-textValue32 = "MP_job_load_01"
-textValue33 = "MP_job_load_02"
-textValue34 = "MP_job_lose"
-textValue35 = "MP_job_preload"
-textValue36 = "MP_job_preload_blend"
-textValue37 = "MP_job_preload_night"
-textValue38 = "MP_job_win"
-textValue39 = "MP_lowgarage"
-textValue40 = "MP_race_finish"
-textValue41 = "MP_select"
-textValue45 = "MichaelColorCode"
-textValue46 = "MichaelColorCodeBasic"
-textValue47 = "MichaelColorCodeBright"
-cmgCall[151] = rageUiCall
-cmgCall[152] = textValue42
-cmgCall[153] = textValue48
-cmgCall[154] = rageUiCall2
-cmgCall[155] = rageUiCall3
-cmgCall[156] = rageUiCall4
-cmgCall[157] = textValue54
-cmgCall[158] = textValue
-cmgCall[159] = textValue2
-cmgCall[160] = textValue3
-cmgCall[161] = textValue4
-cmgCall[162] = textValue5
-cmgCall[163] = textValue6
-cmgCall[164] = textValue7
-cmgCall[165] = textValue8
-cmgCall[166] = textValue9
-cmgCall[167] = textValue10
-cmgCall[168] = textValue12
-cmgCall[169] = textValue13
-cmgCall[170] = textValue14
-cmgCall[171] = textValue15
-cmgCall[172] = textValue16
-cmgCall[173] = textValue17
-cmgCall[174] = textValue18
-cmgCall[175] = textValue19
-cmgCall[176] = textValue20
-cmgCall[177] = textValue21
-cmgCall[178] = textValue22
-cmgCall[179] = textValue23
-cmgCall[180] = textValue24
-cmgCall[181] = textValue25
-cmgCall[182] = textValue26
-cmgCall[183] = textValue27
-cmgCall[184] = textValue28
-cmgCall[185] = textValue29
-cmgCall[186] = textValue30
-cmgCall[187] = textValue31
-cmgCall[188] = textValue32
-cmgCall[189] = textValue33
-cmgCall[190] = textValue34
-cmgCall[191] = textValue35
-cmgCall[192] = textValue36
-cmgCall[193] = textValue37
-cmgCall[194] = textValue38
-cmgCall[195] = textValue39
-cmgCall[196] = textValue40
-cmgCall[197] = textValue41
-cmgCall[198] = textValue45
-cmgCall[199] = textValue46
-cmgCall[200] = textValue47
-rageUiCall = "MichaelsDarkroom"
-textValue42 = "MichaelsDirectional"
-textValue48 = "MichaelsNODirectional"
-rageUiCall2 = "Mp_Stilts"
-rageUiCall3 = "Mp_Stilts2"
-rageUiCall4 = "Mp_Stilts2_bath"
-textValue54 = "Mp_Stilts_gym"
-textValue = "Mp_Stilts_gym2"
-textValue2 = "Mp_apart_mid"
-textValue3 = "Multipayer_spectatorCam"
-textValue4 = "NEW_abattoir"
-textValue5 = "NEW_jewel"
-textValue6 = "NEW_jewel_EXIT"
-textValue7 = "NEW_lesters"
-textValue8 = "NEW_ornate_bank"
-textValue9 = "NEW_ornate_bank_entrance"
-textValue10 = "NEW_ornate_bank_office"
-textValue12 = "NEW_ornate_bank_safe"
-textValue13 = "NEW_shrinksOffice"
-textValue14 = "NEW_station_unfinished"
-textValue15 = "NEW_trevorstrailer"
-textValue16 = "NEW_tunnels"
-textValue17 = "NEW_tunnels_ditch"
-textValue18 = "NEW_tunnels_hole"
-textValue19 = "NEW_yellowtunnels"
-textValue20 = "NG_blackout"
-textValue21 = "NG_deathfail_BW_base"
-textValue22 = "NG_deathfail_BW_blend01"
-textValue23 = "NG_deathfail_BW_blend02"
-textValue24 = "NG_filmic01"
-textValue25 = "NG_filmic02"
-textValue26 = "NG_filmic03"
-textValue27 = "NG_filmic04"
-textValue28 = "NG_filmic05"
-textValue29 = "NG_filmic06"
-textValue30 = "NG_filmic07"
-textValue31 = "NG_filmic08"
-textValue32 = "NG_filmic09"
-textValue33 = "NG_filmic10"
-textValue34 = "NG_filmic11"
-textValue35 = "NG_filmic12"
-textValue36 = "NG_filmic13"
-textValue37 = "NG_filmic14"
-textValue38 = "NG_filmic15"
-textValue39 = "NG_filmic16"
-textValue40 = "NG_filmic17"
-textValue41 = "NG_filmic18"
-textValue45 = "NG_filmic19"
-textValue46 = "NG_filmic20"
-textValue47 = "NG_filmic21"
-cmgCall[201] = rageUiCall
-cmgCall[202] = textValue42
-cmgCall[203] = textValue48
-cmgCall[204] = rageUiCall2
-cmgCall[205] = rageUiCall3
-cmgCall[206] = rageUiCall4
-cmgCall[207] = textValue54
-cmgCall[208] = textValue
-cmgCall[209] = textValue2
-cmgCall[210] = textValue3
-cmgCall[211] = textValue4
-cmgCall[212] = textValue5
-cmgCall[213] = textValue6
-cmgCall[214] = textValue7
-cmgCall[215] = textValue8
-cmgCall[216] = textValue9
-cmgCall[217] = textValue10
-cmgCall[218] = textValue12
-cmgCall[219] = textValue13
-cmgCall[220] = textValue14
-cmgCall[221] = textValue15
-cmgCall[222] = textValue16
-cmgCall[223] = textValue17
-cmgCall[224] = textValue18
-cmgCall[225] = textValue19
-cmgCall[226] = textValue20
-cmgCall[227] = textValue21
-cmgCall[228] = textValue22
-cmgCall[229] = textValue23
-cmgCall[230] = textValue24
-cmgCall[231] = textValue25
-cmgCall[232] = textValue26
-cmgCall[233] = textValue27
-cmgCall[234] = textValue28
-cmgCall[235] = textValue29
-cmgCall[236] = textValue30
-cmgCall[237] = textValue31
-cmgCall[238] = textValue32
-cmgCall[239] = textValue33
-cmgCall[240] = textValue34
-cmgCall[241] = textValue35
-cmgCall[242] = textValue36
-cmgCall[243] = textValue37
-cmgCall[244] = textValue38
-cmgCall[245] = textValue39
-cmgCall[246] = textValue40
-cmgCall[247] = textValue41
-cmgCall[248] = textValue45
-cmgCall[249] = textValue46
-cmgCall[250] = textValue47
-rageUiCall = "NG_filmic22"
-textValue42 = "NG_filmic23"
-textValue48 = "NG_filmic24"
-rageUiCall2 = "NG_filmic25"
-rageUiCall3 = "NG_filmnoir_BW01"
-rageUiCall4 = "NG_filmnoir_BW02"
-textValue54 = "NG_first"
-textValue = "NO_coronas"
-textValue2 = "NO_fog_alpha"
-textValue3 = "NO_streetAmbient"
-textValue4 = "NO_weather"
-textValue5 = "NOdirectLight"
-textValue6 = "NOrain"
-textValue7 = "NeutralColorCode"
-textValue8 = "NeutralColorCodeBasic"
-textValue9 = "NeutralColorCodeBright"
-textValue10 = "NeutralColorCodeLight"
-textValue12 = "NewMicheal"
-textValue13 = "NewMicheal_night"
-textValue14 = "NewMicheal_upstairs"
-textValue15 = "NewMichealgirly"
-textValue16 = "NewMichealstoilet"
-textValue17 = "NewMichealupstairs"
-textValue18 = "New_sewers"
-textValue19 = "NoAmbientmult"
-textValue20 = "NoAmbientmult_interior"
-textValue21 = "NoPedLight"
-textValue22 = "OrbitalCannon"
-textValue23 = "PERSHING_water_reflect"
-textValue24 = "PORT_heist_underwater"
-textValue25 = "PPFilter"
-textValue26 = "PPGreen01"
-textValue27 = "PPGreen02"
-textValue28 = "PPOrange01"
-textValue29 = "PPOrange02"
-textValue30 = "PPPink01"
-textValue31 = "PPPink02"
-textValue32 = "PPPurple01"
-textValue33 = "PPPurple02"
-textValue34 = "Paleto"
-textValue35 = "PennedInDark"
-textValue36 = "PennedInLight"
-textValue37 = "PlayerSwitchNeutralFlash"
-textValue38 = "PlayerSwitchPulse"
-textValue39 = "PoliceStation"
-textValue40 = "PoliceStationDark"
-textValue41 = "Prologue_shootout_opt"
-textValue45 = "REDMIST"
-textValue46 = "REDMIST_blend"
-textValue47 = "RaceTurboDark"
-cmgCall[251] = rageUiCall
-cmgCall[252] = textValue42
-cmgCall[253] = textValue48
-cmgCall[254] = rageUiCall2
-cmgCall[255] = rageUiCall3
-cmgCall[256] = rageUiCall4
-cmgCall[257] = textValue54
-cmgCall[258] = textValue
-cmgCall[259] = textValue2
-cmgCall[260] = textValue3
-cmgCall[261] = textValue4
-cmgCall[262] = textValue5
-cmgCall[263] = textValue6
-cmgCall[264] = textValue7
-cmgCall[265] = textValue8
-cmgCall[266] = textValue9
-cmgCall[267] = textValue10
-cmgCall[268] = textValue12
-cmgCall[269] = textValue13
-cmgCall[270] = textValue14
-cmgCall[271] = textValue15
-cmgCall[272] = textValue16
-cmgCall[273] = textValue17
-cmgCall[274] = textValue18
-cmgCall[275] = textValue19
-cmgCall[276] = textValue20
-cmgCall[277] = textValue21
-cmgCall[278] = textValue22
-cmgCall[279] = textValue23
-cmgCall[280] = textValue24
-cmgCall[281] = textValue25
-cmgCall[282] = textValue26
-cmgCall[283] = textValue27
-cmgCall[284] = textValue28
-cmgCall[285] = textValue29
-cmgCall[286] = textValue30
-cmgCall[287] = textValue31
-cmgCall[288] = textValue32
-cmgCall[289] = textValue33
-cmgCall[290] = textValue34
-cmgCall[291] = textValue35
-cmgCall[292] = textValue36
-cmgCall[293] = textValue37
-cmgCall[294] = textValue38
-cmgCall[295] = textValue39
-cmgCall[296] = textValue40
-cmgCall[297] = textValue41
-cmgCall[298] = textValue45
-cmgCall[299] = textValue46
-cmgCall[300] = textValue47
-rageUiCall = "RaceTurboFlash"
-textValue42 = "RaceTurboLight"
-textValue48 = "ReduceDrawDistance"
-rageUiCall2 = "ReduceDrawDistanceMAP"
-rageUiCall3 = "ReduceDrawDistanceMission"
-rageUiCall4 = "ReduceSSAO"
-textValue54 = "RemixDrone"
-textValue = "RemoteSniper"
-textValue2 = "SALTONSEA"
-textValue3 = "SAWMILL"
-textValue4 = "SP1_03_drawDistance"
-textValue5 = "STRIP_changing"
-textValue6 = "STRIP_nofog"
-textValue7 = "STRIP_office"
-textValue8 = "STRIP_stage"
-textValue9 = "SheriffStation"
-textValue10 = "Shop247"
-textValue12 = "Shop247_none"
-textValue13 = "SmugglerCheckpoint01"
-textValue14 = "SmugglerCheckpoint02"
-textValue15 = "SmugglerFlash"
-textValue16 = "Sniper"
-textValue17 = "StadLobby"
-textValue18 = "StreetLighting"
-textValue19 = "StreetLightingJunction"
-textValue20 = "StreetLightingtraffic"
-textValue21 = "StuntFastDark"
-textValue22 = "StuntFastLight"
-textValue23 = "StuntSlowDark"
-textValue24 = "StuntSlowLight"
-textValue25 = "TREVOR"
-textValue26 = "TUNNEL_green"
-textValue27 = "TUNNEL_green_ext"
-textValue28 = "TUNNEL_orange"
-textValue29 = "TUNNEL_orange_exterior"
-textValue30 = "TUNNEL_white"
-textValue31 = "TUNNEL_yellow"
-textValue32 = "TUNNEL_yellow_ext"
-textValue33 = "TinyGreen01"
-textValue34 = "TinyGreen02"
-textValue35 = "TinyPink01"
-textValue36 = "TinyPink02"
-textValue37 = "TinyRacerMoBlur"
-textValue38 = "TransformFlash"
-textValue39 = "TransformRaceFlash"
-textValue40 = "TrevorColorCode"
-textValue41 = "TrevorColorCodeBasic"
-textValue45 = "TrevorColorCodeBright"
-textValue46 = "Trevors_room"
-textValue47 = "Tunnel"
-cmgCall[301] = rageUiCall
-cmgCall[302] = textValue42
-cmgCall[303] = textValue48
-cmgCall[304] = rageUiCall2
-cmgCall[305] = rageUiCall3
-cmgCall[306] = rageUiCall4
-cmgCall[307] = textValue54
-cmgCall[308] = textValue
-cmgCall[309] = textValue2
-cmgCall[310] = textValue3
-cmgCall[311] = textValue4
-cmgCall[312] = textValue5
-cmgCall[313] = textValue6
-cmgCall[314] = textValue7
-cmgCall[315] = textValue8
-cmgCall[316] = textValue9
-cmgCall[317] = textValue10
-cmgCall[318] = textValue12
-cmgCall[319] = textValue13
-cmgCall[320] = textValue14
-cmgCall[321] = textValue15
-cmgCall[322] = textValue16
-cmgCall[323] = textValue17
-cmgCall[324] = textValue18
-cmgCall[325] = textValue19
-cmgCall[326] = textValue20
-cmgCall[327] = textValue21
-cmgCall[328] = textValue22
-cmgCall[329] = textValue23
-cmgCall[330] = textValue24
-cmgCall[331] = textValue25
-cmgCall[332] = textValue26
-cmgCall[333] = textValue27
-cmgCall[334] = textValue28
-cmgCall[335] = textValue29
-cmgCall[336] = textValue30
-cmgCall[337] = textValue31
-cmgCall[338] = textValue32
-cmgCall[339] = textValue33
-cmgCall[340] = textValue34
-cmgCall[341] = textValue35
-cmgCall[342] = textValue36
-cmgCall[343] = textValue37
-cmgCall[344] = textValue38
-cmgCall[345] = textValue39
-cmgCall[346] = textValue40
-cmgCall[347] = textValue41
-cmgCall[348] = textValue45
-cmgCall[349] = textValue46
-cmgCall[350] = textValue47
-rageUiCall = "Tunnel_green1"
-textValue42 = "VAGOS_new_garage"
-textValue48 = "VAGOS_new_hangout"
-rageUiCall2 = "VC_tunnel_entrance"
-rageUiCall3 = "V_Abattoir_Cold"
-rageUiCall4 = "V_CIA_Facility"
-textValue54 = "V_FIB_IT3"
-textValue = "V_FIB_IT3_alt"
-textValue2 = "V_FIB_IT3_alt5"
-textValue3 = "V_FIB_stairs"
-textValue4 = "V_Metro2"
-textValue5 = "V_Metro_station"
-textValue6 = "V_Office_smoke"
-textValue7 = "V_Office_smoke_Fire"
-textValue8 = "V_Office_smoke_ext"
-textValue9 = "V_Solomons"
-textValue10 = "V_recycle_dark"
-textValue12 = "V_recycle_light"
-textValue13 = "V_recycle_mainroom"
-textValue14 = "V_strip_nofog"
-textValue15 = "V_strip_office"
-textValue16 = "Vagos"
-textValue17 = "VagosSPLASH"
-textValue18 = "VolticBlur"
-textValue19 = "VolticFlash"
-textValue20 = "VolticGold"
-textValue21 = "WATER_lab_cooling"
-textValue22 = "WATER_CH2_06_01_03"
-textValue23 = "WATER_CH2_06_02"
-textValue24 = "WATER_CH2_06_04"
-textValue25 = "WATER_ID2_21"
-textValue26 = "WATER_REF_malibu"
-textValue27 = "WATER_RichmanStuntJump"
-textValue28 = "WATER_cove"
-textValue29 = "WATER_hills"
-textValue30 = "WATER_lab"
-textValue31 = "WATER_militaryPOOP"
-textValue32 = "WATER_muddy"
-textValue33 = "WATER_port"
-textValue34 = "WATER_refmap_high"
-textValue35 = "WATER_refmap_hollywoodlake"
-textValue36 = "WATER_refmap_low"
-textValue37 = "WATER_refmap_med"
-textValue38 = "WATER_refmap_off"
-textValue39 = "WATER_refmap_poolside"
-textValue40 = "WATER_refmap_silverlake"
-textValue41 = "WATER_refmap_venice"
-textValue45 = "WATER_refmap_verylow"
-textValue46 = "WATER_resevoir"
-textValue47 = "WATER_river"
-cmgCall[351] = rageUiCall
-cmgCall[352] = textValue42
-cmgCall[353] = textValue48
-cmgCall[354] = rageUiCall2
-cmgCall[355] = rageUiCall3
-cmgCall[356] = rageUiCall4
-cmgCall[357] = textValue54
-cmgCall[358] = textValue
-cmgCall[359] = textValue2
-cmgCall[360] = textValue3
-cmgCall[361] = textValue4
-cmgCall[362] = textValue5
-cmgCall[363] = textValue6
-cmgCall[364] = textValue7
-cmgCall[365] = textValue8
-cmgCall[366] = textValue9
-cmgCall[367] = textValue10
-cmgCall[368] = textValue12
-cmgCall[369] = textValue13
-cmgCall[370] = textValue14
-cmgCall[371] = textValue15
-cmgCall[372] = textValue16
-cmgCall[373] = textValue17
-cmgCall[374] = textValue18
-cmgCall[375] = textValue19
-cmgCall[376] = textValue20
-cmgCall[377] = textValue21
-cmgCall[378] = textValue22
-cmgCall[379] = textValue23
-cmgCall[380] = textValue24
-cmgCall[381] = textValue25
-cmgCall[382] = textValue26
-cmgCall[383] = textValue27
-cmgCall[384] = textValue28
-cmgCall[385] = textValue29
-cmgCall[386] = textValue30
-cmgCall[387] = textValue31
-cmgCall[388] = textValue32
-cmgCall[389] = textValue33
-cmgCall[390] = textValue34
-cmgCall[391] = textValue35
-cmgCall[392] = textValue36
-cmgCall[393] = textValue37
-cmgCall[394] = textValue38
-cmgCall[395] = textValue39
-cmgCall[396] = textValue40
-cmgCall[397] = textValue41
-cmgCall[398] = textValue45
-cmgCall[399] = textValue46
-cmgCall[400] = textValue47
-rageUiCall = "WATER_salton"
-textValue42 = "WATER_salton_bottom"
-textValue48 = "WATER_shore"
-rageUiCall2 = "WATER_silty"
-rageUiCall3 = "WATER_silverlake"
-rageUiCall4 = "WarpCheckpoint"
-textValue54 = "WeaponUpgrade"
-textValue = "WhiteOut"
-textValue2 = "baseTONEMAPPING"
-textValue3 = "blackNwhite"
-textValue4 = "buggy_shack"
-textValue5 = "buildingTOP"
-textValue6 = "cBank_back"
-textValue7 = "cBank_front"
-textValue8 = "canyon_mission"
-textValue9 = "carMOD_underpass"
-textValue10 = "carpark"
-textValue12 = "carpark_dt1_02"
-textValue13 = "carpark_dt1_03"
-textValue14 = "cashdepot"
-textValue15 = "cashdepotEMERGENCY"
-textValue16 = "ch2_tunnel_whitelight"
-textValue17 = "cinema"
-textValue18 = "cinema_001"
-textValue19 = "cops"
-textValue20 = "crane_cam"
-textValue21 = "crane_cam_cinematic"
-textValue22 = "damage"
-textValue23 = "default"
-textValue24 = "dont_tazeme_bro_b"
-textValue25 = "downtown_FIB_cascades_opt"
-textValue26 = "drug_drive_blend01"
-textValue27 = "drug_drive_blend02"
-textValue28 = "drug_flying_01"
-textValue29 = "drug_flying_02"
-textValue30 = "drug_flying_base"
-textValue31 = "drug_wobbly"
-textValue32 = "dying"
-textValue33 = "eatra_bouncelight_beach"
-textValue34 = "epsilion"
-textValue35 = "exile1_exit"
-textValue36 = "exile1_plane"
-textValue37 = "ext_int_extlight_large"
-textValue38 = "eyeINtheSKY"
-textValue39 = "facebook_serveroom"
-textValue40 = "fireDEPT"
-textValue41 = "fp_vig_black"
-textValue45 = "fp_vig_blue"
-textValue46 = "fp_vig_brown"
-textValue47 = "fp_vig_gray"
-cmgCall[401] = rageUiCall
-cmgCall[402] = textValue42
-cmgCall[403] = textValue48
-cmgCall[404] = rageUiCall2
-cmgCall[405] = rageUiCall3
-cmgCall[406] = rageUiCall4
-cmgCall[407] = textValue54
-cmgCall[408] = textValue
-cmgCall[409] = textValue2
-cmgCall[410] = textValue3
-cmgCall[411] = textValue4
-cmgCall[412] = textValue5
-cmgCall[413] = textValue6
-cmgCall[414] = textValue7
-cmgCall[415] = textValue8
-cmgCall[416] = textValue9
-cmgCall[417] = textValue10
-cmgCall[418] = textValue12
-cmgCall[419] = textValue13
-cmgCall[420] = textValue14
-cmgCall[421] = textValue15
-cmgCall[422] = textValue16
-cmgCall[423] = textValue17
-cmgCall[424] = textValue18
-cmgCall[425] = textValue19
-cmgCall[426] = textValue20
-cmgCall[427] = textValue21
-cmgCall[428] = textValue22
-cmgCall[429] = textValue23
-cmgCall[430] = textValue24
-cmgCall[431] = textValue25
-cmgCall[432] = textValue26
-cmgCall[433] = textValue27
-cmgCall[434] = textValue28
-cmgCall[435] = textValue29
-cmgCall[436] = textValue30
-cmgCall[437] = textValue31
-cmgCall[438] = textValue32
-cmgCall[439] = textValue33
-cmgCall[440] = textValue34
-cmgCall[441] = textValue35
-cmgCall[442] = textValue36
-cmgCall[443] = textValue37
-cmgCall[444] = textValue38
-cmgCall[445] = textValue39
-cmgCall[446] = textValue40
-cmgCall[447] = textValue41
-cmgCall[448] = textValue45
-cmgCall[449] = textValue46
-cmgCall[450] = textValue47
-rageUiCall = "fp_vig_green"
-textValue42 = "fp_vig_red"
-textValue48 = "frankilnsAUNTS_SUNdir"
-rageUiCall2 = "frankilnsAUNTS_new"
-rageUiCall3 = "gallery_refmod"
-rageUiCall4 = "garage"
-textValue54 = "gen_bank"
-textValue = "glasses_Darkblue"
-textValue2 = "glasses_Scuba"
-textValue3 = "glasses_VISOR"
-textValue4 = "glasses_black"
-textValue5 = "glasses_blue"
-textValue6 = "glasses_brown"
-textValue7 = "glasses_green"
-textValue8 = "glasses_orange"
-textValue9 = "glasses_pink"
-textValue10 = "glasses_purple"
-textValue12 = "glasses_red"
-textValue13 = "glasses_yellow"
-textValue14 = "gorge_reflection_gpu"
-textValue15 = "gorge_reflectionoffset"
-textValue16 = "gorge_reflectionoffset2"
-textValue17 = "graveyard_shootout"
-textValue18 = "grdlc_int_02"
-textValue19 = "grdlc_int_02_trailer_cave"
-textValue20 = "gunclub"
-textValue21 = "gunclubrange"
-textValue22 = "gunshop"
-textValue23 = "gunstore"
-textValue24 = "half_direct"
-textValue25 = "hangar_lightsmod"
-textValue26 = "heathaze"
-textValue27 = "heist_boat"
-textValue28 = "heist_boat_engineRoom"
-textValue29 = "heist_boat_norain"
-textValue30 = "heliGunCam"
-textValue31 = "helicamfirst"
-textValue32 = "hillstunnel"
-textValue33 = "hitped"
-textValue34 = "hud_def_Franklin"
-textValue35 = "hud_def_Michael"
-textValue36 = "hud_def_Trevor"
-textValue37 = "hud_def_blur"
-textValue38 = "hud_def_blur_switch"
-textValue39 = "hud_def_colorgrade"
-textValue40 = "hud_def_desat_Franklin"
-textValue41 = "hud_def_desat_Michael"
-textValue45 = "hud_def_desat_Neutral"
-textValue46 = "hud_def_desat_Trevor"
-textValue47 = "hud_def_desat_cold"
-cmgCall[451] = rageUiCall
-cmgCall[452] = textValue42
-cmgCall[453] = textValue48
-cmgCall[454] = rageUiCall2
-cmgCall[455] = rageUiCall3
-cmgCall[456] = rageUiCall4
-cmgCall[457] = textValue54
-cmgCall[458] = textValue
-cmgCall[459] = textValue2
-cmgCall[460] = textValue3
-cmgCall[461] = textValue4
-cmgCall[462] = textValue5
-cmgCall[463] = textValue6
-cmgCall[464] = textValue7
-cmgCall[465] = textValue8
-cmgCall[466] = textValue9
-cmgCall[467] = textValue10
-cmgCall[468] = textValue12
-cmgCall[469] = textValue13
-cmgCall[470] = textValue14
-cmgCall[471] = textValue15
-cmgCall[472] = textValue16
-cmgCall[473] = textValue17
-cmgCall[474] = textValue18
-cmgCall[475] = textValue19
-cmgCall[476] = textValue20
-cmgCall[477] = textValue21
-cmgCall[478] = textValue22
-cmgCall[479] = textValue23
-cmgCall[480] = textValue24
-cmgCall[481] = textValue25
-cmgCall[482] = textValue26
-cmgCall[483] = textValue27
-cmgCall[484] = textValue28
-cmgCall[485] = textValue29
-cmgCall[486] = textValue30
-cmgCall[487] = textValue31
-cmgCall[488] = textValue32
-cmgCall[489] = textValue33
-cmgCall[490] = textValue34
-cmgCall[491] = textValue35
-cmgCall[492] = textValue36
-cmgCall[493] = textValue37
-cmgCall[494] = textValue38
-cmgCall[495] = textValue39
-cmgCall[496] = textValue40
-cmgCall[497] = textValue41
-cmgCall[498] = textValue45
-cmgCall[499] = textValue46
-cmgCall[500] = textValue47
-rageUiCall = "hud_def_desat_cold_kill"
-textValue42 = "hud_def_desat_switch"
-textValue48 = "hud_def_desatcrunch"
-rageUiCall2 = "hud_def_flash"
-rageUiCall3 = "hud_def_focus"
-rageUiCall4 = "hud_def_lensdistortion"
-textValue54 = "hud_def_lensdistortion_subtle"
-textValue = "id1_11_tunnel"
-textValue2 = "impexp_interior_01_lift"
-textValue3 = "int_Barber1"
-textValue4 = "int_ClothesHi"
-textValue5 = "int_ControlTower_none"
-textValue6 = "int_ControlTower_small"
-textValue7 = "int_Farmhouse_none"
-textValue8 = "int_Farmhouse_small"
-textValue9 = "int_FranklinAunt_small"
-textValue10 = "int_GasStation"
-textValue12 = "int_Hospital2_DM"
-textValue13 = "int_Hospital_Blue"
-textValue14 = "int_Hospital_BlueB"
-textValue15 = "int_Hospital_DM"
-textValue16 = "int_Lost_none"
-textValue17 = "int_Lost_small"
-textValue18 = "int_amb_mult_large"
-textValue19 = "int_arena_01"
-textValue20 = "int_arena_Mod"
-textValue21 = "int_arena_Mod_garage"
-textValue22 = "int_arena_VIP"
-textValue23 = "int_carmod_small"
-textValue24 = "int_carrier_control"
-textValue25 = "int_carrier_control_2"
-textValue26 = "int_carrier_hanger"
-textValue27 = "int_carrier_rear"
-textValue28 = "int_carrier_stair"
-textValue29 = "int_carshowroom"
-textValue30 = "int_chopshop"
-textValue31 = "int_clean_extlight_large"
-textValue32 = "int_clean_extlight_none"
-textValue33 = "int_clean_extlight_small"
-textValue34 = "int_clotheslow_large"
-textValue35 = "int_cluckinfactory_none"
-textValue36 = "int_cluckinfactory_small"
-textValue37 = "int_dockcontrol_small"
-textValue38 = "int_extlght_sm_cntrst"
-textValue39 = "int_extlight_large"
-textValue40 = "int_extlight_large_fog"
-textValue41 = "int_extlight_none"
-textValue45 = "int_extlight_none_dark"
-textValue46 = "int_extlight_none_dark_fog"
-textValue47 = "int_extlight_none_fog"
-cmgCall[501] = rageUiCall
-cmgCall[502] = textValue42
-cmgCall[503] = textValue48
-cmgCall[504] = rageUiCall2
-cmgCall[505] = rageUiCall3
-cmgCall[506] = rageUiCall4
-cmgCall[507] = textValue54
-cmgCall[508] = textValue
-cmgCall[509] = textValue2
-cmgCall[510] = textValue3
-cmgCall[511] = textValue4
-cmgCall[512] = textValue5
-cmgCall[513] = textValue6
-cmgCall[514] = textValue7
-cmgCall[515] = textValue8
-cmgCall[516] = textValue9
-cmgCall[517] = textValue10
-cmgCall[518] = textValue12
-cmgCall[519] = textValue13
-cmgCall[520] = textValue14
-cmgCall[521] = textValue15
-cmgCall[522] = textValue16
-cmgCall[523] = textValue17
-cmgCall[524] = textValue18
-cmgCall[525] = textValue19
-cmgCall[526] = textValue20
-cmgCall[527] = textValue21
-cmgCall[528] = textValue22
-cmgCall[529] = textValue23
-cmgCall[530] = textValue24
-cmgCall[531] = textValue25
-cmgCall[532] = textValue26
-cmgCall[533] = textValue27
-cmgCall[534] = textValue28
-cmgCall[535] = textValue29
-cmgCall[536] = textValue30
-cmgCall[537] = textValue31
-cmgCall[538] = textValue32
-cmgCall[539] = textValue33
-cmgCall[540] = textValue34
-cmgCall[541] = textValue35
-cmgCall[542] = textValue36
-cmgCall[543] = textValue37
-cmgCall[544] = textValue38
-cmgCall[545] = textValue39
-cmgCall[546] = textValue40
-cmgCall[547] = textValue41
-cmgCall[548] = textValue45
-cmgCall[549] = textValue46
-cmgCall[550] = textValue47
-rageUiCall = "int_extlight_small"
-textValue42 = "int_extlight_small_clipped"
-textValue48 = "int_extlight_small_fog"
-rageUiCall2 = "int_hanger_none"
-rageUiCall3 = "int_hanger_small"
-rageUiCall4 = "int_hospital_dark"
-textValue54 = "int_hospital_small"
-textValue = "int_lesters"
-textValue2 = "int_methlab_small"
-textValue3 = "int_motelroom"
-textValue4 = "int_office_Lobby"
-textValue5 = "int_office_LobbyHall"
-textValue6 = "int_tattoo"
-textValue7 = "int_tattoo_B"
-textValue8 = "int_tunnel_none_dark"
-textValue9 = "interior_WATER_lighting"
-textValue10 = "introblue"
-textValue12 = "jewel_gas"
-textValue13 = "jewel_optim"
-textValue14 = "jewelry_entrance"
-textValue15 = "jewelry_entrance_INT"
-textValue16 = "jewelry_entrance_INT_fog"
-textValue17 = "lab_none"
-textValue18 = "lab_none_dark"
-textValue19 = "lab_none_dark_OVR"
-textValue20 = "lab_none_dark_fog"
-textValue21 = "lab_none_exit"
-textValue22 = "lab_none_exit_OVR"
-textValue23 = "li"
-textValue24 = "lightning"
-textValue25 = "lightning_cloud"
-textValue26 = "lightning_strong"
-textValue27 = "lightning_weak"
-textValue28 = "lightpolution"
-textValue29 = "lodscaler"
-textValue30 = "maxlodscaler"
-textValue31 = "metro"
-textValue32 = "micheal"
-textValue33 = "micheals_lightsOFF"
-textValue34 = "michealspliff"
-textValue35 = "michealspliff_blend"
-textValue36 = "michealspliff_blend02"
-textValue37 = "militarybase_nightlight"
-textValue38 = "mineshaft"
-textValue39 = "morebloom"
-textValue40 = "morgue_dark"
-textValue41 = "morgue_dark_ovr"
-textValue45 = "mp_battle_int01"
-textValue46 = "mp_battle_int01_dancefloor"
-textValue47 = "mp_battle_int01_dancefloor_OFF"
-cmgCall[551] = rageUiCall
-cmgCall[552] = textValue42
-cmgCall[553] = textValue48
-cmgCall[554] = rageUiCall2
-cmgCall[555] = rageUiCall3
-cmgCall[556] = rageUiCall4
-cmgCall[557] = textValue54
-cmgCall[558] = textValue
-cmgCall[559] = textValue2
-cmgCall[560] = textValue3
-cmgCall[561] = textValue4
-cmgCall[562] = textValue5
-cmgCall[563] = textValue6
-cmgCall[564] = textValue7
-cmgCall[565] = textValue8
-cmgCall[566] = textValue9
-cmgCall[567] = textValue10
-cmgCall[568] = textValue12
-cmgCall[569] = textValue13
-cmgCall[570] = textValue14
-cmgCall[571] = textValue15
-cmgCall[572] = textValue16
-cmgCall[573] = textValue17
-cmgCall[574] = textValue18
-cmgCall[575] = textValue19
-cmgCall[576] = textValue20
-cmgCall[577] = textValue21
-cmgCall[578] = textValue22
-cmgCall[579] = textValue23
-cmgCall[580] = textValue24
-cmgCall[581] = textValue25
-cmgCall[582] = textValue26
-cmgCall[583] = textValue27
-cmgCall[584] = textValue28
-cmgCall[585] = textValue29
-cmgCall[586] = textValue30
-cmgCall[587] = textValue31
-cmgCall[588] = textValue32
-cmgCall[589] = textValue33
-cmgCall[590] = textValue34
-cmgCall[591] = textValue35
-cmgCall[592] = textValue36
-cmgCall[593] = textValue37
-cmgCall[594] = textValue38
-cmgCall[595] = textValue39
-cmgCall[596] = textValue40
-cmgCall[597] = textValue41
-cmgCall[598] = textValue45
-cmgCall[599] = textValue46
-cmgCall[600] = textValue47
-rageUiCall = "mp_battle_int01_entry"
-textValue42 = "mp_battle_int01_garage"
-textValue48 = "mp_battle_int01_office"
-rageUiCall2 = "mp_battle_int02"
-rageUiCall3 = "mp_battle_int03"
-rageUiCall4 = "mp_battle_int03_tint1"
-textValue54 = "mp_battle_int03_tint2"
-textValue = "mp_battle_int03_tint3"
-textValue2 = "mp_battle_int03_tint4"
-textValue3 = "mp_battle_int03_tint5"
-textValue4 = "mp_battle_int03_tint6"
-textValue5 = "mp_battle_int03_tint7"
-textValue6 = "mp_battle_int03_tint8"
-textValue7 = "mp_battle_int03_tint9"
-textValue8 = "mp_bkr_int01_garage"
-textValue9 = "mp_bkr_int01_small_rooms"
-textValue10 = "mp_bkr_int01_transition"
-textValue12 = "mp_bkr_int02_garage"
-textValue13 = "mp_bkr_int02_hangout"
-textValue14 = "mp_bkr_int02_small_rooms"
-textValue15 = "mp_bkr_ware01"
-textValue16 = "mp_bkr_ware02_dry"
-textValue17 = "mp_bkr_ware02_standard"
-textValue18 = "mp_bkr_ware02_upgrade"
-textValue19 = "mp_bkr_ware03_basic"
-textValue20 = "mp_bkr_ware03_upgrade"
-textValue21 = "mp_bkr_ware04"
-textValue22 = "mp_bkr_ware05"
-textValue23 = "mp_exec_office_01"
-textValue24 = "mp_exec_office_02"
-textValue25 = "mp_exec_office_03"
-textValue26 = "mp_exec_office_03C"
-textValue27 = "mp_exec_office_03_blue"
-textValue28 = "mp_exec_office_04"
-textValue29 = "mp_exec_office_05"
-textValue30 = "mp_exec_office_06"
-textValue31 = "mp_exec_warehouse_01"
-textValue32 = "mp_gr_int01_black"
-textValue33 = "mp_gr_int01_grey"
-textValue34 = "mp_gr_int01_white"
-textValue35 = "mp_h_05"
-textValue36 = "mp_h_07"
-textValue37 = "mp_h_08"
-textValue38 = "mp_imx_intwaremed"
-textValue39 = "mp_imx_intwaremed_office"
-textValue40 = "mp_imx_mod_int_01"
-textValue41 = "mp_lad_day"
-textValue45 = "mp_lad_judgment"
-textValue46 = "mp_lad_night"
-textValue47 = "mp_nightshark_shield_fp"
-cmgCall[601] = rageUiCall
-cmgCall[602] = textValue42
-cmgCall[603] = textValue48
-cmgCall[604] = rageUiCall2
-cmgCall[605] = rageUiCall3
-cmgCall[606] = rageUiCall4
-cmgCall[607] = textValue54
-cmgCall[608] = textValue
-cmgCall[609] = textValue2
-cmgCall[610] = textValue3
-cmgCall[611] = textValue4
-cmgCall[612] = textValue5
-cmgCall[613] = textValue6
-cmgCall[614] = textValue7
-cmgCall[615] = textValue8
-cmgCall[616] = textValue9
-cmgCall[617] = textValue10
-cmgCall[618] = textValue12
-cmgCall[619] = textValue13
-cmgCall[620] = textValue14
-cmgCall[621] = textValue15
-cmgCall[622] = textValue16
-cmgCall[623] = textValue17
-cmgCall[624] = textValue18
-cmgCall[625] = textValue19
-cmgCall[626] = textValue20
-cmgCall[627] = textValue21
-cmgCall[628] = textValue22
-cmgCall[629] = textValue23
-cmgCall[630] = textValue24
-cmgCall[631] = textValue25
-cmgCall[632] = textValue26
-cmgCall[633] = textValue27
-cmgCall[634] = textValue28
-cmgCall[635] = textValue29
-cmgCall[636] = textValue30
-cmgCall[637] = textValue31
-cmgCall[638] = textValue32
-cmgCall[639] = textValue33
-cmgCall[640] = textValue34
-cmgCall[641] = textValue35
-cmgCall[642] = textValue36
-cmgCall[643] = textValue37
-cmgCall[644] = textValue38
-cmgCall[645] = textValue39
-cmgCall[646] = textValue40
-cmgCall[647] = textValue41
-cmgCall[648] = textValue45
-cmgCall[649] = textValue46
-cmgCall[650] = textValue47
-rageUiCall = "mp_smg_int01_han"
-textValue42 = "mp_smg_int01_han_blue"
-textValue48 = "mp_smg_int01_han_red"
-rageUiCall2 = "mp_smg_int01_han_yellow"
-rageUiCall3 = "mp_x17dlc_base"
-rageUiCall4 = "mp_x17dlc_base_dark"
-textValue54 = "mp_x17dlc_base_darkest"
-textValue = "mp_x17dlc_facility"
-textValue2 = "mp_x17dlc_facility2"
-textValue3 = "mp_x17dlc_facility_conference"
-textValue4 = "mp_x17dlc_in_sub"
-textValue5 = "mp_x17dlc_in_sub_no_reflection"
-textValue6 = "mp_x17dlc_int_01"
-textValue7 = "mp_x17dlc_int_01_tint1"
-textValue8 = "mp_x17dlc_int_01_tint2"
-textValue9 = "mp_x17dlc_int_01_tint3"
-textValue10 = "mp_x17dlc_int_01_tint4"
-textValue12 = "mp_x17dlc_int_01_tint5"
-textValue13 = "mp_x17dlc_int_01_tint6"
-textValue14 = "mp_x17dlc_int_01_tint7"
-textValue15 = "mp_x17dlc_int_01_tint8"
-textValue16 = "mp_x17dlc_int_01_tint9"
-textValue17 = "mp_x17dlc_int_02"
-textValue18 = "mp_x17dlc_int_02_hangar"
-textValue19 = "mp_x17dlc_int_02_outdoor_intro_camera"
-textValue20 = "mp_x17dlc_int_02_tint1"
-textValue21 = "mp_x17dlc_int_02_tint2"
-textValue22 = "mp_x17dlc_int_02_tint3"
-textValue23 = "mp_x17dlc_int_02_tint4"
-textValue24 = "mp_x17dlc_int_02_tint5"
-textValue25 = "mp_x17dlc_int_02_tint6"
-textValue26 = "mp_x17dlc_int_02_tint7"
-textValue27 = "mp_x17dlc_int_02_tint8"
-textValue28 = "mp_x17dlc_int_02_tint9"
-textValue29 = "mp_x17dlc_int_02_vehicle_avenger_camera"
-textValue30 = "mp_x17dlc_int_02_vehicle_workshop_camera"
-textValue31 = "mp_x17dlc_int_02_weapon_avenger_camera"
-textValue32 = "mp_x17dlc_int_silo"
-textValue33 = "mp_x17dlc_int_silo_escape"
-textValue34 = "mp_x17dlc_lab"
-textValue35 = "mp_x17dlc_lab_loading_bay"
-textValue36 = "mugShot"
-textValue37 = "mugShot_lineup"
-textValue38 = "multiplayer_ped_fight"
-textValue39 = "nervousRON_fog"
-textValue40 = "new_MP_Garage_L"
-textValue41 = "new_bank"
-textValue45 = "new_stripper_changing"
-textValue46 = "new_tunnels_entrance"
-textValue47 = "nextgen"
-cmgCall[651] = rageUiCall
-cmgCall[652] = textValue42
-cmgCall[653] = textValue48
-cmgCall[654] = rageUiCall2
-cmgCall[655] = rageUiCall3
-cmgCall[656] = rageUiCall4
-cmgCall[657] = textValue54
-cmgCall[658] = textValue
-cmgCall[659] = textValue2
-cmgCall[660] = textValue3
-cmgCall[661] = textValue4
-cmgCall[662] = textValue5
-cmgCall[663] = textValue6
-cmgCall[664] = textValue7
-cmgCall[665] = textValue8
-cmgCall[666] = textValue9
-cmgCall[667] = textValue10
-cmgCall[668] = textValue12
-cmgCall[669] = textValue13
-cmgCall[670] = textValue14
-cmgCall[671] = textValue15
-cmgCall[672] = textValue16
-cmgCall[673] = textValue17
-cmgCall[674] = textValue18
-cmgCall[675] = textValue19
-cmgCall[676] = textValue20
-cmgCall[677] = textValue21
-cmgCall[678] = textValue22
-cmgCall[679] = textValue23
-cmgCall[680] = textValue24
-cmgCall[681] = textValue25
-cmgCall[682] = textValue26
-cmgCall[683] = textValue27
-cmgCall[684] = textValue28
-cmgCall[685] = textValue29
-cmgCall[686] = textValue30
-cmgCall[687] = textValue31
-cmgCall[688] = textValue32
-cmgCall[689] = textValue33
-cmgCall[690] = textValue34
-cmgCall[691] = textValue35
-cmgCall[692] = textValue36
-cmgCall[693] = textValue37
-cmgCall[694] = textValue38
-cmgCall[695] = textValue39
-cmgCall[696] = textValue40
-cmgCall[697] = textValue41
-cmgCall[698] = textValue45
-cmgCall[699] = textValue46
-cmgCall[700] = textValue47
-rageUiCall = "nightvision"
-textValue42 = "overwater"
-textValue48 = "paleto_nightlight"
-rageUiCall2 = "paleto_opt"
-rageUiCall3 = "phone_cam"
-rageUiCall4 = "phone_cam1"
-textValue54 = "phone_cam10"
-textValue = "phone_cam11"
-textValue2 = "phone_cam12"
-textValue3 = "phone_cam13"
-textValue4 = "phone_cam2"
-textValue5 = "phone_cam3"
-textValue6 = "phone_cam3_REMOVED"
-textValue7 = "phone_cam4"
-textValue8 = "phone_cam5"
-textValue9 = "phone_cam6"
-textValue10 = "phone_cam7"
-textValue12 = "phone_cam8"
-textValue13 = "phone_cam8_REMOVED"
-textValue14 = "phone_cam9"
-textValue15 = "plane_inside_mode"
-textValue16 = "player_transition"
-textValue17 = "player_transition_no_scanlines"
-textValue18 = "player_transition_scanlines"
-textValue19 = "plaza_carpark"
-textValue20 = "polluted"
-textValue21 = "poolsidewaterreflection2"
-textValue22 = "powerplant_nightlight"
-textValue23 = "powerstation"
-textValue24 = "prison_nightlight"
-textValue25 = "projector"
-textValue26 = "prologue"
-textValue27 = "prologue_ending_fog"
-textValue28 = "prologue_ext_art_amb"
-textValue29 = "prologue_reflection_opt"
-textValue30 = "prologue_shootout"
-textValue31 = "pulse"
-textValue32 = "ranch"
-textValue33 = "reducelightingcost"
-textValue34 = "reducewaterREF"
-textValue35 = "refit"
-textValue36 = "reflection_correct_ambient"
-textValue37 = "resvoire_reflection"
-textValue38 = "rply_brightness"
-textValue39 = "rply_brightness_neg"
-textValue40 = "rply_contrast"
-textValue41 = "rply_contrast_neg"
-textValue45 = "rply_motionblur"
-textValue46 = "rply_saturation"
-textValue47 = "rply_saturation_neg"
-cmgCall[701] = rageUiCall
-cmgCall[702] = textValue42
-cmgCall[703] = textValue48
-cmgCall[704] = rageUiCall2
-cmgCall[705] = rageUiCall3
-cmgCall[706] = rageUiCall4
-cmgCall[707] = textValue54
-cmgCall[708] = textValue
-cmgCall[709] = textValue2
-cmgCall[710] = textValue3
-cmgCall[711] = textValue4
-cmgCall[712] = textValue5
-cmgCall[713] = textValue6
-cmgCall[714] = textValue7
-cmgCall[715] = textValue8
-cmgCall[716] = textValue9
-cmgCall[717] = textValue10
-cmgCall[718] = textValue12
-cmgCall[719] = textValue13
-cmgCall[720] = textValue14
-cmgCall[721] = textValue15
-cmgCall[722] = textValue16
-cmgCall[723] = textValue17
-cmgCall[724] = textValue18
-cmgCall[725] = textValue19
-cmgCall[726] = textValue20
-cmgCall[727] = textValue21
-cmgCall[728] = textValue22
-cmgCall[729] = textValue23
-cmgCall[730] = textValue24
-cmgCall[731] = textValue25
-cmgCall[732] = textValue26
-cmgCall[733] = textValue27
-cmgCall[734] = textValue28
-cmgCall[735] = textValue29
-cmgCall[736] = textValue30
-cmgCall[737] = textValue31
-cmgCall[738] = textValue32
-cmgCall[739] = textValue33
-cmgCall[740] = textValue34
-cmgCall[741] = textValue35
-cmgCall[742] = textValue36
-cmgCall[743] = textValue37
-cmgCall[744] = textValue38
-cmgCall[745] = textValue39
-cmgCall[746] = textValue40
-cmgCall[747] = textValue41
-cmgCall[748] = textValue45
-cmgCall[749] = textValue46
-cmgCall[750] = textValue47
-rageUiCall = "rply_vignette"
-textValue42 = "rply_vignette_neg"
-textValue48 = "sandyshore_nightlight"
-rageUiCall2 = "scanline_cam"
-rageUiCall3 = "scanline_cam_cheap"
-rageUiCall4 = "scope_zoom_in"
-textValue54 = "scope_zoom_out"
-textValue = "secret_camera"
-textValue2 = "services_nightlight"
-textValue3 = "shades_pink"
-textValue4 = "shades_yellow"
-textValue5 = "ship_explosion_underwater"
-textValue6 = "ship_lighting"
-textValue7 = "sleeping"
-textValue8 = "spectator1"
-textValue9 = "spectator10"
-textValue10 = "spectator2"
-textValue12 = "spectator3"
-textValue13 = "spectator4"
-textValue14 = "spectator5"
-textValue15 = "spectator6"
-textValue16 = "spectator7"
-textValue17 = "spectator8"
-textValue18 = "spectator9"
-textValue19 = "stc_coroners"
-textValue20 = "stc_deviant_bedroom"
-textValue21 = "stc_deviant_lounge"
-textValue22 = "stc_franklinsHouse"
-textValue23 = "stc_trevors"
-textValue24 = "stoned"
-textValue25 = "stoned_aliens"
-textValue26 = "stoned_cutscene"
-textValue27 = "stoned_monkeys"
-textValue28 = "subBASE_water_ref"
-textValue29 = "sunglasses"
-textValue30 = "superDARK"
-textValue31 = "switch_cam_1"
-textValue32 = "switch_cam_2"
-textValue33 = "telescope"
-textValue34 = "torpedo"
-textValue35 = "traffic_skycam"
-textValue36 = "trailer_explosion_optimise"
-textValue37 = "trevorspliff"
-textValue38 = "trevorspliff_blend"
-textValue39 = "trevorspliff_blend02"
-textValue40 = "tunnel_entrance"
-textValue41 = "tunnel_entrance_INT"
-textValue45 = "tunnel_id1_11"
-textValue46 = "ufo"
-textValue47 = "ufo_deathray"
-cmgCall[751] = rageUiCall
-cmgCall[752] = textValue42
-cmgCall[753] = textValue48
-cmgCall[754] = rageUiCall2
-cmgCall[755] = rageUiCall3
-cmgCall[756] = rageUiCall4
-cmgCall[757] = textValue54
-cmgCall[758] = textValue
-cmgCall[759] = textValue2
-cmgCall[760] = textValue3
-cmgCall[761] = textValue4
-cmgCall[762] = textValue5
-cmgCall[763] = textValue6
-cmgCall[764] = textValue7
-cmgCall[765] = textValue8
-cmgCall[766] = textValue9
-cmgCall[767] = textValue10
-cmgCall[768] = textValue12
-cmgCall[769] = textValue13
-cmgCall[770] = textValue14
-cmgCall[771] = textValue15
-cmgCall[772] = textValue16
-cmgCall[773] = textValue17
-cmgCall[774] = textValue18
-cmgCall[775] = textValue19
-cmgCall[776] = textValue20
-cmgCall[777] = textValue21
-cmgCall[778] = textValue22
-cmgCall[779] = textValue23
-cmgCall[780] = textValue24
-cmgCall[781] = textValue25
-cmgCall[782] = textValue26
-cmgCall[783] = textValue27
-cmgCall[784] = textValue28
-cmgCall[785] = textValue29
-cmgCall[786] = textValue30
-cmgCall[787] = textValue31
-cmgCall[788] = textValue32
-cmgCall[789] = textValue33
-cmgCall[790] = textValue34
-cmgCall[791] = textValue35
-cmgCall[792] = textValue36
-cmgCall[793] = textValue37
-cmgCall[794] = textValue38
-cmgCall[795] = textValue39
-cmgCall[796] = textValue40
-cmgCall[797] = textValue41
-cmgCall[798] = textValue45
-cmgCall[799] = textValue46
-cmgCall[800] = textValue47
-rageUiCall = "underwater"
-textValue42 = "underwater_deep"
-textValue48 = "underwater_deep_clear"
-rageUiCall2 = "v_abattoir"
-rageUiCall3 = "v_bahama"
-rageUiCall4 = "v_cashdepot"
-textValue54 = "v_dark"
-textValue = "v_foundry"
-textValue2 = "v_janitor"
-textValue3 = "v_jewel2"
-textValue4 = "v_metro"
-textValue5 = "v_michael"
-textValue6 = "v_michael_lounge"
-textValue7 = "v_recycle"
-textValue8 = "v_rockclub"
-textValue9 = "v_strip3"
-textValue10 = "v_strpchangerm"
-textValue12 = "v_sweat"
-textValue13 = "v_sweat_NoDirLight"
-textValue14 = "v_sweat_entrance"
-textValue15 = "v_torture"
-textValue16 = "vagos_extlight_small"
-textValue17 = "vehicle_subint"
-textValue18 = "venice_canal_tunnel"
-textValue19 = "vespucci_garage"
-textValue20 = "warehouse"
-textValue21 = "whitenightlighting"
-textValue22 = "winning_room"
-textValue23 = "yacht_DLC"
-textValue24 = "yell_tunnel_nodirect"
-cmgCall[801] = rageUiCall
-cmgCall[802] = textValue42
-cmgCall[803] = textValue48
-cmgCall[804] = rageUiCall2
-cmgCall[805] = rageUiCall3
-cmgCall[806] = rageUiCall4
-cmgCall[807] = textValue54
-cmgCall[808] = textValue
-cmgCall[809] = textValue2
-cmgCall[810] = textValue3
-cmgCall[811] = textValue4
-cmgCall[812] = textValue5
-cmgCall[813] = textValue6
-cmgCall[814] = textValue7
-cmgCall[815] = textValue8
-cmgCall[816] = textValue9
-cmgCall[817] = textValue10
-cmgCall[818] = textValue12
-cmgCall[819] = textValue13
-cmgCall[820] = textValue14
-cmgCall[821] = textValue15
-cmgCall[822] = textValue16
-cmgCall[823] = textValue17
-cmgCall[824] = textValue18
-cmgCall[825] = textValue19
-cmgCall[826] = textValue20
-cmgCall[827] = textValue21
-cmgCall[828] = textValue22
-cmgCall[829] = textValue23
-cmgCall[830] = textValue24
-rageUiCall = 1
-textValue42 = {}
-textValue48 = 0.1
-rageUiCall2 = 2.0
-rageUiCall3 = 0.1
-for rageUiCall4 = textValue48, rageUiCall2, rageUiCall3 do
-  textValue54 = _ENV
-  textValue = "table"
-  textValue54 = textValue54[textValue]
-  textValue = "insert"
-  textValue54 = textValue54[textValue]
-  textValue = textValue42
-  textValue2 = rageUiCall4
-  textValue54(textValue, textValue2)
+text11 = {}
+cmgOperation = "Default"
+rageUiOperation = "DeadlineNeon"
+text42 = "PPPurple"
+text48 = "PPOrange"
+rageUiOperation2 = "PPGreen"
+rageUiOperation3 = "InchPickup"
+rageUiOperation4 = "InchOrange"
+text54 = "MP_Bull_tost"
+text = "CrossLine"
+text2 = "ArenaWheelPurple"
+text3 = "SwitchHUDOut"
+text4 = "FocusIn"
+text5 = "FocusOut"
+text6 = "MinigameEndNeutral"
+text7 = "MinigameEndTrevor"
+text8 = "MinigameEndFranklin"
+text9 = "MinigameEndMichael"
+text10 = "MinigameTransitionOut"
+text12 = "MinigameTransitionIn"
+text13 = "SwitchShortNeutralIn"
+text14 = "SwitchShortFranklinIn"
+text15 = "SwitchShortTrevorIn"
+text16 = "SwitchShortMichaelIn"
+text17 = "SwitchOpenMichaelIn"
+text18 = "SwitchOpenFranklinIn"
+text19 = "SwitchOpenTrevorIn"
+text20 = "SwitchHUDMichaelOut"
+text21 = "SwitchHUDFranklinOut"
+text22 = "SwitchHUDTrevorOut"
+text23 = "SwitchShortFranklinMid"
+text24 = "SwitchShortMichaelMid"
+text25 = "SwitchShortTrevorMid"
+text26 = "DeathFailOut"
+text27 = "CamPushInNeutral"
+text28 = "CamPushInFranklin"
+text29 = "CamPushInMichael"
+text30 = "CamPushInTrevor"
+text31 = "SwitchOpenMichaelIn"
+text32 = "SwitchSceneFranklin"
+text33 = "SwitchSceneTrevor"
+text34 = "SwitchSceneMichael"
+text35 = "SwitchSceneNeutral"
+text36 = "MP_Celeb_Win"
+text37 = "MP_Celeb_Win_Out"
+text38 = "MP_Celeb_Lose"
+text39 = "MP_Celeb_Lose_Out"
+text40 = "DeathFailNeutralIn"
+text41 = "DeathFailMPDark"
+text45 = "DeathFailMPIn"
+text46 = "MP_Celeb_Preload_Fade"
+text11[1] = cmgOperation
+text11[2] = rageUiOperation
+text11[3] = text42
+text11[4] = text48
+text11[5] = rageUiOperation2
+text11[6] = rageUiOperation3
+text11[7] = rageUiOperation4
+text11[8] = text54
+text11[9] = text
+text11[10] = text2
+text11[11] = text3
+text11[12] = text4
+text11[13] = text5
+text11[14] = text6
+text11[15] = text7
+text11[16] = text8
+text11[17] = text9
+text11[18] = text10
+text11[19] = text12
+text11[20] = text13
+text11[21] = text14
+text11[22] = text15
+text11[23] = text16
+text11[24] = text17
+text11[25] = text18
+text11[26] = text19
+text11[27] = text20
+text11[28] = text21
+text11[29] = text22
+text11[30] = text23
+text11[31] = text24
+text11[32] = text25
+text11[33] = text26
+text11[34] = text27
+text11[35] = text28
+text11[36] = text29
+text11[37] = text30
+text11[38] = text31
+text11[39] = text32
+text11[40] = text33
+text11[41] = text34
+text11[42] = text35
+text11[43] = text36
+text11[44] = text37
+text11[45] = text38
+text11[46] = text39
+text11[47] = text40
+text11[48] = text41
+text11[49] = text45
+text11[50] = text46
+cmgOperation = "PeyoteEndOut"
+rageUiOperation = "PeyoteEndIn"
+text42 = "PeyoteIn"
+text48 = "PeyoteOut"
+rageUiOperation2 = "MP_race_crash"
+rageUiOperation3 = "SuccessFranklin"
+rageUiOperation4 = "SuccessTrevor"
+text54 = "SuccessMichael"
+text = "DrugsMichaelAliensFightIn"
+text2 = "DrugsMichaelAliensFight"
+text3 = "DrugsMichaelAliensFightOut"
+text4 = "DrugsTrevorClownsFightIn"
+text5 = "DrugsTrevorClownsFight"
+text6 = "DrugsTrevorClownsFightOut"
+text7 = "HeistCelebPass"
+text8 = "HeistCelebPassBW"
+text9 = "HeistCelebEnd"
+text10 = "HeistCelebToast"
+text12 = "MenuMGHeistIn"
+text13 = "MenuMGTournamentIn"
+text14 = "MenuMGSelectionIn"
+text15 = "ChopVision"
+text16 = "DMT_flight_intro"
+text17 = "DMT_flight"
+text18 = "DrugsDrivingIn"
+text19 = "DrugsDrivingOut"
+text20 = "SwitchOpenNeutralFIB5"
+text21 = "HeistLocate"
+text22 = "MP_job_load"
+text23 = "RaceTurbo"
+text24 = "MP_intro_logo"
+text25 = "HeistTripSkipFade"
+text26 = "MenuMGHeistOut"
+text27 = "MP_corona_switch"
+text28 = "MenuMGSelectionTint"
+text29 = "SuccessNeutral"
+text30 = "ExplosionJosh3"
+text31 = "SniperOverlay"
+text32 = "RampageOut"
+text33 = "Rampage"
+text34 = "Dont_tazeme_bro"
+text35 = "DeathFailOut"
+text11[51] = cmgOperation
+text11[52] = rageUiOperation
+text11[53] = text42
+text11[54] = text48
+text11[55] = rageUiOperation2
+text11[56] = rageUiOperation3
+text11[57] = rageUiOperation4
+text11[58] = text54
+text11[59] = text
+text11[60] = text2
+text11[61] = text3
+text11[62] = text4
+text11[63] = text5
+text11[64] = text6
+text11[65] = text7
+text11[66] = text8
+text11[67] = text9
+text11[68] = text10
+text11[69] = text12
+text11[70] = text13
+text11[71] = text14
+text11[72] = text15
+text11[73] = text16
+text11[74] = text17
+text11[75] = text18
+text11[76] = text19
+text11[77] = text20
+text11[78] = text21
+text11[79] = text22
+text11[80] = text23
+text11[81] = text24
+text11[82] = text25
+text11[83] = text26
+text11[84] = text27
+text11[85] = text28
+text11[86] = text29
+text11[87] = text30
+text11[88] = text31
+text11[89] = text32
+text11[90] = text33
+text11[91] = text34
+text11[92] = text35
+cmgOperation = {}
+rageUiOperation = "None"
+text42 = "AP1_01_B_IntRefRange"
+text48 = "AP1_01_C_NoFog"
+rageUiOperation2 = "AirRaceBoost01"
+rageUiOperation3 = "AirRaceBoost02"
+rageUiOperation4 = "AmbientPUSH"
+text54 = "ArenaEMP"
+text = "ArenaEMP_Blend"
+text2 = "ArenaWheelPurple01"
+text3 = "ArenaWheelPurple02"
+text4 = "Bank_HLWD"
+text5 = "Barry1_Stoned"
+text6 = "BarryFadeOut"
+text7 = "BeastIntro01"
+text8 = "BeastIntro02"
+text9 = "BeastLaunch01"
+text10 = "BeastLaunch02"
+text12 = "BikerFilter"
+text13 = "BikerForm01"
+text14 = "BikerFormFlash"
+text15 = "Bikers"
+text16 = "BikersSPLASH"
+text17 = "BlackOut"
+text18 = "BleepYellow01"
+text19 = "BleepYellow02"
+text20 = "Bloom"
+text21 = "BloomLight"
+text22 = "BloomMid"
+text23 = "BombCam01"
+text24 = "BombCamFlash"
+text25 = "Broken_camera_fuzz"
+text26 = "BulletTimeDark"
+text27 = "BulletTimeLight"
+text28 = "CAMERA_BW"
+text29 = "CAMERA_secuirity"
+text30 = "CAMERA_secuirity_FUZZ"
+text31 = "CH3_06_water"
+text32 = "CHOP"
+text33 = "CS1_railwayB_tunnel"
+text34 = "CS3_rail_tunnel"
+text35 = "CUSTOM_streetlight"
+text36 = "Carpark_MP_exit"
+text37 = "CopsSPLASH"
+text38 = "CrossLine01"
+text39 = "CrossLine02"
+text40 = "DONT_overide_sunpos"
+text41 = "DRUG_2_drive"
+text45 = "DRUG_gas_huffin"
+text46 = "DeadlineNeon01"
+text47 = "DefaultColorCode"
+cmgOperation[1] = rageUiOperation
+cmgOperation[2] = text42
+cmgOperation[3] = text48
+cmgOperation[4] = rageUiOperation2
+cmgOperation[5] = rageUiOperation3
+cmgOperation[6] = rageUiOperation4
+cmgOperation[7] = text54
+cmgOperation[8] = text
+cmgOperation[9] = text2
+cmgOperation[10] = text3
+cmgOperation[11] = text4
+cmgOperation[12] = text5
+cmgOperation[13] = text6
+cmgOperation[14] = text7
+cmgOperation[15] = text8
+cmgOperation[16] = text9
+cmgOperation[17] = text10
+cmgOperation[18] = text12
+cmgOperation[19] = text13
+cmgOperation[20] = text14
+cmgOperation[21] = text15
+cmgOperation[22] = text16
+cmgOperation[23] = text17
+cmgOperation[24] = text18
+cmgOperation[25] = text19
+cmgOperation[26] = text20
+cmgOperation[27] = text21
+cmgOperation[28] = text22
+cmgOperation[29] = text23
+cmgOperation[30] = text24
+cmgOperation[31] = text25
+cmgOperation[32] = text26
+cmgOperation[33] = text27
+cmgOperation[34] = text28
+cmgOperation[35] = text29
+cmgOperation[36] = text30
+cmgOperation[37] = text31
+cmgOperation[38] = text32
+cmgOperation[39] = text33
+cmgOperation[40] = text34
+cmgOperation[41] = text35
+cmgOperation[42] = text36
+cmgOperation[43] = text37
+cmgOperation[44] = text38
+cmgOperation[45] = text39
+cmgOperation[46] = text40
+cmgOperation[47] = text41
+cmgOperation[48] = text45
+cmgOperation[49] = text46
+cmgOperation[50] = text47
+rageUiOperation = "Dont_tazeme_bro"
+text42 = "DrivingFocusDark"
+text48 = "DrivingFocusLight"
+rageUiOperation2 = "Drone_FishEye_Lens"
+rageUiOperation3 = "Drug_deadman"
+rageUiOperation4 = "Drug_deadman_blend"
+text54 = "Drunk"
+text = "EXTRA_bouncelight"
+text2 = "EXT_FULLAmbientmult_art"
+text3 = "ExplosionJosh"
+text4 = "FIB_5"
+text5 = "FIB_6"
+text6 = "FIB_A"
+text7 = "FIB_B"
+text8 = "FIB_interview"
+text9 = "FIB_interview_optimise"
+text10 = "FORdoron_delete"
+text12 = "FRANKLIN"
+text13 = "Facebook_NEW"
+text14 = "FinaleBank"
+text15 = "FinaleBankMid"
+text16 = "FinaleBankexit"
+text17 = "Forest"
+text18 = "FrankilinsHOUSEhills"
+text19 = "FranklinColorCode"
+text20 = "FranklinColorCodeBasic"
+text21 = "FranklinColorCodeBright"
+text22 = "FullAmbientmult_interior"
+text23 = "Glasses_BlackOut"
+text24 = "Hanger_INTmods"
+text25 = "Hicksbar"
+text26 = "HicksbarNEW"
+text27 = "Hint_cam"
+text28 = "IMpExt_Interior_02"
+text29 = "IMpExt_Interior_02_stair_cage"
+text30 = "INT_FULLAmbientmult_art"
+text31 = "INT_FULLAmbientmult_both"
+text32 = "INT_FullAmbientmult"
+text33 = "INT_NO_fogALPHA"
+text34 = "INT_NOdirectLight"
+text35 = "INT_NoAmbientmult"
+text36 = "INT_NoAmbientmult_art"
+text37 = "INT_NoAmbientmult_both"
+text38 = "INT_garage"
+text39 = "INT_mall"
+text40 = "INT_nowaterREF"
+text41 = "INT_posh_hairdresser"
+text45 = "INT_smshop"
+text46 = "INT_smshop_inMOD"
+text47 = "INT_smshop_indoor_bloom"
+cmgOperation[51] = rageUiOperation
+cmgOperation[52] = text42
+cmgOperation[53] = text48
+cmgOperation[54] = rageUiOperation2
+cmgOperation[55] = rageUiOperation3
+cmgOperation[56] = rageUiOperation4
+cmgOperation[57] = text54
+cmgOperation[58] = text
+cmgOperation[59] = text2
+cmgOperation[60] = text3
+cmgOperation[61] = text4
+cmgOperation[62] = text5
+cmgOperation[63] = text6
+cmgOperation[64] = text7
+cmgOperation[65] = text8
+cmgOperation[66] = text9
+cmgOperation[67] = text10
+cmgOperation[68] = text12
+cmgOperation[69] = text13
+cmgOperation[70] = text14
+cmgOperation[71] = text15
+cmgOperation[72] = text16
+cmgOperation[73] = text17
+cmgOperation[74] = text18
+cmgOperation[75] = text19
+cmgOperation[76] = text20
+cmgOperation[77] = text21
+cmgOperation[78] = text22
+cmgOperation[79] = text23
+cmgOperation[80] = text24
+cmgOperation[81] = text25
+cmgOperation[82] = text26
+cmgOperation[83] = text27
+cmgOperation[84] = text28
+cmgOperation[85] = text29
+cmgOperation[86] = text30
+cmgOperation[87] = text31
+cmgOperation[88] = text32
+cmgOperation[89] = text33
+cmgOperation[90] = text34
+cmgOperation[91] = text35
+cmgOperation[92] = text36
+cmgOperation[93] = text37
+cmgOperation[94] = text38
+cmgOperation[95] = text39
+cmgOperation[96] = text40
+cmgOperation[97] = text41
+cmgOperation[98] = text45
+cmgOperation[99] = text46
+cmgOperation[100] = text47
+rageUiOperation = "INT_smshop_outdoor_bloom"
+text42 = "INT_streetlighting"
+text48 = "INT_trailer_cinema"
+rageUiOperation2 = "ImpExp_Interior_01"
+rageUiOperation3 = "InchOrange01"
+rageUiOperation4 = "InchOrange02"
+text54 = "InchPickup01"
+text = "InchPickup02"
+text2 = "InchPurple01"
+text3 = "InchPurple02"
+text4 = "KT_underpass"
+text5 = "Kifflom"
+text6 = "LIGHTSreduceFALLOFF"
+text7 = "LODmult_HD_orphan_LOD_reduce"
+text8 = "LODmult_HD_orphan_reduce"
+text9 = "LODmult_LOD_reduce"
+text10 = "LODmult_SLOD1_reduce"
+text12 = "LODmult_SLOD2_reduce"
+text13 = "LODmult_SLOD3_reduce"
+text14 = "LODmult_global_reduce"
+text15 = "LODmult_global_reduce_NOHD"
+text16 = "LectroDark"
+text17 = "LectroLight"
+text18 = "LifeInvaderLOD"
+text19 = "LightPollutionHills"
+text20 = "LostTimeDark"
+text21 = "LostTimeFlash"
+text22 = "LostTimeLight"
+text23 = "METRO_Tunnels"
+text24 = "METRO_Tunnels_entrance"
+text25 = "METRO_platform"
+text26 = "MPApartHigh"
+text27 = "MPApartHigh_palnning"
+text28 = "MPApart_H_01"
+text29 = "MPApart_H_01_gym"
+text30 = "MP_Arena_VIP"
+text31 = "MP_Arena_theme_atlantis"
+text32 = "MP_Arena_theme_evening"
+text33 = "MP_Arena_theme_hell"
+text34 = "MP_Arena_theme_midday"
+text35 = "MP_Arena_theme_morning"
+text36 = "MP_Arena_theme_night"
+text37 = "MP_Arena_theme_saccharine"
+text38 = "MP_Arena_theme_sandstorm"
+text39 = "MP_Arena_theme_scifi_night"
+text40 = "MP_Arena_theme_storm"
+text41 = "MP_Arena_theme_toxic"
+text45 = "MP_Bull_tost"
+text46 = "MP_Bull_tost_blend"
+text47 = "MP_Garage_L"
+cmgOperation[101] = rageUiOperation
+cmgOperation[102] = text42
+cmgOperation[103] = text48
+cmgOperation[104] = rageUiOperation2
+cmgOperation[105] = rageUiOperation3
+cmgOperation[106] = rageUiOperation4
+cmgOperation[107] = text54
+cmgOperation[108] = text
+cmgOperation[109] = text2
+cmgOperation[110] = text3
+cmgOperation[111] = text4
+cmgOperation[112] = text5
+cmgOperation[113] = text6
+cmgOperation[114] = text7
+cmgOperation[115] = text8
+cmgOperation[116] = text9
+cmgOperation[117] = text10
+cmgOperation[118] = text12
+cmgOperation[119] = text13
+cmgOperation[120] = text14
+cmgOperation[121] = text15
+cmgOperation[122] = text16
+cmgOperation[123] = text17
+cmgOperation[124] = text18
+cmgOperation[125] = text19
+cmgOperation[126] = text20
+cmgOperation[127] = text21
+cmgOperation[128] = text22
+cmgOperation[129] = text23
+cmgOperation[130] = text24
+cmgOperation[131] = text25
+cmgOperation[132] = text26
+cmgOperation[133] = text27
+cmgOperation[134] = text28
+cmgOperation[135] = text29
+cmgOperation[136] = text30
+cmgOperation[137] = text31
+cmgOperation[138] = text32
+cmgOperation[139] = text33
+cmgOperation[140] = text34
+cmgOperation[141] = text35
+cmgOperation[142] = text36
+cmgOperation[143] = text37
+cmgOperation[144] = text38
+cmgOperation[145] = text39
+cmgOperation[146] = text40
+cmgOperation[147] = text41
+cmgOperation[148] = text45
+cmgOperation[149] = text46
+cmgOperation[150] = text47
+rageUiOperation = "MP_H_01_Bathroom"
+text42 = "MP_H_01_Bedroom"
+text48 = "MP_H_01_New"
+rageUiOperation2 = "MP_H_01_New_Bathroom"
+rageUiOperation3 = "MP_H_01_New_Bedroom"
+rageUiOperation4 = "MP_H_01_New_Study"
+text54 = "MP_H_01_Study"
+text = "MP_H_02"
+text2 = "MP_H_04"
+text3 = "MP_H_06"
+text4 = "MP_Killstreak"
+text5 = "MP_Killstreak_blend"
+text6 = "MP_Loser"
+text7 = "MP_Loser_blend"
+text8 = "MP_MedGarage"
+text9 = "MP_Powerplay"
+text10 = "MP_Powerplay_blend"
+text12 = "MP_Studio_Lo"
+text13 = "MP_corona_heist"
+text14 = "MP_corona_heist_BW"
+text15 = "MP_corona_heist_BW_night"
+text16 = "MP_corona_heist_DOF"
+text17 = "MP_corona_heist_blend"
+text18 = "MP_corona_heist_night"
+text19 = "MP_corona_heist_night_blend"
+text20 = "MP_corona_selection"
+text21 = "MP_corona_switch"
+text22 = "MP_corona_tournament"
+text23 = "MP_corona_tournament_DOF"
+text24 = "MP_death_grade"
+text25 = "MP_death_grade_blend01"
+text26 = "MP_death_grade_blend02"
+text27 = "MP_deathfail_night"
+text28 = "MP_heli_cam"
+text29 = "MP_intro_logo"
+text30 = "MP_job_end_night"
+text31 = "MP_job_load"
+text32 = "MP_job_load_01"
+text33 = "MP_job_load_02"
+text34 = "MP_job_lose"
+text35 = "MP_job_preload"
+text36 = "MP_job_preload_blend"
+text37 = "MP_job_preload_night"
+text38 = "MP_job_win"
+text39 = "MP_lowgarage"
+text40 = "MP_race_finish"
+text41 = "MP_select"
+text45 = "MichaelColorCode"
+text46 = "MichaelColorCodeBasic"
+text47 = "MichaelColorCodeBright"
+cmgOperation[151] = rageUiOperation
+cmgOperation[152] = text42
+cmgOperation[153] = text48
+cmgOperation[154] = rageUiOperation2
+cmgOperation[155] = rageUiOperation3
+cmgOperation[156] = rageUiOperation4
+cmgOperation[157] = text54
+cmgOperation[158] = text
+cmgOperation[159] = text2
+cmgOperation[160] = text3
+cmgOperation[161] = text4
+cmgOperation[162] = text5
+cmgOperation[163] = text6
+cmgOperation[164] = text7
+cmgOperation[165] = text8
+cmgOperation[166] = text9
+cmgOperation[167] = text10
+cmgOperation[168] = text12
+cmgOperation[169] = text13
+cmgOperation[170] = text14
+cmgOperation[171] = text15
+cmgOperation[172] = text16
+cmgOperation[173] = text17
+cmgOperation[174] = text18
+cmgOperation[175] = text19
+cmgOperation[176] = text20
+cmgOperation[177] = text21
+cmgOperation[178] = text22
+cmgOperation[179] = text23
+cmgOperation[180] = text24
+cmgOperation[181] = text25
+cmgOperation[182] = text26
+cmgOperation[183] = text27
+cmgOperation[184] = text28
+cmgOperation[185] = text29
+cmgOperation[186] = text30
+cmgOperation[187] = text31
+cmgOperation[188] = text32
+cmgOperation[189] = text33
+cmgOperation[190] = text34
+cmgOperation[191] = text35
+cmgOperation[192] = text36
+cmgOperation[193] = text37
+cmgOperation[194] = text38
+cmgOperation[195] = text39
+cmgOperation[196] = text40
+cmgOperation[197] = text41
+cmgOperation[198] = text45
+cmgOperation[199] = text46
+cmgOperation[200] = text47
+rageUiOperation = "MichaelsDarkroom"
+text42 = "MichaelsDirectional"
+text48 = "MichaelsNODirectional"
+rageUiOperation2 = "Mp_Stilts"
+rageUiOperation3 = "Mp_Stilts2"
+rageUiOperation4 = "Mp_Stilts2_bath"
+text54 = "Mp_Stilts_gym"
+text = "Mp_Stilts_gym2"
+text2 = "Mp_apart_mid"
+text3 = "Multipayer_spectatorCam"
+text4 = "NEW_abattoir"
+text5 = "NEW_jewel"
+text6 = "NEW_jewel_EXIT"
+text7 = "NEW_lesters"
+text8 = "NEW_ornate_bank"
+text9 = "NEW_ornate_bank_entrance"
+text10 = "NEW_ornate_bank_office"
+text12 = "NEW_ornate_bank_safe"
+text13 = "NEW_shrinksOffice"
+text14 = "NEW_station_unfinished"
+text15 = "NEW_trevorstrailer"
+text16 = "NEW_tunnels"
+text17 = "NEW_tunnels_ditch"
+text18 = "NEW_tunnels_hole"
+text19 = "NEW_yellowtunnels"
+text20 = "NG_blackout"
+text21 = "NG_deathfail_BW_base"
+text22 = "NG_deathfail_BW_blend01"
+text23 = "NG_deathfail_BW_blend02"
+text24 = "NG_filmic01"
+text25 = "NG_filmic02"
+text26 = "NG_filmic03"
+text27 = "NG_filmic04"
+text28 = "NG_filmic05"
+text29 = "NG_filmic06"
+text30 = "NG_filmic07"
+text31 = "NG_filmic08"
+text32 = "NG_filmic09"
+text33 = "NG_filmic10"
+text34 = "NG_filmic11"
+text35 = "NG_filmic12"
+text36 = "NG_filmic13"
+text37 = "NG_filmic14"
+text38 = "NG_filmic15"
+text39 = "NG_filmic16"
+text40 = "NG_filmic17"
+text41 = "NG_filmic18"
+text45 = "NG_filmic19"
+text46 = "NG_filmic20"
+text47 = "NG_filmic21"
+cmgOperation[201] = rageUiOperation
+cmgOperation[202] = text42
+cmgOperation[203] = text48
+cmgOperation[204] = rageUiOperation2
+cmgOperation[205] = rageUiOperation3
+cmgOperation[206] = rageUiOperation4
+cmgOperation[207] = text54
+cmgOperation[208] = text
+cmgOperation[209] = text2
+cmgOperation[210] = text3
+cmgOperation[211] = text4
+cmgOperation[212] = text5
+cmgOperation[213] = text6
+cmgOperation[214] = text7
+cmgOperation[215] = text8
+cmgOperation[216] = text9
+cmgOperation[217] = text10
+cmgOperation[218] = text12
+cmgOperation[219] = text13
+cmgOperation[220] = text14
+cmgOperation[221] = text15
+cmgOperation[222] = text16
+cmgOperation[223] = text17
+cmgOperation[224] = text18
+cmgOperation[225] = text19
+cmgOperation[226] = text20
+cmgOperation[227] = text21
+cmgOperation[228] = text22
+cmgOperation[229] = text23
+cmgOperation[230] = text24
+cmgOperation[231] = text25
+cmgOperation[232] = text26
+cmgOperation[233] = text27
+cmgOperation[234] = text28
+cmgOperation[235] = text29
+cmgOperation[236] = text30
+cmgOperation[237] = text31
+cmgOperation[238] = text32
+cmgOperation[239] = text33
+cmgOperation[240] = text34
+cmgOperation[241] = text35
+cmgOperation[242] = text36
+cmgOperation[243] = text37
+cmgOperation[244] = text38
+cmgOperation[245] = text39
+cmgOperation[246] = text40
+cmgOperation[247] = text41
+cmgOperation[248] = text45
+cmgOperation[249] = text46
+cmgOperation[250] = text47
+rageUiOperation = "NG_filmic22"
+text42 = "NG_filmic23"
+text48 = "NG_filmic24"
+rageUiOperation2 = "NG_filmic25"
+rageUiOperation3 = "NG_filmnoir_BW01"
+rageUiOperation4 = "NG_filmnoir_BW02"
+text54 = "NG_first"
+text = "NO_coronas"
+text2 = "NO_fog_alpha"
+text3 = "NO_streetAmbient"
+text4 = "NO_weather"
+text5 = "NOdirectLight"
+text6 = "NOrain"
+text7 = "NeutralColorCode"
+text8 = "NeutralColorCodeBasic"
+text9 = "NeutralColorCodeBright"
+text10 = "NeutralColorCodeLight"
+text12 = "NewMicheal"
+text13 = "NewMicheal_night"
+text14 = "NewMicheal_upstairs"
+text15 = "NewMichealgirly"
+text16 = "NewMichealstoilet"
+text17 = "NewMichealupstairs"
+text18 = "New_sewers"
+text19 = "NoAmbientmult"
+text20 = "NoAmbientmult_interior"
+text21 = "NoPedLight"
+text22 = "OrbitalCannon"
+text23 = "PERSHING_water_reflect"
+text24 = "PORT_heist_underwater"
+text25 = "PPFilter"
+text26 = "PPGreen01"
+text27 = "PPGreen02"
+text28 = "PPOrange01"
+text29 = "PPOrange02"
+text30 = "PPPink01"
+text31 = "PPPink02"
+text32 = "PPPurple01"
+text33 = "PPPurple02"
+text34 = "Paleto"
+text35 = "PennedInDark"
+text36 = "PennedInLight"
+text37 = "PlayerSwitchNeutralFlash"
+text38 = "PlayerSwitchPulse"
+text39 = "PoliceStation"
+text40 = "PoliceStationDark"
+text41 = "Prologue_shootout_opt"
+text45 = "REDMIST"
+text46 = "REDMIST_blend"
+text47 = "RaceTurboDark"
+cmgOperation[251] = rageUiOperation
+cmgOperation[252] = text42
+cmgOperation[253] = text48
+cmgOperation[254] = rageUiOperation2
+cmgOperation[255] = rageUiOperation3
+cmgOperation[256] = rageUiOperation4
+cmgOperation[257] = text54
+cmgOperation[258] = text
+cmgOperation[259] = text2
+cmgOperation[260] = text3
+cmgOperation[261] = text4
+cmgOperation[262] = text5
+cmgOperation[263] = text6
+cmgOperation[264] = text7
+cmgOperation[265] = text8
+cmgOperation[266] = text9
+cmgOperation[267] = text10
+cmgOperation[268] = text12
+cmgOperation[269] = text13
+cmgOperation[270] = text14
+cmgOperation[271] = text15
+cmgOperation[272] = text16
+cmgOperation[273] = text17
+cmgOperation[274] = text18
+cmgOperation[275] = text19
+cmgOperation[276] = text20
+cmgOperation[277] = text21
+cmgOperation[278] = text22
+cmgOperation[279] = text23
+cmgOperation[280] = text24
+cmgOperation[281] = text25
+cmgOperation[282] = text26
+cmgOperation[283] = text27
+cmgOperation[284] = text28
+cmgOperation[285] = text29
+cmgOperation[286] = text30
+cmgOperation[287] = text31
+cmgOperation[288] = text32
+cmgOperation[289] = text33
+cmgOperation[290] = text34
+cmgOperation[291] = text35
+cmgOperation[292] = text36
+cmgOperation[293] = text37
+cmgOperation[294] = text38
+cmgOperation[295] = text39
+cmgOperation[296] = text40
+cmgOperation[297] = text41
+cmgOperation[298] = text45
+cmgOperation[299] = text46
+cmgOperation[300] = text47
+rageUiOperation = "RaceTurboFlash"
+text42 = "RaceTurboLight"
+text48 = "ReduceDrawDistance"
+rageUiOperation2 = "ReduceDrawDistanceMAP"
+rageUiOperation3 = "ReduceDrawDistanceMission"
+rageUiOperation4 = "ReduceSSAO"
+text54 = "RemixDrone"
+text = "RemoteSniper"
+text2 = "SALTONSEA"
+text3 = "SAWMILL"
+text4 = "SP1_03_drawDistance"
+text5 = "STRIP_changing"
+text6 = "STRIP_nofog"
+text7 = "STRIP_office"
+text8 = "STRIP_stage"
+text9 = "SheriffStation"
+text10 = "Shop247"
+text12 = "Shop247_none"
+text13 = "SmugglerCheckpoint01"
+text14 = "SmugglerCheckpoint02"
+text15 = "SmugglerFlash"
+text16 = "Sniper"
+text17 = "StadLobby"
+text18 = "StreetLighting"
+text19 = "StreetLightingJunction"
+text20 = "StreetLightingtraffic"
+text21 = "StuntFastDark"
+text22 = "StuntFastLight"
+text23 = "StuntSlowDark"
+text24 = "StuntSlowLight"
+text25 = "TREVOR"
+text26 = "TUNNEL_green"
+text27 = "TUNNEL_green_ext"
+text28 = "TUNNEL_orange"
+text29 = "TUNNEL_orange_exterior"
+text30 = "TUNNEL_white"
+text31 = "TUNNEL_yellow"
+text32 = "TUNNEL_yellow_ext"
+text33 = "TinyGreen01"
+text34 = "TinyGreen02"
+text35 = "TinyPink01"
+text36 = "TinyPink02"
+text37 = "TinyRacerMoBlur"
+text38 = "TransformFlash"
+text39 = "TransformRaceFlash"
+text40 = "TrevorColorCode"
+text41 = "TrevorColorCodeBasic"
+text45 = "TrevorColorCodeBright"
+text46 = "Trevors_room"
+text47 = "Tunnel"
+cmgOperation[301] = rageUiOperation
+cmgOperation[302] = text42
+cmgOperation[303] = text48
+cmgOperation[304] = rageUiOperation2
+cmgOperation[305] = rageUiOperation3
+cmgOperation[306] = rageUiOperation4
+cmgOperation[307] = text54
+cmgOperation[308] = text
+cmgOperation[309] = text2
+cmgOperation[310] = text3
+cmgOperation[311] = text4
+cmgOperation[312] = text5
+cmgOperation[313] = text6
+cmgOperation[314] = text7
+cmgOperation[315] = text8
+cmgOperation[316] = text9
+cmgOperation[317] = text10
+cmgOperation[318] = text12
+cmgOperation[319] = text13
+cmgOperation[320] = text14
+cmgOperation[321] = text15
+cmgOperation[322] = text16
+cmgOperation[323] = text17
+cmgOperation[324] = text18
+cmgOperation[325] = text19
+cmgOperation[326] = text20
+cmgOperation[327] = text21
+cmgOperation[328] = text22
+cmgOperation[329] = text23
+cmgOperation[330] = text24
+cmgOperation[331] = text25
+cmgOperation[332] = text26
+cmgOperation[333] = text27
+cmgOperation[334] = text28
+cmgOperation[335] = text29
+cmgOperation[336] = text30
+cmgOperation[337] = text31
+cmgOperation[338] = text32
+cmgOperation[339] = text33
+cmgOperation[340] = text34
+cmgOperation[341] = text35
+cmgOperation[342] = text36
+cmgOperation[343] = text37
+cmgOperation[344] = text38
+cmgOperation[345] = text39
+cmgOperation[346] = text40
+cmgOperation[347] = text41
+cmgOperation[348] = text45
+cmgOperation[349] = text46
+cmgOperation[350] = text47
+rageUiOperation = "Tunnel_green1"
+text42 = "VAGOS_new_garage"
+text48 = "VAGOS_new_hangout"
+rageUiOperation2 = "VC_tunnel_entrance"
+rageUiOperation3 = "V_Abattoir_Cold"
+rageUiOperation4 = "V_CIA_Facility"
+text54 = "V_FIB_IT3"
+text = "V_FIB_IT3_alt"
+text2 = "V_FIB_IT3_alt5"
+text3 = "V_FIB_stairs"
+text4 = "V_Metro2"
+text5 = "V_Metro_station"
+text6 = "V_Office_smoke"
+text7 = "V_Office_smoke_Fire"
+text8 = "V_Office_smoke_ext"
+text9 = "V_Solomons"
+text10 = "V_recycle_dark"
+text12 = "V_recycle_light"
+text13 = "V_recycle_mainroom"
+text14 = "V_strip_nofog"
+text15 = "V_strip_office"
+text16 = "Vagos"
+text17 = "VagosSPLASH"
+text18 = "VolticBlur"
+text19 = "VolticFlash"
+text20 = "VolticGold"
+text21 = "WATER_lab_cooling"
+text22 = "WATER_CH2_06_01_03"
+text23 = "WATER_CH2_06_02"
+text24 = "WATER_CH2_06_04"
+text25 = "WATER_ID2_21"
+text26 = "WATER_REF_malibu"
+text27 = "WATER_RichmanStuntJump"
+text28 = "WATER_cove"
+text29 = "WATER_hills"
+text30 = "WATER_lab"
+text31 = "WATER_militaryPOOP"
+text32 = "WATER_muddy"
+text33 = "WATER_port"
+text34 = "WATER_refmap_high"
+text35 = "WATER_refmap_hollywoodlake"
+text36 = "WATER_refmap_low"
+text37 = "WATER_refmap_med"
+text38 = "WATER_refmap_off"
+text39 = "WATER_refmap_poolside"
+text40 = "WATER_refmap_silverlake"
+text41 = "WATER_refmap_venice"
+text45 = "WATER_refmap_verylow"
+text46 = "WATER_resevoir"
+text47 = "WATER_river"
+cmgOperation[351] = rageUiOperation
+cmgOperation[352] = text42
+cmgOperation[353] = text48
+cmgOperation[354] = rageUiOperation2
+cmgOperation[355] = rageUiOperation3
+cmgOperation[356] = rageUiOperation4
+cmgOperation[357] = text54
+cmgOperation[358] = text
+cmgOperation[359] = text2
+cmgOperation[360] = text3
+cmgOperation[361] = text4
+cmgOperation[362] = text5
+cmgOperation[363] = text6
+cmgOperation[364] = text7
+cmgOperation[365] = text8
+cmgOperation[366] = text9
+cmgOperation[367] = text10
+cmgOperation[368] = text12
+cmgOperation[369] = text13
+cmgOperation[370] = text14
+cmgOperation[371] = text15
+cmgOperation[372] = text16
+cmgOperation[373] = text17
+cmgOperation[374] = text18
+cmgOperation[375] = text19
+cmgOperation[376] = text20
+cmgOperation[377] = text21
+cmgOperation[378] = text22
+cmgOperation[379] = text23
+cmgOperation[380] = text24
+cmgOperation[381] = text25
+cmgOperation[382] = text26
+cmgOperation[383] = text27
+cmgOperation[384] = text28
+cmgOperation[385] = text29
+cmgOperation[386] = text30
+cmgOperation[387] = text31
+cmgOperation[388] = text32
+cmgOperation[389] = text33
+cmgOperation[390] = text34
+cmgOperation[391] = text35
+cmgOperation[392] = text36
+cmgOperation[393] = text37
+cmgOperation[394] = text38
+cmgOperation[395] = text39
+cmgOperation[396] = text40
+cmgOperation[397] = text41
+cmgOperation[398] = text45
+cmgOperation[399] = text46
+cmgOperation[400] = text47
+rageUiOperation = "WATER_salton"
+text42 = "WATER_salton_bottom"
+text48 = "WATER_shore"
+rageUiOperation2 = "WATER_silty"
+rageUiOperation3 = "WATER_silverlake"
+rageUiOperation4 = "WarpCheckpoint"
+text54 = "WeaponUpgrade"
+text = "WhiteOut"
+text2 = "baseTONEMAPPING"
+text3 = "blackNwhite"
+text4 = "buggy_shack"
+text5 = "buildingTOP"
+text6 = "cBank_back"
+text7 = "cBank_front"
+text8 = "canyon_mission"
+text9 = "carMOD_underpass"
+text10 = "carpark"
+text12 = "carpark_dt1_02"
+text13 = "carpark_dt1_03"
+text14 = "cashdepot"
+text15 = "cashdepotEMERGENCY"
+text16 = "ch2_tunnel_whitelight"
+text17 = "cinema"
+text18 = "cinema_001"
+text19 = "cops"
+text20 = "crane_cam"
+text21 = "crane_cam_cinematic"
+text22 = "damage"
+text23 = "default"
+text24 = "dont_tazeme_bro_b"
+text25 = "downtown_FIB_cascades_opt"
+text26 = "drug_drive_blend01"
+text27 = "drug_drive_blend02"
+text28 = "drug_flying_01"
+text29 = "drug_flying_02"
+text30 = "drug_flying_base"
+text31 = "drug_wobbly"
+text32 = "dying"
+text33 = "eatra_bouncelight_beach"
+text34 = "epsilion"
+text35 = "exile1_exit"
+text36 = "exile1_plane"
+text37 = "ext_int_extlight_large"
+text38 = "eyeINtheSKY"
+text39 = "facebook_serveroom"
+text40 = "fireDEPT"
+text41 = "fp_vig_black"
+text45 = "fp_vig_blue"
+text46 = "fp_vig_brown"
+text47 = "fp_vig_gray"
+cmgOperation[401] = rageUiOperation
+cmgOperation[402] = text42
+cmgOperation[403] = text48
+cmgOperation[404] = rageUiOperation2
+cmgOperation[405] = rageUiOperation3
+cmgOperation[406] = rageUiOperation4
+cmgOperation[407] = text54
+cmgOperation[408] = text
+cmgOperation[409] = text2
+cmgOperation[410] = text3
+cmgOperation[411] = text4
+cmgOperation[412] = text5
+cmgOperation[413] = text6
+cmgOperation[414] = text7
+cmgOperation[415] = text8
+cmgOperation[416] = text9
+cmgOperation[417] = text10
+cmgOperation[418] = text12
+cmgOperation[419] = text13
+cmgOperation[420] = text14
+cmgOperation[421] = text15
+cmgOperation[422] = text16
+cmgOperation[423] = text17
+cmgOperation[424] = text18
+cmgOperation[425] = text19
+cmgOperation[426] = text20
+cmgOperation[427] = text21
+cmgOperation[428] = text22
+cmgOperation[429] = text23
+cmgOperation[430] = text24
+cmgOperation[431] = text25
+cmgOperation[432] = text26
+cmgOperation[433] = text27
+cmgOperation[434] = text28
+cmgOperation[435] = text29
+cmgOperation[436] = text30
+cmgOperation[437] = text31
+cmgOperation[438] = text32
+cmgOperation[439] = text33
+cmgOperation[440] = text34
+cmgOperation[441] = text35
+cmgOperation[442] = text36
+cmgOperation[443] = text37
+cmgOperation[444] = text38
+cmgOperation[445] = text39
+cmgOperation[446] = text40
+cmgOperation[447] = text41
+cmgOperation[448] = text45
+cmgOperation[449] = text46
+cmgOperation[450] = text47
+rageUiOperation = "fp_vig_green"
+text42 = "fp_vig_red"
+text48 = "frankilnsAUNTS_SUNdir"
+rageUiOperation2 = "frankilnsAUNTS_new"
+rageUiOperation3 = "gallery_refmod"
+rageUiOperation4 = "garage"
+text54 = "gen_bank"
+text = "glasses_Darkblue"
+text2 = "glasses_Scuba"
+text3 = "glasses_VISOR"
+text4 = "glasses_black"
+text5 = "glasses_blue"
+text6 = "glasses_brown"
+text7 = "glasses_green"
+text8 = "glasses_orange"
+text9 = "glasses_pink"
+text10 = "glasses_purple"
+text12 = "glasses_red"
+text13 = "glasses_yellow"
+text14 = "gorge_reflection_gpu"
+text15 = "gorge_reflectionoffset"
+text16 = "gorge_reflectionoffset2"
+text17 = "graveyard_shootout"
+text18 = "grdlc_int_02"
+text19 = "grdlc_int_02_trailer_cave"
+text20 = "gunclub"
+text21 = "gunclubrange"
+text22 = "gunshop"
+text23 = "gunstore"
+text24 = "half_direct"
+text25 = "hangar_lightsmod"
+text26 = "heathaze"
+text27 = "heist_boat"
+text28 = "heist_boat_engineRoom"
+text29 = "heist_boat_norain"
+text30 = "heliGunCam"
+text31 = "helicamfirst"
+text32 = "hillstunnel"
+text33 = "hitped"
+text34 = "hud_def_Franklin"
+text35 = "hud_def_Michael"
+text36 = "hud_def_Trevor"
+text37 = "hud_def_blur"
+text38 = "hud_def_blur_switch"
+text39 = "hud_def_colorgrade"
+text40 = "hud_def_desat_Franklin"
+text41 = "hud_def_desat_Michael"
+text45 = "hud_def_desat_Neutral"
+text46 = "hud_def_desat_Trevor"
+text47 = "hud_def_desat_cold"
+cmgOperation[451] = rageUiOperation
+cmgOperation[452] = text42
+cmgOperation[453] = text48
+cmgOperation[454] = rageUiOperation2
+cmgOperation[455] = rageUiOperation3
+cmgOperation[456] = rageUiOperation4
+cmgOperation[457] = text54
+cmgOperation[458] = text
+cmgOperation[459] = text2
+cmgOperation[460] = text3
+cmgOperation[461] = text4
+cmgOperation[462] = text5
+cmgOperation[463] = text6
+cmgOperation[464] = text7
+cmgOperation[465] = text8
+cmgOperation[466] = text9
+cmgOperation[467] = text10
+cmgOperation[468] = text12
+cmgOperation[469] = text13
+cmgOperation[470] = text14
+cmgOperation[471] = text15
+cmgOperation[472] = text16
+cmgOperation[473] = text17
+cmgOperation[474] = text18
+cmgOperation[475] = text19
+cmgOperation[476] = text20
+cmgOperation[477] = text21
+cmgOperation[478] = text22
+cmgOperation[479] = text23
+cmgOperation[480] = text24
+cmgOperation[481] = text25
+cmgOperation[482] = text26
+cmgOperation[483] = text27
+cmgOperation[484] = text28
+cmgOperation[485] = text29
+cmgOperation[486] = text30
+cmgOperation[487] = text31
+cmgOperation[488] = text32
+cmgOperation[489] = text33
+cmgOperation[490] = text34
+cmgOperation[491] = text35
+cmgOperation[492] = text36
+cmgOperation[493] = text37
+cmgOperation[494] = text38
+cmgOperation[495] = text39
+cmgOperation[496] = text40
+cmgOperation[497] = text41
+cmgOperation[498] = text45
+cmgOperation[499] = text46
+cmgOperation[500] = text47
+rageUiOperation = "hud_def_desat_cold_kill"
+text42 = "hud_def_desat_switch"
+text48 = "hud_def_desatcrunch"
+rageUiOperation2 = "hud_def_flash"
+rageUiOperation3 = "hud_def_focus"
+rageUiOperation4 = "hud_def_lensdistortion"
+text54 = "hud_def_lensdistortion_subtle"
+text = "id1_11_tunnel"
+text2 = "impexp_interior_01_lift"
+text3 = "int_Barber1"
+text4 = "int_ClothesHi"
+text5 = "int_ControlTower_none"
+text6 = "int_ControlTower_small"
+text7 = "int_Farmhouse_none"
+text8 = "int_Farmhouse_small"
+text9 = "int_FranklinAunt_small"
+text10 = "int_GasStation"
+text12 = "int_Hospital2_DM"
+text13 = "int_Hospital_Blue"
+text14 = "int_Hospital_BlueB"
+text15 = "int_Hospital_DM"
+text16 = "int_Lost_none"
+text17 = "int_Lost_small"
+text18 = "int_amb_mult_large"
+text19 = "int_arena_01"
+text20 = "int_arena_Mod"
+text21 = "int_arena_Mod_garage"
+text22 = "int_arena_VIP"
+text23 = "int_carmod_small"
+text24 = "int_carrier_control"
+text25 = "int_carrier_control_2"
+text26 = "int_carrier_hanger"
+text27 = "int_carrier_rear"
+text28 = "int_carrier_stair"
+text29 = "int_carshowroom"
+text30 = "int_chopshop"
+text31 = "int_clean_extlight_large"
+text32 = "int_clean_extlight_none"
+text33 = "int_clean_extlight_small"
+text34 = "int_clotheslow_large"
+text35 = "int_cluckinfactory_none"
+text36 = "int_cluckinfactory_small"
+text37 = "int_dockcontrol_small"
+text38 = "int_extlght_sm_cntrst"
+text39 = "int_extlight_large"
+text40 = "int_extlight_large_fog"
+text41 = "int_extlight_none"
+text45 = "int_extlight_none_dark"
+text46 = "int_extlight_none_dark_fog"
+text47 = "int_extlight_none_fog"
+cmgOperation[501] = rageUiOperation
+cmgOperation[502] = text42
+cmgOperation[503] = text48
+cmgOperation[504] = rageUiOperation2
+cmgOperation[505] = rageUiOperation3
+cmgOperation[506] = rageUiOperation4
+cmgOperation[507] = text54
+cmgOperation[508] = text
+cmgOperation[509] = text2
+cmgOperation[510] = text3
+cmgOperation[511] = text4
+cmgOperation[512] = text5
+cmgOperation[513] = text6
+cmgOperation[514] = text7
+cmgOperation[515] = text8
+cmgOperation[516] = text9
+cmgOperation[517] = text10
+cmgOperation[518] = text12
+cmgOperation[519] = text13
+cmgOperation[520] = text14
+cmgOperation[521] = text15
+cmgOperation[522] = text16
+cmgOperation[523] = text17
+cmgOperation[524] = text18
+cmgOperation[525] = text19
+cmgOperation[526] = text20
+cmgOperation[527] = text21
+cmgOperation[528] = text22
+cmgOperation[529] = text23
+cmgOperation[530] = text24
+cmgOperation[531] = text25
+cmgOperation[532] = text26
+cmgOperation[533] = text27
+cmgOperation[534] = text28
+cmgOperation[535] = text29
+cmgOperation[536] = text30
+cmgOperation[537] = text31
+cmgOperation[538] = text32
+cmgOperation[539] = text33
+cmgOperation[540] = text34
+cmgOperation[541] = text35
+cmgOperation[542] = text36
+cmgOperation[543] = text37
+cmgOperation[544] = text38
+cmgOperation[545] = text39
+cmgOperation[546] = text40
+cmgOperation[547] = text41
+cmgOperation[548] = text45
+cmgOperation[549] = text46
+cmgOperation[550] = text47
+rageUiOperation = "int_extlight_small"
+text42 = "int_extlight_small_clipped"
+text48 = "int_extlight_small_fog"
+rageUiOperation2 = "int_hanger_none"
+rageUiOperation3 = "int_hanger_small"
+rageUiOperation4 = "int_hospital_dark"
+text54 = "int_hospital_small"
+text = "int_lesters"
+text2 = "int_methlab_small"
+text3 = "int_motelroom"
+text4 = "int_office_Lobby"
+text5 = "int_office_LobbyHall"
+text6 = "int_tattoo"
+text7 = "int_tattoo_B"
+text8 = "int_tunnel_none_dark"
+text9 = "interior_WATER_lighting"
+text10 = "introblue"
+text12 = "jewel_gas"
+text13 = "jewel_optim"
+text14 = "jewelry_entrance"
+text15 = "jewelry_entrance_INT"
+text16 = "jewelry_entrance_INT_fog"
+text17 = "lab_none"
+text18 = "lab_none_dark"
+text19 = "lab_none_dark_OVR"
+text20 = "lab_none_dark_fog"
+text21 = "lab_none_exit"
+text22 = "lab_none_exit_OVR"
+text23 = "li"
+text24 = "lightning"
+text25 = "lightning_cloud"
+text26 = "lightning_strong"
+text27 = "lightning_weak"
+text28 = "lightpolution"
+text29 = "lodscaler"
+text30 = "maxlodscaler"
+text31 = "metro"
+text32 = "micheal"
+text33 = "micheals_lightsOFF"
+text34 = "michealspliff"
+text35 = "michealspliff_blend"
+text36 = "michealspliff_blend02"
+text37 = "militarybase_nightlight"
+text38 = "mineshaft"
+text39 = "morebloom"
+text40 = "morgue_dark"
+text41 = "morgue_dark_ovr"
+text45 = "mp_battle_int01"
+text46 = "mp_battle_int01_dancefloor"
+text47 = "mp_battle_int01_dancefloor_OFF"
+cmgOperation[551] = rageUiOperation
+cmgOperation[552] = text42
+cmgOperation[553] = text48
+cmgOperation[554] = rageUiOperation2
+cmgOperation[555] = rageUiOperation3
+cmgOperation[556] = rageUiOperation4
+cmgOperation[557] = text54
+cmgOperation[558] = text
+cmgOperation[559] = text2
+cmgOperation[560] = text3
+cmgOperation[561] = text4
+cmgOperation[562] = text5
+cmgOperation[563] = text6
+cmgOperation[564] = text7
+cmgOperation[565] = text8
+cmgOperation[566] = text9
+cmgOperation[567] = text10
+cmgOperation[568] = text12
+cmgOperation[569] = text13
+cmgOperation[570] = text14
+cmgOperation[571] = text15
+cmgOperation[572] = text16
+cmgOperation[573] = text17
+cmgOperation[574] = text18
+cmgOperation[575] = text19
+cmgOperation[576] = text20
+cmgOperation[577] = text21
+cmgOperation[578] = text22
+cmgOperation[579] = text23
+cmgOperation[580] = text24
+cmgOperation[581] = text25
+cmgOperation[582] = text26
+cmgOperation[583] = text27
+cmgOperation[584] = text28
+cmgOperation[585] = text29
+cmgOperation[586] = text30
+cmgOperation[587] = text31
+cmgOperation[588] = text32
+cmgOperation[589] = text33
+cmgOperation[590] = text34
+cmgOperation[591] = text35
+cmgOperation[592] = text36
+cmgOperation[593] = text37
+cmgOperation[594] = text38
+cmgOperation[595] = text39
+cmgOperation[596] = text40
+cmgOperation[597] = text41
+cmgOperation[598] = text45
+cmgOperation[599] = text46
+cmgOperation[600] = text47
+rageUiOperation = "mp_battle_int01_entry"
+text42 = "mp_battle_int01_garage"
+text48 = "mp_battle_int01_office"
+rageUiOperation2 = "mp_battle_int02"
+rageUiOperation3 = "mp_battle_int03"
+rageUiOperation4 = "mp_battle_int03_tint1"
+text54 = "mp_battle_int03_tint2"
+text = "mp_battle_int03_tint3"
+text2 = "mp_battle_int03_tint4"
+text3 = "mp_battle_int03_tint5"
+text4 = "mp_battle_int03_tint6"
+text5 = "mp_battle_int03_tint7"
+text6 = "mp_battle_int03_tint8"
+text7 = "mp_battle_int03_tint9"
+text8 = "mp_bkr_int01_garage"
+text9 = "mp_bkr_int01_small_rooms"
+text10 = "mp_bkr_int01_transition"
+text12 = "mp_bkr_int02_garage"
+text13 = "mp_bkr_int02_hangout"
+text14 = "mp_bkr_int02_small_rooms"
+text15 = "mp_bkr_ware01"
+text16 = "mp_bkr_ware02_dry"
+text17 = "mp_bkr_ware02_standard"
+text18 = "mp_bkr_ware02_upgrade"
+text19 = "mp_bkr_ware03_basic"
+text20 = "mp_bkr_ware03_upgrade"
+text21 = "mp_bkr_ware04"
+text22 = "mp_bkr_ware05"
+text23 = "mp_exec_office_01"
+text24 = "mp_exec_office_02"
+text25 = "mp_exec_office_03"
+text26 = "mp_exec_office_03C"
+text27 = "mp_exec_office_03_blue"
+text28 = "mp_exec_office_04"
+text29 = "mp_exec_office_05"
+text30 = "mp_exec_office_06"
+text31 = "mp_exec_warehouse_01"
+text32 = "mp_gr_int01_black"
+text33 = "mp_gr_int01_grey"
+text34 = "mp_gr_int01_white"
+text35 = "mp_h_05"
+text36 = "mp_h_07"
+text37 = "mp_h_08"
+text38 = "mp_imx_intwaremed"
+text39 = "mp_imx_intwaremed_office"
+text40 = "mp_imx_mod_int_01"
+text41 = "mp_lad_day"
+text45 = "mp_lad_judgment"
+text46 = "mp_lad_night"
+text47 = "mp_nightshark_shield_fp"
+cmgOperation[601] = rageUiOperation
+cmgOperation[602] = text42
+cmgOperation[603] = text48
+cmgOperation[604] = rageUiOperation2
+cmgOperation[605] = rageUiOperation3
+cmgOperation[606] = rageUiOperation4
+cmgOperation[607] = text54
+cmgOperation[608] = text
+cmgOperation[609] = text2
+cmgOperation[610] = text3
+cmgOperation[611] = text4
+cmgOperation[612] = text5
+cmgOperation[613] = text6
+cmgOperation[614] = text7
+cmgOperation[615] = text8
+cmgOperation[616] = text9
+cmgOperation[617] = text10
+cmgOperation[618] = text12
+cmgOperation[619] = text13
+cmgOperation[620] = text14
+cmgOperation[621] = text15
+cmgOperation[622] = text16
+cmgOperation[623] = text17
+cmgOperation[624] = text18
+cmgOperation[625] = text19
+cmgOperation[626] = text20
+cmgOperation[627] = text21
+cmgOperation[628] = text22
+cmgOperation[629] = text23
+cmgOperation[630] = text24
+cmgOperation[631] = text25
+cmgOperation[632] = text26
+cmgOperation[633] = text27
+cmgOperation[634] = text28
+cmgOperation[635] = text29
+cmgOperation[636] = text30
+cmgOperation[637] = text31
+cmgOperation[638] = text32
+cmgOperation[639] = text33
+cmgOperation[640] = text34
+cmgOperation[641] = text35
+cmgOperation[642] = text36
+cmgOperation[643] = text37
+cmgOperation[644] = text38
+cmgOperation[645] = text39
+cmgOperation[646] = text40
+cmgOperation[647] = text41
+cmgOperation[648] = text45
+cmgOperation[649] = text46
+cmgOperation[650] = text47
+rageUiOperation = "mp_smg_int01_han"
+text42 = "mp_smg_int01_han_blue"
+text48 = "mp_smg_int01_han_red"
+rageUiOperation2 = "mp_smg_int01_han_yellow"
+rageUiOperation3 = "mp_x17dlc_base"
+rageUiOperation4 = "mp_x17dlc_base_dark"
+text54 = "mp_x17dlc_base_darkest"
+text = "mp_x17dlc_facility"
+text2 = "mp_x17dlc_facility2"
+text3 = "mp_x17dlc_facility_conference"
+text4 = "mp_x17dlc_in_sub"
+text5 = "mp_x17dlc_in_sub_no_reflection"
+text6 = "mp_x17dlc_int_01"
+text7 = "mp_x17dlc_int_01_tint1"
+text8 = "mp_x17dlc_int_01_tint2"
+text9 = "mp_x17dlc_int_01_tint3"
+text10 = "mp_x17dlc_int_01_tint4"
+text12 = "mp_x17dlc_int_01_tint5"
+text13 = "mp_x17dlc_int_01_tint6"
+text14 = "mp_x17dlc_int_01_tint7"
+text15 = "mp_x17dlc_int_01_tint8"
+text16 = "mp_x17dlc_int_01_tint9"
+text17 = "mp_x17dlc_int_02"
+text18 = "mp_x17dlc_int_02_hangar"
+text19 = "mp_x17dlc_int_02_outdoor_intro_camera"
+text20 = "mp_x17dlc_int_02_tint1"
+text21 = "mp_x17dlc_int_02_tint2"
+text22 = "mp_x17dlc_int_02_tint3"
+text23 = "mp_x17dlc_int_02_tint4"
+text24 = "mp_x17dlc_int_02_tint5"
+text25 = "mp_x17dlc_int_02_tint6"
+text26 = "mp_x17dlc_int_02_tint7"
+text27 = "mp_x17dlc_int_02_tint8"
+text28 = "mp_x17dlc_int_02_tint9"
+text29 = "mp_x17dlc_int_02_vehicle_avenger_camera"
+text30 = "mp_x17dlc_int_02_vehicle_workshop_camera"
+text31 = "mp_x17dlc_int_02_weapon_avenger_camera"
+text32 = "mp_x17dlc_int_silo"
+text33 = "mp_x17dlc_int_silo_escape"
+text34 = "mp_x17dlc_lab"
+text35 = "mp_x17dlc_lab_loading_bay"
+text36 = "mugShot"
+text37 = "mugShot_lineup"
+text38 = "multiplayer_ped_fight"
+text39 = "nervousRON_fog"
+text40 = "new_MP_Garage_L"
+text41 = "new_bank"
+text45 = "new_stripper_changing"
+text46 = "new_tunnels_entrance"
+text47 = "nextgen"
+cmgOperation[651] = rageUiOperation
+cmgOperation[652] = text42
+cmgOperation[653] = text48
+cmgOperation[654] = rageUiOperation2
+cmgOperation[655] = rageUiOperation3
+cmgOperation[656] = rageUiOperation4
+cmgOperation[657] = text54
+cmgOperation[658] = text
+cmgOperation[659] = text2
+cmgOperation[660] = text3
+cmgOperation[661] = text4
+cmgOperation[662] = text5
+cmgOperation[663] = text6
+cmgOperation[664] = text7
+cmgOperation[665] = text8
+cmgOperation[666] = text9
+cmgOperation[667] = text10
+cmgOperation[668] = text12
+cmgOperation[669] = text13
+cmgOperation[670] = text14
+cmgOperation[671] = text15
+cmgOperation[672] = text16
+cmgOperation[673] = text17
+cmgOperation[674] = text18
+cmgOperation[675] = text19
+cmgOperation[676] = text20
+cmgOperation[677] = text21
+cmgOperation[678] = text22
+cmgOperation[679] = text23
+cmgOperation[680] = text24
+cmgOperation[681] = text25
+cmgOperation[682] = text26
+cmgOperation[683] = text27
+cmgOperation[684] = text28
+cmgOperation[685] = text29
+cmgOperation[686] = text30
+cmgOperation[687] = text31
+cmgOperation[688] = text32
+cmgOperation[689] = text33
+cmgOperation[690] = text34
+cmgOperation[691] = text35
+cmgOperation[692] = text36
+cmgOperation[693] = text37
+cmgOperation[694] = text38
+cmgOperation[695] = text39
+cmgOperation[696] = text40
+cmgOperation[697] = text41
+cmgOperation[698] = text45
+cmgOperation[699] = text46
+cmgOperation[700] = text47
+rageUiOperation = "nightvision"
+text42 = "overwater"
+text48 = "paleto_nightlight"
+rageUiOperation2 = "paleto_opt"
+rageUiOperation3 = "phone_cam"
+rageUiOperation4 = "phone_cam1"
+text54 = "phone_cam10"
+text = "phone_cam11"
+text2 = "phone_cam12"
+text3 = "phone_cam13"
+text4 = "phone_cam2"
+text5 = "phone_cam3"
+text6 = "phone_cam3_REMOVED"
+text7 = "phone_cam4"
+text8 = "phone_cam5"
+text9 = "phone_cam6"
+text10 = "phone_cam7"
+text12 = "phone_cam8"
+text13 = "phone_cam8_REMOVED"
+text14 = "phone_cam9"
+text15 = "plane_inside_mode"
+text16 = "player_transition"
+text17 = "player_transition_no_scanlines"
+text18 = "player_transition_scanlines"
+text19 = "plaza_carpark"
+text20 = "polluted"
+text21 = "poolsidewaterreflection2"
+text22 = "powerplant_nightlight"
+text23 = "powerstation"
+text24 = "prison_nightlight"
+text25 = "projector"
+text26 = "prologue"
+text27 = "prologue_ending_fog"
+text28 = "prologue_ext_art_amb"
+text29 = "prologue_reflection_opt"
+text30 = "prologue_shootout"
+text31 = "pulse"
+text32 = "ranch"
+text33 = "reducelightingcost"
+text34 = "reducewaterREF"
+text35 = "refit"
+text36 = "reflection_correct_ambient"
+text37 = "resvoire_reflection"
+text38 = "rply_brightness"
+text39 = "rply_brightness_neg"
+text40 = "rply_contrast"
+text41 = "rply_contrast_neg"
+text45 = "rply_motionblur"
+text46 = "rply_saturation"
+text47 = "rply_saturation_neg"
+cmgOperation[701] = rageUiOperation
+cmgOperation[702] = text42
+cmgOperation[703] = text48
+cmgOperation[704] = rageUiOperation2
+cmgOperation[705] = rageUiOperation3
+cmgOperation[706] = rageUiOperation4
+cmgOperation[707] = text54
+cmgOperation[708] = text
+cmgOperation[709] = text2
+cmgOperation[710] = text3
+cmgOperation[711] = text4
+cmgOperation[712] = text5
+cmgOperation[713] = text6
+cmgOperation[714] = text7
+cmgOperation[715] = text8
+cmgOperation[716] = text9
+cmgOperation[717] = text10
+cmgOperation[718] = text12
+cmgOperation[719] = text13
+cmgOperation[720] = text14
+cmgOperation[721] = text15
+cmgOperation[722] = text16
+cmgOperation[723] = text17
+cmgOperation[724] = text18
+cmgOperation[725] = text19
+cmgOperation[726] = text20
+cmgOperation[727] = text21
+cmgOperation[728] = text22
+cmgOperation[729] = text23
+cmgOperation[730] = text24
+cmgOperation[731] = text25
+cmgOperation[732] = text26
+cmgOperation[733] = text27
+cmgOperation[734] = text28
+cmgOperation[735] = text29
+cmgOperation[736] = text30
+cmgOperation[737] = text31
+cmgOperation[738] = text32
+cmgOperation[739] = text33
+cmgOperation[740] = text34
+cmgOperation[741] = text35
+cmgOperation[742] = text36
+cmgOperation[743] = text37
+cmgOperation[744] = text38
+cmgOperation[745] = text39
+cmgOperation[746] = text40
+cmgOperation[747] = text41
+cmgOperation[748] = text45
+cmgOperation[749] = text46
+cmgOperation[750] = text47
+rageUiOperation = "rply_vignette"
+text42 = "rply_vignette_neg"
+text48 = "sandyshore_nightlight"
+rageUiOperation2 = "scanline_cam"
+rageUiOperation3 = "scanline_cam_cheap"
+rageUiOperation4 = "scope_zoom_in"
+text54 = "scope_zoom_out"
+text = "secret_camera"
+text2 = "services_nightlight"
+text3 = "shades_pink"
+text4 = "shades_yellow"
+text5 = "ship_explosion_underwater"
+text6 = "ship_lighting"
+text7 = "sleeping"
+text8 = "spectator1"
+text9 = "spectator10"
+text10 = "spectator2"
+text12 = "spectator3"
+text13 = "spectator4"
+text14 = "spectator5"
+text15 = "spectator6"
+text16 = "spectator7"
+text17 = "spectator8"
+text18 = "spectator9"
+text19 = "stc_coroners"
+text20 = "stc_deviant_bedroom"
+text21 = "stc_deviant_lounge"
+text22 = "stc_franklinsHouse"
+text23 = "stc_trevors"
+text24 = "stoned"
+text25 = "stoned_aliens"
+text26 = "stoned_cutscene"
+text27 = "stoned_monkeys"
+text28 = "subBASE_water_ref"
+text29 = "sunglasses"
+text30 = "superDARK"
+text31 = "switch_cam_1"
+text32 = "switch_cam_2"
+text33 = "telescope"
+text34 = "torpedo"
+text35 = "traffic_skycam"
+text36 = "trailer_explosion_optimise"
+text37 = "trevorspliff"
+text38 = "trevorspliff_blend"
+text39 = "trevorspliff_blend02"
+text40 = "tunnel_entrance"
+text41 = "tunnel_entrance_INT"
+text45 = "tunnel_id1_11"
+text46 = "ufo"
+text47 = "ufo_deathray"
+cmgOperation[751] = rageUiOperation
+cmgOperation[752] = text42
+cmgOperation[753] = text48
+cmgOperation[754] = rageUiOperation2
+cmgOperation[755] = rageUiOperation3
+cmgOperation[756] = rageUiOperation4
+cmgOperation[757] = text54
+cmgOperation[758] = text
+cmgOperation[759] = text2
+cmgOperation[760] = text3
+cmgOperation[761] = text4
+cmgOperation[762] = text5
+cmgOperation[763] = text6
+cmgOperation[764] = text7
+cmgOperation[765] = text8
+cmgOperation[766] = text9
+cmgOperation[767] = text10
+cmgOperation[768] = text12
+cmgOperation[769] = text13
+cmgOperation[770] = text14
+cmgOperation[771] = text15
+cmgOperation[772] = text16
+cmgOperation[773] = text17
+cmgOperation[774] = text18
+cmgOperation[775] = text19
+cmgOperation[776] = text20
+cmgOperation[777] = text21
+cmgOperation[778] = text22
+cmgOperation[779] = text23
+cmgOperation[780] = text24
+cmgOperation[781] = text25
+cmgOperation[782] = text26
+cmgOperation[783] = text27
+cmgOperation[784] = text28
+cmgOperation[785] = text29
+cmgOperation[786] = text30
+cmgOperation[787] = text31
+cmgOperation[788] = text32
+cmgOperation[789] = text33
+cmgOperation[790] = text34
+cmgOperation[791] = text35
+cmgOperation[792] = text36
+cmgOperation[793] = text37
+cmgOperation[794] = text38
+cmgOperation[795] = text39
+cmgOperation[796] = text40
+cmgOperation[797] = text41
+cmgOperation[798] = text45
+cmgOperation[799] = text46
+cmgOperation[800] = text47
+rageUiOperation = "underwater"
+text42 = "underwater_deep"
+text48 = "underwater_deep_clear"
+rageUiOperation2 = "v_abattoir"
+rageUiOperation3 = "v_bahama"
+rageUiOperation4 = "v_cashdepot"
+text54 = "v_dark"
+text = "v_foundry"
+text2 = "v_janitor"
+text3 = "v_jewel2"
+text4 = "v_metro"
+text5 = "v_michael"
+text6 = "v_michael_lounge"
+text7 = "v_recycle"
+text8 = "v_rockclub"
+text9 = "v_strip3"
+text10 = "v_strpchangerm"
+text12 = "v_sweat"
+text13 = "v_sweat_NoDirLight"
+text14 = "v_sweat_entrance"
+text15 = "v_torture"
+text16 = "vagos_extlight_small"
+text17 = "vehicle_subint"
+text18 = "venice_canal_tunnel"
+text19 = "vespucci_garage"
+text20 = "warehouse"
+text21 = "whitenightlighting"
+text22 = "winning_room"
+text23 = "yacht_DLC"
+text24 = "yell_tunnel_nodirect"
+cmgOperation[801] = rageUiOperation
+cmgOperation[802] = text42
+cmgOperation[803] = text48
+cmgOperation[804] = rageUiOperation2
+cmgOperation[805] = rageUiOperation3
+cmgOperation[806] = rageUiOperation4
+cmgOperation[807] = text54
+cmgOperation[808] = text
+cmgOperation[809] = text2
+cmgOperation[810] = text3
+cmgOperation[811] = text4
+cmgOperation[812] = text5
+cmgOperation[813] = text6
+cmgOperation[814] = text7
+cmgOperation[815] = text8
+cmgOperation[816] = text9
+cmgOperation[817] = text10
+cmgOperation[818] = text12
+cmgOperation[819] = text13
+cmgOperation[820] = text14
+cmgOperation[821] = text15
+cmgOperation[822] = text16
+cmgOperation[823] = text17
+cmgOperation[824] = text18
+cmgOperation[825] = text19
+cmgOperation[826] = text20
+cmgOperation[827] = text21
+cmgOperation[828] = text22
+cmgOperation[829] = text23
+cmgOperation[830] = text24
+rageUiOperation = 1
+text42 = {}
+text48 = 0.1
+rageUiOperation2 = 2.0
+rageUiOperation3 = 0.1
+for rageUiOperation4 = text48, rageUiOperation2, rageUiOperation3 do
+  text54 = _ENV
+  text = "table"
+  text54 = text54[text]
+  text = "insert"
+  text54 = text54[text]
+  text = text42
+  text2 = rageUiOperation4
+  text54(text, text2)
 end
-textValue48 = {}
-rageUiCall2 = "DEATH_FAIL_IN_EFFECT_SHAKE"
-rageUiCall3 = "DRUNK_SHAKE"
-rageUiCall4 = "FAMILY5_DRUG_TRIP_SHAKE"
-textValue54 = "HAND_SHAKE"
-textValue = "JOLT_SHAKE"
-textValue2 = "LARGE_EXPLOSION_SHAKE"
-textValue3 = "MEDIUM_EXPLOSION_SHAKE"
-textValue4 = "SMALL_EXPLOSION_SHAKE"
-textValue5 = "ROAD_VIBRATION_SHAKE"
-textValue6 = "SKY_DIVING_SHAKE"
-textValue7 = "VIBRATE_SHAKE"
-textValue8 = "KILL_SHOT_SHAKE"
-textValue48[1] = rageUiCall2
-textValue48[2] = rageUiCall3
-textValue48[3] = rageUiCall4
-textValue48[4] = textValue54
-textValue48[5] = textValue
-textValue48[6] = textValue2
-textValue48[7] = textValue3
-textValue48[8] = textValue4
-textValue48[9] = textValue5
-textValue48[10] = textValue6
-textValue48[11] = textValue7
-textValue48[12] = textValue8
-rageUiCall2 = {}
-rageUiCall3 = 1
-rageUiCall4 = 135
-textValue54 = 1
-for textValue = rageUiCall3, rageUiCall4, textValue54 do
-  textValue2 = _ENV
-  textValue3 = "table"
-  textValue2 = textValue2[textValue3]
-  textValue3 = "insert"
-  textValue2 = textValue2[textValue3]
-  textValue3 = rageUiCall2
-  textValue4 = textValue
-  textValue2(textValue3, textValue4)
+text48 = {}
+rageUiOperation2 = "DEATH_FAIL_IN_EFFECT_SHAKE"
+rageUiOperation3 = "DRUNK_SHAKE"
+rageUiOperation4 = "FAMILY5_DRUG_TRIP_SHAKE"
+text54 = "HAND_SHAKE"
+text = "JOLT_SHAKE"
+text2 = "LARGE_EXPLOSION_SHAKE"
+text3 = "MEDIUM_EXPLOSION_SHAKE"
+text4 = "SMALL_EXPLOSION_SHAKE"
+text5 = "ROAD_VIBRATION_SHAKE"
+text6 = "SKY_DIVING_SHAKE"
+text7 = "VIBRATE_SHAKE"
+text8 = "KILL_SHOT_SHAKE"
+text48[1] = rageUiOperation2
+text48[2] = rageUiOperation3
+text48[3] = rageUiOperation4
+text48[4] = text54
+text48[5] = text
+text48[6] = text2
+text48[7] = text3
+text48[8] = text4
+text48[9] = text5
+text48[10] = text6
+text48[11] = text7
+text48[12] = text8
+rageUiOperation2 = {}
+rageUiOperation3 = 1
+rageUiOperation4 = 135
+text54 = 1
+for text = rageUiOperation3, rageUiOperation4, text54 do
+  text2 = _ENV
+  text3 = "table"
+  text2 = text2[text3]
+  text3 = "insert"
+  text2 = text2[text3]
+  text3 = rageUiOperation2
+  text4 = text
+  text2(text3, text4)
 end
-rageUiCall3 = {}
-rageUiCall4 = "Static Camera"
-textValue54 = "Interpolation Camera"
-rageUiCall3[1] = rageUiCall4
-rageUiCall3[2] = textValue54
-rageUiCall4 = {}
-textValue54 = "Curved"
-textValue = "Smooth"
-rageUiCall4[1] = textValue54
-rageUiCall4[2] = textValue
-textValue54 = {}
-textValue = "Smooth"
-textValue2 = 0
-textValue54[textValue] = textValue2
-textValue = "Curved"
-textValue2 = 5
-textValue54[textValue] = textValue2
-textValue = {}
-textValue2 = ""
-textValue3 = false
-textValue4 = 0
-textValue5 = 1
-textValue6 = nil
-textValue7 = nil
-textValue8 = nil
-textValue9 = ""
-textValue10 = 1
-textValue12 = 1
-textValue13 = ""
-textValue14 = nil
-textValue15 = 1
-textValue16 = false
-textValue17 = {}
-textValue18 = 0
-textValue19 = 0
-textValue20 = 23
-textValue21 = 1
-for textValue22 = textValue19, textValue20, textValue21 do
-  textValue17[textValue22] = textValue22
+rageUiOperation3 = {}
+rageUiOperation4 = "Static Camera"
+text54 = "Interpolation Camera"
+rageUiOperation3[1] = rageUiOperation4
+rageUiOperation3[2] = text54
+rageUiOperation4 = {}
+text54 = "Curved"
+text = "Smooth"
+rageUiOperation4[1] = text54
+rageUiOperation4[2] = text
+text54 = {}
+text = "Smooth"
+text2 = 0
+text54[text] = text2
+text = "Curved"
+text2 = 5
+text54[text] = text2
+text = {}
+text2 = ""
+text3 = false
+text4 = 0
+text5 = 1
+text6 = nil
+text7 = nil
+text8 = nil
+text9 = ""
+text10 = 1
+text12 = 1
+text13 = ""
+text14 = nil
+text15 = 1
+text16 = false
+text17 = {}
+text18 = 0
+text19 = 0
+text20 = 23
+text21 = 1
+for text22 = text19, text20, text21 do
+  text17[text22] = text22
 end
-textValue19 = {}
-textValue20 = 0
-textValue21 = 59
-textValue22 = 1
-for textValue23 = textValue20, textValue21, textValue22 do
-  textValue19[textValue23] = textValue23
+text19 = {}
+text20 = 0
+text21 = 59
+text22 = 1
+for text23 = text20, text21, text22 do
+  text19[text23] = text23
 end
-textValue20 = 0
-textValue21 = {}
-textValue22 = 0
-textValue23 = 59
-textValue24 = 1
-for textValue25 = textValue22, textValue23, textValue24 do
-  textValue21[textValue25] = textValue25
+text20 = 0
+text21 = {}
+text22 = 0
+text23 = 59
+text24 = 1
+for text25 = text22, text23, text24 do
+  text21[text25] = text25
 end
-textValue22 = 0
-textValue23 = {}
-textValue24 = 1
-textValue25 = 300
-textValue26 = 1
-for textValue27 = textValue24, textValue25, textValue26 do
-  textValue28 = textValue27 - 1
-  textValue29 = 10
-  textValue28 = textValue28 * textValue29
-  textValue29 = 0.001
-  textValue28 = textValue28 + textValue29
-  textValue23[textValue27] = textValue28
+text22 = 0
+text23 = {}
+text24 = 1
+text25 = 300
+text26 = 1
+for text27 = text24, text25, text26 do
+  text28 = text27 - 1
+  text29 = 10
+  text28 = text28 * text29
+  text29 = 0.001
+  text28 = text28 + text29
+  text23[text27] = text28
 end
-textValue24 = 1
-textValue25 = 1
-textValue26 = 1
-textValue27 = 1
-textValue28 = {}
-textValue29 = "EXTRASUNNY"
-textValue30 = "CLEAR"
-textValue31 = "NEUTRAL"
-textValue32 = "SMOG"
-textValue33 = "FOGGY"
-textValue34 = "OVERCAST"
-textValue35 = "CLOUDS"
-textValue36 = "CLEARING"
-textValue37 = "RAIN"
-textValue38 = "THUNDER"
-textValue39 = "SNOW"
-textValue40 = "BLIZZARD"
-textValue41 = "SNOWLIGHT"
-textValue45 = "XMAS"
-textValue46 = "HALLOWEEN"
-textValue28[1] = textValue29
-textValue28[2] = textValue30
-textValue28[3] = textValue31
-textValue28[4] = textValue32
-textValue28[5] = textValue33
-textValue28[6] = textValue34
-textValue28[7] = textValue35
-textValue28[8] = textValue36
-textValue28[9] = textValue37
-textValue28[10] = textValue38
-textValue28[11] = textValue39
-textValue28[12] = textValue40
-textValue28[13] = textValue41
-textValue28[14] = textValue45
-textValue28[15] = textValue46
-textValue29 = 1
-textValue30 = nil
-textValue31 = _ENV
-textValue32 = "Citizen"
-textValue31 = textValue31[textValue32]
-textValue32 = "CreateThread"
-textValue31 = textValue31[textValue32]
+text24 = 1
+text25 = 1
+text26 = 1
+text27 = 1
+text28 = {}
+text29 = "EXTRASUNNY"
+text30 = "CLEAR"
+text31 = "NEUTRAL"
+text32 = "SMOG"
+text33 = "FOGGY"
+text34 = "OVERCAST"
+text35 = "CLOUDS"
+text36 = "CLEARING"
+text37 = "RAIN"
+text38 = "THUNDER"
+text39 = "SNOW"
+text40 = "BLIZZARD"
+text41 = "SNOWLIGHT"
+text45 = "XMAS"
+text46 = "HALLOWEEN"
+text28[1] = text29
+text28[2] = text30
+text28[3] = text31
+text28[4] = text32
+text28[5] = text33
+text28[6] = text34
+text28[7] = text35
+text28[8] = text36
+text28[9] = text37
+text28[10] = text38
+text28[11] = text39
+text28[12] = text40
+text28[13] = text41
+text28[14] = text45
+text28[15] = text46
+text29 = 1
+text30 = nil
+text31 = _ENV
+text32 = "Citizen"
+text31 = text31[text32]
+text32 = "CreateThread"
+text31 = text31[text32]
 
--- === HELPER FUNCTION (decompiler name: textValue32; parameters: none) ===
-function textValue32()
-  local arg1, arg2, arg3
-  arg1 = json
-  arg1 = arg1.decode
-  arg2 = GetResourceKvpString
-  arg3 = "cmg_scenedata"
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = "{}"
+-- === HELPER FUNCTION (decompiler name: text32; parameters: none) ===
+function text32()
+  local localValue1, localValue2, localValue3
+  localValue1 = json
+  localValue1 = localValue1.decode
+  localValue2 = GetResourceKvpString
+  localValue3 = "cmg_scenedata"
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue2 = "{}"
   end
-  arg1 = arg1(arg2)
-  if not arg1 then
-    arg1 = {}
+  localValue1 = localValue1(localValue2)
+  if not localValue1 then
+    localValue1 = {}
   end
-  textValue = arg1
+  text = localValue1
 end
-textValue31(textValue32)
-textValue31 = _ENV
-textValue32 = "RegisterNetEvent"
-textValue31 = textValue31[textValue32]
-textValue32 = "7d4716cb33"
+text31(text32)
+text31 = _ENV
+text32 = "RegisterNetEvent"
+text31 = text31[text32]
+text32 = "7d4716cb33"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: none) ===
-function textValue33()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.getPlayerCombatTimer
-  arg1 = arg1()
-  if 0 == arg1 then
-    arg1 = workValue
-    arg2 = true
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: text33; parameters: none) ===
+function text33()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.getPlayerCombatTimer
+  localValue1 = localValue1()
+  if 0 == localValue1 then
+    localValue1 = workingValue
+    localValue2 = true
+    localValue1(localValue2)
   end
 end
-textValue31(textValue32, textValue33)
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "createCinematicScene"
+text31(text32, text33)
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "createCinematicScene"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1) ===
-function textValue33(arg1)
-  local arg2, arg3, arg4, textValue43
-  arg2 = textValue
-  arg3 = {}
-  arg2[arg1] = arg3
-  arg2 = SetResourceKvp
-  arg3 = "cmg_scenedata"
-  arg4 = json
-  arg4 = arg4.encode
-  textValue43 = textValue
-  arg4, textValue43 = arg4(textValue43)
-  arg2(arg3, arg4, textValue43)
-  arg2 = tCMG
-  arg2 = arg2.notify
-  arg3 = "~g~Scene created & saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1) ===
+function text33(localValue1)
+  local localValue2, localValue3, localValue4, text43
+  localValue2 = text
+  localValue3 = {}
+  localValue2[localValue1] = localValue3
+  localValue2 = SetResourceKvp
+  localValue3 = "cmg_scenedata"
+  localValue4 = json
+  localValue4 = localValue4.encode
+  text43 = text
+  localValue4, text43 = localValue4(text43)
+  localValue2(localValue3, localValue4, text43)
+  localValue2 = tCMG
+  localValue2 = localValue2.notify
+  localValue3 = "~g~Scene created & saved."
   -- Beginner: Show a notification to the player.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "deleteCinematicScene"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "deleteCinematicScene"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1) ===
-function textValue33(arg1)
-  local arg2, arg3, arg4, textValue43
-  arg2 = textValue
-  arg2[arg1] = nil
-  arg2 = SetResourceKvp
-  arg3 = "cmg_scenedata"
-  arg4 = json
-  arg4 = arg4.encode
-  textValue43 = textValue
-  arg4, textValue43 = arg4(textValue43)
-  arg2(arg3, arg4, textValue43)
-  arg2 = tCMG
-  arg2 = arg2.notify
-  arg3 = "~g~Scene deleted & saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1) ===
+function text33(localValue1)
+  local localValue2, localValue3, localValue4, text43
+  localValue2 = text
+  localValue2[localValue1] = nil
+  localValue2 = SetResourceKvp
+  localValue3 = "cmg_scenedata"
+  localValue4 = json
+  localValue4 = localValue4.encode
+  text43 = text
+  localValue4, text43 = localValue4(text43)
+  localValue2(localValue3, localValue4, text43)
+  localValue2 = tCMG
+  localValue2 = localValue2.notify
+  localValue3 = "~g~Scene deleted & saved."
   -- Beginner: Show a notification to the player.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "createCamera"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "createCamera"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2) ===
-function textValue33(arg1, arg2)
-  local arg3, arg4, textValue43, textValue49
-  arg3 = textValue
-  arg3 = arg3[arg1]
-  arg3 = #arg3
-  if 0 == arg3 then
-    arg2.transition = 100
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2) ===
+function text33(localValue1, localValue2)
+  local localValue3, localValue4, text43, text49
+  localValue3 = text
+  localValue3 = localValue3[localValue1]
+  localValue3 = #localValue3
+  if 0 == localValue3 then
+    localValue2.transition = 100
   end
-  arg3 = table
-  arg3 = arg3.insert
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  textValue43 = arg2
-  arg3(arg4, textValue43)
-  arg3 = textValue
-  arg3 = arg3[arg1]
-  arg3 = #arg3
-  textValue5 = arg3
-  arg4 = textValue2
-  arg3 = textValue
-  arg3 = arg3[arg4]
-  arg4 = textValue5
-  arg3 = arg3[arg4]
-  arg3 = arg3.type
-  if "Static Camera" == arg3 then
-    arg3 = 1
-    textValue10 = arg3
+  localValue3 = table
+  localValue3 = localValue3.insert
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  text43 = localValue2
+  localValue3(localValue4, text43)
+  localValue3 = text
+  localValue3 = localValue3[localValue1]
+  localValue3 = #localValue3
+  text5 = localValue3
+  localValue4 = text2
+  localValue3 = text
+  localValue3 = localValue3[localValue4]
+  localValue4 = text5
+  localValue3 = localValue3[localValue4]
+  localValue3 = localValue3.type
+  if "Static Camera" == localValue3 then
+    localValue3 = 1
+    text10 = localValue3
   else
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg4 = textValue5
-    arg3 = arg3[arg4]
-    arg3 = arg3.type
-    if "Interpolation Camera" == arg3 then
-      arg3 = 2
-      textValue10 = arg3
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue4 = text5
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3.type
+    if "Interpolation Camera" == localValue3 then
+      localValue3 = 2
+      text10 = localValue3
     end
   end
-  arg4 = textValue2
-  arg3 = textValue
-  arg3 = arg3[arg4]
-  arg4 = textValue5
-  arg3 = arg3[arg4]
-  arg3 = arg3.blending
-  if 0 == arg3 then
-    arg3 = 2
-    textValue12 = arg3
+  localValue4 = text2
+  localValue3 = text
+  localValue3 = localValue3[localValue4]
+  localValue4 = text5
+  localValue3 = localValue3[localValue4]
+  localValue3 = localValue3.blending
+  if 0 == localValue3 then
+    localValue3 = 2
+    text12 = localValue3
   else
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg4 = textValue5
-    arg3 = arg3[arg4]
-    arg3 = arg3.blending
-    if 5 == arg3 then
-      arg3 = 1
-      textValue12 = arg3
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue4 = text5
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3.blending
+    if 5 == localValue3 then
+      localValue3 = 1
+      text12 = localValue3
     end
   end
-  arg3 = SetResourceKvp
-  arg4 = "cmg_scenedata"
-  textValue43 = json
-  textValue43 = textValue43.encode
-  textValue49 = textValue
-  textValue43, textValue49 = textValue43(textValue49)
-  arg3(arg4, textValue43, textValue49)
-  arg3 = tCMG
-  arg3 = arg3.notify
-  arg4 = "~g~Camera created & saved."
+  localValue3 = SetResourceKvp
+  localValue4 = "cmg_scenedata"
+  text43 = json
+  text43 = text43.encode
+  text49 = text
+  text43, text49 = text43(text49)
+  localValue3(localValue4, text43, text49)
+  localValue3 = tCMG
+  localValue3 = localValue3.notify
+  localValue4 = "~g~Camera created & saved."
   -- Beginner: Show a notification to the player.
-  arg3(arg4)
+  localValue3(localValue4)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "modifyCamera"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "modifyCamera"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4[arg3] = arg2
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Camera modified & saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4[localValue3] = localValue2
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Camera modified & saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "deleteCamera"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "deleteCamera"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2) ===
-function textValue33(arg1, arg2)
-  local arg3, arg4, textValue43, textValue49
-  arg3 = table
-  arg3 = arg3.remove
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  textValue43 = arg2
-  arg3(arg4, textValue43)
-  arg3 = SetResourceKvp
-  arg4 = "cmg_scenedata"
-  textValue43 = json
-  textValue43 = textValue43.encode
-  textValue49 = textValue
-  textValue43, textValue49 = textValue43(textValue49)
-  arg3(arg4, textValue43, textValue49)
-  arg3 = tCMG
-  arg3 = arg3.notify
-  arg4 = "~g~Camera deleted & saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2) ===
+function text33(localValue1, localValue2)
+  local localValue3, localValue4, text43, text49
+  localValue3 = table
+  localValue3 = localValue3.remove
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  text43 = localValue2
+  localValue3(localValue4, text43)
+  localValue3 = SetResourceKvp
+  localValue4 = "cmg_scenedata"
+  text43 = json
+  text43 = text43.encode
+  text49 = text
+  text43, text49 = text43(text49)
+  localValue3(localValue4, text43, text49)
+  localValue3 = tCMG
+  localValue3 = localValue3.notify
+  localValue4 = "~g~Camera deleted & saved."
   -- Beginner: Show a notification to the player.
-  arg3(arg4)
+  localValue3(localValue4)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "modifyTransition"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "modifyTransition"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4 = arg4[arg2]
-  textValue43 = tonumber
-  textValue49 = arg3
-  textValue43 = textValue43(textValue49)
-  arg4.transition = textValue43
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Transition change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4[localValue2]
+  text43 = tonumber
+  text49 = localValue3
+  text43 = text43(text49)
+  localValue4.transition = text43
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Transition change saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "modifyCameraBlending"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "modifyCameraBlending"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4 = arg4[arg2]
-  textValue43 = textValue54
-  textValue43 = textValue43[arg3]
-  arg4.blending = textValue43
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Camera Blending change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4[localValue2]
+  text43 = text54
+  text43 = text43[localValue3]
+  localValue4.blending = text43
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Camera Blending change saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "modifyScreeneffect"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "modifyScreeneffect"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4 = arg4[arg2]
-  arg4.screeneffect = arg3
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Screeneffect change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4[localValue2]
+  localValue4.screeneffect = localValue3
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Screeneffect change saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "modifyTimecycleEffect"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "modifyTimecycleEffect"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4 = arg4[arg2]
-  arg4.timecycleEffect = arg3
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Timecycle Effect change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4[localValue2]
+  localValue4.timecycleEffect = localValue3
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Timecycle Effect change saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "setTimecycleIntensity"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "setTimecycleIntensity"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4 = arg4[arg2]
-  arg4.timecycleIntensity = arg3
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Timecycle intensity change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4[localValue2]
+  localValue4.timecycleIntensity = localValue3
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Timecycle intensity change saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "modifyShakeEffect"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "modifyShakeEffect"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4 = arg4[arg2]
-  arg4.shake = arg3
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Shake change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4[localValue2]
+  localValue4.shake = localValue3
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Shake change saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "modifyCameraType"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "modifyCameraType"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3) ===
-function textValue33(arg1, arg2, arg3)
-  local arg4, textValue43, textValue49, workValue10
-  arg4 = textValue
-  arg4 = arg4[arg1]
-  arg4 = arg4[arg2]
-  arg4.type = arg3
-  arg4 = SetResourceKvp
-  textValue43 = "cmg_scenedata"
-  textValue49 = json
-  textValue49 = textValue49.encode
-  workValue10 = textValue
-  textValue49, workValue10 = textValue49(workValue10)
-  arg4(textValue43, textValue49, workValue10)
-  arg4 = tCMG
-  arg4 = arg4.notify
-  textValue43 = "~g~Camera type change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3) ===
+function text33(localValue1, localValue2, localValue3)
+  local localValue4, text43, text49, workingValue10
+  localValue4 = text
+  localValue4 = localValue4[localValue1]
+  localValue4 = localValue4[localValue2]
+  localValue4.type = localValue3
+  localValue4 = SetResourceKvp
+  text43 = "cmg_scenedata"
+  text49 = json
+  text49 = text49.encode
+  workingValue10 = text
+  text49, workingValue10 = text49(workingValue10)
+  localValue4(text43, text49, workingValue10)
+  localValue4 = tCMG
+  localValue4 = localValue4.notify
+  text43 = "~g~Camera type change saved."
   -- Beginner: Show a notification to the player.
-  arg4(textValue43)
+  localValue4(text43)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "addCameraFocus"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "addCameraFocus"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2, arg3, arg4) ===
-function textValue33(arg1, arg2, arg3, arg4)
-  local textValue43, textValue49, workValue10, flag9
-  textValue43 = textValue
-  textValue43 = textValue43[arg1]
-  textValue43 = textValue43[arg2]
-  textValue43.focusType = arg3
-  textValue43 = textValue
-  textValue43 = textValue43[arg1]
-  textValue43 = textValue43[arg2]
-  textValue43.focusData = arg4
-  textValue43 = SetResourceKvp
-  textValue49 = "cmg_scenedata"
-  workValue10 = json
-  workValue10 = workValue10.encode
-  flag9 = textValue
-  workValue10, flag9 = workValue10(flag9)
-  textValue43(textValue49, workValue10, flag9)
-  textValue43 = tCMG
-  textValue43 = textValue43.notify
-  textValue49 = "~g~Follow player change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2, localValue3, localValue4) ===
+function text33(localValue1, localValue2, localValue3, localValue4)
+  local text43, text49, workingValue10, stateFlag9
+  text43 = text
+  text43 = text43[localValue1]
+  text43 = text43[localValue2]
+  text43.focusType = localValue3
+  text43 = text
+  text43 = text43[localValue1]
+  text43 = text43[localValue2]
+  text43.focusData = localValue4
+  text43 = SetResourceKvp
+  text49 = "cmg_scenedata"
+  workingValue10 = json
+  workingValue10 = workingValue10.encode
+  stateFlag9 = text
+  workingValue10, stateFlag9 = workingValue10(stateFlag9)
+  text43(text49, workingValue10, stateFlag9)
+  text43 = tCMG
+  text43 = text43.notify
+  text49 = "~g~Follow player change saved."
   -- Beginner: Show a notification to the player.
-  textValue43(textValue49)
+  text43(text49)
 end
-textValue31[textValue32] = textValue33
-textValue31 = _ENV
-textValue32 = "CMG"
-textValue31 = textValue31[textValue32]
-textValue32 = "setCameraFov"
+text31[text32] = text33
+text31 = _ENV
+text32 = "CMG"
+text31 = text31[text32]
+text32 = "setCameraFov"
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1, arg2) ===
-function textValue33(arg1, arg2)
-  local arg3, arg4, textValue43, textValue49
-  arg3 = textValue
-  arg3 = arg3[arg1]
-  arg3 = arg3[arg2]
-  textValue43 = textValue15
-  arg4 = rageUiCall2
-  arg4 = arg4[textValue43]
-  arg3.fov = arg4
-  arg3 = SetResourceKvp
-  arg4 = "cmg_scenedata"
-  textValue43 = json
-  textValue43 = textValue43.encode
-  textValue49 = textValue
-  textValue43, textValue49 = textValue43(textValue49)
-  arg3(arg4, textValue43, textValue49)
-  arg3 = tCMG
-  arg3 = arg3.notify
-  arg4 = "~g~FOV change saved."
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1, localValue2) ===
+function text33(localValue1, localValue2)
+  local localValue3, localValue4, text43, text49
+  localValue3 = text
+  localValue3 = localValue3[localValue1]
+  localValue3 = localValue3[localValue2]
+  text43 = text15
+  localValue4 = rageUiOperation2
+  localValue4 = localValue4[text43]
+  localValue3.fov = localValue4
+  localValue3 = SetResourceKvp
+  localValue4 = "cmg_scenedata"
+  text43 = json
+  text43 = text43.encode
+  text49 = text
+  text43, text49 = text43(text49)
+  localValue3(localValue4, text43, text49)
+  localValue3 = tCMG
+  localValue3 = localValue3.notify
+  localValue4 = "~g~FOV change saved."
   -- Beginner: Show a notification to the player.
-  arg3(arg4)
+  localValue3(localValue4)
 end
-textValue31[textValue32] = textValue33
+text31[text32] = text33
 
--- === HELPER FUNCTION (decompiler name: textValue31; parameters: arg1, arg2) ===
-function textValue31(arg1, arg2)
-  local arg3, arg4, textValue43
-  arg3 = arg2.position
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg4 = GetEntityCoords
-    textValue43 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text31; parameters: localValue1, localValue2) ===
+function text31(localValue1, localValue2)
+  local localValue3, localValue4, text43
+  localValue3 = localValue2.position
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue4 = GetEntityCoords
+    text43 = PlayerPedId
     -- Beginner: result below is localPlayerPed.
-    textValue43 = textValue43()
+    text43 = text43()
     -- Beginner: result below is entityCoords.
-    arg4 = arg4(textValue43)
-    arg3.position = arg4
+    localValue4 = localValue4(text43)
+    localValue3.position = localValue4
   end
-  arg3 = arg2.rotation
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg4 = GetGameplayCamRot
-    textValue43 = 0
-    arg4 = arg4(textValue43)
-    arg3.rotation = arg4
+  localValue3 = localValue2.rotation
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue4 = GetGameplayCamRot
+    text43 = 0
+    localValue4 = localValue4(text43)
+    localValue3.rotation = localValue4
   end
-  arg3 = arg2.transition
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.transition = 5000
+  localValue3 = localValue2.transition
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.transition = 5000
   end
-  arg3 = arg2.type
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg4 = textValue9
-    arg3.type = arg4
+  localValue3 = localValue2.type
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue4 = text9
+    localValue3.type = localValue4
   end
-  arg3 = arg2.screeneffect
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.screeneffect = ""
+  localValue3 = localValue2.screeneffect
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.screeneffect = ""
   end
-  arg3 = arg2.timecycleEffect
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.timecycleEffect = ""
+  localValue3 = localValue2.timecycleEffect
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.timecycleEffect = ""
   end
-  arg3 = arg2.timecycleIntensity
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.timecycleIntensity = 1.0
+  localValue3 = localValue2.timecycleIntensity
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.timecycleIntensity = 1.0
   end
-  arg3 = arg2.focusType
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.focusType = ""
+  localValue3 = localValue2.focusType
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.focusType = ""
   end
-  arg3 = arg2.focusData
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.focusData = 0
+  localValue3 = localValue2.focusData
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.focusData = 0
   end
-  arg3 = arg2.shake
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.shake = ""
+  localValue3 = localValue2.shake
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.shake = ""
   end
-  arg3 = arg2.fov
-  if nil == arg3 then
-    arg4 = textValue2
-    arg3 = textValue
-    arg3 = arg3[arg4]
-    arg3 = arg3[arg1]
-    arg3.fov = 65.0
+  localValue3 = localValue2.fov
+  if nil == localValue3 then
+    localValue4 = text2
+    localValue3 = text
+    localValue3 = localValue3[localValue4]
+    localValue3 = localValue3[localValue1]
+    localValue3.fov = 65.0
   end
 end
 
--- === HELPER FUNCTION (decompiler name: textValue32; parameters: none) ===
-function textValue32()
-  local arg1, arg2, arg3, arg4, textValue43, textValue49
-  arg1 = textValue6
-  if arg1 then
-    arg1 = DestroyCam
-    arg2 = textValue6
-    arg3 = false
-    arg1(arg2, arg3)
-    arg1 = RenderScriptCams
-    arg2 = false
-    arg3 = false
-    arg4 = 1
-    textValue43 = true
-    textValue49 = true
-    arg1(arg2, arg3, arg4, textValue43, textValue49)
+-- === HELPER FUNCTION (decompiler name: text32; parameters: none) ===
+function text32()
+  local localValue1, localValue2, localValue3, localValue4, text43, text49
+  localValue1 = text6
+  if localValue1 then
+    localValue1 = DestroyCam
+    localValue2 = text6
+    localValue3 = false
+    localValue1(localValue2, localValue3)
+    localValue1 = RenderScriptCams
+    localValue2 = false
+    localValue3 = false
+    localValue4 = 1
+    text43 = true
+    text49 = true
+    localValue1(localValue2, localValue3, localValue4, text43, text49)
   end
-  arg1 = ClearFocus
-  arg1()
+  localValue1 = ClearFocus
+  localValue1()
 end
 
--- === HELPER FUNCTION (decompiler name: textValue33; parameters: arg1) ===
-function textValue33(arg1)
-  local arg2, arg3
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+-- === HELPER FUNCTION (decompiler name: text33; parameters: localValue1) ===
+function text33(localValue1)
+  local localValue2, localValue3
+  localValue2 = Citizen
+  localValue2 = localValue2.CreateThread
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2, flag3, numberValue3
-    workValue2 = clearNativeText
-    workValue2()
-    workValue2 = textValue7
-    if workValue2 then
-      workValue2 = DestroyCam
-      flag4 = textValue7
-      flag5 = false
-      workValue2(flag4, flag5)
-      workValue2 = RenderScriptCams
-      flag4 = false
-      flag5 = false
-      numberValue4 = 1
-      flag6 = true
-      flag7 = true
-      workValue2(flag4, flag5, numberValue4, flag6, flag7)
+  -- === HELPER FUNCTION: localValue3() ===
+  function localValue3()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2, stateFlag3, number3
+    workingValue2 = clearNativeText
+    workingValue2()
+    workingValue2 = text7
+    if workingValue2 then
+      workingValue2 = DestroyCam
+      stateFlag4 = text7
+      stateFlag5 = false
+      workingValue2(stateFlag4, stateFlag5)
+      workingValue2 = RenderScriptCams
+      stateFlag4 = false
+      stateFlag5 = false
+      number4 = 1
+      stateFlag6 = true
+      stateFlag7 = true
+      workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7)
     end
-    workValue2 = DoesCamExist
-    flag4 = textValue7
-    workValue2 = workValue2(flag4)
-    if not workValue2 then
-      workValue2 = CreateCam
-      flag4 = "DEFAULT_SCRIPTED_CAMERA"
-      flag5 = true
+    workingValue2 = DoesCamExist
+    stateFlag4 = text7
+    workingValue2 = workingValue2(stateFlag4)
+    if not workingValue2 then
+      workingValue2 = CreateCam
+      stateFlag4 = "DEFAULT_SCRIPTED_CAMERA"
+      stateFlag5 = true
       -- Beginner: result below is cameraHandle.
-      workValue2 = workValue2(flag4, flag5)
-      textValue7 = workValue2
-      workValue2 = SetCamActive
-      flag4 = textValue7
-      flag5 = true
-      workValue2(flag4, flag5)
-      workValue2 = RenderScriptCams
-      flag4 = true
-      flag5 = true
-      numberValue4 = 0
-      flag6 = true
-      flag7 = false
-      workValue2(flag4, flag5, numberValue4, flag6, flag7)
+      workingValue2 = workingValue2(stateFlag4, stateFlag5)
+      text7 = workingValue2
+      workingValue2 = SetCamActive
+      stateFlag4 = text7
+      stateFlag5 = true
+      workingValue2(stateFlag4, stateFlag5)
+      workingValue2 = RenderScriptCams
+      stateFlag4 = true
+      stateFlag5 = true
+      number4 = 0
+      stateFlag6 = true
+      stateFlag7 = false
+      workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7)
     end
-    workValue2 = print
-    flag4 = "initiating render"
-    workValue2(flag4)
-    workValue2 = nil
-    flag4 = pairs
-    numberValue4 = arg1
-    flag5 = textValue
-    flag5 = flag5[numberValue4]
-    flag4, flag5, numberValue4, flag6 = flag4(flag5)
-    for flag7, flag8 in flag4, flag5, numberValue4, flag6 do
-      workValue11 = CreateCameraWithParams
-      textValue52 = "DEFAULT_SCRIPTED_CAMERA"
-      flag14 = flag8.position
-      flag14 = flag14.x
-      position = flag8.position
+    workingValue2 = print
+    stateFlag4 = "initiating render"
+    workingValue2(stateFlag4)
+    workingValue2 = nil
+    stateFlag4 = pairs
+    number4 = localValue1
+    stateFlag5 = text
+    stateFlag5 = stateFlag5[number4]
+    stateFlag4, stateFlag5, number4, stateFlag6 = stateFlag4(stateFlag5)
+    for stateFlag7, stateFlag8 in stateFlag4, stateFlag5, number4, stateFlag6 do
+      workingValue11 = CreateCameraWithParams
+      text52 = "DEFAULT_SCRIPTED_CAMERA"
+      stateFlag14 = stateFlag8.position
+      stateFlag14 = stateFlag14.x
+      position = stateFlag8.position
       position = position.y
-      position2 = flag8.position
+      position2 = stateFlag8.position
       position2 = position2.z
-      workValue7 = flag8.rotation
-      workValue7 = workValue7.x
-      numberValue = flag8.rotation
-      numberValue = numberValue.y
-      flag2 = flag8.rotation
-      flag2 = flag2.z
-      numberValue2 = flag8.fov
-      if not numberValue2 then
-        numberValue2 = 65.0
+      workingValue7 = stateFlag8.rotation
+      workingValue7 = workingValue7.x
+      number = stateFlag8.rotation
+      number = number.y
+      stateFlag2 = stateFlag8.rotation
+      stateFlag2 = stateFlag2.z
+      number2 = stateFlag8.fov
+      if not number2 then
+        number2 = 65.0
       end
-      numberValue2 = numberValue2 + 0.001
-      flag3 = false
-      numberValue3 = 2
-      workValue11 = workValue11(textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2, flag3, numberValue3)
-      textValue14 = workValue11
-      workValue11 = flag8.type
-      if "Static Camera" == workValue11 then
-        workValue11 = SetCamActive
-        textValue52 = textValue14
-        flag14 = true
-        workValue11(textValue52, flag14)
+      number2 = number2 + 0.001
+      stateFlag3 = false
+      number3 = 2
+      workingValue11 = workingValue11(text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2, stateFlag3, number3)
+      text14 = workingValue11
+      workingValue11 = stateFlag8.type
+      if "Static Camera" == workingValue11 then
+        workingValue11 = SetCamActive
+        text52 = text14
+        stateFlag14 = true
+        workingValue11(text52, stateFlag14)
       else
-        workValue11 = flag8.type
-        if "Interpolation Camera" == workValue11 then
-          workValue11 = SetCamActiveWithInterp
-          textValue52 = textValue14
-          flag14 = workValue2
-          position = flag8.transition
-          position2 = flag8.blending
+        workingValue11 = stateFlag8.type
+        if "Interpolation Camera" == workingValue11 then
+          workingValue11 = SetCamActiveWithInterp
+          text52 = text14
+          stateFlag14 = workingValue2
+          position = stateFlag8.transition
+          position2 = stateFlag8.blending
           if not position2 then
             position2 = 5
           end
-          workValue7 = flag8.blending
-          if not workValue7 then
-            workValue7 = 5
+          workingValue7 = stateFlag8.blending
+          if not workingValue7 then
+            workingValue7 = 5
           end
-          workValue11(textValue52, flag14, position, position2, workValue7)
+          workingValue11(text52, stateFlag14, position, position2, workingValue7)
         end
       end
-      workValue11 = flag8.focusType
-      if "" ~= workValue11 then
-        workValue11 = flag8.focusType
-        if "player" == workValue11 then
-          workValue11 = GetPlayerPed
-          textValue52 = flag8.focusData
+      workingValue11 = stateFlag8.focusType
+      if "" ~= workingValue11 then
+        workingValue11 = stateFlag8.focusType
+        if "player" == workingValue11 then
+          workingValue11 = GetPlayerPed
+          text52 = stateFlag8.focusData
           -- Beginner: result below is playerPed.
-          workValue11 = workValue11(textValue52)
-          if workValue11 then
-            textValue52 = PointCamAtEntity
-            flag14 = textValue14
-            position = workValue11
+          workingValue11 = workingValue11(text52)
+          if workingValue11 then
+            text52 = PointCamAtEntity
+            stateFlag14 = text14
+            position = workingValue11
             position2 = 1
-            workValue7 = 1
-            numberValue = 1
-            flag2 = true
-            textValue52(flag14, position, position2, workValue7, numberValue, flag2)
+            workingValue7 = 1
+            number = 1
+            stateFlag2 = true
+            text52(stateFlag14, position, position2, workingValue7, number, stateFlag2)
           else
-            textValue52 = print
-            flag14 = "[CMG Cinematic] Failed to point cam at player, could not get entity."
-            textValue52(flag14)
+            text52 = print
+            stateFlag14 = "[CMG Cinematic] Failed to point cam at player, could not get entity."
+            text52(stateFlag14)
           end
         else
-          workValue11 = flag8.focusType
-          if "coord" == workValue11 then
-            workValue11 = PointCamAtCoord
-            textValue52 = textValue14
-            flag14 = flag8.focusData
-            flag14 = flag14.x
-            position = flag8.focusData
+          workingValue11 = stateFlag8.focusType
+          if "coord" == workingValue11 then
+            workingValue11 = PointCamAtCoord
+            text52 = text14
+            stateFlag14 = stateFlag8.focusData
+            stateFlag14 = stateFlag14.x
+            position = stateFlag8.focusData
             position = position.y
-            position2 = flag8.focusData
+            position2 = stateFlag8.focusData
             position2 = position2.z
-            workValue11(textValue52, flag14, position, position2)
+            workingValue11(text52, stateFlag14, position, position2)
           end
         end
       end
-      workValue11 = flag8.shake
-      if "" ~= workValue11 then
-        workValue11 = ShakeCam
-        textValue52 = textValue14
-        flag14 = flag8.shake
+      workingValue11 = stateFlag8.shake
+      if "" ~= workingValue11 then
+        workingValue11 = ShakeCam
+        text52 = text14
+        stateFlag14 = stateFlag8.shake
         position = 1.0
-        workValue11(textValue52, flag14, position)
+        workingValue11(text52, stateFlag14, position)
       end
-      workValue11 = flag8.screeneffect
-      if "Default" ~= workValue11 then
-        workValue11 = flag8.screeneffect
-        if "" ~= workValue11 then
-          workValue11 = AnimpostfxPlay
-          textValue52 = flag8.screeneffect
-          flag14 = flag8.transition
+      workingValue11 = stateFlag8.screeneffect
+      if "Default" ~= workingValue11 then
+        workingValue11 = stateFlag8.screeneffect
+        if "" ~= workingValue11 then
+          workingValue11 = AnimpostfxPlay
+          text52 = stateFlag8.screeneffect
+          stateFlag14 = stateFlag8.transition
           position = false
-          workValue11(textValue52, flag14, position)
+          workingValue11(text52, stateFlag14, position)
         end
       end
-      workValue11 = flag8.timecycleEffect
-      if "Default" ~= workValue11 then
-        workValue11 = flag8.timecycleEffect
-        if "" ~= workValue11 then
-          workValue11 = SetTimecycleModifier
-          textValue52 = flag8.timecycleEffect
-          workValue11(textValue52)
-          workValue11 = SetTimecycleModifierStrength
-          textValue52 = flag8.timecycleIntensity
-          workValue11(textValue52)
+      workingValue11 = stateFlag8.timecycleEffect
+      if "Default" ~= workingValue11 then
+        workingValue11 = stateFlag8.timecycleEffect
+        if "" ~= workingValue11 then
+          workingValue11 = SetTimecycleModifier
+          text52 = stateFlag8.timecycleEffect
+          workingValue11(text52)
+          workingValue11 = SetTimecycleModifierStrength
+          text52 = stateFlag8.timecycleIntensity
+          workingValue11(text52)
         end
       end
-      workValue2 = textValue14
-      workValue11 = Wait
-      textValue52 = flag8.transition
-      workValue11(textValue52)
-      workValue11 = AnimpostfxStopAll
-      workValue11()
-      workValue11 = ClearTimecycleModifier
-      workValue11()
+      workingValue2 = text14
+      workingValue11 = Wait
+      text52 = stateFlag8.transition
+      workingValue11(text52)
+      workingValue11 = AnimpostfxStopAll
+      workingValue11()
+      workingValue11 = ClearTimecycleModifier
+      workingValue11()
     end
-    flag4 = DestroyCam
-    flag5 = textValue14
-    numberValue4 = false
-    flag4(flag5, numberValue4)
-    flag4 = RenderScriptCams
-    flag5 = false
-    numberValue4 = false
-    flag6 = 1
-    flag7 = true
-    flag8 = true
-    flag4(flag5, numberValue4, flag6, flag7, flag8)
-    flag4 = nil
-    textValue14 = flag4
-    flag4 = DestroyCam
-    flag5 = workValue2
-    numberValue4 = false
-    flag4(flag5, numberValue4)
-    flag4 = RenderScriptCams
-    flag5 = false
-    numberValue4 = false
-    flag6 = 1
-    flag7 = true
-    flag8 = true
-    flag4(flag5, numberValue4, flag6, flag7, flag8)
-    flag4 = ClearFocus
-    flag4()
+    stateFlag4 = DestroyCam
+    stateFlag5 = text14
+    number4 = false
+    stateFlag4(stateFlag5, number4)
+    stateFlag4 = RenderScriptCams
+    stateFlag5 = false
+    number4 = false
+    stateFlag6 = 1
+    stateFlag7 = true
+    stateFlag8 = true
+    stateFlag4(stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8)
+    stateFlag4 = nil
+    text14 = stateFlag4
+    stateFlag4 = DestroyCam
+    stateFlag5 = workingValue2
+    number4 = false
+    stateFlag4(stateFlag5, number4)
+    stateFlag4 = RenderScriptCams
+    stateFlag5 = false
+    number4 = false
+    stateFlag6 = 1
+    stateFlag7 = true
+    stateFlag8 = true
+    stateFlag4(stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8)
+    stateFlag4 = ClearFocus
+    stateFlag4()
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
+  localValue2(localValue3)
 end
-textValue34 = _ENV
-textValue35 = "RageUI"
-textValue34 = textValue34[textValue35]
-textValue35 = "CreateWhile"
-textValue34 = textValue34[textValue35]
-textValue35 = 1.0
-textValue36 = _ENV
-textValue37 = "RMenu"
-textValue36 = textValue36[textValue37]
-textValue38 = "Get"
-textValue37 = textValue36
-textValue36 = textValue36[textValue38]
-textValue38 = "mainmenu"
-textValue39 = "cinematic"
-textValue36 = textValue36(textValue37, textValue38, textValue39)
-textValue37 = nil
+text34 = _ENV
+text35 = "RageUI"
+text34 = text34[text35]
+text35 = "CreateWhile"
+text34 = text34[text35]
+text35 = 1.0
+text36 = _ENV
+text37 = "RMenu"
+text36 = text36[text37]
+text38 = "Get"
+text37 = text36
+text36 = text36[text38]
+text38 = "mainmenu"
+text39 = "cinematic"
+text36 = text36(text37, text38, text39)
+text37 = nil
 
--- === HELPER FUNCTION (decompiler name: textValue38; parameters: none) ===
-function textValue38()
-  local arg1, arg2, arg3, arg4, textValue43, textValue49, workValue10
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "mainmenu"
-  textValue43 = "cinematic"
+-- === HELPER FUNCTION (decompiler name: text38; parameters: none) ===
+function text38()
+  local localValue1, localValue2, localValue3, localValue4, text43, text49, workingValue10
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "mainmenu"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14
-    workValue2 = CMG
-    workValue2 = workValue2.getPlayerCombatTimer
-    workValue2 = workValue2()
-    if workValue2 > 0 then
-      workValue2 = RageUI
-      workValue2 = workValue2.CloseAll
-      workValue2()
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14
+    workingValue2 = CMG
+    workingValue2 = workingValue2.getPlayerCombatTimer
+    workingValue2 = workingValue2()
+    if workingValue2 > 0 then
+      workingValue2 = RageUI
+      workingValue2 = workingValue2.CloseAll
+      workingValue2()
     end
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Create Scene"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Create Scene"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42, cmgCall2, numberValue5
-      if arg32 then
-        arg42 = CMG
-        arg42 = arg42.GetRageInputText
-        cmgCall2 = "Scene Name"
-        arg42 = arg42(cmgCall2)
-        if "" ~= arg42 then
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.createCinematicScene
-          numberValue5 = arg42
-          cmgCall2(numberValue5)
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2, number5
+      if localValue32 then
+        localValue42 = CMG
+        localValue42 = localValue42.GetRageInputText
+        cmgOperation2 = "Scene Name"
+        localValue42 = localValue42(cmgOperation2)
+        if "" ~= localValue42 then
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.createCinematicScene
+          number5 = localValue42
+          cmgOperation2(number5)
         end
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "mainmenu"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "mainmenu"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Load Scene"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Load Scene"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "load_scene"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Weather/Time Editor"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "load_scene"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Weather/Time Editor"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "weather_time_manager"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "weather_time_manager"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Delete Scene"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Delete Scene"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42, cmgCall2, numberValue5
-      if arg32 then
-        arg42 = CMG
-        arg42 = arg42.GetRageInputText
-        cmgCall2 = "Scene Name"
-        arg42 = arg42(cmgCall2)
-        if "" ~= arg42 then
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.deleteCinematicScene
-          numberValue5 = arg42
-          cmgCall2(numberValue5)
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2, number5
+      if localValue32 then
+        localValue42 = CMG
+        localValue42 = localValue42.GetRageInputText
+        cmgOperation2 = "Scene Name"
+        localValue42 = localValue42(cmgOperation2)
+        if "" ~= localValue42 then
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.deleteCinematicScene
+          number5 = localValue42
+          cmgOperation2(number5)
         end
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "mainmenu"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "mainmenu"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "UI Visiblity"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "UI Visiblity"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: none) ===
-    function flag7()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: none) ===
+    function stateFlag7()
+      local localValue12, localValue22
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "settingsmenu"
-    flag14 = "uivisibility"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = CMG
-    workValue2 = workValue2.getPlayerBucket
-    workValue2 = workValue2()
-    if 420 == workValue2 then
-      flag4 = "Leave"
-      if flag4 then
-        goto flow_label_93
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "settingsmenu"
+    stateFlag14 = "uivisibility"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = CMG
+    workingValue2 = workingValue2.getPlayerBucket
+    workingValue2 = workingValue2()
+    if 420 == workingValue2 then
+      stateFlag4 = "Leave"
+      if stateFlag4 then
+        goto continueAtStep93
       end
     end
-    flag4 = "Enter"
-    ::flow_label_93::
-    flag5 = RageUI
-    flag5 = flag5.ButtonWithStyle
-    numberValue4 = flag4
-    flag6 = " Cinematic World"
-    numberValue4 = numberValue4 .. flag6
-    flag6 = ""
-    flag7 = {}
-    flag7.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag8 = true
+    stateFlag4 = "Enter"
+    ::continueAtStep93::
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.ButtonWithStyle
+    number4 = stateFlag4
+    stateFlag6 = " Cinematic World"
+    number4 = number4 .. stateFlag6
+    stateFlag6 = ""
+    stateFlag7 = {}
+    stateFlag7.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag8 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32) ===
-    function workValue11(arg12, arg22, arg32)
-      local arg42, cmgCall2
-      if arg32 then
-        arg42 = tCMG
-        arg42 = arg42.canAnim
-        arg42 = arg42()
-        if arg42 then
-          arg42 = CMG
-          arg42 = arg42.getPlayerCombatTimer
-          arg42 = arg42()
-          if 0 == arg42 then
-            arg42 = CMG
-            arg42 = arg42.getPlayerVehicle
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32) ===
+    function workingValue11(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2
+      if localValue32 then
+        localValue42 = tCMG
+        localValue42 = localValue42.canAnim
+        localValue42 = localValue42()
+        if localValue42 then
+          localValue42 = CMG
+          localValue42 = localValue42.getPlayerCombatTimer
+          localValue42 = localValue42()
+          if 0 == localValue42 then
+            localValue42 = CMG
+            localValue42 = localValue42.getPlayerVehicle
             -- Beginner: result below is currentVehicle.
-            arg42 = arg42()
-            if 0 == arg42 then
-              arg42 = CMG
-              arg42 = arg42.isPlayerInRedZone
-              arg42 = arg42()
-              if not arg42 then
-                arg42 = workValue2
-                if 0 ~= arg42 then
-                  arg42 = workValue2
-                  if 420 ~= arg42 then
-                    goto flow_label_33
+            localValue42 = localValue42()
+            if 0 == localValue42 then
+              localValue42 = CMG
+              localValue42 = localValue42.isPlayerInRedZone
+              localValue42 = localValue42()
+              if not localValue42 then
+                localValue42 = workingValue2
+                if 0 ~= localValue42 then
+                  localValue42 = workingValue2
+                  if 420 ~= localValue42 then
+                    goto continueAtStep33
                   end
                 end
-                arg42 = TriggerServerEvent
-                cmgCall2 = "076f7eba26"
+                localValue42 = TriggerServerEvent
+                cmgOperation2 = "076f7eba26"
                 -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "076f7eba26".
-                arg42(cmgCall2)
+                localValue42(cmgOperation2)
             end
           end
         end
         else
-          ::flow_label_33::
-          arg42 = notify
-          cmgCall2 = "~r~You can not do this right now."
+          ::continueAtStep33::
+          localValue42 = notify
+          cmgOperation2 = "~r~You can not do this right now."
           -- Beginner: Show a notification to the player.
-          arg42(cmgCall2)
+          localValue42(cmgOperation2)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11)
-    flag5 = RageUI
-    flag5 = flag5.ButtonWithStyle
-    numberValue4 = CMG
-    numberValue4 = numberValue4.isTimelapseRunning
-    numberValue4 = numberValue4()
-    if numberValue4 then
-      numberValue4 = "Stop Timelapse"
-      if numberValue4 then
-        goto flow_label_116
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11)
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.ButtonWithStyle
+    number4 = CMG
+    number4 = number4.isTimelapseRunning
+    number4 = number4()
+    if number4 then
+      number4 = "Stop Timelapse"
+      if number4 then
+        goto continueAtStep116
       end
     end
-    numberValue4 = "Start Timelapse"
-    ::flow_label_116::
-    flag6 = ""
-    flag7 = {}
-    flag7.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag8 = true
+    number4 = "Start Timelapse"
+    ::continueAtStep116::
+    stateFlag6 = ""
+    stateFlag7 = {}
+    stateFlag7.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag8 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32) ===
-    function workValue11(arg12, arg22, arg32)
-      local arg42, cmgCall2, numberValue5
-      if arg32 then
-        arg42 = tCMG
-        arg42 = arg42.canAnim
-        arg42 = arg42()
-        if arg42 then
-          arg42 = CMG
-          arg42 = arg42.getPlayerCombatTimer
-          arg42 = arg42()
-          if 0 == arg42 then
-            arg42 = CMG
-            arg42 = arg42.getPlayerVehicle
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32) ===
+    function workingValue11(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2, number5
+      if localValue32 then
+        localValue42 = tCMG
+        localValue42 = localValue42.canAnim
+        localValue42 = localValue42()
+        if localValue42 then
+          localValue42 = CMG
+          localValue42 = localValue42.getPlayerCombatTimer
+          localValue42 = localValue42()
+          if 0 == localValue42 then
+            localValue42 = CMG
+            localValue42 = localValue42.getPlayerVehicle
             -- Beginner: result below is currentVehicle.
-            arg42 = arg42()
-            if 0 == arg42 then
-              arg42 = CMG
-              arg42 = arg42.isPlayerInRedZone
-              arg42 = arg42()
-              if not arg42 then
-                arg42 = workValue2
-                if 0 ~= arg42 then
-                  arg42 = workValue2
-                  if 420 ~= arg42 then
-                    goto flow_label_44
+            localValue42 = localValue42()
+            if 0 == localValue42 then
+              localValue42 = CMG
+              localValue42 = localValue42.isPlayerInRedZone
+              localValue42 = localValue42()
+              if not localValue42 then
+                localValue42 = workingValue2
+                if 0 ~= localValue42 then
+                  localValue42 = workingValue2
+                  if 420 ~= localValue42 then
+                    goto continueAtStep44
                   end
                 end
-                arg42 = CMG
-                arg42 = arg42.isTimelapseRunning
-                arg42 = arg42()
-                if arg42 then
-                  arg42 = CMG
-                  arg42 = arg42.stopTimelapse
-                  arg42()
+                localValue42 = CMG
+                localValue42 = localValue42.isTimelapseRunning
+                localValue42 = localValue42()
+                if localValue42 then
+                  localValue42 = CMG
+                  localValue42 = localValue42.stopTimelapse
+                  localValue42()
                 else
-                  arg42 = CMG
-                  arg42 = arg42.startTimelapse
-                  cmgCall2 = 7200
-                  numberValue5 = 200
-                  arg42(cmgCall2, numberValue5)
+                  localValue42 = CMG
+                  localValue42 = localValue42.startTimelapse
+                  cmgOperation2 = 7200
+                  number5 = 200
+                  localValue42(cmgOperation2, number5)
                 end
             end
           end
         end
         else
-          ::flow_label_44::
-          arg42 = notify
-          cmgCall2 = "~r~You can not do this right now."
+          ::continueAtStep44::
+          localValue42 = notify
+          cmgOperation2 = "~r~You can not do this right now."
           -- Beginner: Show a notification to the player.
-          arg42(cmgCall2)
+          localValue42(cmgOperation2)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11)
-    flag5 = RageUI
-    flag5 = flag5.ButtonWithStyle
-    numberValue4 = CMG
-    numberValue4 = numberValue4.isTimelapseRunning
-    numberValue4 = numberValue4()
-    if numberValue4 then
-      numberValue4 = "Stop Timelapse x4"
-      if numberValue4 then
-        goto flow_label_134
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11)
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.ButtonWithStyle
+    number4 = CMG
+    number4 = number4.isTimelapseRunning
+    number4 = number4()
+    if number4 then
+      number4 = "Stop Timelapse x4"
+      if number4 then
+        goto continueAtStep134
       end
     end
-    numberValue4 = "Start Timelapse x4"
-    ::flow_label_134::
-    flag6 = ""
-    flag7 = {}
-    flag7.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag8 = true
+    number4 = "Start Timelapse x4"
+    ::continueAtStep134::
+    stateFlag6 = ""
+    stateFlag7 = {}
+    stateFlag7.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag8 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32) ===
-    function workValue11(arg12, arg22, arg32)
-      local arg42, cmgCall2, numberValue5
-      if arg32 then
-        arg42 = tCMG
-        arg42 = arg42.canAnim
-        arg42 = arg42()
-        if arg42 then
-          arg42 = CMG
-          arg42 = arg42.getPlayerCombatTimer
-          arg42 = arg42()
-          if 0 == arg42 then
-            arg42 = CMG
-            arg42 = arg42.getPlayerVehicle
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32) ===
+    function workingValue11(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2, number5
+      if localValue32 then
+        localValue42 = tCMG
+        localValue42 = localValue42.canAnim
+        localValue42 = localValue42()
+        if localValue42 then
+          localValue42 = CMG
+          localValue42 = localValue42.getPlayerCombatTimer
+          localValue42 = localValue42()
+          if 0 == localValue42 then
+            localValue42 = CMG
+            localValue42 = localValue42.getPlayerVehicle
             -- Beginner: result below is currentVehicle.
-            arg42 = arg42()
-            if 0 == arg42 then
-              arg42 = CMG
-              arg42 = arg42.isPlayerInRedZone
-              arg42 = arg42()
-              if not arg42 then
-                arg42 = workValue2
-                if 0 ~= arg42 then
-                  arg42 = workValue2
-                  if 420 ~= arg42 then
-                    goto flow_label_44
+            localValue42 = localValue42()
+            if 0 == localValue42 then
+              localValue42 = CMG
+              localValue42 = localValue42.isPlayerInRedZone
+              localValue42 = localValue42()
+              if not localValue42 then
+                localValue42 = workingValue2
+                if 0 ~= localValue42 then
+                  localValue42 = workingValue2
+                  if 420 ~= localValue42 then
+                    goto continueAtStep44
                   end
                 end
-                arg42 = CMG
-                arg42 = arg42.isTimelapseRunning
-                arg42 = arg42()
-                if arg42 then
-                  arg42 = CMG
-                  arg42 = arg42.stopTimelapse
-                  arg42()
+                localValue42 = CMG
+                localValue42 = localValue42.isTimelapseRunning
+                localValue42 = localValue42()
+                if localValue42 then
+                  localValue42 = CMG
+                  localValue42 = localValue42.stopTimelapse
+                  localValue42()
                 else
-                  arg42 = CMG
-                  arg42 = arg42.startTimelapse
-                  cmgCall2 = 7200
-                  numberValue5 = 50
-                  arg42(cmgCall2, numberValue5)
+                  localValue42 = CMG
+                  localValue42 = localValue42.startTimelapse
+                  cmgOperation2 = 7200
+                  number5 = 50
+                  localValue42(cmgOperation2, number5)
                 end
             end
           end
         end
         else
-          ::flow_label_44::
-          arg42 = notify
-          cmgCall2 = "~r~You can not do this right now."
+          ::continueAtStep44::
+          localValue42 = notify
+          cmgOperation2 = "~r~You can not do this right now."
           -- Beginner: Show a notification to the player.
-          arg42(cmgCall2)
+          localValue42(cmgOperation2)
         end
       end
     end
     -- Beginner: Draw a selectable RageUI menu button.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11)
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "load_scene"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "load_scene"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2
-    workValue2 = pairs
-    flag4 = textValue
-    workValue2, flag4, flag5, numberValue4 = workValue2(flag4)
-    for flag6 in workValue2, flag4, flag5, numberValue4 do
-      flag7 = RageUI
-      flag7 = flag7.ButtonWithStyle
-      flag8 = flag6
-      workValue11 = ""
-      textValue52 = {}
-      textValue52.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      flag14 = true
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2
+    workingValue2 = pairs
+    stateFlag4 = text
+    workingValue2, stateFlag4, stateFlag5, number4 = workingValue2(stateFlag4)
+    for stateFlag6 in workingValue2, stateFlag4, stateFlag5, number4 do
+      stateFlag7 = RageUI
+      stateFlag7 = stateFlag7.ButtonWithStyle
+      stateFlag8 = stateFlag6
+      workingValue11 = ""
+      text52 = {}
+      text52.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      stateFlag14 = true
 
-      -- === HELPER FUNCTION: position(arg12, arg22, arg32) ===
-      function position(arg12, arg22, arg32)
-        local arg42
-        if arg32 then
-          arg42 = flag6
-          textValue2 = arg42
+      -- === HELPER FUNCTION: position(localValue12, localValue22, localValue32) ===
+      function position(localValue12, localValue22, localValue32)
+        local localValue42
+        if localValue32 then
+          localValue42 = stateFlag6
+          text2 = localValue42
         end
       end
       position2 = RMenu
-      workValue7 = position2
+      workingValue7 = position2
       position2 = position2.Get
-      numberValue = "scene_manager"
-      flag2 = "cinematic"
-      position2, workValue7, numberValue, flag2 = position2(workValue7, numberValue, flag2)
+      number = "scene_manager"
+      stateFlag2 = "cinematic"
+      position2, workingValue7, number, stateFlag2 = position2(workingValue7, number, stateFlag2)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag7(flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2)
+      stateFlag7(stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "scene_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "scene_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
-      arg12 = nil
-      textValue30 = arg12
-      arg12 = textValue32
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
+      localValue12 = nil
+      text30 = localValue12
+      localValue12 = text32
+      localValue12()
     end
-    workValue2(flag4)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Play Scene"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Play Scene"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42, cmgCall2
-      if arg22 then
-        arg42 = nil
-        textValue30 = arg42
-        arg42 = textValue32
-        arg42()
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2
+      if localValue22 then
+        localValue42 = nil
+        text30 = localValue42
+        localValue42 = text32
+        localValue42()
       end
-      if arg32 then
-        arg42 = workValue
-        cmgCall2 = false
-        arg42(cmgCall2)
-        arg42 = textValue33
-        cmgCall2 = textValue2
-        arg42(cmgCall2)
+      if localValue32 then
+        localValue42 = workingValue
+        cmgOperation2 = false
+        localValue42(cmgOperation2)
+        localValue42 = text33
+        cmgOperation2 = text2
+        localValue42(cmgOperation2)
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "scene_manager"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "scene_manager"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "[Add Camera]"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "[Add Camera]"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42
-      if arg22 then
-        arg42 = nil
-        textValue30 = arg42
-        arg42 = textValue32
-        arg42()
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42
+      if localValue22 then
+        localValue42 = nil
+        text30 = localValue42
+        localValue42 = text32
+        localValue42()
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "add_camera"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "add_camera"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2)
-    workValue2 = type
-    flag5 = textValue2
-    flag4 = textValue
-    flag4 = flag4[flag5]
-    workValue2 = workValue2(flag4)
-    if "table" == workValue2 then
-      workValue2 = pairs
-      flag5 = textValue2
-      flag4 = textValue
-      flag4 = flag4[flag5]
-      workValue2, flag4, flag5, numberValue4 = workValue2(flag4)
-      for flag6, flag7 in workValue2, flag4, flag5, numberValue4 do
-        flag8 = textValue31
-        workValue11 = flag6
-        textValue52 = flag7
-        flag8(workValue11, textValue52)
-        flag8 = RageUI
-        flag8 = flag8.ButtonWithStyle
-        workValue11 = "Camera "
-        textValue52 = flag6
-        workValue11 = workValue11 .. textValue52
-        textValue52 = ""
-        flag14 = {}
-        flag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2)
+    workingValue2 = type
+    stateFlag5 = text2
+    stateFlag4 = text
+    stateFlag4 = stateFlag4[stateFlag5]
+    workingValue2 = workingValue2(stateFlag4)
+    if "table" == workingValue2 then
+      workingValue2 = pairs
+      stateFlag5 = text2
+      stateFlag4 = text
+      stateFlag4 = stateFlag4[stateFlag5]
+      workingValue2, stateFlag4, stateFlag5, number4 = workingValue2(stateFlag4)
+      for stateFlag6, stateFlag7 in workingValue2, stateFlag4, stateFlag5, number4 do
+        stateFlag8 = text31
+        workingValue11 = stateFlag6
+        text52 = stateFlag7
+        stateFlag8(workingValue11, text52)
+        stateFlag8 = RageUI
+        stateFlag8 = stateFlag8.ButtonWithStyle
+        workingValue11 = "Camera "
+        text52 = stateFlag6
+        workingValue11 = workingValue11 .. text52
+        text52 = ""
+        stateFlag14 = {}
+        stateFlag14.RightLabel = "\226\134\146\226\134\146\226\134\146"
         position = true
 
-        -- === HELPER FUNCTION: position2(arg12, arg22, arg32) ===
-        function position2(arg12, arg22, arg32)
-          local arg42, cmgCall2, numberValue5, numberValue6, flag10, flag12
-          if arg22 then
-            arg42 = flag6
-            textValue30 = arg42
-            arg42 = DoesCamExist
-            cmgCall2 = textValue6
-            arg42 = arg42(cmgCall2)
-            if not arg42 then
-              arg42 = print
-              cmgCall2 = "Creating cam because it doesn't exist"
-              arg42(cmgCall2)
-              arg42 = CreateCam
-              cmgCall2 = "DEFAULT_SCRIPTED_CAMERA"
-              numberValue5 = true
+        -- === HELPER FUNCTION: position2(localValue12, localValue22, localValue32) ===
+        function position2(localValue12, localValue22, localValue32)
+          local localValue42, cmgOperation2, number5, number6, stateFlag10, stateFlag12
+          if localValue22 then
+            localValue42 = stateFlag6
+            text30 = localValue42
+            localValue42 = DoesCamExist
+            cmgOperation2 = text6
+            localValue42 = localValue42(cmgOperation2)
+            if not localValue42 then
+              localValue42 = print
+              cmgOperation2 = "Creating cam because it doesn't exist"
+              localValue42(cmgOperation2)
+              localValue42 = CreateCam
+              cmgOperation2 = "DEFAULT_SCRIPTED_CAMERA"
+              number5 = true
               -- Beginner: result below is cameraHandle.
-              arg42 = arg42(cmgCall2, numberValue5)
-              textValue6 = arg42
-              arg42 = SetCamActive
-              cmgCall2 = textValue6
-              numberValue5 = true
-              arg42(cmgCall2, numberValue5)
-              arg42 = RenderScriptCams
-              cmgCall2 = true
-              numberValue5 = true
-              numberValue6 = 500
-              flag10 = true
-              flag12 = false
-              arg42(cmgCall2, numberValue5, numberValue6, flag10, flag12)
+              localValue42 = localValue42(cmgOperation2, number5)
+              text6 = localValue42
+              localValue42 = SetCamActive
+              cmgOperation2 = text6
+              number5 = true
+              localValue42(cmgOperation2, number5)
+              localValue42 = RenderScriptCams
+              cmgOperation2 = true
+              number5 = true
+              number6 = 500
+              stateFlag10 = true
+              stateFlag12 = false
+              localValue42(cmgOperation2, number5, number6, stateFlag10, stateFlag12)
             end
           end
-          if arg32 then
-            arg42 = flag6
-            textValue5 = arg42
-            cmgCall2 = textValue2
-            arg42 = textValue
-            arg42 = arg42[cmgCall2]
-            cmgCall2 = textValue5
-            arg42 = arg42[cmgCall2]
-            arg42 = arg42.type
-            if "Static Camera" == arg42 then
-              arg42 = 1
-              textValue10 = arg42
+          if localValue32 then
+            localValue42 = stateFlag6
+            text5 = localValue42
+            cmgOperation2 = text2
+            localValue42 = text
+            localValue42 = localValue42[cmgOperation2]
+            cmgOperation2 = text5
+            localValue42 = localValue42[cmgOperation2]
+            localValue42 = localValue42.type
+            if "Static Camera" == localValue42 then
+              localValue42 = 1
+              text10 = localValue42
             else
-              cmgCall2 = textValue2
-              arg42 = textValue
-              arg42 = arg42[cmgCall2]
-              cmgCall2 = textValue5
-              arg42 = arg42[cmgCall2]
-              arg42 = arg42.type
-              if "Interpolation Camera" == arg42 then
-                arg42 = 2
-                textValue10 = arg42
+              cmgOperation2 = text2
+              localValue42 = text
+              localValue42 = localValue42[cmgOperation2]
+              cmgOperation2 = text5
+              localValue42 = localValue42[cmgOperation2]
+              localValue42 = localValue42.type
+              if "Interpolation Camera" == localValue42 then
+                localValue42 = 2
+                text10 = localValue42
               end
             end
-            cmgCall2 = textValue2
-            arg42 = textValue
-            arg42 = arg42[cmgCall2]
-            cmgCall2 = textValue5
-            arg42 = arg42[cmgCall2]
-            arg42 = arg42.blending
-            if 0 == arg42 then
-              arg42 = 2
-              textValue12 = arg42
+            cmgOperation2 = text2
+            localValue42 = text
+            localValue42 = localValue42[cmgOperation2]
+            cmgOperation2 = text5
+            localValue42 = localValue42[cmgOperation2]
+            localValue42 = localValue42.blending
+            if 0 == localValue42 then
+              localValue42 = 2
+              text12 = localValue42
             else
-              cmgCall2 = textValue2
-              arg42 = textValue
-              arg42 = arg42[cmgCall2]
-              cmgCall2 = textValue5
-              arg42 = arg42[cmgCall2]
-              arg42 = arg42.blending
-              if 5 == arg42 then
-                arg42 = 1
-                textValue12 = arg42
+              cmgOperation2 = text2
+              localValue42 = text
+              localValue42 = localValue42[cmgOperation2]
+              cmgOperation2 = text5
+              localValue42 = localValue42[cmgOperation2]
+              localValue42 = localValue42.blending
+              if 5 == localValue42 then
+                localValue42 = 1
+                text12 = localValue42
               end
             end
           end
         end
-        workValue7 = RMenu
-        numberValue = workValue7
-        workValue7 = workValue7.Get
-        flag2 = "camera_manager"
-        numberValue2 = "cinematic"
-        workValue7, numberValue, flag2, numberValue2 = workValue7(numberValue, flag2, numberValue2)
+        workingValue7 = RMenu
+        number = workingValue7
+        workingValue7 = workingValue7.Get
+        stateFlag2 = "camera_manager"
+        number2 = "cinematic"
+        workingValue7, number, stateFlag2, number2 = workingValue7(number, stateFlag2, number2)
         -- Beginner: Draw a selectable RageUI menu button.
-        flag8(workValue11, textValue52, flag14, position, position2, workValue7, numberValue, flag2, numberValue2)
+        stateFlag8(workingValue11, text52, stateFlag14, position, position2, workingValue7, number, stateFlag2, number2)
       end
     else
-      workValue2 = print
-      flag4 = "failed, loaded scene was not a table?"
-      workValue2(flag4)
+      workingValue2 = print
+      stateFlag4 = "failed, loaded scene was not a table?"
+      workingValue2(stateFlag4)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "camera_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "camera_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
-      arg12 = nil
-      textValue30 = arg12
-      arg12 = textValue32
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
+      localValue12 = nil
+      text30 = localValue12
+      localValue12 = text32
+      localValue12()
     end
-    workValue2(flag4)
-    workValue2 = textValue5
-    if workValue2 then
-      flag4 = textValue2
-      workValue2 = textValue
-      workValue2 = workValue2[flag4]
-      flag4 = textValue5
-      workValue2 = workValue2[flag4]
-      if workValue2 then
-        workValue2 = RMenu
-        flag4 = workValue2
-        workValue2 = workValue2.Get
-        flag5 = "camera_manager"
-        numberValue4 = "cinematic"
+    workingValue2(stateFlag4)
+    workingValue2 = text5
+    if workingValue2 then
+      stateFlag4 = text2
+      workingValue2 = text
+      workingValue2 = workingValue2[stateFlag4]
+      stateFlag4 = text5
+      workingValue2 = workingValue2[stateFlag4]
+      if workingValue2 then
+        workingValue2 = RMenu
+        stateFlag4 = workingValue2
+        workingValue2 = workingValue2.Get
+        stateFlag5 = "camera_manager"
+        number4 = "cinematic"
         -- Beginner: result below is menu.
-        workValue2 = workValue2(flag4, flag5, numberValue4)
-        flag4 = workValue2
-        workValue2 = workValue2.SetSubtitle
-        flag5 = "~b~"
-        flag6 = textValue2
-        numberValue4 = textValue
-        numberValue4 = numberValue4[flag6]
-        flag6 = textValue5
-        numberValue4 = numberValue4[flag6]
-        numberValue4 = numberValue4.type
-        flag5 = flag5 .. numberValue4
-        workValue2(flag4, flag5)
-        workValue2 = RageUI
-        workValue2 = workValue2.ButtonWithStyle
-        flag4 = "~b~Transition: "
-        numberValue4 = textValue2
-        flag5 = textValue
-        flag5 = flag5[numberValue4]
-        numberValue4 = textValue5
-        flag5 = flag5[numberValue4]
-        flag5 = flag5.transition
-        numberValue4 = "ms"
-        flag4 = flag4 .. flag5 .. numberValue4
-        flag5 = ""
-        numberValue4 = {}
-        numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag6 = true
+        workingValue2 = workingValue2(stateFlag4, stateFlag5, number4)
+        stateFlag4 = workingValue2
+        workingValue2 = workingValue2.SetSubtitle
+        stateFlag5 = "~b~"
+        stateFlag6 = text2
+        number4 = text
+        number4 = number4[stateFlag6]
+        stateFlag6 = text5
+        number4 = number4[stateFlag6]
+        number4 = number4.type
+        stateFlag5 = stateFlag5 .. number4
+        workingValue2(stateFlag4, stateFlag5)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.ButtonWithStyle
+        stateFlag4 = "~b~Transition: "
+        number4 = text2
+        stateFlag5 = text
+        stateFlag5 = stateFlag5[number4]
+        number4 = text5
+        stateFlag5 = stateFlag5[number4]
+        stateFlag5 = stateFlag5.transition
+        number4 = "ms"
+        stateFlag4 = stateFlag4 .. stateFlag5 .. number4
+        stateFlag5 = ""
+        number4 = {}
+        number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag6 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-        function flag7(arg12, arg22, arg32)
-          local arg42, cmgCall2, numberValue5, numberValue6, flag10
-          if arg32 then
-            arg42 = CMG
-            arg42 = arg42.GetRageInputText
-            cmgCall2 = "Transition(in ms):"
-            arg42 = arg42(cmgCall2)
-            if arg42 then
-              cmgCall2 = tonumber
-              numberValue5 = arg42
-              cmgCall2 = cmgCall2(numberValue5)
-              if cmgCall2 then
-                cmgCall2 = CMG
-                cmgCall2 = cmgCall2.modifyTransition
-                numberValue5 = textValue2
-                numberValue6 = textValue5
-                flag10 = arg42
-                cmgCall2(numberValue5, numberValue6, flag10)
+        -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+        function stateFlag7(localValue12, localValue22, localValue32)
+          local localValue42, cmgOperation2, number5, number6, stateFlag10
+          if localValue32 then
+            localValue42 = CMG
+            localValue42 = localValue42.GetRageInputText
+            cmgOperation2 = "Transition(in ms):"
+            localValue42 = localValue42(cmgOperation2)
+            if localValue42 then
+              cmgOperation2 = tonumber
+              number5 = localValue42
+              cmgOperation2 = cmgOperation2(number5)
+              if cmgOperation2 then
+                cmgOperation2 = CMG
+                cmgOperation2 = cmgOperation2.modifyTransition
+                number5 = text2
+                number6 = text5
+                stateFlag10 = localValue42
+                cmgOperation2(number5, number6, stateFlag10)
             end
             else
-              cmgCall2 = tCMG
-              cmgCall2 = cmgCall2.notify
-              numberValue5 = "~r~Failed to change transition time."
+              cmgOperation2 = tCMG
+              cmgOperation2 = cmgOperation2.notify
+              number5 = "~r~Failed to change transition time."
               -- Beginner: Show a notification to the player.
-              cmgCall2(numberValue5)
+              cmgOperation2(number5)
             end
           end
         end
-        flag8 = RMenu
-        workValue11 = flag8
-        flag8 = flag8.Get
-        textValue52 = "camera_manager"
-        flag14 = "cinematic"
-        flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+        stateFlag8 = RMenu
+        workingValue11 = stateFlag8
+        stateFlag8 = stateFlag8.Get
+        text52 = "camera_manager"
+        stateFlag14 = "cinematic"
+        stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
         -- Beginner: Draw a selectable RageUI menu button.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.ButtonWithStyle
-        flag4 = "Move Camera"
-        flag5 = ""
-        numberValue4 = {}
-        numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag6 = true
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.ButtonWithStyle
+        stateFlag4 = "Move Camera"
+        stateFlag5 = ""
+        number4 = {}
+        number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag6 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-        function flag7(arg12, arg22, arg32)
-          local arg42, cmgCall2
-          if arg32 then
-            arg42 = textValue3
-            if not arg42 then
-              arg42 = textValue4
-              if 0 == arg42 then
-                arg42 = nil
-                textValue30 = arg42
-                arg42 = GetEntityCoords
-                cmgCall2 = PlayerPedId
+        -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+        function stateFlag7(localValue12, localValue22, localValue32)
+          local localValue42, cmgOperation2
+          if localValue32 then
+            localValue42 = text3
+            if not localValue42 then
+              localValue42 = text4
+              if 0 == localValue42 then
+                localValue42 = nil
+                text30 = localValue42
+                localValue42 = GetEntityCoords
+                cmgOperation2 = PlayerPedId
                 -- Beginner: result below is localPlayerPed.
-                cmgCall2 = cmgCall2()
+                cmgOperation2 = cmgOperation2()
                 -- Beginner: result below is entityCoords.
-                arg42 = arg42(cmgCall2)
-                textValue8 = arg42
-                arg42 = textValue32
-                arg42()
-                arg42 = tCMG
-                arg42 = arg42.toggleNoclip
-                arg42()
-                arg42 = textValue5
-                textValue4 = arg42
+                localValue42 = localValue42(cmgOperation2)
+                text8 = localValue42
+                localValue42 = text32
+                localValue42()
+                localValue42 = tCMG
+                localValue42 = localValue42.toggleNoclip
+                localValue42()
+                localValue42 = text5
+                text4 = localValue42
               end
             end
           end
         end
-        flag8 = RMenu
-        workValue11 = flag8
-        flag8 = flag8.Get
-        textValue52 = "camera_manager"
-        flag14 = "cinematic"
-        flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+        stateFlag8 = RMenu
+        workingValue11 = stateFlag8
+        stateFlag8 = stateFlag8.Get
+        text52 = "camera_manager"
+        stateFlag14 = "cinematic"
+        stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
         -- Beginner: Draw a selectable RageUI menu button.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.List
-        flag4 = "Camera Type:"
-        flag5 = rageUiCall3
-        numberValue4 = textValue10
-        flag6 = ""
-        flag7 = {}
-        flag8 = true
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.List
+        stateFlag4 = "Camera Type:"
+        stateFlag5 = rageUiOperation3
+        number4 = text10
+        stateFlag6 = ""
+        stateFlag7 = {}
+        stateFlag8 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-        function workValue11(arg12, arg22, arg32, arg42)
-          local cmgCall2, numberValue5, numberValue6, flag10, flag12
-          cmgCall2 = textValue10
-          if arg42 ~= cmgCall2 then
-            textValue10 = arg42
-            cmgCall2 = CMG
-            cmgCall2 = cmgCall2.modifyCameraType
-            numberValue5 = textValue2
-            numberValue6 = textValue5
-            flag12 = textValue10
-            flag10 = rageUiCall3
-            flag10 = flag10[flag12]
-            cmgCall2(numberValue5, numberValue6, flag10)
+        -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+        function workingValue11(localValue12, localValue22, localValue32, localValue42)
+          local cmgOperation2, number5, number6, stateFlag10, stateFlag12
+          cmgOperation2 = text10
+          if localValue42 ~= cmgOperation2 then
+            text10 = localValue42
+            cmgOperation2 = CMG
+            cmgOperation2 = cmgOperation2.modifyCameraType
+            number5 = text2
+            number6 = text5
+            stateFlag12 = text10
+            stateFlag10 = rageUiOperation3
+            stateFlag10 = stateFlag10[stateFlag12]
+            cmgOperation2(number5, number6, stateFlag10)
           end
         end
 
-        -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-        function textValue52()
-          local arg12, arg22
+        -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+        function text52()
+          local localValue12, localValue22
         end
-        flag14 = nil
+        stateFlag14 = nil
         -- Beginner: Draw a RageUI list selector.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.List
-        flag4 = "Camera Blending:"
-        flag5 = rageUiCall4
-        numberValue4 = textValue12
-        flag6 = ""
-        flag7 = {}
-        flag8 = true
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.List
+        stateFlag4 = "Camera Blending:"
+        stateFlag5 = rageUiOperation4
+        number4 = text12
+        stateFlag6 = ""
+        stateFlag7 = {}
+        stateFlag8 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-        function workValue11(arg12, arg22, arg32, arg42)
-          local cmgCall2, numberValue5, numberValue6, flag10, flag12
-          cmgCall2 = textValue12
-          if arg42 ~= cmgCall2 then
-            textValue12 = arg42
-            cmgCall2 = CMG
-            cmgCall2 = cmgCall2.modifyCameraBlending
-            numberValue5 = textValue2
-            numberValue6 = textValue5
-            flag12 = textValue12
-            flag10 = rageUiCall4
-            flag10 = flag10[flag12]
-            cmgCall2(numberValue5, numberValue6, flag10)
+        -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+        function workingValue11(localValue12, localValue22, localValue32, localValue42)
+          local cmgOperation2, number5, number6, stateFlag10, stateFlag12
+          cmgOperation2 = text12
+          if localValue42 ~= cmgOperation2 then
+            text12 = localValue42
+            cmgOperation2 = CMG
+            cmgOperation2 = cmgOperation2.modifyCameraBlending
+            number5 = text2
+            number6 = text5
+            stateFlag12 = text12
+            stateFlag10 = rageUiOperation4
+            stateFlag10 = stateFlag10[stateFlag12]
+            cmgOperation2(number5, number6, stateFlag10)
           end
         end
 
-        -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-        function textValue52()
-          local arg12, arg22
+        -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+        function text52()
+          local localValue12, localValue22
         end
-        flag14 = nil
+        stateFlag14 = nil
         -- Beginner: Draw a RageUI list selector.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.ButtonWithStyle
-        flag4 = "Select Camera Focus"
-        flag5 = ""
-        numberValue4 = {}
-        numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag6 = true
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.ButtonWithStyle
+        stateFlag4 = "Select Camera Focus"
+        stateFlag5 = ""
+        number4 = {}
+        number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag6 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-        function flag7(arg12, arg22, arg32)
+        -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+        function stateFlag7(localValue12, localValue22, localValue32)
         end
-        flag8 = RMenu
-        workValue11 = flag8
-        flag8 = flag8.Get
-        textValue52 = "camera_focus_manager"
-        flag14 = "cinematic"
-        flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+        stateFlag8 = RMenu
+        workingValue11 = stateFlag8
+        stateFlag8 = stateFlag8.Get
+        text52 = "camera_focus_manager"
+        stateFlag14 = "cinematic"
+        stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
         -- Beginner: Draw a selectable RageUI menu button.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.ButtonWithStyle
-        flag4 = "Screen Effect: "
-        numberValue4 = textValue2
-        flag5 = textValue
-        flag5 = flag5[numberValue4]
-        numberValue4 = textValue5
-        flag5 = flag5[numberValue4]
-        flag5 = flag5.screeneffect
-        if not flag5 then
-          flag5 = "N/A"
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.ButtonWithStyle
+        stateFlag4 = "Screen Effect: "
+        number4 = text2
+        stateFlag5 = text
+        stateFlag5 = stateFlag5[number4]
+        number4 = text5
+        stateFlag5 = stateFlag5[number4]
+        stateFlag5 = stateFlag5.screeneffect
+        if not stateFlag5 then
+          stateFlag5 = "N/A"
         end
-        flag4 = flag4 .. flag5
-        flag5 = ""
-        numberValue4 = {}
-        numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag6 = true
+        stateFlag4 = stateFlag4 .. stateFlag5
+        stateFlag5 = ""
+        number4 = {}
+        number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag6 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-        function flag7(arg12, arg22, arg32)
+        -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+        function stateFlag7(localValue12, localValue22, localValue32)
         end
-        flag8 = RMenu
-        workValue11 = flag8
-        flag8 = flag8.Get
-        textValue52 = "screeneffect_manager"
-        flag14 = "cinematic"
-        flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.List
-        flag4 = "Timecycle Intensity"
-        flag5 = textValue42
-        numberValue4 = rageUiCall
-        flag6 = ""
-        flag7 = {}
-        flag8 = true
+        stateFlag8 = RMenu
+        workingValue11 = stateFlag8
+        stateFlag8 = stateFlag8.Get
+        text52 = "screeneffect_manager"
+        stateFlag14 = "cinematic"
+        stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.List
+        stateFlag4 = "Timecycle Intensity"
+        stateFlag5 = text42
+        number4 = rageUiOperation
+        stateFlag6 = ""
+        stateFlag7 = {}
+        stateFlag8 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-        function workValue11(arg12, arg22, arg32, arg42)
-          local cmgCall2, numberValue5, numberValue6, flag10, flag12
-          cmgCall2 = RageUI
-          cmgCall2 = cmgCall2.BackspaceMenuCallback
+        -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+        function workingValue11(localValue12, localValue22, localValue32, localValue42)
+          local cmgOperation2, number5, number6, stateFlag10, stateFlag12
+          cmgOperation2 = RageUI
+          cmgOperation2 = cmgOperation2.BackspaceMenuCallback
 
-          -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
-          function numberValue5()
-            local arg13, dataTable
-            arg13 = ClearTimecycleModifier
-            arg13()
+          -- === HELPER FUNCTION (decompiler name: number5; parameters: none) ===
+          function number5()
+            local localValue13, dataCollection
+            localValue13 = ClearTimecycleModifier
+            localValue13()
           end
-          cmgCall2(numberValue5)
-          cmgCall2 = rageUiCall
-          if arg42 ~= cmgCall2 then
-            rageUiCall = arg42
-            numberValue5 = textValue2
-            cmgCall2 = textValue
-            cmgCall2 = cmgCall2[numberValue5]
-            numberValue5 = textValue5
-            cmgCall2 = cmgCall2[numberValue5]
-            cmgCall2 = cmgCall2.timecycleEffect
-            if "" ~= cmgCall2 then
-              cmgCall2 = SetTimecycleModifier
-              numberValue6 = textValue2
-              numberValue5 = textValue
-              numberValue5 = numberValue5[numberValue6]
-              numberValue6 = textValue5
-              numberValue5 = numberValue5[numberValue6]
-              numberValue5 = numberValue5.timecycleEffect
-              cmgCall2(numberValue5)
-              cmgCall2 = SetTimecycleModifierStrength
-              numberValue6 = textValue2
-              numberValue5 = textValue
-              numberValue5 = numberValue5[numberValue6]
-              numberValue6 = textValue5
-              numberValue5 = numberValue5[numberValue6]
-              numberValue5 = numberValue5.timecycleIntensity
-              cmgCall2(numberValue5)
-              cmgCall2 = CMG
-              cmgCall2 = cmgCall2.setTimecycleIntensity
-              numberValue5 = textValue2
-              numberValue6 = textValue5
-              flag12 = rageUiCall
-              flag10 = textValue42
-              flag10 = flag10[flag12]
-              cmgCall2(numberValue5, numberValue6, flag10)
+          cmgOperation2(number5)
+          cmgOperation2 = rageUiOperation
+          if localValue42 ~= cmgOperation2 then
+            rageUiOperation = localValue42
+            number5 = text2
+            cmgOperation2 = text
+            cmgOperation2 = cmgOperation2[number5]
+            number5 = text5
+            cmgOperation2 = cmgOperation2[number5]
+            cmgOperation2 = cmgOperation2.timecycleEffect
+            if "" ~= cmgOperation2 then
+              cmgOperation2 = SetTimecycleModifier
+              number6 = text2
+              number5 = text
+              number5 = number5[number6]
+              number6 = text5
+              number5 = number5[number6]
+              number5 = number5.timecycleEffect
+              cmgOperation2(number5)
+              cmgOperation2 = SetTimecycleModifierStrength
+              number6 = text2
+              number5 = text
+              number5 = number5[number6]
+              number6 = text5
+              number5 = number5[number6]
+              number5 = number5.timecycleIntensity
+              cmgOperation2(number5)
+              cmgOperation2 = CMG
+              cmgOperation2 = cmgOperation2.setTimecycleIntensity
+              number5 = text2
+              number6 = text5
+              stateFlag12 = rageUiOperation
+              stateFlag10 = text42
+              stateFlag10 = stateFlag10[stateFlag12]
+              cmgOperation2(number5, number6, stateFlag10)
             end
           end
         end
 
-        -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-        function textValue52()
-          local arg12, arg22
+        -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+        function text52()
+          local localValue12, localValue22
         end
-        flag14 = nil
+        stateFlag14 = nil
         -- Beginner: Draw a RageUI list selector.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.ButtonWithStyle
-        flag4 = "Timecycle Effect: "
-        numberValue4 = textValue2
-        flag5 = textValue
-        flag5 = flag5[numberValue4]
-        numberValue4 = textValue5
-        flag5 = flag5[numberValue4]
-        flag5 = flag5.timecycleEffect
-        if not flag5 then
-          flag5 = "N/A"
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.ButtonWithStyle
+        stateFlag4 = "Timecycle Effect: "
+        number4 = text2
+        stateFlag5 = text
+        stateFlag5 = stateFlag5[number4]
+        number4 = text5
+        stateFlag5 = stateFlag5[number4]
+        stateFlag5 = stateFlag5.timecycleEffect
+        if not stateFlag5 then
+          stateFlag5 = "N/A"
         end
-        flag4 = flag4 .. flag5
-        flag5 = ""
-        numberValue4 = {}
-        numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag6 = true
+        stateFlag4 = stateFlag4 .. stateFlag5
+        stateFlag5 = ""
+        number4 = {}
+        number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag6 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-        function flag7(arg12, arg22, arg32)
+        -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+        function stateFlag7(localValue12, localValue22, localValue32)
         end
-        flag8 = RMenu
-        workValue11 = flag8
-        flag8 = flag8.Get
-        textValue52 = "timecycle_manager"
-        flag14 = "cinematic"
-        flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+        stateFlag8 = RMenu
+        workingValue11 = stateFlag8
+        stateFlag8 = stateFlag8.Get
+        text52 = "timecycle_manager"
+        stateFlag14 = "cinematic"
+        stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
         -- Beginner: Draw a selectable RageUI menu button.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.ButtonWithStyle
-        flag4 = "Shake Effect: "
-        numberValue4 = textValue2
-        flag5 = textValue
-        flag5 = flag5[numberValue4]
-        numberValue4 = textValue5
-        flag5 = flag5[numberValue4]
-        flag5 = flag5.shake
-        if not flag5 then
-          flag5 = "N/A"
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.ButtonWithStyle
+        stateFlag4 = "Shake Effect: "
+        number4 = text2
+        stateFlag5 = text
+        stateFlag5 = stateFlag5[number4]
+        number4 = text5
+        stateFlag5 = stateFlag5[number4]
+        stateFlag5 = stateFlag5.shake
+        if not stateFlag5 then
+          stateFlag5 = "N/A"
         end
-        flag4 = flag4 .. flag5
-        flag5 = ""
-        numberValue4 = {}
-        numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag6 = true
+        stateFlag4 = stateFlag4 .. stateFlag5
+        stateFlag5 = ""
+        number4 = {}
+        number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag6 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-        function flag7(arg12, arg22, arg32)
+        -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+        function stateFlag7(localValue12, localValue22, localValue32)
         end
-        flag8 = RMenu
-        workValue11 = flag8
-        flag8 = flag8.Get
-        textValue52 = "shake_manager"
-        flag14 = "cinematic"
-        flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.List
-        flag4 = "Field of View (FOV)"
-        flag5 = rageUiCall2
-        numberValue4 = textValue15
-        flag6 = ""
-        flag7 = {}
-        flag8 = true
+        stateFlag8 = RMenu
+        workingValue11 = stateFlag8
+        stateFlag8 = stateFlag8.Get
+        text52 = "shake_manager"
+        stateFlag14 = "cinematic"
+        stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.List
+        stateFlag4 = "Field of View (FOV)"
+        stateFlag5 = rageUiOperation2
+        number4 = text15
+        stateFlag6 = ""
+        stateFlag7 = {}
+        stateFlag8 = true
 
-        -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-        function workValue11(arg12, arg22, arg32, arg42)
-          local cmgCall2, numberValue5, numberValue6
-          cmgCall2 = textValue15
-          if arg42 ~= cmgCall2 then
-            textValue15 = arg42
-            cmgCall2 = CMG
-            cmgCall2 = cmgCall2.setCameraFov
-            numberValue5 = textValue2
-            numberValue6 = textValue5
-            cmgCall2(numberValue5, numberValue6)
+        -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+        function workingValue11(localValue12, localValue22, localValue32, localValue42)
+          local cmgOperation2, number5, number6
+          cmgOperation2 = text15
+          if localValue42 ~= cmgOperation2 then
+            text15 = localValue42
+            cmgOperation2 = CMG
+            cmgOperation2 = cmgOperation2.setCameraFov
+            number5 = text2
+            number6 = text5
+            cmgOperation2(number5, number6)
           end
         end
 
-        -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-        function textValue52()
-          local arg12, arg22
+        -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+        function text52()
+          local localValue12, localValue22
         end
-        flag14 = nil
+        stateFlag14 = nil
         -- Beginner: Draw a RageUI list selector.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-        workValue2 = RageUI
-        workValue2 = workValue2.ButtonWithStyle
-        flag4 = "Remove Camera"
-        flag5 = ""
-        numberValue4 = {}
-        numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        flag6 = true
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+        workingValue2 = RageUI
+        workingValue2 = workingValue2.ButtonWithStyle
+        stateFlag4 = "Remove Camera"
+        stateFlag5 = ""
+        number4 = {}
+        number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        stateFlag6 = true
 
-        -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-        function flag7(arg12, arg22, arg32)
-          local arg42, cmgCall2, numberValue5
-          if arg32 then
-            arg42 = CMG
-            arg42 = arg42.deleteCamera
-            cmgCall2 = textValue2
-            numberValue5 = textValue5
-            arg42(cmgCall2, numberValue5)
-            arg42 = nil
-            textValue30 = arg42
-            arg42 = textValue32
-            arg42()
-            arg42 = 1
-            textValue5 = arg42
+        -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+        function stateFlag7(localValue12, localValue22, localValue32)
+          local localValue42, cmgOperation2, number5
+          if localValue32 then
+            localValue42 = CMG
+            localValue42 = localValue42.deleteCamera
+            cmgOperation2 = text2
+            number5 = text5
+            localValue42(cmgOperation2, number5)
+            localValue42 = nil
+            text30 = localValue42
+            localValue42 = text32
+            localValue42()
+            localValue42 = 1
+            text5 = localValue42
           end
         end
-        flag8 = RMenu
-        workValue11 = flag8
-        flag8 = flag8.Get
-        textValue52 = "camera_manager"
-        flag14 = "cinematic"
-        flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+        stateFlag8 = RMenu
+        workingValue11 = stateFlag8
+        stateFlag8 = stateFlag8.Get
+        text52 = "camera_manager"
+        stateFlag14 = "cinematic"
+        stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
         -- Beginner: Draw a selectable RageUI menu button.
-        workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
+        workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
     end
     else
-      workValue2 = RageUI
-      workValue2 = workValue2.Separator
-      flag4 = "~r~No Camera ID selected."
-      workValue2(flag4)
+      workingValue2 = RageUI
+      workingValue2 = workingValue2.Separator
+      stateFlag4 = "~r~No Camera ID selected."
+      workingValue2(stateFlag4)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "add_camera"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "add_camera"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
     end
-    workValue2(flag4)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Add Static Camera"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Add Static Camera"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42, cmgCall2
-      if arg32 then
-        arg42 = textValue3
-        if arg42 then
-          arg42 = notify
-          cmgCall2 = "~r~Can not add a camera whilst you are adding a camera."
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2
+      if localValue32 then
+        localValue42 = text3
+        if localValue42 then
+          localValue42 = notify
+          cmgOperation2 = "~r~Can not add a camera whilst you are adding a camera."
           -- Beginner: Show a notification to the player.
-          arg42(cmgCall2)
+          localValue42(cmgOperation2)
           return
         end
-        arg42 = nil
-        textValue30 = arg42
-        arg42 = GetEntityCoords
-        cmgCall2 = PlayerPedId
+        localValue42 = nil
+        text30 = localValue42
+        localValue42 = GetEntityCoords
+        cmgOperation2 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        cmgCall2 = cmgCall2()
+        cmgOperation2 = cmgOperation2()
         -- Beginner: result below is entityCoords.
-        arg42 = arg42(cmgCall2)
-        textValue8 = arg42
-        arg42 = textValue32
-        arg42()
-        arg42 = tCMG
-        arg42 = arg42.toggleNoclip
-        arg42()
-        arg42 = true
-        textValue3 = arg42
-        arg42 = "Static Camera"
-        textValue9 = arg42
+        localValue42 = localValue42(cmgOperation2)
+        text8 = localValue42
+        localValue42 = text32
+        localValue42()
+        localValue42 = tCMG
+        localValue42 = localValue42.toggleNoclip
+        localValue42()
+        localValue42 = true
+        text3 = localValue42
+        localValue42 = "Static Camera"
+        text9 = localValue42
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "camera_manager"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "camera_manager"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Add Interpolation Camera"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Add Interpolation Camera"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42, cmgCall2
-      if arg32 then
-        arg42 = textValue3
-        if arg42 then
-          arg42 = notify
-          cmgCall2 = "~r~Can not add a camera whilst you are adding a camera."
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2
+      if localValue32 then
+        localValue42 = text3
+        if localValue42 then
+          localValue42 = notify
+          cmgOperation2 = "~r~Can not add a camera whilst you are adding a camera."
           -- Beginner: Show a notification to the player.
-          arg42(cmgCall2)
+          localValue42(cmgOperation2)
           return
         end
-        arg42 = nil
-        textValue30 = arg42
-        arg42 = GetEntityCoords
-        cmgCall2 = PlayerPedId
+        localValue42 = nil
+        text30 = localValue42
+        localValue42 = GetEntityCoords
+        cmgOperation2 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        cmgCall2 = cmgCall2()
+        cmgOperation2 = cmgOperation2()
         -- Beginner: result below is entityCoords.
-        arg42 = arg42(cmgCall2)
-        textValue8 = arg42
-        arg42 = textValue32
-        arg42()
-        arg42 = tCMG
-        arg42 = arg42.toggleNoclip
-        arg42()
-        arg42 = true
-        textValue3 = arg42
-        arg42 = "Interpolation Camera"
-        textValue9 = arg42
+        localValue42 = localValue42(cmgOperation2)
+        text8 = localValue42
+        localValue42 = text32
+        localValue42()
+        localValue42 = tCMG
+        localValue42 = localValue42.toggleNoclip
+        localValue42()
+        localValue42 = true
+        text3 = localValue42
+        localValue42 = "Interpolation Camera"
+        text9 = localValue42
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "camera_manager"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "camera_manager"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "screeneffect_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "screeneffect_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
-      arg12 = AnimpostfxStopAll
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
+      localValue12 = AnimpostfxStopAll
+      localValue12()
     end
-    workValue2(flag4)
-    workValue2 = 1
-    flag4 = textValue11
-    flag4 = #flag4
-    flag5 = 1
-    for numberValue4 = workValue2, flag4, flag5 do
-      flag6 = RageUI
-      flag6 = flag6.ButtonWithStyle
-      flag7 = textValue11
-      flag7 = flag7[numberValue4]
-      flag8 = ""
-      workValue11 = {}
-      workValue11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      textValue52 = true
+    workingValue2(stateFlag4)
+    workingValue2 = 1
+    stateFlag4 = text11
+    stateFlag4 = #stateFlag4
+    stateFlag5 = 1
+    for number4 = workingValue2, stateFlag4, stateFlag5 do
+      stateFlag6 = RageUI
+      stateFlag6 = stateFlag6.ButtonWithStyle
+      stateFlag7 = text11
+      stateFlag7 = stateFlag7[number4]
+      stateFlag8 = ""
+      workingValue11 = {}
+      workingValue11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      text52 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg12, arg22, arg32) ===
-      function flag14(arg12, arg22, arg32)
-        local arg42, cmgCall2, numberValue5, numberValue6, flag10
-        if arg22 then
-          arg42 = AnimpostfxStopAll
-          arg42()
-          cmgCall2 = numberValue4
-          arg42 = textValue11
-          arg42 = arg42[cmgCall2]
-          if "Default" ~= arg42 then
-            arg42 = AnimpostfxPlay
-            numberValue5 = numberValue4
-            cmgCall2 = textValue11
-            cmgCall2 = cmgCall2[numberValue5]
-            numberValue5 = 5000
-            numberValue6 = false
-            arg42(cmgCall2, numberValue5, numberValue6)
+      -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue12, localValue22, localValue32) ===
+      function stateFlag14(localValue12, localValue22, localValue32)
+        local localValue42, cmgOperation2, number5, number6, stateFlag10
+        if localValue22 then
+          localValue42 = AnimpostfxStopAll
+          localValue42()
+          cmgOperation2 = number4
+          localValue42 = text11
+          localValue42 = localValue42[cmgOperation2]
+          if "Default" ~= localValue42 then
+            localValue42 = AnimpostfxPlay
+            number5 = number4
+            cmgOperation2 = text11
+            cmgOperation2 = cmgOperation2[number5]
+            number5 = 5000
+            number6 = false
+            localValue42(cmgOperation2, number5, number6)
           end
         end
-        if arg32 then
-          arg42 = CMG
-          arg42 = arg42.modifyScreeneffect
-          cmgCall2 = textValue2
-          numberValue5 = textValue5
-          flag10 = numberValue4
-          numberValue6 = textValue11
-          numberValue6 = numberValue6[flag10]
-          arg42(cmgCall2, numberValue5, numberValue6)
+        if localValue32 then
+          localValue42 = CMG
+          localValue42 = localValue42.modifyScreeneffect
+          cmgOperation2 = text2
+          number5 = text5
+          stateFlag10 = number4
+          number6 = text11
+          number6 = number6[stateFlag10]
+          localValue42(cmgOperation2, number5, number6)
         end
       end
       position = RMenu
       position2 = position
       position = position.Get
-      workValue7 = "camera_manager"
-      numberValue = "cinematic"
-      position, position2, workValue7, numberValue = position(position2, workValue7, numberValue)
+      workingValue7 = "camera_manager"
+      number = "cinematic"
+      position, position2, workingValue7, number = position(position2, workingValue7, number)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag6(flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue)
+      stateFlag6(stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "timecycle_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "timecycle_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
-      arg12 = ClearTimecycleModifier
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
+      localValue12 = ClearTimecycleModifier
+      localValue12()
     end
-    workValue2(flag4)
-    workValue2 = 1
-    flag4 = cmgCall
-    flag4 = #flag4
-    flag5 = 1
-    for numberValue4 = workValue2, flag4, flag5 do
-      flag6 = RageUI
-      flag6 = flag6.ButtonWithStyle
-      flag7 = cmgCall
-      flag7 = flag7[numberValue4]
-      flag8 = ""
-      workValue11 = {}
-      workValue11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      textValue52 = true
+    workingValue2(stateFlag4)
+    workingValue2 = 1
+    stateFlag4 = cmgOperation
+    stateFlag4 = #stateFlag4
+    stateFlag5 = 1
+    for number4 = workingValue2, stateFlag4, stateFlag5 do
+      stateFlag6 = RageUI
+      stateFlag6 = stateFlag6.ButtonWithStyle
+      stateFlag7 = cmgOperation
+      stateFlag7 = stateFlag7[number4]
+      stateFlag8 = ""
+      workingValue11 = {}
+      workingValue11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      text52 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg12, arg22, arg32) ===
-      function flag14(arg12, arg22, arg32)
-        local arg42, cmgCall2, numberValue5, numberValue6, flag10
-        if arg22 then
-          arg42 = ClearTimecycleModifier
-          arg42()
-          cmgCall2 = numberValue4
-          arg42 = cmgCall
-          arg42 = arg42[cmgCall2]
-          if "Default" ~= arg42 then
-            arg42 = SetTimecycleModifier
-            numberValue5 = numberValue4
-            cmgCall2 = cmgCall
-            cmgCall2 = cmgCall2[numberValue5]
-            arg42(cmgCall2)
+      -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue12, localValue22, localValue32) ===
+      function stateFlag14(localValue12, localValue22, localValue32)
+        local localValue42, cmgOperation2, number5, number6, stateFlag10
+        if localValue22 then
+          localValue42 = ClearTimecycleModifier
+          localValue42()
+          cmgOperation2 = number4
+          localValue42 = cmgOperation
+          localValue42 = localValue42[cmgOperation2]
+          if "Default" ~= localValue42 then
+            localValue42 = SetTimecycleModifier
+            number5 = number4
+            cmgOperation2 = cmgOperation
+            cmgOperation2 = cmgOperation2[number5]
+            localValue42(cmgOperation2)
           end
         end
-        if arg32 then
-          arg42 = CMG
-          arg42 = arg42.modifyTimecycleEffect
-          cmgCall2 = textValue2
-          numberValue5 = textValue5
-          flag10 = numberValue4
-          numberValue6 = cmgCall
-          numberValue6 = numberValue6[flag10]
-          arg42(cmgCall2, numberValue5, numberValue6)
+        if localValue32 then
+          localValue42 = CMG
+          localValue42 = localValue42.modifyTimecycleEffect
+          cmgOperation2 = text2
+          number5 = text5
+          stateFlag10 = number4
+          number6 = cmgOperation
+          number6 = number6[stateFlag10]
+          localValue42(cmgOperation2, number5, number6)
         end
       end
       position = RMenu
       position2 = position
       position = position.Get
-      workValue7 = "camera_manager"
-      numberValue = "cinematic"
-      position, position2, workValue7, numberValue = position(position2, workValue7, numberValue)
+      workingValue7 = "camera_manager"
+      number = "cinematic"
+      position, position2, workingValue7, number = position(position2, workingValue7, number)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag6(flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue)
+      stateFlag6(stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "shake_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "shake_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
-      arg12 = AnimpostfxStopAll
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
+      localValue12 = AnimpostfxStopAll
+      localValue12()
     end
-    workValue2(flag4)
-    workValue2 = 1
-    flag4 = textValue48
-    flag4 = #flag4
-    flag5 = 1
-    for numberValue4 = workValue2, flag4, flag5 do
-      flag6 = RageUI
-      flag6 = flag6.ButtonWithStyle
-      flag7 = textValue48
-      flag7 = flag7[numberValue4]
-      flag8 = ""
-      workValue11 = {}
-      workValue11.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      textValue52 = true
+    workingValue2(stateFlag4)
+    workingValue2 = 1
+    stateFlag4 = text48
+    stateFlag4 = #stateFlag4
+    stateFlag5 = 1
+    for number4 = workingValue2, stateFlag4, stateFlag5 do
+      stateFlag6 = RageUI
+      stateFlag6 = stateFlag6.ButtonWithStyle
+      stateFlag7 = text48
+      stateFlag7 = stateFlag7[number4]
+      stateFlag8 = ""
+      workingValue11 = {}
+      workingValue11.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      text52 = true
 
-      -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg12, arg22, arg32) ===
-      function flag14(arg12, arg22, arg32)
-        local arg42, cmgCall2, numberValue5, numberValue6, flag10
-        if arg22 then
-          arg42 = textValue13
-          if "" ~= arg42 then
-            arg42 = textValue13
-            numberValue5 = numberValue4
-            cmgCall2 = textValue48
-            cmgCall2 = cmgCall2[numberValue5]
-            if arg42 == cmgCall2 then
-              goto flow_label_28
+      -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue12, localValue22, localValue32) ===
+      function stateFlag14(localValue12, localValue22, localValue32)
+        local localValue42, cmgOperation2, number5, number6, stateFlag10
+        if localValue22 then
+          localValue42 = text13
+          if "" ~= localValue42 then
+            localValue42 = text13
+            number5 = number4
+            cmgOperation2 = text48
+            cmgOperation2 = cmgOperation2[number5]
+            if localValue42 == cmgOperation2 then
+              goto continueAtStep28
             end
           end
-          cmgCall2 = numberValue4
-          arg42 = textValue48
-          arg42 = arg42[cmgCall2]
-          textValue13 = arg42
-          arg42 = SetTimeout
-          cmgCall2 = 25000
+          cmgOperation2 = number4
+          localValue42 = text48
+          localValue42 = localValue42[cmgOperation2]
+          text13 = localValue42
+          localValue42 = SetTimeout
+          cmgOperation2 = 25000
 
-          -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
-          function numberValue5()
-            local arg13, dataTable
-            arg13 = ""
-            textValue13 = arg13
+          -- === HELPER FUNCTION (decompiler name: number5; parameters: none) ===
+          function number5()
+            local localValue13, dataCollection
+            localValue13 = ""
+            text13 = localValue13
           end
-          arg42(cmgCall2, numberValue5)
-          arg42 = ShakeCam
-          cmgCall2 = GetRenderingCam
-          cmgCall2 = cmgCall2()
-          numberValue6 = numberValue4
-          numberValue5 = textValue48
-          numberValue5 = numberValue5[numberValue6]
-          numberValue6 = 1.0
-          arg42(cmgCall2, numberValue5, numberValue6)
+          localValue42(cmgOperation2, number5)
+          localValue42 = ShakeCam
+          cmgOperation2 = GetRenderingCam
+          cmgOperation2 = cmgOperation2()
+          number6 = number4
+          number5 = text48
+          number5 = number5[number6]
+          number6 = 1.0
+          localValue42(cmgOperation2, number5, number6)
         end
-        ::flow_label_28::
-        if arg32 then
-          arg42 = CMG
-          arg42 = arg42.modifyShakeEffect
-          cmgCall2 = textValue2
-          numberValue5 = textValue5
-          flag10 = numberValue4
-          numberValue6 = textValue48
-          numberValue6 = numberValue6[flag10]
-          arg42(cmgCall2, numberValue5, numberValue6)
+        ::continueAtStep28::
+        if localValue32 then
+          localValue42 = CMG
+          localValue42 = localValue42.modifyShakeEffect
+          cmgOperation2 = text2
+          number5 = text5
+          stateFlag10 = number4
+          number6 = text48
+          number6 = number6[stateFlag10]
+          localValue42(cmgOperation2, number5, number6)
         end
       end
       position = RMenu
       position2 = position
       position = position.Get
-      workValue7 = "camera_manager"
-      numberValue = "cinematic"
-      position, position2, workValue7, numberValue = position(position2, workValue7, numberValue)
+      workingValue7 = "camera_manager"
+      number = "cinematic"
+      position, position2, workingValue7, number = position(position2, workingValue7, number)
       -- Beginner: Draw a selectable RageUI menu button.
-      flag6(flag7, flag8, workValue11, textValue52, flag14, position, position2, workValue7, numberValue)
+      stateFlag6(stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2, workingValue7, number)
     end
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "camera_focus_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "camera_focus_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
-      arg12 = AnimpostfxStopAll
-      arg12()
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
+      localValue12 = AnimpostfxStopAll
+      localValue12()
     end
-    workValue2(flag4)
-    workValue2 = RageUI
-    workValue2 = workValue2.Separator
-    flag4 = "~b~Currently pointed at: "
-    numberValue4 = textValue2
-    flag5 = textValue
-    flag5 = flag5[numberValue4]
-    numberValue4 = textValue5
-    flag5 = flag5[numberValue4]
-    flag5 = flag5.focusType
-    numberValue4 = " : "
-    flag7 = textValue2
-    flag6 = textValue
-    flag6 = flag6[flag7]
-    flag7 = textValue5
-    flag6 = flag6[flag7]
-    flag6 = flag6.focusData
-    flag4 = flag4 .. flag5 .. numberValue4 .. flag6
-    workValue2(flag4)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Player"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.Separator
+    stateFlag4 = "~b~Currently pointed at: "
+    number4 = text2
+    stateFlag5 = text
+    stateFlag5 = stateFlag5[number4]
+    number4 = text5
+    stateFlag5 = stateFlag5[number4]
+    stateFlag5 = stateFlag5.focusType
+    number4 = " : "
+    stateFlag7 = text2
+    stateFlag6 = text
+    stateFlag6 = stateFlag6[stateFlag7]
+    stateFlag7 = text5
+    stateFlag6 = stateFlag6[stateFlag7]
+    stateFlag6 = stateFlag6.focusData
+    stateFlag4 = stateFlag4 .. stateFlag5 .. number4 .. stateFlag6
+    workingValue2(stateFlag4)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Player"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42, cmgCall2, numberValue5, numberValue6, flag10, flag12
-      if arg32 then
-        arg42 = CMG
-        arg42 = arg42.GetRageInputText
-        cmgCall2 = "Temp ID:"
-        arg42 = arg42(cmgCall2)
-        if "" ~= arg42 then
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.addCameraFocus
-          numberValue5 = textValue2
-          numberValue6 = textValue5
-          flag10 = "player"
-          flag12 = arg42
-          cmgCall2(numberValue5, numberValue6, flag10, flag12)
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2, number5, number6, stateFlag10, stateFlag12
+      if localValue32 then
+        localValue42 = CMG
+        localValue42 = localValue42.GetRageInputText
+        cmgOperation2 = "Temp ID:"
+        localValue42 = localValue42(cmgOperation2)
+        if "" ~= localValue42 then
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.addCameraFocus
+          number5 = text2
+          number6 = text5
+          stateFlag10 = "player"
+          stateFlag12 = localValue42
+          cmgOperation2(number5, number6, stateFlag10, stateFlag12)
         end
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "camera_manager"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "camera_manager"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.ButtonWithStyle
-    flag4 = "Coordinates"
-    flag5 = ""
-    numberValue4 = {}
-    numberValue4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    flag6 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.ButtonWithStyle
+    stateFlag4 = "Coordinates"
+    stateFlag5 = ""
+    number4 = {}
+    number4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    stateFlag6 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag7; parameters: arg12, arg22, arg32) ===
-    function flag7(arg12, arg22, arg32)
-      local arg42, cmgCall2, numberValue5, numberValue6
-      if arg32 then
-        arg42 = CMG
-        arg42 = arg42.clientPrompt
-        cmgCall2 = "Enter coordinates:"
-        numberValue5 = ""
+    -- === HELPER FUNCTION (decompiler name: stateFlag7; parameters: localValue12, localValue22, localValue32) ===
+    function stateFlag7(localValue12, localValue22, localValue32)
+      local localValue42, cmgOperation2, number5, number6
+      if localValue32 then
+        localValue42 = CMG
+        localValue42 = localValue42.clientPrompt
+        cmgOperation2 = "Enter coordinates:"
+        number5 = ""
 
-        -- === HELPER FUNCTION (decompiler name: numberValue6; parameters: arg13) ===
-        function numberValue6(arg13)
-          local dataTable, stringHelper, workValue9, textValue44, textValue50, textValue51, tableHelper, textValue53, vector3Builder, workValue4, workValue6, workValue8
-          dataTable = {}
+        -- === HELPER FUNCTION (decompiler name: number6; parameters: localValue13) ===
+        function number6(localValue13)
+          local dataCollection, stringHelper, workingValue9, text44, text50, text51, tableHelper, text53, createVector3, workingValue4, workingValue6, workingValue8
+          dataCollection = {}
           stringHelper = string
           stringHelper = stringHelper.gmatch
-          textValue44 = arg13
-          workValue9 = arg13.gsub
-          textValue50 = "\" y=\""
-          textValue51 = ","
-          workValue9 = workValue9(textValue44, textValue50, textValue51)
-          textValue44 = workValue9
-          workValue9 = workValue9.gsub
-          textValue50 = "\" z=\""
-          textValue51 = ","
-          workValue9 = workValue9(textValue44, textValue50, textValue51)
-          if not workValue9 then
-            workValue9 = "0,0,0"
+          text44 = localValue13
+          workingValue9 = localValue13.gsub
+          text50 = "\" y=\""
+          text51 = ","
+          workingValue9 = workingValue9(text44, text50, text51)
+          text44 = workingValue9
+          workingValue9 = workingValue9.gsub
+          text50 = "\" z=\""
+          text51 = ","
+          workingValue9 = workingValue9(text44, text50, text51)
+          if not workingValue9 then
+            workingValue9 = "0,0,0"
           end
-          textValue44 = "[^,]+"
-          stringHelper, workValue9, textValue44, textValue50 = stringHelper(workValue9, textValue44)
-          for textValue51 in stringHelper, workValue9, textValue44, textValue50 do
+          text44 = "[^,]+"
+          stringHelper, workingValue9, text44, text50 = stringHelper(workingValue9, text44)
+          for text51 in stringHelper, workingValue9, text44, text50 do
             tableHelper = table
             tableHelper = tableHelper.insert
-            textValue53 = dataTable
-            vector3Builder = tonumber
-            workValue4 = textValue51
-            vector3Builder, workValue4, workValue6, workValue8 = vector3Builder(workValue4)
-            tableHelper(textValue53, vector3Builder, workValue4, workValue6, workValue8)
+            text53 = dataCollection
+            createVector3 = tonumber
+            workingValue4 = text51
+            createVector3, workingValue4, workingValue6, workingValue8 = createVector3(workingValue4)
+            tableHelper(text53, createVector3, workingValue4, workingValue6, workingValue8)
           end
-          if "" == arg13 then
+          if "" == localValue13 then
             return
           end
           stringHelper = 0
-          workValue9 = 0
-          textValue44 = 0
-          textValue50 = dataTable[1]
-          if nil ~= textValue50 then
-            stringHelper = dataTable[1]
+          workingValue9 = 0
+          text44 = 0
+          text50 = dataCollection[1]
+          if nil ~= text50 then
+            stringHelper = dataCollection[1]
           end
-          textValue50 = dataTable[2]
-          if nil ~= textValue50 then
-            workValue9 = dataTable[2]
+          text50 = dataCollection[2]
+          if nil ~= text50 then
+            workingValue9 = dataCollection[2]
           end
-          textValue50 = dataTable[3]
-          if nil ~= textValue50 then
-            textValue44 = dataTable[3]
+          text50 = dataCollection[3]
+          if nil ~= text50 then
+            text44 = dataCollection[3]
           end
-          textValue50 = CMG
-          textValue50 = textValue50.addCameraFocus
-          textValue51 = textValue2
-          tableHelper = textValue5
-          textValue53 = "coord"
-          vector3Builder = vector3
-          workValue4 = stringHelper
-          workValue6 = workValue9
-          workValue8 = textValue44
-          vector3Builder, workValue4, workValue6, workValue8 = vector3Builder(workValue4, workValue6, workValue8)
-          textValue50(textValue51, tableHelper, textValue53, vector3Builder, workValue4, workValue6, workValue8)
+          text50 = CMG
+          text50 = text50.addCameraFocus
+          text51 = text2
+          tableHelper = text5
+          text53 = "coord"
+          createVector3 = vector3
+          workingValue4 = stringHelper
+          workingValue6 = workingValue9
+          workingValue8 = text44
+          createVector3, workingValue4, workingValue6, workingValue8 = createVector3(workingValue4, workingValue6, workingValue8)
+          text50(text51, tableHelper, text53, createVector3, workingValue4, workingValue6, workingValue8)
         end
-        arg42(cmgCall2, numberValue5, numberValue6)
+        localValue42(cmgOperation2, number5, number6)
       end
     end
-    flag8 = RMenu
-    workValue11 = flag8
-    flag8 = flag8.Get
-    textValue52 = "camera_manager"
-    flag14 = "cinematic"
-    flag8, workValue11, textValue52, flag14 = flag8(workValue11, textValue52, flag14)
+    stateFlag8 = RMenu
+    workingValue11 = stateFlag8
+    stateFlag8 = stateFlag8.Get
+    text52 = "camera_manager"
+    stateFlag14 = "cinematic"
+    stateFlag8, workingValue11, text52, stateFlag14 = stateFlag8(workingValue11, text52, stateFlag14)
     -- Beginner: Draw a selectable RageUI menu button.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "dof_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "dof_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
     end
-    workValue2(flag4)
-    workValue2 = RageUI
-    workValue2 = workValue2.Separator
-    flag4 = "~g~These settings require some fiddling to get the desired result."
-    workValue2(flag4)
-    workValue2 = RageUI
-    workValue2 = workValue2.List
-    flag4 = "Near Plane Out"
-    flag5 = textValue23
-    numberValue4 = textValue24
-    flag6 = ""
-    flag7 = {}
-    flag8 = true
+    workingValue2(stateFlag4)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.Separator
+    stateFlag4 = "~g~These settings require some fiddling to get the desired result."
+    workingValue2(stateFlag4)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.List
+    stateFlag4 = "Near Plane Out"
+    stateFlag5 = text23
+    number4 = text24
+    stateFlag6 = ""
+    stateFlag7 = {}
+    stateFlag8 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-    function workValue11(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6, flag10, flag12, workValue12, workValue3, workValue5
-      cmgCall2 = textValue24
-      if arg42 ~= cmgCall2 then
-        textValue24 = arg42
-        cmgCall2 = SetHidofOverride
-        numberValue5 = true
-        numberValue6 = true
-        flag12 = textValue24
-        flag10 = textValue23
-        flag10 = flag10[flag12]
-        workValue12 = textValue25
-        flag12 = textValue23
-        flag12 = flag12[workValue12]
-        workValue3 = textValue26
-        workValue12 = textValue23
-        workValue12 = workValue12[workValue3]
-        workValue5 = textValue27
-        workValue3 = textValue23
-        workValue3 = workValue3[workValue5]
-        cmgCall2(numberValue5, numberValue6, flag10, flag12, workValue12, workValue3)
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function workingValue11(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3, workingValue5
+      cmgOperation2 = text24
+      if localValue42 ~= cmgOperation2 then
+        text24 = localValue42
+        cmgOperation2 = SetHidofOverride
+        number5 = true
+        number6 = true
+        stateFlag12 = text24
+        stateFlag10 = text23
+        stateFlag10 = stateFlag10[stateFlag12]
+        workingValue12 = text25
+        stateFlag12 = text23
+        stateFlag12 = stateFlag12[workingValue12]
+        workingValue3 = text26
+        workingValue12 = text23
+        workingValue12 = workingValue12[workingValue3]
+        workingValue5 = text27
+        workingValue3 = text23
+        workingValue3 = workingValue3[workingValue5]
+        cmgOperation2(number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3)
       end
     end
 
-    -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-    function textValue52()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+    function text52()
+      local localValue12, localValue22
     end
-    flag14 = nil
+    stateFlag14 = nil
     -- Beginner: Draw a RageUI list selector.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.List
-    flag4 = "Near Plane In"
-    flag5 = textValue23
-    numberValue4 = textValue25
-    flag6 = ""
-    flag7 = {}
-    flag8 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.List
+    stateFlag4 = "Near Plane In"
+    stateFlag5 = text23
+    number4 = text25
+    stateFlag6 = ""
+    stateFlag7 = {}
+    stateFlag8 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-    function workValue11(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6, flag10, flag12, workValue12, workValue3, workValue5
-      cmgCall2 = textValue25
-      if arg42 ~= cmgCall2 then
-        textValue25 = arg42
-        cmgCall2 = SetHidofOverride
-        numberValue5 = true
-        numberValue6 = true
-        flag12 = textValue24
-        flag10 = textValue23
-        flag10 = flag10[flag12]
-        workValue12 = textValue25
-        flag12 = textValue23
-        flag12 = flag12[workValue12]
-        workValue3 = textValue26
-        workValue12 = textValue23
-        workValue12 = workValue12[workValue3]
-        workValue5 = textValue27
-        workValue3 = textValue23
-        workValue3 = workValue3[workValue5]
-        cmgCall2(numberValue5, numberValue6, flag10, flag12, workValue12, workValue3)
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function workingValue11(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3, workingValue5
+      cmgOperation2 = text25
+      if localValue42 ~= cmgOperation2 then
+        text25 = localValue42
+        cmgOperation2 = SetHidofOverride
+        number5 = true
+        number6 = true
+        stateFlag12 = text24
+        stateFlag10 = text23
+        stateFlag10 = stateFlag10[stateFlag12]
+        workingValue12 = text25
+        stateFlag12 = text23
+        stateFlag12 = stateFlag12[workingValue12]
+        workingValue3 = text26
+        workingValue12 = text23
+        workingValue12 = workingValue12[workingValue3]
+        workingValue5 = text27
+        workingValue3 = text23
+        workingValue3 = workingValue3[workingValue5]
+        cmgOperation2(number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3)
       end
     end
 
-    -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-    function textValue52()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+    function text52()
+      local localValue12, localValue22
     end
-    flag14 = nil
+    stateFlag14 = nil
     -- Beginner: Draw a RageUI list selector.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.List
-    flag4 = "Far Plane Out"
-    flag5 = textValue23
-    numberValue4 = textValue26
-    flag6 = ""
-    flag7 = {}
-    flag8 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.List
+    stateFlag4 = "Far Plane Out"
+    stateFlag5 = text23
+    number4 = text26
+    stateFlag6 = ""
+    stateFlag7 = {}
+    stateFlag8 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-    function workValue11(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6, flag10, flag12, workValue12, workValue3, workValue5
-      cmgCall2 = textValue26
-      if arg42 ~= cmgCall2 then
-        textValue26 = arg42
-        cmgCall2 = SetHidofOverride
-        numberValue5 = true
-        numberValue6 = true
-        flag12 = textValue24
-        flag10 = textValue23
-        flag10 = flag10[flag12]
-        workValue12 = textValue25
-        flag12 = textValue23
-        flag12 = flag12[workValue12]
-        workValue3 = textValue26
-        workValue12 = textValue23
-        workValue12 = workValue12[workValue3]
-        workValue5 = textValue27
-        workValue3 = textValue23
-        workValue3 = workValue3[workValue5]
-        cmgCall2(numberValue5, numberValue6, flag10, flag12, workValue12, workValue3)
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function workingValue11(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3, workingValue5
+      cmgOperation2 = text26
+      if localValue42 ~= cmgOperation2 then
+        text26 = localValue42
+        cmgOperation2 = SetHidofOverride
+        number5 = true
+        number6 = true
+        stateFlag12 = text24
+        stateFlag10 = text23
+        stateFlag10 = stateFlag10[stateFlag12]
+        workingValue12 = text25
+        stateFlag12 = text23
+        stateFlag12 = stateFlag12[workingValue12]
+        workingValue3 = text26
+        workingValue12 = text23
+        workingValue12 = workingValue12[workingValue3]
+        workingValue5 = text27
+        workingValue3 = text23
+        workingValue3 = workingValue3[workingValue5]
+        cmgOperation2(number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3)
       end
     end
 
-    -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-    function textValue52()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+    function text52()
+      local localValue12, localValue22
     end
-    flag14 = nil
+    stateFlag14 = nil
     -- Beginner: Draw a RageUI list selector.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    workValue2 = RageUI
-    workValue2 = workValue2.List
-    flag4 = "Far Plane In"
-    flag5 = textValue23
-    numberValue4 = textValue27
-    flag6 = ""
-    flag7 = {}
-    flag8 = true
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.List
+    stateFlag4 = "Far Plane In"
+    stateFlag5 = text23
+    number4 = text27
+    stateFlag6 = ""
+    stateFlag7 = {}
+    stateFlag8 = true
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-    function workValue11(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6, flag10, flag12, workValue12, workValue3, workValue5
-      cmgCall2 = textValue27
-      if arg42 ~= cmgCall2 then
-        textValue27 = arg42
-        cmgCall2 = SetHidofOverride
-        numberValue5 = true
-        numberValue6 = true
-        flag12 = textValue24
-        flag10 = textValue23
-        flag10 = flag10[flag12]
-        workValue12 = textValue25
-        flag12 = textValue23
-        flag12 = flag12[workValue12]
-        workValue3 = textValue26
-        workValue12 = textValue23
-        workValue12 = workValue12[workValue3]
-        workValue5 = textValue27
-        workValue3 = textValue23
-        workValue3 = workValue3[workValue5]
-        cmgCall2(numberValue5, numberValue6, flag10, flag12, workValue12, workValue3)
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function workingValue11(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3, workingValue5
+      cmgOperation2 = text27
+      if localValue42 ~= cmgOperation2 then
+        text27 = localValue42
+        cmgOperation2 = SetHidofOverride
+        number5 = true
+        number6 = true
+        stateFlag12 = text24
+        stateFlag10 = text23
+        stateFlag10 = stateFlag10[stateFlag12]
+        workingValue12 = text25
+        stateFlag12 = text23
+        stateFlag12 = stateFlag12[workingValue12]
+        workingValue3 = text26
+        workingValue12 = text23
+        workingValue12 = workingValue12[workingValue3]
+        workingValue5 = text27
+        workingValue3 = text23
+        workingValue3 = workingValue3[workingValue5]
+        cmgOperation2(number5, number6, stateFlag10, stateFlag12, workingValue12, workingValue3)
       end
     end
 
-    -- === HELPER FUNCTION (decompiler name: textValue52; parameters: none) ===
-    function textValue52()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: text52; parameters: none) ===
+    function text52()
+      local localValue12, localValue22
     end
-    flag14 = nil
+    stateFlag14 = nil
     -- Beginner: Draw a RageUI list selector.
-    workValue2(flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
+    workingValue2(stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
-  arg1 = RageUI
-  arg1 = arg1.IsVisible
-  arg2 = RMenu
-  arg3 = arg2
-  arg2 = arg2.Get
-  arg4 = "weather_time_manager"
-  textValue43 = "cinematic"
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
+  localValue1 = RageUI
+  localValue1 = localValue1.IsVisible
+  localValue2 = RMenu
+  localValue3 = localValue2
+  localValue2 = localValue2.Get
+  localValue4 = "weather_time_manager"
+  text43 = "cinematic"
   -- Beginner: result below is menu.
-  arg2 = arg2(arg3, arg4, textValue43)
-  arg3 = true
-  arg4 = true
-  textValue43 = true
+  localValue2 = localValue2(localValue3, localValue4, text43)
+  localValue3 = true
+  localValue4 = true
+  text43 = true
 
-  -- === HELPER FUNCTION (decompiler name: textValue49; parameters: none) ===
-  function textValue49()
-    local workValue2, flag4, flag5, numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2
-    workValue2 = RageUI
-    workValue2 = workValue2.BackspaceMenuCallback
+  -- === HELPER FUNCTION (decompiler name: text49; parameters: none) ===
+  function text49()
+    local workingValue2, stateFlag4, stateFlag5, number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2
+    workingValue2 = RageUI
+    workingValue2 = workingValue2.BackspaceMenuCallback
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22
     end
-    workValue2(flag4)
+    workingValue2(stateFlag4)
 
-    -- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-    function workValue2()
-      local arg12, arg22, arg32, arg42, cmgCall2
-      arg12 = true
-      textValue16 = arg12
-      arg12 = CMG
-      arg12 = arg12.overrideTime
-      arg32 = textValue18
-      arg22 = textValue17
-      arg22 = arg22[arg32]
-      arg42 = textValue20
-      arg32 = textValue19
-      arg32 = arg32[arg42]
-      cmgCall2 = textValue22
-      arg42 = textValue21
-      arg42 = arg42[cmgCall2]
-      arg12(arg22, arg32, arg42)
+    -- === HELPER FUNCTION (decompiler name: workingValue2; parameters: none) ===
+    function workingValue2()
+      local localValue12, localValue22, localValue32, localValue42, cmgOperation2
+      localValue12 = true
+      text16 = localValue12
+      localValue12 = CMG
+      localValue12 = localValue12.overrideTime
+      localValue32 = text18
+      localValue22 = text17
+      localValue22 = localValue22[localValue32]
+      localValue42 = text20
+      localValue32 = text19
+      localValue32 = localValue32[localValue42]
+      cmgOperation2 = text22
+      localValue42 = text21
+      localValue42 = localValue42[cmgOperation2]
+      localValue12(localValue22, localValue32, localValue42)
     end
 
-    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
-    function flag4()
-      local arg12, arg22, arg32, arg42
-      arg12 = false
-      textValue16 = arg12
-      arg12 = DecorSetBool
-      arg22 = PlayerPedId
+    -- === HELPER FUNCTION (decompiler name: stateFlag4; parameters: none) ===
+    function stateFlag4()
+      local localValue12, localValue22, localValue32, localValue42
+      localValue12 = false
+      text16 = localValue12
+      localValue12 = DecorSetBool
+      localValue22 = PlayerPedId
       -- Beginner: result below is localPlayerPed.
-      arg22 = arg22()
-      arg32 = "a99d39faff"
-      arg42 = false
-      arg12(arg22, arg32, arg42)
-      arg12 = CMG
-      arg12 = arg12.cancelOverrideTimeWeather
-      arg12()
+      localValue22 = localValue22()
+      localValue32 = "a99d39faff"
+      localValue42 = false
+      localValue12(localValue22, localValue32, localValue42)
+      localValue12 = CMG
+      localValue12 = localValue12.cancelOverrideTimeWeather
+      localValue12()
     end
-    flag5 = RageUI
-    flag5 = flag5.Checkbox
-    numberValue4 = "Override Weather/Time"
-    flag6 = ""
-    flag7 = textValue16
-    flag8 = {}
-    workValue11 = RageUI
-    workValue11 = workValue11.CheckboxStyle
-    workValue11 = workValue11.Car
-    flag8.Style = workValue11
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.Checkbox
+    number4 = "Override Weather/Time"
+    stateFlag6 = ""
+    stateFlag7 = text16
+    stateFlag8 = {}
+    workingValue11 = RageUI
+    workingValue11 = workingValue11.CheckboxStyle
+    workingValue11 = workingValue11.Car
+    stateFlag8.Style = workingValue11
 
-    -- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg12, arg22, arg32, arg42) ===
-    function workValue11(arg12, arg22, arg32, arg42)
-      textValue16 = arg42
+    -- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function workingValue11(localValue12, localValue22, localValue32, localValue42)
+      text16 = localValue42
     end
-    textValue52 = workValue2
-    flag14 = flag4
+    text52 = workingValue2
+    stateFlag14 = stateFlag4
     -- Beginner: Draw a RageUI checkbox.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14)
-    flag5 = RageUI
-    flag5 = flag5.List
-    numberValue4 = "Hours"
-    flag6 = textValue17
-    flag7 = textValue18
-    flag8 = ""
-    workValue11 = {}
-    textValue52 = true
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14)
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.List
+    number4 = "Hours"
+    stateFlag6 = text17
+    stateFlag7 = text18
+    stateFlag8 = ""
+    workingValue11 = {}
+    text52 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg12, arg22, arg32, arg42) ===
-    function flag14(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6, flag10, flag12
-      cmgCall2 = textValue18
-      if arg42 ~= cmgCall2 then
-        textValue18 = arg42
-        cmgCall2 = textValue16
-        if cmgCall2 then
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.overrideTime
-          numberValue6 = textValue18
-          numberValue5 = textValue17
-          numberValue5 = numberValue5[numberValue6]
-          flag10 = textValue20
-          numberValue6 = textValue19
-          numberValue6 = numberValue6[flag10]
-          flag12 = textValue22
-          flag10 = textValue21
-          flag10 = flag10[flag12]
-          cmgCall2(numberValue5, numberValue6, flag10)
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function stateFlag14(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6, stateFlag10, stateFlag12
+      cmgOperation2 = text18
+      if localValue42 ~= cmgOperation2 then
+        text18 = localValue42
+        cmgOperation2 = text16
+        if cmgOperation2 then
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.overrideTime
+          number6 = text18
+          number5 = text17
+          number5 = number5[number6]
+          stateFlag10 = text20
+          number6 = text19
+          number6 = number6[stateFlag10]
+          stateFlag12 = text22
+          stateFlag10 = text21
+          stateFlag10 = stateFlag10[stateFlag12]
+          cmgOperation2(number5, number6, stateFlag10)
         end
       end
     end
 
     -- === HELPER FUNCTION: position() ===
     function position()
-      local arg12, arg22
+      local localValue12, localValue22
     end
     position2 = nil
     -- Beginner: Draw a RageUI list selector.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2)
-    flag5 = RageUI
-    flag5 = flag5.List
-    numberValue4 = "Minutes"
-    flag6 = textValue19
-    flag7 = textValue20
-    flag8 = ""
-    workValue11 = {}
-    textValue52 = true
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2)
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.List
+    number4 = "Minutes"
+    stateFlag6 = text19
+    stateFlag7 = text20
+    stateFlag8 = ""
+    workingValue11 = {}
+    text52 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg12, arg22, arg32, arg42) ===
-    function flag14(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6, flag10, flag12
-      cmgCall2 = textValue20
-      if arg42 ~= cmgCall2 then
-        textValue20 = arg42
-        cmgCall2 = textValue16
-        if cmgCall2 then
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.overrideTime
-          numberValue6 = textValue18
-          numberValue5 = textValue17
-          numberValue5 = numberValue5[numberValue6]
-          flag10 = textValue20
-          numberValue6 = textValue19
-          numberValue6 = numberValue6[flag10]
-          flag12 = textValue22
-          flag10 = textValue21
-          flag10 = flag10[flag12]
-          cmgCall2(numberValue5, numberValue6, flag10)
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function stateFlag14(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6, stateFlag10, stateFlag12
+      cmgOperation2 = text20
+      if localValue42 ~= cmgOperation2 then
+        text20 = localValue42
+        cmgOperation2 = text16
+        if cmgOperation2 then
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.overrideTime
+          number6 = text18
+          number5 = text17
+          number5 = number5[number6]
+          stateFlag10 = text20
+          number6 = text19
+          number6 = number6[stateFlag10]
+          stateFlag12 = text22
+          stateFlag10 = text21
+          stateFlag10 = stateFlag10[stateFlag12]
+          cmgOperation2(number5, number6, stateFlag10)
         end
       end
     end
 
     -- === HELPER FUNCTION: position() ===
     function position()
-      local arg12, arg22
+      local localValue12, localValue22
     end
     position2 = nil
     -- Beginner: Draw a RageUI list selector.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2)
-    flag5 = RageUI
-    flag5 = flag5.List
-    numberValue4 = "Seconds"
-    flag6 = textValue21
-    flag7 = textValue22
-    flag8 = ""
-    workValue11 = {}
-    textValue52 = true
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2)
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.List
+    number4 = "Seconds"
+    stateFlag6 = text21
+    stateFlag7 = text22
+    stateFlag8 = ""
+    workingValue11 = {}
+    text52 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg12, arg22, arg32, arg42) ===
-    function flag14(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6, flag10, flag12
-      cmgCall2 = textValue22
-      if arg42 ~= cmgCall2 then
-        textValue22 = arg42
-        cmgCall2 = textValue16
-        if cmgCall2 then
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.overrideTime
-          numberValue6 = textValue18
-          numberValue5 = textValue17
-          numberValue5 = numberValue5[numberValue6]
-          flag10 = textValue20
-          numberValue6 = textValue19
-          numberValue6 = numberValue6[flag10]
-          flag12 = textValue22
-          flag10 = textValue21
-          flag10 = flag10[flag12]
-          cmgCall2(numberValue5, numberValue6, flag10)
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function stateFlag14(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6, stateFlag10, stateFlag12
+      cmgOperation2 = text22
+      if localValue42 ~= cmgOperation2 then
+        text22 = localValue42
+        cmgOperation2 = text16
+        if cmgOperation2 then
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.overrideTime
+          number6 = text18
+          number5 = text17
+          number5 = number5[number6]
+          stateFlag10 = text20
+          number6 = text19
+          number6 = number6[stateFlag10]
+          stateFlag12 = text22
+          stateFlag10 = text21
+          stateFlag10 = stateFlag10[stateFlag12]
+          cmgOperation2(number5, number6, stateFlag10)
         end
       end
     end
 
     -- === HELPER FUNCTION: position() ===
     function position()
-      local arg12, arg22
+      local localValue12, localValue22
     end
     position2 = nil
     -- Beginner: Draw a RageUI list selector.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2)
-    flag5 = RageUI
-    flag5 = flag5.List
-    numberValue4 = "Weather"
-    flag6 = textValue28
-    flag7 = textValue29
-    flag8 = ""
-    workValue11 = {}
-    textValue52 = true
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2)
+    stateFlag5 = RageUI
+    stateFlag5 = stateFlag5.List
+    number4 = "Weather"
+    stateFlag6 = text28
+    stateFlag7 = text29
+    stateFlag8 = ""
+    workingValue11 = {}
+    text52 = true
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: arg12, arg22, arg32, arg42) ===
-    function flag14(arg12, arg22, arg32, arg42)
-      local cmgCall2, numberValue5, numberValue6
-      cmgCall2 = textValue29
-      if arg42 ~= cmgCall2 then
-        textValue29 = arg42
-        cmgCall2 = textValue16
-        if cmgCall2 then
-          cmgCall2 = CMG
-          cmgCall2 = cmgCall2.setWeather
-          numberValue6 = textValue29
-          numberValue5 = textValue28
-          numberValue5 = numberValue5[numberValue6]
-          cmgCall2(numberValue5)
+    -- === HELPER FUNCTION (decompiler name: stateFlag14; parameters: localValue12, localValue22, localValue32, localValue42) ===
+    function stateFlag14(localValue12, localValue22, localValue32, localValue42)
+      local cmgOperation2, number5, number6
+      cmgOperation2 = text29
+      if localValue42 ~= cmgOperation2 then
+        text29 = localValue42
+        cmgOperation2 = text16
+        if cmgOperation2 then
+          cmgOperation2 = CMG
+          cmgOperation2 = cmgOperation2.setWeather
+          number6 = text29
+          number5 = text28
+          number5 = number5[number6]
+          cmgOperation2(number5)
         end
       end
     end
 
     -- === HELPER FUNCTION: position() ===
     function position()
-      local arg12, arg22
+      local localValue12, localValue22
     end
     position2 = nil
     -- Beginner: Draw a RageUI list selector.
-    flag5(numberValue4, flag6, flag7, flag8, workValue11, textValue52, flag14, position, position2)
+    stateFlag5(number4, stateFlag6, stateFlag7, stateFlag8, workingValue11, text52, stateFlag14, position, position2)
   end
 
-  -- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-  function workValue10()
-    local workValue2, flag4
+  -- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+  function workingValue10()
+    local workingValue2, stateFlag4
   end
-  arg1(arg2, arg3, arg4, textValue43, textValue49, workValue10)
+  localValue1(localValue2, localValue3, localValue4, text43, text49, workingValue10)
 end
-textValue34(textValue35, textValue36, textValue37, textValue38)
+text34(text35, text36, text37, text38)
 
--- === HELPER FUNCTION (decompiler name: textValue34; parameters: none) ===
-function textValue34()
-  local arg1, arg2, arg3, arg4, textValue43, textValue49, workValue10, flag9, flag11, flag13, flag
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text34; parameters: none) ===
+function text34()
+  local localValue1, localValue2, localValue3, localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11, stateFlag13, stateFlag
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = textValue16
-  if arg2 then
-    arg2 = textValue14
-    if nil == arg2 then
-      arg2 = CMG
-      arg2 = arg2.isDisplayVisible
-      arg3 = "radar"
-      arg2 = arg2(arg3)
-      if not arg2 then
-        arg2 = drawNativeText
-        arg3 = "~r~CINEMATIC MODE ENABLED"
+  localValue1 = localValue1()
+  localValue2 = text16
+  if localValue2 then
+    localValue2 = text14
+    if nil == localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.isDisplayVisible
+      localValue3 = "radar"
+      localValue2 = localValue2(localValue3)
+      if not localValue2 then
+        localValue2 = drawNativeText
+        localValue3 = "~r~CINEMATIC MODE ENABLED"
         -- Beginner: Draw GTA-style text on screen.
-        arg2(arg3)
+        localValue2(localValue3)
       end
     end
-    arg2 = DecorExistOn
-    arg3 = arg1
-    arg4 = "a99d39faff"
-    arg2 = arg2(arg3, arg4)
-    if not arg2 then
-      arg2 = DecorSetBool
-      arg3 = arg1
-      arg4 = "a99d39faff"
-      textValue43 = true
-      arg2(arg3, arg4, textValue43)
+    localValue2 = DecorExistOn
+    localValue3 = localValue1
+    localValue4 = "a99d39faff"
+    localValue2 = localValue2(localValue3, localValue4)
+    if not localValue2 then
+      localValue2 = DecorSetBool
+      localValue3 = localValue1
+      localValue4 = "a99d39faff"
+      text43 = true
+      localValue2(localValue3, localValue4, text43)
     end
   end
-  arg2 = textValue3
-  if not arg2 then
-    arg2 = textValue4
-    if 0 == arg2 then
-      goto flow_label_52
+  localValue2 = text3
+  if not localValue2 then
+    localValue2 = text4
+    if 0 == localValue2 then
+      goto continueAtStep52
     end
   end
-  arg2 = CMG
-  arg2 = arg2.isNoClipActive
-  arg2 = arg2()
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.getPlayerVehicle
+  localValue2 = CMG
+  localValue2 = localValue2.isNoClipActive
+  localValue2 = localValue2()
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.getPlayerVehicle
     -- Beginner: result below is currentVehicle.
-    arg2 = arg2()
-    if 0 ~= arg2 then
-      arg2 = tCMG
-      arg2 = arg2.notify
-      arg3 = "~r~You may not noclip when in a vehicle."
+    localValue2 = localValue2()
+    if 0 ~= localValue2 then
+      localValue2 = tCMG
+      localValue2 = localValue2.notify
+      localValue3 = "~r~You may not noclip when in a vehicle."
       -- Beginner: Show a notification to the player.
-      arg2(arg3)
-      arg2 = tCMG
-      arg2 = arg2.toggleNoclip
-      arg2()
+      localValue2(localValue3)
+      localValue2 = tCMG
+      localValue2 = localValue2.toggleNoclip
+      localValue2()
     end
   end
-  ::flow_label_52::
-  arg2 = textValue3
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.isNoClipActive
-    arg2 = arg2()
-    if arg2 then
-      arg2 = drawNativeText
-      arg3 = "~g~Press [SPACEBAR] to confirm camera placement."
+  ::continueAtStep52::
+  localValue2 = text3
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.isNoClipActive
+    localValue2 = localValue2()
+    if localValue2 then
+      localValue2 = drawNativeText
+      localValue3 = "~g~Press [SPACEBAR] to confirm camera placement."
       -- Beginner: Draw GTA-style text on screen.
-      arg2(arg3)
-      arg2 = IsControlJustPressed
-      arg3 = 0
-      arg4 = 22
-      arg2 = arg2(arg3, arg4)
-      if arg2 then
-        arg2 = {}
-        arg3 = GetEntityCoords
-        arg4 = arg1
+      localValue2(localValue3)
+      localValue2 = IsControlJustPressed
+      localValue3 = 0
+      localValue4 = 22
+      localValue2 = localValue2(localValue3, localValue4)
+      if localValue2 then
+        localValue2 = {}
+        localValue3 = GetEntityCoords
+        localValue4 = localValue1
         -- Beginner: result below is entityCoords.
-        arg3 = arg3(arg4)
-        arg2.position = arg3
-        arg3 = GetGameplayCamRot
-        arg4 = 0
-        arg3 = arg3(arg4)
-        arg2.rotation = arg3
-        arg2.transition = 5000
-        arg3 = textValue9
-        arg2.type = arg3
-        arg2.screeneffect = ""
-        arg2.timecycleEffect = ""
-        arg2.timecycleIntensity = 1.0
-        arg2.focusType = ""
-        arg2.focusData = 0
-        arg2.shake = ""
-        arg2.fov = 65.0
-        arg3 = CMG
-        arg3 = arg3.createCamera
-        arg4 = textValue2
-        textValue43 = arg2
-        arg3(arg4, textValue43)
-        arg3 = tCMG
-        arg3 = arg3.toggleNoclip
-        arg3()
-        arg3 = false
-        textValue3 = arg3
-        arg3 = SetEntityCoords
-        arg4 = PlayerPedId
+        localValue3 = localValue3(localValue4)
+        localValue2.position = localValue3
+        localValue3 = GetGameplayCamRot
+        localValue4 = 0
+        localValue3 = localValue3(localValue4)
+        localValue2.rotation = localValue3
+        localValue2.transition = 5000
+        localValue3 = text9
+        localValue2.type = localValue3
+        localValue2.screeneffect = ""
+        localValue2.timecycleEffect = ""
+        localValue2.timecycleIntensity = 1.0
+        localValue2.focusType = ""
+        localValue2.focusData = 0
+        localValue2.shake = ""
+        localValue2.fov = 65.0
+        localValue3 = CMG
+        localValue3 = localValue3.createCamera
+        localValue4 = text2
+        text43 = localValue2
+        localValue3(localValue4, text43)
+        localValue3 = tCMG
+        localValue3 = localValue3.toggleNoclip
+        localValue3()
+        localValue3 = false
+        text3 = localValue3
+        localValue3 = SetEntityCoords
+        localValue4 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        arg4 = arg4()
-        textValue43 = textValue8.x
-        textValue49 = textValue8.y
-        workValue10 = textValue8.z
-        flag9 = true
-        flag11 = false
-        flag13 = false
-        flag = false
+        localValue4 = localValue4()
+        text43 = text8.x
+        text49 = text8.y
+        workingValue10 = text8.z
+        stateFlag9 = true
+        stateFlag11 = false
+        stateFlag13 = false
+        stateFlag = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        arg3(arg4, textValue43, textValue49, workValue10, flag9, flag11, flag13, flag)
+        localValue3(localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11, stateFlag13, stateFlag)
       end
     end
   end
-  arg2 = textValue4
-  if 0 ~= arg2 then
-    arg2 = CMG
-    arg2 = arg2.isNoClipActive
-    arg2 = arg2()
-    if arg2 then
-      arg2 = drawNativeText
-      arg3 = "~g~Press [SPACEBAR] to confirm camera placement."
+  localValue2 = text4
+  if 0 ~= localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.isNoClipActive
+    localValue2 = localValue2()
+    if localValue2 then
+      localValue2 = drawNativeText
+      localValue3 = "~g~Press [SPACEBAR] to confirm camera placement."
       -- Beginner: Draw GTA-style text on screen.
-      arg2(arg3)
-      arg2 = IsControlJustPressed
-      arg3 = 0
-      arg4 = 22
-      arg2 = arg2(arg3, arg4)
-      if arg2 then
-        arg2 = {}
-        arg3 = GetEntityCoords
-        arg4 = arg1
+      localValue2(localValue3)
+      localValue2 = IsControlJustPressed
+      localValue3 = 0
+      localValue4 = 22
+      localValue2 = localValue2(localValue3, localValue4)
+      if localValue2 then
+        localValue2 = {}
+        localValue3 = GetEntityCoords
+        localValue4 = localValue1
         -- Beginner: result below is entityCoords.
-        arg3 = arg3(arg4)
-        arg2.position = arg3
-        arg3 = GetGameplayCamRot
-        arg4 = 0
-        arg3 = arg3(arg4)
-        arg2.rotation = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.transition
-        arg2.transition = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.type
-        arg2.type = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.screeneffect
-        arg2.screeneffect = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.timecycleEffect
-        arg2.timecycleEffect = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.timecycleIntensity
-        arg2.timecycleIntensity = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.focusType
-        arg2.focusType = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.focusData
-        arg2.focusData = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.shake
-        arg2.shake = arg3
-        arg4 = textValue2
-        arg3 = textValue
-        arg3 = arg3[arg4]
-        arg4 = textValue4
-        arg3 = arg3[arg4]
-        arg3 = arg3.fov
-        if not arg3 then
-          arg3 = 65.0
+        localValue3 = localValue3(localValue4)
+        localValue2.position = localValue3
+        localValue3 = GetGameplayCamRot
+        localValue4 = 0
+        localValue3 = localValue3(localValue4)
+        localValue2.rotation = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.transition
+        localValue2.transition = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.type
+        localValue2.type = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.screeneffect
+        localValue2.screeneffect = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.timecycleEffect
+        localValue2.timecycleEffect = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.timecycleIntensity
+        localValue2.timecycleIntensity = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.focusType
+        localValue2.focusType = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.focusData
+        localValue2.focusData = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.shake
+        localValue2.shake = localValue3
+        localValue4 = text2
+        localValue3 = text
+        localValue3 = localValue3[localValue4]
+        localValue4 = text4
+        localValue3 = localValue3[localValue4]
+        localValue3 = localValue3.fov
+        if not localValue3 then
+          localValue3 = 65.0
         end
-        arg2.fov = arg3
-        arg3 = CMG
-        arg3 = arg3.modifyCamera
-        arg4 = textValue2
-        textValue43 = arg2
-        textValue49 = textValue4
-        arg3(arg4, textValue43, textValue49)
-        arg3 = tCMG
-        arg3 = arg3.toggleNoclip
-        arg3()
-        arg3 = 0
-        textValue4 = arg3
-        arg3 = SetEntityCoords
-        arg4 = PlayerPedId
+        localValue2.fov = localValue3
+        localValue3 = CMG
+        localValue3 = localValue3.modifyCamera
+        localValue4 = text2
+        text43 = localValue2
+        text49 = text4
+        localValue3(localValue4, text43, text49)
+        localValue3 = tCMG
+        localValue3 = localValue3.toggleNoclip
+        localValue3()
+        localValue3 = 0
+        text4 = localValue3
+        localValue3 = SetEntityCoords
+        localValue4 = PlayerPedId
         -- Beginner: result below is localPlayerPed.
-        arg4 = arg4()
-        textValue43 = textValue8.x
-        textValue49 = textValue8.y
-        workValue10 = textValue8.z
-        flag9 = false
-        flag11 = false
-        flag13 = false
-        flag = false
+        localValue4 = localValue4()
+        text43 = text8.x
+        text49 = text8.y
+        workingValue10 = text8.z
+        stateFlag9 = false
+        stateFlag11 = false
+        stateFlag13 = false
+        stateFlag = false
         -- Beginner: Move/teleport an entity to new coordinates.
-        arg3(arg4, textValue43, textValue49, workValue10, flag9, flag11, flag13, flag)
+        localValue3(localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11, stateFlag13, stateFlag)
       end
     end
   end
-  arg2 = textValue30
-  if nil ~= arg2 then
-    arg3 = textValue2
-    arg2 = textValue
-    arg2 = arg2[arg3]
-    arg3 = textValue30
-    arg2 = arg2[arg3]
-    arg3 = SetFocusPosAndVel
-    arg4 = arg2.position
-    arg4 = arg4.x
-    textValue43 = arg2.position
-    textValue43 = textValue43.y
-    textValue49 = arg2.position
-    textValue49 = textValue49.z
-    workValue10 = 0.0
-    flag9 = 0.0
-    flag11 = 0.0
-    arg3(arg4, textValue43, textValue49, workValue10, flag9, flag11)
-    arg3 = SetCamCoord
-    arg4 = textValue6
-    textValue43 = arg2.position
-    textValue43 = textValue43.x
-    textValue49 = arg2.position
-    textValue49 = textValue49.y
-    workValue10 = arg2.position
-    workValue10 = workValue10.z
-    arg3(arg4, textValue43, textValue49, workValue10)
-    arg3 = SetCamRot
-    arg4 = textValue6
-    textValue43 = arg2.rotation
-    textValue43 = textValue43.x
-    textValue49 = arg2.rotation
-    textValue49 = textValue49.y
-    workValue10 = arg2.rotation
-    workValue10 = workValue10.z
-    flag9 = 2
-    arg3(arg4, textValue43, textValue49, workValue10, flag9)
-    arg3 = SetCamFov
-    arg4 = textValue6
-    textValue43 = arg2.fov
-    if not textValue43 then
-      textValue43 = 65.0
+  localValue2 = text30
+  if nil ~= localValue2 then
+    localValue3 = text2
+    localValue2 = text
+    localValue2 = localValue2[localValue3]
+    localValue3 = text30
+    localValue2 = localValue2[localValue3]
+    localValue3 = SetFocusPosAndVel
+    localValue4 = localValue2.position
+    localValue4 = localValue4.x
+    text43 = localValue2.position
+    text43 = text43.y
+    text49 = localValue2.position
+    text49 = text49.z
+    workingValue10 = 0.0
+    stateFlag9 = 0.0
+    stateFlag11 = 0.0
+    localValue3(localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11)
+    localValue3 = SetCamCoord
+    localValue4 = text6
+    text43 = localValue2.position
+    text43 = text43.x
+    text49 = localValue2.position
+    text49 = text49.y
+    workingValue10 = localValue2.position
+    workingValue10 = workingValue10.z
+    localValue3(localValue4, text43, text49, workingValue10)
+    localValue3 = SetCamRot
+    localValue4 = text6
+    text43 = localValue2.rotation
+    text43 = text43.x
+    text49 = localValue2.rotation
+    text49 = text49.y
+    workingValue10 = localValue2.rotation
+    workingValue10 = workingValue10.z
+    stateFlag9 = 2
+    localValue3(localValue4, text43, text49, workingValue10, stateFlag9)
+    localValue3 = SetCamFov
+    localValue4 = text6
+    text43 = localValue2.fov
+    if not text43 then
+      text43 = 65.0
     end
-    textValue43 = textValue43 + 0.001
-    arg3(arg4, textValue43)
+    text43 = text43 + 0.001
+    localValue3(localValue4, text43)
   end
-  arg2 = textValue14
-  if nil ~= arg2 then
-    arg2 = GetCamCoord
-    arg3 = textValue14
-    arg2 = arg2(arg3)
-    arg3 = SetFocusPosAndVel
-    arg4 = arg2.x
-    textValue43 = arg2.y
-    textValue49 = arg2.z
-    workValue10 = 0.0
-    flag9 = 0.0
-    flag11 = 0.0
-    arg3(arg4, textValue43, textValue49, workValue10, flag9, flag11)
+  localValue2 = text14
+  if nil ~= localValue2 then
+    localValue2 = GetCamCoord
+    localValue3 = text14
+    localValue2 = localValue2(localValue3)
+    localValue3 = SetFocusPosAndVel
+    localValue4 = localValue2.x
+    text43 = localValue2.y
+    text49 = localValue2.z
+    workingValue10 = 0.0
+    stateFlag9 = 0.0
+    stateFlag11 = 0.0
+    localValue3(localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11)
   end
 end
-textValue35 = _ENV
-textValue36 = "DecorRegister"
-textValue35 = textValue35[textValue36]
-textValue36 = "a99d39faff"
-textValue37 = 2
-textValue35(textValue36, textValue37)
-textValue35 = _ENV
-textValue36 = "CMG"
-textValue35 = textValue35[textValue36]
-textValue36 = "createThreadOnTick"
-textValue35 = textValue35[textValue36]
-textValue36 = textValue34
-textValue37 = "Cinematic Mode"
-textValue35(textValue36, textValue37)
-textValue35 = -1
-textValue36 = _ENV
-textValue37 = "RegisterCommand"
-textValue36 = textValue36[textValue37]
-textValue37 = "setlastvehicleon"
+text35 = _ENV
+text36 = "DecorRegister"
+text35 = text35[text36]
+text36 = "a99d39faff"
+text37 = 2
+text35(text36, text37)
+text35 = _ENV
+text36 = "CMG"
+text35 = text35[text36]
+text36 = "createThreadOnTick"
+text35 = text35[text36]
+text36 = text34
+text37 = "Cinematic Mode"
+text35(text36, text37)
+text35 = -1
+text36 = _ENV
+text37 = "RegisterCommand"
+text36 = text36[text37]
+text37 = "setlastvehicleon"
 
--- === HELPER FUNCTION (decompiler name: textValue38; parameters: none) ===
-function textValue38()
-  local arg1, arg2, arg3, arg4, textValue43, textValue49, workValue10
-  arg1 = PlayerPedId
+-- === HELPER FUNCTION (decompiler name: text38; parameters: none) ===
+function text38()
+  local localValue1, localValue2, localValue3, localValue4, text43, text49, workingValue10
+  localValue1 = PlayerPedId
   -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = IsPedInAnyVehicle
-  arg3 = arg1
-  arg4 = true
-  arg2 = arg2(arg3, arg4)
-  if not arg2 then
-    arg2 = IsControlPressed
-    arg3 = 0
-    arg4 = 23
-    arg2 = arg2(arg3, arg4)
-    if not arg2 then
-      arg2 = GetVehiclePedIsIn
-      arg3 = arg1
-      arg4 = true
+  localValue1 = localValue1()
+  localValue2 = IsPedInAnyVehicle
+  localValue3 = localValue1
+  localValue4 = true
+  localValue2 = localValue2(localValue3, localValue4)
+  if not localValue2 then
+    localValue2 = IsControlPressed
+    localValue3 = 0
+    localValue4 = 23
+    localValue2 = localValue2(localValue3, localValue4)
+    if not localValue2 then
+      localValue2 = GetVehiclePedIsIn
+      localValue3 = localValue1
+      localValue4 = true
       -- Beginner: result below is currentVehicle.
-      arg2 = arg2(arg3, arg4)
-      if 0 ~= arg2 then
-        arg3 = SetVehicleEngineOn
-        arg4 = arg2
-        textValue43 = true
-        textValue49 = true
-        workValue10 = false
-        arg3(arg4, textValue43, textValue49, workValue10)
-        textValue35 = arg2
+      localValue2 = localValue2(localValue3, localValue4)
+      if 0 ~= localValue2 then
+        localValue3 = SetVehicleEngineOn
+        localValue4 = localValue2
+        text43 = true
+        text49 = true
+        workingValue10 = false
+        localValue3(localValue4, text43, text49, workingValue10)
+        text35 = localValue2
       end
     end
   end
 end
-textValue39 = false
-textValue36(textValue37, textValue38, textValue39)
-textValue36 = _ENV
-textValue37 = "Citizen"
-textValue36 = textValue36[textValue37]
-textValue37 = "CreateThread"
-textValue36 = textValue36[textValue37]
+text39 = false
+text36(text37, text38, text39)
+text36 = _ENV
+text37 = "Citizen"
+text36 = text36[text37]
+text37 = "CreateThread"
+text36 = text36[text37]
 
--- === HELPER FUNCTION (decompiler name: textValue37; parameters: none) ===
-function textValue37()
-  local arg1, arg2, arg3, arg4, textValue43, textValue49, workValue10, flag9, flag11
+-- === HELPER FUNCTION (decompiler name: text37; parameters: none) ===
+function text37()
+  local localValue1, localValue2, localValue3, localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11
   while true do
-    arg1 = CMG
-    arg1 = arg1.getPlayerVehicle
-    arg1, arg2 = arg1()
-    if 0 ~= arg1 then
-      arg3 = textValue35
-      if arg1 == arg3 and arg2 then
-        arg3 = SetVehicleEngineOn
-        arg4 = arg1
-        textValue43 = false
-        textValue49 = true
-        workValue10 = true
-        arg3(arg4, textValue43, textValue49, workValue10)
-        arg3 = -1
-        textValue35 = arg3
+    localValue1 = CMG
+    localValue1 = localValue1.getPlayerVehicle
+    localValue1, localValue2 = localValue1()
+    if 0 ~= localValue1 then
+      localValue3 = text35
+      if localValue1 == localValue3 and localValue2 then
+        localValue3 = SetVehicleEngineOn
+        localValue4 = localValue1
+        text43 = false
+        text49 = true
+        workingValue10 = true
+        localValue3(localValue4, text43, text49, workingValue10)
+        localValue3 = -1
+        text35 = localValue3
       end
     end
-    arg3 = GetEntityAttachedTo
-    arg4 = PlayerPedId
-    arg4, textValue43, textValue49, workValue10, flag9, flag11 = arg4()
-    arg3 = arg3(arg4, textValue43, textValue49, workValue10, flag9, flag11)
-    if 0 ~= arg3 then
-      arg4 = IsEntityAPed
-      textValue43 = arg3
-      arg4 = arg4(textValue43)
-      if arg4 then
-        arg4 = IsPedAPlayer
-        textValue43 = arg3
-        arg4 = arg4(textValue43)
-        if arg4 then
-          arg4 = IsEntityVisible
-          textValue43 = arg3
-          arg4 = arg4(textValue43)
-          if not arg4 then
-            arg4 = NetworkGetPlayerIndexFromPed
-            textValue43 = arg3
-            arg4 = arg4(textValue43)
-            if -1 ~= arg4 then
-              textValue43 = GetPlayerServerId
-              textValue49 = arg4
+    localValue3 = GetEntityAttachedTo
+    localValue4 = PlayerPedId
+    localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11 = localValue4()
+    localValue3 = localValue3(localValue4, text43, text49, workingValue10, stateFlag9, stateFlag11)
+    if 0 ~= localValue3 then
+      localValue4 = IsEntityAPed
+      text43 = localValue3
+      localValue4 = localValue4(text43)
+      if localValue4 then
+        localValue4 = IsPedAPlayer
+        text43 = localValue3
+        localValue4 = localValue4(text43)
+        if localValue4 then
+          localValue4 = IsEntityVisible
+          text43 = localValue3
+          localValue4 = localValue4(text43)
+          if not localValue4 then
+            localValue4 = NetworkGetPlayerIndexFromPed
+            text43 = localValue3
+            localValue4 = localValue4(text43)
+            if -1 ~= localValue4 then
+              text43 = GetPlayerServerId
+              text49 = localValue4
               -- Beginner: result below is serverId.
-              textValue43 = textValue43(textValue49)
-              if textValue43 > 0 then
-                textValue49 = CMG
-                textValue49 = textValue49.clientGetPlayerIsStaff
-                workValue10 = textValue43
-                textValue49 = textValue49(workValue10)
-                if not textValue49 then
-                  textValue49 = SetEntityVisible
-                  workValue10 = PlayerPedId
+              text43 = text43(text49)
+              if text43 > 0 then
+                text49 = CMG
+                text49 = text49.clientGetPlayerIsStaff
+                workingValue10 = text43
+                text49 = text49(workingValue10)
+                if not text49 then
+                  text49 = SetEntityVisible
+                  workingValue10 = PlayerPedId
                   -- Beginner: result below is localPlayerPed.
-                  workValue10 = workValue10()
-                  flag9 = true
-                  flag11 = true
-                  textValue49(workValue10, flag9, flag11)
-                  textValue49 = DetachEntity
-                  workValue10 = PlayerPedId
+                  workingValue10 = workingValue10()
+                  stateFlag9 = true
+                  stateFlag11 = true
+                  text49(workingValue10, stateFlag9, stateFlag11)
+                  text49 = DetachEntity
+                  workingValue10 = PlayerPedId
                   -- Beginner: result below is localPlayerPed.
-                  workValue10 = workValue10()
-                  flag9 = true
-                  flag11 = true
-                  textValue49(workValue10, flag9, flag11)
+                  workingValue10 = workingValue10()
+                  stateFlag9 = true
+                  stateFlag11 = true
+                  text49(workingValue10, stateFlag9, stateFlag11)
                 end
               end
             end
@@ -5840,10 +5840,10 @@ function textValue37()
         end
       end
     end
-    arg4 = Citizen
-    arg4 = arg4.Wait
-    textValue43 = 1000
-    arg4(textValue43)
+    localValue4 = Citizen
+    localValue4 = localValue4.Wait
+    text43 = 1000
+    localValue4(text43)
   end
 end
-textValue36(textValue37)
+text36(text37)

@@ -32,513 +32,513 @@
       3. Commands/events/UI callbacks (what starts the logic).
       4. Threads/loops last (what keeps checking in the background).
 
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+    IMPORTANT — decompiler temporary names have been normalized for readability.
+      Names like workingValue12, text4, dataCollection7, stateFlag3, cmgOperation2,
+      localValue1/localValue2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        workingValue = GetEntityCoords
+        dataCollection2 = workingValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
+      Temporary variables use conservative plain-English fallback names.
+      Decompiled code can reuse one temporary for several purposes, so API calls
+      and nearby comments explain the exact role at each point.
 
     Safety note for editing:
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local numberValue, dataTable4, dataTable5, dataTable6, dataTable7, numberValue8, flag4, numberValue9, dataTable8, dataTable9, dataTable, dataTable2, flag, workValue4, numberValue3, dataTable3, workValue5, workValue6, cmgCall, textValue2, workValue8, workValue9, workValue10, cmgCall2, threadCall, flag2, workValue11, flag3
-numberValue = 7.0
-dataTable4 = {}
-dataTable5 = {}
-dataTable6 = {}
-dataTable7 = {}
-numberValue8 = 18
-flag4 = false
-numberValue9 = 30.0
-dataTable8 = {}
-dataTable9 = {}
-dataTable = {}
-dataTable2 = {}
-flag = false
-workValue4 = nil
-numberValue3 = 30.0
-dataTable3 = {}
-dataTable3.metpd = 9
-dataTable3.nhs = 18
-dataTable3.lfb = 6
-dataTable3.borderforce = 2
-dataTable3.hmp = 11
+local number, dataCollection4, dataCollection5, dataCollection6, dataCollection7, number8, stateFlag4, number9, dataCollection8, dataCollection9, dataCollection, dataCollection2, stateFlag, workingValue4, number3, dataCollection3, workingValue5, workingValue6, cmgOperation, text2, workingValue8, workingValue9, workingValue10, cmgOperation2, backgroundThread, stateFlag2, workingValue11, stateFlag3
+number = 7.0
+dataCollection4 = {}
+dataCollection5 = {}
+dataCollection6 = {}
+dataCollection7 = {}
+number8 = 18
+stateFlag4 = false
+number9 = 30.0
+dataCollection8 = {}
+dataCollection9 = {}
+dataCollection = {}
+dataCollection2 = {}
+stateFlag = false
+workingValue4 = nil
+number3 = 30.0
+dataCollection3 = {}
+dataCollection3.metpd = 9
+dataCollection3.nhs = 18
+dataCollection3.lfb = 6
+dataCollection3.borderforce = 2
+dataCollection3.hmp = 11
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-function workValue5()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "police.onduty.permission"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = "metpd"
-    return arg1
+-- === HELPER FUNCTION (decompiler name: workingValue5; parameters: none) ===
+function workingValue5()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "police.onduty.permission"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = "metpd"
+    return localValue1
   else
-    arg1 = CMG
-    arg1 = arg1.hasClientPermission
-    arg2 = "nhs.onduty.permission"
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = "nhs"
-      return arg1
+    localValue1 = CMG
+    localValue1 = localValue1.hasClientPermission
+    localValue2 = "nhs.onduty.permission"
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = "nhs"
+      return localValue1
     else
-      arg1 = CMG
-      arg1 = arg1.hasClientPermission
-      arg2 = "lfb.onduty.permission"
-      arg1 = arg1(arg2)
-      if arg1 then
-        arg1 = "lfb"
-        return arg1
+      localValue1 = CMG
+      localValue1 = localValue1.hasClientPermission
+      localValue2 = "lfb.onduty.permission"
+      localValue1 = localValue1(localValue2)
+      if localValue1 then
+        localValue1 = "lfb"
+        return localValue1
       else
-        arg1 = CMG
-        arg1 = arg1.hasClientPermission
-        arg2 = "prisonguard.onduty.permission"
-        arg1 = arg1(arg2)
-        if arg1 then
-          arg1 = "hmp"
-          return arg1
+        localValue1 = CMG
+        localValue1 = localValue1.hasClientPermission
+        localValue2 = "prisonguard.onduty.permission"
+        localValue1 = localValue1(localValue2)
+        if localValue1 then
+          localValue1 = "hmp"
+          return localValue1
         else
-          arg1 = CMG
-          arg1 = arg1.hasClientPermission
-          arg2 = "borderforce.onduty.permission"
-          arg1 = arg1(arg2)
-          if arg1 then
-            arg1 = "borderforce"
-            return arg1
+          localValue1 = CMG
+          localValue1 = localValue1.hasClientPermission
+          localValue2 = "borderforce.onduty.permission"
+          localValue1 = localValue1(localValue2)
+          if localValue1 then
+            localValue1 = "borderforce"
+            return localValue1
           end
         end
       end
     end
   end
-  arg1 = nil
-  return arg1
+  localValue1 = nil
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
-function workValue6(arg1)
-  local arg2, arg3, workValue12
-  arg2 = workValue4
-  if not arg2 then
-    arg2 = false
-    return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue6; parameters: localValue1) ===
+function workingValue6(localValue1)
+  local localValue2, localValue3, workingValue12
+  localValue2 = workingValue4
+  if not localValue2 then
+    localValue2 = false
+    return localValue2
   end
-  arg2 = CMG
-  arg2 = arg2.clientGetUserIdFromSource
-  arg3 = arg1
+  localValue2 = CMG
+  localValue2 = localValue2.clientGetUserIdFromSource
+  localValue3 = localValue1
   -- Beginner: result below is userId.
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg3 = false
-    return arg3
+  localValue2 = localValue2(localValue3)
+  if not localValue2 then
+    localValue3 = false
+    return localValue3
   end
-  arg3 = CMG
-  arg3 = arg3.getJobType
-  workValue12 = arg2
-  arg3 = arg3(workValue12)
-  workValue12 = workValue4
-  arg3 = arg3 == workValue12
-  return arg3
+  localValue3 = CMG
+  localValue3 = localValue3.getJobType
+  workingValue12 = localValue2
+  localValue3 = localValue3(workingValue12)
+  workingValue12 = workingValue4
+  localValue3 = localValue3 == workingValue12
+  return localValue3
 end
-cmgCall = CMG
+cmgOperation = CMG
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
-function textValue2(arg1)
-  local arg2, arg3, workValue12
-  arg2 = dataTable8
-  arg2 = arg2[arg1]
-  if not arg2 then
-    arg3 = GetPlayerServerId
-    workValue12 = arg1
+-- === HELPER FUNCTION (decompiler name: text2; parameters: localValue1) ===
+function text2(localValue1)
+  local localValue2, localValue3, workingValue12
+  localValue2 = dataCollection8
+  localValue2 = localValue2[localValue1]
+  if not localValue2 then
+    localValue3 = GetPlayerServerId
+    workingValue12 = localValue1
     -- Beginner: result below is serverId.
-    arg3 = arg3(workValue12)
-    arg2 = arg3
-    if arg2 > 0 then
-      arg3 = dataTable8
-      arg3[arg1] = arg2
+    localValue3 = localValue3(workingValue12)
+    localValue2 = localValue3
+    if localValue2 > 0 then
+      localValue3 = dataCollection8
+      localValue3[localValue1] = localValue2
     end
   end
-  return arg2
+  return localValue2
 end
-cmgCall.getPlayerServerId = textValue2
-cmgCall = RegisterNetEvent
-textValue2 = "onPlayerDropped"
+cmgOperation.getPlayerServerId = text2
+cmgOperation = RegisterNetEvent
+text2 = "onPlayerDropped"
 -- Beginner: this function handles network event "onPlayerDropped".
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local arg2, arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3
-  arg2 = pairs
-  arg3 = dataTable8
-  arg2, arg3, workValue12, cmgCall3 = arg2(arg3)
-  for playerPed, playerPed2 in arg2, arg3, workValue12, cmgCall3 do
-    if playerPed2 == arg1 then
-      playerPed3 = dataTable8
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local localValue2, localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3
+  localValue2 = pairs
+  localValue3 = dataCollection8
+  localValue2, localValue3, workingValue12, cmgOperation3 = localValue2(localValue3)
+  for playerPed, playerPed2 in localValue2, localValue3, workingValue12, cmgOperation3 do
+    if playerPed2 == localValue1 then
+      playerPed3 = dataCollection8
       playerPed3[playerPed] = nil
     end
   end
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "onPlayerDropped".
-cmgCall(textValue2, workValue8)
+cmgOperation(text2, workingValue8)
 
--- === HELPER FUNCTION (decompiler name: cmgCall; parameters: arg1) ===
-function cmgCall(arg1)
-  local arg2, arg3, workValue12
-  arg2 = CMG
-  arg2 = arg2.doesPlayerHaveRadioItem
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if arg2 then
-    arg2 = CMG
-    arg2 = arg2.clientGetUserIdFromSource
-    arg3 = arg1
+-- === HELPER FUNCTION (decompiler name: cmgOperation; parameters: localValue1) ===
+function cmgOperation(localValue1)
+  local localValue2, localValue3, workingValue12
+  localValue2 = CMG
+  localValue2 = localValue2.doesPlayerHaveRadioItem
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  if localValue2 then
+    localValue2 = CMG
+    localValue2 = localValue2.clientGetUserIdFromSource
+    localValue3 = localValue1
     -- Beginner: result below is userId.
-    arg2 = arg2(arg3)
-    if arg2 then
-      arg3 = CMG
-      arg3 = arg3.getJobType
-      workValue12 = arg2
-      arg3 = arg3(workValue12)
-      arg3 = "" == arg3
-      return arg3
+    localValue2 = localValue2(localValue3)
+    if localValue2 then
+      localValue3 = CMG
+      localValue3 = localValue3.getJobType
+      workingValue12 = localValue2
+      localValue3 = localValue3(workingValue12)
+      localValue3 = "" == localValue3
+      return localValue3
     end
   end
-  arg2 = false
-  return arg2
+  localValue2 = false
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
-function textValue2()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.isStaffedOnClient
-  arg1 = arg1()
-  if not arg1 then
-    arg1 = CMG
-    arg1 = arg1.isInSpectate
-    arg1 = arg1()
+-- === HELPER FUNCTION (decompiler name: text2; parameters: none) ===
+function text2()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.isStaffedOnClient
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.isInSpectate
+    localValue1 = localValue1()
   end
-  return arg1
+  return localValue1
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local arg2, arg3
-  arg2 = Player
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  arg2 = arg2.state
-  arg2 = arg2.newPlayerProtection
-  arg2 = true == arg2
-  return arg2
+-- === HELPER FUNCTION (decompiler name: workingValue8; parameters: localValue1) ===
+function workingValue8(localValue1)
+  local localValue2, localValue3
+  localValue2 = Player
+  localValue3 = localValue1
+  localValue2 = localValue2(localValue3)
+  localValue2 = localValue2.state
+  localValue2 = localValue2.newPlayerProtection
+  localValue2 = true == localValue2
+  return localValue2
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2, arg3) ===
-function workValue9(arg1, arg2, arg3)
-  local workValue12, cmgCall3, playerPed, playerPed2, playerPed3
-  workValue12 = dataTable2
-  workValue12 = workValue12[arg1]
-  if workValue12 then
-    workValue12 = 30.0
-    if workValue12 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: workingValue9; parameters: localValue1, localValue2, localValue3) ===
+function workingValue9(localValue1, localValue2, localValue3)
+  local workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3
+  workingValue12 = dataCollection2
+  workingValue12 = workingValue12[localValue1]
+  if workingValue12 then
+    workingValue12 = 30.0
+    if workingValue12 then
+      goto continueAtStep9
     end
   end
-  workValue12 = numberValue
-  ::flow_label_9::
-  if arg2 < workValue12 then
-    if arg3 then
-      cmgCall3 = flag4
-      if cmgCall3 then
-        cmgCall3 = CMG
-        cmgCall3 = cmgCall3.isPlayerInSelectedGang
-        playerPed = arg1
-        cmgCall3 = cmgCall3(playerPed)
-        if cmgCall3 then
-          cmgCall3 = cmgCall
-          playerPed = arg1
-          cmgCall3 = cmgCall3(playerPed)
-          if cmgCall3 then
-            goto flow_label_39
+  workingValue12 = number
+  ::continueAtStep9::
+  if localValue2 < workingValue12 then
+    if localValue3 then
+      cmgOperation3 = stateFlag4
+      if cmgOperation3 then
+        cmgOperation3 = CMG
+        cmgOperation3 = cmgOperation3.isPlayerInSelectedGang
+        playerPed = localValue1
+        cmgOperation3 = cmgOperation3(playerPed)
+        if cmgOperation3 then
+          cmgOperation3 = cmgOperation
+          playerPed = localValue1
+          cmgOperation3 = cmgOperation3(playerPed)
+          if cmgOperation3 then
+            goto continueAtStep39
           end
         end
       end
-      cmgCall3 = flag
-      if cmgCall3 then
-        cmgCall3 = workValue6
-        playerPed = arg1
-        cmgCall3 = cmgCall3(playerPed)
-        if cmgCall3 then
-          goto flow_label_39
+      cmgOperation3 = stateFlag
+      if cmgOperation3 then
+        cmgOperation3 = workingValue6
+        playerPed = localValue1
+        cmgOperation3 = cmgOperation3(playerPed)
+        if cmgOperation3 then
+          goto continueAtStep39
         end
       end
-      cmgCall3 = textValue2
-      cmgCall3 = cmgCall3()
-      if cmgCall3 then
-        ::flow_label_39::
-        cmgCall3 = true
-        return cmgCall3
+      cmgOperation3 = text2
+      cmgOperation3 = cmgOperation3()
+      if cmgOperation3 then
+        ::continueAtStep39::
+        cmgOperation3 = true
+        return cmgOperation3
       else
-        cmgCall3 = HasEntityClearLosToEntity
+        cmgOperation3 = HasEntityClearLosToEntity
         playerPed = PlayerPedId
         -- Beginner: result below is localPlayerPed.
         playerPed = playerPed()
         playerPed2 = GetPlayerPed
-        playerPed3 = arg3
+        playerPed3 = localValue3
         -- Beginner: result below is playerPed.
         playerPed2 = playerPed2(playerPed3)
         playerPed3 = 17
-        return cmgCall3(playerPed, playerPed2, playerPed3)
+        return cmgOperation3(playerPed, playerPed2, playerPed3)
       end
     end
-    cmgCall3 = true
-    return cmgCall3
+    cmgOperation3 = true
+    return cmgOperation3
   else
-    cmgCall3 = flag4
-    if cmgCall3 then
-      cmgCall3 = CMG
-      cmgCall3 = cmgCall3.isPlayerInSelectedGang
-      playerPed = arg1
-      cmgCall3 = cmgCall3(playerPed)
-      if cmgCall3 then
-        cmgCall3 = cmgCall
-        playerPed = arg1
-        cmgCall3 = cmgCall3(playerPed)
-        if cmgCall3 then
-          cmgCall3 = numberValue9
+    cmgOperation3 = stateFlag4
+    if cmgOperation3 then
+      cmgOperation3 = CMG
+      cmgOperation3 = cmgOperation3.isPlayerInSelectedGang
+      playerPed = localValue1
+      cmgOperation3 = cmgOperation3(playerPed)
+      if cmgOperation3 then
+        cmgOperation3 = cmgOperation
+        playerPed = localValue1
+        cmgOperation3 = cmgOperation3(playerPed)
+        if cmgOperation3 then
+          cmgOperation3 = number9
           playerPed = CMG
           playerPed = playerPed.getGangPublicNameViewDistanceFloor
           playerPed = playerPed()
-          if cmgCall3 < playerPed then
-            cmgCall3 = playerPed
+          if cmgOperation3 < playerPed then
+            cmgOperation3 = playerPed
           end
-          if arg2 < cmgCall3 then
+          if localValue2 < cmgOperation3 then
             playerPed2 = true
             return playerPed2
           end
       end
     end
     else
-      cmgCall3 = flag
-      if cmgCall3 then
-        cmgCall3 = workValue6
-        playerPed = arg1
-        cmgCall3 = cmgCall3(playerPed)
-        if cmgCall3 then
-          cmgCall3 = numberValue3
-          if arg2 < cmgCall3 then
-            cmgCall3 = true
-            return cmgCall3
+      cmgOperation3 = stateFlag
+      if cmgOperation3 then
+        cmgOperation3 = workingValue6
+        playerPed = localValue1
+        cmgOperation3 = cmgOperation3(playerPed)
+        if cmgOperation3 then
+          cmgOperation3 = number3
+          if localValue2 < cmgOperation3 then
+            cmgOperation3 = true
+            return cmgOperation3
           end
         end
       end
     end
   end
-  cmgCall3 = false
-  return cmgCall3
+  cmgOperation3 = false
+  return cmgOperation3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-function workValue10()
-  local arg1, arg2, arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue
-  arg1 = CMG
-  arg1 = arg1.isEventPlayerTagEnabled
-  arg1 = arg1()
-  if not arg1 then
-    arg1 = CMG
-    arg1 = arg1.isDisplayVisible
-    arg2 = "ids"
-    arg1 = arg1(arg2)
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.getPlayerPed
+-- === HELPER FUNCTION (decompiler name: workingValue10; parameters: none) ===
+function workingValue10()
+  local localValue1, localValue2, localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text
+  localValue1 = CMG
+  localValue1 = localValue1.isEventPlayerTagEnabled
+  localValue1 = localValue1()
+  if not localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.isDisplayVisible
+    localValue2 = "ids"
+    localValue1 = localValue1(localValue2)
+    if localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg1 = arg1()
-      arg2 = ipairs
-      arg3 = GetActivePlayers
-      arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue = arg3()
-      arg2, arg3, workValue12, cmgCall3 = arg2(arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue)
-      for playerPed, playerPed2 in arg2, arg3, workValue12, cmgCall3 do
+      localValue1 = localValue1()
+      localValue2 = ipairs
+      localValue3 = GetActivePlayers
+      localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text = localValue3()
+      localValue2, localValue3, workingValue12, cmgOperation3 = localValue2(localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text)
+      for playerPed, playerPed2 in localValue2, localValue3, workingValue12, cmgOperation3 do
         playerPed3 = GetPlayerPed
-        cmgCall4 = playerPed2
+        cmgOperation4 = playerPed2
         -- Beginner: result below is playerPed.
-        playerPed3 = playerPed3(cmgCall4)
-        if playerPed3 ~= arg1 then
-          cmgCall4 = dataTable4
-          cmgCall4 = cmgCall4[playerPed2]
-          if cmgCall4 then
-            cmgCall4 = CMG
-            cmgCall4 = cmgCall4.getPlayerServerId
-            cmgCall5 = playerPed2
-            cmgCall4 = cmgCall4(cmgCall5)
-            if cmgCall4 then
-              cmgCall5 = CMG
-              cmgCall5 = cmgCall5.isPlayerTaggedForBounty
-              workValue = cmgCall4
-              cmgCall5 = cmgCall5(workValue)
-              workValue = workValue9
-              workValue2 = cmgCall4
-              workValue3 = dataTable4
-              workValue3 = workValue3[playerPed2]
-              workValue = workValue(workValue2, workValue3)
-              if workValue or cmgCall5 then
-                workValue = dataTable6
-                workValue = workValue[playerPed2]
-                workValue2 = NetworkIsPlayerTalking
-                workValue3 = playerPed2
-                workValue2 = workValue2(workValue3)
-                if workValue2 then
-                  workValue2 = SetMpGamerTagAlpha
-                  workValue3 = workValue
-                  numberValue2 = 4
-                  numberValue4 = 255
-                  workValue2(workValue3, numberValue2, numberValue4)
-                  workValue2 = workValue8
-                  workValue3 = cmgCall4
-                  workValue2 = workValue2(workValue3)
-                  if workValue2 then
-                    workValue2 = dataTable9
-                    workValue2 = workValue2[cmgCall4]
-                    if not workValue2 then
-                      workValue2 = SetMpGamerTagColour
-                      workValue3 = workValue
-                      numberValue2 = 0
-                      numberValue4 = numberValue8
-                      workValue2(workValue3, numberValue2, numberValue4)
+        playerPed3 = playerPed3(cmgOperation4)
+        if playerPed3 ~= localValue1 then
+          cmgOperation4 = dataCollection4
+          cmgOperation4 = cmgOperation4[playerPed2]
+          if cmgOperation4 then
+            cmgOperation4 = CMG
+            cmgOperation4 = cmgOperation4.getPlayerServerId
+            cmgOperation5 = playerPed2
+            cmgOperation4 = cmgOperation4(cmgOperation5)
+            if cmgOperation4 then
+              cmgOperation5 = CMG
+              cmgOperation5 = cmgOperation5.isPlayerTaggedForBounty
+              workingValue = cmgOperation4
+              cmgOperation5 = cmgOperation5(workingValue)
+              workingValue = workingValue9
+              workingValue2 = cmgOperation4
+              workingValue3 = dataCollection4
+              workingValue3 = workingValue3[playerPed2]
+              workingValue = workingValue(workingValue2, workingValue3)
+              if workingValue or cmgOperation5 then
+                workingValue = dataCollection6
+                workingValue = workingValue[playerPed2]
+                workingValue2 = NetworkIsPlayerTalking
+                workingValue3 = playerPed2
+                workingValue2 = workingValue2(workingValue3)
+                if workingValue2 then
+                  workingValue2 = SetMpGamerTagAlpha
+                  workingValue3 = workingValue
+                  number2 = 4
+                  number4 = 255
+                  workingValue2(workingValue3, number2, number4)
+                  workingValue2 = workingValue8
+                  workingValue3 = cmgOperation4
+                  workingValue2 = workingValue2(workingValue3)
+                  if workingValue2 then
+                    workingValue2 = dataCollection9
+                    workingValue2 = workingValue2[cmgOperation4]
+                    if not workingValue2 then
+                      workingValue2 = SetMpGamerTagColour
+                      workingValue3 = workingValue
+                      number2 = 0
+                      number4 = number8
+                      workingValue2(workingValue3, number2, number4)
                   end
                   else
-                    workValue2 = SetMpGamerTagColour
-                    workValue3 = workValue
-                    numberValue2 = 0
-                    numberValue4 = 9
-                    workValue2(workValue3, numberValue2, numberValue4)
+                    workingValue2 = SetMpGamerTagColour
+                    workingValue3 = workingValue
+                    number2 = 0
+                    number4 = 9
+                    workingValue2(workingValue3, number2, number4)
                   end
-                  workValue2 = SetMpGamerTagColour
-                  workValue3 = workValue
-                  numberValue2 = 4
-                  numberValue4 = 0
-                  workValue2(workValue3, numberValue2, numberValue4)
-                  workValue2 = SetMpGamerTagVisibility
-                  workValue3 = workValue
-                  numberValue2 = 4
-                  numberValue4 = true
-                  workValue2(workValue3, numberValue2, numberValue4)
+                  workingValue2 = SetMpGamerTagColour
+                  workingValue3 = workingValue
+                  number2 = 4
+                  number4 = 0
+                  workingValue2(workingValue3, number2, number4)
+                  workingValue2 = SetMpGamerTagVisibility
+                  workingValue3 = workingValue
+                  number2 = 4
+                  number4 = true
+                  workingValue2(workingValue3, number2, number4)
                 else
-                  workValue2 = dataTable9
-                  workValue2 = workValue2[cmgCall4]
-                  if workValue2 then
-                    workValue3 = SetMpGamerTagColour
-                    numberValue2 = workValue
-                    numberValue4 = 0
-                    numberValue5 = workValue2[2]
-                    workValue3(numberValue2, numberValue4, numberValue5)
+                  workingValue2 = dataCollection9
+                  workingValue2 = workingValue2[cmgOperation4]
+                  if workingValue2 then
+                    workingValue3 = SetMpGamerTagColour
+                    number2 = workingValue
+                    number4 = 0
+                    number5 = workingValue2[2]
+                    workingValue3(number2, number4, number5)
                   else
-                    workValue3 = workValue8
-                    numberValue2 = cmgCall4
-                    workValue3 = workValue3(numberValue2)
-                    if workValue3 then
-                      workValue3 = SetMpGamerTagColour
-                      numberValue2 = workValue
-                      numberValue4 = 0
-                      numberValue5 = numberValue8
-                      workValue3(numberValue2, numberValue4, numberValue5)
+                    workingValue3 = workingValue8
+                    number2 = cmgOperation4
+                    workingValue3 = workingValue3(number2)
+                    if workingValue3 then
+                      workingValue3 = SetMpGamerTagColour
+                      number2 = workingValue
+                      number4 = 0
+                      number5 = number8
+                      workingValue3(number2, number4, number5)
                     else
-                      workValue3 = dataTable2
-                      workValue3 = workValue3[cmgCall4]
-                      if "Enemy" == workValue3 then
-                        workValue3 = SetMpGamerTagColour
-                        numberValue2 = workValue
-                        numberValue4 = 0
-                        numberValue5 = 6
-                        workValue3(numberValue2, numberValue4, numberValue5)
+                      workingValue3 = dataCollection2
+                      workingValue3 = workingValue3[cmgOperation4]
+                      if "Enemy" == workingValue3 then
+                        workingValue3 = SetMpGamerTagColour
+                        number2 = workingValue
+                        number4 = 0
+                        number5 = 6
+                        workingValue3(number2, number4, number5)
                       else
-                        workValue3 = dataTable2
-                        workValue3 = workValue3[cmgCall4]
-                        if "Friendly" == workValue3 then
-                          workValue3 = SetMpGamerTagColour
-                          numberValue2 = workValue
-                          numberValue4 = 0
-                          numberValue5 = 18
-                          workValue3(numberValue2, numberValue4, numberValue5)
+                        workingValue3 = dataCollection2
+                        workingValue3 = workingValue3[cmgOperation4]
+                        if "Friendly" == workingValue3 then
+                          workingValue3 = SetMpGamerTagColour
+                          number2 = workingValue
+                          number4 = 0
+                          number5 = 18
+                          workingValue3(number2, number4, number5)
                         else
-                          workValue3 = CMG
-                          workValue3 = workValue3.isPlayerInSelectedGang
-                          numberValue2 = cmgCall4
-                          workValue3, numberValue2 = workValue3(numberValue2)
-                          numberValue4 = flag4
-                          if numberValue4 and workValue3 then
-                            numberValue4 = cmgCall
-                            numberValue5 = cmgCall4
-                            numberValue4 = numberValue4(numberValue5)
-                            if numberValue4 then
-                              numberValue4 = SetMpGamerTagColour
-                              numberValue5 = workValue
-                              numberValue6 = 0
-                              workValue7 = numberValue2.hud
-                              numberValue4(numberValue5, numberValue6, workValue7)
+                          workingValue3 = CMG
+                          workingValue3 = workingValue3.isPlayerInSelectedGang
+                          number2 = cmgOperation4
+                          workingValue3, number2 = workingValue3(number2)
+                          number4 = stateFlag4
+                          if number4 and workingValue3 then
+                            number4 = cmgOperation
+                            number5 = cmgOperation4
+                            number4 = number4(number5)
+                            if number4 then
+                              number4 = SetMpGamerTagColour
+                              number5 = workingValue
+                              number6 = 0
+                              workingValue7 = number2.hud
+                              number4(number5, number6, workingValue7)
                           end
                           else
-                            numberValue4 = flag
-                            if numberValue4 then
-                              numberValue4 = workValue6
-                              numberValue5 = cmgCall4
-                              numberValue4 = numberValue4(numberValue5)
-                              if numberValue4 then
-                                numberValue4 = SetMpGamerTagColour
-                                numberValue5 = workValue
-                                numberValue6 = 0
-                                textValue = workValue4
-                                workValue7 = dataTable3
-                                workValue7 = workValue7[textValue]
-                                if not workValue7 then
-                                  workValue7 = 0
+                            number4 = stateFlag
+                            if number4 then
+                              number4 = workingValue6
+                              number5 = cmgOperation4
+                              number4 = number4(number5)
+                              if number4 then
+                                number4 = SetMpGamerTagColour
+                                number5 = workingValue
+                                number6 = 0
+                                text = workingValue4
+                                workingValue7 = dataCollection3
+                                workingValue7 = workingValue7[text]
+                                if not workingValue7 then
+                                  workingValue7 = 0
                                 end
-                                numberValue4(numberValue5, numberValue6, workValue7)
+                                number4(number5, number6, workingValue7)
                             end
                             else
-                              numberValue4 = SetMpGamerTagColour
-                              numberValue5 = workValue
-                              numberValue6 = 0
-                              workValue7 = 0
-                              numberValue4(numberValue5, numberValue6, workValue7)
+                              number4 = SetMpGamerTagColour
+                              number5 = workingValue
+                              number6 = 0
+                              workingValue7 = 0
+                              number4(number5, number6, workingValue7)
                             end
                           end
                         end
                       end
                     end
                   end
-                  workValue3 = SetMpGamerTagColour
-                  numberValue2 = workValue
-                  numberValue4 = 4
-                  numberValue5 = 0
-                  workValue3(numberValue2, numberValue4, numberValue5)
-                  workValue3 = SetMpGamerTagVisibility
-                  numberValue2 = workValue
-                  numberValue4 = 4
-                  numberValue5 = false
-                  workValue3(numberValue2, numberValue4, numberValue5)
+                  workingValue3 = SetMpGamerTagColour
+                  number2 = workingValue
+                  number4 = 4
+                  number5 = 0
+                  workingValue3(number2, number4, number5)
+                  workingValue3 = SetMpGamerTagVisibility
+                  number2 = workingValue
+                  number4 = 4
+                  number5 = false
+                  workingValue3(number2, number4, number5)
                 end
-                workValue2 = SetMpGamerTagVisibility
-                workValue3 = workValue
-                numberValue2 = 19
-                numberValue4 = cmgCall5
-                workValue2(workValue3, numberValue2, numberValue4)
-                workValue2 = SetMpGamerTagColour
-                workValue3 = workValue
-                numberValue2 = 19
-                numberValue4 = 125
-                workValue2(workValue3, numberValue2, numberValue4)
+                workingValue2 = SetMpGamerTagVisibility
+                workingValue3 = workingValue
+                number2 = 19
+                number4 = cmgOperation5
+                workingValue2(workingValue3, number2, number4)
+                workingValue2 = SetMpGamerTagColour
+                workingValue3 = workingValue
+                number2 = 19
+                number4 = 125
+                workingValue2(workingValue3, number2, number4)
               end
             end
           end
@@ -547,631 +547,631 @@ function workValue10()
     end
   end
 end
-cmgCall2 = CMG
-cmgCall2 = cmgCall2.createThreadOnTick
-threadCall = workValue10
-flag2 = "Gamer Tags Customisation"
+cmgOperation2 = CMG
+cmgOperation2 = cmgOperation2.createThreadOnTick
+backgroundThread = workingValue10
+stateFlag2 = "Gamer Tags Customisation"
 -- Beginner: Run a helper every game frame while this script is active.
-cmgCall2(threadCall, flag2)
+cmgOperation2(backgroundThread, stateFlag2)
 
--- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2) ===
-function cmgCall2(arg1, arg2)
-  local arg3, workValue12
-  arg3 = IsEntityVisible
-  workValue12 = arg1
-  arg3 = arg3(workValue12)
-  if arg3 then
-    arg3 = true
-    return arg3
+-- === HELPER FUNCTION (decompiler name: cmgOperation2; parameters: localValue1, localValue2) ===
+function cmgOperation2(localValue1, localValue2)
+  local localValue3, workingValue12
+  localValue3 = IsEntityVisible
+  workingValue12 = localValue1
+  localValue3 = localValue3(workingValue12)
+  if localValue3 then
+    localValue3 = true
+    return localValue3
   end
-  arg3 = CMG
-  arg3 = arg3.clientGetUserIdFromSource
-  workValue12 = arg2
+  localValue3 = CMG
+  localValue3 = localValue3.clientGetUserIdFromSource
+  workingValue12 = localValue2
   -- Beginner: result below is userId.
-  arg3 = arg3(workValue12)
-  if arg3 then
-    workValue12 = fullPlayerListData
-    workValue12 = workValue12[arg3]
-    if workValue12 then
-      goto flow_label_20
+  localValue3 = localValue3(workingValue12)
+  if localValue3 then
+    workingValue12 = fullPlayerListData
+    workingValue12 = workingValue12[localValue3]
+    if workingValue12 then
+      goto continueAtStep20
     end
   end
-  workValue12 = true
-  return workValue12
-  ::flow_label_20::
-  workValue12 = fullPlayerListData
-  workValue12 = workValue12[arg3]
-  workValue12 = workValue12[5]
-  workValue12 = not workValue12
-  return workValue12
+  workingValue12 = true
+  return workingValue12
+  ::continueAtStep20::
+  workingValue12 = fullPlayerListData
+  workingValue12 = workingValue12[localValue3]
+  workingValue12 = workingValue12[5]
+  workingValue12 = not workingValue12
+  return workingValue12
 end
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-function flag2()
-  local arg1, arg2, arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+function stateFlag2()
+  local localValue1, localValue2, localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4
   while true do
-    arg1 = {}
-    dataTable4 = arg1
-    arg1 = {}
-    dataTable5 = arg1
-    arg1 = CMG
-    arg1 = arg1.inArena
-    arg1 = arg1()
-    arg2 = CMG
-    arg2 = arg2.isEventPlayerTagEnabled
-    arg2 = arg2()
-    if not arg2 then
-      arg2 = CMG
-      arg2 = arg2.getPlayerPed
+    localValue1 = {}
+    dataCollection4 = localValue1
+    localValue1 = {}
+    dataCollection5 = localValue1
+    localValue1 = CMG
+    localValue1 = localValue1.inArena
+    localValue1 = localValue1()
+    localValue2 = CMG
+    localValue2 = localValue2.isEventPlayerTagEnabled
+    localValue2 = localValue2()
+    if not localValue2 then
+      localValue2 = CMG
+      localValue2 = localValue2.getPlayerPed
       -- Beginner: result below is localPlayerPed.
-      arg2 = arg2()
-      arg3 = CMG
-      arg3 = arg3.getPlayerCoords
+      localValue2 = localValue2()
+      localValue3 = CMG
+      localValue3 = localValue3.getPlayerCoords
       -- Beginner: result below is playerCoords.
-      arg3 = arg3()
-      workValue12 = CMG
-      workValue12 = workValue12.isInSpectate
-      workValue12 = workValue12()
-      if workValue12 then
-        workValue12 = GetFinalRenderedCamCoord
-        workValue12 = workValue12()
-        arg3 = workValue12
+      localValue3 = localValue3()
+      workingValue12 = CMG
+      workingValue12 = workingValue12.isInSpectate
+      workingValue12 = workingValue12()
+      if workingValue12 then
+        workingValue12 = GetFinalRenderedCamCoord
+        workingValue12 = workingValue12()
+        localValue3 = workingValue12
       end
-      workValue12 = ipairs
-      cmgCall3 = GetActivePlayers
-      cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4 = cmgCall3()
-      workValue12, cmgCall3, playerPed, playerPed2 = workValue12(cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4)
-      for playerPed3, cmgCall4 in workValue12, cmgCall3, playerPed, playerPed2 do
-        cmgCall5 = GetPlayerPed
-        workValue = cmgCall4
+      workingValue12 = ipairs
+      cmgOperation3 = GetActivePlayers
+      cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4 = cmgOperation3()
+      workingValue12, cmgOperation3, playerPed, playerPed2 = workingValue12(cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4)
+      for playerPed3, cmgOperation4 in workingValue12, cmgOperation3, playerPed, playerPed2 do
+        cmgOperation5 = GetPlayerPed
+        workingValue = cmgOperation4
         -- Beginner: result below is playerPed.
-        cmgCall5 = cmgCall5(workValue)
-        workValue = CMG
-        workValue = workValue.getPlayerServerId
-        workValue2 = cmgCall4
-        workValue = workValue(workValue2)
-        if cmgCall5 ~= arg2 then
-          workValue2 = cmgCall2
-          workValue3 = cmgCall5
-          numberValue2 = workValue
-          workValue2 = workValue2(workValue3, numberValue2)
-          if workValue2 then
-            if arg1 then
-              workValue2 = dataTable
-              workValue2 = workValue2[workValue]
-              if not workValue2 then
-                goto flow_label_71
+        cmgOperation5 = cmgOperation5(workingValue)
+        workingValue = CMG
+        workingValue = workingValue.getPlayerServerId
+        workingValue2 = cmgOperation4
+        workingValue = workingValue(workingValue2)
+        if cmgOperation5 ~= localValue2 then
+          workingValue2 = cmgOperation2
+          workingValue3 = cmgOperation5
+          number2 = workingValue
+          workingValue2 = workingValue2(workingValue3, number2)
+          if workingValue2 then
+            if localValue1 then
+              workingValue2 = dataCollection
+              workingValue2 = workingValue2[workingValue]
+              if not workingValue2 then
+                goto continueAtStep71
               end
             end
-            workValue2 = GetEntityCoords
-            workValue3 = cmgCall5
+            workingValue2 = GetEntityCoords
+            workingValue3 = cmgOperation5
             -- Beginner: result below is entityCoords.
-            workValue2 = workValue2(workValue3)
-            workValue3 = dataTable4
-            numberValue2 = arg3 - workValue2
-            numberValue2 = #numberValue2
-            workValue3[cmgCall4] = numberValue2
-            workValue3 = DecorGetBool
-            numberValue2 = cmgCall5
-            numberValue4 = "a99d39faff"
-            workValue3 = workValue3(numberValue2, numberValue4)
-            if workValue3 then
-              workValue3 = dataTable5
-              workValue3[cmgCall4] = true
+            workingValue2 = workingValue2(workingValue3)
+            workingValue3 = dataCollection4
+            number2 = localValue3 - workingValue2
+            number2 = #number2
+            workingValue3[cmgOperation4] = number2
+            workingValue3 = DecorGetBool
+            number2 = cmgOperation5
+            number4 = "a99d39faff"
+            workingValue3 = workingValue3(number2, number4)
+            if workingValue3 then
+              workingValue3 = dataCollection5
+              workingValue3[cmgOperation4] = true
             end
           end
         end
-        ::flow_label_71::
+        ::continueAtStep71::
       end
-      workValue12 = textValue2
-      workValue12 = workValue12()
-      if not workValue12 and not arg1 then
-        workValue12 = 7.0
-        numberValue = workValue12
+      workingValue12 = text2
+      workingValue12 = workingValue12()
+      if not workingValue12 and not localValue1 then
+        workingValue12 = 7.0
+        number = workingValue12
       end
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 1000
-    arg2(arg3)
+    localValue2 = Citizen
+    localValue2 = localValue2.Wait
+    localValue3 = 1000
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(flag2)
-threadCall = Citizen
-threadCall = threadCall.CreateThread
+backgroundThread(stateFlag2)
+backgroundThread = Citizen
+backgroundThread = backgroundThread.CreateThread
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-function flag2()
-  local arg1, arg2, arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue, numberValue7
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+function stateFlag2()
+  local localValue1, localValue2, localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text, number7
   while true do
-    arg1 = CMG
-    arg1 = arg1.hasGangNamesEnabled
-    arg1 = arg1()
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.isEmergencyService
-      arg1 = arg1()
-      arg1 = not arg1
+    localValue1 = CMG
+    localValue1 = localValue1.hasGangNamesEnabled
+    localValue1 = localValue1()
+    if localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.isEmergencyService
+      localValue1 = localValue1()
+      localValue1 = not localValue1
     end
-    flag4 = arg1
-    arg1 = CMG
-    arg1 = arg1.areEmergencyServiceNamesDisabled
-    arg1 = arg1()
-    if not arg1 then
-      arg1 = CMG
-      arg1 = arg1.inEvent
-      arg1 = arg1()
-      if not arg1 then
-        arg1 = workValue5
-        arg1 = arg1()
-        workValue4 = arg1
-        arg1 = workValue4
-        arg1 = nil ~= arg1
-        flag = arg1
+    stateFlag4 = localValue1
+    localValue1 = CMG
+    localValue1 = localValue1.areEmergencyServiceNamesDisabled
+    localValue1 = localValue1()
+    if not localValue1 then
+      localValue1 = CMG
+      localValue1 = localValue1.inEvent
+      localValue1 = localValue1()
+      if not localValue1 then
+        localValue1 = workingValue5
+        localValue1 = localValue1()
+        workingValue4 = localValue1
+        localValue1 = workingValue4
+        localValue1 = nil ~= localValue1
+        stateFlag = localValue1
     end
     else
-      arg1 = nil
-      workValue4 = arg1
-      arg1 = false
-      flag = arg1
+      localValue1 = nil
+      workingValue4 = localValue1
+      localValue1 = false
+      stateFlag = localValue1
     end
-    arg1 = CMG
-    arg1 = arg1.isDisplayVisible
-    arg2 = "ids"
-    arg1 = arg1(arg2)
-    arg2 = ipairs
-    arg3 = GetActivePlayers
-    arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue, numberValue7 = arg3()
-    arg2, arg3, workValue12, cmgCall3 = arg2(arg3, workValue12, cmgCall3, playerPed, playerPed2, playerPed3, cmgCall4, cmgCall5, workValue, workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue, numberValue7)
-    for playerPed, playerPed2 in arg2, arg3, workValue12, cmgCall3 do
-      playerPed3 = dataTable4
+    localValue1 = CMG
+    localValue1 = localValue1.isDisplayVisible
+    localValue2 = "ids"
+    localValue1 = localValue1(localValue2)
+    localValue2 = ipairs
+    localValue3 = GetActivePlayers
+    localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text, number7 = localValue3()
+    localValue2, localValue3, workingValue12, cmgOperation3 = localValue2(localValue3, workingValue12, cmgOperation3, playerPed, playerPed2, playerPed3, cmgOperation4, cmgOperation5, workingValue, workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text, number7)
+    for playerPed, playerPed2 in localValue2, localValue3, workingValue12, cmgOperation3 do
+      playerPed3 = dataCollection4
       playerPed3 = playerPed3[playerPed2]
-      cmgCall4 = CMG
-      cmgCall4 = cmgCall4.getPlayerServerId
-      cmgCall5 = playerPed2
-      cmgCall4 = cmgCall4(cmgCall5)
-      if playerPed3 and cmgCall4 then
-        cmgCall5 = workValue9
-        workValue = cmgCall4
-        workValue2 = playerPed3
-        workValue3 = playerPed2
-        cmgCall5 = cmgCall5(workValue, workValue2, workValue3)
-        if not cmgCall5 then
-          cmgCall5 = CMG
-          cmgCall5 = cmgCall5.shouldShowTagForBounty
-          workValue = cmgCall4
-          cmgCall5 = cmgCall5(workValue)
+      cmgOperation4 = CMG
+      cmgOperation4 = cmgOperation4.getPlayerServerId
+      cmgOperation5 = playerPed2
+      cmgOperation4 = cmgOperation4(cmgOperation5)
+      if playerPed3 and cmgOperation4 then
+        cmgOperation5 = workingValue9
+        workingValue = cmgOperation4
+        workingValue2 = playerPed3
+        workingValue3 = playerPed2
+        cmgOperation5 = cmgOperation5(workingValue, workingValue2, workingValue3)
+        if not cmgOperation5 then
+          cmgOperation5 = CMG
+          cmgOperation5 = cmgOperation5.shouldShowTagForBounty
+          workingValue = cmgOperation4
+          cmgOperation5 = cmgOperation5(workingValue)
         end
-        if cmgCall5 and arg1 then
-          cmgCall5 = nil
-          workValue = flag4
-          if workValue then
-            workValue = CMG
-            workValue = workValue.isPlayerInSelectedGang
-            workValue2 = cmgCall4
-            workValue = workValue(workValue2)
-            if workValue then
-              workValue = cmgCall
-              workValue2 = cmgCall4
-              workValue = workValue(workValue2)
-              if workValue then
-                workValue = CMG
-                workValue = workValue.getPlayerName
-                workValue2 = playerPed2
-                workValue = workValue(workValue2)
-                cmgCall5 = workValue
+        if cmgOperation5 and localValue1 then
+          cmgOperation5 = nil
+          workingValue = stateFlag4
+          if workingValue then
+            workingValue = CMG
+            workingValue = workingValue.isPlayerInSelectedGang
+            workingValue2 = cmgOperation4
+            workingValue = workingValue(workingValue2)
+            if workingValue then
+              workingValue = cmgOperation
+              workingValue2 = cmgOperation4
+              workingValue = workingValue(workingValue2)
+              if workingValue then
+                workingValue = CMG
+                workingValue = workingValue.getPlayerName
+                workingValue2 = playerPed2
+                workingValue = workingValue(workingValue2)
+                cmgOperation5 = workingValue
             end
           end
           else
-            workValue = flag
-            if workValue then
-              workValue = workValue6
-              workValue2 = cmgCall4
-              workValue = workValue(workValue2)
-              if workValue then
-                workValue = CMG
-                workValue = workValue.getPlayerName
-                workValue2 = playerPed2
-                workValue = workValue(workValue2)
-                cmgCall5 = workValue
-                workValue = Player
-                workValue2 = cmgCall4
-                workValue = workValue(workValue2)
-                workValue = workValue.state
-                workValue = workValue.onDutyCallsign
-                if workValue and "" ~= workValue then
-                  workValue2 = "["
-                  workValue3 = workValue
-                  numberValue2 = "] "
-                  numberValue4 = cmgCall5
-                  workValue2 = workValue2 .. workValue3 .. numberValue2 .. numberValue4
-                  cmgCall5 = workValue2
+            workingValue = stateFlag
+            if workingValue then
+              workingValue = workingValue6
+              workingValue2 = cmgOperation4
+              workingValue = workingValue(workingValue2)
+              if workingValue then
+                workingValue = CMG
+                workingValue = workingValue.getPlayerName
+                workingValue2 = playerPed2
+                workingValue = workingValue(workingValue2)
+                cmgOperation5 = workingValue
+                workingValue = Player
+                workingValue2 = cmgOperation4
+                workingValue = workingValue(workingValue2)
+                workingValue = workingValue.state
+                workingValue = workingValue.onDutyCallsign
+                if workingValue and "" ~= workingValue then
+                  workingValue2 = "["
+                  workingValue3 = workingValue
+                  number2 = "] "
+                  number4 = cmgOperation5
+                  workingValue2 = workingValue2 .. workingValue3 .. number2 .. number4
+                  cmgOperation5 = workingValue2
                 end
             end
             else
-              workValue = tostring
-              workValue2 = CMG
-              workValue2 = workValue2.getPlayerServerId
-              workValue3 = playerPed2
-              workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue, numberValue7 = workValue2(workValue3)
-              workValue = workValue(workValue2, workValue3, numberValue2, numberValue4, numberValue5, numberValue6, workValue7, textValue, numberValue7)
-              cmgCall5 = workValue
-              workValue = dataTable5
-              workValue = workValue[playerPed2]
-              if workValue then
-                workValue = cmgCall5
-                workValue2 = " [Cinematic Mode]"
-                workValue = workValue .. workValue2
-                cmgCall5 = workValue
+              workingValue = tostring
+              workingValue2 = CMG
+              workingValue2 = workingValue2.getPlayerServerId
+              workingValue3 = playerPed2
+              workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text, number7 = workingValue2(workingValue3)
+              workingValue = workingValue(workingValue2, workingValue3, number2, number4, number5, number6, workingValue7, text, number7)
+              cmgOperation5 = workingValue
+              workingValue = dataCollection5
+              workingValue = workingValue[playerPed2]
+              if workingValue then
+                workingValue = cmgOperation5
+                workingValue2 = " [Cinematic Mode]"
+                workingValue = workingValue .. workingValue2
+                cmgOperation5 = workingValue
               end
             end
           end
-          workValue = dataTable2
-          workValue = workValue[cmgCall4]
-          if "Enemy" == workValue then
-            workValue = "[Enemy Gang Member] "
-            workValue2 = cmgCall5
-            workValue = workValue .. workValue2
-            cmgCall5 = workValue
+          workingValue = dataCollection2
+          workingValue = workingValue[cmgOperation4]
+          if "Enemy" == workingValue then
+            workingValue = "[Enemy Gang Member] "
+            workingValue2 = cmgOperation5
+            workingValue = workingValue .. workingValue2
+            cmgOperation5 = workingValue
           else
-            workValue = dataTable2
-            workValue = workValue[cmgCall4]
-            if "Neutral" == workValue then
-              workValue = "[Neutral Gang Member] "
-              workValue2 = cmgCall5
-              workValue = workValue .. workValue2
-              cmgCall5 = workValue
+            workingValue = dataCollection2
+            workingValue = workingValue[cmgOperation4]
+            if "Neutral" == workingValue then
+              workingValue = "[Neutral Gang Member] "
+              workingValue2 = cmgOperation5
+              workingValue = workingValue .. workingValue2
+              cmgOperation5 = workingValue
             else
-              workValue = dataTable2
-              workValue = workValue[cmgCall4]
-              if "Friendly" == workValue then
-                workValue = "[Friendly Gang Member] "
-                workValue2 = cmgCall5
-                workValue = workValue .. workValue2
-                cmgCall5 = workValue
+              workingValue = dataCollection2
+              workingValue = workingValue[cmgOperation4]
+              if "Friendly" == workingValue then
+                workingValue = "[Friendly Gang Member] "
+                workingValue2 = cmgOperation5
+                workingValue = workingValue .. workingValue2
+                cmgOperation5 = workingValue
               end
             end
           end
-          workValue = dataTable9
-          workValue = workValue[cmgCall4]
-          if workValue then
-            workValue2 = "["
-            workValue3 = workValue[1]
-            numberValue2 = "] "
-            numberValue4 = CMG
-            numberValue4 = numberValue4.getPlayerName
-            numberValue5 = playerPed2
-            numberValue4 = numberValue4(numberValue5)
-            workValue2 = workValue2 .. workValue3 .. numberValue2 .. numberValue4
-            cmgCall5 = workValue2
+          workingValue = dataCollection9
+          workingValue = workingValue[cmgOperation4]
+          if workingValue then
+            workingValue2 = "["
+            workingValue3 = workingValue[1]
+            number2 = "] "
+            number4 = CMG
+            number4 = number4.getPlayerName
+            number5 = playerPed2
+            number4 = number4(number5)
+            workingValue2 = workingValue2 .. workingValue3 .. number2 .. number4
+            cmgOperation5 = workingValue2
           else
-            workValue2 = workValue8
-            workValue3 = cmgCall4
-            workValue2 = workValue2(workValue3)
-            if workValue2 then
-              workValue2 = "[New Player] "
-              workValue3 = cmgCall5
-              workValue2 = workValue2 .. workValue3
-              cmgCall5 = workValue2
+            workingValue2 = workingValue8
+            workingValue3 = cmgOperation4
+            workingValue2 = workingValue2(workingValue3)
+            if workingValue2 then
+              workingValue2 = "[New Player] "
+              workingValue3 = cmgOperation5
+              workingValue2 = workingValue2 .. workingValue3
+              cmgOperation5 = workingValue2
             end
           end
-          workValue2 = dataTable
-          workValue2 = workValue2[cmgCall4]
-          if workValue2 then
-            cmgCall5 = workValue2
+          workingValue2 = dataCollection
+          workingValue2 = workingValue2[cmgOperation4]
+          if workingValue2 then
+            cmgOperation5 = workingValue2
           end
-          workValue3 = dataTable7
-          workValue3 = workValue3[playerPed2]
-          if workValue3 ~= cmgCall5 then
-            workValue3 = dataTable6
-            workValue3 = workValue3[playerPed2]
-            if workValue3 then
-              workValue3 = RemoveMpGamerTag
-              numberValue2 = dataTable6
-              numberValue2 = numberValue2[playerPed2]
-              workValue3(numberValue2)
+          workingValue3 = dataCollection7
+          workingValue3 = workingValue3[playerPed2]
+          if workingValue3 ~= cmgOperation5 then
+            workingValue3 = dataCollection6
+            workingValue3 = workingValue3[playerPed2]
+            if workingValue3 then
+              workingValue3 = RemoveMpGamerTag
+              number2 = dataCollection6
+              number2 = number2[playerPed2]
+              workingValue3(number2)
             end
           end
-          workValue3 = dataTable6
-          numberValue2 = CreateFakeMpGamerTag
-          numberValue4 = GetPlayerPed
-          numberValue5 = playerPed2
+          workingValue3 = dataCollection6
+          number2 = CreateFakeMpGamerTag
+          number4 = GetPlayerPed
+          number5 = playerPed2
           -- Beginner: result below is playerPed.
-          numberValue4 = numberValue4(numberValue5)
-          numberValue5 = cmgCall5
-          numberValue6 = false
-          workValue7 = false
-          textValue = ""
-          numberValue7 = 0
-          numberValue2 = numberValue2(numberValue4, numberValue5, numberValue6, workValue7, textValue, numberValue7)
-          workValue3[playerPed2] = numberValue2
-          workValue3 = SetMpGamerTagVisibility
-          numberValue2 = dataTable6
-          numberValue2 = numberValue2[playerPed2]
-          numberValue4 = 3
-          numberValue5 = true
-          workValue3(numberValue2, numberValue4, numberValue5)
-          workValue3 = dataTable7
-          workValue3[playerPed2] = cmgCall5
+          number4 = number4(number5)
+          number5 = cmgOperation5
+          number6 = false
+          workingValue7 = false
+          text = ""
+          number7 = 0
+          number2 = number2(number4, number5, number6, workingValue7, text, number7)
+          workingValue3[playerPed2] = number2
+          workingValue3 = SetMpGamerTagVisibility
+          number2 = dataCollection6
+          number2 = number2[playerPed2]
+          number4 = 3
+          number5 = true
+          workingValue3(number2, number4, number5)
+          workingValue3 = dataCollection7
+          workingValue3[playerPed2] = cmgOperation5
       end
       else
-        cmgCall5 = dataTable6
-        cmgCall5 = cmgCall5[playerPed2]
-        if cmgCall5 then
-          cmgCall5 = RemoveMpGamerTag
-          workValue = dataTable6
-          workValue = workValue[playerPed2]
-          cmgCall5(workValue)
-          cmgCall5 = dataTable6
-          cmgCall5[playerPed2] = nil
-          cmgCall5 = dataTable7
-          cmgCall5[playerPed2] = nil
+        cmgOperation5 = dataCollection6
+        cmgOperation5 = cmgOperation5[playerPed2]
+        if cmgOperation5 then
+          cmgOperation5 = RemoveMpGamerTag
+          workingValue = dataCollection6
+          workingValue = workingValue[playerPed2]
+          cmgOperation5(workingValue)
+          cmgOperation5 = dataCollection6
+          cmgOperation5[playerPed2] = nil
+          cmgOperation5 = dataCollection7
+          cmgOperation5[playerPed2] = nil
         end
       end
-      cmgCall5 = Wait
-      workValue = 0
-      cmgCall5(workValue)
+      cmgOperation5 = Wait
+      workingValue = 0
+      cmgOperation5(workingValue)
     end
-    arg2 = Wait
-    arg3 = 0
-    arg2(arg3)
+    localValue2 = Wait
+    localValue3 = 0
+    localValue2(localValue3)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
-threadCall(flag2)
-threadCall = SetMpGamerTagsUseVehicleBehavior
-flag2 = false
-threadCall(flag2)
-threadCall = SetMpGamerTagsVisibleDistance
-flag2 = 500.0
-threadCall(flag2)
-threadCall = CMG
+backgroundThread(stateFlag2)
+backgroundThread = SetMpGamerTagsUseVehicleBehavior
+stateFlag2 = false
+backgroundThread(stateFlag2)
+backgroundThread = SetMpGamerTagsVisibleDistance
+stateFlag2 = 500.0
+backgroundThread(stateFlag2)
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: arg1) ===
-function flag2(arg1)
-  local arg2, arg3
-  if -1 == arg1 then
-    arg2 = SetMpGamerTagsVisibleDistance
-    arg3 = 500.0
-    arg2(arg3)
-    arg2 = 7.0
-    numberValue = arg2
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue1) ===
+function stateFlag2(localValue1)
+  local localValue2, localValue3
+  if -1 == localValue1 then
+    localValue2 = SetMpGamerTagsVisibleDistance
+    localValue3 = 500.0
+    localValue2(localValue3)
+    localValue2 = 7.0
+    number = localValue2
   else
-    arg2 = SetMpGamerTagsVisibleDistance
-    arg3 = arg1
-    arg2(arg3)
-    numberValue = arg1
+    localValue2 = SetMpGamerTagsVisibleDistance
+    localValue3 = localValue1
+    localValue2(localValue3)
+    number = localValue1
   end
 end
-threadCall.setPlayerNameDistance = flag2
-threadCall = CMG
+backgroundThread.setPlayerNameDistance = stateFlag2
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-function flag2()
-  local arg1, arg2
-  arg1 = numberValue
-  return arg1
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+function stateFlag2()
+  local localValue1, localValue2
+  localValue1 = number
+  return localValue1
 end
-threadCall.getPlayerNameDistance = flag2
-threadCall = CMG
+backgroundThread.getPlayerNameDistance = stateFlag2
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: arg1, arg2) ===
-function flag2(arg1, arg2)
-  local arg3
-  arg3 = dataTable
-  arg3[arg1] = arg2
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue1, localValue2) ===
+function stateFlag2(localValue1, localValue2)
+  local localValue3
+  localValue3 = dataCollection
+  localValue3[localValue1] = localValue2
 end
-threadCall.setGameTagNameOverride = flag2
-threadCall = CMG
+backgroundThread.setGameTagNameOverride = stateFlag2
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-function flag2()
-  local arg1, arg2
-  arg1 = table
-  arg1 = arg1.clear
-  arg2 = dataTable
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+function stateFlag2()
+  local localValue1, localValue2
+  localValue1 = table
+  localValue1 = localValue1.clear
+  localValue2 = dataCollection
+  localValue1(localValue2)
 end
-threadCall.clearAllGameTagNameOverrides = flag2
-threadCall = RegisterCommand
-flag2 = "farids"
+backgroundThread.clearAllGameTagNameOverrides = stateFlag2
+backgroundThread = RegisterCommand
+stateFlag2 = "farids"
 -- Beginner: this function is the command handler for "farids".
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1, arg2) ===
-function workValue11(arg1, arg2)
-  local arg3, workValue12, cmgCall3
-  arg3 = CMG
-  arg3 = arg3.hasClientPermission
-  workValue12 = "admin.farids"
-  arg3 = arg3(workValue12)
-  if arg3 then
-    arg3 = CMG
-    arg3 = arg3.isStaffedOnClient
-    arg3 = arg3()
-    if arg3 then
-      arg3 = arg2[1]
-      if nil ~= arg3 then
-        workValue12 = tonumber
-        cmgCall3 = arg3
-        workValue12 = workValue12(cmgCall3)
-        if workValue12 then
-          workValue12 = tonumber
-          cmgCall3 = arg3
-          workValue12 = workValue12(cmgCall3)
-          workValue12 = workValue12 + 0.1
-          numberValue = workValue12
-          workValue12 = CMG
-          workValue12 = workValue12.setPlayerNameDistance
-          cmgCall3 = numberValue
-          workValue12(cmgCall3)
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1, localValue2) ===
+function workingValue11(localValue1, localValue2)
+  local localValue3, workingValue12, cmgOperation3
+  localValue3 = CMG
+  localValue3 = localValue3.hasClientPermission
+  workingValue12 = "admin.farids"
+  localValue3 = localValue3(workingValue12)
+  if localValue3 then
+    localValue3 = CMG
+    localValue3 = localValue3.isStaffedOnClient
+    localValue3 = localValue3()
+    if localValue3 then
+      localValue3 = localValue2[1]
+      if nil ~= localValue3 then
+        workingValue12 = tonumber
+        cmgOperation3 = localValue3
+        workingValue12 = workingValue12(cmgOperation3)
+        if workingValue12 then
+          workingValue12 = tonumber
+          cmgOperation3 = localValue3
+          workingValue12 = workingValue12(cmgOperation3)
+          workingValue12 = workingValue12 + 0.1
+          number = workingValue12
+          workingValue12 = CMG
+          workingValue12 = workingValue12.setPlayerNameDistance
+          cmgOperation3 = number
+          workingValue12(cmgOperation3)
       end
       else
-        workValue12 = tCMG
-        workValue12 = workValue12.notify
-        cmgCall3 = "~r~Please enter a valid range! (/farids [range])"
+        workingValue12 = tCMG
+        workingValue12 = workingValue12.notify
+        cmgOperation3 = "~r~Please enter a valid range! (/farids [range])"
         -- Beginner: Show a notification to the player.
-        workValue12(cmgCall3)
+        workingValue12(cmgOperation3)
       end
     end
   end
 end
-flag3 = false
+stateFlag3 = false
 -- Beginner: Register a chat/console command. Event/command: "farids".
-threadCall(flag2, workValue11, flag3)
-threadCall = RegisterCommand
-flag2 = "faridsreset"
+backgroundThread(stateFlag2, workingValue11, stateFlag3)
+backgroundThread = RegisterCommand
+stateFlag2 = "faridsreset"
 -- Beginner: this function is the command handler for "faridsreset".
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2
-  arg1 = CMG
-  arg1 = arg1.hasClientPermission
-  arg2 = "admin.farids"
-  arg1 = arg1(arg2)
-  if arg1 then
-    arg1 = CMG
-    arg1 = arg1.setPlayerNameDistance
-    arg2 = -1
-    arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2
+  localValue1 = CMG
+  localValue1 = localValue1.hasClientPermission
+  localValue2 = "admin.farids"
+  localValue1 = localValue1(localValue2)
+  if localValue1 then
+    localValue1 = CMG
+    localValue1 = localValue1.setPlayerNameDistance
+    localValue2 = -1
+    localValue1(localValue2)
   end
 end
-flag3 = false
+stateFlag3 = false
 -- Beginner: Register a chat/console command. Event/command: "faridsreset".
-threadCall(flag2, workValue11, flag3)
-threadCall = RegisterCommand
-flag2 = "hideids"
+backgroundThread(stateFlag2, workingValue11, stateFlag3)
+backgroundThread = RegisterCommand
+stateFlag2 = "hideids"
 -- Beginner: this function is the command handler for "hideids".
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.hideDisplay
-  arg2 = "ids"
-  arg3 = "user"
-  arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.hideDisplay
+  localValue2 = "ids"
+  localValue3 = "user"
+  localValue1(localValue2, localValue3)
 end
-flag3 = false
+stateFlag3 = false
 -- Beginner: Register a chat/console command. Event/command: "hideids".
-threadCall(flag2, workValue11, flag3)
-threadCall = RegisterCommand
-flag2 = "showids"
+backgroundThread(stateFlag2, workingValue11, stateFlag3)
+backgroundThread = RegisterCommand
+stateFlag2 = "showids"
 -- Beginner: this function is the command handler for "showids".
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2, arg3
-  arg1 = CMG
-  arg1 = arg1.showDisplay
-  arg2 = "ids"
-  arg3 = "user"
-  arg1(arg2, arg3)
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: none) ===
+function workingValue11()
+  local localValue1, localValue2, localValue3
+  localValue1 = CMG
+  localValue1 = localValue1.showDisplay
+  localValue2 = "ids"
+  localValue3 = "user"
+  localValue1(localValue2, localValue3)
 end
-flag3 = false
+stateFlag3 = false
 -- Beginner: Register a chat/console command. Event/command: "showids".
-threadCall(flag2, workValue11, flag3)
-threadCall = AddEventHandler
-flag2 = "1dcc710970"
+backgroundThread(stateFlag2, workingValue11, stateFlag3)
+backgroundThread = AddEventHandler
+stateFlag2 = "1dcc710970"
 -- Beginner: this function runs when client event "1dcc710970" fires.
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2
-  numberValue9 = arg1
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2
+  number9 = localValue1
 end
 -- Beginner: Register a client-side event handler. Event/command: "1dcc710970".
-threadCall(flag2, workValue11)
-threadCall = AddStateBagChangeHandler
-flag2 = "staffRank"
-workValue11 = nil
+backgroundThread(stateFlag2, workingValue11)
+backgroundThread = AddStateBagChangeHandler
+stateFlag2 = "staffRank"
+workingValue11 = nil
 -- Beginner: this function runs when client event "1dcc710970" fires.
 
--- === HELPER FUNCTION (decompiler name: flag3; parameters: arg1, arg2, arg3) ===
-function flag3(arg1, arg2, arg3)
-  local workValue12, cmgCall3, playerPed, playerPed2
-  workValue12 = tonumber
-  cmgCall3 = stringsplit
-  playerPed = arg1
+-- === HELPER FUNCTION (decompiler name: stateFlag3; parameters: localValue1, localValue2, localValue3) ===
+function stateFlag3(localValue1, localValue2, localValue3)
+  local workingValue12, cmgOperation3, playerPed, playerPed2
+  workingValue12 = tonumber
+  cmgOperation3 = stringsplit
+  playerPed = localValue1
   playerPed2 = ":"
-  cmgCall3 = cmgCall3(playerPed, playerPed2)
-  cmgCall3 = cmgCall3[2]
-  workValue12 = workValue12(cmgCall3)
-  if workValue12 then
-    cmgCall3 = dataTable9
-    cmgCall3[workValue12] = arg3
+  cmgOperation3 = cmgOperation3(playerPed, playerPed2)
+  cmgOperation3 = cmgOperation3[2]
+  workingValue12 = workingValue12(cmgOperation3)
+  if workingValue12 then
+    cmgOperation3 = dataCollection9
+    cmgOperation3[workingValue12] = localValue3
   end
 end
-threadCall(flag2, workValue11, flag3)
-threadCall = RegisterNetEvent
-flag2 = "onPlayerDropped"
+backgroundThread(stateFlag2, workingValue11, stateFlag3)
+backgroundThread = RegisterNetEvent
+stateFlag2 = "onPlayerDropped"
 -- Beginner: this function handles network event "onPlayerDropped".
 
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
-function workValue11(arg1)
-  local arg2
-  arg2 = dataTable9
-  arg2[arg1] = nil
+-- === HELPER FUNCTION (decompiler name: workingValue11; parameters: localValue1) ===
+function workingValue11(localValue1)
+  local localValue2
+  localValue2 = dataCollection9
+  localValue2[localValue1] = nil
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "onPlayerDropped".
-threadCall(flag2, workValue11)
-threadCall = CMG
+backgroundThread(stateFlag2, workingValue11)
+backgroundThread = CMG
 -- Beginner: this function handles network event "onPlayerDropped".
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: arg1) ===
-function flag2(arg1)
-  local arg2
-  arg2 = dataTable9
-  arg2 = arg2[arg1]
-  if arg2 then
-    arg2 = true
-    if arg2 then
-      goto flow_label_9
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue1) ===
+function stateFlag2(localValue1)
+  local localValue2
+  localValue2 = dataCollection9
+  localValue2 = localValue2[localValue1]
+  if localValue2 then
+    localValue2 = true
+    if localValue2 then
+      goto continueAtStep9
     end
   end
-  arg2 = false
-  ::flow_label_9::
-  return arg2
+  localValue2 = false
+  ::continueAtStep9::
+  return localValue2
 end
-threadCall.isStaffRankShowingForPlayer = flag2
-threadCall = CMG
+backgroundThread.isStaffRankShowingForPlayer = stateFlag2
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-function flag2()
-  local arg1, arg2
-  arg1 = table
-  arg1 = arg1.clear
-  arg2 = dataTable2
-  arg1(arg2)
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: none) ===
+function stateFlag2()
+  local localValue1, localValue2
+  localValue1 = table
+  localValue1 = localValue1.clear
+  localValue2 = dataCollection2
+  localValue1(localValue2)
 end
-threadCall.clearEnemyGamerTags = flag2
-threadCall = CMG
+backgroundThread.clearEnemyGamerTags = stateFlag2
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: arg1) ===
-function flag2(arg1)
-  local arg2
-  arg2 = dataTable2
-  arg2[arg1] = "Enemy"
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue1) ===
+function stateFlag2(localValue1)
+  local localValue2
+  localValue2 = dataCollection2
+  localValue2[localValue1] = "Enemy"
 end
-threadCall.setPlayerGameTagAsEnemy = flag2
-threadCall = CMG
+backgroundThread.setPlayerGameTagAsEnemy = stateFlag2
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: arg1) ===
-function flag2(arg1)
-  local arg2
-  arg2 = dataTable2
-  arg2[arg1] = "Neutral"
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue1) ===
+function stateFlag2(localValue1)
+  local localValue2
+  localValue2 = dataCollection2
+  localValue2[localValue1] = "Neutral"
 end
-threadCall.setPlayerGameTagAsNeutral = flag2
-threadCall = CMG
+backgroundThread.setPlayerGameTagAsNeutral = stateFlag2
+backgroundThread = CMG
 
--- === HELPER FUNCTION (decompiler name: flag2; parameters: arg1) ===
-function flag2(arg1)
-  local arg2
-  arg2 = dataTable2
-  arg2[arg1] = "Friendly"
+-- === HELPER FUNCTION (decompiler name: stateFlag2; parameters: localValue1) ===
+function stateFlag2(localValue1)
+  local localValue2
+  localValue2 = dataCollection2
+  localValue2[localValue1] = "Friendly"
 end
-threadCall.setPlayerGameTagAsFriendly = flag2
+backgroundThread.setPlayerGameTagAsFriendly = stateFlag2
